@@ -29,6 +29,7 @@ $Required = @(
     'data/missions.json',
     'data/campaign.json',
     'docs/GAME_DESIGN.md',
+    'docs/ARCHITECTURE.md',
     'docs/QA.md'
 )
 
