@@ -5,6 +5,7 @@ const CombatRules = preload("res://scripts/combat_rules.gd")
 const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
+const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 
@@ -44,6 +45,7 @@ var weapon_catalog: Array = []
 var mission_catalog: Array = []
 var spawn_profiles: Array = []
 var campaign: Dictionary = {}
+var mission_rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_configure_input()
@@ -131,6 +133,7 @@ func _prepare_mission(index: int) -> void:
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 
 func _start_mission() -> void:
+	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
 	phase = GamePhase.PLAYING
 	mission_time = 0.0
 	score = 0
@@ -286,7 +289,7 @@ func _register_destroy(enemy: Dictionary) -> void:
 	ObjectiveRules.register_destroy(current_objectives, objective_progress, str(enemy.get("id","")))
 
 func _maybe_drop_pickup(position: Vector2, guaranteed := false) -> void:
-	var kind := "weapon" if guaranteed else ProjectileRules.pickup_kind_for_roll(randf())
+	var kind := "weapon" if guaranteed else ProjectileRules.pickup_kind_for_roll(mission_rng.randf())
 	if kind != "": pickups.append({"position":position,"kind":kind})
 
 func _apply_pickup(kind: String) -> void:
@@ -312,25 +315,30 @@ func _spawn_candidates() -> Array:
 	var allowed_ids: Array = []
 	for profile in spawn_profiles:
 		if str(profile.get("environment","")) == current_environment and wave >= int(profile.get("min_wave",1)) and wave <= int(profile.get("max_wave",99)):
-			allowed_ids = profile.get("enemy_ids", []); break
+			allowed_ids = profile.get("enemy_ids", [])
+			break
+	if allowed_ids.is_empty():
+		return []
 	var candidates: Array = []
 	for item in enemy_catalog:
-		if bool(item.get("boss",false)): continue
-		if allowed_ids.is_empty() or str(item.get("id","")) in allowed_ids: candidates.append(item)
+		if bool(item.get("boss",false)):
+			continue
+		if str(item.get("id","")) in allowed_ids:
+			candidates.append(item)
 	return candidates
 
 func _spawn_enemy(archetype: Dictionary = {}) -> void:
 	if archetype.is_empty():
 		var candidates := _spawn_candidates()
 		if candidates.is_empty(): return
-		archetype = candidates[randi() % candidates.size()]
+		archetype = candidates[mission_rng.randi_range(0, candidates.size() - 1)]
 	var is_boss := bool(archetype.get("boss",false))
 	var enemy_class := str(archetype.get("class","air"))
 	var hp := maxi(1, int(archetype.get("hp",1)) + (0 if is_boss else int(wave / 5)))
-	var x := PLAYFIELD.get_center().x if is_boss else randf_range(PLAYFIELD.position.x + 24, PLAYFIELD.end.x - 24)
+	var x := PLAYFIELD.get_center().x if is_boss else mission_rng.randf_range(PLAYFIELD.position.x + 24, PLAYFIELD.end.x - 24)
 	var speed_bias := 0.0 if enemy_class == "ground" else (10.0 if enemy_class == "air" else -8.0)
-	var drift := 28.0 if is_boss else (10.0 if enemy_class == "ground" else randf_range(16,38))
-	enemies.append({"id":str(archetype.get("id","bogey")),"category":enemy_class,"position":Vector2(x,PLAYFIELD.position.y-18),"speed":float(archetype.get("speed",72))+speed_bias+(0.0 if is_boss else float(wave)*4.0),"drift":drift,"turn_rate":0.75 if is_boss else randf_range(1.1,2.4),"phase":randf_range(0,TAU),"age":0.0,"hp":hp,"value":CombatRules.destroy_value(int(archetype.get("value",100)),wave),"weapon":str(archetype.get("weapon","single_burst")),"fire_timer":randf_range(0.5,1.6),"boss":is_boss})
+	var drift := 28.0 if is_boss else (10.0 if enemy_class == "ground" else mission_rng.randf_range(16,38))
+	enemies.append({"id":str(archetype.get("id","bogey")),"category":enemy_class,"position":Vector2(x,PLAYFIELD.position.y-18),"speed":float(archetype.get("speed",72))+speed_bias+(0.0 if is_boss else float(wave)*4.0),"drift":drift,"turn_rate":0.75 if is_boss else mission_rng.randf_range(1.1,2.4),"phase":mission_rng.randf_range(0,TAU),"age":0.0,"hp":hp,"value":CombatRules.destroy_value(int(archetype.get("value",100)),wave),"weapon":str(archetype.get("weapon","single_burst")),"fire_timer":mission_rng.randf_range(0.5,1.6),"boss":is_boss})
 
 func _try_spawn_boss() -> void:
 	if boss_spawned or current_boss_id == "" or mission_time < mission_duration * 0.72: return
@@ -349,7 +357,7 @@ func _configure_input() -> void:
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action): InputMap.add_action(action)
-	var event := InputEventKey.new(); event.physical_keycode = keycode
+	var event:=InputEventKey.new(); event.physical_keycode=keycode
 	if not InputMap.action_has_event(action,event): InputMap.action_add_event(action,event)
 
 func _objective_summary() -> String:
