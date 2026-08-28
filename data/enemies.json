@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "enemies": [
     {"id":"scout_falcon","class":"air","hp":2,"speed":112,"value":120,"pattern":"sine_dive","weapon":"single_burst"},
     {"id":"gunship_mk1","class":"air","hp":6,"speed":72,"value":350,"pattern":"tracking_sweep","weapon":"aimed_burst"},
@@ -15,8 +15,8 @@
     {"id":"armoured_aa_carrier","class":"ground","hp":13,"speed":20,"value":1120,"pattern":"road_column","weapon":"twin_burst"},
     {"id":"fast_attack_craft","class":"sea","hp":9,"speed":68,"value":1080,"pattern":"water_lane","weapon":"twin_burst"},
     {"id":"missile_corvette","class":"sea","hp":16,"speed":31,"value":1500,"pattern":"water_lane","weapon":"missile"},
-    {"id":"gunship_alpha","class":"boss","hp":55,"speed":38,"value":5000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true},
-    {"id":"armoured_train","class":"boss","hp":78,"speed":22,"value":6500,"pattern":"boss_column","weapon":"cannon","boss":true},
-    {"id":"missile_cruiser","class":"boss","hp":105,"speed":18,"value":8500,"pattern":"boss_broadside","weapon":"missile","boss":true}
+    {"id":"gunship_alpha","class":"boss","hp":55,"speed":38,"value":5000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true,"phases":3,"weak_point_phase":3},
+    {"id":"armoured_train","class":"boss","hp":78,"speed":22,"value":6500,"pattern":"boss_column","weapon":"cannon","boss":true,"phases":3,"weak_point_phase":3},
+    {"id":"missile_cruiser","class":"boss","hp":105,"speed":18,"value":8500,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3}
   ]
 }
