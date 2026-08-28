@@ -24,14 +24,14 @@ $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd','scripts/bomb_guard_director.gd',
-    'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd','tools/runtime_self_test.gd',
+    'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
+    'scripts/mission_state_rules.gd','scripts/mission_state_director.gd','tools/runtime_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
 foreach ($RelativePath in $Required) {
     if (-not (Test-Path (Join-Path $Root $RelativePath))) { throw "Missing required file: $RelativePath" }
 }
-
 foreach ($Forbidden in @('.github/workflows','.godot','build','dist')) {
     if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/paid-CI path committed: $Forbidden" }
 }
@@ -65,6 +65,7 @@ $MissionIds = @($Missions.missions | ForEach-Object { $_.id })
 $AllowedObjectiveTypes = @('survive','destroy_count','destroy_enemy')
 foreach ($Mission in $Missions.missions) {
     if ([int]$Mission.duration_seconds -le 0) { throw "Mission duration must be positive: $($Mission.id)" }
+    if ([int]$Mission.starting_wave -lt 1) { throw "Mission starting_wave must be positive: $($Mission.id)" }
     if ($Mission.boss_id -and $EnemyIds -notcontains $Mission.boss_id) { throw "Unknown mission boss: $($Mission.boss_id)" }
     $Objectives = @($Mission.objectives)
     if ($Objectives.Count -lt 1) { throw "Mission has no objectives: $($Mission.id)" }
@@ -81,6 +82,8 @@ foreach ($Mission in $Missions.missions) {
 $CampaignMissionIds = @($Campaign.campaign.missions)
 foreach ($MissionId in $CampaignMissionIds) { if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" } }
 if (@($CampaignMissionIds | Sort-Object -Unique).Count -ne $CampaignMissionIds.Count) { throw 'Campaign mission list contains duplicates.' }
+if ([int]$Campaign.campaign.starting_hull -lt 1) { throw 'Campaign starting_hull must be positive.' }
+if ([int]$Campaign.campaign.starting_shield -lt 0) { throw 'Campaign starting_shield cannot be negative.' }
 
 foreach ($Profile in $Profiles.profiles) {
     if ([int]$Profile.min_wave -gt [int]$Profile.max_wave) { throw "Invalid spawn wave range: $($Profile.id)" }
@@ -108,7 +111,8 @@ foreach ($Autoload in @(
     'CampaignSave="*res://scripts/campaign_save.gd"',
     'BossDirector="*res://scripts/boss_director.gd"',
     'RunSeedDirector="*res://scripts/run_seed_director.gd"',
-    'BombGuardDirector="*res://scripts/bomb_guard_director.gd"'
+    'BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
+    'MissionStateDirector="*res://scripts/mission_state_director.gd"'
 )) {
     if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
 }
@@ -132,6 +136,10 @@ $SeedDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director
 foreach ($Token in @('RunSeedRules.mission_seed','seed(run_seed)')) {
     if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing integration token: $Token" }
 }
+$MissionStateText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_director.gd')
+foreach ($Token in @('process_priority = 100','MissionStateRules.starting_hull','MissionStateRules.starting_shield','MissionStateRules.live_wave')) {
+    if (-not $MissionStateText.Contains($Token)) { throw "Mission state director missing token: $Token" }
+}
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 foreach ($Token in @('_mission_count','_primary_weapon_count','clampi','MAX_CREDITS')) {
     if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" }
@@ -142,11 +150,9 @@ if (-not $Godot) {
     Write-Warning 'Godot executable not found. Structural/data/director/save validation passed; runtime self-test and engine smoke test skipped.'
     exit 0
 }
-
 Write-Host 'Running deterministic runtime rules self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/runtime_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing runtime self-test failed with exit code $LASTEXITCODE" }
-
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --editor --quit
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
