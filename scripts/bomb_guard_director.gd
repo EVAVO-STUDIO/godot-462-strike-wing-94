@@ -19,10 +19,14 @@ func _process(_delta: float) -> void:
 		_scene_id = scene_id
 		_reset_state()
 
+	var playing := int(scene.get("phase")) == 1
 	if _restore_pending:
-		_restore_bosses(scene)
+		if playing:
+			_restore_bosses(scene)
+		else:
+			_reset_state()
 
-	if int(scene.get("phase")) != 1:
+	if not playing:
 		return
 	if not Input.is_action_just_pressed("fire_secondary"):
 		return
