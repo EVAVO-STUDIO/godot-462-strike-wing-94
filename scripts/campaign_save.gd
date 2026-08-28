@@ -1,7 +1,7 @@
 extends Node
 
 const SAVE_PATH := "user://strike_wing_94_save.json"
-const SAVE_VERSION := 1
+const SAVE_VERSION := 2
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 
@@ -62,17 +62,26 @@ func _primary_weapon_count(scene: Object) -> int:
 	return maxi(1, count)
 
 func _saved_weapon_index(scene: Object) -> int:
+	var count := _primary_weapon_count(scene)
 	var director := get_node_or_null("/root/WeaponPickupDirector")
 	if director != null and director.has_method("permanent_index"):
-		return clampi(int(director.call("permanent_index", scene)), 0, _primary_weapon_count(scene) - 1)
-	return clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1)
+		return clampi(int(director.call("permanent_index")), 0, count - 1)
+	return clampi(int(scene.get("weapon_index")), 0, count - 1)
+
+func _service_value(method_name: String, fallback: int) -> int:
+	var director := get_node_or_null("/root/ServiceDirector")
+	if director != null and director.has_method(method_name):
+		return int(director.call(method_name))
+	return fallback
 
 func _snapshot(scene: Object) -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
 		"mission_index": clampi(int(scene.get("mission_index")), 0, _mission_count(scene) - 1),
-		"weapon_index": _saved_weapon_index(scene)
+		"weapon_index": _saved_weapon_index(scene),
+		"service_hull": maxi(1, _service_value("service_hull", int(scene.get("hull")))),
+		"service_shield": maxi(0, _service_value("service_shield", int(scene.get("shield"))))
 	}
 
 func _signature(scene: Object) -> String:
@@ -92,8 +101,12 @@ func _restore(scene: Object) -> void:
 	if file == null:
 		return
 	var parsed = JSON.parse_string(file.get_as_text())
-	if typeof(parsed) != TYPE_DICTIONARY or int(parsed.get("version", -1)) != SAVE_VERSION:
-		push_warning("Strike Wing save ignored because it is invalid or from an unsupported version.")
+	if typeof(parsed) != TYPE_DICTIONARY:
+		push_warning("Strike Wing save ignored because it is invalid.")
+		return
+	var version := int(parsed.get("version", -1))
+	if version < 1 or version > SAVE_VERSION:
+		push_warning("Strike Wing save ignored because it is from an unsupported version.")
 		return
 	var mission_index := clampi(int(parsed.get("mission_index", scene.get("mission_index"))), 0, _mission_count(scene) - 1)
 	var weapon_index := clampi(int(parsed.get("weapon_index", scene.get("weapon_index"))), 0, _primary_weapon_count(scene) - 1)
@@ -101,5 +114,10 @@ func _restore(scene: Object) -> void:
 	scene.set("credits", credits)
 	scene.set("mission_index", mission_index)
 	scene.set("weapon_index", weapon_index)
+	var service_hull := int(parsed.get("service_hull", scene.get("hull")))
+	var service_shield := int(parsed.get("service_shield", scene.get("shield")))
+	var service_director := get_node_or_null("/root/ServiceDirector")
+	if service_director != null and service_director.has_method("restore_service_state"):
+		service_director.call("restore_service_state", service_hull, service_shield)
 	if scene.has_method("_prepare_mission"):
 		scene.call("_prepare_mission", mission_index)
