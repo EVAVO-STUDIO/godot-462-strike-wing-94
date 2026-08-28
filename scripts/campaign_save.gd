@@ -61,12 +61,18 @@ func _primary_weapon_count(scene: Object) -> int:
 			count += 1
 	return maxi(1, count)
 
+func _saved_weapon_index(scene: Object) -> int:
+	var director := get_node_or_null("/root/WeaponPickupDirector")
+	if director != null and director.has_method("permanent_index"):
+		return clampi(int(director.call("permanent_index", scene)), 0, _primary_weapon_count(scene) - 1)
+	return clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1)
+
 func _snapshot(scene: Object) -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
 		"mission_index": clampi(int(scene.get("mission_index")), 0, _mission_count(scene) - 1),
-		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1)
+		"weapon_index": _saved_weapon_index(scene)
 	}
 
 func _signature(scene: Object) -> String:
