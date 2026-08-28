@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "profiles": [
+    {"id":"coast_early","environment":"coast","min_wave":1,"max_wave":3,"enemy_ids":["scout_falcon","attack_chopper","river_patrol"]},
+    {"id":"industrial_mid","environment":"industrial","min_wave":4,"max_wave":6,"enemy_ids":["gunship_mk1","light_tank","sam_truck","fortified_turret"]},
+    {"id":"open_water_late","environment":"open_water","min_wave":7,"max_wave":99,"enemy_ids":["ace_interceptor","gunship_mk1","river_patrol"]}
+  ]
+}
