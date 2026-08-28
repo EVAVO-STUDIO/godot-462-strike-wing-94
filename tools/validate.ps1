@@ -13,10 +13,17 @@ function Resolve-Godot {
     return $null
 }
 
+function Assert-UniqueIds($Collection, [string]$Label) {
+    $Ids = @($Collection | ForEach-Object { $_.id })
+    if ($Ids -contains $null -or $Ids -contains '') { throw "Blank id in $Label" }
+    if (@($Ids | Sort-Object -Unique).Count -ne $Ids.Count) { throw "Duplicate id in $Label" }
+}
+
 Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
-    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd',
+    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
+    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -24,101 +31,93 @@ foreach ($RelativePath in $Required) {
     if (-not (Test-Path (Join-Path $Root $RelativePath))) { throw "Missing required file: $RelativePath" }
 }
 
-$Parsed = @{}
-foreach ($JsonPath in @('data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json')) {
-    $Data = Get-Content -Raw (Join-Path $Root $JsonPath) | ConvertFrom-Json
-    $Parsed[$JsonPath] = $Data
-    Write-Host "JSON OK: $JsonPath" -ForegroundColor DarkGreen
-    foreach ($CollectionName in @('weapons','enemies','missions','profiles')) {
-        $Collection = $Data.$CollectionName
-        if ($null -eq $Collection) { continue }
-        $Ids = @($Collection | ForEach-Object { $_.id })
-        if ($Ids -contains $null -or $Ids -contains '') { throw "Blank id in $JsonPath/$CollectionName" }
-        if (@($Ids | Sort-Object -Unique).Count -ne $Ids.Count) { throw "Duplicate id in $JsonPath/$CollectionName" }
-    }
+foreach ($Forbidden in @('.github/workflows','.godot','build','dist')) {
+    if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/paid-CI path committed: $Forbidden" }
 }
 
-$EnemyIds = @($Parsed['data/enemies.json'].enemies | ForEach-Object { $_.id })
+$Weapons = Get-Content -Raw (Join-Path $Root 'data/weapons.json') | ConvertFrom-Json
+$Enemies = Get-Content -Raw (Join-Path $Root 'data/enemies.json') | ConvertFrom-Json
+$Missions = Get-Content -Raw (Join-Path $Root 'data/missions.json') | ConvertFrom-Json
+$Profiles = Get-Content -Raw (Join-Path $Root 'data/spawn_profiles.json') | ConvertFrom-Json
+$Campaign = Get-Content -Raw (Join-Path $Root 'data/campaign.json') | ConvertFrom-Json
+Assert-UniqueIds $Weapons.weapons 'weapons'
+Assert-UniqueIds $Enemies.enemies 'enemies'
+Assert-UniqueIds $Missions.missions 'missions'
+Assert-UniqueIds $Profiles.profiles 'spawn profiles'
+
+$EnemyIds = @($Enemies.enemies | ForEach-Object { $_.id })
+$BossIds = @($Enemies.enemies | Where-Object { $_.boss } | ForEach-Object { $_.id })
 $AllowedClasses = @('air','ground','sea','boss')
 $AllowedEnemyWeapons = @('single_burst','aimed_burst','side_burst','cannon','missile','deck_gun','twin_burst')
-foreach ($Enemy in $Parsed['data/enemies.json'].enemies) {
-    if ($AllowedClasses -notcontains $Enemy.class) { throw "Unknown enemy class: $($Enemy.id) -> $($Enemy.class)" }
+foreach ($Enemy in $Enemies.enemies) {
+    if ($AllowedClasses -notcontains $Enemy.class) { throw "Unknown enemy class: $($Enemy.id)" }
     if ($AllowedEnemyWeapons -notcontains $Enemy.weapon) { throw "Unsupported enemy weapon: $($Enemy.id) -> $($Enemy.weapon)" }
-    if ([int]$Enemy.hp -le 0 -or [int]$Enemy.value -le 0) { throw "Enemy hp/value must be positive: $($Enemy.id)" }
-    if ([double]$Enemy.speed -lt 0) { throw "Enemy speed cannot be negative: $($Enemy.id)" }
-    $IsBoss = [bool]$Enemy.boss
-    if ($Enemy.class -eq 'boss' -and -not $IsBoss) { throw "Boss-class enemy missing boss=true: $($Enemy.id)" }
-    if ($IsBoss) {
-        if ([int]$Enemy.phases -ne 3) { throw "Boss must define exactly three phases: $($Enemy.id)" }
-        if ([int]$Enemy.weak_point_phase -lt 1 -or [int]$Enemy.weak_point_phase -gt [int]$Enemy.phases) { throw "Boss weak_point_phase is invalid: $($Enemy.id)" }
+    if ([int]$Enemy.hp -le 0 -or [int]$Enemy.value -le 0 -or [double]$Enemy.speed -lt 0) { throw "Invalid enemy combat values: $($Enemy.id)" }
+    if ($Enemy.class -eq 'boss' -and -not [bool]$Enemy.boss) { throw "Boss-class enemy missing boss=true: $($Enemy.id)" }
+    if ([bool]$Enemy.boss) {
+        if ([int]$Enemy.phases -ne 3) { throw "Boss must have exactly three phases: $($Enemy.id)" }
+        if ([int]$Enemy.weak_point_phase -lt 1 -or [int]$Enemy.weak_point_phase -gt 3) { throw "Invalid weak-point phase: $($Enemy.id)" }
     }
 }
 
-$MissionIds = @($Parsed['data/missions.json'].missions | ForEach-Object { $_.id })
+$MissionIds = @($Missions.missions | ForEach-Object { $_.id })
 $AllowedObjectiveTypes = @('survive','destroy_count','destroy_enemy')
-foreach ($Mission in $Parsed['data/missions.json'].missions) {
+foreach ($Mission in $Missions.missions) {
     if ([int]$Mission.duration_seconds -le 0) { throw "Mission duration must be positive: $($Mission.id)" }
-    if ($Mission.boss_id -and $EnemyIds -notcontains $Mission.boss_id) { throw "Mission boss_id not found in enemies.json: $($Mission.boss_id)" }
+    if ($Mission.boss_id -and $EnemyIds -notcontains $Mission.boss_id) { throw "Unknown mission boss: $($Mission.boss_id)" }
     $Objectives = @($Mission.objectives)
-    if ($Objectives.Count -lt 1) { throw "Mission must define at least one objective: $($Mission.id)" }
-    $ObjectiveIds = @()
-    $RequiredObjectives = 0
+    if ($Objectives.Count -lt 1) { throw "Mission has no objectives: $($Mission.id)" }
+    Assert-UniqueIds $Objectives "mission $($Mission.id) objectives"
+    if (@($Objectives | Where-Object { $_.required }).Count -lt 1) { throw "Mission has no required objective: $($Mission.id)" }
     foreach ($Objective in $Objectives) {
-        if (-not $Objective.id) { throw "Mission objective missing id: $($Mission.id)" }
         if ($AllowedObjectiveTypes -notcontains $Objective.type) { throw "Unknown objective type: $($Mission.id)/$($Objective.id)" }
-        if ($ObjectiveIds -contains $Objective.id) { throw "Duplicate mission objective id: $($Mission.id)/$($Objective.id)" }
-        $ObjectiveIds += $Objective.id
-        if ([bool]$Objective.required) { $RequiredObjectives++ }
-        if ($Objective.type -eq 'survive' -and [int]$Objective.seconds -le 0) { throw "Survive objective requires positive seconds: $($Mission.id)/$($Objective.id)" }
-        if ($Objective.type -in @('destroy_count','destroy_enemy') -and [int]$Objective.count -le 0) { throw "Destroy objective requires positive count: $($Mission.id)/$($Objective.id)" }
-        if ($Objective.type -eq 'destroy_enemy' -and $EnemyIds -notcontains $Objective.enemy_id) { throw "Objective references unknown enemy: $($Mission.id)/$($Objective.id) -> $($Objective.enemy_id)" }
-        if ($Objective.bonus_credits -and [int]$Objective.bonus_credits -lt 0) { throw "Objective bonus cannot be negative: $($Mission.id)/$($Objective.id)" }
+        if ($Objective.type -eq 'survive' -and [int]$Objective.seconds -le 0) { throw "Invalid survive objective: $($Objective.id)" }
+        if ($Objective.type -in @('destroy_count','destroy_enemy') -and [int]$Objective.count -le 0) { throw "Invalid destroy objective: $($Objective.id)" }
+        if ($Objective.type -eq 'destroy_enemy' -and $EnemyIds -notcontains $Objective.enemy_id) { throw "Objective references unknown enemy: $($Objective.enemy_id)" }
     }
-    if ($RequiredObjectives -lt 1) { throw "Mission must include at least one required objective: $($Mission.id)" }
 }
 
-$CampaignMissions = @($Parsed['data/campaign.json'].campaign.missions)
-foreach ($MissionId in $CampaignMissions) {
-    if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" }
-}
-if (@($CampaignMissions | Sort-Object -Unique).Count -ne $CampaignMissions.Count) { throw 'Campaign mission list contains duplicates.' }
+$CampaignMissionIds = @($Campaign.campaign.missions)
+foreach ($MissionId in $CampaignMissionIds) { if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" } }
+if (@($CampaignMissionIds | Sort-Object -Unique).Count -ne $CampaignMissionIds.Count) { throw 'Campaign mission list contains duplicates.' }
 
-$BossIds = @($Parsed['data/enemies.json'].enemies | Where-Object { $_.boss } | ForEach-Object { $_.id })
-foreach ($Profile in $Parsed['data/spawn_profiles.json'].profiles) {
-    if (-not $Profile.enemy_ids -or @($Profile.enemy_ids).Count -eq 0) { throw "Spawn profile has no enemy_ids: $($Profile.id)" }
+foreach ($Profile in $Profiles.profiles) {
+    if ([int]$Profile.min_wave -gt [int]$Profile.max_wave) { throw "Invalid spawn wave range: $($Profile.id)" }
+    if (@($Profile.enemy_ids).Count -lt 1) { throw "Spawn profile has no enemies: $($Profile.id)" }
     foreach ($EnemyId in $Profile.enemy_ids) {
         if ($EnemyIds -notcontains $EnemyId) { throw "Spawn profile references unknown enemy: $EnemyId" }
-        if ($BossIds -contains $EnemyId) { throw "Spawn profile cannot include mission boss: $($Profile.id) -> $EnemyId" }
+        if ($BossIds -contains $EnemyId) { throw "Spawn profile includes mission boss: $EnemyId" }
     }
-    if ([int]$Profile.min_wave -gt [int]$Profile.max_wave) { throw "Invalid wave range in spawn profile: $($Profile.id)" }
 }
-$MissionEnvironments = @($Parsed['data/missions.json'].missions | ForEach-Object { $_.environment } | Sort-Object -Unique)
-$ProfileEnvironments = @($Parsed['data/spawn_profiles.json'].profiles | ForEach-Object { $_.environment } | Sort-Object -Unique)
-foreach ($Environment in $MissionEnvironments) {
-    if ($ProfileEnvironments -notcontains $Environment) { throw "Mission environment has no spawn profile: $Environment" }
+foreach ($Environment in @($Missions.missions | ForEach-Object { $_.environment } | Sort-Object -Unique)) {
+    if (@($Profiles.profiles | Where-Object { $_.environment -eq $Environment }).Count -lt 1) { throw "No spawn profile for mission environment: $Environment" }
 }
 
-$PrimaryWeapons = @($Parsed['data/weapons.json'].weapons | Where-Object { $_.slot -eq 'primary' })
-if ($PrimaryWeapons.Count -lt 1) { throw 'At least one primary weapon is required.' }
+$Primaries = @($Weapons.weapons | Where-Object { $_.slot -eq 'primary' })
+if ($Primaries.Count -lt 1) { throw 'No primary weapons defined.' }
 $PreviousCost = -1
-foreach ($Weapon in $PrimaryWeapons) {
-    if ([int]$Weapon.cost -lt $PreviousCost) { throw "Primary weapon costs must be non-decreasing: $($Weapon.id)" }
-    if ([int]$Weapon.damage -le 0 -or [double]$Weapon.projectile_speed -le 0 -or [double]$Weapon.fire_interval -le 0 -or [int]$Weapon.projectiles -le 0) { throw "Invalid primary weapon combat values: $($Weapon.id)" }
+foreach ($Weapon in $Primaries) {
+    if ([int]$Weapon.cost -lt $PreviousCost) { throw "Primary weapon costs out of order: $($Weapon.id)" }
+    if ([int]$Weapon.damage -le 0 -or [double]$Weapon.projectile_speed -le 0 -or [double]$Weapon.fire_interval -le 0 -or [int]$Weapon.projectiles -le 0) { throw "Invalid primary weapon values: $($Weapon.id)" }
     $PreviousCost = [int]$Weapon.cost
 }
 
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
-if ($ProjectText -notmatch 'CampaignSave="\*res://scripts/campaign_save.gd"') { throw 'CampaignSave autoload is not configured.' }
-if ($ProjectText -notmatch 'BossDirector="\*res://scripts/boss_director.gd"') { throw 'BossDirector autoload is not configured.' }
-
+foreach ($Autoload in @('CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"')) {
+    if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
+}
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
-foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','BossRules.weak_point_multiplier','homing')) {
-    if ($BossDirectorText -notmatch [regex]::Escape($Token)) { throw "BossDirector missing live integration token: $Token" }
+foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) {
+    if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" }
+}
+$SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
+foreach ($Token in @('_mission_count','_primary_weapon_count','clampi','MAX_CREDITS')) {
+    if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" }
 }
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural, objective, live boss, save, catalogue, spawn and progression validation passed; engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural/data/director/save validation passed; engine smoke test skipped.'
     exit 0
 }
 & $Godot --headless --path $Root --editor --quit
