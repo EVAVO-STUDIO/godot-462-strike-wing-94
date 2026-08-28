@@ -8,6 +8,8 @@ const BossHudRules = preload("res://scripts/boss_hud_rules.gd")
 const BossHudDirector = preload("res://scripts/boss_hud_director.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const ThreatWarningDirector = preload("res://scripts/threat_warning_director.gd")
+const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
+const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
 
 var failures: Array[String] = []
 
@@ -18,6 +20,7 @@ func _initialize() -> void:
 	_test_movement_autoload()
 	_test_boss_hud()
 	_test_threat_warning()
+	_test_projectile_cues()
 	if failures.is_empty():
 		print("Strike Wing mission flow self-test passed.")
 		quit(0)
@@ -94,12 +97,13 @@ func _test_movement_autoload() -> void:
 	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
 	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
 	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
+	_expect(text.contains("ProjectileCueDirector=\"*res://scripts/projectile_cue_director.gd\""), "projectile cue director must remain autoloaded")
 
 func _test_boss_hud() -> void:
 	_expect(absf(BossHudRules.health_ratio(50, 100) - 0.5) < 0.001, "boss HUD health ratio should reflect current/max HP")
 	_expect(BossHudRules.health_ratio(-1, 100) == 0.0 and BossHudRules.health_ratio(120, 100) == 1.0, "boss HUD health ratio should clamp safely")
 	var text := BossHudRules.hud_text("missile_cruiser", 40, 105, 3)
-	_expect(text.contains("MISSILE CRUISER") and text.contains("PHASE 3") and text.contains("40/105"), "boss HUD text should expose identity phase and HP")
+	_expect(text.contains("MISSILE CRUISER") and text.contains("PHASE 3") and text.contains("40/105") and text.contains("WEAK POINT EXPOSED"), "boss HUD text should expose identity phase HP and phase cue")
 	var hud := BossHudDirector.new()
 	_expect(hud != null, "boss HUD director should instantiate")
 	hud.free()
@@ -119,6 +123,19 @@ func _test_threat_warning() -> void:
 	var warning := ThreatWarningDirector.new()
 	_expect(warning != null, "threat warning director should instantiate")
 	warning.free()
+
+func _test_projectile_cues() -> void:
+	var missile := {"homing":true,"damage":10,"velocity":Vector2(0,180)}
+	var cannon := {"homing":false,"damage":16,"velocity":Vector2(0,100)}
+	var burst := {"homing":false,"damage":8,"velocity":Vector2(0,220)}
+	_expect(ProjectileCueRules.projectile_type(missile) == ProjectileCueRules.TYPE_MISSILE, "homing shot should receive missile cue")
+	_expect(ProjectileCueRules.projectile_type(cannon) == ProjectileCueRules.TYPE_CANNON, "heavy or slow shot should receive cannon cue")
+	_expect(ProjectileCueRules.projectile_type(burst) == ProjectileCueRules.TYPE_BURST, "fast light shot should receive burst cue")
+	_expect(ProjectileCueRules.radius_for(missile) > ProjectileCueRules.radius_for(burst), "missile cue should be visually larger than burst cue")
+	_expect(ProjectileCueRules.trail_length_for(missile) > ProjectileCueRules.trail_length_for(cannon), "missile cue should carry longest trail")
+	var cue := ProjectileCueDirector.new()
+	_expect(cue != null, "projectile cue director should instantiate")
+	cue.free()
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
