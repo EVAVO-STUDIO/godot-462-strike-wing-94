@@ -15,6 +15,7 @@ MissionStateDirector="*res://scripts/mission_state_director.gd"
 WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"
 AccuracyDirector="*res://scripts/accuracy_director.gd"
 RewardDirector="*res://scripts/reward_director.gd"
+ServiceDirector="*res://scripts/service_director.gd"
 
 [display]
 window/size/viewport_width=640
