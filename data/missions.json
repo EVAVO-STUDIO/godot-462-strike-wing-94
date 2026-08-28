@@ -1,4 +1,5 @@
 {
+  "schema_version": 2,
   "missions": [
     {
       "id": "m01_coastal_intercept",
@@ -7,7 +8,12 @@
       "duration_seconds": 150,
       "starting_wave": 1,
       "boss_id": "gunship_alpha",
-      "briefing": "Break the coastal strike group before it reaches the fleet anchorage."
+      "briefing": "Break the coastal strike group before it reaches the fleet anchorage.",
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":150,"required":true},
+        {"id":"destroy_boss","type":"destroy_enemy","enemy_id":"gunship_alpha","count":1,"required":true},
+        {"id":"intercept_force","type":"destroy_count","count":24,"required":false,"bonus_credits":400}
+      ]
     },
     {
       "id": "m02_refinery_run",
@@ -16,7 +22,12 @@
       "duration_seconds": 180,
       "starting_wave": 4,
       "boss_id": "armoured_train",
-      "briefing": "Cut through the refinery corridor and destroy the mobile command train."
+      "briefing": "Cut through the refinery corridor and destroy the mobile command train.",
+      "objectives": [
+        {"id":"destroy_train","type":"destroy_enemy","enemy_id":"armoured_train","count":1,"required":true},
+        {"id":"suppress_sam","type":"destroy_enemy","enemy_id":"sam_truck","count":4,"required":false,"bonus_credits":600},
+        {"id":"survive","type":"survive","seconds":180,"required":true}
+      ]
     },
     {
       "id": "m03_black_sea",
@@ -25,7 +36,12 @@
       "duration_seconds": 210,
       "starting_wave": 7,
       "boss_id": "missile_cruiser",
-      "briefing": "Strike the carrier screen and survive the missile cruiser counterattack."
+      "briefing": "Strike the carrier screen and survive the missile cruiser counterattack.",
+      "objectives": [
+        {"id":"sink_cruiser","type":"destroy_enemy","enemy_id":"missile_cruiser","count":1,"required":true},
+        {"id":"clear_patrols","type":"destroy_enemy","enemy_id":"river_patrol","count":5,"required":false,"bonus_credits":700},
+        {"id":"survive","type":"survive","seconds":210,"required":true}
+      ]
     }
   ]
 }
