@@ -16,7 +16,7 @@ function Resolve-Godot {
 Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
-    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd',
+    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/campaign_save.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -39,9 +39,16 @@ foreach ($JsonPath in @('data/weapons.json','data/enemies.json','data/missions.j
 }
 
 $EnemyIds = @($Parsed['data/enemies.json'].enemies | ForEach-Object { $_.id })
+$MissionIds = @($Parsed['data/missions.json'].missions | ForEach-Object { $_.id })
 foreach ($Mission in $Parsed['data/missions.json'].missions) {
     if ($Mission.boss_id -and $EnemyIds -notcontains $Mission.boss_id) { throw "Mission boss_id not found in enemies.json: $($Mission.boss_id)" }
 }
+$CampaignMissions = @($Parsed['data/campaign.json'].campaign.missions)
+foreach ($MissionId in $CampaignMissions) {
+    if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" }
+}
+if (@($CampaignMissions | Sort-Object -Unique).Count -ne $CampaignMissions.Count) { throw 'Campaign mission list contains duplicates.' }
+
 foreach ($Profile in $Parsed['data/spawn_profiles.json'].profiles) {
     if (-not $Profile.enemy_ids -or @($Profile.enemy_ids).Count -eq 0) { throw "Spawn profile has no enemy_ids: $($Profile.id)" }
     foreach ($EnemyId in $Profile.enemy_ids) {
@@ -58,9 +65,12 @@ foreach ($Weapon in $PrimaryWeapons) {
     $PreviousCost = [int]$Weapon.cost
 }
 
+$ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
+if ($ProjectText -notmatch 'CampaignSave="\*res://scripts/campaign_save.gd"') { throw 'CampaignSave autoload is not configured.' }
+
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural, catalogue, spawn and progression validation passed; engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural, save, catalogue, spawn and progression validation passed; engine smoke test skipped.'
     exit 0
 }
 & $Godot --headless --path $Root --editor --quit
