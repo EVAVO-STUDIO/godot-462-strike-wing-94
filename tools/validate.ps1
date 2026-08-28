@@ -27,6 +27,7 @@ $Required = @(
     'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
     'scripts/mission_state_rules.gd','scripts/mission_state_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
+    'scripts/accuracy_rules.gd','scripts/accuracy_director.gd',
     'scripts/reward_rules.gd','scripts/reward_director.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
@@ -120,6 +121,7 @@ foreach ($Autoload in @(
     'BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
     'MissionStateDirector="*res://scripts/mission_state_director.gd"',
     'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"',
+    'AccuracyDirector="*res://scripts/accuracy_director.gd"',
     'RewardDirector="*res://scripts/reward_director.gd"'
 )) {
     if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
@@ -140,10 +142,14 @@ $WeaponPickupRulesText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_picku
 foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) { if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" } }
 $WeaponPickupDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_director.gd')
 foreach ($Token in @('_permanent_index','permanent_index','temporary_boost','WeaponPickupRules.saved_index')) { if (-not $WeaponPickupDirectorText.Contains($Token)) { throw "Weapon pickup director missing token: $Token" } }
+$AccuracyRulesText = Get-Content -Raw (Join-Path $Root 'scripts/accuracy_rules.gd')
+foreach ($Token in @('accuracy_ratio','qualifies','bonus_for')) { if (-not $AccuracyRulesText.Contains($Token)) { throw "Accuracy rules missing token: $Token" } }
+$AccuracyDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/accuracy_director.gd')
+foreach ($Token in @('shots_fired','shots_hit','accuracy_ratio','process_priority = -10')) { if (-not $AccuracyDirectorText.Contains($Token)) { throw "Accuracy director missing token: $Token" } }
 $RewardRulesText = Get-Content -Raw (Join-Path $Root 'scripts/reward_rules.gd')
-foreach ($Token in @('no_hull_damage_bonus','boss_kill_bonus','extra_success_bonus')) { if (-not $RewardRulesText.Contains($Token)) { throw "Reward rules missing token: $Token" } }
+foreach ($Token in @('no_hull_damage_bonus','boss_kill_bonus','accuracy_bonus','extra_success_bonus')) { if (-not $RewardRulesText.Contains($Token)) { throw "Reward rules missing token: $Token" } }
 $RewardDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/reward_director.gd')
-foreach ($Token in @('MISSION COMPLETE','RewardRules.extra_success_bonus','NO DAMAGE','BOSS +')) { if (-not $RewardDirectorText.Contains($Token)) { throw "Reward director missing token: $Token" } }
+foreach ($Token in @('MISSION COMPLETE','RewardRules.extra_success_bonus','AccuracyDirector','ACCURACY')) { if (-not $RewardDirectorText.Contains($Token)) { throw "Reward director missing token: $Token" } }
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 foreach ($Token in @('_mission_count','_primary_weapon_count','_saved_weapon_index','WeaponPickupDirector','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" } }
 
@@ -155,7 +161,7 @@ if (-not $Godot) {
 Write-Host 'Running deterministic runtime rules self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/runtime_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing runtime self-test failed with exit code $LASTEXITCODE" }
-Write-Host 'Running reward self-test...' -ForegroundColor DarkCyan
+Write-Host 'Running reward/accuracy self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/reward_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing reward self-test failed with exit code $LASTEXITCODE" }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
