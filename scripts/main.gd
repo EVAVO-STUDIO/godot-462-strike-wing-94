@@ -11,6 +11,7 @@ var shield := 100
 var mission_time := 0.0
 
 func _ready() -> void:
+	_configure_input()
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -28,6 +29,26 @@ func _process(delta: float) -> void:
 
 	queue_redraw()
 
+func _configure_input() -> void:
+	_add_key_action("move_left", KEY_A)
+	_add_key_action("move_left", KEY_LEFT)
+	_add_key_action("move_right", KEY_D)
+	_add_key_action("move_right", KEY_RIGHT)
+	_add_key_action("move_up", KEY_W)
+	_add_key_action("move_up", KEY_UP)
+	_add_key_action("move_down", KEY_S)
+	_add_key_action("move_down", KEY_DOWN)
+	_add_key_action("fire_primary", KEY_SPACE)
+	_add_key_action("fire_secondary", KEY_X)
+
+func _add_key_action(action: StringName, keycode: Key) -> void:
+	if not InputMap.has_action(action):
+		InputMap.add_action(action)
+	var event := InputEventKey.new()
+	event.physical_keycode = keycode
+	if not InputMap.action_has_event(action, event):
+		InputMap.action_add_event(action, event)
+
 func _draw() -> void:
 	# Temporary code-drawn prototype visuals. These are intentionally disposable;
 	# production sprites, terrain and UI will replace them without changing the game loop.
@@ -37,7 +58,6 @@ func _draw() -> void:
 		var y := fposmod(float(i * 28) + mission_time * 48.0, 420.0) - 30.0
 		draw_line(Vector2(0, y), Vector2(640, y), Color("18242d"), 1.0)
 
-	# Player silhouette.
 	var p := player_position
 	draw_colored_polygon(PackedVector2Array([
 		p + Vector2(0, -18),
@@ -46,6 +66,5 @@ func _draw() -> void:
 		p + Vector2(16, 13)
 	]), Color("d8dde2"))
 
-	# DOS-like HUD prototype.
 	draw_rect(Rect2(8, 8, 624, 38), Color("080b0f"))
 	draw_string(ThemeDB.fallback_font, Vector2(18, 31), "STRIKE WING '94   HULL %03d   SHIELD %03d   SCORE %08d" % [hull, shield, score], HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color("e3e6e8"))
