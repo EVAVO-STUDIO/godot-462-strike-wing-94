@@ -16,7 +16,7 @@ function Resolve-Godot {
 Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
-    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/boss_rules.gd','scripts/campaign_save.gd',
+    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -109,10 +109,16 @@ foreach ($Weapon in $PrimaryWeapons) {
 
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 if ($ProjectText -notmatch 'CampaignSave="\*res://scripts/campaign_save.gd"') { throw 'CampaignSave autoload is not configured.' }
+if ($ProjectText -notmatch 'BossDirector="\*res://scripts/boss_director.gd"') { throw 'BossDirector autoload is not configured.' }
+
+$BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
+foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','BossRules.weak_point_multiplier','homing')) {
+    if ($BossDirectorText -notmatch [regex]::Escape($Token)) { throw "BossDirector missing live integration token: $Token" }
+}
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural, objective, boss, save, catalogue, spawn and progression validation passed; engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural, objective, live boss, save, catalogue, spawn and progression validation passed; engine smoke test skipped.'
     exit 0
 }
 & $Godot --headless --path $Root --editor --quit
