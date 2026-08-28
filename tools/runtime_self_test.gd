@@ -7,6 +7,7 @@ const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
+const BombRules = preload("res://scripts/bomb_rules.gd")
 
 var failures: Array[String] = []
 
@@ -18,6 +19,7 @@ func _initialize() -> void:
 	_test_objectives()
 	_test_bosses()
 	_test_run_seeds()
+	_test_bombs()
 	if failures.is_empty():
 		print("Strike Wing runtime self-test passed.")
 		quit(0)
@@ -96,3 +98,8 @@ func _test_run_seeds() -> void:
 	_expect(RunSeedRules.mission_seed(-5) == mission_zero, "negative mission indices should clamp to mission zero")
 	_expect(RunSeedRules.same_mission_reproducible(2, 2), "same-mission reproducibility helper should report true")
 	_expect(RunSeedRules.missions_are_distinct(1, 2), "distinct mission helper should report different seeds")
+
+func _test_bombs() -> void:
+	_expect(BombRules.boss_bomb_damage(100) >= 6 and BombRules.boss_bomb_damage(100) <= 18, "boss bomb damage should remain bounded")
+	_expect(BombRules.apply_nonlethal_boss_damage(100, 100) < 100, "bomb should damage a healthy boss")
+	_expect(BombRules.apply_nonlethal_boss_damage(3, 100) == 1, "bomb must never destroy a mission boss")
