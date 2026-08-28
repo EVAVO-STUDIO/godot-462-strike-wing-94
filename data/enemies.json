@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "enemies": [
     {"id":"scout_falcon","class":"air","hp":2,"speed":112,"value":120,"pattern":"sine_dive","weapon":"single_burst"},
     {"id":"gunship_mk1","class":"air","hp":6,"speed":72,"value":350,"pattern":"tracking_sweep","weapon":"aimed_burst"},
@@ -8,6 +8,9 @@
     {"id":"sam_truck","class":"ground","hp":4,"speed":18,"value":500,"pattern":"road_column","weapon":"missile"},
     {"id":"river_patrol","class":"sea","hp":8,"speed":34,"value":520,"pattern":"water_lane","weapon":"deck_gun"},
     {"id":"fortified_turret","class":"ground","hp":10,"speed":0,"value":650,"pattern":"static","weapon":"aimed_burst"},
-    {"id":"ace_interceptor","class":"air","hp":9,"speed":148,"value":900,"pattern":"aggressive_weave","weapon":"twin_burst"}
+    {"id":"ace_interceptor","class":"air","hp":9,"speed":148,"value":900,"pattern":"aggressive_weave","weapon":"twin_burst"},
+    {"id":"gunship_alpha","class":"boss","hp":55,"speed":38,"value":5000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true},
+    {"id":"armoured_train","class":"boss","hp":78,"speed":22,"value":6500,"pattern":"boss_column","weapon":"cannon","boss":true},
+    {"id":"missile_cruiser","class":"boss","hp":105,"speed":18,"value":8500,"pattern":"boss_broadside","weapon":"missile","boss":true}
   ]
 }
