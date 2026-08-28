@@ -12,17 +12,16 @@ const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
 const MissileBehaviorRules = preload("res://scripts/missile_behavior_rules.gd")
 const MissileBehaviorDirector = preload("res://scripts/missile_behavior_director.gd")
-const SpawnSafetyRules = preload("res://scripts/spawn_safety_rules.gd")
-const SpawnSafetyDirector = preload("res://scripts/spawn_safety_director.gd")
+const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 
 var failures: Array[String] = []
 
 func _initialize() -> void:
 	_test_overtime()
 	_test_spawn_coverage()
-	_test_spawn_safety()
+	_test_dedicated_rng_and_fail_closed_spawns()
 	_test_movement_patterns()
-	_test_movement_autoload()
+	_test_autoloads()
 	_test_boss_hud()
 	_test_threat_warning()
 	_test_projectile_cues()
@@ -68,17 +67,36 @@ func _test_spawn_coverage() -> void:
 			next_wave = maxi(next_wave, int(range["max"]) + 1)
 		_expect(next_wave >= 100, "%s spawn profiles should cover through wave 99" % environment)
 
-func _test_spawn_safety() -> void:
-	var valid_profiles := [{"environment":"coast","min_wave":1,"max_wave":3,"enemy_ids":["scout_falcon"]}]
-	_expect(SpawnSafetyRules.has_matching_profile(valid_profiles, "coast", 2), "valid covered wave should keep authored spawn profile")
-	_expect(not SpawnSafetyRules.has_matching_profile(valid_profiles, "coast", 7), "uncovered wave should be detected")
-	var sentinel := SpawnSafetyRules.sentinel_profile("coast", 7)
-	_expect(str(sentinel.get("environment", "")) == "coast" and int(sentinel.get("min_wave", 0)) == 7 and int(sentinel.get("max_wave", 0)) == 7, "spawn safety sentinel should target only the uncovered runtime wave")
-	var ids: Array = sentinel.get("enemy_ids", [])
-	_expect(ids.size() == 1 and str(ids[0]) == SpawnSafetyRules.SENTINEL_ENEMY_ID, "spawn safety sentinel must use an enemy ID that cannot broaden candidates")
-	var safety := SpawnSafetyDirector.new()
-	_expect(safety != null, "spawn safety director should instantiate")
-	safety.free()
+func _test_dedicated_rng_and_fail_closed_spawns() -> void:
+	var seed0 := RunSeedRules.mission_seed(0)
+	var a := RandomNumberGenerator.new()
+	var b := RandomNumberGenerator.new()
+	a.seed = seed0
+	b.seed = seed0
+	var same := true
+	for _i in range(8):
+		if a.randi() != b.randi():
+			same = false
+			break
+	_expect(same, "same mission seed should reproduce the dedicated RNG stream")
+	var c := RandomNumberGenerator.new()
+	c.seed = RunSeedRules.mission_seed(1)
+	var d := RandomNumberGenerator.new()
+	d.seed = seed0
+	_expect(c.randi() != d.randi(), "different mission seeds should diverge")
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable for RNG/spawn safety checks")
+	if main_file == null:
+		return
+	var text := main_file.get_as_text()
+	_expect(text.contains("mission_rng := RandomNumberGenerator.new()"), "main gameplay should own a dedicated mission RNG")
+	_expect(text.contains("mission_rng.seed = RunSeedRules.mission_seed(mission_index)"), "mission RNG should reseed from authored mission seed on launch/retry")
+	_expect(text.contains("ProjectileRules.pickup_kind_for_roll(mission_rng.randf())"), "pickup rolls should use mission RNG")
+	_expect(text.contains("mission_rng.randi_range(0, candidates.size() - 1)"), "enemy selection should use mission RNG")
+	_expect(not text.contains("pickup_kind_for_roll(randf())"), "global randf must not drive pickup rolls")
+	_expect(not text.contains("randi() % candidates.size()"), "global randi must not drive enemy selection")
+	_expect(text.contains("if allowed_ids.is_empty():\n\t\treturn []"), "missing spawn profile should fail closed directly in main")
+	_expect(not text.contains("if allowed_ids.is_empty() or str(item.get"), "spawn candidates must never broaden to every non-boss enemy")
 
 func _test_movement_patterns() -> void:
 	var data = ContentCatalog.load_json("res://data/enemies.json")
@@ -106,13 +124,13 @@ func _test_movement_patterns() -> void:
 	_expect(director != null, "movement pattern director should instantiate")
 	director.free()
 
-func _test_movement_autoload() -> void:
+func _test_autoloads() -> void:
 	var file := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(file != null, "project.godot should be readable")
 	if file == null:
 		return
 	var text := file.get_as_text()
-	_expect(text.contains("SpawnSafetyDirector=\"*res://scripts/spawn_safety_director.gd\""), "spawn safety director must remain autoloaded")
+	_expect(not text.contains("SpawnSafetyDirector"), "redundant spawn safety autoload should stay removed")
 	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
 	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
 	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
