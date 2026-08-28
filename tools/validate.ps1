@@ -23,6 +23,7 @@ $Required = @(
     'scenes/main.tscn',
     'scripts/main.gd',
     'scripts/content_catalog.gd',
+    'scripts/combat_rules.gd',
     'data/weapons.json',
     'data/enemies.json',
     'data/missions.json',
@@ -41,7 +42,6 @@ foreach ($JsonPath in $JsonPaths) {
     $FullPath = Join-Path $Root $JsonPath
     $Data = Get-Content -Raw $FullPath | ConvertFrom-Json
     Write-Host "JSON OK: $JsonPath" -ForegroundColor DarkGreen
-
     foreach ($CollectionName in @('weapons', 'enemies', 'missions')) {
         $Collection = $Data.$CollectionName
         if ($null -eq $Collection) { continue }
