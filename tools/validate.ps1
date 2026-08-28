@@ -27,8 +27,9 @@ $Required = @(
     'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
     'scripts/mission_state_rules.gd','scripts/mission_state_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
-    'scripts/accuracy_rules.gd','scripts/accuracy_director.gd',
-    'scripts/reward_rules.gd','scripts/reward_director.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd',
+    'scripts/accuracy_rules.gd','scripts/accuracy_director.gd','scripts/reward_rules.gd','scripts/reward_director.gd',
+    'scripts/service_rules.gd','scripts/service_director.gd',
+    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -87,6 +88,8 @@ foreach ($MissionId in $CampaignMissionIds) { if ($MissionIds -notcontains $Miss
 if (@($CampaignMissionIds | Sort-Object -Unique).Count -ne $CampaignMissionIds.Count) { throw 'Campaign mission list contains duplicates.' }
 if ([int]$Campaign.campaign.starting_hull -lt 1) { throw 'Campaign starting_hull must be positive.' }
 if ([int]$Campaign.campaign.starting_shield -lt 0) { throw 'Campaign starting_shield cannot be negative.' }
+if ([int]$Campaign.campaign.repair_cost_per_hull -lt 0) { throw 'repair_cost_per_hull cannot be negative.' }
+if ([int]$Campaign.campaign.shield_recharge_cost_per_point -lt 0) { throw 'shield_recharge_cost_per_point cannot be negative.' }
 foreach ($BonusField in @('mission_complete_bonus','no_hull_damage_bonus','accuracy_bonus','boss_kill_bonus')) {
     if ([int]$Campaign.progression.$BonusField -lt 0) { throw "Campaign progression bonus cannot be negative: $BonusField" }
 }
@@ -115,17 +118,13 @@ foreach ($Weapon in $Primaries) {
 
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
-    'CampaignSave="*res://scripts/campaign_save.gd"',
-    'BossDirector="*res://scripts/boss_director.gd"',
-    'RunSeedDirector="*res://scripts/run_seed_director.gd"',
-    'BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
-    'MissionStateDirector="*res://scripts/mission_state_director.gd"',
-    'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"',
-    'AccuracyDirector="*res://scripts/accuracy_director.gd"',
-    'RewardDirector="*res://scripts/reward_director.gd"'
-)) {
-    if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
-}
+    'CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"',
+    'RunSeedDirector="*res://scripts/run_seed_director.gd"','BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
+    'MissionStateDirector="*res://scripts/mission_state_director.gd"','WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"',
+    'AccuracyDirector="*res://scripts/accuracy_director.gd"','RewardDirector="*res://scripts/reward_director.gd"',
+    'ServiceDirector="*res://scripts/service_director.gd"'
+)) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
+
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
 foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) { if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" } }
 $BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
@@ -150,8 +149,12 @@ $RewardRulesText = Get-Content -Raw (Join-Path $Root 'scripts/reward_rules.gd')
 foreach ($Token in @('no_hull_damage_bonus','boss_kill_bonus','accuracy_bonus','extra_success_bonus')) { if (-not $RewardRulesText.Contains($Token)) { throw "Reward rules missing token: $Token" } }
 $RewardDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/reward_director.gd')
 foreach ($Token in @('MISSION COMPLETE','RewardRules.extra_success_bonus','AccuracyDirector','ACCURACY')) { if (-not $RewardDirectorText.Contains($Token)) { throw "Reward director missing token: $Token" } }
+$ServiceRulesText = Get-Content -Raw (Join-Path $Root 'scripts/service_rules.gd')
+foreach ($Token in @('service_cost','can_service','service_full')) { if (-not $ServiceRulesText.Contains($Token)) { throw "Service rules missing token: $Token" } }
+$ServiceDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/service_director.gd')
+foreach ($Token in @('KEY_H','KEY_J','_capture_success_state','repair_cost_per_hull','shield_recharge_cost_per_point','restore_service_state')) { if (-not $ServiceDirectorText.Contains($Token)) { throw "Service director missing token: $Token" } }
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-foreach ($Token in @('_mission_count','_primary_weapon_count','_saved_weapon_index','WeaponPickupDirector','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" } }
+foreach ($Token in @('SAVE_VERSION := 2','_saved_weapon_index','ServiceDirector','service_hull','service_shield','restore_service_state','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" } }
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
@@ -164,6 +167,9 @@ if ($LASTEXITCODE -ne 0) { throw "Strike Wing runtime self-test failed with exit
 Write-Host 'Running reward/accuracy self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/reward_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing reward self-test failed with exit code $LASTEXITCODE" }
+Write-Host 'Running service economy self-test...' -ForegroundColor DarkCyan
+& $Godot --headless --path $Root --script res://tools/service_self_test.gd
+if ($LASTEXITCODE -ne 0) { throw "Strike Wing service self-test failed with exit code $LASTEXITCODE" }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --editor --quit
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
