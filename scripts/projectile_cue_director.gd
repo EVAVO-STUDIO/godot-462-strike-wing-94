@@ -31,8 +31,9 @@ func _ready() -> void:
 	layer = 16
 	_canvas = ProjectileCueCanvas.new()
 	_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(_canvas)
+	_canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_canvas.custom_minimum_size = Vector2(640, 360)
 
 func _process(_delta: float) -> void:
 	var scene := get_tree().current_scene
