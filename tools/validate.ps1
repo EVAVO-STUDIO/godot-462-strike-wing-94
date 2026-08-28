@@ -26,6 +26,7 @@ $Required = @(
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd','scripts/bomb_guard_director.gd',
     'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
     'scripts/mission_state_rules.gd','scripts/mission_state_director.gd','scripts/mission_flow_rules.gd','scripts/mission_flow_director.gd',
+    'scripts/movement_pattern_rules.gd','scripts/movement_pattern_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
     'scripts/accuracy_rules.gd','scripts/accuracy_director.gd','scripts/reward_rules.gd','scripts/reward_director.gd',
     'scripts/service_rules.gd','scripts/service_director.gd',
@@ -54,9 +55,11 @@ $EnemyIds = @($Enemies.enemies | ForEach-Object { $_.id })
 $BossIds = @($Enemies.enemies | Where-Object { $_.boss } | ForEach-Object { $_.id })
 $AllowedClasses = @('air','ground','sea','boss')
 $AllowedEnemyWeapons = @('single_burst','aimed_burst','side_burst','cannon','missile','deck_gun','twin_burst')
+$AllowedPatterns = @('sine_dive','tracking_sweep','hover_strafe','road_column','water_lane','static','aggressive_weave','boss_sweep','boss_column','boss_broadside')
 foreach ($Enemy in $Enemies.enemies) {
     if ($AllowedClasses -notcontains $Enemy.class) { throw "Unknown enemy class: $($Enemy.id)" }
     if ($AllowedEnemyWeapons -notcontains $Enemy.weapon) { throw "Unsupported enemy weapon: $($Enemy.id) -> $($Enemy.weapon)" }
+    if ($AllowedPatterns -notcontains $Enemy.pattern) { throw "Unsupported enemy movement pattern: $($Enemy.id) -> $($Enemy.pattern)" }
     if ([int]$Enemy.hp -le 0 -or [int]$Enemy.value -le 0 -or [double]$Enemy.speed -lt 0) { throw "Invalid enemy combat values: $($Enemy.id)" }
     if ($Enemy.class -eq 'boss' -and -not [bool]$Enemy.boss) { throw "Boss-class enemy missing boss=true: $($Enemy.id)" }
     if ([bool]$Enemy.boss) {
@@ -129,7 +132,8 @@ foreach ($Autoload in @(
     'RunSeedDirector="*res://scripts/run_seed_director.gd"','BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
     'MissionStateDirector="*res://scripts/mission_state_director.gd"','MissionFlowDirector="*res://scripts/mission_flow_director.gd"',
     'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"','AccuracyDirector="*res://scripts/accuracy_director.gd"',
-    'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"'
+    'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"',
+    'MovementPatternDirector="*res://scripts/movement_pattern_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
 
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
@@ -146,6 +150,10 @@ $MissionStateText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_dir
 foreach ($Token in @('process_priority = 100','MissionStateRules.starting_hull','MissionStateRules.starting_shield','MissionStateRules.live_wave')) { if (-not $MissionStateText.Contains($Token)) { throw "Mission state director missing token: $Token" } }
 $MissionFlowText = Get-Content -Raw (Join-Path $Root 'scripts/mission_flow_director.gd')
 foreach ($Token in @('process_priority = -40','MissionFlowRules.should_hold_overtime','safe_pre_frame_time','OVERTIME - DESTROY THE BOSS')) { if (-not $MissionFlowText.Contains($Token)) { throw "Mission flow director missing token: $Token" } }
+$MovementRulesText = Get-Content -Raw (Join-Path $Root 'scripts/movement_pattern_rules.gd')
+foreach ($Token in @('supported_patterns','tracking_sweep','hover_strafe','aggressive_weave','clamp_x')) { if (-not $MovementRulesText.Contains($Token)) { throw "Movement pattern rules missing token: $Token" } }
+$MovementDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/movement_pattern_director.gd')
+foreach ($Token in @('process_priority = 50','MovementPatternRules.adjusted_position','pattern_anchor_x','enemy_catalog')) { if (-not $MovementDirectorText.Contains($Token)) { throw "Movement pattern director missing token: $Token" } }
 $WeaponPickupRulesText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_rules.gd')
 foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) { if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" } }
 $WeaponPickupDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_director.gd')
@@ -179,7 +187,7 @@ if ($LASTEXITCODE -ne 0) { throw "Strike Wing reward self-test failed with exit 
 Write-Host 'Running service economy self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/service_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing service self-test failed with exit code $LASTEXITCODE" }
-Write-Host 'Running mission flow self-test...' -ForegroundColor DarkCyan
+Write-Host 'Running mission flow/movement self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/mission_flow_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing mission flow self-test failed with exit code $LASTEXITCODE" }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
