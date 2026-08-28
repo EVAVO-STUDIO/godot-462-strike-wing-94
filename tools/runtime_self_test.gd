@@ -8,6 +8,7 @@ const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
+const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
 
 var failures: Array[String] = []
 
@@ -20,6 +21,7 @@ func _initialize() -> void:
 	_test_bosses()
 	_test_run_seeds()
 	_test_bombs()
+	_test_mission_state()
 	if failures.is_empty():
 		print("Strike Wing runtime self-test passed.")
 		quit(0)
@@ -103,3 +105,12 @@ func _test_bombs() -> void:
 	_expect(BombRules.boss_bomb_damage(100) >= 6 and BombRules.boss_bomb_damage(100) <= 18, "boss bomb damage should remain bounded")
 	_expect(BombRules.apply_nonlethal_boss_damage(100, 100) < 100, "bomb should damage a healthy boss")
 	_expect(BombRules.apply_nonlethal_boss_damage(3, 100) == 1, "bomb must never destroy a mission boss")
+
+func _test_mission_state() -> void:
+	var campaign := {"starting_hull":125,"starting_shield":80}
+	_expect(MissionStateRules.starting_hull(campaign) == 125, "campaign starting hull should be honored")
+	_expect(MissionStateRules.starting_shield(campaign) == 80, "campaign starting shield should be honored")
+	var mission := {"starting_wave":4}
+	_expect(MissionStateRules.starting_wave(mission) == 4, "mission starting wave should be honored")
+	_expect(MissionStateRules.live_wave(mission, 0.0) == 4, "mission should begin at authored starting wave")
+	_expect(MissionStateRules.live_wave(mission, 40.0) == 6, "mission wave progression should advance relative to authored starting wave")
