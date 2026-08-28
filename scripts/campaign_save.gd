@@ -1,6 +1,8 @@
 extends Node
 
+const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
 const SAVE_PATH := "user://strike_wing_94_save.json"
+const BACKUP_PATH := "user://strike_wing_94_save.bak.json"
 const SAVE_VERSION := 2
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
@@ -87,27 +89,39 @@ func _snapshot(scene: Object) -> Dictionary:
 func _signature(scene: Object) -> String:
 	return JSON.stringify(_snapshot(scene))
 
-func _save(scene: Object) -> void:
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+func _read_text(path: String) -> String:
+	if not FileAccess.file_exists(path):
+		return ""
+	var file := FileAccess.open(path, FileAccess.READ)
+	return file.get_as_text() if file != null else ""
+
+func _write_text(path: String, text: String) -> bool:
+	var file := FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
-		push_warning("Strike Wing save could not be opened for writing.")
+		return false
+	file.store_string(text)
+	return true
+
+func _backup_current_primary() -> void:
+	var current_text := _read_text(SAVE_PATH)
+	if SaveRecoveryRules.parse_supported_json(current_text, 1, SAVE_VERSION).is_empty():
 		return
-	file.store_string(JSON.stringify(_snapshot(scene), "  "))
+	if not _write_text(BACKUP_PATH, current_text):
+		push_warning("Strike Wing save backup could not be written.")
+
+func _save(scene: Object) -> void:
+	var text := JSON.stringify(_snapshot(scene), "  ")
+	_backup_current_primary()
+	if not _write_text(SAVE_PATH, text):
+		push_warning("Strike Wing save could not be opened for writing.")
 
 func _restore(scene: Object) -> void:
-	if not FileAccess.file_exists(SAVE_PATH):
+	var choice := SaveRecoveryRules.choose_primary_or_backup(_read_text(SAVE_PATH), _read_text(BACKUP_PATH), 1, SAVE_VERSION)
+	var parsed = choice.get("data", {})
+	if typeof(parsed) != TYPE_DICTIONARY or parsed.is_empty():
 		return
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if file == null:
-		return
-	var parsed = JSON.parse_string(file.get_as_text())
-	if typeof(parsed) != TYPE_DICTIONARY:
-		push_warning("Strike Wing save ignored because it is invalid.")
-		return
-	var version := int(parsed.get("version", -1))
-	if version < 1 or version > SAVE_VERSION:
-		push_warning("Strike Wing save ignored because it is from an unsupported version.")
-		return
+	if str(choice.get("source", "")) == "backup":
+		push_warning("Strike Wing recovered campaign state from backup save.")
 	var mission_index := clampi(int(parsed.get("mission_index", scene.get("mission_index"))), 0, _mission_count(scene) - 1)
 	var weapon_index := clampi(int(parsed.get("weapon_index", scene.get("weapon_index"))), 0, _primary_weapon_count(scene) - 1)
 	var credits := clampi(int(parsed.get("credits", scene.get("credits"))), 0, MAX_CREDITS)
