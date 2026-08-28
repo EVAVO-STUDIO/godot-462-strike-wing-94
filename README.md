@@ -17,9 +17,10 @@ Implemented now:
 - projectile/enemy collision
 - shield-before-hull damage model
 - scoring and run reset behavior
+- runtime loading of enemy, weapon, mission and campaign catalogues
+- enemy archetypes selected from data rather than hard-coded-only prototypes
+- campaign credits and mission identity surfaced in the HUD
 - code-drawn placeholder battlefield/HUD for gameplay iteration
-- data-driven initial weapon catalogue
-- data-driven initial mission catalogue
 - local PowerShell validation with optional Godot headless smoke test
 
 The temporary code-drawn art is deliberately disposable. Production pixel art can replace it without redefining the underlying combat rules.
@@ -34,10 +35,13 @@ The temporary code-drawn art is deliberately disposable. Production pixel art ca
 
 - `project.godot` — Godot project configuration
 - `scenes/` — game scenes
-- `scripts/` — runtime gameplay code
+- `scripts/` — runtime gameplay code and content loading helpers
 - `data/weapons.json` — weapon definitions/economy seed data
+- `data/enemies.json` — enemy archetypes across air/ground/sea roles
 - `data/missions.json` — campaign mission seed data
+- `data/campaign.json` — progression/economy configuration
 - `docs/GAME_DESIGN.md` — design pillars, architecture and roadmap
+- `docs/QA.md` — regression and integrity checklist
 - `tools/validate.ps1` — zero-cost local validation
 
 ## Validate locally
