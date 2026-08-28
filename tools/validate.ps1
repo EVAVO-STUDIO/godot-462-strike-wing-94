@@ -38,11 +38,27 @@ foreach ($JsonPath in @('data/weapons.json','data/enemies.json','data/missions.j
     }
 }
 
-$EnemyIds = @($Parsed['data/enemies.json'].enemies | ForEach-Object { $_.id })
+$AllowedEnemyClasses = @('air','ground','sea','boss')
+$AllowedEnemyWeapons = @('single_burst','aimed_burst','twin_burst','missile','cannon','deck_gun','side_burst')
+$EnemyIds = @()
+foreach ($Enemy in $Parsed['data/enemies.json'].enemies) {
+    if ($AllowedEnemyClasses -notcontains $Enemy.class) { throw "Unknown enemy class: $($Enemy.id) -> $($Enemy.class)" }
+    if ($AllowedEnemyWeapons -notcontains $Enemy.weapon) { throw "Unknown enemy weapon: $($Enemy.id) -> $($Enemy.weapon)" }
+    if ([int]$Enemy.hp -le 0 -or [int]$Enemy.value -le 0) { throw "Enemy hp/value must be positive: $($Enemy.id)" }
+    if ([double]$Enemy.speed -lt 0) { throw "Enemy speed cannot be negative: $($Enemy.id)" }
+    if ([bool]$Enemy.boss -and $Enemy.class -ne 'boss') { throw "Boss enemy must use class=boss: $($Enemy.id)" }
+    if ($Enemy.class -eq 'boss' -and -not [bool]$Enemy.boss) { throw "class=boss enemy must set boss=true: $($Enemy.id)" }
+    $EnemyIds += $Enemy.id
+}
+
 $MissionIds = @($Parsed['data/missions.json'].missions | ForEach-Object { $_.id })
 $AllowedObjectiveTypes = @('survive','destroy_count','destroy_enemy')
+$MissionEnvironments = @()
 foreach ($Mission in $Parsed['data/missions.json'].missions) {
     if ($Mission.boss_id -and $EnemyIds -notcontains $Mission.boss_id) { throw "Mission boss_id not found in enemies.json: $($Mission.boss_id)" }
+    if ([int]$Mission.duration_seconds -le 0) { throw "Mission duration must be positive: $($Mission.id)" }
+    if (-not $Mission.environment) { throw "Mission environment is required: $($Mission.id)" }
+    $MissionEnvironments += $Mission.environment
     $Objectives = @($Mission.objectives)
     if ($Objectives.Count -lt 1) { throw "Mission must define at least one objective: $($Mission.id)" }
     $ObjectiveIds = @()
@@ -67,18 +83,28 @@ foreach ($MissionId in $CampaignMissions) {
 }
 if (@($CampaignMissions | Sort-Object -Unique).Count -ne $CampaignMissions.Count) { throw 'Campaign mission list contains duplicates.' }
 
+$ProfileEnvironments = @()
 foreach ($Profile in $Parsed['data/spawn_profiles.json'].profiles) {
+    if (-not $Profile.environment) { throw "Spawn profile missing environment: $($Profile.id)" }
+    $ProfileEnvironments += $Profile.environment
     if (-not $Profile.enemy_ids -or @($Profile.enemy_ids).Count -eq 0) { throw "Spawn profile has no enemy_ids: $($Profile.id)" }
     foreach ($EnemyId in $Profile.enemy_ids) {
         if ($EnemyIds -notcontains $EnemyId) { throw "Spawn profile references unknown enemy: $EnemyId" }
+        $Matched = @($Parsed['data/enemies.json'].enemies | Where-Object { $_.id -eq $EnemyId })[0]
+        if ([bool]$Matched.boss) { throw "Spawn profile cannot include boss enemy: $($Profile.id) -> $EnemyId" }
     }
-    if ([int]$Profile.min_wave -gt [int]$Profile.max_wave) { throw "Invalid wave range in spawn profile: $($Profile.id)" }
+    if ([int]$Profile.min_wave -le 0 -or [int]$Profile.min_wave -gt [int]$Profile.max_wave) { throw "Invalid wave range in spawn profile: $($Profile.id)" }
+}
+foreach ($Environment in ($MissionEnvironments | Sort-Object -Unique)) {
+    if ($ProfileEnvironments -notcontains $Environment) { throw "No spawn profile exists for mission environment: $Environment" }
 }
 
 $PrimaryWeapons = @($Parsed['data/weapons.json'].weapons | Where-Object { $_.slot -eq 'primary' })
 if ($PrimaryWeapons.Count -lt 1) { throw 'At least one primary weapon is required.' }
 $PreviousCost = -1
 foreach ($Weapon in $PrimaryWeapons) {
+    if ([int]$Weapon.damage -le 0 -or [double]$Weapon.fire_interval -le 0 -or [double]$Weapon.projectile_speed -le 0) { throw "Invalid primary weapon combat values: $($Weapon.id)" }
+    if ([int]$Weapon.projectiles -le 0) { throw "Primary weapon projectile count must be positive: $($Weapon.id)" }
     if ([int]$Weapon.cost -lt $PreviousCost) { throw "Primary weapon costs must be non-decreasing: $($Weapon.id)" }
     $PreviousCost = [int]$Weapon.cost
 }
@@ -88,7 +114,7 @@ if ($ProjectText -notmatch 'CampaignSave="\*res://scripts/campaign_save.gd"') { 
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural, objective, save, catalogue, spawn and progression validation passed; engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural, objective, save, enemy, spawn and progression validation passed; engine smoke test skipped.'
     exit 0
 }
 & $Godot --headless --path $Root --editor --quit
