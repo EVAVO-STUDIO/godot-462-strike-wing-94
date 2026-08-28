@@ -1,0 +1,31 @@
+{
+  "missions": [
+    {
+      "id": "m01_coastal_intercept",
+      "name": "Coastal Intercept",
+      "environment": "coast",
+      "duration_seconds": 150,
+      "starting_wave": 1,
+      "boss_id": "gunship_alpha",
+      "briefing": "Break the coastal strike group before it reaches the fleet anchorage."
+    },
+    {
+      "id": "m02_refinery_run",
+      "name": "Refinery Run",
+      "environment": "industrial",
+      "duration_seconds": 180,
+      "starting_wave": 4,
+      "boss_id": "armoured_train",
+      "briefing": "Cut through the refinery corridor and destroy the mobile command train."
+    },
+    {
+      "id": "m03_black_sea",
+      "name": "Black Sea",
+      "environment": "open_water",
+      "duration_seconds": 210,
+      "starting_wave": 7,
+      "boss_id": "missile_cruiser",
+      "briefing": "Strike the carrier screen and survive the missile cruiser counterattack."
+    }
+  ]
+}
