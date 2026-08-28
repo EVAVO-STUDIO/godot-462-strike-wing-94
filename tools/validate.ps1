@@ -25,7 +25,8 @@ $Required = @(
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd','scripts/bomb_guard_director.gd',
     'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
-    'scripts/mission_state_rules.gd','scripts/mission_state_director.gd','tools/runtime_self_test.gd',
+    'scripts/mission_state_rules.gd','scripts/mission_state_director.gd',
+    'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd','tools/runtime_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -112,7 +113,8 @@ foreach ($Autoload in @(
     'BossDirector="*res://scripts/boss_director.gd"',
     'RunSeedDirector="*res://scripts/run_seed_director.gd"',
     'BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
-    'MissionStateDirector="*res://scripts/mission_state_director.gd"'
+    'MissionStateDirector="*res://scripts/mission_state_director.gd"',
+    'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"'
 )) {
     if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
 }
@@ -140,8 +142,16 @@ $MissionStateText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_dir
 foreach ($Token in @('process_priority = 100','MissionStateRules.starting_hull','MissionStateRules.starting_shield','MissionStateRules.live_wave')) {
     if (-not $MissionStateText.Contains($Token)) { throw "Mission state director missing token: $Token" }
 }
+$WeaponPickupRulesText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_rules.gd')
+foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) {
+    if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" }
+}
+$WeaponPickupDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_director.gd')
+foreach ($Token in @('_permanent_index','permanent_index','temporary_boost','WeaponPickupRules.saved_index')) {
+    if (-not $WeaponPickupDirectorText.Contains($Token)) { throw "Weapon pickup director missing token: $Token" }
+}
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-foreach ($Token in @('_mission_count','_primary_weapon_count','clampi','MAX_CREDITS')) {
+foreach ($Token in @('_mission_count','_primary_weapon_count','_saved_weapon_index','WeaponPickupDirector','MAX_CREDITS')) {
     if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" }
 }
 
