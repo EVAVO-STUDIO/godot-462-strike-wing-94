@@ -25,11 +25,11 @@ $Required = @(
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd','scripts/bomb_guard_director.gd',
     'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
-    'scripts/mission_state_rules.gd','scripts/mission_state_director.gd',
+    'scripts/mission_state_rules.gd','scripts/mission_state_director.gd','scripts/mission_flow_rules.gd','scripts/mission_flow_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
     'scripts/accuracy_rules.gd','scripts/accuracy_director.gd','scripts/reward_rules.gd','scripts/reward_director.gd',
     'scripts/service_rules.gd','scripts/service_director.gd',
-    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd',
+    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -104,7 +104,14 @@ foreach ($Profile in $Profiles.profiles) {
     }
 }
 foreach ($Environment in @($Missions.missions | ForEach-Object { $_.environment } | Sort-Object -Unique)) {
-    if (@($Profiles.profiles | Where-Object { $_.environment -eq $Environment }).Count -lt 1) { throw "No spawn profile for mission environment: $Environment" }
+    $EnvironmentProfiles = @($Profiles.profiles | Where-Object { $_.environment -eq $Environment } | Sort-Object min_wave)
+    if ($EnvironmentProfiles.Count -lt 1) { throw "No spawn profile for mission environment: $Environment" }
+    $NextWave = 1
+    foreach ($Profile in $EnvironmentProfiles) {
+        if ([int]$Profile.min_wave -gt $NextWave) { throw "Spawn profile gap for $Environment before wave $NextWave" }
+        $NextWave = [Math]::Max($NextWave, [int]$Profile.max_wave + 1)
+    }
+    if ($NextWave -lt 100) { throw "Spawn profiles for $Environment do not cover through wave 99." }
 }
 
 $Primaries = @($Weapons.weapons | Where-Object { $_.slot -eq 'primary' })
@@ -120,9 +127,9 @@ $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
     'CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"',
     'RunSeedDirector="*res://scripts/run_seed_director.gd"','BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
-    'MissionStateDirector="*res://scripts/mission_state_director.gd"','WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"',
-    'AccuracyDirector="*res://scripts/accuracy_director.gd"','RewardDirector="*res://scripts/reward_director.gd"',
-    'ServiceDirector="*res://scripts/service_director.gd"'
+    'MissionStateDirector="*res://scripts/mission_state_director.gd"','MissionFlowDirector="*res://scripts/mission_flow_director.gd"',
+    'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"','AccuracyDirector="*res://scripts/accuracy_director.gd"',
+    'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
 
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
@@ -134,9 +141,11 @@ foreach ($Token in @('process_priority = -50','_hold_bosses','_restore_bosses','
 $SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
 foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) { if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" } }
 $SeedDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director.gd')
-foreach ($Token in @('RunSeedRules.mission_seed','seed(run_seed)')) { if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing integration token: $Token" } }
+foreach ($Token in @('RunSeedRules.mission_seed','seed(run_seed)')) { if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing token: $Token" } }
 $MissionStateText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_director.gd')
 foreach ($Token in @('process_priority = 100','MissionStateRules.starting_hull','MissionStateRules.starting_shield','MissionStateRules.live_wave')) { if (-not $MissionStateText.Contains($Token)) { throw "Mission state director missing token: $Token" } }
+$MissionFlowText = Get-Content -Raw (Join-Path $Root 'scripts/mission_flow_director.gd')
+foreach ($Token in @('process_priority = -40','MissionFlowRules.should_hold_overtime','safe_pre_frame_time','OVERTIME - DESTROY THE BOSS')) { if (-not $MissionFlowText.Contains($Token)) { throw "Mission flow director missing token: $Token" } }
 $WeaponPickupRulesText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_rules.gd')
 foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) { if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" } }
 $WeaponPickupDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_director.gd')
@@ -152,7 +161,7 @@ foreach ($Token in @('MISSION COMPLETE','RewardRules.extra_success_bonus','Accur
 $ServiceRulesText = Get-Content -Raw (Join-Path $Root 'scripts/service_rules.gd')
 foreach ($Token in @('service_cost','can_service','service_full')) { if (-not $ServiceRulesText.Contains($Token)) { throw "Service rules missing token: $Token" } }
 $ServiceDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/service_director.gd')
-foreach ($Token in @('KEY_H','KEY_J','_capture_success_state','repair_cost_per_hull','shield_recharge_cost_per_point','restore_service_state')) { if (-not $ServiceDirectorText.Contains($Token)) { throw "Service director missing token: $Token" } }
+foreach ($Token in @('KEY_H','KEY_J','_capture_success_state','repair_cost_per_hull','shield_recharge_cost_per_point','restore_service_state','ServiceRules.service_cost')) { if (-not $ServiceDirectorText.Contains($Token)) { throw "Service director missing token: $Token" } }
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 foreach ($Token in @('SAVE_VERSION := 2','_saved_weapon_index','ServiceDirector','service_hull','service_shield','restore_service_state','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" } }
 
@@ -170,6 +179,9 @@ if ($LASTEXITCODE -ne 0) { throw "Strike Wing reward self-test failed with exit 
 Write-Host 'Running service economy self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/service_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing service self-test failed with exit code $LASTEXITCODE" }
+Write-Host 'Running mission flow self-test...' -ForegroundColor DarkCyan
+& $Godot --headless --path $Root --script res://tools/mission_flow_self_test.gd
+if ($LASTEXITCODE -ne 0) { throw "Strike Wing mission flow self-test failed with exit code $LASTEXITCODE" }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --editor --quit
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
