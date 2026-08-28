@@ -20,6 +20,17 @@ func _supports(scene: Object) -> bool:
 			return false
 	return true
 
+func _catalog_max_hp(scene: Object, boss_id: String, fallback_hp: int) -> int:
+	if not _has_property(scene, "enemy_catalog"):
+		return maxi(1, fallback_hp)
+	var catalog = scene.get("enemy_catalog")
+	if typeof(catalog) != TYPE_ARRAY:
+		return maxi(1, fallback_hp)
+	for archetype in catalog:
+		if str(archetype.get("id", "")) == boss_id:
+			return maxi(1, int(archetype.get("hp", fallback_hp)))
+	return maxi(1, fallback_hp)
+
 func _update_bosses(scene: Object, delta: float) -> void:
 	var enemies: Array = scene.get("enemies")
 	var bullets: Array = scene.get("enemy_bullets")
@@ -29,15 +40,15 @@ func _update_bosses(scene: Object, delta: float) -> void:
 		if not bool(boss.get("boss", false)):
 			continue
 		var hp := int(boss.get("hp", 1))
-		var max_hp := int(boss.get("max_hp", hp))
-		if not boss.has("max_hp"):
-			max_hp = maxi(1, hp)
+		var max_hp := int(boss.get("max_hp", 0))
+		if max_hp <= 0:
+			max_hp = _catalog_max_hp(scene, str(boss.get("id", "")), hp)
 			boss["max_hp"] = max_hp
 			boss["base_speed"] = float(boss.get("speed", 24.0))
 			boss["base_drift"] = float(boss.get("drift", 28.0))
 			boss["phase_salvo_timer"] = 1.4
 			boss["last_hp"] = hp
-			boss["last_reported_phase"] = 1
+			boss["last_reported_phase"] = BossRules.phase_for(hp, max_hp)
 
 		var previous_hp := int(boss.get("last_hp", hp))
 		var phase := BossRules.phase_for(hp, max_hp)
@@ -54,7 +65,7 @@ func _update_bosses(scene: Object, delta: float) -> void:
 		boss["fire_timer"] = minf(float(boss.get("fire_timer", 1.0)), 1.4 * BossRules.phase_fire_multiplier(phase))
 		boss["phase_salvo_timer"] = float(boss.get("phase_salvo_timer", 1.4)) - delta
 
-		var reported_phase := int(boss.get("last_reported_phase", 1))
+		var reported_phase := int(boss.get("last_reported_phase", phase))
 		if phase > reported_phase:
 			boss["last_reported_phase"] = phase
 			_report_phase(scene, boss, phase)
