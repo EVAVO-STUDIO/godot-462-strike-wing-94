@@ -3,8 +3,9 @@ extends Node
 const SAVE_PATH := "user://strike_wing_94_save.json"
 const SAVE_VERSION := 1
 const SAVE_INTERVAL := 1.0
+const MAX_CREDITS := 99999999
 
-var _restored := false
+var _restored_scene_id := 0
 var _timer := 0.0
 var _last_signature := ""
 
@@ -12,10 +13,12 @@ func _process(delta: float) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or not _supports_campaign_state(scene):
 		return
-	if not _restored:
+	var scene_id := scene.get_instance_id()
+	if _restored_scene_id != scene_id:
 		_restore(scene)
-		_restored = true
+		_restored_scene_id = scene_id
 		_last_signature = _signature(scene)
+		_timer = 0.0
 		return
 	_timer += delta
 	if _timer < SAVE_INTERVAL:
@@ -42,12 +45,28 @@ func _supports_campaign_state(scene: Object) -> bool:
 			return false
 	return true
 
+func _mission_count(scene: Object) -> int:
+	var catalog = scene.get("mission_catalog")
+	if typeof(catalog) == TYPE_ARRAY:
+		return maxi(1, catalog.size())
+	return 1
+
+func _primary_weapon_count(scene: Object) -> int:
+	var catalog = scene.get("weapon_catalog")
+	if typeof(catalog) != TYPE_ARRAY:
+		return 1
+	var count := 0
+	for weapon in catalog:
+		if typeof(weapon) == TYPE_DICTIONARY and str(weapon.get("slot", "")) == "primary":
+			count += 1
+	return maxi(1, count)
+
 func _snapshot(scene: Object) -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
-		"credits": maxi(0, int(scene.get("credits"))),
-		"mission_index": maxi(0, int(scene.get("mission_index"))),
-		"weapon_index": maxi(0, int(scene.get("weapon_index")))
+		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
+		"mission_index": clampi(int(scene.get("mission_index")), 0, _mission_count(scene) - 1),
+		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1)
 	}
 
 func _signature(scene: Object) -> String:
@@ -70,12 +89,11 @@ func _restore(scene: Object) -> void:
 	if typeof(parsed) != TYPE_DICTIONARY or int(parsed.get("version", -1)) != SAVE_VERSION:
 		push_warning("Strike Wing save ignored because it is invalid or from an unsupported version.")
 		return
-	scene.set("credits", maxi(0, int(parsed.get("credits", scene.get("credits")))))
-	scene.set("mission_index", maxi(0, int(parsed.get("mission_index", scene.get("mission_index")))))
-	scene.set("weapon_index", maxi(0, int(parsed.get("weapon_index", scene.get("weapon_index")))))
+	var mission_index := clampi(int(parsed.get("mission_index", scene.get("mission_index"))), 0, _mission_count(scene) - 1)
+	var weapon_index := clampi(int(parsed.get("weapon_index", scene.get("weapon_index"))), 0, _primary_weapon_count(scene) - 1)
+	var credits := clampi(int(parsed.get("credits", scene.get("credits"))), 0, MAX_CREDITS)
+	scene.set("credits", credits)
+	scene.set("mission_index", mission_index)
+	scene.set("weapon_index", weapon_index)
 	if scene.has_method("_prepare_mission"):
-		var count := 1
-		var catalog = scene.get("mission_catalog")
-		if typeof(catalog) == TYPE_ARRAY:
-			count = maxi(1, catalog.size())
-		scene.call("_prepare_mission", int(scene.get("mission_index")) % count)
+		scene.call("_prepare_mission", mission_index)
