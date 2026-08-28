@@ -23,7 +23,8 @@ Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
-    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd','tools/runtime_self_test.gd',
+    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd','scripts/bomb_guard_director.gd',
+    'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd','tools/runtime_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -106,13 +107,22 @@ $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
     'CampaignSave="*res://scripts/campaign_save.gd"',
     'BossDirector="*res://scripts/boss_director.gd"',
-    'RunSeedDirector="*res://scripts/run_seed_director.gd"'
+    'RunSeedDirector="*res://scripts/run_seed_director.gd"',
+    'BombGuardDirector="*res://scripts/bomb_guard_director.gd"'
 )) {
     if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
 }
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
 foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) {
     if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" }
+}
+$BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
+foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) {
+    if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" }
+}
+$BombGuardText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_guard_director.gd')
+foreach ($Token in @('process_priority = -50','_hold_bosses','_restore_bosses','BombRules.apply_nonlethal_boss_damage')) {
+    if (-not $BombGuardText.Contains($Token)) { throw "Bomb guard missing integration token: $Token" }
 }
 $SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
 foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) {
