@@ -9,6 +9,7 @@ const BossRules = preload("res://scripts/boss_rules.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
+const WeaponPickupRules = preload("res://scripts/weapon_pickup_rules.gd")
 
 var failures: Array[String] = []
 
@@ -22,6 +23,7 @@ func _initialize() -> void:
 	_test_run_seeds()
 	_test_bombs()
 	_test_mission_state()
+	_test_weapon_pickups()
 	if failures.is_empty():
 		print("Strike Wing runtime self-test passed.")
 		quit(0)
@@ -107,10 +109,16 @@ func _test_bombs() -> void:
 	_expect(BombRules.apply_nonlethal_boss_damage(3, 100) == 1, "bomb must never destroy a mission boss")
 
 func _test_mission_state() -> void:
-	var campaign := {"starting_hull":125,"starting_shield":80}
-	_expect(MissionStateRules.starting_hull(campaign) == 125, "campaign starting hull should be honored")
-	_expect(MissionStateRules.starting_shield(campaign) == 80, "campaign starting shield should be honored")
-	var mission := {"starting_wave":4}
-	_expect(MissionStateRules.starting_wave(mission) == 4, "mission starting wave should be honored")
-	_expect(MissionStateRules.live_wave(mission, 0.0) == 4, "mission should begin at authored starting wave")
-	_expect(MissionStateRules.live_wave(mission, 40.0) == 6, "mission wave progression should advance relative to authored starting wave")
+	var campaign = {"starting_hull":92,"starting_shield":84}
+	var mission = {"starting_wave":4}
+	_expect(MissionStateRules.starting_hull(campaign) == 92, "campaign starting hull should be respected")
+	_expect(MissionStateRules.starting_shield(campaign) == 84, "campaign starting shield should be respected")
+	_expect(MissionStateRules.starting_wave(mission) == 4, "mission starting wave should be respected")
+	_expect(MissionStateRules.wave_for_mission_time(4, 0.0) == 4, "mission should begin on authored starting wave")
+	_expect(MissionStateRules.wave_for_mission_time(4, 40.0) == 6, "mission wave progression should advance relative to starting wave")
+
+func _test_weapon_pickups() -> void:
+	_expect(WeaponPickupRules.temporary_boost_for_indices(1, 2) == 1, "sortie pickup should register as temporary boost over permanent tier")
+	_expect(WeaponPickupRules.saved_index(1, 3) == 1, "campaign save should preserve permanent paid tier")
+	_expect(WeaponPickupRules.effective_index(1, 1, 3) == 2, "temporary pickup should allow stronger sortie weapon")
+	_expect(WeaponPickupRules.effective_index(2, 2, 3) == 2, "temporary pickup should clamp at maximum weapon tier")
