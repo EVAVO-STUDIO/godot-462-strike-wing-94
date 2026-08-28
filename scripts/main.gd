@@ -63,36 +63,52 @@ func _update_weapons() -> void:
 
 func _update_bullets(delta: float) -> void:
 	for i in range(bullets.size() - 1, -1, -1):
-		bullets[i]["position"].y -= BULLET_SPEED * delta
-		if bullets[i]["position"].y < PLAYFIELD.position.y - 12.0:
+		var bullet: Dictionary = bullets[i]
+		var position: Vector2 = bullet["position"]
+		position.y -= BULLET_SPEED * delta
+		bullet["position"] = position
+		bullets[i] = bullet
+		if position.y < PLAYFIELD.position.y - 12.0:
 			bullets.remove_at(i)
 
 func _update_enemies(delta: float) -> void:
 	for i in range(enemies.size() - 1, -1, -1):
-		var enemy = enemies[i]
-		enemy["age"] += delta
-		enemy["position"].y += enemy["speed"] * delta
-		enemy["position"].x += sin(enemy["age"] * enemy["turn_rate"] + enemy["phase"]) * enemy["drift"] * delta
-		enemy["position"].x = clampf(enemy["position"].x, PLAYFIELD.position.x + 12.0, PLAYFIELD.end.x - 12.0)
-		if enemy["position"].y > PLAYFIELD.end.y + 22.0:
+		var enemy: Dictionary = enemies[i]
+		var position: Vector2 = enemy["position"]
+		var age := float(enemy["age"]) + delta
+		position.y += float(enemy["speed"]) * delta
+		position.x += sin(age * float(enemy["turn_rate"]) + float(enemy["phase"])) * float(enemy["drift"]) * delta
+		position.x = clampf(position.x, PLAYFIELD.position.x + 12.0, PLAYFIELD.end.x - 12.0)
+		enemy["age"] = age
+		enemy["position"] = position
+		enemies[i] = enemy
+		if position.y > PLAYFIELD.end.y + 22.0:
 			enemies.remove_at(i)
 
 func _resolve_combat() -> void:
 	for bullet_index in range(bullets.size() - 1, -1, -1):
+		var bullet: Dictionary = bullets[bullet_index]
+		var bullet_position: Vector2 = bullet["position"]
 		var bullet_hit := false
 		for enemy_index in range(enemies.size() - 1, -1, -1):
-			if bullets[bullet_index]["position"].distance_squared_to(enemies[enemy_index]["position"]) <= 196.0:
-				enemies[enemy_index]["hp"] -= bullets[bullet_index]["damage"]
+			var enemy: Dictionary = enemies[enemy_index]
+			var enemy_position: Vector2 = enemy["position"]
+			if bullet_position.distance_squared_to(enemy_position) <= 196.0:
+				var hp := int(enemy["hp"]) - int(bullet["damage"])
+				enemy["hp"] = hp
 				bullet_hit = true
-				if enemies[enemy_index]["hp"] <= 0:
-					score += enemies[enemy_index]["value"]
+				if hp <= 0:
+					score += int(enemy["value"])
 					enemies.remove_at(enemy_index)
+				else:
+					enemies[enemy_index] = enemy
 				break
 		if bullet_hit:
 			bullets.remove_at(bullet_index)
 
 	for enemy_index in range(enemies.size() - 1, -1, -1):
-		if enemies[enemy_index]["position"].distance_squared_to(player_position) <= 420.0:
+		var enemy_position: Vector2 = enemies[enemy_index]["position"]
+		if enemy_position.distance_squared_to(player_position) <= 420.0:
 			_apply_damage(18)
 			enemies.remove_at(enemy_index)
 
