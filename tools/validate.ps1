@@ -23,14 +23,17 @@ Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
-    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd','scripts/bomb_guard_director.gd',
-    'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
+    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/boss_hud_rules.gd','scripts/boss_hud_director.gd',
+    'scripts/bomb_rules.gd','scripts/bomb_guard_director.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd',
+    'scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
     'scripts/mission_state_rules.gd','scripts/mission_state_director.gd','scripts/mission_flow_rules.gd','scripts/mission_flow_director.gd',
     'scripts/movement_pattern_rules.gd','scripts/movement_pattern_director.gd',
+    'scripts/missile_behavior_rules.gd','scripts/missile_behavior_director.gd','scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd',
+    'scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
     'scripts/accuracy_rules.gd','scripts/accuracy_director.gd','scripts/reward_rules.gd','scripts/reward_director.gd',
     'scripts/service_rules.gd','scripts/service_director.gd',
-    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd',
+    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -133,11 +136,21 @@ foreach ($Autoload in @(
     'MissionStateDirector="*res://scripts/mission_state_director.gd"','MissionFlowDirector="*res://scripts/mission_flow_director.gd"',
     'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"','AccuracyDirector="*res://scripts/accuracy_director.gd"',
     'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"',
-    'MovementPatternDirector="*res://scripts/movement_pattern_director.gd"'
+    'MovementPatternDirector="*res://scripts/movement_pattern_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"',
+    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"',
+    'MissileBehaviorDirector="*res://scripts/missile_behavior_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
 
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
 foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) { if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" } }
+$BossHudText = Get-Content -Raw (Join-Path $Root 'scripts/boss_hud_director.gd')
+foreach ($Token in @('BossHudRules.hud_text','health_ratio','ProgressBar','CanvasLayer')) { if (-not $BossHudText.Contains($Token)) { throw "Boss HUD missing token: $Token" } }
+$ThreatText = Get-Content -Raw (Join-Path $Root 'scripts/threat_warning_director.gd')
+foreach ($Token in @('ThreatWarningRules.homing_count','nearest_homing_distance','MISSILE')) { if (-not $ThreatText.Contains($Token)) { throw "Threat warning missing token: $Token" } }
+$ProjectileCueText = Get-Content -Raw (Join-Path $Root 'scripts/projectile_cue_director.gd')
+foreach ($Token in @('ProjectileCueRules.projectile_type','TYPE_MISSILE','queue_redraw')) { if (-not $ProjectileCueText.Contains($Token)) { throw "Projectile cue missing token: $Token" } }
+$MissileBehaviorText = Get-Content -Raw (Join-Path $Root 'scripts/missile_behavior_director.gd')
+foreach ($Token in @('process_priority = 40','MissileBehaviorRules.should_tag_as_missile','MissileBehaviorRules.tag_homing')) { if (-not $MissileBehaviorText.Contains($Token)) { throw "Missile behavior missing token: $Token" } }
 $BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
 foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) { if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" } }
 $BombGuardText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_guard_director.gd')
@@ -170,8 +183,10 @@ $ServiceRulesText = Get-Content -Raw (Join-Path $Root 'scripts/service_rules.gd'
 foreach ($Token in @('service_cost','can_service','service_full')) { if (-not $ServiceRulesText.Contains($Token)) { throw "Service rules missing token: $Token" } }
 $ServiceDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/service_director.gd')
 foreach ($Token in @('KEY_H','KEY_J','_capture_success_state','repair_cost_per_hull','shield_recharge_cost_per_point','restore_service_state','ServiceRules.service_cost')) { if (-not $ServiceDirectorText.Contains($Token)) { throw "Service director missing token: $Token" } }
+$RecoveryRulesText = Get-Content -Raw (Join-Path $Root 'scripts/save_recovery_rules.gd')
+foreach ($Token in @('parse_supported_json','choose_primary_or_backup','source')) { if (-not $RecoveryRulesText.Contains($Token)) { throw "Save recovery rules missing token: $Token" } }
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-foreach ($Token in @('SAVE_VERSION := 2','_saved_weapon_index','ServiceDirector','service_hull','service_shield','restore_service_state','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" } }
+foreach ($Token in @('SAVE_VERSION := 2','BACKUP_PATH','SaveRecoveryRules.choose_primary_or_backup','_backup_current_primary','_saved_weapon_index','ServiceDirector','restore_service_state','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing recovery/hardening token: $Token" } }
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
@@ -187,9 +202,12 @@ if ($LASTEXITCODE -ne 0) { throw "Strike Wing reward self-test failed with exit 
 Write-Host 'Running service economy self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/service_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing service self-test failed with exit code $LASTEXITCODE" }
-Write-Host 'Running mission flow/movement self-test...' -ForegroundColor DarkCyan
+Write-Host 'Running mission flow/projectile self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/mission_flow_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing mission flow self-test failed with exit code $LASTEXITCODE" }
+Write-Host 'Running save recovery self-test...' -ForegroundColor DarkCyan
+& $Godot --headless --path $Root --script res://tools/save_recovery_self_test.gd
+if ($LASTEXITCODE -ne 0) { throw "Strike Wing save recovery self-test failed with exit code $LASTEXITCODE" }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --editor --quit
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
