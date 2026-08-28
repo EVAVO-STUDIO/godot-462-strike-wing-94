@@ -6,6 +6,7 @@ const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
+const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 
 var failures: Array[String] = []
 
@@ -16,6 +17,7 @@ func _initialize() -> void:
 	_test_progression()
 	_test_objectives()
 	_test_bosses()
+	_test_run_seeds()
 	if failures.is_empty():
 		print("Strike Wing runtime self-test passed.")
 		quit(0)
@@ -84,3 +86,13 @@ func _test_bosses() -> void:
 	_expect(BossRules.phase_fire_multiplier(3) < BossRules.phase_fire_multiplier(1), "later boss phases should fire faster")
 	_expect(BossRules.volley_count("missile", 3) >= 3, "phase-three missile boss should emit a multi-shot salvo")
 	_expect(BossRules.weak_point_multiplier(3) > 1.0, "phase-three weak point should increase damage")
+
+func _test_run_seeds() -> void:
+	var mission_zero := RunSeedRules.mission_seed(0)
+	var mission_zero_retry := RunSeedRules.mission_seed(0)
+	var mission_one := RunSeedRules.mission_seed(1)
+	_expect(mission_zero == mission_zero_retry, "retrying the same mission should reproduce the same run seed")
+	_expect(mission_one != mission_zero, "different missions should use distinct run seeds")
+	_expect(RunSeedRules.mission_seed(-5) == mission_zero, "negative mission indices should clamp to mission zero")
+	_expect(RunSeedRules.same_mission_reproducible(2, 2), "same-mission reproducibility helper should report true")
+	_expect(RunSeedRules.missions_are_distinct(1, 2), "distinct mission helper should report different seeds")
