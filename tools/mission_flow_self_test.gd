@@ -6,6 +6,8 @@ const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
 const MovementPatternDirector = preload("res://scripts/movement_pattern_director.gd")
 const BossHudRules = preload("res://scripts/boss_hud_rules.gd")
 const BossHudDirector = preload("res://scripts/boss_hud_director.gd")
+const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
+const ThreatWarningDirector = preload("res://scripts/threat_warning_director.gd")
 
 var failures: Array[String] = []
 
@@ -15,6 +17,7 @@ func _initialize() -> void:
 	_test_movement_patterns()
 	_test_movement_autoload()
 	_test_boss_hud()
+	_test_threat_warning()
 	if failures.is_empty():
 		print("Strike Wing mission flow self-test passed.")
 		quit(0)
@@ -90,6 +93,7 @@ func _test_movement_autoload() -> void:
 	var text := file.get_as_text()
 	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
 	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
+	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
 
 func _test_boss_hud() -> void:
 	_expect(absf(BossHudRules.health_ratio(50, 100) - 0.5) < 0.001, "boss HUD health ratio should reflect current/max HP")
@@ -99,6 +103,22 @@ func _test_boss_hud() -> void:
 	var hud := BossHudDirector.new()
 	_expect(hud != null, "boss HUD director should instantiate")
 	hud.free()
+
+func _test_threat_warning() -> void:
+	var bullets := [
+		{"position":Vector2(100,0),"homing":true},
+		{"position":Vector2(300,0),"homing":true},
+		{"position":Vector2(10,0),"homing":false}
+	]
+	_expect(ThreatWarningRules.homing_count(bullets) == 2, "threat warning should count only homing shots")
+	var nearest := ThreatWarningRules.nearest_homing_distance(bullets, Vector2.ZERO)
+	_expect(absf(nearest - 100.0) < 0.01, "threat warning should use nearest homing projectile distance")
+	_expect(ThreatWarningRules.warning_level(nearest, 2) == 2, "close homing projectile should trigger danger level")
+	_expect(ThreatWarningRules.warning_text(nearest, 2).contains("MISSILE LOCK"), "danger warning should clearly telegraph missile lock")
+	_expect(ThreatWarningRules.warning_text(INF, 0) == "", "no homing shots should produce no warning")
+	var warning := ThreatWarningDirector.new()
+	_expect(warning != null, "threat warning director should instantiate")
+	warning.free()
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
