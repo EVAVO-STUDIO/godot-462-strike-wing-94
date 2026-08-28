@@ -12,12 +12,15 @@ const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
 const MissileBehaviorRules = preload("res://scripts/missile_behavior_rules.gd")
 const MissileBehaviorDirector = preload("res://scripts/missile_behavior_director.gd")
+const SpawnSafetyRules = preload("res://scripts/spawn_safety_rules.gd")
+const SpawnSafetyDirector = preload("res://scripts/spawn_safety_director.gd")
 
 var failures: Array[String] = []
 
 func _initialize() -> void:
 	_test_overtime()
 	_test_spawn_coverage()
+	_test_spawn_safety()
 	_test_movement_patterns()
 	_test_movement_autoload()
 	_test_boss_hud()
@@ -65,6 +68,18 @@ func _test_spawn_coverage() -> void:
 			next_wave = maxi(next_wave, int(range["max"]) + 1)
 		_expect(next_wave >= 100, "%s spawn profiles should cover through wave 99" % environment)
 
+func _test_spawn_safety() -> void:
+	var valid_profiles := [{"environment":"coast","min_wave":1,"max_wave":3,"enemy_ids":["scout_falcon"]}]
+	_expect(SpawnSafetyRules.has_matching_profile(valid_profiles, "coast", 2), "valid covered wave should keep authored spawn profile")
+	_expect(not SpawnSafetyRules.has_matching_profile(valid_profiles, "coast", 7), "uncovered wave should be detected")
+	var sentinel := SpawnSafetyRules.sentinel_profile("coast", 7)
+	_expect(str(sentinel.get("environment", "")) == "coast" and int(sentinel.get("min_wave", 0)) == 7 and int(sentinel.get("max_wave", 0)) == 7, "spawn safety sentinel should target only the uncovered runtime wave")
+	var ids: Array = sentinel.get("enemy_ids", [])
+	_expect(ids.size() == 1 and str(ids[0]) == SpawnSafetyRules.SENTINEL_ENEMY_ID, "spawn safety sentinel must use an enemy ID that cannot broaden candidates")
+	var safety := SpawnSafetyDirector.new()
+	_expect(safety != null, "spawn safety director should instantiate")
+	safety.free()
+
 func _test_movement_patterns() -> void:
 	var data = ContentCatalog.load_json("res://data/enemies.json")
 	_expect(typeof(data) == TYPE_DICTIONARY, "enemy catalogue should load for movement patterns")
@@ -97,6 +112,7 @@ func _test_movement_autoload() -> void:
 	if file == null:
 		return
 	var text := file.get_as_text()
+	_expect(text.contains("SpawnSafetyDirector=\"*res://scripts/spawn_safety_director.gd\""), "spawn safety director must remain autoloaded")
 	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
 	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
 	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
