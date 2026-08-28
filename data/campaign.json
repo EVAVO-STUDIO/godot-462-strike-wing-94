@@ -1,12 +1,12 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "campaign": {
     "starting_credits": 2500,
     "starting_hull": 100,
     "starting_shield": 100,
     "repair_cost_per_hull": 8,
     "shield_recharge_cost_per_point": 3,
-    "missions": ["coastal_warning","iron_delta","night_freight"]
+    "missions": ["m01_coastal_intercept", "m02_refinery_run", "m03_black_sea"]
   },
   "progression": {
     "mission_complete_bonus": 1000,
@@ -14,5 +14,10 @@
     "accuracy_bonus_threshold": 0.72,
     "accuracy_bonus": 350,
     "boss_kill_bonus": 1500
+  },
+  "save": {
+    "schema_version": 1,
+    "autosave_seconds": 1.0,
+    "path": "user://strike_wing_94_save.json"
   }
 }
