@@ -1,6 +1,6 @@
 extends Node
 
-const BASE_SEED := 940062
+const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 
 var _scene_id := 0
 var _last_phase := -1
@@ -38,7 +38,7 @@ func _supports(scene: Object) -> bool:
 
 func _seed_for_scene(scene: Object) -> void:
 	var mission_index := maxi(0, int(scene.get("mission_index")))
-	var run_seed := BASE_SEED + mission_index * 1009
+	var run_seed := RunSeedRules.mission_seed(mission_index)
 	seed(run_seed)
 	if _has_property(scene, "status_text") and int(scene.get("phase")) != 1:
 		scene.set("status_text", "MISSION SEED %d" % run_seed)
