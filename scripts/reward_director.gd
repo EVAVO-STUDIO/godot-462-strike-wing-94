@@ -45,23 +45,36 @@ func _apply_result_bonus(scene: Object) -> void:
 	var progression: Dictionary = campaign_data.get("progression", {})
 	var campaign_cfg: Dictionary = campaign_data.get("campaign", {})
 	var starting_hull := maxi(1, int(campaign_cfg.get("starting_hull", 100)))
+	var shots_fired := 0
+	var shots_hit := 0
+	var accuracy_director := get_node_or_null("/root/AccuracyDirector")
+	if accuracy_director != null:
+		if accuracy_director.has_method("shots_fired"):
+			shots_fired = int(accuracy_director.call("shots_fired"))
+		if accuracy_director.has_method("shots_hit"):
+			shots_hit = int(accuracy_director.call("shots_hit"))
 	var bonus := RewardRules.extra_success_bonus(
 		progression,
 		int(scene.get("hull")),
 		starting_hull,
 		str(scene.get("current_boss_id")),
 		scene.get("current_objectives"),
-		scene.get("objective_progress")
+		scene.get("objective_progress"),
+		shots_fired,
+		shots_hit
 	)
 	var total := int(bonus.get("total", 0))
-	if total <= 0:
-		_applied_key = key
-		return
-	scene.set("credits", int(scene.get("credits")) + total)
 	var parts: Array[String] = []
 	if int(bonus.get("no_damage", 0)) > 0:
 		parts.append("NO DAMAGE +%d" % int(bonus["no_damage"]))
 	if int(bonus.get("boss", 0)) > 0:
 		parts.append("BOSS +%d" % int(bonus["boss"]))
-	scene.set("result_text", "%s  %s" % [result_text, "  ".join(parts)])
+	if int(bonus.get("accuracy", 0)) > 0:
+		parts.append("ACCURACY %d%% +%d" % [int(round(float(bonus.get("accuracy_ratio", 0.0)) * 100.0)), int(bonus["accuracy"])])
+	elif shots_fired > 0:
+		parts.append("ACCURACY %d%%" % int(round(float(bonus.get("accuracy_ratio", 0.0)) * 100.0)))
+	if total > 0:
+		scene.set("credits", int(scene.get("credits")) + total)
+	if not parts.is_empty():
+		scene.set("result_text", "%s  %s" % [result_text, "  ".join(parts)])
 	_applied_key = key
