@@ -20,6 +20,7 @@ ServiceDirector="*res://scripts/service_director.gd"
 MovementPatternDirector="*res://scripts/movement_pattern_director.gd"
 BossHudDirector="*res://scripts/boss_hud_director.gd"
 ThreatWarningDirector="*res://scripts/threat_warning_director.gd"
+ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"
 
 [display]
 window/size/viewport_width=640
