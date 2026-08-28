@@ -3,6 +3,7 @@ extends Node2D
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const ProjectileRules = preload("res://scripts/projectile_rules.gd")
+const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 
@@ -25,9 +26,12 @@ var mission_index := 0
 var weapon_index := 0
 var boss_spawned := false
 var current_boss_id := ""
+var current_environment := "coast"
 var current_mission_name := "COASTAL INTERCEPT"
 var current_briefing := ""
 var result_text := ""
+var status_text := ""
+var status_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
 var enemies: Array = []
@@ -35,6 +39,7 @@ var pickups: Array = []
 var enemy_catalog: Array = []
 var weapon_catalog: Array = []
 var mission_catalog: Array = []
+var spawn_profiles: Array = []
 var campaign: Dictionary = {}
 
 func _ready() -> void:
@@ -44,9 +49,12 @@ func _ready() -> void:
 	queue_redraw()
 
 func _process(delta: float) -> void:
+	status_timer = maxf(0.0, status_timer - delta)
 	if phase == GamePhase.TITLE:
 		if Input.is_action_just_pressed("confirm"):
 			_start_mission()
+		elif Input.is_action_just_pressed("upgrade"):
+			_try_buy_next_weapon()
 	elif phase == GamePhase.PLAYING:
 		_update_mission(delta)
 		if Input.is_action_just_pressed("cancel"):
@@ -86,6 +94,7 @@ func _load_content() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
 	var weapons_data = ContentCatalog.load_json("res://data/weapons.json")
 	var missions_data = ContentCatalog.load_json("res://data/missions.json")
+	var spawn_data = ContentCatalog.load_json("res://data/spawn_profiles.json")
 	var campaign_data = ContentCatalog.load_json("res://data/campaign.json")
 	if typeof(enemies_data) == TYPE_DICTIONARY:
 		enemy_catalog = enemies_data.get("enemies", [])
@@ -93,6 +102,8 @@ func _load_content() -> void:
 		weapon_catalog = weapons_data.get("weapons", [])
 	if typeof(missions_data) == TYPE_DICTIONARY:
 		mission_catalog = missions_data.get("missions", [])
+	if typeof(spawn_data) == TYPE_DICTIONARY:
+		spawn_profiles = spawn_data.get("profiles", [])
 	if typeof(campaign_data) == TYPE_DICTIONARY:
 		campaign = campaign_data
 		credits = int(campaign.get("starting_credits", 0))
@@ -103,12 +114,14 @@ func _prepare_mission(index: int) -> void:
 		current_briefing = "Intercept all incoming hostile aircraft."
 		mission_duration = 150.0
 		current_boss_id = ""
+		current_environment = "coast"
 		return
 	var mission: Dictionary = mission_catalog[clampi(index, 0, mission_catalog.size() - 1)]
 	current_mission_name = str(mission.get("name", "SCRAMBLE")).to_upper()
 	current_briefing = str(mission.get("briefing", ""))
 	mission_duration = float(mission.get("duration_seconds", 150.0))
 	current_boss_id = str(mission.get("boss_id", ""))
+	current_environment = str(mission.get("environment", "coast"))
 
 func _start_mission() -> void:
 	phase = GamePhase.PLAYING
@@ -118,7 +131,6 @@ func _start_mission() -> void:
 	shield = 100
 	bombs = 3
 	wave = 1
-	weapon_index = 0
 	boss_spawned = false
 	enemy_spawn_timer = 0.35
 	player_position = Vector2(320.0, 292.0)
@@ -128,7 +140,7 @@ func _finish_mission(success: bool) -> void:
 	phase = GamePhase.RESULT
 	_clear_combat()
 	if success:
-		var reward := 1000 + score / 10
+		var reward := ProgressionRules.mission_reward(score)
 		credits += reward
 		result_text = "MISSION COMPLETE  +%d CREDITS" % reward
 	else:
@@ -140,20 +152,39 @@ func _clear_combat() -> void:
 	enemies.clear()
 	pickups.clear()
 
+func _primary_weapons() -> Array:
+	var result: Array = []
+	for weapon in weapon_catalog:
+		if str(weapon.get("slot", "")) == "primary":
+			result.append(weapon)
+	return result
+
+func _active_weapon() -> Dictionary:
+	var primaries := _primary_weapons()
+	if primaries.is_empty():
+		return {"name":"Twin Cannon Mk I","damage":1,"fire_interval":0.11,"projectile_speed":430.0,"projectiles":2,"spread_degrees":0.0,"cost":0}
+	return primaries[clampi(weapon_index, 0, primaries.size() - 1)]
+
+func _try_buy_next_weapon() -> void:
+	var primaries := _primary_weapons()
+	var result := ProgressionRules.next_weapon_index(weapon_index, primaries, credits)
+	if bool(result["changed"]):
+		weapon_index = int(result["index"])
+		credits = int(result["credits"])
+		status_text = "UPGRADE PURCHASED: %s" % str(_active_weapon().get("name", "WEAPON")).to_upper()
+	else:
+		var next_index := clampi(weapon_index + 1, 0, maxi(0, primaries.size() - 1))
+		if primaries.is_empty() or next_index == weapon_index:
+			status_text = "MAXIMUM PRIMARY LOADOUT"
+		else:
+			status_text = "NEED %d CREDITS" % int(primaries[next_index].get("cost", 0))
+	status_timer = 2.0
+
 func _update_player(delta: float) -> void:
 	var movement := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	player_position += movement * PLAYER_SPEED * delta
 	player_position.x = clampf(player_position.x, PLAYFIELD.position.x + 12.0, PLAYFIELD.end.x - 12.0)
 	player_position.y = clampf(player_position.y, PLAYFIELD.position.y + 16.0, PLAYFIELD.end.y - 12.0)
-
-func _active_weapon() -> Dictionary:
-	var primaries: Array = []
-	for weapon in weapon_catalog:
-		if str(weapon.get("slot", "")) == "primary":
-			primaries.append(weapon)
-	if primaries.is_empty():
-		return {"name":"Twin Cannon Mk I","damage":1,"fire_interval":0.11,"projectile_speed":430.0,"projectiles":2,"spread_degrees":0.0}
-	return primaries[weapon_index % primaries.size()]
 
 func _update_weapons() -> void:
 	var weapon := _active_weapon()
@@ -167,7 +198,7 @@ func _update_weapons() -> void:
 			var angle := 0.0
 			if projectile_count > 1:
 				angle = deg_to_rad(lerpf(-spread, spread, float(i) / float(projectile_count - 1)))
-			bullets.append({"position": player_position + Vector2(0.0, -16.0), "velocity": Vector2.UP.rotated(angle) * speed, "damage": damage})
+			bullets.append({"position":player_position + Vector2(0.0, -16.0),"velocity":Vector2.UP.rotated(angle) * speed,"damage":damage})
 	if Input.is_action_just_pressed("fire_secondary") and secondary_timer <= 0.0 and bombs > 0:
 		bombs -= 1
 		secondary_timer = 1.0
@@ -180,24 +211,22 @@ func _update_bullets(delta: float) -> void:
 	for i in range(bullets.size() - 1, -1, -1):
 		var bullet: Dictionary = bullets[i]
 		var position: Vector2 = bullet["position"]
-		position += Vector2(bullet.get("velocity", Vector2.UP * 430.0)) * delta
+		position += bullet.get("velocity", Vector2.UP * 430.0) * delta
 		bullet["position"] = position
 		bullets[i] = bullet
-		if not PLAYFIELD.grow(24.0).has_point(position):
-			bullets.remove_at(i)
+		if not PLAYFIELD.grow(24.0).has_point(position): bullets.remove_at(i)
 
 func _update_enemy_bullets(delta: float) -> void:
 	for i in range(enemy_bullets.size() - 1, -1, -1):
 		var shot: Dictionary = enemy_bullets[i]
 		var position: Vector2 = shot["position"]
-		position += Vector2(shot["velocity"]) * delta
+		position += shot["velocity"] * delta
 		shot["position"] = position
 		enemy_bullets[i] = shot
 		if position.distance_squared_to(player_position) <= 120.0:
 			_apply_damage(int(shot.get("damage", 8)))
 			enemy_bullets.remove_at(i)
-		elif not PLAYFIELD.grow(32.0).has_point(position):
-			enemy_bullets.remove_at(i)
+		elif not PLAYFIELD.grow(32.0).has_point(position): enemy_bullets.remove_at(i)
 
 func _update_pickups(delta: float) -> void:
 	for i in range(pickups.size() - 1, -1, -1):
@@ -209,8 +238,7 @@ func _update_pickups(delta: float) -> void:
 		if position.distance_squared_to(player_position) <= 260.0:
 			_apply_pickup(str(pickup["kind"]))
 			pickups.remove_at(i)
-		elif position.y > PLAYFIELD.end.y + 20.0:
-			pickups.remove_at(i)
+		elif position.y > PLAYFIELD.end.y + 20.0: pickups.remove_at(i)
 
 func _update_enemies(delta: float) -> void:
 	for i in range(enemies.size() - 1, -1, -1):
@@ -219,10 +247,8 @@ func _update_enemies(delta: float) -> void:
 		enemy["fire_timer"] = float(enemy["fire_timer"]) - delta
 		var position: Vector2 = enemy["position"]
 		var is_boss := bool(enemy.get("boss", false))
-		if is_boss and position.y < 105.0:
-			position.y += float(enemy["speed"]) * delta
-		elif not is_boss:
-			position.y += float(enemy["speed"]) * delta
+		if is_boss and position.y < 105.0: position.y += float(enemy["speed"]) * delta
+		elif not is_boss: position.y += float(enemy["speed"]) * delta
 		position.x += sin(float(enemy["age"]) * float(enemy["turn_rate"]) + float(enemy["phase"])) * float(enemy["drift"]) * delta
 		position.x = clampf(position.x, PLAYFIELD.position.x + 18.0, PLAYFIELD.end.x - 18.0)
 		enemy["position"] = position
@@ -230,8 +256,7 @@ func _update_enemies(delta: float) -> void:
 			_fire_enemy_weapon(enemy)
 			enemy["fire_timer"] = ProjectileRules.enemy_fire_interval(str(enemy.get("weapon", "single_burst")), wave)
 		enemies[i] = enemy
-		if not is_boss and position.y > PLAYFIELD.end.y + 22.0:
-			enemies.remove_at(i)
+		if not is_boss and position.y > PLAYFIELD.end.y + 22.0: enemies.remove_at(i)
 
 func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	var origin: Vector2 = enemy["position"]
@@ -243,32 +268,31 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	if weapon_id == "twin_burst":
 		enemy_bullets.append({"position":origin,"velocity":velocity.rotated(0.16),"damage":damage})
 		enemy_bullets.append({"position":origin,"velocity":velocity.rotated(-0.16),"damage":damage})
+	elif weapon_id == "missile":
+		enemy_bullets.append({"position":origin,"velocity":velocity.rotated(0.08),"damage":damage + 3})
 
 func _resolve_combat() -> void:
 	for bullet_index in range(bullets.size() - 1, -1, -1):
 		var bullet_hit := false
 		for enemy_index in range(enemies.size() - 1, -1, -1):
-			if Vector2(bullets[bullet_index]["position"]).distance_squared_to(Vector2(enemies[enemy_index]["position"])) <= (420.0 if bool(enemies[enemy_index].get("boss", false)) else 196.0):
+			if bullets[bullet_index]["position"].distance_squared_to(enemies[enemy_index]["position"]) <= (420.0 if bool(enemies[enemy_index].get("boss", false)) else 196.0):
 				enemies[enemy_index]["hp"] -= int(bullets[bullet_index]["damage"])
 				bullet_hit = true
 				if int(enemies[enemy_index]["hp"]) <= 0:
 					var destroyed: Dictionary = enemies[enemy_index]
 					score += int(destroyed["value"])
-					_maybe_drop_pickup(Vector2(destroyed["position"]), bool(destroyed.get("boss", false)))
+					_maybe_drop_pickup(destroyed["position"], bool(destroyed.get("boss", false)))
 					enemies.remove_at(enemy_index)
 				break
-		if bullet_hit:
-			bullets.remove_at(bullet_index)
+		if bullet_hit: bullets.remove_at(bullet_index)
 	for enemy_index in range(enemies.size() - 1, -1, -1):
-		if Vector2(enemies[enemy_index]["position"]).distance_squared_to(player_position) <= 420.0:
+		if enemies[enemy_index]["position"].distance_squared_to(player_position) <= 420.0:
 			_apply_damage(24 if bool(enemies[enemy_index].get("boss", false)) else 18)
-			if not bool(enemies[enemy_index].get("boss", false)):
-				enemies.remove_at(enemy_index)
+			if not bool(enemies[enemy_index].get("boss", false)): enemies.remove_at(enemy_index)
 
 func _maybe_drop_pickup(position: Vector2, guaranteed: bool = false) -> void:
 	var kind := "weapon" if guaranteed else ProjectileRules.pickup_kind_for_roll(randf())
-	if kind != "":
-		pickups.append({"position":position,"kind":kind})
+	if kind != "": pickups.append({"position":position,"kind":kind})
 
 func _apply_pickup(kind: String) -> void:
 	match kind:
@@ -276,30 +300,36 @@ func _apply_pickup(kind: String) -> void:
 		"repair": hull = mini(100, hull + 25)
 		"bomb": bombs = mini(5, bombs + 1)
 		"weapon":
-			var primary_count := 0
-			for weapon in weapon_catalog:
-				if str(weapon.get("slot", "")) == "primary": primary_count += 1
-			if primary_count > 0: weapon_index = (weapon_index + 1) % primary_count
+			var primaries := _primary_weapons()
+			if not primaries.is_empty(): weapon_index = mini(primaries.size() - 1, weapon_index + 1)
 
 func _apply_damage(amount: int) -> void:
 	var state := CombatRules.apply_shielded_damage(hull, shield, amount)
 	hull = int(state["hull"])
 	shield = int(state["shield"])
-	if hull <= 0:
-		_finish_mission(false)
+	if hull <= 0: _finish_mission(false)
 
 func _find_enemy_archetype(id: String) -> Dictionary:
 	for enemy in enemy_catalog:
-		if str(enemy.get("id", "")) == id:
-			return enemy
+		if str(enemy.get("id", "")) == id: return enemy
 	return {}
+
+func _spawn_candidates() -> Array:
+	var allowed_ids: Array = []
+	for profile in spawn_profiles:
+		if str(profile.get("environment", "")) != current_environment: continue
+		if wave < int(profile.get("min_wave", 1)) or wave > int(profile.get("max_wave", 99)): continue
+		allowed_ids = profile.get("enemy_ids", [])
+		break
+	var candidates: Array = []
+	for item in enemy_catalog:
+		if bool(item.get("boss", false)): continue
+		if allowed_ids.is_empty() or str(item.get("id", "")) in allowed_ids: candidates.append(item)
+	return candidates
 
 func _spawn_enemy(archetype: Dictionary = {}) -> void:
 	if archetype.is_empty():
-		var candidates: Array = []
-		for item in enemy_catalog:
-			if not bool(item.get("boss", false)):
-				candidates.append(item)
+		var candidates := _spawn_candidates()
 		if not candidates.is_empty(): archetype = candidates[randi() % candidates.size()]
 	var base_hp := int(archetype.get("hp", 1))
 	var is_boss := bool(archetype.get("boss", false))
@@ -311,8 +341,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 	enemies.append({"id":str(archetype.get("id", "bogey")),"category":enemy_class,"position":Vector2(x, PLAYFIELD.position.y - 18.0),"speed":float(archetype.get("speed", 72.0)) + speed_bias + (0.0 if is_boss else float(wave) * 4.0),"drift":drift,"turn_rate":0.75 if is_boss else randf_range(1.1, 2.4),"phase":randf_range(0.0, TAU),"age":0.0,"hp":hp,"value":CombatRules.destroy_value(int(archetype.get("value", 100)), wave),"weapon":str(archetype.get("weapon", "single_burst")),"fire_timer":randf_range(0.5, 1.6),"boss":is_boss})
 
 func _try_spawn_boss() -> void:
-	if boss_spawned or current_boss_id == "" or mission_time < mission_duration * 0.72:
-		return
+	if boss_spawned or current_boss_id == "" or mission_time < mission_duration * 0.72: return
 	var boss := _find_enemy_archetype(current_boss_id)
 	if not boss.is_empty():
 		boss_spawned = true
@@ -320,8 +349,7 @@ func _try_spawn_boss() -> void:
 
 func _boss_alive() -> bool:
 	for enemy in enemies:
-		if bool(enemy.get("boss", false)):
-			return true
+		if bool(enemy.get("boss", false)): return true
 	return false
 
 func _configure_input() -> void:
@@ -334,6 +362,7 @@ func _configure_input() -> void:
 	_add_key_action("confirm", KEY_ENTER)
 	_add_key_action("cancel", KEY_ESCAPE)
 	_add_key_action("restart", KEY_R)
+	_add_key_action("upgrade", KEY_U)
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action): InputMap.add_action(action)
@@ -342,23 +371,27 @@ func _add_key_action(action: StringName, keycode: Key) -> void:
 
 func _draw() -> void:
 	draw_rect(Rect2(0, 0, 640, 360), Color("10151b"))
-	if phase == GamePhase.TITLE:
-		_draw_title(); return
-	if phase == GamePhase.RESULT:
-		_draw_result(); return
+	if phase == GamePhase.TITLE: _draw_title(); return
+	if phase == GamePhase.RESULT: _draw_result(); return
 	_draw_gameplay()
 
 func _draw_title() -> void:
-	draw_string(ThemeDB.fallback_font, Vector2(0, 95), "STRIKE WING '94", HORIZONTAL_ALIGNMENT_CENTER, 640, 30, Color("e3e6e8"))
-	draw_string(ThemeDB.fallback_font, Vector2(0, 135), current_mission_name, HORIZONTAL_ALIGNMENT_CENTER, 640, 18, Color("f0d87a"))
-	draw_string(ThemeDB.fallback_font, Vector2(80, 175), current_briefing, HORIZONTAL_ALIGNMENT_CENTER, 480, 13, Color("8997a1"))
-	draw_string(ThemeDB.fallback_font, Vector2(0, 245), "ENTER  LAUNCH", HORIZONTAL_ALIGNMENT_CENTER, 640, 15, Color("d8dde2"))
-	draw_string(ThemeDB.fallback_font, Vector2(0, 280), "CREDITS %06d" % credits, HORIZONTAL_ALIGNMENT_CENTER, 640, 12, Color("8997a1"))
+	draw_string(ThemeDB.fallback_font, Vector2(0, 88), "STRIKE WING '94", HORIZONTAL_ALIGNMENT_CENTER, 640, 30, Color("e3e6e8"))
+	draw_string(ThemeDB.fallback_font, Vector2(0, 132), current_mission_name, HORIZONTAL_ALIGNMENT_CENTER, 640, 18, Color("f0d87a"))
+	draw_string(ThemeDB.fallback_font, Vector2(80, 170), current_briefing, HORIZONTAL_ALIGNMENT_CENTER, 480, 13, Color("8997a1"))
+	draw_string(ThemeDB.fallback_font, Vector2(0, 222), "ENTER LAUNCH    U UPGRADE", HORIZONTAL_ALIGNMENT_CENTER, 640, 14, Color("d8dde2"))
+	var weapon := _active_weapon()
+	draw_string(ThemeDB.fallback_font, Vector2(0, 253), "%s   CREDITS %06d" % [str(weapon.get("name", "CANNON")).to_upper(), credits], HORIZONTAL_ALIGNMENT_CENTER, 640, 12, Color("8997a1"))
+	var primaries := _primary_weapons()
+	if weapon_index + 1 < primaries.size():
+		draw_string(ThemeDB.fallback_font, Vector2(0, 275), "NEXT %s  %d" % [str(primaries[weapon_index + 1].get("name", "")).to_upper(), int(primaries[weapon_index + 1].get("cost", 0))], HORIZONTAL_ALIGNMENT_CENTER, 640, 11, Color("6f7d85"))
+	if status_timer > 0.0:
+		draw_string(ThemeDB.fallback_font, Vector2(0, 310), status_text, HORIZONTAL_ALIGNMENT_CENTER, 640, 12, Color("72c7b2"))
 
 func _draw_result() -> void:
 	draw_string(ThemeDB.fallback_font, Vector2(0, 120), result_text, HORIZONTAL_ALIGNMENT_CENTER, 640, 22, Color("f0d87a"))
 	draw_string(ThemeDB.fallback_font, Vector2(0, 165), "SCORE %08d   CREDITS %06d" % [score, credits], HORIZONTAL_ALIGNMENT_CENTER, 640, 15, Color("e3e6e8"))
-	draw_string(ThemeDB.fallback_font, Vector2(0, 230), "ENTER  CONTINUE    R  RETRY", HORIZONTAL_ALIGNMENT_CENTER, 640, 13, Color("8997a1"))
+	draw_string(ThemeDB.fallback_font, Vector2(0, 230), "ENTER CONTINUE    R RETRY", HORIZONTAL_ALIGNMENT_CENTER, 640, 13, Color("8997a1"))
 
 func _draw_gameplay() -> void:
 	draw_rect(PLAYFIELD, Color("121c23"))
