@@ -1,8 +1,11 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "profiles": [
-    {"id":"coast_early","environment":"coast","min_wave":1,"max_wave":3,"enemy_ids":["scout_falcon","attack_chopper","river_patrol"]},
-    {"id":"industrial_mid","environment":"industrial","min_wave":4,"max_wave":6,"enemy_ids":["gunship_mk1","light_tank","sam_truck","fortified_turret"]},
-    {"id":"open_water_late","environment":"open_water","min_wave":7,"max_wave":99,"enemy_ids":["ace_interceptor","gunship_mk1","river_patrol"]}
+    {"id":"coast_early","environment":"coast","min_wave":1,"max_wave":2,"enemy_ids":["scout_falcon","attack_chopper","river_patrol","coastal_flak"]},
+    {"id":"coast_pressure","environment":"coast","min_wave":3,"max_wave":6,"enemy_ids":["gunship_mk1","attack_chopper","torpedo_boat","coastal_flak","heavy_bomber"]},
+    {"id":"industrial_mid","environment":"industrial","min_wave":1,"max_wave":4,"enemy_ids":["light_tank","sam_truck","fortified_turret","gunship_mk1"]},
+    {"id":"industrial_heavy","environment":"industrial","min_wave":5,"max_wave":99,"enemy_ids":["heavy_bomber","armoured_aa_carrier","sam_truck","fortified_turret","ace_interceptor"]},
+    {"id":"open_water_entry","environment":"open_water","min_wave":1,"max_wave":6,"enemy_ids":["river_patrol","torpedo_boat","gunship_mk1","scout_falcon"]},
+    {"id":"open_water_late","environment":"open_water","min_wave":7,"max_wave":99,"enemy_ids":["ace_interceptor","fast_attack_craft","missile_corvette","heavy_bomber","gunship_mk1"]}
   ]
 }
