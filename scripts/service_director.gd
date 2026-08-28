@@ -31,6 +31,9 @@ func _process(_delta: float) -> void:
 		scene.set("hull", clampi(_service_hull, 1, _max_hull(scene)))
 		scene.set("shield", clampi(_service_shield, 0, _max_shield(scene)))
 	if phase == 0:
+		if _last_phase != 0 or float(scene.get("status_timer")) <= 0.0:
+			scene.set("status_text", _service_status(scene))
+			scene.set("status_timer", 999.0)
 		_handle_service_input(scene)
 	_last_phase = phase
 
@@ -110,7 +113,12 @@ func _service_failure(label: String, result: Dictionary) -> String:
 	return "%s SERVICE UNAVAILABLE" % label
 
 func _service_status(scene: Object) -> String:
-	return "AIRFRAME H%03d S%03d  H REPAIR  J SHIELD" % [_service_hull, _service_shield]
+	var cfg := _campaign_config(scene)
+	var hull_cost := ServiceRules.service_cost(_service_hull, _max_hull(scene), int(cfg.get("repair_cost_per_hull", 0)))
+	var shield_cost := ServiceRules.service_cost(_service_shield, maxi(1, _max_shield(scene)), int(cfg.get("shield_recharge_cost_per_point", 0)))
+	var hull_quote := "FULL" if hull_cost <= 0 else str(hull_cost)
+	var shield_quote := "FULL" if shield_cost <= 0 else str(shield_cost)
+	return "AIRFRAME H%03d S%03d  H REPAIR %s  J SHIELD %s" % [_service_hull, _service_shield, hull_quote, shield_quote]
 
 func service_hull() -> int:
 	return _service_hull
