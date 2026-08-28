@@ -23,7 +23,7 @@ Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
-    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd',
+    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd','tools/runtime_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -117,9 +117,15 @@ foreach ($Token in @('_mission_count','_primary_weapon_count','clampi','MAX_CRED
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural/data/director/save validation passed; engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural/data/director/save validation passed; runtime self-test and engine smoke test skipped.'
     exit 0
 }
+
+Write-Host 'Running deterministic runtime rules self-test...' -ForegroundColor DarkCyan
+& $Godot --headless --path $Root --script res://tools/runtime_self_test.gd
+if ($LASTEXITCODE -ne 0) { throw "Strike Wing runtime self-test failed with exit code $LASTEXITCODE" }
+
+Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --editor --quit
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 Write-Host 'Strike Wing 94 validation passed.' -ForegroundColor Green
