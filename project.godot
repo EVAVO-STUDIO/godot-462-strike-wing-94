@@ -6,6 +6,9 @@ config_version=5
 config/name="Strike Wing '94"
 run/main_scene="res://scenes/main.tscn"
 
+[autoload]
+CampaignSave="*res://scripts/campaign_save.gd"
+
 [display]
 window/size/viewport_width=640
 window/size/viewport_height=360
