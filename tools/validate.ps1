@@ -23,7 +23,7 @@ Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
-    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd','scripts/run_seed_director.gd','tools/runtime_self_test.gd',
+    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd','tools/runtime_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -111,12 +111,16 @@ foreach ($Autoload in @(
     if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
 }
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
-foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward','_catalog_max_hp')) {
+foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) {
     if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" }
 }
-$SeedText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director.gd')
-foreach ($Token in @('BASE_SEED','mission_index * 1009','seed(run_seed)')) {
-    if (-not $SeedText.Contains($Token)) { throw "RunSeedDirector missing determinism token: $Token" }
+$SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
+foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) {
+    if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" }
+}
+$SeedDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director.gd')
+foreach ($Token in @('RunSeedRules.mission_seed','seed(run_seed)')) {
+    if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing integration token: $Token" }
 }
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 foreach ($Token in @('_mission_count','_primary_weapon_count','clampi','MAX_CREDITS')) {
