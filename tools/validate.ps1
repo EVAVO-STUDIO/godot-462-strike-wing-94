@@ -26,7 +26,8 @@ $Required = @(
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd','scripts/bomb_guard_director.gd',
     'scripts/campaign_save.gd','scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
     'scripts/mission_state_rules.gd','scripts/mission_state_director.gd',
-    'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd','tools/runtime_self_test.gd',
+    'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
+    'scripts/reward_rules.gd','scripts/reward_director.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -85,6 +86,10 @@ foreach ($MissionId in $CampaignMissionIds) { if ($MissionIds -notcontains $Miss
 if (@($CampaignMissionIds | Sort-Object -Unique).Count -ne $CampaignMissionIds.Count) { throw 'Campaign mission list contains duplicates.' }
 if ([int]$Campaign.campaign.starting_hull -lt 1) { throw 'Campaign starting_hull must be positive.' }
 if ([int]$Campaign.campaign.starting_shield -lt 0) { throw 'Campaign starting_shield cannot be negative.' }
+foreach ($BonusField in @('mission_complete_bonus','no_hull_damage_bonus','accuracy_bonus','boss_kill_bonus')) {
+    if ([int]$Campaign.progression.$BonusField -lt 0) { throw "Campaign progression bonus cannot be negative: $BonusField" }
+}
+if ([double]$Campaign.progression.accuracy_bonus_threshold -lt 0.0 -or [double]$Campaign.progression.accuracy_bonus_threshold -gt 1.0) { throw 'accuracy_bonus_threshold must be within 0..1.' }
 
 foreach ($Profile in $Profiles.profiles) {
     if ([int]$Profile.min_wave -gt [int]$Profile.max_wave) { throw "Invalid spawn wave range: $($Profile.id)" }
@@ -114,55 +119,45 @@ foreach ($Autoload in @(
     'RunSeedDirector="*res://scripts/run_seed_director.gd"',
     'BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
     'MissionStateDirector="*res://scripts/mission_state_director.gd"',
-    'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"'
+    'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"',
+    'RewardDirector="*res://scripts/reward_director.gd"'
 )) {
     if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
 }
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
-foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) {
-    if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" }
-}
+foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) { if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" } }
 $BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
-foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) {
-    if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" }
-}
+foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) { if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" } }
 $BombGuardText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_guard_director.gd')
-foreach ($Token in @('process_priority = -50','_hold_bosses','_restore_bosses','BombRules.apply_nonlethal_boss_damage')) {
-    if (-not $BombGuardText.Contains($Token)) { throw "Bomb guard missing integration token: $Token" }
-}
+foreach ($Token in @('process_priority = -50','_hold_bosses','_restore_bosses','BombRules.apply_nonlethal_boss_damage')) { if (-not $BombGuardText.Contains($Token)) { throw "Bomb guard missing integration token: $Token" } }
 $SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
-foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) {
-    if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" }
-}
+foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) { if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" } }
 $SeedDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director.gd')
-foreach ($Token in @('RunSeedRules.mission_seed','seed(run_seed)')) {
-    if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing integration token: $Token" }
-}
+foreach ($Token in @('RunSeedRules.mission_seed','seed(run_seed)')) { if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing integration token: $Token" } }
 $MissionStateText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_director.gd')
-foreach ($Token in @('process_priority = 100','MissionStateRules.starting_hull','MissionStateRules.starting_shield','MissionStateRules.live_wave')) {
-    if (-not $MissionStateText.Contains($Token)) { throw "Mission state director missing token: $Token" }
-}
+foreach ($Token in @('process_priority = 100','MissionStateRules.starting_hull','MissionStateRules.starting_shield','MissionStateRules.live_wave')) { if (-not $MissionStateText.Contains($Token)) { throw "Mission state director missing token: $Token" } }
 $WeaponPickupRulesText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_rules.gd')
-foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) {
-    if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" }
-}
+foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) { if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" } }
 $WeaponPickupDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_director.gd')
-foreach ($Token in @('_permanent_index','permanent_index','temporary_boost','WeaponPickupRules.saved_index')) {
-    if (-not $WeaponPickupDirectorText.Contains($Token)) { throw "Weapon pickup director missing token: $Token" }
-}
+foreach ($Token in @('_permanent_index','permanent_index','temporary_boost','WeaponPickupRules.saved_index')) { if (-not $WeaponPickupDirectorText.Contains($Token)) { throw "Weapon pickup director missing token: $Token" } }
+$RewardRulesText = Get-Content -Raw (Join-Path $Root 'scripts/reward_rules.gd')
+foreach ($Token in @('no_hull_damage_bonus','boss_kill_bonus','extra_success_bonus')) { if (-not $RewardRulesText.Contains($Token)) { throw "Reward rules missing token: $Token" } }
+$RewardDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/reward_director.gd')
+foreach ($Token in @('MISSION COMPLETE','RewardRules.extra_success_bonus','NO DAMAGE','BOSS +')) { if (-not $RewardDirectorText.Contains($Token)) { throw "Reward director missing token: $Token" } }
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-foreach ($Token in @('_mission_count','_primary_weapon_count','_saved_weapon_index','WeaponPickupDirector','MAX_CREDITS')) {
-    if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" }
-}
+foreach ($Token in @('_mission_count','_primary_weapon_count','_saved_weapon_index','WeaponPickupDirector','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing hardening token: $Token" } }
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural/data/director/save validation passed; runtime self-test and engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural/data/director/save validation passed; runtime self-tests and engine smoke test skipped.'
     exit 0
 }
 Write-Host 'Running deterministic runtime rules self-test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --script res://tools/runtime_self_test.gd
 if ($LASTEXITCODE -ne 0) { throw "Strike Wing runtime self-test failed with exit code $LASTEXITCODE" }
+Write-Host 'Running reward self-test...' -ForegroundColor DarkCyan
+& $Godot --headless --path $Root --script res://tools/reward_self_test.gd
+if ($LASTEXITCODE -ne 0) { throw "Strike Wing reward self-test failed with exit code $LASTEXITCODE" }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --editor --quit
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
