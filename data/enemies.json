@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "enemies": [
+    {"id":"scout_falcon","class":"air","hp":2,"speed":112,"value":120,"pattern":"sine_dive","weapon":"single_burst"},
+    {"id":"gunship_mk1","class":"air","hp":6,"speed":72,"value":350,"pattern":"tracking_sweep","weapon":"aimed_burst"},
+    {"id":"attack_chopper","class":"air","hp":5,"speed":64,"value":300,"pattern":"hover_strafe","weapon":"side_burst"},
+    {"id":"light_tank","class":"ground","hp":7,"speed":24,"value":420,"pattern":"road_column","weapon":"cannon"},
+    {"id":"sam_truck","class":"ground","hp":4,"speed":18,"value":500,"pattern":"road_column","weapon":"missile"},
+    {"id":"river_patrol","class":"sea","hp":8,"speed":34,"value":520,"pattern":"water_lane","weapon":"deck_gun"},
+    {"id":"fortified_turret","class":"ground","hp":10,"speed":0,"value":650,"pattern":"static","weapon":"aimed_burst"},
+    {"id":"ace_interceptor","class":"air","hp":9,"speed":148,"value":900,"pattern":"aggressive_weave","weapon":"twin_burst"}
+  ]
+}
