@@ -16,7 +16,7 @@ function Resolve-Godot {
 Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
-    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/campaign_save.gd',
+    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/campaign_save.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
@@ -40,9 +40,27 @@ foreach ($JsonPath in @('data/weapons.json','data/enemies.json','data/missions.j
 
 $EnemyIds = @($Parsed['data/enemies.json'].enemies | ForEach-Object { $_.id })
 $MissionIds = @($Parsed['data/missions.json'].missions | ForEach-Object { $_.id })
+$AllowedObjectiveTypes = @('survive','destroy_count','destroy_enemy')
 foreach ($Mission in $Parsed['data/missions.json'].missions) {
     if ($Mission.boss_id -and $EnemyIds -notcontains $Mission.boss_id) { throw "Mission boss_id not found in enemies.json: $($Mission.boss_id)" }
+    $Objectives = @($Mission.objectives)
+    if ($Objectives.Count -lt 1) { throw "Mission must define at least one objective: $($Mission.id)" }
+    $ObjectiveIds = @()
+    $RequiredObjectives = 0
+    foreach ($Objective in $Objectives) {
+        if (-not $Objective.id) { throw "Mission objective missing id: $($Mission.id)" }
+        if ($AllowedObjectiveTypes -notcontains $Objective.type) { throw "Unknown objective type: $($Mission.id)/$($Objective.id)" }
+        if ($ObjectiveIds -contains $Objective.id) { throw "Duplicate mission objective id: $($Mission.id)/$($Objective.id)" }
+        $ObjectiveIds += $Objective.id
+        if ([bool]$Objective.required) { $RequiredObjectives++ }
+        if ($Objective.type -eq 'survive' -and [int]$Objective.seconds -le 0) { throw "Survive objective requires positive seconds: $($Mission.id)/$($Objective.id)" }
+        if ($Objective.type -in @('destroy_count','destroy_enemy') -and [int]$Objective.count -le 0) { throw "Destroy objective requires positive count: $($Mission.id)/$($Objective.id)" }
+        if ($Objective.type -eq 'destroy_enemy' -and $EnemyIds -notcontains $Objective.enemy_id) { throw "Objective references unknown enemy: $($Mission.id)/$($Objective.id) -> $($Objective.enemy_id)" }
+        if ($Objective.bonus_credits -and [int]$Objective.bonus_credits -lt 0) { throw "Objective bonus cannot be negative: $($Mission.id)/$($Objective.id)" }
+    }
+    if ($RequiredObjectives -lt 1) { throw "Mission must include at least one required objective: $($Mission.id)" }
 }
+
 $CampaignMissions = @($Parsed['data/campaign.json'].campaign.missions)
 foreach ($MissionId in $CampaignMissions) {
     if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" }
@@ -70,7 +88,7 @@ if ($ProjectText -notmatch 'CampaignSave="\*res://scripts/campaign_save.gd"') { 
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural, save, catalogue, spawn and progression validation passed; engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural, objective, save, catalogue, spawn and progression validation passed; engine smoke test skipped.'
     exit 0
 }
 & $Godot --headless --path $Root --editor --quit
