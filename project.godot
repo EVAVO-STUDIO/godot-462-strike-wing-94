@@ -8,6 +8,7 @@ run/main_scene="res://scenes/main.tscn"
 
 [autoload]
 CampaignSave="*res://scripts/campaign_save.gd"
+BossDirector="*res://scripts/boss_director.gd"
 
 [display]
 window/size/viewport_width=640
