@@ -4,6 +4,8 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
 const MovementPatternDirector = preload("res://scripts/movement_pattern_director.gd")
+const BossHudRules = preload("res://scripts/boss_hud_rules.gd")
+const BossHudDirector = preload("res://scripts/boss_hud_director.gd")
 
 var failures: Array[String] = []
 
@@ -12,6 +14,7 @@ func _initialize() -> void:
 	_test_spawn_coverage()
 	_test_movement_patterns()
 	_test_movement_autoload()
+	_test_boss_hud()
 	if failures.is_empty():
 		print("Strike Wing mission flow self-test passed.")
 		quit(0)
@@ -86,6 +89,16 @@ func _test_movement_autoload() -> void:
 		return
 	var text := file.get_as_text()
 	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
+	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
+
+func _test_boss_hud() -> void:
+	_expect(absf(BossHudRules.health_ratio(50, 100) - 0.5) < 0.001, "boss HUD health ratio should reflect current/max HP")
+	_expect(BossHudRules.health_ratio(-1, 100) == 0.0 and BossHudRules.health_ratio(120, 100) == 1.0, "boss HUD health ratio should clamp safely")
+	var text := BossHudRules.hud_text("missile_cruiser", 40, 105, 3)
+	_expect(text.contains("MISSILE CRUISER") and text.contains("PHASE 3") and text.contains("40/105"), "boss HUD text should expose identity phase and HP")
+	var hud := BossHudDirector.new()
+	_expect(hud != null, "boss HUD director should instantiate")
+	hud.free()
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
