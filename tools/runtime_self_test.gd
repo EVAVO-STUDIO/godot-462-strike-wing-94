@@ -1,5 +1,6 @@
 extends SceneTree
 
+const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
@@ -9,6 +10,7 @@ const BossRules = preload("res://scripts/boss_rules.gd")
 var failures: Array[String] = []
 
 func _initialize() -> void:
+	_test_content()
 	_test_combat()
 	_test_projectiles()
 	_test_progression()
@@ -25,6 +27,18 @@ func _initialize() -> void:
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
 		failures.append(message)
+
+func _test_content() -> void:
+	var weapons = ContentCatalog.load_json("res://data/weapons.json")
+	var enemies = ContentCatalog.load_json("res://data/enemies.json")
+	var missions = ContentCatalog.load_json("res://data/missions.json")
+	var profiles = ContentCatalog.load_json("res://data/spawn_profiles.json")
+	var campaign = ContentCatalog.load_json("res://data/campaign.json")
+	_expect(typeof(weapons) == TYPE_DICTIONARY and not weapons.get("weapons", []).is_empty(), "weapons catalogue should load through ContentCatalog")
+	_expect(typeof(enemies) == TYPE_DICTIONARY and not enemies.get("enemies", []).is_empty(), "enemy catalogue should load through ContentCatalog")
+	_expect(typeof(missions) == TYPE_DICTIONARY and not missions.get("missions", []).is_empty(), "mission catalogue should load through ContentCatalog")
+	_expect(typeof(profiles) == TYPE_DICTIONARY and not profiles.get("profiles", []).is_empty(), "spawn profiles should load through ContentCatalog")
+	_expect(typeof(campaign) == TYPE_DICTIONARY and typeof(campaign.get("campaign", {})) == TYPE_DICTIONARY, "campaign catalogue should load through ContentCatalog")
 
 func _test_combat() -> void:
 	var absorbed := CombatRules.apply_shielded_damage(100, 20, 15)
