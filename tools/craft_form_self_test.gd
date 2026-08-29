@@ -1,0 +1,76 @@
+extends SceneTree
+
+const ContentCatalog = preload("res://scripts/content_catalog.gd")
+const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
+const AltitudeRules = preload("res://scripts/altitude_rules.gd")
+
+var failures: Array[String] = []
+
+func _initialize() -> void:
+	_test_forms()
+	_test_altitudes()
+	_test_campaign_world()
+	_test_source_integration()
+	if failures.is_empty():
+		print("Strike Wing craft form/altitude self-test passed.")
+		quit(0)
+		return
+	for failure in failures:
+		push_error(failure)
+	quit(1)
+
+func _test_forms() -> void:
+	_expect(CraftFormRules.toggle(CraftFormRules.FIGHTER) == CraftFormRules.BOMBER, "fighter should transform into bomber")
+	_expect(CraftFormRules.toggle(CraftFormRules.BOMBER) == CraftFormRules.FIGHTER, "bomber should transform into fighter")
+	_expect(CraftFormRules.movement_multiplier(CraftFormRules.FIGHTER) > CraftFormRules.movement_multiplier(CraftFormRules.BOMBER), "fighter should be faster than bomber")
+	_expect(CraftFormRules.collision_radius_sq(CraftFormRules.FIGHTER) < CraftFormRules.collision_radius_sq(CraftFormRules.BOMBER), "fighter should retain tighter contact profile")
+	_expect(CraftFormRules.primary_spread_multiplier(CraftFormRules.FIGHTER) < CraftFormRules.primary_spread_multiplier(CraftFormRules.BOMBER), "fighter primary spread should be tighter")
+	_expect(CraftFormRules.ground_attack_multiplier(CraftFormRules.BOMBER) > CraftFormRules.ground_attack_multiplier(CraftFormRules.FIGHTER), "bomber should be stronger against surface targets")
+	_expect(CraftFormRules.air_attack_multiplier(CraftFormRules.FIGHTER) > CraftFormRules.air_attack_multiplier(CraftFormRules.BOMBER), "fighter should be stronger against air targets")
+	_expect(CraftFormRules.support_energy_multiplier(CraftFormRules.BOMBER) < CraftFormRules.support_energy_multiplier(CraftFormRules.FIGHTER), "bomber should run support systems more efficiently")
+
+func _test_altitudes() -> void:
+	_expect(AltitudeRules.BANDS == ["low", "mid", "high", "orbital"], "campaign should expose exactly four ordered altitude bands")
+	_expect(AltitudeRules.ground_scale("low") > AltitudeRules.ground_scale("mid") and AltitudeRules.ground_scale("mid") > AltitudeRules.ground_scale("high") and AltitudeRules.ground_scale("high") > AltitudeRules.ground_scale("orbital"), "ground presentation should diminish with altitude")
+	_expect(AltitudeRules.allows_ground_targets("low") and AltitudeRules.allows_ground_targets("mid"), "low/mid should support surface warfare")
+	_expect(not AltitudeRules.allows_ground_targets("high") and not AltitudeRules.allows_ground_targets("orbital"), "high/orbital should not use normal ground-target gameplay")
+	_expect(AltitudeRules.supports_form("orbital", "fighter"), "fighter should support orbital operations")
+	_expect(not AltitudeRules.supports_form("orbital", "bomber"), "bomber geometry should be unavailable in orbital flight")
+
+func _test_campaign_world() -> void:
+	var data = ContentCatalog.load_json("res://data/campaign_world.json")
+	_expect(typeof(data) == TYPE_DICTIONARY, "campaign world catalogue should load")
+	if typeof(data) != TYPE_DICTIONARY:
+		return
+	_expect(data.get("altitude_bands", []).size() == 4, "campaign world should define four altitude bands")
+	_expect(data.get("threat_phases", []).size() >= 3, "campaign world should define mercenary, drone and external threat phases")
+	var contexts = data.get("mission_context", {})
+	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() >= 6, "all current missions should receive campaign-world context")
+	for mission_id in contexts.keys():
+		var context: Dictionary = contexts[mission_id]
+		_expect(AltitudeRules.sanitize(str(context.get("altitude", ""))) == str(context.get("altitude", "")), "%s should use a supported altitude" % mission_id)
+		_expect(str(context.get("threat_phase", "")) == "mercenary_war", "%s should remain in the opening mercenary-war chapter" % mission_id)
+		_expect(str(context.get("recommended_form", "")) in ["fighter", "bomber"], "%s should recommend a valid craft form" % mission_id)
+
+func _test_source_integration() -> void:
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable")
+	if main_file != null:
+		var source := main_file.get_as_text()
+		_expect(source.contains('_craft_float("movement_multiplier", 1.0)'), "main movement should consume craft form speed")
+		_expect(source.contains('_craft_float("primary_spread_multiplier", 1.0)'), "main primary fire should consume craft form spread")
+		_expect(source.contains('_target_damage_multiplier(enemy_class)'), "main collision should consume form/altitude target effectiveness")
+		_expect(source.contains('_craft_float("collision_radius_sq", 420.0)'), "main contact collision should consume form profile")
+		_expect(source.contains('if _craft_form_name() == "BOMBER":'), "player rendering should expose distinct bomber silhouette")
+	var support_file := FileAccess.open("res://scripts/support_director.gd", FileAccess.READ)
+	_expect(support_file != null, "support_director.gd should be readable")
+	if support_file != null:
+		_expect(support_file.get_as_text().contains('support_energy_multiplier'), "support energy should consume craft form efficiency")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project != null, "project.godot should be readable")
+	if project != null:
+		_expect(project.get_as_text().contains('CraftFormDirector="*res://scripts/craft_form_director.gd"'), "craft form controller should remain autoloaded")
+
+func _expect(condition: bool, message: String) -> void:
+	if not condition:
+		failures.append(message)
