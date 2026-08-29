@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "missions": [
     {
       "id": "m01_coastal_intercept",
@@ -41,6 +41,51 @@
         {"id":"sink_cruiser","type":"destroy_enemy","enemy_id":"missile_cruiser","count":1,"required":true},
         {"id":"clear_patrols","type":"destroy_enemy","enemy_id":"river_patrol","count":5,"required":false,"bonus_credits":700},
         {"id":"survive","type":"survive","seconds":210,"required":true}
+      ]
+    },
+    {
+      "id": "m04_breakwater",
+      "name": "Breakwater",
+      "environment": "coast",
+      "duration_seconds": 170,
+      "starting_wave": 8,
+      "boss_id": "gunship_alpha",
+      "briefing": "Punch through the reinforced breakwater screen and eliminate the rebuilt command gunship.",
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":170,"required":true},
+        {"id":"destroy_command_gunship","type":"destroy_enemy","enemy_id":"gunship_alpha","count":1,"required":true},
+        {"id":"hunt_aces","type":"destroy_enemy","enemy_id":"ace_interceptor","count":3,"required":false,"bonus_credits":850},
+        {"id":"break_flak_line","type":"destroy_enemy","enemy_id":"coastal_flak","count":5,"required":false,"bonus_credits":550}
+      ]
+    },
+    {
+      "id": "m05_furnace_line",
+      "name": "Furnace Line",
+      "environment": "industrial",
+      "duration_seconds": 195,
+      "starting_wave": 11,
+      "boss_id": "armoured_train",
+      "briefing": "Return to the furnace corridor, collapse its heavy air-defence belt and stop the command train before it reaches the tunnel complex.",
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":195,"required":true},
+        {"id":"destroy_train","type":"destroy_enemy","enemy_id":"armoured_train","count":1,"required":true},
+        {"id":"silence_turrets","type":"destroy_enemy","enemy_id":"fortified_turret","count":5,"required":false,"bonus_credits":900},
+        {"id":"break_aa_carriers","type":"destroy_enemy","enemy_id":"armoured_aa_carrier","count":3,"required":false,"bonus_credits":1100}
+      ]
+    },
+    {
+      "id": "m06_black_flag",
+      "name": "Black Flag",
+      "environment": "open_water",
+      "duration_seconds": 225,
+      "starting_wave": 14,
+      "boss_id": "missile_cruiser",
+      "briefing": "Lead the final sea strike through missile corvettes and fast attack craft, then finish the cruiser before the fleet escapes the combat zone.",
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":225,"required":true},
+        {"id":"sink_flagship","type":"destroy_enemy","enemy_id":"missile_cruiser","count":1,"required":true},
+        {"id":"sink_corvettes","type":"destroy_enemy","enemy_id":"missile_corvette","count":3,"required":false,"bonus_credits":1400},
+        {"id":"clear_attack_craft","type":"destroy_enemy","enemy_id":"fast_attack_craft","count":6,"required":false,"bonus_credits":1000}
       ]
     }
   ]
