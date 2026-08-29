@@ -140,15 +140,15 @@ func _emit_signature_attack(bullets: Array, boss: Dictionary, target: Vector2, p
 			"signature_boss": boss_id,
 			"life": HOMING_LIFETIME
 		}
-		if boss_id == BossSignatureRules.SWARM:
+		if boss_id in [BossSignatureRules.SWARM, BossSignatureRules.PHASE_ARRAY]:
 			shot["homing"] = phase >= 2
 			shot["homing_speed"] = speed
-			shot["turn_rate"] = 1.35 + float(phase) * 0.32
-		elif boss_id == BossSignatureRules.FORGE:
+			shot["turn_rate"] = (1.35 if boss_id == BossSignatureRules.SWARM else 1.65) + float(phase) * 0.32
+		elif boss_id in [BossSignatureRules.FORGE, BossSignatureRules.WARDEN]:
 			shot["homing"] = true
 			shot["homing_speed"] = speed
-			shot["turn_rate"] = 1.0 + float(phase) * 0.24
-		elif boss_id == BossSignatureRules.ORBITAL:
+			shot["turn_rate"] = (1.0 if boss_id == BossSignatureRules.FORGE else 0.82) + float(phase) * 0.24
+		elif boss_id in [BossSignatureRules.ORBITAL, BossSignatureRules.ARK]:
 			shot["kinetic"] = true
 		bullets.append(shot)
 
