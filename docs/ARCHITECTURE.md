@@ -2,10 +2,10 @@
 
 ## Current layers
 
-- `main.gd` owns high-level game flow, player input, core projectile creation, spawn selection and the mission-local random stream.
+- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
 - `content_catalog.gd` owns JSON loading and content access helpers.
 - `combat_rules.gd`, `projectile_rules.gd`, `objective_rules.gd`, `progression_rules.gd` and the other `*_rules.gd` files own pure deterministic calculations.
-- Focused directors provide cross-cutting runtime behavior such as boss phases, overtime, movement patterns, temporary weapon progression, rewards, service state and UI overlays.
+- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, overtime, movement patterns, temporary weapon progression, rewards, persistent service state and presentation overlays.
 - `campaign_save.gd` is the canonical campaign persistence boundary and maintains a validated backup save.
 - `data/` owns authored mission, enemy, weapon and campaign definitions.
 
@@ -14,6 +14,28 @@
 `TITLE -> PLAYING -> RESULT -> TITLE`
 
 The title phase presents the active mission briefing and service/loadout state. Playing owns the timed combat run. Result records mission completion or loss and supports retry/continue behavior.
+
+## Mission state ownership
+
+Mission state is initialized at the source in `main.gd`.
+
+- Serviced hull/shield values come from `ServiceDirector` when available.
+- Campaign-authored hull/shield maxima provide the fallback and clamp bounds.
+- The active mission's authored `starting_wave` is applied at launch.
+- Live wave progression uses `MissionStateRules.live_wave()` directly from the active mission and mission clock.
+
+The earlier `MissionStateDirector` reconciliation layer has been removed. Do not restore a post-frame correction path for values that can be initialized correctly at mission start.
+
+## Bomb ownership
+
+Screen bombs are resolved directly inside the weapon action that consumes the bomb.
+
+- Ordinary enemies are registered as destroyed and award their bomb-clear score.
+- Mission bosses remain in the live enemy array.
+- Bosses take bounded nonlethal damage through `BombRules.apply_nonlethal_boss_damage()`.
+- Enemy projectiles are cleared by the bomb.
+
+The earlier `BombGuardDirector` hold/remove/restore workaround has been removed. Boss survival must be decided at the actual bomb-resolution source.
 
 ## Determinism
 
@@ -37,7 +59,7 @@ Before overwriting the primary save, a supported valid primary is copied to the 
 
 ## Refactor direction
 
-Continue removing compensating directors when a responsibility can safely live at its true source of truth. Good candidates are hard-coded mission-start state and screen-bomb behavior. Keep presentation-only overlays separate from simulation.
+Continue removing compensating directors only where a responsibility can safely live at its true source of truth. Keep presentation-only overlays separate from simulation and keep cross-cutting systems modular when they genuinely coordinate multiple owners.
 
 Systems should exchange compact state/events rather than infer behavior from unrelated arrays or duplicate authoritative state.
 
@@ -47,6 +69,8 @@ Systems should exchange compact state/events rather than infer behavior from unr
 - Mission gameplay randomness is isolated from the global RNG.
 - Missing spawn configuration fails closed.
 - Homing metadata is created with the projectile, not inferred later.
+- Mission hull/shield/wave are initialized correctly at source, not corrected later.
+- Screen bombs cannot kill or remove required bosses.
 - Content IDs are stable and unique.
 - Production art can replace prototype drawing without changing game rules.
 - Campaign state must never depend on GitHub Actions, cloud CI or network availability.
