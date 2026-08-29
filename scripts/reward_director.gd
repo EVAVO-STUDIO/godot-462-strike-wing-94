@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 	_last_phase = phase
 
 func _supports(scene: Object) -> bool:
-	var required := ["phase", "mission_index", "credits", "hull", "campaign", "current_boss_id", "current_objectives", "objective_progress", "result_text"]
+	var required := ["phase", "mission_index", "credits", "hull", "campaign", "current_boss_id", "current_objectives", "objective_progress", "result_text", "shots_fired", "shots_hit"]
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
 		names[str(property.get("name", ""))] = true
@@ -45,14 +45,8 @@ func _apply_result_bonus(scene: Object) -> void:
 	var progression: Dictionary = campaign_data.get("progression", {})
 	var campaign_cfg: Dictionary = campaign_data.get("campaign", {})
 	var starting_hull := maxi(1, int(campaign_cfg.get("starting_hull", 100)))
-	var shots_fired := 0
-	var shots_hit := 0
-	var accuracy_director := get_node_or_null("/root/AccuracyDirector")
-	if accuracy_director != null:
-		if accuracy_director.has_method("shots_fired"):
-			shots_fired = int(accuracy_director.call("shots_fired"))
-		if accuracy_director.has_method("shots_hit"):
-			shots_hit = int(accuracy_director.call("shots_hit"))
+	var shots_fired := maxi(0, int(scene.get("shots_fired")))
+	var shots_hit := clampi(int(scene.get("shots_hit")), 0, shots_fired)
 	var bonus := RewardRules.extra_success_bonus(
 		progression,
 		int(scene.get("hull")),
