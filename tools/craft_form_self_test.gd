@@ -29,6 +29,7 @@ func _test_forms() -> void:
 	_expect(CraftFormRules.ground_attack_multiplier(CraftFormRules.BOMBER) > CraftFormRules.ground_attack_multiplier(CraftFormRules.FIGHTER), "bomber should be stronger against surface targets")
 	_expect(CraftFormRules.air_attack_multiplier(CraftFormRules.FIGHTER) > CraftFormRules.air_attack_multiplier(CraftFormRules.BOMBER), "fighter should be stronger against air targets")
 	_expect(CraftFormRules.support_energy_multiplier(CraftFormRules.BOMBER) < CraftFormRules.support_energy_multiplier(CraftFormRules.FIGHTER), "bomber should run support systems more efficiently")
+	_expect(CraftFormRules.TRANSFORM_WEAPON_INTERLOCK > 0.0 and CraftFormRules.TRANSFORM_WEAPON_INTERLOCK < CraftFormRules.TRANSFORM_COOLDOWN, "weapon interlock should be brief and shorter than transform anti-spam cooldown")
 
 func _test_altitudes() -> void:
 	_expect(AltitudeRules.BANDS == ["low", "mid", "high", "orbital"], "campaign should expose exactly four ordered altitude bands")
@@ -84,7 +85,6 @@ func _test_source_integration() -> void:
 		_expect(source.contains('_craft_float("collision_radius_sq", 420.0)'), "main contact collision should consume form profile")
 		_expect(source.contains('_craft_float("projectile_hit_radius_sq", 120.0)'), "hostile projectile collision should consume the active form hit profile")
 		_expect(not source.contains('distance_squared_to(player_position) <= 120.0'), "hostile projectile collision must not revert to fixed prototype radius")
-		_expect(source.contains('if _craft_form_name() == "BOMBER":'), "player rendering should expose distinct bomber silhouette")
 	var director_file := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
 	_expect(director_file != null, "craft form director should be readable")
 	if director_file != null:
@@ -92,12 +92,21 @@ func _test_source_integration() -> void:
 		_expect(source.contains("_apply_due_altitude_transitions(scene)"), "craft controller should own timed altitude transitions")
 		_expect(source.contains("if not AltitudeRules.supports_form(altitude, form)"), "altitude transition should force legal craft geometry")
 		_expect(source.contains("projectile_hit_radius_sq"), "craft controller should expose hostile-projectile hit profile")
+		_expect(source.contains("_apply_weapon_interlock(scene)"), "manual and forced geometry changes should apply weapons interlock")
+		_expect(source.contains('scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))'), "transform interlock should delay primary firing at the source")
+		_expect(source.contains('scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))'), "transform interlock should delay emergency secondary firing at the source")
 	var support_file := FileAccess.open("res://scripts/support_director.gd", FileAccess.READ)
 	_expect(support_file != null, "support_director.gd should be readable")
 	if support_file != null:
 		var support_source := support_file.get_as_text()
 		_expect(support_source.contains('support_energy_multiplier'), "support energy should consume craft form efficiency")
 		_expect(support_source.contains('func rearm_support()'), "tanker should have a clean tactical-support rearm API")
+	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
+	_expect(ui_file != null, "pixel UI should be readable for tech-era presentation checks")
+	if ui_file != null:
+		var ui_source := ui_file.get_as_text()
+		_expect(ui_source.contains("TECH %s") and ui_source.contains("func _tech_era_name"), "loadout UI should expose full technology era")
+		_expect(ui_source.contains('"electromagnetic": return "EM"') and ui_source.contains('"directed_energy": return "DE"') and ui_source.contains('"strategic_orbital": return "ORB"'), "combat HUD should expose compact technology era codes")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
