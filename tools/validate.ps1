@@ -48,7 +48,8 @@ $Required = @(
     'scripts/altitude_transition_surface.gd','scripts/altitude_transition_director.gd',
     'scripts/combat_art_surface.gd','scripts/combat_art_director.gd','scripts/airframe_cue_surface.gd','scripts/airframe_cue_director.gd',
     'scripts/afterburner_cue_surface.gd','scripts/afterburner_cue_director.gd','scripts/weapon_mount_cue_surface.gd','scripts/weapon_mount_cue_director.gd',
-    'scripts/combat_fx_surface.gd','scripts/combat_fx_director.gd',
+    'scripts/damage_state_surface.gd','scripts/damage_state_director.gd','scripts/combat_fx_surface.gd','scripts/combat_fx_director.gd',
+    'scripts/intercept_route_surface.gd','scripts/intercept_route_director.gd',
     'scripts/battlefield_support_rules.gd','scripts/battlefield_support_surface.gd','scripts/battlefield_support_director.gd',
     'scripts/strike_ordnance_rules.gd','scripts/strike_ordnance_surface.gd','scripts/strike_ordnance_director.gd',
     'scripts/electromagnetic_cue_surface.gd','scripts/electromagnetic_cue_director.gd',
@@ -159,7 +160,9 @@ foreach ($Autoload in @(
     'CombatArtDirector="*res://scripts/combat_art_director.gd"',
     'AltitudeTransitionDirector="*res://scripts/altitude_transition_director.gd"',
     'WeaponMountCueDirector="*res://scripts/weapon_mount_cue_director.gd"',
+    'DamageStateDirector="*res://scripts/damage_state_director.gd"',
     'CombatFxDirector="*res://scripts/combat_fx_director.gd"',
+    'InterceptRouteDirector="*res://scripts/intercept_route_director.gd"',
     'EnvironmentDirector="*res://scripts/environment_director.gd"',
     'StrikeOrdnanceDirector="*res://scripts/strike_ordnance_director.gd"',
     'MissionIntelDirector="*res://scripts/mission_intel_director.gd"',
@@ -178,12 +181,13 @@ Assert-Contains $CraftText @(
 $EncounterText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_director.gd')
 Assert-Contains $EncounterText @(
     'process_priority = -20','AltitudeRules.allows_enemy_archetype','ALTITUDE FILTER',
-    'EncounterRules.is_low_bomber_route(beat)','enemy["strike_priority"] = true','route_bonus_id'
+    'EncounterRules.is_low_bomber_route(beat)','enemy["strike_priority"] = true',
+    'EncounterRules.is_high_fighter_route(beat)','enemy["intercept_priority"] = true','HIGH_INTERCEPT_VALUE_BONUS'
 ) 'Encounter route/altitude filtering'
 
 $EncounterRulesText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_rules.gd')
 Assert-Contains $EncounterRulesText @(
-    '"altitude_is"','"form_is"','"altitude_form"','is_route_bonus','is_low_bomber_route'
+    '"altitude_is"','"form_is"','"altitude_form"','is_route_bonus','is_low_bomber_route','is_high_fighter_route','HIGH_INTERCEPT_VALUE_BONUS := 450'
 ) 'Encounter route conditions'
 
 $AltitudeText = Get-Content -Raw (Join-Path $Root 'scripts/altitude_rules.gd')
@@ -203,8 +207,14 @@ Assert-Contains $StrikeText @(
     'ROUTE TARGET','PRECISION ROUTE HIT','_update_attack_run_stability','STB%03d','route_precision_score'
 ) 'Bombing route runtime'
 
+$InterceptText = Get-Content -Raw (Join-Path $Root 'scripts/intercept_route_director.gd')
+Assert-Contains $InterceptText @('intercept_priority','HIGH INTERCEPT  SHIFT AB','INT %03d') 'High fighter route presentation'
+
 $IntelText = Get-Content -Raw (Join-Path $Root 'scripts/mission_intel_rules.gd')
 Assert-Contains $IntelText @('route_opportunity_summary','"ROUTES %s"','LOW','BMB','HIGH','FTR') 'Mission route intel'
+
+$DamageText = Get-Content -Raw (Join-Path $Root 'scripts/damage_state_director.gd')
+Assert-Contains $DamageText @('damage_ratio < 0.20','damage_ratio >= 0.45','damage_ratio >= 0.72','ratio >= 0.86','scene.call("_max_hull")') 'VX-94 damage state'
 
 $FxText = Get-Content -Raw (Join-Path $Root 'scripts/combat_fx_director.gd')
 Assert-Contains $FxText @('MAX_EVENTS := 48','boss_explosion','player_hit','play_event','_hit_audio_cooldown') 'Combat impact FX'
@@ -220,7 +230,7 @@ Assert-Contains $SaveText @('SAVE_VERSION := 5','airframe_index','SaveRecoveryRu
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural/data/altitude/routes/bombing/impact validation passed; engine tests skipped.'
+    Write-Warning 'Godot executable not found. Structural/data/altitude/routes/bombing/damage/impact validation passed; engine tests skipped.'
     exit 0
 }
 
