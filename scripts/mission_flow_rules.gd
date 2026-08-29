@@ -22,7 +22,3 @@ static func should_hold_overtime(current_boss_id: String, objectives: Array, pro
 		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and str(enemy.get("id", "")) == current_boss_id and int(enemy.get("hp", 0)) > 0:
 			return true
 	return false
-
-static func safe_pre_frame_time(current_time: float, duration: float, delta: float) -> float:
-	var margin := maxf(0.001, delta + 0.001)
-	return minf(current_time, maxf(0.0, duration - margin))
