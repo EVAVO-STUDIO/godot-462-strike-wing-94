@@ -31,8 +31,8 @@ func _load_catalog() -> void:
 	var data = ContentCatalog.load_json("res://data/support_systems.json")
 	if typeof(data) == TYPE_DICTIONARY:
 		support_catalog = data.get("supports", [])
-	selected_index = SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size())
 	unlocked_index = SupportRules.sanitize_unlock(unlocked_index, support_catalog.size())
+	selected_index = SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size())
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -148,10 +148,11 @@ func _update_hunter_projectiles(scene: Object, delta: float) -> void:
 			bullets[i] = bullet
 			changed = true
 			continue
-		var target := _nearest_enemy_position(enemies, bullet.get("position", Vector2.ZERO))
+		var bullet_position: Vector2 = bullet.get("position", Vector2.ZERO)
+		var target = _nearest_enemy_position(enemies, bullet_position)
 		if target != null:
 			var velocity: Vector2 = bullet.get("velocity", Vector2.UP * 200.0)
-			var desired := Vector2(bullet.get("position", Vector2.ZERO)).direction_to(target)
+			var desired := bullet_position.direction_to(target)
 			if desired.length_squared() > 0.001 and velocity.length_squared() > 0.001:
 				var turn := clampf(velocity.normalized().angle_to(desired), -float(bullet.get("turn_rate", 2.4)) * delta, float(bullet.get("turn_rate", 2.4)) * delta)
 				bullet["velocity"] = velocity.rotated(turn)
