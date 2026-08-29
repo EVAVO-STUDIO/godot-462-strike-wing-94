@@ -44,20 +44,27 @@ func _observe_fire() -> void:
 	_last_shots_fired = fired
 	var weapon := _active_weapon(scene)
 	var count := maxi(1, int(weapon.get("projectiles", 1)))
-	var craft := get_node_or_null("/root/CraftFormDirector")
+	var form := _current_form()
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
 	_mounts.clear()
 	_rotary = false
 	_weapon_id = str(weapon.get("id", ""))
-	if craft != null:
-		if craft.has_method("primary_mount_offsets"):
-			var offsets = craft.call("primary_mount_offsets", weapon, count)
+	if mounts != null:
+		if mounts.has_method("primary_offsets"):
+			var offsets = mounts.call("primary_offsets", form, weapon, count)
 			if typeof(offsets) == TYPE_ARRAY:
 				for offset in offsets:
 					if typeof(offset) == TYPE_VECTOR2:
 						_mounts.append(offset)
-		if craft.has_method("bomber_rotary_deployed"):
-			_rotary = bool(craft.call("bomber_rotary_deployed", weapon))
+		if mounts.has_method("bomber_rotary_deployed"):
+			_rotary = bool(mounts.call("bomber_rotary_deployed", form, weapon))
 	_flash_timer = ROTARY_FLASH_SECONDS if _rotary else FLASH_SECONDS
+
+func _current_form() -> String:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("current_form"):
+		return str(craft.call("current_form"))
+	return "fighter"
 
 func _draw_weapon_mount_cues(surface: CanvasItem) -> void:
 	if _flash_timer <= 0.0:
@@ -98,7 +105,6 @@ func _draw_rotary_flash(surface: CanvasItem, p: Vector2) -> void:
 		p + Vector2(4, 0)
 	]), flame)
 	surface.draw_rect(Rect2(roundf(p.x)-1, roundf(p.y)-12, 3, 8), core)
-	# Tiny alternating barrel-end pixels imply rotary spool without a modern particle effect.
 	var barrel_offset := 2 if sin(_phase * 1.7) >= 0.0 else -2
 	surface.draw_rect(Rect2(roundf(p.x)+barrel_offset-1, roundf(p.y)-4, 2, 2), Color(0.94,0.78,0.36,0.96))
 
