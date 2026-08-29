@@ -1,5 +1,5 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "enemies": [
     {"id":"scout_falcon","class":"air","hp":2,"speed":112,"value":120,"pattern":"sine_dive","weapon":"single_burst"},
     {"id":"gunship_mk1","class":"air","hp":6,"speed":72,"value":350,"pattern":"tracking_sweep","weapon":"aimed_burst"},
@@ -15,8 +15,21 @@
     {"id":"armoured_aa_carrier","class":"ground","hp":13,"speed":20,"value":1120,"pattern":"road_column","weapon":"twin_burst"},
     {"id":"fast_attack_craft","class":"sea","hp":9,"speed":68,"value":1080,"pattern":"water_lane","weapon":"twin_burst"},
     {"id":"missile_corvette","class":"sea","hp":16,"speed":31,"value":1500,"pattern":"water_lane","weapon":"missile"},
+
+    {"id":"drone_scout","class":"air","hp":4,"speed":164,"value":740,"pattern":"aggressive_weave","weapon":"single_burst","faction":"autonomous"},
+    {"id":"drone_hunter","class":"air","hp":8,"speed":138,"value":1180,"pattern":"tracking_sweep","weapon":"twin_burst","faction":"autonomous"},
+    {"id":"drone_bomber","class":"air","hp":15,"speed":66,"value":1550,"pattern":"tracking_sweep","weapon":"cannon","faction":"autonomous"},
+    {"id":"drone_missile_node","class":"air","hp":11,"speed":78,"value":1460,"pattern":"hover_strafe","weapon":"missile","faction":"autonomous"},
+    {"id":"autonomous_armor","class":"ground","hp":16,"speed":26,"value":1680,"pattern":"road_column","weapon":"twin_burst","faction":"autonomous"},
+    {"id":"factory_defence_node","class":"ground","hp":19,"speed":0,"value":1900,"pattern":"static","weapon":"aimed_burst","faction":"autonomous"},
+    {"id":"exo_drone","class":"air","hp":13,"speed":176,"value":2100,"pattern":"aggressive_weave","weapon":"missile","faction":"autonomous"},
+    {"id":"orbital_sentry","class":"air","hp":21,"speed":58,"value":2600,"pattern":"tracking_sweep","weapon":"cannon","faction":"autonomous"},
+
     {"id":"gunship_alpha","class":"boss","hp":55,"speed":38,"value":5000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true,"phases":3,"weak_point_phase":3},
     {"id":"armoured_train","class":"boss","hp":78,"speed":22,"value":6500,"pattern":"boss_column","weapon":"cannon","boss":true,"phases":3,"weak_point_phase":3},
-    {"id":"missile_cruiser","class":"boss","hp":105,"speed":18,"value":8500,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3}
+    {"id":"missile_cruiser","class":"boss","hp":105,"speed":18,"value":8500,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3},
+    {"id":"swarm_controller","class":"boss","hp":128,"speed":34,"value":11000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous"},
+    {"id":"ai_forge_core","class":"boss","hp":168,"speed":16,"value":14500,"pattern":"boss_column","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous"},
+    {"id":"orbital_command_node","class":"boss","hp":220,"speed":20,"value":19000,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous"}
   ]
 }
