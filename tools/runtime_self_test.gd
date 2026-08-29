@@ -141,3 +141,21 @@ func _test_weapon_pickups() -> void:
 	_expect(WeaponPickupRules.saved_index(1, 3) == 1, "campaign save should preserve permanent paid tier")
 	_expect(WeaponPickupRules.effective_index(1, 1, 3) == 2, "temporary pickup should allow stronger sortie weapon")
 	_expect(WeaponPickupRules.effective_index(2, 2, 3) == 2, "temporary pickup should clamp at maximum weapon tier")
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable for temporary weapon ownership checks")
+	if main_file != null:
+		var source := main_file.get_as_text()
+		_expect(source.contains("var temporary_weapon_boost := 0"), "main should own explicit sortie-only weapon boost state")
+		_expect(source.contains("WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost"), "active weapon should combine permanent tier and temporary boost explicitly")
+		_expect(source.contains("temporary_weapon_boost = mini(max_boost, temporary_weapon_boost + 1)"), "weapon pickup should increase only temporary boost")
+		_expect(source.contains("temporary_weapon_boost = 0"), "sortie cleanup should clear temporary weapon boost")
+	var save_file := FileAccess.open("res://scripts/campaign_save.gd", FileAccess.READ)
+	_expect(save_file != null, "campaign_save.gd should be readable for permanent weapon persistence checks")
+	if save_file != null:
+		var save_source := save_file.get_as_text()
+		_expect(save_source.contains('return clampi(int(scene.get("weapon_index"))'), "campaign save should persist permanent weapon_index directly")
+		_expect(not save_source.contains("WeaponPickupDirector"), "campaign save must not depend on weapon pickup reconciliation")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	if project != null:
+		_expect(not project.get_as_text().contains("WeaponPickupDirector"), "weapon pickup reconciliation autoload should stay removed")
+	_expect(not FileAccess.file_exists("res://scripts/weapon_pickup_director.gd"), "obsolete weapon pickup director file should remain deleted")
