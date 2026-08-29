@@ -2,6 +2,7 @@ class_name RetroSfxRules
 extends RefCounted
 
 const FIRE_BALLISTIC := "fire_ballistic"
+const FIRE_ROTARY := "fire_rotary"
 const FIRE_RAIL := "fire_rail"
 const FIRE_STORM := "fire_storm"
 const FIRE_PLASMA := "fire_plasma"
@@ -11,6 +12,8 @@ const TRANSFORM := "transform"
 const AFTERBURNER := "afterburner"
 const MISSILE_WARNING := "missile_warning"
 const ALTITUDE_SHIFT := "altitude_shift"
+const ALTITUDE_CLIMB := "altitude_climb"
+const ALTITUDE_DIVE := "altitude_dive"
 
 static func event_for_weapon(weapon_id: String) -> String:
 	match weapon_id:
@@ -19,23 +22,37 @@ static func event_for_weapon(weapon_id: String) -> String:
 		"plasma_lance": return FIRE_PLASMA
 	return FIRE_BALLISTIC
 
-static func event_for_projectile(projectile: Dictionary, fallback_weapon_id: String = "") -> String:
+static func event_for_primary(weapon_id: String, bomber_rotary: bool) -> String:
+	if bomber_rotary and event_for_weapon(weapon_id) == FIRE_BALLISTIC:
+		return FIRE_ROTARY
+	return event_for_weapon(weapon_id)
+
+static func event_for_projectile(projectile: Dictionary, fallback_weapon_id: String = "", bomber_rotary: bool = false) -> String:
 	if bool(projectile.get("strategic_support", false)): return FIRE_STRATEGIC
 	if bool(projectile.get("support", false)): return FIRE_SUPPORT
-	return event_for_weapon(str(projectile.get("weapon_id", fallback_weapon_id)))
+	return event_for_primary(str(projectile.get("weapon_id", fallback_weapon_id)), bomber_rotary)
+
+static func altitude_event(direction: int) -> String:
+	if direction > 0: return ALTITUDE_CLIMB
+	if direction < 0: return ALTITUDE_DIVE
+	return ALTITUDE_SHIFT
 
 static func voice(event_id: String) -> Dictionary:
 	match event_id:
-		FIRE_BALLISTIC: return {"wave":"square","frequency":160.0,"end_frequency":105.0,"duration":0.055,"gain":0.16}
+		FIRE_BALLISTIC: return {"wave":"square","frequency":176.0,"end_frequency":112.0,"duration":0.055,"gain":0.16}
+		# Original low ripping rotary voice: a short dense mechanical/noise pulse rather than a sampled GAU-8 recording.
+		FIRE_ROTARY: return {"wave":"rotary","frequency":92.0,"end_frequency":74.0,"duration":0.12,"gain":0.23}
 		FIRE_RAIL: return {"wave":"square","frequency":920.0,"end_frequency":210.0,"duration":0.085,"gain":0.19}
 		FIRE_STORM: return {"wave":"sine","frequency":510.0,"end_frequency":260.0,"duration":0.11,"gain":0.18}
 		FIRE_PLASMA: return {"wave":"saw","frequency":250.0,"end_frequency":95.0,"duration":0.19,"gain":0.20}
 		FIRE_SUPPORT: return {"wave":"square","frequency":210.0,"end_frequency":130.0,"duration":0.09,"gain":0.17}
 		FIRE_STRATEGIC: return {"wave":"noise","frequency":96.0,"end_frequency":58.0,"duration":0.24,"gain":0.22}
-		TRANSFORM: return {"wave":"mechanical","frequency":84.0,"end_frequency":138.0,"duration":0.28,"gain":0.18}
+		TRANSFORM: return {"wave":"mechanical","frequency":84.0,"end_frequency":138.0,"duration":0.32,"gain":0.18}
 		AFTERBURNER: return {"wave":"noise","frequency":72.0,"end_frequency":118.0,"duration":0.16,"gain":0.15}
 		MISSILE_WARNING: return {"wave":"square","frequency":760.0,"end_frequency":760.0,"duration":0.10,"gain":0.14}
 		ALTITUDE_SHIFT: return {"wave":"sine","frequency":330.0,"end_frequency":660.0,"duration":0.20,"gain":0.15}
+		ALTITUDE_CLIMB: return {"wave":"saw","frequency":180.0,"end_frequency":520.0,"duration":0.34,"gain":0.15}
+		ALTITUDE_DIVE: return {"wave":"saw","frequency":520.0,"end_frequency":150.0,"duration":0.34,"gain":0.15}
 	return {}
 
 static func valid_voice(value: Dictionary) -> bool:
