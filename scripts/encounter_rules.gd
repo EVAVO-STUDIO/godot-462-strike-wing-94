@@ -3,6 +3,7 @@ extends RefCounted
 
 const ALLOWED_PICKUPS := ["", "shield", "repair", "bomb", "weapon"]
 const ALLOWED_CONDITIONS := ["", "accuracy_at_least", "score_at_least", "bombs_at_least"]
+const ALLOWED_FORMATIONS := ["scatter", "line", "wedge", "split", "column", "stagger"]
 const MAX_ENEMIES_PER_BEAT := 12
 const MAX_SUPPRESSION_SECONDS := 12.0
 
@@ -48,6 +49,43 @@ static func reward_pickup(beat: Dictionary) -> String:
 static func label(beat: Dictionary) -> String:
 	return str(beat.get("label", "ENCOUNTER")).strip_edges().to_upper()
 
+static func formation(beat: Dictionary) -> String:
+	var value := str(beat.get("formation", "scatter"))
+	return value if value in ALLOWED_FORMATIONS else "scatter"
+
+static func formation_points(beat: Dictionary, count: int) -> Array[Vector2]:
+	var result: Array[Vector2] = []
+	var total := clampi(count, 0, MAX_ENEMIES_PER_BEAT)
+	if total <= 0:
+		return result
+	var kind := formation(beat)
+	for i in range(total):
+		var point := Vector2(0.5, float(i) * 8.0)
+		match kind:
+			"line":
+				point.x = 0.5 if total == 1 else lerpf(0.12, 0.88, float(i) / float(total - 1))
+				point.y = 0.0
+			"wedge":
+				if i == 0:
+					point = Vector2(0.5, 0.0)
+				else:
+					var rank := int((i + 1) / 2)
+					var side := -1.0 if i % 2 == 1 else 1.0
+					point = Vector2(clampf(0.5 + side * 0.13 * rank, 0.1, 0.9), float(rank) * 12.0)
+			"split":
+				var rank := int(i / 2)
+				point = Vector2(0.18 + float(rank) * 0.07 if i % 2 == 0 else 0.82 - float(rank) * 0.07, float(rank) * 12.0)
+			"column":
+				point = Vector2(0.5, float(i) * 18.0)
+			"stagger":
+				var lanes := [0.2, 0.4, 0.6, 0.8]
+				point = Vector2(float(lanes[i % lanes.size()]), float(i) * 9.0)
+			_:
+				var lanes := [0.17, 0.33, 0.5, 0.67, 0.83]
+				point = Vector2(float(lanes[(i * 2 + total) % lanes.size()]), float(i) * 7.0)
+		result.append(point)
+	return result
+
 static func is_secret(beat: Dictionary) -> bool:
 	return bool(beat.get("secret", false))
 
@@ -91,6 +129,8 @@ static func valid_schedule(beats: Array, duration_seconds: float) -> bool:
 		if expanded_enemy_ids(beat).is_empty() and reward_pickup(beat) == "":
 			return false
 		if beat.has("condition") and condition_type(beat) == "":
+			return false
+		if beat.has("formation") and str(beat.get("formation", "")) not in ALLOWED_FORMATIONS:
 			return false
 		ids[id] = true
 		last_time = at
