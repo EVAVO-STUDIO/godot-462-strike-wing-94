@@ -7,6 +7,7 @@ config/name="Strike Wing '94"
 run/main_scene="res://scenes/main.tscn"
 
 [autoload]
+SupportDirector="*res://scripts/support_director.gd"
 CampaignSave="*res://scripts/campaign_save.gd"
 EncounterDirector="*res://scripts/encounter_director.gd"
 BossDirector="*res://scripts/boss_director.gd"
