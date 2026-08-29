@@ -25,6 +25,7 @@ func _initialize() -> void:
 	_expect(AccuracyRules.bonus(progression, 0, 0) == 0, "zero-shot sortie must not earn accuracy bonus")
 	var combined := RewardRules.extra_success_bonus(progression, 100, 100, "gunship_alpha", objectives, complete, 100, 72)
 	_expect(int(combined.get("total", 0)) == 2350, "authored no-damage, boss and accuracy bonuses should combine without base reward")
+	_test_reward_lifecycle_source()
 	if failures.is_empty():
 		print("Strike Wing reward self-test passed.")
 		quit(0)
@@ -32,6 +33,20 @@ func _initialize() -> void:
 	for failure in failures:
 		push_error(failure)
 	quit(1)
+
+func _test_reward_lifecycle_source() -> void:
+	var file := FileAccess.open("res://scripts/reward_director.gd", FileAccess.READ)
+	_expect(file != null, "reward_director.gd should be readable for lifecycle checks")
+	if file == null:
+		return
+	var source := file.get_as_text()
+	_expect(source.contains("if phase == 1 and _last_phase != 1:"), "fresh sortie should reset reward idempotency")
+	_expect(source.contains("_applied_key = \"\""), "fresh sortie should clear applied reward key")
+	_expect(source.contains("elif phase == 2 and _last_phase != 2:"), "reward should apply only on result transition")
+	_expect(source.contains("if key == _applied_key:"), "same result key should remain idempotent")
+	_expect(source.contains("_applied_key = key"), "successful result should record applied reward key")
+	_expect(source.contains('scene.get("shots_fired")') and source.contains('scene.get("shots_hit")'), "reward should read source-owned accuracy counters")
+	_expect(not source.contains("AccuracyDirector"), "reward should not depend on accuracy reconciliation")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
