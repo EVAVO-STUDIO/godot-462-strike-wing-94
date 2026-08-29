@@ -11,6 +11,7 @@ var unlocked_index := 0
 var _cooldown := 0.0
 var _magnetic_timer := 0.0
 var _magnetic_support: Dictionary = {}
+var _last_phase := -1
 
 func _ready() -> void:
 	process_priority = -5
@@ -23,6 +24,8 @@ func _process(delta: float) -> void:
 	if scene == null or not _supports(scene):
 		return
 	var phase := int(scene.get("phase"))
+	if phase == 1 and _last_phase != 1:
+		_reset_sortie_state()
 	if phase == 0:
 		_handle_title(scene)
 	elif phase == 1:
@@ -33,6 +36,12 @@ func _process(delta: float) -> void:
 			_activate(scene)
 	else:
 		_magnetic_timer = 0.0
+	_last_phase = phase
+
+func _reset_sortie_state() -> void:
+	_cooldown = 0.0
+	_magnetic_timer = 0.0
+	_magnetic_support.clear()
 
 func _load_catalog() -> void:
 	var data = ContentCatalog.load_json("res://data/support_systems.json")
@@ -171,7 +180,14 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 	var damage := maxi(1, int(support.get("damage", 1)))
 	var angles := SupportRules.projectile_angles(support)
 	for angle in angles:
-		var bullet := {"position": origin,"velocity": Vector2.UP.rotated(float(angle)) * speed,"damage": damage,"support": true}
+		var bullet := {
+			"position": origin,
+			"velocity": Vector2.UP.rotated(float(angle)) * speed,
+			"damage": damage,
+			"support": true,
+			"support_id": str(support.get("id", "support")),
+			"strategic_support": bool(support.get("strategic", false))
+		}
 		if homing:
 			bullet["support_homing"] = true
 			bullet["turn_rate"] = maxf(0.1, float(support.get("turn_rate", 2.4)))
