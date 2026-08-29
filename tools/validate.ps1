@@ -24,8 +24,7 @@ $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/boss_hud_rules.gd','scripts/boss_hud_director.gd',
-    'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd',
-    'scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
+    'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd',
     'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/movement_pattern_rules.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
@@ -43,7 +42,7 @@ foreach ($Forbidden in @(
     'scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd',
     'scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd',
     'scripts/mission_state_director.gd','scripts/bomb_guard_director.gd','scripts/mission_flow_director.gd',
-    'scripts/movement_pattern_director.gd'
+    'scripts/movement_pattern_director.gd','scripts/run_seed_director.gd'
 )) {
     if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/obsolete path committed: $Forbidden" }
 }
@@ -136,12 +135,12 @@ foreach ($Weapon in $Primaries) {
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
     'CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"',
-    'RunSeedDirector="*res://scripts/run_seed_director.gd"','WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"',
-    'AccuracyDirector="*res://scripts/accuracy_director.gd"','RewardDirector="*res://scripts/reward_director.gd"',
-    'ServiceDirector="*res://scripts/service_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"',
-    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
+    'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"','AccuracyDirector="*res://scripts/accuracy_director.gd"',
+    'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"',
+    'BossHudDirector="*res://scripts/boss_hud_director.gd"','ThreatWarningDirector="*res://scripts/threat_warning_director.gd"',
+    'ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
-foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector')) {
+foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector')) {
     if ($ProjectText.Contains($ObsoleteAutoload)) { throw "Obsolete autoload must remain removed: $ObsoleteAutoload" }
 }
 
@@ -160,7 +159,7 @@ foreach ($Token in @(
 )) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing direct runtime ownership token: $Token" } }
 foreach ($ForbiddenToken in @(
     'pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get',
-    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector',
+    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector',
     'enemies.clear(); enemy_bullets.clear()'
 )) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete reconciliation/global fallback token: $ForbiddenToken" } }
 
@@ -182,10 +181,7 @@ if ($MissionFlowRulesText.Contains('safe_pre_frame_time')) { throw 'Obsolete ove
 $MovementRulesText = Get-Content -Raw (Join-Path $Root 'scripts/movement_pattern_rules.gd')
 foreach ($Token in @('supported_patterns','tracking_sweep','hover_strafe','road_column','water_lane','static','aggressive_weave','clamp_x')) { if (-not $MovementRulesText.Contains($Token)) { throw "Movement pattern rules missing token: $Token" } }
 $SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
-foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) { if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" } }
-$SeedDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director.gd')
-foreach ($Token in @('RunSeedRules.mission_seed','current_mission_seed','_update_seed_for_scene')) { if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing token: $Token" } }
-if ($SeedDirectorText.Contains('seed(run_seed)')) { throw 'RunSeedDirector must not mutate the global RNG.' }
+foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','same_mission_reproducible','missions_are_distinct')) { if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" } }
 $WeaponPickupRulesText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_rules.gd')
 foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) { if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" } }
 $WeaponPickupDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_director.gd')
