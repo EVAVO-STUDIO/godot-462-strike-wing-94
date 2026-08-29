@@ -91,6 +91,7 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 			eligible.append(enemy_id)
 	var points := EncounterRules.formation_points(beat, eligible.size())
 	var strike_priority := EncounterRules.is_low_bomber_route(beat)
+	var intercept_priority := EncounterRules.is_high_fighter_route(beat)
 	for i in range(eligible.size()):
 		var archetype := _enemy_for_id(scene.get("enemy_catalog"), eligible[i])
 		if archetype.is_empty():
@@ -100,6 +101,7 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 			scene,
 			points[i] if i < points.size() else Vector2(0.5, 0.0),
 			strike_priority,
+			intercept_priority,
 			str(beat.get("id", ""))
 		)
 
@@ -117,10 +119,12 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	var suffix := "" if eligible.size() == enemy_ids.size() else "  ALTITUDE FILTER"
 	if strike_priority:
 		suffix += "  STRIKE TARGETS"
+	elif intercept_priority:
+		suffix += "  INTERCEPT TARGETS"
 	scene.set("status_text", "%s%s%s" % [prefix, EncounterRules.label(beat), suffix])
 	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
 
-func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priority: bool = false, route_id: String = "") -> void:
+func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priority: bool = false, intercept_priority: bool = false, route_id: String = "") -> void:
 	var enemies: Array = scene.get("enemies")
 	if enemies.is_empty():
 		return
@@ -133,9 +137,14 @@ func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priorit
 	position.y -= maxf(0.0, point.y)
 	enemy["position"] = position
 	enemy["pattern_anchor_x"] = position.x
-	if strike_priority and str(enemy.get("category", "air")) in ["ground", "sea"]:
+	var category := str(enemy.get("category", "air"))
+	if strike_priority and category in ["ground", "sea"]:
 		enemy["strike_priority"] = true
 		enemy["route_bonus_id"] = route_id
+	if intercept_priority and category == "air":
+		enemy["intercept_priority"] = true
+		enemy["route_bonus_id"] = route_id
+		enemy["value"] = int(enemy.get("value", 0)) + EncounterRules.HIGH_INTERCEPT_VALUE_BONUS
 	enemies[index] = enemy
 	scene.set("enemies", enemies)
 
