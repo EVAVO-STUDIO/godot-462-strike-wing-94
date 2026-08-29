@@ -15,6 +15,10 @@ const LOW_DAMAGE := 22
 const MID_DAMAGE := 14
 const BOSS_DAMAGE := 8
 const ROUTE_PRECISION_SCORE := 450
+const STABILITY_SECONDS := 0.65
+const STABILITY_DECAY_MULTIPLIER := 1.8
+const STABLE_IMPACT_MULTIPLIER := 0.72
+const STABLE_AIM_MULTIPLIER := 0.72
 
 static func altitude_allowed(altitude: String) -> bool:
 	return altitude in ["low", "mid"]
@@ -82,6 +86,26 @@ static func route_precision_score(enemy: Dictionary, killed_by_ordnance: bool) -
 	if not killed_by_ordnance or not bool(enemy.get("strike_priority", false)):
 		return 0
 	return ROUTE_PRECISION_SCORE
+
+static func update_stability(current: float, delta: float, low_bomber: bool, has_surface_lock: bool, lateral_input: float) -> float:
+	var value := clampf(current, 0.0, 1.0)
+	var dt := maxf(0.0, delta)
+	var stable_line := low_bomber and has_surface_lock and absf(lateral_input) <= 0.18
+	if stable_line:
+		return clampf(value + dt / STABILITY_SECONDS, 0.0, 1.0)
+	return clampf(value - dt * STABILITY_DECAY_MULTIPLIER / STABILITY_SECONDS, 0.0, 1.0)
+
+static func stabilized_impact_delay(altitude: String, stability: float) -> float:
+	var base := impact_delay(altitude)
+	if altitude != "low":
+		return base
+	return lerpf(base, base * STABLE_IMPACT_MULTIPLIER, clampf(stability, 0.0, 1.0))
+
+static func stabilized_aim_radius(altitude: String, stability: float) -> float:
+	var base := aim_radius(altitude)
+	if altitude != "low":
+		return base
+	return lerpf(base, base * STABLE_AIM_MULTIPLIER, clampf(stability, 0.0, 1.0))
 
 static func impact_delay(altitude: String) -> float:
 	return LOW_IMPACT_DELAY if altitude == "low" else MID_IMPACT_DELAY
