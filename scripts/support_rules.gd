@@ -35,6 +35,15 @@ static func duration(support: Dictionary, fallback: float = 1.0) -> float:
 static func max_targets(support: Dictionary) -> int:
 	return clampi(int(support.get("max_targets", 1)), 1, 16)
 
+static func emp_resistance(enemy: Dictionary) -> float:
+	return clampf(float(enemy.get("emp_resistance", 0.0)), 0.0, 0.95)
+
+static func emp_effective_duration(base_duration: float, resistance: float) -> float:
+	return maxf(0.25, maxf(0.1, base_duration) * (1.0 - clampf(resistance, 0.0, 0.95)))
+
+static func emp_speed_scale(resistance: float) -> float:
+	return lerpf(0.35, 0.72, clampf(resistance, 0.0, 0.95))
+
 static func projectile_angles(support: Dictionary) -> Array[float]:
 	var result: Array[float] = []
 	var count := clampi(int(support.get("projectiles", 1)), 1, 5)
