@@ -1,8 +1,11 @@
 class_name EncounterRules
 extends RefCounted
 
+const AltitudeRules = preload("res://scripts/altitude_rules.gd")
+const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
+
 const ALLOWED_PICKUPS := ["", "shield", "repair", "bomb", "weapon"]
-const ALLOWED_CONDITIONS := ["", "accuracy_at_least", "score_at_least", "bombs_at_least"]
+const ALLOWED_CONDITIONS := ["", "accuracy_at_least", "score_at_least", "bombs_at_least", "altitude_is", "form_is", "altitude_form"]
 const ALLOWED_FORMATIONS := ["scatter", "line", "wedge", "split", "column", "stagger"]
 const MAX_ENEMIES_PER_BEAT := 12
 const MAX_SUPPRESSION_SECONDS := 12.0
@@ -113,6 +116,18 @@ static func condition_met(beat: Dictionary, state: Dictionary) -> bool:
 			return int(state.get("score", 0)) >= maxi(0, int(condition.get("value", 0)))
 		"bombs_at_least":
 			return int(state.get("bombs", 0)) >= maxi(0, int(condition.get("value", 0)))
+		"altitude_is":
+			var required_altitude := str(condition.get("value", AltitudeRules.MID))
+			return AltitudeRules.sanitize(required_altitude) == required_altitude and AltitudeRules.sanitize(str(state.get("altitude", AltitudeRules.MID))) == required_altitude
+		"form_is":
+			var required_form := str(condition.get("value", CraftFormRules.FIGHTER))
+			return CraftFormRules.sanitize(required_form) == required_form and CraftFormRules.sanitize(str(state.get("form", CraftFormRules.FIGHTER))) == required_form
+		"altitude_form":
+			var required_altitude := str(condition.get("altitude", AltitudeRules.MID))
+			var required_form := str(condition.get("form", CraftFormRules.FIGHTER))
+			if AltitudeRules.sanitize(required_altitude) != required_altitude or CraftFormRules.sanitize(required_form) != required_form:
+				return false
+			return AltitudeRules.sanitize(str(state.get("altitude", AltitudeRules.MID))) == required_altitude and CraftFormRules.sanitize(str(state.get("form", CraftFormRules.FIGHTER))) == required_form
 		_:
 			return false
 
