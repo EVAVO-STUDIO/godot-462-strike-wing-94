@@ -88,11 +88,7 @@ func _try_drop(scene: Object) -> void:
 	ordnance -= 1
 	_cooldown = StrikeOrdnanceRules.DROP_COOLDOWN
 	var enemies: Array = scene.get("enemies")
-	var point := StrikeOrdnanceRules.assisted_target_point(
-		scene.get("player_position"),
-		altitude,
-		enemies
-	)
+	var point := StrikeOrdnanceRules.assisted_target_point(scene.get("player_position"), altitude, enemies)
 	var delay := StrikeOrdnanceRules.stabilized_impact_delay(altitude, _stability)
 	_pending.append({
 		"position": point,
@@ -287,7 +283,4 @@ func _ensure_action() -> void:
 	var event := InputEventKey.new()
 	event.physical_keycode = KEY_E
 	if not InputMap.action_has_event("drop_strike_ordnance", event):
-		InputMap.add_action("drop_strike_ordnance")
-		InputMap.action_add_event("drop_strike_ordnance", event)
-	elif not InputMap.action_has_event("drop_strike_ordnance", event):
 		InputMap.action_add_event("drop_strike_ordnance", event)
