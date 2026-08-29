@@ -30,10 +30,11 @@ $Required = @(
     'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/movement_pattern_rules.gd','scripts/weapon_pickup_rules.gd',
     'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/energy_rules.gd',
     'scripts/encounter_rules.gd','scripts/encounter_director.gd','scripts/support_rules.gd','scripts/support_director.gd',
-    'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/craft_form_director.gd','scripts/environment_rules.gd',
+    'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/craft_form_director.gd','scripts/environment_rules.gd','scripts/environment_surface.gd','scripts/environment_director.gd',
+    'scripts/battlefield_support_rules.gd','scripts/battlefield_support_surface.gd','scripts/battlefield_support_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
-    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd','tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd',
+    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd','tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
     'data/weapons.json','data/generators.json','data/support_systems.json','data/battlefield_support.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/environment_profiles.json','data/campaign.json','data/campaign_world.json','data/player_craft.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md','docs/90S_SHOOTER_BIBLE.md','docs/CAMPAIGN_CANON.md'
 )
@@ -155,7 +156,7 @@ foreach ($Mission in $Missions.missions) {
 }
 foreach ($MissionId in @('m07_ghost_sky','m08_machine_furnace','m09_black_horizon')) { if ([string]$World.mission_context.$MissionId.threat_phase -ne 'drone_war') { throw "$MissionId must belong to drone_war." } }
 if ([string]$World.mission_context.m07_ghost_sky.altitude -ne 'high') { throw 'Ghost Sky must be high altitude.' }
-if ([string]$World.mission_context.m09_black_horizon.altitude -ne 'orbital') { throw 'Black Horizon must be orbital.' }
+if ([string]$World.mission_context.m09_black_horizon.altitude -ne 'orbital' -or [string]$World.mission_context.m09_black_horizon.recommended_form -ne 'fighter') { throw 'Black Horizon must be orbital and fighter-configured.' }
 
 $CampaignMissionIds = @($Campaign.campaign.missions)
 foreach ($MissionId in $CampaignMissionIds) { if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" } }
@@ -175,7 +176,11 @@ foreach ($Environment in @($Missions.missions | ForEach-Object { $_.environment 
 foreach ($RequiredEnvironment in @('coast','industrial','open_water','high_cloud','orbital')) { if ($EnvironmentIds -notcontains $RequiredEnvironment) { throw "Missing environment profile: $RequiredEnvironment" } }
 
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
-foreach ($Autoload in @('SupportDirector="*res://scripts/support_director.gd"','CampaignSave="*res://scripts/campaign_save.gd"','EncounterDirector="*res://scripts/encounter_director.gd"','CraftFormDirector="*res://scripts/craft_form_director.gd"','BossDirector="*res://scripts/boss_director.gd"','PixelUiDirector="*res://scripts/pixel_ui_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"')) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
+foreach ($Autoload in @(
+    'SupportDirector="*res://scripts/support_director.gd"','CampaignSave="*res://scripts/campaign_save.gd"','EncounterDirector="*res://scripts/encounter_director.gd"',
+    'CraftFormDirector="*res://scripts/craft_form_director.gd"','EnvironmentDirector="*res://scripts/environment_director.gd"','BattlefieldSupportDirector="*res://scripts/battlefield_support_director.gd"',
+    'BossDirector="*res://scripts/boss_director.gd"','PixelUiDirector="*res://scripts/pixel_ui_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
+)) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
 foreach ($Obsolete in @('ServiceDirector','RewardDirector','AccuracyDirector','WeaponPickupDirector','RunSeedDirector','MovementPatternDirector','MissionFlowDirector','MissionStateDirector','BombGuardDirector','MissileBehaviorDirector','SpawnSafetyDirector','BossHudDirector','ThreatWarningDirector')) { if ($ProjectText.Contains($Obsolete)) { throw "Obsolete autoload must remain removed: $Obsolete" } }
 
 $EncounterDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_director.gd')
@@ -183,7 +188,7 @@ Assert-Contains $EncounterDirectorText @('process_priority = -20','EncounterRule
 $SupportRulesText = Get-Content -Raw (Join-Path $Root 'scripts/support_rules.gd')
 Assert-Contains $SupportRulesText @('ALLOWED_TYPES','cycle_selected','projectile_angles','defence_indices','can_activate','has_defence_target') 'Support rules'
 $SupportDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/support_director.gd')
-Assert-Contains $SupportDirectorText @('process_priority = -5','current_support_name','support_state','restore_support_state','fire_support','cycle_support','upgrade_support','support_homing','defence_indices','shots_fired','support_energy_multiplier') 'Support director'
+Assert-Contains $SupportDirectorText @('process_priority = -5','current_support_name','support_state','restore_support_state','rearm_support','fire_support','cycle_support','upgrade_support','support_homing','defence_indices','shots_fired','support_energy_multiplier') 'Support director'
 
 $CraftRulesText = Get-Content -Raw (Join-Path $Root 'scripts/craft_form_rules.gd')
 Assert-Contains $CraftRulesText @('FIGHTER','BOMBER','TRANSFORM_COOLDOWN','movement_multiplier','collision_radius_sq','primary_spread_multiplier','ground_attack_multiplier','air_attack_multiplier','support_energy_multiplier') 'Craft form rules'
@@ -193,11 +198,18 @@ $CraftDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/craft_form_direc
 Assert-Contains $CraftDirectorText @('process_priority = -8','campaign_world.json','transform_craft','KEY_Q','current_form_name','current_altitude_name','target_damage_multiplier','mission_context') 'Craft form director'
 $EnvironmentRulesText = Get-Content -Raw (Join-Path $Root 'scripts/environment_rules.gd')
 Assert-Contains $EnvironmentRulesText @('parallax_speed','ground_detail_scale','cloud_density','horizon_glow','ground_target_visual_scale') 'Environment rules'
+$EnvironmentDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/environment_director.gd')
+Assert-Contains $EnvironmentDirectorText @('layer = 2','environment_profiles.json','_draw_coast','_draw_industrial','_draw_water','_draw_cloud_top','_draw_orbital','EnvironmentRules.cloud_density') 'Environment director'
+
+$BattlefieldRulesText = Get-Content -Raw (Join-Path $Root 'scripts/battlefield_support_rules.gd')
+Assert-Contains $BattlefieldRulesText @('TANKER_RADIUS := 30.0','TANKER_REQUIRED_SECONDS := 3.5','tanker_connected','tanker_progress','tanker_restore','altitude_allowed') 'Battlefield support rules'
+$BattlefieldDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/battlefield_support_director.gd')
+Assert-Contains $BattlefieldDirectorText @('layer = 18','process_priority = -4','KEY_B','KEY_F','atlas_tanker','BattlefieldSupportRules.tanker_connected','TANKER REARM COMPLETE','rearm_support','applied = mini(applied, maxi(0, hp - 1))','scene.call("_register_destroy", enemy)') 'Battlefield support director'
 
 $PixelFontText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_font.gd'); Assert-Contains $PixelFontText @('class_name PixelFont','GLYPHS','draw_text','draw_centered','normalized.substr(char_index, 1)') 'Pixel font'
 $PixelSurfaceText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_surface.gd'); Assert-Contains $PixelSurfaceText @('class_name PixelUiSurface','extends Control','director.call("_draw_surface", self)') 'Pixel UI surface'
 $PixelUiText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_director.gd')
-Assert-Contains $PixelUiText @('layer = 30','PixelUiSurface.new()','Vector2(640, 360)','PixelFont.draw_centered','func _draw_boss','var cue := " WEAK" if phase >= 3','ThreatWarningRules.warning_text','EnergyRules.capacity','C SUPPORT','V SUPPORT BUY','Q TRANSFORM IN FLIGHT','_support_name()','_form_name()','_altitude_name()') 'Pixel UI'
+Assert-Contains $PixelUiText @('layer = 30','PixelUiSurface.new()','Vector2(640, 360)','PixelFont.draw_centered','func _draw_boss','var cue := " WEAK" if phase >= 3','ThreatWarningRules.warning_text','EnergyRules.capacity','C SUPPORT','V SUPPORT BUY','B BATTLE SUPPORT','F CALL','Q TRANSFORM IN FLIGHT','_support_name()','_battlefield_support_name()','_form_name()','_altitude_name()') 'Pixel UI'
 foreach ($WidgetToken in @('PanelContainer.new()','Label.new()','ProgressBar.new()')) { if ($PixelUiText.Contains($WidgetToken)) { throw "Primary pixel UI still contains modern widget chrome: $WidgetToken" } }
 
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
@@ -206,8 +218,8 @@ $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 Assert-Contains $SaveText @('SAVE_VERSION := 4','BACKUP_PATH','generator_index','service_hull','service_shield','support_selected','support_unlocked','restore_support_state','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
 $Godot = Resolve-Godot -Preferred $GodotBin
-if (-not $Godot) { Write-Warning 'Godot executable not found. Structural/data/save/encounter/support/craft/altitude/pixel-UI validation passed; headless self-tests and engine smoke test skipped.'; exit 0 }
-$Tests = @('runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd','encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd')
+if (-not $Godot) { Write-Warning 'Godot executable not found. Structural/data/save/encounter/support/craft/altitude/battlefield/pixel-UI validation passed; headless self-tests and engine smoke test skipped.'; exit 0 }
+$Tests = @('runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd','encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd')
 foreach ($Test in $Tests) { Write-Host "Running $Test..." -ForegroundColor DarkCyan; & $Godot --headless --path $Root --script "res://tools/$Test"; if ($LASTEXITCODE -ne 0) { throw "$Test failed with exit code $LASTEXITCODE" } }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan; & $Godot --headless --path $Root --editor --quit; if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 Write-Host 'Strike Wing 94 validation passed.' -ForegroundColor Green
