@@ -4,6 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
 const StrategicWarheadRules = preload("res://scripts/strategic_warhead_rules.gd")
+const MissionIntelRules = preload("res://scripts/mission_intel_rules.gd")
 const SupportDirector = preload("res://scripts/support_director.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
@@ -19,6 +20,7 @@ func _initialize() -> void:
 	_test_generator_efficiency()
 	_test_strategic_support()
 	_test_strategic_blast()
+	_test_mission_intel()
 	_test_wiring()
 	if failures.is_empty():
 		print("Strike Wing support self-test passed.")
@@ -104,25 +106,33 @@ func _test_strategic_blast() -> void:
 	_expect(StrategicWarheadRules.can_burst(round), "fresh strategic round should be able to burst")
 	round["strategic_burst"] = true
 	_expect(not StrategicWarheadRules.can_burst(round), "strategic round must burst only once")
-	var enemies := [
-		{"position":Vector2(108,100),"hp":20},
-		{"position":Vector2(120,100),"hp":20},
-		{"position":Vector2(135,100),"hp":20},
-		{"position":Vector2(145,100),"hp":20},
-		{"position":Vector2(152,100),"hp":20},
-		{"position":Vector2(200,100),"hp":20}
-	]
+	var enemies := [{"position":Vector2(108,100),"hp":20},{"position":Vector2(120,100),"hp":20},{"position":Vector2(135,100),"hp":20},{"position":Vector2(145,100),"hp":20},{"position":Vector2(152,100),"hp":20},{"position":Vector2(200,100),"hp":20}]
 	var primary := StrategicWarheadRules.trigger_enemy_index(Vector2(100,100), enemies)
 	_expect(primary == 0, "strategic burst should trigger on nearest target")
 	var secondary := StrategicWarheadRules.secondary_indices(Vector2(108,100), enemies, primary)
 	_expect(secondary.size() == StrategicWarheadRules.MAX_SECONDARY_TARGETS, "strategic blast must respect four-target cap")
-	_expect(StrategicWarheadRules.BLAST_RADIUS <= 60.0, "strategic blast should remain tightly bounded for shooter readability")
+	_expect(StrategicWarheadRules.BLAST_RADIUS <= 60.0, "strategic blast should remain tightly bounded")
 	var runtime := FileAccess.open("res://scripts/strategic_warhead_director.gd", FileAccess.READ)
 	_expect(runtime != null, "strategic warhead runtime should be readable")
 	if runtime != null:
 		var source := runtime.get_as_text()
 		_expect(source.contains('bullet["strategic_burst"] = true'), "runtime should mark one-shot strategic burst")
 		_expect(source.contains("mini(StrategicWarheadRules.SECONDARY_DAMAGE, hp - 1)"), "strategic secondary blast must remain nonlethal")
+
+func _test_mission_intel() -> void:
+	var world = ContentCatalog.load_json("res://data/campaign_world.json")
+	_expect(typeof(world) == TYPE_DICTIONARY, "campaign world should load for mission intel")
+	if typeof(world) != TYPE_DICTIONARY: return
+	var contexts = world.get("mission_context", {})
+	var machine: Dictionary = contexts.get("m12_machine_ark", {})
+	var lines := MissionIntelRules.mission_lines(machine, "machine_ark")
+	_expect(lines.size() == 5, "mission intel should expose five compact tactical lines")
+	_expect(lines[0].contains("AUTONOMOUS NETWORK"), "Machine Ark intel should identify drone-war threat")
+	_expect(lines[1].contains("HIGH") and lines[1].contains("FTR") and lines[1].contains("ORB"), "Machine Ark intel should show high-altitude fighter strategic-era profile")
+	_expect(lines[2].contains("082S>ORB"), "Machine Ark intel should expose final orbital burn timing")
+	_expect(lines[3].contains("MACHINE ARK"), "mission intel should expose boss identity")
+	_expect(lines[4].contains("ATLAS TANKER") and lines[4].contains("ORBITAL STRIKE"), "mission intel should expose available allied assets")
+	_expect(MissionIntelRules.transition_summary([]) == "FIXED ENVELOPE", "fixed-altitude missions should report a fixed envelope")
 
 func _test_wiring() -> void:
 	var director := SupportDirector.new(); _expect(director != null, "SupportDirector should instantiate"); director.free()
@@ -146,6 +156,11 @@ func _test_wiring() -> void:
 		var source := project.get_as_text()
 		_expect(source.contains('StrategicWarheadDirector="*res://scripts/strategic_warhead_director.gd"'), "strategic warhead owner should remain autoloaded")
 		_expect(source.contains('MissionIntelDirector="*res://scripts/mission_intel_director.gd"'), "mission intelligence overlay should remain autoloaded")
+	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
+	_expect(intel_file != null, "mission intelligence director should be readable")
+	if intel_file != null:
+		var source := intel_file.get_as_text()
+		_expect(source.contains("KEY_I") and source.contains("MISSION INTELLIGENCE"), "mission intelligence should be toggleable through the pixel overlay")
 	var cue_file := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)
 	_expect(cue_file != null, "projectile cue director should be readable")
 	if cue_file != null:
