@@ -38,7 +38,9 @@ class ProjectileCueCanvas:
 			var velocity: Vector2 = shot.get("velocity", Vector2.UP * 300.0)
 			var direction := velocity.normalized() if velocity.length_squared() > 0.001 else Vector2.UP
 			var weapon_id := str(shot.get("weapon_id", ""))
-			if weapon_id == "needle_rail" or bool(shot.get("kinetic", false)):
+			if bool(shot.get("strategic_support", false)):
+				_draw_strategic_warhead(position, direction)
+			elif weapon_id == "needle_rail" or bool(shot.get("kinetic", false)):
 				_draw_kinetic(position, direction)
 			elif weapon_id == "plasma_lance":
 				_draw_plasma_lance(position, direction)
@@ -84,6 +86,16 @@ class ProjectileCueCanvas:
 		draw_circle(position, 2.0, core)
 		if homing:
 			draw_arc(position, 4.0, 0.0, TAU, 8, Color(0.72, 0.95, 0.78, 0.7), 1.0)
+
+	func _draw_strategic_warhead(position: Vector2, direction: Vector2) -> void:
+		var body := Color(0.96, 0.84, 0.58, 0.98)
+		var warning := Color(0.92, 0.32, 0.24, 0.90)
+		var wake := Color(0.55, 0.72, 0.72, 0.66)
+		draw_line(position - direction * 19.0, position - direction * 5.0, wake, 2.0)
+		draw_line(position - direction * 7.0, position + direction * 5.0, body, 3.0)
+		draw_arc(position, 6.0, 0.0, TAU, 8, warning, 1.0)
+		var tail := position - direction * 9.0
+		draw_rect(Rect2(roundf(tail.x)-2, roundf(tail.y)-1, 4, 2), warning)
 
 var _canvas: ProjectileCueCanvas
 
