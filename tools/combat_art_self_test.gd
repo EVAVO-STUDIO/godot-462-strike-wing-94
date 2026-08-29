@@ -8,6 +8,7 @@ func _initialize() -> void:
 	_test_wiring()
 	_test_visual_language()
 	_test_transform_presentation()
+	_test_altitude_presentation()
 	if failures.is_empty():
 		print("Strike Wing combat art self-test passed.")
 		quit(0)
@@ -54,6 +55,19 @@ func _test_transform_presentation() -> void:
 	_expect(source.contains("func _draw_transforming"), "intermediate wing geometry should have dedicated rendering")
 	_expect(source.contains("lerpf(17.0, 29.0, t)"), "wing span should visibly expand between fighter and bomber")
 	_expect(source.contains("Mechanical hinge marks"), "transforming silhouette should retain visible variable-geometry hinge language")
+
+func _test_altitude_presentation() -> void:
+	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
+	_expect(file != null, "combat art director should be readable for altitude checks")
+	if file == null:
+		return
+	var source := file.get_as_text()
+	_expect(source.contains("AltitudeRules.ground_scale"), "surface target presentation should use the canonical altitude scale")
+	_expect(source.contains('category in ["ground", "sea"]'), "ground/sea targets should be identified for altitude treatment")
+	_expect(source.contains("scale < 0.25"), "ordinary surface silhouettes should disappear when the player is effectively too high to engage them visually")
+	_expect(source.contains("func _draw_ground(surface: CanvasItem, p: Vector2, scale: float)"), "ground target art should accept altitude scale")
+	_expect(source.contains("func _draw_sea(surface: CanvasItem, p: Vector2, scale: float)"), "sea target art should accept altitude scale")
+	_expect(source.contains("roundf(v.x * scale)"), "scaled target geometry should stay integer-aligned")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
