@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "altitude_bands": [
     {"id":"low","name":"Low Altitude","ground_scale":1.0,"ground_targets":true,"cloud_layer":"above","summary":"Close terrain, ships, armour, structures and bombing runs."},
     {"id":"mid","name":"Mid Altitude","ground_scale":0.68,"ground_targets":true,"cloud_layer":"mixed","summary":"Hybrid strike envelope with smaller ground detail and low cloud bands."},
@@ -35,6 +35,9 @@
     "m06_black_flag":{"altitude":"mid","threat_phase":"mercenary_war","tech_era":"electromagnetic","role":"fleet_breakthrough","recommended_form":"fighter","support":["rapier_flight","hammer_bomber_flight","rail_support"],"altitude_transitions":[{"at_seconds":72,"altitude":"low","label":"SEA SKIMMER ATTACK"},{"at_seconds":142,"altitude":"mid","label":"FLAGSHIP CLIMB"}]},
     "m07_ghost_sky":{"altitude":"high","threat_phase":"drone_war","tech_era":"electromagnetic","role":"swarm_intercept","recommended_form":"fighter","support":["rapier_flight","atlas_tanker","rail_support"]},
     "m08_machine_furnace":{"altitude":"mid","threat_phase":"drone_war","tech_era":"electromagnetic","role":"factory_strike","recommended_form":"bomber","support":["spectre_gunship","hammer_bomber_flight","cruise_missile_support"]},
-    "m09_black_horizon":{"altitude":"high","threat_phase":"drone_war","tech_era":"strategic_orbital","role":"orbital_command_assault","recommended_form":"fighter","support":["rapier_flight","rail_support","orbital_strike"],"altitude_transitions":[{"at_seconds":86,"altitude":"orbital","label":"EXOATMOSPHERIC BREAKOUT"}]}
+    "m09_black_horizon":{"altitude":"high","threat_phase":"drone_war","tech_era":"directed_energy","role":"orbital_command_assault","recommended_form":"fighter","support":["rapier_flight","rail_support","orbital_strike"],"altitude_transitions":[{"at_seconds":86,"altitude":"orbital","label":"EXOATMOSPHERIC BREAKOUT"}]},
+    "m10_blue_fire":{"altitude":"high","threat_phase":"drone_war","tech_era":"directed_energy","role":"phase_screen_breakthrough","recommended_form":"fighter","support":["rapier_flight","atlas_tanker","rail_support"],"altitude_transitions":[{"at_seconds":176,"altitude":"orbital","label":"PHASE ARRAY ASCENT"}]},
+    "m11_cold_station":{"altitude":"orbital","threat_phase":"drone_war","tech_era":"directed_energy","role":"space_station_assault","recommended_form":"fighter","support":["rapier_flight","rail_support","orbital_strike"]},
+    "m12_machine_ark":{"altitude":"orbital","threat_phase":"drone_war","tech_era":"strategic_orbital","role":"strategic_command_ark_assault","recommended_form":"fighter","support":["rapier_flight","rail_support","orbital_strike"]}
   }
 }
