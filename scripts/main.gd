@@ -5,6 +5,7 @@ const CombatRules = preload("res://scripts/combat_rules.gd")
 const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
+const RewardRules = preload("res://scripts/reward_rules.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
@@ -192,15 +193,41 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 	if phase == GamePhase.RESULT:
 		return
 	phase = GamePhase.RESULT
-	_clear_combat()
 	if success:
-		var reward := ProgressionRules.mission_reward(score)
-		var bonus := ObjectiveRules.bonus_credits(current_objectives, objective_progress)
-		credits += reward + bonus
-		result_text = "MISSION COMPLETE  +%d" % (reward + bonus)
-		if bonus > 0: result_text += "  BONUS %d" % bonus
+		var base_reward := ProgressionRules.mission_reward(score)
+		var objective_bonus := ObjectiveRules.bonus_credits(current_objectives, objective_progress)
+		var progression: Dictionary = campaign.get("progression", {}) if typeof(campaign) == TYPE_DICTIONARY else {}
+		var starting_hull := MissionStateRules.starting_hull(_campaign_config(), 100)
+		var extras := RewardRules.extra_success_bonus(
+			progression,
+			hull,
+			starting_hull,
+			current_boss_id,
+			current_objectives,
+			objective_progress,
+			shots_fired,
+			clampi(shots_hit, 0, shots_fired)
+		)
+		var extra_total := int(extras.get("total", 0))
+		var total_reward := base_reward + objective_bonus + extra_total
+		credits += total_reward
+		result_text = "MISSION COMPLETE  +%d" % total_reward
+		var parts: Array[String] = []
+		if objective_bonus > 0:
+			parts.append("BONUS %d" % objective_bonus)
+		if int(extras.get("no_damage", 0)) > 0:
+			parts.append("NO DAMAGE +%d" % int(extras["no_damage"]))
+		if int(extras.get("boss", 0)) > 0:
+			parts.append("BOSS +%d" % int(extras["boss"]))
+		if int(extras.get("accuracy", 0)) > 0:
+			parts.append("ACCURACY %d%% +%d" % [int(round(float(extras.get("accuracy_ratio", 0.0)) * 100.0)), int(extras["accuracy"])])
+		elif shots_fired > 0:
+			parts.append("ACCURACY %d%%" % int(round(float(extras.get("accuracy_ratio", 0.0)) * 100.0)))
+		if not parts.is_empty():
+			result_text += "  %s" % "  ".join(parts)
 	else:
 		result_text = "%s  PRESS R TO RETRY" % failure_reason
+	_clear_combat()
 
 func _clear_combat() -> void:
 	bullets.clear()
