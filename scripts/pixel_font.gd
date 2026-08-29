@@ -33,8 +33,9 @@ static func draw_text(target: CanvasItem, text: String, position: Vector2, scale
 	var cursor_x := roundf(position.x)
 	var cursor_y := roundf(position.y)
 	var advance := (3 * pixel) + maxi(0, spacing)
-	for raw_char in text.to_upper():
-		var character := str(raw_char)
+	var normalized := text.to_upper()
+	for char_index in range(normalized.length()):
+		var character := normalized.substr(char_index, 1)
 		var rows: Array = GLYPHS.get(character, GLYPHS["?"])
 		for y in range(5):
 			var row := str(rows[y])
