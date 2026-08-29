@@ -47,7 +47,7 @@ func _test_campaign_world() -> void:
 	_expect(data.get("altitude_bands", []).size() == 4, "campaign world should define four altitude bands")
 	_expect(data.get("threat_phases", []).size() >= 3, "campaign world should define mercenary, drone and external threat phases")
 	var contexts = data.get("mission_context", {})
-	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() >= 9, "all nine current missions should receive campaign-world context")
+	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() == 12, "all twelve current missions should receive campaign-world context")
 	for mission_id in contexts.keys():
 		var context: Dictionary = contexts[mission_id]
 		_expect(AltitudeRules.sanitize(str(context.get("altitude", ""))) == str(context.get("altitude", "")), "%s should use a supported initial altitude" % mission_id)
@@ -63,8 +63,13 @@ func _test_campaign_world() -> void:
 			last_time = at
 	for mission_id in ["m01_coastal_intercept","m02_refinery_run","m03_black_sea","m04_breakwater","m05_furnace_line","m06_black_flag"]:
 		_expect(str(contexts.get(mission_id, {}).get("threat_phase", "")) == "mercenary_war", "%s should remain in opening mercenary war" % mission_id)
-	for mission_id in ["m07_ghost_sky","m08_machine_furnace","m09_black_horizon"]:
+	for mission_id in ["m07_ghost_sky","m08_machine_furnace","m09_black_horizon","m10_blue_fire","m11_cold_station","m12_machine_ark"]:
 		_expect(str(contexts.get(mission_id, {}).get("threat_phase", "")) == "drone_war", "%s should belong to autonomous drone war" % mission_id)
+	for mission_id in ["m07_ghost_sky","m08_machine_furnace"]:
+		_expect(str(contexts.get(mission_id, {}).get("tech_era", "")) == "electromagnetic", "%s should remain electromagnetic-era drone warfare" % mission_id)
+	for mission_id in ["m09_black_horizon","m10_blue_fire","m11_cold_station"]:
+		_expect(str(contexts.get(mission_id, {}).get("tech_era", "")) == "directed_energy", "%s should develop the directed-energy era" % mission_id)
+	_expect(str(contexts.get("m12_machine_ark", {}).get("tech_era", "")) == "strategic_orbital", "Machine Ark should be the first strategic-orbital campaign mission")
 	_expect(str(contexts.get("m07_ghost_sky", {}).get("altitude", "")) == "high", "Ghost Sky should introduce high-altitude drone combat")
 	var black_flag_transitions: Array = contexts.get("m06_black_flag", {}).get("altitude_transitions", [])
 	_expect(black_flag_transitions.size() == 2 and str(black_flag_transitions[0].get("altitude", "")) == "low" and str(black_flag_transitions[1].get("altitude", "")) == "mid", "Black Flag should descend for sea-skimming strike and climb for flagship phase")
@@ -72,7 +77,10 @@ func _test_campaign_world() -> void:
 	_expect(str(horizon.get("altitude", "")) == "high", "Black Horizon should begin at high altitude before orbital breakout")
 	var horizon_transitions: Array = horizon.get("altitude_transitions", [])
 	_expect(horizon_transitions.size() == 1 and str(horizon_transitions[0].get("altitude", "")) == "orbital", "Black Horizon should transition into orbital combat")
-	_expect(str(horizon.get("recommended_form", "")) == "fighter", "orbital command assault should recommend fighter configuration")
+	var blue_fire_transitions: Array = contexts.get("m10_blue_fire", {}).get("altitude_transitions", [])
+	_expect(blue_fire_transitions.size() == 1 and str(blue_fire_transitions[0].get("altitude", "")) == "orbital", "Blue Fire should climb into orbital phase-array combat")
+	_expect(str(contexts.get("m11_cold_station", {}).get("altitude", "")) == "orbital", "Cold Station should be a full orbital station assault")
+	_expect(str(contexts.get("m12_machine_ark", {}).get("altitude", "")) == "orbital", "Machine Ark should remain an orbital endgame mission")
 
 func _test_source_integration() -> void:
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
