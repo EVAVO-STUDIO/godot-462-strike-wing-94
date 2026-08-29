@@ -21,9 +21,14 @@ func _initialize() -> void:
 			var has_reward := false
 			var has_quiet_window := false
 			var has_secret := false
+			var formations: Dictionary = {}
 			for beat in beats:
-				for enemy_id in EncounterRules.expanded_enemy_ids(beat):
+				var enemy_list := EncounterRules.expanded_enemy_ids(beat)
+				for enemy_id in enemy_list:
 					_expect(enemy_ids.has(enemy_id), "%s encounter references unknown enemy %s" % [str(mission.get("id", "mission")), enemy_id])
+				formations[EncounterRules.formation(beat)] = true
+				var points := EncounterRules.formation_points(beat, enemy_list.size())
+				_expect(points.size() == enemy_list.size(), "%s encounter formation should provide one point per enemy" % str(mission.get("id", "mission")))
 				if EncounterRules.reward_pickup(beat) != "":
 					has_reward = true
 				if EncounterRules.suppression_seconds(beat) >= 2.0:
@@ -34,8 +39,10 @@ func _initialize() -> void:
 			_expect(has_reward, "%s should include an authored recovery/reward beat" % str(mission.get("id", "mission")))
 			_expect(has_quiet_window, "%s should include an authored pacing window" % str(mission.get("id", "mission")))
 			_expect(has_secret, "%s should include a replayable mastery secret" % str(mission.get("id", "mission")))
+			_expect(formations.size() >= 3, "%s should use at least three formation shapes" % str(mission.get("id", "mission")))
 	_test_rule_safety()
 	_test_secret_conditions()
+	_test_formation_geometry()
 	if failures.is_empty():
 		print("Strike Wing encounter self-test passed.")
 		quit(0)
@@ -65,6 +72,17 @@ func _test_secret_conditions() -> void:
 	var bombs := {"secret":true,"condition":{"type":"bombs_at_least","value":2}}
 	_expect(EncounterRules.condition_met(bombs, {"bombs":2}), "resource-conservation secret should unlock at threshold")
 	_expect(not EncounterRules.condition_met(bombs, {"bombs":1}), "resource-conservation secret should fail below threshold")
+
+func _test_formation_geometry() -> void:
+	var wedge := EncounterRules.formation_points({"formation":"wedge"}, 5)
+	_expect(wedge.size() == 5 and absf(wedge[0].x - 0.5) < 0.001, "wedge should lead from centre lane")
+	_expect(wedge[1].x < 0.5 and wedge[2].x > 0.5, "wedge should alternate left/right wings")
+	var split := EncounterRules.formation_points({"formation":"split"}, 4)
+	_expect(split[0].x < 0.3 and split[1].x > 0.7, "split formation should attack from both flanks")
+	var column := EncounterRules.formation_points({"formation":"column"}, 4)
+	_expect(absf(column[0].x - column[3].x) < 0.001 and column[3].y > column[0].y, "column should share lane with vertical spacing")
+	var line := EncounterRules.formation_points({"formation":"line"}, 4)
+	_expect(line[0].x < 0.2 and line[3].x > 0.8 and line[0].y == 0.0, "line should span most of playfield width")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
