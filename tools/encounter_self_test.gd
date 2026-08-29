@@ -16,10 +16,11 @@ func _initialize() -> void:
 				enemy_ids[str(enemy.get("id", ""))] = true
 		for mission in data.get("missions", []):
 			var beats := EncounterRules.beats_for_mission(mission)
-			_expect(beats.size() >= 4, "%s should contain at least four authored encounter beats" % str(mission.get("id", "mission")))
+			_expect(beats.size() >= 5, "%s should contain at least five authored encounter beats" % str(mission.get("id", "mission")))
 			_expect(EncounterRules.valid_schedule(beats, float(mission.get("duration_seconds", 1.0))), "%s encounter schedule should be ordered, unique and in-bounds" % str(mission.get("id", "mission")))
 			var has_reward := false
 			var has_quiet_window := false
+			var has_secret := false
 			for beat in beats:
 				for enemy_id in EncounterRules.expanded_enemy_ids(beat):
 					_expect(enemy_ids.has(enemy_id), "%s encounter references unknown enemy %s" % [str(mission.get("id", "mission")), enemy_id])
@@ -27,9 +28,14 @@ func _initialize() -> void:
 					has_reward = true
 				if EncounterRules.suppression_seconds(beat) >= 2.0:
 					has_quiet_window = true
+				if EncounterRules.is_secret(beat):
+					has_secret = true
+					_expect(EncounterRules.condition_type(beat) != "", "%s secret encounter should use supported condition" % str(mission.get("id", "mission")))
 			_expect(has_reward, "%s should include an authored recovery/reward beat" % str(mission.get("id", "mission")))
 			_expect(has_quiet_window, "%s should include an authored pacing window" % str(mission.get("id", "mission")))
+			_expect(has_secret, "%s should include a replayable mastery secret" % str(mission.get("id", "mission")))
 	_test_rule_safety()
+	_test_secret_conditions()
 	if failures.is_empty():
 		print("Strike Wing encounter self-test passed.")
 		quit(0)
@@ -47,6 +53,18 @@ func _test_rule_safety() -> void:
 	var beats := [beat]
 	_expect(EncounterRules.due_beat(beats, 0, 11.9).is_empty(), "encounter should not trigger before authored time")
 	_expect(not EncounterRules.due_beat(beats, 0, 12.0).is_empty(), "encounter should trigger at authored time")
+
+func _test_secret_conditions() -> void:
+	var accuracy := {"secret":true,"condition":{"type":"accuracy_at_least","value":0.75,"minimum_shots":20}}
+	_expect(not EncounterRules.condition_met(accuracy, {"shots_fired":1,"shots_hit":1}), "accuracy secret should require meaningful shot sample")
+	_expect(EncounterRules.condition_met(accuracy, {"shots_fired":20,"shots_hit":15}), "accuracy secret should unlock at authored threshold")
+	_expect(not EncounterRules.condition_met(accuracy, {"shots_fired":20,"shots_hit":14}), "accuracy secret should fail below authored threshold")
+	var score := {"secret":true,"condition":{"type":"score_at_least","value":5000}}
+	_expect(EncounterRules.condition_met(score, {"score":5000}), "score secret should unlock at threshold")
+	_expect(not EncounterRules.condition_met(score, {"score":4999}), "score secret should fail below threshold")
+	var bombs := {"secret":true,"condition":{"type":"bombs_at_least","value":2}}
+	_expect(EncounterRules.condition_met(bombs, {"bombs":2}), "resource-conservation secret should unlock at threshold")
+	_expect(not EncounterRules.condition_met(bombs, {"bombs":1}), "resource-conservation secret should fail below threshold")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
