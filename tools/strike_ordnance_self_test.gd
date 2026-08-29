@@ -9,6 +9,7 @@ func _initialize() -> void:
 	_test_drop_rules()
 	_test_damage_roles()
 	_test_route_targeting()
+	_test_stability()
 	_test_rearm()
 	_test_source_wiring()
 	if failures.is_empty():
@@ -50,6 +51,19 @@ func _test_route_targeting() -> void:
 	_expect(StrikeOrdnanceRules.route_precision_score(enemies[1], false) == 0, "route bonus must not award if ordnance did not make the kill")
 	_expect(StrikeOrdnanceRules.route_precision_score(enemies[0], true) == 0, "ordinary surface targets must not award route precision score")
 
+func _test_stability() -> void:
+	var stability := 0.0
+	stability = StrikeOrdnanceRules.update_stability(stability, StrikeOrdnanceRules.STABILITY_SECONDS, true, true, 0.0)
+	_expect(stability >= 0.99, "steady low bomber run should reach full bombing-computer stability")
+	var stable_delay := StrikeOrdnanceRules.stabilized_impact_delay("low", 1.0)
+	_expect(stable_delay < StrikeOrdnanceRules.impact_delay("low"), "stable low run should shorten bomb time-to-impact")
+	var stable_radius := StrikeOrdnanceRules.stabilized_aim_radius("low", 1.0)
+	_expect(stable_radius < StrikeOrdnanceRules.aim_radius("low"), "stable low run should tighten bombing-computer aim radius")
+	_expect(absf(StrikeOrdnanceRules.stabilized_impact_delay("mid", 1.0) - StrikeOrdnanceRules.impact_delay("mid")) < 0.001, "mid-altitude stand-off bombing should not gain low-level stabilization bonus")
+	var decayed := StrikeOrdnanceRules.update_stability(1.0, 0.3, true, true, 1.0)
+	_expect(decayed < 0.5, "hard lateral maneuvering should bleed bombing-run stability quickly")
+	_expect(StrikeOrdnanceRules.update_stability(0.5, 0.2, false, true, 0.0) < 0.5, "leaving low bomber conditions should decay stability")
+
 func _test_rearm() -> void:
 	_expect(StrikeOrdnanceRules.rearm(0) == StrikeOrdnanceRules.MAX_ORDNANCE, "full tanker rearm should restore strike rack")
 	_expect(StrikeOrdnanceRules.rearm(StrikeOrdnanceRules.MAX_ORDNANCE) == StrikeOrdnanceRules.MAX_ORDNANCE, "strike rack rearm should clamp to maximum")
@@ -71,6 +85,9 @@ func _test_source_wiring() -> void:
 		_expect(source.contains("ROUTE TARGET"), "route target should receive stronger visual designation")
 		_expect(source.contains("PRECISION ROUTE HIT"), "precision route kill should produce player feedback")
 		_expect(source.contains("route_precision_score"), "ordnance kill path should award bounded route score")
+		_expect(source.contains("_update_attack_run_stability"), "strike owner should maintain low-level attack-run stability")
+		_expect(source.contains("STB%03d"), "bombing HUD should expose stabilization percentage")
+		_expect(source.contains("stabilized_impact_delay"), "drop timing should consume stabilization rules")
 		_expect(source.contains("maxi(1, hp - damage)"), "strike ordnance must remain nonlethal against bosses")
 
 func _expect(condition: bool, message: String) -> void:
