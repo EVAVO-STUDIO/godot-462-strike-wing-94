@@ -56,27 +56,28 @@ func _supports(scene: Object) -> bool:
 func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
-	PixelFont.draw_centered(surface, "STRIKE WING '94", 320, 30, 3, TEXT, 2)
-	PixelFont.draw_centered(surface, str(scene.get("current_mission_name")), 320, 70, 2, GOLD, 2)
-	PixelFont.draw_centered(surface, "%s   %s CONFIG" % [_altitude_name(), _form_name()], 320, 92, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "STRIKE WING '94", 320, 28, 3, TEXT, 2)
+	PixelFont.draw_centered(surface, str(scene.get("current_mission_name")), 320, 66, 2, GOLD, 2)
+	PixelFont.draw_centered(surface, "%s   %s CONFIG" % [_altitude_name(), _form_name()], 320, 88, 1, BLUE, 1)
 	var briefing := str(scene.get("current_briefing"))
 	var lines := _wrap_text(briefing, 72)
 	for i in range(mini(2, lines.size())):
-		PixelFont.draw_centered(surface, lines[i], 320, 112 + i * 10, 1, MUTED, 1)
-	_draw_divider(surface, 142)
-	PixelFont.draw_centered(surface, "ENTER LAUNCH   U WEAPON   G GENERATOR", 320, 154, 1, TEXT, 1)
-	PixelFont.draw_centered(surface, "C SUPPORT   V SUPPORT BUY   H HULL   J SHIELD", 320, 168, 1, TEXT, 1)
-	PixelFont.draw_centered(surface, "Q TRANSFORM IN FLIGHT", 320, 182, 1, GREEN, 1)
+		PixelFont.draw_centered(surface, lines[i], 320, 106 + i * 10, 1, MUTED, 1)
+	_draw_divider(surface, 136)
+	PixelFont.draw_centered(surface, "ENTER LAUNCH   U WEAPON   G GENERATOR", 320, 148, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "C SUPPORT   V SUPPORT BUY   H HULL   J SHIELD", 320, 162, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "B BATTLE SUPPORT   F CALL   Q TRANSFORM IN FLIGHT", 320, 176, 1, GREEN, 1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var generator := _call_dictionary(scene, "_active_generator")
-	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 160, 205, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 480, 205, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "SUPPORT %s" % _support_name(), 320, 222, 1, GREEN, 1)
-	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 241, 2, TEXT, 1)
+	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 160, 199, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 480, 199, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "TACTICAL %s" % _support_name(), 320, 216, 1, GREEN, 1)
+	PixelFont.draw_centered(surface, "BATTLE %s" % _battlefield_support_name(), 320, 230, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 246, 2, TEXT, 1)
 	var service_hull := int(scene.get("service_hull")) if _has_property(scene, "service_hull") else int(scene.get("hull"))
 	var service_shield := int(scene.get("service_shield")) if _has_property(scene, "service_shield") else int(scene.get("shield"))
-	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 267, 1, GREEN, 1)
-	_draw_divider(surface, 284)
+	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 270, 1, GREEN, 1)
+	_draw_divider(surface, 286)
 	if float(scene.get("status_timer")) > 0.0:
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 306, 1, GREEN, 1)
 	else:
@@ -117,10 +118,11 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(520, 15), 1, TEXT, 1)
 	var mission_name := str(scene.get("current_mission_name"))
 	var weapon := _call_dictionary(scene, "_active_weapon")
-	PixelFont.draw_text(surface, _clip(mission_name, 18), Vector2(16, 39), 1, MUTED, 1)
-	PixelFont.draw_text(surface, "%s %s" % [_short_altitude(), _short_form()], Vector2(158, 39), 1, BLUE, 1)
-	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 20), 344, 39, 1, TEXT, 1)
-	PixelFont.draw_text(surface, _clip(_support_name(), 18), Vector2(488, 39), 1, GREEN, 1)
+	PixelFont.draw_text(surface, _clip(mission_name, 16), Vector2(16, 39), 1, MUTED, 1)
+	PixelFont.draw_text(surface, "%s %s" % [_short_altitude(), _short_form()], Vector2(148, 39), 1, BLUE, 1)
+	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 18), 326, 39, 1, TEXT, 1)
+	PixelFont.draw_text(surface, _clip(_support_name(), 14), Vector2(422, 39), 1, GREEN, 1)
+	PixelFont.draw_text(surface, "F:%s" % _clip(_battlefield_support_name(), 12), Vector2(518, 39), 1, BLUE, 1)
 	_draw_boss(surface, scene)
 	_draw_threat(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
@@ -129,8 +131,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 
 func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	var boss := _active_boss(scene)
-	if boss.is_empty():
-		return
+	if boss.is_empty(): return
 	var hp := maxi(0, int(boss.get("hp", 0)))
 	var max_hp := maxi(1, int(boss.get("max_hp", hp)))
 	var phase := int(boss.get("boss_phase", BossRules.phase_for(hp, max_hp)))
@@ -148,29 +149,26 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var count := ThreatWarningRules.homing_count(bullets)
 	var distance := ThreatWarningRules.nearest_homing_distance(bullets, player_position)
 	var text := ThreatWarningRules.warning_text(distance, count)
-	if text == "":
-		return
+	if text == "": return
 	surface.draw_rect(Rect2(180, 98, 280, 17), PANEL)
 	surface.draw_rect(Rect2(180, 98, 280, 17), RED, false, 1.0)
 	PixelFont.draw_centered(surface, text, 320, 104, 1, RED, 1)
 
 func _support_name() -> String:
 	var director := get_node_or_null("/root/SupportDirector")
-	if director != null and director.has_method("current_support_name"):
-		return str(director.call("current_support_name")).to_upper()
-	return "NO SUPPORT"
+	return str(director.call("current_support_name")).to_upper() if director != null and director.has_method("current_support_name") else "NO SUPPORT"
+
+func _battlefield_support_name() -> String:
+	var director := get_node_or_null("/root/BattlefieldSupportDirector")
+	return str(director.call("current_support_name")).to_upper() if director != null and director.has_method("current_support_name") else "NONE"
 
 func _form_name() -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
-	if director != null and director.has_method("current_form_name"):
-		return str(director.call("current_form_name")).to_upper()
-	return "FIGHTER"
+	return str(director.call("current_form_name")).to_upper() if director != null and director.has_method("current_form_name") else "FIGHTER"
 
 func _altitude_name() -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
-	if director != null and director.has_method("current_altitude_name"):
-		return str(director.call("current_altitude_name")).to_upper()
-	return "MID ALT"
+	return str(director.call("current_altitude_name")).to_upper() if director != null and director.has_method("current_altitude_name") else "MID ALT"
 
 func _short_form() -> String:
 	return "FTR" if _form_name() == "FIGHTER" else "BMB"
@@ -201,8 +199,7 @@ func _draw_divider(surface: CanvasItem, y: float) -> void:
 func _active_boss(scene: Object) -> Dictionary:
 	var enemies: Array = scene.get("enemies")
 	for enemy in enemies:
-		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and int(enemy.get("hp", 0)) > 0:
-			return enemy
+		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and int(enemy.get("hp", 0)) > 0: return enemy
 	return {}
 
 func _call_dictionary(scene: Object, method_name: String) -> Dictionary:
@@ -212,14 +209,11 @@ func _call_dictionary(scene: Object, method_name: String) -> Dictionary:
 	return {}
 
 func _call_int(scene: Object, method_name: String, fallback: int) -> int:
-	if scene.has_method(method_name):
-		return int(scene.call(method_name))
-	return fallback
+	return int(scene.call(method_name)) if scene.has_method(method_name) else fallback
 
 func _has_property(object: Object, property_name: String) -> bool:
 	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
+		if str(property.get("name", "")) == property_name: return true
 	return false
 
 func _wrap_text(text: String, max_chars: int) -> Array[String]:
@@ -227,13 +221,9 @@ func _wrap_text(text: String, max_chars: int) -> Array[String]:
 	var line := ""
 	for word in text.to_upper().replace("_", " ").split(" ", false):
 		var candidate := str(word) if line == "" else "%s %s" % [line, word]
-		if candidate.length() > max_chars and line != "":
-			result.append(line)
-			line = str(word)
-		else:
-			line = candidate
-	if line != "":
-		result.append(line)
+		if candidate.length() > max_chars and line != "": result.append(line); line = str(word)
+		else: line = candidate
+	if line != "": result.append(line)
 	return result
 
 func _clip(text: String, max_chars: int) -> String:
