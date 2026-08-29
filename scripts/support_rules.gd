@@ -1,6 +1,7 @@
 class_name SupportRules
 extends RefCounted
 
+const EnergyRules = preload("res://scripts/energy_rules.gd")
 const ALLOWED_TYPES := ["rockets", "crossfire", "hunter", "defence", "emp", "magnetic"]
 
 static func sanitize_unlock(index: int, catalog_size: int) -> int:
@@ -20,8 +21,11 @@ static func support_type(support: Dictionary) -> String:
 	var value := str(support.get("type", ""))
 	return value if value in ALLOWED_TYPES else ""
 
-static func energy_cost(support: Dictionary) -> float:
+static func raw_energy_cost(support: Dictionary) -> float:
 	return maxf(0.0, float(support.get("energy_cost", 0.0)))
+
+static func energy_cost(support: Dictionary) -> float:
+	return EnergyRules.effective_weapon_cost(support)
 
 static func cooldown(support: Dictionary) -> float:
 	return maxf(0.05, float(support.get("cooldown", 0.5)))
