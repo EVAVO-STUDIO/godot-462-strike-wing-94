@@ -60,21 +60,29 @@ func _supports(scene: Object) -> bool:
 			return false
 	return true
 
+func _altitude_transition_active() -> bool:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	return craft != null and craft.has_method("altitude_transition_active") and bool(craft.call("altitude_transition_active"))
+
 func _update_attack_run_stability(scene: Object, delta: float) -> void:
 	var form := _craft_value("current_form", "fighter")
 	var altitude := _craft_value("current_altitude", "mid")
 	var enemies: Array = scene.get("enemies")
 	var has_lock := StrikeOrdnanceRules.assisted_target_index(scene.get("player_position"), altitude, enemies) >= 0
 	var lateral := Input.get_axis("move_left", "move_right")
+	var stable_envelope := form == "bomber" and altitude == "low" and not _altitude_transition_active()
 	_stability = StrikeOrdnanceRules.update_stability(
 		_stability,
 		delta,
-		form == "bomber" and altitude == "low",
+		stable_envelope,
 		has_lock,
 		lateral
 	)
 
 func _try_drop(scene: Object) -> void:
+	if _altitude_transition_active():
+		_set_status(scene, "ORDNANCE SAFE - ALTITUDE TRANSITION")
+		return
 	var form := _craft_value("current_form", "fighter")
 	var altitude := _craft_value("current_altitude", "mid")
 	if not StrikeOrdnanceRules.can_drop(form, altitude, ordnance, _cooldown):
@@ -218,7 +226,7 @@ func _draw_surface(surface: CanvasItem) -> void:
 	var priority := target_index >= 0 and target_index < enemies.size() and typeof(enemies[target_index]) == TYPE_DICTIONARY and bool(enemies[target_index].get("strike_priority", false))
 	var aim_radius := StrikeOrdnanceRules.stabilized_aim_radius(altitude, _stability)
 	var blast_radius := StrikeOrdnanceRules.blast_radius(altitude)
-	var stable := altitude == "low" and _stability >= 0.95
+	var stable := altitude == "low" and _stability >= 0.95 and not _altitude_transition_active()
 	var reticle := Color(0.42, 0.96, 0.62, 0.92) if priority else (Color(0.38, 0.86, 0.70, 0.72) if assisted else Color(0.92, 0.74, 0.30, 0.55))
 	if stable:
 		reticle = Color(0.72, 1.0, 0.82, 0.98)
@@ -232,9 +240,10 @@ func _draw_surface(surface: CanvasItem) -> void:
 		surface.draw_rect(Rect2(roundf(target.x)-11, roundf(target.y)-11, 22, 22), reticle, false, 1.0)
 		PixelFont.draw_text(surface, "ROUTE TARGET", target + Vector2(-24, 15), 1, reticle, 1)
 	var stability_pct := int(round(_stability * 100.0))
+	var transition_text := " SAFE" if _altitude_transition_active() else ""
 	PixelFont.draw_text(
 		surface,
-		"E BOMB %d  %s%s%s  STB%03d" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else "", " ROUTE" if priority else "", stability_pct],
+		"E BOMB %d  %s%s%s%s  STB%03d" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else "", " ROUTE" if priority else "", transition_text, stability_pct],
 		Vector2(18, 314),
 		1,
 		Color(0.92, 0.74, 0.30, 0.92),
