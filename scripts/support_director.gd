@@ -63,6 +63,9 @@ func restore_support_state(saved_selected: int, saved_unlocked: int) -> void:
 	unlocked_index = SupportRules.sanitize_unlock(saved_unlocked, support_catalog.size())
 	selected_index = SupportRules.sanitize_selected(saved_selected, unlocked_index, support_catalog.size())
 
+func rearm_support() -> void:
+	_cooldown = 0.0
+
 func _handle_title(scene: Object) -> void:
 	if Input.is_action_just_pressed("cycle_support"):
 		selected_index = SupportRules.cycle_selected(selected_index, unlocked_index, support_catalog.size())
@@ -126,12 +129,7 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 	var damage := maxi(1, int(support.get("damage", 1)))
 	var angles := SupportRules.projectile_angles(support)
 	for angle in angles:
-		var bullet := {
-			"position": origin,
-			"velocity": Vector2.UP.rotated(float(angle)) * speed,
-			"damage": damage,
-			"support": true
-		}
+		var bullet := {"position": origin,"velocity": Vector2.UP.rotated(float(angle)) * speed,"damage": damage,"support": true}
 		if homing:
 			bullet["support_homing"] = true
 			bullet["turn_rate"] = maxf(0.1, float(support.get("turn_rate", 2.4)))
@@ -143,20 +141,15 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 func _update_hunter_projectiles(scene: Object, delta: float) -> void:
 	var bullets: Array = scene.get("bullets")
 	var enemies: Array = scene.get("enemies")
-	if bullets.is_empty() or enemies.is_empty():
-		return
+	if bullets.is_empty() or enemies.is_empty(): return
 	var changed := false
 	for i in range(bullets.size()):
 		var bullet = bullets[i]
-		if typeof(bullet) != TYPE_DICTIONARY or not bool(bullet.get("support_homing", false)):
-			continue
+		if typeof(bullet) != TYPE_DICTIONARY or not bool(bullet.get("support_homing", false)): continue
 		var life := float(bullet.get("life", 0.0)) - delta
 		bullet["life"] = life
 		if life <= 0.0:
-			bullet.erase("support_homing")
-			bullets[i] = bullet
-			changed = true
-			continue
+			bullet.erase("support_homing"); bullets[i] = bullet; changed = true; continue
 		var bullet_position: Vector2 = bullet.get("position", Vector2.ZERO)
 		var target = _nearest_enemy_position(enemies, bullet_position)
 		if target != null:
@@ -165,46 +158,31 @@ func _update_hunter_projectiles(scene: Object, delta: float) -> void:
 			if desired.length_squared() > 0.001 and velocity.length_squared() > 0.001:
 				var turn := clampf(velocity.normalized().angle_to(desired), -float(bullet.get("turn_rate", 2.4)) * delta, float(bullet.get("turn_rate", 2.4)) * delta)
 				bullet["velocity"] = velocity.rotated(turn)
-		bullets[i] = bullet
-		changed = true
-	if changed:
-		scene.set("bullets", bullets)
+		bullets[i] = bullet; changed = true
+	if changed: scene.set("bullets", bullets)
 
 func _nearest_enemy_position(enemies: Array, origin: Vector2):
-	var found := false
-	var best_position := Vector2.ZERO
-	var best_distance := INF
+	var found := false; var best_position := Vector2.ZERO; var best_distance := INF
 	for enemy in enemies:
-		if typeof(enemy) != TYPE_DICTIONARY or int(enemy.get("hp", 0)) <= 0:
-			continue
+		if typeof(enemy) != TYPE_DICTIONARY or int(enemy.get("hp", 0)) <= 0: continue
 		var position: Vector2 = enemy.get("position", Vector2.ZERO)
 		var distance := position.distance_squared_to(origin)
-		if distance < best_distance:
-			best_distance = distance
-			best_position = position
-			found = true
+		if distance < best_distance: best_distance = distance; best_position = position; found = true
 	return best_position if found else null
 
 func _apply_point_defence(scene: Object, indices: Array[int]) -> void:
 	var enemy_bullets: Array = scene.get("enemy_bullets")
 	for index in indices:
-		if index >= 0 and index < enemy_bullets.size():
-			enemy_bullets.remove_at(index)
+		if index >= 0 and index < enemy_bullets.size(): enemy_bullets.remove_at(index)
 	scene.set("enemy_bullets", enemy_bullets)
 
 func _set_status(scene: Object, text: String) -> void:
-	scene.set("status_text", text)
-	scene.set("status_timer", 1.8)
+	scene.set("status_text", text); scene.set("status_timer", 1.8)
 
 func _ensure_actions() -> void:
-	_add_key_action("fire_support", KEY_Z)
-	_add_key_action("cycle_support", KEY_C)
-	_add_key_action("upgrade_support", KEY_V)
+	_add_key_action("fire_support", KEY_Z); _add_key_action("cycle_support", KEY_C); _add_key_action("upgrade_support", KEY_V)
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
-	if not InputMap.has_action(action):
-		InputMap.add_action(action)
-	var event := InputEventKey.new()
-	event.physical_keycode = keycode
-	if not InputMap.action_has_event(action, event):
-		InputMap.action_add_event(action, event)
+	if not InputMap.has_action(action): InputMap.add_action(action)
+	var event := InputEventKey.new(); event.physical_keycode = keycode
+	if not InputMap.action_has_event(action, event): InputMap.action_add_event(action, event)
