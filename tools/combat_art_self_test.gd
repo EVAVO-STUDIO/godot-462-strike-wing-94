@@ -3,6 +3,7 @@ extends SceneTree
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CombatArtDirector = preload("res://scripts/combat_art_director.gd")
 const CombatFxDirector = preload("res://scripts/combat_fx_director.gd")
+const DamageStateDirector = preload("res://scripts/damage_state_director.gd")
 
 var failures: Array[String] = []
 
@@ -14,6 +15,7 @@ func _initialize() -> void:
 	_test_late_boss_silhouettes()
 	_test_airframe_cues()
 	_test_combat_fx()
+	_test_damage_state()
 	_test_mount_map()
 	if failures.is_empty():
 		print("Strike Wing combat art self-test passed.")
@@ -30,6 +32,9 @@ func _test_wiring() -> void:
 	var fx := CombatFxDirector.new()
 	_expect(fx != null, "CombatFxDirector should instantiate")
 	fx.free()
+	var damage := DamageStateDirector.new()
+	_expect(damage != null, "DamageStateDirector should instantiate")
+	damage.free()
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
@@ -38,6 +43,7 @@ func _test_wiring() -> void:
 		_expect(source.contains('AirframeCueDirector="*res://scripts/airframe_cue_director.gd"'), "airframe progression cues should remain autoloaded")
 		_expect(source.contains('AltitudeTransitionDirector="*res://scripts/altitude_transition_director.gd"'), "altitude transitions should retain dedicated presentation")
 		_expect(source.contains('CombatFxDirector="*res://scripts/combat_fx_director.gd"'), "combat impact feedback should remain autoloaded")
+		_expect(source.contains('DamageStateDirector="*res://scripts/damage_state_director.gd"'), "VX-94 progressive damage presentation should remain autoloaded")
 		_expect(source.contains('LoadoutSchematicDirector="*res://scripts/loadout_schematic_director.gd"'), "VX-94 stores schematic should remain autoloaded")
 
 func _test_visual_language() -> void:
@@ -114,6 +120,21 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
+
+func _test_damage_state() -> void:
+	var file := FileAccess.open("res://scripts/damage_state_director.gd", FileAccess.READ)
+	_expect(file != null, "damage-state director should be readable")
+	if file == null:
+		return
+	var source := file.get_as_text()
+	_expect(source.contains("damage_ratio < 0.20"), "minor battle damage should stay visually restrained")
+	_expect(source.contains("damage_ratio >= 0.45"), "mid damage should introduce smoke")
+	_expect(source.contains("damage_ratio >= 0.72"), "critical damage should introduce sparks")
+	_expect(source.contains("ratio >= 0.86"), "small flame cue should be reserved for severe damage")
+	_expect(source.contains('form == "bomber"'), "battle-damage attachments should react to fighter/bomber geometry")
+	_expect(source.contains('scene.call("_max_hull")'), "damage presentation should read canonical airframe hull capacity")
+	for forbidden in ['scene.set("hull"', 'scene.set("shield"', 'var extra_health']:
+		_expect(not source.contains(forbidden), "damage-state presentation must not create or mutate durability state: %s" % forbidden)
 
 func _test_mount_map() -> void:
 	var data = ContentCatalog.load_json("res://data/player_mounts.json")
