@@ -20,16 +20,22 @@ var _last_mission_index := -1
 var _last_phase := -1
 var _current_context: Dictionary = {}
 var _next_altitude_transition := 0
+var _altitude_transition_timer := 0.0
+var _altitude_transition_from := AltitudeRules.MID
+var _altitude_transition_to := AltitudeRules.MID
+var _altitude_transition_direction := 0
 
 func _ready() -> void:
 	process_priority = -8
 	var data = ContentCatalog.load_json("res://data/campaign_world.json")
-	if typeof(data) == TYPE_DICTIONARY: _world = data
+	if typeof(data) == TYPE_DICTIONARY:
+		_world = data
 	ProgressionRules.set_current_tech_era("advanced_conventional")
 	_ensure_actions()
 
 func _process(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
+	_altitude_transition_timer = maxf(0.0, _altitude_transition_timer - delta)
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		_afterburner_active = false
@@ -46,7 +52,9 @@ func _process(delta: float) -> void:
 	if phase == 1:
 		_update_afterburner(delta)
 		_apply_due_altitude_transitions(scene)
-		if Input.is_action_just_pressed("transform_craft"): _try_transform(scene)
+		_handle_manual_altitude_input(scene)
+		if Input.is_action_just_pressed("transform_craft"):
+			_try_transform(scene)
 	else:
 		_afterburner_active = false
 	_last_phase = phase
@@ -55,30 +63,37 @@ func _update_afterburner(delta: float) -> void:
 	_afterburner_active = Input.is_action_pressed("afterburner") and afterburner_fuel > 0.001
 	if _afterburner_active:
 		afterburner_fuel = maxf(0.0, afterburner_fuel - maxf(0.0, delta) * _afterburner_burn_rate())
-		if afterburner_fuel <= 0.001: _afterburner_active = false
+		if afterburner_fuel <= 0.001:
+			_afterburner_active = false
 
 func _afterburner_burn_rate() -> float:
-	var form_rate := 0.88 if form == CraftFormRules.FIGHTER else 1.18
-	var altitude_rate := 1.0
-	match altitude:
-		AltitudeRules.LOW: altitude_rate = 1.18
-		AltitudeRules.HIGH: altitude_rate = 0.92
-		AltitudeRules.ORBITAL: altitude_rate = 0.86
-	return clampf(form_rate * altitude_rate, 0.70, 1.45)
+	if form == CraftFormRules.BOMBER and altitude == AltitudeRules.LOW:
+		return 1.35
+	if form == CraftFormRules.FIGHTER and altitude == AltitudeRules.ORBITAL:
+		return 0.82
+	if form == CraftFormRules.FIGHTER and altitude == AltitudeRules.HIGH:
+		return 0.90
+	return 1.0
 
-func refuel_afterburner_full() -> void: afterburner_fuel = AFTERBURNER_CAPACITY
-func afterburner_ratio() -> float: return clampf(afterburner_fuel / AFTERBURNER_CAPACITY, 0.0, 1.0)
-func afterburner_active() -> bool: return _afterburner_active
-func afterburner_burn_rate() -> float: return _afterburner_burn_rate()
+func refuel_afterburner_full() -> void:
+	afterburner_fuel = AFTERBURNER_CAPACITY
+
+func afterburner_ratio() -> float:
+	return clampf(afterburner_fuel / AFTERBURNER_CAPACITY, 0.0, 1.0)
+
+func afterburner_active() -> bool:
+	return _afterburner_active
 
 func _publish_generator_context(scene: Object) -> void:
 	if scene.has_method("_active_generator"):
 		var generator = scene.call("_active_generator")
-		if typeof(generator) == TYPE_DICTIONARY: EnergyRules.set_active_generator(generator)
+		if typeof(generator) == TYPE_DICTIONARY:
+			EnergyRules.set_active_generator(generator)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
-	for property in scene.get_property_list(): names[str(property.get("name", ""))] = true
+	for property in scene.get_property_list():
+		names[str(property.get("name", ""))] = true
 	for required in ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer"]:
 		if not names.has(required): return false
 	return true
@@ -104,6 +119,10 @@ func _apply_mission_context(scene: Object) -> void:
 	ProgressionRules.set_current_tech_era(str(_current_context.get("tech_era", "advanced_conventional")))
 	_cooldown = 0.0
 	_next_altitude_transition = 0
+	_altitude_transition_timer = 0.0
+	_altitude_transition_from = altitude
+	_altitude_transition_to = altitude
+	_altitude_transition_direction = 0
 
 func _apply_due_altitude_transitions(scene: Object) -> void:
 	var transitions = _current_context.get("altitude_transitions", [])
@@ -115,14 +134,84 @@ func _apply_due_altitude_transitions(scene: Object) -> void:
 			continue
 		var at := maxf(0.0, float(transition.get("at_seconds", 0.0)))
 		if float(scene.get("mission_time")) + 0.0001 < at: return
-		altitude = AltitudeRules.sanitize(str(transition.get("altitude", altitude)))
-		if not AltitudeRules.supports_form(altitude, form):
-			form = CraftFormRules.FIGHTER
-			_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
-			_apply_weapon_interlock(scene)
-		var label := str(transition.get("label", AltitudeRules.display_name(altitude))).strip_edges().to_upper()
-		_set_status(scene, "ALTITUDE SHIFT - %s  %s" % [label, CraftFormRules.display_name(form)])
+		var next_altitude := AltitudeRules.sanitize(str(transition.get("altitude", altitude)))
+		_begin_altitude_transition(scene, next_altitude, str(transition.get("label", AltitudeRules.display_name(next_altitude))).strip_edges().to_upper())
 		_next_altitude_transition += 1
+
+func _handle_manual_altitude_input(scene: Object) -> void:
+	if _altitude_transition_timer > 0.0:
+		return
+	var direction := 0
+	if Input.is_action_just_pressed("altitude_up"):
+		direction = 1
+	elif Input.is_action_just_pressed("altitude_down"):
+		direction = -1
+	if direction == 0:
+		return
+	_try_manual_altitude(scene, direction)
+
+func _try_manual_altitude(scene: Object, direction: int) -> void:
+	var window := _active_altitude_window(float(scene.get("mission_time")))
+	if window.is_empty():
+		_set_status(scene, "ALTITUDE LANE LOCKED")
+		return
+	var allowed := AltitudeRules.allowed_manual_bands(window)
+	var candidate := AltitudeRules.adjacent_band(altitude, direction)
+	if candidate == altitude or candidate not in allowed:
+		_set_status(scene, "NO %s ALTITUDE LANE" % ("HIGHER" if direction > 0 else "LOWER"))
+		return
+	_begin_altitude_transition(scene, candidate, "PILOT SELECTED %s" % AltitudeRules.display_name(candidate))
+
+func _active_altitude_window(mission_time: float) -> Dictionary:
+	var windows = _current_context.get("altitude_choice_windows", [])
+	if typeof(windows) != TYPE_ARRAY:
+		return {}
+	for window in windows:
+		if typeof(window) != TYPE_DICTIONARY:
+			continue
+		var start := maxf(0.0, float(window.get("start_seconds", 0.0)))
+		var end := maxf(start, float(window.get("end_seconds", start)))
+		if mission_time >= start and mission_time <= end:
+			return window
+	return {}
+
+func altitude_choice_available(mission_time: float) -> bool:
+	return not _active_altitude_window(mission_time).is_empty()
+
+func altitude_choice_bands(mission_time: float) -> Array[String]:
+	return AltitudeRules.allowed_manual_bands(_active_altitude_window(mission_time))
+
+func _begin_altitude_transition(scene: Object, next_altitude: String, label: String) -> void:
+	var safe_next := AltitudeRules.sanitize(next_altitude)
+	if safe_next == altitude:
+		return
+	_altitude_transition_from = altitude
+	_altitude_transition_to = safe_next
+	_altitude_transition_direction = AltitudeRules.transition_direction(altitude, safe_next)
+	_altitude_transition_timer = AltitudeRules.TRANSITION_SECONDS
+	altitude = safe_next
+	if not AltitudeRules.supports_form(altitude, form):
+		form = CraftFormRules.FIGHTER
+		_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
+		_apply_weapon_interlock(scene)
+	_set_status(scene, "ALTITUDE SHIFT - %s  %s" % [label, CraftFormRules.display_name(form)])
+
+func altitude_transition_active() -> bool:
+	return _altitude_transition_timer > 0.0
+
+func altitude_transition_ratio() -> float:
+	if _altitude_transition_timer <= 0.0:
+		return 1.0
+	return clampf(1.0 - _altitude_transition_timer / AltitudeRules.TRANSITION_SECONDS, 0.0, 1.0)
+
+func altitude_transition_direction() -> int:
+	return _altitude_transition_direction if altitude_transition_active() else 0
+
+func altitude_transition_from() -> String:
+	return _altitude_transition_from
+
+func altitude_transition_to() -> String:
+	return _altitude_transition_to
 
 func _try_transform(scene: Object) -> void:
 	if _cooldown > 0.0: return
@@ -138,8 +227,10 @@ func _try_transform(scene: Object) -> void:
 func _apply_weapon_interlock(scene: Object) -> void:
 	var names: Dictionary = {}
 	for property in scene.get_property_list(): names[str(property.get("name", ""))] = true
-	if names.has("fire_timer"): scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
-	if names.has("secondary_timer"): scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
+	if names.has("fire_timer"):
+		scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
+	if names.has("secondary_timer"):
+		scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
 
 func current_form() -> String: return form
 func current_form_name() -> String: return CraftFormRules.display_name(form)
@@ -158,6 +249,30 @@ func primary_spread_multiplier() -> float: return CraftFormRules.primary_spread_
 func primary_damage_multiplier() -> float: return CraftFormRules.primary_damage_multiplier(form)
 func support_energy_multiplier() -> float: return CraftFormRules.support_energy_multiplier(form)
 
+func primary_mount_offsets(weapon: Dictionary, projectile_count: int) -> Array[Vector2]:
+	var result: Array[Vector2] = []
+	var count := maxi(1, projectile_count)
+	var archetype := str(weapon.get("archetype", "balanced"))
+	var centerline := archetype in ["precision_kinetic", "directed_energy_pulse", "strategic_plasma"] or count == 1
+	if form == CraftFormRules.BOMBER and not centerline:
+		for i in range(count):
+			var x := 0.0 if count == 1 else lerpf(-2.5, 2.5, float(i) / float(count - 1))
+			result.append(Vector2(roundf(x), -27.0))
+		return result
+	if form == CraftFormRules.FIGHTER and not centerline:
+		for i in range(count):
+			var x := 0.0 if count == 1 else lerpf(-13.0, 13.0, float(i) / float(count - 1))
+			result.append(Vector2(roundf(x), -12.0))
+		return result
+	for _i in range(count):
+		result.append(Vector2(0.0, -19.0 if form == CraftFormRules.FIGHTER else -24.0))
+	return result
+
+func bomber_rotary_deployed(weapon: Dictionary) -> bool:
+	if form != CraftFormRules.BOMBER:
+		return false
+	return str(weapon.get("archetype", "")) in ["balanced", "spread", "rapid", "burst", "heavy"]
+
 func target_damage_multiplier(enemy_class: String) -> float:
 	var form_multiplier := CraftFormRules.ground_attack_multiplier(form) if enemy_class in ["ground", "sea"] else CraftFormRules.air_attack_multiplier(form)
 	var altitude_multiplier := AltitudeRules.ground_target_multiplier(altitude) if enemy_class in ["ground", "sea"] else AltitudeRules.air_target_multiplier(altitude)
@@ -166,13 +281,17 @@ func target_damage_multiplier(enemy_class: String) -> float:
 func mission_context() -> Dictionary: return _current_context.duplicate(true)
 
 func _set_status(scene: Object, text: String) -> void:
-	scene.set("status_text", text); scene.set("status_timer", 1.6)
+	scene.set("status_text", text)
+	scene.set("status_timer", 1.6)
 
 func _ensure_actions() -> void:
 	_add_key_action("transform_craft", KEY_Q)
 	_add_key_action("afterburner", KEY_SHIFT)
+	_add_key_action("altitude_up", KEY_PAGEUP)
+	_add_key_action("altitude_down", KEY_PAGEDOWN)
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action): InputMap.add_action(action)
-	var event := InputEventKey.new(); event.physical_keycode = keycode
+	var event := InputEventKey.new()
+	event.physical_keycode = keycode
 	if not InputMap.action_has_event(action, event): InputMap.action_add_event(action, event)
