@@ -14,6 +14,7 @@ const WeaponPickupRules = preload("res://scripts/weapon_pickup_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
 const ServiceRules = preload("res://scripts/service_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
+const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
@@ -199,6 +200,14 @@ func _craft_form_name() -> String:
 		return str(director.call("current_form_name"))
 	return "FIGHTER"
 
+func _current_tech_era() -> String:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("mission_context"):
+		var context = director.call("mission_context")
+		if typeof(context) == TYPE_DICTIONARY:
+			return str(context.get("tech_era", "advanced_conventional"))
+	return "advanced_conventional"
+
 func _target_damage_multiplier(enemy_class: String) -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
 	if director != null and director.has_method("target_damage_multiplier"):
@@ -278,10 +287,21 @@ func _primary_weapons() -> Array:
 		if str(weapon.get("slot", "")) == "primary": result.append(weapon)
 	return result
 
+func _highest_available_primary_index(primaries: Array) -> int:
+	var highest := 0
+	var era := _current_tech_era()
+	for i in range(primaries.size()):
+		var required := str(primaries[i].get("unlock_tech_era", "advanced_conventional"))
+		if TechProgressionRules.can_unlock(required, era):
+			highest = i
+	return highest
+
 func _active_weapon() -> Dictionary:
 	var primaries := _primary_weapons()
 	if primaries.is_empty(): return {"name":"Twin Cannon Mk I","damage":1,"fire_interval":0.11,"projectile_speed":430.0,"projectiles":2,"spread_degrees":0.0,"energy_cost":0.0,"cost":0}
-	var effective_index := WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost, primaries.size())
+	var max_available := maxi(weapon_index, _highest_available_primary_index(primaries))
+	var requested_index := WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost, primaries.size())
+	var effective_index := mini(requested_index, max_available)
 	return primaries[effective_index]
 
 func _active_generator() -> Dictionary:
@@ -291,13 +311,27 @@ func _active_generator() -> Dictionary:
 
 func _try_buy_next_weapon() -> void:
 	var primaries := _primary_weapons()
+	if primaries.is_empty():
+		status_text = "NO PRIMARY LOADOUT"
+		status_timer = 2.0
+		return
+	var next_index := clampi(weapon_index + 1, 0, primaries.size() - 1)
+	if next_index == weapon_index:
+		status_text = "MAXIMUM PRIMARY LOADOUT"
+		status_timer = 2.0
+		return
+	var next_weapon: Dictionary = primaries[next_index]
+	var required_era := str(next_weapon.get("unlock_tech_era", "advanced_conventional"))
+	if not TechProgressionRules.can_unlock(required_era, _current_tech_era()):
+		status_text = "TECH LOCK - %s" % TechProgressionRules.era_name(required_era)
+		status_timer = 2.0
+		return
 	var result := ProgressionRules.next_weapon_index(weapon_index, primaries, credits)
 	if bool(result["changed"]):
 		weapon_index = int(result["index"]); credits = int(result["credits"])
 		status_text = "UPGRADE PURCHASED: %s" % str(_active_weapon().get("name", "WEAPON")).to_upper()
 	else:
-		var next_index := clampi(weapon_index + 1, 0, maxi(0, primaries.size() - 1))
-		status_text = "MAXIMUM PRIMARY LOADOUT" if primaries.is_empty() or next_index == weapon_index else "NEED %d CREDITS" % int(primaries[next_index].get("cost", 0))
+		status_text = "NEED %d CREDITS" % int(next_weapon.get("cost", 0))
 	status_timer = 2.0
 
 func _try_buy_next_generator() -> void:
@@ -365,7 +399,16 @@ func _update_weapons() -> void:
 		var damage := maxi(1, int(round(float(weapon.get("damage", 1)) * _craft_float("primary_damage_multiplier", 1.0))))
 		for i in range(count):
 			var angle := 0.0 if count == 1 else deg_to_rad(lerpf(-spread, spread, float(i) / float(count - 1)))
-			bullets.append({"position":player_position + Vector2(0,-16),"velocity":Vector2.UP.rotated(angle) * float(weapon.get("projectile_speed",430.0)),"damage":damage})
+			var bullet := {
+				"position": player_position + Vector2(0,-16),
+				"velocity": Vector2.UP.rotated(angle) * float(weapon.get("projectile_speed",430.0)),
+				"damage": damage,
+				"weapon_id": str(weapon.get("id", "")),
+				"pierce_remaining": clampi(int(weapon.get("pierce", 0)), 0, 4)
+			}
+			if int(bullet["pierce_remaining"]) > 0:
+				bullet["kinetic"] = true
+			bullets.append(bullet)
 	if Input.is_action_just_pressed("fire_secondary") and secondary_timer <= 0.0 and bombs > 0:
 		bombs -= 1
 		secondary_timer = 1.0
@@ -474,23 +517,37 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 
 func _resolve_combat() -> void:
 	for bullet_index in range(bullets.size() - 1, -1, -1):
-		var hit := false
+		var consume_bullet := false
+		var bullet: Dictionary = bullets[bullet_index]
 		for enemy_index in range(enemies.size() - 1, -1, -1):
 			var radius_sq := 420.0 if bool(enemies[enemy_index].get("boss",false)) else 196.0
-			if bullets[bullet_index]["position"].distance_squared_to(enemies[enemy_index]["position"]) <= radius_sq:
+			if bullet["position"].distance_squared_to(enemies[enemy_index]["position"]) <= radius_sq:
 				var enemy_class := str(enemies[enemy_index].get("category", "air"))
-				var applied_damage := maxi(1, int(round(float(bullets[bullet_index]["damage"]) * _target_damage_multiplier(enemy_class))))
+				var applied_damage := maxi(1, int(round(float(bullet["damage"]) * _target_damage_multiplier(enemy_class))))
 				enemies[enemy_index]["hp"] -= applied_damage
-				hit = true
-				shots_hit += 1
+				if not bool(bullet.get("accuracy_registered", false)):
+					shots_hit += 1
+					bullet["accuracy_registered"] = true
 				if int(enemies[enemy_index]["hp"]) <= 0:
 					var destroyed: Dictionary = enemies[enemy_index]
 					_register_destroy(destroyed)
 					score += int(destroyed["value"])
 					_maybe_drop_pickup(destroyed["position"], bool(destroyed.get("boss",false)))
 					enemies.remove_at(enemy_index)
-				break
-		if hit: bullets.remove_at(bullet_index)
+			var pierce_remaining := int(bullet.get("pierce_remaining", 0))
+			if pierce_remaining > 0:
+				bullet["pierce_remaining"] = pierce_remaining - 1
+				var velocity: Vector2 = bullet.get("velocity", Vector2.UP * 430.0)
+				if velocity.length_squared() > 0.001:
+					bullet["position"] = Vector2(bullet["position"]) + velocity.normalized() * 28.0
+				bullets[bullet_index] = bullet
+				continue
+			consume_bullet = true
+			break
+		if consume_bullet:
+			bullets.remove_at(bullet_index)
+		else:
+			bullets[bullet_index] = bullet
 	var player_contact_radius_sq := _craft_float("collision_radius_sq", 420.0)
 	for enemy_index in range(enemies.size() - 1, -1, -1):
 		if enemies[enemy_index]["position"].distance_squared_to(player_position) <= player_contact_radius_sq:
@@ -512,7 +569,8 @@ func _apply_pickup(kind: String) -> void:
 		"weapon":
 			var primaries := _primary_weapons()
 			if not primaries.is_empty():
-				var max_boost := maxi(0, primaries.size() - 1 - weapon_index)
+				var max_allowed := maxi(weapon_index, _highest_available_primary_index(primaries))
+				var max_boost := maxi(0, max_allowed - weapon_index)
 				temporary_weapon_boost = mini(max_boost, temporary_weapon_boost + 1)
 
 func _apply_damage(amount: int) -> void:
