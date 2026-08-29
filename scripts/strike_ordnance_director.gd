@@ -61,18 +61,21 @@ func _try_drop(scene: Object) -> void:
 		return
 	ordnance -= 1
 	_cooldown = StrikeOrdnanceRules.DROP_COOLDOWN
+	var enemies: Array = scene.get("enemies")
 	var point := StrikeOrdnanceRules.assisted_target_point(
 		scene.get("player_position"),
 		altitude,
-		scene.get("enemies")
+		enemies
 	)
 	_pending.append({
 		"position": point,
 		"time": StrikeOrdnanceRules.impact_delay(altitude),
 		"initial_time": StrikeOrdnanceRules.impact_delay(altitude),
-		"altitude": altitude
+		"altitude": altitude,
+		"priority_lock": StrikeOrdnanceRules.priority_target_at_point(point, enemies)
 	})
-	_set_status(scene, "%s - BOMB AWAY  %d LEFT" % [StrikeOrdnanceRules.delivery_quality(altitude), ordnance])
+	var lock_text := "  ROUTE LOCK" if bool(_pending[_pending.size()-1].get("priority_lock", false)) else ""
+	_set_status(scene, "%s - BOMB AWAY  %d LEFT%s" % [StrikeOrdnanceRules.delivery_quality(altitude), ordnance, lock_text])
 
 func _update_pending(scene: Object, delta: float) -> void:
 	for i in range(_pending.size() - 1, -1, -1):
@@ -88,6 +91,7 @@ func _impact(scene: Object, item: Dictionary) -> void:
 	var point: Vector2 = item.get("position", Vector2.ZERO)
 	var altitude := str(item.get("altitude", "low"))
 	var radius_sq := pow(StrikeOrdnanceRules.blast_radius(altitude), 2)
+	var precision_bonus := 0
 	for i in range(enemies.size() - 1, -1, -1):
 		var enemy = enemies[i]
 		if typeof(enemy) != TYPE_DICTIONARY:
@@ -107,13 +111,19 @@ func _impact(scene: Object, item: Dictionary) -> void:
 		elif hp - damage <= 0:
 			if scene.has_method("_register_destroy"):
 				scene.call("_register_destroy", enemy)
+			precision_bonus += StrikeOrdnanceRules.route_precision_score(enemy, true)
 			scene.set("score", int(scene.get("score")) + int(enemy.get("value", 0)))
 			enemies.remove_at(i)
 		else:
 			enemy["hp"] = hp - damage
 			enemies[i] = enemy
+	if precision_bonus > 0:
+		scene.set("score", int(scene.get("score")) + precision_bonus)
 	scene.set("enemies", enemies)
-	_set_status(scene, "SURFACE IMPACT")
+	if precision_bonus > 0:
+		_set_status(scene, "PRECISION ROUTE HIT  +%d" % precision_bonus)
+	else:
+		_set_status(scene, "SURFACE IMPACT")
 
 func rearm_full() -> void:
 	ordnance = StrikeOrdnanceRules.MAX_ORDNANCE
@@ -140,21 +150,27 @@ func _draw_surface(surface: CanvasItem) -> void:
 	var altitude := _craft_value("current_altitude", "mid")
 	if form != "bomber" or not StrikeOrdnanceRules.altitude_allowed(altitude):
 		return
+	var enemies: Array = scene.get("enemies")
 	var projected := StrikeOrdnanceRules.target_point(scene.get("player_position"), altitude)
-	var target := StrikeOrdnanceRules.assisted_target_point(scene.get("player_position"), altitude, scene.get("enemies"))
+	var target_index := StrikeOrdnanceRules.assisted_target_index(scene.get("player_position"), altitude, enemies)
+	var target := StrikeOrdnanceRules.assisted_target_point(scene.get("player_position"), altitude, enemies)
 	var assisted := target.distance_squared_to(projected) > 0.5
+	var priority := target_index >= 0 and target_index < enemies.size() and typeof(enemies[target_index]) == TYPE_DICTIONARY and bool(enemies[target_index].get("strike_priority", false))
 	var aim_radius := StrikeOrdnanceRules.aim_radius(altitude)
 	var blast_radius := StrikeOrdnanceRules.blast_radius(altitude)
-	var reticle := Color(0.38, 0.86, 0.70, 0.72) if assisted else Color(0.92, 0.74, 0.30, 0.55)
+	var reticle := Color(0.42, 0.96, 0.62, 0.92) if priority else (Color(0.38, 0.86, 0.70, 0.72) if assisted else Color(0.92, 0.74, 0.30, 0.55))
 	if assisted:
-		surface.draw_line(projected, target, Color(0.38,0.86,0.70,0.35), 1.0)
+		surface.draw_line(projected, target, Color(reticle.r, reticle.g, reticle.b, 0.35), 1.0)
 	surface.draw_arc(target, aim_radius, 0.0, TAU, 20, reticle, 1.0)
 	surface.draw_arc(target, blast_radius, 0.0, TAU, 20, Color(0.92, 0.44, 0.22, 0.24), 1.0)
 	surface.draw_line(target + Vector2(-6, 0), target + Vector2(6, 0), reticle, 1.0)
 	surface.draw_line(target + Vector2(0, -6), target + Vector2(0, 6), reticle, 1.0)
+	if priority:
+		surface.draw_rect(Rect2(roundf(target.x)-11, roundf(target.y)-11, 22, 22), reticle, false, 1.0)
+		PixelFont.draw_text(surface, "ROUTE TARGET", target + Vector2(-24, 15), 1, reticle, 1)
 	PixelFont.draw_text(
 		surface,
-		"E BOMB %d  %s%s" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else ""],
+		"E BOMB %d  %s%s%s" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else "", " ROUTE" if priority else ""],
 		Vector2(18, 314),
 		1,
 		Color(0.92, 0.74, 0.30, 0.92),
@@ -165,7 +181,8 @@ func _draw_surface(surface: CanvasItem) -> void:
 		var initial_time := maxf(0.001, float(item.get("initial_time", StrikeOrdnanceRules.impact_delay(str(item.get("altitude", "low"))))))
 		var t := clampf(float(item.get("time", 0.0)) / initial_time, 0.0, 1.0)
 		var pulse := 3.0 + 7.0 * (1.0 - t)
-		surface.draw_circle(point, pulse, Color(1.0, 0.48, 0.20, 0.7), false, 1.0)
+		var color := Color(0.42, 0.96, 0.62, 0.78) if bool(item.get("priority_lock", false)) else Color(1.0, 0.48, 0.20, 0.7)
+		surface.draw_circle(point, pulse, color, false, 1.0)
 
 func _ensure_action() -> void:
 	if not InputMap.has_action("drop_strike_ordnance"):
