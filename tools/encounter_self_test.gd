@@ -9,11 +9,18 @@ func _initialize() -> void:
 	var data = ContentCatalog.load_json("res://data/missions.json")
 	_expect(typeof(data) == TYPE_DICTIONARY, "missions catalogue should load")
 	if typeof(data) == TYPE_DICTIONARY:
+		_expect(int(data.get("schema_version", 0)) >= 9, "mission schema should include altitude-route authoring")
 		var enemy_data = ContentCatalog.load_json("res://data/enemies.json")
 		var enemy_ids: Dictionary = {}
 		if typeof(enemy_data) == TYPE_DICTIONARY:
 			for enemy in enemy_data.get("enemies", []):
 				enemy_ids[str(enemy.get("id", ""))] = true
+		var route_ids := {
+			"low_attack_window": false,
+			"high_intercept_route": false,
+			"low_bomber_route": false,
+			"high_hunter_route": false
+		}
 		for mission in data.get("missions", []):
 			var beats := EncounterRules.beats_for_mission(mission)
 			_expect(beats.size() >= 5, "%s should contain at least five authored encounter beats" % str(mission.get("id", "mission")))
@@ -23,6 +30,10 @@ func _initialize() -> void:
 			var has_secret := false
 			var formations: Dictionary = {}
 			for beat in beats:
+				var beat_id := str(beat.get("id", ""))
+				if route_ids.has(beat_id):
+					route_ids[beat_id] = true
+					_expect(EncounterRules.condition_type(beat) == "altitude_form", "%s should remain an altitude+form route bonus" % beat_id)
 				var enemy_list := EncounterRules.expanded_enemy_ids(beat)
 				for enemy_id in enemy_list:
 					_expect(enemy_ids.has(enemy_id), "%s encounter references unknown enemy %s" % [str(mission.get("id", "mission")), enemy_id])
@@ -40,8 +51,11 @@ func _initialize() -> void:
 			_expect(has_quiet_window, "%s should include an authored pacing window" % str(mission.get("id", "mission")))
 			_expect(has_secret, "%s should include a replayable mastery secret" % str(mission.get("id", "mission")))
 			_expect(formations.size() >= 3, "%s should use at least three formation shapes" % str(mission.get("id", "mission")))
+		for route_id in route_ids.keys():
+			_expect(bool(route_ids[route_id]), "missing altitude-route bonus beat %s" % route_id)
 	_test_rule_safety()
 	_test_secret_conditions()
+	_test_route_conditions()
 	_test_formation_geometry()
 	if failures.is_empty():
 		print("Strike Wing encounter self-test passed.")
@@ -72,6 +86,22 @@ func _test_secret_conditions() -> void:
 	var bombs := {"secret":true,"condition":{"type":"bombs_at_least","value":2}}
 	_expect(EncounterRules.condition_met(bombs, {"bombs":2}), "resource-conservation secret should unlock at threshold")
 	_expect(not EncounterRules.condition_met(bombs, {"bombs":1}), "resource-conservation secret should fail below threshold")
+
+func _test_route_conditions() -> void:
+	var altitude := {"secret":true,"condition":{"type":"altitude_is","value":"high"}}
+	_expect(EncounterRules.condition_met(altitude, {"altitude":"high","form":"fighter"}), "altitude route should unlock in matching lane")
+	_expect(not EncounterRules.condition_met(altitude, {"altitude":"mid","form":"fighter"}), "altitude route should fail in different lane")
+	var form := {"secret":true,"condition":{"type":"form_is","value":"bomber"}}
+	_expect(EncounterRules.condition_met(form, {"altitude":"low","form":"bomber"}), "form route should unlock in matching configuration")
+	_expect(not EncounterRules.condition_met(form, {"altitude":"low","form":"fighter"}), "form route should fail in different configuration")
+	var combined := {"secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"}}
+	_expect(EncounterRules.condition_met(combined, {"altitude":"low","form":"bomber"}), "combined route should require both lane and form")
+	_expect(not EncounterRules.condition_met(combined, {"altitude":"low","form":"fighter"}), "combined route should reject wrong form")
+	_expect(not EncounterRules.condition_met(combined, {"altitude":"mid","form":"bomber"}), "combined route should reject wrong altitude")
+	var invalid_altitude := {"condition":{"type":"altitude_is","value":"hyperspace"}}
+	_expect(not EncounterRules.condition_met(invalid_altitude, {"altitude":"mid"}), "invalid altitude condition should fail closed")
+	var invalid_form := {"condition":{"type":"form_is","value":"mech"}}
+	_expect(not EncounterRules.condition_met(invalid_form, {"form":"fighter"}), "invalid form condition should fail closed")
 
 func _test_formation_geometry() -> void:
 	var wedge := EncounterRules.formation_points({"formation":"wedge"}, 5)
