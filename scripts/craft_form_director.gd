@@ -24,8 +24,7 @@ var _next_altitude_transition := 0
 func _ready() -> void:
 	process_priority = -8
 	var data = ContentCatalog.load_json("res://data/campaign_world.json")
-	if typeof(data) == TYPE_DICTIONARY:
-		_world = data
+	if typeof(data) == TYPE_DICTIONARY: _world = data
 	ProgressionRules.set_current_tech_era("advanced_conventional")
 	_ensure_actions()
 
@@ -47,8 +46,7 @@ func _process(delta: float) -> void:
 	if phase == 1:
 		_update_afterburner(delta)
 		_apply_due_altitude_transitions(scene)
-		if Input.is_action_just_pressed("transform_craft"):
-			_try_transform(scene)
+		if Input.is_action_just_pressed("transform_craft"): _try_transform(scene)
 	else:
 		_afterburner_active = false
 	_last_phase = phase
@@ -56,29 +54,31 @@ func _process(delta: float) -> void:
 func _update_afterburner(delta: float) -> void:
 	_afterburner_active = Input.is_action_pressed("afterburner") and afterburner_fuel > 0.001
 	if _afterburner_active:
-		afterburner_fuel = maxf(0.0, afterburner_fuel - maxf(0.0, delta))
-		if afterburner_fuel <= 0.001:
-			_afterburner_active = false
+		afterburner_fuel = maxf(0.0, afterburner_fuel - maxf(0.0, delta) * _afterburner_burn_rate())
+		if afterburner_fuel <= 0.001: _afterburner_active = false
 
-func refuel_afterburner_full() -> void:
-	afterburner_fuel = AFTERBURNER_CAPACITY
+func _afterburner_burn_rate() -> float:
+	var form_rate := 0.88 if form == CraftFormRules.FIGHTER else 1.18
+	var altitude_rate := 1.0
+	match altitude:
+		AltitudeRules.LOW: altitude_rate = 1.18
+		AltitudeRules.HIGH: altitude_rate = 0.92
+		AltitudeRules.ORBITAL: altitude_rate = 0.86
+	return clampf(form_rate * altitude_rate, 0.70, 1.45)
 
-func afterburner_ratio() -> float:
-	return clampf(afterburner_fuel / AFTERBURNER_CAPACITY, 0.0, 1.0)
-
-func afterburner_active() -> bool:
-	return _afterburner_active
+func refuel_afterburner_full() -> void: afterburner_fuel = AFTERBURNER_CAPACITY
+func afterburner_ratio() -> float: return clampf(afterburner_fuel / AFTERBURNER_CAPACITY, 0.0, 1.0)
+func afterburner_active() -> bool: return _afterburner_active
+func afterburner_burn_rate() -> float: return _afterburner_burn_rate()
 
 func _publish_generator_context(scene: Object) -> void:
 	if scene.has_method("_active_generator"):
 		var generator = scene.call("_active_generator")
-		if typeof(generator) == TYPE_DICTIONARY:
-			EnergyRules.set_active_generator(generator)
+		if typeof(generator) == TYPE_DICTIONARY: EnergyRules.set_active_generator(generator)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
+	for property in scene.get_property_list(): names[str(property.get("name", ""))] = true
 	for required in ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer"]:
 		if not names.has(required): return false
 	return true
@@ -115,8 +115,7 @@ func _apply_due_altitude_transitions(scene: Object) -> void:
 			continue
 		var at := maxf(0.0, float(transition.get("at_seconds", 0.0)))
 		if float(scene.get("mission_time")) + 0.0001 < at: return
-		var next_altitude := AltitudeRules.sanitize(str(transition.get("altitude", altitude)))
-		altitude = next_altitude
+		altitude = AltitudeRules.sanitize(str(transition.get("altitude", altitude)))
 		if not AltitudeRules.supports_form(altitude, form):
 			form = CraftFormRules.FIGHTER
 			_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
@@ -139,10 +138,8 @@ func _try_transform(scene: Object) -> void:
 func _apply_weapon_interlock(scene: Object) -> void:
 	var names: Dictionary = {}
 	for property in scene.get_property_list(): names[str(property.get("name", ""))] = true
-	if names.has("fire_timer"):
-		scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
-	if names.has("secondary_timer"):
-		scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
+	if names.has("fire_timer"): scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
+	if names.has("secondary_timer"): scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
 
 func current_form() -> String: return form
 func current_form_name() -> String: return CraftFormRules.display_name(form)
@@ -169,8 +166,7 @@ func target_damage_multiplier(enemy_class: String) -> float:
 func mission_context() -> Dictionary: return _current_context.duplicate(true)
 
 func _set_status(scene: Object, text: String) -> void:
-	scene.set("status_text", text)
-	scene.set("status_timer", 1.6)
+	scene.set("status_text", text); scene.set("status_timer", 1.6)
 
 func _ensure_actions() -> void:
 	_add_key_action("transform_craft", KEY_Q)
@@ -178,6 +174,5 @@ func _ensure_actions() -> void:
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action): InputMap.add_action(action)
-	var event := InputEventKey.new()
-	event.physical_keycode = keycode
+	var event := InputEventKey.new(); event.physical_keycode = keycode
 	if not InputMap.action_has_event(action, event): InputMap.action_add_event(action, event)
