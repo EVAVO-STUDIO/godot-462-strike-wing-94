@@ -44,6 +44,7 @@ func _test_presentation() -> void:
 		_expect(text.contains('AfterburnerCueDirector="*res://scripts/afterburner_cue_director.gd"'), "afterburner presentation should remain autoloaded")
 		_expect(text.contains('RetroSfxDirector="*res://scripts/retro_sfx_director.gd"'), "procedural retro SFX should remain autoloaded")
 		_expect(text.contains('AltitudeTransitionDirector="*res://scripts/altitude_transition_director.gd"'), "altitude transition presentation should remain autoloaded")
+		_expect(text.contains('PlayerMountDirector="*res://scripts/player_mount_director.gd"'), "canonical mount owner should remain available before audio presentation")
 
 func _test_retro_sfx() -> void:
 	_expect(RetroSfxRules.event_for_primary("twin_cannon_mk1", true) == RetroSfxRules.FIRE_ROTARY, "bomber conventional gun should use rotary SFX")
@@ -53,15 +54,17 @@ func _test_retro_sfx() -> void:
 	_expect(RetroSfxRules.event_for_weapon("plasma_lance") == RetroSfxRules.FIRE_PLASMA, "Plasma Lance should retain strategic SFX identity")
 	_expect(RetroSfxRules.altitude_event(1) == RetroSfxRules.ALTITUDE_CLIMB, "climb should have rising transition voice")
 	_expect(RetroSfxRules.altitude_event(-1) == RetroSfxRules.ALTITUDE_DIVE, "dive should have falling transition voice")
-	for event_id in [RetroSfxRules.FIRE_BALLISTIC,RetroSfxRules.FIRE_ROTARY,RetroSfxRules.FIRE_RAIL,RetroSfxRules.FIRE_STORM,RetroSfxRules.FIRE_PLASMA,RetroSfxRules.FIRE_SUPPORT,RetroSfxRules.FIRE_STRATEGIC,RetroSfxRules.TRANSFORM,RetroSfxRules.AFTERBURNER,RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE]:
+	for event_id in [RetroSfxRules.FIRE_BALLISTIC,RetroSfxRules.FIRE_ROTARY,RetroSfxRules.FIRE_RAIL,RetroSfxRules.FIRE_STORM,RetroSfxRules.FIRE_PLASMA,RetroSfxRules.FIRE_SUPPORT,RetroSfxRules.FIRE_STRATEGIC,RetroSfxRules.TRANSFORM,RetroSfxRules.AFTERBURNER,RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE,RetroSfxRules.HIT,RetroSfxRules.EXPLOSION,RetroSfxRules.BOSS_EXPLOSION,RetroSfxRules.PLAYER_HIT]:
 		_expect(RetroSfxRules.valid_voice(RetroSfxRules.voice(event_id)), "%s should have a bounded procedural voice" % event_id)
 	var file := FileAccess.open("res://scripts/retro_sfx_director.gd", FileAccess.READ)
 	_expect(file != null, "retro SFX director should be readable")
 	if file != null:
 		var source := file.get_as_text()
 		_expect(source.contains("const MIX_RATE := 22050.0"), "procedural GDScript audio should remain at 22.05 kHz")
-		_expect(source.contains('"rotary"'), "procedural synth should retain dedicated rotary waveform")
-		_expect(source.contains("_bomber_rotary_deployed"), "SFX should inspect live bomber nose-gun deployment")
+		_expect(source.contains("ROTARY_RETRIGGER_SECONDS := 0.09"), "bomber rotary should use bounded retrigger gate instead of stacking one-shot voices")
+		_expect(source.contains('event_id == RetroSfxRules.FIRE_ROTARY'), "rotary retrigger gate should apply only to bomber rotary voice")
+		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "rotary SFX should identify deployment through canonical mount owner")
+		_expect(source.contains('mounts.call("bomber_rotary_deployed"'), "audio should use the same bomber rotary mount contract as art")
 		_expect(source.contains("ThreatWarningRules.warning_level"), "missile warning SFX should consume the same live threat rules as HUD")
 
 func _expect(condition: bool, message: String) -> void:
