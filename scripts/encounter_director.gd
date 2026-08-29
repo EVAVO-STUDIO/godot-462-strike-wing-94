@@ -90,12 +90,18 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 		if AltitudeRules.allows_enemy_archetype(altitude, archetype):
 			eligible.append(enemy_id)
 	var points := EncounterRules.formation_points(beat, eligible.size())
+	var strike_priority := EncounterRules.is_low_bomber_route(beat)
 	for i in range(eligible.size()):
 		var archetype := _enemy_for_id(scene.get("enemy_catalog"), eligible[i])
 		if archetype.is_empty():
 			continue
 		scene.call("_spawn_enemy", archetype)
-		_apply_latest_formation_point(scene, points[i] if i < points.size() else Vector2(0.5, 0.0))
+		_apply_latest_formation_point(
+			scene,
+			points[i] if i < points.size() else Vector2(0.5, 0.0),
+			strike_priority,
+			str(beat.get("id", ""))
+		)
 
 	var pickup_kind := EncounterRules.reward_pickup(beat)
 	if pickup_kind != "":
@@ -109,10 +115,12 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 
 	var prefix := "SECRET - " if EncounterRules.is_secret(beat) else ""
 	var suffix := "" if eligible.size() == enemy_ids.size() else "  ALTITUDE FILTER"
+	if strike_priority:
+		suffix += "  STRIKE TARGETS"
 	scene.set("status_text", "%s%s%s" % [prefix, EncounterRules.label(beat), suffix])
 	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
 
-func _apply_latest_formation_point(scene: Object, point: Vector2) -> void:
+func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priority: bool = false, route_id: String = "") -> void:
 	var enemies: Array = scene.get("enemies")
 	if enemies.is_empty():
 		return
@@ -125,6 +133,9 @@ func _apply_latest_formation_point(scene: Object, point: Vector2) -> void:
 	position.y -= maxf(0.0, point.y)
 	enemy["position"] = position
 	enemy["pattern_anchor_x"] = position.x
+	if strike_priority and str(enemy.get("category", "air")) in ["ground", "sea"]:
+		enemy["strike_priority"] = true
+		enemy["route_bonus_id"] = route_id
 	enemies[index] = enemy
 	scene.set("enemies", enemies)
 
