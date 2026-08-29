@@ -4,6 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
+const EnergyRules = preload("res://scripts/energy_rules.gd")
 
 var form := CraftFormRules.FIGHTER
 var altitude := AltitudeRules.MID
@@ -27,6 +28,7 @@ func _process(delta: float) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		return
+	_publish_generator_context(scene)
 	var mission_index := int(scene.get("mission_index"))
 	var phase := int(scene.get("phase"))
 	if mission_index != _last_mission_index:
@@ -39,6 +41,12 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("transform_craft"):
 			_try_transform(scene)
 	_last_phase = phase
+
+func _publish_generator_context(scene: Object) -> void:
+	if scene.has_method("_active_generator"):
+		var generator = scene.call("_active_generator")
+		if typeof(generator) == TYPE_DICTIONARY:
+			EnergyRules.set_active_generator(generator)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
