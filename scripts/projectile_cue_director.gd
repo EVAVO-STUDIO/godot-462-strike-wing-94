@@ -40,6 +40,8 @@ class ProjectileCueCanvas:
 			var weapon_id := str(shot.get("weapon_id", ""))
 			if weapon_id == "needle_rail" or bool(shot.get("kinetic", false)):
 				_draw_kinetic(position, direction)
+			elif weapon_id == "plasma_lance":
+				_draw_plasma_lance(position, direction)
 			elif weapon_id == "storm_cannon":
 				_draw_energy_pulse(position, direction)
 			elif bool(shot.get("support_homing", false)) or bool(shot.get("support", false)):
@@ -64,6 +66,17 @@ class ProjectileCueCanvas:
 		draw_circle(position, 3.0, core)
 		draw_arc(position, 5.0, 0.0, TAU, 8, edge, 1.0)
 		draw_line(position - direction * 8.0, position - direction * 3.0, edge, 1.0)
+
+	func _draw_plasma_lance(position: Vector2, direction: Vector2) -> void:
+		var core := Color(0.82, 0.88, 1.0, 0.98)
+		var plasma := Color(0.62, 0.42, 0.95, 0.88)
+		var field := Color(0.28, 0.76, 0.92, 0.72)
+		draw_line(position - direction * 16.0, position + direction * 4.0, plasma, 3.0)
+		draw_line(position - direction * 7.0, position + direction * 6.0, core, 2.0)
+		draw_arc(position, 6.0, 0.0, TAU, 10, field, 1.0)
+		for offset in [11.0, 17.0]:
+			var wake_point := position - direction * offset
+			draw_rect(Rect2(roundf(wake_point.x)-1, roundf(wake_point.y)-1, 2, 2), plasma)
 
 	func _draw_support_round(position: Vector2, direction: Vector2, homing: bool) -> void:
 		var core := Color(0.52, 0.84, 0.66, 0.94)
