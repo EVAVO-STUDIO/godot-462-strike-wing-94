@@ -1,6 +1,7 @@
 extends Node
 
 const BossRules = preload("res://scripts/boss_rules.gd")
+const BossSignatureRules = preload("res://scripts/boss_signature_rules.gd")
 const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const HOMING_LIFETIME := 6.0
 
@@ -41,12 +42,14 @@ func _update_bosses(scene: Object, delta: float) -> void:
 			continue
 		var hp := int(boss.get("hp", 1))
 		var max_hp := int(boss.get("max_hp", 0))
+		var boss_id := str(boss.get("id", ""))
 		if max_hp <= 0:
-			max_hp = _catalog_max_hp(scene, str(boss.get("id", "")), hp)
+			max_hp = _catalog_max_hp(scene, boss_id, hp)
 			boss["max_hp"] = max_hp
 			boss["base_speed"] = float(boss.get("speed", 24.0))
 			boss["base_drift"] = float(boss.get("drift", 28.0))
 			boss["phase_salvo_timer"] = 1.4
+			boss["signature_timer"] = BossSignatureRules.interval(boss_id, 1)
 			boss["last_hp"] = hp
 			boss["last_reported_phase"] = BossRules.phase_for(hp, max_hp)
 
@@ -64,6 +67,7 @@ func _update_bosses(scene: Object, delta: float) -> void:
 		boss["drift"] = float(boss.get("base_drift", 28.0)) * BossRules.phase_drift_multiplier(phase)
 		boss["fire_timer"] = minf(float(boss.get("fire_timer", 1.0)), 1.4 * BossRules.phase_fire_multiplier(phase))
 		boss["phase_salvo_timer"] = float(boss.get("phase_salvo_timer", 1.4)) - delta
+		boss["signature_timer"] = float(boss.get("signature_timer", BossSignatureRules.interval(boss_id, phase))) - delta
 
 		var reported_phase := int(boss.get("last_reported_phase", phase))
 		if phase > reported_phase:
@@ -73,6 +77,11 @@ func _update_bosses(scene: Object, delta: float) -> void:
 		if phase >= 2 and float(boss["phase_salvo_timer"]) <= 0.0:
 			_emit_phase_salvo(bullets, boss, target, phase)
 			boss["phase_salvo_timer"] = 2.4 if phase == 2 else 1.55
+
+		if BossSignatureRules.is_signature_boss(boss_id) and float(boss["signature_timer"]) <= 0.0:
+			_emit_signature_attack(bullets, boss, target, phase)
+			boss["signature_timer"] = BossSignatureRules.interval(boss_id, phase)
+			_report_signature(scene, boss_id)
 		enemies[i] = boss
 
 	scene.set("enemies", enemies)
@@ -84,6 +93,12 @@ func _report_phase(scene: Object, boss: Dictionary, phase: int) -> void:
 		scene.set("status_text", "%s PHASE %d" % [name, phase])
 	if _has_property(scene, "status_timer"):
 		scene.set("status_timer", 1.8)
+
+func _report_signature(scene: Object, boss_id: String) -> void:
+	if _has_property(scene, "status_text"):
+		scene.set("status_text", BossSignatureRules.telegraph(boss_id))
+	if _has_property(scene, "status_timer"):
+		scene.set("status_timer", 1.2)
 
 func _emit_phase_salvo(bullets: Array, boss: Dictionary, target: Vector2, phase: int) -> void:
 	var origin: Vector2 = boss.get("position", Vector2.ZERO)
@@ -104,6 +119,38 @@ func _emit_phase_salvo(bullets: Array, boss: Dictionary, target: Vector2, phase:
 			"turn_rate": 1.6 + float(phase) * 0.45,
 			"life": HOMING_LIFETIME
 		})
+
+func _emit_signature_attack(bullets: Array, boss: Dictionary, target: Vector2, phase: int) -> void:
+	var boss_id := str(boss.get("id", ""))
+	var origin: Vector2 = boss.get("position", Vector2.ZERO)
+	var count := BossSignatureRules.shot_count(boss_id, phase)
+	var spread := BossSignatureRules.spread_radians(boss_id, phase)
+	var speed := BossSignatureRules.projectile_speed(boss_id, phase)
+	var damage := BossSignatureRules.damage(boss_id, phase)
+	if count <= 0:
+		return
+	for i in range(count):
+		var t := 0.5 if count <= 1 else float(i) / float(count - 1)
+		var offset := lerpf(-spread, spread, t)
+		var velocity := ProjectileRules.enemy_shot_velocity(origin, target, speed).rotated(offset)
+		var shot := {
+			"position": origin,
+			"velocity": velocity,
+			"damage": damage,
+			"signature_boss": boss_id,
+			"life": HOMING_LIFETIME
+		}
+		if boss_id == BossSignatureRules.SWARM:
+			shot["homing"] = phase >= 2
+			shot["homing_speed"] = speed
+			shot["turn_rate"] = 1.35 + float(phase) * 0.32
+		elif boss_id == BossSignatureRules.FORGE:
+			shot["homing"] = true
+			shot["homing_speed"] = speed
+			shot["turn_rate"] = 1.0 + float(phase) * 0.24
+		elif boss_id == BossSignatureRules.ORBITAL:
+			shot["kinetic"] = true
+		bullets.append(shot)
 
 func _update_homing_shots(scene: Object, delta: float) -> void:
 	var bullets: Array = scene.get("enemy_bullets")
