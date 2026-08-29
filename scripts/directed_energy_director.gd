@@ -20,13 +20,14 @@ func _process(_delta: float) -> void:
 		if typeof(bullet) != TYPE_DICTIONARY or not DirectedEnergyRules.can_discharge(bullet):
 			continue
 		var position: Vector2 = bullet.get("position", Vector2.ZERO)
-		var primary_index := DirectedEnergyRules.trigger_enemy_index(position, enemies)
+		var primary_index := DirectedEnergyRules.trigger_enemy_index(position, enemies, bullet)
 		if primary_index < 0:
 			continue
 		bullet["pulse_discharged"] = true
 		bullets[bi] = bullet
 		bullets_changed = true
-		var secondary := DirectedEnergyRules.secondary_indices(position, enemies, primary_index)
+		var secondary := DirectedEnergyRules.secondary_indices(position, enemies, primary_index, bullet)
+		var authored_damage := DirectedEnergyRules.secondary_damage(bullet)
 		for enemy_index in secondary:
 			if enemy_index < 0 or enemy_index >= enemies.size():
 				continue
@@ -34,7 +35,9 @@ func _process(_delta: float) -> void:
 			var hp := maxi(0, int(enemy.get("hp", 0)))
 			if hp <= 1:
 				continue
-			var damage := mini(DirectedEnergyRules.SECONDARY_DAMAGE, hp - 1)
+			var damage := mini(authored_damage, hp - 1)
+			if damage <= 0:
+				continue
 			enemy["hp"] = hp - damage
 			enemies[enemy_index] = enemy
 			enemies_changed = true
