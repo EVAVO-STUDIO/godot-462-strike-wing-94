@@ -65,24 +65,27 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	for i in range(mini(2, lines.size())):
 		PixelFont.draw_centered(surface, lines[i], 320, 106 + i * 10, 1, MUTED, 1)
 	_draw_divider(surface, 136)
-	PixelFont.draw_centered(surface, "ENTER LAUNCH   U WEAPON   G GENERATOR", 320, 148, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "ENTER LAUNCH   U WEAPON   G GENERATOR   K AIRFRAME", 320, 148, 1, TEXT, 1)
 	PixelFont.draw_centered(surface, "C SUPPORT   V SUPPORT BUY   H HULL   J SHIELD", 320, 162, 1, TEXT, 1)
 	PixelFont.draw_centered(surface, "B BATTLE SUPPORT   F CALL   Q TRANSFORM IN FLIGHT", 320, 176, 1, GREEN, 1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var generator := _call_dictionary(scene, "_active_generator")
-	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 160, 199, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 480, 199, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "TACTICAL %s" % _support_name(), 320, 216, 1, GREEN, 1)
-	PixelFont.draw_centered(surface, "BATTLE %s" % _battlefield_support_name(), 320, 230, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 246, 2, TEXT, 1)
+	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 160, 198, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 480, 198, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "FRAME %s" % _airframe_name(), 320, 214, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "TACTICAL %s" % _support_name(), 320, 228, 1, GREEN, 1)
+	PixelFont.draw_centered(surface, "BATTLE %s" % _battlefield_support_name(), 320, 242, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 258, 2, TEXT, 1)
 	var service_hull := int(scene.get("service_hull")) if _has_property(scene, "service_hull") else int(scene.get("hull"))
 	var service_shield := int(scene.get("service_shield")) if _has_property(scene, "service_shield") else int(scene.get("shield"))
-	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 270, 1, GREEN, 1)
-	_draw_divider(surface, 286)
+	var max_hull := _call_int(scene, "_max_hull", 100)
+	var max_shield := _call_int(scene, "_max_shield", 100)
+	PixelFont.draw_centered(surface, "SERVICE H%03d/%03d S%03d/%03d" % [service_hull, max_hull, service_shield, max_shield], 320, 278, 1, GREEN, 1)
+	_draw_divider(surface, 292)
 	if float(scene.get("status_timer")) > 0.0:
-		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 306, 1, GREEN, 1)
+		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 308, 1, GREEN, 1)
 	else:
-		PixelFont.draw_centered(surface, "VARIABLE GEOMETRY STRIKE CRAFT", 320, 306, 1, MUTED, 1)
+		PixelFont.draw_centered(surface, "VARIABLE GEOMETRY STRIKE CRAFT", 320, 308, 1, MUTED, 1)
 
 func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
@@ -95,11 +98,12 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface, "SCORE %08d" % int(scene.get("score")), 210, 169, 2, TEXT, 1)
 	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 430, 169, 2, TEXT, 1)
 	PixelFont.draw_centered(surface, "%s   %s   %s" % [_altitude_name(), _form_name(), _tech_era_name()], 320, 198, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "FRAME %s" % _airframe_name(), 320, 214, 1, MUTED, 1)
 	if _has_property(scene, "shots_fired") and int(scene.get("shots_fired")) > 0:
 		var fired := int(scene.get("shots_fired"))
 		var hits := clampi(int(scene.get("shots_hit")), 0, fired)
 		var accuracy := int(round(float(hits) / float(fired) * 100.0))
-		PixelFont.draw_centered(surface, "ACCURACY %03d%%   HITS %d/%d" % [accuracy, hits, fired], 320, 218, 1, GREEN, 1)
+		PixelFont.draw_centered(surface, "ACCURACY %03d%%   HITS %d/%d" % [accuracy, hits, fired], 320, 232, 1, GREEN, 1)
 	PixelFont.draw_centered(surface, "ENTER NEXT MISSION   R RETRY", 320, 274, 1, TEXT, 1)
 
 func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
@@ -162,6 +166,10 @@ func _support_name() -> String:
 func _battlefield_support_name() -> String:
 	var director := get_node_or_null("/root/BattlefieldSupportDirector")
 	return str(director.call("current_support_name")).to_upper() if director != null and director.has_method("current_support_name") else "NONE"
+
+func _airframe_name() -> String:
+	var director := get_node_or_null("/root/AirframeDirector")
+	return str(director.call("current_airframe_name")).to_upper() if director != null and director.has_method("current_airframe_name") else "COMPOSITE FRAME MK I"
 
 func _form_name() -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
