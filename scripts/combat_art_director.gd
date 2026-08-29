@@ -15,8 +15,10 @@ const AI_DARK := Color("45545a")
 const AI_CORE := Color("67c3a5")
 const BOSS := Color("c86054")
 const BOSS_DARK := Color("55322f")
+const TRANSFORM_VISUAL_SECONDS := 0.34
 
 var _surface: Control
+var _visual_sweep := 0.0
 
 func _ready() -> void:
 	layer = 12
@@ -28,7 +30,9 @@ func _ready() -> void:
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	var target := 1.0 if _craft_form() == "bomber" else 0.0
+	_visual_sweep = move_toward(_visual_sweep, target, maxf(0.0, delta) / TRANSFORM_VISUAL_SECONDS)
 	if _surface != null:
 		_surface.queue_redraw()
 
@@ -48,10 +52,36 @@ func _supports(scene: Object) -> bool:
 	return names.has("phase") and names.has("player_position") and names.has("enemies")
 
 func _draw_player(surface: CanvasItem, position: Vector2) -> void:
-	if _craft_form() == "bomber":
+	if _visual_sweep <= 0.02:
+		_draw_fighter(surface, position)
+	elif _visual_sweep >= 0.98:
 		_draw_bomber(surface, position)
 	else:
-		_draw_fighter(surface, position)
+		_draw_transforming(surface, position, _visual_sweep)
+
+func _draw_transforming(surface: CanvasItem, p: Vector2, sweep: float) -> void:
+	var t := clampf(sweep, 0.0, 1.0)
+	var wing := roundf(lerpf(17.0, 29.0, t))
+	var wing_y := roundf(lerpf(9.0, 5.0, t))
+	var shoulder := roundf(lerpf(8.0, 25.0, t))
+	var shoulder_y := roundf(lerpf(8.0, 12.0, t))
+	var rear := roundf(lerpf(5.0, 7.0, t))
+	surface.draw_colored_polygon(PackedVector2Array([
+		p+Vector2(0,-20), p+Vector2(-5,-8), p+Vector2(-wing,wing_y),
+		p+Vector2(-shoulder,shoulder_y), p+Vector2(-rear,17), p+Vector2(0,12),
+		p+Vector2(rear,17), p+Vector2(shoulder,shoulder_y), p+Vector2(wing,wing_y), p+Vector2(5,-8)
+	]), PLAYER)
+	var glass_tip := roundf(lerpf(-15.0, -14.0, t))
+	surface.draw_colored_polygon(PackedVector2Array([
+		p+Vector2(0,glass_tip), p+Vector2(-4,-4), p+Vector2(0,5), p+Vector2(4,-4)
+	]), PLAYER_GLASS)
+	var engine_span := roundf(lerpf(7.0, 18.0, t))
+	surface.draw_rect(Rect2(p.x-engine_span, p.y+13, 4, 3), PLAYER_ENGINE)
+	surface.draw_rect(Rect2(p.x+engine_span-4, p.y+13, 4, 3), PLAYER_ENGINE)
+	surface.draw_rect(Rect2(p.x-2, p.y+6, 4, 9), PLAYER_DARK)
+	# Mechanical hinge marks make the sweep read as variable-geometry hardware.
+	surface.draw_rect(Rect2(p.x-8,p.y+5,3,3), PLAYER_DARK)
+	surface.draw_rect(Rect2(p.x+5,p.y+5,3,3), PLAYER_DARK)
 
 func _draw_fighter(surface: CanvasItem, p: Vector2) -> void:
 	# Opaque body deliberately covers the prototype polygon underneath.
@@ -83,6 +113,8 @@ func _draw_bomber(surface: CanvasItem, p: Vector2) -> void:
 	for x in [-18, -8, 5, 15]:
 		surface.draw_rect(Rect2(p.x+x, p.y+10, 4, 3), PLAYER_ENGINE)
 	surface.draw_rect(Rect2(p.x-3, p.y+5, 6, 12), PLAYER_DARK)
+	surface.draw_rect(Rect2(p.x-9,p.y+4,3,3), PLAYER_DARK)
+	surface.draw_rect(Rect2(p.x+6,p.y+4,3,3), PLAYER_DARK)
 
 func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)
