@@ -3,6 +3,7 @@ extends Node
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const AirframeRules = preload("res://scripts/airframe_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
+const CombatRules = preload("res://scripts/combat_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
@@ -64,7 +65,9 @@ func _buy_next_airframe(scene: Object) -> void:
 		_set_status(scene, "AIRFRAME UPGRADE UNAVAILABLE")
 
 func _publish_context() -> void:
-	MissionStateRules.set_airframe_context(current_airframe())
+	var frame := current_airframe()
+	MissionStateRules.set_airframe_context(frame)
+	CombatRules.set_incoming_damage_multiplier(AirframeRules.incoming_damage_multiplier(frame))
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
