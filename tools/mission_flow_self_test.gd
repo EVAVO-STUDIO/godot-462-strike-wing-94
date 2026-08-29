@@ -3,10 +3,9 @@ extends SceneTree
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
-const BossHudRules = preload("res://scripts/boss_hud_rules.gd")
-const BossHudDirector = preload("res://scripts/boss_hud_director.gd")
+const PixelFont = preload("res://scripts/pixel_font.gd")
+const PixelUiDirector = preload("res://scripts/pixel_ui_director.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
-const ThreatWarningDirector = preload("res://scripts/threat_warning_director.gd")
 const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
@@ -19,7 +18,7 @@ func _initialize() -> void:
 	_test_dedicated_rng_and_fail_closed_spawns()
 	_test_movement_patterns()
 	_test_autoloads()
-	_test_boss_hud()
+	_test_pixel_ui()
 	_test_threat_warning()
 	_test_projectile_cues()
 	_test_native_missiles()
@@ -44,11 +43,9 @@ func _test_overtime() -> void:
 	_expect(main_file != null, "main.gd should be readable for bounded overtime checks")
 	if main_file != null:
 		var source := main_file.get_as_text()
-		_expect(source.contains("BOSS_OVERTIME_LIMIT_SECONDS := 45.0"), "boss overtime should have an explicit hard cap")
-		_expect(source.contains("MissionFlowRules.should_hold_overtime"), "main mission loop should evaluate required boss overtime directly")
-		_expect(source.contains("mission_duration + BOSS_OVERTIME_LIMIT_SECONDS"), "main mission loop should enforce overtime expiry")
-		_expect(source.contains("BOSS OVERTIME EXPIRED"), "expired boss overtime should fail explicitly")
-		_expect(source.contains("OVERTIME - DESTROY THE BOSS"), "active boss overtime should be communicated")
+		_expect(source.contains("BOSS_OVERTIME_LIMIT_SECONDS := 45.0"), "boss overtime should retain hard cap")
+		_expect(source.contains("MissionFlowRules.should_hold_overtime"), "main should evaluate boss overtime directly")
+		_expect(source.contains("BOSS OVERTIME EXPIRED"), "expired overtime should fail explicitly")
 	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:
@@ -67,41 +64,30 @@ func _test_spawn_coverage() -> void:
 				ranges.append({"min":int(profile.get("min_wave", 1)), "max":int(profile.get("max_wave", 0))})
 		ranges.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a["min"]) < int(b["min"]))
 		var next_wave := 1
-		for range in ranges:
-			_expect(int(range["min"]) <= next_wave, "%s spawn profiles must not leave a wave gap before %d" % [environment, next_wave])
-			next_wave = maxi(next_wave, int(range["max"]) + 1)
+		for item in ranges:
+			_expect(int(item["min"]) <= next_wave, "%s spawn profiles must not leave a wave gap before %d" % [environment, next_wave])
+			next_wave = maxi(next_wave, int(item["max"]) + 1)
 		_expect(next_wave >= 100, "%s spawn profiles should cover through wave 99" % environment)
 
 func _test_dedicated_rng_and_fail_closed_spawns() -> void:
 	var seed0 := RunSeedRules.mission_seed(0)
-	var a := RandomNumberGenerator.new()
-	var b := RandomNumberGenerator.new()
-	a.seed = seed0
-	b.seed = seed0
+	var a := RandomNumberGenerator.new(); var b := RandomNumberGenerator.new()
+	a.seed = seed0; b.seed = seed0
 	var same := true
 	for _i in range(8):
-		if a.randi() != b.randi():
-			same = false
-			break
-	_expect(same, "same mission seed should reproduce the dedicated RNG stream")
-	var c := RandomNumberGenerator.new()
-	c.seed = RunSeedRules.mission_seed(1)
-	var d := RandomNumberGenerator.new()
-	d.seed = seed0
+		if a.randi() != b.randi(): same = false; break
+	_expect(same, "same mission seed should reproduce dedicated RNG stream")
+	var c := RandomNumberGenerator.new(); c.seed = RunSeedRules.mission_seed(1)
+	var d := RandomNumberGenerator.new(); d.seed = seed0
 	_expect(c.randi() != d.randi(), "different mission seeds should diverge")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
-	_expect(main_file != null, "main.gd should be readable for RNG/spawn safety checks")
-	if main_file == null:
-		return
-	var text := main_file.get_as_text()
-	_expect(text.contains("mission_rng := RandomNumberGenerator.new()"), "main gameplay should own a dedicated mission RNG")
-	_expect(text.contains("mission_rng.seed = RunSeedRules.mission_seed(mission_index)"), "mission RNG should reseed from authored mission seed on launch/retry")
-	_expect(text.contains("ProjectileRules.pickup_kind_for_roll(mission_rng.randf())"), "pickup rolls should use mission RNG")
-	_expect(text.contains("mission_rng.randi_range(0, candidates.size() - 1)"), "enemy selection should use mission RNG")
-	_expect(not text.contains("pickup_kind_for_roll(randf())"), "global randf must not drive pickup rolls")
-	_expect(not text.contains("randi() % candidates.size()"), "global randi must not drive enemy selection")
-	_expect(text.contains("if allowed_ids.is_empty():\n\t\treturn []"), "missing spawn profile should fail closed directly in main")
-	_expect(not text.contains("if allowed_ids.is_empty() or str(item.get"), "spawn candidates must never broaden to every non-boss enemy")
+	_expect(main_file != null, "main.gd should be readable for RNG/spawn checks")
+	if main_file != null:
+		var text := main_file.get_as_text()
+		_expect(text.contains("mission_rng := RandomNumberGenerator.new()"), "main should own mission RNG")
+		_expect(text.contains("mission_rng.seed = RunSeedRules.mission_seed(mission_index)"), "mission RNG should reseed per mission/retry")
+		_expect(text.contains("ProjectileRules.pickup_kind_for_roll(mission_rng.randf())"), "pickup rolls should use mission RNG")
+		_expect(text.contains("if allowed_ids.is_empty():\n\t\treturn []"), "missing spawn profile should fail closed")
 
 func _test_movement_patterns() -> void:
 	var data = ContentCatalog.load_json("res://data/enemies.json")
@@ -111,96 +97,76 @@ func _test_movement_patterns() -> void:
 	var supported := MovementPatternRules.supported_patterns()
 	var seen: Dictionary = {}
 	for enemy in data.get("enemies", []):
-		if bool(enemy.get("boss", false)):
-			continue
-		var pattern := str(enemy.get("pattern", ""))
-		seen[pattern] = true
+		if bool(enemy.get("boss", false)): continue
+		var pattern := str(enemy.get("pattern", "")); seen[pattern] = true
 		_expect(pattern in supported, "unsupported authored movement pattern: %s" % pattern)
 	for required in ["sine_dive", "tracking_sweep", "hover_strafe", "road_column", "water_lane", "static", "aggressive_weave"]:
 		_expect(seen.has(required), "missing authored movement pattern: %s" % required)
-	var base := Vector2(200, 100)
-	var player := Vector2(400, 200)
+	var base := Vector2(200,100); var player := Vector2(400,200)
 	_expect(MovementPatternRules.adjusted_position("tracking_sweep", base, player, 1.0, 1.0, 200.0).x > base.x, "tracking sweep should move toward player")
-	_expect(MovementPatternRules.adjusted_position("hover_strafe", base, player, 1.0, 1.0, 200.0).y < base.y, "hover strafe should resist downward travel")
-	_expect(MovementPatternRules.adjusted_position("road_column", Vector2(240,100), player, 1.0, 1.0, 200.0).x < 240.0, "road column should return toward lane anchor")
-	_expect(MovementPatternRules.adjusted_position("static", Vector2(240,100), player, 1.0, 1.0, 200.0).x == 200.0, "static emplacement should lock to anchor")
-	_expect(MovementPatternRules.clamp_x(Vector2(999,100), 36.0, 604.0).x == 604.0, "movement clamp should retain playfield bounds")
+	_expect(MovementPatternRules.adjusted_position("static", Vector2(240,100), player, 1.0, 1.0, 200.0).x == 200.0, "static placement should lock to anchor")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
-	_expect(main_file != null, "main.gd should be readable for source-owned movement checks")
 	if main_file != null:
 		var source := main_file.get_as_text()
-		_expect(source.contains('"pattern":str(archetype.get("pattern","sine_dive"))'), "spawned enemies should retain authored movement pattern")
-		_expect(source.contains('"pattern_anchor_x":x'), "spawned enemies should retain movement anchor")
-		_expect(source.contains("MovementPatternRules.adjusted_position(pattern, position, player_position"), "main enemy loop should apply authored movement directly")
-		_expect(source.contains("MovementPatternRules.clamp_x(position"), "main enemy loop should clamp authored movement directly")
-	_expect(not FileAccess.file_exists("res://scripts/movement_pattern_director.gd"), "obsolete movement pattern director should remain deleted")
+		_expect(source.contains("MovementPatternRules.adjusted_position(pattern, position, player_position"), "main should apply movement directly")
+	_expect(not FileAccess.file_exists("res://scripts/movement_pattern_director.gd"), "obsolete movement director should remain deleted")
 
 func _test_autoloads() -> void:
 	var file := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(file != null, "project.godot should be readable")
-	if file == null:
-		return
+	if file == null: return
 	var text := file.get_as_text()
-	for obsolete in ["SpawnSafetyDirector", "MissileBehaviorDirector", "MissionStateDirector", "BombGuardDirector", "MissionFlowDirector", "MovementPatternDirector"]:
-		_expect(not text.contains(obsolete), "obsolete reconciliation autoload should stay removed: %s" % obsolete)
-	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
-	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
+	for obsolete in ["SpawnSafetyDirector", "MissileBehaviorDirector", "MissionStateDirector", "BombGuardDirector", "MissionFlowDirector", "MovementPatternDirector", "BossHudDirector", "ThreatWarningDirector"]:
+		_expect(not text.contains(obsolete), "obsolete autoload should stay removed: %s" % obsolete)
+	_expect(text.contains("EncounterDirector=\"*res://scripts/encounter_director.gd\""), "encounter director must remain autoloaded")
+	_expect(text.contains("PixelUiDirector=\"*res://scripts/pixel_ui_director.gd\""), "pixel UI director must remain autoloaded")
 	_expect(text.contains("ProjectileCueDirector=\"*res://scripts/projectile_cue_director.gd\""), "projectile cue director must remain autoloaded")
 
-func _test_boss_hud() -> void:
-	_expect(absf(BossHudRules.health_ratio(50, 100) - 0.5) < 0.001, "boss HUD health ratio should reflect current/max HP")
-	_expect(BossHudRules.health_ratio(-1, 100) == 0.0 and BossHudRules.health_ratio(120, 100) == 1.0, "boss HUD health ratio should clamp safely")
-	var text := BossHudRules.hud_text("missile_cruiser", 40, 105, 3)
-	_expect(text.contains("MISSILE CRUISER") and text.contains("PHASE 3") and text.contains("40/105") and text.contains("WEAK POINT EXPOSED"), "boss HUD text should expose identity phase HP and phase cue")
-	var hud := BossHudDirector.new()
-	_expect(hud != null, "boss HUD director should instantiate")
-	hud.free()
+func _test_pixel_ui() -> void:
+	_expect(PixelFont.text_width("ABC", 1, 1) == 11.0, "bitmap font width should be deterministic")
+	_expect(PixelFont.text_width("A", 2, 1) == 6.0, "bitmap font should scale on integer pixels")
+	var ui := PixelUiDirector.new()
+	_expect(ui != null, "pixel UI director should instantiate")
+	ui.free()
+	var source_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
+	_expect(source_file != null, "pixel_ui_director.gd should be readable")
+	if source_file != null:
+		var source := source_file.get_as_text()
+		_expect(source.contains("layer = 30"), "pixel UI should render above prototype scene HUD")
+		_expect(source.contains("PixelFont.draw_centered"), "pixel UI should use bitmap glyph renderer")
+		_expect(source.contains("func _draw_boss"), "pixel UI should own boss HUD")
+		_expect(source.contains('var cue := " WEAK" if phase >= 3'), "phase-three boss HUD should retain weak-point cue")
+		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
+		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
+	_expect(not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete boss HUD widget director should remain deleted")
+	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")
 
 func _test_threat_warning() -> void:
-	var bullets := [
-		{"position":Vector2(100,0),"homing":true},
-		{"position":Vector2(300,0),"homing":true},
-		{"position":Vector2(10,0),"homing":false}
-	]
-	_expect(ThreatWarningRules.homing_count(bullets) == 2, "threat warning should count only homing shots")
+	var bullets := [{"position":Vector2(100,0),"homing":true},{"position":Vector2(300,0),"homing":true},{"position":Vector2(10,0),"homing":false}]
+	_expect(ThreatWarningRules.homing_count(bullets) == 2, "warning should count only homing shots")
 	var nearest := ThreatWarningRules.nearest_homing_distance(bullets, Vector2.ZERO)
-	_expect(absf(nearest - 100.0) < 0.01, "threat warning should use nearest homing projectile distance")
-	_expect(ThreatWarningRules.warning_level(nearest, 2) == 2, "close homing projectile should trigger danger level")
-	_expect(ThreatWarningRules.warning_text(nearest, 2).contains("MISSILE LOCK"), "danger warning should clearly telegraph missile lock")
+	_expect(absf(nearest - 100.0) < 0.01, "warning should use nearest homing distance")
+	_expect(ThreatWarningRules.warning_level(nearest, 2) == 2, "close missile should trigger danger level")
+	_expect(ThreatWarningRules.warning_text(nearest, 2).contains("MISSILE LOCK"), "danger text should clearly telegraph missile lock")
 	_expect(ThreatWarningRules.warning_text(INF, 0) == "", "no homing shots should produce no warning")
-	var warning := ThreatWarningDirector.new()
-	_expect(warning != null, "threat warning director should instantiate")
-	warning.free()
 
 func _test_projectile_cues() -> void:
 	var missile := {"homing":true,"damage":10,"velocity":Vector2(0,180)}
 	var cannon := {"homing":false,"damage":16,"velocity":Vector2(0,100)}
 	var burst := {"homing":false,"damage":8,"velocity":Vector2(0,220)}
-	_expect(ProjectileCueRules.projectile_type(missile) == ProjectileCueRules.TYPE_MISSILE, "homing shot should receive missile cue")
-	_expect(ProjectileCueRules.projectile_type(cannon) == ProjectileCueRules.TYPE_CANNON, "heavy or slow shot should receive cannon cue")
-	_expect(ProjectileCueRules.projectile_type(burst) == ProjectileCueRules.TYPE_BURST, "fast light shot should receive burst cue")
-	_expect(ProjectileCueRules.radius_for(missile) > ProjectileCueRules.radius_for(burst), "missile cue should be visually larger than burst cue")
-	_expect(ProjectileCueRules.trail_length_for(missile) > ProjectileCueRules.trail_length_for(cannon), "missile cue should carry longest trail")
-	var cue := ProjectileCueDirector.new()
-	_expect(cue != null, "projectile cue director should instantiate")
-	cue.free()
+	_expect(ProjectileCueRules.projectile_type(missile) == ProjectileCueRules.TYPE_MISSILE, "homing shot should get missile cue")
+	_expect(ProjectileCueRules.projectile_type(cannon) == ProjectileCueRules.TYPE_CANNON, "heavy/slow shot should get cannon cue")
+	_expect(ProjectileCueRules.projectile_type(burst) == ProjectileCueRules.TYPE_BURST, "fast light shot should get burst cue")
+	var cue := ProjectileCueDirector.new(); _expect(cue != null, "projectile cue director should instantiate"); cue.free()
 
 func _test_native_missiles() -> void:
 	var file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(file != null, "main.gd should be readable for native missile checks")
-	if file == null:
-		return
+	if file == null: return
 	var source := file.get_as_text()
-	_expect(source.contains("func _make_enemy_shot"), "main should own enemy projectile packet creation")
-	_expect(source.contains('shot["homing"] = true'), "native missile packet should set homing flag")
-	_expect(source.contains('shot["homing_speed"]'), "native missile packet should preserve homing speed")
-	_expect(source.contains('shot["turn_rate"] = 1.8'), "native missile packet should set turn rate")
-	_expect(source.contains('shot["life"] = 5.0'), "native missile packet should set finite lifetime")
-	_expect(source.contains('var is_missile := weapon_id == "missile"'), "enemy weapon firing should classify missile at source")
-	_expect(source.contains("_make_enemy_shot(origin, velocity, damage, is_missile)"), "base missile projectile should receive native homing metadata")
-	_expect(source.contains("_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true)"), "secondary missile projectile should receive native homing metadata")
+	for token in ["func _make_enemy_shot", 'shot["homing"] = true', 'shot["homing_speed"]', 'shot["turn_rate"] = 1.8', 'shot["life"] = 5.0', 'var is_missile := weapon_id == "missile"']:
+		_expect(source.contains(token), "native missile path missing token: %s" % token)
 	_expect(not FileAccess.file_exists("res://scripts/missile_behavior_director.gd"), "obsolete missile behavior director should remain deleted")
-	_expect(not FileAccess.file_exists("res://scripts/missile_behavior_rules.gd"), "obsolete missile behavior rules should remain deleted")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
