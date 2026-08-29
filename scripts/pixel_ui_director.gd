@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const PixelFont = preload("res://scripts/pixel_font.gd")
+const PixelUiSurface = preload("res://scripts/pixel_ui_surface.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
@@ -15,20 +16,15 @@ const GREEN := Color("67c3a5")
 const RED := Color("dc6655")
 const BLUE := Color("6aa4c8")
 
-class PixelSurface extends Control:
-	var director: Node
-	func _draw() -> void:
-		if director != null:
-			director._draw_surface(self)
-
-var _surface: PixelSurface
+var _surface: Control
 
 func _ready() -> void:
 	layer = 30
-	_surface = PixelSurface.new()
+	_surface = PixelUiSurface.new()
 	_surface.director = self
 	_surface.position = Vector2.ZERO
 	_surface.size = Vector2(640, 360)
+	_surface.custom_minimum_size = Vector2(640, 360)
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
 
@@ -79,7 +75,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 257, 1, GREEN, 1)
 	_draw_divider(surface, 284)
 	if float(scene.get("status_timer")) > 0.0:
-		PixelFont.draw_centered(surface, str(scene.get("status_text")), 320, 306, 1, GREEN, 1)
+		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 306, 1, GREEN, 1)
 	else:
 		PixelFont.draw_centered(surface, "640X360 LOGICAL / INTEGER 2X OUTPUT", 320, 306, 1, MUTED, 1)
 
@@ -133,9 +129,10 @@ func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	var hp := maxi(0, int(boss.get("hp", 0)))
 	var max_hp := maxi(1, int(boss.get("max_hp", hp)))
 	var phase := int(boss.get("boss_phase", BossRules.phase_for(hp, max_hp)))
+	var cue := " WEAK" if phase >= 3 else ""
 	surface.draw_rect(Rect2(126, 64, 388, 28), PANEL)
 	surface.draw_rect(Rect2(126, 64, 388, 28), RED, false, 1.0)
-	PixelFont.draw_centered(surface, "%s  P%d  %d/%d" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, hp, max_hp], 320, 69, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "%s  P%d%s  %d/%d" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, cue, hp, max_hp], 320, 69, 1, TEXT, 1)
 	var ratio := clampf(float(hp) / float(max_hp), 0.0, 1.0)
 	surface.draw_rect(Rect2(144, 82, 352, 4), BORDER)
 	surface.draw_rect(Rect2(144, 82, floorf(352.0 * ratio), 4), RED)
@@ -149,6 +146,7 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	if text == "":
 		return
 	surface.draw_rect(Rect2(180, 98, 280, 17), PANEL)
+	surface.draw_rect(Rect2(180, 98, 280, 17), RED, false, 1.0)
 	PixelFont.draw_centered(surface, text, 320, 104, 1, RED, 1)
 
 func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current: int, maximum: int, color: Color) -> void:
