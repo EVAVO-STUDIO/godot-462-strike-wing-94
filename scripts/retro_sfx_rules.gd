@@ -5,6 +5,8 @@ const FIRE_BALLISTIC := "fire_ballistic"
 const FIRE_RAIL := "fire_rail"
 const FIRE_STORM := "fire_storm"
 const FIRE_PLASMA := "fire_plasma"
+const FIRE_SUPPORT := "fire_support"
+const FIRE_STRATEGIC := "fire_strategic"
 const TRANSFORM := "transform"
 const AFTERBURNER := "afterburner"
 const MISSILE_WARNING := "missile_warning"
@@ -17,24 +19,23 @@ static func event_for_weapon(weapon_id: String) -> String:
 		"plasma_lance": return FIRE_PLASMA
 	return FIRE_BALLISTIC
 
+static func event_for_projectile(projectile: Dictionary, fallback_weapon_id: String = "") -> String:
+	if bool(projectile.get("strategic_support", false)): return FIRE_STRATEGIC
+	if bool(projectile.get("support", false)): return FIRE_SUPPORT
+	return event_for_weapon(str(projectile.get("weapon_id", fallback_weapon_id)))
+
 static func voice(event_id: String) -> Dictionary:
 	match event_id:
-		FIRE_BALLISTIC:
-			return {"wave":"square","frequency":160.0,"end_frequency":105.0,"duration":0.055,"gain":0.16}
-		FIRE_RAIL:
-			return {"wave":"square","frequency":920.0,"end_frequency":210.0,"duration":0.085,"gain":0.19}
-		FIRE_STORM:
-			return {"wave":"sine","frequency":510.0,"end_frequency":260.0,"duration":0.11,"gain":0.18}
-		FIRE_PLASMA:
-			return {"wave":"saw","frequency":250.0,"end_frequency":95.0,"duration":0.19,"gain":0.20}
-		TRANSFORM:
-			return {"wave":"mechanical","frequency":84.0,"end_frequency":138.0,"duration":0.28,"gain":0.18}
-		AFTERBURNER:
-			return {"wave":"noise","frequency":72.0,"end_frequency":118.0,"duration":0.16,"gain":0.15}
-		MISSILE_WARNING:
-			return {"wave":"square","frequency":760.0,"end_frequency":760.0,"duration":0.10,"gain":0.14}
-		ALTITUDE_SHIFT:
-			return {"wave":"sine","frequency":330.0,"end_frequency":660.0,"duration":0.20,"gain":0.15}
+		FIRE_BALLISTIC: return {"wave":"square","frequency":160.0,"end_frequency":105.0,"duration":0.055,"gain":0.16}
+		FIRE_RAIL: return {"wave":"square","frequency":920.0,"end_frequency":210.0,"duration":0.085,"gain":0.19}
+		FIRE_STORM: return {"wave":"sine","frequency":510.0,"end_frequency":260.0,"duration":0.11,"gain":0.18}
+		FIRE_PLASMA: return {"wave":"saw","frequency":250.0,"end_frequency":95.0,"duration":0.19,"gain":0.20}
+		FIRE_SUPPORT: return {"wave":"square","frequency":210.0,"end_frequency":130.0,"duration":0.09,"gain":0.17}
+		FIRE_STRATEGIC: return {"wave":"noise","frequency":96.0,"end_frequency":58.0,"duration":0.24,"gain":0.22}
+		TRANSFORM: return {"wave":"mechanical","frequency":84.0,"end_frequency":138.0,"duration":0.28,"gain":0.18}
+		AFTERBURNER: return {"wave":"noise","frequency":72.0,"end_frequency":118.0,"duration":0.16,"gain":0.15}
+		MISSILE_WARNING: return {"wave":"square","frequency":760.0,"end_frequency":760.0,"duration":0.10,"gain":0.14}
+		ALTITUDE_SHIFT: return {"wave":"sine","frequency":330.0,"end_frequency":660.0,"duration":0.20,"gain":0.15}
 	return {}
 
 static func valid_voice(value: Dictionary) -> bool:
