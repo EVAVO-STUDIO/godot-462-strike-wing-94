@@ -2,6 +2,7 @@ extends SceneTree
 
 const ServiceRules = preload("res://scripts/service_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
+const DirectedEnergyRules = preload("res://scripts/directed_energy_rules.gd")
 
 var failures: Array[String] = []
 
@@ -9,6 +10,7 @@ func _initialize() -> void:
 	_test_service_rules()
 	_test_energy_rules()
 	_test_generator_efficiency()
+	_test_directed_energy_pulse()
 	_test_runtime_ownership()
 	if failures.is_empty():
 		print("Strike Wing service/energy self-test passed.")
@@ -57,6 +59,31 @@ func _test_generator_efficiency() -> void:
 	_expect(EnergyRules.can_fire(9.0, rail), "active generator context should be used by existing main-scene fire calls")
 	_expect(absf(EnergyRules.consume(10.0, rail) - 1.0) < 0.001, "active generator context should reduce live rail energy consumption")
 
+func _test_directed_energy_pulse() -> void:
+	var storm := {"weapon_id":"storm_cannon","position":Vector2(100,100)}
+	_expect(DirectedEnergyRules.is_storm_packet(storm), "Storm Cannon packets should be recognized as directed-energy rounds")
+	_expect(DirectedEnergyRules.can_discharge(storm), "fresh Storm Cannon packet should be able to discharge")
+	storm["pulse_discharged"] = true
+	_expect(not DirectedEnergyRules.can_discharge(storm), "Storm Cannon packet must discharge at most once")
+	var enemies := [
+		{"position":Vector2(108,100),"hp":5},
+		{"position":Vector2(118,100),"hp":5},
+		{"position":Vector2(124,100),"hp":5},
+		{"position":Vector2(170,100),"hp":5}
+	]
+	var trigger := DirectedEnergyRules.trigger_enemy_index(Vector2(100,100), enemies)
+	_expect(trigger == 0, "Storm pulse should trigger on nearest target entering the discharge envelope")
+	var secondary := DirectedEnergyRules.secondary_indices(Vector2(108,100), enemies, trigger)
+	_expect(secondary.size() == DirectedEnergyRules.MAX_SECONDARY_TARGETS, "Storm pulse should respect bounded secondary target count")
+	_expect(1 in secondary and 2 in secondary, "Storm pulse should select nearby secondary targets")
+	var director_file := FileAccess.open("res://scripts/directed_energy_director.gd", FileAccess.READ)
+	_expect(director_file != null, "directed energy runtime should be readable")
+	if director_file != null:
+		var source := director_file.get_as_text()
+		_expect(source.contains('bullet["pulse_discharged"] = true'), "directed energy runtime should mark one-shot discharge")
+		_expect(source.contains("DirectedEnergyRules.secondary_indices"), "directed energy runtime should use bounded pure targeting rules")
+		_expect(source.contains("damage = mini(damage, maxi(0, hp - 1))"), "directed energy secondary pulse must remain nonlethal to bosses")
+
 func _test_runtime_ownership() -> void:
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main.gd should be readable for service/energy ownership checks")
@@ -71,7 +98,9 @@ func _test_runtime_ownership() -> void:
 		_expect(source.contains("_service_hull_full()") and source.contains("_service_shield_full()"), "title scene should own servicing actions")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	if project != null:
-		_expect(not project.get_as_text().contains("ServiceDirector"), "service reconciliation autoload should remain removed")
+		var text := project.get_as_text()
+		_expect(not text.contains("ServiceDirector"), "service reconciliation autoload should remain removed")
+		_expect(text.contains('DirectedEnergyDirector="*res://scripts/directed_energy_director.gd"'), "directed energy pulse owner should remain autoloaded")
 	_expect(not FileAccess.file_exists("res://scripts/service_director.gd"), "obsolete service director file should remain deleted")
 
 func _expect(condition: bool, message: String) -> void:
