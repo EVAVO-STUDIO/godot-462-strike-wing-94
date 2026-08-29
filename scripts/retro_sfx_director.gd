@@ -1,6 +1,7 @@
 extends Node
 
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const MIX_RATE := 22050.0
 const MAX_VOICES := 8
 
@@ -11,7 +12,7 @@ var _last_shots_fired := 0
 var _last_form := ""
 var _last_altitude := ""
 var _last_afterburner := false
-var _last_warning := ""
+var _last_missile_level := 0
 var _noise_state := 0x1345ABCD
 
 func _ready() -> void:
@@ -32,17 +33,15 @@ func _process(_delta: float) -> void:
 
 func _observe_gameplay() -> void:
 	var scene := get_tree().current_scene
-	if scene == null or not _has_property(scene, "phase"):
-		return
+	if scene == null or not _has_property(scene, "phase"): return
 	var phase := int(scene.get("phase"))
 	if phase != 1:
 		_last_shots_fired = int(scene.get("shots_fired")) if _has_property(scene, "shots_fired") else 0
-		_last_warning = ""
+		_last_missile_level = 0
 		return
 	if _has_property(scene, "shots_fired"):
 		var fired := int(scene.get("shots_fired"))
-		if fired > _last_shots_fired:
-			_trigger(RetroSfxRules.event_for_weapon(_active_weapon_id(scene)))
+		if fired > _last_shots_fired: _trigger(_latest_shot_event(scene))
 		_last_shots_fired = fired
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if craft != null:
@@ -58,10 +57,26 @@ func _observe_gameplay() -> void:
 			var active := bool(craft.call("afterburner_active"))
 			if active and not _last_afterburner: _trigger(RetroSfxRules.AFTERBURNER)
 			_last_afterburner = active
-	var warning := str(scene.get("status_text")) if _has_property(scene, "status_text") else ""
-	if warning.contains("MISSILE") and warning != _last_warning:
-		_trigger(RetroSfxRules.MISSILE_WARNING)
-	_last_warning = warning if warning.contains("MISSILE") else ""
+	_observe_missile_threat(scene)
+
+func _latest_shot_event(scene: Object) -> String:
+	var fallback := _active_weapon_id(scene)
+	if _has_property(scene, "bullets"):
+		var bullets = scene.get("bullets")
+		if typeof(bullets) == TYPE_ARRAY and not bullets.is_empty():
+			var latest = bullets[bullets.size() - 1]
+			if typeof(latest) == TYPE_DICTIONARY: return RetroSfxRules.event_for_projectile(latest, fallback)
+	return RetroSfxRules.event_for_weapon(fallback)
+
+func _observe_missile_threat(scene: Object) -> void:
+	if not _has_property(scene, "enemy_bullets") or not _has_property(scene, "player_position"): return
+	var bullets = scene.get("enemy_bullets")
+	if typeof(bullets) != TYPE_ARRAY: return
+	var count := ThreatWarningRules.homing_count(bullets)
+	var distance := ThreatWarningRules.nearest_homing_distance(bullets, scene.get("player_position"))
+	var level := ThreatWarningRules.warning_level(distance, count)
+	if level > _last_missile_level: _trigger(RetroSfxRules.MISSILE_WARNING)
+	_last_missile_level = level
 
 func _active_weapon_id(scene: Object) -> String:
 	if scene.has_method("_active_weapon"):
