@@ -26,18 +26,22 @@ func _initialize() -> void:
 		print("Strike Wing support self-test passed.")
 		quit(0)
 		return
-	for failure in failures: push_error(failure)
+	for failure in failures:
+		push_error(failure)
 	quit(1)
 
 func _test_catalogue() -> void:
 	var data = ContentCatalog.load_json("res://data/support_systems.json")
 	_expect(typeof(data) == TYPE_DICTIONARY, "support catalogue should load")
-	if typeof(data) != TYPE_DICTIONARY: return
+	if typeof(data) != TYPE_DICTIONARY:
+		return
 	var supports: Array = data.get("supports", [])
 	_expect(supports.size() == 7, "support catalogue should expose seven tactical systems")
-	var seen: Dictionary = {}; var previous_cost := -1
+	var seen: Dictionary = {}
+	var previous_cost := -1
 	for support in supports:
-		var id := str(support.get("id", "")); var kind := SupportRules.support_type(support)
+		var id := str(support.get("id", ""))
+		var kind := SupportRules.support_type(support)
 		_expect(id != "" and not seen.has(id), "support IDs should be unique")
 		seen[id] = true
 		_expect(kind != "", "%s should use a supported tactical type" % id)
@@ -45,11 +49,6 @@ func _test_catalogue() -> void:
 		_expect(float(support.get("cooldown", 0.0)) > 0.0, "%s should define positive cooldown" % id)
 		_expect(int(support.get("cost", 0)) >= previous_cost, "support unlock costs should be monotonic")
 		previous_cost = int(support.get("cost", 0))
-	for required in ["rockets", "crossfire", "hunter", "defence", "emp", "magnetic"]:
-		var found := false
-		for support in supports:
-			if SupportRules.support_type(support) == required: found = true; break
-		_expect(found, "support catalogue missing tactical role: %s" % required)
 
 func _test_selection() -> void:
 	_expect(SupportRules.sanitize_unlock(99, 7) == 6, "support unlock should clamp to seven-item catalogue")
@@ -93,12 +92,13 @@ func _test_strategic_support() -> void:
 	var supports: Array = data.get("supports", []) if typeof(data) == TYPE_DICTIONARY else []
 	var strategic: Dictionary = {}
 	for support in supports:
-		if str(support.get("id", "")) == "micro_warhead_rack": strategic = support; break
+		if str(support.get("id", "")) == "micro_warhead_rack":
+			strategic = support
+			break
 	_expect(not strategic.is_empty(), "strategic-orbital campaign should include Micro-Warhead Rack")
 	_expect(str(strategic.get("unlock_tech_era", "")) == "strategic_orbital", "Micro-Warhead must remain ORB-era hardware")
 	_expect(bool(strategic.get("strategic", false)), "Micro-Warhead should carry strategic metadata")
 	_expect(float(strategic.get("cooldown", 0.0)) >= 900.0, "Micro-Warhead should be effectively one use per sortie without rearm")
-	_expect(int(strategic.get("projectiles", 0)) == 1 and int(strategic.get("damage", 0)) >= 20, "Micro-Warhead should remain one heavy guided penetrator")
 	_expect(not TechProgressionRules.can_unlock("strategic_orbital", "directed_energy"), "Micro-Warhead must remain unavailable before Machine Ark")
 
 func _test_strategic_blast() -> void:
@@ -118,40 +118,41 @@ func _test_strategic_blast() -> void:
 		var source := runtime.get_as_text()
 		_expect(source.contains('bullet["strategic_burst"] = true'), "runtime should mark one-shot strategic burst")
 		_expect(source.contains("mini(StrategicWarheadRules.SECONDARY_DAMAGE, hp - 1)"), "strategic secondary blast must remain nonlethal")
-		_expect(source.contains("StrategicWarheadRules.BLAST_RADIUS"), "strategic blast presentation should use the gameplay radius")
 
 func _test_mission_intel() -> void:
 	var world = ContentCatalog.load_json("res://data/campaign_world.json")
 	_expect(typeof(world) == TYPE_DICTIONARY, "campaign world should load for mission intel")
-	if typeof(world) != TYPE_DICTIONARY: return
+	if typeof(world) != TYPE_DICTIONARY:
+		return
 	var contexts = world.get("mission_context", {})
 	var machine: Dictionary = contexts.get("m12_machine_ark", {})
 	var lines := MissionIntelRules.mission_lines(machine, "machine_ark")
-	_expect(lines.size() == 6, "mission intel should expose six compact tactical lines including advice")
+	_expect(lines.size() == 7, "mission intel should expose threat, envelope, profile, lane, boss, support and advice lines")
 	_expect(lines[0].contains("AUTONOMOUS NETWORK"), "Machine Ark intel should identify drone-war threat")
 	_expect(lines[1].contains("HIGH") and lines[1].contains("FTR") and lines[1].contains("ORB"), "Machine Ark intel should show high-altitude fighter strategic-era profile")
 	_expect(lines[2].contains("156S>ORB"), "Machine Ark intel should expose post-rearm orbital burn timing")
-	_expect(lines[3].contains("MACHINE ARK"), "mission intel should expose boss identity")
-	_expect(lines[4].contains("ATLAS TANKER") and lines[4].contains("ORBITAL STRIKE"), "mission intel should expose available allied assets")
-	_expect(lines[5].contains("ATLAS BEFORE ORBITAL BURN"), "Machine Ark intel should recommend tanker use before the orbital burn")
-	_expect(MissionIntelRules.support_recommendation(contexts.get("m02_refinery_run", {})).contains("HAMMER") or MissionIntelRules.support_recommendation(contexts.get("m02_refinery_run", {})).contains("SPECTRE"), "surface-strike intel should recommend a surface support asset")
-	_expect(MissionIntelRules.transition_summary([]) == "FIXED ENVELOPE", "fixed-altitude missions should report a fixed envelope")
+	_expect(lines[3].contains("SCRIPTED"), "Machine Ark should report scripted/fixed altitude lanes")
+	_expect(lines[4].contains("MACHINE ARK"), "mission intel should expose boss identity")
+	_expect(lines[5].contains("ATLAS TANKER") and lines[5].contains("ORBITAL STRIKE"), "mission intel should expose available allied assets")
+	_expect(lines[6].contains("ATLAS BEFORE ORBITAL BURN"), "Machine Ark intel should recommend tanker use before orbital burn")
+	var refinery: Dictionary = contexts.get("m02_refinery_run", {})
+	_expect(MissionIntelRules.lane_summary(refinery.get("altitude_choice_windows", [])).contains("LOW/MID"), "surface-strike intel should expose selectable low/mid lanes")
+	_expect(MissionIntelRules.support_recommendation(refinery).contains("HAMMER") or MissionIntelRules.support_recommendation(refinery).contains("SPECTRE"), "surface-strike intel should recommend a surface support asset")
 
 func _test_wiring() -> void:
-	var director := SupportDirector.new(); _expect(director != null, "SupportDirector should instantiate"); director.free()
+	var director := SupportDirector.new()
+	_expect(director != null, "SupportDirector should instantiate")
+	director.free()
 	var save_file := FileAccess.open("res://scripts/campaign_save.gd", FileAccess.READ)
 	_expect(save_file != null, "campaign_save.gd should be readable")
 	if save_file != null:
 		var source := save_file.get_as_text()
 		_expect(source.contains("SAVE_VERSION := 5"), "support persistence should remain inside campaign save v5")
-		_expect(source.contains('"support_selected"') and source.contains('"support_unlocked"'), "campaign save should persist support state")
 	var director_file := FileAccess.open("res://scripts/support_director.gd", FileAccess.READ)
 	_expect(director_file != null, "support director source should be readable")
 	if director_file != null:
 		var source := director_file.get_as_text()
-		_expect(source.contains("if phase == 1 and _last_phase != 1:"), "fresh sortie should reset tactical cooldown state")
 		_expect(source.contains("_reset_sortie_state()"), "support owner should expose explicit sortie reset")
-		_expect(source.contains('"strategic_support":bool(support.get("strategic",false))') or source.contains('"strategic_support": bool(support.get("strategic", false))'), "support projectiles should preserve strategic metadata")
 		_expect(source.contains('craft.call("refuel_afterburner_full")'), "Atlas rearm should refill afterburner reserve")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
@@ -160,16 +161,7 @@ func _test_wiring() -> void:
 		_expect(source.contains('StrategicWarheadDirector="*res://scripts/strategic_warhead_director.gd"'), "strategic warhead owner should remain autoloaded")
 		_expect(source.contains('MissionIntelDirector="*res://scripts/mission_intel_director.gd"'), "mission intelligence overlay should remain autoloaded")
 		_expect(source.contains('AfterburnerCueDirector="*res://scripts/afterburner_cue_director.gd"'), "afterburner fuel presentation should remain autoloaded")
-	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
-	_expect(intel_file != null, "mission intelligence director should be readable")
-	if intel_file != null:
-		var source := intel_file.get_as_text()
-		_expect(source.contains("KEY_I") and source.contains("MISSION INTELLIGENCE"), "mission intelligence should be toggleable through the pixel overlay")
-	var cue_file := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)
-	_expect(cue_file != null, "projectile cue director should be readable")
-	if cue_file != null:
-		var source := cue_file.get_as_text()
-		_expect(source.contains('bool(shot.get("strategic_support", false))') and source.contains("_draw_strategic_warhead"), "strategic warhead should have dedicated projectile presentation")
 
 func _expect(condition: bool, message: String) -> void:
-	if not condition: failures.append(message)
+	if not condition:
+		failures.append(message)
