@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "profiles": [
     {
       "id": "coast",
@@ -33,6 +33,28 @@
       "far_speed": 12.0,
       "mid_speed": 28.0,
       "near_speed": 56.0
+    },
+    {
+      "id": "high_cloud",
+      "motif": "cloud_top",
+      "base": "253643",
+      "far": "496474",
+      "mid": "7f94a0",
+      "near": "b4bec2",
+      "far_speed": 6.0,
+      "mid_speed": 16.0,
+      "near_speed": 34.0
+    },
+    {
+      "id": "orbital",
+      "motif": "orbital",
+      "base": "080d18",
+      "far": "111a2a",
+      "mid": "27364c",
+      "near": "6c8297",
+      "far_speed": 2.0,
+      "mid_speed": 7.0,
+      "near_speed": 16.0
     }
   ]
 }
