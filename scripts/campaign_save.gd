@@ -64,11 +64,7 @@ func _primary_weapon_count(scene: Object) -> int:
 	return maxi(1, count)
 
 func _saved_weapon_index(scene: Object) -> int:
-	var count := _primary_weapon_count(scene)
-	var director := get_node_or_null("/root/WeaponPickupDirector")
-	if director != null and director.has_method("permanent_index"):
-		return clampi(int(director.call("permanent_index")), 0, count - 1)
-	return clampi(int(scene.get("weapon_index")), 0, count - 1)
+	return clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1)
 
 func _service_value(method_name: String, fallback: int) -> int:
 	var director := get_node_or_null("/root/ServiceDirector")
