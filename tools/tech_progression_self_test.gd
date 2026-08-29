@@ -3,6 +3,7 @@ extends SceneTree
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
+const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
 var failures: Array[String] = []
@@ -12,6 +13,7 @@ func _initialize() -> void:
 	_test_support_gates()
 	_test_weapon_gates()
 	_test_generator_gates()
+	_test_central_purchase_gate()
 	_test_emp_resistance()
 	_test_source_wiring()
 	if failures.is_empty():
@@ -79,6 +81,22 @@ func _test_generator_gates() -> void:
 	_expect(EnergyRules.effective_weapon_cost(rail, pulse) < EnergyRules.weapon_cost(rail), "Pulse Core should reduce electromagnetic weapon energy cost")
 	_expect(absf(EnergyRules.effective_weapon_cost(conventional, pulse) - EnergyRules.weapon_cost(conventional)) < 0.001, "Pulse Core must not discount older conventional weapons")
 
+func _test_central_purchase_gate() -> void:
+	var items := [
+		{"id":"early","cost":100,"unlock_tech_era":"advanced_conventional"},
+		{"id":"pulse","cost":200,"unlock_tech_era":"electromagnetic"}
+	]
+	ProgressionRules.set_current_tech_era("advanced_conventional")
+	var denied := ProgressionRules.next_weapon_index(0, items, 1000)
+	_expect(not bool(denied.get("changed", false)), "shared progression should block a future-era item")
+	_expect(str(denied.get("reason", "")) == "TECH_LOCK", "shared progression should expose a tech-lock reason")
+	_expect(int(denied.get("credits", 0)) == 1000, "tech lock must not spend credits")
+	ProgressionRules.set_current_tech_era("electromagnetic")
+	var allowed := ProgressionRules.next_weapon_index(0, items, 1000)
+	_expect(bool(allowed.get("changed", false)) and int(allowed.get("index", 0)) == 1, "shared progression should permit matching-era item")
+	_expect(int(allowed.get("credits", 0)) == 800, "matching-era purchase should deduct exact cost")
+	ProgressionRules.set_current_tech_era("advanced_conventional")
+
 func _test_emp_resistance() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
 	_expect(typeof(enemies_data) == TYPE_DICTIONARY, "enemy catalogue should load for EMP resistance")
@@ -105,6 +123,10 @@ func _test_source_wiring() -> void:
 		_expect(source.contains("TECH LOCK -"), "tech lock should be communicated in title shop")
 		_expect(source.contains("SupportRules.emp_resistance(enemy)"), "EMP runtime should consume authored resistance")
 		_expect(source.contains("emp_slow_scale"), "EMP runtime should preserve resistance-adjusted slow scale")
+	var craft_file := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
+	_expect(craft_file != null, "craft form director should be readable for shared progression context")
+	if craft_file != null:
+		_expect(craft_file.get_as_text().contains("ProgressionRules.set_current_tech_era"), "mission context should publish current technology era to shared purchases")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main.gd should be readable for weapon tech wiring")
 	if main_file != null:
