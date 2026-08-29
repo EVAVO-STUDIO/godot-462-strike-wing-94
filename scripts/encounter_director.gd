@@ -51,7 +51,9 @@ func _condition_state(scene: Object) -> Dictionary:
 		"shots_fired": int(scene.get("shots_fired")),
 		"shots_hit": int(scene.get("shots_hit")),
 		"score": int(scene.get("score")),
-		"bombs": int(scene.get("bombs"))
+		"bombs": int(scene.get("bombs")),
+		"altitude": _current_altitude(),
+		"form": _current_form()
 	}
 
 func _current_altitude() -> String:
@@ -59,6 +61,12 @@ func _current_altitude() -> String:
 	if craft != null and craft.has_method("current_altitude"):
 		return str(craft.call("current_altitude"))
 	return AltitudeRules.MID
+
+func _current_form() -> String:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("current_form"):
+		return str(craft.call("current_form"))
+	return "fighter"
 
 func _apply_due_beats(scene: Object) -> void:
 	var mission := _active_mission(scene)
