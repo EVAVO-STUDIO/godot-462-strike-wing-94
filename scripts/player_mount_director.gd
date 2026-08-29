@@ -17,6 +17,12 @@ func primary_offsets(form: String, weapon: Dictionary, projectile_count: int) ->
 func support_offsets(form: String, support: Dictionary, projectile_count: int, alternating_side: bool = false) -> Array[Vector2]:
 	return PlayerMountRules.support_offsets(mounts, form, support, projectile_count, alternating_side)
 
+func role_offsets(form: String, role: String) -> Array[Vector2]:
+	var result: Array[Vector2] = []
+	for mount in PlayerMountRules.mounts_for_role(mounts, form, role):
+		result.append(PlayerMountRules.offset_for_mount(mount, form))
+	return result
+
 func bomber_rotary_deployed(form: String, weapon: Dictionary) -> bool:
 	return PlayerMountRules.bomber_rotary_deployed(form, weapon)
 
