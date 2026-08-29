@@ -5,6 +5,7 @@ const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const PixelUiDirector = preload("res://scripts/pixel_ui_director.gd")
+const CombatArtDirector = preload("res://scripts/combat_art_director.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
@@ -19,6 +20,7 @@ func _initialize() -> void:
 	_test_movement_patterns()
 	_test_autoloads()
 	_test_pixel_ui()
+	_test_combat_art()
 	_test_threat_warning()
 	_test_projectile_cues()
 	_test_native_missiles()
@@ -120,6 +122,7 @@ func _test_autoloads() -> void:
 		_expect(not text.contains(obsolete), "obsolete autoload should stay removed: %s" % obsolete)
 	_expect(text.contains("EncounterDirector=\"*res://scripts/encounter_director.gd\""), "encounter director must remain autoloaded")
 	_expect(text.contains("PixelUiDirector=\"*res://scripts/pixel_ui_director.gd\""), "pixel UI director must remain autoloaded")
+	_expect(text.contains("CombatArtDirector=\"*res://scripts/combat_art_director.gd\""), "combat art director must remain autoloaded")
 	_expect(text.contains("ProjectileCueDirector=\"*res://scripts/projectile_cue_director.gd\""), "projectile cue director must remain autoloaded")
 
 func _test_pixel_ui() -> void:
@@ -140,6 +143,18 @@ func _test_pixel_ui() -> void:
 		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
 	_expect(not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete boss HUD widget director should remain deleted")
 	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")
+
+func _test_combat_art() -> void:
+	var art := CombatArtDirector.new()
+	_expect(art != null, "combat art director should instantiate")
+	art.free()
+	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
+	_expect(file != null, "combat art director should be readable")
+	if file == null: return
+	var source := file.get_as_text()
+	for token in ["func _draw_fighter", "func _draw_bomber", "func _draw_air", "func _draw_ground", "func _draw_sea", "func _draw_autonomous", "func _draw_boss", "PLAYER_GLASS", "AI_CORE", "layer = 12"]:
+		_expect(source.contains(token), "combat art presentation missing token: %s" % token)
+	_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()"), "combat art should remain canvas/pixel presentation")
 
 func _test_threat_warning() -> void:
 	var bullets := [{"position":Vector2(100,0),"homing":true},{"position":Vector2(300,0),"homing":true},{"position":Vector2(10,0),"homing":false}]
