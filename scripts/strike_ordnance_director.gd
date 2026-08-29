@@ -61,7 +61,11 @@ func _try_drop(scene: Object) -> void:
 		return
 	ordnance -= 1
 	_cooldown = StrikeOrdnanceRules.DROP_COOLDOWN
-	var point := StrikeOrdnanceRules.target_point(scene.get("player_position"), altitude)
+	var point := StrikeOrdnanceRules.assisted_target_point(
+		scene.get("player_position"),
+		altitude,
+		scene.get("enemies")
+	)
 	_pending.append({
 		"position": point,
 		"time": StrikeOrdnanceRules.impact_delay(altitude),
@@ -136,15 +140,26 @@ func _draw_surface(surface: CanvasItem) -> void:
 	var altitude := _craft_value("current_altitude", "mid")
 	if form != "bomber" or not StrikeOrdnanceRules.altitude_allowed(altitude):
 		return
-	var target := StrikeOrdnanceRules.target_point(scene.get("player_position"), altitude)
+	var projected := StrikeOrdnanceRules.target_point(scene.get("player_position"), altitude)
+	var target := StrikeOrdnanceRules.assisted_target_point(scene.get("player_position"), altitude, scene.get("enemies"))
+	var assisted := target.distance_squared_to(projected) > 0.5
 	var aim_radius := StrikeOrdnanceRules.aim_radius(altitude)
 	var blast_radius := StrikeOrdnanceRules.blast_radius(altitude)
-	var reticle := Color(0.92, 0.74, 0.30, 0.55)
+	var reticle := Color(0.38, 0.86, 0.70, 0.72) if assisted else Color(0.92, 0.74, 0.30, 0.55)
+	if assisted:
+		surface.draw_line(projected, target, Color(0.38,0.86,0.70,0.35), 1.0)
 	surface.draw_arc(target, aim_radius, 0.0, TAU, 20, reticle, 1.0)
 	surface.draw_arc(target, blast_radius, 0.0, TAU, 20, Color(0.92, 0.44, 0.22, 0.24), 1.0)
-	surface.draw_line(target + Vector2(-6, 0), target + Vector2(6, 0), Color(0.92, 0.74, 0.30, 0.75), 1.0)
-	surface.draw_line(target + Vector2(0, -6), target + Vector2(0, 6), Color(0.92, 0.74, 0.30, 0.75), 1.0)
-	PixelFont.draw_text(surface, "E BOMB %d  %s" % [ordnance, "LOW" if altitude == "low" else "MID"], Vector2(18, 314), 1, Color(0.92, 0.74, 0.30, 0.92), 1)
+	surface.draw_line(target + Vector2(-6, 0), target + Vector2(6, 0), reticle, 1.0)
+	surface.draw_line(target + Vector2(0, -6), target + Vector2(0, 6), reticle, 1.0)
+	PixelFont.draw_text(
+		surface,
+		"E BOMB %d  %s%s" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else ""],
+		Vector2(18, 314),
+		1,
+		Color(0.92, 0.74, 0.30, 0.92),
+		1
+	)
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)
 		var initial_time := maxf(0.001, float(item.get("initial_time", StrikeOrdnanceRules.impact_delay(str(item.get("altitude", "low"))))))
