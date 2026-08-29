@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "supports": [
+    {
+      "id": "spectre_gunship",
+      "name": "Spectre Heavy Gunship",
+      "type": "loitering_gunship",
+      "altitudes": ["low", "mid"],
+      "tech_era": "advanced_conventional",
+      "duration_seconds": 16.0,
+      "cooldown_seconds": 75.0,
+      "description": "Future C-130-style side-firing gunship enters a safe orbit and suppresses surface lanes with heavy cannon fire."
+    },
+    {
+      "id": "atlas_tanker",
+      "name": "Atlas Tanker",
+      "type": "tanker_rearm",
+      "altitudes": ["mid", "high"],
+      "tech_era": "advanced_conventional",
+      "duration_seconds": 12.0,
+      "cooldown_seconds": 120.0,
+      "description": "Large tanker/rearm aircraft deploys a hose corridor. Maintaining position restores fuel-equivalent energy, support readiness, bombs and limited airframe stores."
+    },
+    {
+      "id": "rapier_flight",
+      "name": "Rapier Fighter Flight",
+      "type": "fighter_squadron",
+      "altitudes": ["mid", "high", "orbital"],
+      "tech_era": "advanced_conventional",
+      "duration_seconds": 14.0,
+      "cooldown_seconds": 70.0,
+      "description": "Friendly fighter element crosses the combat zone, engaging air targets and drawing hostile fire."
+    },
+    {
+      "id": "hammer_bomber_flight",
+      "name": "Hammer Bomber Flight",
+      "type": "bomber_squadron",
+      "altitudes": ["low", "mid"],
+      "tech_era": "advanced_conventional",
+      "duration_seconds": 10.0,
+      "cooldown_seconds": 90.0,
+      "description": "Friendly strike bombers perform an authored surface attack run across marked ground or naval targets."
+    },
+    {
+      "id": "cruise_missile_support",
+      "name": "Cruise Missile Battery",
+      "type": "precision_missile",
+      "altitudes": ["low", "mid", "high"],
+      "tech_era": "advanced_conventional",
+      "duration_seconds": 5.0,
+      "cooldown_seconds": 85.0,
+      "description": "Stand-off missile battery attacks a marked hardened or high-value target with a visible inbound trajectory."
+    },
+    {
+      "id": "rail_support",
+      "name": "Longshot Rail Battery",
+      "type": "rail_strike",
+      "altitudes": ["mid", "high", "orbital"],
+      "tech_era": "electromagnetic",
+      "duration_seconds": 4.0,
+      "cooldown_seconds": 105.0,
+      "description": "Late-game electromagnetic battery charges and fires a high-velocity penetrator through a marked lane or boss weak point."
+    },
+    {
+      "id": "orbital_strike",
+      "name": "Orbital Strike Platform",
+      "type": "orbital_bombardment",
+      "altitudes": ["high", "orbital"],
+      "tech_era": "strategic_orbital",
+      "duration_seconds": 7.0,
+      "cooldown_seconds": 180.0,
+      "description": "Strategic late-game platform delivers a tightly bounded orbital kinetic strike after a long telegraph."
+    }
+  ]
+}
