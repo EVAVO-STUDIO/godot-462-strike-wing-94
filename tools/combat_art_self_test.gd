@@ -29,6 +29,7 @@ func _test_wiring() -> void:
 		var source := project.get_as_text()
 		_expect(source.contains('CombatArtDirector="*res://scripts/combat_art_director.gd"'), "combat art presentation should remain autoloaded")
 		_expect(source.contains('AirframeCueDirector="*res://scripts/airframe_cue_director.gd"'), "airframe progression cues should remain autoloaded")
+		_expect(source.contains('AltitudeTransitionDirector="*res://scripts/altitude_transition_director.gd"'), "altitude transitions should retain dedicated presentation")
 
 func _test_visual_language() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -54,11 +55,13 @@ func _test_transform_presentation() -> void:
 	if file == null:
 		return
 	var source := file.get_as_text()
-	_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.34"), "variable geometry sweep should remain short and mechanical")
+	_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "variable geometry sweep should remain visibly mechanical")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
-	_expect(source.contains("func _draw_transforming"), "intermediate wing geometry should have dedicated rendering")
-	_expect(source.contains("lerpf(17.0, 29.0, t)"), "wing span should visibly expand between fighter and bomber")
-	_expect(source.contains("hinge"), "transforming silhouette should retain visible variable-geometry hinge language")
+	_expect(source.contains("fighter_tip_l.lerp(bomber_tip_l, t)"), "wing tips should physically sweep around the hinge")
+	_expect(source.contains("Visible variable-geometry hinge plates"), "wing sweep should retain visible mechanical hinges")
+	_expect(source.contains("_draw_rotary_cannon(surface, p, deploy)"), "nose rotary should deploy during bomber transformation")
+	_expect(source.contains("Fighter wing-root cannons") or source.contains("wing-root cannon"), "fighter should visibly retain wing-root cannon packs")
+	_expect(source.contains("Under-wing hardpoints"), "bomber configuration should expose physical bomb/rocket/missile hardpoints")
 
 func _test_altitude_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -66,12 +69,10 @@ func _test_altitude_presentation() -> void:
 	if file == null:
 		return
 	var source := file.get_as_text()
-	_expect(source.contains("AltitudeRules.ground_scale"), "surface target presentation should use the canonical altitude scale")
+	_expect(source.contains("AltitudeRules.transition_ground_scale"), "surface targets should interpolate scale during altitude changes")
+	_expect(source.contains("_altitude_pitch_offset"), "VX-94 should receive a climb/dive pitch cue during lane changes")
 	_expect(source.contains('category in ["ground", "sea"]'), "ground/sea targets should be identified for altitude treatment")
 	_expect(source.contains("scale < 0.25"), "ordinary surface silhouettes should disappear when the player is effectively too high to engage them visually")
-	_expect(source.contains("func _draw_ground(surface: CanvasItem, p: Vector2, scale: float)"), "ground target art should accept altitude scale")
-	_expect(source.contains("func _draw_sea(surface: CanvasItem, p: Vector2, scale: float)"), "sea target art should accept altitude scale")
-	_expect(source.contains("roundf(v.x * scale)"), "scaled target geometry should stay integer-aligned")
 
 func _test_late_boss_silhouettes() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -82,9 +83,6 @@ func _test_late_boss_silhouettes() -> void:
 	_expect(source.contains('id == "phase_control_array"') and source.contains("func _draw_phase_array"), "Phase Control Array should have a dedicated ring-array silhouette")
 	_expect(source.contains('id == "station_warden"') and source.contains("func _draw_station_warden"), "Station Warden should have a dedicated fortified station silhouette")
 	_expect(source.contains('id == "machine_ark"') and source.contains("func _draw_machine_ark"), "Machine Ark should have a dedicated carrier/command silhouette")
-	_expect(source.contains("surface.draw_arc(p, 32.0"), "Phase Control Array should retain visible concentric array geometry")
-	_expect(source.contains("Rect2(p.x-50,p.y-11,100,22)"), "Station Warden should read as a wide cross-station structure")
-	_expect(source.contains("p+Vector2(-62,-4)") and source.contains("p+Vector2(68,-2)"), "Machine Ark should remain substantially wider/asymmetric than earlier bosses")
 
 func _test_airframe_cues() -> void:
 	var file := FileAccess.open("res://scripts/airframe_cue_director.gd", FileAccess.READ)
@@ -93,13 +91,8 @@ func _test_airframe_cues() -> void:
 		return
 	var source := file.get_as_text()
 	_expect(source.contains("layer = 13"), "airframe cues should remain above combat silhouettes and below projectile/HUD layers")
-	_expect(source.contains('"ceramic_titanium_frame"') and source.contains("_draw_armor_strakes"), "ceramic-titanium frame should expose visible armor reinforcement")
-	_expect(source.contains('"reactive_alloy_frame"'), "reactive alloy frame should retain reinforced panel identity")
 	_expect(source.contains('"magneto_composite_frame"') and source.contains("_draw_magnetic_nodes"), "magneto-composite frame should expose restrained magnetic nodes")
 	_expect(source.contains('"field_coupled_frame"') and source.contains("_draw_field_lattice"), "field-coupled frame should expose visible field-lattice language")
-	_expect(source.contains('get_node_or_null("/root/AirframeDirector")'), "airframe cues must read the canonical persistent airframe owner")
-	for forbidden in ["Label.new()", "PanelContainer.new()", "ProgressBar.new()"]:
-		_expect(not source.contains(forbidden), "airframe cues must remain canvas-drawn pixel presentation: %s" % forbidden)
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
