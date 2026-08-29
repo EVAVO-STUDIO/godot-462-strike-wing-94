@@ -56,29 +56,31 @@ func _supports(scene: Object) -> bool:
 func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
-	PixelFont.draw_centered(surface, "STRIKE WING '94", 320, 34, 3, TEXT, 2)
-	PixelFont.draw_centered(surface, str(scene.get("current_mission_name")), 320, 78, 2, GOLD, 2)
+	PixelFont.draw_centered(surface, "STRIKE WING '94", 320, 30, 3, TEXT, 2)
+	PixelFont.draw_centered(surface, str(scene.get("current_mission_name")), 320, 70, 2, GOLD, 2)
+	PixelFont.draw_centered(surface, "%s   %s CONFIG" % [_altitude_name(), _form_name()], 320, 92, 1, BLUE, 1)
 	var briefing := str(scene.get("current_briefing"))
 	var lines := _wrap_text(briefing, 72)
 	for i in range(mini(2, lines.size())):
-		PixelFont.draw_centered(surface, lines[i], 320, 108 + i * 10, 1, MUTED, 1)
+		PixelFont.draw_centered(surface, lines[i], 320, 112 + i * 10, 1, MUTED, 1)
 	_draw_divider(surface, 142)
 	PixelFont.draw_centered(surface, "ENTER LAUNCH   U WEAPON   G GENERATOR", 320, 154, 1, TEXT, 1)
 	PixelFont.draw_centered(surface, "C SUPPORT   V SUPPORT BUY   H HULL   J SHIELD", 320, 168, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "Q TRANSFORM IN FLIGHT", 320, 182, 1, GREEN, 1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var generator := _call_dictionary(scene, "_active_generator")
-	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 160, 198, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 480, 198, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "SUPPORT %s" % _support_name(), 320, 216, 1, GREEN, 1)
-	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 236, 2, TEXT, 1)
+	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 160, 205, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 480, 205, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "SUPPORT %s" % _support_name(), 320, 222, 1, GREEN, 1)
+	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 241, 2, TEXT, 1)
 	var service_hull := int(scene.get("service_hull")) if _has_property(scene, "service_hull") else int(scene.get("hull"))
 	var service_shield := int(scene.get("service_shield")) if _has_property(scene, "service_shield") else int(scene.get("shield"))
-	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 263, 1, GREEN, 1)
+	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 267, 1, GREEN, 1)
 	_draw_divider(surface, 284)
 	if float(scene.get("status_timer")) > 0.0:
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 306, 1, GREEN, 1)
 	else:
-		PixelFont.draw_centered(surface, "640X360 LOGICAL / INTEGER 2X OUTPUT", 320, 306, 1, MUTED, 1)
+		PixelFont.draw_centered(surface, "VARIABLE GEOMETRY STRIKE CRAFT", 320, 306, 1, MUTED, 1)
 
 func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
@@ -90,11 +92,12 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	_draw_divider(surface, 142)
 	PixelFont.draw_centered(surface, "SCORE %08d" % int(scene.get("score")), 210, 169, 2, TEXT, 1)
 	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 430, 169, 2, TEXT, 1)
+	PixelFont.draw_centered(surface, "%s   %s" % [_altitude_name(), _form_name()], 320, 198, 1, BLUE, 1)
 	if _has_property(scene, "shots_fired") and int(scene.get("shots_fired")) > 0:
 		var fired := int(scene.get("shots_fired"))
 		var hits := clampi(int(scene.get("shots_hit")), 0, fired)
 		var accuracy := int(round(float(hits) / float(fired) * 100.0))
-		PixelFont.draw_centered(surface, "ACCURACY %03d%%   HITS %d/%d" % [accuracy, hits, fired], 320, 212, 1, GREEN, 1)
+		PixelFont.draw_centered(surface, "ACCURACY %03d%%   HITS %d/%d" % [accuracy, hits, fired], 320, 218, 1, GREEN, 1)
 	PixelFont.draw_centered(surface, "ENTER NEXT MISSION   R RETRY", 320, 274, 1, TEXT, 1)
 
 func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
@@ -114,9 +117,10 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(520, 15), 1, TEXT, 1)
 	var mission_name := str(scene.get("current_mission_name"))
 	var weapon := _call_dictionary(scene, "_active_weapon")
-	PixelFont.draw_text(surface, _clip(mission_name, 24), Vector2(16, 39), 1, MUTED, 1)
-	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 24), 320, 39, 1, TEXT, 1)
-	PixelFont.draw_text(surface, _clip(_support_name(), 22), Vector2(472, 39), 1, GREEN, 1)
+	PixelFont.draw_text(surface, _clip(mission_name, 18), Vector2(16, 39), 1, MUTED, 1)
+	PixelFont.draw_text(surface, "%s %s" % [_short_altitude(), _short_form()], Vector2(158, 39), 1, BLUE, 1)
+	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 20), 344, 39, 1, TEXT, 1)
+	PixelFont.draw_text(surface, _clip(_support_name(), 18), Vector2(488, 39), 1, GREEN, 1)
 	_draw_boss(surface, scene)
 	_draw_threat(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
@@ -155,6 +159,28 @@ func _support_name() -> String:
 	if director != null and director.has_method("current_support_name"):
 		return str(director.call("current_support_name")).to_upper()
 	return "NO SUPPORT"
+
+func _form_name() -> String:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("current_form_name"):
+		return str(director.call("current_form_name")).to_upper()
+	return "FIGHTER"
+
+func _altitude_name() -> String:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("current_altitude_name"):
+		return str(director.call("current_altitude_name")).to_upper()
+	return "MID ALT"
+
+func _short_form() -> String:
+	return "FTR" if _form_name() == "FIGHTER" else "BMB"
+
+func _short_altitude() -> String:
+	var value := _altitude_name()
+	if value.begins_with("LOW"): return "LOW"
+	if value.begins_with("HIGH"): return "HIGH"
+	if value.begins_with("ATMOS"): return "ORB"
+	return "MID"
 
 func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current: int, maximum: int, color: Color) -> void:
 	var max_value := maxi(1, maximum)
