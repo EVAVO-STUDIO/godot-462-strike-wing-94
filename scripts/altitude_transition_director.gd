@@ -22,17 +22,44 @@ func _process(_delta: float) -> void:
 
 func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 	var craft := get_node_or_null("/root/CraftFormDirector")
-	if craft == null or not craft.has_method("altitude_transition_active") or not bool(craft.call("altitude_transition_active")):
+	if craft == null:
 		return
-	var ratio := clampf(float(craft.call("altitude_transition_ratio")), 0.0, 1.0)
-	var direction := int(craft.call("altitude_transition_direction"))
-	var from_band := str(craft.call("altitude_transition_from"))
-	var to_band := str(craft.call("altitude_transition_to"))
-	var eased := smoothstep(0.0, 1.0, ratio)
-	_draw_cloud_sweep(surface, eased, direction)
-	_draw_speed_brackets(surface, eased, direction)
-	var label := "CLIMB" if direction > 0 else "DIVE"
-	PixelFont.draw_text(surface, Vector2(278, 68), "%s  %s > %s" % [label, _code(from_band), _code(to_band)], 1, Color(0.78,0.9,0.94,0.94))
+	if craft.has_method("altitude_transition_active") and bool(craft.call("altitude_transition_active")):
+		var ratio := clampf(float(craft.call("altitude_transition_ratio")), 0.0, 1.0)
+		var direction := int(craft.call("altitude_transition_direction"))
+		var from_band := str(craft.call("altitude_transition_from"))
+		var to_band := str(craft.call("altitude_transition_to"))
+		var eased := smoothstep(0.0, 1.0, ratio)
+		_draw_cloud_sweep(surface, eased, direction)
+		_draw_speed_brackets(surface, eased, direction)
+		var label := "CLIMB" if direction > 0 else "DIVE"
+		PixelFont.draw_text(surface, Vector2(272, 68), "%s  %s > %s" % [label, _code(from_band), _code(to_band)], 1, Color(0.78,0.9,0.94,0.94))
+		return
+	_draw_choice_prompt(surface, craft)
+
+func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
+	var scene := get_tree().current_scene
+	if scene == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 1 or not _has_property(scene, "mission_time"):
+		return
+	if not craft.has_method("altitude_choice_available") or not bool(craft.call("altitude_choice_available", float(scene.get("mission_time")))):
+		return
+	var bands: Array = craft.call("altitude_choice_bands", float(scene.get("mission_time")))
+	var current := str(craft.call("current_altitude")) if craft.has_method("current_altitude") else AltitudeRules.MID
+	var higher := AltitudeRules.adjacent_band(current, 1)
+	var lower := AltitudeRules.adjacent_band(current, -1)
+	var parts: Array[String] = []
+	if higher != current and higher in bands:
+		parts.append("PGUP %s" % _code(higher))
+	if lower != current and lower in bands:
+		parts.append("PGDN %s" % _code(lower))
+	if parts.is_empty():
+		return
+	var text := "ALTITUDE LANE  %s" % "  ".join(parts)
+	var width := float(text.length() * 4 + 14)
+	var x := roundf(320.0 - width * 0.5)
+	surface.draw_rect(Rect2(x, 329, width, 18), Color(0.03,0.06,0.08,0.72))
+	surface.draw_rect(Rect2(x, 329, width, 18), Color(0.34,0.58,0.68,0.68), false, 1.0)
+	PixelFont.draw_text(surface, Vector2(x+7,335), text, 1, Color(0.76,0.88,0.92,0.92))
 
 func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var travel := 160.0 * ratio
@@ -65,3 +92,9 @@ func _code(band: String) -> String:
 		AltitudeRules.HIGH: return "HIGH"
 		AltitudeRules.ORBITAL: return "ORB"
 	return "MID"
+
+func _has_property(object: Object, property_name: String) -> bool:
+	for property in object.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false
