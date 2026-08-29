@@ -9,7 +9,9 @@ var altitude := AltitudeRules.MID
 var _cooldown := 0.0
 var _world: Dictionary = {}
 var _last_mission_index := -1
+var _last_phase := -1
 var _current_context: Dictionary = {}
+var _next_altitude_transition := 0
 
 func _ready() -> void:
 	process_priority = -8
@@ -24,19 +26,23 @@ func _process(delta: float) -> void:
 	if scene == null or not _supports(scene):
 		return
 	var mission_index := int(scene.get("mission_index"))
+	var phase := int(scene.get("phase"))
 	if mission_index != _last_mission_index:
 		_last_mission_index = mission_index
 		_apply_mission_context(scene)
-	if int(scene.get("phase")) != 1:
-		return
-	if Input.is_action_just_pressed("transform_craft"):
-		_try_transform(scene)
+	if phase == 1 and _last_phase != 1:
+		_apply_mission_context(scene)
+	if phase == 1:
+		_apply_due_altitude_transitions(scene)
+		if Input.is_action_just_pressed("transform_craft"):
+			_try_transform(scene)
+	_last_phase = phase
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
 		names[str(property.get("name", ""))] = true
-	for required in ["phase", "mission_index", "mission_catalog", "status_text", "status_timer"]:
+	for required in ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer"]:
 		if not names.has(required):
 			return false
 	return true
@@ -62,6 +68,28 @@ func _apply_mission_context(scene: Object) -> void:
 	var recommended := CraftFormRules.sanitize(str(_current_context.get("recommended_form", CraftFormRules.FIGHTER)))
 	form = recommended if AltitudeRules.supports_form(altitude, recommended) else CraftFormRules.FIGHTER
 	_cooldown = 0.0
+	_next_altitude_transition = 0
+
+func _apply_due_altitude_transitions(scene: Object) -> void:
+	var transitions = _current_context.get("altitude_transitions", [])
+	if typeof(transitions) != TYPE_ARRAY:
+		return
+	while _next_altitude_transition < transitions.size():
+		var transition = transitions[_next_altitude_transition]
+		if typeof(transition) != TYPE_DICTIONARY:
+			_next_altitude_transition += 1
+			continue
+		var at := maxf(0.0, float(transition.get("at_seconds", 0.0)))
+		if float(scene.get("mission_time")) + 0.0001 < at:
+			return
+		var next_altitude := AltitudeRules.sanitize(str(transition.get("altitude", altitude)))
+		altitude = next_altitude
+		if not AltitudeRules.supports_form(altitude, form):
+			form = CraftFormRules.FIGHTER
+			_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
+		var label := str(transition.get("label", AltitudeRules.display_name(altitude))).strip_edges().to_upper()
+		_set_status(scene, "ALTITUDE SHIFT - %s  %s" % [label, CraftFormRules.display_name(form)])
+		_next_altitude_transition += 1
 
 func _try_transform(scene: Object) -> void:
 	if _cooldown > 0.0:
@@ -91,6 +119,9 @@ func movement_multiplier() -> float:
 
 func collision_radius_sq() -> float:
 	return CraftFormRules.collision_radius_sq(form)
+
+func projectile_hit_radius_sq() -> float:
+	return CraftFormRules.projectile_hit_radius_sq(form)
 
 func primary_spread_multiplier() -> float:
 	return CraftFormRules.primary_spread_multiplier(form)
