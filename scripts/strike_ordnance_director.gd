@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const StrikeOrdnanceRules = preload("res://scripts/strike_ordnance_rules.gd")
 const StrikeOrdnanceSurface = preload("res://scripts/strike_ordnance_surface.gd")
+const PixelFont = preload("res://scripts/pixel_font.gd")
 
 var ordnance := StrikeOrdnanceRules.MAX_ORDNANCE
 var _cooldown := 0.0
@@ -135,6 +136,7 @@ func _draw_surface(surface: CanvasItem) -> void:
 	surface.draw_arc(target, radius, 0.0, TAU, 20, Color(0.92, 0.74, 0.30, 0.55), 1.0)
 	surface.draw_line(target + Vector2(-6, 0), target + Vector2(6, 0), Color(0.92, 0.74, 0.30, 0.75), 1.0)
 	surface.draw_line(target + Vector2(0, -6), target + Vector2(0, 6), Color(0.92, 0.74, 0.30, 0.75), 1.0)
+	PixelFont.draw_text(surface, "E BOMB %d" % ordnance, Vector2(18, 314), 1, Color(0.92, 0.74, 0.30, 0.92), 1)
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)
 		var t := clampf(float(item.get("time", 0.0)) / StrikeOrdnanceRules.IMPACT_DELAY, 0.0, 1.0)
@@ -146,4 +148,5 @@ func _ensure_action() -> void:
 	var event := InputEventKey.new()
 	event.physical_keycode = KEY_E
 	if not InputMap.action_has_event("drop_strike_ordnance", event):
+		InputMap.add_action("drop_strike_ordnance") if not InputMap.has_action("drop_strike_ordnance") else null
 		InputMap.action_add_event("drop_strike_ordnance", event)
