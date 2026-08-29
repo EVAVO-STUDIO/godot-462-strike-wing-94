@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const CombatFxSurface = preload("res://scripts/combat_fx_surface.gd")
+const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 
 const MAX_EVENTS := 48
 const HIT_SECONDS := 0.12
@@ -14,6 +15,7 @@ var _previous_enemies: Array = []
 var _previous_hull := -1
 var _previous_shield := -1
 var _serial := 0
+var _hit_audio_cooldown := 0.0
 
 func _ready() -> void:
 	layer = 16
@@ -27,6 +29,7 @@ func _ready() -> void:
 	add_child(_surface)
 
 func _process(delta: float) -> void:
+	_hit_audio_cooldown = maxf(0.0, _hit_audio_cooldown - delta)
 	_update_events(delta)
 	_observe_combat()
 	if _surface != null:
@@ -101,6 +104,27 @@ func _emit(kind: String, position: Vector2, size: float, duration: float) -> voi
 	})
 	while _events.size() > MAX_EVENTS:
 		_events.pop_front()
+	_play_audio_for(kind)
+
+func _play_audio_for(kind: String) -> void:
+	var event_id := ""
+	match kind:
+		"hit":
+			if _hit_audio_cooldown > 0.0:
+				return
+			_hit_audio_cooldown = 0.035
+			event_id = RetroSfxRules.HIT
+		"explosion":
+			event_id = RetroSfxRules.EXPLOSION
+		"boss_explosion":
+			event_id = RetroSfxRules.BOSS_EXPLOSION
+		"player_hit":
+			event_id = RetroSfxRules.PLAYER_HIT
+	if event_id == "":
+		return
+	var audio := get_node_or_null("/root/RetroSfxDirector")
+	if audio != null and audio.has_method("play_event"):
+		audio.call("play_event", event_id)
 
 func _update_events(delta: float) -> void:
 	for i in range(_events.size() - 1, -1, -1):
