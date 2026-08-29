@@ -39,11 +39,13 @@ func _expect(condition: bool, message: String) -> void:
 
 func _test_content() -> void:
 	var weapons = ContentCatalog.load_json("res://data/weapons.json")
+	var generators = ContentCatalog.load_json("res://data/generators.json")
 	var enemies = ContentCatalog.load_json("res://data/enemies.json")
 	var missions = ContentCatalog.load_json("res://data/missions.json")
 	var profiles = ContentCatalog.load_json("res://data/spawn_profiles.json")
 	var campaign = ContentCatalog.load_json("res://data/campaign.json")
 	_expect(typeof(weapons) == TYPE_DICTIONARY and not weapons.get("weapons", []).is_empty(), "weapons catalogue should load through ContentCatalog")
+	_expect(typeof(generators) == TYPE_DICTIONARY and not generators.get("generators", []).is_empty(), "generator catalogue should load through ContentCatalog")
 	_expect(typeof(enemies) == TYPE_DICTIONARY and not enemies.get("enemies", []).is_empty(), "enemy catalogue should load through ContentCatalog")
 	_expect(typeof(missions) == TYPE_DICTIONARY and not missions.get("missions", []).is_empty(), "mission catalogue should load through ContentCatalog")
 	_expect(typeof(profiles) == TYPE_DICTIONARY and not profiles.get("profiles", []).is_empty(), "spawn profiles should load through ContentCatalog")
@@ -125,28 +127,23 @@ func _test_direct_runtime_ownership() -> void:
 		var text := main_file.get_as_text()
 		_expect(text.contains("MissionStateRules.live_wave(_active_mission(), mission_time)"), "main should own authored live wave progression")
 		_expect(text.contains("MissionStateRules.starting_wave(_active_mission())"), "main should own authored starting wave")
-		_expect(text.contains("_service_value(\"service_hull\", max_hull)"), "main should initialize hull from persistent service state")
+		_expect(text.contains("hull = clampi(service_hull") and text.contains("shield = clampi(service_shield"), "main should initialize sortie condition from scene-owned serviced airframe state")
 		_expect(text.contains("BombRules.apply_nonlethal_boss_damage"), "main bomb loop should apply nonlethal boss damage directly")
 		_expect(text.contains("survivors.append(boss)"), "main bomb loop should keep bosses in the enemy array")
 		_expect(not text.contains("enemies.clear(); enemy_bullets.clear()"), "screen bomb must not blanket-clear bosses")
 		_expect(text.contains("var shots_fired := 0") and text.contains("var shots_hit := 0"), "main should own exact sortie accuracy counters")
 		_expect(text.contains("shots_fired += count"), "player projectile creation should increment shots fired at source")
 		_expect(text.contains("shots_hit += 1"), "player bullet collision should increment shots hit at source")
-		_expect(text.contains("shots_fired = 0") and text.contains("shots_hit = 0"), "new sortie should reset exact accuracy counters")
+		_expect(text.contains("RewardRules.extra_success_bonus") and text.contains("credits += total_reward"), "main should apply complete mission reward at source")
+		_expect(text.contains("EnergyRules.recharge") and text.contains("EnergyRules.can_fire") and text.contains("EnergyRules.consume"), "main should own generator energy lifecycle")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable for removed reconciliation checks")
 	if project != null:
 		var project_text := project.get_as_text()
-		_expect(not project_text.contains("MissionStateDirector"), "mission state reconciliation autoload should stay removed")
-		_expect(not project_text.contains("BombGuardDirector"), "bomb guard reconciliation autoload should stay removed")
-		_expect(not project_text.contains("AccuracyDirector"), "accuracy reconciliation autoload should stay removed")
-	_expect(not FileAccess.file_exists("res://scripts/accuracy_director.gd"), "obsolete accuracy director file should remain deleted")
-	var reward_file := FileAccess.open("res://scripts/reward_director.gd", FileAccess.READ)
-	_expect(reward_file != null, "reward_director.gd should be readable for accuracy consumption checks")
-	if reward_file != null:
-		var reward_source := reward_file.get_as_text()
-		_expect(reward_source.contains('scene.get("shots_fired")') and reward_source.contains('scene.get("shots_hit")'), "reward director should consume source-owned accuracy counters")
-		_expect(not reward_source.contains("AccuracyDirector"), "reward director must not depend on accuracy reconciliation")
+		for obsolete in ["MissionStateDirector","BombGuardDirector","AccuracyDirector","RewardDirector","ServiceDirector"]:
+			_expect(not project_text.contains(obsolete), "obsolete reconciliation autoload should stay removed: %s" % obsolete)
+	for obsolete_file in ["accuracy_director.gd","reward_director.gd","service_director.gd"]:
+		_expect(not FileAccess.file_exists("res://scripts/%s" % obsolete_file), "obsolete director file should remain deleted: %s" % obsolete_file)
 
 func _test_weapon_pickups() -> void:
 	_expect(WeaponPickupRules.temporary_boost_for_indices(1, 2) == 1, "sortie pickup should register as temporary boost over permanent tier")
@@ -165,9 +162,6 @@ func _test_weapon_pickups() -> void:
 	_expect(save_file != null, "campaign_save.gd should be readable for permanent weapon persistence checks")
 	if save_file != null:
 		var save_source := save_file.get_as_text()
-		_expect(save_source.contains('return clampi(int(scene.get("weapon_index"))'), "campaign save should persist permanent weapon_index directly")
+		_expect(save_source.contains('"weapon_index"') and save_source.contains('"generator_index"'), "campaign save should persist permanent weapon and generator tiers")
 		_expect(not save_source.contains("WeaponPickupDirector"), "campaign save must not depend on weapon pickup reconciliation")
-	var project := FileAccess.open("res://project.godot", FileAccess.READ)
-	if project != null:
-		_expect(not project.get_as_text().contains("WeaponPickupDirector"), "weapon pickup reconciliation autoload should stay removed")
 	_expect(not FileAccess.file_exists("res://scripts/weapon_pickup_director.gd"), "obsolete weapon pickup director file should remain deleted")
