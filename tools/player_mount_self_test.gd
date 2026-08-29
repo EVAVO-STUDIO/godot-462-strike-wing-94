@@ -60,6 +60,12 @@ func _test_wiring() -> void:
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
 		_expect(project.get_as_text().contains('PlayerMountDirector="*res://scripts/player_mount_director.gd"'), "canonical mount catalogue owner should remain autoloaded")
+	var craft := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
+	_expect(craft != null, "craft form director should be readable")
+	if craft != null:
+		var source := craft.get_as_text()
+		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "primary weapon origins should consume canonical mount owner")
+		_expect(source.contains('mounts.call("primary_offsets"'), "primary weapons should request authored mount offsets")
 	var cue := FileAccess.open("res://scripts/weapon_mount_cue_director.gd", FileAccess.READ)
 	_expect(cue != null, "weapon mount cue should be readable")
 	if cue != null:
@@ -73,10 +79,20 @@ func _test_wiring() -> void:
 		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "tactical stores should consume canonical mount catalogue")
 		_expect(source.contains('mounts.call("support_offsets"'), "tactical stores should request canonical pylon offsets")
 		_expect(source.contains('InputMap.action_add_event(action, event)'), "support key bindings should add events correctly")
+	var strike := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)
+	_expect(strike != null, "strike ordnance director should be readable")
+	if strike != null:
+		var source := strike.get_as_text()
+		_expect(source.contains('mounts.call("role_offsets", "bomber", "precision_bomb")'), "precision ordnance release should use ventral strike-bay mount")
+		_expect(source.contains('"release_position": _strike_release_position(scene)'), "bomb animation should retain exact release origin")
 	var schematic := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
 	_expect(schematic != null, "loadout schematic should be readable")
 	if schematic != null:
-		_expect(schematic.get_as_text().contains('res://data/player_mounts.json'), "stores schematic should use same authored mount catalogue")
+		var source := schematic.get_as_text()
+		_expect(source.contains('res://data/player_mounts.json'), "stores schematic should use same authored mount catalogue")
+		_expect(source.contains("ACTIVE_MOUNT"), "stores schematic should visually distinguish installed stations")
+		_expect(source.contains("_mount_active"), "stores schematic should map installed hardware to physical station roles")
+		_expect(source.contains("GOLD = INSTALLED / ACTIVE STATION"), "stores schematic should explain active mount highlight")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition: failures.append(message)
