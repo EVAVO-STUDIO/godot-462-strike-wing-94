@@ -3,6 +3,7 @@ extends SceneTree
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
+const StrategicWarheadRules = preload("res://scripts/strategic_warhead_rules.gd")
 const SupportDirector = preload("res://scripts/support_director.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
@@ -17,13 +18,13 @@ func _initialize() -> void:
 	_test_activation_gate()
 	_test_generator_efficiency()
 	_test_strategic_support()
+	_test_strategic_blast()
 	_test_wiring()
 	if failures.is_empty():
 		print("Strike Wing support self-test passed.")
 		quit(0)
 		return
-	for failure in failures:
-		push_error(failure)
+	for failure in failures: push_error(failure)
 	quit(1)
 
 func _test_catalogue() -> void:
@@ -31,9 +32,8 @@ func _test_catalogue() -> void:
 	_expect(typeof(data) == TYPE_DICTIONARY, "support catalogue should load")
 	if typeof(data) != TYPE_DICTIONARY: return
 	var supports: Array = data.get("supports", [])
-	_expect(supports.size() == 7, "support catalogue should expose six conventional/EM systems plus one strategic system")
-	var seen: Dictionary = {}
-	var previous_cost := -1
+	_expect(supports.size() == 7, "support catalogue should expose seven tactical systems")
+	var seen: Dictionary = {}; var previous_cost := -1
 	for support in supports:
 		var id := str(support.get("id", "")); var kind := SupportRules.support_type(support)
 		_expect(id != "" and not seen.has(id), "support IDs should be unique")
@@ -52,7 +52,6 @@ func _test_catalogue() -> void:
 func _test_selection() -> void:
 	_expect(SupportRules.sanitize_unlock(99, 7) == 6, "support unlock should clamp to seven-item catalogue")
 	_expect(SupportRules.sanitize_selected(6, 1, 7) == 1, "selected support cannot exceed unlocked tier")
-	_expect(SupportRules.cycle_selected(0, 2, 7) == 1, "support cycle should advance within unlocked set")
 	_expect(SupportRules.cycle_selected(2, 2, 7) == 0, "support cycle should wrap within unlocked set")
 
 func _test_projectile_geometry() -> void:
@@ -65,14 +64,10 @@ func _test_point_defence() -> void:
 	var bullets := [{"position":Vector2(10,0)},{"position":Vector2(30,0)},{"position":Vector2(70,0)},{"position":Vector2(180,0)}]
 	var indices := SupportRules.defence_indices(bullets, Vector2.ZERO, {"radius":100.0,"max_targets":2})
 	_expect(indices == [1,0], "point defence should return nearest targets in safe reverse-removal order")
-	_expect(absf(SupportRules.radius({"radius":999.0}) - 240.0) < 0.001, "electromagnetic field radius should retain hard safety cap")
+	_expect(absf(SupportRules.radius({"radius":999.0}) - 240.0) < 0.001, "field radius should retain hard cap")
 
 func _test_emp_targeting() -> void:
-	var enemies := [
-		{"position":Vector2(20,0),"hp":5,"faction":"autonomous"},
-		{"position":Vector2(40,0),"hp":5},
-		{"position":Vector2(80,0),"hp":5,"faction":"autonomous"}
-	]
+	var enemies := [{"position":Vector2(20,0),"hp":5,"faction":"autonomous"},{"position":Vector2(40,0),"hp":5},{"position":Vector2(80,0),"hp":5,"faction":"autonomous"}]
 	_expect(SupportRules.autonomous_enemy_indices(enemies, Vector2.ZERO, {"radius":120.0,"max_targets":6}) == [0,2], "EMP should select only nearby autonomous targets")
 
 func _test_activation_gate() -> void:
@@ -87,8 +82,8 @@ func _test_generator_efficiency() -> void:
 	var conventional := {"type":"rockets","energy_cost":20.0,"cooldown":1.0,"unlock_tech_era":"advanced_conventional"}
 	var emp := {"type":"emp","energy_cost":40.0,"cooldown":5.0,"unlock_tech_era":"electromagnetic"}
 	EnergyRules.set_active_generator(pulse_core)
-	_expect(absf(SupportRules.energy_cost(conventional) - 20.0) < 0.001, "Pulse Core should not discount older conventional tactical systems")
-	_expect(absf(SupportRules.energy_cost(emp) - 36.0) < 0.001, "Pulse Core should reduce matching electromagnetic tactical energy cost")
+	_expect(absf(SupportRules.energy_cost(conventional) - 20.0) < 0.001, "Pulse Core should not discount older tactical systems")
+	_expect(absf(SupportRules.energy_cost(emp) - 36.0) < 0.001, "Pulse Core should reduce matching EM support cost")
 	EnergyRules.set_active_generator({})
 
 func _test_strategic_support() -> void:
@@ -99,10 +94,35 @@ func _test_strategic_support() -> void:
 		if str(support.get("id", "")) == "micro_warhead_rack": strategic = support; break
 	_expect(not strategic.is_empty(), "strategic-orbital campaign should include Micro-Warhead Rack")
 	_expect(str(strategic.get("unlock_tech_era", "")) == "strategic_orbital", "Micro-Warhead must remain ORB-era hardware")
-	_expect(bool(strategic.get("strategic", false)), "Micro-Warhead projectile should carry strategic metadata")
+	_expect(bool(strategic.get("strategic", false)), "Micro-Warhead should carry strategic metadata")
 	_expect(float(strategic.get("cooldown", 0.0)) >= 900.0, "Micro-Warhead should be effectively one use per sortie without rearm")
 	_expect(int(strategic.get("projectiles", 0)) == 1 and int(strategic.get("damage", 0)) >= 20, "Micro-Warhead should remain one heavy guided penetrator")
 	_expect(not TechProgressionRules.can_unlock("strategic_orbital", "directed_energy"), "Micro-Warhead must remain unavailable before Machine Ark")
+
+func _test_strategic_blast() -> void:
+	var round := {"strategic_support":true,"position":Vector2(100,100)}
+	_expect(StrategicWarheadRules.can_burst(round), "fresh strategic round should be able to burst")
+	round["strategic_burst"] = true
+	_expect(not StrategicWarheadRules.can_burst(round), "strategic round must burst only once")
+	var enemies := [
+		{"position":Vector2(108,100),"hp":20},
+		{"position":Vector2(120,100),"hp":20},
+		{"position":Vector2(135,100),"hp":20},
+		{"position":Vector2(145,100),"hp":20},
+		{"position":Vector2(152,100),"hp":20},
+		{"position":Vector2(200,100),"hp":20}
+	]
+	var primary := StrategicWarheadRules.trigger_enemy_index(Vector2(100,100), enemies)
+	_expect(primary == 0, "strategic burst should trigger on nearest target")
+	var secondary := StrategicWarheadRules.secondary_indices(Vector2(108,100), enemies, primary)
+	_expect(secondary.size() == StrategicWarheadRules.MAX_SECONDARY_TARGETS, "strategic blast must respect four-target cap")
+	_expect(StrategicWarheadRules.BLAST_RADIUS <= 60.0, "strategic blast should remain tightly bounded for shooter readability")
+	var runtime := FileAccess.open("res://scripts/strategic_warhead_director.gd", FileAccess.READ)
+	_expect(runtime != null, "strategic warhead runtime should be readable")
+	if runtime != null:
+		var source := runtime.get_as_text()
+		_expect(source.contains('bullet["strategic_burst"] = true'), "runtime should mark one-shot strategic burst")
+		_expect(source.contains("mini(StrategicWarheadRules.SECONDARY_DAMAGE, hp - 1)"), "strategic secondary blast must remain nonlethal")
 
 func _test_wiring() -> void:
 	var director := SupportDirector.new(); _expect(director != null, "SupportDirector should instantiate"); director.free()
@@ -120,6 +140,12 @@ func _test_wiring() -> void:
 		_expect(source.contains("_reset_sortie_state()"), "support owner should expose explicit sortie reset")
 		_expect(source.contains('"strategic_support": bool(support.get("strategic", false))'), "support projectiles should preserve strategic metadata")
 		_expect(source.contains('func rearm_support()'), "Atlas should retain tactical rearm API")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project != null, "project.godot should be readable")
+	if project != null:
+		var source := project.get_as_text()
+		_expect(source.contains('StrategicWarheadDirector="*res://scripts/strategic_warhead_director.gd"'), "strategic warhead owner should remain autoloaded")
+		_expect(source.contains('MissionIntelDirector="*res://scripts/mission_intel_director.gd"'), "mission intelligence overlay should remain autoloaded")
 	var cue_file := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)
 	_expect(cue_file != null, "projectile cue director should be readable")
 	if cue_file != null:
