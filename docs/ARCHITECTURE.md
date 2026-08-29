@@ -4,7 +4,7 @@
 
 Strike Wing uses direct source ownership for simulation state and focused directors only where a subsystem genuinely spans authored campaign data, equipment state or presentation.
 
-The architecture rule is simple:
+Architecture rule:
 
 > If the scene can know the correct answer when the event occurs, calculate it there. Use a director only when the concept is genuinely cross-cutting and has a stable public contract.
 
@@ -15,80 +15,75 @@ The architecture rule is simple:
 - `TITLE -> PLAYING -> RESULT` flow;
 - player movement;
 - mission timer and wave progression;
-- permanent weapon and generator indices exposed to persistence;
+- permanent weapon/generator indices exposed to persistence;
 - sortie energy;
 - persistent serviced hull/shield values;
 - direct primary-fire projectile creation;
-- permanent weapon tier plus sortie-only temporary weapon boost;
+- permanent weapon tier plus sortie-only temporary boost;
 - exact shots-fired / shots-hit counters;
-- normal enemy movement and projectile creation;
-- normal homing missile packet creation;
+- normal enemy movement/projectile creation;
+- normal homing missile packets;
 - screen-bomb resolution;
 - direct successful-mission reward payout;
 - deterministic filler spawning through the mission-local RNG;
 - craft-form multipliers at movement/fire/damage/contact source;
-- hostile-projectile collision using the current VX-94 fighter/bomber hit profile.
+- hostile-projectile collision using the active fighter/bomber hit profile.
 
-Do not reintroduce post-frame repair layers for state that `main.gd` can calculate correctly at source.
+Do not reintroduce post-frame repair layers for state that can be correct at source.
 
 ## Runtime directors
 
 ### `CraftFormDirector`
 
-Owns VX-94 variable geometry plus the active altitude/mission context.
-
-Responsibilities:
+Owns VX-94 variable geometry plus active altitude/mission context.
 
 - reads `data/campaign_world.json`;
-- `Q` toggles fighter/bomber configuration where legal;
-- 0.65 s anti-spam transform cooldown;
-- 0.24 s primary/secondary weapon interlock during geometry changes;
+- `Q` toggles fighter/bomber where legal;
+- 0.65 s anti-spam cooldown;
+- 0.24 s primary/secondary weapons interlock during geometry changes;
 - mission-recommended launch configuration;
 - timed altitude transitions;
-- forced fighter retraction when an altitude cannot support bomber geometry;
+- forced fighter retraction where bomber geometry is illegal;
 - publishes campaign technology era into `ProgressionRules`;
 - publishes active generator context before tactical support runs;
 - exposes movement/contact/projectile-hit/spread/damage/support multipliers;
 - exposes public `mission_context()`.
 
-`main.gd` consumes those values at the actual simulation source.
-
 ### `AirframeDirector`
 
-Owns the persistent VX-94 structural frame tier.
+Owns persistent VX-94 structural frame tier.
 
 Control:
 
 - `K`: buy next airframe.
 
-The five current tiers are:
+Current frames:
 
-1. Composite Frame Mk I;
-2. Ceramic-Titanium Frame;
-3. Reactive Alloy Frame;
-4. Magneto-Composite Frame;
-5. Field-Coupled Frame.
+1. Composite Frame Mk I
+2. Ceramic-Titanium Frame
+3. Reactive Alloy Frame
+4. Magneto-Composite Frame
+5. Field-Coupled Frame
 
-Airframe purchases use the same central technology/credit gate as weapons and generators.
+The active frame is published into both:
 
-`AirframeDirector` publishes the active frame into `MissionStateRules`; therefore existing `_max_hull()` / `_max_shield()` calls automatically affect:
+- `MissionStateRules` for hull/shield capacity;
+- `CombatRules` for bounded incoming-damage resistance.
 
-- mission launch durability;
-- servicing limits;
-- tanker restoration limits;
-- HUD meter maxima;
-- save clamping.
+Current incoming-damage multipliers progress from `1.00` to `0.80`.
 
-Installing a larger frame does not give a free repair/refill. Existing serviced values remain and can be serviced up to the new capacity.
+Airframes therefore change the existing canonical durability model rather than creating another hidden health pool.
+
+Installing a larger frame never grants a free repair/refill. Existing serviced values remain and may then be serviced up to the new capacity.
 
 ### `EncounterDirector`
 
-Owns authored level scripting rather than generic random-wave repair.
+Owns authored stage sequencing:
 
 - timed encounter beats;
 - deterministic formation entry;
 - filler-spawn suppression / breathing windows;
-- guaranteed recovery pickups;
+- recovery pickups;
 - performance-gated secrets;
 - common enemy spawn path through `main.gd::_spawn_enemy()`.
 
@@ -103,7 +98,7 @@ Formation vocabulary:
 
 ### `SupportDirector`
 
-Owns the player's onboard tactical-support slot.
+Owns onboard tactical support.
 
 Current systems:
 
@@ -114,43 +109,42 @@ Current systems:
 - EMP Disruptor;
 - Magnetic Screen.
 
-All consume the same generator energy pool as the primary weapon.
+Rules:
 
-Important rules:
-
-- bomber configuration reduces tactical-support energy cost;
-- Pulse/Overdrive generators can improve matching-era tactical energy efficiency;
-- EMP only targets autonomous enemies;
-- EMP resistance escalates through the autonomous roster;
-- Magnetic Screen bends hostile projectiles away and breaks homing rather than acting as bonus HP;
-- point defence does not spend energy without a valid threat;
-- public `support_state()` / `restore_support_state()` form the save boundary;
-- `rearm_support()` is the Atlas tanker rearm contract.
+- common generator energy pool;
+- bomber support-energy bonus;
+- matching-era generator efficiency;
+- EMP only affects autonomous units;
+- EMP resistance escalates but never becomes immunity;
+- Magnetic Screen bends hostile projectiles and breaks homing;
+- point defence does not spend energy without a threat;
+- public `support_state()` / `restore_support_state()` save boundary;
+- `rearm_support()` Atlas contract.
 
 ### `DirectedEnergyDirector`
 
-Owns the Storm Cannon's directed-energy pulse behavior.
+Owns Storm Cannon pulse discharge.
 
-The direct projectile remains a normal `main.gd` player projectile.
+The direct Storm projectile remains a normal player projectile in `main.gd`.
 
-A Storm packet can discharge once when it enters a target cluster:
+A Storm packet may discharge once:
 
 - 15 px trigger envelope;
-- 30 px secondary pulse radius;
-- maximum two secondary targets;
+- 30 px secondary radius;
+- max two secondary targets;
 - one secondary damage point;
-- secondary damage is nonlethal, so score/objective/destruction bookkeeping remains owned by the core collision path.
+- secondary damage always nonlethal.
 
-This gives Storm Cannon an area-control role without duplicating the primary kill owner.
+Kills, score and objective bookkeeping therefore stay in the normal collision path.
 
 ### `BattlefieldSupportDirector`
 
-Owns mission-assigned allied battlefield assets, separate from onboard tactical equipment.
+Owns mission-assigned allied assets, separate from onboard tactical equipment.
 
 Controls:
 
-- `B`: cycle assigned asset;
-- `F`: call selected asset.
+- `B`: cycle assigned support;
+- `F`: call selected support.
 
 Current assets:
 
@@ -164,51 +158,49 @@ Current assets:
 
 Rules:
 
-- availability comes from mission context;
-- altitude restrictions are authored per asset;
-- target counts and cooldowns are bounded;
+- mission-context availability;
+- altitude restrictions;
+- bounded target counts/cooldowns;
 - normal kills register objective progress and score;
-- boss damage is always nonlethal;
-- immediate support calls have distinct pixel set-piece presentation rather than invisible damage events.
+- boss damage is nonlethal;
+- fighter/bomber/gunship/missile/rail/orbital calls have distinct pixel set pieces.
 
 #### Atlas tanker
 
-The tanker is an interactive mid/high-altitude support set piece.
-
-- visible transport and hose;
+- mid/high altitude only;
+- visible transport/hose;
 - 30 px hookup radius;
-- 3.5 s maintained formation requirement;
-- hookup progress decays rather than resetting instantly;
-- connected player receives bounded hull/shield/energy restoration;
-- completion grants two bombs up to cap;
-- completion resets tactical-support cooldown;
-- completion refills dedicated strike ordnance.
+- 3.5 s maintained formation;
+- hookup progress decays rather than resets;
+- bounded hull/shield/energy restoration;
+- +2 bombs up to cap;
+- tactical support reset;
+- precision strike ordnance refill.
 
 ### `StrikeOrdnanceDirector`
 
-Owns precision ground-attack ordnance, separate from the emergency `X` screen bomb.
+Owns precision ground attack, separate from the `X` emergency screen bomb.
 
 Control:
 
-- `E`: release precision strike ordnance.
+- `E`: release strike ordnance.
 
 Rules:
 
-- bomber configuration required;
+- bomber form required;
 - low/mid altitude only;
 - six-round sortie rack;
-- delayed impact reticle;
-- low altitude has the strongest surface-strike performance;
-- mid altitude is less efficient;
-- prioritises ground/sea targets;
-- boss damage remains nonlethal;
-- Atlas tanker can refill the rack.
+- delayed targeting/impact;
+- strongest at low altitude;
+- surface/ship target preference;
+- nonlethal boss handling;
+- Atlas can refill it.
 
 ### `EnvironmentDirector`
 
-Owns deterministic low-alpha pixel battlefield overlays.
+Owns deterministic low-alpha battlefield overlays.
 
-Current profiles:
+Profiles:
 
 - coast;
 - industrial;
@@ -216,80 +208,72 @@ Current profiles:
 - high cloud;
 - orbital.
 
-Environment + active altitude drive:
-
-- parallax rate;
-- ground-detail scale;
-- cloud density;
-- atmospheric horizon treatment;
-- ordinary ground-detail visibility.
-
-The environment must never compromise enemy/projectile readability.
+Environment + active altitude drive parallax, target scale, cloud density, horizon treatment and ordinary surface-detail visibility.
 
 ### `BossDirector`
 
-Owns boss phase behavior, homing-projectile steering and autonomous boss signature attacks.
+Owns boss phase behavior, homing steering and autonomous signature attacks.
 
-Autonomous signatures currently include:
+Current bespoke autonomous bosses:
 
-- Swarm Controller converging swarm salvos;
-- AI Forge Core heavy guided missile batteries;
-- Orbital Command Node high-speed kinetic lanes.
+1. Swarm Controller
+2. AI Forge Core
+3. Orbital Command Node
+4. Phase Control Array
+5. Station Warden
+6. Machine Ark
 
-Phase 3 exposes the weak point. Screen bombs and allied support can damage bosses but cannot bypass the fight by killing them outright.
+Each has its own signature interval, projectile count, damage/speed curve and telegraph.
+
+Late signatures include phase-array crosslocks, Warden energy-grid salvos and Machine Ark strategic kinetic lanes.
+
+Phase 3 exposes the weak point. Screen bombs, battlefield support and Storm secondary discharge cannot bypass boss fights.
 
 ### `CombatArtDirector`
 
-Presentation-only production combat-art owner.
+Presentation-only combat-art owner.
 
-It draws over the simulation with hard-edged integer-grid silhouettes for:
+Draws hard-edged integer-grid silhouettes for:
 
 - VX-94 fighter;
 - VX-94 bomber;
 - 0.34 s physical wing-sweep transition;
 - mercenary aircraft;
-- ground vehicles;
-- naval targets;
-- autonomous drones/ground machines;
-- human and autonomous bosses.
+- ground/naval targets;
+- autonomous machines;
+- boss-scale targets.
 
-Surface target art scales through `AltitudeRules.ground_scale()`:
+Late bosses have dedicated geometry:
 
-- full scale at low altitude;
-- smaller at mid altitude;
-- ordinary surface silhouettes suppressed at high/orbital altitude.
+- Phase Control Array: concentric ring-array structure;
+- Station Warden: fortified cross-station structure;
+- Machine Ark: broad asymmetric command/carrier hull with multiple visible cores.
 
-The visual transform shows moving span/shoulder/engine geometry and explicit hinge marks instead of a magical morph.
-
-See `docs/VX94_COMBAT_ART_DIRECTION.md`.
+Surface art uses `AltitudeRules.ground_scale()` and ordinary ground/sea silhouettes disappear when the VX-94 is effectively too high for normal visual engagement.
 
 ### `ElectromagneticCueDirector`
 
-Presentation-only electromagnetic feedback:
+Presentation-only feedback for:
 
-- magnetic field cue around VX-94;
-- EMP disruption marks around affected autonomous enemies.
-
-No bloom-heavy modern sci-fi treatment.
+- Magnetic Screen field;
+- EMP-disrupted autonomous units.
 
 ### `ProjectileCueDirector`
 
-Presentation-only projectile language for both enemy and player fire.
+Presentation-only projectile language for enemy and player fire.
 
-Player projectile families:
+Player families:
 
 - warm ballistic streaks;
-- Needle Rail kinetic dart / long wake;
-- Storm Cannon compact directed-energy pulse;
-- tactical-support rounds with their own green/teal signature.
-
-Enemy projectile cues distinguish burst, cannon and homing missile threats.
+- Needle Rail kinetic dart / wake;
+- Storm Cannon energy pulse;
+- tactical-support rounds.
 
 ### `PixelUiDirector`
 
-Owns the primary bitmap title/result/HUD surface.
+Primary bitmap title/result/HUD owner.
 
-It displays:
+Displays:
 
 - hull/shield/energy;
 - bombs/wave/time/score;
@@ -299,62 +283,56 @@ It displays:
 - tactical support;
 - battlefield support;
 - fighter/bomber form;
-- altitude band;
-- current technology era (`CONV / EM / DE / ORB` in flight);
+- altitude;
+- technology era (`CONV / EM / DE / ORB`);
 - boss HP/phase/weak point;
 - missile warning;
 - encounter/support status.
 
-Title/loadout controls currently include:
+Title controls:
 
 - `U` weapon;
 - `G` generator;
 - `K` airframe;
-- `C` tactical support selection;
-- `V` tactical support purchase;
-- `H/J` servicing;
+- `C` tactical support select;
+- `V` tactical support buy;
+- `H/J` service;
 - `B/F` battlefield support;
 - `Q` transform in flight.
 
-Primary UI uses the original 3x5 `PixelFont` on the 640x360 logical grid, not Godot widget chrome.
+Primary UI stays on the original 3x5 bitmap font and 640x360 logical grid.
 
 ## Persistence
 
-### `CampaignSave`
-
-Canonical campaign save schema is **v5**.
+`CampaignSave` is canonical schema **v5**.
 
 Persistent state:
 
 - credits;
 - mission index;
-- permanent primary weapon tier;
+- primary weapon tier;
 - generator tier;
 - airframe tier;
-- serviced hull;
-- serviced shield;
-- tactical-support selected index;
-- tactical-support highest unlocked index.
+- serviced hull/shield;
+- tactical support selection/unlock.
 
-Transient state intentionally not saved:
+Transient state intentionally omitted:
 
 - temporary weapon boost;
 - current energy;
 - active support cooldowns;
 - fighter/bomber form;
-- active altitude transition progress;
-- current strike ordnance during an unfinished sortie.
+- altitude-transition progress;
+- unfinished-sortie strike ordnance.
 
-Restore ordering is important:
+Restore order:
 
-1. restore airframe tier;
-2. publish new durability capacity;
-3. clamp serviced hull/shield against that capacity;
-4. restore remaining campaign equipment/state.
+1. restore airframe;
+2. publish durability/resistance context;
+3. clamp serviced hull/shield against upgraded capacity;
+4. restore remaining campaign state.
 
-This prevents an upgraded frame from being truncated to the old 100/100 base limits.
-
-Save versions v1-v4 remain migration-compatible. A supported valid primary is copied to a backup before replacement; restore prefers primary and can recover from backup.
+Save v1-v4 remains migration-compatible, with validated backup recovery.
 
 ## Technology progression
 
@@ -365,30 +343,19 @@ Canonical eras:
 3. directed energy;
 4. strategic orbital.
 
-`ProgressionRules` carries the current campaign era and fails closed on malformed required technology.
+The central gate is used by weapons, generators, airframes and tactical support.
 
-The central gate is used by:
-
-- primary weapons;
-- generators;
-- airframes;
-- tactical-support equipment.
-
-Already-owned later technology remains usable when replaying earlier missions, but new purchases and temporary weapon boosts cannot jump ahead of the active campaign era.
+Already-owned later technology may be used in replays, but new purchases and temporary boosts cannot jump ahead of the active campaign era.
 
 ## Primary weapon identities
-
-Current primary progression includes seven tiers.
-
-Notable late-game identities:
 
 ### Needle Rail
 
 - electromagnetic era;
 - precision kinetic role;
-- one fast projectile;
+- single high-speed projectile;
 - two additional penetrations;
-- one accuracy hit maximum per fired slug even when it pierces several targets.
+- at most one accuracy registration per slug.
 
 ### Storm Cannon
 
@@ -396,22 +363,18 @@ Notable late-game identities:
 - three strong compact pulse packets;
 - tight spread;
 - high generator demand;
-- bounded one-shot secondary cluster discharge;
-- visually distinct pulse language.
-
-The technology ladder should create battlefield roles rather than only larger damage numbers.
+- bounded one-shot cluster discharge;
+- secondary discharge cannot kill.
 
 ## Variable-geometry VX-94
 
-The craft is a physically coherent 1999 imagined-future aerospace weapon, not a humanoid/mecha transformation.
-
 ### Fighter
 
-- swept narrow planform;
+- swept/narrow planform;
 - faster movement;
-- tighter body/projectile hit profiles;
+- tighter contact/projectile profiles;
 - tighter primary spread;
-- better air effectiveness;
+- stronger air effectiveness;
 - high/orbital preference.
 
 ### Bomber
@@ -419,10 +382,10 @@ The craft is a physically coherent 1999 imagined-future aerospace weapon, not a 
 - broad deployed wing;
 - slower movement;
 - wider risk profile;
-- wider primary coverage;
 - stronger surface/ship effectiveness;
-- more efficient tactical-support energy use;
-- precision strike ordnance availability;
+- wider primary coverage;
+- support-energy bonus;
+- precision strike availability;
 - low-altitude preference.
 
 ## Four altitude bands
@@ -432,24 +395,19 @@ The craft is a physically coherent 1999 imagined-future aerospace weapon, not a 
 3. high;
 4. orbital / atmosphere-space.
 
-Altitude changes:
+Altitude affects target scale/effectiveness, support availability, environment and legal craft configuration.
 
-- surface visual scale;
-- surface-vs-air effectiveness;
-- support availability;
-- environment presentation;
-- legal craft configuration.
+Authored transitions currently include:
 
-Current authored dynamic transitions include:
-
-- Black Flag: mid -> low sea-skimming attack -> mid flagship fight;
-- Black Horizon: high -> orbital breakout.
+- Black Flag: mid -> low -> mid;
+- Black Horizon: high -> orbital;
+- Blue Fire: high -> orbital.
 
 Orbital flight requires fighter configuration.
 
 ## Campaign structure
 
-Current playable campaign contains nine missions.
+Current playable campaign contains **12 missions**.
 
 ### Act I: Mercenary War
 
@@ -465,35 +423,45 @@ Current playable campaign contains nine missions.
 7. Ghost Sky
 8. Machine Furnace
 9. Black Horizon
+10. Blue Fire
+11. Cold Station
+12. Machine Ark
 
-The second act introduces autonomous fighters, bombers, missile nodes, armour, factory defences, exo drones, orbital sentries and three autonomous bosses.
+Era pacing:
+
+- M1-4: advanced conventional;
+- M5-8: electromagnetic transition/warfare;
+- M9-11: directed energy;
+- M12: strategic orbital.
+
+Late autonomous vocabulary adds Phase Interceptor, Beam Sentry and Orbital Lancer instead of endlessly reusing early drones.
 
 ### External contact
 
-External/alien contact remains defined as a future threat phase but is intentionally not yet inserted into playable missions. The military/AI war must remain the core identity long enough for any external escalation to feel earned.
+External/alien contact remains a future phase and is intentionally outside the current 12-mission campaign. The machine war ends first.
 
 ## Authored stage rhythm
 
-Every current mission includes:
+Every mission requires:
 
 - at least five encounter beats;
 - at least three formation geometries;
-- a recovery/pacing window;
-- a performance mastery secret;
-- a boss lead-in;
-- deterministic filler spawns between authored beats.
+- recovery/pacing window;
+- mastery secret;
+- boss lead-in;
+- deterministic filler spawning between beats.
 
-Secrets currently use accuracy, score or conserved-bomb gates and never block progression.
+Secrets use accuracy, score or conserved-bomb gates and never block progression.
 
 ## Determinism
 
-Each sortie owns a dedicated `RandomNumberGenerator` seeded through `RunSeedRules.mission_seed(mission_index)` on launch/retry.
+Each sortie owns a dedicated `RandomNumberGenerator` seeded through `RunSeedRules.mission_seed(mission_index)`.
 
-Gameplay randomness uses that stream. Missing spawn profiles fail closed rather than broadening to arbitrary enemies.
+Gameplay randomness uses that stream. Missing spawn profiles fail closed.
 
 ## Removed reconciliation layers
 
-These obsolete repair systems must remain absent:
+These must remain absent:
 
 - SpawnSafetyDirector;
 - MissileBehaviorDirector;
@@ -509,50 +477,33 @@ These obsolete repair systems must remain absent:
 - BossHudDirector;
 - ThreatWarningDirector.
 
-Their responsibilities were moved to source ownership or intentionally consolidated presentation owners.
-
 ## Validation
 
-`tools/validate.ps1` performs structural/data/save checks without network or paid CI.
+`tools/validate.ps1` performs local structural/data/save checks without network or paid CI.
 
-When Godot 4.6.2 is available locally it runs focused suites covering:
-
-- base runtime rules;
-- rewards/accuracy;
-- service/energy/airframes/directed energy;
-- mission flow/projectiles;
-- save recovery/migration;
-- authored encounters/secrets/formations;
-- tactical support;
-- craft form/altitude/interlock/tech HUD;
-- battlefield support/tanker/set pieces;
-- environment presentation;
-- strike ordnance;
-- technology progression;
-- autonomous boss signatures;
-- production combat art;
-- editor smoke parsing.
+With Godot 4.6.2 available it runs focused suites covering runtime rules, rewards, service/energy/airframes, mission flow, save recovery, encounters, tactical/battlefield support, craft/altitude, environment, ordnance, tech progression, boss signatures and combat art, followed by editor smoke parsing.
 
 ## Remaining production cutover
 
-`main.gd` still contains temporary prototype player/enemy drawing underneath `CombatArtDirector`.
+`main.gd` still contains temporary prototype player/enemy drawing under `CombatArtDirector`.
 
-Do **not** add another masking layer.
+Do not add another masking layer.
 
-Once a real Godot visual smoke/playtest confirms the production combat-art layer correctly covers every live target family, remove the prototype player/enemy drawing directly from `main.gd` so `CombatArtDirector` becomes the sole combat-art presentation owner.
+After a real Godot visual smoke/playtest confirms production combat art covers every target family, remove prototype combat drawing directly from `main.gd` so `CombatArtDirector` becomes sole combat-art presentation owner.
 
 ## Invariants
 
 - No GitHub Actions or paid cloud runtime dependency.
-- Gameplay remains usable offline.
-- Campaign saves are versioned, sanitized and backup-recoverable.
-- Gameplay randomness is isolated from the global RNG.
+- Offline play remains possible.
+- Saves are versioned, sanitized and backup-recoverable.
+- Gameplay randomness is isolated from global RNG.
 - Missing content fails closed.
-- Boss bypass through bombs/support/secondary Storm discharge is prohibited.
-- Transformation and altitude are real gameplay systems.
+- Boss bypass through bombs/support/Storm secondary discharge is prohibited.
+- Transformation and altitude are gameplay systems.
 - Orbital combat requires fighter geometry.
-- Tactical support and battlefield support remain distinct concepts.
-- Airframe installation never grants a free service refill.
-- Environment and combat-art layers never compromise projectile/enemy readability.
+- Tactical and battlefield support remain distinct.
+- Airframe upgrades never grant free service refill.
+- Airframe resistance remains bounded and uses canonical `CombatRules` damage resolution.
+- Environment/combat-art layers cannot compromise projectile/enemy readability.
 - Pixel presentation follows `docs/90S_SHOOTER_BIBLE.md`.
-- Campaign/world canon follows `docs/CAMPAIGN_CANON.md`.
+- Campaign canon follows `docs/CAMPAIGN_CANON.md`.
