@@ -2,10 +2,10 @@
 
 ## Current layers
 
-- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
+- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
 - `content_catalog.gd` owns JSON loading and content access helpers.
 - `combat_rules.gd`, `projectile_rules.gd`, `objective_rules.gd`, `progression_rules.gd` and the other `*_rules.gd` files own pure deterministic calculations.
-- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, overtime, movement patterns, temporary weapon progression, rewards, persistent service state and presentation overlays.
+- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, movement patterns, temporary weapon progression, rewards, persistent service state and presentation overlays.
 - `campaign_save.gd` is the canonical campaign persistence boundary and maintains a validated backup save.
 - `data/` owns authored mission, enemy, weapon and campaign definitions.
 
@@ -25,6 +25,19 @@ Mission state is initialized at the source in `main.gd`.
 - Live wave progression uses `MissionStateRules.live_wave()` directly from the active mission and mission clock.
 
 The earlier `MissionStateDirector` reconciliation layer has been removed. Do not restore a post-frame correction path for values that can be initialized correctly at mission start.
+
+## Boss overtime ownership
+
+Required boss encounters are resolved directly by the mission loop.
+
+- At the authored mission deadline, `MissionFlowRules.should_hold_overtime()` determines whether the required boss objective is still incomplete and that boss is still alive.
+- A live required boss can extend the mission for at most `45` seconds.
+- Ordinary spawning remains suppressed while the boss is alive.
+- Destroying the boss during overtime can still complete the mission normally.
+- Reaching the hard overtime cap fails explicitly with `BOSS OVERTIME EXPIRED` rather than hanging indefinitely.
+- If no required live boss justifies overtime, normal incomplete-objective failure occurs immediately at the deadline.
+
+The earlier `MissionFlowDirector` pre-frame timer clamp has been removed, along with its obsolete `safe_pre_frame_time()` helper. The mission clock is allowed to advance naturally; overtime is an explicit bounded game state rather than a timer-rewind workaround.
 
 ## Bomb ownership
 
@@ -70,6 +83,7 @@ Systems should exchange compact state/events rather than infer behavior from unr
 - Missing spawn configuration fails closed.
 - Homing metadata is created with the projectile, not inferred later.
 - Mission hull/shield/wave are initialized correctly at source, not corrected later.
+- Required boss overtime is explicit, bounded and cannot hang indefinitely.
 - Screen bombs cannot kill or remove required bosses.
 - Content IDs are stable and unique.
 - Production art can replace prototype drawing without changing game rules.
