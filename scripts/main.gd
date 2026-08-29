@@ -8,6 +8,7 @@ const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
+const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
@@ -294,16 +295,28 @@ func _update_enemies(delta: float) -> void:
 		enemy["fire_timer"] = float(enemy["fire_timer"]) - delta
 		var position: Vector2 = enemy["position"]
 		var is_boss := bool(enemy.get("boss", false))
-		if is_boss and position.y < 105.0: position.y += float(enemy["speed"]) * delta
-		elif not is_boss: position.y += float(enemy["speed"]) * delta
-		position.x += sin(float(enemy["age"]) * float(enemy["turn_rate"]) + float(enemy["phase"])) * float(enemy["drift"]) * delta
-		position.x = clampf(position.x, PLAYFIELD.position.x + 18, PLAYFIELD.end.x - 18)
+		if is_boss:
+			if position.y < 105.0:
+				position.y += float(enemy["speed"]) * delta
+			position.x += sin(float(enemy["age"]) * float(enemy["turn_rate"]) + float(enemy["phase"])) * float(enemy["drift"]) * delta
+			position.x = clampf(position.x, PLAYFIELD.position.x + 18.0, PLAYFIELD.end.x - 18.0)
+		else:
+			position.y += float(enemy["speed"]) * delta
+			var pattern := str(enemy.get("pattern", "sine_dive"))
+			var anchor_x := float(enemy.get("pattern_anchor_x", position.x))
+			enemy["pattern_anchor_x"] = anchor_x
+			if pattern in MovementPatternRules.supported_patterns():
+				position = MovementPatternRules.adjusted_position(pattern, position, player_position, float(enemy["age"]), delta, anchor_x)
+			else:
+				position.x += sin(float(enemy["age"]) * float(enemy["turn_rate"]) + float(enemy["phase"])) * float(enemy["drift"]) * delta
+			position = MovementPatternRules.clamp_x(position, PLAYFIELD.position.x + 18.0, PLAYFIELD.end.x - 18.0)
 		enemy["position"] = position
 		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y:
 			_fire_enemy_weapon(enemy)
 			enemy["fire_timer"] = ProjectileRules.enemy_fire_interval(str(enemy.get("weapon","single_burst")), wave)
 		enemies[i] = enemy
-		if not is_boss and position.y > PLAYFIELD.end.y + 22: enemies.remove_at(i)
+		if not is_boss and position.y > PLAYFIELD.end.y + 22:
+			enemies.remove_at(i)
 
 func _make_enemy_shot(origin: Vector2, velocity: Vector2, damage: int, homing := false) -> Dictionary:
 	var shot := {"position":origin,"velocity":velocity,"damage":damage}
@@ -400,7 +413,23 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 	var x := PLAYFIELD.get_center().x if is_boss else mission_rng.randf_range(PLAYFIELD.position.x + 24, PLAYFIELD.end.x - 24)
 	var speed_bias := 0.0 if enemy_class == "ground" else (10.0 if enemy_class == "air" else -8.0)
 	var drift := 28.0 if is_boss else (10.0 if enemy_class == "ground" else mission_rng.randf_range(16,38))
-	enemies.append({"id":str(archetype.get("id","bogey")),"category":enemy_class,"position":Vector2(x,PLAYFIELD.position.y-18),"speed":float(archetype.get("speed",72))+speed_bias+(0.0 if is_boss else float(wave)*4.0),"drift":drift,"turn_rate":0.75 if is_boss else mission_rng.randf_range(1.1,2.4),"phase":mission_rng.randf_range(0,TAU),"age":0.0,"hp":hp,"value":CombatRules.destroy_value(int(archetype.get("value",100)),wave),"weapon":str(archetype.get("weapon","single_burst")),"fire_timer":mission_rng.randf_range(0.5,1.6),"boss":is_boss})
+	enemies.append({
+		"id":str(archetype.get("id","bogey")),
+		"category":enemy_class,
+		"position":Vector2(x,PLAYFIELD.position.y-18),
+		"speed":float(archetype.get("speed",72))+speed_bias+(0.0 if is_boss else float(wave)*4.0),
+		"drift":drift,
+		"turn_rate":0.75 if is_boss else mission_rng.randf_range(1.1,2.4),
+		"phase":mission_rng.randf_range(0,TAU),
+		"age":0.0,
+		"hp":hp,
+		"value":CombatRules.destroy_value(int(archetype.get("value",100)),wave),
+		"weapon":str(archetype.get("weapon","single_burst")),
+		"pattern":str(archetype.get("pattern","sine_dive")),
+		"pattern_anchor_x":x,
+		"fire_timer":mission_rng.randf_range(0.5,1.6),
+		"boss":is_boss
+	})
 
 func _try_spawn_boss() -> void:
 	if boss_spawned or current_boss_id == "" or mission_time < mission_duration * 0.72: return
