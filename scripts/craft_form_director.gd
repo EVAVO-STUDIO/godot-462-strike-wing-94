@@ -98,6 +98,7 @@ func _apply_due_altitude_transitions(scene: Object) -> void:
 		if not AltitudeRules.supports_form(altitude, form):
 			form = CraftFormRules.FIGHTER
 			_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
+			_apply_weapon_interlock(scene)
 		var label := str(transition.get("label", AltitudeRules.display_name(altitude))).strip_edges().to_upper()
 		_set_status(scene, "ALTITUDE SHIFT - %s  %s" % [label, CraftFormRules.display_name(form)])
 		_next_altitude_transition += 1
@@ -111,7 +112,17 @@ func _try_transform(scene: Object) -> void:
 		return
 	form = candidate
 	_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
+	_apply_weapon_interlock(scene)
 	_set_status(scene, "VARIABLE GEOMETRY - %s" % CraftFormRules.display_name(form))
+
+func _apply_weapon_interlock(scene: Object) -> void:
+	var names: Dictionary = {}
+	for property in scene.get_property_list():
+		names[str(property.get("name", ""))] = true
+	if names.has("fire_timer"):
+		scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
+	if names.has("secondary_timer"):
+		scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
 
 func current_form() -> String:
 	return form
