@@ -25,6 +25,7 @@ BossDirector="*res://scripts/boss_director.gd"
 MissionIntelDirector="*res://scripts/mission_intel_director.gd"
 PixelUiDirector="*res://scripts/pixel_ui_director.gd"
 ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"
+RetroSfxDirector="*res://scripts/retro_sfx_director.gd"
 
 [display]
 window/size/viewport_width=640
