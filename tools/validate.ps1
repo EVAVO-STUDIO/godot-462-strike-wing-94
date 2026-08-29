@@ -27,8 +27,7 @@ $Required = @(
     'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd',
     'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/movement_pattern_rules.gd','scripts/weapon_pickup_rules.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
-    'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/reward_director.gd',
-    'scripts/service_rules.gd','scripts/service_director.gd',
+    'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/service_director.gd',
     'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
     'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
@@ -41,7 +40,8 @@ foreach ($Forbidden in @(
     'scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd',
     'scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd',
     'scripts/mission_state_director.gd','scripts/bomb_guard_director.gd','scripts/mission_flow_director.gd',
-    'scripts/movement_pattern_director.gd','scripts/run_seed_director.gd','scripts/weapon_pickup_director.gd','scripts/accuracy_director.gd'
+    'scripts/movement_pattern_director.gd','scripts/run_seed_director.gd','scripts/weapon_pickup_director.gd',
+    'scripts/accuracy_director.gd','scripts/reward_director.gd'
 )) {
     if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/obsolete path committed: $Forbidden" }
 }
@@ -134,11 +134,10 @@ foreach ($Weapon in $Primaries) {
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
     'CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"',
-    'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"',
-    'BossHudDirector="*res://scripts/boss_hud_director.gd"','ThreatWarningDirector="*res://scripts/threat_warning_director.gd"',
-    'ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
+    'ServiceDirector="*res://scripts/service_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"',
+    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
-foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector','WeaponPickupDirector','AccuracyDirector')) {
+foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector','WeaponPickupDirector','AccuracyDirector','RewardDirector')) {
     if ($ProjectText.Contains($ObsoleteAutoload)) { throw "Obsolete autoload must remain removed: $ObsoleteAutoload" }
 }
 
@@ -156,11 +155,12 @@ foreach ($Token in @(
     '"pattern":str(archetype.get("pattern","sine_dive"))','"pattern_anchor_x":x',
     'var temporary_weapon_boost := 0','WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost',
     'temporary_weapon_boost = mini(max_boost, temporary_weapon_boost + 1)','temporary_weapon_boost = 0',
-    'var shots_fired := 0','var shots_hit := 0','shots_fired += count','shots_hit += 1','shots_fired = 0','shots_hit = 0'
+    'var shots_fired := 0','var shots_hit := 0','shots_fired += count','shots_hit += 1','shots_fired = 0','shots_hit = 0',
+    'const RewardRules = preload','RewardRules.extra_success_bonus(','var total_reward := base_reward + objective_bonus + extra_total','credits += total_reward','MISSION COMPLETE  +%d'
 )) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing direct runtime ownership token: $Token" } }
 foreach ($ForbiddenToken in @(
     'pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get',
-    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector','WeaponPickupDirector','AccuracyDirector',
+    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector','WeaponPickupDirector','AccuracyDirector','RewardDirector',
     'enemies.clear(); enemy_bullets.clear()'
 )) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete reconciliation/global fallback token: $ForbiddenToken" } }
 
@@ -189,9 +189,6 @@ $AccuracyRulesText = Get-Content -Raw (Join-Path $Root 'scripts/accuracy_rules.g
 foreach ($Token in @('accuracy_ratio','qualifies','bonus_for')) { if (-not $AccuracyRulesText.Contains($Token)) { throw "Accuracy rules missing token: $Token" } }
 $RewardRulesText = Get-Content -Raw (Join-Path $Root 'scripts/reward_rules.gd')
 foreach ($Token in @('no_hull_damage_bonus','boss_kill_bonus','accuracy_bonus','extra_success_bonus')) { if (-not $RewardRulesText.Contains($Token)) { throw "Reward rules missing token: $Token" } }
-$RewardDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/reward_director.gd')
-foreach ($Token in @('MISSION COMPLETE','RewardRules.extra_success_bonus','scene.get("shots_fired")','scene.get("shots_hit")','ACCURACY')) { if (-not $RewardDirectorText.Contains($Token)) { throw "Reward director missing source-owned accuracy token: $Token" } }
-if ($RewardDirectorText.Contains('AccuracyDirector')) { throw 'Reward director must not depend on AccuracyDirector.' }
 $ServiceRulesText = Get-Content -Raw (Join-Path $Root 'scripts/service_rules.gd')
 foreach ($Token in @('service_cost','can_service','service_full')) { if (-not $ServiceRulesText.Contains($Token)) { throw "Service rules missing token: $Token" } }
 $ServiceDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/service_director.gd')
