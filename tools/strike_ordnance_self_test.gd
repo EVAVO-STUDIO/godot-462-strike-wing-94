@@ -2,6 +2,7 @@ extends SceneTree
 
 const StrikeOrdnanceRules = preload("res://scripts/strike_ordnance_rules.gd")
 const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
+const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 
 var failures: Array[String] = []
 
@@ -10,6 +11,7 @@ func _initialize() -> void:
 	_test_damage_roles()
 	_test_route_targeting()
 	_test_stability()
+	_test_impact_feedback()
 	_test_rearm()
 	_test_source_wiring()
 	if failures.is_empty():
@@ -63,6 +65,18 @@ func _test_stability() -> void:
 	var decayed := StrikeOrdnanceRules.update_stability(1.0, 0.3, true, true, 1.0)
 	_expect(decayed < 0.5, "hard lateral maneuvering should bleed bombing-run stability quickly")
 	_expect(StrikeOrdnanceRules.update_stability(0.5, 0.2, false, true, 0.0) < 0.5, "leaving low bomber conditions should decay stability")
+
+func _test_impact_feedback() -> void:
+	_expect(RetroSfxRules.valid_voice(RetroSfxRules.voice(RetroSfxRules.STRIKE_IMPACT)), "precision strike impact should have a bounded dedicated procedural voice")
+	var ordnance := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)
+	_expect(ordnance != null, "strike ordnance director should be readable for impact feedback")
+	if ordnance != null:
+		var source := ordnance.get_as_text()
+		_expect(source.contains("IMPACT_FX_SECONDS := 0.30"), "strike impact cue should remain brief")
+		_expect(source.contains("_emit_impact_fx"), "strike impact should create dedicated visual feedback")
+		_expect(source.contains("_draw_impact_fx"), "strike impact shock/debris cue should be rendered on the strike surface")
+		_expect(source.contains("RetroSfxRules.STRIKE_IMPACT"), "strike impact should call its dedicated procedural SFX")
+		_expect(source.contains("while _impact_fx.size() > 8"), "strike impact presentation should remain bounded")
 
 func _test_rearm() -> void:
 	_expect(StrikeOrdnanceRules.rearm(0) == StrikeOrdnanceRules.MAX_ORDNANCE, "full tanker rearm should restore strike rack")
