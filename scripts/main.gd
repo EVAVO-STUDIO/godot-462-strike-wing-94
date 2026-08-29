@@ -406,7 +406,8 @@ func _update_enemy_bullets(delta: float) -> void:
 		var position: Vector2 = shot["position"]
 		position += shot["velocity"] * delta
 		shot["position"] = position; enemy_bullets[i] = shot
-		if position.distance_squared_to(player_position) <= 120.0:
+		var projectile_hit_radius_sq := _craft_float("projectile_hit_radius_sq", 120.0)
+		if position.distance_squared_to(player_position) <= projectile_hit_radius_sq:
 			_apply_damage(int(shot.get("damage",8))); enemy_bullets.remove_at(i)
 		elif not PLAYFIELD.grow(32).has_point(position): enemy_bullets.remove_at(i)
 
