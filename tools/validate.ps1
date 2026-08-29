@@ -25,12 +25,13 @@ Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
-    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/boss_hud_rules.gd','scripts/boss_hud_director.gd',
+    'scripts/boss_rules.gd','scripts/boss_director.gd',
     'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd',
     'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/movement_pattern_rules.gd','scripts/weapon_pickup_rules.gd',
     'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/energy_rules.gd',
     'scripts/encounter_rules.gd','scripts/encounter_director.gd',
-    'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
+    'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
+    'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
     'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd','tools/encounter_self_test.gd',
     'data/weapons.json','data/generators.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md','docs/90S_SHOOTER_BIBLE.md'
@@ -41,7 +42,8 @@ $Forbidden = @(
     '.github/workflows','.godot','build','dist',
     'scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd','scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd',
     'scripts/mission_state_director.gd','scripts/bomb_guard_director.gd','scripts/mission_flow_director.gd','scripts/movement_pattern_director.gd',
-    'scripts/run_seed_director.gd','scripts/weapon_pickup_director.gd','scripts/accuracy_director.gd','scripts/reward_director.gd','scripts/service_director.gd'
+    'scripts/run_seed_director.gd','scripts/weapon_pickup_director.gd','scripts/accuracy_director.gd','scripts/reward_director.gd','scripts/service_director.gd',
+    'scripts/boss_hud_director.gd','scripts/boss_hud_rules.gd','scripts/threat_warning_director.gd'
 )
 foreach ($RelativePath in $Forbidden) { if (Test-Path (Join-Path $Root $RelativePath)) { throw "Forbidden generated/obsolete path committed: $RelativePath" } }
 
@@ -61,7 +63,6 @@ foreach ($Weapon in $Primaries) {
     if (-not $Weapon.archetype) { throw "Primary weapon missing gameplay archetype: $($Weapon.id)" }
     $PreviousCost = [int]$Weapon.cost
 }
-
 if (@($Generators.generators).Count -lt 3) { throw 'Generator progression requires at least three tiers.' }
 $PreviousCost = -1; $PreviousCapacity = 0.0; $PreviousRecharge = 0.0
 foreach ($Generator in $Generators.generators) {
@@ -124,17 +125,25 @@ foreach ($Environment in @($Missions.missions | ForEach-Object { $_.environment 
 }
 
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
-foreach ($Autoload in @('CampaignSave="*res://scripts/campaign_save.gd"','EncounterDirector="*res://scripts/encounter_director.gd"','BossDirector="*res://scripts/boss_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"','ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"')) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
-foreach ($Obsolete in @('ServiceDirector','RewardDirector','AccuracyDirector','WeaponPickupDirector','RunSeedDirector','MovementPatternDirector','MissionFlowDirector','MissionStateDirector','BombGuardDirector','MissileBehaviorDirector','SpawnSafetyDirector')) { if ($ProjectText.Contains($Obsolete)) { throw "Obsolete autoload must remain removed: $Obsolete" } }
+foreach ($Autoload in @('CampaignSave="*res://scripts/campaign_save.gd"','EncounterDirector="*res://scripts/encounter_director.gd"','BossDirector="*res://scripts/boss_director.gd"','PixelUiDirector="*res://scripts/pixel_ui_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"')) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
+foreach ($Obsolete in @('ServiceDirector','RewardDirector','AccuracyDirector','WeaponPickupDirector','RunSeedDirector','MovementPatternDirector','MissionFlowDirector','MissionStateDirector','BombGuardDirector','MissileBehaviorDirector','SpawnSafetyDirector','BossHudDirector','ThreatWarningDirector')) { if ($ProjectText.Contains($Obsolete)) { throw "Obsolete autoload must remain removed: $Obsolete" } }
 
 $EncounterDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_director.gd')
 Assert-Contains $EncounterDirectorText @('process_priority = -20','EncounterRules.due_beat','EncounterRules.condition_met','EncounterRules.formation_points','scene.call("_spawn_enemy", archetype)','pattern_anchor_x','enemy_spawn_timer','EncounterRules.reward_pickup') 'Encounter director'
+$PixelFontText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_font.gd')
+Assert-Contains $PixelFontText @('class_name PixelFont','GLYPHS','draw_text','draw_centered','normalized.substr(char_index, 1)') 'Pixel font'
+$PixelSurfaceText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_surface.gd')
+Assert-Contains $PixelSurfaceText @('class_name PixelUiSurface','extends Control','director.call("_draw_surface", self)') 'Pixel UI surface'
+$PixelUiText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_director.gd')
+Assert-Contains $PixelUiText @('layer = 30','PixelUiSurface.new()','Vector2(640, 360)','PixelFont.draw_centered','func _draw_boss','var cue := " WEAK" if phase >= 3','ThreatWarningRules.warning_text','EnergyRules.capacity') 'Pixel UI'
+foreach ($WidgetToken in @('PanelContainer.new()','Label.new()','ProgressBar.new()')) { if ($PixelUiText.Contains($WidgetToken)) { throw "Primary pixel UI still contains modern widget chrome: $WidgetToken" } }
+
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
 Assert-Contains $MainText @('const EnergyRules = preload','var service_hull := 100','var generator_index := 0','EnergyRules.recharge(energy, _active_generator(), delta)','RewardRules.extra_success_bonus','MovementPatternRules.adjusted_position','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','MissionFlowRules.should_hold_overtime','BombRules.apply_nonlethal_boss_damage','_try_buy_next_generator()','_service_hull_full()') 'Main gameplay'
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd'); Assert-Contains $SaveText @('SAVE_VERSION := 3','BACKUP_PATH','generator_index','service_hull','service_shield','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
 $Godot = Resolve-Godot -Preferred $GodotBin
-if (-not $Godot) { Write-Warning 'Godot executable not found. Structural/data/save/encounter validation passed; headless self-tests and engine smoke test skipped.'; exit 0 }
+if (-not $Godot) { Write-Warning 'Godot executable not found. Structural/data/save/encounter/pixel-UI validation passed; headless self-tests and engine smoke test skipped.'; exit 0 }
 $Tests = @('runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd','encounter_self_test.gd')
 foreach ($Test in $Tests) { Write-Host "Running $Test..." -ForegroundColor DarkCyan; & $Godot --headless --path $Root --script "res://tools/$Test"; if ($LASTEXITCODE -ne 0) { throw "$Test failed with exit code $LASTEXITCODE" } }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan; & $Godot --headless --path $Root --editor --quit; if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
