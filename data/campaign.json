@@ -1,5 +1,5 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "campaign": {
     "starting_credits": 2500,
     "starting_hull": 100,
@@ -15,7 +15,10 @@
       "m06_black_flag",
       "m07_ghost_sky",
       "m08_machine_furnace",
-      "m09_black_horizon"
+      "m09_black_horizon",
+      "m10_blue_fire",
+      "m11_cold_station",
+      "m12_machine_ark"
     ]
   },
   "progression": {
@@ -26,7 +29,7 @@
     "boss_kill_bonus": 1500
   },
   "save": {
-    "schema_version": 4,
+    "schema_version": 5,
     "autosave_seconds": 1.0,
     "path": "user://strike_wing_94_save.json"
   }
