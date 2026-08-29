@@ -54,11 +54,27 @@ static func allows_ground_targets(band: String) -> bool:
 
 static func supports_form(band: String, form: String) -> bool:
 	var safe_band := sanitize(band)
-	if safe_band == LOW:
-		return form == "bomber" or form == "fighter"
 	if safe_band == ORBITAL:
 		return form == "fighter"
-	return true
+	return form in ["fighter", "bomber"]
+
+static func allows_enemy_class(band: String, enemy_class: String, is_boss := false) -> bool:
+	if is_boss or enemy_class == "boss":
+		return true
+	var safe_band := sanitize(band)
+	match enemy_class:
+		"air":
+			return true
+		"ground", "sea":
+			return safe_band in [LOW, MID]
+	return false
+
+static func allows_enemy_archetype(band: String, archetype: Dictionary) -> bool:
+	return allows_enemy_class(
+		band,
+		str(archetype.get("class", "air")),
+		bool(archetype.get("boss", false))
+	)
 
 static func adjacent_band(current: String, direction: int) -> String:
 	var current_index := index(current)
