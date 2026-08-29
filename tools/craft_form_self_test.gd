@@ -45,12 +45,18 @@ func _test_campaign_world() -> void:
 	_expect(data.get("altitude_bands", []).size() == 4, "campaign world should define four altitude bands")
 	_expect(data.get("threat_phases", []).size() >= 3, "campaign world should define mercenary, drone and external threat phases")
 	var contexts = data.get("mission_context", {})
-	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() >= 6, "all current missions should receive campaign-world context")
+	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() >= 9, "all nine current missions should receive campaign-world context")
 	for mission_id in contexts.keys():
 		var context: Dictionary = contexts[mission_id]
 		_expect(AltitudeRules.sanitize(str(context.get("altitude", ""))) == str(context.get("altitude", "")), "%s should use a supported altitude" % mission_id)
-		_expect(str(context.get("threat_phase", "")) == "mercenary_war", "%s should remain in the opening mercenary-war chapter" % mission_id)
 		_expect(str(context.get("recommended_form", "")) in ["fighter", "bomber"], "%s should recommend a valid craft form" % mission_id)
+	for mission_id in ["m01_coastal_intercept","m02_refinery_run","m03_black_sea","m04_breakwater","m05_furnace_line","m06_black_flag"]:
+		_expect(str(contexts.get(mission_id, {}).get("threat_phase", "")) == "mercenary_war", "%s should remain in opening mercenary war" % mission_id)
+	for mission_id in ["m07_ghost_sky","m08_machine_furnace","m09_black_horizon"]:
+		_expect(str(contexts.get(mission_id, {}).get("threat_phase", "")) == "drone_war", "%s should belong to autonomous drone war" % mission_id)
+	_expect(str(contexts.get("m07_ghost_sky", {}).get("altitude", "")) == "high", "Ghost Sky should introduce high-altitude drone combat")
+	_expect(str(contexts.get("m09_black_horizon", {}).get("altitude", "")) == "orbital", "Black Horizon should introduce orbital combat")
+	_expect(str(contexts.get("m09_black_horizon", {}).get("recommended_form", "")) == "fighter", "orbital command assault should require fighter configuration")
 
 func _test_source_integration() -> void:
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
@@ -65,11 +71,15 @@ func _test_source_integration() -> void:
 	var support_file := FileAccess.open("res://scripts/support_director.gd", FileAccess.READ)
 	_expect(support_file != null, "support_director.gd should be readable")
 	if support_file != null:
-		_expect(support_file.get_as_text().contains('support_energy_multiplier'), "support energy should consume craft form efficiency")
+		var support_source := support_file.get_as_text()
+		_expect(support_source.contains('support_energy_multiplier'), "support energy should consume craft form efficiency")
+		_expect(support_source.contains('func rearm_support()'), "tanker should have a clean tactical-support rearm API")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
-		_expect(project.get_as_text().contains('CraftFormDirector="*res://scripts/craft_form_director.gd"'), "craft form controller should remain autoloaded")
+		var project_source := project.get_as_text()
+		_expect(project_source.contains('CraftFormDirector="*res://scripts/craft_form_director.gd"'), "craft form controller should remain autoloaded")
+		_expect(project_source.contains('BattlefieldSupportDirector="*res://scripts/battlefield_support_director.gd"'), "battlefield support controller should remain autoloaded")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
