@@ -41,8 +41,16 @@ func _test_overtime() -> void:
 	_expect(MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, incomplete, live_boss), "live required boss should hold mission in overtime")
 	_expect(not MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, complete, live_boss), "completed boss objective must not hold overtime")
 	_expect(not MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, incomplete, dead_boss), "dead boss must not hold overtime")
-	var pre := MissionFlowRules.safe_pre_frame_time(149.99, 150.0, 0.016)
-	_expect(pre + 0.016 < 150.0, "overtime pre-frame clamp must keep scene timer below failure threshold")
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable for bounded overtime checks")
+	if main_file != null:
+		var source := main_file.get_as_text()
+		_expect(source.contains("BOSS_OVERTIME_LIMIT_SECONDS := 45.0"), "boss overtime should have an explicit hard cap")
+		_expect(source.contains("MissionFlowRules.should_hold_overtime"), "main mission loop should evaluate required boss overtime directly")
+		_expect(source.contains("mission_duration + BOSS_OVERTIME_LIMIT_SECONDS"), "main mission loop should enforce overtime expiry")
+		_expect(source.contains("BOSS OVERTIME EXPIRED"), "expired boss overtime should fail explicitly")
+		_expect(source.contains("OVERTIME - DESTROY THE BOSS"), "active boss overtime should be communicated")
+	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:
 	var data = ContentCatalog.load_json("res://data/spawn_profiles.json")
@@ -128,8 +136,8 @@ func _test_autoloads() -> void:
 	if file == null:
 		return
 	var text := file.get_as_text()
-	_expect(not text.contains("SpawnSafetyDirector"), "redundant spawn safety autoload should stay removed")
-	_expect(not text.contains("MissileBehaviorDirector"), "redundant missile behavior autoload should stay removed")
+	for obsolete in ["SpawnSafetyDirector", "MissileBehaviorDirector", "MissionStateDirector", "BombGuardDirector", "MissionFlowDirector"]:
+		_expect(not text.contains(obsolete), "obsolete reconciliation autoload should stay removed: %s" % obsolete)
 	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
 	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
 	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
