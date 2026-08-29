@@ -5,6 +5,9 @@ const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
 static var _active_generator_context: Dictionary = {}
 
+static func set_active_generator(generator: Dictionary) -> void:
+	_active_generator_context = generator.duplicate(true)
+
 static func capacity(generator: Dictionary) -> float:
 	return maxf(1.0, float(generator.get("capacity", 100.0)))
 
@@ -12,7 +15,7 @@ static func recharge_rate(generator: Dictionary) -> float:
 	return maxf(0.0, float(generator.get("recharge_per_second", 0.0)))
 
 static func recharge(current: float, generator: Dictionary, delta: float) -> float:
-	_active_generator_context = generator.duplicate(true)
+	set_active_generator(generator)
 	return clampf(current + recharge_rate(generator) * maxf(0.0, delta), 0.0, capacity(generator))
 
 static func weapon_cost(weapon: Dictionary) -> float:
