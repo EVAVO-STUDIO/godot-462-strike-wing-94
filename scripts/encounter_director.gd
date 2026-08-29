@@ -1,6 +1,8 @@
 extends Node
 
 const EncounterRules = preload("res://scripts/encounter_rules.gd")
+const FORMATION_MIN_X := 58.0
+const FORMATION_MAX_X := 582.0
 
 var _scene_id := 0
 var _last_phase := -1
@@ -30,7 +32,7 @@ func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
 		names[str(property.get("name", ""))] = true
-	for required in ["phase", "mission_time", "mission_index", "mission_catalog", "enemy_catalog", "enemy_spawn_timer", "pickups", "status_text", "status_timer", "shots_fired", "shots_hit", "score", "bombs"]:
+	for required in ["phase", "mission_time", "mission_index", "mission_catalog", "enemy_catalog", "enemies", "enemy_spawn_timer", "pickups", "status_text", "status_timer", "shots_fired", "shots_hit", "score", "bombs"]:
 		if not names.has(required):
 			return false
 	return scene.has_method("_spawn_enemy")
@@ -63,10 +65,14 @@ func _apply_due_beats(scene: Object) -> void:
 		_next_beat_index += 1
 
 func _apply_beat(scene: Object, beat: Dictionary) -> void:
-	for enemy_id in EncounterRules.expanded_enemy_ids(beat):
-		var archetype := _enemy_for_id(scene.get("enemy_catalog"), enemy_id)
-		if not archetype.is_empty() and not bool(archetype.get("boss", false)):
-			scene.call("_spawn_enemy", archetype)
+	var enemy_ids := EncounterRules.expanded_enemy_ids(beat)
+	var points := EncounterRules.formation_points(beat, enemy_ids.size())
+	for i in range(enemy_ids.size()):
+		var archetype := _enemy_for_id(scene.get("enemy_catalog"), enemy_ids[i])
+		if archetype.is_empty() or bool(archetype.get("boss", false)):
+			continue
+		scene.call("_spawn_enemy", archetype)
+		_apply_latest_formation_point(scene, points[i] if i < points.size() else Vector2(0.5, 0.0))
 	var pickup_kind := EncounterRules.reward_pickup(beat)
 	if pickup_kind != "":
 		var pickups: Array = scene.get("pickups")
@@ -78,6 +84,22 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	var prefix := "SECRET - " if EncounterRules.is_secret(beat) else ""
 	scene.set("status_text", "%s%s" % [prefix, EncounterRules.label(beat)])
 	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
+
+func _apply_latest_formation_point(scene: Object, point: Vector2) -> void:
+	var enemies: Array = scene.get("enemies")
+	if enemies.is_empty():
+		return
+	var index := enemies.size() - 1
+	var enemy = enemies[index]
+	if typeof(enemy) != TYPE_DICTIONARY or bool(enemy.get("boss", false)):
+		return
+	var position: Vector2 = enemy.get("position", Vector2(320.0, 34.0))
+	position.x = lerpf(FORMATION_MIN_X, FORMATION_MAX_X, clampf(point.x, 0.0, 1.0))
+	position.y -= maxf(0.0, point.y)
+	enemy["position"] = position
+	enemy["pattern_anchor_x"] = position.x
+	enemies[index] = enemy
+	scene.set("enemies", enemies)
 
 func _enemy_for_id(catalog: Array, enemy_id: String) -> Dictionary:
 	for enemy in catalog:
