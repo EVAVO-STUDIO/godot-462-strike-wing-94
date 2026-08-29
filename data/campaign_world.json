@@ -38,6 +38,6 @@
     "m09_black_horizon":{"altitude":"high","threat_phase":"drone_war","tech_era":"directed_energy","role":"orbital_command_assault","recommended_form":"fighter","support":["rapier_flight","rail_support","orbital_strike"],"altitude_transitions":[{"at_seconds":86,"altitude":"orbital","label":"EXOATMOSPHERIC BREAKOUT"}]},
     "m10_blue_fire":{"altitude":"high","threat_phase":"drone_war","tech_era":"directed_energy","role":"phase_screen_breakthrough","recommended_form":"fighter","support":["rapier_flight","atlas_tanker","rail_support"],"altitude_transitions":[{"at_seconds":176,"altitude":"orbital","label":"PHASE ARRAY ASCENT"}]},
     "m11_cold_station":{"altitude":"orbital","threat_phase":"drone_war","tech_era":"directed_energy","role":"space_station_assault","recommended_form":"fighter","support":["rapier_flight","rail_support","orbital_strike"]},
-    "m12_machine_ark":{"altitude":"high","threat_phase":"drone_war","tech_era":"strategic_orbital","role":"strategic_command_ark_assault","recommended_form":"fighter","support":["atlas_tanker","rapier_flight","rail_support","orbital_strike"],"altitude_transitions":[{"at_seconds":82,"altitude":"orbital","label":"FINAL ORBITAL BURN"}]}
+    "m12_machine_ark":{"altitude":"high","threat_phase":"drone_war","tech_era":"strategic_orbital","role":"strategic_command_ark_assault","recommended_form":"fighter","support":["atlas_tanker","rapier_flight","rail_support","orbital_strike"],"altitude_transitions":[{"at_seconds":156,"altitude":"orbital","label":"FINAL ORBITAL BURN"}]}
   }
 }
