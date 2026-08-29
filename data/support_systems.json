@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "supports": [
+    {
+      "id": "twin_rocket_pods",
+      "name": "Twin Rocket Pods",
+      "type": "rockets",
+      "cost": 0,
+      "energy_cost": 16.0,
+      "cooldown": 0.55,
+      "projectiles": 2,
+      "damage": 3,
+      "projectile_speed": 350.0,
+      "spread_degrees": 7.0
+    },
+    {
+      "id": "crosswind_cannons",
+      "name": "Crosswind Cannons",
+      "type": "crossfire",
+      "cost": 5200,
+      "energy_cost": 19.0,
+      "cooldown": 0.46,
+      "projectiles": 3,
+      "damage": 2,
+      "projectile_speed": 400.0,
+      "spread_degrees": 34.0
+    },
+    {
+      "id": "hunter_rack",
+      "name": "Hunter Rack",
+      "type": "hunter",
+      "cost": 9200,
+      "energy_cost": 30.0,
+      "cooldown": 1.05,
+      "projectiles": 2,
+      "damage": 5,
+      "projectile_speed": 245.0,
+      "turn_rate": 2.8,
+      "life": 4.6
+    },
+    {
+      "id": "point_defence_pod",
+      "name": "Point Defence Pod",
+      "type": "defence",
+      "cost": 13200,
+      "energy_cost": 22.0,
+      "cooldown": 1.25,
+      "radius": 108.0,
+      "max_targets": 6
+    }
+  ]
+}
