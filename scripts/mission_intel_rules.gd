@@ -27,7 +27,8 @@ static func threat_name(phase: String) -> String:
 static func support_summary(ids: Array) -> String:
 	if ids.is_empty(): return "NONE"
 	var names: Array[String] = []
-	for id in ids: names.append(str(id).replace("_", " ").to_upper())
+	for id in ids:
+		names.append(str(id).replace("_", " ").to_upper())
 	return " / ".join(names)
 
 static func transition_summary(transitions: Array) -> String:
@@ -37,6 +38,29 @@ static func transition_summary(transitions: Array) -> String:
 		if typeof(item) != TYPE_DICTIONARY: continue
 		parts.append("%03dS>%s" % [maxi(0, int(item.get("at_seconds", 0))), altitude_code(str(item.get("altitude", "mid")))])
 	return "  ".join(parts) if not parts.is_empty() else "FIXED ENVELOPE"
+
+static func lane_summary(windows: Array) -> String:
+	if windows.is_empty():
+		return "SCRIPTED / FIXED"
+	var parts: Array[String] = []
+	for window in windows:
+		if typeof(window) != TYPE_DICTIONARY:
+			continue
+		var bands: Array[String] = []
+		for band in window.get("bands", []):
+			var code := altitude_code(str(band))
+			if code not in bands:
+				bands.append(code)
+		if bands.is_empty():
+			continue
+		parts.append(
+			"%s %03d-%03dS" % [
+				"/".join(bands),
+				maxi(0, int(window.get("start_seconds", 0))),
+				maxi(0, int(window.get("end_seconds", 0)))
+			]
+		)
+	return "  ".join(parts) if not parts.is_empty() else "SCRIPTED / FIXED"
 
 static func support_recommendation(context: Dictionary) -> String:
 	var ids: Array = context.get("support", [])
@@ -64,6 +88,7 @@ static func mission_lines(context: Dictionary, boss_name: String) -> Array[Strin
 		"THREAT %s" % threat_name(str(context.get("threat_phase", "mercenary_war"))),
 		"ENVELOPE %s  CONFIG %s  TECH %s" % [altitude_code(str(context.get("altitude", "mid"))), form_code(str(context.get("recommended_form", "fighter"))), tech_code(str(context.get("tech_era", "advanced_conventional")))],
 		"PROFILE %s" % transition_summary(context.get("altitude_transitions", [])),
+		"LANES %s" % lane_summary(context.get("altitude_choice_windows", [])),
 		"BOSS %s" % boss_name.replace("_", " ").to_upper(),
 		"ALLIED %s" % support_summary(context.get("support", [])),
 		"ADVICE %s" % support_recommendation(context)
