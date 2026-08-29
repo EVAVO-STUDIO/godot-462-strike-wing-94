@@ -6,6 +6,7 @@ const MID := "mid"
 const HIGH := "high"
 const ORBITAL := "orbital"
 const BANDS := [LOW, MID, HIGH, ORBITAL]
+const TRANSITION_SECONDS := 1.15
 
 static func sanitize(band: String) -> String:
 	return band if band in BANDS else MID
@@ -58,3 +59,26 @@ static func supports_form(band: String, form: String) -> bool:
 	if safe_band == ORBITAL:
 		return form == "fighter"
 	return true
+
+static func adjacent_band(current: String, direction: int) -> String:
+	var current_index := index(current)
+	if current_index < 0 or direction == 0:
+		return sanitize(current)
+	return BANDS[clampi(current_index + signi(direction), 0, BANDS.size() - 1)]
+
+static func is_adjacent(from_band: String, to_band: String) -> bool:
+	return absi(index(from_band) - index(to_band)) == 1
+
+static func transition_direction(from_band: String, to_band: String) -> int:
+	return signi(index(to_band) - index(from_band))
+
+static func transition_ground_scale(from_band: String, to_band: String, ratio: float) -> float:
+	return lerpf(ground_scale(from_band), ground_scale(to_band), smoothstep(0.0, 1.0, clampf(ratio, 0.0, 1.0)))
+
+static func allowed_manual_bands(window: Dictionary) -> Array[String]:
+	var result: Array[String] = []
+	for band in window.get("bands", []):
+		var safe := sanitize(str(band))
+		if safe not in result:
+			result.append(safe)
+	return result
