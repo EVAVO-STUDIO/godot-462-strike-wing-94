@@ -65,6 +65,9 @@ func restore_support_state(saved_selected: int, saved_unlocked: int) -> void:
 
 func rearm_support() -> void:
 	_cooldown = 0.0
+	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
+	if strike != null and strike.has_method("rearm_full"):
+		strike.call("rearm_full")
 
 func _handle_title(scene: Object) -> void:
 	if Input.is_action_just_pressed("cycle_support"):
