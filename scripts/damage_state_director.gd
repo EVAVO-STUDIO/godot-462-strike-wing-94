@@ -1,9 +1,11 @@
 extends CanvasLayer
 
 const DamageStateSurface = preload("res://scripts/damage_state_surface.gd")
+const TRANSFORM_VISUAL_SECONDS := 0.42
 
 var _surface: Control
 var _phase := 0.0
+var _form_sweep := 0.0
 
 func _ready() -> void:
 	layer = 15
@@ -17,6 +19,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_phase = fposmod(_phase + maxf(0.0, delta) * 9.0, TAU)
+	var target := 1.0 if _craft_form() == "bomber" else 0.0
+	_form_sweep = move_toward(_form_sweep, target, maxf(0.0, delta) / TRANSFORM_VISUAL_SECONDS)
 	if _surface != null:
 		_surface.queue_redraw()
 
@@ -32,29 +36,30 @@ func _draw_damage_state(surface: CanvasItem) -> void:
 	if damage_ratio < 0.20:
 		return
 	var p: Vector2 = scene.get("player_position")
-	var form := _craft_form()
-	_draw_panel_scars(surface, p, form, damage_ratio)
+	_draw_panel_scars(surface, p, damage_ratio)
 	if damage_ratio >= 0.45:
-		_draw_smoke(surface, p, form, damage_ratio)
+		_draw_smoke(surface, p, damage_ratio)
 	if damage_ratio >= 0.72:
-		_draw_critical_sparks(surface, p, form, damage_ratio)
+		_draw_critical_sparks(surface, p, damage_ratio)
 
-func _draw_panel_scars(surface: CanvasItem, p: Vector2, form: String, ratio: float) -> void:
+func _lerp_mount(fighter_offset: Vector2, bomber_offset: Vector2) -> Vector2:
+	var t := smoothstep(0.0, 1.0, clampf(_form_sweep, 0.0, 1.0))
+	var point := fighter_offset.lerp(bomber_offset, t)
+	return Vector2(roundf(point.x), roundf(point.y))
+
+func _draw_panel_scars(surface: CanvasItem, p: Vector2, ratio: float) -> void:
 	var alpha := clampf(0.28 + ratio * 0.45, 0.0, 0.78)
 	var color := Color(0.18,0.20,0.21,alpha)
-	var offsets: Array[Vector2] = []
-	if form == "bomber":
-		offsets = [Vector2(-20,4),Vector2(17,7),Vector2(-9,-5),Vector2(11,-2)]
-	else:
-		offsets = [Vector2(-9,5),Vector2(8,7),Vector2(-4,-5),Vector2(5,-1)]
-	var count := clampi(int(ceil(ratio * float(offsets.size()))), 1, offsets.size())
+	var fighter_offsets := [Vector2(-9,5),Vector2(8,7),Vector2(-4,-5),Vector2(5,-1)]
+	var bomber_offsets := [Vector2(-20,4),Vector2(17,7),Vector2(-9,-5),Vector2(11,-2)]
+	var count := clampi(int(ceil(ratio * float(fighter_offsets.size()))), 1, fighter_offsets.size())
 	for i in range(count):
-		var q := p + offsets[i]
+		var q := p + _lerp_mount(fighter_offsets[i], bomber_offsets[i])
 		surface.draw_line(q + Vector2(-3,-1), q + Vector2(3,2), color, 1.0)
 		surface.draw_rect(Rect2(roundf(q.x)-1, roundf(q.y)+2, 2, 1), color)
 
-func _draw_smoke(surface: CanvasItem, p: Vector2, form: String, ratio: float) -> void:
-	var origin := p + (Vector2(-14,10) if form == "bomber" else Vector2(-6,11))
+func _draw_smoke(surface: CanvasItem, p: Vector2, ratio: float) -> void:
+	var origin := p + _lerp_mount(Vector2(-6,11), Vector2(-14,10))
 	var drift := fposmod(_phase * 7.0, 18.0)
 	var smoke := Color(0.36,0.38,0.37,0.16 + ratio * 0.22)
 	for i in range(4):
@@ -63,11 +68,11 @@ func _draw_smoke(surface: CanvasItem, p: Vector2, form: String, ratio: float) ->
 		var radius := 2.0 + float(i) * 1.5
 		surface.draw_circle(Vector2(roundf(x), roundf(y)), radius, smoke)
 
-func _draw_critical_sparks(surface: CanvasItem, p: Vector2, form: String, ratio: float) -> void:
+func _draw_critical_sparks(surface: CanvasItem, p: Vector2, ratio: float) -> void:
 	var flicker := sin(_phase * 2.4)
 	if flicker < -0.15:
 		return
-	var origin := p + (Vector2(13,6) if form == "bomber" else Vector2(6,7))
+	var origin := p + _lerp_mount(Vector2(6,7), Vector2(13,6))
 	var spark := Color(1.0,0.72,0.26,0.72 + ratio * 0.24)
 	var flame := Color(0.96,0.28,0.12,0.55)
 	for i in range(4):
