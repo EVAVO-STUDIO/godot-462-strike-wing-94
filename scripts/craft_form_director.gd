@@ -3,6 +3,7 @@ extends Node
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
+const ProgressionRules = preload("res://scripts/progression_rules.gd")
 
 var form := CraftFormRules.FIGHTER
 var altitude := AltitudeRules.MID
@@ -18,6 +19,7 @@ func _ready() -> void:
 	var data = ContentCatalog.load_json("res://data/campaign_world.json")
 	if typeof(data) == TYPE_DICTIONARY:
 		_world = data
+	ProgressionRules.set_current_tech_era("advanced_conventional")
 	_ensure_action()
 
 func _process(delta: float) -> void:
@@ -67,6 +69,7 @@ func _apply_mission_context(scene: Object) -> void:
 	altitude = AltitudeRules.sanitize(str(_current_context.get("altitude", AltitudeRules.MID)))
 	var recommended := CraftFormRules.sanitize(str(_current_context.get("recommended_form", CraftFormRules.FIGHTER)))
 	form = recommended if AltitudeRules.supports_form(altitude, recommended) else CraftFormRules.FIGHTER
+	ProgressionRules.set_current_tech_era(str(_current_context.get("tech_era", "advanced_conventional")))
 	_cooldown = 0.0
 	_next_altitude_transition = 0
 
