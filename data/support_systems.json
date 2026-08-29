@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "supports": [
     {
       "id": "twin_rocket_pods",
@@ -47,6 +47,28 @@
       "cooldown": 1.25,
       "radius": 108.0,
       "max_targets": 6
+    },
+    {
+      "id": "emp_disruptor",
+      "name": "EMP Disruptor",
+      "type": "emp",
+      "cost": 18800,
+      "energy_cost": 34.0,
+      "cooldown": 5.5,
+      "radius": 178.0,
+      "duration": 2.8,
+      "max_targets": 10
+    },
+    {
+      "id": "magnetic_screen",
+      "name": "Magnetic Screen",
+      "type": "magnetic",
+      "cost": 25200,
+      "energy_cost": 28.0,
+      "cooldown": 7.5,
+      "radius": 92.0,
+      "duration": 2.4,
+      "max_targets": 12
     }
   ]
 }
