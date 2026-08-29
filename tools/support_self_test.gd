@@ -118,6 +118,7 @@ func _test_strategic_blast() -> void:
 		var source := runtime.get_as_text()
 		_expect(source.contains('bullet["strategic_burst"] = true'), "runtime should mark one-shot strategic burst")
 		_expect(source.contains("mini(StrategicWarheadRules.SECONDARY_DAMAGE, hp - 1)"), "strategic secondary blast must remain nonlethal")
+		_expect(source.contains("StrategicWarheadRules.BLAST_RADIUS"), "strategic blast presentation should use the gameplay radius")
 
 func _test_mission_intel() -> void:
 	var world = ContentCatalog.load_json("res://data/campaign_world.json")
@@ -126,12 +127,14 @@ func _test_mission_intel() -> void:
 	var contexts = world.get("mission_context", {})
 	var machine: Dictionary = contexts.get("m12_machine_ark", {})
 	var lines := MissionIntelRules.mission_lines(machine, "machine_ark")
-	_expect(lines.size() == 5, "mission intel should expose five compact tactical lines")
+	_expect(lines.size() == 6, "mission intel should expose six compact tactical lines including advice")
 	_expect(lines[0].contains("AUTONOMOUS NETWORK"), "Machine Ark intel should identify drone-war threat")
 	_expect(lines[1].contains("HIGH") and lines[1].contains("FTR") and lines[1].contains("ORB"), "Machine Ark intel should show high-altitude fighter strategic-era profile")
 	_expect(lines[2].contains("156S>ORB"), "Machine Ark intel should expose post-rearm orbital burn timing")
 	_expect(lines[3].contains("MACHINE ARK"), "mission intel should expose boss identity")
 	_expect(lines[4].contains("ATLAS TANKER") and lines[4].contains("ORBITAL STRIKE"), "mission intel should expose available allied assets")
+	_expect(lines[5].contains("ATLAS BEFORE ORBITAL BURN"), "Machine Ark intel should recommend tanker use before the orbital burn")
+	_expect(MissionIntelRules.support_recommendation(contexts.get("m02_refinery_run", {})).contains("HAMMER") or MissionIntelRules.support_recommendation(contexts.get("m02_refinery_run", {})).contains("SPECTRE"), "surface-strike intel should recommend a surface support asset")
 	_expect(MissionIntelRules.transition_summary([]) == "FIXED ENVELOPE", "fixed-altitude missions should report a fixed envelope")
 
 func _test_wiring() -> void:
@@ -148,7 +151,7 @@ func _test_wiring() -> void:
 		var source := director_file.get_as_text()
 		_expect(source.contains("if phase == 1 and _last_phase != 1:"), "fresh sortie should reset tactical cooldown state")
 		_expect(source.contains("_reset_sortie_state()"), "support owner should expose explicit sortie reset")
-		_expect(source.contains('"strategic_support": bool(support.get("strategic", false))'), "support projectiles should preserve strategic metadata")
+		_expect(source.contains('"strategic_support":bool(support.get("strategic",false))') or source.contains('"strategic_support": bool(support.get("strategic", false))'), "support projectiles should preserve strategic metadata")
 		_expect(source.contains('craft.call("refuel_afterburner_full")'), "Atlas rearm should refill afterburner reserve")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
