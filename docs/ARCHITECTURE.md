@@ -2,10 +2,10 @@
 
 ## Current layers
 
-- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, weapon tier composition, exact accuracy counters, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
+- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, weapon tier composition, exact accuracy counters, mission reward payout, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
 - `content_catalog.gd` owns JSON loading and content access helpers.
 - `combat_rules.gd`, `projectile_rules.gd`, `objective_rules.gd`, `progression_rules.gd` and the other `*_rules.gd` files own pure deterministic calculations.
-- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, result rewards, persistent service state and presentation overlays.
+- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, persistent service state and presentation overlays.
 - `campaign_save.gd` is the canonical campaign persistence boundary and maintains a validated backup save.
 - `data/` owns authored mission, enemy, weapon and campaign definitions.
 
@@ -82,20 +82,20 @@ Permanent and temporary weapon progression are represented separately at the sou
 
 The earlier `WeaponPickupDirector` mutate/restore reconciliation layer has been removed. A temporary pickup must never mutate persistent paid progression.
 
-## Accuracy ownership
+## Accuracy and reward ownership
 
-Accuracy is measured at the exact gameplay events that define it.
+Accuracy and payout are both resolved at their defining gameplay sources.
 
 - `shots_fired` and `shots_hit` are sortie-local scene counters.
 - Both counters reset to zero when a new sortie starts.
-- When primary fire creates `count` player projectiles, `shots_fired` increases by exactly `count`.
-- When a player bullet actually collides with an enemy in `_resolve_combat()`, `shots_hit` increases once for that bullet.
-- Screen bombs do not change either accuracy counter.
-- `RewardDirector` reads the finished sortie's `shots_fired` / `shots_hit` values directly and delegates bonus math to `RewardRules` / `AccuracyRules`.
+- Primary fire increments `shots_fired` by the exact number of projectiles created.
+- A player projectile collision increments `shots_hit` exactly once for that projectile.
+- Screen bombs do not affect accuracy counters.
+- `_finish_mission()` computes the complete successful payout exactly once before combat cleanup.
+- The payout combines score reward, objective bonus, no-damage bonus, boss bonus and accuracy bonus through `RewardRules` / `AccuracyRules`.
+- The result line is built from that same single payout calculation.
 
-The earlier `AccuracyDirector` input/timer/HP-snapshot inference layer has been removed. Accuracy must never be reconstructed after the frame when the exact fire and collision events are already available.
-
-`RewardDirector` still provides result-transition idempotency. Its applied marker is cleared whenever a new sortie enters PLAYING, so retrying the same mission can legitimately earn bonuses again while repeated processing of one RESULT cannot double-award them.
+The earlier `AccuracyDirector` HP-snapshot inference layer and `RewardDirector` result-transition/idempotency layer have both been removed. `_finish_mission()` already guards against repeated RESULT entry, so there is no second reward owner and retries naturally receive a fresh payout only when they complete a fresh sortie.
 
 ## Projectile ownership
 
@@ -124,11 +124,11 @@ Systems should exchange compact state/events rather than infer behavior from unr
 - Permanent paid weapon progression is never mutated by sortie pickups.
 - Temporary weapon boosts are explicit sortie state and never persisted.
 - Accuracy counters are incremented at projectile creation/collision source and never inferred after the frame.
+- Successful mission payout is calculated and applied exactly once in `_finish_mission()`.
 - Homing metadata is created with the projectile, not inferred later.
 - Mission hull/shield/wave are initialized correctly at source, not corrected later.
 - Required boss overtime is explicit, bounded and cannot hang indefinitely.
 - Screen bombs cannot kill or remove required bosses.
-- A new sortie resets reward idempotency so retries can earn legitimate bonuses once.
 - Content IDs are stable and unique.
 - Production art can replace prototype drawing without changing game rules.
 - Campaign state must never depend on GitHub Actions, cloud CI or network availability.
