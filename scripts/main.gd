@@ -12,6 +12,8 @@ const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
 const WeaponPickupRules = preload("res://scripts/weapon_pickup_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
+const ServiceRules = preload("res://scripts/service_rules.gd")
+const EnergyRules = preload("res://scripts/energy_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
@@ -28,12 +30,16 @@ var mission_duration := 150.0
 var score := 0
 var hull := 100
 var shield := 100
+var service_hull := 100
+var service_shield := 100
 var wave := 1
 var bombs := 3
 var credits := 0
 var mission_index := 0
 var weapon_index := 0
+var generator_index := 0
 var temporary_weapon_boost := 0
+var energy := 100.0
 var shots_fired := 0
 var shots_hit := 0
 var boss_spawned := false
@@ -52,6 +58,7 @@ var enemies: Array = []
 var pickups: Array = []
 var enemy_catalog: Array = []
 var weapon_catalog: Array = []
+var generator_catalog: Array = []
 var mission_catalog: Array = []
 var spawn_profiles: Array = []
 var campaign: Dictionary = {}
@@ -71,6 +78,12 @@ func _process(delta: float) -> void:
 				_start_mission()
 			elif Input.is_action_just_pressed("upgrade"):
 				_try_buy_next_weapon()
+			elif Input.is_action_just_pressed("upgrade_generator"):
+				_try_buy_next_generator()
+			elif Input.is_action_just_pressed("service_hull"):
+				_service_hull_full()
+			elif Input.is_action_just_pressed("service_shield"):
+				_service_shield_full()
 		GamePhase.PLAYING:
 			_update_mission(delta)
 			if Input.is_action_just_pressed("cancel"):
@@ -91,6 +104,7 @@ func _update_mission(delta: float) -> void:
 	fire_timer = maxf(0.0, fire_timer - delta)
 	secondary_timer = maxf(0.0, secondary_timer - delta)
 	enemy_spawn_timer -= delta
+	energy = EnergyRules.recharge(energy, _active_generator(), delta)
 	wave = MissionStateRules.live_wave(_active_mission(), mission_time)
 	_update_player(delta)
 	_update_weapons()
@@ -121,16 +135,21 @@ func _update_mission(delta: float) -> void:
 func _load_content() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
 	var weapons_data = ContentCatalog.load_json("res://data/weapons.json")
+	var generators_data = ContentCatalog.load_json("res://data/generators.json")
 	var missions_data = ContentCatalog.load_json("res://data/missions.json")
 	var spawn_data = ContentCatalog.load_json("res://data/spawn_profiles.json")
 	var campaign_data = ContentCatalog.load_json("res://data/campaign.json")
 	if typeof(enemies_data) == TYPE_DICTIONARY: enemy_catalog = enemies_data.get("enemies", [])
 	if typeof(weapons_data) == TYPE_DICTIONARY: weapon_catalog = weapons_data.get("weapons", [])
+	if typeof(generators_data) == TYPE_DICTIONARY: generator_catalog = generators_data.get("generators", [])
 	if typeof(missions_data) == TYPE_DICTIONARY: mission_catalog = missions_data.get("missions", [])
 	if typeof(spawn_data) == TYPE_DICTIONARY: spawn_profiles = spawn_data.get("profiles", [])
 	if typeof(campaign_data) == TYPE_DICTIONARY:
 		campaign = campaign_data
-		credits = int(campaign.get("campaign", campaign).get("starting_credits", 0))
+		var cfg := _campaign_config()
+		credits = int(cfg.get("starting_credits", 0))
+		service_hull = MissionStateRules.starting_hull(cfg, 100)
+		service_shield = MissionStateRules.starting_shield(cfg, 100)
 
 func _prepare_mission(index: int) -> void:
 	if mission_catalog.is_empty():
@@ -162,27 +181,25 @@ func _campaign_config() -> Dictionary:
 	var nested = campaign.get("campaign", campaign)
 	return nested if typeof(nested) == TYPE_DICTIONARY else {}
 
-func _service_value(method_name: String, fallback: int) -> int:
-	var director := get_node_or_null("/root/ServiceDirector")
-	if director != null and director.has_method(method_name):
-		return int(director.call(method_name))
-	return fallback
+func _max_hull() -> int:
+	return MissionStateRules.starting_hull(_campaign_config(), 100)
+
+func _max_shield() -> int:
+	return MissionStateRules.starting_shield(_campaign_config(), 100)
 
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
-	var campaign_cfg := _campaign_config()
-	var max_hull := MissionStateRules.starting_hull(campaign_cfg, 100)
-	var max_shield := MissionStateRules.starting_shield(campaign_cfg, 100)
 	phase = GamePhase.PLAYING
 	mission_time = 0.0
 	score = 0
 	shots_fired = 0
 	shots_hit = 0
-	hull = clampi(_service_value("service_hull", max_hull), 1, max_hull)
-	shield = clampi(_service_value("service_shield", max_shield), 0, max_shield)
+	hull = clampi(service_hull, 1, _max_hull())
+	shield = clampi(service_shield, 0, _max_shield())
 	bombs = 3
 	wave = MissionStateRules.starting_wave(_active_mission())
 	temporary_weapon_boost = 0
+	energy = EnergyRules.capacity(_active_generator())
 	boss_spawned = false
 	enemy_spawn_timer = 0.35
 	player_position = Vector2(320.0, 292.0)
@@ -197,11 +214,10 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 		var base_reward := ProgressionRules.mission_reward(score)
 		var objective_bonus := ObjectiveRules.bonus_credits(current_objectives, objective_progress)
 		var progression: Dictionary = campaign.get("progression", {}) if typeof(campaign) == TYPE_DICTIONARY else {}
-		var starting_hull := MissionStateRules.starting_hull(_campaign_config(), 100)
 		var extras := RewardRules.extra_success_bonus(
 			progression,
 			hull,
-			starting_hull,
+			_max_hull(),
 			current_boss_id,
 			current_objectives,
 			objective_progress,
@@ -211,6 +227,8 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 		var extra_total := int(extras.get("total", 0))
 		var total_reward := base_reward + objective_bonus + extra_total
 		credits += total_reward
+		service_hull = clampi(hull, 1, _max_hull())
+		service_shield = clampi(shield, 0, _max_shield())
 		result_text = "MISSION COMPLETE  +%d" % total_reward
 		var parts: Array[String] = []
 		if objective_bonus > 0:
@@ -244,9 +262,14 @@ func _primary_weapons() -> Array:
 
 func _active_weapon() -> Dictionary:
 	var primaries := _primary_weapons()
-	if primaries.is_empty(): return {"name":"Twin Cannon Mk I","damage":1,"fire_interval":0.11,"projectile_speed":430.0,"projectiles":2,"spread_degrees":0.0,"cost":0}
+	if primaries.is_empty(): return {"name":"Twin Cannon Mk I","damage":1,"fire_interval":0.11,"projectile_speed":430.0,"projectiles":2,"spread_degrees":0.0,"energy_cost":0.0,"cost":0}
 	var effective_index := WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost, primaries.size())
 	return primaries[effective_index]
+
+func _active_generator() -> Dictionary:
+	if generator_catalog.is_empty():
+		return {"name":"Field Coil Mk I","capacity":100.0,"recharge_per_second":26.0,"cost":0}
+	return generator_catalog[clampi(generator_index, 0, generator_catalog.size() - 1)]
 
 func _try_buy_next_weapon() -> void:
 	var primaries := _primary_weapons()
@@ -259,6 +282,53 @@ func _try_buy_next_weapon() -> void:
 		status_text = "MAXIMUM PRIMARY LOADOUT" if primaries.is_empty() or next_index == weapon_index else "NEED %d CREDITS" % int(primaries[next_index].get("cost", 0))
 	status_timer = 2.0
 
+func _try_buy_next_generator() -> void:
+	var result := ProgressionRules.next_weapon_index(generator_index, generator_catalog, credits)
+	if bool(result["changed"]):
+		generator_index = int(result["index"])
+		credits = int(result["credits"])
+		status_text = "GENERATOR PURCHASED: %s" % str(_active_generator().get("name", "GENERATOR")).to_upper()
+	else:
+		var next_index := clampi(generator_index + 1, 0, maxi(0, generator_catalog.size() - 1))
+		status_text = "MAXIMUM GENERATOR" if generator_catalog.is_empty() or next_index == generator_index else "GENERATOR NEEDS %d CREDITS" % int(generator_catalog[next_index].get("cost", 0))
+	status_timer = 2.0
+
+func _service_hull_full() -> void:
+	var cfg := _campaign_config()
+	var result := ServiceRules.service_full(credits, service_hull, _max_hull(), int(cfg.get("repair_cost_per_hull", 0)))
+	if bool(result.get("changed", false)):
+		service_hull = int(result["value"])
+		credits = int(result["credits"])
+		status_text = "HULL SERVICED -%d" % int(result["cost"])
+	else:
+		status_text = _service_failure("HULL", result)
+	status_timer = 3.0
+
+func _service_shield_full() -> void:
+	var cfg := _campaign_config()
+	var result := ServiceRules.service_full(credits, service_shield, maxi(1, _max_shield()), int(cfg.get("shield_recharge_cost_per_point", 0)))
+	if bool(result.get("changed", false)):
+		service_shield = mini(_max_shield(), int(result["value"]))
+		credits = int(result["credits"])
+		status_text = "SHIELD RECHARGED -%d" % int(result["cost"])
+	else:
+		status_text = _service_failure("SHIELD", result)
+	status_timer = 3.0
+
+func _service_failure(label: String, result: Dictionary) -> String:
+	var reason := str(result.get("reason", "NO_CHANGE"))
+	if reason == "FULL": return "%s ALREADY FULL" % label
+	if reason == "INSUFFICIENT_CREDITS": return "%s SERVICE NEEDS %d CREDITS" % [label, int(result.get("cost", 0))]
+	return "%s SERVICE UNAVAILABLE" % label
+
+func _service_status() -> String:
+	var cfg := _campaign_config()
+	var hull_cost := ServiceRules.service_cost(service_hull, _max_hull(), int(cfg.get("repair_cost_per_hull", 0)))
+	var shield_cost := ServiceRules.service_cost(service_shield, maxi(1, _max_shield()), int(cfg.get("shield_recharge_cost_per_point", 0)))
+	var hull_quote := "FULL" if hull_cost <= 0 else str(hull_cost)
+	var shield_quote := "FULL" if shield_cost <= 0 else str(shield_cost)
+	return "AIRFRAME H%03d S%03d  H REPAIR %s  J SHIELD %s" % [service_hull, service_shield, hull_quote, shield_quote]
+
 func _update_player(delta: float) -> void:
 	var movement := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	player_position += movement * PLAYER_SPEED * delta
@@ -267,8 +337,9 @@ func _update_player(delta: float) -> void:
 
 func _update_weapons() -> void:
 	var weapon := _active_weapon()
-	if Input.is_action_pressed("fire_primary") and fire_timer <= 0.0:
+	if Input.is_action_pressed("fire_primary") and fire_timer <= 0.0 and EnergyRules.can_fire(energy, weapon):
 		fire_timer = float(weapon.get("fire_interval", 0.11))
+		energy = EnergyRules.consume(energy, weapon)
 		var count := maxi(1, int(weapon.get("projectiles", 1)))
 		shots_fired += count
 		var spread := float(weapon.get("spread_degrees", 0.0))
@@ -411,8 +482,8 @@ func _maybe_drop_pickup(position: Vector2, guaranteed := false) -> void:
 
 func _apply_pickup(kind: String) -> void:
 	match kind:
-		"shield": shield = mini(100, shield + 35)
-		"repair": hull = mini(100, hull + 25)
+		"shield": shield = mini(_max_shield(), shield + 35)
+		"repair": hull = mini(_max_hull(), hull + 25)
 		"bomb": bombs = mini(5, bombs + 1)
 		"weapon":
 			var primaries := _primary_weapons()
@@ -489,6 +560,7 @@ func _configure_input() -> void:
 	_add_key_action("move_left",KEY_A); _add_key_action("move_left",KEY_LEFT); _add_key_action("move_right",KEY_D); _add_key_action("move_right",KEY_RIGHT)
 	_add_key_action("move_up",KEY_W); _add_key_action("move_up",KEY_UP); _add_key_action("move_down",KEY_S); _add_key_action("move_down",KEY_DOWN)
 	_add_key_action("fire_primary",KEY_SPACE); _add_key_action("fire_secondary",KEY_X); _add_key_action("confirm",KEY_ENTER); _add_key_action("cancel",KEY_ESCAPE); _add_key_action("restart",KEY_R); _add_key_action("upgrade",KEY_U)
+	_add_key_action("upgrade_generator",KEY_G); _add_key_action("service_hull",KEY_H); _add_key_action("service_shield",KEY_J)
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action): InputMap.add_action(action)
@@ -509,13 +581,15 @@ func _draw() -> void:
 	_draw_gameplay()
 
 func _draw_title() -> void:
-	draw_string(ThemeDB.fallback_font,Vector2(0,72),"STRIKE WING '94",HORIZONTAL_ALIGNMENT_CENTER,640,30,Color("e3e6e8"))
-	draw_string(ThemeDB.fallback_font,Vector2(0,116),current_mission_name,HORIZONTAL_ALIGNMENT_CENTER,640,18,Color("f0d87a"))
-	draw_string(ThemeDB.fallback_font,Vector2(80,150),current_briefing,HORIZONTAL_ALIGNMENT_CENTER,480,13,Color("8997a1"))
-	draw_string(ThemeDB.fallback_font,Vector2(24,192),_objective_summary(),HORIZONTAL_ALIGNMENT_CENTER,592,10,Color("a8b5bd"))
-	draw_string(ThemeDB.fallback_font,Vector2(0,230),"ENTER LAUNCH    U UPGRADE",HORIZONTAL_ALIGNMENT_CENTER,640,14,Color("d8dde2"))
+	draw_string(ThemeDB.fallback_font,Vector2(0,62),"STRIKE WING '94",HORIZONTAL_ALIGNMENT_CENTER,640,30,Color("e3e6e8"))
+	draw_string(ThemeDB.fallback_font,Vector2(0,103),current_mission_name,HORIZONTAL_ALIGNMENT_CENTER,640,18,Color("f0d87a"))
+	draw_string(ThemeDB.fallback_font,Vector2(80,133),current_briefing,HORIZONTAL_ALIGNMENT_CENTER,480,13,Color("8997a1"))
+	draw_string(ThemeDB.fallback_font,Vector2(24,170),_objective_summary(),HORIZONTAL_ALIGNMENT_CENTER,592,10,Color("a8b5bd"))
+	draw_string(ThemeDB.fallback_font,Vector2(0,207),"ENTER LAUNCH   U WEAPON   G GENERATOR   H/J SERVICE",HORIZONTAL_ALIGNMENT_CENTER,640,11,Color("d8dde2"))
 	var weapon := _active_weapon()
-	draw_string(ThemeDB.fallback_font,Vector2(0,258),"%s   CREDITS %06d" % [str(weapon.get("name","CANNON")).to_upper(),credits],HORIZONTAL_ALIGNMENT_CENTER,640,12,Color("8997a1"))
+	var generator := _active_generator()
+	draw_string(ThemeDB.fallback_font,Vector2(0,236),"%s   %s   CREDITS %06d" % [str(weapon.get("name","CANNON")).to_upper(),str(generator.get("name","GENERATOR")).to_upper(),credits],HORIZONTAL_ALIGNMENT_CENTER,640,10,Color("8997a1"))
+	draw_string(ThemeDB.fallback_font,Vector2(0,260),_service_status(),HORIZONTAL_ALIGNMENT_CENTER,640,10,Color("8997a1"))
 	if status_timer > 0: draw_string(ThemeDB.fallback_font,Vector2(0,306),status_text,HORIZONTAL_ALIGNMENT_CENTER,640,12,Color("72c7b2"))
 
 func _draw_result() -> void:
@@ -543,6 +617,7 @@ func _draw_gameplay() -> void:
 	draw_colored_polygon(PackedVector2Array([p+Vector2(0,-18),p+Vector2(-16,13),p+Vector2(0,8),p+Vector2(16,13)]),Color("d8dde2"))
 	draw_rect(Rect2(8,8,624,52),Color("080b0f"))
 	var remaining := maxi(0,int(ceil(mission_duration-mission_time)))
-	draw_string(ThemeDB.fallback_font,Vector2(16,26),"H%03d S%03d B%01d W%02d T%03d %08d" % [hull,shield,bombs,wave,remaining,score],HORIZONTAL_ALIGNMENT_LEFT,-1,15,Color("e3e6e8"))
-	draw_string(ThemeDB.fallback_font,Vector2(16,43),"%s  %s" % [current_mission_name,str(_active_weapon().get("name","CANNON")).to_upper()],HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color("8997a1"))
+	var energy_pct := int(round(EnergyRules.normalized(energy, _active_generator()) * 100.0))
+	draw_string(ThemeDB.fallback_font,Vector2(16,26),"H%03d S%03d E%03d B%01d W%02d T%03d %08d" % [hull,shield,energy_pct,bombs,wave,remaining,score],HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("e3e6e8"))
+	draw_string(ThemeDB.fallback_font,Vector2(16,43),"%s  %s  %s" % [current_mission_name,str(_active_weapon().get("name","CANNON")).to_upper(),str(_active_generator().get("name","GENERATOR")).to_upper()],HORIZONTAL_ALIGNMENT_LEFT,-1,9,Color("8997a1"))
 	draw_string(ThemeDB.fallback_font,Vector2(16,57),_objective_summary(),HORIZONTAL_ALIGNMENT_LEFT,608,9,Color("a8b5bd"))
