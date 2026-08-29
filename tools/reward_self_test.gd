@@ -25,7 +25,7 @@ func _initialize() -> void:
 	_expect(AccuracyRules.bonus(progression, 0, 0) == 0, "zero-shot sortie must not earn accuracy bonus")
 	var combined := RewardRules.extra_success_bonus(progression, 100, 100, "gunship_alpha", objectives, complete, 100, 72)
 	_expect(int(combined.get("total", 0)) == 2350, "authored no-damage, boss and accuracy bonuses should combine without base reward")
-	_test_reward_lifecycle_source()
+	_test_reward_source_ownership()
 	if failures.is_empty():
 		print("Strike Wing reward self-test passed.")
 		quit(0)
@@ -34,19 +34,23 @@ func _initialize() -> void:
 		push_error(failure)
 	quit(1)
 
-func _test_reward_lifecycle_source() -> void:
-	var file := FileAccess.open("res://scripts/reward_director.gd", FileAccess.READ)
-	_expect(file != null, "reward_director.gd should be readable for lifecycle checks")
-	if file == null:
-		return
-	var source := file.get_as_text()
-	_expect(source.contains("if phase == 1 and _last_phase != 1:"), "fresh sortie should reset reward idempotency")
-	_expect(source.contains("_applied_key = \"\""), "fresh sortie should clear applied reward key")
-	_expect(source.contains("elif phase == 2 and _last_phase != 2:"), "reward should apply only on result transition")
-	_expect(source.contains("if key == _applied_key:"), "same result key should remain idempotent")
-	_expect(source.contains("_applied_key = key"), "successful result should record applied reward key")
-	_expect(source.contains('scene.get("shots_fired")') and source.contains('scene.get("shots_hit")'), "reward should read source-owned accuracy counters")
-	_expect(not source.contains("AccuracyDirector"), "reward should not depend on accuracy reconciliation")
+func _test_reward_source_ownership() -> void:
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable for reward ownership checks")
+	if main_file != null:
+		var source := main_file.get_as_text()
+		_expect(source.contains("const RewardRules = preload"), "main should preload shared reward rules")
+		_expect(source.contains("func _finish_mission(success: bool"), "mission result source should own payout")
+		_expect(source.contains("RewardRules.extra_success_bonus("), "success source should calculate authored extra rewards directly")
+		_expect(source.contains("var total_reward := base_reward + objective_bonus + extra_total"), "success source should compose one total payout")
+		_expect(source.contains("credits += total_reward"), "success source should apply credits exactly once")
+		_expect(source.contains("MISSION COMPLETE  +%d"), "success source should format complete payout result")
+		_expect(source.contains("shots_fired") and source.contains("shots_hit"), "success payout should consume exact scene accuracy counters")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project != null, "project.godot should be readable for reward autoload checks")
+	if project != null:
+		_expect(not project.get_as_text().contains("RewardDirector"), "reward result-transition autoload should stay removed")
+	_expect(not FileAccess.file_exists("res://scripts/reward_director.gd"), "obsolete reward director file should remain deleted")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
