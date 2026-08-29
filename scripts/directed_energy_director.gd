@@ -32,11 +32,9 @@ func _process(_delta: float) -> void:
 				continue
 			var enemy: Dictionary = enemies[enemy_index]
 			var hp := maxi(0, int(enemy.get("hp", 0)))
-			if hp <= 0:
+			if hp <= 1:
 				continue
-			var damage := DirectedEnergyRules.SECONDARY_DAMAGE
-			if bool(enemy.get("boss", false)):
-				damage = mini(damage, maxi(0, hp - 1))
+			var damage := mini(DirectedEnergyRules.SECONDARY_DAMAGE, hp - 1)
 			enemy["hp"] = hp - damage
 			enemies[enemy_index] = enemy
 			enemies_changed = true
