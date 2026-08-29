@@ -3,7 +3,7 @@ extends Node
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
 const SAVE_PATH := "user://strike_wing_94_save.json"
 const BACKUP_PATH := "user://strike_wing_94_save.bak.json"
-const SAVE_VERSION := 3
+const SAVE_VERSION := 4
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 
@@ -78,9 +78,17 @@ func _campaign_max(scene: Object, field: String, fallback: int) -> int:
 		return fallback
 	return int(cfg.get(field, fallback))
 
+func _support_state() -> Dictionary:
+	var director := get_node_or_null("/root/SupportDirector")
+	if director != null and director.has_method("support_state"):
+		var state = director.call("support_state")
+		return state if typeof(state) == TYPE_DICTIONARY else {}
+	return {"selected_index":0,"unlocked_index":0}
+
 func _snapshot(scene: Object) -> Dictionary:
 	var max_hull := maxi(1, _campaign_max(scene, "starting_hull", 100))
 	var max_shield := maxi(0, _campaign_max(scene, "starting_shield", 100))
+	var support := _support_state()
 	return {
 		"version": SAVE_VERSION,
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
@@ -88,7 +96,9 @@ func _snapshot(scene: Object) -> Dictionary:
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"service_hull": clampi(int(scene.get("service_hull")), 1, max_hull),
-		"service_shield": clampi(int(scene.get("service_shield")), 0, max_shield)
+		"service_shield": clampi(int(scene.get("service_shield")), 0, max_shield),
+		"support_selected": maxi(0, int(support.get("selected_index", 0))),
+		"support_unlocked": maxi(0, int(support.get("unlocked_index", 0)))
 	}
 
 func _signature(scene: Object) -> String:
@@ -141,5 +151,8 @@ func _restore(scene: Object) -> void:
 	scene.set("generator_index", generator_index)
 	scene.set("service_hull", service_hull)
 	scene.set("service_shield", service_shield)
+	var support_director := get_node_or_null("/root/SupportDirector")
+	if support_director != null and support_director.has_method("restore_support_state"):
+		support_director.call("restore_support_state", int(parsed.get("support_selected", 0)), int(parsed.get("support_unlocked", 0)))
 	if scene.has_method("_prepare_mission"):
 		scene.call("_prepare_mission", mission_index)
