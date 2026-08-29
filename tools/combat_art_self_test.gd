@@ -10,6 +10,7 @@ func _initialize() -> void:
 	_test_transform_presentation()
 	_test_altitude_presentation()
 	_test_late_boss_silhouettes()
+	_test_airframe_cues()
 	if failures.is_empty():
 		print("Strike Wing combat art self-test passed.")
 		quit(0)
@@ -25,7 +26,9 @@ func _test_wiring() -> void:
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
-		_expect(project.get_as_text().contains('CombatArtDirector="*res://scripts/combat_art_director.gd"'), "combat art presentation should remain autoloaded")
+		var source := project.get_as_text()
+		_expect(source.contains('CombatArtDirector="*res://scripts/combat_art_director.gd"'), "combat art presentation should remain autoloaded")
+		_expect(source.contains('AirframeCueDirector="*res://scripts/airframe_cue_director.gd"'), "airframe progression cues should remain autoloaded")
 
 func _test_visual_language() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -82,6 +85,21 @@ func _test_late_boss_silhouettes() -> void:
 	_expect(source.contains("surface.draw_arc(p, 32.0"), "Phase Control Array should retain visible concentric array geometry")
 	_expect(source.contains("Rect2(p.x-50,p.y-11,100,22)"), "Station Warden should read as a wide cross-station structure")
 	_expect(source.contains("p+Vector2(-62,-4)") and source.contains("p+Vector2(68,-2)"), "Machine Ark should remain substantially wider/asymmetric than earlier bosses")
+
+func _test_airframe_cues() -> void:
+	var file := FileAccess.open("res://scripts/airframe_cue_director.gd", FileAccess.READ)
+	_expect(file != null, "airframe cue director should be readable")
+	if file == null:
+		return
+	var source := file.get_as_text()
+	_expect(source.contains("layer = 13"), "airframe cues should remain above combat silhouettes and below projectile/HUD layers")
+	_expect(source.contains('"ceramic_titanium_frame"') and source.contains("_draw_armor_strakes"), "ceramic-titanium frame should expose visible armor reinforcement")
+	_expect(source.contains('"reactive_alloy_frame"'), "reactive alloy frame should retain reinforced panel identity")
+	_expect(source.contains('"magneto_composite_frame"') and source.contains("_draw_magnetic_nodes"), "magneto-composite frame should expose restrained magnetic nodes")
+	_expect(source.contains('"field_coupled_frame"') and source.contains("_draw_field_lattice"), "field-coupled frame should expose visible field-lattice language")
+	_expect(source.contains('get_node_or_null("/root/AirframeDirector")'), "airframe cues must read the canonical persistent airframe owner")
+	for forbidden in ["Label.new()", "PanelContainer.new()", "ProgressBar.new()"]:
+		_expect(not source.contains(forbidden), "airframe cues must remain canvas-drawn pixel presentation: %s" % forbidden)
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
