@@ -4,6 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
+const STRATEGIC_SUPPORT_ID := "micro_warhead_rack"
 
 var support_catalog: Array = []
 var selected_index := 0
@@ -21,19 +22,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
 	var scene := get_tree().current_scene
-	if scene == null or not _supports(scene):
-		return
+	if scene == null or not _supports(scene): return
 	var phase := int(scene.get("phase"))
-	if phase == 1 and _last_phase != 1:
-		_reset_sortie_state()
+	if phase == 1 and _last_phase != 1: _reset_sortie_state()
 	if phase == 0:
 		_handle_title(scene)
 	elif phase == 1:
 		_update_emp_disruption(scene, delta)
 		_update_magnetic_field(scene, delta)
 		_update_hunter_projectiles(scene, delta)
-		if Input.is_action_just_pressed("fire_support"):
-			_activate(scene)
+		if Input.is_action_just_pressed("fire_support"): _activate(scene)
 	else:
 		_magnetic_timer = 0.0
 	_last_phase = phase
@@ -45,32 +43,27 @@ func _reset_sortie_state() -> void:
 
 func _load_catalog() -> void:
 	var data = ContentCatalog.load_json("res://data/support_systems.json")
-	if typeof(data) == TYPE_DICTIONARY:
-		support_catalog = data.get("supports", [])
+	if typeof(data) == TYPE_DICTIONARY: support_catalog = data.get("supports", [])
 	unlocked_index = SupportRules.sanitize_unlock(unlocked_index, support_catalog.size())
 	selected_index = SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size())
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
+	for property in scene.get_property_list(): names[str(property.get("name", ""))] = true
 	for required in ["phase", "credits", "energy", "bullets", "enemy_bullets", "enemies", "player_position", "shots_fired", "status_text", "status_timer"]:
-		if not names.has(required):
-			return false
+		if not names.has(required): return false
 	return true
 
 func current_support() -> Dictionary:
-	if support_catalog.is_empty():
-		return {}
+	if support_catalog.is_empty(): return {}
 	var index := SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size())
 	var item = support_catalog[index]
 	return item if typeof(item) == TYPE_DICTIONARY else {}
 
-func current_support_name() -> String:
-	return str(current_support().get("name", "NO SUPPORT"))
+func current_support_name() -> String: return str(current_support().get("name", "NO SUPPORT"))
 
 func support_state() -> Dictionary:
-	return {"selected_index": SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size()),"unlocked_index": SupportRules.sanitize_unlock(unlocked_index, support_catalog.size())}
+	return {"selected_index":SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size()),"unlocked_index":SupportRules.sanitize_unlock(unlocked_index, support_catalog.size())}
 
 func restore_support_state(saved_selected: int, saved_unlocked: int) -> void:
 	unlocked_index = SupportRules.sanitize_unlock(saved_unlocked, support_catalog.size())
@@ -80,14 +73,11 @@ func rearm_support() -> void:
 	_cooldown = 0.0
 	_magnetic_timer = 0.0
 	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
-	if strike != null and strike.has_method("rearm_full"):
-		strike.call("rearm_full")
+	if strike != null and strike.has_method("rearm_full"): strike.call("rearm_full")
 	var craft := get_node_or_null("/root/CraftFormDirector")
-	if craft != null and craft.has_method("refuel_afterburner_full"):
-		craft.call("refuel_afterburner_full")
+	if craft != null and craft.has_method("refuel_afterburner_full"): craft.call("refuel_afterburner_full")
 
-func magnetic_active() -> bool:
-	return _magnetic_timer > 0.0
+func magnetic_active() -> bool: return _magnetic_timer > 0.0
 
 func _handle_title(scene: Object) -> void:
 	if Input.is_action_just_pressed("cycle_support"):
@@ -121,14 +111,12 @@ func _current_tech_era() -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
 	if director != null and director.has_method("mission_context"):
 		var context = director.call("mission_context")
-		if typeof(context) == TYPE_DICTIONARY:
-			return str(context.get("tech_era", "advanced_conventional"))
+		if typeof(context) == TYPE_DICTIONARY: return str(context.get("tech_era", "advanced_conventional"))
 	return "advanced_conventional"
 
 func _craft_energy_multiplier() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
-	if director != null and director.has_method("support_energy_multiplier"):
-		return clampf(float(director.call("support_energy_multiplier")), 0.25, 2.0)
+	if director != null and director.has_method("support_energy_multiplier"): return clampf(float(director.call("support_energy_multiplier")), 0.25, 2.0)
 	return 1.0
 
 func _activate(scene: Object) -> void:
@@ -167,8 +155,10 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 	var speed := maxf(40.0, float(support.get("projectile_speed", 320.0)))
 	var damage := maxi(1, int(support.get("damage", 1)))
 	var angles := SupportRules.projectile_angles(support)
+	var support_id := str(support.get("id", "support"))
+	var strategic := bool(support.get("strategic", false)) or support_id == STRATEGIC_SUPPORT_ID
 	for angle in angles:
-		var bullet := {"position":origin,"velocity":Vector2.UP.rotated(float(angle))*speed,"damage":damage,"support":true,"support_id":str(support.get("id","support")),"strategic_support":bool(support.get("strategic",false))}
+		var bullet := {"position":origin,"velocity":Vector2.UP.rotated(float(angle))*speed,"damage":damage,"support":true,"support_id":support_id,"strategic_support":strategic}
 		if homing:
 			bullet["support_homing"] = true
 			bullet["turn_rate"] = maxf(0.1, float(support.get("turn_rate", 2.4)))
@@ -209,7 +199,7 @@ func _update_emp_disruption(scene: Object, delta: float) -> void:
 			if enemy.has("emp_base_speed"):
 				enemy["speed"] = float(enemy["emp_base_speed"])
 				enemy.erase("emp_base_speed")
-			enemy.erase("emp_slow_scale")
+				enemy.erase("emp_slow_scale")
 			enemy.erase("emp_timer")
 		enemies[i] = enemy; changed = true
 	if changed: scene.set("enemies", enemies)
