@@ -18,7 +18,9 @@ func _process(_delta: float) -> void:
 		return
 
 	var phase := int(scene.get("phase"))
-	if phase == 2 and _last_phase != 2:
+	if phase == 1 and _last_phase != 1:
+		_applied_key = ""
+	elif phase == 2 and _last_phase != 2:
 		_apply_result_bonus(scene)
 	_last_phase = phase
 
