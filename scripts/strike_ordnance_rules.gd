@@ -7,6 +7,8 @@ const LOW_IMPACT_DELAY := 0.30
 const MID_IMPACT_DELAY := 0.52
 const LOW_AIM_RADIUS := 24.0
 const MID_AIM_RADIUS := 38.0
+const LOW_ASSIST_RADIUS := 46.0
+const MID_ASSIST_RADIUS := 26.0
 const LOW_BLAST_RADIUS := 44.0
 const MID_BLAST_RADIUS := 36.0
 const LOW_DAMAGE := 22
@@ -26,11 +28,35 @@ static func target_point(player_position: Vector2, altitude: String) -> Vector2:
 	var lead := 52.0 if altitude == "low" else 84.0
 	return Vector2(player_position.x, player_position.y - lead)
 
+static func assisted_target_point(player_position: Vector2, altitude: String, enemies: Array) -> Vector2:
+	var projected := target_point(player_position, altitude)
+	var radius := LOW_ASSIST_RADIUS if altitude == "low" else MID_ASSIST_RADIUS
+	var radius_sq := radius * radius
+	var best := projected
+	var best_distance := radius_sq
+	for enemy in enemies:
+		if typeof(enemy) != TYPE_DICTIONARY:
+			continue
+		if bool(enemy.get("boss", false)):
+			continue
+		var enemy_class := str(enemy.get("category", "air"))
+		if enemy_class not in ["ground", "sea"]:
+			continue
+		var position: Vector2 = enemy.get("position", Vector2.ZERO)
+		var distance := position.distance_squared_to(projected)
+		if distance <= best_distance:
+			best_distance = distance
+			best = position
+	return Vector2(roundf(best.x), roundf(best.y))
+
 static func impact_delay(altitude: String) -> float:
 	return LOW_IMPACT_DELAY if altitude == "low" else MID_IMPACT_DELAY
 
 static func aim_radius(altitude: String) -> float:
 	return LOW_AIM_RADIUS if altitude == "low" else MID_AIM_RADIUS
+
+static func assist_radius(altitude: String) -> float:
+	return LOW_ASSIST_RADIUS if altitude == "low" else MID_ASSIST_RADIUS
 
 static func blast_radius(altitude: String) -> float:
 	return LOW_BLAST_RADIUS if altitude == "low" else MID_BLAST_RADIUS
