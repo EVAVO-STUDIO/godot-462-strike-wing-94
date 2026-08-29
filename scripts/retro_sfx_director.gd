@@ -51,7 +51,9 @@ func _observe_gameplay() -> void:
 			_last_form = form
 		if craft.has_method("current_altitude"):
 			var altitude := str(craft.call("current_altitude"))
-			if _last_altitude != "" and altitude != _last_altitude: _trigger(RetroSfxRules.ALTITUDE_SHIFT)
+			if _last_altitude != "" and altitude != _last_altitude:
+				var direction := int(craft.call("altitude_transition_direction")) if craft.has_method("altitude_transition_direction") else 0
+				_trigger(RetroSfxRules.altitude_event(direction))
 			_last_altitude = altitude
 		if craft.has_method("afterburner_active"):
 			var active := bool(craft.call("afterburner_active"))
@@ -61,12 +63,24 @@ func _observe_gameplay() -> void:
 
 func _latest_shot_event(scene: Object) -> String:
 	var fallback := _active_weapon_id(scene)
+	var bomber_rotary := _bomber_rotary_deployed(scene)
 	if _has_property(scene, "bullets"):
 		var bullets = scene.get("bullets")
 		if typeof(bullets) == TYPE_ARRAY and not bullets.is_empty():
 			var latest = bullets[bullets.size() - 1]
-			if typeof(latest) == TYPE_DICTIONARY: return RetroSfxRules.event_for_projectile(latest, fallback)
-	return RetroSfxRules.event_for_weapon(fallback)
+			if typeof(latest) == TYPE_DICTIONARY:
+				return RetroSfxRules.event_for_projectile(latest, fallback, bomber_rotary)
+	return RetroSfxRules.event_for_primary(fallback, bomber_rotary)
+
+func _bomber_rotary_deployed(scene: Object) -> bool:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft == null or not craft.has_method("bomber_rotary_deployed"):
+		return false
+	if scene.has_method("_active_weapon"):
+		var weapon = scene.call("_active_weapon")
+		if typeof(weapon) == TYPE_DICTIONARY:
+			return bool(craft.call("bomber_rotary_deployed", weapon))
+	return false
 
 func _observe_missile_threat(scene: Object) -> void:
 	if not _has_property(scene, "enemy_bullets") or not _has_property(scene, "player_position"): return
@@ -123,6 +137,9 @@ func _wave_sample(kind: String, phase: float, progress: float) -> float:
 		"saw": return phase * 2.0 - 1.0
 		"noise": return _noise_sample() * (0.65 + 0.35 * sin(progress * PI))
 		"mechanical": return (1.0 if phase < 0.42 else -0.75) * (0.7 + 0.3 * _noise_sample())
+		"rotary":
+			var chop := 1.0 if fposmod(phase * 7.0, 1.0) < 0.42 else -0.75
+			return chop * 0.62 + _noise_sample() * 0.38
 	return sin(phase * TAU)
 
 func _noise_sample() -> float:
