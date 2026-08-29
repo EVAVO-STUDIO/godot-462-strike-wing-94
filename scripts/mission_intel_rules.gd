@@ -53,14 +53,29 @@ static func lane_summary(windows: Array) -> String:
 				bands.append(code)
 		if bands.is_empty():
 			continue
-		parts.append(
-			"%s %03d-%03dS" % [
-				"/".join(bands),
-				maxi(0, int(window.get("start_seconds", 0))),
-				maxi(0, int(window.get("end_seconds", 0)))
-			]
-		)
+		parts.append("%s %03d-%03dS" % ["/".join(bands), maxi(0, int(window.get("start_seconds", 0))), maxi(0, int(window.get("end_seconds", 0)))])
 	return "  ".join(parts) if not parts.is_empty() else "SCRIPTED / FIXED"
+
+static func route_opportunity_summary(beats: Array) -> String:
+	var routes: Array[String] = []
+	for beat in beats:
+		if typeof(beat) != TYPE_DICTIONARY:
+			continue
+		var condition = beat.get("condition", {})
+		if typeof(condition) != TYPE_DICTIONARY:
+			continue
+		var kind := str(condition.get("type", ""))
+		var code := ""
+		match kind:
+			"altitude_form":
+				code = "%s+%s" % [altitude_code(str(condition.get("altitude", "mid"))), form_code(str(condition.get("form", "fighter")))]
+			"altitude_is":
+				code = altitude_code(str(condition.get("value", "mid")))
+			"form_is":
+				code = form_code(str(condition.get("value", "fighter")))
+		if code != "" and code not in routes:
+			routes.append(code)
+	return " / ".join(routes) if not routes.is_empty() else "NONE"
 
 static func support_recommendation(context: Dictionary) -> String:
 	var ids: Array = context.get("support", [])
@@ -83,12 +98,13 @@ static func support_recommendation(context: Dictionary) -> String:
 	if "orbital_strike" in ids: return "ORBITAL STRIKE FOR DENSE WAVES"
 	return "MISSION COMMANDER DISCRETION"
 
-static func mission_lines(context: Dictionary, boss_name: String) -> Array[String]:
+static func mission_lines(context: Dictionary, boss_name: String, beats: Array = []) -> Array[String]:
 	return [
 		"THREAT %s" % threat_name(str(context.get("threat_phase", "mercenary_war"))),
 		"ENVELOPE %s  CONFIG %s  TECH %s" % [altitude_code(str(context.get("altitude", "mid"))), form_code(str(context.get("recommended_form", "fighter"))), tech_code(str(context.get("tech_era", "advanced_conventional")))],
 		"PROFILE %s" % transition_summary(context.get("altitude_transitions", [])),
 		"LANES %s" % lane_summary(context.get("altitude_choice_windows", [])),
+		"ROUTES %s" % route_opportunity_summary(beats),
 		"BOSS %s" % boss_name.replace("_", " ").to_upper(),
 		"ALLIED %s" % support_summary(context.get("support", [])),
 		"ADVICE %s" % support_recommendation(context)
