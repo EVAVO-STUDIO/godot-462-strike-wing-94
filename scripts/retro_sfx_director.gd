@@ -4,6 +4,7 @@ const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const MIX_RATE := 22050.0
 const MAX_VOICES := 8
+const ROTARY_RETRIGGER_SECONDS := 0.09
 
 var _player: AudioStreamPlayer
 var _playback: AudioStreamGeneratorPlayback
@@ -14,6 +15,7 @@ var _last_altitude := ""
 var _last_afterburner := false
 var _last_missile_level := 0
 var _noise_state := 0x1345ABCD
+var _rotary_cooldown := 0.0
 
 func _ready() -> void:
 	process_priority = 220
@@ -27,7 +29,8 @@ func _ready() -> void:
 	_player.play()
 	_playback = _player.get_stream_playback() as AudioStreamGeneratorPlayback
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_rotary_cooldown = maxf(0.0, _rotary_cooldown - maxf(0.0, delta))
 	_observe_gameplay()
 	_fill_audio_buffer()
 
@@ -42,6 +45,7 @@ func _observe_gameplay() -> void:
 	if phase != 1:
 		_last_shots_fired = int(scene.get("shots_fired")) if _has_property(scene, "shots_fired") else 0
 		_last_missile_level = 0
+		_rotary_cooldown = 0.0
 		return
 
 	if _has_property(scene, "shots_fired"):
@@ -85,13 +89,14 @@ func _latest_shot_event(scene: Object) -> String:
 	return RetroSfxRules.event_for_primary(fallback, bomber_rotary)
 
 func _bomber_rotary_deployed(scene: Object) -> bool:
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
 	var craft := get_node_or_null("/root/CraftFormDirector")
-	if craft == null or not craft.has_method("bomber_rotary_deployed"):
+	if mounts == null or craft == null or not mounts.has_method("bomber_rotary_deployed") or not craft.has_method("current_form"):
 		return false
 	if scene.has_method("_active_weapon"):
 		var weapon = scene.call("_active_weapon")
 		if typeof(weapon) == TYPE_DICTIONARY:
-			return bool(craft.call("bomber_rotary_deployed", weapon))
+			return bool(mounts.call("bomber_rotary_deployed", str(craft.call("current_form")), weapon))
 	return false
 
 func _observe_missile_threat(scene: Object) -> void:
@@ -115,6 +120,10 @@ func _active_weapon_id(scene: Object) -> String:
 	return ""
 
 func _trigger(event_id: String) -> void:
+	if event_id == RetroSfxRules.FIRE_ROTARY:
+		if _rotary_cooldown > 0.0:
+			return
+		_rotary_cooldown = ROTARY_RETRIGGER_SECONDS
 	var spec := RetroSfxRules.voice(event_id)
 	if not RetroSfxRules.valid_voice(spec):
 		return
