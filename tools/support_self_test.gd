@@ -121,22 +121,32 @@ func _test_strategic_blast() -> void:
 
 func _test_mission_intel() -> void:
 	var world = ContentCatalog.load_json("res://data/campaign_world.json")
-	_expect(typeof(world) == TYPE_DICTIONARY, "campaign world should load for mission intel")
-	if typeof(world) != TYPE_DICTIONARY:
+	var missions = ContentCatalog.load_json("res://data/missions.json")
+	_expect(typeof(world) == TYPE_DICTIONARY and typeof(missions) == TYPE_DICTIONARY, "campaign world and mission data should load for mission intel")
+	if typeof(world) != TYPE_DICTIONARY or typeof(missions) != TYPE_DICTIONARY:
 		return
 	var contexts = world.get("mission_context", {})
+	var mission_map: Dictionary = {}
+	for mission in missions.get("missions", []):
+		if typeof(mission) == TYPE_DICTIONARY:
+			mission_map[str(mission.get("id", ""))] = mission
 	var machine: Dictionary = contexts.get("m12_machine_ark", {})
-	var lines := MissionIntelRules.mission_lines(machine, "machine_ark")
-	_expect(lines.size() == 7, "mission intel should expose threat, envelope, profile, lane, boss, support and advice lines")
+	var machine_beats: Array = mission_map.get("m12_machine_ark", {}).get("encounter_beats", [])
+	var lines := MissionIntelRules.mission_lines(machine, "machine_ark", machine_beats)
+	_expect(lines.size() == 8, "mission intel should expose threat, envelope, profile, lanes, routes, boss, support and advice")
 	_expect(lines[0].contains("AUTONOMOUS NETWORK"), "Machine Ark intel should identify drone-war threat")
 	_expect(lines[1].contains("HIGH") and lines[1].contains("FTR") and lines[1].contains("ORB"), "Machine Ark intel should show high-altitude fighter strategic-era profile")
 	_expect(lines[2].contains("156S>ORB"), "Machine Ark intel should expose post-rearm orbital burn timing")
 	_expect(lines[3].contains("SCRIPTED"), "Machine Ark should report scripted/fixed altitude lanes")
-	_expect(lines[4].contains("MACHINE ARK"), "mission intel should expose boss identity")
-	_expect(lines[5].contains("ATLAS TANKER") and lines[5].contains("ORBITAL STRIKE"), "mission intel should expose available allied assets")
-	_expect(lines[6].contains("ATLAS BEFORE ORBITAL BURN"), "Machine Ark intel should recommend tanker use before orbital burn")
+	_expect(lines[5].contains("MACHINE ARK"), "mission intel should expose boss identity")
+	_expect(lines[6].contains("ATLAS TANKER") and lines[6].contains("ORBITAL STRIKE"), "mission intel should expose available allied assets")
+	_expect(lines[7].contains("ATLAS BEFORE ORBITAL BURN"), "Machine Ark intel should recommend tanker use before orbital burn")
 	var refinery: Dictionary = contexts.get("m02_refinery_run", {})
+	var refinery_beats: Array = mission_map.get("m02_refinery_run", {}).get("encounter_beats", [])
 	_expect(MissionIntelRules.lane_summary(refinery.get("altitude_choice_windows", [])).contains("LOW/MID"), "surface-strike intel should expose selectable low/mid lanes")
+	_expect(MissionIntelRules.route_opportunity_summary(refinery_beats).contains("LOW+BMB"), "Refinery Run intel should advertise its LOW+BMB route opportunity")
+	var breakwater_beats: Array = mission_map.get("m04_breakwater", {}).get("encounter_beats", [])
+	_expect(MissionIntelRules.route_opportunity_summary(breakwater_beats).contains("HIGH+FTR"), "Breakwater intel should advertise its HIGH+FTR route opportunity")
 	_expect(MissionIntelRules.support_recommendation(refinery).contains("HAMMER") or MissionIntelRules.support_recommendation(refinery).contains("SPECTRE"), "surface-strike intel should recommend a surface support asset")
 
 func _test_wiring() -> void:
