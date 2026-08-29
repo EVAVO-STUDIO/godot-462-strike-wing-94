@@ -2,10 +2,10 @@
 
 ## Current layers
 
-- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
+- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
 - `content_catalog.gd` owns JSON loading and content access helpers.
 - `combat_rules.gd`, `projectile_rules.gd`, `objective_rules.gd`, `progression_rules.gd` and the other `*_rules.gd` files own pure deterministic calculations.
-- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, movement patterns, temporary weapon progression, rewards, persistent service state and presentation overlays.
+- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, temporary weapon progression, rewards, persistent service state and presentation overlays.
 - `campaign_save.gd` is the canonical campaign persistence boundary and maintains a validated backup save.
 - `data/` owns authored mission, enemy, weapon and campaign definitions.
 
@@ -54,9 +54,20 @@ The earlier `BombGuardDirector` hold/remove/restore workaround has been removed.
 
 Each mission owns a dedicated `RandomNumberGenerator` in `main.gd`. It is reseeded from `RunSeedRules.mission_seed(mission_index)` whenever the mission launches or retries.
 
-Gameplay randomness for enemy selection, spawn position, drift, turn rate, phase, initial fire timing and pickup rolls must use that mission-local generator. `RunSeedDirector` may expose/report the current seed, but it must not mutate Godot's global RNG.
+Gameplay randomness for enemy selection, spawn position, drift, turn rate, phase, initial fire timing and pickup rolls must use that mission-local generator. `RunSeedRules` is the single seed definition; the earlier reporting-only `RunSeedDirector` has been removed so there is no second runtime seed owner.
 
 Spawn selection is fail-closed: if no authored spawn profile matches the active environment/wave, `_spawn_candidates()` returns no candidates. It must never broaden to every non-boss archetype.
+
+## Enemy movement ownership
+
+Normal enemy movement is applied directly in `_update_enemies()`.
+
+- Each spawned enemy retains its authored `pattern` and initial `pattern_anchor_x`.
+- `MovementPatternRules.adjusted_position()` is applied exactly once per normal-enemy frame after base vertical travel.
+- `MovementPatternRules.clamp_x()` keeps authored motion inside the playfield.
+- Bosses remain under the existing boss-specific runtime behavior and are not routed through normal-enemy patterns.
+
+The earlier `MovementPatternDirector` catalogue lookup/post-frame adjustment layer has been removed. Movement metadata travels with the spawned enemy instead of being rediscovered every frame.
 
 ## Projectile ownership
 
@@ -79,8 +90,9 @@ Systems should exchange compact state/events rather than infer behavior from unr
 ## Invariants
 
 - Damage arithmetic remains deterministic and independent of rendering.
-- Mission gameplay randomness is isolated from the global RNG.
+- Mission gameplay randomness is isolated from the global RNG and owned directly by the mission scene.
 - Missing spawn configuration fails closed.
+- Normal enemies retain authored movement metadata and are moved once per frame at source.
 - Homing metadata is created with the projectile, not inferred later.
 - Mission hull/shield/wave are initialized correctly at source, not corrected later.
 - Required boss overtime is explicit, bounded and cannot hang indefinitely.
