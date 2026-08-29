@@ -9,29 +9,87 @@
       "projectile_speed": 430.0,
       "projectiles": 2,
       "spread_degrees": 0.0,
+      "energy_cost": 3,
+      "archetype": "balanced",
       "cost": 0
+    },
+    {
+      "id": "spread_vulcan",
+      "name": "Spread Vulcan",
+      "slot": "primary",
+      "damage": 1,
+      "fire_interval": 0.14,
+      "projectile_speed": 420.0,
+      "projectiles": 3,
+      "spread_degrees": 14.0,
+      "energy_cost": 5,
+      "archetype": "spread",
+      "cost": 2600
+    },
+    {
+      "id": "pulse_repeater",
+      "name": "Pulse Repeater",
+      "slot": "primary",
+      "damage": 1,
+      "fire_interval": 0.075,
+      "projectile_speed": 475.0,
+      "projectiles": 2,
+      "spread_degrees": 3.0,
+      "energy_cost": 5,
+      "archetype": "rapid",
+      "cost": 4800
     },
     {
       "id": "triple_cannon",
       "name": "Triple Cannon",
       "slot": "primary",
-      "damage": 1,
-      "fire_interval": 0.13,
+      "damage": 2,
+      "fire_interval": 0.16,
       "projectile_speed": 440.0,
       "projectiles": 3,
       "spread_degrees": 9.0,
-      "cost": 4200
+      "energy_cost": 8,
+      "archetype": "burst",
+      "cost": 7200
     },
     {
       "id": "heavy_autocannon",
       "name": "Heavy Autocannon",
       "slot": "primary",
-      "damage": 3,
-      "fire_interval": 0.22,
+      "damage": 5,
+      "fire_interval": 0.24,
       "projectile_speed": 390.0,
       "projectiles": 1,
       "spread_degrees": 0.0,
-      "cost": 7800
+      "energy_cost": 9,
+      "archetype": "heavy",
+      "cost": 9800
+    },
+    {
+      "id": "needle_rail",
+      "name": "Needle Rail",
+      "slot": "primary",
+      "damage": 4,
+      "fire_interval": 0.18,
+      "projectile_speed": 590.0,
+      "projectiles": 1,
+      "spread_degrees": 0.0,
+      "energy_cost": 11,
+      "archetype": "precision",
+      "cost": 13200
+    },
+    {
+      "id": "storm_cannon",
+      "name": "Storm Cannon",
+      "slot": "primary",
+      "damage": 2,
+      "fire_interval": 0.095,
+      "projectile_speed": 455.0,
+      "projectiles": 4,
+      "spread_degrees": 16.0,
+      "energy_cost": 14,
+      "archetype": "endgame",
+      "cost": 17800
     },
     {
       "id": "screen_bomb",
@@ -42,6 +100,8 @@
       "projectile_speed": 0.0,
       "projectiles": 1,
       "spread_degrees": 0.0,
+      "energy_cost": 0,
+      "archetype": "screen_clear",
       "cost": 1200
     }
   ]
