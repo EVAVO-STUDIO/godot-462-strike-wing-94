@@ -7,6 +7,7 @@ var failures: Array[String] = []
 func _initialize() -> void:
 	_test_wiring()
 	_test_visual_language()
+	_test_transform_presentation()
 	if failures.is_empty():
 		print("Strike Wing combat art self-test passed.")
 		quit(0)
@@ -41,6 +42,18 @@ func _test_visual_language() -> void:
 	_expect(source.contains("layer = 12"), "combat art should remain below tactical ordnance/HUD layers")
 	for forbidden in ["Label.new()", "PanelContainer.new()", "ProgressBar.new()"]:
 		_expect(not source.contains(forbidden), "combat art must remain hard-edged canvas drawing: %s" % forbidden)
+
+func _test_transform_presentation() -> void:
+	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
+	_expect(file != null, "combat art director should be readable for transform checks")
+	if file == null:
+		return
+	var source := file.get_as_text()
+	_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.34"), "variable geometry sweep should remain short and mechanical")
+	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
+	_expect(source.contains("func _draw_transforming"), "intermediate wing geometry should have dedicated rendering")
+	_expect(source.contains("lerpf(17.0, 29.0, t)"), "wing span should visibly expand between fighter and bomber")
+	_expect(source.contains("Mechanical hinge marks"), "transforming silhouette should retain visible variable-geometry hinge language")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
