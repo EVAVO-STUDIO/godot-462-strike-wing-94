@@ -253,6 +253,9 @@ func altitude_transition_to() -> String:
 	return _altitude_transition_to
 
 func _try_transform(scene: Object) -> void:
+	if _altitude_transition_timer > 0.0:
+		_set_status(scene, "GEOMETRY LOCK - ALTITUDE TRANSITION")
+		return
 	if _cooldown > 0.0:
 		return
 	var candidate := CraftFormRules.toggle(form)
@@ -308,25 +311,25 @@ func support_energy_multiplier() -> float:
 	return CraftFormRules.support_energy_multiplier(form)
 
 func primary_mount_offsets(weapon: Dictionary, projectile_count: int) -> Array[Vector2]:
-	var result: Array[Vector2] = []
-	var count := maxi(1, projectile_count)
-	var archetype := str(weapon.get("archetype", "balanced"))
-	var centerline := archetype in ["precision_kinetic", "directed_energy_pulse", "strategic_plasma"] or count == 1
-	if form == CraftFormRules.BOMBER and not centerline:
-		for i in range(count):
-			var x := 0.0 if count == 1 else lerpf(-2.5, 2.5, float(i) / float(count - 1))
-			result.append(Vector2(roundf(x), -27.0))
-		return result
-	if form == CraftFormRules.FIGHTER and not centerline:
-		for i in range(count):
-			var x := 0.0 if count == 1 else lerpf(-13.0, 13.0, float(i) / float(count - 1))
-			result.append(Vector2(roundf(x), -12.0))
-		return result
-	for _i in range(count):
-		result.append(Vector2(0.0, -19.0 if form == CraftFormRules.FIGHTER else -24.0))
-	return result
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
+	if mounts != null and mounts.has_method("primary_offsets"):
+		var value = mounts.call("primary_offsets", form, weapon, projectile_count)
+		if typeof(value) == TYPE_ARRAY and value.size() == maxi(1, projectile_count):
+			var result: Array[Vector2] = []
+			for offset in value:
+				if typeof(offset) == TYPE_VECTOR2:
+					result.append(offset)
+			if result.size() == maxi(1, projectile_count):
+				return result
+	var fallback: Array[Vector2] = []
+	for _i in range(maxi(1, projectile_count)):
+		fallback.append(Vector2(0.0, -18.0))
+	return fallback
 
 func bomber_rotary_deployed(weapon: Dictionary) -> bool:
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
+	if mounts != null and mounts.has_method("bomber_rotary_deployed"):
+		return bool(mounts.call("bomber_rotary_deployed", form, weapon))
 	if form != CraftFormRules.BOMBER:
 		return false
 	return str(weapon.get("archetype", "")) in ["balanced", "spread", "rapid", "burst", "heavy"]
