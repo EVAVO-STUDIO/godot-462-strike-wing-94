@@ -9,6 +9,7 @@ const ALLOWED_CONDITIONS := ["", "accuracy_at_least", "score_at_least", "bombs_a
 const ALLOWED_FORMATIONS := ["scatter", "line", "wedge", "split", "column", "stagger"]
 const MAX_ENEMIES_PER_BEAT := 12
 const MAX_SUPPRESSION_SECONDS := 12.0
+const HIGH_INTERCEPT_VALUE_BONUS := 450
 
 static func beats_for_mission(mission: Dictionary) -> Array:
 	var beats = mission.get("encounter_beats", [])
@@ -107,6 +108,12 @@ static func is_low_bomber_route(beat: Dictionary) -> bool:
 		return false
 	var condition: Dictionary = beat.get("condition", {})
 	return str(condition.get("altitude", "")) == AltitudeRules.LOW and str(condition.get("form", "")) == CraftFormRules.BOMBER
+
+static func is_high_fighter_route(beat: Dictionary) -> bool:
+	if condition_type(beat) != "altitude_form":
+		return false
+	var condition: Dictionary = beat.get("condition", {})
+	return str(condition.get("altitude", "")) == AltitudeRules.HIGH and str(condition.get("form", "")) == CraftFormRules.FIGHTER
 
 static func condition_met(beat: Dictionary, state: Dictionary) -> bool:
 	var condition = beat.get("condition", {})
