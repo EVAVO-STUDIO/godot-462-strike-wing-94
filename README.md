@@ -2,7 +2,7 @@
 
 Original 90s PC-style vertical scrolling combat shooter built in Godot 4.6.2.
 
-Strike Wing '94 is now centered on the **VX-94 Strike Wing**, a 1999 imagined-future variable-geometry strike craft that can shift between a narrow fighter configuration and a wide bomber/attack configuration while operating from terrain-skimming altitude through near orbit.
+Strike Wing '94 is centered on the **VX-94 Strike Wing**, a 1999 imagined-future variable-geometry strike craft that can shift between a narrow fighter configuration and a wide bomber/attack configuration while operating from terrain-skimming altitude through near orbit.
 
 ## Current status
 
@@ -12,12 +12,17 @@ Implemented now:
 
 - 640×360 logical canvas with nearest-neighbour presentation to 1280×720
 - bitmap/pixel title, briefing, result and combat HUD
-- VX-94 fighter / bomber transformation with visible wing sweep
+- VX-94 fighter / bomber transformation with a visible hinge-based wing sweep
+- fighter wing-root cannon posture and bomber-deployed nose rotary cannon
+- form-aware projectile muzzle positions and matching muzzle-flash presentation
+- original procedural fighter / bomber rotary / rail / energy / support SFX
 - short weapons interlock during geometry changes
 - four altitude bands: low / mid / high / orbital
-- authored altitude transitions inside missions
-- finite afterburner reserve with Atlas tanker refuel
-- mission-intelligence overlay with threat/altitude/form/tech/boss/support information
+- authored cinematic altitude transitions plus bounded player-selectable altitude-lane windows
+- PageUp/PageDown adjacent-lane choices where the mission allows them
+- animated climb/dive cloud sweep, pitch cue, target-scale interpolation and separate climb/dive SFX
+- finite afterburner reserve with form/altitude efficiency and Atlas tanker refuel
+- mission-intelligence overlay with threat/altitude/form/tech/boss/support information and tactical support advice
 - eight primary weapon tiers from conventional cannon through Plasma Lance
 - generator capacity/recharge progression and matching-era efficiency
 - five persistent airframe tiers with increasing hull/shield capacity and bounded damage resistance
@@ -46,6 +51,8 @@ The remaining major visual cutover is removing the old prototype player/enemy po
 - Primary fire: `Space`
 - Afterburner: `Shift`
 - Transform fighter / bomber: `Q`
+- Optional altitude climb during an authored lane window: `PageUp`
+- Optional altitude dive during an authored lane window: `PageDown`
 - Emergency screen bomb: `X`
 - Bomber precision strike: `E`
 - Onboard tactical support: `Z`
@@ -73,21 +80,46 @@ The remaining major visual cutover is removing the old prototype player/enemy po
 
 ### Fighter configuration
 
+- wings sweep back around visible hinge points
 - faster movement
 - tighter contact and projectile-hit profile
 - tighter primary spread
 - stronger air-target effectiveness
-- stronger afterburner burst
+- stronger afterburner burst and better high/orbital efficiency
+- conventional multi-shot guns fire from dedicated wing-root cannon packs
+- nose rotary is folded/retracted into the forward fuselage
+- wing / under-wing / upper-fuselage hardpoints can support missiles, rockets and later specialist stores
 - required for orbital operations
 
 ### Bomber configuration
 
-- slower, wider strike posture
+- wings open into a broad, heavier attack posture
+- slower and wider, with greater surface-strike risk/reward
 - stronger surface / naval damage
 - wider weapon coverage
 - more efficient tactical-support energy use
 - enables dedicated precision strike ordnance
+- exposes under-wing hardpoints for bombs, rockets and missiles
+- deploys a large multi-barrel nose rotary cannon for conventional ballistic primaries
+- nose rotary has its own original low ripping procedural sound and muzzle/spool cue
 - preferred at low altitude
+
+The bomber attitude intentionally evokes the brutal functionality of late-90s attack-aircraft design without copying a real A-10 silhouette or using a real GAU-8 recording.
+
+## Altitude lanes
+
+The four ordered lanes are:
+
+1. LOW
+2. MID
+3. HIGH
+4. ORBITAL / ATMOS-SPACE
+
+Some missions open a bounded `ALTITUDE LANE` choice window. While that prompt is visible, `PageUp` or `PageDown` moves exactly one adjacent band. The player cannot freely jump multiple bands or bypass scripted mission choreography.
+
+Major mission transitions remain authored set pieces, including Black Flag's sea-skimming descent and Machine Ark's final orbital burn.
+
+A climb/dive lasts roughly 1.15 seconds visually and includes moving cloud bands, a subtle craft pitch, interpolated surface-target scale and direction-specific procedural audio.
 
 ## Technology eras
 
@@ -103,7 +135,10 @@ The current playable campaign ends the machine war at Mission 12. External/alien
 - `project.godot` — Godot configuration and focused runtime autoloads
 - `scenes/` — game scenes
 - `scripts/main.gd` — core playable simulation/orchestration layer
-- `scripts/craft_form_director.gd` — VX-94 form, altitude, afterburner and mission-context owner
+- `scripts/craft_form_director.gd` — VX-94 form, altitude lanes, mounts, afterburner and mission context
+- `scripts/altitude_transition_director.gd` — climb/dive and altitude-lane presentation
+- `scripts/weapon_mount_cue_director.gd` — mount-aware fighter / bomber firing feedback
+- `scripts/retro_sfx_director.gd` — procedural original 90s-style SFX
 - `scripts/airframe_director.gd` — persistent structural frame progression
 - `scripts/encounter_director.gd` — authored mission beat sequencing
 - `scripts/support_director.gd` — onboard tactical systems
@@ -117,6 +152,7 @@ The current playable campaign ends the machine war at Mission 12. External/alien
 - `scripts/campaign_save.gd` — versioned campaign autosave/restore
 - `data/` — weapons, generators, airframes, enemies, missions, spawn/environment profiles and campaign context
 - `docs/90S_SHOOTER_BIBLE.md` — 90s shooter quality/style rules
+- `docs/CRAFT_ALTITUDE_SYSTEM.md` — authoritative transform / mounts / altitude-lane contract
 - `docs/CAMPAIGN_CANON.md` — campaign/world canon
 - `docs/STRATEGIC_ORBITAL_ENDGAME.md` — M12 / ORB-era contract
 - `docs/VX94_COMBAT_ART_DIRECTION.md` — production combat-art direction
@@ -143,6 +179,7 @@ Strike Wing's own identity is:
 - believable late-90s imagined-future military hardware
 - transforming variable-geometry aerospace combat
 - low-altitude bombing through orbital warfare
+- meaningful altitude-lane decisions inside authored mission pacing
 - mercenary conflict escalating into autonomous drone war
 - visible allied support and tanker/rearm set pieces
 - gradual conventional → electromagnetic → energy → strategic technology progression
