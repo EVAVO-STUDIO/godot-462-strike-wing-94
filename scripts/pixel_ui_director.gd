@@ -63,16 +63,17 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	for i in range(mini(2, lines.size())):
 		PixelFont.draw_centered(surface, lines[i], 320, 108 + i * 10, 1, MUTED, 1)
 	_draw_divider(surface, 142)
-	PixelFont.draw_centered(surface, "ENTER LAUNCH   U WEAPON   G GENERATOR", 320, 157, 1, TEXT, 1)
-	PixelFont.draw_centered(surface, "H HULL SERVICE   J SHIELD SERVICE", 320, 171, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "ENTER LAUNCH   U WEAPON   G GENERATOR", 320, 154, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "C SUPPORT   V SUPPORT BUY   H HULL   J SHIELD", 320, 168, 1, TEXT, 1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var generator := _call_dictionary(scene, "_active_generator")
-	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 190, 206, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 450, 206, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 226, 2, TEXT, 1)
+	PixelFont.draw_centered(surface, str(weapon.get("name", "CANNON")), 160, 198, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, str(generator.get("name", "GENERATOR")), 480, 198, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "SUPPORT %s" % _support_name(), 320, 216, 1, GREEN, 1)
+	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 320, 236, 2, TEXT, 1)
 	var service_hull := int(scene.get("service_hull")) if _has_property(scene, "service_hull") else int(scene.get("hull"))
 	var service_shield := int(scene.get("service_shield")) if _has_property(scene, "service_shield") else int(scene.get("shield"))
-	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 257, 1, GREEN, 1)
+	PixelFont.draw_centered(surface, "AIRFRAME H%03d S%03d" % [service_hull, service_shield], 320, 263, 1, GREEN, 1)
 	_draw_divider(surface, 284)
 	if float(scene.get("status_timer")) > 0.0:
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 306, 1, GREEN, 1)
@@ -115,7 +116,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	PixelFont.draw_text(surface, _clip(mission_name, 24), Vector2(16, 39), 1, MUTED, 1)
 	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 24), 320, 39, 1, TEXT, 1)
-	PixelFont.draw_text(surface, _clip(str(generator.get("name", "GENERATOR")), 22), Vector2(472, 39), 1, BLUE, 1)
+	PixelFont.draw_text(surface, _clip(_support_name(), 22), Vector2(472, 39), 1, GREEN, 1)
 	_draw_boss(surface, scene)
 	_draw_threat(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
@@ -148,6 +149,12 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(180, 98, 280, 17), PANEL)
 	surface.draw_rect(Rect2(180, 98, 280, 17), RED, false, 1.0)
 	PixelFont.draw_centered(surface, text, 320, 104, 1, RED, 1)
+
+func _support_name() -> String:
+	var director := get_node_or_null("/root/SupportDirector")
+	if director != null and director.has_method("current_support_name"):
+		return str(director.call("current_support_name")).to_upper()
+	return "NO SUPPORT"
 
 func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current: int, maximum: int, color: Color) -> void:
 	var max_value := maxi(1, maximum)
