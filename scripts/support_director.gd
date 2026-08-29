@@ -362,4 +362,4 @@ func _add_key_action(action: StringName, keycode: Key) -> void:
 	var event := InputEventKey.new()
 	event.physical_keycode = keycode
 	if not InputMap.action_has_event(action, event):
-		InputMap.add_action(action)
+		InputMap.action_add_event(action, event)
