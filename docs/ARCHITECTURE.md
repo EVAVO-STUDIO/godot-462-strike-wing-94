@@ -3,6 +3,7 @@
 ## Current layers
 
 - `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, weapon/generator progression, serviced airframe state, exact accuracy counters, mission reward payout, weapon energy, core projectile creation, screen-bomb resolution, filler spawn selection and the mission-local random stream.
+- `SupportDirector` owns the permanent tactical support loadout, unlock/selection state, support cooldowns and support activation behavior.
 - `EncounterDirector` owns authored stage sequencing: timed encounter beats, deterministic formation entry, recovery windows and performance-gated secrets.
 - `BossDirector` owns boss phase-specific orchestration and homing projectile steering.
 - `PixelUiDirector` owns the primary title/result/gameplay HUD, boss bar and missile-warning presentation through an original integer-grid bitmap renderer.
@@ -10,14 +11,14 @@
 - `content_catalog.gd` owns JSON loading and content access helpers.
 - `*_rules.gd` files own pure deterministic calculations.
 - `campaign_save.gd` is the canonical campaign persistence boundary and maintains a validated backup save.
-- `data/` owns authored mission, enemy, weapon, generator and campaign definitions.
+- `data/` owns authored mission, enemy, weapon, generator, support-system and campaign definitions.
 - `docs/90S_SHOOTER_BIBLE.md` defines the production/game-design quality bar for the finished shooter.
 
 ## Game flow
 
 `TITLE -> PLAYING -> RESULT -> TITLE`
 
-The title phase presents mission briefing, weapon/generator progression and airframe servicing. Playing owns the timed combat run. Result records mission completion or loss and supports retry/continue behavior.
+The title phase presents mission briefing, weapon/generator/support progression and airframe servicing. Playing owns the timed combat run. Result records mission completion or loss and supports retry/continue behavior.
 
 ## Pixel-perfect UI ownership
 
@@ -27,8 +28,9 @@ The visible interface is rendered on the same 640x360 logical grid as gameplay.
 - `PixelUiSurface` is a parser-safe 640x360 draw surface owned by `PixelUiDirector`.
 - Title and result phases are fully covered by the pixel UI, so the underlying prototype fallback-font text does not define the shipped presentation.
 - Gameplay HUD uses hard-edged hull, shield and energy meters plus compact bomb/wave/time/score readouts.
-- Boss HP/phase presentation and missile warnings are drawn by the same bitmap HUD rather than separate Godot `PanelContainer`, `Label` or `ProgressBar` widgets.
+- Boss HP/phase presentation and missile warnings are drawn by the same bitmap HUD rather than separate Godot widget panels.
 - Phase 3 retains an explicit `WEAK` cue in the boss bar.
+- Selected support identity is visible in both title/shop and gameplay HUD.
 - `ProjectileCueDirector` remains separate because it draws spatial cues around live projectiles, not UI chrome.
 
 The earlier `BossHudDirector`, `BossHudRules` and `ThreatWarningDirector` widget layers have been removed. `ThreatWarningRules` remains as pure warning logic consumed by the pixel UI.
@@ -45,7 +47,7 @@ Mission and service state are initialized at the source in `main.gd`.
 - The active mission's authored `starting_wave` is applied at launch.
 - Live wave progression uses `MissionStateRules.live_wave()` directly from the active mission and mission clock.
 
-The earlier `MissionStateDirector` and `ServiceDirector` reconciliation layers have been removed. Do not restore post-frame correction paths for state that the scene can own directly.
+The earlier `MissionStateDirector` and `ServiceDirector` reconciliation layers have been removed.
 
 ## Generator and weapon-energy ownership
 
@@ -56,11 +58,39 @@ Generator progression is a permanent campaign choice and energy is sortie-local 
 - `energy` starts at the active generator's capacity for each sortie.
 - `EnergyRules.recharge()` restores energy continuously during play.
 - Primary weapons define `energy_cost` in `data/weapons.json`.
-- Primary fire occurs only when `EnergyRules.can_fire()` succeeds and then consumes energy through `EnergyRules.consume()`.
-- Generator upgrades improve both capacity and recharge rate, creating a sustained-fire tradeoff rather than a flat weapon-DPS ladder.
-- The gameplay HUD exposes current energy through an integer pixel meter.
+- Primary fire occurs only when enough energy is available and then consumes its authored cost.
+- Generator upgrades improve both capacity and recharge rate.
+- Tactical support systems draw from that same energy pool, so generator choice affects both primary sustained fire and support availability.
 
-This system is intentionally inspired by the strategic depth of strong 1990s PC shooters while using original weapons, generator names, tuning and presentation.
+## Tactical support-system ownership
+
+`SupportDirector` provides a second permanent tactical build dimension without copying another game's front/rear/sidekick slot structure.
+
+Current original support packages are:
+
+- `Twin Rocket Pods`: efficient twin forward burst.
+- `Crosswind Cannons`: wide three-way coverage.
+- `Hunter Rack`: slower homing support rounds with bounded turn rate/lifetime.
+- `Point Defence Pod`: removes only a bounded number of nearby hostile projectiles inside an authored radius.
+
+Controls:
+
+- `C` cycles among unlocked support systems on the title screen.
+- `V` purchases the next support unlock.
+- `Z` activates the selected support during a sortie.
+
+Rules:
+
+- Support unlock costs increase through the authored catalogue.
+- Selected support can never exceed the highest unlocked tier.
+- Offensive support projectiles use the same player projectile array/collision path as primary fire.
+- Offensive support creation increments `shots_fired`, so the existing accuracy statistic remains internally consistent when support shots score hits.
+- Hunter rounds are steered before the scene's normal projectile movement step.
+- Point defence does not spend energy if no hostile projectile is inside its radius.
+- Point defence has both radius and maximum-target caps and is not a screen-clear substitute.
+- Support activation has its own cooldown and consumes the shared generator energy pool.
+
+`SupportDirector.support_state()` and `restore_support_state()` are the public persistence boundary for support selection/unlocks.
 
 ## Authored encounter sequencing
 
@@ -70,114 +100,84 @@ Mission pacing is intentionally split between authored stage beats and filler sp
 
 - Each mission defines ordered `encounter_beats` in `data/missions.json`.
 - A beat can name exact enemy archetypes/counts, an entry formation, a HUD label, a guaranteed recovery pickup and a bounded filler-spawn suppression window.
-- `EncounterRules` expands enemy counts with a hard per-beat cap and validates timing, pickups, formations and secret conditions.
-- The director spawns enemies through `main.gd::_spawn_enemy()`, so authored enemies use the same mission RNG, wave scaling, movement rules, combat rules and objective tracking as filler enemies.
-- Immediately after spawn, only entry lane / vertical staging / `pattern_anchor_x` are adjusted to the authored formation point.
+- `EncounterRules` validates timing, enemy caps, pickups, formations and secret conditions.
+- Authored enemies still spawn through `main.gd::_spawn_enemy()` and therefore share the common RNG/scaling/movement/combat/objective path.
 - Supported formation shapes are `line`, `wedge`, `split`, `column`, `stagger` and controlled `scatter`.
-- Each mission combines at least three formation shapes, a recovery window and a boss lead-in.
-- Filler spawn profiles continue between authored beats so stages stay alive without becoming fully scripted corridors.
+- Each mission combines multiple formation shapes, a recovery window, a mastery secret and a boss lead-in.
 
 ### Mastery secrets
 
-Each mission contains an optional performance-gated secret beat.
-
-Supported conditions are:
-
-- accuracy at or above a threshold with a meaningful minimum-shot sample;
-- score at or above a threshold;
-- conserving at least an authored number of bombs.
-
-A missed secret is silently consumed and never blocks progression. A successful secret can create an elite encounter and/or guaranteed pickup and is briefly surfaced as `SECRET - ...`.
+Each mission contains an optional performance-gated secret beat using accuracy, score or conserved-bomb conditions. Missing a secret never blocks progression; successful discovery can produce an elite encounter and/or guaranteed pickup.
 
 ## Boss overtime ownership
 
-Required boss encounters are resolved directly by the mission loop.
-
-- At the authored mission deadline, `MissionFlowRules.should_hold_overtime()` determines whether the required boss objective is still incomplete and that boss is still alive.
-- A live required boss can extend the mission for at most `45` seconds.
-- Ordinary spawning remains suppressed while the boss is alive.
-- Destroying the boss during overtime can still complete the mission normally.
-- Reaching the hard overtime cap fails explicitly with `BOSS OVERTIME EXPIRED` rather than hanging indefinitely.
+Required boss encounters are resolved directly by the mission loop with a hard 45-second overtime cap. Ordinary spawning remains suppressed while a required boss is alive, and expired overtime fails explicitly rather than hanging.
 
 ## Bomb ownership
 
-Screen bombs are resolved directly inside the weapon action that consumes the bomb.
-
-- Ordinary enemies are registered as destroyed and award their bomb-clear score.
-- Mission bosses remain in the live enemy array.
-- Bosses take bounded nonlethal damage through `BombRules.apply_nonlethal_boss_damage()`.
-- Enemy projectiles are cleared by the bomb.
+Screen bombs are resolved directly inside the weapon action. Ordinary enemies can be cleared; mission bosses stay in the live array and take bounded nonlethal bomb damage. Enemy projectiles are cleared.
 
 ## Determinism
 
-Each mission owns a dedicated `RandomNumberGenerator` in `main.gd`, reseeded from `RunSeedRules.mission_seed(mission_index)` whenever the mission launches or retries.
-
-Gameplay randomness for enemy selection, spawn position, drift, turn rate, phase, initial fire timing and pickup rolls uses that mission-local generator. Spawn selection is fail-closed when no authored profile matches.
+Each mission owns a dedicated `RandomNumberGenerator` in `main.gd`, reseeded from `RunSeedRules.mission_seed(mission_index)` whenever the mission launches or retries. Spawn selection is fail-closed when no authored profile matches.
 
 ## Enemy movement ownership
 
-Normal enemy movement is applied directly in `_update_enemies()`.
-
-- Spawned enemies retain authored `pattern` and `pattern_anchor_x`.
-- `MovementPatternRules.adjusted_position()` is applied exactly once per normal-enemy frame after base vertical travel.
-- `MovementPatternRules.clamp_x()` keeps authored motion inside the playfield.
-- Bosses remain under boss-specific runtime behavior.
+Normal enemy movement is applied directly in `_update_enemies()`. Spawned enemies retain authored `pattern` and `pattern_anchor_x`; bosses remain under boss-specific behavior.
 
 ## Weapon progression ownership
 
-Permanent and temporary weapon progression are represented separately at the source.
-
 - `weapon_index` is always the permanent paid campaign tier.
-- `temporary_weapon_boost` is sortie-only state and starts at zero for every launch.
-- Weapon pickups increase only the temporary boost, bounded by remaining primary tiers.
-- `_active_weapon()` combines permanent tier and temporary boost through `WeaponPickupRules.effective_index()`.
-- `campaign_save.gd` persists `weapon_index` directly; temporary boosts never enter the save schema.
+- `temporary_weapon_boost` is sortie-only state.
+- Pickups increase only the temporary boost.
+- `_active_weapon()` combines permanent tier and temporary boost.
+- Temporary boosts never enter the save schema.
 
 ## Accuracy and reward ownership
 
-Accuracy and payout are resolved at their defining gameplay sources.
-
-- `shots_fired` increments when player projectiles are created.
+- `shots_fired` increments when offensive player projectiles are created, including offensive support projectiles.
 - `shots_hit` increments when those projectiles collide with enemies.
-- `_finish_mission()` computes the complete successful payout exactly once before combat cleanup.
-- Payout combines score reward, objective bonus, no-damage bonus, boss bonus and accuracy bonus through pure rules.
+- `_finish_mission()` computes the successful payout exactly once before cleanup.
+- Payout combines score, objective, no-damage, boss and accuracy bonuses.
 
 ## Projectile ownership
 
-Enemy projectile packets are created directly in `main.gd`. Missile weapons receive their homing flag, speed, turn rate and lifetime at creation time. `BossDirector` then steers any homing projectile through one common update path.
+Enemy projectile packets are created directly in `main.gd`. Missile homing metadata exists from creation. Support Hunter rounds use a separate player-side homing tag owned by `SupportDirector` before normal bullet movement.
 
 ## Persistence
 
-`campaign_save.gd` schema v3 stores:
+`campaign_save.gd` schema v4 stores:
 
 - credits;
 - mission index;
 - permanent weapon tier;
 - permanent generator tier;
 - serviced hull;
-- serviced shield.
+- serviced shield;
+- selected support index;
+- highest unlocked support index.
 
-Temporary sortie boosts and current energy are deliberately excluded. Supported v1/v2 saves can migrate, and valid primary state is copied to a backup before replacement.
+Temporary weapon boosts, current energy and support cooldown are deliberately excluded. Supported v1-v3 saves remain migration-compatible. Valid primary saves are backed up before replacement.
 
 ## Refactor direction
 
-Keep source ownership direct, presentation separate from simulation, and stage orchestration modular only when it genuinely coordinates authored level content.
+Keep source ownership direct, presentation separate from simulation, and stage/loadout orchestration modular only where it genuinely owns a distinct game concept.
 
-The next major gameplay expansion should build on the working 1990s-shooter foundation with original support systems / wingman-style choices, more environment-specific stage presentation and stronger boss signature attacks while preserving deterministic rules and the pixel-art constraints in `90S_SHOOTER_BIBLE.md`.
+The next major expansion should move into environment-specific pixel stage presentation/parallax and stronger boss signature attacks, because the campaign/loadout systems now have substantially more depth than the prototype battlefield art.
 
 ## Invariants
 
 - Gameplay randomness is isolated from the global RNG.
 - Missing spawn configuration fails closed.
 - Authored encounter beats are ordered, capped and never spawn bosses through the regular beat path.
-- Each mission contains recovery/pacing, a mastery secret and multiple formation shapes.
 - Secret conditions never block mission progression.
 - Permanent progression is never mutated by temporary pickups.
-- Generator tier is persistent; current energy is sortie-local.
+- Weapon, generator and support choices create interacting campaign tradeoffs.
+- Support point defence remains spatially and numerically bounded.
 - Accuracy and rewards are source-owned, not inferred after frames.
 - Boss overtime is bounded and cannot hang indefinitely.
 - Screen bombs cannot kill/remove required bosses.
-- Primary interface presentation uses the original bitmap renderer and integer-grid pixel surfaces, not modern widget chrome.
+- Primary interface presentation uses the original bitmap renderer and integer-grid pixel surfaces.
 - Production art follows `90S_SHOOTER_BIBLE.md`.
 - Campaign state never depends on GitHub Actions, cloud CI or network availability.
 - Save files are versioned, sanitized and recoverable from a validated backup.
