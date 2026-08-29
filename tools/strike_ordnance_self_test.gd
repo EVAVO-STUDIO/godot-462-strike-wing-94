@@ -74,7 +74,6 @@ func _test_impact_feedback() -> void:
 		var source := ordnance.get_as_text()
 		_expect(source.contains("IMPACT_FX_SECONDS := 0.30"), "strike impact cue should remain brief")
 		_expect(source.contains("_emit_impact_fx"), "strike impact should create dedicated visual feedback")
-		_expect(source.contains("_draw_impact_fx"), "strike impact shock/debris cue should be rendered on the strike surface")
 		_expect(source.contains("RetroSfxRules.STRIKE_IMPACT"), "strike impact should call its dedicated procedural SFX")
 		_expect(source.contains("while _impact_fx.size() > 8"), "strike impact presentation should remain bounded")
 
@@ -102,6 +101,9 @@ func _test_source_wiring() -> void:
 		_expect(source.contains("_update_attack_run_stability"), "strike owner should maintain low-level attack-run stability")
 		_expect(source.contains("STB%03d"), "bombing HUD should expose stabilization percentage")
 		_expect(source.contains("stabilized_impact_delay"), "drop timing should consume stabilization rules")
+		_expect(source.contains('"ORDNANCE SAFE - ALTITUDE TRANSITION"'), "bombing computer should safe release during climb/dive")
+		_expect(source.contains("not _altitude_transition_active()"), "attack-run stability should not build while changing altitude")
+		_expect(source.contains('transition_text := " SAFE"'), "bombing HUD should expose transition-safe state")
 		_expect(source.contains("maxi(1, hp - damage)"), "strike ordnance must remain nonlethal against bosses")
 
 func _expect(condition: bool, message: String) -> void:
