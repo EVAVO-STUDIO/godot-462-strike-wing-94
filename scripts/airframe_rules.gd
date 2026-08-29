@@ -17,6 +17,9 @@ static func hull_capacity(frame: Dictionary, fallback: int = 100) -> int:
 static func shield_capacity(frame: Dictionary, fallback: int = 100) -> int:
 	return clampi(int(frame.get("shield_capacity", fallback)), 0, 999)
 
+static func incoming_damage_multiplier(frame: Dictionary) -> float:
+	return clampf(float(frame.get("incoming_damage_multiplier", 1.0)), 0.65, 1.0)
+
 static func frame_name(frame: Dictionary) -> String:
 	return str(frame.get("name", "STANDARD AIRFRAME"))
 
@@ -32,4 +35,15 @@ static func capacities_non_decreasing(catalog: Array) -> bool:
 			return false
 		last_hull = hull
 		last_shield = shield
+	return true
+
+static func resistance_non_decreasing(catalog: Array) -> bool:
+	var previous := 1.0
+	for frame in catalog:
+		if typeof(frame) != TYPE_DICTIONARY:
+			return false
+		var current := incoming_damage_multiplier(frame)
+		if current > previous + 0.0001:
+			return false
+		previous = current
 	return true
