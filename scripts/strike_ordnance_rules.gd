@@ -14,6 +14,7 @@ const MID_BLAST_RADIUS := 36.0
 const LOW_DAMAGE := 22
 const MID_DAMAGE := 14
 const BOSS_DAMAGE := 8
+const ROUTE_PRECISION_SCORE := 450
 
 static func altitude_allowed(altitude: String) -> bool:
 	return altitude in ["low", "mid"]
@@ -28,13 +29,16 @@ static func target_point(player_position: Vector2, altitude: String) -> Vector2:
 	var lead := 52.0 if altitude == "low" else 84.0
 	return Vector2(player_position.x, player_position.y - lead)
 
-static func assisted_target_point(player_position: Vector2, altitude: String, enemies: Array) -> Vector2:
+static func assisted_target_index(player_position: Vector2, altitude: String, enemies: Array) -> int:
 	var projected := target_point(player_position, altitude)
 	var radius := LOW_ASSIST_RADIUS if altitude == "low" else MID_ASSIST_RADIUS
 	var radius_sq := radius * radius
-	var best := projected
-	var best_distance := radius_sq
-	for enemy in enemies:
+	var best_priority := -1
+	var best_priority_distance := INF
+	var best_regular := -1
+	var best_regular_distance := INF
+	for i in range(enemies.size()):
+		var enemy = enemies[i]
 		if typeof(enemy) != TYPE_DICTIONARY:
 			continue
 		if bool(enemy.get("boss", false)):
@@ -44,10 +48,40 @@ static func assisted_target_point(player_position: Vector2, altitude: String, en
 			continue
 		var position: Vector2 = enemy.get("position", Vector2.ZERO)
 		var distance := position.distance_squared_to(projected)
-		if distance <= best_distance:
-			best_distance = distance
-			best = position
-	return Vector2(roundf(best.x), roundf(best.y))
+		if distance > radius_sq:
+			continue
+		if bool(enemy.get("strike_priority", false)):
+			if distance < best_priority_distance:
+				best_priority_distance = distance
+				best_priority = i
+		elif distance < best_regular_distance:
+			best_regular_distance = distance
+			best_regular = i
+	return best_priority if best_priority >= 0 else best_regular
+
+static func assisted_target_point(player_position: Vector2, altitude: String, enemies: Array) -> Vector2:
+	var index := assisted_target_index(player_position, altitude, enemies)
+	if index >= 0 and index < enemies.size():
+		var enemy = enemies[index]
+		if typeof(enemy) == TYPE_DICTIONARY:
+			var position: Vector2 = enemy.get("position", target_point(player_position, altitude))
+			return Vector2(roundf(position.x), roundf(position.y))
+	return target_point(player_position, altitude)
+
+static func priority_target_at_point(point: Vector2, enemies: Array, tolerance: float = 2.0) -> bool:
+	var tolerance_sq := maxf(0.0, tolerance) * maxf(0.0, tolerance)
+	for enemy in enemies:
+		if typeof(enemy) != TYPE_DICTIONARY or not bool(enemy.get("strike_priority", false)):
+			continue
+		var position: Vector2 = enemy.get("position", Vector2.ZERO)
+		if position.distance_squared_to(point) <= tolerance_sq:
+			return true
+	return false
+
+static func route_precision_score(enemy: Dictionary, killed_by_ordnance: bool) -> int:
+	if not killed_by_ordnance or not bool(enemy.get("strike_priority", false)):
+		return 0
+	return ROUTE_PRECISION_SCORE
 
 static func impact_delay(altitude: String) -> float:
 	return LOW_IMPACT_DELAY if altitude == "low" else MID_IMPACT_DELAY
