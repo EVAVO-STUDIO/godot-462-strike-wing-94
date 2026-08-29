@@ -17,6 +17,9 @@ static func movement_multiplier(form: String) -> float:
 static func collision_radius_sq(form: String) -> float:
 	return 360.0 if sanitize(form) == FIGHTER else 520.0
 
+static func projectile_hit_radius_sq(form: String) -> float:
+	return 100.0 if sanitize(form) == FIGHTER else 156.0
+
 static func primary_spread_multiplier(form: String) -> float:
 	return 0.78 if sanitize(form) == FIGHTER else 1.22
 
