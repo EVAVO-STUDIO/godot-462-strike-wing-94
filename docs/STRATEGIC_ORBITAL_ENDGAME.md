@@ -17,9 +17,11 @@ The opening phase gives the player one final upper-atmosphere preparation window
 - Longshot Rail support;
 - Orbital Strike support.
 
-At roughly 82 seconds the authored **FINAL ORBITAL BURN** transition moves the VX-94 into the orbital band. The environment must show high cloud / atmospheric curvature before this transition and full orbital presentation afterward.
+The authored **FINAL REARM WINDOW** occurs around 137 seconds. The player can spend scarce tactical ordnance, hold formation with Atlas, restore the finite afterburner reserve and rearm tactical/strike systems while the tanker is still legal at high altitude.
 
-This opening creates a deliberate strategic-support decision: spend scarce ordnance early, risk an Atlas hookup for rearm, then enter the final orbital phase with restored tactical capability.
+At roughly **156 seconds** the authored **FINAL ORBITAL BURN** moves the VX-94 into the orbital band. The environment must show high cloud / atmospheric curvature before this transition and full orbital presentation afterward.
+
+This creates a deliberate sequence: fight through the upper-atmosphere screen, decide whether to risk the tanker hookup, then enter the final orbital phase with whatever resources the player successfully preserved or restored.
 
 ## Plasma Lance
 
@@ -73,6 +75,21 @@ The projectile may create one bounded pre-impact burst:
 - secondary damage is nonlethal.
 
 The direct guided projectile remains responsible for any actual kill.
+
+## Afterburner / tanker refuel
+
+The VX-94 now has a finite afterburner reserve rather than unlimited speed boost.
+
+Current flight identity:
+
+- 8 seconds total reserve per fresh sortie;
+- `Shift` activates afterburner;
+- fighter configuration receives the stronger boost;
+- bomber configuration keeps a smaller emergency boost;
+- fuel drains only while the boost is actually held;
+- no passive fuel-management burden.
+
+A successful Atlas rearm calls the craft's public refuel API and restores afterburner reserve to full. This gives the tanker a genuine refuelling role without converting the game into a fuel simulator.
 
 ## Late airframes
 
