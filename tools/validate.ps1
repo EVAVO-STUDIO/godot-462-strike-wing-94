@@ -28,8 +28,7 @@ $Required = @(
     'scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
     'scripts/mission_state_rules.gd','scripts/mission_state_director.gd','scripts/mission_flow_rules.gd','scripts/mission_flow_director.gd',
     'scripts/movement_pattern_rules.gd','scripts/movement_pattern_director.gd',
-    'scripts/missile_behavior_rules.gd','scripts/missile_behavior_director.gd','scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd',
-    'scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
+    'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
     'scripts/accuracy_rules.gd','scripts/accuracy_director.gd','scripts/reward_rules.gd','scripts/reward_director.gd',
     'scripts/service_rules.gd','scripts/service_director.gd',
@@ -40,7 +39,7 @@ $Required = @(
 foreach ($RelativePath in $Required) {
     if (-not (Test-Path (Join-Path $Root $RelativePath))) { throw "Missing required file: $RelativePath" }
 }
-foreach ($Forbidden in @('.github/workflows','.godot','build','dist','scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd')) {
+foreach ($Forbidden in @('.github/workflows','.godot','build','dist','scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd','scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd')) {
     if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/obsolete path committed: $Forbidden" }
 }
 
@@ -137,14 +136,13 @@ foreach ($Autoload in @(
     'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"','AccuracyDirector="*res://scripts/accuracy_director.gd"',
     'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"',
     'MovementPatternDirector="*res://scripts/movement_pattern_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"',
-    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"',
-    'MissileBehaviorDirector="*res://scripts/missile_behavior_director.gd"'
+    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
-if ($ProjectText.Contains('SpawnSafetyDirector')) { throw 'Obsolete SpawnSafetyDirector autoload must remain removed.' }
+foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector')) { if ($ProjectText.Contains($ObsoleteAutoload)) { throw "Obsolete autoload must remain removed: $ObsoleteAutoload" } }
 
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
-foreach ($Token in @('RunSeedRules','mission_rng := RandomNumberGenerator.new()','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','mission_rng.randf()','mission_rng.randi_range','mission_rng.randf_range','if allowed_ids.is_empty():')) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing dedicated RNG/spawn safety token: $Token" } }
-foreach ($ForbiddenToken in @('pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get')) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete global RNG/broad spawn fallback token: $ForbiddenToken" } }
+foreach ($Token in @('RunSeedRules','mission_rng := RandomNumberGenerator.new()','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','mission_rng.randf()','mission_rng.randi_range','mission_rng.randf_range','if allowed_ids.is_empty():','func _make_enemy_shot','shot["homing"] = true','shot["homing_speed"]','shot["turn_rate"] = 1.8','shot["life"] = 5.0','var is_missile := weapon_id == "missile"','_make_enemy_shot(origin, velocity, damage, is_missile)')) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing dedicated RNG/spawn/missile token: $Token" } }
+foreach ($ForbiddenToken in @('pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get','MissileBehaviorRules','MissileBehaviorDirector')) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete global RNG/broad fallback/missile workaround token: $ForbiddenToken" } }
 
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
 foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) { if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" } }
@@ -154,8 +152,6 @@ $ThreatText = Get-Content -Raw (Join-Path $Root 'scripts/threat_warning_director
 foreach ($Token in @('ThreatWarningRules.homing_count','nearest_homing_distance','MISSILE')) { if (-not $ThreatText.Contains($Token)) { throw "Threat warning missing token: $Token" } }
 $ProjectileCueText = Get-Content -Raw (Join-Path $Root 'scripts/projectile_cue_director.gd')
 foreach ($Token in @('ProjectileCueRules.projectile_type','TYPE_MISSILE','queue_redraw')) { if (-not $ProjectileCueText.Contains($Token)) { throw "Projectile cue missing token: $Token" } }
-$MissileBehaviorText = Get-Content -Raw (Join-Path $Root 'scripts/missile_behavior_director.gd')
-foreach ($Token in @('process_priority = 40','MissileBehaviorRules.should_tag_as_missile','MissileBehaviorRules.tag_homing')) { if (-not $MissileBehaviorText.Contains($Token)) { throw "Missile behavior missing token: $Token" } }
 $BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
 foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) { if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" } }
 $BombGuardText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_guard_director.gd')
