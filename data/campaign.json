@@ -1,12 +1,19 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "campaign": {
     "starting_credits": 2500,
     "starting_hull": 100,
     "starting_shield": 100,
     "repair_cost_per_hull": 8,
     "shield_recharge_cost_per_point": 3,
-    "missions": ["m01_coastal_intercept", "m02_refinery_run", "m03_black_sea"]
+    "missions": [
+      "m01_coastal_intercept",
+      "m02_refinery_run",
+      "m03_black_sea",
+      "m04_breakwater",
+      "m05_furnace_line",
+      "m06_black_flag"
+    ]
   },
   "progression": {
     "mission_complete_bonus": 1000,
@@ -16,7 +23,7 @@
     "boss_kill_bonus": 1500
   },
   "save": {
-    "schema_version": 1,
+    "schema_version": 3,
     "autosave_seconds": 1.0,
     "path": "user://strike_wing_94_save.json"
   }
