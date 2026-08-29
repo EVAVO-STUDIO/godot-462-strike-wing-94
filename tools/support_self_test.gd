@@ -1,6 +1,7 @@
 extends SceneTree
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
+const EnergyRules = preload("res://scripts/energy_rules.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
 const SupportDirector = preload("res://scripts/support_director.gd")
 
@@ -13,6 +14,7 @@ func _initialize() -> void:
 	_test_point_defence()
 	_test_emp_targeting()
 	_test_activation_gate()
+	_test_generator_efficiency()
 	_test_wiring()
 	if failures.is_empty():
 		print("Strike Wing support self-test passed.")
@@ -88,16 +90,27 @@ func _test_emp_targeting() -> void:
 	_expect(limited == [0], "EMP target selection should respect maximum target count")
 
 func _test_activation_gate() -> void:
-	var rockets := {"type":"rockets","energy_cost":16.0,"cooldown":0.55}
+	EnergyRules.set_active_generator({})
+	var rockets := {"type":"rockets","energy_cost":16.0,"cooldown":0.55,"unlock_tech_era":"advanced_conventional"}
 	_expect(SupportRules.can_activate(16.0, 0.0, rockets), "support should activate at exact energy threshold")
 	_expect(not SupportRules.can_activate(15.9, 0.0, rockets), "support should reject insufficient energy")
 	_expect(not SupportRules.can_activate(100.0, 0.1, rockets), "support should respect cooldown")
-	var defence := {"type":"defence","energy_cost":20.0,"cooldown":1.0}
+	var defence := {"type":"defence","energy_cost":20.0,"cooldown":1.0,"unlock_tech_era":"advanced_conventional"}
 	_expect(not SupportRules.can_activate(100.0, 0.0, defence, false), "point defence should not waste energy without a target")
-	var emp := {"type":"emp","energy_cost":34.0,"cooldown":5.5}
+	var emp := {"type":"emp","energy_cost":34.0,"cooldown":5.5,"unlock_tech_era":"electromagnetic"}
 	_expect(not SupportRules.can_activate(100.0, 0.0, emp, false), "EMP should not waste energy without autonomous targets")
-	var magnetic := {"type":"magnetic","energy_cost":28.0,"cooldown":7.5}
+	var magnetic := {"type":"magnetic","energy_cost":28.0,"cooldown":7.5,"unlock_tech_era":"electromagnetic"}
 	_expect(SupportRules.can_activate(28.0, 0.0, magnetic, false), "magnetic screen should activate proactively without a target lock")
+
+func _test_generator_efficiency() -> void:
+	var pulse_core := {"capacity":180.0,"recharge_per_second":50.0,"efficiency_tech_era":"electromagnetic","efficiency_multiplier":0.90}
+	var conventional := {"type":"rockets","energy_cost":20.0,"cooldown":1.0,"unlock_tech_era":"advanced_conventional"}
+	var emp := {"type":"emp","energy_cost":40.0,"cooldown":5.0,"unlock_tech_era":"electromagnetic"}
+	EnergyRules.set_active_generator(pulse_core)
+	_expect(absf(SupportRules.energy_cost(conventional) - 20.0) < 0.001, "Pulse Core should not discount older conventional tactical systems")
+	_expect(absf(SupportRules.energy_cost(emp) - 36.0) < 0.001, "Pulse Core should reduce matching electromagnetic tactical energy cost")
+	_expect(SupportRules.can_activate(36.0, 0.0, emp, true), "matching generator efficiency should affect tactical activation threshold")
+	EnergyRules.set_active_generator({})
 
 func _test_wiring() -> void:
 	var director := SupportDirector.new()
@@ -121,6 +134,16 @@ func _test_wiring() -> void:
 		_expect(source.contains("_apply_emp") and source.contains('enemy["emp_timer"]'), "support runtime should implement autonomous EMP disruption")
 		_expect(source.contains("_update_magnetic_field") and source.contains('bullet["homing"] = false'), "magnetic screen should bend hostile projectiles and break homing")
 		_expect(source.contains('get_node_or_null("/root/StrikeOrdnanceDirector")'), "tanker rearm should refill strike ordnance through tactical support API")
+	var rules_file := FileAccess.open("res://scripts/support_rules.gd", FileAccess.READ)
+	_expect(rules_file != null, "support rules should be readable for generator efficiency wiring")
+	if rules_file != null:
+		_expect(rules_file.get_as_text().contains("EnergyRules.effective_weapon_cost(support)"), "tactical support should share generator era-efficiency rules")
+	var craft_file := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
+	_expect(craft_file != null, "craft form director should be readable for first-frame generator ordering")
+	if craft_file != null:
+		var source := craft_file.get_as_text()
+		_expect(source.contains("process_priority = -8"), "craft context should run before tactical support")
+		_expect(source.contains("EnergyRules.set_active_generator(generator)"), "craft context should publish active generator before support activation")
 	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	_expect(ui_file != null, "pixel_ui_director.gd should be readable for support UI check")
 	if ui_file != null:
