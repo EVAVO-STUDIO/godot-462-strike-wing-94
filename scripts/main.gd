@@ -6,6 +6,8 @@ const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
+const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
+const BombRules = preload("res://scripts/bomb_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 
@@ -81,7 +83,7 @@ func _update_mission(delta: float) -> void:
 	fire_timer = maxf(0.0, fire_timer - delta)
 	secondary_timer = maxf(0.0, secondary_timer - delta)
 	enemy_spawn_timer -= delta
-	wave = CombatRules.wave_for_time(mission_time)
+	wave = MissionStateRules.live_wave(_active_mission(), mission_time)
 	_update_player(delta)
 	_update_weapons()
 	_update_bullets(delta)
@@ -132,15 +134,36 @@ func _prepare_mission(index: int) -> void:
 		current_objectives = mission.get("objectives", [])
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 
+func _active_mission() -> Dictionary:
+	if mission_catalog.is_empty():
+		return {}
+	var mission = mission_catalog[clampi(mission_index, 0, mission_catalog.size() - 1)]
+	return mission if typeof(mission) == TYPE_DICTIONARY else {}
+
+func _campaign_config() -> Dictionary:
+	if campaign.is_empty():
+		return {}
+	var nested = campaign.get("campaign", campaign)
+	return nested if typeof(nested) == TYPE_DICTIONARY else {}
+
+func _service_value(method_name: String, fallback: int) -> int:
+	var director := get_node_or_null("/root/ServiceDirector")
+	if director != null and director.has_method(method_name):
+		return int(director.call(method_name))
+	return fallback
+
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
+	var campaign_cfg := _campaign_config()
+	var max_hull := MissionStateRules.starting_hull(campaign_cfg, 100)
+	var max_shield := MissionStateRules.starting_shield(campaign_cfg, 100)
 	phase = GamePhase.PLAYING
 	mission_time = 0.0
 	score = 0
-	hull = 100
-	shield = 100
+	hull = clampi(_service_value("service_hull", max_hull), 1, max_hull)
+	shield = clampi(_service_value("service_shield", max_shield), 0, max_shield)
 	bombs = 3
-	wave = 1
+	wave = MissionStateRules.starting_wave(_active_mission())
 	boss_spawned = false
 	enemy_spawn_timer = 0.35
 	player_position = Vector2(320.0, 292.0)
@@ -202,11 +225,30 @@ func _update_weapons() -> void:
 			var angle := 0.0 if count == 1 else deg_to_rad(lerpf(-spread, spread, float(i) / float(count - 1)))
 			bullets.append({"position":player_position + Vector2(0,-16),"velocity":Vector2.UP.rotated(angle) * float(weapon.get("projectile_speed",430.0)),"damage":int(weapon.get("damage",1))})
 	if Input.is_action_just_pressed("fire_secondary") and secondary_timer <= 0.0 and bombs > 0:
-		bombs -= 1; secondary_timer = 1.0
-		for enemy in enemies.duplicate():
-			_register_destroy(enemy)
-			score += 75 + int(enemy.get("hp",1)) * 25
-		enemies.clear(); enemy_bullets.clear()
+		bombs -= 1
+		secondary_timer = 1.0
+		var survivors: Array = []
+		var boss_damaged := false
+		for enemy in enemies:
+			if typeof(enemy) != TYPE_DICTIONARY:
+				continue
+			if bool(enemy.get("boss", false)):
+				var boss: Dictionary = enemy.duplicate(true)
+				var hp := maxi(1, int(boss.get("hp", 1)))
+				var max_hp := maxi(hp, int(boss.get("max_hp", hp)))
+				boss["hp"] = BombRules.apply_nonlethal_boss_damage(hp, max_hp)
+				boss["max_hp"] = max_hp
+				boss["last_hp"] = int(boss["hp"])
+				survivors.append(boss)
+				boss_damaged = true
+			else:
+				_register_destroy(enemy)
+				score += 75 + int(enemy.get("hp", 1)) * 25
+		enemies = survivors
+		enemy_bullets.clear()
+		if boss_damaged:
+			status_text = "BOMB STRIKE - BOSS DAMAGED"
+			status_timer = 1.5
 
 func _update_bullets(delta: float) -> void:
 	for i in range(bullets.size() - 1, -1, -1):
