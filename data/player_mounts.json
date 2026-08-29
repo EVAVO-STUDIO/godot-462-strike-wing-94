@@ -1,16 +1,17 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "craft_id": "vx_94_strikewing",
   "mounts": [
     {"id":"nose_rotary","name":"Nose Rotary Bay","forms":["bomber"],"roles":["ballistic_primary"],"fighter_offset":[0,-19],"bomber_offset":[0,-27],"capacity":"internal","notes":"Deployable multi-barrel cannon housing; retracts flush in fighter mode."},
     {"id":"wing_root_left","name":"Left Wing-Root Cannon","forms":["fighter"],"roles":["ballistic_primary"],"fighter_offset":[-13,-12],"bomber_offset":[-7,-9],"capacity":"internal","notes":"Retracts inward as wing opens."},
     {"id":"wing_root_right","name":"Right Wing-Root Cannon","forms":["fighter"],"roles":["ballistic_primary"],"fighter_offset":[13,-12],"bomber_offset":[7,-9],"capacity":"internal","notes":"Retracts inward as wing opens."},
     {"id":"centerline_emitter","name":"Centreline Specialist Emitter","forms":["fighter","bomber"],"roles":["rail","directed_energy","plasma"],"fighter_offset":[0,-19],"bomber_offset":[0,-24],"capacity":"internal","notes":"Needle Rail / Storm / Plasma family and future specialist systems."},
-    {"id":"inner_pylon_left","name":"Left Inner Pylon","forms":["fighter","bomber"],"roles":["missile","rocket","strategic_store"],"fighter_offset":[-15,-5],"bomber_offset":[-21,3],"capacity":"heavy"},
-    {"id":"inner_pylon_right","name":"Right Inner Pylon","forms":["fighter","bomber"],"roles":["missile","rocket","strategic_store"],"fighter_offset":[15,-5],"bomber_offset":[21,3],"capacity":"heavy"},
+    {"id":"inner_pylon_left","name":"Left Inner Pylon","forms":["fighter","bomber"],"roles":["missile","rocket"],"fighter_offset":[-15,-5],"bomber_offset":[-21,3],"capacity":"heavy"},
+    {"id":"inner_pylon_right","name":"Right Inner Pylon","forms":["fighter","bomber"],"roles":["missile","rocket"],"fighter_offset":[15,-5],"bomber_offset":[21,3],"capacity":"heavy"},
     {"id":"outer_pylon_left","name":"Left Outer Pylon","forms":["bomber"],"roles":["bomb","rocket","missile"],"fighter_offset":[-17,8],"bomber_offset":[-27,9],"capacity":"medium"},
     {"id":"outer_pylon_right","name":"Right Outer Pylon","forms":["bomber"],"roles":["bomb","rocket","missile"],"fighter_offset":[17,8],"bomber_offset":[27,9],"capacity":"medium"},
     {"id":"ventral_strike_bay","name":"Ventral Strike Bay","forms":["bomber"],"roles":["precision_bomb","guided_bomb"],"fighter_offset":[0,5],"bomber_offset":[0,8],"capacity":"heavy","notes":"Primary precision-strike release bay for low/mid bombing runs."},
+    {"id":"ventral_strategic_bay","name":"Strategic Penetrator Bay","forms":["fighter","bomber"],"roles":["strategic_store"],"fighter_offset":[0,-7],"bomber_offset":[0,-7],"capacity":"strategic","notes":"Reinforced centreline bay for the one-shot Micro-Warhead Rack and future strategic stores."},
     {"id":"dorsal_module","name":"Dorsal Mission Module","forms":["fighter","bomber"],"roles":["ecm","emp","magnetic","sensor"],"fighter_offset":[0,6],"bomber_offset":[0,7],"capacity":"module","notes":"Non-projectile electronic and field systems."}
   ]
 }
