@@ -12,6 +12,7 @@ const HIT := "hit"
 const EXPLOSION := "explosion"
 const BOSS_EXPLOSION := "boss_explosion"
 const PLAYER_HIT := "player_hit"
+const STRIKE_RELEASE := "strike_release"
 const STRIKE_IMPACT := "strike_impact"
 const TRANSFORM := "transform"
 const AFTERBURNER := "afterburner"
@@ -55,6 +56,8 @@ static func voice(event_id: String) -> Dictionary:
 		EXPLOSION: return {"wave":"blast","frequency":118.0,"end_frequency":54.0,"duration":0.22,"gain":0.21}
 		BOSS_EXPLOSION: return {"wave":"blast","frequency":92.0,"end_frequency":38.0,"duration":0.42,"gain":0.26}
 		PLAYER_HIT: return {"wave":"square","frequency":250.0,"end_frequency":115.0,"duration":0.09,"gain":0.15}
+		# Internal rack solenoid/clunk followed by a short low airflow tail; original procedural release cue.
+		STRIKE_RELEASE: return {"wave":"mechanical","frequency":132.0,"end_frequency":62.0,"duration":0.13,"gain":0.17}
 		STRIKE_IMPACT: return {"wave":"blast","frequency":74.0,"end_frequency":32.0,"duration":0.30,"gain":0.24}
 		TRANSFORM: return {"wave":"mechanical","frequency":84.0,"end_frequency":138.0,"duration":0.32,"gain":0.18}
 		AFTERBURNER: return {"wave":"noise","frequency":72.0,"end_frequency":118.0,"duration":0.16,"gain":0.15}
