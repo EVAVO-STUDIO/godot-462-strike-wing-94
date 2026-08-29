@@ -8,7 +8,9 @@ var _surface: Control
 var _previous_targets: Dictionary = {}
 var _last_score := 0
 var _chain := 0
+var _best_chain := 0
 var _chain_timer := 0.0
+var _last_phase := -1
 
 func _ready() -> void:
 	layer = 17
@@ -21,12 +23,27 @@ func _ready() -> void:
 	add_child(_surface)
 
 func _process(delta: float) -> void:
+	var scene := get_tree().current_scene
+	var phase := int(scene.get("phase")) if scene != null and _has_property(scene, "phase") else -1
+	if phase == 1 and _last_phase != 1:
+		_chain = 0
+		_best_chain = 0
+		_chain_timer = 0.0
+		_previous_targets.clear()
+		_last_score = int(scene.get("score")) if _has_property(scene, "score") else 0
 	_chain_timer = maxf(0.0, _chain_timer - maxf(0.0, delta))
 	if _chain_timer <= 0.0:
 		_chain = 0
 	_observe_route_kills()
+	_last_phase = phase
 	if _surface != null:
 		_surface.queue_redraw()
+
+func best_chain() -> int:
+	return _best_chain
+
+func current_chain() -> int:
+	return _chain
 
 func _observe_route_kills() -> void:
 	var scene := get_tree().current_scene
@@ -50,6 +67,7 @@ func _observe_route_kills() -> void:
 		var previous_position: Vector2 = _previous_targets[key]
 		if InterceptRouteRules.likely_destroyed(previous_position, score_delta):
 			_chain = InterceptRouteRules.next_chain(_chain, _chain_timer, true)
+			_best_chain = maxi(_best_chain, _chain)
 			_chain_timer = InterceptRouteRules.next_timer(true)
 			break
 	_previous_targets = current
