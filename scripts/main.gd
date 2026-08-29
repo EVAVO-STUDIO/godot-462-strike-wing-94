@@ -33,6 +33,8 @@ var credits := 0
 var mission_index := 0
 var weapon_index := 0
 var temporary_weapon_boost := 0
+var shots_fired := 0
+var shots_hit := 0
 var boss_spawned := false
 var current_boss_id := ""
 var current_environment := "coast"
@@ -173,6 +175,8 @@ func _start_mission() -> void:
 	phase = GamePhase.PLAYING
 	mission_time = 0.0
 	score = 0
+	shots_fired = 0
+	shots_hit = 0
 	hull = clampi(_service_value("service_hull", max_hull), 1, max_hull)
 	shield = clampi(_service_value("service_shield", max_shield), 0, max_shield)
 	bombs = 3
@@ -239,6 +243,7 @@ func _update_weapons() -> void:
 	if Input.is_action_pressed("fire_primary") and fire_timer <= 0.0:
 		fire_timer = float(weapon.get("fire_interval", 0.11))
 		var count := maxi(1, int(weapon.get("projectiles", 1)))
+		shots_fired += count
 		var spread := float(weapon.get("spread_degrees", 0.0))
 		for i in range(count):
 			var angle := 0.0 if count == 1 else deg_to_rad(lerpf(-spread, spread, float(i) / float(count - 1)))
@@ -354,7 +359,9 @@ func _resolve_combat() -> void:
 		for enemy_index in range(enemies.size() - 1, -1, -1):
 			var radius_sq := 420.0 if bool(enemies[enemy_index].get("boss",false)) else 196.0
 			if bullets[bullet_index]["position"].distance_squared_to(enemies[enemy_index]["position"]) <= radius_sq:
-				enemies[enemy_index]["hp"] -= int(bullets[bullet_index]["damage"]); hit = true
+				enemies[enemy_index]["hp"] -= int(bullets[bullet_index]["damage"])
+				hit = true
+				shots_hit += 1
 				if int(enemies[enemy_index]["hp"]) <= 0:
 					var destroyed: Dictionary = enemies[enemy_index]
 					_register_destroy(destroyed)
