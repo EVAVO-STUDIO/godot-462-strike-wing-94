@@ -1,5 +1,5 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "missions": [
     {
       "id": "m01_coastal_intercept",
@@ -13,6 +13,7 @@
         {"id":"opening_scouts","at_seconds":7,"label":"SCOUT SCREEN","enemies":[{"id":"scout_falcon","count":4}],"suppress_random_seconds":3},
         {"id":"gunship_probe","at_seconds":38,"label":"GUNSHIP PROBE","enemies":[{"id":"gunship_mk1","count":2},{"id":"attack_chopper","count":2}],"suppress_random_seconds":4},
         {"id":"resupply_gap","at_seconds":70,"label":"RESUPPLY WINDOW","enemies":[{"id":"scout_falcon","count":2}],"pickup":"shield","suppress_random_seconds":7},
+        {"id":"hidden_ace","at_seconds":82,"label":"ACE CHALLENGE","secret":true,"condition":{"type":"accuracy_at_least","value":0.72,"minimum_shots":70},"enemies":[{"id":"ace_interceptor","count":1}],"pickup":"weapon","suppress_random_seconds":5},
         {"id":"boss_lead","at_seconds":96,"label":"COMMAND ESCORT","enemies":[{"id":"coastal_flak","count":2},{"id":"gunship_mk1","count":2}],"suppress_random_seconds":6}
       ],
       "objectives": [
@@ -33,6 +34,7 @@
         {"id":"road_column","at_seconds":8,"label":"ARMOURED COLUMN","enemies":[{"id":"light_tank","count":3},{"id":"sam_truck","count":2}],"suppress_random_seconds":4},
         {"id":"refinery_crossfire","at_seconds":48,"label":"REFINERY CROSSFIRE","enemies":[{"id":"attack_chopper","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":5},
         {"id":"maintenance_gap","at_seconds":88,"label":"MAINTENANCE GAP","enemies":[{"id":"light_tank","count":2}],"pickup":"repair","suppress_random_seconds":8},
+        {"id":"hidden_stockpile","at_seconds":102,"label":"MUNITIONS STOCKPILE","secret":true,"condition":{"type":"score_at_least","value":6500},"enemies":[{"id":"sam_truck","count":1},{"id":"fortified_turret","count":1}],"pickup":"bomb","suppress_random_seconds":5},
         {"id":"train_escort","at_seconds":116,"label":"TRAIN ESCORT","enemies":[{"id":"sam_truck","count":3},{"id":"gunship_mk1","count":2}],"suppress_random_seconds":7}
       ],
       "objectives": [
@@ -53,6 +55,7 @@
         {"id":"patrol_line","at_seconds":9,"label":"PATROL LINE","enemies":[{"id":"river_patrol","count":3},{"id":"torpedo_boat","count":2}],"suppress_random_seconds":4},
         {"id":"air_sea_pincer","at_seconds":55,"label":"AIR SEA PINCER","enemies":[{"id":"fast_attack_craft","count":2},{"id":"heavy_bomber","count":2}],"suppress_random_seconds":6},
         {"id":"open_water_recovery","at_seconds":101,"label":"OPEN WATER RECOVERY","enemies":[{"id":"river_patrol","count":2}],"pickup":"bomb","suppress_random_seconds":9},
+        {"id":"hidden_intercept","at_seconds":119,"label":"BLACK WAKE","secret":true,"condition":{"type":"bombs_at_least","value":3},"enemies":[{"id":"ace_interceptor","count":2}],"pickup":"weapon","suppress_random_seconds":6},
         {"id":"missile_screen","at_seconds":136,"label":"MISSILE SCREEN","enemies":[{"id":"missile_corvette","count":2},{"id":"torpedo_boat","count":2}],"suppress_random_seconds":7}
       ],
       "objectives": [
@@ -73,6 +76,7 @@
         {"id":"ace_entry","at_seconds":6,"label":"ACE ENTRY","enemies":[{"id":"ace_interceptor","count":2},{"id":"scout_falcon","count":3}],"suppress_random_seconds":4},
         {"id":"flak_wall","at_seconds":44,"label":"FLAK WALL","enemies":[{"id":"coastal_flak","count":4},{"id":"heavy_bomber","count":1}],"suppress_random_seconds":6},
         {"id":"breakwater_cache","at_seconds":82,"label":"BREAKWATER CACHE","enemies":[{"id":"gunship_mk1","count":2}],"pickup":"weapon","suppress_random_seconds":8},
+        {"id":"hidden_hunters","at_seconds":96,"label":"HUNTER CELL","secret":true,"condition":{"type":"accuracy_at_least","value":0.76,"minimum_shots":110},"enemies":[{"id":"ace_interceptor","count":2}],"pickup":"shield","suppress_random_seconds":6},
         {"id":"command_vanguard","at_seconds":108,"label":"COMMAND VANGUARD","enemies":[{"id":"ace_interceptor","count":2},{"id":"coastal_flak","count":2}],"suppress_random_seconds":7}
       ],
       "objectives": [
@@ -94,6 +98,7 @@
         {"id":"aa_gate","at_seconds":8,"label":"AA GATE","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":5},
         {"id":"bomber_lane","at_seconds":51,"label":"BOMBER LANE","enemies":[{"id":"heavy_bomber","count":3},{"id":"sam_truck","count":2}],"suppress_random_seconds":6},
         {"id":"service_convoy","at_seconds":96,"label":"SERVICE CONVOY","enemies":[{"id":"light_tank","count":2}],"pickup":"repair","suppress_random_seconds":9},
+        {"id":"hidden_armoury","at_seconds":112,"label":"FURNACE ARMOURY","secret":true,"condition":{"type":"score_at_least","value":12000},"enemies":[{"id":"armoured_aa_carrier","count":1},{"id":"ace_interceptor","count":1}],"pickup":"weapon","suppress_random_seconds":6},
         {"id":"tunnel_guard","at_seconds":126,"label":"TUNNEL GUARD","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"ace_interceptor","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":8}
       ],
       "objectives": [
@@ -115,6 +120,7 @@
         {"id":"attack_pack","at_seconds":7,"label":"ATTACK PACK","enemies":[{"id":"fast_attack_craft","count":4},{"id":"torpedo_boat","count":2}],"suppress_random_seconds":5},
         {"id":"corvette_net","at_seconds":58,"label":"CORVETTE NET","enemies":[{"id":"missile_corvette","count":3},{"id":"heavy_bomber","count":2}],"suppress_random_seconds":7},
         {"id":"final_resupply","at_seconds":109,"label":"FINAL RESUPPLY","enemies":[{"id":"fast_attack_craft","count":2}],"pickup":"shield","suppress_random_seconds":10},
+        {"id":"hidden_last_chance","at_seconds":130,"label":"DEAD CHANNEL","secret":true,"condition":{"type":"bombs_at_least","value":2},"enemies":[{"id":"missile_corvette","count":1},{"id":"ace_interceptor","count":2}],"pickup":"bomb","suppress_random_seconds":7},
         {"id":"flagship_screen","at_seconds":145,"label":"FLAGSHIP SCREEN","enemies":[{"id":"missile_corvette","count":2},{"id":"fast_attack_craft","count":3},{"id":"ace_interceptor","count":2}],"suppress_random_seconds":9}
       ],
       "objectives": [
