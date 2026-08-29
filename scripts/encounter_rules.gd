@@ -99,6 +99,15 @@ static func condition_type(beat: Dictionary) -> String:
 	var kind := str(condition.get("type", ""))
 	return kind if kind in ALLOWED_CONDITIONS else ""
 
+static func is_route_bonus(beat: Dictionary) -> bool:
+	return condition_type(beat) in ["altitude_is", "form_is", "altitude_form"]
+
+static func is_low_bomber_route(beat: Dictionary) -> bool:
+	if condition_type(beat) != "altitude_form":
+		return false
+	var condition: Dictionary = beat.get("condition", {})
+	return str(condition.get("altitude", "")) == AltitudeRules.LOW and str(condition.get("form", "")) == CraftFormRules.BOMBER
+
 static func condition_met(beat: Dictionary, state: Dictionary) -> bool:
 	var condition = beat.get("condition", {})
 	if typeof(condition) != TYPE_DICTIONARY or condition.is_empty():
