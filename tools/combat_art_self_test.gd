@@ -1,6 +1,7 @@
 extends SceneTree
 
 const CombatArtDirector = preload("res://scripts/combat_art_director.gd")
+const CombatFxDirector = preload("res://scripts/combat_fx_director.gd")
 
 var failures: Array[String] = []
 
@@ -11,6 +12,7 @@ func _initialize() -> void:
 	_test_altitude_presentation()
 	_test_late_boss_silhouettes()
 	_test_airframe_cues()
+	_test_combat_fx()
 	if failures.is_empty():
 		print("Strike Wing combat art self-test passed.")
 		quit(0)
@@ -23,6 +25,9 @@ func _test_wiring() -> void:
 	var director := CombatArtDirector.new()
 	_expect(director != null, "CombatArtDirector should instantiate")
 	director.free()
+	var fx := CombatFxDirector.new()
+	_expect(fx != null, "CombatFxDirector should instantiate")
+	fx.free()
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
@@ -30,6 +35,7 @@ func _test_wiring() -> void:
 		_expect(source.contains('CombatArtDirector="*res://scripts/combat_art_director.gd"'), "combat art presentation should remain autoloaded")
 		_expect(source.contains('AirframeCueDirector="*res://scripts/airframe_cue_director.gd"'), "airframe progression cues should remain autoloaded")
 		_expect(source.contains('AltitudeTransitionDirector="*res://scripts/altitude_transition_director.gd"'), "altitude transitions should retain dedicated presentation")
+		_expect(source.contains('CombatFxDirector="*res://scripts/combat_fx_director.gd"'), "combat impact feedback should remain autoloaded")
 
 func _test_visual_language() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -93,6 +99,19 @@ func _test_airframe_cues() -> void:
 	_expect(source.contains("layer = 13"), "airframe cues should remain above combat silhouettes and below projectile/HUD layers")
 	_expect(source.contains('"magneto_composite_frame"') and source.contains("_draw_magnetic_nodes"), "magneto-composite frame should expose restrained magnetic nodes")
 	_expect(source.contains('"field_coupled_frame"') and source.contains("_draw_field_lattice"), "field-coupled frame should expose visible field-lattice language")
+
+func _test_combat_fx() -> void:
+	var file := FileAccess.open("res://scripts/combat_fx_director.gd", FileAccess.READ)
+	_expect(file != null, "combat FX director should be readable")
+	if file == null:
+		return
+	var source := file.get_as_text()
+	_expect(source.contains("const MAX_EVENTS := 48"), "combat FX event count should stay bounded")
+	_expect(source.contains('"hit"') and source.contains('"explosion"') and source.contains('"boss_explosion"') and source.contains('"player_hit"'), "combat FX should distinguish hits, kills, bosses and player damage")
+	_expect(source.contains("_nearest_match"), "presentation-only FX may match previous/current enemies without changing gameplay state")
+	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
+	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
+	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
