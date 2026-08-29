@@ -3,6 +3,7 @@ extends Node
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
+const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
 var support_catalog: Array = []
 var selected_index := 0
@@ -89,18 +90,32 @@ func _handle_title(scene: Object) -> void:
 func _buy_next_support(scene: Object) -> void:
 	if support_catalog.is_empty():
 		return
+	var next_index := clampi(unlocked_index + 1, 0, maxi(0, support_catalog.size() - 1))
+	if next_index == unlocked_index:
+		_set_status(scene, "ALL SUPPORT SYSTEMS UNLOCKED")
+		return
+	var next_support: Dictionary = support_catalog[next_index]
+	var required_era := str(next_support.get("unlock_tech_era", "advanced_conventional"))
+	var current_era := _current_tech_era()
+	if not TechProgressionRules.can_unlock(required_era, current_era):
+		_set_status(scene, "TECH LOCK - %s" % TechProgressionRules.era_name(required_era))
+		return
 	var result := ProgressionRules.next_weapon_index(unlocked_index, support_catalog, int(scene.get("credits")))
 	if bool(result.get("changed", false)):
 		unlocked_index = int(result.get("index", unlocked_index))
 		selected_index = unlocked_index
 		scene.set("credits", int(result.get("credits", scene.get("credits"))))
 		_set_status(scene, "SUPPORT UNLOCKED %s" % current_support_name().to_upper())
-		return
-	var next_index := clampi(unlocked_index + 1, 0, maxi(0, support_catalog.size() - 1))
-	if next_index == unlocked_index:
-		_set_status(scene, "ALL SUPPORT SYSTEMS UNLOCKED")
 	else:
-		_set_status(scene, "SUPPORT NEEDS %d CREDITS" % int(support_catalog[next_index].get("cost", 0)))
+		_set_status(scene, "SUPPORT NEEDS %d CREDITS" % int(next_support.get("cost", 0)))
+
+func _current_tech_era() -> String:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("mission_context"):
+		var context = director.call("mission_context")
+		if typeof(context) == TYPE_DICTIONARY:
+			return str(context.get("tech_era", "advanced_conventional"))
+	return "advanced_conventional"
 
 func _craft_energy_multiplier() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
