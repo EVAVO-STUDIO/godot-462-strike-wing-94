@@ -1,235 +1,267 @@
 # VX-94 Craft and Altitude System
 
-This document is the implementation contract for the VX-94 Strike Wing variable-geometry aircraft and the four-altitude combat model.
+This document is the implementation contract for the VX-94 Strike Wing variable-geometry aircraft and four-altitude combat model.
 
 ## Variable-geometry craft
 
-The VX-94 is one physically continuous aircraft. It does not transform into a humanoid/mech form.
+The VX-94 is one physically continuous aircraft. It does not turn into a humanoid/mech form.
 
-The cockpit, fuselage, engines and core structure remain recognisable while wing sweep, lifting surfaces, hardpoint posture and control geometry change between two combat configurations.
+The cockpit, fuselage, propulsion core and main structure remain recognisable. The transformation is a believable combat reconfiguration:
 
-### Fighter configuration
+- the main wings rotate around visible hinge plates;
+- fighter geometry sweeps those wings back into a narrow high-speed planform;
+- bomber geometry opens them into a broad attack wing;
+- fighter wing-root cannon packs retract/move inward as bomber geometry deploys;
+- the bomber nose rotary cannon extends from the forward fuselage as the wings open;
+- the nose rotary retracts flush when returning to fighter configuration;
+- under-wing hardpoints remain physically readable for rockets, missiles, bombs and other stores.
+
+The transformation is a stance change, not a magical morph.
+
+## Fighter configuration
 
 Purpose: interception, dogfighting, upper atmosphere and orbital combat.
 
 Runtime characteristics:
 
-- movement multiplier: 1.16;
-- tighter body-contact profile;
-- primary spread multiplier: 0.78;
-- air-target attack multiplier: 1.18;
-- normal tactical-support energy consumption;
-- visually narrow swept-wing silhouette.
+- movement multiplier 1.16;
+- tighter body and hostile-projectile profile;
+- primary spread multiplier 0.78;
+- air-target attack multiplier 1.18 before altitude modifier;
+- normal tactical-support energy cost;
+- stronger afterburner burst and better high/orbital afterburner efficiency;
+- narrow swept-wing silhouette.
 
-### Bomber configuration
+### Fighter weapon posture
 
-Purpose: terrain following, bombing, anti-armour, anti-ship and sustained support-heavy strike work.
+Conventional multi-shot guns fire from the wing roots / wing cannon packs.
+
+The nose rotary is folded away, leaving a cleaner forward fuselage for speed.
+
+Weapons with their own dedicated emitter logic remain centreline where appropriate:
+
+- Needle Rail;
+- Storm Cannon;
+- Plasma Lance;
+- other future specialist centreline systems.
+
+Missiles, rockets, bombs and later equipment may use visible wing, under-wing or upper-fuselage hardpoints where the art and weapon role support it.
+
+## Bomber configuration
+
+Purpose: terrain following, bombing, anti-armour, anti-ship and sustained heavy strike work.
+
+The visual stance is deliberately closer to a heavy late-1990s attack-aircraft idea: broad wing, visible nacelles and pylons, strong forward gun posture. It may evoke the brutal functionality of an A-10-style attack aircraft without copying an A-10 shape or proprietary design.
 
 Runtime characteristics:
 
-- movement multiplier: 0.82;
-- wider body-contact profile;
-- primary spread multiplier: 1.22;
-- primary direct damage multiplier: 1.12;
-- ground/sea attack multiplier: 1.35 before altitude modifier;
-- tactical-support energy cost multiplier: 0.88;
-- visually broad deployed-wing silhouette.
+- movement multiplier 0.82;
+- wider body/projectile risk profile;
+- primary spread multiplier 1.22;
+- primary direct-damage multiplier 1.12;
+- ground/sea attack multiplier 1.35 before altitude modifier;
+- tactical-support energy multiplier 0.88;
+- precision strike ordnance available at low/mid altitude;
+- wide deployed attack-wing silhouette.
 
-### Transformation
+### Bomber nose rotary
 
-- default input: `Q`;
-- short 0.65 second transformation lockout;
-- mission context chooses the recommended configuration on mission change;
-- low/mid/high altitude can use both configurations;
-- orbital combat locks the craft to fighter configuration;
-- transformation must remain a tactical decision, never a rapid animation exploit.
+Conventional ballistic primaries use a deployable multi-barrel nose cannon in bomber mode.
 
-Final sprite animation should visibly move wing sweep and hardpoint geometry through a small number of hand-authored pixel frames.
+The assembly:
 
-## Altitude bands
+- extends from a recessed forward-fuselage housing during the wing-open transition;
+- is visibly multi-barrel in the pixel silhouette;
+- uses the same physical mount position for projectile creation and muzzle flash;
+- receives an original low, ripping procedural rotary sound;
+- retracts into the fuselage as fighter geometry returns.
 
-### Low
+The sound should provide the emotional weight of a huge attack-aircraft rotary gun without using or imitating a copyrighted real-world recording.
 
-Ground visual scale: 1.00.
+## Transformation timing and feedback
 
-Gameplay:
+Default input: `Q`.
 
-- strongest ground/sea interaction;
-- terrain, buildings, roads, armour and ships appear largest;
-- ground attack receives altitude multiplier 1.25;
-- air attack receives altitude multiplier 0.90;
-- bomber configuration is normally preferred;
-- gunship, bomber and missile support are especially appropriate.
+Rules:
 
-### Mid
+- 0.65 s anti-spam transform cooldown;
+- 0.24 s primary/secondary weapon interlock during the mechanical change;
+- visual wing sweep lasts about 0.42 s;
+- wing tips move around explicit hinge geometry rather than simply scaling the sprite wider;
+- nose-gun deployment and wing-cannon retraction happen during the same animation;
+- dedicated mechanical procedural SFX accompanies the transition;
+- orbital combat forces fighter configuration.
 
-Ground visual scale: 0.68.
+The transformation must remain readable at 640x360 and should feel cool because the mechanics are visible, not because it hides itself behind bloom or particles.
 
-Gameplay:
+## Primary projectile mounts
+
+`CraftFormDirector.primary_mount_offsets()` is the canonical presentation/gameplay mount contract.
+
+`main.gd::_update_weapons()` creates bullets at those exact offsets. Presentation layers also consume the same concept for muzzle flashes.
+
+This prevents the aircraft art showing one weapon location while collision/projectiles originate somewhere else.
+
+## Four altitude lanes
+
+Ordered lanes:
+
+1. LOW
+2. MID
+3. HIGH
+4. ORBITAL / ATMOS-SPACE
+
+Manual changes are adjacent only. A player cannot jump LOW directly to HIGH or MID directly to ORBITAL.
+
+## Low altitude
+
+Ground visual scale 1.00.
+
+- strongest surface interaction;
+- roads, structures, armour and ships are large/readable;
+- ground attack altitude multiplier 1.25;
+- air attack multiplier 0.90;
+- bomber normally preferred;
+- low-altitude bomber afterburner burns reserve faster and is an emergency escape tool rather than a permanent speed stance.
+
+## Mid altitude
+
+Ground visual scale 0.68.
 
 - hybrid air/surface combat;
-- low cloud bands can cross the battlefield;
-- both forms are useful;
+- low cloud layers;
+- both forms useful;
 - ground attack multiplier 0.92;
 - air attack multiplier 1.00;
-- tanker hookups are available on assigned missions.
+- tanker hookups can operate on assigned missions.
 
-### High
+## High altitude
 
-Ground visual scale: 0.34.
+Ground visual scale 0.34.
 
-Gameplay:
-
-- cloud-top interception;
-- conventional ground targets no longer form the normal combat vocabulary;
+- cloud-top interception and drone warfare;
+- ordinary surface targets cease to be the normal combat vocabulary;
 - ground attack multiplier 0.45;
 - air attack multiplier 1.12;
-- fighter configuration is strongly preferred;
+- fighter strongly preferred;
+- fighter afterburner is more efficient;
 - tanker, fighter and rail support become important.
 
-`Ghost Sky` is the first current high-altitude mission.
+## Orbital / atmosphere-space
 
-### Orbital / atmosphere-space
+Ground visual scale 0.12.
 
-Ground visual scale: 0.12.
-
-Gameplay:
-
-- no normal terrain-target combat;
+- no normal terrain-target gameplay;
 - fighter configuration mandatory;
 - air/orbital attack multiplier 1.18;
-- sparse stars, atmospheric curvature/glow and orbital structures replace normal terrain motifs;
-- rail/orbital support can appear;
-- autonomous exo-drones and orbital sentries become the normal combat vocabulary.
+- strongest afterburner efficiency;
+- sparse stars, atmosphere glow and station-scale structures;
+- rail/orbital support and autonomous exo units dominate.
 
-`Black Horizon` is the first current orbital mission.
+## Optional altitude-lane choice
+
+Some missions intentionally allow player-selected altitude changes for a bounded time window.
+
+Controls:
+
+- `PageUp`: climb one available lane;
+- `PageDown`: descend one available lane.
+
+The bottom HUD shows an `ALTITUDE LANE` prompt only while a choice window is active.
+
+Current examples include:
+
+- Coastal Intercept: MID/HIGH interception lanes;
+- Refinery Run: LOW/MID strike lanes;
+- Black Sea: LOW/MID sea-strike lanes;
+- Breakwater: MID/HIGH air-superiority lanes;
+- Furnace Line: LOW/MID attack lanes;
+- Ghost Sky: MID/HIGH cloud-intercept lanes;
+- Machine Furnace: LOW/MID/HIGH factory-attack lanes;
+- Blue Fire: MID/HIGH phase-intercept lanes before the scripted orbital ascent.
+
+These choices let the player trade surface access, target scale, support availability and fighter/bomber effectiveness without turning every mission into unrestricted altitude roaming.
+
+## Scripted altitude transitions
+
+Major set pieces remain authored and cannot be bypassed by manual lane selection.
+
+Examples:
+
+- Black Flag: MID -> LOW sea-skimming attack -> MID flagship phase;
+- Black Horizon: HIGH -> ORBITAL breakout;
+- Blue Fire: HIGH -> ORBITAL phase-array ascent;
+- Machine Ark: HIGH preparation/rearm phase -> ORBITAL final burn at 156 seconds.
+
+## Altitude transition presentation
+
+Scripted and manual altitude changes share one transition owner.
+
+The transition lasts about 1.15 seconds and includes:
+
+- directional `CLIMB` / `DIVE` pixel cue;
+- moving cloud bands;
+- speed brackets;
+- a subtle VX-94 pitch cue;
+- separate rising/falling procedural SFX;
+- interpolated surface-target scale between the old/new altitude instead of a one-frame size pop.
+
+Environment presentation should increasingly interpolate cloud/parallax treatment across the same transition rather than rely on a hard background swap.
 
 ## Damage interaction
 
-Player projectile damage is resolved from three layers:
+Player projectile damage resolves from:
 
 1. authored weapon/support damage;
 2. craft-form attack multiplier;
 3. altitude target-class multiplier.
 
-Surface classes are `ground` and `sea`; normal aerial/boss classes use the air multiplier.
+Surface classes are `ground` and `sea`. Air/boss classes use the air multiplier unless a boss-specific rule overrides it.
 
-This means form and altitude both have tactical meaning. A bomber at low altitude is substantially better at attacking surface forces, while a fighter at high/orbital altitude is substantially better against aerial threats.
+## Battlefield support interaction
 
-Boss-specific rules still take precedence where required (for example, nonlethal screen-bomb or allied-support damage).
+Support remains altitude-gated.
 
-## Environment presentation
+Atlas tanker is especially important because a complete hookup can restore:
 
-`EnvironmentDirector` renders deterministic, low-alpha pixel overlays over the prototype battlefield.
+- generator energy;
+- bounded hull/shield;
+- bombs;
+- tactical-support readiness;
+- precision strike ordnance;
+- afterburner reserve.
 
-Environment profiles:
-
-- coast;
-- industrial;
-- open water;
-- high cloud;
-- orbital.
-
-Altitude affects:
-
-- parallax velocity;
-- terrain-detail scale;
-- cloud density;
-- horizon glow;
-- whether normal ground detail is present.
-
-The overlay must never obscure combat silhouettes. Environment richness should come from structured pixel motifs and palette/scroll behaviour, not blur, bloom or noisy particles.
-
-## Campaign phase transition
-
-Current mission order now contains two implemented acts.
-
-### Mercenary War
-
-Missions 1-6:
-
-1. Coastal Intercept
-2. Refinery Run
-3. Black Sea
-4. Breakwater
-5. Furnace Line
-6. Black Flag
-
-These establish the 1999 near-future military world and gradually introduce electromagnetic technology.
-
-### Autonomous Drone War
-
-Missions 7-9:
-
-7. Ghost Sky - first high-altitude swarm engagement and Swarm Controller boss.
-8. Machine Furnace - human holdouts and autonomous factory forces overlap; AI Forge Core boss.
-9. Black Horizon - first atmosphere/orbital assault; Orbital Command Node boss.
-
-This overlap is intentional. The human enemy does not vanish the instant the AI becomes active.
-
-### External Contact
-
-Still reserved for later campaign work. No alien faction has been inserted into the current nine missions.
-
-## Battlefield support
-
-Mission context assigns a limited list of allied assets. The player cycles assigned support with `B` and calls it with `F`.
-
-Current support catalogue:
-
-- Spectre Heavy Gunship;
-- Atlas Tanker;
-- Rapier Fighter Flight;
-- Hammer Bomber Flight;
-- Cruise Missile Battery;
-- Longshot Rail Battery;
-- Orbital Strike Platform.
-
-Every support package is altitude-gated.
-
-### Atlas tanker hookup
-
-The Atlas is the first fully spatial support set piece.
-
-- available only at mid/high altitude on assigned missions;
-- visible large transport silhouette and trailing hose;
-- player must hold inside a 30 px hookup radius;
-- connection must be maintained for 3.5 seconds;
-- breaking formation decays progress gradually rather than instantly resetting it;
-- while connected, energy, shield and hull recover at bounded rates;
-- full hookup adds two bombs (capped at five) and resets tactical-support cooldown;
-- failure to complete before the tanker window closes yields no completion reward.
-
-The final art pass should show a recognisable future tanker, articulated hose/basket and an obvious but compact connection cue.
-
-## Allied strike safety
-
-Battlefield support is powerful but cannot replace boss gameplay.
-
-- ordinary support kills register normal objective destruction and score;
-- support attacks are target-count bounded;
-- boss damage is clamped nonlethally to at least 1 HP;
-- orbital strike is not a universal screen delete;
-- cooldowns remain long enough that support is a strategic event rather than a second primary weapon.
+Mission 12 intentionally keeps the VX-94 at HIGH until after its rearm window, then performs the authored orbital burn.
 
 ## Controls
 
-- movement: WASD / arrows;
-- primary: Space;
-- screen bomb: X;
-- tactical support: Z;
-- transform fighter/bomber: Q;
-- cycle tactical support: C;
-- buy tactical support: V;
-- cycle battlefield support: B;
-- call battlefield support: F;
-- buy primary: U;
-- buy generator: G;
-- hull service: H;
-- shield service: J.
+- movement: WASD / arrows
+- primary: Space
+- emergency screen bomb: X
+- precision bomber ordnance: E
+- tactical support: Z
+- transform fighter/bomber: Q
+- afterburner: Shift
+- optional altitude climb: PageUp
+- optional altitude dive: PageDown
+- cycle tactical support: C
+- buy tactical support: V
+- cycle battlefield support: B
+- call battlefield support: F
+- mission intelligence: I
+- buy primary: U
+- buy generator: G
+- buy airframe: K
+- hull service: H
+- shield service: J
 
-## Remaining direct integration work
+## Production invariants
 
-Do not add a collision-reconciliation director.
-
-The player-body contact profile is already form-aware. The remaining collision refinement is to make the hostile-projectile hit radius directly consume a dedicated fighter/bomber projectile-hit profile inside `main.gd::_update_enemy_bullets()`. That should be done at the source in the scene on the next safe direct scene edit.
+- no magical/mech transformation;
+- wing sweep must remain hinge-based and visible;
+- fighter guns and bomber nose gun must use the same mount geometry for art, muzzle flash and projectile origin;
+- bomber rotary sound must remain original/procedural;
+- optional altitude changes are adjacent-lane only and window-gated;
+- scripted altitude transitions remain authored mission beats;
+- orbital flight always forces fighter geometry;
+- transition FX never obscure incoming projectiles.
