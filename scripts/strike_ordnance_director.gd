@@ -9,6 +9,7 @@ var _cooldown := 0.0
 var _pending: Array = []
 var _surface: Control
 var _last_phase := -1
+var _stability := 0.0
 
 func _ready() -> void:
 	layer = 14
@@ -30,12 +31,15 @@ func _process(delta: float) -> void:
 	if phase == 1 and _last_phase != 1:
 		ordnance = StrikeOrdnanceRules.MAX_ORDNANCE
 		_pending.clear()
+		_stability = 0.0
 	if phase == 1:
+		_update_attack_run_stability(scene, delta)
 		_update_pending(scene, delta)
 		if Input.is_action_just_pressed("drop_strike_ordnance"):
 			_try_drop(scene)
 	else:
 		_pending.clear()
+		_stability = 0.0
 	_last_phase = phase
 	_surface.queue_redraw()
 
@@ -47,6 +51,20 @@ func _supports(scene: Object) -> bool:
 		if not names.has(required):
 			return false
 	return true
+
+func _update_attack_run_stability(scene: Object, delta: float) -> void:
+	var form := _craft_value("current_form", "fighter")
+	var altitude := _craft_value("current_altitude", "mid")
+	var enemies: Array = scene.get("enemies")
+	var has_lock := StrikeOrdnanceRules.assisted_target_index(scene.get("player_position"), altitude, enemies) >= 0
+	var lateral := Input.get_axis("move_left", "move_right")
+	_stability = StrikeOrdnanceRules.update_stability(
+		_stability,
+		delta,
+		form == "bomber" and altitude == "low",
+		has_lock,
+		lateral
+	)
 
 func _try_drop(scene: Object) -> void:
 	var form := _craft_value("current_form", "fighter")
@@ -67,15 +85,18 @@ func _try_drop(scene: Object) -> void:
 		altitude,
 		enemies
 	)
+	var delay := StrikeOrdnanceRules.stabilized_impact_delay(altitude, _stability)
 	_pending.append({
 		"position": point,
-		"time": StrikeOrdnanceRules.impact_delay(altitude),
-		"initial_time": StrikeOrdnanceRules.impact_delay(altitude),
+		"time": delay,
+		"initial_time": delay,
 		"altitude": altitude,
+		"stability": _stability,
 		"priority_lock": StrikeOrdnanceRules.priority_target_at_point(point, enemies)
 	})
 	var lock_text := "  ROUTE LOCK" if bool(_pending[_pending.size()-1].get("priority_lock", false)) else ""
-	_set_status(scene, "%s - BOMB AWAY  %d LEFT%s" % [StrikeOrdnanceRules.delivery_quality(altitude), ordnance, lock_text])
+	var stable_text := "  STABLE" if _stability >= 0.95 and altitude == "low" else ""
+	_set_status(scene, "%s - BOMB AWAY  %d LEFT%s%s" % [StrikeOrdnanceRules.delivery_quality(altitude), ordnance, lock_text, stable_text])
 
 func _update_pending(scene: Object, delta: float) -> void:
 	for i in range(_pending.size() - 1, -1, -1):
@@ -128,9 +149,13 @@ func _impact(scene: Object, item: Dictionary) -> void:
 func rearm_full() -> void:
 	ordnance = StrikeOrdnanceRules.MAX_ORDNANCE
 	_cooldown = 0.0
+	_stability = 0.0
 
 func ordnance_count() -> int:
 	return ordnance
+
+func attack_run_stability() -> float:
+	return _stability
 
 func _craft_value(method_name: String, fallback: String) -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
@@ -156,9 +181,12 @@ func _draw_surface(surface: CanvasItem) -> void:
 	var target := StrikeOrdnanceRules.assisted_target_point(scene.get("player_position"), altitude, enemies)
 	var assisted := target.distance_squared_to(projected) > 0.5
 	var priority := target_index >= 0 and target_index < enemies.size() and typeof(enemies[target_index]) == TYPE_DICTIONARY and bool(enemies[target_index].get("strike_priority", false))
-	var aim_radius := StrikeOrdnanceRules.aim_radius(altitude)
+	var aim_radius := StrikeOrdnanceRules.stabilized_aim_radius(altitude, _stability)
 	var blast_radius := StrikeOrdnanceRules.blast_radius(altitude)
+	var stable := altitude == "low" and _stability >= 0.95
 	var reticle := Color(0.42, 0.96, 0.62, 0.92) if priority else (Color(0.38, 0.86, 0.70, 0.72) if assisted else Color(0.92, 0.74, 0.30, 0.55))
+	if stable:
+		reticle = Color(0.72, 1.0, 0.82, 0.98)
 	if assisted:
 		surface.draw_line(projected, target, Color(reticle.r, reticle.g, reticle.b, 0.35), 1.0)
 	surface.draw_arc(target, aim_radius, 0.0, TAU, 20, reticle, 1.0)
@@ -168,14 +196,19 @@ func _draw_surface(surface: CanvasItem) -> void:
 	if priority:
 		surface.draw_rect(Rect2(roundf(target.x)-11, roundf(target.y)-11, 22, 22), reticle, false, 1.0)
 		PixelFont.draw_text(surface, "ROUTE TARGET", target + Vector2(-24, 15), 1, reticle, 1)
+	var stability_pct := int(round(_stability * 100.0))
 	PixelFont.draw_text(
 		surface,
-		"E BOMB %d  %s%s%s" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else "", " ROUTE" if priority else ""],
+		"E BOMB %d  %s%s%s  STB%03d" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else "", " ROUTE" if priority else "", stability_pct],
 		Vector2(18, 314),
 		1,
 		Color(0.92, 0.74, 0.30, 0.92),
 		1
 	)
+	if altitude == "low" and target_index >= 0:
+		var bar_width := 48.0
+		surface.draw_rect(Rect2(18, 325, bar_width, 3), Color(0.12,0.18,0.20,0.82))
+		surface.draw_rect(Rect2(18, 325, roundf(bar_width * _stability), 3), Color(0.42,0.86,0.64,0.92))
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)
 		var initial_time := maxf(0.001, float(item.get("initial_time", StrikeOrdnanceRules.impact_delay(str(item.get("altitude", "low"))))))
