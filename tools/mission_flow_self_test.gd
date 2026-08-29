@@ -3,7 +3,6 @@ extends SceneTree
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
-const MovementPatternDirector = preload("res://scripts/movement_pattern_director.gd")
 const BossHudRules = preload("res://scripts/boss_hud_rules.gd")
 const BossHudDirector = preload("res://scripts/boss_hud_director.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
@@ -126,9 +125,15 @@ func _test_movement_patterns() -> void:
 	_expect(MovementPatternRules.adjusted_position("road_column", Vector2(240,100), player, 1.0, 1.0, 200.0).x < 240.0, "road column should return toward lane anchor")
 	_expect(MovementPatternRules.adjusted_position("static", Vector2(240,100), player, 1.0, 1.0, 200.0).x == 200.0, "static emplacement should lock to anchor")
 	_expect(MovementPatternRules.clamp_x(Vector2(999,100), 36.0, 604.0).x == 604.0, "movement clamp should retain playfield bounds")
-	var director := MovementPatternDirector.new()
-	_expect(director != null, "movement pattern director should instantiate")
-	director.free()
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable for source-owned movement checks")
+	if main_file != null:
+		var source := main_file.get_as_text()
+		_expect(source.contains('"pattern":str(archetype.get("pattern","sine_dive"))'), "spawned enemies should retain authored movement pattern")
+		_expect(source.contains('"pattern_anchor_x":x'), "spawned enemies should retain movement anchor")
+		_expect(source.contains("MovementPatternRules.adjusted_position(pattern, position, player_position"), "main enemy loop should apply authored movement directly")
+		_expect(source.contains("MovementPatternRules.clamp_x(position"), "main enemy loop should clamp authored movement directly")
+	_expect(not FileAccess.file_exists("res://scripts/movement_pattern_director.gd"), "obsolete movement pattern director should remain deleted")
 
 func _test_autoloads() -> void:
 	var file := FileAccess.open("res://project.godot", FileAccess.READ)
@@ -136,9 +141,8 @@ func _test_autoloads() -> void:
 	if file == null:
 		return
 	var text := file.get_as_text()
-	for obsolete in ["SpawnSafetyDirector", "MissileBehaviorDirector", "MissionStateDirector", "BombGuardDirector", "MissionFlowDirector"]:
+	for obsolete in ["SpawnSafetyDirector", "MissileBehaviorDirector", "MissionStateDirector", "BombGuardDirector", "MissionFlowDirector", "MovementPatternDirector"]:
 		_expect(not text.contains(obsolete), "obsolete reconciliation autoload should stay removed: %s" % obsolete)
-	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
 	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
 	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
 	_expect(text.contains("ProjectileCueDirector=\"*res://scripts/projectile_cue_director.gd\""), "projectile cue director must remain autoloaded")
