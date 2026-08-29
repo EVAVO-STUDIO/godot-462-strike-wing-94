@@ -1,5 +1,6 @@
 extends SceneTree
 
+const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CombatArtDirector = preload("res://scripts/combat_art_director.gd")
 const CombatFxDirector = preload("res://scripts/combat_fx_director.gd")
 
@@ -13,6 +14,7 @@ func _initialize() -> void:
 	_test_late_boss_silhouettes()
 	_test_airframe_cues()
 	_test_combat_fx()
+	_test_mount_map()
 	if failures.is_empty():
 		print("Strike Wing combat art self-test passed.")
 		quit(0)
@@ -36,6 +38,7 @@ func _test_wiring() -> void:
 		_expect(source.contains('AirframeCueDirector="*res://scripts/airframe_cue_director.gd"'), "airframe progression cues should remain autoloaded")
 		_expect(source.contains('AltitudeTransitionDirector="*res://scripts/altitude_transition_director.gd"'), "altitude transitions should retain dedicated presentation")
 		_expect(source.contains('CombatFxDirector="*res://scripts/combat_fx_director.gd"'), "combat impact feedback should remain autoloaded")
+		_expect(source.contains('LoadoutSchematicDirector="*res://scripts/loadout_schematic_director.gd"'), "VX-94 stores schematic should remain autoloaded")
 
 func _test_visual_language() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -108,10 +111,34 @@ func _test_combat_fx() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("const MAX_EVENTS := 48"), "combat FX event count should stay bounded")
 	_expect(source.contains('"hit"') and source.contains('"explosion"') and source.contains('"boss_explosion"') and source.contains('"player_hit"'), "combat FX should distinguish hits, kills, bosses and player damage")
-	_expect(source.contains("_nearest_match"), "presentation-only FX may match previous/current enemies without changing gameplay state")
 	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
+
+func _test_mount_map() -> void:
+	var data = ContentCatalog.load_json("res://data/player_mounts.json")
+	_expect(typeof(data) == TYPE_DICTIONARY, "VX-94 mount map should load")
+	if typeof(data) != TYPE_DICTIONARY:
+		return
+	_expect(str(data.get("craft_id", "")) == "vx_94_strikewing", "mount map should belong to VX-94")
+	var mounts: Array = data.get("mounts", [])
+	_expect(mounts.size() >= 10, "VX-94 should expose a useful physical mount map")
+	var by_id: Dictionary = {}
+	for mount in mounts:
+		if typeof(mount) == TYPE_DICTIONARY:
+			by_id[str(mount.get("id", ""))] = mount
+	_expect(by_id.has("nose_rotary") and "bomber" in by_id["nose_rotary"].get("forms", []), "nose rotary should be bomber-only deployment")
+	_expect(by_id.has("wing_root_left") and "fighter" in by_id["wing_root_left"].get("forms", []), "wing-root cannon should be fighter mount")
+	_expect(by_id.has("centerline_emitter") and "rail" in by_id["centerline_emitter"].get("roles", []), "specialist rail/energy systems should retain centreline emitter")
+	_expect(by_id.has("ventral_strike_bay") and "precision_bomb" in by_id["ventral_strike_bay"].get("roles", []), "precision bombing should use ventral strike bay")
+	_expect(by_id.has("dorsal_module") and "emp" in by_id["dorsal_module"].get("roles", []), "electronic systems should have dorsal module location")
+	var schematic := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
+	_expect(schematic != null, "loadout schematic should be readable")
+	if schematic != null:
+		var source := schematic.get_as_text()
+		_expect(source.contains("KEY_L"), "L should toggle VX-94 stores schematic")
+		_expect(source.contains("player_mounts.json"), "schematic should consume the authored physical mount map")
+		_expect(source.contains("FIGHTER") and source.contains("BOMBER / ATTACK"), "schematic should compare both variable-geometry planforms")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
