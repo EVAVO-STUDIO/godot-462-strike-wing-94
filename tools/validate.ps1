@@ -24,9 +24,9 @@ $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/boss_hud_rules.gd','scripts/boss_hud_director.gd',
-    'scripts/bomb_rules.gd','scripts/bomb_guard_director.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd',
+    'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd',
     'scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
-    'scripts/mission_state_rules.gd','scripts/mission_state_director.gd','scripts/mission_flow_rules.gd','scripts/mission_flow_director.gd',
+    'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/mission_flow_director.gd',
     'scripts/movement_pattern_rules.gd','scripts/movement_pattern_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
@@ -39,7 +39,12 @@ $Required = @(
 foreach ($RelativePath in $Required) {
     if (-not (Test-Path (Join-Path $Root $RelativePath))) { throw "Missing required file: $RelativePath" }
 }
-foreach ($Forbidden in @('.github/workflows','.godot','build','dist','scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd','scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd')) {
+foreach ($Forbidden in @(
+    '.github/workflows','.godot','build','dist',
+    'scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd',
+    'scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd',
+    'scripts/mission_state_director.gd','scripts/bomb_guard_director.gd'
+)) {
     if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/obsolete path committed: $Forbidden" }
 }
 
@@ -131,18 +136,29 @@ foreach ($Weapon in $Primaries) {
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
     'CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"',
-    'RunSeedDirector="*res://scripts/run_seed_director.gd"','BombGuardDirector="*res://scripts/bomb_guard_director.gd"',
-    'MissionStateDirector="*res://scripts/mission_state_director.gd"','MissionFlowDirector="*res://scripts/mission_flow_director.gd"',
+    'RunSeedDirector="*res://scripts/run_seed_director.gd"','MissionFlowDirector="*res://scripts/mission_flow_director.gd"',
     'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"','AccuracyDirector="*res://scripts/accuracy_director.gd"',
     'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"',
     'MovementPatternDirector="*res://scripts/movement_pattern_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"',
     'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
-foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector')) { if ($ProjectText.Contains($ObsoleteAutoload)) { throw "Obsolete autoload must remain removed: $ObsoleteAutoload" } }
+foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector')) {
+    if ($ProjectText.Contains($ObsoleteAutoload)) { throw "Obsolete autoload must remain removed: $ObsoleteAutoload" }
+}
 
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
-foreach ($Token in @('RunSeedRules','mission_rng := RandomNumberGenerator.new()','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','mission_rng.randf()','mission_rng.randi_range','mission_rng.randf_range','if allowed_ids.is_empty():','func _make_enemy_shot','shot["homing"] = true','shot["homing_speed"]','shot["turn_rate"] = 1.8','shot["life"] = 5.0','var is_missile := weapon_id == "missile"','_make_enemy_shot(origin, velocity, damage, is_missile)')) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing dedicated RNG/spawn/missile token: $Token" } }
-foreach ($ForbiddenToken in @('pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get','MissileBehaviorRules','MissileBehaviorDirector')) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete global RNG/broad fallback/missile workaround token: $ForbiddenToken" } }
+foreach ($Token in @(
+    'RunSeedRules','mission_rng := RandomNumberGenerator.new()','mission_rng.seed = RunSeedRules.mission_seed(mission_index)',
+    'mission_rng.randf()','mission_rng.randi_range','mission_rng.randf_range','if allowed_ids.is_empty():',
+    'func _make_enemy_shot','shot["homing"] = true','shot["homing_speed"]','shot["turn_rate"] = 1.8','shot["life"] = 5.0',
+    'MissionStateRules.live_wave(_active_mission(), mission_time)','MissionStateRules.starting_wave(_active_mission())',
+    'MissionStateRules.starting_hull','MissionStateRules.starting_shield','_service_value("service_hull", max_hull)','_service_value("service_shield", max_shield)',
+    'BombRules.apply_nonlethal_boss_damage','survivors.append(boss)','BOMB STRIKE - BOSS DAMAGED'
+)) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing direct runtime ownership token: $Token" } }
+foreach ($ForbiddenToken in @(
+    'pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get',
+    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','enemies.clear(); enemy_bullets.clear()'
+)) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete reconciliation/global fallback token: $ForbiddenToken" } }
 
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
 foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) { if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" } }
@@ -154,15 +170,13 @@ $ProjectileCueText = Get-Content -Raw (Join-Path $Root 'scripts/projectile_cue_d
 foreach ($Token in @('ProjectileCueRules.projectile_type','TYPE_MISSILE','queue_redraw')) { if (-not $ProjectileCueText.Contains($Token)) { throw "Projectile cue missing token: $Token" } }
 $BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
 foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) { if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" } }
-$BombGuardText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_guard_director.gd')
-foreach ($Token in @('process_priority = -50','_hold_bosses','_restore_bosses','BombRules.apply_nonlethal_boss_damage')) { if (-not $BombGuardText.Contains($Token)) { throw "Bomb guard missing integration token: $Token" } }
+$MissionStateRulesText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_rules.gd')
+foreach ($Token in @('starting_hull','starting_shield','starting_wave','live_wave')) { if (-not $MissionStateRulesText.Contains($Token)) { throw "Mission state rules missing token: $Token" } }
 $SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
 foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) { if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" } }
 $SeedDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director.gd')
 foreach ($Token in @('RunSeedRules.mission_seed','current_mission_seed','_update_seed_for_scene')) { if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing token: $Token" } }
 if ($SeedDirectorText.Contains('seed(run_seed)')) { throw 'RunSeedDirector must not mutate the global RNG.' }
-$MissionStateText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_director.gd')
-foreach ($Token in @('process_priority = 100','MissionStateRules.starting_hull','MissionStateRules.starting_shield','MissionStateRules.live_wave')) { if (-not $MissionStateText.Contains($Token)) { throw "Mission state director missing token: $Token" } }
 $MissionFlowText = Get-Content -Raw (Join-Path $Root 'scripts/mission_flow_director.gd')
 foreach ($Token in @('process_priority = -40','MissionFlowRules.should_hold_overtime','safe_pre_frame_time','OVERTIME - DESTROY THE BOSS')) { if (-not $MissionFlowText.Contains($Token)) { throw "Mission flow director missing token: $Token" } }
 $MovementRulesText = Get-Content -Raw (Join-Path $Root 'scripts/movement_pattern_rules.gd')
