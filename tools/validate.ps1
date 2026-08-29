@@ -112,6 +112,9 @@ $CampaignIds = @($Campaign.campaign.missions)
 if ($CampaignIds.Count -ne 12 -or @($CampaignIds | Sort-Object -Unique).Count -ne 12) { throw 'Campaign order must contain twelve unique missions.' }
 foreach ($Id in $CampaignIds) { if ($MissionIds -notcontains $Id) { throw "Unknown campaign mission: $Id" } }
 
+$AllowedConditionTypes = @('accuracy_at_least','score_at_least','bombs_at_least','altitude_is','form_is','altitude_form')
+$RouteBeatIds = @('low_attack_window','high_intercept_route','low_bomber_route','high_hunter_route')
+$SeenRouteBeatIds = @{}
 $ChoiceWindows = 0
 foreach ($Mission in $Missions.missions) {
     $Context = Mission-Context $World ([string]$Mission.id)
@@ -121,8 +124,19 @@ foreach ($Mission in $Missions.missions) {
         if ([double]$Window.end_seconds -le [double]$Window.start_seconds) { throw "Invalid altitude window: $($Mission.id)" }
         if (@($Window.bands).Count -lt 2) { throw "Altitude window needs at least two bands: $($Mission.id)" }
     }
+    foreach ($Beat in @($Mission.encounter_beats)) {
+        if ($Beat.condition) {
+            $Type = [string]$Beat.condition.type
+            if ($AllowedConditionTypes -notcontains $Type) { throw "Unsupported encounter condition: $($Mission.id)/$($Beat.id) -> $Type" }
+        }
+        if ($RouteBeatIds -contains [string]$Beat.id) {
+            $SeenRouteBeatIds[[string]$Beat.id] = $true
+            if ([string]$Beat.condition.type -ne 'altitude_form') { throw "Route beat must use altitude_form: $($Beat.id)" }
+        }
+    }
 }
 if ($ChoiceWindows -lt 7) { throw 'Campaign should retain multiple tactical altitude-lane windows.' }
+foreach ($Id in $RouteBeatIds) { if (-not $SeenRouteBeatIds.ContainsKey($Id)) { throw "Missing route bonus beat: $Id" } }
 
 $Machine = Mission-Context $World 'm12_machine_ark'
 if ([string]$Machine.altitude -ne 'high' -or [string]$Machine.tech_era -ne 'strategic_orbital') { throw 'Machine Ark must start HIGH in strategic-orbital era.' }
@@ -147,6 +161,8 @@ foreach ($Autoload in @(
     'WeaponMountCueDirector="*res://scripts/weapon_mount_cue_director.gd"',
     'CombatFxDirector="*res://scripts/combat_fx_director.gd"',
     'EnvironmentDirector="*res://scripts/environment_director.gd"',
+    'StrikeOrdnanceDirector="*res://scripts/strike_ordnance_director.gd"',
+    'MissionIntelDirector="*res://scripts/mission_intel_director.gd"',
     'RetroSfxDirector="*res://scripts/retro_sfx_director.gd"',
     'PixelUiDirector="*res://scripts/pixel_ui_director.gd"'
 )) {
@@ -160,13 +176,35 @@ Assert-Contains $CraftText @(
 ) 'Craft/altitude runtime'
 
 $EncounterText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_director.gd')
-Assert-Contains $EncounterText @('process_priority = -20','AltitudeRules.allows_enemy_archetype','ALTITUDE FILTER') 'Encounter altitude filtering'
+Assert-Contains $EncounterText @(
+    'process_priority = -20','AltitudeRules.allows_enemy_archetype','ALTITUDE FILTER',
+    'EncounterRules.is_low_bomber_route(beat)','enemy["strike_priority"] = true','route_bonus_id'
+) 'Encounter route/altitude filtering'
+
+$EncounterRulesText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_rules.gd')
+Assert-Contains $EncounterRulesText @(
+    '"altitude_is"','"form_is"','"altitude_form"','is_route_bonus','is_low_bomber_route'
+) 'Encounter route conditions'
 
 $AltitudeText = Get-Content -Raw (Join-Path $Root 'scripts/altitude_rules.gd')
 Assert-Contains $AltitudeText @('TRANSITION_SECONDS := 1.15','allows_enemy_class','allows_enemy_archetype','adjacent_band') 'Altitude rules'
 
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
 Assert-Contains $MainText @('_craft_primary_mount_offsets(weapon, count)','"position": player_position + mount_offsets[i]','mission_rng.seed = RunSeedRules.mission_seed(mission_index)') 'Main gameplay'
+
+$StrikeRulesText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_rules.gd')
+Assert-Contains $StrikeRulesText @(
+    'ROUTE_PRECISION_SCORE := 450','assisted_target_index','strike_priority',
+    'STABILITY_SECONDS := 0.65','update_stability','stabilized_impact_delay','stabilized_aim_radius'
+) 'Bombing computer rules'
+
+$StrikeText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_director.gd')
+Assert-Contains $StrikeText @(
+    'ROUTE TARGET','PRECISION ROUTE HIT','_update_attack_run_stability','STB%03d','route_precision_score'
+) 'Bombing route runtime'
+
+$IntelText = Get-Content -Raw (Join-Path $Root 'scripts/mission_intel_rules.gd')
+Assert-Contains $IntelText @('route_opportunity_summary','"ROUTES %s"','LOW','BMB','HIGH','FTR') 'Mission route intel'
 
 $FxText = Get-Content -Raw (Join-Path $Root 'scripts/combat_fx_director.gd')
 Assert-Contains $FxText @('MAX_EVENTS := 48','boss_explosion','player_hit','play_event','_hit_audio_cooldown') 'Combat impact FX'
@@ -182,7 +220,7 @@ Assert-Contains $SaveText @('SAVE_VERSION := 5','airframe_index','SaveRecoveryRu
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural/data/altitude/filter/impact validation passed; engine tests skipped.'
+    Write-Warning 'Godot executable not found. Structural/data/altitude/routes/bombing/impact validation passed; engine tests skipped.'
     exit 0
 }
 
