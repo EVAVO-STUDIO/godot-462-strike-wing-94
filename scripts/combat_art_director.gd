@@ -80,7 +80,6 @@ func _draw_transforming(surface: CanvasItem, p: Vector2, sweep: float) -> void:
 	surface.draw_rect(Rect2(p.x-engine_span, p.y+13, 4, 3), PLAYER_ENGINE)
 	surface.draw_rect(Rect2(p.x+engine_span-4, p.y+13, 4, 3), PLAYER_ENGINE)
 	surface.draw_rect(Rect2(p.x-2, p.y+6, 4, 9), PLAYER_DARK)
-	# Mechanical hinge marks make the sweep read as variable-geometry hardware.
 	surface.draw_rect(Rect2(p.x-8,p.y+5,3,3), PLAYER_DARK)
 	surface.draw_rect(Rect2(p.x+5,p.y+5,3,3), PLAYER_DARK)
 
@@ -178,7 +177,7 @@ func _draw_autonomous(surface: CanvasItem, p: Vector2, id: String, category: Str
 		var core := maxf(3.0,roundf(6.0*s))
 		surface.draw_rect(Rect2(p.x-core*0.5,p.y-core*0.5,core,core), AI_CORE)
 		return
-	var wide := 18.0 if id in ["drone_bomber","orbital_sentry"] else 13.0
+	var wide := 18.0 if id in ["drone_bomber","orbital_sentry","beam_sentry"] else 13.0
 	surface.draw_colored_polygon(PackedVector2Array([
 		p+Vector2(0,13), p+Vector2(-wide,-4), p+Vector2(-6,-10),
 		p+Vector2(0,-6), p+Vector2(6,-10), p+Vector2(wide,-4)
@@ -188,6 +187,15 @@ func _draw_autonomous(surface: CanvasItem, p: Vector2, id: String, category: Str
 	surface.draw_line(p+Vector2(wide-3,-3), p+Vector2(5,5), AI_DARK, 2)
 
 func _draw_boss(surface: CanvasItem, p: Vector2, id: String, faction: String) -> void:
+	if id == "phase_control_array":
+		_draw_phase_array(surface, p)
+		return
+	if id == "station_warden":
+		_draw_station_warden(surface, p)
+		return
+	if id == "machine_ark":
+		_draw_machine_ark(surface, p)
+		return
 	var body := AI if faction == "autonomous" else BOSS
 	var dark := AI_DARK if faction == "autonomous" else BOSS_DARK
 	var half_width := 34.0
@@ -203,6 +211,35 @@ func _draw_boss(surface: CanvasItem, p: Vector2, id: String, faction: String) ->
 	surface.draw_rect(Rect2(p.x-5,p.y-14,10,10), AI_CORE if faction == "autonomous" else Color("e1b16d"))
 	for x in [-25,20]:
 		surface.draw_rect(Rect2(p.x+x,p.y+5,6,4), dark)
+
+func _draw_phase_array(surface: CanvasItem, p: Vector2) -> void:
+	surface.draw_arc(p, 32.0, 0.0, TAU, 20, AI, 5.0)
+	surface.draw_arc(p, 22.0, 0.0, TAU, 16, AI_DARK, 3.0)
+	surface.draw_rect(Rect2(p.x-7,p.y-7,14,14), AI_CORE)
+	for axis in [Vector2(0,-40), Vector2(40,0), Vector2(0,40), Vector2(-40,0)]:
+		surface.draw_line(p + axis.normalized()*20.0, p + axis, AI, 4.0)
+		surface.draw_rect(Rect2((p+axis).x-4,(p+axis).y-4,8,8), AI_DARK)
+
+func _draw_station_warden(surface: CanvasItem, p: Vector2) -> void:
+	surface.draw_rect(Rect2(p.x-15,p.y-38,30,76), AI_DARK)
+	surface.draw_rect(Rect2(p.x-50,p.y-11,100,22), AI)
+	surface.draw_rect(Rect2(p.x-27,p.y-19,54,38), AI_DARK)
+	surface.draw_rect(Rect2(p.x-8,p.y-8,16,16), AI_CORE)
+	for x in [-44,-32,26,38]:
+		surface.draw_rect(Rect2(p.x+x,p.y-5,7,10), AI_CORE)
+
+func _draw_machine_ark(surface: CanvasItem, p: Vector2) -> void:
+	surface.draw_colored_polygon(PackedVector2Array([
+		p+Vector2(0,-32), p+Vector2(-34,-22), p+Vector2(-62,-4), p+Vector2(-54,22),
+		p+Vector2(-18,30), p+Vector2(8,24), p+Vector2(58,18), p+Vector2(68,-2),
+		p+Vector2(44,-22), p+Vector2(18,-28)
+	]), AI)
+	surface.draw_rect(Rect2(p.x-34,p.y-13,72,28), AI_DARK)
+	surface.draw_rect(Rect2(p.x-9,p.y-18,18,18), AI_CORE)
+	surface.draw_rect(Rect2(p.x-42,p.y+1,10,10), AI_CORE)
+	surface.draw_rect(Rect2(p.x+31,p.y+2,10,10), AI_CORE)
+	for x in [-50,-32,22,42]:
+		surface.draw_rect(Rect2(p.x+x,p.y+18,8,4), Color("6aa4c8"))
 
 func _surface_target_scale() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
