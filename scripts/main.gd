@@ -187,6 +187,24 @@ func _max_hull() -> int:
 func _max_shield() -> int:
 	return MissionStateRules.starting_shield(_campaign_config(), 100)
 
+func _craft_float(method_name: String, fallback: float) -> float:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method(method_name):
+		return float(director.call(method_name))
+	return fallback
+
+func _craft_form_name() -> String:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("current_form_name"):
+		return str(director.call("current_form_name"))
+	return "FIGHTER"
+
+func _target_damage_multiplier(enemy_class: String) -> float:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("target_damage_multiplier"):
+		return maxf(0.1, float(director.call("target_damage_multiplier", enemy_class)))
+	return 1.0
+
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
 	phase = GamePhase.PLAYING
@@ -331,7 +349,8 @@ func _service_status() -> String:
 
 func _update_player(delta: float) -> void:
 	var movement := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	player_position += movement * PLAYER_SPEED * delta
+	var speed_mult := _craft_float("movement_multiplier", 1.0)
+	player_position += movement * PLAYER_SPEED * speed_mult * delta
 	player_position.x = clampf(player_position.x, PLAYFIELD.position.x + 12.0, PLAYFIELD.end.x - 12.0)
 	player_position.y = clampf(player_position.y, PLAYFIELD.position.y + 16.0, PLAYFIELD.end.y - 12.0)
 
@@ -342,10 +361,11 @@ func _update_weapons() -> void:
 		energy = EnergyRules.consume(energy, weapon)
 		var count := maxi(1, int(weapon.get("projectiles", 1)))
 		shots_fired += count
-		var spread := float(weapon.get("spread_degrees", 0.0))
+		var spread := float(weapon.get("spread_degrees", 0.0)) * _craft_float("primary_spread_multiplier", 1.0)
+		var damage := maxi(1, int(round(float(weapon.get("damage", 1)) * _craft_float("primary_damage_multiplier", 1.0))))
 		for i in range(count):
 			var angle := 0.0 if count == 1 else deg_to_rad(lerpf(-spread, spread, float(i) / float(count - 1)))
-			bullets.append({"position":player_position + Vector2(0,-16),"velocity":Vector2.UP.rotated(angle) * float(weapon.get("projectile_speed",430.0)),"damage":int(weapon.get("damage",1))})
+			bullets.append({"position":player_position + Vector2(0,-16),"velocity":Vector2.UP.rotated(angle) * float(weapon.get("projectile_speed",430.0)),"damage":damage})
 	if Input.is_action_just_pressed("fire_secondary") and secondary_timer <= 0.0 and bombs > 0:
 		bombs -= 1
 		secondary_timer = 1.0
@@ -457,7 +477,9 @@ func _resolve_combat() -> void:
 		for enemy_index in range(enemies.size() - 1, -1, -1):
 			var radius_sq := 420.0 if bool(enemies[enemy_index].get("boss",false)) else 196.0
 			if bullets[bullet_index]["position"].distance_squared_to(enemies[enemy_index]["position"]) <= radius_sq:
-				enemies[enemy_index]["hp"] -= int(bullets[bullet_index]["damage"])
+				var enemy_class := str(enemies[enemy_index].get("category", "air"))
+				var applied_damage := maxi(1, int(round(float(bullets[bullet_index]["damage"]) * _target_damage_multiplier(enemy_class))))
+				enemies[enemy_index]["hp"] -= applied_damage
 				hit = true
 				shots_hit += 1
 				if int(enemies[enemy_index]["hp"]) <= 0:
@@ -468,8 +490,9 @@ func _resolve_combat() -> void:
 					enemies.remove_at(enemy_index)
 				break
 		if hit: bullets.remove_at(bullet_index)
+	var player_contact_radius_sq := _craft_float("collision_radius_sq", 420.0)
 	for enemy_index in range(enemies.size() - 1, -1, -1):
-		if enemies[enemy_index]["position"].distance_squared_to(player_position) <= 420.0:
+		if enemies[enemy_index]["position"].distance_squared_to(player_position) <= player_contact_radius_sq:
 			_apply_damage(24 if bool(enemies[enemy_index].get("boss",false)) else 18)
 			if not bool(enemies[enemy_index].get("boss",false)): enemies.remove_at(enemy_index)
 
@@ -614,7 +637,13 @@ func _draw_gameplay() -> void:
 		var tone := Color("d05b4f") if is_boss else (Color("a84c43") if enemy.get("category","air") == "air" else Color("80745d"))
 		draw_colored_polygon(PackedVector2Array([e+Vector2(0,11)*size,e+Vector2(-13,-8)*size,e+Vector2(0,-4)*size,e+Vector2(13,-8)*size]),tone)
 	var p := player_position
-	draw_colored_polygon(PackedVector2Array([p+Vector2(0,-18),p+Vector2(-16,13),p+Vector2(0,8),p+Vector2(16,13)]),Color("d8dde2"))
+	if _craft_form_name() == "BOMBER":
+		draw_colored_polygon(PackedVector2Array([p+Vector2(0,-16),p+Vector2(-26,7),p+Vector2(-16,13),p+Vector2(0,7),p+Vector2(16,13),p+Vector2(26,7)]),Color("d8dde2"))
+		draw_rect(Rect2(p.x-3,p.y-10,6,18),Color("8997a1"))
+	else:
+		draw_colored_polygon(PackedVector2Array([p+Vector2(0,-19),p+Vector2(-11,12),p+Vector2(0,7),p+Vector2(11,12)]),Color("d8dde2"))
+		draw_line(p+Vector2(-7,5),p+Vector2(-16,12),Color("8997a1"),2)
+		draw_line(p+Vector2(7,5),p+Vector2(16,12),Color("8997a1"),2)
 	draw_rect(Rect2(8,8,624,52),Color("080b0f"))
 	var remaining := maxi(0,int(ceil(mission_duration-mission_time)))
 	var energy_pct := int(round(EnergyRules.normalized(energy, _active_generator()) * 100.0))
