@@ -8,6 +8,7 @@ var failures: Array[String] = []
 func _initialize() -> void:
 	_test_service_rules()
 	_test_energy_rules()
+	_test_generator_efficiency()
 	_test_runtime_ownership()
 	if failures.is_empty():
 		print("Strike Wing service/energy self-test passed.")
@@ -35,11 +36,26 @@ func _test_energy_rules() -> void:
 	var heavy_weapon := {"energy_cost":14.0}
 	_expect(EnergyRules.capacity(strong_generator) > EnergyRules.capacity(weak_generator), "upgraded generator should increase capacity")
 	_expect(EnergyRules.recharge_rate(strong_generator) > EnergyRules.recharge_rate(weak_generator), "upgraded generator should improve sustained-fire recovery")
+	EnergyRules.recharge(0.0, {}, 0.0)
 	_expect(EnergyRules.can_fire(14.0, heavy_weapon), "weapon should fire when exact energy cost is available")
 	_expect(not EnergyRules.can_fire(13.9, heavy_weapon), "weapon should not fire below energy cost")
-	_expect(absf(EnergyRules.consume(20.0, heavy_weapon) - 6.0) < 0.001, "weapon energy consumption should be exact")
+	_expect(absf(EnergyRules.consume(20.0, heavy_weapon) - 6.0) < 0.001, "weapon energy consumption should be exact without an efficiency generator")
 	_expect(absf(EnergyRules.recharge(90.0, weak_generator, 1.0) - 100.0) < 0.001, "recharge must clamp to generator capacity")
 	_expect(EnergyRules.weapon_cost(heavy_weapon) > EnergyRules.weapon_cost(light_weapon), "endgame weapon should demand more generator output than starter weapon")
+
+func _test_generator_efficiency() -> void:
+	var pulse_core := {"capacity":180.0,"recharge_per_second":50.0,"efficiency_tech_era":"electromagnetic","efficiency_multiplier":0.90}
+	var overdrive := {"capacity":220.0,"recharge_per_second":60.0,"efficiency_tech_era":"directed_energy","efficiency_multiplier":0.86}
+	var conventional := {"energy_cost":10.0,"unlock_tech_era":"advanced_conventional"}
+	var rail := {"energy_cost":10.0,"unlock_tech_era":"electromagnetic"}
+	var energy_weapon := {"energy_cost":10.0,"unlock_tech_era":"directed_energy"}
+	_expect(absf(EnergyRules.effective_weapon_cost(conventional, pulse_core) - 10.0) < 0.001, "Pulse Core must not discount older conventional weapons")
+	_expect(absf(EnergyRules.effective_weapon_cost(rail, pulse_core) - 9.0) < 0.001, "Pulse Core should improve electromagnetic weapon efficiency")
+	_expect(absf(EnergyRules.effective_weapon_cost(rail, overdrive) - 10.0) < 0.001, "Overdrive directed-energy efficiency should not retroactively discount electromagnetic weapons")
+	_expect(absf(EnergyRules.effective_weapon_cost(energy_weapon, overdrive) - 8.6) < 0.001, "Overdrive Core should improve directed-energy weapon efficiency")
+	EnergyRules.recharge(0.0, pulse_core, 0.0)
+	_expect(EnergyRules.can_fire(9.0, rail), "active generator context should be used by existing main-scene fire calls")
+	_expect(absf(EnergyRules.consume(10.0, rail) - 1.0) < 0.001, "active generator context should reduce live rail energy consumption")
 
 func _test_runtime_ownership() -> void:
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
@@ -48,9 +64,9 @@ func _test_runtime_ownership() -> void:
 		var source := main_file.get_as_text()
 		_expect(source.contains("var service_hull := 100") and source.contains("var service_shield := 100"), "scene should own persistent airframe service state")
 		_expect(source.contains("var generator_index := 0") and source.contains("var energy := 100.0"), "scene should own generator tier and sortie energy")
-		_expect(source.contains("EnergyRules.recharge(energy, _active_generator(), delta)"), "mission loop should recharge generator energy directly")
+		_expect(source.contains("EnergyRules.recharge(energy, _active_generator(), delta)"), "mission loop should establish active generator context while recharging")
 		_expect(source.contains("EnergyRules.can_fire(energy, weapon)"), "primary firing should be energy gated")
-		_expect(source.contains("energy = EnergyRules.consume(energy, weapon)"), "successful primary fire should consume energy")
+		_expect(source.contains("energy = EnergyRules.consume(energy, weapon)"), "successful primary fire should consume generator-adjusted energy")
 		_expect(source.contains("service_hull = clampi(hull") and source.contains("service_shield = clampi(shield"), "successful sortie should capture surviving airframe condition directly")
 		_expect(source.contains("_service_hull_full()") and source.contains("_service_shield_full()"), "title scene should own servicing actions")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
