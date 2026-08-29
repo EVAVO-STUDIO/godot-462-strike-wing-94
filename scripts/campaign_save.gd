@@ -3,7 +3,7 @@ extends Node
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
 const SAVE_PATH := "user://strike_wing_94_save.json"
 const BACKUP_PATH := "user://strike_wing_94_save.bak.json"
-const SAVE_VERSION := 2
+const SAVE_VERSION := 3
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 
@@ -38,7 +38,7 @@ func _notification(what: int) -> void:
 			_save(scene)
 
 func _supports_campaign_state(scene: Object) -> bool:
-	var required := ["credits", "mission_index", "weapon_index"]
+	var required := ["credits", "mission_index", "weapon_index", "generator_index", "service_hull", "service_shield"]
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
 		names[str(property.get("name", ""))] = true
@@ -63,23 +63,32 @@ func _primary_weapon_count(scene: Object) -> int:
 			count += 1
 	return maxi(1, count)
 
-func _saved_weapon_index(scene: Object) -> int:
-	return clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1)
+func _generator_count(scene: Object) -> int:
+	var catalog = scene.get("generator_catalog")
+	if typeof(catalog) == TYPE_ARRAY:
+		return maxi(1, catalog.size())
+	return 1
 
-func _service_value(method_name: String, fallback: int) -> int:
-	var director := get_node_or_null("/root/ServiceDirector")
-	if director != null and director.has_method(method_name):
-		return int(director.call(method_name))
-	return fallback
+func _campaign_max(scene: Object, field: String, fallback: int) -> int:
+	var data = scene.get("campaign")
+	if typeof(data) != TYPE_DICTIONARY:
+		return fallback
+	var cfg = data.get("campaign", data)
+	if typeof(cfg) != TYPE_DICTIONARY:
+		return fallback
+	return int(cfg.get(field, fallback))
 
 func _snapshot(scene: Object) -> Dictionary:
+	var max_hull := maxi(1, _campaign_max(scene, "starting_hull", 100))
+	var max_shield := maxi(0, _campaign_max(scene, "starting_shield", 100))
 	return {
 		"version": SAVE_VERSION,
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
 		"mission_index": clampi(int(scene.get("mission_index")), 0, _mission_count(scene) - 1),
-		"weapon_index": _saved_weapon_index(scene),
-		"service_hull": maxi(1, _service_value("service_hull", int(scene.get("hull")))),
-		"service_shield": maxi(0, _service_value("service_shield", int(scene.get("shield"))))
+		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
+		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
+		"service_hull": clampi(int(scene.get("service_hull")), 1, max_hull),
+		"service_shield": clampi(int(scene.get("service_shield")), 0, max_shield)
 	}
 
 func _signature(scene: Object) -> String:
@@ -120,14 +129,17 @@ func _restore(scene: Object) -> void:
 		push_warning("Strike Wing recovered campaign state from backup save.")
 	var mission_index := clampi(int(parsed.get("mission_index", scene.get("mission_index"))), 0, _mission_count(scene) - 1)
 	var weapon_index := clampi(int(parsed.get("weapon_index", scene.get("weapon_index"))), 0, _primary_weapon_count(scene) - 1)
+	var generator_index := clampi(int(parsed.get("generator_index", scene.get("generator_index"))), 0, _generator_count(scene) - 1)
 	var credits := clampi(int(parsed.get("credits", scene.get("credits"))), 0, MAX_CREDITS)
+	var max_hull := maxi(1, _campaign_max(scene, "starting_hull", 100))
+	var max_shield := maxi(0, _campaign_max(scene, "starting_shield", 100))
+	var service_hull := clampi(int(parsed.get("service_hull", scene.get("service_hull"))), 1, max_hull)
+	var service_shield := clampi(int(parsed.get("service_shield", scene.get("service_shield"))), 0, max_shield)
 	scene.set("credits", credits)
 	scene.set("mission_index", mission_index)
 	scene.set("weapon_index", weapon_index)
-	var service_hull := int(parsed.get("service_hull", scene.get("hull")))
-	var service_shield := int(parsed.get("service_shield", scene.get("shield")))
-	var service_director := get_node_or_null("/root/ServiceDirector")
-	if service_director != null and service_director.has_method("restore_service_state"):
-		service_director.call("restore_service_state", service_hull, service_shield)
+	scene.set("generator_index", generator_index)
+	scene.set("service_hull", service_hull)
+	scene.set("service_shield", service_shield)
 	if scene.has_method("_prepare_mission"):
 		scene.call("_prepare_mission", mission_index)
