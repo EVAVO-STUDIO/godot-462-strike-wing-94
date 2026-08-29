@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "craft": {
+    "id": "vx_94_strikewing",
+    "name": "VX-94 Strike Wing",
+    "manufacturer_program": "Variable Geometry Advanced Strike Program",
+    "service_era": "1999 near-future",
+    "crew": 1,
+    "cockpit": "armoured single-seat pressure cockpit",
+    "propulsion": ["twin variable-cycle turbofans", "rocket-assist upper-atmosphere package", "reaction-control thrusters"],
+    "construction": ["titanium composite frame", "ceramic armour tiles", "early smart-alloy control surfaces"],
+    "forms": {
+      "fighter": {
+        "label": "FIGHTER",
+        "description": "Wings sweep back and hardpoints tuck close for high-speed air combat, interception and upper-atmosphere flight.",
+        "preferred_altitudes": ["mid", "high", "orbital"]
+      },
+      "bomber": {
+        "label": "BOMBER",
+        "description": "Wings spread wide and strike surfaces deploy for stable low-altitude attack runs, heavy stores and surface targeting.",
+        "preferred_altitudes": ["low", "mid"]
+      }
+    }
+  }
+}
