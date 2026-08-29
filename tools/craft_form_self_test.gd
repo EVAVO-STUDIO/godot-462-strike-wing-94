@@ -82,6 +82,8 @@ func _test_source_integration() -> void:
 		_expect(source.contains('_craft_float("primary_spread_multiplier", 1.0)'), "main primary fire should consume craft form spread")
 		_expect(source.contains('_target_damage_multiplier(enemy_class)'), "main collision should consume form/altitude target effectiveness")
 		_expect(source.contains('_craft_float("collision_radius_sq", 420.0)'), "main contact collision should consume form profile")
+		_expect(source.contains('_craft_float("projectile_hit_radius_sq", 120.0)'), "hostile projectile collision should consume the active form hit profile")
+		_expect(not source.contains('distance_squared_to(player_position) <= 120.0'), "hostile projectile collision must not revert to fixed prototype radius")
 		_expect(source.contains('if _craft_form_name() == "BOMBER":'), "player rendering should expose distinct bomber silhouette")
 	var director_file := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
 	_expect(director_file != null, "craft form director should be readable")
