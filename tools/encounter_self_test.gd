@@ -57,6 +57,7 @@ func _initialize() -> void:
 	_test_secret_conditions()
 	_test_route_conditions()
 	_test_formation_geometry()
+	_test_route_runtime_wiring()
 	if failures.is_empty():
 		print("Strike Wing encounter self-test passed.")
 		quit(0)
@@ -94,10 +95,14 @@ func _test_route_conditions() -> void:
 	var form := {"secret":true,"condition":{"type":"form_is","value":"bomber"}}
 	_expect(EncounterRules.condition_met(form, {"altitude":"low","form":"bomber"}), "form route should unlock in matching configuration")
 	_expect(not EncounterRules.condition_met(form, {"altitude":"low","form":"fighter"}), "form route should fail in different configuration")
-	var combined := {"secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"}}
-	_expect(EncounterRules.condition_met(combined, {"altitude":"low","form":"bomber"}), "combined route should require both lane and form")
-	_expect(not EncounterRules.condition_met(combined, {"altitude":"low","form":"fighter"}), "combined route should reject wrong form")
-	_expect(not EncounterRules.condition_met(combined, {"altitude":"mid","form":"bomber"}), "combined route should reject wrong altitude")
+	var low_bomber := {"secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"}}
+	_expect(EncounterRules.condition_met(low_bomber, {"altitude":"low","form":"bomber"}), "combined route should require both lane and form")
+	_expect(EncounterRules.is_low_bomber_route(low_bomber), "LOW+BMB route should be classified for bombing-computer priority")
+	var high_fighter := {"secret":true,"condition":{"type":"altitude_form","altitude":"high","form":"fighter"}}
+	_expect(EncounterRules.is_high_fighter_route(high_fighter), "HIGH+FTR route should be classified for interception priority")
+	_expect(EncounterRules.HIGH_INTERCEPT_VALUE_BONUS > 0 and EncounterRules.HIGH_INTERCEPT_VALUE_BONUS <= 600, "high-route value bonus should stay bounded")
+	_expect(not EncounterRules.condition_met(low_bomber, {"altitude":"low","form":"fighter"}), "combined route should reject wrong form")
+	_expect(not EncounterRules.condition_met(low_bomber, {"altitude":"mid","form":"bomber"}), "combined route should reject wrong altitude")
 	var invalid_altitude := {"condition":{"type":"altitude_is","value":"hyperspace"}}
 	_expect(not EncounterRules.condition_met(invalid_altitude, {"altitude":"mid"}), "invalid altitude condition should fail closed")
 	var invalid_form := {"condition":{"type":"form_is","value":"mech"}}
@@ -113,6 +118,25 @@ func _test_formation_geometry() -> void:
 	_expect(absf(column[0].x - column[3].x) < 0.001 and column[3].y > column[0].y, "column should share lane with vertical spacing")
 	var line := EncounterRules.formation_points({"formation":"line"}, 4)
 	_expect(line[0].x < 0.2 and line[3].x > 0.8 and line[0].y == 0.0, "line should span most of playfield width")
+
+func _test_route_runtime_wiring() -> void:
+	var director := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
+	_expect(director != null, "encounter director should be readable")
+	if director != null:
+		var source := director.get_as_text()
+		_expect(source.contains('enemy["strike_priority"] = true'), "LOW+BMB route should tag surface strike-priority targets")
+		_expect(source.contains('enemy["intercept_priority"] = true'), "HIGH+FTR route should tag air intercept-priority targets")
+		_expect(source.contains("HIGH_INTERCEPT_VALUE_BONUS"), "high-route target packet should carry bounded extra core combat value")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project != null, "project.godot should be readable")
+	if project != null:
+		_expect(project.get_as_text().contains('InterceptRouteDirector="*res://scripts/intercept_route_director.gd"'), "intercept route presentation should remain autoloaded")
+	var cue := FileAccess.open("res://scripts/intercept_route_director.gd", FileAccess.READ)
+	_expect(cue != null, "intercept route director should be readable")
+	if cue != null:
+		var source := cue.get_as_text()
+		_expect(source.contains("HIGH INTERCEPT  SHIFT AB"), "high-route cue should advertise afterburner interception style")
+		_expect(source.contains('bool(enemy.get("intercept_priority", false))'), "intercept presentation should read route-tagged enemy packets")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
