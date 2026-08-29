@@ -18,7 +18,9 @@ function Assert-UniqueIds($Collection, [string]$Label) {
     if (@($Ids | Sort-Object -Unique).Count -ne $Ids.Count) { throw "Duplicate id in $Label" }
 }
 function Assert-Contains([string]$Text, [string[]]$Tokens, [string]$Label) {
-    foreach ($Token in $Tokens) { if (-not $Text.Contains($Token)) { throw "$Label missing token: $Token" } }
+    foreach ($Token in $Tokens) {
+        if (-not $Text.Contains($Token)) { throw "$Label missing token: $Token" }
+    }
 }
 
 Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
@@ -26,21 +28,23 @@ Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
-    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
+    'scripts/boss_rules.gd','scripts/boss_signature_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
     'scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd',
     'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/movement_pattern_rules.gd','scripts/weapon_pickup_rules.gd',
-    'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/energy_rules.gd',
+    'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/energy_rules.gd','scripts/tech_progression_rules.gd',
     'scripts/encounter_rules.gd','scripts/encounter_director.gd',
     'scripts/support_rules.gd','scripts/support_director.gd',
     'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/craft_form_director.gd',
     'scripts/environment_rules.gd','scripts/environment_surface.gd','scripts/environment_director.gd',
     'scripts/battlefield_support_rules.gd','scripts/battlefield_support_surface.gd','scripts/battlefield_support_director.gd',
     'scripts/strike_ordnance_rules.gd','scripts/strike_ordnance_surface.gd','scripts/strike_ordnance_director.gd',
+    'scripts/electromagnetic_cue_surface.gd','scripts/electromagnetic_cue_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
     'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd',
     'tools/save_recovery_self_test.gd','tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd',
     'tools/battlefield_support_self_test.gd','tools/environment_self_test.gd','tools/strike_ordnance_self_test.gd',
+    'tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd',
     'data/weapons.json','data/generators.json','data/support_systems.json','data/battlefield_support.json',
     'data/enemies.json','data/missions.json','data/spawn_profiles.json','data/environment_profiles.json',
     'data/campaign.json','data/campaign_world.json','data/player_craft.json',
@@ -99,25 +103,27 @@ $PreviousCost = -1; $PreviousCapacity = 0.0; $PreviousRecharge = 0.0
 foreach ($Generator in $Generators.generators) {
     if ([int]$Generator.cost -lt $PreviousCost -or [double]$Generator.capacity -le 0 -or [double]$Generator.recharge_per_second -le 0) { throw "Invalid generator tier: $($Generator.id)" }
     if ([double]$Generator.capacity -lt $PreviousCapacity -or [double]$Generator.recharge_per_second -lt $PreviousRecharge) { throw "Generator progression regresses output: $($Generator.id)" }
-    $PreviousCost = [int]$Generator.cost; $PreviousCapacity = [double]$Generator.capacity; $PreviousRecharge = [double]$Generator.recharge_per_second
+    $PreviousCost = [int]$Generator.cost
+    $PreviousCapacity = [double]$Generator.capacity
+    $PreviousRecharge = [double]$Generator.recharge_per_second
 }
 
+$EraOrder = @{ advanced_conventional=1; electromagnetic=2; directed_energy=3; strategic_orbital=4 }
 $AllowedSupportTypes = @('rockets','crossfire','hunter','defence','emp','magnetic')
 $SupportTypes = @(); $PreviousCost = -1
-if (@($Supports.supports).Count -lt 6) { throw 'Tactical support catalogue requires conventional plus electromagnetic systems.' }
 foreach ($Support in $Supports.supports) {
     if ($AllowedSupportTypes -notcontains [string]$Support.type) { throw "Unsupported support type: $($Support.id)" }
     if ([int]$Support.cost -lt $PreviousCost -or [double]$Support.energy_cost -le 0 -or [double]$Support.cooldown -le 0) { throw "Invalid tactical support economy: $($Support.id)" }
-    if ($Support.type -eq 'defence') {
-        if ([double]$Support.radius -le 0 -or [double]$Support.radius -gt 160 -or [int]$Support.max_targets -lt 1 -or [int]$Support.max_targets -gt 12) { throw "Point defence bounds invalid: $($Support.id)" }
-    }
-    if ($Support.type -in @('emp','magnetic')) {
-        if ([double]$Support.radius -le 0 -or [double]$Support.radius -gt 240 -or [double]$Support.duration -le 0 -or [double]$Support.duration -gt 8) { throw "Electromagnetic support bounds invalid: $($Support.id)" }
-    }
+    if (-not $EraOrder.ContainsKey([string]$Support.unlock_tech_era)) { throw "Support has invalid technology era: $($Support.id)" }
+    if ($Support.type -eq 'defence' -and ([double]$Support.radius -le 0 -or [double]$Support.radius -gt 160 -or [int]$Support.max_targets -lt 1 -or [int]$Support.max_targets -gt 12)) { throw "Point defence bounds invalid: $($Support.id)" }
+    if ($Support.type -in @('emp','magnetic') -and ([double]$Support.radius -le 0 -or [double]$Support.radius -gt 240 -or [double]$Support.duration -le 0 -or [double]$Support.duration -gt 8)) { throw "Electromagnetic support bounds invalid: $($Support.id)" }
     $SupportTypes += [string]$Support.type
     $PreviousCost = [int]$Support.cost
 }
 foreach ($RequiredType in $AllowedSupportTypes) { if ($SupportTypes -notcontains $RequiredType) { throw "Missing tactical support role: $RequiredType" } }
+$Emp = @($Supports.supports | Where-Object { $_.id -eq 'emp_disruptor' })[0]
+$Magnetic = @($Supports.supports | Where-Object { $_.id -eq 'magnetic_screen' })[0]
+if ($Emp.unlock_tech_era -ne 'electromagnetic' -or $Magnetic.unlock_tech_era -ne 'electromagnetic') { throw 'EMP and magnetic systems must remain electromagnetic-era unlocks.' }
 
 $AllowedAltitudes = @('low','mid','high','orbital')
 if (@($World.altitude_bands).Count -ne 4) { throw 'Campaign world must define exactly four altitude bands.' }
@@ -142,6 +148,7 @@ $AllowedPatterns = @('sine_dive','tracking_sweep','hover_strafe','road_column','
 foreach ($Enemy in $Enemies.enemies) {
     if ($AllowedClasses -notcontains $Enemy.class -or $AllowedEnemyWeapons -notcontains $Enemy.weapon -or $AllowedPatterns -notcontains $Enemy.pattern) { throw "Invalid enemy archetype: $($Enemy.id)" }
     if ([int]$Enemy.hp -le 0 -or [int]$Enemy.value -le 0 -or [double]$Enemy.speed -lt 0) { throw "Invalid enemy combat values: $($Enemy.id)" }
+    if ($Enemy.faction -eq 'autonomous' -and ([double]$Enemy.emp_resistance -lt 0 -or [double]$Enemy.emp_resistance -gt 0.95)) { throw "Autonomous EMP resistance out of range: $($Enemy.id)" }
 }
 foreach ($DroneId in @('drone_scout','drone_hunter','drone_bomber','drone_missile_node','autonomous_armor','factory_defence_node','exo_drone','orbital_sentry','swarm_controller','ai_forge_core','orbital_command_node')) {
     if ($EnemyIds -notcontains $DroneId) { throw "Missing autonomous-war enemy: $DroneId" }
@@ -189,6 +196,7 @@ foreach ($Mission in $Missions.missions) {
     if ($null -eq $Context) { throw "Mission missing campaign-world context: $($Mission.id)" }
     if ($AllowedAltitudes -notcontains [string]$Context.altitude) { throw "Mission uses invalid initial altitude: $($Mission.id)" }
     if ($ThreatIds -notcontains [string]$Context.threat_phase) { throw "Mission uses invalid threat phase: $($Mission.id)" }
+    if (-not $EraOrder.ContainsKey([string]$Context.tech_era)) { throw "Mission uses invalid technology era: $($Mission.id)" }
     if (@('fighter','bomber') -notcontains [string]$Context.recommended_form) { throw "Mission uses invalid recommended form: $($Mission.id)" }
     foreach ($SupportId in @($Context.support)) { if ($BattlefieldSupportIds -notcontains $SupportId) { throw "Unknown mission battlefield support: $($Mission.id) -> $SupportId" } }
     $TransitionTime = -1.0
@@ -201,9 +209,8 @@ foreach ($Mission in $Missions.missions) {
 foreach ($MissionId in @('m01_coastal_intercept','m02_refinery_run','m03_black_sea','m04_breakwater','m05_furnace_line','m06_black_flag')) { if ([string]$World.mission_context.$MissionId.threat_phase -ne 'mercenary_war') { throw "$MissionId must remain in mercenary_war." } }
 foreach ($MissionId in @('m07_ghost_sky','m08_machine_furnace','m09_black_horizon')) { if ([string]$World.mission_context.$MissionId.threat_phase -ne 'drone_war') { throw "$MissionId must belong to drone_war." } }
 if ([string]$World.mission_context.m07_ghost_sky.altitude -ne 'high') { throw 'Ghost Sky must begin at high altitude.' }
-if ([string]$World.mission_context.m09_black_horizon.altitude -ne 'high') { throw 'Black Horizon must begin at high altitude.' }
-if ([string]$World.mission_context.m09_black_horizon.altitude_transitions[0].altitude -ne 'orbital') { throw 'Black Horizon must break into orbital altitude.' }
-if ([string]$World.mission_context.m06_black_flag.altitude_transitions[0].altitude -ne 'low' -or [string]$World.mission_context.m06_black_flag.altitude_transitions[1].altitude -ne 'mid') { throw 'Black Flag must descend to sea-skimming low altitude and climb back to mid.' }
+if ([string]$World.mission_context.m09_black_horizon.altitude -ne 'high' -or [string]$World.mission_context.m09_black_horizon.altitude_transitions[0].altitude -ne 'orbital') { throw 'Black Horizon must climb from high altitude into orbital combat.' }
+if ([string]$World.mission_context.m06_black_flag.altitude_transitions[0].altitude -ne 'low' -or [string]$World.mission_context.m06_black_flag.altitude_transitions[1].altitude -ne 'mid') { throw 'Black Flag must descend to low altitude and climb back to mid.' }
 
 $CampaignMissionIds = @($Campaign.campaign.missions)
 foreach ($MissionId in $CampaignMissionIds) { if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" } }
@@ -236,6 +243,7 @@ foreach ($Autoload in @(
     'EnvironmentDirector="*res://scripts/environment_director.gd"',
     'BattlefieldSupportDirector="*res://scripts/battlefield_support_director.gd"',
     'StrikeOrdnanceDirector="*res://scripts/strike_ordnance_director.gd"',
+    'ElectromagneticCueDirector="*res://scripts/electromagnetic_cue_director.gd"',
     'BossDirector="*res://scripts/boss_director.gd"',
     'PixelUiDirector="*res://scripts/pixel_ui_director.gd"',
     'ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
@@ -256,18 +264,22 @@ Assert-Contains $MainText @(
     'if _craft_form_name() == "BOMBER":'
 ) 'Main gameplay'
 
-$CraftRulesText = Get-Content -Raw (Join-Path $Root 'scripts/craft_form_rules.gd')
-Assert-Contains $CraftRulesText @('FIGHTER','BOMBER','projectile_hit_radius_sq','ground_attack_multiplier','air_attack_multiplier','support_energy_multiplier') 'Craft form rules'
-$CraftDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/craft_form_director.gd')
-Assert-Contains $CraftDirectorText @('transform_craft','KEY_Q','_apply_due_altitude_transitions','projectile_hit_radius_sq','target_damage_multiplier') 'Craft form director'
 $SupportText = Get-Content -Raw (Join-Path $Root 'scripts/support_director.gd')
-Assert-Contains $SupportText @('_apply_emp','emp_timer','_update_magnetic_field','bullet["homing"] = false','rearm_support','StrikeOrdnanceDirector') 'Tactical support runtime'
+Assert-Contains $SupportText @('TechProgressionRules.can_unlock','TECH LOCK -','SupportRules.emp_resistance(enemy)','emp_slow_scale','_update_magnetic_field','bullet["homing"] = false','StrikeOrdnanceDirector') 'Tactical support runtime'
+$CraftRulesText = Get-Content -Raw (Join-Path $Root 'scripts/craft_form_rules.gd')
+Assert-Contains $CraftRulesText @('projectile_hit_radius_sq','ground_attack_multiplier','air_attack_multiplier','support_energy_multiplier') 'Craft form rules'
+$CraftDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/craft_form_director.gd')
+Assert-Contains $CraftDirectorText @('KEY_Q','_apply_due_altitude_transitions','projectile_hit_radius_sq','target_damage_multiplier') 'Craft form director'
 $StrikeText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_director.gd')
-Assert-Contains $StrikeText @('KEY_E','MAX_ORDNANCE','STRIKE ORDNANCE REQUIRES BOMBER CONFIG','maxi(1, hp - damage)','PixelFont.draw_text(surface, "E BOMB %d"') 'Strike ordnance runtime'
+Assert-Contains $StrikeText @('KEY_E','STRIKE ORDNANCE REQUIRES BOMBER CONFIG','maxi(1, hp - damage)','PixelFont.draw_text(surface, "E BOMB %d"') 'Strike ordnance runtime'
 $BattleText = Get-Content -Raw (Join-Path $Root 'scripts/battlefield_support_director.gd')
 Assert-Contains $BattleText @('atlas_tanker','tanker_connected','TANKER REARM COMPLETE','rearm_support','maxi(0, hp - 1)') 'Battlefield support runtime'
+$BossText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
+Assert-Contains $BossText @('BossSignatureRules','signature_timer','_emit_signature_attack','_report_signature','shot["kinetic"] = true') 'Autonomous boss signatures'
 $EnvironmentText = Get-Content -Raw (Join-Path $Root 'scripts/environment_director.gd')
 Assert-Contains $EnvironmentText @('EnvironmentRules','current_altitude','high_cloud','orbital') 'Environment runtime'
+$EmCueText = Get-Content -Raw (Join-Path $Root 'scripts/electromagnetic_cue_director.gd')
+Assert-Contains $EmCueText @('magnetic_active','emp_timer','draw_arc') 'Electromagnetic cues'
 $PixelUiText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_director.gd')
 Assert-Contains $PixelUiText @('PixelUiSurface.new()','Vector2(640, 360)','Q TRANSFORM','B BATTLE SUPPORT','F CALL','_form_name()','_altitude_name()') 'Pixel UI'
 foreach ($WidgetToken in @('PanelContainer.new()','Label.new()','ProgressBar.new()')) { if ($PixelUiText.Contains($WidgetToken)) { throw "Primary pixel UI contains modern widget chrome: $WidgetToken" } }
@@ -281,7 +293,8 @@ if (-not $Godot) {
 }
 $Tests = @(
     'runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd',
-    'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd','strike_ordnance_self_test.gd'
+    'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
+    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd'
 )
 foreach ($Test in $Tests) {
     Write-Host "Running $Test..." -ForegroundColor DarkCyan
