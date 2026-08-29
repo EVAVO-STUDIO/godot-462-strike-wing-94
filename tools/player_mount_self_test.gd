@@ -66,6 +66,13 @@ func _test_wiring() -> void:
 		var source := cue.get_as_text()
 		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "muzzle cues should consume canonical mount catalogue")
 		_expect(source.contains('mounts.call("primary_offsets"'), "muzzle cues should request catalogue primary offsets")
+	var support := FileAccess.open("res://scripts/support_director.gd", FileAccess.READ)
+	_expect(support != null, "support director should be readable")
+	if support != null:
+		var source := support.get_as_text()
+		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "tactical stores should consume canonical mount catalogue")
+		_expect(source.contains('mounts.call("support_offsets"'), "tactical stores should request canonical pylon offsets")
+		_expect(source.contains('InputMap.action_add_event(action, event)'), "support key bindings should add events correctly")
 	var schematic := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
 	_expect(schematic != null, "loadout schematic should be readable")
 	if schematic != null:
