@@ -14,6 +14,10 @@ var _active_timer := 0.0
 var _tanker_position := Vector2(320, 82)
 var _tanker_progress := 0.0
 var _tanker_rewarded := false
+var _visual_id := ""
+var _visual_type := ""
+var _visual_timer := 0.0
+var _visual_target := Vector2(320, 150)
 var _surface: Control
 
 func _ready() -> void:
@@ -33,9 +37,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_tick_cooldowns(delta)
+	_visual_timer = maxf(0.0, _visual_timer - delta)
+	if _visual_timer <= 0.0:
+		_clear_visual()
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		_clear_active()
+		_clear_visual()
 		_queue_surface()
 		return
 	var mission_index := int(scene.get("mission_index"))
@@ -43,6 +51,7 @@ func _process(delta: float) -> void:
 		_last_mission_index = mission_index
 		_refresh_allowed()
 		_clear_active()
+		_clear_visual()
 	if int(scene.get("phase")) == 0:
 		if Input.is_action_just_pressed("cycle_battlefield_support"):
 			_cycle(scene)
@@ -52,6 +61,7 @@ func _process(delta: float) -> void:
 		_update_active(scene, delta)
 	else:
 		_clear_active()
+		_clear_visual()
 	_queue_surface()
 
 func _supports(scene: Object) -> bool:
@@ -111,8 +121,28 @@ func _call_selected(scene: Object) -> void:
 		_tanker_rewarded = false
 		_set_status(scene, "ATLAS TANKER INBOUND - MATCH HOSE")
 		return
+	_begin_visual(scene, id, type)
 	_apply_immediate_support(scene, support)
 	_cooldowns[id] = maxf(1.0, float(support.get("cooldown_seconds", 60.0)))
+
+func _begin_visual(scene: Object, id: String, type: String) -> void:
+	_visual_id = id
+	_visual_type = type
+	_visual_timer = 1.25
+	_visual_target = _priority_target_position(scene)
+
+func _priority_target_position(scene: Object) -> Vector2:
+	var enemies: Array = scene.get("enemies")
+	var best_hp := -1
+	var best := Vector2(320, 150)
+	for enemy in enemies:
+		if typeof(enemy) != TYPE_DICTIONARY:
+			continue
+		var hp := int(enemy.get("hp", 0))
+		if hp > best_hp:
+			best_hp = hp
+			best = enemy.get("position", best)
+	return best
 
 func _apply_immediate_support(scene: Object, support: Dictionary) -> void:
 	var type := str(support.get("type", ""))
@@ -228,6 +258,11 @@ func _clear_active() -> void:
 	_tanker_progress = 0.0
 	_tanker_rewarded = false
 
+func _clear_visual() -> void:
+	_visual_id = ""
+	_visual_type = ""
+	_visual_timer = 0.0
+
 func _tick_cooldowns(delta: float) -> void:
 	for key in _cooldowns.keys():
 		_cooldowns[key] = maxf(0.0, float(_cooldowns[key]) - delta)
@@ -257,8 +292,20 @@ func _queue_surface() -> void:
 		_surface.queue_redraw()
 
 func _draw_support_surface(surface: CanvasItem) -> void:
-	if _active_id != "atlas_tanker":
+	if _active_id == "atlas_tanker":
+		_draw_tanker(surface)
+	if _visual_timer <= 0.0:
 		return
+	var progress := clampf(1.0 - (_visual_timer / 1.25), 0.0, 1.0)
+	match _visual_type:
+		"fighter_squadron": _draw_fighter_sweep(surface, progress)
+		"bomber_squadron": _draw_bomber_run(surface, progress)
+		"loitering_gunship": _draw_gunship_fire(surface, progress)
+		"precision_missile": _draw_missile_strike(surface, progress)
+		"rail_strike": _draw_rail_strike(surface, progress)
+		"orbital_bombardment": _draw_orbital_strike(surface, progress)
+
+func _draw_tanker(surface: CanvasItem) -> void:
 	var body := Color("798a93")
 	var dark := Color("26323a")
 	var hose := Color("d5c878")
@@ -275,6 +322,59 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 	var ratio := clampf(_tanker_progress / BattlefieldSupportRules.TANKER_REQUIRED_SECONDS, 0.0, 1.0)
 	surface.draw_rect(Rect2(p.x - 40, p.y + 28, bar_width, 4), dark)
 	surface.draw_rect(Rect2(p.x - 40, p.y + 28, floorf(bar_width * ratio), 4), hose)
+
+func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
+	var body := Color("91a5af")
+	for i in range(3):
+		var x := -40.0 + progress * 760.0 + float(i) * 52.0
+		var y := 112.0 + float(i) * 24.0
+		var p := Vector2(x, y)
+		surface.draw_colored_polygon(PackedVector2Array([p+Vector2(14,0),p+Vector2(-9,-6),p+Vector2(-3,0),p+Vector2(-9,6)]), body)
+		surface.draw_line(p+Vector2(-12,0), p+Vector2(-32,0), Color("d7c66c"), 1.0)
+
+func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
+	var body := Color("8799a2")
+	for i in range(3):
+		var x := 700.0 - progress * 820.0 - float(i) * 64.0
+		var y := 92.0 + float(i) * 20.0
+		var p := Vector2(x, y)
+		surface.draw_colored_polygon(PackedVector2Array([p+Vector2(-18,0),p+Vector2(0,-7),p+Vector2(22,0),p+Vector2(0,7)]), body)
+		if progress > 0.35:
+			surface.draw_line(p+Vector2(0,8), p+Vector2(0,32), Color("d9b15f"), 1.0)
+
+func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
+	var p := Vector2(552, 118 + sin(progress * PI) * 8.0)
+	var body := Color("7e919b")
+	surface.draw_rect(Rect2(p.x-42,p.y-7,84,14), body)
+	surface.draw_colored_polygon(PackedVector2Array([p+Vector2(-10,0),p+Vector2(-48,18),p+Vector2(-5,10),p+Vector2(12,0)]), body)
+	for offset in [-12.0, 0.0, 12.0]:
+		surface.draw_line(p+Vector2(-35,offset*0.2), _visual_target+Vector2(offset,0), Color("e0b45b"), 1.0)
+
+func _draw_missile_strike(surface: CanvasItem, progress: float) -> void:
+	var start := Vector2(80, 330)
+	var p := start.lerp(_visual_target, progress)
+	surface.draw_line(start.lerp(_visual_target, maxf(0.0, progress-0.18)), p, Color("e7d17b"), 2.0)
+	surface.draw_circle(p, 3.0, Color("d96c55"))
+	if progress > 0.86:
+		surface.draw_circle(_visual_target, 12.0 * (progress-0.86) / 0.14, Color(0.95,0.65,0.28,0.5), false, 2.0)
+
+func _draw_rail_strike(surface: CanvasItem, progress: float) -> void:
+	var charge := clampf(progress / 0.38, 0.0, 1.0)
+	if progress < 0.38:
+		surface.draw_circle(_visual_target, 4.0 + charge*10.0, Color(0.45,0.82,0.9,0.55), false, 1.0)
+		return
+	var fade := 1.0 - clampf((progress-0.38)/0.62,0.0,1.0)
+	surface.draw_line(Vector2(_visual_target.x, 0), Vector2(_visual_target.x, 360), Color(0.62,0.9,0.96,fade), 3.0)
+	surface.draw_line(Vector2(_visual_target.x+4, 0), Vector2(_visual_target.x+4, 360), Color(0.22,0.48,0.62,fade), 1.0)
+
+func _draw_orbital_strike(surface: CanvasItem, progress: float) -> void:
+	var fade := 1.0 - progress
+	for x in [130.0, 240.0, 350.0, 460.0, 540.0]:
+		var top := Vector2(x, 0)
+		var bottom := Vector2(x + sin(x)*8.0, 300)
+		surface.draw_line(top, bottom, Color(0.72,0.88,0.94,0.35+fade*0.55), 2.0)
+		if progress > 0.55:
+			surface.draw_circle(bottom, 5.0+progress*8.0, Color(0.92,0.72,0.34,0.45), false, 1.0)
 
 func _ensure_actions() -> void:
 	_add_key_action("cycle_battlefield_support", KEY_B)
