@@ -9,6 +9,7 @@ var altitude := AltitudeRules.MID
 var _cooldown := 0.0
 var _world: Dictionary = {}
 var _last_mission_index := -1
+var _current_context: Dictionary = {}
 
 func _ready() -> void:
 	process_priority = -8
@@ -56,9 +57,9 @@ func _mission_context(scene: Object) -> Dictionary:
 	return value if typeof(value) == TYPE_DICTIONARY else {}
 
 func _apply_mission_context(scene: Object) -> void:
-	var context := _mission_context(scene)
-	altitude = AltitudeRules.sanitize(str(context.get("altitude", AltitudeRules.MID)))
-	var recommended := CraftFormRules.sanitize(str(context.get("recommended_form", CraftFormRules.FIGHTER)))
+	_current_context = _mission_context(scene).duplicate(true)
+	altitude = AltitudeRules.sanitize(str(_current_context.get("altitude", AltitudeRules.MID)))
+	var recommended := CraftFormRules.sanitize(str(_current_context.get("recommended_form", CraftFormRules.FIGHTER)))
 	form = recommended if AltitudeRules.supports_form(altitude, recommended) else CraftFormRules.FIGHTER
 	_cooldown = 0.0
 
@@ -106,14 +107,7 @@ func target_damage_multiplier(enemy_class: String) -> float:
 	return form_multiplier * altitude_multiplier
 
 func mission_context() -> Dictionary:
-	var contexts = _world.get("mission_context", {})
-	if typeof(contexts) != TYPE_DICTIONARY:
-		return {}
-	return contexts.get(_context_id_for_index(_last_mission_index), {})
-
-func _context_id_for_index(index: int) -> String:
-	var order := ["m01_coastal_intercept", "m02_refinery_run", "m03_black_sea", "m04_breakwater", "m05_furnace_line", "m06_black_flag"]
-	return order[clampi(index, 0, order.size() - 1)] if not order.is_empty() else ""
+	return _current_context.duplicate(true)
 
 func _set_status(scene: Object, text: String) -> void:
 	scene.set("status_text", text)
