@@ -43,25 +43,27 @@ $Required = @(
     'scripts/directed_energy_rules.gd','scripts/directed_energy_director.gd',
     'scripts/strategic_warhead_rules.gd','scripts/strategic_warhead_surface.gd','scripts/strategic_warhead_director.gd',
     'scripts/encounter_rules.gd','scripts/encounter_director.gd','scripts/support_rules.gd','scripts/support_director.gd',
+    'scripts/player_mount_rules.gd','scripts/player_mount_director.gd',
     'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/craft_form_director.gd',
     'scripts/environment_rules.gd','scripts/environment_surface.gd','scripts/environment_director.gd',
     'scripts/altitude_transition_surface.gd','scripts/altitude_transition_director.gd',
     'scripts/combat_art_surface.gd','scripts/combat_art_director.gd','scripts/airframe_cue_surface.gd','scripts/airframe_cue_director.gd',
     'scripts/afterburner_cue_surface.gd','scripts/afterburner_cue_director.gd','scripts/weapon_mount_cue_surface.gd','scripts/weapon_mount_cue_director.gd',
     'scripts/damage_state_surface.gd','scripts/damage_state_director.gd','scripts/combat_fx_surface.gd','scripts/combat_fx_director.gd',
-    'scripts/intercept_route_surface.gd','scripts/intercept_route_director.gd',
+    'scripts/intercept_route_rules.gd','scripts/intercept_route_surface.gd','scripts/intercept_route_director.gd',
     'scripts/battlefield_support_rules.gd','scripts/battlefield_support_surface.gd','scripts/battlefield_support_director.gd',
     'scripts/strike_ordnance_rules.gd','scripts/strike_ordnance_surface.gd','scripts/strike_ordnance_director.gd',
     'scripts/electromagnetic_cue_surface.gd','scripts/electromagnetic_cue_director.gd',
     'scripts/mission_intel_rules.gd','scripts/mission_intel_surface.gd','scripts/mission_intel_director.gd',
+    'scripts/loadout_schematic_surface.gd','scripts/loadout_schematic_director.gd',
     'scripts/retro_sfx_rules.gd','scripts/retro_sfx_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
     'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
     'tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
-    'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd',
+    'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
-    'data/enemies.json','data/missions.json','data/spawn_profiles.json','data/environment_profiles.json','data/campaign.json','data/campaign_world.json','data/player_craft.json',
+    'data/enemies.json','data/missions.json','data/spawn_profiles.json','data/environment_profiles.json','data/campaign.json','data/campaign_world.json','data/player_craft.json','data/player_mounts.json',
     'docs/90S_SHOOTER_BIBLE.md','docs/CAMPAIGN_CANON.md','docs/CRAFT_ALTITUDE_SYSTEM.md','docs/VX94_COMBAT_ART_DIRECTION.md','docs/STRATEGIC_ORBITAL_ENDGAME.md','docs/ARCHITECTURE.md'
 )
 foreach ($RelativePath in $Required) {
@@ -87,6 +89,7 @@ $Missions = Get-Content -Raw (Join-Path $Root 'data/missions.json') | ConvertFro
 $Profiles = Get-Content -Raw (Join-Path $Root 'data/spawn_profiles.json') | ConvertFrom-Json
 $Campaign = Get-Content -Raw (Join-Path $Root 'data/campaign.json') | ConvertFrom-Json
 $World = Get-Content -Raw (Join-Path $Root 'data/campaign_world.json') | ConvertFrom-Json
+$Mounts = Get-Content -Raw (Join-Path $Root 'data/player_mounts.json') | ConvertFrom-Json
 
 Assert-UniqueIds $Weapons.weapons 'weapons'
 Assert-UniqueIds $Generators.generators 'generators'
@@ -95,6 +98,7 @@ Assert-UniqueIds $Supports.supports 'support systems'
 Assert-UniqueIds $Enemies.enemies 'enemies'
 Assert-UniqueIds $Missions.missions 'missions'
 Assert-UniqueIds $Profiles.profiles 'spawn profiles'
+Assert-UniqueIds $Mounts.mounts 'player mounts'
 
 $Primaries = @($Weapons.weapons | Where-Object { $_.slot -eq 'primary' })
 if ($Primaries.Count -ne 8) { throw 'Campaign requires exactly eight primary tiers.' }
@@ -102,6 +106,10 @@ if (@($Generators.generators).Count -lt 5) { throw 'Generator progression requir
 if (@($Airframes.airframes).Count -ne 5) { throw 'VX-94 requires exactly five airframe tiers.' }
 if (@($Supports.supports).Count -ne 7) { throw 'Tactical catalogue requires exactly seven systems.' }
 if (@($Missions.missions).Count -ne 12) { throw 'Campaign requires exactly twelve missions.' }
+if ([int]$Mounts.schema_version -lt 2 -or [string]$Mounts.craft_id -ne 'vx_94_strikewing' -or @($Mounts.mounts).Count -lt 11) { throw 'VX-94 mount catalogue is incomplete.' }
+foreach ($MountId in @('nose_rotary','wing_root_left','wing_root_right','centerline_emitter','inner_pylon_left','inner_pylon_right','outer_pylon_left','outer_pylon_right','ventral_strike_bay','ventral_strategic_bay','dorsal_module')) {
+    if (@($Mounts.mounts | ForEach-Object { $_.id }) -notcontains $MountId) { throw "Missing VX-94 mount: $MountId" }
+}
 
 $Plasma = @($Primaries | Where-Object { $_.id -eq 'plasma_lance' })[0]
 if ([string]$Plasma.unlock_tech_era -ne 'strategic_orbital') { throw 'Plasma Lance must remain strategic-orbital hardware.' }
@@ -154,6 +162,7 @@ foreach ($Profile in $Profiles.profiles) {
 
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
+    'PlayerMountDirector="*res://scripts/player_mount_director.gd"',
     'CraftFormDirector="*res://scripts/craft_form_director.gd"',
     'EncounterDirector="*res://scripts/encounter_director.gd"',
     'SupportDirector="*res://scripts/support_director.gd"',
@@ -166,78 +175,65 @@ foreach ($Autoload in @(
     'EnvironmentDirector="*res://scripts/environment_director.gd"',
     'StrikeOrdnanceDirector="*res://scripts/strike_ordnance_director.gd"',
     'MissionIntelDirector="*res://scripts/mission_intel_director.gd"',
+    'LoadoutSchematicDirector="*res://scripts/loadout_schematic_director.gd"',
     'RetroSfxDirector="*res://scripts/retro_sfx_director.gd"',
     'PixelUiDirector="*res://scripts/pixel_ui_director.gd"'
 )) {
     if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" }
 }
 
+$MountRulesText = Get-Content -Raw (Join-Path $Root 'scripts/player_mount_rules.gd')
+Assert-Contains $MountRulesText @('primary_offsets','support_offsets','strategic_store','ballistic_primary','precision_kinetic') 'Canonical mount rules'
+$MountDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/player_mount_director.gd')
+Assert-Contains $MountDirectorText @('res://data/player_mounts.json','primary_offsets','support_offsets','bomber_rotary_deployed') 'Canonical mount owner'
+$MountCueText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_mount_cue_director.gd')
+Assert-Contains $MountCueText @('get_node_or_null("/root/PlayerMountDirector")','mounts.call("primary_offsets"','mounts.call("bomber_rotary_deployed"') 'Mount-aware muzzle cues'
+$SchematicText = Get-Content -Raw (Join-Path $Root 'scripts/loadout_schematic_director.gd')
+Assert-Contains $SchematicText @('res://data/player_mounts.json','VX-94 STORES / VARIABLE GEOMETRY','fighter','bomber') 'Stores schematic'
+
 $CraftText = Get-Content -Raw (Join-Path $Root 'scripts/craft_form_director.gd')
-Assert-Contains $CraftText @(
-    'process_priority = -30','_publish_altitude_spawn_profiles(scene)','AltitudeRules.allows_enemy_archetype',
-    'KEY_PAGEUP','KEY_PAGEDOWN','primary_mount_offsets','bomber_rotary_deployed'
-) 'Craft/altitude runtime'
-
+Assert-Contains $CraftText @('process_priority = -30','_publish_altitude_spawn_profiles(scene)','AltitudeRules.allows_enemy_archetype','KEY_PAGEUP','KEY_PAGEDOWN','primary_mount_offsets','bomber_rotary_deployed') 'Craft/altitude runtime'
 $EncounterText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_director.gd')
-Assert-Contains $EncounterText @(
-    'process_priority = -20','AltitudeRules.allows_enemy_archetype','ALTITUDE FILTER',
-    'EncounterRules.is_low_bomber_route(beat)','enemy["strike_priority"] = true',
-    'EncounterRules.is_high_fighter_route(beat)','enemy["intercept_priority"] = true','HIGH_INTERCEPT_VALUE_BONUS'
-) 'Encounter route/altitude filtering'
-
+Assert-Contains $EncounterText @('process_priority = -20','AltitudeRules.allows_enemy_archetype','ALTITUDE FILTER','EncounterRules.is_low_bomber_route(beat)','enemy["strike_priority"] = true','EncounterRules.is_high_fighter_route(beat)','enemy["intercept_priority"] = true','HIGH_INTERCEPT_VALUE_BONUS') 'Encounter route/altitude filtering'
 $EncounterRulesText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_rules.gd')
-Assert-Contains $EncounterRulesText @(
-    '"altitude_is"','"form_is"','"altitude_form"','is_route_bonus','is_low_bomber_route','is_high_fighter_route','HIGH_INTERCEPT_VALUE_BONUS := 450'
-) 'Encounter route conditions'
+Assert-Contains $EncounterRulesText @('"altitude_is"','"form_is"','"altitude_form"','is_low_bomber_route','is_high_fighter_route','HIGH_INTERCEPT_VALUE_BONUS := 450') 'Encounter route conditions'
+$InterceptRulesText = Get-Content -Raw (Join-Path $Root 'scripts/intercept_route_rules.gd')
+Assert-Contains $InterceptRulesText @('CHAIN_SECONDS := 2.4','MAX_CHAIN := 6','likely_destroyed','INTERCEPT CHAIN X%d') 'Intercept route rules'
+$InterceptText = Get-Content -Raw (Join-Path $Root 'scripts/intercept_route_director.gd')
+Assert-Contains $InterceptText @('intercept_priority','HIGH INTERCEPT  SHIFT AB','InterceptRouteRules.next_chain','_chain_timer','_last_score') 'High fighter route presentation'
+if ($InterceptText.Contains('scene.set("score"')) { throw 'Intercept presentation must not mutate authoritative score.' }
 
 $AltitudeText = Get-Content -Raw (Join-Path $Root 'scripts/altitude_rules.gd')
 Assert-Contains $AltitudeText @('TRANSITION_SECONDS := 1.15','allows_enemy_class','allows_enemy_archetype','adjacent_band') 'Altitude rules'
-
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
 Assert-Contains $MainText @('_craft_primary_mount_offsets(weapon, count)','"position": player_position + mount_offsets[i]','mission_rng.seed = RunSeedRules.mission_seed(mission_index)') 'Main gameplay'
-
 $StrikeRulesText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_rules.gd')
-Assert-Contains $StrikeRulesText @(
-    'ROUTE_PRECISION_SCORE := 450','assisted_target_index','strike_priority',
-    'STABILITY_SECONDS := 0.65','update_stability','stabilized_impact_delay','stabilized_aim_radius'
-) 'Bombing computer rules'
-
+Assert-Contains $StrikeRulesText @('ROUTE_PRECISION_SCORE := 450','assisted_target_index','strike_priority','STABILITY_SECONDS := 0.65','update_stability','stabilized_impact_delay','stabilized_aim_radius') 'Bombing computer rules'
 $StrikeText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_director.gd')
-Assert-Contains $StrikeText @(
-    'ROUTE TARGET','PRECISION ROUTE HIT','_update_attack_run_stability','STB%03d','route_precision_score'
-) 'Bombing route runtime'
-
-$InterceptText = Get-Content -Raw (Join-Path $Root 'scripts/intercept_route_director.gd')
-Assert-Contains $InterceptText @('intercept_priority','HIGH INTERCEPT  SHIFT AB','INT %03d') 'High fighter route presentation'
-
+Assert-Contains $StrikeText @('ROUTE TARGET','PRECISION ROUTE HIT','_update_attack_run_stability','STB%03d','route_precision_score') 'Bombing route runtime'
 $IntelText = Get-Content -Raw (Join-Path $Root 'scripts/mission_intel_rules.gd')
 Assert-Contains $IntelText @('route_opportunity_summary','"ROUTES %s"','LOW','BMB','HIGH','FTR') 'Mission route intel'
-
 $DamageText = Get-Content -Raw (Join-Path $Root 'scripts/damage_state_director.gd')
 Assert-Contains $DamageText @('damage_ratio < 0.20','damage_ratio >= 0.45','damage_ratio >= 0.72','ratio >= 0.86','scene.call("_max_hull")') 'VX-94 damage state'
-
 $FxText = Get-Content -Raw (Join-Path $Root 'scripts/combat_fx_director.gd')
 Assert-Contains $FxText @('MAX_EVENTS := 48','boss_explosion','player_hit','play_event','_hit_audio_cooldown') 'Combat impact FX'
-
 $SfxRulesText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_rules.gd')
 Assert-Contains $SfxRulesText @('FIRE_ROTARY','ALTITUDE_CLIMB','ALTITUDE_DIVE','BOSS_EXPLOSION','PLAYER_HIT','"wave":"blast"') 'Procedural SFX rules'
-
 $SfxDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_director.gd')
 Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event','"blast"','MAX_VOICES := 8') 'Procedural SFX runtime'
-
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 Assert-Contains $SaveText @('SAVE_VERSION := 5','airframe_index','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural/data/altitude/routes/bombing/damage/impact validation passed; engine tests skipped.'
+    Write-Warning 'Godot executable not found. Structural/data/altitude/routes/mounts/bombing/damage/impact validation passed; engine tests skipped.'
     exit 0
 }
 
 $Tests = @(
     'runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
-    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd'
+    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','player_mount_self_test.gd'
 )
 foreach ($Test in $Tests) {
     Write-Host "Running $Test..." -ForegroundColor DarkCyan
