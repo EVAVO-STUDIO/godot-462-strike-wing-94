@@ -8,6 +8,8 @@ var support_catalog: Array = []
 var selected_index := 0
 var unlocked_index := 0
 var _cooldown := 0.0
+var _magnetic_timer := 0.0
+var _magnetic_support: Dictionary = {}
 
 func _ready() -> void:
 	process_priority = -5
@@ -23,9 +25,13 @@ func _process(delta: float) -> void:
 	if phase == 0:
 		_handle_title(scene)
 	elif phase == 1:
+		_update_emp_disruption(scene, delta)
+		_update_magnetic_field(scene, delta)
 		_update_hunter_projectiles(scene, delta)
 		if Input.is_action_just_pressed("fire_support"):
 			_activate(scene)
+	else:
+		_magnetic_timer = 0.0
 
 func _load_catalog() -> void:
 	var data = ContentCatalog.load_json("res://data/support_systems.json")
@@ -65,9 +71,13 @@ func restore_support_state(saved_selected: int, saved_unlocked: int) -> void:
 
 func rearm_support() -> void:
 	_cooldown = 0.0
+	_magnetic_timer = 0.0
 	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
 	if strike != null and strike.has_method("rearm_full"):
 		strike.call("rearm_full")
+
+func magnetic_active() -> bool:
+	return _magnetic_timer > 0.0
 
 func _handle_title(scene: Object) -> void:
 	if Input.is_action_just_pressed("cycle_support"):
@@ -104,15 +114,24 @@ func _activate(scene: Object) -> void:
 		return
 	var kind := SupportRules.support_type(support)
 	var defence_indices: Array[int] = []
+	var emp_indices: Array[int] = []
 	if kind == "defence":
 		defence_indices = SupportRules.defence_indices(scene.get("enemy_bullets"), scene.get("player_position"), support)
-	var has_target := kind != "defence" or not defence_indices.is_empty()
+	elif kind == "emp":
+		emp_indices = SupportRules.autonomous_enemy_indices(scene.get("enemies"), scene.get("player_position"), support)
+	var has_target := true
+	if kind == "defence":
+		has_target = not defence_indices.is_empty()
+	elif kind == "emp":
+		has_target = not emp_indices.is_empty()
 	var effective_support := support.duplicate(true)
 	var effective_energy_cost := SupportRules.energy_cost(support) * _craft_energy_multiplier()
 	effective_support["energy_cost"] = effective_energy_cost
 	if not SupportRules.can_activate(float(scene.get("energy")), _cooldown, effective_support, has_target):
 		if kind == "defence" and not has_target:
 			_set_status(scene, "POINT DEFENCE - NO THREAT")
+		elif kind == "emp" and not has_target:
+			_set_status(scene, "EMP - NO AUTONOMOUS TARGET")
 		return
 	scene.set("energy", maxf(0.0, float(scene.get("energy")) - effective_energy_cost))
 	_cooldown = SupportRules.cooldown(support)
@@ -123,6 +142,11 @@ func _activate(scene: Object) -> void:
 			_fire_projectiles(scene, support, true)
 		"defence":
 			_apply_point_defence(scene, defence_indices)
+		"emp":
+			_apply_emp(scene, emp_indices, support)
+		"magnetic":
+			_magnetic_support = support.duplicate(true)
+			_magnetic_timer = SupportRules.duration(support, 2.4)
 	_set_status(scene, current_support_name().to_upper())
 
 func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void:
@@ -140,6 +164,67 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 		bullets.append(bullet)
 	scene.set("bullets", bullets)
 	scene.set("shots_fired", int(scene.get("shots_fired")) + angles.size())
+
+func _apply_emp(scene: Object, indices: Array[int], support: Dictionary) -> void:
+	var enemies: Array = scene.get("enemies")
+	var duration := SupportRules.duration(support, 2.8)
+	for index in indices:
+		if index < 0 or index >= enemies.size():
+			continue
+		var enemy: Dictionary = enemies[index]
+		enemy["emp_timer"] = maxf(float(enemy.get("emp_timer", 0.0)), duration)
+		if not bool(enemy.get("boss", false)):
+			if not enemy.has("emp_base_speed"):
+				enemy["emp_base_speed"] = float(enemy.get("speed", 0.0))
+			enemy["speed"] = maxf(4.0, float(enemy["emp_base_speed"]) * 0.35)
+		enemies[index] = enemy
+	scene.set("enemies", enemies)
+
+func _update_emp_disruption(scene: Object, delta: float) -> void:
+	var enemies: Array = scene.get("enemies")
+	var changed := false
+	for i in range(enemies.size()):
+		var enemy = enemies[i]
+		if typeof(enemy) != TYPE_DICTIONARY or not enemy.has("emp_timer"):
+			continue
+		var timer := maxf(0.0, float(enemy.get("emp_timer", 0.0)) - delta)
+		enemy["emp_timer"] = timer
+		if timer > 0.0:
+			enemy["fire_timer"] = maxf(float(enemy.get("fire_timer", 0.0)), 0.35)
+			if enemy.has("emp_base_speed") and not bool(enemy.get("boss", false)):
+				enemy["speed"] = maxf(4.0, float(enemy["emp_base_speed"]) * 0.35)
+		else:
+			if enemy.has("emp_base_speed"):
+				enemy["speed"] = float(enemy["emp_base_speed"])
+				enemy.erase("emp_base_speed")
+			enemy.erase("emp_timer")
+		enemies[i] = enemy
+		changed = true
+	if changed:
+		scene.set("enemies", enemies)
+
+func _update_magnetic_field(scene: Object, delta: float) -> void:
+	if _magnetic_timer <= 0.0:
+		return
+	_magnetic_timer = maxf(0.0, _magnetic_timer - delta)
+	var bullets: Array = scene.get("enemy_bullets")
+	var player_position: Vector2 = scene.get("player_position")
+	var indices := SupportRules.defence_indices(bullets, player_position, _magnetic_support)
+	for index in indices:
+		if index < 0 or index >= bullets.size():
+			continue
+		var bullet = bullets[index]
+		if typeof(bullet) != TYPE_DICTIONARY:
+			continue
+		var position: Vector2 = bullet.get("position", Vector2.ZERO)
+		var velocity: Vector2 = bullet.get("velocity", Vector2.DOWN * 100.0)
+		var away := player_position.direction_to(position)
+		if away.length_squared() < 0.001:
+			away = Vector2.DOWN
+		bullet["velocity"] = away.normalized() * maxf(40.0, velocity.length())
+		bullet["homing"] = false
+		bullets[index] = bullet
+	scene.set("enemy_bullets", bullets)
 
 func _update_hunter_projectiles(scene: Object, delta: float) -> void:
 	var bullets: Array = scene.get("bullets")
