@@ -145,25 +145,21 @@ func _craft_form() -> String:
 	return "fighter"
 
 func _support_mount_offsets(support: Dictionary, count: int) -> Array[Vector2]:
-	var result: Array[Vector2] = []
-	var safe_count := maxi(1, count)
-	var support_id := str(support.get("id", ""))
-	if bool(support.get("strategic", false)) or support_id == STRATEGIC_SUPPORT_ID:
-		result.append(Vector2(0, -7))
-		return result
-	var form := _craft_form()
-	if safe_count == 1:
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
+	if mounts != null and mounts.has_method("support_offsets"):
+		var value = mounts.call("support_offsets", _craft_form(), support, count, _hardpoint_flip)
 		_hardpoint_flip = not _hardpoint_flip
-		var side := -1.0 if _hardpoint_flip else 1.0
-		var x := 15.0 if form == "fighter" else 21.0
-		var y := -5.0 if form == "fighter" else 3.0
-		result.append(Vector2(roundf(x * side), y))
-		return result
-	var half_span := 16.0 if form == "fighter" else 24.0
-	var y := -5.0 if form == "fighter" else 3.0
-	for i in range(safe_count):
-		result.append(Vector2(roundf(lerpf(-half_span, half_span, float(i) / float(safe_count - 1))), y))
-	return result
+		if typeof(value) == TYPE_ARRAY and not value.is_empty():
+			var result: Array[Vector2] = []
+			for offset in value:
+				if typeof(offset) == TYPE_VECTOR2:
+					result.append(offset)
+			if not result.is_empty():
+				return result
+	var fallback: Array[Vector2] = []
+	for _i in range(maxi(1, count)):
+		fallback.append(Vector2(0, -10))
+	return fallback
 
 func _activate(scene: Object) -> void:
 	var support := current_support()
@@ -366,4 +362,4 @@ func _add_key_action(action: StringName, keycode: Key) -> void:
 	var event := InputEventKey.new()
 	event.physical_keycode = keycode
 	if not InputMap.action_has_event(action, event):
-		InputMap.action_add_event(action, event)
+		InputMap.add_action(action)
