@@ -8,6 +8,10 @@ const FIRE_STORM := "fire_storm"
 const FIRE_PLASMA := "fire_plasma"
 const FIRE_SUPPORT := "fire_support"
 const FIRE_STRATEGIC := "fire_strategic"
+const HIT := "hit"
+const EXPLOSION := "explosion"
+const BOSS_EXPLOSION := "boss_explosion"
+const PLAYER_HIT := "player_hit"
 const TRANSFORM := "transform"
 const AFTERBURNER := "afterburner"
 const MISSILE_WARNING := "missile_warning"
@@ -40,13 +44,16 @@ static func altitude_event(direction: int) -> String:
 static func voice(event_id: String) -> Dictionary:
 	match event_id:
 		FIRE_BALLISTIC: return {"wave":"square","frequency":176.0,"end_frequency":112.0,"duration":0.055,"gain":0.16}
-		# Original low ripping rotary voice: a short dense mechanical/noise pulse rather than a sampled GAU-8 recording.
 		FIRE_ROTARY: return {"wave":"rotary","frequency":92.0,"end_frequency":74.0,"duration":0.12,"gain":0.23}
 		FIRE_RAIL: return {"wave":"square","frequency":920.0,"end_frequency":210.0,"duration":0.085,"gain":0.19}
 		FIRE_STORM: return {"wave":"sine","frequency":510.0,"end_frequency":260.0,"duration":0.11,"gain":0.18}
 		FIRE_PLASMA: return {"wave":"saw","frequency":250.0,"end_frequency":95.0,"duration":0.19,"gain":0.20}
 		FIRE_SUPPORT: return {"wave":"square","frequency":210.0,"end_frequency":130.0,"duration":0.09,"gain":0.17}
 		FIRE_STRATEGIC: return {"wave":"noise","frequency":96.0,"end_frequency":58.0,"duration":0.24,"gain":0.22}
+		HIT: return {"wave":"noise","frequency":420.0,"end_frequency":180.0,"duration":0.045,"gain":0.10}
+		EXPLOSION: return {"wave":"blast","frequency":118.0,"end_frequency":54.0,"duration":0.22,"gain":0.21}
+		BOSS_EXPLOSION: return {"wave":"blast","frequency":92.0,"end_frequency":38.0,"duration":0.42,"gain":0.26}
+		PLAYER_HIT: return {"wave":"square","frequency":250.0,"end_frequency":115.0,"duration":0.09,"gain":0.15}
 		TRANSFORM: return {"wave":"mechanical","frequency":84.0,"end_frequency":138.0,"duration":0.32,"gain":0.18}
 		AFTERBURNER: return {"wave":"noise","frequency":72.0,"end_frequency":118.0,"duration":0.16,"gain":0.15}
 		MISSILE_WARNING: return {"wave":"square","frequency":760.0,"end_frequency":760.0,"duration":0.10,"gain":0.14}
