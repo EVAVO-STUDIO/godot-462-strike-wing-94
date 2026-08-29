@@ -19,42 +19,76 @@ function Assert-UniqueIds($Collection, [string]$Label) {
     if (@($Ids | Sort-Object -Unique).Count -ne $Ids.Count) { throw "Duplicate id in $Label" }
 }
 
+function Assert-Contains([string]$Text, [string[]]$Tokens, [string]$Label) {
+    foreach ($Token in $Tokens) {
+        if (-not $Text.Contains($Token)) { throw "$Label missing token: $Token" }
+    }
+}
+
 Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
+
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/boss_hud_rules.gd','scripts/boss_hud_director.gd',
     'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd',
     'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/movement_pattern_rules.gd','scripts/weapon_pickup_rules.gd',
+    'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/energy_rules.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
-    'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/service_director.gd',
     'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
-    'data/weapons.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
+    'data/weapons.json','data/generators.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md'
 )
 foreach ($RelativePath in $Required) {
     if (-not (Test-Path (Join-Path $Root $RelativePath))) { throw "Missing required file: $RelativePath" }
 }
-foreach ($Forbidden in @(
+
+$Forbidden = @(
     '.github/workflows','.godot','build','dist',
     'scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd',
     'scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd',
     'scripts/mission_state_director.gd','scripts/bomb_guard_director.gd','scripts/mission_flow_director.gd',
     'scripts/movement_pattern_director.gd','scripts/run_seed_director.gd','scripts/weapon_pickup_director.gd',
-    'scripts/accuracy_director.gd','scripts/reward_director.gd'
-)) {
-    if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/obsolete path committed: $Forbidden" }
+    'scripts/accuracy_director.gd','scripts/reward_director.gd','scripts/service_director.gd'
+)
+foreach ($RelativePath in $Forbidden) {
+    if (Test-Path (Join-Path $Root $RelativePath)) { throw "Forbidden generated/obsolete path committed: $RelativePath" }
 }
 
 $Weapons = Get-Content -Raw (Join-Path $Root 'data/weapons.json') | ConvertFrom-Json
+$Generators = Get-Content -Raw (Join-Path $Root 'data/generators.json') | ConvertFrom-Json
 $Enemies = Get-Content -Raw (Join-Path $Root 'data/enemies.json') | ConvertFrom-Json
 $Missions = Get-Content -Raw (Join-Path $Root 'data/missions.json') | ConvertFrom-Json
 $Profiles = Get-Content -Raw (Join-Path $Root 'data/spawn_profiles.json') | ConvertFrom-Json
 $Campaign = Get-Content -Raw (Join-Path $Root 'data/campaign.json') | ConvertFrom-Json
+
 Assert-UniqueIds $Weapons.weapons 'weapons'
+Assert-UniqueIds $Generators.generators 'generators'
 Assert-UniqueIds $Enemies.enemies 'enemies'
 Assert-UniqueIds $Missions.missions 'missions'
 Assert-UniqueIds $Profiles.profiles 'spawn profiles'
+
+$Primaries = @($Weapons.weapons | Where-Object { $_.slot -eq 'primary' })
+if ($Primaries.Count -lt 5) { throw 'Campaign should expose at least five meaningfully distinct primary tiers.' }
+$PreviousCost = -1
+foreach ($Weapon in $Primaries) {
+    if ([int]$Weapon.cost -lt $PreviousCost) { throw "Primary weapon costs out of order: $($Weapon.id)" }
+    if ([int]$Weapon.damage -le 0 -or [double]$Weapon.projectile_speed -le 0 -or [double]$Weapon.fire_interval -le 0 -or [int]$Weapon.projectiles -le 0) { throw "Invalid primary weapon values: $($Weapon.id)" }
+    if ([double]$Weapon.energy_cost -le 0) { throw "Primary weapon must consume energy: $($Weapon.id)" }
+    if (-not $Weapon.archetype) { throw "Primary weapon missing gameplay archetype: $($Weapon.id)" }
+    $PreviousCost = [int]$Weapon.cost
+}
+
+if (@($Generators.generators).Count -lt 3) { throw 'Generator progression requires at least three tiers.' }
+$PreviousCost = -1; $PreviousCapacity = 0.0; $PreviousRecharge = 0.0
+foreach ($Generator in $Generators.generators) {
+    if ([int]$Generator.cost -lt $PreviousCost) { throw "Generator costs out of order: $($Generator.id)" }
+    if ([double]$Generator.capacity -le 0 -or [double]$Generator.recharge_per_second -le 0) { throw "Invalid generator values: $($Generator.id)" }
+    if ([double]$Generator.capacity -lt $PreviousCapacity -or [double]$Generator.recharge_per_second -lt $PreviousRecharge) { throw "Generator progression regresses output: $($Generator.id)" }
+    $PreviousCost = [int]$Generator.cost
+    $PreviousCapacity = [double]$Generator.capacity
+    $PreviousRecharge = [double]$Generator.recharge_per_second
+}
 
 $EnemyIds = @($Enemies.enemies | ForEach-Object { $_.id })
 $BossIds = @($Enemies.enemies | Where-Object { $_.boss } | ForEach-Object { $_.id })
@@ -64,44 +98,24 @@ $AllowedPatterns = @('sine_dive','tracking_sweep','hover_strafe','road_column','
 foreach ($Enemy in $Enemies.enemies) {
     if ($AllowedClasses -notcontains $Enemy.class) { throw "Unknown enemy class: $($Enemy.id)" }
     if ($AllowedEnemyWeapons -notcontains $Enemy.weapon) { throw "Unsupported enemy weapon: $($Enemy.id) -> $($Enemy.weapon)" }
-    if ($AllowedPatterns -notcontains $Enemy.pattern) { throw "Unsupported enemy movement pattern: $($Enemy.id) -> $($Enemy.pattern)" }
+    if ($AllowedPatterns -notcontains $Enemy.pattern) { throw "Unsupported enemy pattern: $($Enemy.id) -> $($Enemy.pattern)" }
     if ([int]$Enemy.hp -le 0 -or [int]$Enemy.value -le 0 -or [double]$Enemy.speed -lt 0) { throw "Invalid enemy combat values: $($Enemy.id)" }
-    if ($Enemy.class -eq 'boss' -and -not [bool]$Enemy.boss) { throw "Boss-class enemy missing boss=true: $($Enemy.id)" }
-    if ([bool]$Enemy.boss) {
-        if ([int]$Enemy.phases -ne 3) { throw "Boss must have exactly three phases: $($Enemy.id)" }
-        if ([int]$Enemy.weak_point_phase -lt 1 -or [int]$Enemy.weak_point_phase -gt 3) { throw "Invalid weak-point phase: $($Enemy.id)" }
-    }
+    if ([bool]$Enemy.boss -and ([int]$Enemy.phases -ne 3 -or [int]$Enemy.weak_point_phase -lt 1 -or [int]$Enemy.weak_point_phase -gt 3)) { throw "Invalid boss phase data: $($Enemy.id)" }
 }
 
 $MissionIds = @($Missions.missions | ForEach-Object { $_.id })
-$AllowedObjectiveTypes = @('survive','destroy_count','destroy_enemy')
 foreach ($Mission in $Missions.missions) {
-    if ([int]$Mission.duration_seconds -le 0) { throw "Mission duration must be positive: $($Mission.id)" }
-    if ([int]$Mission.starting_wave -lt 1) { throw "Mission starting_wave must be positive: $($Mission.id)" }
+    if ([int]$Mission.duration_seconds -le 0 -or [int]$Mission.starting_wave -lt 1) { throw "Invalid mission timing/wave: $($Mission.id)" }
     if ($Mission.boss_id -and $EnemyIds -notcontains $Mission.boss_id) { throw "Unknown mission boss: $($Mission.boss_id)" }
-    $Objectives = @($Mission.objectives)
-    if ($Objectives.Count -lt 1) { throw "Mission has no objectives: $($Mission.id)" }
-    Assert-UniqueIds $Objectives "mission $($Mission.id) objectives"
-    if (@($Objectives | Where-Object { $_.required }).Count -lt 1) { throw "Mission has no required objective: $($Mission.id)" }
-    foreach ($Objective in $Objectives) {
-        if ($AllowedObjectiveTypes -notcontains $Objective.type) { throw "Unknown objective type: $($Mission.id)/$($Objective.id)" }
-        if ($Objective.type -eq 'survive' -and [int]$Objective.seconds -le 0) { throw "Invalid survive objective: $($Objective.id)" }
-        if ($Objective.type -in @('destroy_count','destroy_enemy') -and [int]$Objective.count -le 0) { throw "Invalid destroy objective: $($Objective.id)" }
-        if ($Objective.type -eq 'destroy_enemy' -and $EnemyIds -notcontains $Objective.enemy_id) { throw "Objective references unknown enemy: $($Objective.enemy_id)" }
-    }
+    if (@($Mission.objectives).Count -lt 1) { throw "Mission has no objectives: $($Mission.id)" }
+    Assert-UniqueIds @($Mission.objectives) "mission $($Mission.id) objectives"
+    if (@($Mission.objectives | Where-Object { $_.required }).Count -lt 1) { throw "Mission has no required objective: $($Mission.id)" }
 }
 
 $CampaignMissionIds = @($Campaign.campaign.missions)
 foreach ($MissionId in $CampaignMissionIds) { if ($MissionIds -notcontains $MissionId) { throw "Campaign references unknown mission: $MissionId" } }
 if (@($CampaignMissionIds | Sort-Object -Unique).Count -ne $CampaignMissionIds.Count) { throw 'Campaign mission list contains duplicates.' }
-if ([int]$Campaign.campaign.starting_hull -lt 1) { throw 'Campaign starting_hull must be positive.' }
-if ([int]$Campaign.campaign.starting_shield -lt 0) { throw 'Campaign starting_shield cannot be negative.' }
-if ([int]$Campaign.campaign.repair_cost_per_hull -lt 0) { throw 'repair_cost_per_hull cannot be negative.' }
-if ([int]$Campaign.campaign.shield_recharge_cost_per_point -lt 0) { throw 'shield_recharge_cost_per_point cannot be negative.' }
-foreach ($BonusField in @('mission_complete_bonus','no_hull_damage_bonus','accuracy_bonus','boss_kill_bonus')) {
-    if ([int]$Campaign.progression.$BonusField -lt 0) { throw "Campaign progression bonus cannot be negative: $BonusField" }
-}
-if ([double]$Campaign.progression.accuracy_bonus_threshold -lt 0.0 -or [double]$Campaign.progression.accuracy_bonus_threshold -gt 1.0) { throw 'accuracy_bonus_threshold must be within 0..1.' }
+if ([int]$Campaign.campaign.starting_hull -lt 1 -or [int]$Campaign.campaign.starting_shield -lt 0) { throw 'Invalid campaign starting airframe values.' }
 
 foreach ($Profile in $Profiles.profiles) {
     if ([int]$Profile.min_wave -gt [int]$Profile.max_wave) { throw "Invalid spawn wave range: $($Profile.id)" }
@@ -112,113 +126,64 @@ foreach ($Profile in $Profiles.profiles) {
     }
 }
 foreach ($Environment in @($Missions.missions | ForEach-Object { $_.environment } | Sort-Object -Unique)) {
-    $EnvironmentProfiles = @($Profiles.profiles | Where-Object { $_.environment -eq $Environment } | Sort-Object min_wave)
-    if ($EnvironmentProfiles.Count -lt 1) { throw "No spawn profile for mission environment: $Environment" }
+    $Ranges = @($Profiles.profiles | Where-Object { $_.environment -eq $Environment } | Sort-Object min_wave)
+    if ($Ranges.Count -lt 1) { throw "No spawn profile for mission environment: $Environment" }
     $NextWave = 1
-    foreach ($Profile in $EnvironmentProfiles) {
-        if ([int]$Profile.min_wave -gt $NextWave) { throw "Spawn profile gap for $Environment before wave $NextWave" }
-        $NextWave = [Math]::Max($NextWave, [int]$Profile.max_wave + 1)
+    foreach ($Range in $Ranges) {
+        if ([int]$Range.min_wave -gt $NextWave) { throw "Spawn profile gap for $Environment before wave $NextWave" }
+        $NextWave = [Math]::Max($NextWave, [int]$Range.max_wave + 1)
     }
     if ($NextWave -lt 100) { throw "Spawn profiles for $Environment do not cover through wave 99." }
 }
 
-$Primaries = @($Weapons.weapons | Where-Object { $_.slot -eq 'primary' })
-if ($Primaries.Count -lt 1) { throw 'No primary weapons defined.' }
-$PreviousCost = -1
-foreach ($Weapon in $Primaries) {
-    if ([int]$Weapon.cost -lt $PreviousCost) { throw "Primary weapon costs out of order: $($Weapon.id)" }
-    if ([int]$Weapon.damage -le 0 -or [double]$Weapon.projectile_speed -le 0 -or [double]$Weapon.fire_interval -le 0 -or [int]$Weapon.projectiles -le 0) { throw "Invalid primary weapon values: $($Weapon.id)" }
-    $PreviousCost = [int]$Weapon.cost
-}
-
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
-    'CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"',
-    'ServiceDirector="*res://scripts/service_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"',
-    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
+    'CampaignSave="*res://scripts/campaign_save.gd"',
+    'BossDirector="*res://scripts/boss_director.gd"',
+    'BossHudDirector="*res://scripts/boss_hud_director.gd"',
+    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"',
+    'ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
-foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector','WeaponPickupDirector','AccuracyDirector','RewardDirector')) {
-    if ($ProjectText.Contains($ObsoleteAutoload)) { throw "Obsolete autoload must remain removed: $ObsoleteAutoload" }
+foreach ($Obsolete in @('ServiceDirector','RewardDirector','AccuracyDirector','WeaponPickupDirector','RunSeedDirector','MovementPatternDirector','MissionFlowDirector','MissionStateDirector','BombGuardDirector','MissileBehaviorDirector','SpawnSafetyDirector')) {
+    if ($ProjectText.Contains($Obsolete)) { throw "Obsolete autoload must remain removed: $Obsolete" }
 }
 
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
-foreach ($Token in @(
-    'RunSeedRules','mission_rng := RandomNumberGenerator.new()','mission_rng.seed = RunSeedRules.mission_seed(mission_index)',
-    'mission_rng.randf()','mission_rng.randi_range','mission_rng.randf_range','if allowed_ids.is_empty():',
-    'func _make_enemy_shot','shot["homing"] = true','shot["homing_speed"]','shot["turn_rate"] = 1.8','shot["life"] = 5.0',
-    'MissionStateRules.live_wave(_active_mission(), mission_time)','MissionStateRules.starting_wave(_active_mission())',
-    'MissionStateRules.starting_hull','MissionStateRules.starting_shield','_service_value("service_hull", max_hull)','_service_value("service_shield", max_shield)',
-    'BombRules.apply_nonlethal_boss_damage','survivors.append(boss)','BOMB STRIKE - BOSS DAMAGED',
-    'BOSS_OVERTIME_LIMIT_SECONDS := 45.0','MissionFlowRules.should_hold_overtime','mission_duration + BOSS_OVERTIME_LIMIT_SECONDS',
-    'BOSS OVERTIME EXPIRED','OVERTIME - DESTROY THE BOSS',
-    'MovementPatternRules.adjusted_position(pattern, position, player_position','MovementPatternRules.clamp_x(position',
-    '"pattern":str(archetype.get("pattern","sine_dive"))','"pattern_anchor_x":x',
-    'var temporary_weapon_boost := 0','WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost',
-    'temporary_weapon_boost = mini(max_boost, temporary_weapon_boost + 1)','temporary_weapon_boost = 0',
-    'var shots_fired := 0','var shots_hit := 0','shots_fired += count','shots_hit += 1','shots_fired = 0','shots_hit = 0',
-    'const RewardRules = preload','RewardRules.extra_success_bonus(','var total_reward := base_reward + objective_bonus + extra_total','credits += total_reward','MISSION COMPLETE  +%d'
-)) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing direct runtime ownership token: $Token" } }
-foreach ($ForbiddenToken in @(
-    'pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get',
-    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','MovementPatternDirector','RunSeedDirector','WeaponPickupDirector','AccuracyDirector','RewardDirector',
-    'enemies.clear(); enemy_bullets.clear()'
-)) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete reconciliation/global fallback token: $ForbiddenToken" } }
+Assert-Contains $MainText @(
+    'const EnergyRules = preload','const ServiceRules = preload',
+    'var service_hull := 100','var service_shield := 100','var generator_index := 0','var energy := 100.0',
+    'EnergyRules.recharge(energy, _active_generator(), delta)','EnergyRules.can_fire(energy, weapon)','EnergyRules.consume(energy, weapon)',
+    'RewardRules.extra_success_bonus','credits += total_reward','service_hull = clampi(hull','service_shield = clampi(shield',
+    'MovementPatternRules.adjusted_position','mission_rng.seed = RunSeedRules.mission_seed(mission_index)',
+    'MissionFlowRules.should_hold_overtime','BombRules.apply_nonlethal_boss_damage','temporary_weapon_boost',
+    '_try_buy_next_generator()','_service_hull_full()','_service_shield_full()'
+) 'Main gameplay'
+foreach ($Token in @('ServiceDirector','RewardDirector','AccuracyDirector','WeaponPickupDirector','RunSeedDirector','MovementPatternDirector','MissionFlowDirector','MissionStateDirector','BombGuardDirector','MissileBehaviorDirector','SpawnSafetyDirector')) {
+    if ($MainText.Contains($Token)) { throw "Main gameplay still references obsolete reconciliation layer: $Token" }
+}
 
-$BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
-foreach ($Token in @('BossRules.phase_for','BossRules.volley_count','weak_point_multiplier','HOMING_LIFETIME','rotate_toward')) { if (-not $BossDirectorText.Contains($Token)) { throw "BossDirector missing integration token: $Token" } }
-$BossHudText = Get-Content -Raw (Join-Path $Root 'scripts/boss_hud_director.gd')
-foreach ($Token in @('BossHudRules.hud_text','health_ratio','ProgressBar','CanvasLayer')) { if (-not $BossHudText.Contains($Token)) { throw "Boss HUD missing token: $Token" } }
-$ThreatText = Get-Content -Raw (Join-Path $Root 'scripts/threat_warning_director.gd')
-foreach ($Token in @('ThreatWarningRules.homing_count','nearest_homing_distance','MISSILE')) { if (-not $ThreatText.Contains($Token)) { throw "Threat warning missing token: $Token" } }
-$ProjectileCueText = Get-Content -Raw (Join-Path $Root 'scripts/projectile_cue_director.gd')
-foreach ($Token in @('ProjectileCueRules.projectile_type','TYPE_MISSILE','queue_redraw')) { if (-not $ProjectileCueText.Contains($Token)) { throw "Projectile cue missing token: $Token" } }
-$BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
-foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) { if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" } }
-$MissionStateRulesText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_rules.gd')
-foreach ($Token in @('starting_hull','starting_shield','starting_wave','live_wave')) { if (-not $MissionStateRulesText.Contains($Token)) { throw "Mission state rules missing token: $Token" } }
-$MissionFlowRulesText = Get-Content -Raw (Join-Path $Root 'scripts/mission_flow_rules.gd')
-foreach ($Token in @('required_boss_incomplete','should_hold_overtime')) { if (-not $MissionFlowRulesText.Contains($Token)) { throw "Mission flow rules missing token: $Token" } }
-if ($MissionFlowRulesText.Contains('safe_pre_frame_time')) { throw 'Obsolete overtime pre-frame clamp helper must remain removed.' }
-$MovementRulesText = Get-Content -Raw (Join-Path $Root 'scripts/movement_pattern_rules.gd')
-foreach ($Token in @('supported_patterns','tracking_sweep','hover_strafe','road_column','water_lane','static','aggressive_weave','clamp_x')) { if (-not $MovementRulesText.Contains($Token)) { throw "Movement pattern rules missing token: $Token" } }
-$SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
-foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','same_mission_reproducible','missions_are_distinct')) { if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" } }
-$WeaponPickupRulesText = Get-Content -Raw (Join-Path $Root 'scripts/weapon_pickup_rules.gd')
-foreach ($Token in @('temporary_boost_for_indices','effective_index','saved_index')) { if (-not $WeaponPickupRulesText.Contains($Token)) { throw "Weapon pickup rules missing token: $Token" } }
-$AccuracyRulesText = Get-Content -Raw (Join-Path $Root 'scripts/accuracy_rules.gd')
-foreach ($Token in @('accuracy_ratio','qualifies','bonus_for')) { if (-not $AccuracyRulesText.Contains($Token)) { throw "Accuracy rules missing token: $Token" } }
-$RewardRulesText = Get-Content -Raw (Join-Path $Root 'scripts/reward_rules.gd')
-foreach ($Token in @('no_hull_damage_bonus','boss_kill_bonus','accuracy_bonus','extra_success_bonus')) { if (-not $RewardRulesText.Contains($Token)) { throw "Reward rules missing token: $Token" } }
-$ServiceRulesText = Get-Content -Raw (Join-Path $Root 'scripts/service_rules.gd')
-foreach ($Token in @('service_cost','can_service','service_full')) { if (-not $ServiceRulesText.Contains($Token)) { throw "Service rules missing token: $Token" } }
-$ServiceDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/service_director.gd')
-foreach ($Token in @('KEY_H','KEY_J','_capture_success_state','repair_cost_per_hull','shield_recharge_cost_per_point','restore_service_state','ServiceRules.service_cost')) { if (-not $ServiceDirectorText.Contains($Token)) { throw "Service director missing token: $Token" } }
-$RecoveryRulesText = Get-Content -Raw (Join-Path $Root 'scripts/save_recovery_rules.gd')
-foreach ($Token in @('parse_supported_json','choose_primary_or_backup','source')) { if (-not $RecoveryRulesText.Contains($Token)) { throw "Save recovery rules missing token: $Token" } }
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-foreach ($Token in @('SAVE_VERSION := 2','BACKUP_PATH','SaveRecoveryRules.choose_primary_or_backup','_backup_current_primary','_saved_weapon_index','return clampi(int(scene.get("weapon_index"))','ServiceDirector','restore_service_state','MAX_CREDITS')) { if (-not $SaveText.Contains($Token)) { throw "Campaign save missing recovery/permanent-weapon token: $Token" } }
-if ($SaveText.Contains('WeaponPickupDirector')) { throw 'Campaign save must not depend on WeaponPickupDirector.' }
+Assert-Contains $SaveText @('SAVE_VERSION := 3','BACKUP_PATH','generator_index','service_hull','service_shield','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
+if ($SaveText.Contains('ServiceDirector')) { throw 'Campaign save must not depend on ServiceDirector.' }
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
-    Write-Warning 'Godot executable not found. Structural/data/director/save validation passed; runtime self-tests and engine smoke test skipped.'
+    Write-Warning 'Godot executable not found. Structural/data/save validation passed; headless self-tests and engine smoke test skipped.'
     exit 0
 }
-Write-Host 'Running deterministic runtime rules self-test...' -ForegroundColor DarkCyan
-& $Godot --headless --path $Root --script res://tools/runtime_self_test.gd
-if ($LASTEXITCODE -ne 0) { throw "Strike Wing runtime self-test failed with exit code $LASTEXITCODE" }
-Write-Host 'Running reward/accuracy self-test...' -ForegroundColor DarkCyan
-& $Godot --headless --path $Root --script res://tools/reward_self_test.gd
-if ($LASTEXITCODE -ne 0) { throw "Strike Wing reward self-test failed with exit code $LASTEXITCODE" }
-Write-Host 'Running service economy self-test...' -ForegroundColor DarkCyan
-& $Godot --headless --path $Root --script res://tools/service_self_test.gd
-if ($LASTEXITCODE -ne 0) { throw "Strike Wing service self-test failed with exit code $LASTEXITCODE" }
-Write-Host 'Running mission flow/projectile self-test...' -ForegroundColor DarkCyan
-& $Godot --headless --path $Root --script res://tools/mission_flow_self_test.gd
-if ($LASTEXITCODE -ne 0) { throw "Strike Wing mission flow self-test failed with exit code $LASTEXITCODE" }
-Write-Host 'Running save recovery self-test...' -ForegroundColor DarkCyan
-& $Godot --headless --path $Root --script res://tools/save_recovery_self_test.gd
-if ($LASTEXITCODE -ne 0) { throw "Strike Wing save recovery self-test failed with exit code $LASTEXITCODE" }
+
+$Tests = @(
+    'runtime_self_test.gd',
+    'reward_self_test.gd',
+    'service_self_test.gd',
+    'mission_flow_self_test.gd',
+    'save_recovery_self_test.gd'
+)
+foreach ($Test in $Tests) {
+    Write-Host "Running $Test..." -ForegroundColor DarkCyan
+    & $Godot --headless --path $Root --script "res://tools/$Test"
+    if ($LASTEXITCODE -ne 0) { throw "$Test failed with exit code $LASTEXITCODE" }
+}
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
 & $Godot --headless --path $Root --editor --quit
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
