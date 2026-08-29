@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "altitude_bands": [
+    {"id":"low","name":"Low Altitude","ground_scale":1.0,"ground_targets":true,"cloud_layer":"above","summary":"Close terrain, ships, armour, structures and bombing runs."},
+    {"id":"mid","name":"Mid Altitude","ground_scale":0.68,"ground_targets":true,"cloud_layer":"mixed","summary":"Hybrid strike envelope with smaller ground detail and low cloud bands."},
+    {"id":"high","name":"High Altitude","ground_scale":0.34,"ground_targets":false,"cloud_layer":"inside_above","summary":"Cloud-top interception, bomber combat and long-range missile threats."},
+    {"id":"orbital","name":"Atmosphere / Space","ground_scale":0.12,"ground_targets":false,"cloud_layer":"below","summary":"Upper atmosphere, orbital platforms, satellites and space-capable combat."}
+  ],
+  "threat_phases": [
+    {"id":"mercenary_war","order":1,"name":"Mercenary War","summary":"Criminal private army, black-market aircraft, armour, ships and fortified industry."},
+    {"id":"drone_war","order":2,"name":"Autonomous Drone War","summary":"Activated military AI expands into self-coordinating drone forces, automated factories and orbital command nodes."},
+    {"id":"external_contact","order":3,"name":"External Contact","summary":"Optional late-game non-human escalation introduced only after the military/AI conflict is established."}
+  ],
+  "tech_eras": [
+    {"id":"advanced_conventional","order":1,"systems":["smart missiles","guided bombs","advanced cannon","ECM","composite armour"]},
+    {"id":"electromagnetic","order":2,"systems":["EMP","smart alloys","magnetic shields","coil weapons","rail weapons"]},
+    {"id":"directed_energy","order":3,"systems":["pulse lasers","plasma weapons","energy interception","advanced force fields"]},
+    {"id":"strategic_orbital","order":4,"systems":["orbital rail support","kinetic strikes","miniature strategic warheads","space station weapons"]}
+  ],
+  "allied_support": [
+    {"id":"spectre_gunship","name":"Spectre Heavy Gunship","role":"loitering gunship","altitudes":["low","mid"]},
+    {"id":"atlas_tanker","name":"Atlas Tanker","role":"in-mission fuel/rearm hookup","altitudes":["mid","high"]},
+    {"id":"rapier_flight","name":"Rapier Fighter Flight","role":"air interception escort","altitudes":["mid","high","orbital"]},
+    {"id":"hammer_bomber_flight","name":"Hammer Bomber Flight","role":"surface strike formation","altitudes":["low","mid"]},
+    {"id":"cruise_missile_support","name":"Cruise Missile Battery","role":"precision stand-off strike","altitudes":["low","mid","high"]},
+    {"id":"rail_support","name":"Longshot Rail Battery","role":"late-game precision kinetic strike","altitudes":["mid","high","orbital"]},
+    {"id":"orbital_strike","name":"Orbital Strike Platform","role":"late-game strategic bombardment","altitudes":["high","orbital"]}
+  ],
+  "mission_context": {
+    "m01_coastal_intercept":{"altitude":"mid","threat_phase":"mercenary_war","tech_era":"advanced_conventional","role":"intercept","recommended_form":"fighter","support":["rapier_flight"]},
+    "m02_refinery_run":{"altitude":"low","threat_phase":"mercenary_war","tech_era":"advanced_conventional","role":"surface_strike","recommended_form":"bomber","support":["spectre_gunship","hammer_bomber_flight"]},
+    "m03_black_sea":{"altitude":"low","threat_phase":"mercenary_war","tech_era":"advanced_conventional","role":"anti_ship","recommended_form":"bomber","support":["cruise_missile_support"]},
+    "m04_breakwater":{"altitude":"mid","threat_phase":"mercenary_war","tech_era":"advanced_conventional","role":"air_superiority_strike","recommended_form":"fighter","support":["rapier_flight","atlas_tanker"]},
+    "m05_furnace_line":{"altitude":"low","threat_phase":"mercenary_war","tech_era":"electromagnetic","role":"armoured_corridor_strike","recommended_form":"bomber","support":["spectre_gunship","cruise_missile_support"]},
+    "m06_black_flag":{"altitude":"mid","threat_phase":"mercenary_war","tech_era":"electromagnetic","role":"fleet_breakthrough","recommended_form":"fighter","support":["rapier_flight","rail_support"]}
+  }
+}
