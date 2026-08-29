@@ -36,12 +36,17 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	var t := float(scene.get("mission_time"))
 	var motif := str(profile.get("motif", environment_id))
 	_draw_parallax(surface, profile, band, t)
-	match motif:
-		"coast": _draw_coast(surface, profile, band, t)
-		"industrial": _draw_industrial(surface, profile, band, t)
-		"water": _draw_water(surface, profile, band, t)
-		"cloud_top": _draw_cloud_top(surface, profile, band, t)
-		"orbital": _draw_orbital(surface, profile, band, t)
+	# Orbital missions may begin in the upper atmosphere. Keep cloud-top language until the authored orbital transition fires.
+	if motif == "orbital" and band == "high":
+		_draw_cloud_top(surface, profile, band, t)
+		_draw_high_atmosphere_horizon(surface, profile)
+	else:
+		match motif:
+			"coast": _draw_coast(surface, profile, band, t)
+			"industrial": _draw_industrial(surface, profile, band, t)
+			"water": _draw_water(surface, profile, band, t)
+			"cloud_top": _draw_cloud_top(surface, profile, band, t)
+			"orbital": _draw_orbital(surface, profile, band, t)
 	_draw_clouds(surface, profile, band, t)
 
 func _supports(scene: Object) -> bool:
@@ -118,6 +123,12 @@ func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, band: String, t: 
 		var r := 13.0 + float(i % 4) * 4.0
 		surface.draw_circle(Vector2(x,y),r,tone)
 		surface.draw_circle(Vector2(x+r*0.8,y+3),r*0.72,tone)
+
+func _draw_high_atmosphere_horizon(surface: CanvasItem, profile: Dictionary) -> void:
+	var atmosphere := _tone(profile, "mid", 0.22)
+	surface.draw_arc(Vector2(320, 438), 286, PI, TAU, 64, atmosphere, 7.0)
+	var upper := Color("5d86a0"); upper.a = 0.10
+	surface.draw_arc(Vector2(320, 442), 294, PI, TAU, 64, upper, 2.0)
 
 func _draw_orbital(surface: CanvasItem, profile: Dictionary, band: String, t: float) -> void:
 	var star := _tone(profile, "near", 0.65)
