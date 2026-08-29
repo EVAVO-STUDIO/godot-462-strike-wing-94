@@ -5,6 +5,7 @@ const PixelUiSurface = preload("res://scripts/pixel_ui_surface.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
+const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
 const BG := Color("0b1016")
 const PANEL := Color("070a0e")
@@ -58,7 +59,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	PixelFont.draw_centered(surface, "STRIKE WING '94", 320, 28, 3, TEXT, 2)
 	PixelFont.draw_centered(surface, str(scene.get("current_mission_name")), 320, 66, 2, GOLD, 2)
-	PixelFont.draw_centered(surface, "%s   %s CONFIG" % [_altitude_name(), _form_name()], 320, 88, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "%s   %s CONFIG   TECH %s" % [_altitude_name(), _form_name(), _tech_era_name()], 320, 88, 1, BLUE, 1)
 	var briefing := str(scene.get("current_briefing"))
 	var lines := _wrap_text(briefing, 72)
 	for i in range(mini(2, lines.size())):
@@ -93,7 +94,7 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	_draw_divider(surface, 142)
 	PixelFont.draw_centered(surface, "SCORE %08d" % int(scene.get("score")), 210, 169, 2, TEXT, 1)
 	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 430, 169, 2, TEXT, 1)
-	PixelFont.draw_centered(surface, "%s   %s" % [_altitude_name(), _form_name()], 320, 198, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "%s   %s   %s" % [_altitude_name(), _form_name(), _tech_era_name()], 320, 198, 1, BLUE, 1)
 	if _has_property(scene, "shots_fired") and int(scene.get("shots_fired")) > 0:
 		var fired := int(scene.get("shots_fired"))
 		var hits := clampi(int(scene.get("shots_hit")), 0, fired)
@@ -119,7 +120,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	var mission_name := str(scene.get("current_mission_name"))
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	PixelFont.draw_text(surface, _clip(mission_name, 16), Vector2(16, 39), 1, MUTED, 1)
-	PixelFont.draw_text(surface, "%s %s" % [_short_altitude(), _short_form()], Vector2(148, 39), 1, BLUE, 1)
+	PixelFont.draw_text(surface, "%s %s %s" % [_short_altitude(), _short_form(), _short_tech()], Vector2(148, 39), 1, BLUE, 1)
 	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 18), 326, 39, 1, TEXT, 1)
 	PixelFont.draw_text(surface, _clip(_support_name(), 14), Vector2(422, 39), 1, GREEN, 1)
 	PixelFont.draw_text(surface, "F:%s" % _clip(_battlefield_support_name(), 12), Vector2(518, 39), 1, BLUE, 1)
@@ -169,6 +170,24 @@ func _form_name() -> String:
 func _altitude_name() -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
 	return str(director.call("current_altitude_name")).to_upper() if director != null and director.has_method("current_altitude_name") else "MID ALT"
+
+func _tech_era() -> String:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("mission_context"):
+		var context = director.call("mission_context")
+		if typeof(context) == TYPE_DICTIONARY:
+			return TechProgressionRules.sanitize_era(str(context.get("tech_era", "advanced_conventional")))
+	return "advanced_conventional"
+
+func _tech_era_name() -> String:
+	return TechProgressionRules.era_name(_tech_era())
+
+func _short_tech() -> String:
+	match _tech_era():
+		"electromagnetic": return "EM"
+		"directed_energy": return "DE"
+		"strategic_orbital": return "ORB"
+	return "CONV"
 
 func _short_form() -> String:
 	return "FTR" if _form_name() == "FIGHTER" else "BMB"
