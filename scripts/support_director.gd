@@ -86,6 +86,12 @@ func _buy_next_support(scene: Object) -> void:
 	else:
 		_set_status(scene, "SUPPORT NEEDS %d CREDITS" % int(support_catalog[next_index].get("cost", 0)))
 
+func _craft_energy_multiplier() -> float:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("support_energy_multiplier"):
+		return clampf(float(director.call("support_energy_multiplier")), 0.25, 2.0)
+	return 1.0
+
 func _activate(scene: Object) -> void:
 	var support := current_support()
 	if support.is_empty():
@@ -95,11 +101,14 @@ func _activate(scene: Object) -> void:
 	if kind == "defence":
 		defence_indices = SupportRules.defence_indices(scene.get("enemy_bullets"), scene.get("player_position"), support)
 	var has_target := kind != "defence" or not defence_indices.is_empty()
-	if not SupportRules.can_activate(float(scene.get("energy")), _cooldown, support, has_target):
+	var effective_support := support.duplicate(true)
+	var effective_energy_cost := SupportRules.energy_cost(support) * _craft_energy_multiplier()
+	effective_support["energy_cost"] = effective_energy_cost
+	if not SupportRules.can_activate(float(scene.get("energy")), _cooldown, effective_support, has_target):
 		if kind == "defence" and not has_target:
 			_set_status(scene, "POINT DEFENCE - NO THREAT")
 		return
-	scene.set("energy", maxf(0.0, float(scene.get("energy")) - SupportRules.energy_cost(support)))
+	scene.set("energy", maxf(0.0, float(scene.get("energy")) - effective_energy_cost))
 	_cooldown = SupportRules.cooldown(support)
 	match kind:
 		"rockets", "crossfire":
