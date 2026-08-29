@@ -1,5 +1,5 @@
 {
-  "schema_version": 7,
+  "schema_version": 8,
   "missions": [
     {
       "id": "m01_coastal_intercept",
@@ -191,6 +191,69 @@
         {"id":"survive","type":"survive","seconds":240,"required":true},
         {"id":"destroy_orbital_node","type":"destroy_enemy","enemy_id":"orbital_command_node","count":1,"required":true},
         {"id":"clear_sentries","type":"destroy_enemy","enemy_id":"orbital_sentry","count":5,"required":false,"bonus_credits":2400}
+      ]
+    },
+    {
+      "id": "m10_blue_fire",
+      "name": "Blue Fire",
+      "environment": "high_cloud",
+      "duration_seconds": 250,
+      "starting_wave": 27,
+      "boss_id": "phase_control_array",
+      "briefing": "The AI has begun deploying field-coupled interceptors above the storm deck. Break the phase screen and destroy the control array before it stabilises a permanent high-altitude exclusion zone.",
+      "encounter_beats": [
+        {"id":"phase_entry","at_seconds":7,"label":"PHASE INTERCEPTORS","formation":"wedge","enemies":[{"id":"phase_interceptor","count":4},{"id":"exo_drone","count":2}],"suppress_random_seconds":6},
+        {"id":"blue_grid","at_seconds":58,"label":"BLUE FIRE GRID","formation":"line","enemies":[{"id":"beam_sentry","count":3},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":8},
+        {"id":"storm_gap","at_seconds":111,"label":"STORM GAP","formation":"column","enemies":[{"id":"phase_interceptor","count":2}],"pickup":"shield","suppress_random_seconds":11},
+        {"id":"hidden_field_test","at_seconds":138,"label":"FIELD TEST CELL","formation":"split","secret":true,"condition":{"type":"accuracy_at_least","value":0.80,"minimum_shots":150},"enemies":[{"id":"beam_sentry","count":2},{"id":"phase_interceptor","count":1}],"pickup":"weapon","suppress_random_seconds":8},
+        {"id":"phase_array_guard","at_seconds":174,"label":"PHASE ARRAY GUARD","formation":"stagger","enemies":[{"id":"phase_interceptor","count":3},{"id":"beam_sentry","count":2},{"id":"orbital_sentry","count":2}],"suppress_random_seconds":11}
+      ],
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":250,"required":true},
+        {"id":"destroy_phase_array","type":"destroy_enemy","enemy_id":"phase_control_array","count":1,"required":true},
+        {"id":"break_phase_interceptors","type":"destroy_enemy","enemy_id":"phase_interceptor","count":6,"required":false,"bonus_credits":2800}
+      ]
+    },
+    {
+      "id": "m11_cold_station",
+      "name": "Cold Station",
+      "environment": "orbital",
+      "duration_seconds": 270,
+      "starting_wave": 30,
+      "boss_id": "station_warden",
+      "briefing": "Assault the autonomous transfer station while its defensive grid is still incomplete. Destroy the Warden before the AI can convert the station into a permanent weapons foundry.",
+      "encounter_beats": [
+        {"id":"station_approach","at_seconds":8,"label":"STATION APPROACH","formation":"split","enemies":[{"id":"orbital_lancer","count":3},{"id":"exo_drone","count":3}],"suppress_random_seconds":7},
+        {"id":"warden_grid","at_seconds":64,"label":"WARDEN GRID","formation":"line","enemies":[{"id":"beam_sentry","count":3},{"id":"orbital_sentry","count":2}],"suppress_random_seconds":9},
+        {"id":"service_shadow","at_seconds":124,"label":"STATION SHADOW","formation":"column","enemies":[{"id":"exo_drone","count":2}],"pickup":"repair","suppress_random_seconds":12},
+        {"id":"hidden_maintenance_ring","at_seconds":151,"label":"MAINTENANCE RING","formation":"wedge","secret":true,"condition":{"type":"score_at_least","value":26000},"enemies":[{"id":"orbital_lancer","count":2},{"id":"beam_sentry","count":1}],"pickup":"shield","suppress_random_seconds":9},
+        {"id":"warden_shell","at_seconds":190,"label":"WARDEN SHELL","formation":"stagger","enemies":[{"id":"beam_sentry","count":3},{"id":"orbital_lancer","count":3},{"id":"phase_interceptor","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":270,"required":true},
+        {"id":"destroy_warden","type":"destroy_enemy","enemy_id":"station_warden","count":1,"required":true},
+        {"id":"clear_lancers","type":"destroy_enemy","enemy_id":"orbital_lancer","count":5,"required":false,"bonus_credits":3200}
+      ]
+    },
+    {
+      "id": "m12_machine_ark",
+      "name": "Machine Ark",
+      "environment": "orbital",
+      "duration_seconds": 300,
+      "starting_wave": 34,
+      "boss_id": "machine_ark",
+      "briefing": "The autonomous war has condensed into a mobile orbital command ark carrying factories, strategic weapons and the surviving network core. Break its escort and end the machine offensive before it can leave Earth orbit.",
+      "encounter_beats": [
+        {"id":"ark_vanguard","at_seconds":9,"label":"ARK VANGUARD","formation":"wedge","enemies":[{"id":"phase_interceptor","count":3},{"id":"orbital_lancer","count":3}],"suppress_random_seconds":7},
+        {"id":"strategic_screen","at_seconds":72,"label":"STRATEGIC SCREEN","formation":"split","enemies":[{"id":"beam_sentry","count":3},{"id":"orbital_sentry","count":3},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":10},
+        {"id":"final_rearm_window","at_seconds":137,"label":"FINAL REARM WINDOW","formation":"column","enemies":[{"id":"exo_drone","count":2}],"pickup":"bomb","suppress_random_seconds":13},
+        {"id":"hidden_core_vector","at_seconds":169,"label":"CORE VECTOR","formation":"line","secret":true,"condition":{"type":"bombs_at_least","value":2},"enemies":[{"id":"phase_interceptor","count":2},{"id":"orbital_lancer","count":2}],"pickup":"weapon","suppress_random_seconds":10},
+        {"id":"ark_guard","at_seconds":214,"label":"ARK GUARD","formation":"stagger","enemies":[{"id":"phase_interceptor","count":3},{"id":"beam_sentry","count":3},{"id":"orbital_lancer","count":3}],"suppress_random_seconds":14}
+      ],
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":300,"required":true},
+        {"id":"destroy_machine_ark","type":"destroy_enemy","enemy_id":"machine_ark","count":1,"required":true},
+        {"id":"break_ark_guard","type":"destroy_enemy","enemy_id":"orbital_lancer","count":6,"required":false,"bonus_credits":4200}
       ]
     }
   ]
