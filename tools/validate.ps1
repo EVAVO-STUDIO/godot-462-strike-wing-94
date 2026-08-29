@@ -26,7 +26,7 @@ $Required = @(
     'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/boss_hud_rules.gd','scripts/boss_hud_director.gd',
     'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd',
     'scripts/run_seed_rules.gd','scripts/run_seed_director.gd',
-    'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/mission_flow_director.gd',
+    'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd',
     'scripts/movement_pattern_rules.gd','scripts/movement_pattern_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd','scripts/threat_warning_director.gd',
     'scripts/weapon_pickup_rules.gd','scripts/weapon_pickup_director.gd',
@@ -43,7 +43,7 @@ foreach ($Forbidden in @(
     '.github/workflows','.godot','build','dist',
     'scripts/spawn_safety_director.gd','scripts/spawn_safety_rules.gd',
     'scripts/missile_behavior_director.gd','scripts/missile_behavior_rules.gd',
-    'scripts/mission_state_director.gd','scripts/bomb_guard_director.gd'
+    'scripts/mission_state_director.gd','scripts/bomb_guard_director.gd','scripts/mission_flow_director.gd'
 )) {
     if (Test-Path (Join-Path $Root $Forbidden)) { throw "Forbidden generated/obsolete path committed: $Forbidden" }
 }
@@ -136,13 +136,13 @@ foreach ($Weapon in $Primaries) {
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
     'CampaignSave="*res://scripts/campaign_save.gd"','BossDirector="*res://scripts/boss_director.gd"',
-    'RunSeedDirector="*res://scripts/run_seed_director.gd"','MissionFlowDirector="*res://scripts/mission_flow_director.gd"',
-    'WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"','AccuracyDirector="*res://scripts/accuracy_director.gd"',
-    'RewardDirector="*res://scripts/reward_director.gd"','ServiceDirector="*res://scripts/service_director.gd"',
-    'MovementPatternDirector="*res://scripts/movement_pattern_director.gd"','BossHudDirector="*res://scripts/boss_hud_director.gd"',
-    'ThreatWarningDirector="*res://scripts/threat_warning_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
+    'RunSeedDirector="*res://scripts/run_seed_director.gd"','WeaponPickupDirector="*res://scripts/weapon_pickup_director.gd"',
+    'AccuracyDirector="*res://scripts/accuracy_director.gd"','RewardDirector="*res://scripts/reward_director.gd"',
+    'ServiceDirector="*res://scripts/service_director.gd"','MovementPatternDirector="*res://scripts/movement_pattern_director.gd"',
+    'BossHudDirector="*res://scripts/boss_hud_director.gd"','ThreatWarningDirector="*res://scripts/threat_warning_director.gd"',
+    'ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"'
 )) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
-foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector')) {
+foreach ($ObsoleteAutoload in @('SpawnSafetyDirector','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector')) {
     if ($ProjectText.Contains($ObsoleteAutoload)) { throw "Obsolete autoload must remain removed: $ObsoleteAutoload" }
 }
 
@@ -153,11 +153,13 @@ foreach ($Token in @(
     'func _make_enemy_shot','shot["homing"] = true','shot["homing_speed"]','shot["turn_rate"] = 1.8','shot["life"] = 5.0',
     'MissionStateRules.live_wave(_active_mission(), mission_time)','MissionStateRules.starting_wave(_active_mission())',
     'MissionStateRules.starting_hull','MissionStateRules.starting_shield','_service_value("service_hull", max_hull)','_service_value("service_shield", max_shield)',
-    'BombRules.apply_nonlethal_boss_damage','survivors.append(boss)','BOMB STRIKE - BOSS DAMAGED'
+    'BombRules.apply_nonlethal_boss_damage','survivors.append(boss)','BOMB STRIKE - BOSS DAMAGED',
+    'BOSS_OVERTIME_LIMIT_SECONDS := 45.0','MissionFlowRules.should_hold_overtime','mission_duration + BOSS_OVERTIME_LIMIT_SECONDS',
+    'BOSS OVERTIME EXPIRED','OVERTIME - DESTROY THE BOSS'
 )) { if (-not $MainText.Contains($Token)) { throw "Main gameplay missing direct runtime ownership token: $Token" } }
 foreach ($ForbiddenToken in @(
     'pickup_kind_for_roll(randf())','randi() % candidates.size()','if allowed_ids.is_empty() or str(item.get',
-    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','enemies.clear(); enemy_bullets.clear()'
+    'MissileBehaviorRules','MissileBehaviorDirector','MissionStateDirector','BombGuardDirector','MissionFlowDirector','enemies.clear(); enemy_bullets.clear()'
 )) { if ($MainText.Contains($ForbiddenToken)) { throw "Main gameplay still contains obsolete reconciliation/global fallback token: $ForbiddenToken" } }
 
 $BossDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/boss_director.gd')
@@ -172,13 +174,14 @@ $BombRulesText = Get-Content -Raw (Join-Path $Root 'scripts/bomb_rules.gd')
 foreach ($Token in @('BOSS_DAMAGE_RATIO','boss_bomb_damage','apply_nonlethal_boss_damage')) { if (-not $BombRulesText.Contains($Token)) { throw "Bomb rules missing token: $Token" } }
 $MissionStateRulesText = Get-Content -Raw (Join-Path $Root 'scripts/mission_state_rules.gd')
 foreach ($Token in @('starting_hull','starting_shield','starting_wave','live_wave')) { if (-not $MissionStateRulesText.Contains($Token)) { throw "Mission state rules missing token: $Token" } }
+$MissionFlowRulesText = Get-Content -Raw (Join-Path $Root 'scripts/mission_flow_rules.gd')
+foreach ($Token in @('required_boss_incomplete','should_hold_overtime')) { if (-not $MissionFlowRulesText.Contains($Token)) { throw "Mission flow rules missing token: $Token" } }
+if ($MissionFlowRulesText.Contains('safe_pre_frame_time')) { throw 'Obsolete overtime pre-frame clamp helper must remain removed.' }
 $SeedRulesText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_rules.gd')
 foreach ($Token in @('BASE_SEED','MISSION_STRIDE','mission_seed','missions_are_distinct')) { if (-not $SeedRulesText.Contains($Token)) { throw "Run seed rules missing token: $Token" } }
 $SeedDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/run_seed_director.gd')
 foreach ($Token in @('RunSeedRules.mission_seed','current_mission_seed','_update_seed_for_scene')) { if (-not $SeedDirectorText.Contains($Token)) { throw "Run seed director missing token: $Token" } }
 if ($SeedDirectorText.Contains('seed(run_seed)')) { throw 'RunSeedDirector must not mutate the global RNG.' }
-$MissionFlowText = Get-Content -Raw (Join-Path $Root 'scripts/mission_flow_director.gd')
-foreach ($Token in @('process_priority = -40','MissionFlowRules.should_hold_overtime','safe_pre_frame_time','OVERTIME - DESTROY THE BOSS')) { if (-not $MissionFlowText.Contains($Token)) { throw "Mission flow director missing token: $Token" } }
 $MovementRulesText = Get-Content -Raw (Join-Path $Root 'scripts/movement_pattern_rules.gd')
 foreach ($Token in @('supported_patterns','tracking_sweep','hover_strafe','aggressive_weave','clamp_x')) { if (-not $MovementRulesText.Contains($Token)) { throw "Movement pattern rules missing token: $Token" } }
 $MovementDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/movement_pattern_director.gd')
