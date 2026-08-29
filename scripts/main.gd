@@ -7,9 +7,11 @@ const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
+const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
+const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
 
 enum GamePhase { TITLE, PLAYING, RESULT }
 
@@ -96,8 +98,16 @@ func _update_mission(delta: float) -> void:
 		_finish_mission(true)
 		return
 	if mission_time >= mission_duration:
-		_finish_mission(false, "OBJECTIVES INCOMPLETE")
-		return
+		var hold_overtime := MissionFlowRules.should_hold_overtime(current_boss_id, current_objectives, objective_progress, enemies)
+		if hold_overtime and mission_time < mission_duration + BOSS_OVERTIME_LIMIT_SECONDS:
+			status_text = "OVERTIME - DESTROY THE BOSS"
+			status_timer = 0.3
+		elif hold_overtime:
+			_finish_mission(false, "BOSS OVERTIME EXPIRED")
+			return
+		else:
+			_finish_mission(false, "OBJECTIVES INCOMPLETE")
+			return
 	if enemy_spawn_timer <= 0.0 and not _boss_alive():
 		_spawn_enemy()
 		enemy_spawn_timer = CombatRules.enemy_spawn_interval(wave)
