@@ -9,7 +9,6 @@ run/main_scene="res://scenes/main.tscn"
 [autoload]
 CampaignSave="*res://scripts/campaign_save.gd"
 BossDirector="*res://scripts/boss_director.gd"
-AccuracyDirector="*res://scripts/accuracy_director.gd"
 RewardDirector="*res://scripts/reward_director.gd"
 ServiceDirector="*res://scripts/service_director.gd"
 BossHudDirector="*res://scripts/boss_hud_director.gd"
