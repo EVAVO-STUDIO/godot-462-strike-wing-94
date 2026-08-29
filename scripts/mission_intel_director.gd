@@ -47,15 +47,15 @@ func draw_intel(surface: CanvasItem) -> void:
 	var context := _mission_context()
 	var boss_id := _boss_id(scene)
 	var lines := MissionIntelRules.mission_lines(context, boss_id)
-	surface.draw_rect(Rect2(54, 82, 532, 226), BG)
-	surface.draw_rect(Rect2(54, 82, 532, 226), BORDER, false, 1.0)
-	surface.draw_rect(Rect2(58, 86, 524, 218), Color("10171d"), false, 1.0)
-	PixelFont.draw_centered(surface, "MISSION INTELLIGENCE", 320, 96, 2, GOLD, 1)
-	PixelFont.draw_centered(surface, _mission_name(scene), 320, 119, 1, TEXT, 1)
+	surface.draw_rect(Rect2(54, 76, 532, 238), BG)
+	surface.draw_rect(Rect2(54, 76, 532, 238), BORDER, false, 1.0)
+	surface.draw_rect(Rect2(58, 80, 524, 230), Color("10171d"), false, 1.0)
+	PixelFont.draw_centered(surface, "MISSION INTELLIGENCE", 320, 90, 2, GOLD, 1)
+	PixelFont.draw_centered(surface, _mission_name(scene), 320, 113, 1, TEXT, 1)
 	for i in range(lines.size()):
-		var color := BLUE if i in [0,1,2] else TEXT
-		PixelFont.draw_text(surface, _clip(lines[i], 74), Vector2(78, 146 + i * 18), 1, color, 1)
-	PixelFont.draw_centered(surface, "I CLOSE   ENTER LAUNCH", 320, 282, 1, MUTED, 1)
+		var color := BLUE if i in [0,1,2,3] else TEXT
+		PixelFont.draw_text(surface, _clip(lines[i], 74), Vector2(78, 137 + i * 19), 1, color, 1)
+	PixelFont.draw_centered(surface, "I CLOSE   ENTER LAUNCH", 320, 288, 1, MUTED, 1)
 
 func _mission_context() -> Dictionary:
 	var craft := get_node_or_null("/root/CraftFormDirector")
