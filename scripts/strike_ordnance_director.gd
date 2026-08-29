@@ -64,6 +64,15 @@ func _altitude_transition_active() -> bool:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	return craft != null and craft.has_method("altitude_transition_active") and bool(craft.call("altitude_transition_active"))
 
+func _strike_release_position(scene: Object) -> Vector2:
+	var player: Vector2 = scene.get("player_position")
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
+	if mounts != null and mounts.has_method("role_offsets"):
+		var offsets = mounts.call("role_offsets", "bomber", "precision_bomb")
+		if typeof(offsets) == TYPE_ARRAY and not offsets.is_empty() and typeof(offsets[0]) == TYPE_VECTOR2:
+			return player + Vector2(offsets[0])
+	return player + Vector2(0, 8)
+
 func _update_attack_run_stability(scene: Object, delta: float) -> void:
 	var form := _craft_value("current_form", "fighter")
 	var altitude := _craft_value("current_altitude", "mid")
@@ -100,6 +109,7 @@ func _try_drop(scene: Object) -> void:
 	var delay := StrikeOrdnanceRules.stabilized_impact_delay(altitude, _stability)
 	_pending.append({
 		"position": point,
+		"release_position": _strike_release_position(scene),
 		"time": delay,
 		"initial_time": delay,
 		"altitude": altitude,
@@ -255,11 +265,19 @@ func _draw_surface(surface: CanvasItem) -> void:
 		surface.draw_rect(Rect2(18, 325, roundf(bar_width * _stability), 3), Color(0.42,0.86,0.64,0.92))
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)
+		var release: Vector2 = item.get("release_position", scene.get("player_position"))
 		var initial_time := maxf(0.001, float(item.get("initial_time", StrikeOrdnanceRules.impact_delay(str(item.get("altitude", "low"))))))
-		var t := clampf(float(item.get("time", 0.0)) / initial_time, 0.0, 1.0)
-		var pulse := 3.0 + 7.0 * (1.0 - t)
+		var remaining := clampf(float(item.get("time", 0.0)) / initial_time, 0.0, 1.0)
+		var progress := 1.0 - remaining
+		var travel := smoothstep(0.0, 1.0, progress)
+		var bomb_position := release.lerp(point, travel)
+		var bomb_scale := lerpf(1.0, 0.45, travel)
+		var pulse := 3.0 + 7.0 * progress
 		var color := Color(0.42, 0.96, 0.62, 0.78) if bool(item.get("priority_lock", false)) else Color(1.0, 0.48, 0.20, 0.7)
 		surface.draw_circle(point, pulse, color, false, 1.0)
+		surface.draw_line(release, point, Color(color.r, color.g, color.b, 0.16), 1.0)
+		surface.draw_rect(Rect2(roundf(bomb_position.x)-roundf(2.0*bomb_scale), roundf(bomb_position.y)-roundf(4.0*bomb_scale), maxf(1.0,roundf(4.0*bomb_scale)), maxf(2.0,roundf(8.0*bomb_scale))), Color(0.74,0.76,0.72,0.94))
+		surface.draw_rect(Rect2(roundf(bomb_position.x)-1, roundf(bomb_position.y)-roundf(5.0*bomb_scale), 2, 2), Color(0.92,0.74,0.30,0.92))
 
 func _draw_impact_fx(surface: CanvasItem) -> void:
 	for fx in _impact_fx:
