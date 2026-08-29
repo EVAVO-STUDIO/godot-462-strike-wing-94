@@ -9,6 +9,7 @@ const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
+const WeaponPickupRules = preload("res://scripts/weapon_pickup_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
@@ -31,6 +32,7 @@ var bombs := 3
 var credits := 0
 var mission_index := 0
 var weapon_index := 0
+var temporary_weapon_boost := 0
 var boss_spawned := false
 var current_boss_id := ""
 var current_environment := "coast"
@@ -175,6 +177,7 @@ func _start_mission() -> void:
 	shield = clampi(_service_value("service_shield", max_shield), 0, max_shield)
 	bombs = 3
 	wave = MissionStateRules.starting_wave(_active_mission())
+	temporary_weapon_boost = 0
 	boss_spawned = false
 	enemy_spawn_timer = 0.35
 	player_position = Vector2(320.0, 292.0)
@@ -196,7 +199,11 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 		result_text = "%s  PRESS R TO RETRY" % failure_reason
 
 func _clear_combat() -> void:
-	bullets.clear(); enemy_bullets.clear(); enemies.clear(); pickups.clear()
+	bullets.clear()
+	enemy_bullets.clear()
+	enemies.clear()
+	pickups.clear()
+	temporary_weapon_boost = 0
 
 func _primary_weapons() -> Array:
 	var result: Array = []
@@ -207,7 +214,8 @@ func _primary_weapons() -> Array:
 func _active_weapon() -> Dictionary:
 	var primaries := _primary_weapons()
 	if primaries.is_empty(): return {"name":"Twin Cannon Mk I","damage":1,"fire_interval":0.11,"projectile_speed":430.0,"projectiles":2,"spread_degrees":0.0,"cost":0}
-	return primaries[clampi(weapon_index, 0, primaries.size() - 1)]
+	var effective_index := WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost, primaries.size())
+	return primaries[effective_index]
 
 func _try_buy_next_weapon() -> void:
 	var primaries := _primary_weapons()
@@ -374,7 +382,9 @@ func _apply_pickup(kind: String) -> void:
 		"bomb": bombs = mini(5, bombs + 1)
 		"weapon":
 			var primaries := _primary_weapons()
-			if not primaries.is_empty(): weapon_index = mini(primaries.size() - 1, weapon_index + 1)
+			if not primaries.is_empty():
+				var max_boost := maxi(0, primaries.size() - 1 - weapon_index)
+				temporary_weapon_boost = mini(max_boost, temporary_weapon_boost + 1)
 
 func _apply_damage(amount: int) -> void:
 	var state := CombatRules.apply_shielded_damage(hull, shield, amount)
