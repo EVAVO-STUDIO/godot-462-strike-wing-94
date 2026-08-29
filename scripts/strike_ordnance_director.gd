@@ -62,8 +62,13 @@ func _try_drop(scene: Object) -> void:
 	ordnance -= 1
 	_cooldown = StrikeOrdnanceRules.DROP_COOLDOWN
 	var point := StrikeOrdnanceRules.target_point(scene.get("player_position"), altitude)
-	_pending.append({"position": point, "time": StrikeOrdnanceRules.IMPACT_DELAY, "altitude": altitude})
-	_set_status(scene, "BOMB AWAY  %d LEFT" % ordnance)
+	_pending.append({
+		"position": point,
+		"time": StrikeOrdnanceRules.impact_delay(altitude),
+		"initial_time": StrikeOrdnanceRules.impact_delay(altitude),
+		"altitude": altitude
+	})
+	_set_status(scene, "%s - BOMB AWAY  %d LEFT" % [StrikeOrdnanceRules.delivery_quality(altitude), ordnance])
 
 func _update_pending(scene: Object, delta: float) -> void:
 	for i in range(_pending.size() - 1, -1, -1):
@@ -132,15 +137,20 @@ func _draw_surface(surface: CanvasItem) -> void:
 	if form != "bomber" or not StrikeOrdnanceRules.altitude_allowed(altitude):
 		return
 	var target := StrikeOrdnanceRules.target_point(scene.get("player_position"), altitude)
-	var radius := StrikeOrdnanceRules.blast_radius(altitude)
-	surface.draw_arc(target, radius, 0.0, TAU, 20, Color(0.92, 0.74, 0.30, 0.55), 1.0)
+	var aim_radius := StrikeOrdnanceRules.aim_radius(altitude)
+	var blast_radius := StrikeOrdnanceRules.blast_radius(altitude)
+	var reticle := Color(0.92, 0.74, 0.30, 0.55)
+	surface.draw_arc(target, aim_radius, 0.0, TAU, 20, reticle, 1.0)
+	surface.draw_arc(target, blast_radius, 0.0, TAU, 20, Color(0.92, 0.44, 0.22, 0.24), 1.0)
 	surface.draw_line(target + Vector2(-6, 0), target + Vector2(6, 0), Color(0.92, 0.74, 0.30, 0.75), 1.0)
 	surface.draw_line(target + Vector2(0, -6), target + Vector2(0, 6), Color(0.92, 0.74, 0.30, 0.75), 1.0)
-	PixelFont.draw_text(surface, "E BOMB %d" % ordnance, Vector2(18, 314), 1, Color(0.92, 0.74, 0.30, 0.92), 1)
+	PixelFont.draw_text(surface, "E BOMB %d  %s" % [ordnance, "LOW" if altitude == "low" else "MID"], Vector2(18, 314), 1, Color(0.92, 0.74, 0.30, 0.92), 1)
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)
-		var t := clampf(float(item.get("time", 0.0)) / StrikeOrdnanceRules.IMPACT_DELAY, 0.0, 1.0)
-		surface.draw_circle(point, 3.0 + 6.0 * (1.0 - t), Color(1.0, 0.48, 0.20, 0.7), false, 1.0)
+		var initial_time := maxf(0.001, float(item.get("initial_time", StrikeOrdnanceRules.impact_delay(str(item.get("altitude", "low"))))))
+		var t := clampf(float(item.get("time", 0.0)) / initial_time, 0.0, 1.0)
+		var pulse := 3.0 + 7.0 * (1.0 - t)
+		surface.draw_circle(point, pulse, Color(1.0, 0.48, 0.20, 0.7), false, 1.0)
 
 func _ensure_action() -> void:
 	if not InputMap.has_action("drop_strike_ordnance"):
