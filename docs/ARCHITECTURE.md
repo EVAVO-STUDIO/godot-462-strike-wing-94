@@ -2,10 +2,10 @@
 
 ## Current layers
 
-- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
+- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, weapon tier composition, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
 - `content_catalog.gd` owns JSON loading and content access helpers.
 - `combat_rules.gd`, `projectile_rules.gd`, `objective_rules.gd`, `progression_rules.gd` and the other `*_rules.gd` files own pure deterministic calculations.
-- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, temporary weapon progression, rewards, persistent service state and presentation overlays.
+- Focused directors provide cross-cutting behavior that genuinely spans systems, such as boss phases, rewards, persistent service state and presentation overlays.
 - `campaign_save.gd` is the canonical campaign persistence boundary and maintains a validated backup save.
 - `data/` owns authored mission, enemy, weapon and campaign definitions.
 
@@ -69,6 +69,19 @@ Normal enemy movement is applied directly in `_update_enemies()`.
 
 The earlier `MovementPatternDirector` catalogue lookup/post-frame adjustment layer has been removed. Movement metadata travels with the spawned enemy instead of being rediscovered every frame.
 
+## Weapon progression ownership
+
+Permanent and temporary weapon progression are represented separately at the source.
+
+- `weapon_index` is always the permanent paid campaign tier.
+- `temporary_weapon_boost` is sortie-only state and starts at zero for every launch.
+- Weapon pickups increase only `temporary_weapon_boost`, bounded by the remaining primary tiers.
+- `_active_weapon()` combines the permanent tier and temporary boost through `WeaponPickupRules.effective_index()`.
+- `_clear_combat()` clears the temporary boost whenever the sortie ends or is abandoned.
+- `campaign_save.gd` persists `weapon_index` directly; temporary boosts never enter the save schema.
+
+The earlier `WeaponPickupDirector` mutate/restore reconciliation layer has been removed. A temporary pickup must never mutate persistent paid progression.
+
 ## Projectile ownership
 
 Enemy projectile packets are created directly in `main.gd`. Missile weapons receive their homing flag, speed, turn rate and lifetime at creation time. `BossDirector` can then steer any homing projectile through one common update path.
@@ -77,7 +90,7 @@ This intentionally replaced the earlier post-frame missile-tagging reconciliatio
 
 ## Persistence
 
-`campaign_save.gd` stores the canonical persistent campaign state: credits, mission index, paid weapon tier and serviced hull/shield condition. Temporary sortie weapon boosts are deliberately excluded.
+`campaign_save.gd` stores the canonical persistent campaign state: credits, mission index, paid weapon tier and serviced hull/shield condition. Temporary sortie weapon boosts are deliberately excluded by construction.
 
 Before overwriting the primary save, a supported valid primary is copied to the backup path. Restore prefers the primary and falls back to the backup if the primary is corrupt or unsupported.
 
@@ -93,6 +106,8 @@ Systems should exchange compact state/events rather than infer behavior from unr
 - Mission gameplay randomness is isolated from the global RNG and owned directly by the mission scene.
 - Missing spawn configuration fails closed.
 - Normal enemies retain authored movement metadata and are moved once per frame at source.
+- Permanent paid weapon progression is never mutated by sortie pickups.
+- Temporary weapon boosts are explicit sortie state and never persisted.
 - Homing metadata is created with the projectile, not inferred later.
 - Mission hull/shield/wave are initialized correctly at source, not corrected later.
 - Required boss overtime is explicit, bounded and cannot hang indefinitely.
