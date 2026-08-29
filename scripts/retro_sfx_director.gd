@@ -14,6 +14,7 @@ var _last_form := ""
 var _last_altitude := ""
 var _last_afterburner := false
 var _last_missile_level := 0
+var _last_strike_ordnance := -1
 var _noise_state := 0x1345ABCD
 var _rotary_cooldown := 0.0
 
@@ -45,6 +46,7 @@ func _observe_gameplay() -> void:
 	if phase != 1:
 		_last_shots_fired = int(scene.get("shots_fired")) if _has_property(scene, "shots_fired") else 0
 		_last_missile_level = 0
+		_last_strike_ordnance = _strike_ordnance_count()
 		_rotary_cooldown = 0.0
 		return
 
@@ -53,6 +55,8 @@ func _observe_gameplay() -> void:
 		if fired > _last_shots_fired:
 			_trigger(_latest_shot_event(scene))
 		_last_shots_fired = fired
+
+	_observe_strike_release()
 
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if craft != null:
@@ -76,6 +80,20 @@ func _observe_gameplay() -> void:
 			_last_afterburner = active
 
 	_observe_missile_threat(scene)
+
+func _observe_strike_release() -> void:
+	var count := _strike_ordnance_count()
+	if count < 0:
+		return
+	if _last_strike_ordnance >= 0 and count < _last_strike_ordnance:
+		_trigger(RetroSfxRules.STRIKE_RELEASE)
+	_last_strike_ordnance = count
+
+func _strike_ordnance_count() -> int:
+	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
+	if strike != null and strike.has_method("ordnance_count"):
+		return int(strike.call("ordnance_count"))
+	return -1
 
 func _latest_shot_event(scene: Object) -> String:
 	var fallback := _active_weapon_id(scene)
