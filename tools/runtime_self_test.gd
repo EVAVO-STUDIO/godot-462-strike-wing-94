@@ -129,12 +129,24 @@ func _test_direct_runtime_ownership() -> void:
 		_expect(text.contains("BombRules.apply_nonlethal_boss_damage"), "main bomb loop should apply nonlethal boss damage directly")
 		_expect(text.contains("survivors.append(boss)"), "main bomb loop should keep bosses in the enemy array")
 		_expect(not text.contains("enemies.clear(); enemy_bullets.clear()"), "screen bomb must not blanket-clear bosses")
+		_expect(text.contains("var shots_fired := 0") and text.contains("var shots_hit := 0"), "main should own exact sortie accuracy counters")
+		_expect(text.contains("shots_fired += count"), "player projectile creation should increment shots fired at source")
+		_expect(text.contains("shots_hit += 1"), "player bullet collision should increment shots hit at source")
+		_expect(text.contains("shots_fired = 0") and text.contains("shots_hit = 0"), "new sortie should reset exact accuracy counters")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable for removed reconciliation checks")
 	if project != null:
 		var project_text := project.get_as_text()
 		_expect(not project_text.contains("MissionStateDirector"), "mission state reconciliation autoload should stay removed")
 		_expect(not project_text.contains("BombGuardDirector"), "bomb guard reconciliation autoload should stay removed")
+		_expect(not project_text.contains("AccuracyDirector"), "accuracy reconciliation autoload should stay removed")
+	_expect(not FileAccess.file_exists("res://scripts/accuracy_director.gd"), "obsolete accuracy director file should remain deleted")
+	var reward_file := FileAccess.open("res://scripts/reward_director.gd", FileAccess.READ)
+	_expect(reward_file != null, "reward_director.gd should be readable for accuracy consumption checks")
+	if reward_file != null:
+		var reward_source := reward_file.get_as_text()
+		_expect(reward_source.contains('scene.get("shots_fired")') and reward_source.contains('scene.get("shots_hit")'), "reward director should consume source-owned accuracy counters")
+		_expect(not reward_source.contains("AccuracyDirector"), "reward director must not depend on accuracy reconciliation")
 
 func _test_weapon_pickups() -> void:
 	_expect(WeaponPickupRules.temporary_boost_for_indices(1, 2) == 1, "sortie pickup should register as temporary boost over permanent tier")
