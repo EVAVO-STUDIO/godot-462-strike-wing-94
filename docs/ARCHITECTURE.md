@@ -2,10 +2,12 @@
 
 ## Current layers
 
-- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, weapon/generator progression, serviced airframe state, exact accuracy counters, mission reward payout, weapon energy, core projectile creation, screen-bomb resolution, spawn selection and the mission-local random stream.
+- `main.gd` owns high-level game flow, player input, mission start state, live wave progression, bounded boss overtime, normal-enemy movement, weapon/generator progression, serviced airframe state, exact accuracy counters, mission reward payout, weapon energy, core projectile creation, screen-bomb resolution, filler spawn selection and the mission-local random stream.
+- `EncounterDirector` owns authored stage sequencing: timed encounter beats, deterministic formation entry, recovery windows and performance-gated secrets.
+- `BossDirector` owns boss phase-specific orchestration and homing projectile steering.
+- `BossHudDirector`, `ThreatWarningDirector` and `ProjectileCueDirector` are presentation-only overlays.
 - `content_catalog.gd` owns JSON loading and content access helpers.
-- `combat_rules.gd`, `projectile_rules.gd`, `objective_rules.gd`, `progression_rules.gd` and the other `*_rules.gd` files own pure deterministic calculations.
-- Focused directors are now limited to genuinely cross-cutting boss/presentation behavior rather than post-frame state reconciliation.
+- `*_rules.gd` files own pure deterministic calculations.
 - `campaign_save.gd` is the canonical campaign persistence boundary and maintains a validated backup save.
 - `data/` owns authored mission, enemy, weapon, generator and campaign definitions.
 - `docs/90S_SHOOTER_BIBLE.md` defines the production/game-design quality bar for the finished shooter.
@@ -44,6 +46,35 @@ Generator progression is a permanent campaign choice and energy is sortie-local 
 - The gameplay HUD exposes current energy as a percentage.
 
 This system is intentionally inspired by the strategic depth of strong 1990s PC shooters while using original weapons, generator names, tuning and presentation.
+
+## Authored encounter sequencing
+
+Mission pacing is intentionally split between authored stage beats and filler spawning.
+
+`EncounterDirector` is an intentional stage-script owner rather than a reconciliation layer.
+
+- Each mission defines ordered `encounter_beats` in `data/missions.json`.
+- A beat can name exact enemy archetypes/counts, an entry formation, a HUD label, a guaranteed recovery pickup and a bounded filler-spawn suppression window.
+- `EncounterRules` expands enemy counts with a hard per-beat cap and validates timing, pickups, formations and secret conditions.
+- The director spawns enemies through `main.gd::_spawn_enemy()`, so authored enemies use the same mission RNG, wave scaling, movement rules, combat rules and objective tracking as filler enemies.
+- Immediately after spawn, only entry lane / vertical staging / `pattern_anchor_x` are adjusted to the authored formation point.
+- Supported formation shapes are `line`, `wedge`, `split`, `column`, `stagger` and controlled `scatter`.
+- Each mission currently combines at least three formation shapes, a recovery window and a boss lead-in.
+- Filler spawn profiles continue between authored beats so stages stay alive without becoming fully scripted corridors.
+
+### Mastery secrets
+
+Each mission also contains an optional performance-gated secret beat.
+
+Supported conditions are:
+
+- accuracy at or above a threshold with a meaningful minimum-shot sample;
+- score at or above a threshold;
+- conserving at least an authored number of bombs.
+
+A missed secret is silently consumed and never blocks progression. A successful secret can create an elite encounter and/or guaranteed pickup and is briefly surfaced as `SECRET - ...`.
+
+This provides replayability through mastery and discovery rather than copying arbitrary secret codes or hidden triggers from another game.
 
 ## Boss overtime ownership
 
@@ -112,7 +143,6 @@ Accuracy and payout are both resolved at their defining gameplay sources.
 - Screen bombs do not affect accuracy counters.
 - `_finish_mission()` computes the complete successful payout exactly once before combat cleanup.
 - The payout combines score reward, objective bonus, no-damage bonus, boss bonus and accuracy bonus through `RewardRules` / `AccuracyRules`.
-- The result line is built from that same single payout calculation.
 
 The earlier `AccuracyDirector` HP-snapshot inference layer and `RewardDirector` result-transition layer have both been removed.
 
@@ -139,15 +169,18 @@ The loader accepts supported older v1/v2 campaign saves. Before overwriting the 
 
 ## Refactor direction
 
-Continue removing compensating directors only where a responsibility can safely live at its true source of truth. Keep presentation-only overlays separate from simulation and keep cross-cutting systems modular when they genuinely coordinate multiple owners.
+Continue removing compensating directors only where a responsibility can safely live at its true source of truth. Keep presentation-only overlays separate from simulation and keep stage orchestration modular when it genuinely coordinates authored level content.
 
-The next major design expansion should favor authored 1990s-shooter depth: secondary/rear systems, wingman/drone choices, encounter blocks, secret/bonus routes and stronger audiovisual identity, while maintaining deterministic rules and the pixel-art production constraints in `90S_SHOOTER_BIBLE.md`.
+The next major gameplay expansion should build on the now-working 1990s-shooter foundation: original secondary/rear systems, wingman/drone choices, more environment-specific stage presentation and stronger boss signature attacks while preserving deterministic rules and the pixel-art production constraints in `90S_SHOOTER_BIBLE.md`.
 
 ## Invariants
 
 - Damage arithmetic remains deterministic and independent of rendering.
 - Mission gameplay randomness is isolated from the global RNG and owned directly by the mission scene.
 - Missing spawn configuration fails closed.
+- Authored encounter beats are ordered, capped and never spawn bosses through the regular beat path.
+- Each mission contains a recovery/pacing beat, a mastery secret and multiple formation shapes.
+- Secret conditions never block mission progression.
 - Normal enemies retain authored movement metadata and are moved once per frame at source.
 - Permanent paid weapon progression is never mutated by sortie pickups.
 - Temporary weapon boosts are explicit sortie state and never persisted.
