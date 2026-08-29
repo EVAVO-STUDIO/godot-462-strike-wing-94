@@ -148,5 +148,4 @@ func _ensure_action() -> void:
 	var event := InputEventKey.new()
 	event.physical_keycode = KEY_E
 	if not InputMap.action_has_event("drop_strike_ordnance", event):
-		InputMap.add_action("drop_strike_ordnance") if not InputMap.has_action("drop_strike_ordnance") else null
 		InputMap.action_add_event("drop_strike_ordnance", event)
