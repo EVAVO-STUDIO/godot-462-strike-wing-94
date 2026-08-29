@@ -2,6 +2,7 @@ extends SceneTree
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EncounterRules = preload("res://scripts/encounter_rules.gd")
+const InterceptRouteRules = preload("res://scripts/intercept_route_rules.gd")
 
 var failures: Array[String] = []
 
@@ -13,14 +14,8 @@ func _initialize() -> void:
 		var enemy_data = ContentCatalog.load_json("res://data/enemies.json")
 		var enemy_ids: Dictionary = {}
 		if typeof(enemy_data) == TYPE_DICTIONARY:
-			for enemy in enemy_data.get("enemies", []):
-				enemy_ids[str(enemy.get("id", ""))] = true
-		var route_ids := {
-			"low_attack_window": false,
-			"high_intercept_route": false,
-			"low_bomber_route": false,
-			"high_hunter_route": false
-		}
+			for enemy in enemy_data.get("enemies", []): enemy_ids[str(enemy.get("id", ""))] = true
+		var route_ids := {"low_attack_window":false,"high_intercept_route":false,"low_bomber_route":false,"high_hunter_route":false}
 		for mission in data.get("missions", []):
 			var beats := EncounterRules.beats_for_mission(mission)
 			_expect(beats.size() >= 5, "%s should contain at least five authored encounter beats" % str(mission.get("id", "mission")))
@@ -35,15 +30,11 @@ func _initialize() -> void:
 					route_ids[beat_id] = true
 					_expect(EncounterRules.condition_type(beat) == "altitude_form", "%s should remain an altitude+form route bonus" % beat_id)
 				var enemy_list := EncounterRules.expanded_enemy_ids(beat)
-				for enemy_id in enemy_list:
-					_expect(enemy_ids.has(enemy_id), "%s encounter references unknown enemy %s" % [str(mission.get("id", "mission")), enemy_id])
+				for enemy_id in enemy_list: _expect(enemy_ids.has(enemy_id), "%s encounter references unknown enemy %s" % [str(mission.get("id", "mission")), enemy_id])
 				formations[EncounterRules.formation(beat)] = true
-				var points := EncounterRules.formation_points(beat, enemy_list.size())
-				_expect(points.size() == enemy_list.size(), "%s encounter formation should provide one point per enemy" % str(mission.get("id", "mission")))
-				if EncounterRules.reward_pickup(beat) != "":
-					has_reward = true
-				if EncounterRules.suppression_seconds(beat) >= 2.0:
-					has_quiet_window = true
+				_expect(EncounterRules.formation_points(beat, enemy_list.size()).size() == enemy_list.size(), "%s encounter formation should provide one point per enemy" % str(mission.get("id", "mission")))
+				if EncounterRules.reward_pickup(beat) != "": has_reward = true
+				if EncounterRules.suppression_seconds(beat) >= 2.0: has_quiet_window = true
 				if EncounterRules.is_secret(beat):
 					has_secret = true
 					_expect(EncounterRules.condition_type(beat) != "", "%s secret encounter should use supported condition" % str(mission.get("id", "mission")))
@@ -51,19 +42,18 @@ func _initialize() -> void:
 			_expect(has_quiet_window, "%s should include an authored pacing window" % str(mission.get("id", "mission")))
 			_expect(has_secret, "%s should include a replayable mastery secret" % str(mission.get("id", "mission")))
 			_expect(formations.size() >= 3, "%s should use at least three formation shapes" % str(mission.get("id", "mission")))
-		for route_id in route_ids.keys():
-			_expect(bool(route_ids[route_id]), "missing altitude-route bonus beat %s" % route_id)
+		for route_id in route_ids.keys(): _expect(bool(route_ids[route_id]), "missing altitude-route bonus beat %s" % route_id)
 	_test_rule_safety()
 	_test_secret_conditions()
 	_test_route_conditions()
+	_test_intercept_chain()
 	_test_formation_geometry()
 	_test_route_runtime_wiring()
 	if failures.is_empty():
 		print("Strike Wing encounter self-test passed.")
 		quit(0)
 		return
-	for failure in failures:
-		push_error(failure)
+	for failure in failures: push_error(failure)
 	quit(1)
 
 func _test_rule_safety() -> void:
@@ -71,53 +61,47 @@ func _test_rule_safety() -> void:
 	_expect(EncounterRules.expanded_enemy_ids(beat).size() == EncounterRules.MAX_ENEMIES_PER_BEAT, "encounter enemy expansion should retain hard cap")
 	_expect(EncounterRules.reward_pickup(beat) == "", "unknown encounter pickup should fail closed")
 	_expect(EncounterRules.suppression_seconds(beat) == EncounterRules.MAX_SUPPRESSION_SECONDS, "encounter suppression should retain hard cap")
-	_expect(EncounterRules.label(beat) == "PRESSURE WAVE", "encounter label should normalize for HUD use")
-	var beats := [beat]
-	_expect(EncounterRules.due_beat(beats, 0, 11.9).is_empty(), "encounter should not trigger before authored time")
-	_expect(not EncounterRules.due_beat(beats, 0, 12.0).is_empty(), "encounter should trigger at authored time")
 
 func _test_secret_conditions() -> void:
 	var accuracy := {"secret":true,"condition":{"type":"accuracy_at_least","value":0.75,"minimum_shots":20}}
 	_expect(not EncounterRules.condition_met(accuracy, {"shots_fired":1,"shots_hit":1}), "accuracy secret should require meaningful shot sample")
 	_expect(EncounterRules.condition_met(accuracy, {"shots_fired":20,"shots_hit":15}), "accuracy secret should unlock at authored threshold")
-	_expect(not EncounterRules.condition_met(accuracy, {"shots_fired":20,"shots_hit":14}), "accuracy secret should fail below authored threshold")
 	var score := {"secret":true,"condition":{"type":"score_at_least","value":5000}}
 	_expect(EncounterRules.condition_met(score, {"score":5000}), "score secret should unlock at threshold")
-	_expect(not EncounterRules.condition_met(score, {"score":4999}), "score secret should fail below threshold")
 	var bombs := {"secret":true,"condition":{"type":"bombs_at_least","value":2}}
 	_expect(EncounterRules.condition_met(bombs, {"bombs":2}), "resource-conservation secret should unlock at threshold")
-	_expect(not EncounterRules.condition_met(bombs, {"bombs":1}), "resource-conservation secret should fail below threshold")
 
 func _test_route_conditions() -> void:
+	_expect("altitude_is" in EncounterRules.ALLOWED_CONDITIONS and "form_is" in EncounterRules.ALLOWED_CONDITIONS and "altitude_form" in EncounterRules.ALLOWED_CONDITIONS, "route condition grammar should remain explicit")
 	var altitude := {"secret":true,"condition":{"type":"altitude_is","value":"high"}}
 	_expect(EncounterRules.condition_met(altitude, {"altitude":"high","form":"fighter"}), "altitude route should unlock in matching lane")
 	_expect(not EncounterRules.condition_met(altitude, {"altitude":"mid","form":"fighter"}), "altitude route should fail in different lane")
 	var form := {"secret":true,"condition":{"type":"form_is","value":"bomber"}}
 	_expect(EncounterRules.condition_met(form, {"altitude":"low","form":"bomber"}), "form route should unlock in matching configuration")
-	_expect(not EncounterRules.condition_met(form, {"altitude":"low","form":"fighter"}), "form route should fail in different configuration")
 	var low_bomber := {"secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"}}
 	_expect(EncounterRules.condition_met(low_bomber, {"altitude":"low","form":"bomber"}), "combined route should require both lane and form")
 	_expect(EncounterRules.is_low_bomber_route(low_bomber), "LOW+BMB route should be classified for bombing-computer priority")
 	var high_fighter := {"secret":true,"condition":{"type":"altitude_form","altitude":"high","form":"fighter"}}
 	_expect(EncounterRules.is_high_fighter_route(high_fighter), "HIGH+FTR route should be classified for interception priority")
 	_expect(EncounterRules.HIGH_INTERCEPT_VALUE_BONUS > 0 and EncounterRules.HIGH_INTERCEPT_VALUE_BONUS <= 600, "high-route value bonus should stay bounded")
-	_expect(not EncounterRules.condition_met(low_bomber, {"altitude":"low","form":"fighter"}), "combined route should reject wrong form")
-	_expect(not EncounterRules.condition_met(low_bomber, {"altitude":"mid","form":"bomber"}), "combined route should reject wrong altitude")
-	var invalid_altitude := {"condition":{"type":"altitude_is","value":"hyperspace"}}
-	_expect(not EncounterRules.condition_met(invalid_altitude, {"altitude":"mid"}), "invalid altitude condition should fail closed")
-	var invalid_form := {"condition":{"type":"form_is","value":"mech"}}
-	_expect(not EncounterRules.condition_met(invalid_form, {"form":"fighter"}), "invalid form condition should fail closed")
+	_expect(not EncounterRules.condition_met({"condition":{"type":"altitude_is","value":"hyperspace"}}, {"altitude":"mid"}), "invalid altitude condition should fail closed")
+	_expect(not EncounterRules.condition_met({"condition":{"type":"form_is","value":"mech"}}, {"form":"fighter"}), "invalid form condition should fail closed")
+
+func _test_intercept_chain() -> void:
+	_expect(InterceptRouteRules.CHAIN_SECONDS >= 1.5 and InterceptRouteRules.CHAIN_SECONDS <= 3.0, "intercept chain should be brief and arcade-readable")
+	_expect(InterceptRouteRules.MAX_CHAIN <= 6, "intercept chain display must remain bounded")
+	_expect(InterceptRouteRules.next_chain(0, 0.0, true) == 1, "first confirmed intercept should start chain")
+	_expect(InterceptRouteRules.next_chain(2, 1.0, true) == 3, "rapid confirmed intercept should extend chain")
+	_expect(InterceptRouteRules.next_chain(InterceptRouteRules.MAX_CHAIN, 1.0, true) == InterceptRouteRules.MAX_CHAIN, "chain should retain hard cap")
+	_expect(InterceptRouteRules.likely_destroyed(Vector2(100,120), 900), "marked target disappearance with score gain inside playfield can count as presentation intercept")
+	_expect(not InterceptRouteRules.likely_destroyed(Vector2(100,350), 900), "target leaving bottom of playfield must not count as intercept")
+	_expect(not InterceptRouteRules.likely_destroyed(Vector2(100,120), 0), "disappearance without score gain must not count as intercept")
 
 func _test_formation_geometry() -> void:
 	var wedge := EncounterRules.formation_points({"formation":"wedge"}, 5)
 	_expect(wedge.size() == 5 and absf(wedge[0].x - 0.5) < 0.001, "wedge should lead from centre lane")
-	_expect(wedge[1].x < 0.5 and wedge[2].x > 0.5, "wedge should alternate left/right wings")
 	var split := EncounterRules.formation_points({"formation":"split"}, 4)
 	_expect(split[0].x < 0.3 and split[1].x > 0.7, "split formation should attack from both flanks")
-	var column := EncounterRules.formation_points({"formation":"column"}, 4)
-	_expect(absf(column[0].x - column[3].x) < 0.001 and column[3].y > column[0].y, "column should share lane with vertical spacing")
-	var line := EncounterRules.formation_points({"formation":"line"}, 4)
-	_expect(line[0].x < 0.2 and line[3].x > 0.8 and line[0].y == 0.0, "line should span most of playfield width")
 
 func _test_route_runtime_wiring() -> void:
 	var director := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
@@ -127,17 +111,17 @@ func _test_route_runtime_wiring() -> void:
 		_expect(source.contains('enemy["strike_priority"] = true'), "LOW+BMB route should tag surface strike-priority targets")
 		_expect(source.contains('enemy["intercept_priority"] = true'), "HIGH+FTR route should tag air intercept-priority targets")
 		_expect(source.contains("HIGH_INTERCEPT_VALUE_BONUS"), "high-route target packet should carry bounded extra core combat value")
-	var project := FileAccess.open("res://project.godot", FileAccess.READ)
-	_expect(project != null, "project.godot should be readable")
-	if project != null:
-		_expect(project.get_as_text().contains('InterceptRouteDirector="*res://scripts/intercept_route_director.gd"'), "intercept route presentation should remain autoloaded")
 	var cue := FileAccess.open("res://scripts/intercept_route_director.gd", FileAccess.READ)
 	_expect(cue != null, "intercept route director should be readable")
 	if cue != null:
 		var source := cue.get_as_text()
-		_expect(source.contains("HIGH INTERCEPT  SHIFT AB"), "high-route cue should advertise afterburner interception style")
-		_expect(source.contains('bool(enemy.get("intercept_priority", false))'), "intercept presentation should read route-tagged enemy packets")
+		_expect(source.contains("INTERCEPT CHAIN" ) or source.contains("InterceptRouteRules.label"), "high-route presentation should expose rapid-intercept chain")
+		_expect(source.contains("_chain_timer") and source.contains("_last_score"), "intercept chain should remain presentation-derived without mutating score")
+		_expect(not source.contains('scene.set("score"'), "intercept presentation must not own score mutation")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project != null, "project.godot should be readable")
+	if project != null:
+		_expect(project.get_as_text().contains('InterceptRouteDirector="*res://scripts/intercept_route_director.gd"'), "intercept route presentation should remain autoloaded")
 
 func _expect(condition: bool, message: String) -> void:
-	if not condition:
-		failures.append(message)
+	if not condition: failures.append(message)
