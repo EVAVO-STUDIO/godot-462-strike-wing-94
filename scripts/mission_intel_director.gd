@@ -45,17 +45,19 @@ func draw_intel(surface: CanvasItem) -> void:
 		PixelFont.draw_centered(surface, "I INTEL", 587, 339, 1, MUTED, 1)
 		return
 	var context := _mission_context()
-	var boss_id := _boss_id(scene)
-	var lines := MissionIntelRules.mission_lines(context, boss_id)
-	surface.draw_rect(Rect2(54, 76, 532, 238), BG)
-	surface.draw_rect(Rect2(54, 76, 532, 238), BORDER, false, 1.0)
-	surface.draw_rect(Rect2(58, 80, 524, 230), Color("10171d"), false, 1.0)
-	PixelFont.draw_centered(surface, "MISSION INTELLIGENCE", 320, 90, 2, GOLD, 1)
-	PixelFont.draw_centered(surface, _mission_name(scene), 320, 113, 1, TEXT, 1)
+	var mission := _active_mission(scene)
+	var boss_id := str(mission.get("boss_id", "UNKNOWN"))
+	var beats: Array = mission.get("encounter_beats", []) if typeof(mission) == TYPE_DICTIONARY else []
+	var lines := MissionIntelRules.mission_lines(context, boss_id, beats)
+	surface.draw_rect(Rect2(54, 68, 532, 254), BG)
+	surface.draw_rect(Rect2(54, 68, 532, 254), BORDER, false, 1.0)
+	surface.draw_rect(Rect2(58, 72, 524, 246), Color("10171d"), false, 1.0)
+	PixelFont.draw_centered(surface, "MISSION INTELLIGENCE", 320, 82, 2, GOLD, 1)
+	PixelFont.draw_centered(surface, _mission_name(scene), 320, 105, 1, TEXT, 1)
 	for i in range(lines.size()):
-		var color := BLUE if i in [0,1,2,3] else TEXT
-		PixelFont.draw_text(surface, _clip(lines[i], 74), Vector2(78, 137 + i * 19), 1, color, 1)
-	PixelFont.draw_centered(surface, "I CLOSE   ENTER LAUNCH", 320, 288, 1, MUTED, 1)
+		var color := BLUE if i in [0,1,2,3,4] else TEXT
+		PixelFont.draw_text(surface, _clip(lines[i], 74), Vector2(78, 129 + i * 19), 1, color, 1)
+	PixelFont.draw_centered(surface, "I CLOSE   ENTER LAUNCH", 320, 300, 1, MUTED, 1)
 
 func _mission_context() -> Dictionary:
 	var craft := get_node_or_null("/root/CraftFormDirector")
@@ -64,18 +66,18 @@ func _mission_context() -> Dictionary:
 		return value if typeof(value) == TYPE_DICTIONARY else {}
 	return {}
 
-func _mission_name(scene: Object) -> String:
-	return str(scene.get("current_mission_name")).to_upper()
-
-func _boss_id(scene: Object) -> String:
+func _active_mission(scene: Object) -> Dictionary:
 	if not _has_property(scene, "mission_catalog") or not _has_property(scene, "mission_index"):
-		return "UNKNOWN"
+		return {}
 	var catalog = scene.get("mission_catalog")
 	if typeof(catalog) != TYPE_ARRAY or catalog.is_empty():
-		return "UNKNOWN"
+		return {}
 	var index := clampi(int(scene.get("mission_index")), 0, catalog.size() - 1)
 	var mission = catalog[index]
-	return str(mission.get("boss_id", "UNKNOWN")) if typeof(mission) == TYPE_DICTIONARY else "UNKNOWN"
+	return mission if typeof(mission) == TYPE_DICTIONARY else {}
+
+func _mission_name(scene: Object) -> String:
+	return str(scene.get("current_mission_name")).to_upper()
 
 func _supports(scene: Object) -> bool:
 	return _has_property(scene, "phase") and _has_property(scene, "current_mission_name")
