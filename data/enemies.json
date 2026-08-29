@@ -1,5 +1,5 @@
 {
-  "schema_version": 6,
+  "schema_version": 7,
   "enemies": [
     {"id":"scout_falcon","class":"air","hp":2,"speed":112,"value":120,"pattern":"sine_dive","weapon":"single_burst"},
     {"id":"gunship_mk1","class":"air","hp":6,"speed":72,"value":350,"pattern":"tracking_sweep","weapon":"aimed_burst"},
@@ -24,12 +24,18 @@
     {"id":"factory_defence_node","class":"ground","hp":19,"speed":0,"value":1900,"pattern":"static","weapon":"aimed_burst","faction":"autonomous","emp_resistance":0.35},
     {"id":"exo_drone","class":"air","hp":13,"speed":176,"value":2100,"pattern":"aggressive_weave","weapon":"missile","faction":"autonomous","emp_resistance":0.45},
     {"id":"orbital_sentry","class":"air","hp":21,"speed":58,"value":2600,"pattern":"tracking_sweep","weapon":"cannon","faction":"autonomous","emp_resistance":0.55},
+    {"id":"phase_interceptor","class":"air","hp":18,"speed":198,"value":3300,"pattern":"aggressive_weave","weapon":"twin_burst","faction":"autonomous","emp_resistance":0.62},
+    {"id":"beam_sentry","class":"air","hp":27,"speed":48,"value":3800,"pattern":"hover_strafe","weapon":"cannon","faction":"autonomous","emp_resistance":0.68},
+    {"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"missile","faction":"autonomous","emp_resistance":0.72},
 
     {"id":"gunship_alpha","class":"boss","hp":55,"speed":38,"value":5000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true,"phases":3,"weak_point_phase":3},
     {"id":"armoured_train","class":"boss","hp":78,"speed":22,"value":6500,"pattern":"boss_column","weapon":"cannon","boss":true,"phases":3,"weak_point_phase":3},
     {"id":"missile_cruiser","class":"boss","hp":105,"speed":18,"value":8500,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3},
     {"id":"swarm_controller","class":"boss","hp":128,"speed":34,"value":11000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous","emp_resistance":0.45},
     {"id":"ai_forge_core","class":"boss","hp":168,"speed":16,"value":14500,"pattern":"boss_column","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous","emp_resistance":0.65},
-    {"id":"orbital_command_node","class":"boss","hp":220,"speed":20,"value":19000,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous","emp_resistance":0.75}
+    {"id":"orbital_command_node","class":"boss","hp":220,"speed":20,"value":19000,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous","emp_resistance":0.75},
+    {"id":"phase_control_array","class":"boss","hp":255,"speed":27,"value":22500,"pattern":"boss_sweep","weapon":"twin_burst","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous","emp_resistance":0.80},
+    {"id":"station_warden","class":"boss","hp":305,"speed":13,"value":27000,"pattern":"boss_column","weapon":"cannon","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous","emp_resistance":0.86},
+    {"id":"machine_ark","class":"boss","hp":380,"speed":15,"value":34000,"pattern":"boss_broadside","weapon":"missile","boss":true,"phases":3,"weak_point_phase":3,"faction":"autonomous","emp_resistance":0.91}
   ]
 }
