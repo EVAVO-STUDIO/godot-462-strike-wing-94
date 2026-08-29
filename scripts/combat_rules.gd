@@ -1,8 +1,23 @@
 class_name CombatRules
 extends RefCounted
 
+static var _incoming_damage_multiplier := 1.0
+
+static func set_incoming_damage_multiplier(value: float) -> void:
+	_incoming_damage_multiplier = clampf(value, 0.65, 1.0)
+
+static func incoming_damage_multiplier() -> float:
+	return _incoming_damage_multiplier
+
+static func mitigated_damage(amount: int, multiplier: float = -1.0) -> int:
+	var raw := maxi(0, amount)
+	if raw <= 0:
+		return 0
+	var applied_multiplier := _incoming_damage_multiplier if multiplier < 0.0 else clampf(multiplier, 0.65, 1.0)
+	return maxi(1, int(round(float(raw) * applied_multiplier)))
+
 static func apply_shielded_damage(hull: int, shield: int, amount: int) -> Dictionary:
-	var remaining := maxi(0, amount)
+	var remaining := mitigated_damage(amount)
 	var next_shield := maxi(0, shield)
 	var next_hull := maxi(0, hull)
 	if next_shield > 0 and remaining > 0:
