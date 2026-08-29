@@ -30,7 +30,7 @@ func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
 		names[str(property.get("name", ""))] = true
-	for required in ["phase", "mission_time", "mission_index", "mission_catalog", "enemy_catalog", "enemy_spawn_timer", "pickups", "status_text", "status_timer"]:
+	for required in ["phase", "mission_time", "mission_index", "mission_catalog", "enemy_catalog", "enemy_spawn_timer", "pickups", "status_text", "status_timer", "shots_fired", "shots_hit", "score", "bombs"]:
 		if not names.has(required):
 			return false
 	return scene.has_method("_spawn_enemy")
@@ -43,6 +43,14 @@ func _active_mission(scene: Object) -> Dictionary:
 	var mission = missions[index]
 	return mission if typeof(mission) == TYPE_DICTIONARY else {}
 
+func _condition_state(scene: Object) -> Dictionary:
+	return {
+		"shots_fired": int(scene.get("shots_fired")),
+		"shots_hit": int(scene.get("shots_hit")),
+		"score": int(scene.get("score")),
+		"bombs": int(scene.get("bombs"))
+	}
+
 func _apply_due_beats(scene: Object) -> void:
 	var mission := _active_mission(scene)
 	var beats := EncounterRules.beats_for_mission(mission)
@@ -50,7 +58,8 @@ func _apply_due_beats(scene: Object) -> void:
 		var beat := EncounterRules.due_beat(beats, _next_beat_index, float(scene.get("mission_time")))
 		if beat.is_empty():
 			return
-		_apply_beat(scene, beat)
+		if EncounterRules.condition_met(beat, _condition_state(scene)):
+			_apply_beat(scene, beat)
 		_next_beat_index += 1
 
 func _apply_beat(scene: Object, beat: Dictionary) -> void:
@@ -66,8 +75,9 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	var suppression := EncounterRules.suppression_seconds(beat)
 	if suppression > 0.0:
 		scene.set("enemy_spawn_timer", maxf(float(scene.get("enemy_spawn_timer")), suppression))
-	scene.set("status_text", EncounterRules.label(beat))
-	scene.set("status_timer", 2.2)
+	var prefix := "SECRET - " if EncounterRules.is_secret(beat) else ""
+	scene.set("status_text", "%s%s" % [prefix, EncounterRules.label(beat)])
+	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
 
 func _enemy_for_id(catalog: Array, enemy_id: String) -> Dictionary:
 	for enemy in catalog:
