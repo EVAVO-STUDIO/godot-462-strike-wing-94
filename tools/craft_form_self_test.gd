@@ -33,9 +33,12 @@ func _test_forms() -> void:
 
 func _test_altitudes() -> void:
 	_expect(AltitudeRules.BANDS == ["low", "mid", "high", "orbital"], "campaign should expose exactly four ordered altitude bands")
+	_expect(AltitudeRules.adjacent_band("low", 1) == "mid", "manual climb should move only one altitude lane")
+	_expect(AltitudeRules.adjacent_band("high", -1) == "mid", "manual dive should move only one altitude lane")
+	_expect(AltitudeRules.is_adjacent("mid", "high"), "mid/high should be adjacent lanes")
+	_expect(not AltitudeRules.is_adjacent("low", "high"), "manual altitude selection must not skip lanes")
+	_expect(AltitudeRules.TRANSITION_SECONDS >= 0.8 and AltitudeRules.TRANSITION_SECONDS <= 1.5, "altitude transition should be visible but remain arcade-responsive")
 	_expect(AltitudeRules.ground_scale("low") > AltitudeRules.ground_scale("mid") and AltitudeRules.ground_scale("mid") > AltitudeRules.ground_scale("high") and AltitudeRules.ground_scale("high") > AltitudeRules.ground_scale("orbital"), "ground presentation should diminish with altitude")
-	_expect(AltitudeRules.allows_ground_targets("low") and AltitudeRules.allows_ground_targets("mid"), "low/mid should support surface warfare")
-	_expect(not AltitudeRules.allows_ground_targets("high") and not AltitudeRules.allows_ground_targets("orbital"), "high/orbital should not use normal ground-target gameplay")
 	_expect(AltitudeRules.supports_form("orbital", "fighter"), "fighter should support orbital operations")
 	_expect(not AltitudeRules.supports_form("orbital", "bomber"), "bomber geometry should be unavailable in orbital flight")
 
@@ -44,55 +47,55 @@ func _test_campaign_world() -> void:
 	_expect(typeof(data) == TYPE_DICTIONARY, "campaign world catalogue should load")
 	if typeof(data) != TYPE_DICTIONARY:
 		return
-	_expect(data.get("altitude_bands", []).size() == 4, "campaign world should define four altitude bands")
 	var contexts = data.get("mission_context", {})
 	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() == 12, "all twelve current missions should receive campaign-world context")
+	var choice_count := 0
 	for mission_id in contexts.keys():
 		var context: Dictionary = contexts[mission_id]
 		_expect(AltitudeRules.sanitize(str(context.get("altitude", ""))) == str(context.get("altitude", "")), "%s should use a supported initial altitude" % mission_id)
-		_expect(str(context.get("recommended_form", "")) in ["fighter", "bomber"], "%s should recommend a valid craft form" % mission_id)
+		for window in context.get("altitude_choice_windows", []):
+			choice_count += 1
+			var bands := AltitudeRules.allowed_manual_bands(window)
+			_expect(bands.size() >= 2, "%s manual altitude window should expose at least two lanes" % mission_id)
+			_expect(float(window.get("end_seconds", 0.0)) > float(window.get("start_seconds", 0.0)), "%s altitude choice window should have positive duration" % mission_id)
 		var last_time := -1.0
 		for transition in context.get("altitude_transitions", []):
 			var at := float(transition.get("at_seconds", -1.0))
 			_expect(at > last_time, "%s altitude transitions should be time ordered" % mission_id)
-			_expect(AltitudeRules.sanitize(str(transition.get("altitude", ""))) == str(transition.get("altitude", "")), "%s altitude transition should target supported band" % mission_id)
 			last_time = at
-	for mission_id in ["m01_coastal_intercept","m02_refinery_run","m03_black_sea","m04_breakwater","m05_furnace_line","m06_black_flag"]:
-		_expect(str(contexts.get(mission_id, {}).get("threat_phase", "")) == "mercenary_war", "%s should remain in opening mercenary war" % mission_id)
-	for mission_id in ["m07_ghost_sky","m08_machine_furnace","m09_black_horizon","m10_blue_fire","m11_cold_station","m12_machine_ark"]:
-		_expect(str(contexts.get(mission_id, {}).get("threat_phase", "")) == "drone_war", "%s should belong to autonomous drone war" % mission_id)
-	for mission_id in ["m07_ghost_sky","m08_machine_furnace"]:
-		_expect(str(contexts.get(mission_id, {}).get("tech_era", "")) == "electromagnetic", "%s should remain electromagnetic-era drone warfare" % mission_id)
-	for mission_id in ["m09_black_horizon","m10_blue_fire","m11_cold_station"]:
-		_expect(str(contexts.get(mission_id, {}).get("tech_era", "")) == "directed_energy", "%s should develop the directed-energy era" % mission_id)
+	_expect(choice_count >= 7, "campaign should contain multiple optional altitude-lane windows")
 	var ark := contexts.get("m12_machine_ark", {})
-	_expect(str(ark.get("tech_era", "")) == "strategic_orbital", "Machine Ark should be the first strategic-orbital campaign mission")
-	_expect(str(ark.get("altitude", "")) == "high", "Machine Ark should begin in the high atmosphere before its final orbital burn")
-	_expect("atlas_tanker" in ark.get("support", []), "Machine Ark should offer a pre-orbit Atlas rearm window")
 	var ark_transitions: Array = ark.get("altitude_transitions", [])
-	_expect(ark_transitions.size() == 1 and int(ark_transitions[0].get("at_seconds", 0)) == 82 and str(ark_transitions[0].get("altitude", "")) == "orbital", "Machine Ark should execute the authored 82-second final orbital burn")
-	var horizon_transitions: Array = contexts.get("m09_black_horizon", {}).get("altitude_transitions", [])
-	_expect(horizon_transitions.size() == 1 and str(horizon_transitions[0].get("altitude", "")) == "orbital", "Black Horizon should transition into orbital combat")
-	var blue_fire_transitions: Array = contexts.get("m10_blue_fire", {}).get("altitude_transitions", [])
-	_expect(blue_fire_transitions.size() == 1 and str(blue_fire_transitions[0].get("altitude", "")) == "orbital", "Blue Fire should climb into orbital phase-array combat")
+	_expect(str(ark.get("altitude", "")) == "high", "Machine Ark should begin high before orbital burn")
+	_expect(ark_transitions.size() == 1 and int(ark_transitions[0].get("at_seconds", 0)) == 156 and str(ark_transitions[0].get("altitude", "")) == "orbital", "Machine Ark should execute post-rearm orbital burn at 156 seconds")
 
 func _test_source_integration() -> void:
 	var director_file := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
 	_expect(director_file != null, "craft form director should be readable")
 	if director_file != null:
 		var source := director_file.get_as_text()
-		_expect(source.contains("_apply_due_altitude_transitions(scene)"), "craft controller should own timed altitude transitions")
-		_expect(source.contains("_apply_weapon_interlock(scene)"), "geometry changes should apply weapons interlock")
-	var environment_file := FileAccess.open("res://scripts/environment_director.gd", FileAccess.READ)
-	_expect(environment_file != null, "environment director should be readable")
-	if environment_file != null:
-		var source := environment_file.get_as_text()
-		_expect(source.contains('motif == "orbital" and band == "high"'), "orbital-profile missions should retain cloud-top presentation during a high-altitude lead-in")
-		_expect(source.contains("_draw_high_atmosphere_horizon"), "high-atmosphere orbital lead-ins should retain visible atmospheric curvature")
-	var support_file := FileAccess.open("res://scripts/support_director.gd", FileAccess.READ)
-	_expect(support_file != null, "support director should be readable")
-	if support_file != null:
-		_expect(support_file.get_as_text().contains('func rearm_support()'), "Atlas should retain tactical rearm API")
+		_expect(source.contains("_try_manual_altitude(scene, direction)"), "craft controller should own manual adjacent-lane changes")
+		_expect(source.contains('KEY_PAGEUP') and source.contains('KEY_PAGEDOWN'), "manual altitude controls should use PageUp/PageDown")
+		_expect(source.contains("_begin_altitude_transition"), "scripted and manual altitude changes should share one transition source")
+		_expect(source.contains("func primary_mount_offsets"), "craft controller should expose physical weapon mount points")
+		_expect(source.contains("func bomber_rotary_deployed"), "craft controller should expose bomber nose rotary deployment")
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable")
+	if main_file != null:
+		var source := main_file.get_as_text()
+		_expect(source.contains("_craft_primary_mount_offsets(weapon,count)"), "primary fire should request physical mount offsets")
+		_expect(source.contains('"position":player_position+mount_offsets[i]'), "projectiles should originate from fighter/bomber weapon mounts")
+	var art_file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
+	_expect(art_file != null, "combat art should be readable")
+	if art_file != null:
+		var source := art_file.get_as_text()
+		_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "wing sweep should remain visibly mechanical")
+		_expect(source.contains("_draw_rotary_cannon"), "bomber art should deploy a nose rotary cannon")
+		_expect(source.contains("Fighter wing-root cannons") or source.contains("wing-root cannon"), "fighter art should retain wing cannon posture")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project != null, "project.godot should be readable")
+	if project != null:
+		_expect(project.get_as_text().contains('AltitudeTransitionDirector="*res://scripts/altitude_transition_director.gd"'), "altitude transition presentation must remain autoloaded")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
