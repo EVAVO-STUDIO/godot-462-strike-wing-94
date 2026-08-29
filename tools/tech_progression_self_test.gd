@@ -2,6 +2,7 @@ extends SceneTree
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
+const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 
 var failures: Array[String] = []
@@ -10,6 +11,7 @@ func _initialize() -> void:
 	_test_era_order()
 	_test_support_gates()
 	_test_weapon_gates()
+	_test_generator_gates()
 	_test_emp_resistance()
 	_test_source_wiring()
 	if failures.is_empty():
@@ -58,6 +60,25 @@ func _test_weapon_gates() -> void:
 	_expect(not TechProgressionRules.can_unlock(str(storm.get("unlock_tech_era", "")), "electromagnetic"), "Storm Cannon should stay locked during electromagnetic era")
 	_expect(TechProgressionRules.can_unlock(str(storm.get("unlock_tech_era", "")), "strategic_orbital"), "late orbital era should permit directed-energy weapons")
 
+func _test_generator_gates() -> void:
+	var data = ContentCatalog.load_json("res://data/generators.json")
+	_expect(typeof(data) == TYPE_DICTIONARY, "generator catalogue should load for tech gates")
+	if typeof(data) != TYPE_DICTIONARY:
+		return
+	var generators: Array = data.get("generators", [])
+	var pulse := _item_for_id(generators, "pulse_core")
+	var overdrive := _item_for_id(generators, "overdrive_core")
+	_expect(str(pulse.get("unlock_tech_era", "")) == "electromagnetic", "Pulse Core should unlock with electromagnetic technology")
+	_expect(str(overdrive.get("unlock_tech_era", "")) == "directed_energy", "Overdrive Core should remain directed-energy hardware")
+	_expect(not TechProgressionRules.can_unlock(str(pulse.get("unlock_tech_era", "")), "advanced_conventional"), "early campaign should not unlock Pulse Core")
+	_expect(TechProgressionRules.can_unlock(str(pulse.get("unlock_tech_era", "")), "electromagnetic"), "electromagnetic era should permit Pulse Core")
+	_expect(float(pulse.get("efficiency_multiplier", 1.0)) < 1.0, "Pulse Core should improve electromagnetic equipment efficiency")
+	_expect(float(overdrive.get("efficiency_multiplier", 1.0)) < float(pulse.get("efficiency_multiplier", 1.0)), "Overdrive Core should provide stronger matching-era efficiency")
+	var rail := {"energy_cost":10.0,"unlock_tech_era":"electromagnetic"}
+	var conventional := {"energy_cost":10.0,"unlock_tech_era":"advanced_conventional"}
+	_expect(EnergyRules.effective_weapon_cost(rail, pulse) < EnergyRules.weapon_cost(rail), "Pulse Core should reduce electromagnetic weapon energy cost")
+	_expect(absf(EnergyRules.effective_weapon_cost(conventional, pulse) - EnergyRules.weapon_cost(conventional)) < 0.001, "Pulse Core must not discount older conventional weapons")
+
 func _test_emp_resistance() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
 	_expect(typeof(enemies_data) == TYPE_DICTIONARY, "enemy catalogue should load for EMP resistance")
@@ -93,6 +114,12 @@ func _test_source_wiring() -> void:
 		_expect(source.contains('bullet["accuracy_registered"] = true'), "piercing projectile should register accuracy only once")
 		_expect(source.contains('bullet["pierce_remaining"] = pierce_remaining - 1'), "kinetic projectile should consume penetration per target")
 		_expect(source.contains('_highest_available_primary_index'), "temporary pickups should be capped by current technology availability")
+	var energy_file := FileAccess.open("res://scripts/energy_rules.gd", FileAccess.READ)
+	_expect(energy_file != null, "energy rules should be readable for generator efficiency wiring")
+	if energy_file != null:
+		var source := energy_file.get_as_text()
+		_expect(source.contains("_active_generator_context = generator.duplicate(true)"), "recharge should establish the active generator context")
+		_expect(source.contains("effective_weapon_cost"), "weapon firing should have a generator-adjusted energy cost path")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
