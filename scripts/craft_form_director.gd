@@ -16,6 +16,7 @@ var afterburner_fuel := AFTERBURNER_CAPACITY
 var _afterburner_active := false
 var _cooldown := 0.0
 var _world: Dictionary = {}
+var _base_spawn_profiles: Array = []
 var _last_mission_index := -1
 var _last_phase := -1
 var _current_context: Dictionary = {}
@@ -26,10 +27,14 @@ var _altitude_transition_to := AltitudeRules.MID
 var _altitude_transition_direction := 0
 
 func _ready() -> void:
-	process_priority = -8
-	var data = ContentCatalog.load_json("res://data/campaign_world.json")
-	if typeof(data) == TYPE_DICTIONARY:
-		_world = data
+	# Altitude/form context must publish before EncounterDirector (-20) and SupportDirector (-5).
+	process_priority = -30
+	var world_data = ContentCatalog.load_json("res://data/campaign_world.json")
+	if typeof(world_data) == TYPE_DICTIONARY:
+		_world = world_data
+	var spawn_data = ContentCatalog.load_json("res://data/spawn_profiles.json")
+	if typeof(spawn_data) == TYPE_DICTIONARY:
+		_base_spawn_profiles = spawn_data.get("profiles", []).duplicate(true)
 	ProgressionRules.set_current_tech_era("advanced_conventional")
 	_ensure_actions()
 
@@ -57,6 +62,7 @@ func _process(delta: float) -> void:
 			_try_transform(scene)
 	else:
 		_afterburner_active = false
+	_publish_altitude_spawn_profiles(scene)
 	_last_phase = phase
 
 func _update_afterburner(delta: float) -> void:
@@ -94,20 +100,23 @@ func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
 		names[str(property.get("name", ""))] = true
-	for required in ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer"]:
-		if not names.has(required): return false
+	for required in ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer", "spawn_profiles", "enemy_catalog"]:
+		if not names.has(required):
+			return false
 	return true
 
 func _active_mission_id(scene: Object) -> String:
 	var missions = scene.get("mission_catalog")
-	if typeof(missions) != TYPE_ARRAY or missions.is_empty(): return ""
+	if typeof(missions) != TYPE_ARRAY or missions.is_empty():
+		return ""
 	var index := clampi(int(scene.get("mission_index")), 0, missions.size() - 1)
 	var mission = missions[index]
 	return str(mission.get("id", "")) if typeof(mission) == TYPE_DICTIONARY else ""
 
 func _mission_context(scene: Object) -> Dictionary:
 	var contexts = _world.get("mission_context", {})
-	if typeof(contexts) != TYPE_DICTIONARY: return {}
+	if typeof(contexts) != TYPE_DICTIONARY:
+		return {}
 	var value = contexts.get(_active_mission_id(scene), {})
 	return value if typeof(value) == TYPE_DICTIONARY else {}
 
@@ -124,18 +133,48 @@ func _apply_mission_context(scene: Object) -> void:
 	_altitude_transition_to = altitude
 	_altitude_transition_direction = 0
 
+func _publish_altitude_spawn_profiles(scene: Object) -> void:
+	if _base_spawn_profiles.is_empty():
+		return
+	var catalog: Array = scene.get("enemy_catalog")
+	var filtered: Array = []
+	for source_profile in _base_spawn_profiles:
+		if typeof(source_profile) != TYPE_DICTIONARY:
+			continue
+		var profile: Dictionary = source_profile.duplicate(true)
+		var enemy_ids: Array = []
+		for enemy_id in source_profile.get("enemy_ids", []):
+			var archetype := _enemy_for_id(catalog, str(enemy_id))
+			if not archetype.is_empty() and AltitudeRules.allows_enemy_archetype(altitude, archetype):
+				enemy_ids.append(enemy_id)
+		profile["enemy_ids"] = enemy_ids
+		filtered.append(profile)
+	scene.set("spawn_profiles", filtered)
+
+func _enemy_for_id(catalog: Array, enemy_id: String) -> Dictionary:
+	for enemy in catalog:
+		if typeof(enemy) == TYPE_DICTIONARY and str(enemy.get("id", "")) == enemy_id:
+			return enemy
+	return {}
+
 func _apply_due_altitude_transitions(scene: Object) -> void:
 	var transitions = _current_context.get("altitude_transitions", [])
-	if typeof(transitions) != TYPE_ARRAY: return
+	if typeof(transitions) != TYPE_ARRAY:
+		return
 	while _next_altitude_transition < transitions.size():
 		var transition = transitions[_next_altitude_transition]
 		if typeof(transition) != TYPE_DICTIONARY:
 			_next_altitude_transition += 1
 			continue
 		var at := maxf(0.0, float(transition.get("at_seconds", 0.0)))
-		if float(scene.get("mission_time")) + 0.0001 < at: return
+		if float(scene.get("mission_time")) + 0.0001 < at:
+			return
 		var next_altitude := AltitudeRules.sanitize(str(transition.get("altitude", altitude)))
-		_begin_altitude_transition(scene, next_altitude, str(transition.get("label", AltitudeRules.display_name(next_altitude))).strip_edges().to_upper())
+		_begin_altitude_transition(
+			scene,
+			next_altitude,
+			str(transition.get("label", AltitudeRules.display_name(next_altitude))).strip_edges().to_upper()
+		)
 		_next_altitude_transition += 1
 
 func _handle_manual_altitude_input(scene: Object) -> void:
@@ -214,7 +253,8 @@ func altitude_transition_to() -> String:
 	return _altitude_transition_to
 
 func _try_transform(scene: Object) -> void:
-	if _cooldown > 0.0: return
+	if _cooldown > 0.0:
+		return
 	var candidate := CraftFormRules.toggle(form)
 	if not AltitudeRules.supports_form(altitude, candidate):
 		_set_status(scene, "%s LOCKS %s CONFIG" % [AltitudeRules.display_name(altitude), CraftFormRules.display_name(form)])
@@ -226,28 +266,46 @@ func _try_transform(scene: Object) -> void:
 
 func _apply_weapon_interlock(scene: Object) -> void:
 	var names: Dictionary = {}
-	for property in scene.get_property_list(): names[str(property.get("name", ""))] = true
+	for property in scene.get_property_list():
+		names[str(property.get("name", ""))] = true
 	if names.has("fire_timer"):
 		scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
 	if names.has("secondary_timer"):
 		scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
 
-func current_form() -> String: return form
-func current_form_name() -> String: return CraftFormRules.display_name(form)
-func current_altitude() -> String: return altitude
-func current_altitude_name() -> String: return AltitudeRules.display_name(altitude)
+func current_form() -> String:
+	return form
+
+func current_form_name() -> String:
+	return CraftFormRules.display_name(form)
+
+func current_altitude() -> String:
+	return altitude
+
+func current_altitude_name() -> String:
+	return AltitudeRules.display_name(altitude)
 
 func movement_multiplier() -> float:
 	var base := CraftFormRules.movement_multiplier(form)
-	if not _afterburner_active: return base
+	if not _afterburner_active:
+		return base
 	var boost := FIGHTER_AFTERBURNER_MULTIPLIER if form == CraftFormRules.FIGHTER else BOMBER_AFTERBURNER_MULTIPLIER
 	return base * boost
 
-func collision_radius_sq() -> float: return CraftFormRules.collision_radius_sq(form)
-func projectile_hit_radius_sq() -> float: return CraftFormRules.projectile_hit_radius_sq(form)
-func primary_spread_multiplier() -> float: return CraftFormRules.primary_spread_multiplier(form)
-func primary_damage_multiplier() -> float: return CraftFormRules.primary_damage_multiplier(form)
-func support_energy_multiplier() -> float: return CraftFormRules.support_energy_multiplier(form)
+func collision_radius_sq() -> float:
+	return CraftFormRules.collision_radius_sq(form)
+
+func projectile_hit_radius_sq() -> float:
+	return CraftFormRules.projectile_hit_radius_sq(form)
+
+func primary_spread_multiplier() -> float:
+	return CraftFormRules.primary_spread_multiplier(form)
+
+func primary_damage_multiplier() -> float:
+	return CraftFormRules.primary_damage_multiplier(form)
+
+func support_energy_multiplier() -> float:
+	return CraftFormRules.support_energy_multiplier(form)
 
 func primary_mount_offsets(weapon: Dictionary, projectile_count: int) -> Array[Vector2]:
 	var result: Array[Vector2] = []
@@ -278,7 +336,8 @@ func target_damage_multiplier(enemy_class: String) -> float:
 	var altitude_multiplier := AltitudeRules.ground_target_multiplier(altitude) if enemy_class in ["ground", "sea"] else AltitudeRules.air_target_multiplier(altitude)
 	return form_multiplier * altitude_multiplier
 
-func mission_context() -> Dictionary: return _current_context.duplicate(true)
+func mission_context() -> Dictionary:
+	return _current_context.duplicate(true)
 
 func _set_status(scene: Object, text: String) -> void:
 	scene.set("status_text", text)
@@ -291,7 +350,9 @@ func _ensure_actions() -> void:
 	_add_key_action("altitude_down", KEY_PAGEDOWN)
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
-	if not InputMap.has_action(action): InputMap.add_action(action)
+	if not InputMap.has_action(action):
+		InputMap.add_action(action)
 	var event := InputEventKey.new()
 	event.physical_keycode = keycode
-	if not InputMap.action_has_event(action, event): InputMap.action_add_event(action, event)
+	if not InputMap.action_has_event(action, event):
+		InputMap.action_add_event(action, event)
