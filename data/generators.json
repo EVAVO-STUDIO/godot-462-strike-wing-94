@@ -1,0 +1,39 @@
+{
+  "generators": [
+    {
+      "id": "field_coil_mk1",
+      "name": "Field Coil Mk I",
+      "capacity": 100.0,
+      "recharge_per_second": 26.0,
+      "cost": 0
+    },
+    {
+      "id": "field_coil_mk2",
+      "name": "Field Coil Mk II",
+      "capacity": 125.0,
+      "recharge_per_second": 34.0,
+      "cost": 3200
+    },
+    {
+      "id": "combat_dynamo",
+      "name": "Combat Dynamo",
+      "capacity": 150.0,
+      "recharge_per_second": 42.0,
+      "cost": 6500
+    },
+    {
+      "id": "pulse_core",
+      "name": "Pulse Core",
+      "capacity": 180.0,
+      "recharge_per_second": 50.0,
+      "cost": 10200
+    },
+    {
+      "id": "overdrive_core",
+      "name": "Overdrive Core",
+      "capacity": 220.0,
+      "recharge_per_second": 60.0,
+      "cost": 15400
+    }
+  ]
+}
