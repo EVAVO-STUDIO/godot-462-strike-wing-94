@@ -4,6 +4,7 @@ extends RefCounted
 const FIGHTER := "fighter"
 const BOMBER := "bomber"
 const TRANSFORM_COOLDOWN := 0.65
+const TRANSFORM_WEAPON_INTERLOCK := 0.24
 
 static func sanitize(form: String) -> String:
 	return BOMBER if form == BOMBER else FIGHTER
