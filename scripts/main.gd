@@ -253,17 +253,27 @@ func _update_enemies(delta: float) -> void:
 		enemies[i] = enemy
 		if not is_boss and position.y > PLAYFIELD.end.y + 22: enemies.remove_at(i)
 
+func _make_enemy_shot(origin: Vector2, velocity: Vector2, damage: int, homing := false) -> Dictionary:
+	var shot := {"position":origin,"velocity":velocity,"damage":damage}
+	if homing:
+		shot["homing"] = true
+		shot["homing_speed"] = maxf(1.0, velocity.length())
+		shot["turn_rate"] = 1.8
+		shot["life"] = 5.0
+	return shot
+
 func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	var origin: Vector2 = enemy["position"]
 	var weapon_id := str(enemy.get("weapon","single_burst"))
 	var damage := 14 if bool(enemy.get("boss",false)) else 8
 	var velocity := ProjectileRules.enemy_shot_velocity(origin, player_position, ProjectileRules.enemy_projectile_speed(weapon_id))
-	enemy_bullets.append({"position":origin,"velocity":velocity,"damage":damage})
+	var is_missile := weapon_id == "missile"
+	enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, is_missile))
 	if weapon_id == "twin_burst":
-		enemy_bullets.append({"position":origin,"velocity":velocity.rotated(0.16),"damage":damage})
-		enemy_bullets.append({"position":origin,"velocity":velocity.rotated(-0.16),"damage":damage})
-	elif weapon_id == "missile":
-		enemy_bullets.append({"position":origin,"velocity":velocity.rotated(0.08),"damage":damage + 3})
+		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.16), damage))
+		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(-0.16), damage))
+	elif is_missile:
+		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true))
 
 func _resolve_combat() -> void:
 	for bullet_index in range(bullets.size() - 1, -1, -1):
