@@ -10,8 +10,6 @@ const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const ThreatWarningDirector = preload("res://scripts/threat_warning_director.gd")
 const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
-const MissileBehaviorRules = preload("res://scripts/missile_behavior_rules.gd")
-const MissileBehaviorDirector = preload("res://scripts/missile_behavior_director.gd")
 const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 
 var failures: Array[String] = []
@@ -25,7 +23,7 @@ func _initialize() -> void:
 	_test_boss_hud()
 	_test_threat_warning()
 	_test_projectile_cues()
-	_test_normal_missiles()
+	_test_native_missiles()
 	if failures.is_empty():
 		print("Strike Wing mission flow self-test passed.")
 		quit(0)
@@ -131,11 +129,11 @@ func _test_autoloads() -> void:
 		return
 	var text := file.get_as_text()
 	_expect(not text.contains("SpawnSafetyDirector"), "redundant spawn safety autoload should stay removed")
+	_expect(not text.contains("MissileBehaviorDirector"), "redundant missile behavior autoload should stay removed")
 	_expect(text.contains("MovementPatternDirector=\"*res://scripts/movement_pattern_director.gd\""), "movement pattern director must remain autoloaded")
 	_expect(text.contains("BossHudDirector=\"*res://scripts/boss_hud_director.gd\""), "boss HUD director must remain autoloaded")
 	_expect(text.contains("ThreatWarningDirector=\"*res://scripts/threat_warning_director.gd\""), "threat warning director must remain autoloaded")
 	_expect(text.contains("ProjectileCueDirector=\"*res://scripts/projectile_cue_director.gd\""), "projectile cue director must remain autoloaded")
-	_expect(text.contains("MissileBehaviorDirector=\"*res://scripts/missile_behavior_director.gd\""), "normal missile behavior director must remain autoloaded")
 
 func _test_boss_hud() -> void:
 	_expect(absf(BossHudRules.health_ratio(50, 100) - 0.5) < 0.001, "boss HUD health ratio should reflect current/max HP")
@@ -175,19 +173,22 @@ func _test_projectile_cues() -> void:
 	_expect(cue != null, "projectile cue director should instantiate")
 	cue.free()
 
-func _test_normal_missiles() -> void:
-	var shot := {"position":Vector2(100,100),"velocity":Vector2(0,180),"damage":11}
-	var missile_enemy := {"position":Vector2(102,101),"weapon":"missile"}
-	var cannon_enemy := {"position":Vector2(102,101),"weapon":"cannon"}
-	_expect(MissileBehaviorRules.missile_launcher_near(shot, [missile_enemy]), "new shot at missile launcher should be identified")
-	_expect(not MissileBehaviorRules.missile_launcher_near(shot, [cannon_enemy]), "non-missile launcher must not tag ordinary shot")
-	var tagged := MissileBehaviorRules.apply_homing_metadata(shot)
-	_expect(bool(tagged.get("homing", false)), "normal missile shot should receive homing flag")
-	_expect(float(tagged.get("homing_speed", 0.0)) >= 179.0, "normal missile should retain launch speed")
-	_expect(float(tagged.get("turn_rate", 0.0)) >= 1.8 and float(tagged.get("life", 0.0)) >= 5.0, "normal missile should receive safe turn rate and lifetime")
-	var director := MissileBehaviorDirector.new()
-	_expect(director != null, "normal missile behavior director should instantiate")
-	director.free()
+func _test_native_missiles() -> void:
+	var file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(file != null, "main.gd should be readable for native missile checks")
+	if file == null:
+		return
+	var source := file.get_as_text()
+	_expect(source.contains("func _make_enemy_shot"), "main should own enemy projectile packet creation")
+	_expect(source.contains('shot["homing"] = true'), "native missile packet should set homing flag")
+	_expect(source.contains('shot["homing_speed"]'), "native missile packet should preserve homing speed")
+	_expect(source.contains('shot["turn_rate"] = 1.8'), "native missile packet should set turn rate")
+	_expect(source.contains('shot["life"] = 5.0'), "native missile packet should set finite lifetime")
+	_expect(source.contains('var is_missile := weapon_id == "missile"'), "enemy weapon firing should classify missile at source")
+	_expect(source.contains("_make_enemy_shot(origin, velocity, damage, is_missile)"), "base missile projectile should receive native homing metadata")
+	_expect(source.contains("_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true)"), "secondary missile projectile should receive native homing metadata")
+	_expect(not FileAccess.file_exists("res://scripts/missile_behavior_director.gd"), "obsolete missile behavior director should remain deleted")
+	_expect(not FileAccess.file_exists("res://scripts/missile_behavior_rules.gd"), "obsolete missile behavior rules should remain deleted")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
