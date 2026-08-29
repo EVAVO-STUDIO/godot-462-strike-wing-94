@@ -182,16 +182,19 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 
 func _apply_emp(scene: Object, indices: Array[int], support: Dictionary) -> void:
 	var enemies: Array = scene.get("enemies")
-	var duration := SupportRules.duration(support, 2.8)
+	var base_duration := SupportRules.duration(support, 2.8)
 	for index in indices:
 		if index < 0 or index >= enemies.size():
 			continue
 		var enemy: Dictionary = enemies[index]
-		enemy["emp_timer"] = maxf(float(enemy.get("emp_timer", 0.0)), duration)
+		var resistance := SupportRules.emp_resistance(enemy)
+		var effective_duration := SupportRules.emp_effective_duration(base_duration, resistance)
+		enemy["emp_timer"] = maxf(float(enemy.get("emp_timer", 0.0)), effective_duration)
 		if not bool(enemy.get("boss", false)):
 			if not enemy.has("emp_base_speed"):
 				enemy["emp_base_speed"] = float(enemy.get("speed", 0.0))
-			enemy["speed"] = maxf(4.0, float(enemy["emp_base_speed"]) * 0.35)
+			enemy["emp_slow_scale"] = SupportRules.emp_speed_scale(resistance)
+			enemy["speed"] = maxf(4.0, float(enemy["emp_base_speed"]) * float(enemy["emp_slow_scale"]))
 		enemies[index] = enemy
 	scene.set("enemies", enemies)
 
@@ -207,11 +210,13 @@ func _update_emp_disruption(scene: Object, delta: float) -> void:
 		if timer > 0.0:
 			enemy["fire_timer"] = maxf(float(enemy.get("fire_timer", 0.0)), 0.35)
 			if enemy.has("emp_base_speed") and not bool(enemy.get("boss", false)):
-				enemy["speed"] = maxf(4.0, float(enemy["emp_base_speed"]) * 0.35)
+				var slow_scale := clampf(float(enemy.get("emp_slow_scale", 0.35)), 0.25, 1.0)
+				enemy["speed"] = maxf(4.0, float(enemy["emp_base_speed"]) * slow_scale)
 		else:
 			if enemy.has("emp_base_speed"):
 				enemy["speed"] = float(enemy["emp_base_speed"])
 				enemy.erase("emp_base_speed")
+			enemy.erase("emp_slow_scale")
 			enemy.erase("emp_timer")
 		enemies[i] = enemy
 		changed = true
