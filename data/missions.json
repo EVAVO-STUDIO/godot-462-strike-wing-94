@@ -1,5 +1,5 @@
 {
-  "schema_version": 6,
+  "schema_version": 7,
   "missions": [
     {
       "id": "m01_coastal_intercept",
@@ -128,6 +128,69 @@
         {"id":"sink_flagship","type":"destroy_enemy","enemy_id":"missile_cruiser","count":1,"required":true},
         {"id":"sink_corvettes","type":"destroy_enemy","enemy_id":"missile_corvette","count":3,"required":false,"bonus_credits":1400},
         {"id":"clear_attack_craft","type":"destroy_enemy","enemy_id":"fast_attack_craft","count":6,"required":false,"bonus_credits":1000}
+      ]
+    },
+    {
+      "id": "m07_ghost_sky",
+      "name": "Ghost Sky",
+      "environment": "high_cloud",
+      "duration_seconds": 205,
+      "starting_wave": 17,
+      "boss_id": "swarm_controller",
+      "briefing": "Unknown autonomous contacts have seized the upper cloud deck. Break the swarm and destroy the airborne controller before it can propagate the network.",
+      "encounter_beats": [
+        {"id":"first_swarm","at_seconds":6,"label":"UNKNOWN CONTACTS","formation":"wedge","enemies":[{"id":"drone_scout","count":5}],"suppress_random_seconds":5},
+        {"id":"hunter_split","at_seconds":43,"label":"HUNTER PAIR","formation":"split","enemies":[{"id":"drone_hunter","count":3},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":6},
+        {"id":"cloud_recovery","at_seconds":84,"label":"CLOUD BREAK","formation":"line","enemies":[{"id":"drone_scout","count":2}],"pickup":"shield","suppress_random_seconds":9},
+        {"id":"hidden_signal","at_seconds":105,"label":"DEAD FREQUENCY","formation":"stagger","secret":true,"condition":{"type":"accuracy_at_least","value":0.78,"minimum_shots":130},"enemies":[{"id":"drone_hunter","count":2}],"pickup":"weapon","suppress_random_seconds":7},
+        {"id":"controller_screen","at_seconds":132,"label":"SWARM CONTROLLER SCREEN","formation":"wedge","enemies":[{"id":"drone_bomber","count":2},{"id":"drone_missile_node","count":3},{"id":"drone_hunter","count":2}],"suppress_random_seconds":9}
+      ],
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":205,"required":true},
+        {"id":"destroy_controller","type":"destroy_enemy","enemy_id":"swarm_controller","count":1,"required":true},
+        {"id":"destroy_hunters","type":"destroy_enemy","enemy_id":"drone_hunter","count":6,"required":false,"bonus_credits":1600}
+      ]
+    },
+    {
+      "id": "m08_machine_furnace",
+      "name": "Machine Furnace",
+      "environment": "industrial",
+      "duration_seconds": 220,
+      "starting_wave": 20,
+      "boss_id": "ai_forge_core",
+      "briefing": "The mercenary furnace complex is manufacturing autonomous armour. Fight through human holdouts and machine defences, then destroy the forge core.",
+      "encounter_beats": [
+        {"id":"human_holdout","at_seconds":7,"label":"HUMAN HOLDOUT","formation":"column","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"sam_truck","count":2}],"suppress_random_seconds":4},
+        {"id":"factory_wakes","at_seconds":49,"label":"FACTORY ONLINE","formation":"line","enemies":[{"id":"autonomous_armor","count":3},{"id":"factory_defence_node","count":2}],"suppress_random_seconds":7},
+        {"id":"mixed_airspace","at_seconds":92,"label":"MIXED AIRSPACE","formation":"split","enemies":[{"id":"ace_interceptor","count":2},{"id":"drone_hunter","count":2},{"id":"drone_bomber","count":1}],"pickup":"repair","suppress_random_seconds":8},
+        {"id":"hidden_core_route","at_seconds":118,"label":"SERVICE TUNNEL","formation":"wedge","secret":true,"condition":{"type":"score_at_least","value":17500},"enemies":[{"id":"factory_defence_node","count":2},{"id":"drone_missile_node","count":1}],"pickup":"bomb","suppress_random_seconds":7},
+        {"id":"forge_guard","at_seconds":148,"label":"FORGE GUARD","formation":"stagger","enemies":[{"id":"autonomous_armor","count":3},{"id":"factory_defence_node","count":2},{"id":"drone_hunter","count":2}],"suppress_random_seconds":10}
+      ],
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":220,"required":true},
+        {"id":"destroy_forge","type":"destroy_enemy","enemy_id":"ai_forge_core","count":1,"required":true},
+        {"id":"break_autonomous_armor","type":"destroy_enemy","enemy_id":"autonomous_armor","count":5,"required":false,"bonus_credits":1900}
+      ]
+    },
+    {
+      "id": "m09_black_horizon",
+      "name": "Black Horizon",
+      "environment": "orbital",
+      "duration_seconds": 240,
+      "starting_wave": 24,
+      "boss_id": "orbital_command_node",
+      "briefing": "Climb through the upper atmosphere and sever the autonomous network at its first orbital command node before it can coordinate global drone production.",
+      "encounter_beats": [
+        {"id":"exo_entry","at_seconds":8,"label":"EXO CONTACT","formation":"wedge","enemies":[{"id":"exo_drone","count":4},{"id":"drone_hunter","count":2}],"suppress_random_seconds":6},
+        {"id":"sentry_arc","at_seconds":57,"label":"ORBITAL SENTRY ARC","formation":"split","enemies":[{"id":"orbital_sentry","count":3},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":8},
+        {"id":"upper_stage_recovery","at_seconds":111,"label":"UPPER STAGE RECOVERY","formation":"column","enemies":[{"id":"exo_drone","count":2}],"pickup":"shield","suppress_random_seconds":10},
+        {"id":"hidden_station_vector","at_seconds":139,"label":"COLD VECTOR","formation":"line","secret":true,"condition":{"type":"bombs_at_least","value":2},"enemies":[{"id":"orbital_sentry","count":2}],"pickup":"weapon","suppress_random_seconds":8},
+        {"id":"command_shell","at_seconds":168,"label":"COMMAND SHELL","formation":"stagger","enemies":[{"id":"orbital_sentry","count":3},{"id":"exo_drone","count":3},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":11}
+      ],
+      "objectives": [
+        {"id":"survive","type":"survive","seconds":240,"required":true},
+        {"id":"destroy_orbital_node","type":"destroy_enemy","enemy_id":"orbital_command_node","count":1,"required":true},
+        {"id":"clear_sentries","type":"destroy_enemy","enemy_id":"orbital_sentry","count":5,"required":false,"bonus_credits":2400}
       ]
     }
   ]
