@@ -182,6 +182,56 @@ Current examples include:
 
 These choices let the player trade surface access, target scale, support availability and fighter/bomber effectiveness without turning every mission into unrestricted altitude roaming.
 
+## Route-specific opportunities
+
+Altitude choice is not only a visual or damage multiplier. Selected missions contain optional encounter beats that exist only if the player reaches the authored lane in the intended VX-94 configuration.
+
+Mission Intelligence reads those conditions directly from the encounter schedule and reports them as `ROUTES LOW+BMB`, `ROUTES HIGH+FTR`, or both where appropriate. There is no second route metadata catalogue.
+
+### LOW + bomber route
+
+This is a deliberate low-level strike run, not simply a larger ground-target damage multiplier.
+
+Current behavior:
+
+- route-specific ground/sea enemies are tagged `strike_priority` when their beat spawns;
+- the bombing computer prioritizes those targets inside its assist cone;
+- route targets receive a stronger green boxed designation;
+- dedicated `E` precision ordnance is the intended kill method;
+- an ordnance kill on a route target awards a bounded +450 score bonus;
+- guns may still kill the target normally, but do not receive the precision-route bonus;
+- holding a steady LOW+BMB line with a valid surface lock builds bombing-computer stability over about 0.65 seconds;
+- hard lateral movement bleeds stability rapidly;
+- full stability tightens the aim radius and cuts low-altitude time-to-impact to about 72% of the normal value;
+- the HUD exposes `STB###` plus a small stability bar;
+- precision ordnance has its own shock/debris impact presentation and original low impact voice.
+
+The intended feel is a dangerous attack run: staying straight improves the solution, while flak/missiles force the player to decide when to abandon stability and jink.
+
+### HIGH + fighter route
+
+This is a high-speed air-interception challenge rather than a bombing equivalent with different targets.
+
+Current behavior:
+
+- route-specific aerial enemies are tagged `intercept_priority`;
+- those targets receive a bounded +450 increase to their ordinary core combat value;
+- the existing `main.gd` destruction/score path therefore awards the value naturally, with no route-specific score watcher;
+- dedicated corner brackets and `INT ###` distance/closure cues identify the targets;
+- the cue explicitly reminds the player `SHIFT AB`, because afterburner is an intended interception tool but never mandatory;
+- the route presentation only appears while the player remains HIGH+FTR.
+
+This route should reward speed, positioning, accurate cannon/rail work and aggressive interception rather than steady bombing-computer alignment.
+
+### Route asymmetry invariant
+
+Do not flatten these routes into the same generic mechanic.
+
+- LOW+BMB rewards precision attack-run execution and dedicated strike ordnance.
+- HIGH+FTR rewards high-value intercept kills through the normal weapon/combat loop.
+
+Both may use encounter rewards or pickups, but their core skill test should remain different.
+
 ## Scripted altitude transitions
 
 Major set pieces remain authored and cannot be bypassed by manual lane selection.
@@ -204,9 +254,31 @@ The transition lasts about 1.15 seconds and includes:
 - speed brackets;
 - a subtle VX-94 pitch cue;
 - separate rising/falling procedural SFX;
-- interpolated surface-target scale between the old/new altitude instead of a one-frame size pop.
+- interpolated surface-target scale between the old/new altitude instead of a one-frame size pop;
+- blended parallax speed;
+- blended terrain-detail scale;
+- blended cloud density;
+- blended atmospheric horizon glow;
+- orbital starfield fade during atmosphere-space transitions.
 
-Environment presentation should increasingly interpolate cloud/parallax treatment across the same transition rather than rely on a hard background swap.
+## Altitude and enemy vocabulary
+
+Altitude affects which normal enemies may appear, not just how they are rendered.
+
+- LOW/MID may include air, ground and naval archetypes;
+- HIGH/ORBITAL exclude ordinary ground/sea archetypes;
+- bosses remain allowed where mission design requires them.
+
+`CraftFormDirector` publishes altitude-filtered copies of the authored filler spawn profiles before the core scene processes spawning. `EncounterDirector` independently applies the same pure `AltitudeRules` filter to authored beats. This prevents filler and set-piece content from disagreeing.
+
+Processing order is intentional:
+
+1. CraftFormDirector / altitude context: -30
+2. EncounterDirector: -20
+3. SupportDirector: -5
+4. core scene: default priority
+
+A same-frame climb therefore changes encounter eligibility before that frame's encounter or filler spawn is resolved.
 
 ## Damage interaction
 
@@ -263,5 +335,7 @@ Mission 12 intentionally keeps the VX-94 at HIGH until after its rearm window, t
 - bomber rotary sound must remain original/procedural;
 - optional altitude changes are adjacent-lane only and window-gated;
 - scripted altitude transitions remain authored mission beats;
+- altitude choices must alter eligible normal enemy vocabulary;
+- LOW+BMB and HIGH+FTR route rewards must remain mechanically asymmetric;
 - orbital flight always forces fighter geometry;
 - transition FX never obscure incoming projectiles.
