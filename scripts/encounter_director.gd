@@ -1,6 +1,7 @@
 extends Node
 
 const EncounterRules = preload("res://scripts/encounter_rules.gd")
+const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const FORMATION_MIN_X := 58.0
 const FORMATION_MAX_X := 582.0
 
@@ -53,6 +54,12 @@ func _condition_state(scene: Object) -> Dictionary:
 		"bombs": int(scene.get("bombs"))
 	}
 
+func _current_altitude() -> String:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("current_altitude"):
+		return str(craft.call("current_altitude"))
+	return AltitudeRules.MID
+
 func _apply_due_beats(scene: Object) -> void:
 	var mission := _active_mission(scene)
 	var beats := EncounterRules.beats_for_mission(mission)
@@ -66,23 +73,35 @@ func _apply_due_beats(scene: Object) -> void:
 
 func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	var enemy_ids := EncounterRules.expanded_enemy_ids(beat)
-	var points := EncounterRules.formation_points(beat, enemy_ids.size())
-	for i in range(enemy_ids.size()):
-		var archetype := _enemy_for_id(scene.get("enemy_catalog"), enemy_ids[i])
+	var altitude := _current_altitude()
+	var eligible: Array[String] = []
+	for enemy_id in enemy_ids:
+		var archetype := _enemy_for_id(scene.get("enemy_catalog"), enemy_id)
 		if archetype.is_empty() or bool(archetype.get("boss", false)):
+			continue
+		if AltitudeRules.allows_enemy_archetype(altitude, archetype):
+			eligible.append(enemy_id)
+	var points := EncounterRules.formation_points(beat, eligible.size())
+	for i in range(eligible.size()):
+		var archetype := _enemy_for_id(scene.get("enemy_catalog"), eligible[i])
+		if archetype.is_empty():
 			continue
 		scene.call("_spawn_enemy", archetype)
 		_apply_latest_formation_point(scene, points[i] if i < points.size() else Vector2(0.5, 0.0))
+
 	var pickup_kind := EncounterRules.reward_pickup(beat)
 	if pickup_kind != "":
 		var pickups: Array = scene.get("pickups")
 		pickups.append({"position":Vector2(320.0, 74.0), "kind":pickup_kind})
 		scene.set("pickups", pickups)
+
 	var suppression := EncounterRules.suppression_seconds(beat)
 	if suppression > 0.0:
 		scene.set("enemy_spawn_timer", maxf(float(scene.get("enemy_spawn_timer")), suppression))
+
 	var prefix := "SECRET - " if EncounterRules.is_secret(beat) else ""
-	scene.set("status_text", "%s%s" % [prefix, EncounterRules.label(beat)])
+	var suffix := "" if eligible.size() == enemy_ids.size() else "  ALTITUDE FILTER"
+	scene.set("status_text", "%s%s%s" % [prefix, EncounterRules.label(beat), suffix])
 	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
 
 func _apply_latest_formation_point(scene: Object, point: Vector2) -> void:
