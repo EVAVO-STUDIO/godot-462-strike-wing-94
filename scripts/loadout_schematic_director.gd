@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
+const PlayerMountRules = preload("res://scripts/player_mount_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const LoadoutSchematicSurface = preload("res://scripts/loadout_schematic_surface.gd")
 
@@ -12,6 +13,7 @@ const MUTED := Color("778a96")
 const BLUE := Color("6aa4c8")
 const GOLD := Color("e8ca6a")
 const MOUNT := Color("72c7b2")
+const ACTIVE_MOUNT := Color("f0d87a")
 
 var _surface: Control
 var _open := false
@@ -62,7 +64,8 @@ func draw_schematic(surface: CanvasItem) -> void:
 	_draw_mounts(surface, Vector2(176, 176), "fighter")
 	_draw_mounts(surface, Vector2(464, 176), "bomber")
 	_draw_installed(surface)
-	PixelFont.draw_centered(surface, "L CLOSE   Q CHANGES COMBAT GEOMETRY IN SORTIE", 320, 300, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "GOLD = INSTALLED / ACTIVE STATION", 320, 293, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, "L CLOSE   Q CHANGES COMBAT GEOMETRY IN SORTIE", 320, 306, 1, MUTED, 1)
 
 func _draw_planform(surface: CanvasItem, p: Vector2, form: String) -> void:
 	var body := Color(0.72,0.78,0.81,0.65)
@@ -94,17 +97,63 @@ func _draw_mounts(surface: CanvasItem, p: Vector2, form: String) -> void:
 			continue
 		var local := Vector2(float(raw[0]) * 2.25, float(raw[1]) * 2.25)
 		var point := p + local
-		surface.draw_rect(Rect2(roundf(point.x)-2,roundf(point.y)-2,5,5),MOUNT,false,1.0)
-		if shown < 6:
+		var active := _mount_active(mount, form)
+		var mount_color := ACTIVE_MOUNT if active else MOUNT
+		surface.draw_rect(Rect2(roundf(point.x)-3,roundf(point.y)-3,7,7),mount_color,false,2.0 if active else 1.0)
+		if active:
+			surface.draw_rect(Rect2(roundf(point.x)-1,roundf(point.y)-1,3,3),mount_color)
+		if shown < 7:
 			var name := str(mount.get("name", mount.get("id", "MOUNT"))).to_upper()
 			var side := -1.0 if point.x < p.x else 1.0
 			if absf(point.x-p.x) < 6.0:
 				side = 1.0
 			var label_x := p.x - 128.0 if side < 0 else p.x + 72.0
-			var label_y := p.y - 58.0 + shown * 16.0
-			surface.draw_line(point,Vector2(label_x + (58 if side < 0 else 0),label_y+3),Color(MOUNT,0.45),1.0)
-			PixelFont.draw_text(surface,_clip(name,18),Vector2(label_x,label_y),1,MUTED,1)
+			var label_y := p.y - 62.0 + shown * 15.0
+			var label_color := ACTIVE_MOUNT if active else MUTED
+			surface.draw_line(point,Vector2(label_x + (58 if side < 0 else 0),label_y+3),Color(mount_color,0.55 if active else 0.35),1.0)
+			PixelFont.draw_text(surface,_clip(name,18),Vector2(label_x,label_y),1,label_color,1)
 			shown += 1
+
+func _mount_active(mount: Dictionary, form: String) -> bool:
+	var roles = mount.get("roles", [])
+	if typeof(roles) != TYPE_ARRAY:
+		return false
+	var primary := _active_weapon()
+	var primary_role := PlayerMountRules.primary_role(primary, form)
+	if primary_role in roles:
+		return true
+	var support := _active_support()
+	var support_role := PlayerMountRules.support_role(support)
+	if support_role != "" and support_role in roles:
+		return true
+	var support_type := str(support.get("type", ""))
+	if support_type in ["emp", "magnetic"] and support_type in roles:
+		return true
+	if support_type == "defence" and "sensor" in roles:
+		return true
+	if form == "bomber" and "precision_bomb" in roles and _strike_ordnance_available():
+		return true
+	return false
+
+func _active_weapon() -> Dictionary:
+	var scene := get_tree().current_scene
+	if scene != null and scene.has_method("_active_weapon"):
+		var value = scene.call("_active_weapon")
+		if typeof(value) == TYPE_DICTIONARY:
+			return value
+	return {}
+
+func _active_support() -> Dictionary:
+	var support_node := get_node_or_null("/root/SupportDirector")
+	if support_node != null and support_node.has_method("current_support"):
+		var value = support_node.call("current_support")
+		if typeof(value) == TYPE_DICTIONARY:
+			return value
+	return {}
+
+func _strike_ordnance_available() -> bool:
+	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
+	return strike != null and strike.has_method("ordnance_count") and int(strike.call("ordnance_count")) > 0
 
 func _draw_installed(surface: CanvasItem) -> void:
 	var primary := _scene_item_name("_active_weapon", "PRIMARY")
