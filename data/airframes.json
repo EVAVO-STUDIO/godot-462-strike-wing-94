@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "airframes": [
+    {
+      "id": "composite_frame_mk1",
+      "name": "Composite Frame Mk I",
+      "hull_capacity": 100,
+      "shield_capacity": 100,
+      "cost": 0,
+      "unlock_tech_era": "advanced_conventional",
+      "technology": "carbon composite and conventional field emitters"
+    },
+    {
+      "id": "ceramic_titanium_frame",
+      "name": "Ceramic-Titanium Frame",
+      "hull_capacity": 120,
+      "shield_capacity": 105,
+      "cost": 5200,
+      "unlock_tech_era": "advanced_conventional",
+      "technology": "titanium spars with ceramic strike armor"
+    },
+    {
+      "id": "reactive_alloy_frame",
+      "name": "Reactive Alloy Frame",
+      "hull_capacity": 140,
+      "shield_capacity": 115,
+      "cost": 9200,
+      "unlock_tech_era": "advanced_conventional",
+      "technology": "layered reactive alloy skin and reinforced hardpoints"
+    },
+    {
+      "id": "magneto_composite_frame",
+      "name": "Magneto-Composite Frame",
+      "hull_capacity": 155,
+      "shield_capacity": 135,
+      "cost": 14800,
+      "unlock_tech_era": "electromagnetic",
+      "technology": "magnetically stressed alloy lattice and field-assisted armor"
+    },
+    {
+      "id": "field_coupled_frame",
+      "name": "Field-Coupled Frame",
+      "hull_capacity": 165,
+      "shield_capacity": 160,
+      "cost": 21800,
+      "unlock_tech_era": "directed_energy",
+      "technology": "field-coupled structural skin and high-output shield lattice"
+    }
+  ]
+}
