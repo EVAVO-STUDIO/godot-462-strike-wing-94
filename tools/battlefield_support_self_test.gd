@@ -55,6 +55,10 @@ func _test_source_contract() -> void:
 		_expect(source.contains('support_director.call("rearm_support")'), "tanker should reset tactical support cooldown")
 		_expect(source.contains('applied = mini(applied, maxi(0, hp - 1))'), "battlefield support strikes must remain nonlethal to bosses")
 		_expect(source.contains('scene.call("_register_destroy", enemy)'), "support kills should register mission objectives")
+		for visual in ["_draw_fighter_sweep", "_draw_bomber_run", "_draw_gunship_fire", "_draw_missile_strike", "_draw_rail_strike", "_draw_orbital_strike"]:
+			_expect(source.contains(visual), "allied support presentation missing set piece: %s" % visual)
+		_expect(source.contains("_visual_timer = 1.25"), "immediate support set pieces should remain short and readable")
+		_expect(source.contains("_priority_target_position(scene)"), "precision support visuals should anchor to a real priority target")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
