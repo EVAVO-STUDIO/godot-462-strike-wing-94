@@ -3,13 +3,18 @@ extends CanvasLayer
 const StrikeOrdnanceRules = preload("res://scripts/strike_ordnance_rules.gd")
 const StrikeOrdnanceSurface = preload("res://scripts/strike_ordnance_surface.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
+const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+
+const IMPACT_FX_SECONDS := 0.30
 
 var ordnance := StrikeOrdnanceRules.MAX_ORDNANCE
 var _cooldown := 0.0
 var _pending: Array = []
+var _impact_fx: Array = []
 var _surface: Control
 var _last_phase := -1
 var _stability := 0.0
+var _impact_serial := 0
 
 func _ready() -> void:
 	layer = 14
@@ -24,6 +29,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
+	_update_impact_fx(delta)
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		return
@@ -31,6 +37,7 @@ func _process(delta: float) -> void:
 	if phase == 1 and _last_phase != 1:
 		ordnance = StrikeOrdnanceRules.MAX_ORDNANCE
 		_pending.clear()
+		_impact_fx.clear()
 		_stability = 0.0
 	if phase == 1:
 		_update_attack_run_stability(scene, delta)
@@ -39,6 +46,7 @@ func _process(delta: float) -> void:
 			_try_drop(scene)
 	else:
 		_pending.clear()
+		_impact_fx.clear()
 		_stability = 0.0
 	_last_phase = phase
 	_surface.queue_redraw()
@@ -141,10 +149,40 @@ func _impact(scene: Object, item: Dictionary) -> void:
 	if precision_bonus > 0:
 		scene.set("score", int(scene.get("score")) + precision_bonus)
 	scene.set("enemies", enemies)
+	_emit_impact_fx(point, altitude, bool(item.get("priority_lock", false)), float(item.get("stability", 0.0)))
+	_play_impact_sfx()
 	if precision_bonus > 0:
 		_set_status(scene, "PRECISION ROUTE HIT  +%d" % precision_bonus)
 	else:
 		_set_status(scene, "SURFACE IMPACT")
+
+func _emit_impact_fx(point: Vector2, altitude: String, priority: bool, stability: float) -> void:
+	_impact_serial += 1
+	_impact_fx.append({
+		"position": point,
+		"age": 0.0,
+		"duration": IMPACT_FX_SECONDS,
+		"altitude": altitude,
+		"priority": priority,
+		"stability": clampf(stability, 0.0, 1.0),
+		"serial": _impact_serial
+	})
+	while _impact_fx.size() > 8:
+		_impact_fx.pop_front()
+
+func _update_impact_fx(delta: float) -> void:
+	for i in range(_impact_fx.size() - 1, -1, -1):
+		var fx: Dictionary = _impact_fx[i]
+		fx["age"] = float(fx.get("age", 0.0)) + maxf(0.0, delta)
+		if float(fx["age"]) >= float(fx.get("duration", IMPACT_FX_SECONDS)):
+			_impact_fx.remove_at(i)
+		else:
+			_impact_fx[i] = fx
+
+func _play_impact_sfx() -> void:
+	var sfx := get_node_or_null("/root/RetroSfxDirector")
+	if sfx != null and sfx.has_method("play_event"):
+		sfx.call("play_event", RetroSfxRules.STRIKE_IMPACT)
 
 func rearm_full() -> void:
 	ordnance = StrikeOrdnanceRules.MAX_ORDNANCE
@@ -168,6 +206,7 @@ func _set_status(scene: Object, text: String) -> void:
 	scene.set("status_timer", 1.6)
 
 func _draw_surface(surface: CanvasItem) -> void:
+	_draw_impact_fx(surface)
 	var scene := get_tree().current_scene
 	if scene == null or int(scene.get("phase")) != 1:
 		return
@@ -217,10 +256,38 @@ func _draw_surface(surface: CanvasItem) -> void:
 		var color := Color(0.42, 0.96, 0.62, 0.78) if bool(item.get("priority_lock", false)) else Color(1.0, 0.48, 0.20, 0.7)
 		surface.draw_circle(point, pulse, color, false, 1.0)
 
+func _draw_impact_fx(surface: CanvasItem) -> void:
+	for fx in _impact_fx:
+		if typeof(fx) != TYPE_DICTIONARY:
+			continue
+		var duration := maxf(0.001, float(fx.get("duration", IMPACT_FX_SECONDS)))
+		var ratio := clampf(float(fx.get("age", 0.0)) / duration, 0.0, 1.0)
+		var p: Vector2 = fx.get("position", Vector2.ZERO)
+		var priority := bool(fx.get("priority", false))
+		var stability := clampf(float(fx.get("stability", 0.0)), 0.0, 1.0)
+		var fade := 1.0 - ratio
+		var radius := 5.0 + ratio * (34.0 + stability * 8.0)
+		var shock := Color(0.96,0.56,0.20,0.78 * fade)
+		var hot := Color(1.0,0.90,0.48,0.88 * fade)
+		if priority:
+			shock = Color(0.46,0.96,0.62,0.76 * fade)
+		surface.draw_arc(p, radius, 0.0, TAU, 20, shock, 2.0)
+		if ratio < 0.42:
+			surface.draw_circle(p, maxf(2.0, radius * 0.28), hot)
+		var serial := int(fx.get("serial", 0))
+		for i in range(7):
+			var angle := float((serial * 43 + i * 67) % 360) * PI / 180.0
+			var distance := radius * (0.35 + float((serial + i) % 5) * 0.12)
+			var q := p + Vector2.RIGHT.rotated(angle) * distance
+			surface.draw_rect(Rect2(roundf(q.x), roundf(q.y), 2, 2), shock)
+
 func _ensure_action() -> void:
 	if not InputMap.has_action("drop_strike_ordnance"):
 		InputMap.add_action("drop_strike_ordnance")
 	var event := InputEventKey.new()
 	event.physical_keycode = KEY_E
 	if not InputMap.action_has_event("drop_strike_ordnance", event):
+		InputMap.add_action("drop_strike_ordnance")
+		InputMap.action_add_event("drop_strike_ordnance", event)
+	elif not InputMap.action_has_event("drop_strike_ordnance", event):
 		InputMap.action_add_event("drop_strike_ordnance", event)
