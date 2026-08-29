@@ -25,15 +25,15 @@ Write-Host 'Validating Strike Wing 94...' -ForegroundColor Cyan
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
-    'scripts/boss_rules.gd','scripts/boss_director.gd',
-    'scripts/bomb_rules.gd','scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd',
+    'scripts/boss_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
+    'scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd',
     'scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd','scripts/movement_pattern_rules.gd','scripts/weapon_pickup_rules.gd',
     'scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd','scripts/energy_rules.gd',
-    'scripts/encounter_rules.gd','scripts/encounter_director.gd',
+    'scripts/encounter_rules.gd','scripts/encounter_director.gd','scripts/support_rules.gd','scripts/support_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
-    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd','tools/encounter_self_test.gd',
-    'data/weapons.json','data/generators.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
+    'tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd','tools/encounter_self_test.gd','tools/support_self_test.gd',
+    'data/weapons.json','data/generators.json','data/support_systems.json','data/enemies.json','data/missions.json','data/spawn_profiles.json','data/campaign.json',
     'docs/GAME_DESIGN.md','docs/ARCHITECTURE.md','docs/QA.md','docs/90S_SHOOTER_BIBLE.md'
 )
 foreach ($RelativePath in $Required) { if (-not (Test-Path (Join-Path $Root $RelativePath))) { throw "Missing required file: $RelativePath" } }
@@ -49,11 +49,12 @@ foreach ($RelativePath in $Forbidden) { if (Test-Path (Join-Path $Root $Relative
 
 $Weapons = Get-Content -Raw (Join-Path $Root 'data/weapons.json') | ConvertFrom-Json
 $Generators = Get-Content -Raw (Join-Path $Root 'data/generators.json') | ConvertFrom-Json
+$Supports = Get-Content -Raw (Join-Path $Root 'data/support_systems.json') | ConvertFrom-Json
 $Enemies = Get-Content -Raw (Join-Path $Root 'data/enemies.json') | ConvertFrom-Json
 $Missions = Get-Content -Raw (Join-Path $Root 'data/missions.json') | ConvertFrom-Json
 $Profiles = Get-Content -Raw (Join-Path $Root 'data/spawn_profiles.json') | ConvertFrom-Json
 $Campaign = Get-Content -Raw (Join-Path $Root 'data/campaign.json') | ConvertFrom-Json
-Assert-UniqueIds $Weapons.weapons 'weapons'; Assert-UniqueIds $Generators.generators 'generators'; Assert-UniqueIds $Enemies.enemies 'enemies'; Assert-UniqueIds $Missions.missions 'missions'; Assert-UniqueIds $Profiles.profiles 'spawn profiles'
+Assert-UniqueIds $Weapons.weapons 'weapons'; Assert-UniqueIds $Generators.generators 'generators'; Assert-UniqueIds $Supports.supports 'support systems'; Assert-UniqueIds $Enemies.enemies 'enemies'; Assert-UniqueIds $Missions.missions 'missions'; Assert-UniqueIds $Profiles.profiles 'spawn profiles'
 
 $Primaries = @($Weapons.weapons | Where-Object { $_.slot -eq 'primary' }); if ($Primaries.Count -lt 5) { throw 'Campaign should expose at least five meaningfully distinct primary tiers.' }
 $PreviousCost = -1
@@ -63,6 +64,7 @@ foreach ($Weapon in $Primaries) {
     if (-not $Weapon.archetype) { throw "Primary weapon missing gameplay archetype: $($Weapon.id)" }
     $PreviousCost = [int]$Weapon.cost
 }
+
 if (@($Generators.generators).Count -lt 3) { throw 'Generator progression requires at least three tiers.' }
 $PreviousCost = -1; $PreviousCapacity = 0.0; $PreviousRecharge = 0.0
 foreach ($Generator in $Generators.generators) {
@@ -70,6 +72,20 @@ foreach ($Generator in $Generators.generators) {
     if ([double]$Generator.capacity -lt $PreviousCapacity -or [double]$Generator.recharge_per_second -lt $PreviousRecharge) { throw "Generator progression regresses output: $($Generator.id)" }
     $PreviousCost = [int]$Generator.cost; $PreviousCapacity = [double]$Generator.capacity; $PreviousRecharge = [double]$Generator.recharge_per_second
 }
+
+$AllowedSupportTypes = @('rockets','crossfire','hunter','defence'); $SupportTypes = @(); $PreviousCost = -1
+if (@($Supports.supports).Count -lt 4) { throw 'Support catalogue requires at least four tactical systems.' }
+foreach ($Support in $Supports.supports) {
+    if ($AllowedSupportTypes -notcontains [string]$Support.type) { throw "Unsupported support type: $($Support.id)" }
+    if ([int]$Support.cost -lt $PreviousCost -or [double]$Support.energy_cost -le 0 -or [double]$Support.cooldown -le 0) { throw "Invalid support economy values: $($Support.id)" }
+    if ($Support.type -eq 'defence') {
+        if ([double]$Support.radius -le 0 -or [double]$Support.radius -gt 160 -or [int]$Support.max_targets -lt 1 -or [int]$Support.max_targets -gt 12) { throw "Point-defence bounds invalid: $($Support.id)" }
+    } else {
+        if ([int]$Support.projectiles -lt 1 -or [int]$Support.damage -lt 1 -or [double]$Support.projectile_speed -le 0) { throw "Offensive support projectile values invalid: $($Support.id)" }
+    }
+    $SupportTypes += [string]$Support.type; $PreviousCost = [int]$Support.cost
+}
+foreach ($RequiredType in $AllowedSupportTypes) { if ($SupportTypes -notcontains $RequiredType) { throw "Missing tactical support type: $RequiredType" } }
 
 $EnemyIds = @($Enemies.enemies | ForEach-Object { $_.id }); $BossIds = @($Enemies.enemies | Where-Object { $_.boss } | ForEach-Object { $_.id })
 $AllowedClasses = @('air','ground','sea','boss'); $AllowedEnemyWeapons = @('single_burst','aimed_burst','side_burst','cannon','missile','deck_gun','twin_burst'); $AllowedPatterns = @('sine_dive','tracking_sweep','hover_strafe','road_column','water_lane','static','aggressive_weave','boss_sweep','boss_column','boss_broadside')
@@ -125,26 +141,30 @@ foreach ($Environment in @($Missions.missions | ForEach-Object { $_.environment 
 }
 
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
-foreach ($Autoload in @('CampaignSave="*res://scripts/campaign_save.gd"','EncounterDirector="*res://scripts/encounter_director.gd"','BossDirector="*res://scripts/boss_director.gd"','PixelUiDirector="*res://scripts/pixel_ui_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"')) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
+foreach ($Autoload in @('SupportDirector="*res://scripts/support_director.gd"','CampaignSave="*res://scripts/campaign_save.gd"','EncounterDirector="*res://scripts/encounter_director.gd"','BossDirector="*res://scripts/boss_director.gd"','PixelUiDirector="*res://scripts/pixel_ui_director.gd"','ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"')) { if (-not $ProjectText.Contains($Autoload)) { throw "Missing autoload: $Autoload" } }
 foreach ($Obsolete in @('ServiceDirector','RewardDirector','AccuracyDirector','WeaponPickupDirector','RunSeedDirector','MovementPatternDirector','MissionFlowDirector','MissionStateDirector','BombGuardDirector','MissileBehaviorDirector','SpawnSafetyDirector','BossHudDirector','ThreatWarningDirector')) { if ($ProjectText.Contains($Obsolete)) { throw "Obsolete autoload must remain removed: $Obsolete" } }
 
 $EncounterDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/encounter_director.gd')
 Assert-Contains $EncounterDirectorText @('process_priority = -20','EncounterRules.due_beat','EncounterRules.condition_met','EncounterRules.formation_points','scene.call("_spawn_enemy", archetype)','pattern_anchor_x','enemy_spawn_timer','EncounterRules.reward_pickup') 'Encounter director'
-$PixelFontText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_font.gd')
-Assert-Contains $PixelFontText @('class_name PixelFont','GLYPHS','draw_text','draw_centered','normalized.substr(char_index, 1)') 'Pixel font'
-$PixelSurfaceText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_surface.gd')
-Assert-Contains $PixelSurfaceText @('class_name PixelUiSurface','extends Control','director.call("_draw_surface", self)') 'Pixel UI surface'
+$SupportRulesText = Get-Content -Raw (Join-Path $Root 'scripts/support_rules.gd')
+Assert-Contains $SupportRulesText @('ALLOWED_TYPES','cycle_selected','projectile_angles','defence_indices','can_activate','has_defence_target') 'Support rules'
+$SupportDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/support_director.gd')
+Assert-Contains $SupportDirectorText @('process_priority = -5','current_support_name','support_state','restore_support_state','fire_support','cycle_support','upgrade_support','support_homing','defence_indices','shots_fired') 'Support director'
+
+$PixelFontText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_font.gd'); Assert-Contains $PixelFontText @('class_name PixelFont','GLYPHS','draw_text','draw_centered','normalized.substr(char_index, 1)') 'Pixel font'
+$PixelSurfaceText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_surface.gd'); Assert-Contains $PixelSurfaceText @('class_name PixelUiSurface','extends Control','director.call("_draw_surface", self)') 'Pixel UI surface'
 $PixelUiText = Get-Content -Raw (Join-Path $Root 'scripts/pixel_ui_director.gd')
-Assert-Contains $PixelUiText @('layer = 30','PixelUiSurface.new()','Vector2(640, 360)','PixelFont.draw_centered','func _draw_boss','var cue := " WEAK" if phase >= 3','ThreatWarningRules.warning_text','EnergyRules.capacity') 'Pixel UI'
+Assert-Contains $PixelUiText @('layer = 30','PixelUiSurface.new()','Vector2(640, 360)','PixelFont.draw_centered','func _draw_boss','var cue := " WEAK" if phase >= 3','ThreatWarningRules.warning_text','EnergyRules.capacity','C SUPPORT','V SUPPORT BUY','_support_name()') 'Pixel UI'
 foreach ($WidgetToken in @('PanelContainer.new()','Label.new()','ProgressBar.new()')) { if ($PixelUiText.Contains($WidgetToken)) { throw "Primary pixel UI still contains modern widget chrome: $WidgetToken" } }
 
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
 Assert-Contains $MainText @('const EnergyRules = preload','var service_hull := 100','var generator_index := 0','EnergyRules.recharge(energy, _active_generator(), delta)','RewardRules.extra_success_bonus','MovementPatternRules.adjusted_position','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','MissionFlowRules.should_hold_overtime','BombRules.apply_nonlethal_boss_damage','_try_buy_next_generator()','_service_hull_full()') 'Main gameplay'
-$SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd'); Assert-Contains $SaveText @('SAVE_VERSION := 3','BACKUP_PATH','generator_index','service_hull','service_shield','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
+$SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
+Assert-Contains $SaveText @('SAVE_VERSION := 4','BACKUP_PATH','generator_index','service_hull','service_shield','support_selected','support_unlocked','restore_support_state','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
 $Godot = Resolve-Godot -Preferred $GodotBin
-if (-not $Godot) { Write-Warning 'Godot executable not found. Structural/data/save/encounter/pixel-UI validation passed; headless self-tests and engine smoke test skipped.'; exit 0 }
-$Tests = @('runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd','encounter_self_test.gd')
+if (-not $Godot) { Write-Warning 'Godot executable not found. Structural/data/save/encounter/support/pixel-UI validation passed; headless self-tests and engine smoke test skipped.'; exit 0 }
+$Tests = @('runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd','encounter_self_test.gd','support_self_test.gd')
 foreach ($Test in $Tests) { Write-Host "Running $Test..." -ForegroundColor DarkCyan; & $Godot --headless --path $Root --script "res://tools/$Test"; if ($LASTEXITCODE -ne 0) { throw "$Test failed with exit code $LASTEXITCODE" } }
 Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan; & $Godot --headless --path $Root --editor --quit; if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 Write-Host 'Strike Wing 94 validation passed.' -ForegroundColor Green
