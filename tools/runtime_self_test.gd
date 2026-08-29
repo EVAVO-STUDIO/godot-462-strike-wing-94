@@ -23,6 +23,7 @@ func _initialize() -> void:
 	_test_run_seeds()
 	_test_bombs()
 	_test_mission_state()
+	_test_direct_runtime_ownership()
 	_test_weapon_pickups()
 	if failures.is_empty():
 		print("Strike Wing runtime self-test passed.")
@@ -114,8 +115,26 @@ func _test_mission_state() -> void:
 	_expect(MissionStateRules.starting_hull(campaign) == 92, "campaign starting hull should be respected")
 	_expect(MissionStateRules.starting_shield(campaign) == 84, "campaign starting shield should be respected")
 	_expect(MissionStateRules.starting_wave(mission) == 4, "mission starting wave should be respected")
-	_expect(MissionStateRules.wave_for_mission_time(4, 0.0) == 4, "mission should begin on authored starting wave")
-	_expect(MissionStateRules.wave_for_mission_time(4, 40.0) == 6, "mission wave progression should advance relative to starting wave")
+	_expect(MissionStateRules.live_wave(mission, 0.0) == 4, "mission should begin on authored starting wave")
+	_expect(MissionStateRules.live_wave(mission, 40.0) == 6, "mission wave progression should advance relative to starting wave")
+
+func _test_direct_runtime_ownership() -> void:
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main.gd should be readable for direct runtime ownership checks")
+	if main_file != null:
+		var text := main_file.get_as_text()
+		_expect(text.contains("MissionStateRules.live_wave(_active_mission(), mission_time)"), "main should own authored live wave progression")
+		_expect(text.contains("MissionStateRules.starting_wave(_active_mission())"), "main should own authored starting wave")
+		_expect(text.contains("_service_value(\"service_hull\", max_hull)"), "main should initialize hull from persistent service state")
+		_expect(text.contains("BombRules.apply_nonlethal_boss_damage"), "main bomb loop should apply nonlethal boss damage directly")
+		_expect(text.contains("survivors.append(boss)"), "main bomb loop should keep bosses in the enemy array")
+		_expect(not text.contains("enemies.clear(); enemy_bullets.clear()"), "screen bomb must not blanket-clear bosses")
+	var project := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project != null, "project.godot should be readable for removed reconciliation checks")
+	if project != null:
+		var project_text := project.get_as_text()
+		_expect(not project_text.contains("MissionStateDirector"), "mission state reconciliation autoload should stay removed")
+		_expect(not project_text.contains("BombGuardDirector"), "bomb guard reconciliation autoload should stay removed")
 
 func _test_weapon_pickups() -> void:
 	_expect(WeaponPickupRules.temporary_boost_for_indices(1, 2) == 1, "sortie pickup should register as temporary boost over permanent tier")
