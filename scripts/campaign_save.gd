@@ -3,7 +3,7 @@ extends Node
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
 const SAVE_PATH := "user://strike_wing_94_save.json"
 const BACKUP_PATH := "user://strike_wing_94_save.bak.json"
-const SAVE_VERSION := 4
+const SAVE_VERSION := 5
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 
@@ -69,14 +69,8 @@ func _generator_count(scene: Object) -> int:
 		return maxi(1, catalog.size())
 	return 1
 
-func _campaign_max(scene: Object, field: String, fallback: int) -> int:
-	var data = scene.get("campaign")
-	if typeof(data) != TYPE_DICTIONARY:
-		return fallback
-	var cfg = data.get("campaign", data)
-	if typeof(cfg) != TYPE_DICTIONARY:
-		return fallback
-	return int(cfg.get(field, fallback))
+func _scene_max(scene: Object, method_name: String, fallback: int) -> int:
+	return int(scene.call(method_name)) if scene.has_method(method_name) else fallback
 
 func _support_state() -> Dictionary:
 	var director := get_node_or_null("/root/SupportDirector")
@@ -85,16 +79,25 @@ func _support_state() -> Dictionary:
 		return state if typeof(state) == TYPE_DICTIONARY else {}
 	return {"selected_index":0,"unlocked_index":0}
 
+func _airframe_state() -> Dictionary:
+	var director := get_node_or_null("/root/AirframeDirector")
+	if director != null and director.has_method("airframe_state"):
+		var state = director.call("airframe_state")
+		return state if typeof(state) == TYPE_DICTIONARY else {}
+	return {"airframe_index":0}
+
 func _snapshot(scene: Object) -> Dictionary:
-	var max_hull := maxi(1, _campaign_max(scene, "starting_hull", 100))
-	var max_shield := maxi(0, _campaign_max(scene, "starting_shield", 100))
+	var max_hull := maxi(1, _scene_max(scene, "_max_hull", 100))
+	var max_shield := maxi(0, _scene_max(scene, "_max_shield", 100))
 	var support := _support_state()
+	var airframe := _airframe_state()
 	return {
 		"version": SAVE_VERSION,
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
 		"mission_index": clampi(int(scene.get("mission_index")), 0, _mission_count(scene) - 1),
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
+		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
 		"service_hull": clampi(int(scene.get("service_hull")), 1, max_hull),
 		"service_shield": clampi(int(scene.get("service_shield")), 0, max_shield),
 		"support_selected": maxi(0, int(support.get("selected_index", 0))),
@@ -137,12 +140,15 @@ func _restore(scene: Object) -> void:
 		return
 	if str(choice.get("source", "")) == "backup":
 		push_warning("Strike Wing recovered campaign state from backup save.")
+	var airframe_director := get_node_or_null("/root/AirframeDirector")
+	if airframe_director != null and airframe_director.has_method("restore_airframe_state"):
+		airframe_director.call("restore_airframe_state", int(parsed.get("airframe_index", 0)))
 	var mission_index := clampi(int(parsed.get("mission_index", scene.get("mission_index"))), 0, _mission_count(scene) - 1)
 	var weapon_index := clampi(int(parsed.get("weapon_index", scene.get("weapon_index"))), 0, _primary_weapon_count(scene) - 1)
 	var generator_index := clampi(int(parsed.get("generator_index", scene.get("generator_index"))), 0, _generator_count(scene) - 1)
 	var credits := clampi(int(parsed.get("credits", scene.get("credits"))), 0, MAX_CREDITS)
-	var max_hull := maxi(1, _campaign_max(scene, "starting_hull", 100))
-	var max_shield := maxi(0, _campaign_max(scene, "starting_shield", 100))
+	var max_hull := maxi(1, _scene_max(scene, "_max_hull", 100))
+	var max_shield := maxi(0, _scene_max(scene, "_max_shield", 100))
 	var service_hull := clampi(int(parsed.get("service_hull", scene.get("service_hull"))), 1, max_hull)
 	var service_shield := clampi(int(parsed.get("service_shield", scene.get("service_shield"))), 0, max_shield)
 	scene.set("credits", credits)
