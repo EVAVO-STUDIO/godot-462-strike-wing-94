@@ -85,8 +85,10 @@ func _test_source_integration() -> void:
 		_expect(source.contains("AltitudeRules.allows_enemy_archetype"), "filler filtering should use canonical altitude eligibility rules")
 		_expect(source.contains("_try_manual_altitude(scene, direction)"), "craft controller should own manual adjacent-lane changes")
 		_expect(source.contains('KEY_PAGEUP') and source.contains('KEY_PAGEDOWN'), "manual altitude controls should use PageUp/PageDown")
-		_expect(source.contains("func primary_mount_offsets"), "craft controller should expose physical weapon mount points")
-		_expect(source.contains("func bomber_rotary_deployed"), "craft controller should expose bomber nose rotary deployment")
+		_expect(source.contains('"GEOMETRY LOCK - ALTITUDE TRANSITION"'), "Q transform should be explicitly locked while changing altitude")
+		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "craft primary mounting should delegate to canonical mount owner")
+		_expect(source.contains('mounts.call("primary_offsets"'), "primary mount offsets should come from authored mount catalogue")
+		_expect(source.contains('mounts.call("bomber_rotary_deployed"'), "bomber nose-gun state should come from authored mount catalogue")
 	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
 	_expect(encounter_file != null, "encounter director should be readable")
 	if encounter_file != null:
