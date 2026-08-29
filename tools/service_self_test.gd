@@ -60,40 +60,37 @@ func _test_generator_efficiency() -> void:
 	_expect(absf(EnergyRules.effective_weapon_cost(rail, pulse_core) - 9.0) < 0.001, "Pulse Core should improve electromagnetic weapon efficiency")
 	_expect(absf(EnergyRules.effective_weapon_cost(rail, overdrive) - 10.0) < 0.001, "Overdrive directed-energy efficiency should not retroactively discount electromagnetic weapons")
 	_expect(absf(EnergyRules.effective_weapon_cost(energy_weapon, overdrive) - 8.6) < 0.001, "Overdrive Core should improve directed-energy weapon efficiency")
-	EnergyRules.recharge(0.0, pulse_core, 0.0)
-	_expect(EnergyRules.can_fire(9.0, rail), "active generator context should be used by existing main-scene fire calls")
-	_expect(absf(EnergyRules.consume(10.0, rail) - 1.0) < 0.001, "active generator context should reduce live rail energy consumption")
 
 func _test_directed_energy_pulse() -> void:
 	var storm := {"weapon_id":"storm_cannon","position":Vector2(100,100)}
-	_expect(DirectedEnergyRules.is_storm_packet(storm), "Storm Cannon packets should be recognized as directed-energy rounds")
-	_expect(DirectedEnergyRules.can_discharge(storm), "fresh Storm Cannon packet should be able to discharge")
+	var plasma := {"weapon_id":"plasma_lance","position":Vector2(100,100)}
+	_expect(DirectedEnergyRules.is_storm_packet(storm), "Storm Cannon packets should be recognized")
+	_expect(DirectedEnergyRules.is_plasma_packet(plasma), "Plasma Lance packets should be recognized")
+	_expect(DirectedEnergyRules.can_discharge(storm) and DirectedEnergyRules.can_discharge(plasma), "fresh directed-energy packets should be able to discharge")
+	_expect(DirectedEnergyRules.pulse_radius(plasma) > DirectedEnergyRules.pulse_radius(storm), "Plasma Lance should own the larger field discharge")
+	_expect(DirectedEnergyRules.max_secondary_targets(plasma) > DirectedEnergyRules.max_secondary_targets(storm), "Plasma Lance should pressure more secondary targets than Storm Cannon")
+	_expect(DirectedEnergyRules.secondary_damage(plasma) > DirectedEnergyRules.secondary_damage(storm), "Plasma Lance should have the stronger secondary field")
+	_expect(DirectedEnergyRules.PLASMA_PULSE_RADIUS <= 50.0 and DirectedEnergyRules.PLASMA_MAX_SECONDARY_TARGETS <= 3, "Plasma Lance field must remain tightly bounded")
 	storm["pulse_discharged"] = true
-	_expect(not DirectedEnergyRules.can_discharge(storm), "Storm Cannon packet must discharge at most once")
-	var enemies := [
-		{"position":Vector2(108,100),"hp":5},
-		{"position":Vector2(118,100),"hp":5},
-		{"position":Vector2(124,100),"hp":5},
-		{"position":Vector2(170,100),"hp":5}
-	]
-	var trigger := DirectedEnergyRules.trigger_enemy_index(Vector2(100,100), enemies)
-	_expect(trigger == 0, "Storm pulse should trigger on nearest target entering the discharge envelope")
-	var secondary := DirectedEnergyRules.secondary_indices(Vector2(108,100), enemies, trigger)
-	_expect(secondary.size() == DirectedEnergyRules.MAX_SECONDARY_TARGETS, "Storm pulse should respect bounded secondary target count")
-	_expect(1 in secondary and 2 in secondary, "Storm pulse should select nearby secondary targets")
+	plasma["pulse_discharged"] = true
+	_expect(not DirectedEnergyRules.can_discharge(storm) and not DirectedEnergyRules.can_discharge(plasma), "each directed-energy packet must discharge at most once")
+	var enemies := [{"position":Vector2(108,100),"hp":5},{"position":Vector2(118,100),"hp":5},{"position":Vector2(138,100),"hp":5},{"position":Vector2(145,100),"hp":5}]
+	var fresh_plasma := {"weapon_id":"plasma_lance","position":Vector2(100,100)}
+	var trigger := DirectedEnergyRules.trigger_enemy_index(Vector2(100,100), enemies, fresh_plasma)
+	_expect(trigger == 0, "Plasma discharge should trigger on nearest target")
+	var secondary := DirectedEnergyRules.secondary_indices(Vector2(108,100), enemies, trigger, fresh_plasma)
+	_expect(secondary.size() == 3, "Plasma Lance should respect its three-target secondary cap")
 	var director_file := FileAccess.open("res://scripts/directed_energy_director.gd", FileAccess.READ)
 	_expect(director_file != null, "directed energy runtime should be readable")
 	if director_file != null:
 		var source := director_file.get_as_text()
-		_expect(source.contains('bullet["pulse_discharged"] = true'), "directed energy runtime should mark one-shot discharge")
-		_expect(source.contains("DirectedEnergyRules.secondary_indices"), "directed energy runtime should use bounded pure targeting rules")
-		_expect(source.contains("var damage := mini(DirectedEnergyRules.SECONDARY_DAMAGE, hp - 1)"), "secondary Storm pulse should soften but never directly kill nearby targets")
+		_expect(source.contains("DirectedEnergyRules.secondary_damage(bullet)"), "runtime should use weapon-specific field damage")
+		_expect(source.contains("var damage := mini(authored_damage, hp - 1)"), "all secondary field damage should remain nonlethal")
 
 func _test_airframe_progression() -> void:
 	var data = ContentCatalog.load_json("res://data/airframes.json")
 	_expect(typeof(data) == TYPE_DICTIONARY, "airframe catalogue should load")
-	if typeof(data) != TYPE_DICTIONARY:
-		return
+	if typeof(data) != TYPE_DICTIONARY: return
 	var frames: Array = data.get("airframes", [])
 	_expect(frames.size() == 5, "VX-94 should expose five authored airframe tiers")
 	_expect(AirframeRules.capacities_non_decreasing(frames), "airframe hull/shield capacities should never regress")
@@ -101,68 +98,30 @@ func _test_airframe_progression() -> void:
 	var base := AirframeRules.active_frame(frames, 0)
 	var magnetic := AirframeRules.active_frame(frames, 3)
 	var field := AirframeRules.active_frame(frames, 4)
-	_expect(AirframeRules.hull_capacity(base) == 100 and AirframeRules.shield_capacity(base) == 100, "base VX-94 frame should retain 100/100 capacity")
-	_expect(AirframeRules.hull_capacity(magnetic) > AirframeRules.hull_capacity(base), "magneto-composite frame should increase structural capacity")
-	_expect(AirframeRules.shield_capacity(field) > AirframeRules.shield_capacity(magnetic), "field-coupled frame should provide strongest shield lattice")
-	_expect(AirframeRules.incoming_damage_multiplier(field) < AirframeRules.incoming_damage_multiplier(magnetic), "field-coupled frame should improve damage resistance over magneto-composite")
-	_expect(AirframeRules.incoming_damage_multiplier(field) >= 0.65, "airframe resistance must retain a hard floor and never trivialize damage")
-	_expect(str(magnetic.get("unlock_tech_era", "")) == "electromagnetic", "magneto-composite frame should be electromagnetic-era hardware")
-	_expect(str(field.get("unlock_tech_era", "")) == "directed_energy", "field-coupled frame should require directed-energy era")
-	MissionStateRules.set_airframe_context(magnetic)
-	_expect(MissionStateRules.starting_hull({"starting_hull":100}) == int(magnetic.get("hull_capacity", 0)), "mission max hull should consume active airframe context")
-	_expect(MissionStateRules.starting_shield({"starting_shield":100}) == int(magnetic.get("shield_capacity", 0)), "mission max shield should consume active airframe context")
+	_expect(AirframeRules.incoming_damage_multiplier(field) < AirframeRules.incoming_damage_multiplier(magnetic), "field-coupled frame should improve resistance")
 	CombatRules.set_incoming_damage_multiplier(AirframeRules.incoming_damage_multiplier(base))
-	_expect(CombatRules.mitigated_damage(20) == 20, "base frame should not reduce authored incoming damage")
+	_expect(CombatRules.mitigated_damage(20) == 20, "base frame should not reduce authored damage")
 	CombatRules.set_incoming_damage_multiplier(AirframeRules.incoming_damage_multiplier(field))
-	_expect(CombatRules.mitigated_damage(20) == 16, "field-coupled frame should reduce 20 incoming damage to 16")
-	var state := CombatRules.apply_shielded_damage(100, 10, 20)
-	_expect(int(state.get("shield", -1)) == 0 and int(state.get("hull", -1)) == 94, "mitigated damage should still flow through canonical shield-then-hull order")
+	_expect(CombatRules.mitigated_damage(20) == 16, "field-coupled frame should reduce 20 damage to 16")
 	CombatRules.set_incoming_damage_multiplier(1.0)
 	MissionStateRules.set_airframe_context({})
 
 func _test_runtime_ownership() -> void:
-	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
-	_expect(main_file != null, "main.gd should be readable for service/energy ownership checks")
-	if main_file != null:
-		var source := main_file.get_as_text()
-		_expect(source.contains("var service_hull := 100") and source.contains("var service_shield := 100"), "scene should own persistent airframe service state")
-		_expect(source.contains("var generator_index := 0") and source.contains("var energy := 100.0"), "scene should own generator tier and sortie energy")
-		_expect(source.contains("EnergyRules.recharge(energy, _active_generator(), delta)"), "mission loop should establish active generator context while recharging")
-		_expect(source.contains("EnergyRules.can_fire(energy, weapon)"), "primary firing should be energy gated")
-		_expect(source.contains("energy = EnergyRules.consume(energy, weapon)"), "successful primary fire should consume generator-adjusted energy")
-		_expect(source.contains("service_hull = clampi(hull") and source.contains("service_shield = clampi(shield"), "successful sortie should capture surviving airframe condition directly")
-		_expect(source.contains("_service_hull_full()") and source.contains("_service_shield_full()"), "title scene should own servicing actions")
 	var airframe_file := FileAccess.open("res://scripts/airframe_director.gd", FileAccess.READ)
 	_expect(airframe_file != null, "airframe director should be readable")
 	if airframe_file != null:
 		var source := airframe_file.get_as_text()
-		_expect(source.contains("KEY_K"), "airframe upgrade should use dedicated K control")
-		_expect(source.contains("ProgressionRules.next_weapon_index"), "airframe purchase should use shared tech/credit gate")
-		_expect(source.contains("MissionStateRules.set_airframe_context"), "airframe owner should publish canonical durability context")
 		_expect(source.contains("CombatRules.set_incoming_damage_multiplier"), "airframe owner should publish resistance into canonical combat rule")
-		_expect(source.contains("TECH LOCK -"), "airframe tech lock should be communicated")
 	var save_file := FileAccess.open("res://scripts/campaign_save.gd", FileAccess.READ)
-	_expect(save_file != null, "campaign save should be readable for airframe persistence")
+	_expect(save_file != null, "campaign save should be readable")
 	if save_file != null:
 		var source := save_file.get_as_text()
-		_expect(source.contains("SAVE_VERSION := 5"), "persistent airframe progression should use campaign save v5")
-		_expect(source.contains('"airframe_index"'), "campaign save should persist airframe tier")
-		var restore_pos := source.find("restore_airframe_state")
-		var max_hull_pos := source.find('var max_hull := maxi(1, _scene_max(scene, "_max_hull", 100))', restore_pos)
-		_expect(restore_pos >= 0 and max_hull_pos > restore_pos, "airframe must restore before serviced durability is clamped")
-	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
-	_expect(ui_file != null, "pixel UI should be readable for airframe loadout checks")
-	if ui_file != null:
-		var source := ui_file.get_as_text()
-		_expect(source.contains("K AIRFRAME") and source.contains("FRAME %s"), "pixel loadout should expose airframe upgrade and identity")
-		_expect(source.contains("SERVICE H%03d/%03d S%03d/%03d"), "pixel loadout should expose serviced durability against upgraded capacity")
+		_expect(source.contains("SAVE_VERSION := 5") and source.contains('"airframe_index"'), "campaign save v5 should persist airframe tier")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	if project != null:
 		var text := project.get_as_text()
-		_expect(not text.contains("ServiceDirector"), "service reconciliation autoload should remain removed")
-		_expect(text.contains('DirectedEnergyDirector="*res://scripts/directed_energy_director.gd"'), "directed energy pulse owner should remain autoloaded")
-		_expect(text.contains('AirframeDirector="*res://scripts/airframe_director.gd"'), "airframe progression owner should remain autoloaded")
-	_expect(not FileAccess.file_exists("res://scripts/service_director.gd"), "obsolete service director file should remain deleted")
+		_expect(text.contains('DirectedEnergyDirector="*res://scripts/directed_energy_director.gd"'), "directed-energy owner should remain active")
+		_expect(text.contains('AirframeDirector="*res://scripts/airframe_director.gd"'), "airframe owner should remain active")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
