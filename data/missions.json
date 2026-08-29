@@ -1,5 +1,5 @@
 {
-  "schema_version": 8,
+  "schema_version": 9,
   "missions": [
     {
       "id": "m01_coastal_intercept",
@@ -33,6 +33,7 @@
       "encounter_beats": [
         {"id":"road_column","at_seconds":8,"label":"ARMOURED COLUMN","formation":"column","enemies":[{"id":"light_tank","count":3},{"id":"sam_truck","count":2}],"suppress_random_seconds":4},
         {"id":"refinery_crossfire","at_seconds":48,"label":"REFINERY CROSSFIRE","formation":"split","enemies":[{"id":"attack_chopper","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":5},
+        {"id":"low_attack_window","at_seconds":72,"label":"LOW ATTACK ROUTE","formation":"column","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"light_tank","count":2},{"id":"sam_truck","count":1}],"pickup":"bomb","suppress_random_seconds":6},
         {"id":"maintenance_gap","at_seconds":88,"label":"MAINTENANCE GAP","formation":"column","enemies":[{"id":"light_tank","count":2}],"pickup":"repair","suppress_random_seconds":8},
         {"id":"hidden_stockpile","at_seconds":102,"label":"MUNITIONS STOCKPILE","formation":"stagger","secret":true,"condition":{"type":"score_at_least","value":6500},"enemies":[{"id":"sam_truck","count":1},{"id":"fortified_turret","count":1}],"pickup":"bomb","suppress_random_seconds":5},
         {"id":"train_escort","at_seconds":116,"label":"TRAIN ESCORT","formation":"line","enemies":[{"id":"sam_truck","count":3},{"id":"gunship_mk1","count":2}],"suppress_random_seconds":7}
@@ -75,6 +76,7 @@
       "encounter_beats": [
         {"id":"ace_entry","at_seconds":6,"label":"ACE ENTRY","formation":"wedge","enemies":[{"id":"ace_interceptor","count":2},{"id":"scout_falcon","count":3}],"suppress_random_seconds":4},
         {"id":"flak_wall","at_seconds":44,"label":"FLAK WALL","formation":"line","enemies":[{"id":"coastal_flak","count":4},{"id":"heavy_bomber","count":1}],"suppress_random_seconds":6},
+        {"id":"high_intercept_route","at_seconds":64,"label":"HIGH INTERCEPT ROUTE","formation":"wedge","secret":true,"condition":{"type":"altitude_form","altitude":"high","form":"fighter"},"enemies":[{"id":"ace_interceptor","count":2},{"id":"heavy_bomber","count":1}],"pickup":"shield","suppress_random_seconds":6},
         {"id":"breakwater_cache","at_seconds":82,"label":"BREAKWATER CACHE","formation":"split","enemies":[{"id":"gunship_mk1","count":2}],"pickup":"weapon","suppress_random_seconds":8},
         {"id":"hidden_hunters","at_seconds":96,"label":"HUNTER CELL","formation":"wedge","secret":true,"condition":{"type":"accuracy_at_least","value":0.76,"minimum_shots":110},"enemies":[{"id":"ace_interceptor","count":2}],"pickup":"shield","suppress_random_seconds":6},
         {"id":"command_vanguard","at_seconds":108,"label":"COMMAND VANGUARD","formation":"stagger","enemies":[{"id":"ace_interceptor","count":2},{"id":"coastal_flak","count":2}],"suppress_random_seconds":7}
@@ -97,6 +99,7 @@
       "encounter_beats": [
         {"id":"aa_gate","at_seconds":8,"label":"AA GATE","formation":"line","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":5},
         {"id":"bomber_lane","at_seconds":51,"label":"BOMBER LANE","formation":"wedge","enemies":[{"id":"heavy_bomber","count":3},{"id":"sam_truck","count":2}],"suppress_random_seconds":6},
+        {"id":"low_bomber_route","at_seconds":74,"label":"LOW BOMBER ROUTE","formation":"split","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"armoured_aa_carrier","count":1},{"id":"fortified_turret","count":2}],"pickup":"bomb","suppress_random_seconds":7},
         {"id":"service_convoy","at_seconds":96,"label":"SERVICE CONVOY","formation":"column","enemies":[{"id":"light_tank","count":2}],"pickup":"repair","suppress_random_seconds":9},
         {"id":"hidden_armoury","at_seconds":112,"label":"FURNACE ARMOURY","formation":"split","secret":true,"condition":{"type":"score_at_least","value":12000},"enemies":[{"id":"armoured_aa_carrier","count":1},{"id":"ace_interceptor","count":1}],"pickup":"weapon","suppress_random_seconds":6},
         {"id":"tunnel_guard","at_seconds":126,"label":"TUNNEL GUARD","formation":"stagger","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"ace_interceptor","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":8}
@@ -141,6 +144,7 @@
       "encounter_beats": [
         {"id":"first_swarm","at_seconds":6,"label":"UNKNOWN CONTACTS","formation":"wedge","enemies":[{"id":"drone_scout","count":5}],"suppress_random_seconds":5},
         {"id":"hunter_split","at_seconds":43,"label":"HUNTER PAIR","formation":"split","enemies":[{"id":"drone_hunter","count":3},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":6},
+        {"id":"high_hunter_route","at_seconds":67,"label":"HIGH HUNTER ROUTE","formation":"wedge","secret":true,"condition":{"type":"altitude_form","altitude":"high","form":"fighter"},"enemies":[{"id":"drone_hunter","count":2},{"id":"drone_scout","count":2}],"pickup":"weapon","suppress_random_seconds":7},
         {"id":"cloud_recovery","at_seconds":84,"label":"CLOUD BREAK","formation":"line","enemies":[{"id":"drone_scout","count":2}],"pickup":"shield","suppress_random_seconds":9},
         {"id":"hidden_signal","at_seconds":105,"label":"DEAD FREQUENCY","formation":"stagger","secret":true,"condition":{"type":"accuracy_at_least","value":0.78,"minimum_shots":130},"enemies":[{"id":"drone_hunter","count":2}],"pickup":"weapon","suppress_random_seconds":7},
         {"id":"controller_screen","at_seconds":132,"label":"SWARM CONTROLLER SCREEN","formation":"wedge","enemies":[{"id":"drone_bomber","count":2},{"id":"drone_missile_node","count":3},{"id":"drone_hunter","count":2}],"suppress_random_seconds":9}
