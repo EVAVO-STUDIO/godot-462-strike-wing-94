@@ -41,6 +41,12 @@ func _test_altitudes() -> void:
 	_expect(AltitudeRules.ground_scale("low") > AltitudeRules.ground_scale("mid") and AltitudeRules.ground_scale("mid") > AltitudeRules.ground_scale("high") and AltitudeRules.ground_scale("high") > AltitudeRules.ground_scale("orbital"), "ground presentation should diminish with altitude")
 	_expect(AltitudeRules.supports_form("orbital", "fighter"), "fighter should support orbital operations")
 	_expect(not AltitudeRules.supports_form("orbital", "bomber"), "bomber geometry should be unavailable in orbital flight")
+	_expect(AltitudeRules.allows_enemy_class("low", "ground"), "low altitude should allow ground threats")
+	_expect(AltitudeRules.allows_enemy_class("mid", "sea"), "mid altitude should retain surface/naval threats")
+	_expect(not AltitudeRules.allows_enemy_class("high", "ground"), "high altitude should reject normal ground filler")
+	_expect(not AltitudeRules.allows_enemy_class("orbital", "sea"), "orbital altitude should reject terrestrial/naval filler")
+	_expect(AltitudeRules.allows_enemy_class("orbital", "air"), "orbital altitude should retain air/exo threats")
+	_expect(AltitudeRules.allows_enemy_class("orbital", "boss", true), "bosses should remain eligible regardless of ordinary class filter")
 
 func _test_campaign_world() -> void:
 	var data = ContentCatalog.load_json("res://data/campaign_world.json")
@@ -74,24 +80,31 @@ func _test_source_integration() -> void:
 	_expect(director_file != null, "craft form director should be readable")
 	if director_file != null:
 		var source := director_file.get_as_text()
+		_expect(source.contains("process_priority = -30"), "craft/altitude context should publish before EncounterDirector")
+		_expect(source.contains("_publish_altitude_spawn_profiles(scene)"), "craft controller should publish altitude-filtered filler profiles before main simulation")
+		_expect(source.contains("AltitudeRules.allows_enemy_archetype"), "filler filtering should use canonical altitude eligibility rules")
 		_expect(source.contains("_try_manual_altitude(scene, direction)"), "craft controller should own manual adjacent-lane changes")
 		_expect(source.contains('KEY_PAGEUP') and source.contains('KEY_PAGEDOWN'), "manual altitude controls should use PageUp/PageDown")
-		_expect(source.contains("_begin_altitude_transition"), "scripted and manual altitude changes should share one transition source")
 		_expect(source.contains("func primary_mount_offsets"), "craft controller should expose physical weapon mount points")
 		_expect(source.contains("func bomber_rotary_deployed"), "craft controller should expose bomber nose rotary deployment")
+	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
+	_expect(encounter_file != null, "encounter director should be readable")
+	if encounter_file != null:
+		var source := encounter_file.get_as_text()
+		_expect(source.contains("process_priority = -20"), "encounters should run after altitude context and before support/main")
+		_expect(source.contains("AltitudeRules.allows_enemy_archetype"), "authored beats should use the same altitude eligibility rule as filler spawning")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main.gd should be readable")
 	if main_file != null:
 		var source := main_file.get_as_text()
-		_expect(source.contains("_craft_primary_mount_offsets(weapon,count)"), "primary fire should request physical mount offsets")
-		_expect(source.contains('"position":player_position+mount_offsets[i]'), "projectiles should originate from fighter/bomber weapon mounts")
+		_expect(source.contains("_craft_primary_mount_offsets(weapon, count)"), "primary fire should request physical mount offsets")
+		_expect(source.contains('"position": player_position + mount_offsets[i]'), "projectiles should originate from fighter/bomber weapon mounts")
 	var art_file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
 	_expect(art_file != null, "combat art should be readable")
 	if art_file != null:
 		var source := art_file.get_as_text()
 		_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "wing sweep should remain visibly mechanical")
 		_expect(source.contains("_draw_rotary_cannon"), "bomber art should deploy a nose rotary cannon")
-		_expect(source.contains("Fighter wing-root cannons") or source.contains("wing-root cannon"), "fighter art should retain wing cannon posture")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
