@@ -7,6 +7,6 @@
     {"id":"point_defence_pod","name":"Point Defence Pod","type":"defence","unlock_tech_era":"advanced_conventional","cost":13200,"energy_cost":22.0,"cooldown":1.25,"radius":108.0,"max_targets":6},
     {"id":"emp_disruptor","name":"EMP Disruptor","type":"emp","unlock_tech_era":"electromagnetic","cost":18800,"energy_cost":34.0,"cooldown":5.5,"radius":178.0,"duration":2.8,"max_targets":10},
     {"id":"magnetic_screen","name":"Magnetic Screen","type":"magnetic","unlock_tech_era":"electromagnetic","cost":25200,"energy_cost":28.0,"cooldown":7.5,"radius":92.0,"duration":2.4,"max_targets":12},
-    {"id":"micro_warhead_rack","name":"Micro-Warhead Rack","type":"hunter","unlock_tech_era":"strategic_orbital","cost":31800,"energy_cost":42.0,"cooldown":99.0,"projectiles":1,"damage":20,"projectile_speed":210.0,"turn_rate":1.9,"life":6.5,"strategic":true}
+    {"id":"micro_warhead_rack","name":"Micro-Warhead Rack","type":"hunter","unlock_tech_era":"strategic_orbital","cost":31800,"energy_cost":42.0,"cooldown":999.0,"projectiles":1,"damage":20,"projectile_speed":210.0,"turn_rate":1.9,"life":6.5,"strategic":true}
   ]
 }
