@@ -7,6 +7,8 @@ const PLAYER := Color("d9e0e5")
 const PLAYER_DARK := Color("667985")
 const PLAYER_GLASS := Color("6aa4c8")
 const PLAYER_ENGINE := Color("e8ca6a")
+const PLAYER_GUN := Color("3d4a52")
+const PLAYER_MUZZLE := Color("e7c46a")
 const MERC_AIR := Color("9f5049")
 const MERC_DARK := Color("4d3e3a")
 const SURFACE := Color("766b55")
@@ -16,7 +18,7 @@ const AI_DARK := Color("45545a")
 const AI_CORE := Color("67c3a5")
 const BOSS := Color("c86054")
 const BOSS_DARK := Color("55322f")
-const TRANSFORM_VISUAL_SECONDS := 0.34
+const TRANSFORM_VISUAL_SECONDS := 0.42
 
 var _surface: Control
 var _visual_sweep := 0.0
@@ -53,67 +55,104 @@ func _supports(scene: Object) -> bool:
 	return names.has("phase") and names.has("player_position") and names.has("enemies")
 
 func _draw_player(surface: CanvasItem, position: Vector2) -> void:
+	var p := position + _altitude_pitch_offset()
 	if _visual_sweep <= 0.02:
-		_draw_fighter(surface, position)
+		_draw_fighter(surface, p)
 	elif _visual_sweep >= 0.98:
-		_draw_bomber(surface, position)
+		_draw_bomber(surface, p)
 	else:
-		_draw_transforming(surface, position, _visual_sweep)
+		_draw_transforming(surface, p, _visual_sweep)
 
 func _draw_transforming(surface: CanvasItem, p: Vector2, sweep: float) -> void:
-	var t := clampf(sweep, 0.0, 1.0)
-	var wing := roundf(lerpf(17.0, 29.0, t))
-	var wing_y := roundf(lerpf(9.0, 5.0, t))
-	var shoulder := roundf(lerpf(8.0, 25.0, t))
-	var shoulder_y := roundf(lerpf(8.0, 12.0, t))
-	var rear := roundf(lerpf(5.0, 7.0, t))
+	var t := smoothstep(0.0, 1.0, clampf(sweep, 0.0, 1.0))
+	var hinge_l := p + Vector2(-7, 3)
+	var hinge_r := p + Vector2(7, 3)
+	var fighter_tip_l := p + Vector2(-18, 11)
+	var fighter_tip_r := p + Vector2(18, 11)
+	var bomber_tip_l := p + Vector2(-31, 5)
+	var bomber_tip_r := p + Vector2(31, 5)
+	var tip_l := fighter_tip_l.lerp(bomber_tip_l, t)
+	var tip_r := fighter_tip_r.lerp(bomber_tip_r, t)
+	var trailing_l := p + Vector2(-lerpf(8.0, 25.0, t), lerpf(9.0, 13.0, t))
+	var trailing_r := p + Vector2(lerpf(8.0, 25.0, t), lerpf(9.0, 13.0, t))
 	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,-20), p+Vector2(-5,-8), p+Vector2(-wing,wing_y),
-		p+Vector2(-shoulder,shoulder_y), p+Vector2(-rear,17), p+Vector2(0,12),
-		p+Vector2(rear,17), p+Vector2(shoulder,shoulder_y), p+Vector2(wing,wing_y), p+Vector2(5,-8)
+		p+Vector2(0,-21), p+Vector2(-5,-8), hinge_l, tip_l, trailing_l,
+		p+Vector2(-7,17), p+Vector2(0,12), p+Vector2(7,17), trailing_r, tip_r, hinge_r, p+Vector2(5,-8)
 	]), PLAYER)
-	var glass_tip := roundf(lerpf(-15.0, -14.0, t))
 	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,glass_tip), p+Vector2(-4,-4), p+Vector2(0,5), p+Vector2(4,-4)
+		p+Vector2(0,lerpf(-15.0,-14.0,t)), p+Vector2(-4,-4), p+Vector2(0,5), p+Vector2(4,-4)
 	]), PLAYER_GLASS)
-	var engine_span := roundf(lerpf(7.0, 18.0, t))
-	surface.draw_rect(Rect2(p.x-engine_span, p.y+13, 4, 3), PLAYER_ENGINE)
-	surface.draw_rect(Rect2(p.x+engine_span-4, p.y+13, 4, 3), PLAYER_ENGINE)
-	surface.draw_rect(Rect2(p.x-2, p.y+6, 4, 9), PLAYER_DARK)
-	surface.draw_rect(Rect2(p.x-8,p.y+5,3,3), PLAYER_DARK)
-	surface.draw_rect(Rect2(p.x+5,p.y+5,3,3), PLAYER_DARK)
+	# Visible variable-geometry hinge plates.
+	for hinge in [hinge_l, hinge_r]:
+		surface.draw_rect(Rect2(roundf(hinge.x)-2, roundf(hinge.y)-2, 4, 4), PLAYER_DARK)
+	var engine_span := roundf(lerpf(6.0, 12.0, t))
+	surface.draw_rect(Rect2(p.x-engine_span-2, p.y+12, 4, 4), PLAYER_ENGINE)
+	surface.draw_rect(Rect2(p.x+engine_span-2, p.y+12, 4, 4), PLAYER_ENGINE)
+	# Fighter wing-root cannons slide inward/retract as bomber geometry deploys.
+	var wing_gun_alpha := clampf(1.0 - t * 1.35, 0.0, 1.0)
+	if wing_gun_alpha > 0.02:
+		var gun_color := Color(PLAYER_GUN, wing_gun_alpha)
+		var lx := lerpf(-13.0, -7.0, t)
+		var rx := -lx
+		surface.draw_rect(Rect2(p.x+lx-2,p.y-9,4,8),gun_color)
+		surface.draw_rect(Rect2(p.x+rx-2,p.y-9,4,8),gun_color)
+	# Bomber rotary cannon extends from the forward fuselage as the wings open.
+	var deploy := smoothstep(0.18, 0.92, t)
+	_draw_rotary_cannon(surface, p, deploy)
 
 func _draw_fighter(surface: CanvasItem, p: Vector2) -> void:
 	surface.draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0,-21), p + Vector2(-5,-7), p + Vector2(-17,9),
+		p + Vector2(0,-21), p + Vector2(-5,-7), p + Vector2(-18,11),
 		p + Vector2(-8,8), p + Vector2(-5,16), p + Vector2(0,11),
-		p + Vector2(5,16), p + Vector2(8,8), p + Vector2(17,9), p + Vector2(5,-7)
+		p + Vector2(5,16), p + Vector2(8,8), p + Vector2(18,11), p + Vector2(5,-7)
 	]), PLAYER)
 	surface.draw_colored_polygon(PackedVector2Array([
 		p + Vector2(0,-15), p + Vector2(-4,-4), p + Vector2(0,5), p + Vector2(4,-4)
 	]), PLAYER_GLASS)
 	surface.draw_rect(Rect2(p.x-2, p.y+6, 4, 8), PLAYER_DARK)
-	surface.draw_rect(Rect2(p.x-7, p.y+13, 4, 3), PLAYER_ENGINE)
-	surface.draw_rect(Rect2(p.x+3, p.y+13, 4, 3), PLAYER_ENGINE)
-	surface.draw_line(p + Vector2(-7,3), p + Vector2(-18,11), PLAYER_DARK, 2)
-	surface.draw_line(p + Vector2(7,3), p + Vector2(18,11), PLAYER_DARK, 2)
+	surface.draw_rect(Rect2(p.x-8, p.y+13, 4, 3), PLAYER_ENGINE)
+	surface.draw_rect(Rect2(p.x+4, p.y+13, 4, 3), PLAYER_ENGINE)
+	# Swept-wing hinge and two dedicated wing-root cannon packs.
+	for side in [-1.0, 1.0]:
+		var hinge := p + Vector2(7.0*side,3)
+		surface.draw_line(hinge, p + Vector2(18.0*side,11), PLAYER_DARK, 2)
+		surface.draw_rect(Rect2(p.x+11.0*side-2,p.y-10,4,8),PLAYER_GUN)
+		surface.draw_line(Vector2(p.x+11.0*side,p.y-10),Vector2(p.x+11.0*side,p.y-15),PLAYER_GUN,2)
+	# Folded rotary housing remains visible but flush with the nose.
+	surface.draw_rect(Rect2(p.x-3,p.y-20,6,3),PLAYER_DARK)
 
 func _draw_bomber(surface: CanvasItem, p: Vector2) -> void:
+	# Broad attack configuration: straight-ish deployed wings and heavier nacelle posture.
 	surface.draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0,-19), p + Vector2(-5,-8), p + Vector2(-29,5),
-		p + Vector2(-25,12), p + Vector2(-10,9), p + Vector2(-7,17),
-		p + Vector2(0,12), p + Vector2(7,17), p + Vector2(10,9),
-		p + Vector2(25,12), p + Vector2(29,5), p + Vector2(5,-8)
+		p + Vector2(0,-20), p + Vector2(-6,-8), p + Vector2(-31,4),
+		p + Vector2(-30,10), p + Vector2(-12,10), p + Vector2(-8,18),
+		p + Vector2(0,13), p + Vector2(8,18), p + Vector2(12,10),
+		p + Vector2(30,10), p + Vector2(31,4), p + Vector2(6,-8)
 	]), PLAYER)
-	surface.draw_rect(Rect2(p.x-18, p.y+6, 36, 4), PLAYER_DARK)
+	surface.draw_rect(Rect2(p.x-23, p.y+6, 46, 4), PLAYER_DARK)
 	surface.draw_colored_polygon(PackedVector2Array([
 		p + Vector2(0,-14), p + Vector2(-5,-3), p + Vector2(0,5), p + Vector2(5,-3)
 	]), PLAYER_GLASS)
-	for x in [-18, -8, 5, 15]:
-		surface.draw_rect(Rect2(p.x+x, p.y+10, 4, 3), PLAYER_ENGINE)
-	surface.draw_rect(Rect2(p.x-3, p.y+5, 6, 12), PLAYER_DARK)
-	surface.draw_rect(Rect2(p.x-9,p.y+4,3,3), PLAYER_DARK)
-	surface.draw_rect(Rect2(p.x+6,p.y+4,3,3), PLAYER_DARK)
+	# Twin engine nacelles / reinforced attack-frame shoulders.
+	for x in [-12, 8]:
+		surface.draw_rect(Rect2(p.x+x,p.y+9,5,8),PLAYER_DARK)
+		surface.draw_rect(Rect2(p.x+x,p.y+15,5,3),PLAYER_ENGINE)
+	# Under-wing hardpoints make bombs/rockets/missiles physically believable.
+	for x in [-24,-16,13,21]:
+		surface.draw_rect(Rect2(p.x+x,p.y+10,3,5),PLAYER_DARK)
+	_draw_rotary_cannon(surface, p, 1.0)
+
+func _draw_rotary_cannon(surface: CanvasItem, p: Vector2, deploy: float) -> void:
+	var t := clampf(deploy,0.0,1.0)
+	if t <= 0.01:
+		return
+	var housing_top := lerpf(-19.0,-24.0,t)
+	var barrel_tip := lerpf(-21.0,-33.0,t)
+	surface.draw_rect(Rect2(p.x-4,p.y+housing_top,8,maxf(3.0,7.0*t)),PLAYER_GUN)
+	for x in [-2.0,0.0,2.0]:
+		surface.draw_line(Vector2(p.x+x,p.y+housing_top-1),Vector2(p.x+x,p.y+barrel_tip),PLAYER_GUN,1.0)
+	if t > 0.82:
+		surface.draw_rect(Rect2(p.x-3,p.y+barrel_tip-2,6,2),PLAYER_MUZZLE)
 
 func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)
@@ -243,9 +282,20 @@ func _draw_machine_ark(surface: CanvasItem, p: Vector2) -> void:
 
 func _surface_target_scale() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
-	if director != null and director.has_method("current_altitude"):
-		return AltitudeRules.ground_scale(str(director.call("current_altitude")))
+	if director != null:
+		if director.has_method("altitude_transition_active") and bool(director.call("altitude_transition_active")):
+			return AltitudeRules.transition_ground_scale(str(director.call("altitude_transition_from")), str(director.call("altitude_transition_to")), float(director.call("altitude_transition_ratio")))
+		if director.has_method("current_altitude"):
+			return AltitudeRules.ground_scale(str(director.call("current_altitude")))
 	return AltitudeRules.ground_scale(AltitudeRules.MID)
+
+func _altitude_pitch_offset() -> Vector2:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director == null or not director.has_method("altitude_transition_active") or not bool(director.call("altitude_transition_active")):
+		return Vector2.ZERO
+	var ratio := float(director.call("altitude_transition_ratio"))
+	var direction := int(director.call("altitude_transition_direction"))
+	return Vector2(0, -roundf(sin(ratio * PI) * 4.0 * float(direction)))
 
 func _craft_form() -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
