@@ -4,6 +4,18 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
 const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
 const COASTAL_STRIKE_ZONE := preload("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png")
+const CLOUD_LOW := [
+	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
+]
+const CLOUD_MID := [
+	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_a.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_b.png"),
+]
+const CLOUD_HIGH := [
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_b.png"),
+]
 
 var _profiles: Array = []
 var _surface: Control
@@ -312,14 +324,15 @@ func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> voi
 		surface.draw_line(Vector2(water_x, y + 24), Vector2(water_x + (32.0 if from_left else -32.0), y + 24), wake, 1.0)
 
 func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var tone := _tone(profile, "near", 0.26)
 	var density := _cloud_density(state)
-	var count := maxi(4, int(round(11.0 * maxf(0.32, density))))
+	var count := maxi(4, int(round(8.0 * maxf(0.42, density))))
 	for i in range(count):
-		var x := float((i * 79 + 41) % 610) + 15.0
-		var y := fposmod(float(i) * 49.0 + t * 14.0, 300.0) + 72.0
-		var width := 24.0 + float(i % 4) * 7.0
-		surface.draw_colored_polygon(PackedVector2Array([Vector2(x-width,y+7),Vector2(x-width*0.55,y-2),Vector2(x-width*0.15,y-8),Vector2(x+width*0.4,y-4),Vector2(x+width,y+7),Vector2(x+width*0.45,y+11),Vector2(x-width*0.5,y+11)]),tone)
+		var texture: Texture2D = CLOUD_HIGH[i % CLOUD_HIGH.size()]
+		var x := float((i * 137 + 43) % 720) - 40.0
+		var y := fposmod(float(i) * 71.0 + t * 14.0, 380.0) + 48.0
+		var scale := 0.72 + float(i % 3) * 0.13
+		var size := Vector2(texture.get_size()) * scale
+		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, profile: Dictionary, glow: float) -> void:
 	var atmosphere := _tone(profile, "mid", 0.12 + 0.18 * glow)
@@ -351,18 +364,17 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 	var density := _cloud_density(state)
 	if density <= 0.08:
 		return
-	var count := int(round(8.0 * density))
-	var cloud := Color("d7dfe0")
-	cloud.a = 0.07 + density * 0.07
+	var band := str(state.get("current", "mid"))
+	var family: Array = CLOUD_LOW if band == "low" else (CLOUD_HIGH if band in ["high", "orbital"] else CLOUD_MID)
+	var count := maxi(2, int(round(6.0 * density)))
+	var alpha := 0.12 + density * 0.18
+	if band == "low": alpha *= 0.72
+	if band == "high": alpha *= 1.18
 	for i in range(count):
-		var x := float((i * 113 + 57) % 590) + 20.0
-		var y := fposmod(float(i) * 67.0 + t * (8.0 + density * 18.0), 290.0) + 70.0
-		var width := 24.0 + float(i % 3) * 9.0
-		var bank := PackedVector2Array([
-			Vector2(x - width, y + 5), Vector2(x - width * 0.72, y - 3),
-			Vector2(x - width * 0.28, y - 8), Vector2(x + width * 0.18, y - 5),
-			Vector2(x + width * 0.63, y - 1), Vector2(x + width, y + 6),
-			Vector2(x + width * 0.45, y + 9), Vector2(x - width * 0.5, y + 10)
-		])
-		surface.draw_colored_polygon(bank, cloud)
-		surface.draw_line(Vector2(x - width * 0.75, y + 11), Vector2(x + width * 0.55, y + 11), Color(cloud, cloud.a * 0.55), 1.0)
+		var texture: Texture2D = family[i % family.size()]
+		var x := float((i * 149 + 61) % 760) - 60.0
+		var speed := 10.0 + density * 20.0 + float(i % 3) * 2.0
+		var y := fposmod(float(i) * 97.0 + t * speed, 410.0) + 30.0
+		var scale := 0.72 + float((i * 5) % 4) * 0.12
+		var size := Vector2(texture.get_size()) * scale
+		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
