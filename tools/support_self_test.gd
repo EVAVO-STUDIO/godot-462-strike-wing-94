@@ -169,6 +169,7 @@ func _test_wiring() -> void:
 		var source := director_file.get_as_text()
 		_expect(source.contains("_reset_sortie_state()"), "support owner should expose explicit sortie reset")
 		_expect(source.contains('craft.call("refuel_afterburner_full")'), "Atlas rearm should refill afterburner reserve")
+		_expect(source.contains("func readiness_ratio()") and source.contains("func cooldown_remaining()"), "tactical support should expose HUD-safe readiness state")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

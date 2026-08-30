@@ -142,6 +142,9 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("HYPERSONIC_WORDMARK"), "sortie console should use the approved title art master")
 		_expect(source.contains("_sortie_order_header(mission_index)"), "sortie console should identify the real campaign mission")
 		_expect(source.contains("_draw_campaign_progress(surface, mission_index"), "sortie console should communicate thirty-mission campaign progress")
+		_expect(source.contains("_draw_support_links(surface)"), "combat HUD should expose tactical and battlefield support readiness")
+		for support_link_asset in ["trough.png", "tactical_fill.png", "battlefield_fill.png", "ready.png", "charging.png", "unavailable.png"]:
+			_expect(ResourceLoader.exists("res://assets/runtime/ui/hud/support_link/%s" % support_link_asset), "support readiness sprite should exist: %s" % support_link_asset)
 		_expect(source.contains("MERCENARY WAR") and source.contains("MACHINE WAR") and source.contains("BLACK SKY"), "sortie console should preserve the three canonical campaign sectors")
 		for path in ["rail.png", "node_complete.png", "node_current.png", "node_locked.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/campaign_progress/%s" % path), "campaign progress sprite should exist: %s" % path)

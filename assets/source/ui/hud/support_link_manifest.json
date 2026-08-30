@@ -1,0 +1,16 @@
+{
+  "asset_family": "support_readiness_links",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/support_link_sheet.svg",
+  "visual_contract": {
+    "purpose": "show tactical and battlefield support cooldown readiness without adding floating programmer text",
+    "era": "late-1990s dual-channel avionics link monitor",
+    "states": ["ready", "charging", "unavailable"],
+    "avoid": ["modern progress pills", "radial mobile cooldowns", "smooth gradients", "large combat obstruction"]
+  },
+  "runtime": {
+    "trough": [92, 5],
+    "fills": {"tactical": [90, 3], "battlefield": [90, 3]},
+    "lamps": {"ready": [8, 8], "charging": [8, 8], "unavailable": [8, 8]}
+  }
+}

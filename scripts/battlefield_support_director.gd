@@ -93,6 +93,20 @@ func current_support_id() -> String:
 func current_support_name() -> String:
 	return str(BattlefieldSupportRules.support_for_id(_catalog, current_support_id()).get("name", "NO BATTLEFIELD SUPPORT"))
 
+func cooldown_remaining() -> float:
+	return maxf(0.0, float(_cooldowns.get(current_support_id(), 0.0)))
+
+func readiness_ratio() -> float:
+	var support := BattlefieldSupportRules.support_for_id(_catalog, current_support_id())
+	if support.is_empty() or _active_id != "":
+		return 0.0
+	var duration := maxf(1.0, float(support.get("cooldown_seconds", 60.0)))
+	return clampf(1.0 - cooldown_remaining() / duration, 0.0, 1.0)
+
+func support_available() -> bool:
+	var support := BattlefieldSupportRules.support_for_id(_catalog, current_support_id())
+	return not support.is_empty() and _active_id == "" and BattlefieldSupportRules.altitude_allowed(support, _current_altitude())
+
 func _cycle(scene: Object) -> void:
 	if _allowed_ids.is_empty():
 		_set_status(scene, "NO BATTLEFIELD SUPPORT ASSIGNED")

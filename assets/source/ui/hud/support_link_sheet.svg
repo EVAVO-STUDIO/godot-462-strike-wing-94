@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="132" height="20" shape-rendering="crispEdges">
+  <g id="trough">
+    <rect x="0" y="0" width="92" height="5" fill="#06090c"/>
+    <path d="M0 4V0h92v5H0zm1-1h90V1H1z" fill="#40515b"/>
+    <path d="M2 2h88" stroke="#17242c"/>
+    <path d="M18 1v3M36 1v3M54 1v3M72 1v3" stroke="#263741"/>
+  </g>
+  <g id="tactical_fill">
+    <rect x="1" y="8" width="90" height="3" fill="#17372f"/>
+    <path d="M2 9h88" stroke="#67c3a5"/>
+    <path d="M18 8v3M36 8v3M54 8v3M72 8v3" stroke="#b1e0d0" opacity=".65"/>
+  </g>
+  <g id="battlefield_fill">
+    <rect x="1" y="14" width="90" height="3" fill="#193142"/>
+    <path d="M2 15h88" stroke="#6aa4c8"/>
+    <path d="M18 14v3M36 14v3M54 14v3M72 14v3" stroke="#b4d5e5" opacity=".65"/>
+  </g>
+  <g id="ready" transform="translate(100 0)">
+    <path d="M2 0h4l2 2v4L6 8H2L0 6V2z" fill="#19372f"/>
+    <rect x="2" y="2" width="4" height="4" fill="#67c3a5"/>
+    <path d="M3 2h2" stroke="#c2eadc"/>
+  </g>
+  <g id="charging" transform="translate(110 0)">
+    <path d="M2 0h4l2 2v4L6 8H2L0 6V2z" fill="#493d1d"/>
+    <path d="M4 1v3H2l3 3V4h2z" fill="#e8ca6a"/>
+  </g>
+  <g id="unavailable" transform="translate(120 0)">
+    <path d="M2 0h4l2 2v4L6 8H2L0 6V2z" fill="#3c2020"/>
+    <path d="M2 2l4 4M6 2L2 6" stroke="#dc6655"/>
+  </g>
+</svg>

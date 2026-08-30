@@ -46,6 +46,12 @@ const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
 const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
 const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
+const SUPPORT_LINK_TROUGH := preload("res://assets/runtime/ui/hud/support_link/trough.png")
+const SUPPORT_LINK_TACTICAL_FILL := preload("res://assets/runtime/ui/hud/support_link/tactical_fill.png")
+const SUPPORT_LINK_BATTLEFIELD_FILL := preload("res://assets/runtime/ui/hud/support_link/battlefield_fill.png")
+const SUPPORT_LINK_READY := preload("res://assets/runtime/ui/hud/support_link/ready.png")
+const SUPPORT_LINK_CHARGING := preload("res://assets/runtime/ui/hud/support_link/charging.png")
+const SUPPORT_LINK_UNAVAILABLE := preload("res://assets/runtime/ui/hud/support_link/unavailable.png")
 const MISSION_INGRESS_FRAME := preload("res://assets/runtime/ui/hud/mission_ingress/frame.png")
 const OBJECTIVE_REQUIRED := preload("res://assets/runtime/ui/hud/mission_ingress/objective_required.png")
 const OBJECTIVE_BONUS := preload("res://assets/runtime/ui/hud/mission_ingress/objective_bonus.png")
@@ -299,8 +305,9 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, _clip(mission_name, 16), Vector2(16, 39), 1, MUTED, 1)
 	_draw_flight_state(surface)
 	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 18), 326, 39, 1, TEXT, 1)
-	PixelFont.draw_text(surface, _clip(_support_name(), 14), Vector2(422, 39), 1, GREEN, 1)
-	PixelFont.draw_text(surface, "F:%s" % _clip(_battlefield_support_name(), 12), Vector2(518, 39), 1, BLUE, 1)
+	PixelFont.draw_text(surface, _clip(_support_name(), 14), Vector2(422, 38), 1, GREEN, 1)
+	PixelFont.draw_text(surface, _clip(_battlefield_support_name(), 16), Vector2(518, 38), 1, BLUE, 1)
+	_draw_support_links(surface)
 	_draw_boss(surface, scene)
 	_draw_threat(surface, scene)
 	_draw_mission_ingress(surface, scene)
@@ -411,6 +418,22 @@ func _support_name() -> String:
 func _battlefield_support_name() -> String:
 	var director := get_node_or_null("/root/BattlefieldSupportDirector")
 	return str(director.call("current_support_name")).to_upper() if director != null and director.has_method("current_support_name") else "NONE"
+
+func _draw_support_links(surface: CanvasItem) -> void:
+	var tactical := get_node_or_null("/root/SupportDirector")
+	var tactical_ratio := float(tactical.call("readiness_ratio")) if tactical != null and tactical.has_method("readiness_ratio") else 0.0
+	_draw_support_link(surface, Vector2(410, 48), tactical_ratio, true, tactical != null)
+	var battlefield := get_node_or_null("/root/BattlefieldSupportDirector")
+	var battlefield_ratio := float(battlefield.call("readiness_ratio")) if battlefield != null and battlefield.has_method("readiness_ratio") else 0.0
+	var battlefield_available := bool(battlefield.call("support_available")) if battlefield != null and battlefield.has_method("support_available") else false
+	_draw_support_link(surface, Vector2(508, 48), battlefield_ratio, false, battlefield_available)
+
+func _draw_support_link(surface: CanvasItem, position: Vector2, ratio: float, tactical: bool, available: bool) -> void:
+	var safe_ratio := clampf(ratio, 0.0, 1.0)
+	var lamp: Texture2D = SUPPORT_LINK_UNAVAILABLE if not available else (SUPPORT_LINK_READY if safe_ratio >= 0.999 else SUPPORT_LINK_CHARGING)
+	surface.draw_texture(lamp, position + Vector2(-10, -8))
+	surface.draw_texture(SUPPORT_LINK_TROUGH, position)
+	_draw_clipped_fill(surface, SUPPORT_LINK_TACTICAL_FILL if tactical else SUPPORT_LINK_BATTLEFIELD_FILL, position + Vector2(1, 1), safe_ratio)
 
 func _airframe_name() -> String:
 	var director := get_node_or_null("/root/AirframeDirector")

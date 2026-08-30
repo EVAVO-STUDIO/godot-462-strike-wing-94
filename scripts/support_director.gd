@@ -72,6 +72,16 @@ func current_support() -> Dictionary:
 func current_support_name() -> String:
 	return str(current_support().get("name", "NO SUPPORT"))
 
+func cooldown_remaining() -> float:
+	return maxf(0.0, _cooldown)
+
+func readiness_ratio() -> float:
+	var support := current_support()
+	if support.is_empty():
+		return 0.0
+	var duration := SupportRules.cooldown(support)
+	return clampf(1.0 - cooldown_remaining() / duration, 0.0, 1.0)
+
 func support_state() -> Dictionary:
 	return {
 		"selected_index": SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size()),

@@ -76,6 +76,7 @@ func _test_source_contract() -> void:
 		_expect(source.contains('BattlefieldSupportRules.tanker_connected'), "tanker runtime should use shared hookup rules")
 		_expect(source.contains('TANKER REARM COMPLETE'), "successful tanker hookup should communicate completion")
 		_expect(source.contains('support_director.call("rearm_support")'), "tanker should reset tactical support cooldown")
+		_expect(source.contains("func readiness_ratio()") and source.contains("func cooldown_remaining()") and source.contains("func support_available()"), "battlefield support should expose cooldown and altitude-aware HUD readiness")
 		_expect(source.contains('applied = mini(applied, maxi(0, hp - 1))'), "battlefield support strikes must remain nonlethal to bosses")
 		_expect(source.contains('scene.call("_register_destroy", enemy)'), "support kills should register mission objectives")
 		for visual in ["_draw_fighter_sweep", "_draw_bomber_run", "_draw_gunship_fire", "_draw_missile_strike", "_draw_rail_strike", "_draw_orbital_strike"]:
