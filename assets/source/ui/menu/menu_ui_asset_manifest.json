@@ -1,0 +1,12 @@
+{
+  "family": "sortie_menu_environment",
+  "runtime_master": "res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png",
+  "canvas": [640, 360],
+  "palette_limit": 20,
+  "role": "subdued maintenance-bay environment beneath the mission console UI",
+  "art_direction": ["1997 military operations console", "recessed steel service bay", "low practical lighting", "large quiet shapes", "restrained amber and cool-blue indicators"],
+  "layering": "Backdrop is independent of wordmark, console panels, text, VX-94 preview and launch highlight.",
+  "concept_reference": "res://assets/source/ui/menu/candidates/maintenance_bay_concept_01_raw.png",
+  "runtime_process": "Manually reconstructed hard-edge SVG; rasterized at native size and palette-reduced without dithering.",
+  "reject": ["modern glass UI", "neon cyberpunk", "generic spaceship bridge", "painterly generated runtime background", "ornamental clutter"]
+}

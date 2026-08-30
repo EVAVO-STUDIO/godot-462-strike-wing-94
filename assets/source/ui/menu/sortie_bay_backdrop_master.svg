@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" shape-rendering="crispEdges">
+  <rect width="640" height="360" fill="#080d12"/>
+  <rect x="16" y="16" width="608" height="328" fill="#0d151c" stroke="#27343d" stroke-width="4"/>
+  <path fill="#111b22" d="M24 24h592v43H24zM24 294h592v42H24z"/>
+  <path fill="#1a252c" d="M24 66h592v5H24zM24 288h592v6H24z"/>
+  <path fill="#090e13" d="M118 72h404v214H118z"/>
+  <path fill="#172129" d="M126 78h388v198H126z"/>
+  <path fill="#202b31" d="M134 86h372v5H134zM134 108h372v3H134zM134 130h372v3H134zM134 152h372v3H134zM134 174h372v3H134zM134 196h372v3H134zM134 218h372v3H134zM134 240h372v3H134zM134 262h372v5H134z"/>
+  <path fill="#0c1319" d="M317 86h6v181h-6zM224 86h4v181h-4zM412 86h4v181h-4z"/>
+  <path fill="#303b40" d="M94 42h452v12H94zM106 54h12v220h-12zM522 54h12v220h-12z"/>
+  <path fill="#141d22" d="M101 48h438v4H101zM110 61h4v205h-4zM526 61h4v205h-4z"/>
+  <path fill="#344047" d="M68 36h20v255H68zM552 36h20v255h-20z"/>
+  <path fill="#0a1015" d="M74 43h8v240h-8zM558 43h8v240h-8z"/>
+  <path fill="#253039" d="M24 89h44v5H24zM24 128h44v5H24zM24 167h44v5H24zM24 206h44v5H24zM24 245h44v5H24zM572 89h44v5h-44zM572 128h44v5h-44zM572 167h44v5h-44zM572 206h44v5h-44zM572 245h44v5h-44z"/>
+  <path fill="#1d282e" d="M78 282h484v10H78zM105 274h430v8H105z"/>
+  <path fill="#394348" d="M213 275l30-28h24l10 12h86l10-12h24l30 28h-17l-26-20-8 17H264l-8-17-26 20z"/>
+  <path fill="#12191d" d="M246 270h148v10H246z"/>
+  <path fill="#8b6730" d="M201 286h238v3H201zM180 299h280v3H180z"/>
+  <path fill="#6e5129" d="M204 286l12 3h-24zM244 286l12 3h-24zM284 286l12 3h-24zM324 286l12 3h-24zM364 286l12 3h-24zM404 286l12 3h-24z"/>
+  <path fill="#7895a0" d="M153 70h18v4h-18zM469 70h18v4h-18zM312 57h16v4h-16z"/>
+  <path fill="#c18a3e" d="M82 57h5v5h-5zM553 57h5v5h-5zM101 274h6v4h-6zM533 274h6v4h-6z"/>
+  <path fill="#863d34" d="M91 57h4v5h-4zM545 57h4v5h-4z"/>
+  <path fill="#26333b" d="M38 304h74v19H38zM528 304h74v19h-74z"/>
+  <path fill="#12191e" d="M44 309h62v3H44zM44 316h46v3H44zM534 309h62v3h-62zM550 316h46v3h-46z"/>
+</svg>

@@ -9,6 +9,7 @@ const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
+const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
 
 const BG := Color("0b1016")
 const PANEL := Color("070a0e")
@@ -59,7 +60,9 @@ func _supports(scene: Object) -> bool:
 
 func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
-	_draw_frame(surface, Rect2(10, 10, 620, 340))
+	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.78,0.86,0.88,0.88))
+	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.025,0.035,0.42))
+	_draw_frame(surface, Rect2(10, 10, 620, 340), false)
 	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(195, 18, 250, 32), false)
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 53, 1, BLUE, 1)
 	_draw_console_panel(surface, Rect2(26, 72, 370, 119), "MISSION 01 / SORTIE ORDER", GOLD)
@@ -249,13 +252,14 @@ func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current:
 	surface.draw_rect(Rect2(position.x, position.y + 14, 78, 4), BORDER)
 	surface.draw_rect(Rect2(position.x, position.y + 14, floorf(78.0 * ratio), 4), color)
 
-func _draw_frame(surface: CanvasItem, rect: Rect2) -> void:
-	surface.draw_rect(rect, PANEL)
+func _draw_frame(surface: CanvasItem, rect: Rect2, fill_background: bool = true) -> void:
+	if fill_background:
+		surface.draw_rect(rect, PANEL)
 	surface.draw_rect(rect, BORDER, false, 1.0)
 	surface.draw_rect(rect.grow(-3), Color("1b242b"), false, 1.0)
 
 func _draw_console_panel(surface: CanvasItem, rect: Rect2, label: String, accent: Color) -> void:
-	surface.draw_rect(rect, Color("0a0f14"))
+	surface.draw_rect(rect, Color(0.025,0.04,0.055,0.94))
 	surface.draw_rect(rect, BORDER, false, 1.0)
 	surface.draw_line(rect.position + Vector2(0, 16), Vector2(rect.end.x, rect.position.y + 16), BORDER, 1.0)
 	surface.draw_rect(Rect2(rect.position + Vector2(4, 5), Vector2(4, 4)), accent)
