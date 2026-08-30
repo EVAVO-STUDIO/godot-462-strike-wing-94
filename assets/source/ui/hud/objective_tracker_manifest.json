@@ -1,0 +1,17 @@
+{
+  "asset_family": "hypersonic_objective_tracker_hud",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/objective_tracker_sheet.svg",
+  "visual_contract": {
+    "purpose": "persistent compact objective progress during live sorties",
+    "priority": "yields to ingress, active missile warning and boss identification",
+    "era": "late-1990s military mission-computer instrumentation",
+    "avoid": ["modern rounded progress bar", "floating glass card", "oversized objective list", "default engine widget"]
+  },
+  "runtime": {
+    "frame": "res://assets/runtime/ui/hud/objective_tracker/frame.png",
+    "trough": "res://assets/runtime/ui/hud/objective_tracker/trough.png",
+    "fills": ["required_fill.png", "bonus_fill.png"],
+    "objective_lamps": "shared with mission ingress family"
+  }
+}

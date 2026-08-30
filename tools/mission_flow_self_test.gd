@@ -205,6 +205,12 @@ func _test_pixel_ui() -> void:
 			var ingress_texture := load("res://assets/runtime/ui/hud/mission_ingress/%s.png" % asset_name)
 			_expect(ingress_texture is Texture2D and ingress_texture.get_size() == ingress_sizes[asset_name], "mission-ingress sprite should retain registered geometry: %s" % asset_name)
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/mission_ingress_manifest.json"), "mission-ingress source/runtime manifest should exist")
+		_expect(source.contains("OBJECTIVE_TRACKER_FRAME") and source.contains("func _draw_objective_tracker") and source.contains("func _tracked_objective") and source.contains("ObjectiveRules.is_complete"), "live sorties should retain a sprite-backed tracker that advances across incomplete required and bonus objectives")
+		var tracker_sizes := {"frame":Vector2(360,28), "trough":Vector2(332,5), "required_fill":Vector2(330,3), "bonus_fill":Vector2(330,3)}
+		for asset_name in tracker_sizes:
+			var tracker_texture := load("res://assets/runtime/ui/hud/objective_tracker/%s.png" % asset_name)
+			_expect(tracker_texture is Texture2D and tracker_texture.get_size() == tracker_sizes[asset_name], "objective-tracker sprite should retain registered geometry: %s" % asset_name)
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/objective_tracker_manifest.json"), "objective-tracker source/runtime manifest should exist")
 		_expect(source.contains("SECRET_DISCOVERY_FRAME") and source.contains("SECRET_DISCOVERY_FX") and source.contains("func _draw_secret_discovery") and source.contains('status.begins_with("SECRET - ")'), "mastery secrets should use a distinct sprite-animated encrypted-vector panel")
 		var secret_sizes := {"frame":Vector2(400,52), "fx_0":Vector2(400,52), "fx_1":Vector2(400,52), "fx_2":Vector2(400,52), "fx_3":Vector2(400,52)}
 		for asset_name in secret_sizes:

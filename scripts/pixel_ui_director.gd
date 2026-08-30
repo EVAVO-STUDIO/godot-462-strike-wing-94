@@ -59,6 +59,10 @@ const SUPPORT_LINK_UNAVAILABLE := preload("res://assets/runtime/ui/hud/support_l
 const MISSION_INGRESS_FRAME := preload("res://assets/runtime/ui/hud/mission_ingress/frame.png")
 const OBJECTIVE_REQUIRED := preload("res://assets/runtime/ui/hud/mission_ingress/objective_required.png")
 const OBJECTIVE_BONUS := preload("res://assets/runtime/ui/hud/mission_ingress/objective_bonus.png")
+const OBJECTIVE_TRACKER_FRAME := preload("res://assets/runtime/ui/hud/objective_tracker/frame.png")
+const OBJECTIVE_TRACKER_TROUGH := preload("res://assets/runtime/ui/hud/objective_tracker/trough.png")
+const OBJECTIVE_TRACKER_REQUIRED_FILL := preload("res://assets/runtime/ui/hud/objective_tracker/required_fill.png")
+const OBJECTIVE_TRACKER_BONUS_FILL := preload("res://assets/runtime/ui/hud/objective_tracker/bonus_fill.png")
 const SECRET_DISCOVERY_FRAME := preload("res://assets/runtime/ui/hud/secret_discovery/frame.png")
 const SECRET_DISCOVERY_FX := [
 	preload("res://assets/runtime/ui/hud/secret_discovery/fx_0.png"),
@@ -382,6 +386,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	_draw_boss(surface, scene)
 	_draw_threat(surface, scene)
 	_draw_mission_ingress(surface, scene)
+	_draw_objective_tracker(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
 		var status := str(scene.get("status_text"))
 		if status.begins_with("SECRET - "):
@@ -431,6 +436,44 @@ func _primary_objective(scene: Object) -> Dictionary:
 		if typeof(objective) == TYPE_DICTIONARY:
 			return objective
 	return {"id":"mission", "label":"COMPLETE AUTHORIZED OBJECTIVES", "required":true}
+
+func _tracked_objective(scene: Object) -> Dictionary:
+	if not _has_property(scene, "current_objectives"):
+		return {}
+	var objectives = scene.get("current_objectives")
+	var progress: Dictionary = scene.get("objective_progress") if _has_property(scene, "objective_progress") and typeof(scene.get("objective_progress")) == TYPE_DICTIONARY else {}
+	if typeof(objectives) != TYPE_ARRAY:
+		return {}
+	for required_state in [true, false]:
+		for objective in objectives:
+			if typeof(objective) == TYPE_DICTIONARY and bool(objective.get("required", true)) == required_state and not ObjectiveRules.is_complete(objective, progress):
+				return objective
+	return {}
+
+func _objective_ratio(scene: Object, objective: Dictionary) -> float:
+	var progress: Dictionary = scene.get("objective_progress") if _has_property(scene, "objective_progress") and typeof(scene.get("objective_progress")) == TYPE_DICTIONARY else {}
+	var value := float(progress.get(str(objective.get("id", "")), 0.0))
+	var target := float(objective.get("seconds", objective.get("count", 1)))
+	return clampf(value / maxf(1.0, target), 0.0, 1.0)
+
+func _has_threat_warning(scene: Object) -> bool:
+	var bullets: Array = scene.get("enemy_bullets")
+	var player_position: Vector2 = scene.get("player_position")
+	return ThreatWarningRules.warning_text(ThreatWarningRules.nearest_homing_distance(bullets, player_position), ThreatWarningRules.homing_count(bullets)) != ""
+
+func _draw_objective_tracker(surface: CanvasItem, scene: Object) -> void:
+	if _ingress_time > 0.0 or not _active_boss(scene).is_empty() or _has_threat_warning(scene):
+		return
+	var objective := _tracked_objective(scene)
+	if objective.is_empty():
+		return
+	var required := bool(objective.get("required", true))
+	var position := Vector2(140, 64)
+	surface.draw_texture(OBJECTIVE_TRACKER_FRAME, position)
+	surface.draw_texture(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, position + Vector2(10, 7))
+	PixelFont.draw_text(surface, _objective_line(scene, objective), position + Vector2(28, 8), 1, GREEN if required else GOLD, 1)
+	surface.draw_texture(OBJECTIVE_TRACKER_TROUGH, position + Vector2(14, 20))
+	_draw_clipped_fill(surface, OBJECTIVE_TRACKER_REQUIRED_FILL if required else OBJECTIVE_TRACKER_BONUS_FILL, position + Vector2(15, 21), _objective_ratio(scene, objective))
 
 func _objective_line(scene: Object, objective: Dictionary) -> String:
 	var label := str(objective.get("label", objective.get("id", "OBJECTIVE"))).to_upper().replace("_", " ")

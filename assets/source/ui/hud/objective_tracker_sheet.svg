@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="64" viewBox="0 0 512 64" shape-rendering="crispEdges">
+ <rect width="512" height="64" fill="none"/>
+ <!-- 360x28 persistent mission objective instrument -->
+ <path d="M7 0h346l7 7v14l-7 7H7l-7-7V7z" fill="#05090d" fill-opacity=".94"/>
+ <path d="M7 1h346l6 6v14l-6 6H7l-6-6V7z" fill="none" stroke="#263c47" stroke-width="2"/>
+ <path d="M12 4h336l7 7v6l-7 7H12l-7-7v-6z" fill="none" stroke="#58707b"/>
+ <path d="M18 4h74M268 4h74" stroke="#8ba0a7"/>
+ <path d="M98 4h164" stroke="#8a6d36" stroke-width="3"/>
+ <path d="M102 4h156" stroke="#d6b45f"/>
+ <path d="M0 8h5M355 8h5M0 20h5M355 20h5" stroke="#d3dde0"/>
+ <rect x="10" y="8" width="3" height="3" fill="#d5b55c"/>
+ <rect x="347" y="18" width="3" height="3" fill="#7099a4"/>
+ <!-- 332x5 recessed progress trough -->
+ <g transform="translate(0 32)">
+  <rect width="332" height="5" fill="#020407"/>
+  <path d="M0 0h332M0 0v5" stroke="#17242b"/>
+  <path d="M0 4h332M331 0v5" stroke="#52646c"/>
+ </g>
+ <!-- 330x3 required and bonus fills -->
+ <g transform="translate(0 40)">
+  <rect width="330" height="3" fill="#416f69"/>
+  <rect width="330" height="1" fill="#83c4b3"/>
+  <path d="M8 1v2M24 1v2M40 1v2M56 1v2M72 1v2M88 1v2M104 1v2M120 1v2M136 1v2M152 1v2M168 1v2M184 1v2M200 1v2M216 1v2M232 1v2M248 1v2M264 1v2M280 1v2M296 1v2M312 1v2" stroke="#5b978a"/>
+ </g>
+ <g transform="translate(0 48)">
+  <rect width="330" height="3" fill="#83692f"/>
+  <rect width="330" height="1" fill="#e2c46d"/>
+  <path d="M8 1v2M24 1v2M40 1v2M56 1v2M72 1v2M88 1v2M104 1v2M120 1v2M136 1v2M152 1v2M168 1v2M184 1v2M200 1v2M216 1v2M232 1v2M248 1v2M264 1v2M280 1v2M296 1v2M312 1v2" stroke="#a78943"/>
+ </g>
+</svg>
