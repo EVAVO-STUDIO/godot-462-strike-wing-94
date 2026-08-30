@@ -9,6 +9,14 @@ const MERCENARY_AIR_SPRITES := {
 	"ace_interceptor": preload("res://assets/runtime/enemies/mercenary_air/ace_interceptor_idle.png"),
 	"heavy_bomber": preload("res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png"),
 }
+const UNIT_ANIMATION_FRAMES := {
+	"attack_chopper": [
+		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_3.png"),
+	],
+}
 const MERCENARY_GROUND_SPRITES := {
 	"light_tank": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
 	"sam_truck": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
@@ -361,7 +369,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "sea":
 		_draw_sea(surface, p, scale)
 	elif MERCENARY_AIR_SPRITES.has(enemy_id):
-		_draw_production_sprite(surface, p, MERCENARY_AIR_SPRITES[enemy_id])
+		_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_AIR_SPRITES[enemy_id])
 	else:
 		_draw_air(surface, p)
 
@@ -369,6 +377,14 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 	var size := texture.get_size() * scale
 	var destination := Rect2((p - size * 0.5).round(), size.round())
 	surface.draw_texture_rect(texture, destination, false)
+
+func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, fallback: Texture2D) -> void:
+	if not UNIT_ANIMATION_FRAMES.has(enemy_id):
+		_draw_production_sprite(surface, p, fallback)
+		return
+	var frames: Array = UNIT_ANIMATION_FRAMES[enemy_id]
+	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 12.0)) % frames.size()
+	_draw_production_sprite(surface, p, frames[frame_index])
 
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
 	_draw_production_sprite(surface, p, texture)

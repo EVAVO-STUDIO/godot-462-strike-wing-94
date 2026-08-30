@@ -1,0 +1,19 @@
+{
+  "asset_family": "attack_chopper_rotor_animation",
+  "status": "runtime_animation_reviewed",
+  "canvas": [42, 38],
+  "registration": "all frames preserve the approved idle fuselage canvas and centre pivot",
+  "animation": {
+    "fps": 12,
+    "loop": true,
+    "frame_count": 4,
+    "method": "held perceptual rotor poses over an unchanged authored fuselage",
+    "readability": "restrained hub and blade-tip glints; no translucent blur"
+  },
+  "sha256": {
+    "rotor_0.png": "D5E1357A4D921F5C3ACE78E6B61B3252EC0E5899D5A031D04DD692C019DFEB93",
+    "rotor_1.png": "268E503F4ED76EF2D803DA5F1435EAF292F3ECDB4844EBC36AF47C2B078261B2",
+    "rotor_2.png": "0783F4D4C4BD827CDC87032F3E056422E57C33FCB82CDE0709E63706F960DD4B",
+    "rotor_3.png": "7CC2A3ACB8FC783FD665469D6F6879B075A465C838462E8176BC99038283AA26"
+  }
+}

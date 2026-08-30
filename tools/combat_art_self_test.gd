@@ -75,6 +75,10 @@ func _test_visual_language() -> void:
 	for enemy_id in expected_sizes:
 		var texture := load("res://assets/runtime/enemies/mercenary_air/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == expected_sizes[enemy_id], "production sprite should retain reviewed geometry: %s" % enemy_id)
+	for frame_index in range(4):
+		var rotor_frame := load("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_%d.png" % frame_index)
+		_expect(rotor_frame is Texture2D and rotor_frame.get_size() == Vector2(42,38), "attack-chopper rotor frame should retain registered 42x38 geometry: %d" % frame_index)
+	_expect(source.contains("UNIT_ANIMATION_FRAMES") and source.contains("func _draw_animated_unit") and source.contains("* 12.0"), "ordinary production units should support deliberate low-frame-rate animation")
 	var ground_sizes := {
 		"light_tank": Vector2(30,24),
 		"sam_truck": Vector2(34,26),
