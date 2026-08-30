@@ -1,12 +1,13 @@
 {
   "asset_family": "mission_environment_landmarks",
-  "status": "runtime_motion_v2",
-  "production_method": "deterministic crisp-edge SVG masters rasterized to transparent nearest-filtered PNG sprites",
+  "status": "runtime_motion_weathered_v3",
+  "production_method": "deterministic crisp-edge SVG masters with source-authored pixel patina, rasterized to binary-alpha 31-colour VGA-style transparent PNG sprites",
   "visual_contract": {
     "era": "1997 military-industrial top-down battlefield illustration",
     "role": "sparse mission-scale silhouettes layered over seamless biome plates",
     "registration": [128,160],
-    "avoid": ["full-screen replacement plate", "modern minimal icon", "neon cyberpunk", "generic procedural scatter", "baked text"]
+    "surface_detail": "one/two-pixel rivets, edge abrasion, field-repair strips and panel wear authored per landmark",
+    "avoid": ["full-screen replacement plate", "modern minimal icon", "neon cyberpunk", "generic procedural scatter", "baked text", "smooth vector icon finish"]
   },
   "runtime": [
     {"family":"coast","id":"coastal_battery","path":"res://assets/runtime/environments/landmarks/coastal_battery.png"},

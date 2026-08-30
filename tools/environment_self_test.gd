@@ -100,6 +100,18 @@ func _initialize() -> void:
 		for landmark_name in landmark_names:
 			var landmark := load("res://assets/runtime/environments/landmarks/%s.png" % landmark_name)
 			_expect(landmark is Texture2D and landmark.get_size() == Vector2(128,160), "mission landmark should retain registered 128x160 sprite geometry: %s" % landmark_name)
+			if landmark is Texture2D:
+				var landmark_image: Image = landmark.get_image()
+				var landmark_palette: Dictionary = {}
+				var binary_alpha := true
+				for sample_y in range(landmark_image.get_height()):
+					for sample_x in range(landmark_image.get_width()):
+						var pixel := landmark_image.get_pixel(sample_x, sample_y)
+						landmark_palette[pixel.to_rgba32()] = true
+						if pixel.a > 0.0 and pixel.a < 1.0:
+							binary_alpha = false
+				_expect(landmark_palette.size() <= 31, "mission landmark should retain a disciplined VGA-size palette: %s" % landmark_name)
+				_expect(binary_alpha, "mission landmark should retain crisp binary alpha edges: %s" % landmark_name)
 		_expect(FileAccess.file_exists("res://assets/source/environments/landmark_asset_manifest.json"), "mission landmark source/runtime manifest should exist")
 		for landmark_family in ["coast", "industrial", "water", "desert_front", "river_corridor", "mountain_radar", "night_harbor", "city_outskirts", "machine_furnace", "cloud_top", "orbital"]:
 			for frame_index in range(4):
