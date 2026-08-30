@@ -228,6 +228,16 @@ func _test_visual_language() -> void:
 		_expect(wake_frame is Texture2D and wake_frame.get_size() == Vector2(32,40), "naval wake frame should retain registered 32x40 geometry: %d" % frame_index)
 	_expect(source.contains("NAVAL_WAKE_FRAMES") and source.contains("func _draw_naval_unit") and source.contains("* 8.0"), "naval production sprites should carry a restrained eight-fps authored wake cycle")
 	_expect(FileAccess.file_exists("res://assets/source/effects/naval_wake/naval_wake_asset_manifest.json"), "naval wake source/runtime manifest should exist")
+	var naval_specialist_sizes := {
+		"river_turret": Vector2(30,44), "torpedo_turret": Vector2(34,48), "fast_turret": Vector2(36,50), "corvette_turret": Vector2(50,66),
+		"torpedo_launcher_closed": Vector2(34,48), "torpedo_launcher_open": Vector2(34,48), "torpedo_launcher_fire": Vector2(34,48),
+		"corvette_hatch_closed": Vector2(50,66), "corvette_hatch_opening": Vector2(50,66), "corvette_hatch_open": Vector2(50,66), "corvette_hatch_fire": Vector2(50,66),
+	}
+	for asset_name in naval_specialist_sizes:
+		var specialist_texture := load("res://assets/runtime/enemies/naval_specialist/%s.png" % asset_name)
+		_expect(specialist_texture is Texture2D and specialist_texture.get_size() == naval_specialist_sizes[asset_name], "naval specialist layer should retain its registered hull canvas: %s" % asset_name)
+	_expect(source.contains("NAVAL_SPECIALIST_ART") and source.contains("naval_launcher_frame_index") and source.contains("recoil_timer"), "naval hulls should expose target-tracking turrets, launcher deployment and recoil")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/naval_specialist/naval_specialist_asset_manifest.json"), "naval articulation source/runtime manifest should exist")
 	var machine_air_sizes := {
 		"drone_scout": Vector2(24,26),
 		"drone_hunter": Vector2(30,30),
@@ -382,6 +392,9 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("func _draw_destruction_consequence") and source.contains('category == "sea"') and source.contains('faction == "autonomous"'), "enemy destruction should branch into naval, machine, air and ground material consequences")
 	_expect(source.contains('enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]'), "infantry destruction should use subdued dust/scatter instead of a wreck fire")
 	_expect(source.contains('ImpactArtLibrary.frame_for_ratio("water_impact"') and source.contains('ImpactArtLibrary.frame_for_ratio("emp_disruption"'), "naval and autonomous destruction should use authored water and EMP raster effects")
+	_expect(source.contains("NAVAL_WRECK_HULLS") and source.contains("NAVAL_SINK_SECONDS") and source.contains("func _draw_naval_sinking"), "naval destruction should retain the authored hull through a dedicated multi-stage sinking window")
+	_expect(source.contains("NAVAL_SINK_SECONDS / EXPLOSION_SECONDS"), "the extended naval sinking window should not slow the authored arcade explosion cadence")
+	_expect(source.contains("list_angle") and source.contains("sink_offset") and source.contains("bow") and source.contains("stern"), "naval sinking should visibly list, submerge and displace water at separate hull points")
 	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")

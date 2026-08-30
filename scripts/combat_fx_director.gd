@@ -19,7 +19,14 @@ const MAX_EVENTS := 48
 const HIT_SECONDS := 0.12
 const EXPLOSION_SECONDS := 0.72
 const BOSS_EXPLOSION_SECONDS := 1.05
+const NAVAL_SINK_SECONDS := 1.35
 const PLAYER_HIT_SECONDS := 0.18
+const NAVAL_WRECK_HULLS := {
+	"river_patrol": preload("res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png"),
+	"torpedo_boat": preload("res://assets/runtime/enemies/mercenary_sea/torpedo_boat_idle.png"),
+	"fast_attack_craft": preload("res://assets/runtime/enemies/mercenary_sea/fast_attack_craft_idle.png"),
+	"missile_corvette": preload("res://assets/runtime/enemies/mercenary_sea/missile_corvette_idle.png"),
+}
 
 var _surface: Control
 var _events: Array = []
@@ -79,6 +86,8 @@ func _observe_combat() -> void:
 		elif observation == "destroyed":
 			var kind := "boss_explosion" if bool(previous.get("boss", false)) else "explosion"
 			var duration := BOSS_EXPLOSION_SECONDS if kind == "boss_explosion" else EXPLOSION_SECONDS
+			if str(previous.get("category", "air")) == "sea":
+				duration = NAVAL_SINK_SECONDS
 			var size := 28.0 if kind == "boss_explosion" else 15.0
 			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration, {
 				"enemy_id": str(previous.get("id", "enemy")),
@@ -189,25 +198,29 @@ func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float, category: String) 
 	surface.draw_texture(texture, (p - Vector2(12, 12)).round())
 
 func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool, category: String, faction: String, enemy_id: String) -> void:
-	var blast_ratio := clampf(ratio / 0.66, 0.0, 0.999)
+	var visual_ratio := clampf(ratio * (NAVAL_SINK_SECONDS / EXPLOSION_SECONDS), 0.0, 0.999) if category == "sea" else ratio
+	var blast_ratio := clampf(visual_ratio / 0.66, 0.0, 0.999)
 	if category == "sea":
-		var water := ImpactArtLibrary.frame_for_ratio("water_impact", clampf(ratio / 0.72, 0.0, 0.999))
-		var water_size := Vector2.ONE * lerpf(20.0, 38.0, ratio)
-		surface.draw_texture_rect(water, Rect2((p - water_size * 0.5).round(), water_size), false, Color(0.66,0.80,0.86,0.72*(1.0-ratio*0.65)))
+		var water := ImpactArtLibrary.frame_for_ratio("water_impact", clampf(visual_ratio / 0.72, 0.0, 0.999))
+		var water_size := Vector2.ONE * lerpf(20.0, 38.0, visual_ratio)
+		surface.draw_texture_rect(water, Rect2((p - water_size * 0.5).round(), water_size), false, Color(0.66,0.80,0.86,0.72*(1.0-visual_ratio*0.65)))
 	var frame_index := clampi(int(floor(blast_ratio * float(EXPLOSION_FRAMES.size()))), 0, EXPLOSION_FRAMES.size() - 1)
 	var frame: Texture2D = EXPLOSION_FRAMES[frame_index]
 	var draw_size := roundf(max_size * (2.35 if boss else 2.20))
-	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,ratio)))
-	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
-	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
+	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,visual_ratio)))
+	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, visual_ratio))
+	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", visual_ratio)
 	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))
-	var debris_tint := Color(0.78,0.86,0.90,1.0-ratio) if faction == "autonomous" else Color(0.86,0.78,0.62,1.0-ratio)
+	var debris_tint := Color(0.78,0.86,0.90,1.0-visual_ratio) if faction == "autonomous" else Color(0.86,0.78,0.62,1.0-visual_ratio)
 	surface.draw_texture_rect(debris, Rect2((p - debris_size * 0.5).round(), debris_size), false, debris_tint)
 	_draw_destruction_consequence(surface, p, ratio, category, faction, enemy_id, serial, boss)
 
 func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float, category: String, faction: String, enemy_id: String, serial: int, boss: bool) -> void:
 	var late_ratio := clampf((ratio - 0.32) / 0.68, 0.0, 0.999)
 	if late_ratio <= 0.0:
+		return
+	if category == "sea" and NAVAL_WRECK_HULLS.has(enemy_id):
+		_draw_naval_sinking(surface, p, late_ratio, enemy_id, serial)
 		return
 	if enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]:
 		var dust := ImpactArtLibrary.frame_for_ratio("dust_impact", late_ratio)
@@ -226,6 +239,28 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 	if category == "ground" and faction != "autonomous" and late_ratio < 0.72:
 		var fire := PersistentEffectArtLibrary.FRAMES["damage_fire"][posmod(phase + 1, 4)] as Texture2D
 		surface.draw_texture_rect(fire, Rect2((p - Vector2(14,14)).round(), Vector2(28,28)), false, Color(0.94,0.76,0.48,1.0-late_ratio))
+
+func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
+	var hull: Texture2D = NAVAL_WRECK_HULLS[enemy_id]
+	var list_direction := -1.0 if posmod(serial, 2) == 0 else 1.0
+	var list_angle := list_direction * lerpf(0.025, 0.27, smoothstep(0.10, 1.0, ratio))
+	var sink_offset := Vector2(list_direction * 2.5 * ratio, 9.0 * ratio * ratio)
+	var sink_scale := Vector2(1.0 - 0.08 * ratio, 1.0 - 0.24 * ratio)
+	var hull_alpha := 1.0 - smoothstep(0.72, 1.0, ratio)
+	surface.draw_set_transform((p + sink_offset).round(), list_angle, sink_scale)
+	surface.draw_texture(hull, -hull.get_size() * 0.5, Color(0.68, 0.74, 0.75, hull_alpha))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	var stage := clampi(int(floor(ratio * 4.0)), 0, 3)
+	var displacement := ImpactArtLibrary.frame_for_ratio("water_impact", fmod(ratio * 1.7, 0.999))
+	var bow := p + Vector2(list_direction * lerpf(3.0, 8.0, ratio), -hull.get_height() * 0.20 + 6.0 * ratio)
+	var stern := p + Vector2(-list_direction * 4.0, hull.get_height() * 0.22 + 8.0 * ratio)
+	var water_size := Vector2.ONE * lerpf(18.0, 34.0, ratio)
+	surface.draw_texture_rect(displacement, Rect2((stern - water_size * 0.5).round(), water_size), false, Color(0.70, 0.84, 0.88, 0.78 * (1.0-ratio)))
+	if stage >= 1:
+		surface.draw_texture_rect(displacement, Rect2((bow - water_size * 0.40).round(), water_size * 0.80), false, Color(0.74, 0.86, 0.90, 0.62 * (1.0-ratio)))
+	if stage >= 2 and ratio < 0.86:
+		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial + stage, 4)]
+		surface.draw_texture_rect(smoke, Rect2((p + Vector2(3,-9) - Vector2(13,13)).round(), Vector2(26,26)), false, Color(0.52,0.56,0.56,0.62*(1.0-ratio)))
 
 func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool) -> void:
 	var texture := ImpactArtLibrary.frame_for_ratio("shield_hit" if shield else "armor_hit", ratio)

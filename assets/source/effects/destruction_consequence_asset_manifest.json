@@ -1,17 +1,17 @@
 {
   "asset_family": "destruction_consequence",
-  "status": "runtime_composite_v1",
+  "status": "runtime_composite_v2",
   "method": "category- and faction-aware composition of reviewed explosion, debris, impact, smoke and fire raster families",
-  "timing": {"ordinary_seconds":0.72,"boss_seconds":1.05,"blast_fraction":0.66,"consequence_start":0.32},
+  "timing": {"ordinary_seconds":0.72,"boss_seconds":1.05,"naval_sinking_seconds":1.35,"blast_fraction":0.66,"consequence_start":0.32},
   "variants": {
     "air": "blast, outward debris and trailing smoke",
     "ground": "blast, debris, short wreck fire and smoke",
-    "sea": "water displacement beneath blast, debris and superstructure smoke",
+    "sea": "blast followed by a retained hull that lists, submerges, displaces water separately at bow and stern, smokes and fades",
     "autonomous": "cold debris tint plus broken EMP field collapse",
     "infantry": "subdued dust/scatter consequence with no wreck fire"
   },
   "visual_contract": {
     "purpose": "make destruction communicate material, scale and category rather than replaying one universal flash",
-    "reject": ["single generic explosion for every target", "persistent screen-filling bloom", "infantry fireball", "perfect neon ring", "gameplay-state mutation"]
+    "reject": ["single generic explosion for every target", "instant naval disappearance", "single circular naval splash", "persistent screen-filling bloom", "infantry fireball", "perfect neon ring", "gameplay-state mutation"]
   }
 }

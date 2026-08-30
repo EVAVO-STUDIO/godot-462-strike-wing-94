@@ -1,6 +1,6 @@
 {
   "asset_family": "mercenary_sea",
-  "status": "runtime_motion_v1",
+  "status": "runtime_motion_v2",
   "source": {
     "path": "res://assets/source/enemies/candidates/mercenary_sea/mercenary_sea_identity_sheet_candidate_01_raw.png",
     "sha256": "6B77CCA8DE00AE80D7D11BB64FA24AA101E84256751C2A53066734F79950A8DF",
@@ -24,7 +24,10 @@
     "wake_cycle": "res://assets/source/effects/naval_wake/naval_wake_asset_manifest.json",
     "frames": 4,
     "fps": 8,
-    "scale_rule": "altitude scale multiplied by restrained hull-width factor"
+    "scale_rule": "altitude scale multiplied by restrained hull-width factor",
+    "deck_articulation": "authored transparent hull-canvas layers track the player and recoil without changing the base silhouette",
+    "launcher_states": "torpedo boat uses closed/armed/launch; missile corvette uses closed/opening/armed/launch",
+    "destruction": "retained hull lists and submerges through staged bow/stern displacement before final fade"
   },
-  "remaining_animation_gate": ["turret tracking", "missile hatch or launcher deployment", "recoil", "multi-stage sinking destruction"]
+  "remaining_animation_gate": []
 }

@@ -230,6 +230,31 @@ const MERCENARY_SEA_SPRITES := {
 	"fast_attack_craft": preload("res://assets/runtime/enemies/mercenary_sea/fast_attack_craft_idle.png"),
 	"missile_corvette": preload("res://assets/runtime/enemies/mercenary_sea/missile_corvette_idle.png"),
 }
+const NAVAL_SPECIALIST_ART := {
+	"river_patrol": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/river_turret.png"),
+	},
+	"torpedo_boat": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/torpedo_turret.png"),
+		"launcher": [
+			preload("res://assets/runtime/enemies/naval_specialist/torpedo_launcher_closed.png"),
+			preload("res://assets/runtime/enemies/naval_specialist/torpedo_launcher_open.png"),
+			preload("res://assets/runtime/enemies/naval_specialist/torpedo_launcher_fire.png"),
+		],
+	},
+	"fast_attack_craft": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/fast_turret.png"),
+	},
+	"missile_corvette": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/corvette_turret.png"),
+		"launcher": [
+			preload("res://assets/runtime/enemies/naval_specialist/corvette_hatch_closed.png"),
+			preload("res://assets/runtime/enemies/naval_specialist/corvette_hatch_opening.png"),
+			preload("res://assets/runtime/enemies/naval_specialist/corvette_hatch_open.png"),
+			preload("res://assets/runtime/enemies/naval_specialist/corvette_hatch_fire.png"),
+		],
+	},
+}
 const NAVAL_WAKE_FRAMES := [
 	preload("res://assets/runtime/effects/naval_wake/0.png"),
 	preload("res://assets/runtime/effects/naval_wake/1.png"),
@@ -531,7 +556,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "ground":
 		_report_missing_art(enemy_id)
 	elif category == "sea" and MERCENARY_SEA_SPRITES.has(enemy_id):
-		_draw_naval_unit(surface, p, enemy, MERCENARY_SEA_SPRITES[enemy_id], scale)
+		_draw_naval_unit(surface, p, enemy_id, enemy, MERCENARY_SEA_SPRITES[enemy_id], scale)
 	elif category == "sea":
 		_report_missing_art(enemy_id)
 	elif MERCENARY_AIR_SPRITES.has(enemy_id):
@@ -718,7 +743,7 @@ func _render_ground_force_specialist(surface: CanvasItem, p: Vector2, enemy_id: 
 	if hit_ratio > 0.01 and definition.has("scatter"):
 		_draw_production_sprite(surface, p, definition["scatter"], scale)
 
-func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
+func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()
 	var wake: Texture2D = NAVAL_WAKE_FRAMES[frame_index]
 	var wake_scale := scale * clampf(hull.get_width() / 40.0, 0.72, 1.15)
@@ -727,6 +752,33 @@ func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy: Dictionary, hull: 
 	var destination := Rect2((wake_center - wake_size * 0.5).round(), wake_size.round())
 	surface.draw_texture_rect(wake, destination, false, Color(0.72, 0.82, 0.86, 0.68))
 	_draw_production_sprite(surface, p, hull, scale)
+	var specialist: Dictionary = NAVAL_SPECIALIST_ART.get(enemy_id, {})
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.12, 0.0, 1.0)
+	if specialist.has("launcher"):
+		var launcher_frames: Array = specialist["launcher"]
+		var launcher_index := naval_launcher_frame_index(enemy_id, float(enemy.get("fire_timer", 1.0)), recoil_ratio)
+		_draw_production_sprite(surface, p, launcher_frames[launcher_index], scale)
+	if not specialist.has("turret"):
+		return
+	var turret: Texture2D = specialist["turret"]
+	var aim := _player_position() - p
+	var rotation := 0.0 if aim.length_squared() < 0.001 else Vector2.DOWN.angle_to(aim.normalized())
+	var local_recoil := Vector2(0.0, -roundf(recoil_ratio * 2.0))
+	surface.draw_set_transform(p.round(), rotation, Vector2.ONE * scale)
+	surface.draw_texture(turret, -turret.get_size() * 0.5 + local_recoil)
+	if recoil_ratio > 0.45:
+		var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0 - recoil_ratio)
+		surface.draw_texture_rect(flash, Rect2(-5.0, turret.get_height() * 0.28, 10.0, 10.0), false)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+func naval_launcher_frame_index(enemy_id: String, fire_timer: float, recoil_ratio: float) -> int:
+	if recoil_ratio > 0.35:
+		return 2 if enemy_id == "torpedo_boat" else 3
+	if fire_timer > 0.62:
+		return 0
+	if enemy_id == "torpedo_boat":
+		return 1
+	return 1 if fire_timer > 0.30 else 2
 
 func _draw_enemy_damage_attachments(surface: CanvasItem, p: Vector2, enemy: Dictionary, category: String, faction: String, scale: float) -> void:
 	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
