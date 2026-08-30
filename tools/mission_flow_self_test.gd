@@ -178,6 +178,13 @@ func _test_combat_art() -> void:
 	var source := file.get_as_text()
 	for token in ["VX94_GAMEPLAY_FORMS", "VX94_FIGHTER_BANK", "VX94_BOMBER_BANK", "MERCENARY_AIR_SPRITES", "MERCENARY_GROUND_SPRITES", "MERCENARY_SEA_SPRITES", "MACHINE_AIR_SPRITES", "MACHINE_GROUND_SPRITES", "ORBITAL_AIR_SPRITES", "BOSS_PHASE_OVERLAYS", "has_production_art", "_report_missing_art", "layer = 12"]:
 		_expect(source.contains(token), "combat art presentation missing token: %s" % token)
+	_expect(source.contains("PICKUP_ANIMATION_FRAMES") and source.contains("_draw_pickups"), "combat art should own animated recovery-pod presentation")
+	for pickup_kind in ["shield", "repair", "bomb", "weapon"]:
+		for frame_index in range(4):
+			_expect(FileAccess.file_exists("res://assets/runtime/effects/pickups/%s_%d.png" % [pickup_kind, frame_index]), "missing authored pickup frame %s %d" % [pickup_kind, frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/effects/pickups/pickup_asset_manifest.json"), "pickup production manifest should exist")
+	var main_art_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_art_file != null and not main_art_file.get_as_text().contains('draw_rect(Rect2(q.x - 5, q.y - 5, 10, 10)'), "main simulation scene must not retain generic pickup-square presentation")
 	_expect(not source.contains("func _draw_air") and not source.contains("func _draw_ground") and not source.contains("func _draw_sea") and not source.contains("func _draw_autonomous"), "combat art should not retain generic vector fallbacks")
 	_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()"), "combat art should remain canvas/pixel presentation")
 

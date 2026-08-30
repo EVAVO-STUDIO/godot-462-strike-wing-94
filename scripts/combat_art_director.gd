@@ -48,6 +48,12 @@ const VX94_BOMBER_BREAKUP := [
 	preload("res://assets/runtime/craft/vx94/gameplay/destruction/bomber_breakup_3.png"),
 ]
 const VX94_ESCAPE_CAPSULE := preload("res://assets/runtime/craft/vx94/gameplay/destruction/escape_capsule.png")
+const PICKUP_ANIMATION_FRAMES := {
+	"shield": [preload("res://assets/runtime/effects/pickups/shield_0.png"), preload("res://assets/runtime/effects/pickups/shield_1.png"), preload("res://assets/runtime/effects/pickups/shield_2.png"), preload("res://assets/runtime/effects/pickups/shield_3.png")],
+	"repair": [preload("res://assets/runtime/effects/pickups/repair_0.png"), preload("res://assets/runtime/effects/pickups/repair_1.png"), preload("res://assets/runtime/effects/pickups/repair_2.png"), preload("res://assets/runtime/effects/pickups/repair_3.png")],
+	"bomb": [preload("res://assets/runtime/effects/pickups/bomb_0.png"), preload("res://assets/runtime/effects/pickups/bomb_1.png"), preload("res://assets/runtime/effects/pickups/bomb_2.png"), preload("res://assets/runtime/effects/pickups/bomb_3.png")],
+	"weapon": [preload("res://assets/runtime/effects/pickups/weapon_0.png"), preload("res://assets/runtime/effects/pickups/weapon_1.png"), preload("res://assets/runtime/effects/pickups/weapon_2.png"), preload("res://assets/runtime/effects/pickups/weapon_3.png")],
+}
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 const VX94_GAMEPLAY_ANCHOR := Vector2(24, 29)
 const MERCENARY_AIR_SPRITES := {
@@ -542,6 +548,7 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
 		return
+	_draw_pickups(surface, scene)
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
@@ -551,7 +558,21 @@ func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
 		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("player_position") and names.has("enemies")
+	return names.has("phase") and names.has("player_position") and names.has("enemies") and names.has("pickups")
+
+func _draw_pickups(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else Time.get_ticks_msec() / 1000.0
+	var frame_index := int(floor(time * 8.0)) % 4
+	for pickup in scene.get("pickups"):
+		if typeof(pickup) != TYPE_DICTIONARY:
+			continue
+		var kind := str(pickup.get("kind", ""))
+		if not PICKUP_ANIMATION_FRAMES.has(kind):
+			continue
+		var frames: Array = PICKUP_ANIMATION_FRAMES[kind]
+		var texture: Texture2D = frames[frame_index]
+		var position: Vector2 = pickup.get("position", Vector2.ZERO)
+		surface.draw_texture(texture, (position - texture.get_size() * 0.5).round())
 
 func _has_property(subject: Object, property_name: String) -> bool:
 	for property in subject.get_property_list():

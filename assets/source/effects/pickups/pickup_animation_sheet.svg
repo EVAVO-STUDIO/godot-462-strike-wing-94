@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" shape-rendering="crispEdges">
+  <defs>
+    <g id="pod">
+      <path fill="#10171b" d="M5 3h14l2 2v14l-2 2H5l-2-2V5z"/>
+      <path fill="#47545a" d="M6 2h12v2H6zM2 6h2v12H2zM20 6h2v12h-2zM6 20h12v2H6z"/>
+      <path fill="#77858a" d="M6 4h12v1H6zM4 6h1v12H4z"/>
+      <path fill="#050709" d="M6 19h12v1H6zM19 6h1v12h-1z"/>
+      <path fill="#263238" d="M6 6h12v12H6z"/>
+      <path fill="#141c20" d="M7 7h10v10H7z"/>
+      <path fill="#9b7136" d="M3 9h2v6H3zM19 9h2v6h-2z"/>
+    </g>
+    <g id="shield">
+      <path fill="#72b5cb" d="M12 7l5 2v4c0 3-2 5-5 6-3-1-5-3-5-6V9z"/>
+      <path fill="#d1e1e4" d="M12 9l3 1v3c0 2-1 3-3 4z"/>
+      <path fill="#315b6b" d="M9 10l3-1v8c-2-1-3-2-3-4z"/>
+    </g>
+    <g id="repair">
+      <path fill="#83b58d" d="M9 7h6v3h3v6h-3v3H9v-3H6v-6h3z"/>
+      <path fill="#d8dfc8" d="M11 8h2v4h4v2h-4v4h-2v-4H7v-2h4z"/>
+      <path fill="#42644b" d="M9 16h6v2H9z"/>
+    </g>
+    <g id="bomb">
+      <path fill="#e0b85a" d="M11 6h3v3l3 3v5l-3 3h-4l-3-3v-5l4-3z"/>
+      <path fill="#6e5527" d="M10 12h6v5l-2 2h-4z"/>
+      <path fill="#f1dc85" d="M12 7h1v5h-1z"/>
+      <path fill="#a8593f" d="M9 18h6v2H9z"/>
+    </g>
+    <g id="weapon">
+      <path fill="#d6a84d" d="M7 8h4v9H7zM13 8h4v9h-4z"/>
+      <path fill="#e8d281" d="M8 6h2v5H8zM14 6h2v5h-2z"/>
+      <path fill="#554426" d="M8 13h2v4H8zM14 13h2v4h-2z"/>
+      <path fill="#9f5741" d="M6 18h12v2H6z"/>
+    </g>
+    <g id="pulse0"><path fill="#70a9ba" d="M1 1h4v1H1zM1 1h1v4H1zM19 1h4v1h-4zM22 1h1v4h-1z"/></g>
+    <g id="pulse1"><path fill="#a8cbd2" d="M0 3h4v1H0zM3 0h1v4H3zM20 3h4v1h-4zM20 0h1v4h-1z"/></g>
+    <g id="pulse2"><path fill="#70a9ba" d="M1 22h4v1H1zM1 19h1v4H1zM19 22h4v1h-4zM22 19h1v4h-1z"/></g>
+    <g id="pulse3"><path fill="#4f747e" d="M0 20h4v1H0zM3 20h1v4H3zM20 20h4v1h-4zM20 20h1v4h-1z"/></g>
+  </defs>
+  <!-- shield row -->
+  <g transform="translate(0 0)"><use xlink:href="#pod"/><use xlink:href="#shield"/><use xlink:href="#pulse0"/></g>
+  <g transform="translate(24 0)"><use xlink:href="#pod"/><use xlink:href="#shield"/><use xlink:href="#pulse1"/></g>
+  <g transform="translate(48 0)"><use xlink:href="#pod"/><use xlink:href="#shield"/><use xlink:href="#pulse2"/></g>
+  <g transform="translate(72 0)"><use xlink:href="#pod"/><use xlink:href="#shield"/><use xlink:href="#pulse3"/></g>
+  <!-- repair row -->
+  <g transform="translate(0 24)"><use xlink:href="#pod"/><use xlink:href="#repair"/><use xlink:href="#pulse0"/></g>
+  <g transform="translate(24 24)"><use xlink:href="#pod"/><use xlink:href="#repair"/><use xlink:href="#pulse1"/></g>
+  <g transform="translate(48 24)"><use xlink:href="#pod"/><use xlink:href="#repair"/><use xlink:href="#pulse2"/></g>
+  <g transform="translate(72 24)"><use xlink:href="#pod"/><use xlink:href="#repair"/><use xlink:href="#pulse3"/></g>
+  <!-- bomb row -->
+  <g transform="translate(0 48)"><use xlink:href="#pod"/><use xlink:href="#bomb"/><use xlink:href="#pulse0"/></g>
+  <g transform="translate(24 48)"><use xlink:href="#pod"/><use xlink:href="#bomb"/><use xlink:href="#pulse1"/></g>
+  <g transform="translate(48 48)"><use xlink:href="#pod"/><use xlink:href="#bomb"/><use xlink:href="#pulse2"/></g>
+  <g transform="translate(72 48)"><use xlink:href="#pod"/><use xlink:href="#bomb"/><use xlink:href="#pulse3"/></g>
+  <!-- weapon row -->
+  <g transform="translate(0 72)"><use xlink:href="#pod"/><use xlink:href="#weapon"/><use xlink:href="#pulse0"/></g>
+  <g transform="translate(24 72)"><use xlink:href="#pod"/><use xlink:href="#weapon"/><use xlink:href="#pulse1"/></g>
+  <g transform="translate(48 72)"><use xlink:href="#pod"/><use xlink:href="#weapon"/><use xlink:href="#pulse2"/></g>
+  <g transform="translate(72 72)"><use xlink:href="#pod"/><use xlink:href="#weapon"/><use xlink:href="#pulse3"/></g>
+</svg>

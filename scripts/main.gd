@@ -1129,9 +1129,8 @@ func _draw_gameplay() -> void:
 	# presentation owners for craft, enemies and projectiles. Simulation and
 	# collision stay here, but duplicate prototype geometry must not bleed
 	# through altitude-scaled silhouettes or weapon-specific cues.
-	for pickup in pickups:
-		var q: Vector2 = pickup["position"]
-		draw_rect(Rect2(q.x - 5, q.y - 5, 10, 10), Color("72c7b2"), false, 2)
+	# Pickup simulation stays here; CombatArtDirector owns the authored
+	# recovery-pod sprites and their held-frame acquisition pulse.
 	draw_rect(Rect2(8, 8, 624, 52), Color("080b0f"))
 	var remaining := maxi(0, int(ceil(mission_duration - mission_time)))
 	var energy_pct := int(round(EnergyRules.normalized(energy, _active_generator()) * 100.0))
