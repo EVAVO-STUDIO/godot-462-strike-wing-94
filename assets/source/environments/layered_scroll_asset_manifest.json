@@ -11,6 +11,7 @@
   "tiles": {
     "sea_deep_tile.png": [640, 512],
     "sea_surface_tile.png": [640, 512],
+    "sea_foam_tile.png": [640, 512],
     "coast_surface_tile.png": [340, 512],
     "cloud_shadow_tile.png": [640, 512],
     "cloud_mist_tile.png": [640, 512],
@@ -26,7 +27,7 @@
   "verified_edge_absolute_error": 0,
   "scroll_contract": {
 	"neutral_fallback": ["sea_deep_tile beneath the mission biome stack; two-piece vertical wrap; no exposed programmer grid"],
-    "open_sea": ["deep", "surface", "rain"],
+    "open_sea": ["deep swell", "surface chop", "sparse foam crest", "rain", "cloud shadow", "discrete cloud banks"],
     "coast": ["authored terrain", "water surface", "cloud shadow", "cloud body", "mist"],
     "weather": ["cloud shadow", "discrete cloud banks", "mist"],
     "refinery": ["authored plant", "independent machinery and practical lights"],

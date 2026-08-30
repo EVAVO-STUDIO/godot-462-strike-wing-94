@@ -16,6 +16,7 @@ const CITY_OUTSKIRTS := preload("res://assets/runtime/environments/city/city_out
 const MACHINE_FURNACE := preload("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png")
 const SEA_DEEP_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
 const SEA_SURFACE_TILE := preload("res://assets/runtime/environments/layers/sea_surface_tile.png")
+const SEA_FOAM_TILE := preload("res://assets/runtime/environments/layers/sea_foam_tile.png")
 const COAST_SURFACE_TILE := preload("res://assets/runtime/environments/layers/coast_surface_tile.png")
 const CLOUD_SHADOW_TILE := preload("res://assets/runtime/environments/layers/cloud_shadow_tile.png")
 const CLOUD_MIST_TILE := preload("res://assets/runtime/environments/layers/cloud_mist_tile.png")
@@ -43,14 +44,20 @@ const RAIN_ACCENTS := [
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_c.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_d.png"),
 ]
 const CLOUD_MID := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_b.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_c.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_d.png"),
 ]
 const CLOUD_HIGH := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_b.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_c.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_d.png"),
 ]
 const LANDMARKS := {
 	"coast": preload("res://assets/runtime/environments/landmarks/coastal_battery.png"),
@@ -345,8 +352,10 @@ func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 	var speed := _parallax_speed(profile, state, "near")
 	var deep_scroll := fposmod(t * speed * 0.17, 512.0)
 	var surface_scroll := fposmod(t * speed * 0.33, 512.0)
+	var foam_scroll := fposmod(t * speed * 0.51, 512.0)
 	_draw_vertical_loop(surface, SEA_DEEP_TILE, deep_scroll, Rect2(0,58,640,302))
 	_draw_vertical_loop(surface, SEA_SURFACE_TILE, surface_scroll, Rect2(0,58,640,302))
+	_draw_vertical_loop(surface, SEA_FOAM_TILE, foam_scroll, Rect2(0,58,640,302), Color(0.70,0.82,0.84,0.34))
 	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.01, 0.025, 0.045, 0.16))
 	for i in range(14):
 		var x := float((i * 109 + 31) % 690) - 20.0

@@ -79,7 +79,7 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/water/storm_sea_loop_v1.png"), "open-water runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/water_asset_manifest.json"), "open-water source manifest should exist")
 		for layer_path in [
-			"sea_deep_tile.png", "sea_surface_tile.png", "coast_surface_tile.png", "cloud_shadow_tile.png", "cloud_mist_tile.png",
+			"sea_deep_tile.png", "sea_surface_tile.png", "sea_foam_tile.png", "coast_surface_tile.png", "cloud_shadow_tile.png", "cloud_mist_tile.png",
 			"refinery_detail_tile.png", "desert_dust_tile.png", "river_current_tile.png", "mountain_weather_tile.png",
 			"harbor_reflection_tile.png", "city_light_tile.png", "furnace_activity_tile.png", "orbital_debris_tile.png"
 		]:
@@ -89,10 +89,10 @@ func _initialize() -> void:
 				var layer_image: Image = layer_texture.get_image()
 				for sample_x in range(0,layer_image.get_width(),32):
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
-		_expect(source.contains("SEA_DEEP_TILE") and source.contains("SEA_SURFACE_TILE") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored sea and cloud depth layers")
+		_expect(source.contains("SEA_DEEP_TILE") and source.contains("SEA_SURFACE_TILE") and source.contains("SEA_FOAM_TILE") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored sea and cloud depth layers")
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_TILE", "RIVER_CURRENT_TILE", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
-		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
+		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
 		_expect(source.contains("LANDMARKS") and source.contains("_draw_landmarks") and source.contains("_mission_seed"), "environment renderer should layer sparse deterministic mission landmarks over seamless biome plates")
 		_expect(source.contains("LANDMARK_FX_FRAMES") and source.contains("floor(t * 4.0)"), "mission landmarks should consume deliberate four-fps held sprite animation")
@@ -166,7 +166,7 @@ func _initialize() -> void:
 				var master_image: Image = master_texture.get_image()
 				for sample_x in range(0,640,64):
 					_expect(master_image.get_pixel(sample_x,0).is_equal_approx(master_image.get_pixel(sample_x,719)), "environment master must close its vertical seam: %s x=%d" % [master_path,sample_x])
-		for cloud_asset in ["low_wisp_a", "low_wisp_b", "mid_broken_a", "mid_broken_b", "high_mass_a", "high_mass_b"]:
+		for cloud_asset in ["low_wisp_a", "low_wisp_b", "low_wisp_c", "low_wisp_d", "mid_broken_a", "mid_broken_b", "mid_broken_c", "mid_broken_d", "high_mass_a", "high_mass_b", "high_mass_c", "high_mass_d"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/environments/clouds/cloud_bank_%s.png" % cloud_asset), "missing authored cloud sprite %s" % cloud_asset)
 		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor", "_draw_city_outskirts", "_draw_machine_furnace"]:
 			_expect(source.contains(variant_function), "Sector I environment identity missing %s" % variant_function)

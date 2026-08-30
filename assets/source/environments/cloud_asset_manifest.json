@@ -1,12 +1,13 @@
 {
   "family": "altitude_cloud_banks",
-  "status": "runtime_master_v1",
+  "status": "runtime_master_v2",
   "source_candidate": "res://assets/source/environments/candidates/clouds/cloud_bank_sheet_candidate_01.png",
+  "source_candidate_v2": "res://assets/source/environments/candidates/clouds/cloud_bank_sheet_candidate_02.png",
   "runtime_directory": "res://assets/runtime/environments/clouds",
   "families": {
-    "low": {"variants": ["wisp_a", "wisp_b"], "size": [112, 56], "role": "thin fast mist / low-altitude speed layer"},
-    "mid": {"variants": ["broken_a", "broken_b"], "size": [132, 66], "role": "broken banks / mixed-altitude depth layer"},
-    "high": {"variants": ["mass_a", "mass_b"], "size": [160, 80], "role": "dense cloud tops / high-altitude mass"}
+    "low": {"variants": ["wisp_a", "wisp_b", "wisp_c", "wisp_d"], "size": [112, 56], "role": "thin fast mist / low-altitude speed layer"},
+    "mid": {"variants": ["broken_a", "broken_b", "broken_c", "broken_d"], "size": [132, 66], "role": "broken banks / mixed-altitude depth layer"},
+    "high": {"variants": ["mass_a", "mass_b", "mass_c", "mass_d"], "size": [160, 80], "role": "dense cloud tops / high-altitude mass"}
   },
   "palette_limit_per_sprite": 24,
   "alpha": true,
