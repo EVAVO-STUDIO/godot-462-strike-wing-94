@@ -267,8 +267,10 @@ func _draw_surface(surface: CanvasItem) -> void:
 		reticle = Color(0.72, 1.0, 0.82, 0.98)
 	if assisted:
 		_draw_effect_between(surface, GUIDANCE_RIBBON, projected, target, 4.0, Color(1,1,1,0.38))
-	var aim_size := Vector2.ONE * aim_radius * 2.0
-	var blast_size := Vector2.ONE * blast_radius * 2.0
+	# Keep the simulation radius authoritative while presenting a tighter 1990s
+	# strike sight that does not cover the target or nearby ground detail.
+	var aim_size := Vector2.ONE * aim_radius * 1.46
+	var blast_size := Vector2.ONE * blast_radius * 1.46
 	surface.draw_texture_rect(AIM_LATTICE, Rect2(target - aim_size * 0.5, aim_size), false, Color(1,1,1,reticle.a))
 	surface.draw_texture_rect(BLAST_ENVELOPE, Rect2(target - blast_size * 0.5, blast_size), false)
 	if priority:

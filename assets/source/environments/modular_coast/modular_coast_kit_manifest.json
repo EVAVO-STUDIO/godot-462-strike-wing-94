@@ -1,0 +1,45 @@
+{
+  "asset_family": "hypersonic_modular_coast_environment_kit",
+  "status": "source_sheet_v1_alpha_verified_runtime_slicing_pending",
+  "source": "res://assets/source/environments/modular_coast/coast_construction_kit_source_v1.png",
+  "source_geometry": [1536, 1024],
+  "source_alpha": "true RGBA; checker background rejected and removed before registration",
+  "style_contract": [
+    "strict orthographic top-down late-1990s military arcade realism",
+    "physically engineered concrete, asphalt, rock and utility construction",
+    "dark combat-safe values with restrained amber practical lights",
+    "transparent padding and independently placeable components",
+    "no baked aircraft, enemies, projectiles, UI or mission text"
+  ],
+  "finite_chunk_families": {
+    "shoreline": ["straight", "inner_corner", "outer_corner", "end_cap", "rock_transition"],
+    "seawall": ["plain", "stair_access", "tetrapod", "breakwater", "pier"],
+    "roads": ["straight", "bend", "tee", "cross", "shore_terminal"],
+    "structures": ["radar_bunker", "empty_weapon_revetment", "utility_bunker", "generator_shed"],
+    "detail": ["pipes", "cable_trench", "drain", "hazard_lamp", "rubble", "rocks"]
+  },
+  "continuous_loop_families": {
+    "deep_sea": {"spatial_loop": true, "animation_frames": 4, "exposure_fps": 6},
+    "surface_chop": {"spatial_loop": true, "animation_frames": 4, "exposure_fps": 8},
+    "foam_drift": {"spatial_loop": true, "animation_frames": 6, "exposure_fps": 8},
+    "cloud_shadow": {"spatial_loop": true, "animation_frames": 1, "scroll_layers": 2},
+    "mist": {"spatial_loop": true, "animation_frames": 1, "scroll_layers": 2}
+  },
+  "edge_animation_families": {
+    "shore_wash": {"spatial_loop": false, "animation_frames": 6, "mode": "advance_hold_withdraw"},
+    "breakwater_impact": {"spatial_loop": false, "animation_frames": 5, "mode": "impact_spread_dissolve"},
+    "pier_wake": {"spatial_loop": false, "animation_frames": 4, "mode": "held_frame_cycle"}
+  },
+  "assembly_contract": {
+    "registration_grid": [16, 16],
+    "base_order": ["deep_sea", "surface_chop", "terrain_chunks", "structures", "foam_drift", "shore_wash", "cloud_shadow", "cloud_bodies", "mist", "weather_foreground"],
+    "rule": "continuous layers move independently beneath and above irregular finite chunks; no entire mission plate may visibly repeat as one wallpaper"
+  },
+  "runtime_next": [
+    "slice and clean registered transparent components",
+    "author terrain transition masks and collision metadata",
+    "produce temporal water and surf animation frames",
+    "build chunk recipes with multiple valid joins",
+    "capture at least two full vertical wraps without visible repetition or seams"
+  ]
+}

@@ -1,11 +1,11 @@
 {
   "family": "river_corridor",
-  "status": "runtime_master_v1",
+  "status": "runtime_master_exact_seam_v2_asymmetric",
   "source_candidate": "res://assets/source/environments/candidates/river/river_corridor_candidate_01.png",
   "runtime_master": "res://assets/runtime/environments/river/river_corridor_loop_v1.png",
   "runtime_size": [640, 720],
-  "palette_colors": 64,
-  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "palette_colors": 192,
+  "construction": "approved central river corridor crop reduced to a 640x719 gameplay plate; the first row is appended as row 720 for exact vertical closure without kaleidoscopic bridge repetition",
   "art_direction": [
     "overcast militarized temperate floodplain",
     "two structurally believable bridge landmarks",

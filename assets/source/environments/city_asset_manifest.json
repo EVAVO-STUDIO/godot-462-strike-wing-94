@@ -1,11 +1,11 @@
 {
   "family": "city_outskirts",
-  "status": "runtime_master_v1",
+  "status": "runtime_master_exact_seam_v2_asymmetric",
   "source_candidate": "res://assets/source/environments/candidates/city/city_outskirts_candidate_01.png",
   "runtime_master": "res://assets/runtime/environments/city/city_outskirts_loop_v1.png",
   "runtime_size": [640, 720],
-  "palette_colors": 52,
-  "construction": "central transport belt reduced at 320x180, palette-limited, upscaled 2x nearest-neighbour and mirrored into a vertical loop",
+  "palette_colors": 192,
+  "construction": "approved source transport belt cropped asymmetrically and reduced to a 640x719 gameplay plate; the first row is appended as row 720 for exact vertical closure without mirrored chevrons",
   "mission_assignments": ["s2_m06_ghost_convoy", "s2_m09_silent_city"],
   "art_direction": [
     "evacuated 1999 industrial city belt",

@@ -1,11 +1,11 @@
 {
   "family": "mountain_radar",
-  "status": "runtime_master_v1",
+  "status": "runtime_master_exact_seam_v2_asymmetric",
   "source_candidate": "res://assets/source/environments/candidates/mountain/mountain_radar_candidate_01.png",
   "runtime_master": "res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png",
   "runtime_size": [640, 720],
-  "palette_colors": 62,
-  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "palette_colors": 192,
+  "construction": "approved radar-valley source crop preserves one major dish, one secondary dish, switchbacks and the flight corridor at 640x719; the first row is appended as row 720 for exact vertical closure without mirrored compounds",
   "art_direction": [
     "cold highland radar-suppression zone",
     "deep fractured valleys and asymmetric snow ridges",

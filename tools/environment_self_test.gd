@@ -81,6 +81,12 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_motion_manifest.json"), "high-atmosphere motion source/runtime manifest should exist")
 		_expect(not source.substr(source.find("func _draw_clouds"), source.length() - source.find("func _draw_clouds")).contains("draw_colored_polygon"), "foreground clouds should not regress to polygon lozenges")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png"), "coastal runtime master should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/modular_coast/modular_coast_kit_manifest.json"), "modular coast kit should register finite chunks, continuous loops and edge-animation families")
+		var modular_coast_source := load("res://assets/source/environments/modular_coast/coast_construction_kit_source_v1.png")
+		_expect(modular_coast_source is Texture2D and modular_coast_source.get_size() == Vector2(1536,1024), "modular coast source sheet should retain registered production geometry")
+		if modular_coast_source is Texture2D:
+			var coast_source_image: Image = modular_coast_source.get_image()
+			_expect(coast_source_image.detect_alpha() != Image.ALPHA_NONE, "modular coast source sheet must retain genuine transparent alpha")
 		_expect(FileAccess.file_exists("res://assets/source/environments/coast_asset_manifest.json"), "coastal source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_asset_manifest.json"), "cloud source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png"), "industrial runtime master should exist")

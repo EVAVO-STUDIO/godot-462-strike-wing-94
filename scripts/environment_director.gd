@@ -161,6 +161,11 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float, family: String, orbital_mix: float) -> void:
 	if not LANDMARKS.has(family):
 		return
+	# These restored masters already contain their mission-scale radar, bridge,
+	# rail and coastal structures. Stacking the older simplified landmark cards
+	# over them duplicates the same subject and reads as a prototype overlay.
+	if family in ["coast", "river_corridor", "mountain_radar", "city_outskirts"]:
+		return
 	if family not in ["cloud_top", "orbital"] and not _draw_ground_detail(state):
 		return
 	var texture: Texture2D = LANDMARKS[family]
