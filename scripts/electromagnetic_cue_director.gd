@@ -2,8 +2,15 @@ extends CanvasLayer
 
 const ElectromagneticCueSurface = preload("res://scripts/electromagnetic_cue_surface.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
+const MAGNETIC_FIELD_FRAMES := [
+	preload("res://assets/runtime/effects/fields/magnetic_field/0.png"),
+	preload("res://assets/runtime/effects/fields/magnetic_field/1.png"),
+	preload("res://assets/runtime/effects/fields/magnetic_field/2.png"),
+	preload("res://assets/runtime/effects/fields/magnetic_field/3.png"),
+]
 
 var _surface: Control
+var _animation_clock := 0.0
 
 func _ready() -> void:
 	layer = 15
@@ -15,7 +22,8 @@ func _ready() -> void:
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_animation_clock += maxf(0.0, delta)
 	if _surface != null:
 		_surface.queue_redraw()
 
@@ -42,14 +50,9 @@ func _draw_magnetic(surface: CanvasItem, scene: Object) -> void:
 		if typeof(item) == TYPE_DICTIONARY:
 			radius = clampf(float(item.get("radius", radius)), 24.0, 240.0)
 	var p: Vector2 = scene.get("player_position")
-	var tone := Color(0.36, 0.82, 0.95, 0.55)
-	surface.draw_arc(p, radius, 0.0, TAU, 32, tone, 1.0)
-	surface.draw_arc(p, radius - 4.0, 0.2, TAU + 0.2, 24, Color(0.36, 0.82, 0.95, 0.24), 1.0)
-	for i in range(8):
-		var angle := float(i) / 8.0 * TAU
-		var a := p + Vector2.RIGHT.rotated(angle) * (radius - 2.0)
-		var b := p + Vector2.RIGHT.rotated(angle) * (radius + 3.0)
-		surface.draw_line(a, b, tone, 1.0)
+	var texture: Texture2D = MAGNETIC_FIELD_FRAMES[int(floor(_animation_clock * 8.0)) % MAGNETIC_FIELD_FRAMES.size()]
+	var diameter := radius * 2.0 + 12.0
+	surface.draw_texture_rect(texture, Rect2(p - Vector2(diameter, diameter) * 0.5, Vector2(diameter, diameter)), false)
 
 func _draw_emp(surface: CanvasItem, scene: Object) -> void:
 	var enemies: Array = scene.get("enemies")

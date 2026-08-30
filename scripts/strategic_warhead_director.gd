@@ -2,6 +2,12 @@ extends CanvasLayer
 
 const StrategicWarheadRules = preload("res://scripts/strategic_warhead_rules.gd")
 const StrategicWarheadSurface = preload("res://scripts/strategic_warhead_surface.gd")
+const BLAST_FRAMES := [
+	preload("res://assets/runtime/effects/impacts/strategic_blast/0.png"),
+	preload("res://assets/runtime/effects/impacts/strategic_blast/1.png"),
+	preload("res://assets/runtime/effects/impacts/strategic_blast/2.png"),
+	preload("res://assets/runtime/effects/impacts/strategic_blast/3.png"),
+]
 
 const BLAST_SECONDS := 0.22
 
@@ -60,13 +66,10 @@ func _update_warheads(scene: Object) -> void:
 func draw_blast(surface: CanvasItem) -> void:
 	if _burst_timer <= 0.0: return
 	var progress := clampf(1.0 - (_burst_timer / BLAST_SECONDS), 0.0, 1.0)
-	var radius := lerpf(10.0, StrategicWarheadRules.BLAST_RADIUS, progress)
-	var outer := Color(1.0, 0.40, 0.18, 0.82 * (1.0 - progress))
-	var inner := Color(1.0, 0.82, 0.40, 0.92 * (1.0 - progress))
-	surface.draw_arc(_burst_position, radius, 0.0, TAU, 20, outer, 2.0)
-	surface.draw_arc(_burst_position, maxf(3.0, radius * 0.55), 0.0, TAU, 16, inner, 1.0)
-	for axis in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
-		surface.draw_line(_burst_position + axis * maxf(3.0, radius * 0.25), _burst_position + axis * radius, outer, 1.0)
+	var index := clampi(int(floor(progress * BLAST_FRAMES.size())), 0, BLAST_FRAMES.size() - 1)
+	var texture: Texture2D = BLAST_FRAMES[index]
+	var alpha := 1.0 - smoothstep(0.78, 1.0, progress)
+	surface.draw_texture(texture, (_burst_position - texture.get_size() * 0.5).round(), Color(1,1,1,alpha))
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}

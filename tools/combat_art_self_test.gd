@@ -528,6 +528,10 @@ func _test_impact_art() -> void:
 	if electromagnetic != null:
 		var source := electromagnetic.get_as_text()
 		_expect(source.contains('frame_for_clock("emp_disruption"'), "EMP disruption should use authored broken-arc animation")
+		_expect(source.contains("MAGNETIC_FIELD_FRAMES") and not source.contains("draw_arc") and not source.contains("draw_line"), "magnetic support field should use authored broken-lattice sprite animation")
+	for frame_index in range(4):
+		var field := load("res://assets/runtime/effects/fields/magnetic_field/%d.png" % frame_index)
+		_expect(field is Texture2D and field.get_size() == Vector2(256,256), "magnetic field frame should retain registered 256x256 geometry: %d" % frame_index)
 
 func _test_persistent_effect_art() -> void:
 	var trail_families := ["damage_smoke", "damage_fire", "damage_sparks", "afterburner", "contrail", "debris"]

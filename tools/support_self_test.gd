@@ -118,6 +118,11 @@ func _test_strategic_blast() -> void:
 		var source := runtime.get_as_text()
 		_expect(source.contains('bullet["strategic_burst"] = true'), "runtime should mark one-shot strategic burst")
 		_expect(source.contains("mini(StrategicWarheadRules.SECONDARY_DAMAGE, hp - 1)"), "strategic secondary blast must remain nonlethal")
+		_expect(source.contains("BLAST_FRAMES") and not source.contains("draw_arc") and not source.contains("draw_line"), "strategic blast should use authored staged sprite animation")
+	for frame_index in range(4):
+		var frame := load("res://assets/runtime/effects/impacts/strategic_blast/%d.png" % frame_index)
+		_expect(frame is Texture2D and frame.get_size() == Vector2(128,128), "strategic blast frame should retain registered 128x128 geometry: %d" % frame_index)
+	_expect(FileAccess.file_exists("res://assets/source/effects/fields/field_effect_manifest.json"), "field and strategic blast effect manifest should exist")
 
 func _test_mission_intel() -> void:
 	var world = ContentCatalog.load_json("res://data/campaign_world.json")
