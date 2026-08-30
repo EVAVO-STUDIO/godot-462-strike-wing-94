@@ -74,7 +74,15 @@ const HUD_BOSS_PHASE_FILLS := [
 	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_2_fill.png"),
 	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_3_fill.png"),
 ]
-const HUD_THREAT_FRAME := preload("res://assets/runtime/ui/hud/threat_frame.png")
+const HUD_THREAT_FRAMES := [
+	preload("res://assets/runtime/ui/hud/threat_annunciator/tracking.png"),
+	preload("res://assets/runtime/ui/hud/threat_annunciator/caution.png"),
+	preload("res://assets/runtime/ui/hud/threat_annunciator/lock.png"),
+]
+const HUD_THREAT_APPROACH_TROUGH := preload("res://assets/runtime/ui/hud/threat_annunciator/approach_trough.png")
+const HUD_THREAT_CAUTION_FILL := preload("res://assets/runtime/ui/hud/threat_annunciator/caution_fill.png")
+const HUD_THREAT_LOCK_FILL := preload("res://assets/runtime/ui/hud/threat_annunciator/lock_fill.png")
+const HUD_THREAT_MISSILE_ICON := preload("res://assets/runtime/ui/hud/threat_annunciator/missile_icon.png")
 const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
 const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
@@ -598,8 +606,14 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var distance := ThreatWarningRules.nearest_homing_distance(bullets, player_position)
 	var text := ThreatWarningRules.warning_text(distance, count)
 	if text == "": return
-	surface.draw_texture(HUD_THREAT_FRAME, Vector2(180, 98))
-	PixelFont.draw_centered(surface, text, 320, 104, 1, RED, 1)
+	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2)
+	var position := Vector2(180, 96)
+	surface.draw_texture(HUD_THREAT_FRAMES[level], position)
+	surface.draw_texture(HUD_THREAT_MISSILE_ICON, position + Vector2(7, 5), RED if level >= 2 else (GOLD if level == 1 else BLUE))
+	PixelFont.draw_centered(surface, text, 326, 102, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)
+	surface.draw_texture(HUD_THREAT_APPROACH_TROUGH, position + Vector2(190, 16))
+	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0)
+	_draw_clipped_fill(surface, HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL, position + Vector2(191, 17), approach_ratio)
 
 func _support_name() -> String:
 	var director := get_node_or_null("/root/SupportDirector")

@@ -1,0 +1,17 @@
+{
+  "asset_family": "vx94_radar_warning_receiver",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/threat_annunciator_sheet.svg",
+  "visual_contract": {
+    "purpose": "convert inbound homing threats into a compact stateful hardware warning with closure information",
+    "states": ["tracking", "caution", "lock"],
+    "era": "1997 dedicated radar-warning receiver annunciator",
+    "readability": "blue track, amber caution and red lock states with a stepped approach scale",
+    "avoid": ["single empty outline", "floating warning text", "modern notification toast", "large central obstruction"]
+  },
+  "runtime": {
+    "frames": {"tracking": [280,22], "caution": [280,22], "lock": [280,22]},
+    "approach": {"trough": [82,5], "caution_fill": [80,3], "lock_fill": [80,3]},
+    "icon": [12,12]
+  }
+}

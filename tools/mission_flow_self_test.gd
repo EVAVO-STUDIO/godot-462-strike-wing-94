@@ -191,7 +191,7 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("active_support_id") and source.contains('"atlas_tanker"'), "objective tracker should yield visual priority during the authored tanker docking set piece")
 		_expect(source.contains('var cue := " WEAK" if phase >= 3'), "phase-three boss HUD should retain weak-point cue")
 		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
-		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAME"), "gameplay HUD should use authored raster frame and meter families")
+		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAMES"), "gameplay HUD should use authored raster frame and meter families")
 		for hud_path in ["top_frame.png", "meter_trough.png", "hull_fill.png", "shield_fill.png", "energy_fill.png", "status_frame.png", "boss_frame.png", "boss_trough.png", "boss_fill.png", "threat_frame.png", "icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png", "afterburner_frame.png", "afterburner_trough.png", "afterburner_fill.png", "stability_trough.png", "stability_fill.png"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/ui/hud/%s" % hud_path), "missing authored HUD sprite: %s" % hud_path)
 		for primary_meter in ["hull_frame", "shield_frame", "energy_frame", "hull_warning_frame", "shield_warning_frame", "energy_warning_frame"]:
@@ -212,6 +212,12 @@ func _test_pixel_ui() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud_asset_manifest.json"), "gameplay HUD production manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/top_avionics_fascia_manifest.json"), "top avionics fascia source/runtime manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/boss_phase_bar_manifest.json"), "boss phase threat-bar source/runtime manifest should exist")
+		var threat_sizes := {"tracking":Vector2(280,22), "caution":Vector2(280,22), "lock":Vector2(280,22), "approach_trough":Vector2(82,5), "caution_fill":Vector2(80,3), "lock_fill":Vector2(80,3), "missile_icon":Vector2(12,12)}
+		for threat_asset in threat_sizes:
+			var threat_texture := load("res://assets/runtime/ui/hud/threat_annunciator/%s.png" % threat_asset)
+			_expect(threat_texture is Texture2D and threat_texture.get_size() == threat_sizes[threat_asset], "radar-warning receiver sprite should retain registered geometry: %s" % threat_asset)
+		_expect(source.contains("HUD_THREAT_APPROACH_TROUGH") and source.contains("ThreatWarningRules.warning_level") and source.contains("approach_ratio"), "missile annunciator should expose warning state and closure distance through authored instruments")
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/threat_annunciator_manifest.json"), "radar-warning receiver source/runtime manifest should exist")
 		for boss_phase in ["phase_1","phase_2","phase_3"]:
 			var boss_phase_frame := load("res://assets/runtime/ui/hud/boss_phase_bar/%s.png" % boss_phase)
 			var boss_phase_fill := load("res://assets/runtime/ui/hud/boss_phase_bar/%s_fill.png" % boss_phase)
