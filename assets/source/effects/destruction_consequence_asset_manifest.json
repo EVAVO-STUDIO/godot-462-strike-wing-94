@@ -5,7 +5,7 @@
   "timing": {"ordinary_seconds":0.72,"boss_blast_seconds":1.05,"boss_destruction_seconds":2.30,"naval_sinking_seconds":1.35,"blast_fraction":0.66,"consequence_start":0.32},
   "variants": {
     "air": "blast, outward debris and trailing smoke",
-    "ground": "blast, debris, short wreck fire and smoke",
+    "ground": "blast, debris, short wreck fire and smoke; fortified cannon and coastal flak retain three-stage weapon/ring breakup silhouettes",
     "sea": "blast followed by a retained hull that lists, submerges, displaces water separately at bow and stern, smokes and fades",
     "autonomous": "cold debris tint plus broken EMP field collapse",
     "infantry": "subdued dust/scatter consequence with no wreck fire",

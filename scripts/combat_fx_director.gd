@@ -44,6 +44,18 @@ const ORBITAL_BOSS_WRECK_HULLS := {
 	"station_warden": preload("res://assets/runtime/enemies/orbital_boss/station_warden_idle.png"),
 	"machine_ark": preload("res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png"),
 }
+const GROUND_EMPLACEMENT_BREAKUP_FRAMES := {
+	"fortified_turret": [
+		preload("res://assets/runtime/effects/ground_breakup/fort_breakup_0.png"),
+		preload("res://assets/runtime/effects/ground_breakup/fort_breakup_1.png"),
+		preload("res://assets/runtime/effects/ground_breakup/fort_breakup_2.png"),
+	],
+	"coastal_flak": [
+		preload("res://assets/runtime/effects/ground_breakup/flak_breakup_0.png"),
+		preload("res://assets/runtime/effects/ground_breakup/flak_breakup_1.png"),
+		preload("res://assets/runtime/effects/ground_breakup/flak_breakup_2.png"),
+	],
+}
 
 var _surface: Control
 var _events: Array = []
@@ -255,6 +267,9 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 	if category == "sea" and NAVAL_WRECK_HULLS.has(enemy_id):
 		_draw_naval_sinking(surface, p, late_ratio, enemy_id, serial)
 		return
+	if GROUND_EMPLACEMENT_BREAKUP_FRAMES.has(enemy_id):
+		_draw_ground_emplacement_breakup(surface,p,late_ratio,enemy_id,serial)
+		return
 	if enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]:
 		var dust := ImpactArtLibrary.frame_for_ratio("dust_impact", late_ratio)
 		var dust_size := Vector2.ONE * lerpf(22.0, 38.0, late_ratio)
@@ -272,6 +287,23 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 	if category == "ground" and faction != "autonomous" and late_ratio < 0.72:
 		var fire := PersistentEffectArtLibrary.FRAMES["damage_fire"][posmod(phase + 1, 4)] as Texture2D
 		surface.draw_texture_rect(fire, Rect2((p - Vector2(14,14)).round(), Vector2(28,28)), false, Color(0.94,0.76,0.48,1.0-late_ratio))
+
+func _draw_ground_emplacement_breakup(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
+	var frames: Array = GROUND_EMPLACEMENT_BREAKUP_FRAMES[enemy_id]
+	var frame_index := clampi(int(floor(ratio*3.0)),0,2)
+	var wreck: Texture2D = frames[frame_index]
+	var wreck_alpha := 1.0-smoothstep(0.80,1.0,ratio)
+	surface.draw_texture(wreck,(p-wreck.get_size()*0.5).round(),Color(0.78,0.74,0.64,wreck_alpha))
+	var dust := ImpactArtLibrary.frame_for_ratio("dust_impact",fmod(ratio*1.45,0.999))
+	var dust_size := Vector2.ONE*lerpf(24,42,ratio)
+	surface.draw_texture_rect(dust,Rect2((p+Vector2(0,5)-dust_size*0.5).round(),dust_size),false,Color(0.68,0.62,0.50,0.58*(1.0-ratio)))
+	var phase := serial+frame_index
+	if ratio<0.62:
+		var fire: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_fire"][posmod(phase,4)]
+		surface.draw_texture_rect(fire,Rect2((p+Vector2(3,-2)-Vector2(11,11)).round(),Vector2(22,22)),false,Color(0.88,0.66,0.40,0.72*(1.0-ratio)))
+	if ratio>0.28:
+		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(phase+1,4)]
+		surface.draw_texture_rect(smoke,Rect2((p+Vector2(-4,-9)-Vector2(12,12)).round(),Vector2(24,24)),false,Color(0.57,0.58,0.54,0.62*(1.0-ratio)))
 
 func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
 	var hull: Texture2D = NAVAL_WRECK_HULLS[enemy_id]

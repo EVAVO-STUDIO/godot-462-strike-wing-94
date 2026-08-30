@@ -1,6 +1,6 @@
 {
   "asset_family": "mercenary_ground_layered",
-  "status": "runtime_tracking_recoil_candidate",
+  "status": "runtime_articulation_destruction_v2",
   "source": {
     "path": "res://assets/source/enemies/candidates/mercenary_ground_layered/layered_emplacements_candidate_01.png",
     "sha256": "2C0AD74669214BBF1BB20B34207206A28F910DC5C0D7B3E6A47F741155940C50"
@@ -38,5 +38,10 @@
       }
     }
   ],
-  "remaining_gate": ["destruction breakup frames"]
+  "destruction": {
+    "fortified_turret": "three held weapon-dislocation, ring-fracture and scattered-armour wreck exposures",
+    "coastal_flak": "three held quad-barrel separation, ring-fracture and scattered-mount wreck exposures",
+    "effect_timing": "short dust impulse, localized heat, restrained smoke and final wreck fade"
+  },
+  "remaining_gate": []
 }

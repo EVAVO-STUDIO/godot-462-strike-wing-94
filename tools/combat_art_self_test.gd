@@ -426,6 +426,12 @@ func _test_combat_fx() -> void:
 	_expect(source.contains('enemy_id=="swarm_controller"') and source.contains("central_width") and source.contains("tread_center"),"swarm controller and forge should use distinct three-way controller separation and tread/forge collapse")
 	_expect(source.contains("ORBITAL_BOSS_WRECK_HULLS") and source.contains("ORBITAL_BOSS_DESTRUCTION_SECONDS") and source.contains("func _draw_orbital_boss_breakup"),"BLACK SKY bosses should receive an extended vacuum-breakup window with retained authored hull material")
 	_expect(source.contains('enemy_id=="phase_control_array"') and source.contains('enemy_id=="machine_ark"') and source.contains("section_count"),"phase array should separate by projector quadrant while other orbital infrastructure breaks along authored longitudinal sections")
+	_expect(source.contains("GROUND_EMPLACEMENT_BREAKUP_FRAMES") and source.contains("func _draw_ground_emplacement_breakup"),"layered human emplacements should retain authored weapon/ring breakup silhouettes after the primary blast")
+	for emplacement in ["fort","flak"]:
+		for frame_index in range(3):
+			var breakup_frame := load("res://assets/runtime/effects/ground_breakup/%s_breakup_%d.png" % [emplacement,frame_index])
+			_expect(breakup_frame is Texture2D and breakup_frame.get_size()==Vector2(40,40),"ground-emplacement breakup frame should retain 40x40 wreck canvas: %s/%d" % [emplacement,frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/effects/ground_breakup/ground_breakup_asset_manifest.json"),"ground-emplacement breakup source/runtime manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
