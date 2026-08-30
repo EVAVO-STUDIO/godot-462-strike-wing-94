@@ -39,6 +39,11 @@ const ORBITAL_AIR_SPRITES := {
 	"beam_sentry": preload("res://assets/runtime/enemies/orbital_air/beam_sentry_idle.png"),
 	"orbital_lancer": preload("res://assets/runtime/enemies/orbital_air/orbital_lancer_idle.png"),
 }
+const MERCENARY_BOSS_SPRITES := {
+	"gunship_alpha": preload("res://assets/runtime/enemies/mercenary_boss/gunship_alpha_idle.png"),
+	"armoured_train": preload("res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png"),
+	"missile_cruiser": preload("res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png"),
+}
 
 const PLAYER := Color("d9e0e5")
 const PLAYER_DARK := Color("667985")
@@ -201,7 +206,10 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	if category in ["ground", "sea"] and scale < 0.25 and not is_boss:
 		return
 	if is_boss:
-		_draw_boss(surface, p, enemy_id, faction)
+		if MERCENARY_BOSS_SPRITES.has(enemy_id):
+			_draw_production_sprite(surface, p, MERCENARY_BOSS_SPRITES[enemy_id])
+		else:
+			_draw_boss(surface, p, enemy_id, faction)
 	elif faction == "autonomous" and category == "ground" and MACHINE_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MACHINE_GROUND_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and ORBITAL_AIR_SPRITES.has(enemy_id):

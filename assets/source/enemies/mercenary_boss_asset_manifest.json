@@ -1,0 +1,27 @@
+{
+  "asset_family": "mercenary_boss",
+  "status": "runtime_idle_candidates",
+  "source": {
+    "path": "res://assets/source/enemies/candidates/mercenary_boss/mercenary_boss_identity_sheet_candidate_01.png",
+    "sha256": "D5CF3DFC83C5641EC22A1CD12204DCBC8D7BFB67E4AF86A7ABEBDF871C2C3524",
+    "order": ["gunship_alpha", "armoured_train", "missile_cruiser"]
+  },
+  "visual_contract": {
+    "era": "Sector I advanced conventional warfare",
+    "boss_rule": "authored scale, readable negative space and three phase-target zones; never a scaled regular unit",
+    "materials": "charcoal gunmetal, sand-gray armour, muted rust-red recognition and amber command optics"
+  },
+  "process": {
+    "orientation": "attack fronts and primary weapons facing down toward player",
+    "alpha_review": "composited over blue battlefield plate; no matte halo",
+    "downsample": "Lanczos with one-pixel transparent inset",
+    "alpha": "20 percent threshold, preserved separately during palette remap",
+    "palette": "one shared 31-colour RGB palette plus transparency"
+  },
+  "runtime": [
+    {"id":"gunship_alpha","path":"res://assets/runtime/enemies/mercenary_boss/gunship_alpha_idle.png","size":[94,78],"sha256":"AC916FDE9A084767B6B3D2F4EC34BDBF19365882F6289B5301B845C4F8E55E26","center":[47,39],"weak_points":[[25,34],[69,34],[47,51]],"muzzles":[[20,66],[74,66],[47,73]]},
+    {"id":"armoured_train","path":"res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png","size":[78,150],"sha256":"E78A05000B83C34B26C4D299B7AB0DFEBCAAFBA0DB2557C37A817016E2AF4A65","center":[39,75],"weak_points":[[39,29],[39,77],[39,122]],"muzzles":[[28,130],[50,130],[39,143]]},
+    {"id":"missile_cruiser","path":"res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png","size":[92,154],"sha256":"F83E86A3D8F11EBF887B4A9377C8367A7872137EAF20423DE7E3278D62CD8239","center":[46,77],"weak_points":[[24,62],[68,62],[46,41]],"muzzles":[[46,137]],"missile_banks":[[25,70],[67,70]]}
+  ],
+  "remaining_animation_gate": ["entrance", "turret tracking", "missile hatches", "phase transitions", "critical exposure", "multi-stage destruction"]
+}
