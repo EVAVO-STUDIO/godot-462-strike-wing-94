@@ -1,0 +1,20 @@
+{
+  "asset_family": "hypersonic_pursuit_thrust_animation",
+  "status": "runtime_animations_reviewed",
+  "registration": "all frames preserve approved airframe canvas, visual centre, and gameplay centre",
+  "animation_method": "four held propulsion-pressure poses: idle, ignition, full pulse, asymmetric settle",
+  "units": {
+    "ace_interceptor": {
+      "canvas":[32,34], "fps":10, "propulsion":"warm combustion afterburner",
+      "sha256":{"thrust_0.png":"A153B8D5C7713233094D360C653D71772B7AFB145EF75FE2890BDB7EE978E97C","thrust_1.png":"FD82991C8EB411418A8BB2009A53D1E911DD4EBCA4F79ACC2B591C9D9A8FC335","thrust_2.png":"EE52ACC6952A51ABFA4CA5FD1C3FD75DFC9078B2DA52B250C44B39F5182AEB68","thrust_3.png":"AD8E830364AF706F2C7649B44EC4983AA12824DB65D537BA192200048AAB244A"}
+    },
+    "drone_hunter": {
+      "canvas":[30,30], "fps":12, "propulsion":"compact cool machine thrust using the existing engine palette",
+      "sha256":{"thrust_0.png":"7D92E7408BA16C044D759F109F2EFB3583B8910C74630FC7FF093B2C4F2DBA6C","thrust_1.png":"460E87BFEE3AEBD7E6CC5B435B9C827139A987E51941E03E844FAD86AB2AD073","thrust_2.png":"5230734841732143A634659A25FBB1C4AF516DFE911E767B94B14CE324886E17","thrust_3.png":"3C8747915BF77C163C5AF257ADD637E7D3ECD051897873B2A6C9C42DF2F6EB3E"}
+    },
+    "phase_interceptor": {
+      "canvas":[34,34], "fps":14, "propulsion":"restrained steel-blue upper-atmosphere field exhaust; no neon ring",
+      "sha256":{"thrust_0.png":"E4D3BCD4AAF1B03213827A37FCCF40F5AD0270713033FAA4247F80FDC8AF3EC0","thrust_1.png":"C7361F8C59F33ED3BD69DF168B8F3CD0E9786DA99C976F8B292B5DE9AC3E6E49","thrust_2.png":"06102C1A83E4E4832CE575ECA8665473DD03CCEEDDD1220A5B33CE9A08452F53","thrust_3.png":"155B6DAEDE939B822FC5C2CD234BC4486B0388380467B3EDF6A76599D5F6DFBE"}
+    }
+  }
+}

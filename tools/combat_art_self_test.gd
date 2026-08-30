@@ -136,6 +136,15 @@ func _test_visual_language() -> void:
 	for enemy_id in machine_air_sizes:
 		var texture := load("res://assets/runtime/enemies/machine_air/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == machine_air_sizes[enemy_id], "machine-air sprite should retain reviewed geometry: %s" % enemy_id)
+	var pursuit_animation_sizes := {
+		"ace_interceptor": Vector2(32,34),
+		"drone_hunter": Vector2(30,30),
+		"phase_interceptor": Vector2(34,34),
+	}
+	for pursuit_id in pursuit_animation_sizes:
+		for frame_index in range(4):
+			var thrust_frame := load("res://assets/runtime/enemies/unit_animation/%s/thrust_%d.png" % [pursuit_id, frame_index])
+			_expect(thrust_frame is Texture2D and thrust_frame.get_size() == pursuit_animation_sizes[pursuit_id], "hypersonic-pursuit thrust frame should retain registered geometry: %s/%d" % [pursuit_id, frame_index])
 	var machine_ground_sizes := {
 		"autonomous_armor": Vector2(36,30),
 		"factory_defence_node": Vector2(34,34),

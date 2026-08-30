@@ -40,6 +40,24 @@ const UNIT_ANIMATION_FRAMES := {
 		preload("res://assets/runtime/enemies/unit_animation/mercenary_heavy_team/advance_2.png"),
 		preload("res://assets/runtime/enemies/unit_animation/mercenary_heavy_team/advance_3.png"),
 	]},
+	"ace_interceptor": {"fps": 10.0, "frames": [
+		preload("res://assets/runtime/enemies/unit_animation/ace_interceptor/thrust_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/ace_interceptor/thrust_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/ace_interceptor/thrust_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/ace_interceptor/thrust_3.png"),
+	]},
+	"drone_hunter": {"fps": 12.0, "frames": [
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_3.png"),
+	]},
+	"phase_interceptor": {"fps": 14.0, "frames": [
+		preload("res://assets/runtime/enemies/unit_animation/phase_interceptor/thrust_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/phase_interceptor/thrust_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/phase_interceptor/thrust_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/phase_interceptor/thrust_3.png"),
+	]},
 }
 const MERCENARY_GROUND_SPRITES := {
 	"light_tank": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
@@ -375,9 +393,9 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif faction == "autonomous" and category == "ground" and MACHINE_MECH_SPRITES.has(enemy_id):
 		_draw_animated_unit(surface, p, enemy_id, enemy, MACHINE_MECH_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and ORBITAL_AIR_SPRITES.has(enemy_id):
-		_draw_production_sprite(surface, p, ORBITAL_AIR_SPRITES[enemy_id])
+		_draw_animated_unit(surface, p, enemy_id, enemy, ORBITAL_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous" and MACHINE_AIR_SPRITES.has(enemy_id):
-		_draw_production_sprite(surface, p, MACHINE_AIR_SPRITES[enemy_id])
+		_draw_animated_unit(surface, p, enemy_id, enemy, MACHINE_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous":
 		_draw_autonomous(surface, p, enemy_id, category, scale)
 	elif category == "ground" and LAYERED_GROUND_SPRITES.has(enemy_id):
