@@ -1,17 +1,20 @@
 {
   "asset_family": "orbital_boss",
-  "status": "runtime_command_identities_v2_approved",
+  "status": "all_runtime_identities_approved",
   "review_note": "v2 replaces radial cyan iconography with asymmetric pressure hardware, radiators, trusses and physically distinct control subsystems",
   "sources": [
     {"id":"orbital_command_node","path":"res://assets/source/enemies/candidates/orbital_boss/orbital_command_node_candidate_02.png","sha256":"B834B8D3426D2534E232167C81E980E9E8E9B50925C5D92CBBFE933345126459"},
     {"id":"phase_control_array","path":"res://assets/source/enemies/candidates/orbital_boss/phase_control_array_candidate_02.png","sha256":"BCED3BACA54C9FDF5A7086F43393CF81684430439D3C43C0C4695AAA15D39B6A"}
+    ,{"id":"station_warden","path":"res://assets/source/enemies/candidates/orbital_boss/station_warden_candidate_01.png","sha256":"AB17C0E6AA4A2E57D8652E5D129F2E54C45AE642DEECFED47561FAC08BE67C64"}
+    ,{"id":"machine_ark","path":"res://assets/source/enemies/candidates/orbital_boss/machine_ark_candidate_01.png","sha256":"EC7990713FFFA73D3FD775B548E160F635FFFCF2F546A95FC6EE2162D69142A3"}
   ],
   "visual_contract": {"era":"Sector III BLACK SKY orbital war","boss_rule":"severe near-Earth military vacuum infrastructure with role-readable physical subsystems; every unfamiliar form still performs a plausible job","materials":"graphite and dark cobalt trusses, aged pale thermal ceramic, dirty pressure hardware, sparse warning red and minimal functional cyan","prohibited":["radial symmetry","glowing core","neon ring","magic portal","alien ornament"]},
   "process": {"orientation":"orthographic top-down, attack front facing down","alpha":"20 percent threshold restored after palette remap","downsample":"Lanczos with one-pixel transparent inset","palette":"one shared 31-colour RGB palette plus transparency"},
   "runtime": [
     {"id":"orbital_command_node","path":"res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle_v2.png","size":[124,104],"sha256":"B38DD9FEE220A943A224B64E203079295783C2C2A12B7A60D4D053D2994D02A8","landmarks":["offset communications spine","unequal radiator wings","pressure-vault command block","attitude-control cluster","service sensor pallet"],"weak_points":[[31,51],[61,48],[94,60]]},
-    {"id":"phase_control_array","path":"res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png","size":[126,126],"sha256":"6A36D8465032860001ABA0FB6333F3F1CBB31B1B699C71944062E8E83B09ECA0","landmarks":["broken-square truss lattice","unequal projector systems","shielded central chamber","repaired ceramic corner","calibration antenna"],"weak_points":[[25,61],[62,59],[99,51]]}
+    {"id":"phase_control_array","path":"res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png","size":[126,126],"sha256":"6A36D8465032860001ABA0FB6333F3F1CBB31B1B699C71944062E8E83B09ECA0","landmarks":["broken-square truss lattice","unequal projector systems","shielded central chamber","repaired ceramic corner","calibration antenna"],"weak_points":[[25,61],[62,59],[99,51]]},
+    {"id":"station_warden","path":"res://assets/runtime/enemies/orbital_boss/station_warden_idle.png","size":[146,116],"sha256":"8C2F6D4094D54E5553DA3CF9E9E955B3C45D890AD9CD8916A15A0F8A0A8A7371","landmarks":["port mass driver","starboard missile coffins","caged propellant tanks","traffic-control mast","forward service jaw"],"weak_points":[[25,54],[72,45],[118,52]]},
+    {"id":"machine_ark","path":"res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png","size":[160,128],"sha256":"F3170E670791DF6AFA5B472C1E2F8E2333317B78C5A3807895910D56D9DFF1AA","landmarks":["open construction slip and unfinished hull","central accelerator keel","starboard foundry and storage tanks","buried command cylinder","unequal radiator systems"],"weak_points":[[34,64],[80,50],[126,70],[91,25]]}
   ],
-  "remaining_identities": ["station_warden","machine_ark"],
   "remaining_animation_gate": ["phase-field cycling","pylon tracking","phase transitions","critical chamber exposure","multi-stage destruction"]
 }

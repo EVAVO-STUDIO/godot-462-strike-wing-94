@@ -73,6 +73,8 @@ const MACHINE_BOSS_SPRITES := {
 const ORBITAL_BOSS_SPRITES := {
 	"orbital_command_node": preload("res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle_v2.png"),
 	"phase_control_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png"),
+	"station_warden": preload("res://assets/runtime/enemies/orbital_boss/station_warden_idle.png"),
+	"machine_ark": preload("res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png"),
 }
 
 const PLAYER := Color("d9e0e5")

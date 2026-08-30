@@ -151,9 +151,12 @@ func _test_visual_language() -> void:
 	var orbital_boss_sizes := {
 		"orbital_command_node": Vector2(124,104),
 		"phase_control_array": Vector2(126,126),
+		"station_warden": Vector2(146,116),
+		"machine_ark": Vector2(160,128),
 	}
 	for enemy_id in orbital_boss_sizes:
-		var texture := load("res://assets/runtime/enemies/orbital_boss/%s_idle_v2.png" % enemy_id)
+		var suffix := "_idle_v2.png" if enemy_id in ["orbital_command_node", "phase_control_array"] else "_idle.png"
+		var texture := load("res://assets/runtime/enemies/orbital_boss/%s%s" % [enemy_id, suffix])
 		_expect(texture is Texture2D and texture.get_size() == orbital_boss_sizes[enemy_id], "orbital boss sprite should retain reviewed geometry: %s" % enemy_id)
 
 func _test_transform_presentation() -> void:
