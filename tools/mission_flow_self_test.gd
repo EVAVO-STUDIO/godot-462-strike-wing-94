@@ -193,6 +193,10 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAME"), "gameplay HUD should use authored raster frame and meter families")
 		for hud_path in ["top_frame.png", "meter_trough.png", "hull_fill.png", "shield_fill.png", "energy_fill.png", "status_frame.png", "boss_frame.png", "boss_trough.png", "boss_fill.png", "threat_frame.png", "icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png", "afterburner_frame.png", "afterburner_trough.png", "afterburner_fill.png", "stability_trough.png", "stability_fill.png"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/ui/hud/%s" % hud_path), "missing authored HUD sprite: %s" % hud_path)
+		for primary_meter in ["hull_frame", "shield_frame", "energy_frame", "hull_warning_frame", "shield_warning_frame", "energy_warning_frame"]:
+			var meter_texture := load("res://assets/runtime/ui/hud/primary_meter_cluster/%s.png" % primary_meter)
+			_expect(meter_texture is Texture2D and meter_texture.get_size() == Vector2(92,25), "primary meter instrument should retain registered geometry: %s" % primary_meter)
+		_expect(source.contains("_draw_primary_meter") and source.contains("HUD_HULL_WARNING_FRAME") and source.contains("HUD_SHIELD_WARNING_FRAME") and source.contains("HUD_ENERGY_WARNING_FRAME"), "hull, shield and generator should use distinct sprite instruments with live warning states")
 		_expect(source.contains("FLIGHT_STATE_FRAME") and source.contains("ALTITUDE_STATES") and source.contains("FORM_STATES") and source.contains("TECH_STATES") and source.contains("func _draw_flight_state"), "flight state should use authored altitude, geometry and technology sprites")
 		var flight_state_sizes := {
 			"frame": Vector2(148,16), "altitude_rail": Vector2(24,12),

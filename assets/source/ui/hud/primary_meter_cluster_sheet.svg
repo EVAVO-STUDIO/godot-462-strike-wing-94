@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="288" height="52" viewBox="0 0 288 52" shape-rendering="crispEdges">
+  <rect width="288" height="52" fill="none"/>
+  <defs>
+    <g id="housing">
+      <path d="M2 0h86l4 4v17l-4 4H2l-2-2V2z" fill="#060b10"/>
+      <path d="M3 1h84l3 3v16l-3 3H3l-1-1V3z" fill="#1d2a32"/>
+      <path d="M4 3h82l2 2v14l-2 2H4z" fill="#091117"/>
+      <path d="M4 3h82v1H4zM4 20h82v1H4z" fill="#3d505b"/>
+      <rect x="17" y="14" width="69" height="7" fill="#020609"/>
+      <rect x="18" y="15" width="67" height="5" fill="#101a20"/>
+      <path d="M2 5h1v4H2zM89 5h1v4h-1z" fill="#697982"/>
+      <path d="M4 22h12v1H4zM76 22h10v-1h1v2H76z" fill="#121b20"/>
+    </g>
+    <g id="glyph-h" fill="currentColor"><rect x="6" y="5" width="2" height="7"/><rect x="12" y="5" width="2" height="7"/><rect x="8" y="8" width="4" height="2"/></g>
+    <g id="glyph-s" fill="currentColor"><rect x="6" y="5" width="8" height="2"/><rect x="6" y="7" width="2" height="3"/><rect x="6" y="9" width="8" height="2"/><rect x="12" y="10" width="2" height="2"/><rect x="6" y="11" width="8" height="1"/></g>
+    <g id="glyph-e" fill="currentColor"><rect x="6" y="5" width="2" height="7"/><rect x="8" y="5" width="6" height="2"/><rect x="8" y="8" width="5" height="2"/><rect x="8" y="10" width="6" height="2"/></g>
+    <g id="ticks" fill="#020609"><rect x="25" y="15" width="1" height="5"/><rect x="34" y="15" width="1" height="5"/><rect x="43" y="15" width="1" height="5"/><rect x="52" y="15" width="1" height="5"/><rect x="61" y="15" width="1" height="5"/><rect x="70" y="15" width="1" height="5"/><rect x="79" y="15" width="1" height="5"/></g>
+  </defs>
+  <g transform="translate(0 0)"><use xlink:href="#housing"/><g color="#dc685c"><use xlink:href="#glyph-h"/></g><rect x="17" y="5" width="3" height="6" fill="#8e2f2c"/><rect x="18" y="6" width="1" height="4" fill="#e26555"/><use xlink:href="#ticks"/></g>
+  <g transform="translate(96 0)"><use xlink:href="#housing"/><g color="#76afd0"><use xlink:href="#glyph-s"/></g><rect x="17" y="5" width="3" height="6" fill="#315b79"/><rect x="18" y="6" width="1" height="4" fill="#81c4e8"/><use xlink:href="#ticks"/></g>
+  <g transform="translate(192 0)"><use xlink:href="#housing"/><g color="#e1c35f"><use xlink:href="#glyph-e"/></g><rect x="17" y="5" width="3" height="6" fill="#806b27"/><rect x="18" y="6" width="1" height="4" fill="#f0d66d"/><use xlink:href="#ticks"/></g>
+  <g transform="translate(0 26)"><use xlink:href="#housing"/><g color="#ff7564"><use xlink:href="#glyph-h"/></g><rect x="17" y="5" width="3" height="6" fill="#d7352d"/><rect x="18" y="6" width="1" height="4" fill="#fff0bc"/><path d="M84 5h3v3h-3zM85 9h2v2h-2z" fill="#ff4b3f"/><use xlink:href="#ticks"/></g>
+  <g transform="translate(96 26)"><use xlink:href="#housing"/><g color="#f0b860"><use xlink:href="#glyph-s"/></g><rect x="17" y="5" width="3" height="6" fill="#c46c2f"/><rect x="18" y="6" width="1" height="4" fill="#fff0bc"/><path d="M84 5h3v3h-3zM85 9h2v2h-2z" fill="#f0a34c"/><use xlink:href="#ticks"/></g>
+  <g transform="translate(192 26)"><use xlink:href="#housing"/><g color="#f0b860"><use xlink:href="#glyph-e"/></g><rect x="17" y="5" width="3" height="6" fill="#c46c2f"/><rect x="18" y="6" width="1" height="4" fill="#fff0bc"/><path d="M84 5h3v3h-3zM85 9h2v2h-2z" fill="#f0a34c"/><use xlink:href="#ticks"/></g>
+</svg>

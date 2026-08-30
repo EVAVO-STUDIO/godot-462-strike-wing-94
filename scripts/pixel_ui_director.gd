@@ -54,6 +54,12 @@ const HUD_METER_TROUGH := preload("res://assets/runtime/ui/hud/meter_trough.png"
 const HUD_HULL_FILL := preload("res://assets/runtime/ui/hud/hull_fill.png")
 const HUD_SHIELD_FILL := preload("res://assets/runtime/ui/hud/shield_fill.png")
 const HUD_ENERGY_FILL := preload("res://assets/runtime/ui/hud/energy_fill.png")
+const HUD_HULL_FRAME := preload("res://assets/runtime/ui/hud/primary_meter_cluster/hull_frame.png")
+const HUD_SHIELD_FRAME := preload("res://assets/runtime/ui/hud/primary_meter_cluster/shield_frame.png")
+const HUD_ENERGY_FRAME := preload("res://assets/runtime/ui/hud/primary_meter_cluster/energy_frame.png")
+const HUD_HULL_WARNING_FRAME := preload("res://assets/runtime/ui/hud/primary_meter_cluster/hull_warning_frame.png")
+const HUD_SHIELD_WARNING_FRAME := preload("res://assets/runtime/ui/hud/primary_meter_cluster/shield_warning_frame.png")
+const HUD_ENERGY_WARNING_FRAME := preload("res://assets/runtime/ui/hud/primary_meter_cluster/energy_warning_frame.png")
 const HUD_STATUS_FRAME := preload("res://assets/runtime/ui/hud/status_frame.png")
 const HUD_BOSS_FRAME := preload("res://assets/runtime/ui/hud/boss_frame.png")
 const HUD_BOSS_TROUGH := preload("res://assets/runtime/ui/hud/boss_trough.png")
@@ -419,9 +425,9 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	var max_shield := _call_int(scene, "_max_shield", 100)
 	var generator := _call_dictionary(scene, "_active_generator")
 	var energy := float(scene.get("energy")) if _has_property(scene, "energy") else 0.0
-	_draw_meter(surface, Vector2(16, 14), "H", int(scene.get("hull")), max_hull, HUD_HULL_FILL)
-	_draw_meter(surface, Vector2(112, 14), "S", int(scene.get("shield")), maxi(1, max_shield), HUD_SHIELD_FILL)
-	_draw_meter(surface, Vector2(208, 14), "E", int(round(energy)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL)
+	_draw_primary_meter(surface, Vector2(12, 11), int(scene.get("hull")), max_hull, HUD_HULL_FILL, HUD_HULL_FRAME, HUD_HULL_WARNING_FRAME, 0.30)
+	_draw_primary_meter(surface, Vector2(108, 11), int(scene.get("shield")), maxi(1, max_shield), HUD_SHIELD_FILL, HUD_SHIELD_FRAME, HUD_SHIELD_WARNING_FRAME, 0.24)
+	_draw_primary_meter(surface, Vector2(204, 11), int(round(energy)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, HUD_ENERGY_FRAME, HUD_ENERGY_WARNING_FRAME, 0.18)
 	surface.draw_texture(HUD_ICON_BOMB, Vector2(304, 12))
 	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(318, 15), 1, TEXT, 1)
 	surface.draw_texture(HUD_ICON_WAVE, Vector2(342, 12))
@@ -652,6 +658,17 @@ func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current:
 	var ratio := clampf(float(value) / float(max_value), 0.0, 1.0)
 	surface.draw_texture(HUD_METER_TROUGH, position + Vector2(0, 13))
 	_draw_clipped_fill(surface, fill_texture, position + Vector2(1, 14), ratio)
+
+func _draw_primary_meter(surface: CanvasItem, position: Vector2, current: int, maximum: int, fill_texture: Texture2D, normal_frame: Texture2D, warning_frame: Texture2D, warning_ratio: float) -> void:
+	var max_value := maxi(1, maximum)
+	var value := clampi(current, 0, max_value)
+	var ratio := clampf(float(value) / float(max_value), 0.0, 1.0)
+	var frame := warning_frame if ratio <= warning_ratio else normal_frame
+	surface.draw_texture(frame, position)
+	PixelFont.draw_text(surface, "%03d" % value, position + Vector2(25, 5), 1, RED if ratio <= warning_ratio else TEXT, 1)
+	var instrument_width := floorf(67.0 * ratio)
+	if instrument_width > 0.0:
+		surface.draw_texture_rect_region(fill_texture, Rect2(position + Vector2(18,15),Vector2(instrument_width,fill_texture.get_height())),Rect2(0,0,instrument_width,fill_texture.get_height()))
 
 func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
 	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))
