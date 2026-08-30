@@ -1,13 +1,16 @@
 {
   "asset_family": "orbital_boss",
-  "status": "provisional_runtime_identity_requires_style_repaint",
-  "review_note": "command roles read clearly, but symmetrical greeble density and cyan emphasis remain above final HYPERSONIC limits",
-  "source": {"path":"res://assets/source/enemies/candidates/orbital_boss/orbital_boss_command_sheet_candidate_01.png","sha256":"9F042168B28437E0DB15315781EB7C19CB1D6DE41BDEF42026AC99B82EE1FE59","order":["orbital_command_node","phase_control_array"]},
-  "visual_contract": {"era":"Sector III BLACK SKY orbital war","boss_rule":"severe engineered orbital infrastructure with large readable functional zones; never organic alien ornament","materials":"desaturated blue-black armor, graphite mechanisms, limited pale ceramic panels, restrained cold-cyan phase emitters and warning amber"},
+  "status": "runtime_command_identities_v2_approved",
+  "review_note": "v2 replaces radial cyan iconography with asymmetric pressure hardware, radiators, trusses and physically distinct control subsystems",
+  "sources": [
+    {"id":"orbital_command_node","path":"res://assets/source/enemies/candidates/orbital_boss/orbital_command_node_candidate_02.png","sha256":"B834B8D3426D2534E232167C81E980E9E8E9B50925C5D92CBBFE933345126459"},
+    {"id":"phase_control_array","path":"res://assets/source/enemies/candidates/orbital_boss/phase_control_array_candidate_02.png","sha256":"BCED3BACA54C9FDF5A7086F43393CF81684430439D3C43C0C4695AAA15D39B6A"}
+  ],
+  "visual_contract": {"era":"Sector III BLACK SKY orbital war","boss_rule":"severe near-Earth military vacuum infrastructure with role-readable physical subsystems; every unfamiliar form still performs a plausible job","materials":"graphite and dark cobalt trusses, aged pale thermal ceramic, dirty pressure hardware, sparse warning red and minimal functional cyan","prohibited":["radial symmetry","glowing core","neon ring","magic portal","alien ornament"]},
   "process": {"orientation":"orthographic top-down, attack front facing down","alpha":"20 percent threshold restored after palette remap","downsample":"Lanczos with one-pixel transparent inset","palette":"one shared 31-colour RGB palette plus transparency"},
   "runtime": [
-    {"id":"orbital_command_node","path":"res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle.png","size":[124,104],"sha256":"6F7C91C33F69C94EBC1B4AD8CFD8F3858BCA3801074F44DD43FCA93C600B7B46","center":[62,52],"weak_points":[[62,52],[23,33],[101,33]],"muzzles":[[29,91],[95,91],[62,96]]},
-    {"id":"phase_control_array","path":"res://assets/runtime/enemies/orbital_boss/phase_control_array_idle.png","size":[126,126],"sha256":"5BF060CC6BC13BD6067BA7DCE44A79E37460152759A328EF01D0EFE8C89751D4","center":[63,63],"weak_points":[[63,63],[19,63],[107,63]],"emitters":[[63,18],[108,63],[63,108],[18,63]]}
+    {"id":"orbital_command_node","path":"res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle_v2.png","size":[124,104],"sha256":"B38DD9FEE220A943A224B64E203079295783C2C2A12B7A60D4D053D2994D02A8","landmarks":["offset communications spine","unequal radiator wings","pressure-vault command block","attitude-control cluster","service sensor pallet"],"weak_points":[[31,51],[61,48],[94,60]]},
+    {"id":"phase_control_array","path":"res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png","size":[126,126],"sha256":"6A36D8465032860001ABA0FB6333F3F1CBB31B1B699C71944062E8E83B09ECA0","landmarks":["broken-square truss lattice","unequal projector systems","shielded central chamber","repaired ceramic corner","calibration antenna"],"weak_points":[[25,61],[62,59],[99,51]]}
   ],
   "remaining_identities": ["station_warden","machine_ark"],
   "remaining_animation_gate": ["phase-field cycling","pylon tracking","phase transitions","critical chamber exposure","multi-stage destruction"]

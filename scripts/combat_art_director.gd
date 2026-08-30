@@ -71,8 +71,8 @@ const MACHINE_BOSS_SPRITES := {
 	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png"),
 }
 const ORBITAL_BOSS_SPRITES := {
-	"orbital_command_node": preload("res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle.png"),
-	"phase_control_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle.png"),
+	"orbital_command_node": preload("res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle_v2.png"),
+	"phase_control_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png"),
 }
 
 const PLAYER := Color("d9e0e5")
