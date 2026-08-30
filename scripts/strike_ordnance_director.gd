@@ -2,6 +2,11 @@ extends CanvasLayer
 
 const HUD_STABILITY_TROUGH := preload("res://assets/runtime/ui/hud/stability_trough.png")
 const HUD_STABILITY_FILL := preload("res://assets/runtime/ui/hud/stability_fill.png")
+const AIM_LATTICE := preload("res://assets/runtime/ui/hud/strike_targeting/aim_lattice.png")
+const BLAST_ENVELOPE := preload("res://assets/runtime/ui/hud/strike_targeting/blast_envelope.png")
+const PRIORITY_FRAME := preload("res://assets/runtime/ui/hud/strike_targeting/priority_frame.png")
+const IMPACT_MARKER := preload("res://assets/runtime/ui/hud/strike_targeting/impact_marker.png")
+const GUIDANCE_RIBBON := preload("res://assets/runtime/ui/hud/strike_targeting/guidance_ribbon.png")
 
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const PRECISION_BOMB_FRAMES := [
@@ -255,13 +260,13 @@ func _draw_surface(surface: CanvasItem) -> void:
 	if stable:
 		reticle = Color(0.72, 1.0, 0.82, 0.98)
 	if assisted:
-		surface.draw_line(projected, target, Color(reticle.r, reticle.g, reticle.b, 0.35), 1.0)
-	surface.draw_arc(target, aim_radius, 0.0, TAU, 20, reticle, 1.0)
-	surface.draw_arc(target, blast_radius, 0.0, TAU, 20, Color(0.92, 0.44, 0.22, 0.24), 1.0)
-	surface.draw_line(target + Vector2(-6, 0), target + Vector2(6, 0), reticle, 1.0)
-	surface.draw_line(target + Vector2(0, -6), target + Vector2(0, 6), reticle, 1.0)
+		_draw_effect_between(surface, GUIDANCE_RIBBON, projected, target, 4.0, Color(1,1,1,0.38))
+	var aim_size := Vector2.ONE * aim_radius * 2.0
+	var blast_size := Vector2.ONE * blast_radius * 2.0
+	surface.draw_texture_rect(AIM_LATTICE, Rect2(target - aim_size * 0.5, aim_size), false, Color(1,1,1,reticle.a))
+	surface.draw_texture_rect(BLAST_ENVELOPE, Rect2(target - blast_size * 0.5, blast_size), false)
 	if priority:
-		surface.draw_rect(Rect2(roundf(target.x)-11, roundf(target.y)-11, 22, 22), reticle, false, 1.0)
+		surface.draw_texture(PRIORITY_FRAME, (target - Vector2(16,16)).round())
 		PixelFont.draw_text(surface, "ROUTE TARGET", target + Vector2(-24, 15), 1, reticle, 1)
 	var stability_pct := int(round(_stability * 100.0))
 	var transition_text := " SAFE" if _altitude_transition_active() else ""
@@ -287,14 +292,22 @@ func _draw_surface(surface: CanvasItem) -> void:
 		var travel := smoothstep(0.0, 1.0, progress)
 		var bomb_position := release.lerp(point, travel)
 		var bomb_scale := lerpf(1.0, 0.45, travel)
-		var pulse := 3.0 + 7.0 * progress
 		var color := Color(0.42, 0.96, 0.62, 0.78) if bool(item.get("priority_lock", false)) else Color(1.0, 0.48, 0.20, 0.7)
-		surface.draw_circle(point, pulse, color, false, 1.0)
-		surface.draw_line(release, point, Color(color.r, color.g, color.b, 0.16), 1.0)
+		var marker_size := Vector2.ONE * (18.0 + 14.0 * progress)
+		surface.draw_texture_rect(IMPACT_MARKER, Rect2(point - marker_size * 0.5, marker_size), false, color)
+		_draw_effect_between(surface, GUIDANCE_RIBBON, release, point, 3.0, Color(color.r,color.g,color.b,0.18))
 		var bomb_frame_index := int(floor(progress * 10.0)) % PRECISION_BOMB_FRAMES.size()
 		var bomb_texture: Texture2D = PRECISION_BOMB_FRAMES[bomb_frame_index]
 		var bomb_size := (bomb_texture.get_size() * bomb_scale).round()
 		surface.draw_texture_rect(bomb_texture, Rect2((bomb_position - Vector2(8, 7) * bomb_scale).round(), bomb_size), false)
+
+func _draw_effect_between(surface: CanvasItem, texture: Texture2D, start: Vector2, finish: Vector2, height: float, tint: Color = Color.WHITE) -> void:
+	var delta := finish - start
+	if delta.length() < 1.0:
+		return
+	surface.draw_set_transform(start, delta.angle(), Vector2(delta.length() / texture.get_width(), height / texture.get_height()))
+	surface.draw_texture(texture, Vector2(0, -texture.get_height() * 0.5), tint)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_impact_fx(surface: CanvasItem) -> void:
 	for fx in _impact_fx:

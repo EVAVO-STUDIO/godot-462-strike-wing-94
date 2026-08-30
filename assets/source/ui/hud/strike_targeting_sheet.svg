@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128" shape-rendering="crispEdges">
+ <rect width="256" height="128" fill="none"/>
+ <!-- 64x64 aim lattice -->
+ <g fill="none"><path d="M32 3l12 3 9 8 6 11-1 13-6 11-10 8-13 3-12-4-9-8-5-12 2-13 7-11 9-6z" stroke="#254d46" stroke-width="5" opacity=".55"/><path d="M32 4l11 3 8 7m7 12v11l-6 11m-10 8-12 3-11-4M9 48L4 36l2-12m7-12 9-6" stroke="#68d6a2" stroke-width="2"/><path d="M32 10v10m0 24v10M10 32h10m24 0h10" stroke="#c9f6d8" stroke-width="2"/><path d="M26 32h12M32 26v12" stroke="#e9ffec"/><rect x="30" y="30" width="5" height="5" fill="#9af0ba"/></g>
+ <!-- 64x64 blast envelope -->
+ <g transform="translate(64)" fill="none"><path d="M32 4l15 4 10 11m3 15-4 14-11 9m-16 3-14-5L6 44M4 29l5-14L20 7" stroke="#6d3027" stroke-width="4" opacity=".45"/><path d="M32 5l13 3m11 11 4 12m-4 16-10 10m-17 3-12-4M6 44L4 32m5-17L20 7" stroke="#df7448" stroke-width="2"/><path d="M32 2v5m0 50v5M2 32h5m50 0h5" stroke="#f0ad72"/></g>
+ <!-- 32x32 priority frame at 128,0 -->
+ <path d="M130 10V2h9m10 0h9v8m0 12v8h-9m-10 0h-9v-8" fill="none" stroke="#4b2824" stroke-width="4" opacity=".7"/>
+ <path d="M130 10V2h9m10 0h9v8m0 12v8h-9m-10 0h-9v-8" fill="none" stroke="#e18b56" stroke-width="2"/>
+ <path d="M134 16h20M144 6v20" stroke="#ffd090"/>
+ <!-- pending impact marker 32x32 at 160 -->
+ <path d="M176 2l4 8 9-3-5 8 7 6-10-1-5 10-3-10-10 3 7-8-6-6 9 2z" fill="#1a3c34" opacity=".75"/>
+ <path d="M176 6l3 7 7-2-4 6 5 4-7-1-4 7-2-7-7 2 5-6-5-5 7 2z" fill="none" stroke="#83e4ad" stroke-width="2"/>
+ <rect x="174" y="14" width="5" height="5" fill="#d8f9df"/>
+ <!-- 64x4 guidance ribbon at 0,72 -->
+ <path d="M0 72h50l8-2h6l-7 4 7 4h-6l-8-2H0z" fill="#2c6954" opacity=".45"/>
+ <path d="M4 73h49l7-2-6 3 6 3-7-2H4z" fill="#74dca6"/>
+ <path d="M20 73h34v2H20z" fill="#d8f8df"/>
+</svg>
