@@ -54,6 +54,14 @@ func _test_visual_language() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("func _draw_fighter"), "VX-94 fighter silhouette should have dedicated rendering")
 	_expect(source.contains("func _draw_bomber"), "VX-94 bomber silhouette should have dedicated rendering")
+	_expect(source.contains("VX94_GAMEPLAY_FORMS") and source.contains("VX94_FIGHTER_BANK") and source.contains("VX94_BOMBER_BANK"), "live VX-94 should use authored form and bank sprites")
+	_expect(source.contains("VX94_EXHAUST") and source.contains("VX94_DAMAGE"), "live VX-94 should use authored thrust and damage overlays")
+	for frame_path in ["vx94_fighter_v1.png", "vx94_transform_01.png", "vx94_transform_02.png", "vx94_transform_03.png", "vx94_bomber_v1.png"]:
+		var gameplay_form := load("res://assets/runtime/craft/vx94/gameplay/%s" % frame_path)
+		_expect(gameplay_form is Texture2D and gameplay_form.get_size() == Vector2(48,54), "VX-94 gameplay form should retain native 48x54 geometry: %s" % frame_path)
+	for bank_path in ["fighter_left.png", "fighter_neutral.png", "fighter_right.png", "bomber_left.png", "bomber_neutral.png", "bomber_right.png"]:
+		var bank_frame := load("res://assets/runtime/craft/vx94/gameplay/bank/%s" % bank_path)
+		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(48,54), "VX-94 bank frame should retain native 48x54 geometry: %s" % bank_path)
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("func _draw_ground") and source.contains("func _draw_sea") and source.contains("func _draw_air"), "mercenary air/ground/sea roles should have distinct silhouette renderers")

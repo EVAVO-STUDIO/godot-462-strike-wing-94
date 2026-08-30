@@ -1,6 +1,6 @@
 {
   "asset_family": "vx94_variable_strike_fighter",
-  "status": "runtime_candidate",
+  "status": "gameplay_master_v1",
   "visual_contract": {
     "era": "late-1990s SVGA pre-rendered arcade shooter",
     "view": "orthographic top-down",
@@ -71,5 +71,26 @@
       "shadow_origin": [32, 40]
     }
   },
-  "remaining_gate": "author bank frames, thrust frames, damage states, and collision masks before gameplay replacement"
+  "gameplay_runtime": {
+    "canvas": [48, 54],
+    "gameplay_anchor": [24, 29],
+    "form_frames": [
+      "res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png",
+      "res://assets/runtime/craft/vx94/gameplay/vx94_transform_01.png",
+      "res://assets/runtime/craft/vx94/gameplay/vx94_transform_02.png",
+      "res://assets/runtime/craft/vx94/gameplay/vx94_transform_03.png",
+      "res://assets/runtime/craft/vx94/gameplay/vx94_bomber_v1.png"
+    ],
+    "bank_frames": {
+      "fighter": ["fighter_left.png", "fighter_neutral.png", "fighter_right.png"],
+      "bomber": ["bomber_left.png", "bomber_neutral.png", "bomber_right.png"]
+    },
+    "animation": {
+      "normal_exhaust": {"frames": 4, "fps": 12},
+      "wing_sweep": {"frames": 5, "seconds": 0.42},
+      "damage_overlays": 2
+    },
+    "collision_contract": "visual sprite is deliberately larger than the fair gameplay collision radius supplied by CraftFormRules; no image-derived collision mask"
+  },
+  "remaining_gate": "author final destruction/escape sequence and optional form-specific banking extremes"
 }

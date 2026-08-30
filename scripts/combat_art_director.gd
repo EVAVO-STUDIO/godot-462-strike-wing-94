@@ -2,6 +2,34 @@ extends CanvasLayer
 
 const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
+const VX94_GAMEPLAY_FORMS := [
+	preload("res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/vx94_transform_01.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/vx94_transform_02.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/vx94_transform_03.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/vx94_bomber_v1.png"),
+]
+const VX94_FIGHTER_BANK := [
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_left.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_right.png"),
+]
+const VX94_BOMBER_BANK := [
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_left.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_right.png"),
+]
+const VX94_EXHAUST := [
+	preload("res://assets/runtime/craft/vx94/gameplay/fx/exhaust_0.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/fx/exhaust_1.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/fx/exhaust_2.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/fx/exhaust_3.png"),
+]
+const VX94_DAMAGE := [
+	preload("res://assets/runtime/craft/vx94/gameplay/fx/damage_1.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/fx/damage_2.png"),
+]
+const VX94_GAMEPLAY_ANCHOR := Vector2(24, 29)
 const MERCENARY_AIR_SPRITES := {
 	"scout_falcon": preload("res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png"),
 	"gunship_mk1": preload("res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png"),
@@ -250,6 +278,7 @@ const TRANSFORM_VISUAL_SECONDS := 0.42
 
 var _surface: Control
 var _visual_sweep := 0.0
+var _bank_visual := 0.0
 
 func _ready() -> void:
 	layer = 12
@@ -264,6 +293,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
 	_visual_sweep = move_toward(_visual_sweep, target, maxf(0.0, delta) / TRANSFORM_VISUAL_SECONDS)
+	_bank_visual = move_toward(_bank_visual, Input.get_axis("move_left", "move_right"), maxf(0.0, delta) * 5.5)
 	if _surface != null:
 		_surface.queue_redraw()
 
@@ -274,7 +304,7 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
-	_draw_player(surface, scene.get("player_position"))
+	_draw_player(surface, scene)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -282,14 +312,38 @@ func _supports(scene: Object) -> bool:
 		names[str(property.get("name", ""))] = true
 	return names.has("phase") and names.has("player_position") and names.has("enemies")
 
-func _draw_player(surface: CanvasItem, position: Vector2) -> void:
-	var p := position + _altitude_pitch_offset()
+func _has_property(subject: Object, property_name: String) -> bool:
+	for property in subject.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false
+
+func _draw_player(surface: CanvasItem, scene: Object) -> void:
+	var p: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
+	var origin := (p - VX94_GAMEPLAY_ANCHOR).round()
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else Time.get_ticks_msec() / 1000.0
+	var exhaust_frame: Texture2D = VX94_EXHAUST[int(floor(time * 12.0)) % VX94_EXHAUST.size()]
+	surface.draw_texture(exhaust_frame, origin)
+	var texture: Texture2D
 	if _visual_sweep <= 0.02:
-		_draw_fighter(surface, p)
+		texture = VX94_FIGHTER_BANK[_bank_frame_index()]
 	elif _visual_sweep >= 0.98:
-		_draw_bomber(surface, p)
+		texture = VX94_BOMBER_BANK[_bank_frame_index()]
 	else:
-		_draw_transforming(surface, p, _visual_sweep)
+		var form_index := clampi(int(round(_visual_sweep * float(VX94_GAMEPLAY_FORMS.size() - 1))), 0, VX94_GAMEPLAY_FORMS.size() - 1)
+		texture = VX94_GAMEPLAY_FORMS[form_index]
+	surface.draw_texture(texture, origin)
+	var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
+	var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
+	if damage_ratio >= 0.62:
+		surface.draw_texture(VX94_DAMAGE[1], origin)
+	elif damage_ratio >= 0.28:
+		surface.draw_texture(VX94_DAMAGE[0], origin)
+
+func _bank_frame_index() -> int:
+	if _bank_visual < -0.22: return 0
+	if _bank_visual > 0.22: return 2
+	return 1
 
 func _draw_transforming(surface: CanvasItem, p: Vector2, sweep: float) -> void:
 	var t := smoothstep(0.0, 1.0, clampf(sweep, 0.0, 1.0))
