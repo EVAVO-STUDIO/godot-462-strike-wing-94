@@ -54,7 +54,7 @@ func _test_campaign_world() -> void:
 	if typeof(data) != TYPE_DICTIONARY:
 		return
 	var contexts = data.get("mission_context", {})
-	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() == 16, "all sixteen current missions should receive campaign-world context")
+	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() == 24, "all twenty-four current missions should receive campaign-world context")
 	var choice_count := 0
 	for mission_id in contexts.keys():
 		var context: Dictionary = contexts[mission_id]

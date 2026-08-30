@@ -407,7 +407,7 @@ Orbital flight requires fighter configuration.
 
 ## Campaign structure
 
-Current playable campaign contains **16 missions**. Sector I is now a complete ten-sortie Mercenary War episode; Sector II/III expansion remains in production toward the 30-core-mission target.
+Current playable campaign contains **24 missions**. Sector I and Sector II are complete ten-sortie episodes; BLACK SKY expansion remains in production toward the 30-core-mission target.
 
 ### Act I: Mercenary War
 
@@ -426,17 +426,28 @@ Current playable campaign contains **16 missions**. Sector I is now a complete t
 
 11. Ghost Sky
 12. Machine Furnace
-13. Black Horizon
-14. Blue Fire
-15. Cold Station
-16. Machine Ark
+13. Broken Truce
+14. Dead Factory
+15. Iron Rain
+16. Ghost Convoy
+17. Red Circuit
+18. Swarm Sea
+19. Silent City
+20. Machine Crown
+
+### Act III: BLACK SKY
+
+21. Black Horizon
+22. Blue Fire
+23. Cold Station
+24. Machine Ark
 
 Era pacing:
 
 - M1-4: advanced conventional;
-- M5-12: electromagnetic transition and machine-war emergence;
-- M13-15: directed energy;
-- M16: current strategic-orbital climax.
+- M5-16: electromagnetic transition and machine-war emergence;
+- M17-23: directed-energy escalation into orbit;
+- M24: current strategic-orbital climax.
 
 Late autonomous vocabulary adds Phase Interceptor, Beam Sentry and Orbital Lancer instead of endlessly reusing early drones.
 

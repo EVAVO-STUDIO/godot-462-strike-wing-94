@@ -51,7 +51,7 @@ Upper atmosphere and near orbit. Planetary glow, orbital stations, satellites an
 
 Altitude changes are authored mission events, never arbitrary camera zooms.
 
-## Current playable campaign: 16 missions
+## Current playable campaign: 24 missions
 
 ### Act I - Mercenary War
 
@@ -72,10 +72,21 @@ The opening establishes criminal private armies, black-market aircraft, armour, 
 
 11. Ghost Sky - first autonomous high-altitude swarm and Swarm Controller.
 12. Machine Furnace - human holdouts overlap with autonomous production and AI Forge Core.
-13. Black Horizon - first exo-atmospheric breakout and Orbital Command Node; directed-energy era begins.
-14. Blue Fire - high-altitude phase-screen breakthrough ending at the Phase Control Array.
-15. Cold Station - full orbital station assault against Beam Sentries and Station Warden.
-16. Machine Ark - current strategic-orbital climax against the mobile AI command/factory ark.
+13. Broken Truce - human forces hold a temporary ceasefire corridor against machine override.
+14. Dead Factory - a lights-out weapons plant continues manufacturing without operators.
+15. Iron Rain - autonomous bombers seed the cloud deck with hunter drones.
+16. Ghost Convoy - a driverless column carries a mobile seed foundry through an evacuated city belt.
+17. Red Circuit - strike against the machine-modified coastal power network.
+18. Swarm Sea - abandoned ships become floating drone cradles.
+19. Silent City - tower foundations and rail tunnels become a distributed factory.
+20. Machine Crown - airborne network crown assault and BLACK SKY breach.
+
+### Act III - BLACK SKY
+
+21. Black Horizon - first exo-atmospheric breakout and Orbital Command Node.
+22. Blue Fire - phase-screen breakthrough ending at the Phase Control Array.
+23. Cold Station - full orbital station assault against Beam Sentries and Station Warden.
+24. Machine Ark - current strategic-orbital climax against the mobile AI command/factory ark.
 
 The human enemy does not vanish instantly when the AI emerges. The transition from conventional conflict into machine war must remain visible.
 
@@ -104,7 +115,7 @@ Introduced across the back half of Sector I and early Sector II:
 
 ### Directed energy
 
-Playable development through the later machine-war missions:
+Playable development through late Sector II and BLACK SKY:
 
 - Storm Cannon pulse discharge;
 - beam-class autonomous weapons;

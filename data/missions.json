@@ -265,6 +265,94 @@
       ]
     },
     {
+      "id":"s2_m03_broken_truce","name":"Broken Truce","environment":"coast","duration_seconds":210,"starting_wave":22,"boss_id":"swarm_controller","briefing":"Machines are attacking both armies along the Vesper coast. Hold a temporary ceasefire corridor, then destroy the controller overriding every weapon in range.",
+      "encounter_beats":[
+        {"id":"ceasefire_lane","at_seconds":7,"label":"CEASEFIRE LANE","formation":"low_high_layer","enemies":[{"id":"scout_falcon","count":2},{"id":"drone_scout","count":3}],"suppress_random_seconds":5},
+        {"id":"machine_crossfire","at_seconds":47,"label":"MACHINE CROSSFIRE","formation":"crossing_attack","enemies":[{"id":"drone_hunter","count":2},{"id":"coastal_flak","count":2}],"suppress_random_seconds":6},
+        {"id":"joint_recovery","at_seconds":88,"label":"JOINT RECOVERY","formation":"hunter_pair","enemies":[{"id":"attack_chopper","count":2}],"pickup":"repair","suppress_random_seconds":10},
+        {"id":"truce_courier","at_seconds":113,"label":"TRUCE COURIER","formation":"pursuit","secret":true,"condition":{"type":"accuracy_at_least","value":0.76,"minimum_shots":115},"enemies":[{"id":"drone_hunter","count":2}],"pickup":"weapon","suppress_random_seconds":8},
+        {"id":"override_swarm","at_seconds":150,"label":"OVERRIDE SWARM","formation":"rotating_swarm","enemies":[{"id":"drone_scout","count":5},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":11}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":210,"required":true},{"id":"break_override","type":"destroy_enemy","enemy_id":"swarm_controller","count":1,"required":true},{"id":"protect_truce","type":"destroy_enemy","enemy_id":"drone_hunter","count":4,"required":false,"bonus_credits":1900}]
+    },
+    {
+      "id":"s2_m04_dead_factory","name":"Dead Factory","environment":"industrial","duration_seconds":225,"starting_wave":24,"boss_id":"ai_forge_core","briefing":"Enter a lights-out weapons plant that continues building armour without workers. Trace the assembly line to the self-directed forge core.",
+      "encounter_beats":[
+        {"id":"empty_gate","at_seconds":8,"label":"EMPTY GATE","formation":"column","enemies":[{"id":"light_tank","count":2},{"id":"autonomous_armor","count":2}],"suppress_random_seconds":6},
+        {"id":"assembly_restart","at_seconds":51,"label":"ASSEMBLY RESTART","formation":"delayed_reinforcement","enemies":[{"id":"factory_defence_node","count":3},{"id":"drone_scout","count":3}],"suppress_random_seconds":7},
+        {"id":"worker_shelter","at_seconds":96,"label":"WORKER SHELTER","formation":"line","enemies":[{"id":"autonomous_armor","count":2}],"pickup":"shield","suppress_random_seconds":11},
+        {"id":"manual_shutdown","at_seconds":124,"label":"MANUAL SHUTDOWN","formation":"ambush","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"factory_defence_node","count":2}],"pickup":"bomb","suppress_random_seconds":8},
+        {"id":"forge_conveyor","at_seconds":163,"label":"FORGE CONVEYOR","formation":"escort_shell","enemies":[{"id":"autonomous_armor","count":4},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":225,"required":true},{"id":"cold_shutdown","type":"destroy_enemy","enemy_id":"ai_forge_core","count":1,"required":true},{"id":"clear_nodes","type":"destroy_enemy","enemy_id":"factory_defence_node","count":5,"required":false,"bonus_credits":2100}]
+    },
+    {
+      "id":"s2_m05_iron_rain","name":"Iron Rain","environment":"high_cloud","duration_seconds":230,"starting_wave":26,"boss_id":"swarm_controller","briefing":"Autonomous bombers are seeding the cloud deck with hunter drones. Climb through the falling machines and kill their airborne shepherd.",
+      "encounter_beats":[
+        {"id":"falling_scouts","at_seconds":6,"label":"IRON RAIN","formation":"reverse_wedge","enemies":[{"id":"drone_scout","count":5},{"id":"drone_bomber","count":2}],"suppress_random_seconds":5},
+        {"id":"hunter_canopy","at_seconds":49,"label":"HUNTER CANOPY","formation":"escort_shell","enemies":[{"id":"drone_hunter","count":4},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":7},
+        {"id":"clear_air_pocket","at_seconds":98,"label":"CLEAR AIR POCKET","formation":"hunter_pair","enemies":[{"id":"drone_scout","count":2}],"pickup":"repair","suppress_random_seconds":11},
+        {"id":"storm_ace_vector","at_seconds":127,"label":"STORM ACE VECTOR","formation":"echelon_right","secret":true,"condition":{"type":"altitude_form","altitude":"high","form":"fighter"},"enemies":[{"id":"drone_hunter","count":3}],"pickup":"weapon","suppress_random_seconds":8},
+        {"id":"shepherd_ring","at_seconds":168,"label":"SHEPHERD RING","formation":"rotating_swarm","enemies":[{"id":"drone_scout","count":6},{"id":"drone_bomber","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":230,"required":true},{"id":"kill_shepherd","type":"destroy_enemy","enemy_id":"swarm_controller","count":1,"required":true},{"id":"break_hunters","type":"destroy_enemy","enemy_id":"drone_hunter","count":6,"required":false,"bonus_credits":2300}]
+    },
+    {
+      "id":"s2_m06_ghost_convoy","name":"Ghost Convoy","environment":"industrial","duration_seconds":235,"starting_wave":28,"boss_id":"armoured_train","briefing":"A driverless supply column is crossing the abandoned city belt. Follow its dead radio traffic and destroy the train carrying the network's mobile seed foundry.",
+      "encounter_beats":[
+        {"id":"driverless_column","at_seconds":8,"label":"DRIVERLESS COLUMN","formation":"column","enemies":[{"id":"autonomous_armor","count":4},{"id":"sam_truck","count":2}],"suppress_random_seconds":5},
+        {"id":"roofline_feint","at_seconds":54,"label":"ROOFLINE FEINT","formation":"feint","enemies":[{"id":"drone_hunter","count":3},{"id":"factory_defence_node","count":2}],"suppress_random_seconds":7},
+        {"id":"silent_station","at_seconds":101,"label":"SILENT STATION","formation":"line","enemies":[{"id":"light_tank","count":2}],"pickup":"shield","suppress_random_seconds":11},
+        {"id":"seed_manifest","at_seconds":132,"label":"SEED MANIFEST","formation":"pursuit","secret":true,"condition":{"type":"score_at_least","value":22000},"enemies":[{"id":"ace_interceptor","count":1},{"id":"drone_hunter","count":2}],"pickup":"weapon","suppress_random_seconds":8},
+        {"id":"foundry_train_shell","at_seconds":174,"label":"FOUNDRY TRAIN SHELL","formation":"low_high_layer","enemies":[{"id":"autonomous_armor","count":3},{"id":"drone_missile_node","count":3},{"id":"drone_bomber","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":235,"required":true},{"id":"destroy_seed_train","type":"destroy_enemy","enemy_id":"armoured_train","count":1,"required":true},{"id":"erase_manifest_guard","type":"destroy_enemy","enemy_id":"drone_hunter","count":5,"required":false,"bonus_credits":2500}]
+    },
+    {
+      "id":"s2_m07_red_circuit","name":"Red Circuit","environment":"coast","duration_seconds":240,"starting_wave":30,"boss_id":"phase_control_array","briefing":"Strike the machine-modified coastal power grid before its field array links the surviving factories into one hardened combat network.",
+      "encounter_beats":[
+        {"id":"powerline_screen","at_seconds":7,"label":"POWERLINE SCREEN","formation":"missile_screen","enemies":[{"id":"drone_missile_node","count":3},{"id":"drone_scout","count":3}],"suppress_random_seconds":6},
+        {"id":"reactor_pincer","at_seconds":55,"label":"REACTOR PINCER","formation":"pincer","enemies":[{"id":"autonomous_armor","count":3},{"id":"drone_hunter","count":3}],"suppress_random_seconds":7},
+        {"id":"grid_blackout","at_seconds":104,"label":"GRID BLACKOUT","formation":"column","enemies":[{"id":"factory_defence_node","count":2}],"pickup":"repair","suppress_random_seconds":11},
+        {"id":"red_substation","at_seconds":136,"label":"RED SUBSTATION","formation":"ambush","secret":true,"condition":{"type":"bombs_at_least","value":2},"enemies":[{"id":"factory_defence_node","count":2},{"id":"phase_interceptor","count":1}],"pickup":"bomb","suppress_random_seconds":8},
+        {"id":"field_array_guard","at_seconds":178,"label":"FIELD ARRAY GUARD","formation":"escort_shell","enemies":[{"id":"phase_interceptor","count":3},{"id":"drone_missile_node","count":3}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":240,"required":true},{"id":"cut_red_circuit","type":"destroy_enemy","enemy_id":"phase_control_array","count":1,"required":true},{"id":"break_substations","type":"destroy_enemy","enemy_id":"factory_defence_node","count":4,"required":false,"bonus_credits":2750}]
+    },
+    {
+      "id":"s2_m08_swarm_sea","name":"Swarm Sea","environment":"open_water","duration_seconds":245,"starting_wave":32,"boss_id":"swarm_controller","briefing":"The network is using abandoned ships as floating drone cradles. Burn through the launch tide and sink the controller before the swarm reaches open ocean.",
+      "encounter_beats":[
+        {"id":"cradle_wakes","at_seconds":8,"label":"CRADLE WAKES","formation":"low_high_layer","enemies":[{"id":"river_patrol","count":2},{"id":"drone_scout","count":4}],"suppress_random_seconds":5},
+        {"id":"launch_tide","at_seconds":57,"label":"LAUNCH TIDE","formation":"rotating_swarm","enemies":[{"id":"drone_hunter","count":4},{"id":"torpedo_boat","count":2}],"suppress_random_seconds":8},
+        {"id":"dead_water","at_seconds":107,"label":"DEAD WATER","formation":"hunter_pair","enemies":[{"id":"fast_attack_craft","count":2}],"pickup":"shield","suppress_random_seconds":12},
+        {"id":"submerged_cradle","at_seconds":139,"label":"SUBMERGED CRADLE","formation":"reverse_wedge","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"drone_missile_node","count":2},{"id":"missile_corvette","count":1}],"pickup":"weapon","suppress_random_seconds":9},
+        {"id":"ocean_swarm_wall","at_seconds":183,"label":"OCEAN SWARM WALL","formation":"missile_screen","enemies":[{"id":"drone_scout","count":5},{"id":"drone_bomber","count":2},{"id":"drone_missile_node","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":245,"required":true},{"id":"sink_swarm_core","type":"destroy_enemy","enemy_id":"swarm_controller","count":1,"required":true},{"id":"clear_launch_nodes","type":"destroy_enemy","enemy_id":"drone_missile_node","count":4,"required":false,"bonus_credits":2900}]
+    },
+    {
+      "id":"s2_m09_silent_city","name":"Silent City","environment":"industrial","duration_seconds":250,"starting_wave":34,"boss_id":"ai_forge_core","briefing":"Enter the evacuated Meridian industrial district, where the network has turned tower foundations and rail tunnels into a distributed factory.",
+      "encounter_beats":[
+        {"id":"empty_avenue","at_seconds":7,"label":"EMPTY AVENUE","formation":"stagger","enemies":[{"id":"autonomous_armor","count":3},{"id":"drone_scout","count":3}],"suppress_random_seconds":6},
+        {"id":"tower_ambush","at_seconds":57,"label":"TOWER AMBUSH","formation":"ambush","enemies":[{"id":"factory_defence_node","count":3},{"id":"drone_hunter","count":3}],"suppress_random_seconds":8},
+        {"id":"evacuation_square","at_seconds":109,"label":"EVACUATION SQUARE","formation":"line","enemies":[{"id":"autonomous_armor","count":2}],"pickup":"repair","suppress_random_seconds":12},
+        {"id":"civil_defence_vault","at_seconds":143,"label":"CIVIL DEFENCE VAULT","formation":"echelon_left","secret":true,"condition":{"type":"accuracy_at_least","value":0.80,"minimum_shots":145},"enemies":[{"id":"phase_interceptor","count":2}],"pickup":"weapon","suppress_random_seconds":9},
+        {"id":"distributed_forge","at_seconds":187,"label":"DISTRIBUTED FORGE","formation":"delayed_reinforcement","enemies":[{"id":"factory_defence_node","count":4},{"id":"autonomous_armor","count":3},{"id":"phase_interceptor","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":250,"required":true},{"id":"collapse_city_forge","type":"destroy_enemy","enemy_id":"ai_forge_core","count":1,"required":true},{"id":"clear_tower_nodes","type":"destroy_enemy","enemy_id":"factory_defence_node","count":6,"required":false,"bonus_credits":3200}]
+    },
+    {
+      "id":"s2_m10_machine_crown","name":"Machine Crown","environment":"high_cloud","duration_seconds":260,"starting_wave":36,"boss_id":"phase_control_array","briefing":"Assault the airborne relay crown that synchronizes the machine war. Its destruction opens the only viable path into the upper atmosphere.",
+      "encounter_beats":[
+        {"id":"crown_approach","at_seconds":8,"label":"CROWN APPROACH","formation":"bomber_box","enemies":[{"id":"drone_bomber","count":3},{"id":"drone_hunter","count":3}],"suppress_random_seconds":6},
+        {"id":"predictive_guard","at_seconds":60,"label":"PREDICTIVE GUARD","formation":"crossing_attack","enemies":[{"id":"phase_interceptor","count":3},{"id":"drone_missile_node","count":3}],"suppress_random_seconds":8},
+        {"id":"tanker_shadow","at_seconds":113,"label":"TANKER SHADOW","formation":"hunter_pair","enemies":[{"id":"drone_scout","count":2}],"pickup":"shield","suppress_random_seconds":12},
+        {"id":"crown_blind_spot","at_seconds":149,"label":"CROWN BLIND SPOT","formation":"pursuit","secret":true,"condition":{"type":"altitude_form","altitude":"high","form":"fighter"},"enemies":[{"id":"phase_interceptor","count":3}],"pickup":"bomb","suppress_random_seconds":9},
+        {"id":"black_sky_gate","at_seconds":197,"label":"BLACK SKY GATE","formation":"escort_shell","enemies":[{"id":"phase_interceptor","count":4},{"id":"beam_sentry","count":2},{"id":"drone_bomber","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":260,"required":true},{"id":"destroy_crown","type":"destroy_enemy","enemy_id":"phase_control_array","count":1,"required":true},{"id":"break_predictive_guard","type":"destroy_enemy","enemy_id":"phase_interceptor","count":7,"required":false,"bonus_credits":3600}]
+    },
+    {
       "id": "m09_black_horizon",
       "name": "Black Horizon",
       "environment": "orbital",

@@ -592,7 +592,10 @@ func _update_enemy_bullets(delta: float) -> void:
 		var projectile_hit_radius_sq := _craft_float("projectile_hit_radius_sq", 120.0)
 		if position.distance_squared_to(player_position) <= projectile_hit_radius_sq:
 			_apply_damage(int(shot.get("damage", 8)))
-			enemy_bullets.remove_at(i)
+			if phase != GamePhase.PLAYING:
+				return
+			if i < enemy_bullets.size():
+				enemy_bullets.remove_at(i)
 		elif not PLAYFIELD.grow(32).has_point(position):
 			enemy_bullets.remove_at(i)
 
@@ -755,6 +758,8 @@ func _resolve_combat() -> void:
 			<= player_contact_radius_sq
 		):
 			_apply_damage(24 if bool(enemies[enemy_index].get("boss", false)) else 18)
+			if phase != GamePhase.PLAYING:
+				return
 			if not bool(enemies[enemy_index].get("boss", false)):
 				enemies.remove_at(enemy_index)
 
@@ -792,6 +797,8 @@ func _apply_pickup(kind: String) -> void:
 				)
 
 func _apply_damage(amount: int) -> void:
+	if "--capture-invulnerable" in OS.get_cmdline_user_args():
+		return
 	var state := CombatRules.apply_shielded_damage(hull, shield, amount)
 	hull = int(state["hull"])
 	shield = int(state["shield"])
