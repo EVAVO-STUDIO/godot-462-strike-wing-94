@@ -117,6 +117,46 @@ const BOSS_PHASE_OVERLAYS := {
 			preload("res://assets/runtime/enemies/boss_animation/ai_forge_core/critical_3.png"),
 		],
 	},
+	"orbital_command_node": {
+		"phase_2": preload("res://assets/runtime/enemies/boss_animation/orbital_command_node/phase_2_damage.png"),
+		"phase_3": preload("res://assets/runtime/enemies/boss_animation/orbital_command_node/phase_3_damage.png"),
+		"critical": [
+			preload("res://assets/runtime/enemies/boss_animation/orbital_command_node/critical_0.png"),
+			preload("res://assets/runtime/enemies/boss_animation/orbital_command_node/critical_1.png"),
+			preload("res://assets/runtime/enemies/boss_animation/orbital_command_node/critical_2.png"),
+			preload("res://assets/runtime/enemies/boss_animation/orbital_command_node/critical_3.png"),
+		],
+	},
+	"phase_control_array": {
+		"phase_2": preload("res://assets/runtime/enemies/boss_animation/phase_control_array/phase_2_damage.png"),
+		"phase_3": preload("res://assets/runtime/enemies/boss_animation/phase_control_array/phase_3_damage.png"),
+		"critical": [
+			preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_0.png"),
+			preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_1.png"),
+			preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_2.png"),
+			preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_3.png"),
+		],
+	},
+	"station_warden": {
+		"phase_2": preload("res://assets/runtime/enemies/boss_animation/station_warden/phase_2_damage.png"),
+		"phase_3": preload("res://assets/runtime/enemies/boss_animation/station_warden/phase_3_damage.png"),
+		"critical": [
+			preload("res://assets/runtime/enemies/boss_animation/station_warden/critical_0.png"),
+			preload("res://assets/runtime/enemies/boss_animation/station_warden/critical_1.png"),
+			preload("res://assets/runtime/enemies/boss_animation/station_warden/critical_2.png"),
+			preload("res://assets/runtime/enemies/boss_animation/station_warden/critical_3.png"),
+		],
+	},
+	"machine_ark": {
+		"phase_2": preload("res://assets/runtime/enemies/boss_animation/machine_ark/phase_2_damage.png"),
+		"phase_3": preload("res://assets/runtime/enemies/boss_animation/machine_ark/phase_3_damage.png"),
+		"critical": [
+			preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_0.png"),
+			preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_1.png"),
+			preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_2.png"),
+			preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_3.png"),
+		],
+	},
 }
 const MACHINE_BOSS_SPRITES := {
 	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
@@ -295,7 +335,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		elif MACHINE_BOSS_SPRITES.has(enemy_id):
 			_draw_production_boss(surface, p, enemy_id, enemy, MACHINE_BOSS_SPRITES[enemy_id])
 		elif ORBITAL_BOSS_SPRITES.has(enemy_id):
-			_draw_production_sprite(surface, p, ORBITAL_BOSS_SPRITES[enemy_id])
+			_draw_production_boss(surface, p, enemy_id, enemy, ORBITAL_BOSS_SPRITES[enemy_id])
 		else:
 			_draw_boss(surface, p, enemy_id, faction)
 	elif faction == "autonomous" and category == "ground" and MACHINE_GROUND_SPRITES.has(enemy_id):

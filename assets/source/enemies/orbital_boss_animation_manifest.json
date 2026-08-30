@@ -1,0 +1,37 @@
+{
+  "asset_family": "orbital_boss_phase_animation",
+  "status": "all_runtime_phase_overlays_reviewed",
+  "registration": "all overlays share the corresponding approved orbital idle sprite canvas and centre pivot",
+  "state_mapping": {
+    "phase_1": ["idle"],
+    "phase_2": ["idle", "phase_2_damage"],
+    "phase_3": ["idle", "phase_2_damage", "phase_3_damage", "critical_0..3"]
+  },
+  "animation": {"critical_fps": 8, "loop": true, "frame_count": 4, "vacuum_rule": "localized thermal/electrical instability only; no atmospheric fire"},
+  "bosses": {
+    "orbital_command_node": {
+      "canvas": [124, 104], "damage_logic": "communications radiator loss followed by service radiator and command-vault failure",
+      "sha256": {
+        "critical_0.png":"DC2B599DA52F181C9BD3E7C6C49C5A82B951EFD4862F8C1F605746A6B66B657C","critical_1.png":"38F8D00B16A2A9A4133A21152AC6C206A83C146738C8529B6018088A62CE7C72","critical_2.png":"A4BC0067C4A373D773AB4ACDBAC6DA45E33EE0DC3F87BBC44BD6E8462A728970","critical_3.png":"C17A614F5FD0DAD08630BDE7117CA1F438DB7219050E119499714A2798288698","phase_2_damage.png":"2809C02172403D579EA62A4C7FAF0B2DABE01C0AB3F7C997ECE3F0BA3AA291A8","phase_3_damage.png":"21F81BC146A8CAF187366FBE983B7586BAF3F481AB6C13682B2866E7CFD73617"
+      }
+    },
+    "phase_control_array": {
+      "canvas": [126, 126], "damage_logic": "projector truss failure followed by opposing interferometer and control-bus loss",
+      "sha256": {
+        "critical_0.png":"7CCFEEFB5DC65410F3E034312C397DEEC4A6C38B112A94DCC24900C0BB9F60AC","critical_1.png":"8C3C83450231F8856633C83EDA40400D87B51D6CF09019D202DD9F11BC08CB9F","critical_2.png":"FCA3E87BD666D6FB86A47E418A209C8A66A87196DAA243AA863226C454CD42E6","critical_3.png":"DABC6537E06D24A939AD9E0B16300D0CD4C2FBAD88FC2D680EB68491D082D6BF","phase_2_damage.png":"829DA7A5504905F475AB293095037B488AE0A77DE1A5DF4EB0646DAA93BB4D09","phase_3_damage.png":"8F916A37B6939BCF27FC21088565E7B67F445AC0EC8FAEF9F519D51A209A3D9F"
+      }
+    },
+    "station_warden": {
+      "canvas": [146, 116], "damage_logic": "mass-driver service section loss followed by missile-coffin and command-cylinder failure",
+      "sha256": {
+        "critical_0.png":"EFDD4ED56A26FCBA7E81A3CE216AE09D9CAC5FA13FD4399FB698F51BE8FB3C4C","critical_1.png":"F0744C9FF5621C1C5D0236142B78281E0153DB0DF1C035AB8067D0DE4B5EEE1E","critical_2.png":"D43E62CA8A618EBCE167A441C77664C4EC9CD07C19DE42BED352137ABC350003","critical_3.png":"241A21F22CF3EE9249C2C7DB4D8A36E41393D09F75F8D1CF64F988BDEAFC71F6","phase_2_damage.png":"567F7752D08BC04521CE6514F1036B1A509ABBB5672252D4625592DAE8575912","phase_3_damage.png":"FC88AFDDB250910712F1DD1867EEFAC1A0F635830AECFFC3D2B92371583BB0FB"
+      }
+    },
+    "machine_ark": {
+      "canvas": [160, 128], "damage_logic": "construction-slip breach followed by foundry-radiator and accelerator-control failure",
+      "sha256": {
+        "critical_0.png":"CDB180555CB2076BF398D8F070227758B8736B1F2ADC66D6BC1E4DC2A8CB439F","critical_1.png":"E68FC2ABDA9DEC076737BF723AFBA45648A718278CD0D1EF856E43A1F30A2203","critical_2.png":"53E65A42709B82F8C7C3AE5BDBEFFA8E5ABC5B0F304CCF2ADF29E14B9EA1B2D1","critical_3.png":"35077E0D942188A3847017AC8469E5BF0731634110989283AD4C6727F1BD4601","phase_2_damage.png":"15222D644C92F3C301C4BFFADD8F608240ABE02BA5F9673D37D2C112B0F7C2B8","phase_3_damage.png":"358163A481F07732E98DFE075A67FBDB53D70985CC215CB18844DB2F9ED1B383"
+      }
+    }
+  }
+}

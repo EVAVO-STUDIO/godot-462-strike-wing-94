@@ -166,6 +166,9 @@ func _test_visual_language() -> void:
 		var suffix := "_idle_v2.png" if enemy_id in ["orbital_command_node", "phase_control_array"] else "_idle.png"
 		var texture := load("res://assets/runtime/enemies/orbital_boss/%s%s" % [enemy_id, suffix])
 		_expect(texture is Texture2D and texture.get_size() == orbital_boss_sizes[enemy_id], "orbital boss sprite should retain reviewed geometry: %s" % enemy_id)
+		for overlay_name in ["phase_2_damage", "phase_3_damage", "critical_0", "critical_1", "critical_2", "critical_3"]:
+			var overlay := load("res://assets/runtime/enemies/boss_animation/%s/%s.png" % [enemy_id, overlay_name])
+			_expect(overlay is Texture2D and overlay.get_size() == orbital_boss_sizes[enemy_id], "orbital boss phase overlay should retain its registered canvas: %s/%s" % [enemy_id, overlay_name])
 
 func _test_transform_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
