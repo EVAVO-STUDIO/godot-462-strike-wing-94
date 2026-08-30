@@ -2,13 +2,14 @@
   "asset_family": "destruction_consequence",
   "status": "runtime_composite_v2",
   "method": "category- and faction-aware composition of reviewed explosion, debris, impact, smoke and fire raster families",
-  "timing": {"ordinary_seconds":0.72,"boss_seconds":1.05,"naval_sinking_seconds":1.35,"blast_fraction":0.66,"consequence_start":0.32},
+  "timing": {"ordinary_seconds":0.72,"boss_blast_seconds":1.05,"boss_destruction_seconds":2.30,"naval_sinking_seconds":1.35,"blast_fraction":0.66,"consequence_start":0.32},
   "variants": {
     "air": "blast, outward debris and trailing smoke",
     "ground": "blast, debris, short wreck fire and smoke",
     "sea": "blast followed by a retained hull that lists, submerges, displaces water separately at bow and stern, smokes and fades",
     "autonomous": "cold debris tint plus broken EMP field collapse",
-    "infantry": "subdued dust/scatter consequence with no wreck fire"
+    "infantry": "subdued dust/scatter consequence with no wreck fire",
+    "mercenary_bosses": "gunship cascading roll, three-section armoured-train breakup, and retained missile-cruiser sinking"
   },
   "visual_contract": {
     "purpose": "make destruction communicate material, scale and category rather than replaying one universal flash",

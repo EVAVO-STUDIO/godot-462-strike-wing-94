@@ -327,6 +327,30 @@ const MERCENARY_BOSS_SPRITES := {
 	"armoured_train": preload("res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png"),
 	"missile_cruiser": preload("res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png"),
 }
+const MERCENARY_BOSS_SPECIALIST_ART := {
+	"gunship_alpha": {
+		"mount": preload("res://assets/runtime/enemies/mercenary_boss_specialist/gunship_mount.png"),
+		"turret": preload("res://assets/runtime/enemies/mercenary_boss_specialist/gunship_turret.png"),
+		"anchors": [Vector2(-22,-5), Vector2(22,-5)],
+	},
+	"armoured_train": {
+		"mount": preload("res://assets/runtime/enemies/mercenary_boss_specialist/train_mount.png"),
+		"turret": preload("res://assets/runtime/enemies/mercenary_boss_specialist/train_turret.png"),
+		"anchors": [Vector2(0,-46), Vector2(0,2), Vector2(0,47)],
+	},
+	"missile_cruiser": {
+		"mount": preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_mount.png"),
+		"turret": preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_turret.png"),
+		"anchors": [Vector2(0,-36)],
+		"hatch_anchors": [Vector2(-21,-7), Vector2(21,-7)],
+		"hatches": [
+			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_closed.png"),
+			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_opening.png"),
+			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_open.png"),
+			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_fire.png"),
+		],
+	},
+}
 const BOSS_PHASE_OVERLAYS := {
 	"gunship_alpha": {
 		"phase_2": preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/phase_2_damage.png"),
@@ -805,6 +829,7 @@ func _draw_enemy_effect_frame(surface: CanvasItem, center: Vector2, family: Stri
 	surface.draw_texture_rect(texture, Rect2((center - size * 0.5).round(), size.round()), false, modulate)
 
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
+	_draw_mercenary_boss_entrance(surface, p, enemy_id, enemy, texture)
 	_draw_production_sprite(surface, p, texture)
 	if not BOSS_PHASE_OVERLAYS.has(enemy_id):
 		return
@@ -817,6 +842,61 @@ func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, en
 		var critical_frames: Array = overlays["critical"]
 		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % critical_frames.size()
 		_draw_production_sprite(surface, p, critical_frames[frame_index])
+	_draw_mercenary_boss_mechanics(surface, p, enemy_id, enemy)
+
+func _draw_mercenary_boss_entrance(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
+	if not MERCENARY_BOSS_SPECIALIST_ART.has(enemy_id):
+		return
+	var entrance_ratio := clampf(float(enemy.get("age", 0.0)) / 1.45, 0.0, 1.0)
+	if entrance_ratio >= 1.0:
+		return
+	var phase := int(floor(float(enemy.get("age", 0.0)) * 8.0))
+	if enemy_id == "gunship_alpha":
+		for offset in [Vector2(-28,-30), Vector2(28,-30)]:
+			_draw_enemy_effect_frame(surface, p + offset, "damage_fire", phase, 0.72, Color(0.76,0.78,0.68,0.72*(1.0-entrance_ratio*0.45)))
+	elif enemy_id == "armoured_train":
+		for offset in [Vector2(-12,-hull.get_height()*0.46), Vector2(13,-hull.get_height()*0.46)]:
+			var dust := ImpactArtLibrary.frame_for_ratio("dust_impact", fmod(float(phase) * 0.19, 0.999))
+			surface.draw_texture_rect(dust, Rect2((p + offset - Vector2(12,12)).round(), Vector2(24,24)), false, Color(0.62,0.58,0.50,0.58*(1.0-entrance_ratio*0.55)))
+	elif enemy_id == "missile_cruiser":
+		var wake: Texture2D = NAVAL_WAKE_FRAMES[posmod(phase, NAVAL_WAKE_FRAMES.size())]
+		var wake_center := p + Vector2(0,-hull.get_height()*0.52)
+		surface.draw_texture_rect(wake, Rect2((wake_center-Vector2(24,28)).round(),Vector2(48,56)),false,Color(0.76,0.86,0.88,0.72))
+
+func _draw_mercenary_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
+	if not MERCENARY_BOSS_SPECIALIST_ART.has(enemy_id):
+		return
+	var definition: Dictionary = MERCENARY_BOSS_SPECIALIST_ART[enemy_id]
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer",0.0))/0.10,0.0,1.0)
+	var aim := _player_position()-p
+	var rotation := 0.0 if aim.length_squared()<0.001 else Vector2.DOWN.angle_to(aim.normalized())
+	if definition.has("hatches"):
+		var hatches: Array = definition["hatches"]
+		var hatch_index := boss_hatch_frame_index(float(enemy.get("fire_timer",1.0)),recoil_ratio)
+		for hatch_anchor in definition["hatch_anchors"]:
+			var hatch: Texture2D = hatches[hatch_index]
+			surface.draw_texture(hatch,(p+Vector2(hatch_anchor)-hatch.get_size()*0.5).round())
+	var turret: Texture2D = definition["turret"]
+	for anchor_value in definition["anchors"]:
+		var anchor := p + Vector2(anchor_value)
+		var mount: Texture2D = definition["mount"]
+		surface.draw_texture(mount,(anchor-mount.get_size()*0.5).round())
+		var local_recoil := Vector2(0,-roundf(recoil_ratio*3.0))
+		surface.draw_set_transform(anchor.round(),rotation,Vector2.ONE)
+		surface.draw_texture(turret,-turret.get_size()*0.5+local_recoil)
+		if recoil_ratio > 0.45:
+			var flash := ImpactArtLibrary.frame_for_ratio("muzzle",1.0-recoil_ratio)
+			surface.draw_texture_rect(flash,Rect2(-5,turret.get_height()*0.32,10,10),false)
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+static func boss_hatch_frame_index(fire_timer: float, recoil_ratio: float) -> int:
+	if recoil_ratio > 0.35:
+		return 3
+	if fire_timer > 0.72:
+		return 0
+	if fire_timer > 0.40:
+		return 1
+	return 2
 
 func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, layers: Dictionary, scale: float) -> void:
 	var base: Texture2D = layers.get("base")

@@ -1,6 +1,6 @@
 {
   "asset_family": "mercenary_boss",
-  "status": "runtime_phase_animation_v1",
+  "status": "runtime_mechanical_animation_v2",
   "source": {
     "path": "res://assets/source/enemies/candidates/mercenary_boss/mercenary_boss_identity_sheet_candidate_01.png",
     "sha256": "D5CF3DFC83C5641EC22A1CD12204DCBC8D7BFB67E4AF86A7ABEBDF871C2C3524",
@@ -23,6 +23,13 @@
     {"id":"armoured_train","path":"res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png","size":[78,150],"sha256":"E78A05000B83C34B26C4D299B7AB0DFEBCAAFBA0DB2557C37A817016E2AF4A65","center":[39,75],"weak_points":[[39,29],[39,77],[39,122]],"muzzles":[[28,130],[50,130],[39,143]]},
     {"id":"missile_cruiser","path":"res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png","size":[92,154],"sha256":"F83E86A3D8F11EBF887B4A9377C8367A7872137EAF20423DE7E3278D62CD8239","center":[46,77],"weak_points":[[24,62],[68,62],[46,41]],"muzzles":[[46,137]],"missile_banks":[[25,70],[67,70]]}
   ],
-  "runtime_animation": {"phase_damage":"two physical damage overlays per boss","critical_exposure":"four-frame critical cycle per boss at 8 fps"},
-  "remaining_animation_gate": ["entrance", "turret tracking", "missile hatches", "multi-stage destruction"]
+  "runtime_animation": {
+    "phase_damage":"two physical damage overlays per boss",
+    "critical_exposure":"four-frame critical cycle per boss at 8 fps",
+    "entrance":"gunship turbine wash, train rail dust and missile-cruiser displacement wake driven by spawn age",
+    "weapon_articulation":"paired gunship mounts, three independently anchored train mounts and forward cruiser mount track the player and recoil",
+    "missile_hatches":"paired cruiser banks use closed, opening, armed and launch key poses",
+    "destruction":"gunship roll and cascading internal blasts, sectional train breakup, and retained cruiser list/submergence"
+  },
+  "remaining_animation_gate": []
 }

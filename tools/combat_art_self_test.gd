@@ -304,6 +304,17 @@ func _test_visual_language() -> void:
 			var overlay := load("res://assets/runtime/enemies/boss_animation/%s/%s.png" % [boss_id, overlay_name])
 			_expect(overlay is Texture2D and overlay.get_size() == mercenary_boss_sizes[boss_id], "mercenary boss phase overlay should retain its registered canvas: %s/%s" % [boss_id, overlay_name])
 	_expect(source.contains("BOSS_PHASE_OVERLAYS") and source.contains('enemy.get("boss_phase", 1)') and source.contains('enemy.get("age", 0.0)') and source.contains("* 8.0"), "production bosses should use canonical boss phase and age-driven critical animation")
+	var mercenary_boss_specialist_sizes := {
+		"gunship_turret":Vector2(18,24), "train_turret":Vector2(20,28), "cruiser_turret":Vector2(22,30),
+		"gunship_mount":Vector2(16,24), "train_mount":Vector2(18,28), "cruiser_mount":Vector2(20,32),
+		"cruiser_hatch_closed":Vector2(16,22), "cruiser_hatch_opening":Vector2(16,22), "cruiser_hatch_open":Vector2(16,22), "cruiser_hatch_fire":Vector2(16,22),
+	}
+	for component_id in mercenary_boss_specialist_sizes:
+		var component := load("res://assets/runtime/enemies/mercenary_boss_specialist/%s.png" % component_id)
+		_expect(component is Texture2D and component.get_size()==mercenary_boss_specialist_sizes[component_id],"mercenary boss mechanical component should retain registered geometry: %s" % component_id)
+	_expect(source.contains("MERCENARY_BOSS_SPECIALIST_ART") and source.contains("_draw_mercenary_boss_entrance") and source.contains("_draw_mercenary_boss_mechanics"),"mercenary bosses should receive authored entrance and mechanical combat layers")
+	_expect(CombatArtDirector.boss_hatch_frame_index(1.0,0.0)==0 and CombatArtDirector.boss_hatch_frame_index(0.6,0.0)==1 and CombatArtDirector.boss_hatch_frame_index(0.2,0.0)==2 and CombatArtDirector.boss_hatch_frame_index(1.0,0.8)==3,"missile-cruiser hatches should communicate closed, opening, armed and launch poses")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/mercenary_boss_specialist/mercenary_boss_specialist_asset_manifest.json"),"mercenary boss mechanics manifest should exist")
 	var machine_boss_sizes := {
 		"swarm_controller": Vector2(106,88),
 		"ai_forge_core": Vector2(112,112),
@@ -395,6 +406,8 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("NAVAL_WRECK_HULLS") and source.contains("NAVAL_SINK_SECONDS") and source.contains("func _draw_naval_sinking"), "naval destruction should retain the authored hull through a dedicated multi-stage sinking window")
 	_expect(source.contains("NAVAL_SINK_SECONDS / EXPLOSION_SECONDS"), "the extended naval sinking window should not slow the authored arcade explosion cadence")
 	_expect(source.contains("list_angle") and source.contains("sink_offset") and source.contains("bow") and source.contains("stern"), "naval sinking should visibly list, submerge and displace water at separate hull points")
+	_expect(source.contains("MERCENARY_BOSS_WRECK_HULLS") and source.contains("BOSS_DESTRUCTION_SECONDS") and source.contains("func _draw_mercenary_boss_breakup"),"Sector I bosses should retain their silhouettes through bespoke extended destruction sequences")
+	_expect(source.contains('enemy_id == "gunship_alpha"') and source.contains('enemy_id == "armoured_train"') and source.contains("source_region"),"gunship, train and cruiser boss deaths should use materially different roll, sectional breakup and sinking behavior")
 	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
