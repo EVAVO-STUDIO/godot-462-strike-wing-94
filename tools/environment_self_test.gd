@@ -53,6 +53,8 @@ func _initialize() -> void:
 		_expect(source.contains("blended_cloud_density"), "environment renderer should blend cloud density")
 		_expect(source.contains("_orbital_mix"), "orbital starfield should fade through the atmospheric transition")
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
+		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("HIGH_ATMOSPHERE_RIM") and source.contains("ORBITAL_RIM"), "upper atmosphere and orbital space should use authored star and curvature layers")
+		_expect(not source.contains("draw_arc") and not source.contains("var star :=") and not source.contains("draw_rect(Rect2(roundf(x)"), "orbital presentation should not regress to perfect vector arcs or one-pixel stars")
 		_expect(source.contains("COASTAL_STRIKE_ZONE"), "coastal benchmark should use its authored raster master")
 		_expect(source.contains("REFINERY_NIGHT"), "industrial benchmark should use its authored refinery raster master")
 		_expect(source.contains("STORM_SEA"), "open-water benchmark should use its authored storm-sea raster master")
@@ -114,6 +116,16 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"), "orbital runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_asset_manifest.json"), "orbital source manifest should exist")
+		var orbital_layer_sizes := {"starfield_tile":Vector2(640,512),"high_atmosphere_rim":Vector2(640,208),"orbital_rim":Vector2(640,208)}
+		for orbital_layer in orbital_layer_sizes:
+			var orbital_texture := load("res://assets/runtime/environments/orbital/%s.png" % orbital_layer)
+			_expect(orbital_texture is Texture2D and orbital_texture.get_size() == orbital_layer_sizes[orbital_layer], "orbital atmosphere layer should retain registered geometry: %s" % orbital_layer)
+		var starfield := load("res://assets/runtime/environments/orbital/starfield_tile.png") as Texture2D
+		if starfield != null:
+			var star_image := starfield.get_image()
+			for sample_x in range(0,640,32):
+				_expect(star_image.get_pixel(sample_x,0).is_equal_approx(star_image.get_pixel(sample_x,511)), "orbital starfield must close its vertical seam: x=%d" % sample_x)
+		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_atmosphere_manifest.json"), "orbital atmosphere source/runtime manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/city/city_outskirts_loop_v1.png"), "city runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/city_asset_manifest.json"), "city source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png"), "machine furnace runtime master should exist")

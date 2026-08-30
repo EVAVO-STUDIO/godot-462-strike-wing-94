@@ -27,6 +27,9 @@ const HARBOR_REFLECTION_TILE := preload("res://assets/runtime/environments/layer
 const CITY_LIGHT_TILE := preload("res://assets/runtime/environments/layers/city_light_tile.png")
 const FURNACE_ACTIVITY_TILE := preload("res://assets/runtime/environments/layers/furnace_activity_tile.png")
 const ORBITAL_DEBRIS_TILE := preload("res://assets/runtime/environments/layers/orbital_debris_tile.png")
+const ORBITAL_STARFIELD_TILE := preload("res://assets/runtime/environments/orbital/starfield_tile.png")
+const HIGH_ATMOSPHERE_RIM := preload("res://assets/runtime/environments/orbital/high_atmosphere_rim.png")
+const ORBITAL_RIM := preload("res://assets/runtime/environments/orbital/orbital_rim.png")
 const PARALLAX_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/parallax_far.png"),
 	preload("res://assets/runtime/environments/motion/parallax_mid.png"),
@@ -346,14 +349,10 @@ func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary
 		var size := Vector2(texture.get_size()) * scale
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
-func _draw_high_atmosphere_horizon(surface: CanvasItem, profile: Dictionary, glow: float) -> void:
-	var atmosphere := _tone(profile, "mid", 0.04 + 0.10 * glow)
-	surface.draw_arc(Vector2(320, 438), 286, PI, TAU, 64, atmosphere, 3.0)
-	var upper := Color("5d86a0")
-	upper.a = 0.02 + 0.07 * glow
-	surface.draw_arc(Vector2(320, 442), 294, PI, TAU, 64, upper, 1.0)
+func _draw_high_atmosphere_horizon(surface: CanvasItem, _profile: Dictionary, glow: float) -> void:
+	surface.draw_texture(HIGH_ATMOSPHERE_RIM, Vector2(0,152), Color(1,1,1,0.26 + 0.74 * glow))
 
-func _draw_orbital(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float, orbital_mix: float) -> void:
+func _draw_orbital(surface: CanvasItem, _profile: Dictionary, state: Dictionary, t: float, orbital_mix: float) -> void:
 	var mix := clampf(orbital_mix, 0.0, 1.0)
 	if mix <= 0.01:
 		return
@@ -361,17 +360,12 @@ func _draw_orbital(surface: CanvasItem, profile: Dictionary, state: Dictionary, 
 	_draw_vertical_loop(surface, BLACK_SKY_STATION, scroll, Rect2(0, 58, 640, 302), Color(0.76, 0.82, 0.88, 0.88 * mix))
 	var debris_scroll := fposmod(t * 15.0, 512.0)
 	_draw_vertical_loop(surface, ORBITAL_DEBRIS_TILE, debris_scroll, Rect2(0,58,640,302), Color(1,1,1,0.78*mix))
-	# A few independently drifting points keep the vacuum alive without turning it into star wallpaper.
-	var star := _tone(profile, "near", 0.65 * mix)
-	for i in range(18):
-		var x := float((i * 97 + 31) % 604) + 18.0
-		var y := float((i * 53 + int(t * 2.0)) % 272) + 66
-		surface.draw_rect(Rect2(roundf(x), roundf(y), 1, 1), star)
+	# The authored sparse tile drifts independently without becoming star wallpaper.
+	var star_scroll := fposmod(t * 2.0, 512.0)
+	_draw_vertical_loop(surface, ORBITAL_STARFIELD_TILE, star_scroll, Rect2(0,58,640,302), Color(1,1,1,0.82*mix))
 	var glow := _horizon_glow(state) * mix
 	if glow > 0.0:
-		var atmosphere := Color("4f86aa")
-		atmosphere.a = 0.08 * glow
-		surface.draw_arc(Vector2(320, 420), 270, PI, TAU, 64, atmosphere, 3.0)
+		surface.draw_texture(ORBITAL_RIM, Vector2(0,150), Color(1,1,1,glow))
 
 func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)

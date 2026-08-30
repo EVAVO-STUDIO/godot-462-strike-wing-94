@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="944" viewBox="0 0 640 944" shape-rendering="crispEdges">
+ <rect width="640" height="944" fill="none"/>
+ <!-- 640x512 sparse seamless star layer -->
+ <g fill="#b4cbd6" opacity=".75">
+  <rect x="31" y="41" width="2" height="2"/><rect x="98" y="119" width="1" height="1"/><rect x="171" y="62" width="1" height="2"/><rect x="247" y="181" width="2" height="1"/><rect x="309" y="93" width="1" height="1"/><rect x="383" y="146" width="2" height="2"/><rect x="461" y="54" width="1" height="1"/><rect x="532" y="192" width="1" height="2"/><rect x="601" y="102" width="2" height="1"/>
+  <rect x="57" y="267" width="1" height="2"/><rect x="132" y="221" width="2" height="1"/><rect x="211" y="332" width="1" height="1"/><rect x="278" y="256" width="2" height="2"/><rect x="352" y="376" width="1" height="2"/><rect x="426" y="284" width="1" height="1"/><rect x="503" y="349" width="2" height="1"/><rect x="578" y="238" width="1" height="2"/>
+  <rect x="86" y="439" width="2" height="1"/><rect x="186" y="464" width="1" height="2"/><rect x="316" y="426" width="1" height="1"/><rect x="449" y="475" width="2" height="1"/><rect x="559" y="421" width="1" height="1"/>
+ </g>
+ <g fill="#e0edf0" opacity=".88"><path d="M145 149h7v1h-7zm3-3h1v7h-1z"/><path d="M486 241h5v1h-5zm2-2h1v5h-1z"/><path d="M367 449h5v1h-5zm2-2h1v5h-1z"/></g>
+ <g fill="#748fa0" opacity=".58"><rect x="22" y="186" width="1" height="1"/><rect x="118" y="381" width="1" height="1"/><rect x="223" y="111" width="1" height="1"/><rect x="416" y="201" width="1" height="1"/><rect x="621" y="333" width="1" height="1"/></g>
+ <!-- high atmosphere rim 640x208 at y512 -->
+ <g transform="translate(0 528)" fill="none">
+  <path d="M18 208C76 64 190 5 320 3c130 2 244 61 302 205" stroke="#203b4c" stroke-width="14" opacity=".32"/>
+  <path d="M20 208C80 70 191 12 320 10c129 2 240 60 300 198" stroke="#4f829c" stroke-width="7" opacity=".58"/>
+  <path d="M24 208C85 78 194 20 320 18c126 2 235 60 296 190" stroke="#91b5c3" stroke-width="3" opacity=".72"/>
+  <path d="M67 155l18-9m63-62 16-6m83-43 17-3m95 5 17 4m81 48 16 8m62 61 17 10" stroke="#d0e0df" stroke-width="2" opacity=".35"/>
+ </g>
+ <!-- orbital rim 640x208 at y720 -->
+ <g transform="translate(0 736)" fill="none">
+  <path d="M15 208C72 58 187 1 320 0c133 1 248 58 305 208" stroke="#162b3b" stroke-width="11" opacity=".45"/>
+  <path d="M18 208C77 65 190 7 320 6c130 1 243 59 302 202" stroke="#3f7798" stroke-width="5" opacity=".72"/>
+  <path d="M22 208C82 72 192 14 320 13c128 1 238 59 298 195" stroke="#8eb8c9" stroke-width="2" opacity=".84"/>
+  <path d="M44 185l15-8m74-77 15-7m103-66 16-3m106 6 16 4m97 64 15 8m76 73 15 8" stroke="#e1edef" stroke-width="2" opacity=".42"/>
+ </g>
+</svg>
