@@ -12,6 +12,7 @@ const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/moun
 const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png")
 const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
+const CITY_OUTSKIRTS := preload("res://assets/runtime/environments/city/city_outskirts_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -72,6 +73,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"river_corridor": _draw_river_corridor(surface, state, t)
 			"mountain_radar": _draw_mountain_radar(surface, state, t)
 			"night_harbor": _draw_night_harbor(surface, state, t)
+			"city_outskirts": _draw_city_outskirts(surface, state, t)
 	else:
 		match motif:
 			"coast": _draw_coast(surface, profile, state, t)
@@ -304,6 +306,17 @@ func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> voi
 			surface.draw_line(Vector2(x, y), Vector2(x + 2.0, y + 9.0), reflection, 1.0)
 		else:
 			surface.draw_line(Vector2(x, y), Vector2(x + 26.0, y), wake, 1.0)
+
+func _draw_city_outskirts(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	if not _draw_ground_detail(state): return
+	var scroll := fposmod(t * 38.0, 720.0)
+	_draw_vertical_loop(surface, CITY_OUTSKIRTS, scroll, Rect2(0, 58, 640, 302), Color(0.82, 0.84, 0.82, 0.92))
+	# Isolated sodium pools imply a powered but evacuated transport belt.
+	var lamp := Color("d5a35c", 0.20)
+	for i in range(6):
+		var y := fposmod(float(i) * 91.0 + scroll, 312.0) + 58.0
+		var x := 88.0 + float((i * 173) % 470)
+		surface.draw_rect(Rect2(roundf(x), roundf(y), 2, 2), lamp)
 
 func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)

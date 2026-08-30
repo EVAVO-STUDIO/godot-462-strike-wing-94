@@ -298,7 +298,7 @@
       "objectives":[{"id":"survive","type":"survive","seconds":230,"required":true},{"id":"kill_shepherd","type":"destroy_enemy","enemy_id":"swarm_controller","count":1,"required":true},{"id":"break_hunters","type":"destroy_enemy","enemy_id":"drone_hunter","count":6,"required":false,"bonus_credits":2300}]
     },
     {
-      "id":"s2_m06_ghost_convoy","name":"Ghost Convoy","environment":"industrial","duration_seconds":235,"starting_wave":28,"boss_id":"armoured_train","briefing":"A driverless supply column is crossing the abandoned city belt. Follow its dead radio traffic and destroy the train carrying the network's mobile seed foundry.",
+      "id":"s2_m06_ghost_convoy","name":"Ghost Convoy","environment":"industrial","environment_variant":"city_outskirts","duration_seconds":235,"starting_wave":28,"boss_id":"armoured_train","briefing":"A driverless supply column is crossing the abandoned city belt. Follow its dead radio traffic and destroy the train carrying the network's mobile seed foundry.",
       "encounter_beats":[
         {"id":"driverless_column","at_seconds":8,"label":"DRIVERLESS COLUMN","formation":"column","enemies":[{"id":"autonomous_armor","count":4},{"id":"sam_truck","count":2}],"suppress_random_seconds":5},
         {"id":"roofline_feint","at_seconds":54,"label":"ROOFLINE FEINT","formation":"feint","enemies":[{"id":"drone_hunter","count":3},{"id":"factory_defence_node","count":2}],"suppress_random_seconds":7},
@@ -331,7 +331,7 @@
       "objectives":[{"id":"survive","type":"survive","seconds":245,"required":true},{"id":"sink_swarm_core","type":"destroy_enemy","enemy_id":"swarm_controller","count":1,"required":true},{"id":"clear_launch_nodes","type":"destroy_enemy","enemy_id":"drone_missile_node","count":4,"required":false,"bonus_credits":2900}]
     },
     {
-      "id":"s2_m09_silent_city","name":"Silent City","environment":"industrial","duration_seconds":250,"starting_wave":34,"boss_id":"ai_forge_core","briefing":"Enter the evacuated Meridian industrial district, where the network has turned tower foundations and rail tunnels into a distributed factory.",
+      "id":"s2_m09_silent_city","name":"Silent City","environment":"industrial","environment_variant":"city_outskirts","duration_seconds":250,"starting_wave":34,"boss_id":"ai_forge_core","briefing":"Enter the evacuated Meridian industrial district, where the network has turned tower foundations and rail tunnels into a distributed factory.",
       "encounter_beats":[
         {"id":"empty_avenue","at_seconds":7,"label":"EMPTY AVENUE","formation":"stagger","enemies":[{"id":"autonomous_armor","count":3},{"id":"drone_scout","count":3}],"suppress_random_seconds":6},
         {"id":"tower_ambush","at_seconds":57,"label":"TOWER AMBUSH","formation":"ambush","enemies":[{"id":"factory_defence_node","count":3},{"id":"drone_hunter","count":3}],"suppress_random_seconds":8},

@@ -1,0 +1,24 @@
+{
+  "family": "city_outskirts",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/city/city_outskirts_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/city/city_outskirts_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 52,
+  "construction": "central transport belt reduced at 320x180, palette-limited, upscaled 2x nearest-neighbour and mirrored into a vertical loop",
+  "mission_assignments": ["s2_m06_ghost_convoy", "s2_m09_silent_city"],
+  "art_direction": [
+    "evacuated 1999 industrial city belt",
+    "continuous rail, road, drainage and power infrastructure",
+    "central route for convoy and armoured-train combat",
+    "cold overcast dusk with isolated sodium utilities",
+    "late-1990s military raster finish"
+  ],
+  "reject": [
+    "cyberpunk neon city",
+    "toy-scale grid blocks",
+    "random disconnected roads or rails",
+    "baked trains, aircraft or UI",
+    "isometric building facades"
+  ]
+}
