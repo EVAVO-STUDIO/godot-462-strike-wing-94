@@ -151,6 +151,10 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains('var cue := " WEAK" if phase >= 3'), "phase-three boss HUD should retain weak-point cue")
 		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
 		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
+	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
+	_expect(intel_file != null and intel_file.get_as_text().contains("layer = 31"), "mission intelligence overlay should render above the layer-30 sortie console")
+	var stores_file := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
+	_expect(stores_file != null and stores_file.get_as_text().contains("layer = 32"), "stores schematic should render above the sortie console and mission intelligence")
 	_expect(not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete boss HUD widget director should remain deleted")
 	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")
 

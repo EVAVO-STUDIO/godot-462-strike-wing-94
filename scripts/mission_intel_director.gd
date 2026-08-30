@@ -15,7 +15,7 @@ var _surface: Control
 var _open := false
 
 func _ready() -> void:
-	layer = 29
+	layer = 31
 	_surface = MissionIntelSurface.new()
 	_surface.director = self
 	_surface.position = Vector2.ZERO

@@ -117,7 +117,9 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 
 func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
-	_draw_frame(surface, Rect2(10, 10, 620, 340))
+	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.62,0.70,0.73,0.72))
+	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,0.66))
+	_draw_frame(surface, Rect2(10, 10, 620, 340), false)
 	PixelFont.draw_centered(surface, "MISSION REPORT", 320, 44, 3, GOLD, 2)
 
 	var result_lines := _wrap_text(str(scene.get("result_text")), 66)

@@ -407,6 +407,9 @@ func _test_mount_map() -> void:
 		_expect(source.contains("KEY_L"), "L should toggle VX-94 stores schematic")
 		_expect(source.contains("player_mounts.json"), "schematic should consume the authored physical mount map")
 		_expect(source.contains("FIGHTER") and source.contains("BOMBER / ATTACK"), "schematic should compare both variable-geometry planforms")
+		_expect(source.contains("VX94_PLANFORMS") and source.contains("vx94_fighter_v1.png") and source.contains("vx94_bomber_v1.png"), "stores schematic should use the reviewed VX-94 planform masters")
+		_expect(source.contains("texture.get_size() * 2.25"), "schematic planforms should align with the 2.25x physical mount-coordinate map")
+		_expect(not source.contains("draw_colored_polygon"), "stores schematic should not retain prototype vector aircraft")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:

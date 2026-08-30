@@ -4,6 +4,10 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const PlayerMountRules = preload("res://scripts/player_mount_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const LoadoutSchematicSurface = preload("res://scripts/loadout_schematic_surface.gd")
+const VX94_PLANFORMS := {
+	"fighter": preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png"),
+	"bomber": preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png"),
+}
 
 const BG := Color("070a0e")
 const PANEL := Color("10171d")
@@ -20,7 +24,7 @@ var _open := false
 var _mounts: Array = []
 
 func _ready() -> void:
-	layer = 30
+	layer = 32
 	var data = ContentCatalog.load_json("res://data/player_mounts.json")
 	if typeof(data) == TYPE_DICTIONARY:
 		_mounts = data.get("mounts", [])
@@ -68,20 +72,11 @@ func draw_schematic(surface: CanvasItem) -> void:
 	PixelFont.draw_centered(surface, "L CLOSE   Q CHANGES COMBAT GEOMETRY IN SORTIE", 320, 306, 1, MUTED, 1)
 
 func _draw_planform(surface: CanvasItem, p: Vector2, form: String) -> void:
-	var body := Color(0.72,0.78,0.81,0.65)
-	var dark := Color(0.30,0.38,0.43,0.72)
-	if form == "fighter":
-		surface.draw_colored_polygon(PackedVector2Array([
-			p+Vector2(0,-54),p+Vector2(-10,-18),p+Vector2(-57,28),p+Vector2(-25,19),p+Vector2(-14,48),p+Vector2(0,33),p+Vector2(14,48),p+Vector2(25,19),p+Vector2(57,28),p+Vector2(10,-18)
-		]), body)
-		surface.draw_line(p+Vector2(-18,6),p+Vector2(-58,31),dark,2)
-		surface.draw_line(p+Vector2(18,6),p+Vector2(58,31),dark,2)
-	else:
-		surface.draw_colored_polygon(PackedVector2Array([
-			p+Vector2(0,-50),p+Vector2(-11,-20),p+Vector2(-82,8),p+Vector2(-76,30),p+Vector2(-30,26),p+Vector2(-18,49),p+Vector2(0,34),p+Vector2(18,49),p+Vector2(30,26),p+Vector2(76,30),p+Vector2(82,8),p+Vector2(11,-20)
-		]), body)
-		surface.draw_rect(Rect2(p.x-62,p.y+18,124,7),dark)
-		surface.draw_rect(Rect2(p.x-5,p.y-66,10,18),dark)
+	var texture: Texture2D = VX94_PLANFORMS.get(form)
+	if texture == null:
+		return
+	var size := texture.get_size() * 2.25
+	surface.draw_texture_rect(texture, Rect2((p - size * 0.5).round(), size.round()), false, Color(0.78,0.86,0.88,0.82))
 
 func _draw_mounts(surface: CanvasItem, p: Vector2, form: String) -> void:
 	var shown := 0
