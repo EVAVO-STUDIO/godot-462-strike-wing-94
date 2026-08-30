@@ -3,6 +3,9 @@ extends CanvasLayer
 const StartupSequenceSurface = preload("res://scripts/startup_sequence_surface.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const EVAVO_SPLASH := preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png")
+const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
+const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
+const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
 const EVAVO_SPARKLE_FRAMES := [
 	preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_00.png"),
 	preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_01.png"),
@@ -112,20 +115,19 @@ func _draw_evavo(surface: CanvasItem) -> void:
 func _draw_hypersonic(surface: CanvasItem) -> void:
 	_draw_cloud_field(surface)
 	var craft_t := _range_progress(0.65, 4.25)
-	var craft_y := lerpf(392.0, 146.0, _ease_out(craft_t))
+	var craft_y := lerpf(392.0, 190.0, _ease_out(craft_t))
 	var craft_scale := lerpf(0.38, 1.0, craft_t)
 	var deploy := smoothstep(0.0, 1.0, _range_progress(3.15, 3.68))
-	_draw_vx94_silhouette(surface, Vector2(320, craft_y), craft_scale, deploy)
+	_draw_vx94_forms(surface, Vector2(320, craft_y), craft_scale, deploy)
 	var flare := sin(clampf(_range_progress(3.72, 4.55), 0.0, 1.0) * PI)
 	if flare > 0.0:
 		surface.draw_circle(Vector2(320, craft_y+26.0*craft_scale), 5.0+flare*10.0, Color(1.0,0.48,0.18,flare*0.8))
 	var title_alpha := smoothstep(0.0, 1.0, _range_progress(4.35, 5.05))
 	if title_alpha > 0.0:
 		var identity := get_node_or_null("/root/ProductIdentity")
-		var title := str(identity.call("title_primary")) if identity != null else "HYPERSONIC"
 		var subtitle := str(identity.call("title_subtitle")) if identity != null else "VX-94 VARIABLE STRIKE FIGHTER"
-		PixelFont.draw_centered(surface, title, 320, 62, 5, Color(0.88,0.91,0.92,title_alpha), 2)
-		PixelFont.draw_centered(surface, subtitle, 320, 96, 1, Color(0.42,0.68,0.80,title_alpha), 1)
+		surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(70, 42, 500, 64), false, Color(1,1,1,title_alpha))
+		PixelFont.draw_centered(surface, subtitle, 320, 116, 1, Color(0.52,0.72,0.82,title_alpha), 1)
 	if elapsed >= 6.8:
 		var pulse := 0.48 + 0.52 * absf(sin(elapsed * 3.2))
 		PixelFont.draw_centered(surface, "PRESS FIRE / PRESS START", 320, 316, 1, Color(0.92,0.78,0.38,pulse), 1)
@@ -133,29 +135,29 @@ func _draw_hypersonic(surface: CanvasItem) -> void:
 func _draw_cloud_field(surface: CanvasItem) -> void:
 	var reveal := _range_progress(0.0, 1.2)
 	surface.draw_rect(Rect2(0,0,640,360), Color(0.025,0.07,0.11,reveal))
-	for i in range(14):
-		var speed := 7.0 + float(i % 4) * 4.0
-		var x := fposmod(float(i*79) + elapsed*speed, 760.0) - 60.0
-		var y := 112.0 + float((i*47)%210)
-		var radius := 24.0 + float(i%3)*12.0
-		var cloud_alpha := (0.025 + float(i%4)*0.014) * reveal
-		surface.draw_circle(Vector2(x,y), radius, Color(0.46,0.58,0.63,cloud_alpha))
+	_draw_cloud_wisp(surface, -90.0 + fposmod(elapsed * 5.0, 820.0), 178.0, 1.35, Color(0.20,0.31,0.38,0.17 * reveal))
+	_draw_cloud_wisp(surface, 310.0 + fposmod(elapsed * 3.0, 880.0), 268.0, 1.7, Color(0.15,0.25,0.32,0.13 * reveal))
+	_draw_cloud_wisp(surface, 78.0 - fposmod(elapsed * 7.0, 760.0), 318.0, 0.9, Color(0.31,0.41,0.45,0.10 * reveal))
+	_draw_cloud_wisp(surface, 510.0 - fposmod(elapsed * 4.0, 900.0), 128.0, 0.72, Color(0.26,0.36,0.41,0.09 * reveal))
 
-func _draw_vx94_silhouette(surface: CanvasItem, p: Vector2, scale: float, deploy: float) -> void:
-	var fighter_span := 22.0
-	var bomber_span := 53.0
-	var span := lerpf(fighter_span, bomber_span, deploy) * scale
-	var sweep_y := lerpf(12.0, 2.0, deploy) * scale
-	var body := Color("111a20")
-	var edge := Color(0.35,0.48,0.54,0.72)
-	var nose := p + Vector2(0,-34)*scale
-	var tail := p + Vector2(0,30)*scale
-	var left := p + Vector2(-span,sweep_y)
-	var right := p + Vector2(span,sweep_y)
-	surface.draw_colored_polygon(PackedVector2Array([nose,left,p+Vector2(-8,24)*scale,tail,p+Vector2(8,24)*scale,right]), body)
-	surface.draw_polyline(PackedVector2Array([nose,left,p+Vector2(-8,24)*scale,tail,p+Vector2(8,24)*scale,right,nose]), edge, 1.0)
-	surface.draw_line(p+Vector2(-4,-21)*scale, p+Vector2(-4,20)*scale, Color(0.28,0.39,0.44,0.72), 1.0)
-	surface.draw_line(p+Vector2(4,-21)*scale, p+Vector2(4,20)*scale, Color(0.28,0.39,0.44,0.72), 1.0)
+func _draw_cloud_wisp(surface: CanvasItem, x: float, y: float, scale: float, color: Color) -> void:
+	var points := PackedVector2Array([
+		Vector2(-118, 8), Vector2(-91, -3), Vector2(-63, -7), Vector2(-38, -17),
+		Vector2(-10, -13), Vector2(18, -24), Vector2(49, -15), Vector2(74, -18),
+		Vector2(101, -5), Vector2(126, 2), Vector2(91, 10), Vector2(54, 14),
+		Vector2(17, 11), Vector2(-25, 18), Vector2(-66, 14), Vector2(-99, 16)
+	])
+	for index in range(points.size()):
+		points[index] = Vector2(x, y) + points[index] * scale
+	surface.draw_colored_polygon(points, color)
+
+func _draw_vx94_forms(surface: CanvasItem, p: Vector2, scale: float, deploy: float) -> void:
+	var size := Vector2(64, 72) * scale
+	var destination := Rect2(p - size * 0.5, size)
+	if deploy < 1.0:
+		surface.draw_texture_rect(VX94_FIGHTER, destination, false, Color(1, 1, 1, 1.0 - deploy))
+	if deploy > 0.0:
+		surface.draw_texture_rect(VX94_BOMBER, destination, false, Color(1, 1, 1, deploy))
 
 func _range_progress(start: float, finish: float) -> float:
 	return clampf((elapsed-start)/maxf(0.001,finish-start),0.0,1.0)

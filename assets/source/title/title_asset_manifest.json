@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "asset_family": "hypersonic_title",
+  "status": "runtime_candidate_v1",
+  "source": {
+    "path": "assets/source/title/candidates/hypersonic_wordmark_candidate_03.png",
+    "sha256": "c16bc05eaa56a282813d0b1b29637e2727ec13357ecbf70e10a47e438e9cf155",
+    "provenance": "OpenAI built-in image generation candidate; generated 2026-08-30; unapproved source retained immutably"
+  },
+  "master": {
+    "path": "assets/runtime/title/hypersonic_wordmark_v1.png",
+    "sha256": "f387e00a085d3e83f33e278dc87e151e0097cb20361ebc7cbb9d84524417e163",
+    "canvas": [500, 64],
+    "process": [
+      "Lanczos reduction to 512x171",
+      "24-colour no-dither palette reduction",
+      "transparent-bound trim"
+    ]
+  },
+  "runtime_contract": {
+    "logical_resolution": [640, 360],
+    "display_rect": [70, 42, 500, 64],
+    "texture_filter": "nearest",
+    "subtitle_source": "ProductIdentity.title_subtitle rendered with PixelFont"
+  },
+  "rejections": [
+    "candidate_01: modern chrome/esports treatment",
+    "candidate_02: excessive bevel and unreadable generated subtitle"
+  ]
+}

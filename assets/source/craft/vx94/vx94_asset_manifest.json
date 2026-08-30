@@ -1,0 +1,48 @@
+{
+  "asset_family": "vx94_variable_strike_fighter",
+  "status": "runtime_candidate",
+  "visual_contract": {
+    "era": "late-1990s SVGA pre-rendered arcade shooter",
+    "view": "orthographic top-down",
+    "identity": "pale ivory and blue-gray airframe, navy canopy and recesses, restrained red-orange safety markings, twin engines",
+    "forms": {
+      "fighter": "compact swept-wing interceptor configuration",
+      "bomber": "deployed broad-wing heavy strike configuration"
+    }
+  },
+  "source_candidates": [
+    {
+      "path": "res://assets/source/craft/vx94/candidates/vx94_fighter_identity_candidate_01.png",
+      "sha256": "C0099B703A296DE6167F31871BC6147FED220F8E373CCE3840FE7B7F026A933C"
+    },
+    {
+      "path": "res://assets/source/craft/vx94/candidates/vx94_bomber_identity_candidate_01.png",
+      "sha256": "EB09AEAB0E291C6D3CD1069AA608407CF5D6CF5F122DE9C1615F7A30D643D71B"
+    }
+  ],
+  "runtime": {
+    "canvas": [64, 72],
+    "palette_limit": 32,
+    "alpha": "binary after 20 percent threshold",
+    "filter": "Lanczos downsample from identity master",
+    "fighter": {
+      "path": "res://assets/runtime/craft/vx94/vx94_fighter_v1.png",
+      "sha256": "6CF2F652F80459ACA85CE2EFEF99510FFEEBD325619DB5A566C6EF1CA8DD79E0"
+    },
+    "bomber": {
+      "path": "res://assets/runtime/craft/vx94/vx94_bomber_v1.png",
+      "sha256": "696EB20A3B4CB955B604F18AF8086C38C492DDAD07169135CA4F4C8C9C0880D0"
+    },
+    "anchors": {
+      "visual_center": [32, 36],
+      "gameplay_center": [32, 38],
+      "nose_muzzle": [32, 4],
+      "left_muzzle": [22, 23],
+      "right_muzzle": [42, 23],
+      "left_exhaust": [27, 66],
+      "right_exhaust": [37, 66],
+      "shadow_origin": [32, 40]
+    }
+  },
+  "remaining_gate": "author transformation intermediates, bank frames, thrust frames, damage states, and collision masks before gameplay replacement"
+}
