@@ -309,17 +309,16 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 		"orbital_bombardment": _draw_orbital_strike(surface, progress)
 
 func _draw_tanker(surface: CanvasItem) -> void:
-	var dark := Color("26323a")
-	var hose := Color("d5c878")
 	var p := _tanker_position
 	_draw_support_craft(surface, p, "atlas_tanker", 6.0)
 	var hose_point := BattlefieldSupportRules.tanker_hose_point(p)
-	surface.draw_line(p + Vector2(0, 12), hose_point, hose, 2.0)
-	surface.draw_circle(hose_point, BattlefieldSupportRules.TANKER_RADIUS, Color(0.85, 0.75, 0.35, 0.25), false, 1.0)
-	var bar_width := 80.0
+	var hose := BattlefieldSupportArtLibrary.effect("tanker_hose")
+	var contact := BattlefieldSupportArtLibrary.effect("tanker_contact")
+	surface.draw_texture(hose, (p + Vector2(-32, 8)).round())
+	surface.draw_texture(contact, (hose_point - contact.get_size() * 0.5).round())
 	var ratio := clampf(_tanker_progress / BattlefieldSupportRules.TANKER_REQUIRED_SECONDS, 0.0, 1.0)
-	surface.draw_rect(Rect2(p.x - 40, p.y + 28, bar_width, 4), dark)
-	surface.draw_rect(Rect2(p.x - 40, p.y + 28, floorf(bar_width * ratio), 4), hose)
+	surface.draw_texture(BattlefieldSupportArtLibrary.effect("tanker_meter_trough"), (p + Vector2(-40, 29)).round())
+	_draw_clipped_effect(surface, BattlefieldSupportArtLibrary.effect("tanker_meter_fill"), (p + Vector2(-40, 30)).round(), ratio)
 
 func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
 	for i in range(3):
@@ -335,13 +334,14 @@ func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
 		var p := Vector2(x, y)
 		_draw_support_craft(surface, p, "hammer_bomber", 7.0 + float(i))
 		if progress > 0.35:
-			surface.draw_line(p+Vector2(0,8), p+Vector2(0,32), Color("d9b15f"), 1.0)
+			var bomb := BattlefieldSupportArtLibrary.effect("strike_bomb")
+			surface.draw_texture(bomb, (p + Vector2(-8, 8 + 24.0 * (progress - 0.35))).round())
 
 func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 	var p := Vector2(552, 118 + sin(progress * PI) * 8.0)
 	_draw_support_craft(surface, p, "spectre_gunship", 6.0)
 	for offset in [-12.0, 0.0, 12.0]:
-		surface.draw_line(p+Vector2(-31,18+offset*0.2), _visual_target+Vector2(offset,0), Color("e0b45b"), 1.0)
+		_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), p+Vector2(-31,18+offset*0.2), _visual_target+Vector2(offset,0), 4.0)
 
 func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float) -> void:
 	var texture := BattlefieldSupportArtLibrary.frame_for_clock(family, _animation_clock, fps)
@@ -351,28 +351,53 @@ func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String,
 func _draw_missile_strike(surface: CanvasItem, progress: float) -> void:
 	var start := Vector2(80, 330)
 	var p := start.lerp(_visual_target, progress)
-	surface.draw_line(start.lerp(_visual_target, maxf(0.0, progress-0.18)), p, Color("e7d17b"), 2.0)
-	surface.draw_circle(p, 3.0, Color("d96c55"))
+	var trail_start := start.lerp(_visual_target, maxf(0.0, progress-0.18))
+	_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), trail_start, p, 5.0)
+	var bomb := BattlefieldSupportArtLibrary.effect("strike_bomb")
+	_draw_rotated_effect(surface, bomb, p, (_visual_target - start).angle() + PI * 0.5)
 	if progress > 0.86:
-		surface.draw_circle(_visual_target, 12.0 * (progress-0.86) / 0.14, Color(0.95,0.65,0.28,0.5), false, 2.0)
+		var impact := BattlefieldSupportArtLibrary.staged_effect("impact", (progress - 0.86) / 0.14)
+		surface.draw_texture(impact, (_visual_target - impact.get_size() * 0.5).round())
 
 func _draw_rail_strike(surface: CanvasItem, progress: float) -> void:
 	var charge := clampf(progress / 0.38, 0.0, 1.0)
 	if progress < 0.38:
-		surface.draw_circle(_visual_target, 4.0 + charge*10.0, Color(0.45,0.82,0.9,0.55), false, 1.0)
+		var charge_frame := BattlefieldSupportArtLibrary.staged_effect("rail_charge", charge)
+		surface.draw_texture(charge_frame, (_visual_target - charge_frame.get_size() * 0.5).round())
 		return
 	var fade := 1.0 - clampf((progress-0.38)/0.62,0.0,1.0)
-	surface.draw_line(Vector2(_visual_target.x, 0), Vector2(_visual_target.x, 360), Color(0.62,0.9,0.96,fade), 3.0)
-	surface.draw_line(Vector2(_visual_target.x+4, 0), Vector2(_visual_target.x+4, 360), Color(0.22,0.48,0.62,fade), 1.0)
+	var beam := BattlefieldSupportArtLibrary.effect("rail_beam")
+	surface.draw_texture_rect(beam, Rect2(_visual_target.x - 6, 0, 12, 360), false, Color(1,1,1,fade))
+	var impact := BattlefieldSupportArtLibrary.staged_effect("impact", clampf((progress - 0.38) / 0.62, 0.0, 1.0))
+	surface.draw_texture(impact, (_visual_target - impact.get_size() * 0.5).round(), Color(1,1,1,fade))
 
 func _draw_orbital_strike(surface: CanvasItem, progress: float) -> void:
 	var fade := 1.0 - progress
 	for x in [130.0, 240.0, 350.0, 460.0, 540.0]:
-		var top := Vector2(x, 0)
 		var bottom := Vector2(x + sin(x)*8.0, 300)
-		surface.draw_line(top, bottom, Color(0.72,0.88,0.94,0.35+fade*0.55), 2.0)
+		var beam := BattlefieldSupportArtLibrary.effect("orbital_beam")
+		surface.draw_texture_rect(beam, Rect2(bottom.x - 6, 0, 12, bottom.y), false, Color(1,1,1,0.35+fade*0.65))
 		if progress > 0.55:
-			surface.draw_circle(bottom, 5.0+progress*8.0, Color(0.92,0.72,0.34,0.45), false, 1.0)
+			var impact := BattlefieldSupportArtLibrary.effect("orbital_impact")
+			surface.draw_texture(impact, (bottom - impact.get_size() * 0.5).round(), Color(1,1,1,fade))
+
+func _draw_clipped_effect(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
+	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))
+	if width > 0.0:
+		surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0, 0, width, texture.get_height()))
+
+func _draw_effect_between(surface: CanvasItem, texture: Texture2D, start: Vector2, finish: Vector2, height: float) -> void:
+	var delta := finish - start
+	if delta.length() < 1.0:
+		return
+	surface.draw_set_transform(start, delta.angle(), Vector2(delta.length() / texture.get_width(), height / texture.get_height()))
+	surface.draw_texture(texture, Vector2(0, -texture.get_height() * 0.5))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+func _draw_rotated_effect(surface: CanvasItem, texture: Texture2D, position: Vector2, angle: float) -> void:
+	surface.draw_set_transform(position, angle, Vector2.ONE)
+	surface.draw_texture(texture, -texture.get_size() * 0.5)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _ensure_actions() -> void:
 	_add_key_action("cycle_battlefield_support", KEY_B)

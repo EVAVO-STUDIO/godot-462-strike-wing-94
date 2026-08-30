@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" shape-rendering="crispEdges">
+  <rect width="256" height="256" fill="none"/>
+  <!-- tanker hose: 64x32 -->
+  <path d="M31 0v8l3 3v7l-3 3v5" fill="none" stroke="#303941" stroke-width="4"/>
+  <path d="M31 0v8l3 3v7l-3 3v5" fill="none" stroke="#c4ae62" stroke-width="2"/>
+  <path d="M23 25h16l-3 5H26z" fill="#1b2228" stroke="#d7c477" stroke-width="2"/>
+  <rect x="29" y="27" width="4" height="4" fill="#77c0b2"/>
+  <!-- hookup ring: 64x64 at 64,0 -->
+  <path d="M96 4l5 8 10 3 5 10-3 10 3 10-5 10-10 3-5 2-5-2-10-3-5-10 3-10-3-10 5-10 10-3z" fill="#0a1014" fill-opacity=".15" stroke="#524b2b" stroke-width="2"/>
+  <path d="M96 9l4 7 8 2 4 8-2 9 2 9-4 8-8 2-4 4-4-4-8-2-4-8 2-9-2-9 4-8 8-2z" fill="none" stroke="#d6bd69" stroke-width="2"/>
+  <path d="M96 13v7M96 48v7M75 34h7M110 34h7" stroke="#f2dc83" stroke-width="2"/>
+  <!-- progress trough/fill at 128 -->
+  <rect x="128" y="1" width="80" height="6" fill="#080c0f" stroke="#52616a"/>
+  <path d="M130 3h76v2h-76z" fill="#202a30"/>
+  <rect x="128" y="10" width="80" height="4" fill="#c7b45f"/>
+  <path d="M130 11h8v2h-8zm12 0h8v2h-8zm12 0h8v2h-8zm12 0h8v2h-8zm12 0h8v2h-8zm12 0h8v2h-8zm12 0h4v2h-4z" fill="#f2dd80"/>
+  <!-- falling bomb: 16x32 at 208,16 -->
+  <path d="M214 16h4l2 5v13l-4 8-4-8V21z" fill="#606d72" stroke="#151b1f" stroke-width="2"/>
+  <path d="M212 19l-3-3v8h3m8-5l3-3v8h-3" fill="#9c8046"/>
+  <path d="M215 23h2v11h-2z" fill="#d9c278"/>
+  <!-- tracer ribbon: 64x8 at 0,64 -->
+  <path d="M0 67h48l10-3h6l-8 4 8 4h-6l-10-3H0z" fill="#8b612f" fill-opacity=".35"/>
+  <path d="M4 67h48l8-2-7 3 7 3-8-2H4z" fill="#e2b85d"/>
+  <path d="M18 67h35v2H18z" fill="#fff0a0"/>
+  <!-- impact frames: 48x48 at 64/112/160,64 -->
+  <g transform="translate(64 64)"><path d="M24 16l3 5 8-2-5 6 7 5-9-1-4 9-3-8-10 3 7-8-6-6 9 2z" fill="#e46a32"/><path d="M24 20l3 4 5-1-4 4 3 4-6-2-3 5-1-6-5 1 4-5-3-3 5 1z" fill="#ffe08a"/></g>
+  <g transform="translate(112 64)"><path d="M24 7l5 11 13-4-8 11 10 9-14-3-7 12-4-13-14 4 9-11-9-9 14 4z" fill="#8d3327"/><path d="M24 13l5 8 9-2-6 7 7 6-10-2-6 9-2-10-10 2 7-8-6-6 9 2z" fill="#ed7135"/><path d="M24 19l3 5 6-1-4 5 4 4-7-2-4 6-1-7-6 2 4-6-4-4 6 2z" fill="#ffe59a"/></g>
+  <g transform="translate(160 64)"><path d="M24 4l4 12 13-7-7 13 13 4-14 4 6 13-12-8-6 10-2-12-15 3 11-10-9-9 14 3z" fill="#552b29"/><path d="M24 10l5 11 11-4-8 9 9 8-12-3-6 10-3-11-11 3 8-9-7-7 11 3z" fill="#c64e2d"/><path d="M24 18l3 6 7-2-5 6 5 5-8-2-4 7-2-8-7 2 5-6-5-5 8 2z" fill="#f3a44c"/></g>
+  <!-- rail charge frames: 48x48 at 0/48/96,128 -->
+  <g fill="none" stroke="#62b9c9"><path d="M24 136v8m0 24v8m-16-24h8m16 0h8"/><rect x="14" y="142" width="20" height="20"/></g>
+  <g fill="none" stroke="#78d8e4" transform="translate(48)"><path d="M24 132v12m0 24v12M4 152h12m16 0h12" stroke-width="2"/><path d="M12 140h6v-6m18 6h-6v-6m6 24h-6v6m-18-6h6v6"/></g>
+  <g fill="none" stroke="#b9f4f4" transform="translate(96)"><path d="M24 128v16m0 24v16M0 152h16m16 0h16" stroke-width="2"/><path d="M8 136h10v-8m22 8H30v-8m10 32H30v8M8 160h10v8" stroke="#5aaebf"/><rect x="21" y="149" width="6" height="6" fill="#e9ffff"/></g>
+  <!-- rail/orbital beam strips at 208/224,64 -->
+  <rect x="209" y="64" width="10" height="64" fill="#183b46"/><rect x="211" y="64" width="6" height="64" fill="#5ac2d4"/><rect x="213" y="64" width="2" height="64" fill="#d9ffff"/>
+  <path d="M224 64h12v64h-12z" fill="#303f4b"/><path d="M226 64h8v64h-8z" fill="#9bbec9"/><path d="M229 64h2v64h-2z" fill="#efffff"/><path d="M224 70h12m-12 14h12m-12 14h12m-12 14h12" stroke="#d4a654" stroke-width="2"/>
+  <!-- orbital impact: 48x48 at 0,192 -->
+  <g transform="translate(0 192)"><path d="M24 2l3 15 9-9-5 13 15-2-13 7 11 9-15-4 2 15-8-13-10 11 5-15-16 3 14-8-11-9 15 4z" fill="#52717d"/><path d="M24 9l3 12 8-6-5 10 10 2-11 3 5 9-9-6-6 8 2-11-11 3 9-7-8-6 11 2z" fill="#e0b45e"/><rect x="22" y="19" width="5" height="10" fill="#fff2b0"/></g>
+</svg>

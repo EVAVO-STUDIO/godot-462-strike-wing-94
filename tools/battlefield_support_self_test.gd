@@ -57,6 +57,15 @@ func _test_production_art() -> void:
 			var frame := load("res://assets/runtime/support/battlefield/%s/%d.png" % [family, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == registered_sizes[family], "battlefield support frame should retain registered geometry: %s/%d" % [family, frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/battlefield_support_asset_manifest.json"), "battlefield support source/runtime manifest should exist")
+	var effect_sizes := {"tanker_hose":Vector2(64,32),"tanker_contact":Vector2(64,64),"tanker_meter_trough":Vector2(80,6),"tanker_meter_fill":Vector2(80,4),"strike_bomb":Vector2(16,32),"tracer":Vector2(64,8),"rail_beam":Vector2(12,64),"orbital_beam":Vector2(12,64),"orbital_impact":Vector2(48,48)}
+	for effect_name in effect_sizes:
+		var effect := load("res://assets/runtime/support/battlefield/effects/%s.png" % effect_name)
+		_expect(effect is Texture2D and effect.get_size() == effect_sizes[effect_name], "support effect should retain registered geometry: %s" % effect_name)
+	for prefix in ["impact", "rail_charge"]:
+		for frame_index in range(3):
+			var frame := load("res://assets/runtime/support/battlefield/effects/%s_%d.png" % [prefix, frame_index])
+			_expect(frame is Texture2D and frame.get_size() == Vector2(48,48), "support effect animation should retain registered geometry: %s/%d" % [prefix, frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/effect_manifest.json"), "battlefield support effect manifest should exist")
 
 func _test_source_contract() -> void:
 	var file := FileAccess.open("res://scripts/battlefield_support_director.gd", FileAccess.READ)
@@ -74,6 +83,7 @@ func _test_source_contract() -> void:
 		_expect(source.contains("_visual_timer = 1.25"), "immediate support set pieces should remain short and readable")
 		_expect(source.contains("_priority_target_position(scene)"), "precision support visuals should anchor to a real priority target")
 		_expect(source.contains("BattlefieldSupportArtLibrary") and source.contains("_draw_support_craft"), "tanker, fighter, bomber and gunship set pieces should use authored sprite animation")
+		_expect(not source.contains("draw_line") and not source.contains("draw_circle") and not source.contains("draw_rect"), "battlefield support effects should not regress to vector line, circle or rectangle programmer art")
 		var craft_section_start := source.find("func _draw_tanker")
 		var craft_section_end := source.find("func _draw_missile_strike")
 		var craft_source := source.substr(craft_section_start, craft_section_end - craft_section_start)
