@@ -106,8 +106,10 @@ func _process(delta: float) -> void:
 		GamePhase.PLAYING:
 			_update_mission(delta)
 			if Input.is_action_just_pressed("cancel"):
-				phase = GamePhase.TITLE
-				_clear_combat()
+				var pause := get_node_or_null("/root/PauseDirector")
+				if pause == null or not pause.has_method("pause_game") or not bool(pause.call("pause_game")):
+					phase = GamePhase.TITLE
+					_clear_combat()
 		GamePhase.RESULT:
 			if Input.is_action_just_pressed("confirm"):
 				if not _cinematic_blocks_ending():

@@ -216,6 +216,17 @@ func _test_pixel_ui() -> void:
 	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")
 	var main_ui_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_ui_file != null and not main_ui_file.get_as_text().contains("draw_string("), "main simulation scene must not retain a hidden default-font duplicate UI")
+	if main_ui_file != null:
+		_expect(main_ui_file.get_as_text().contains('get_node_or_null("/root/PauseDirector")'), "gameplay cancel should route through the tactical pause controller")
+	var pause_file := FileAccess.open("res://scripts/pause_director.gd", FileAccess.READ)
+	_expect(pause_file != null, "pause director should exist")
+	if pause_file != null:
+		var pause_source := pause_file.get_as_text()
+		for token in ["PROCESS_MODE_ALWAYS", "get_tree().paused = true", "resume_game", "restart_sortie", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "CONTROL_ROW", "CONTROL_ICONS", "OPERATIONS_SCREEN", "OPERATIONS_BUTTON"]:
+			_expect(pause_source.contains(token), "tactical pause presentation missing token: %s" % token)
+		_expect(not pause_source.contains("Label.new()") and not pause_source.contains("Button.new()") and not pause_source.contains("PanelContainer.new()"), "tactical pause must stay inside the authored pixel-console sprite language")
+	var project_file := FileAccess.open("res://project.godot", FileAccess.READ)
+	_expect(project_file != null and project_file.get_as_text().contains('PauseDirector="*res://scripts/pause_director.gd"'), "pause controller should remain an always-available autoload")
 
 func _test_combat_art() -> void:
 	var art := CombatArtDirector.new()
