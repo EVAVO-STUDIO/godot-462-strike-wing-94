@@ -325,6 +325,13 @@ func _test_visual_language() -> void:
 		for overlay_name in ["phase_2_damage", "phase_3_damage", "critical_0", "critical_1", "critical_2", "critical_3"]:
 			var overlay := load("res://assets/runtime/enemies/boss_animation/%s/%s.png" % [enemy_id, overlay_name])
 			_expect(overlay is Texture2D and overlay.get_size() == machine_boss_sizes[enemy_id], "machine boss phase overlay should retain its registered canvas: %s/%s" % [enemy_id, overlay_name])
+	var machine_boss_specialist_sizes := {"swarm_rack":Vector2(36,34),"swarm_drone":Vector2(10,12),"forge_conveyor":Vector2(24,64),"forge_blank":Vector2(12,14),"forge_press":Vector2(20,24),"forge_tool":Vector2(18,26)}
+	for component_id in machine_boss_specialist_sizes:
+		var component := load("res://assets/runtime/enemies/machine_boss_specialist/%s.png" % component_id)
+		_expect(component is Texture2D and component.get_size()==machine_boss_specialist_sizes[component_id],"machine-boss industrial component should retain registered geometry: %s" % component_id)
+	_expect(source.contains("MACHINE_BOSS_SPECIALIST_ART") and source.contains("_draw_machine_boss_mechanics") and source.contains("cradle_offsets"),"machine bosses should expose physical drone rack and forge machinery layers")
+	_expect(CombatArtDirector.machine_boss_cycle_frame_index(0.0)==0 and CombatArtDirector.machine_boss_cycle_frame_index(0.25)==1 and CombatArtDirector.machine_boss_cycle_frame_index(0.50)==2 and CombatArtDirector.machine_boss_cycle_frame_index(0.75)==3,"forge machinery should use four held industrial poses")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_boss_specialist/machine_boss_specialist_asset_manifest.json"),"machine boss specialist source/runtime manifest should exist")
 	var orbital_boss_sizes := {
 		"orbital_command_node": Vector2(124,104),
 		"phase_control_array": Vector2(126,126),
@@ -408,6 +415,8 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("list_angle") and source.contains("sink_offset") and source.contains("bow") and source.contains("stern"), "naval sinking should visibly list, submerge and displace water at separate hull points")
 	_expect(source.contains("MERCENARY_BOSS_WRECK_HULLS") and source.contains("BOSS_DESTRUCTION_SECONDS") and source.contains("func _draw_mercenary_boss_breakup"),"Sector I bosses should retain their silhouettes through bespoke extended destruction sequences")
 	_expect(source.contains('enemy_id == "gunship_alpha"') and source.contains('enemy_id == "armoured_train"') and source.contains("source_region"),"gunship, train and cruiser boss deaths should use materially different roll, sectional breakup and sinking behavior")
+	_expect(source.contains("MACHINE_BOSS_WRECK_HULLS") and source.contains("func _draw_machine_boss_breakup"),"machine bosses should retain reviewed hull material through extended physical breakup")
+	_expect(source.contains('enemy_id=="swarm_controller"') and source.contains("central_width") and source.contains("tread_center"),"swarm controller and forge should use distinct three-way controller separation and tread/forge collapse")
 	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")

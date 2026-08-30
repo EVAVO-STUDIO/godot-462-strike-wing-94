@@ -447,6 +447,19 @@ const MACHINE_BOSS_SPRITES := {
 	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
 	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png"),
 }
+const MACHINE_BOSS_SPECIALIST_ART := {
+	"swarm_controller": {
+		"rack": preload("res://assets/runtime/enemies/machine_boss_specialist/swarm_rack.png"),
+		"drone": preload("res://assets/runtime/enemies/machine_boss_specialist/swarm_drone.png"),
+		"rack_anchor": Vector2(29,1),
+	},
+	"ai_forge_core": {
+		"conveyor": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_conveyor.png"),
+		"blank": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_blank.png"),
+		"press": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_press.png"),
+		"tool": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_tool.png"),
+	},
+}
 const ORBITAL_BOSS_SPRITES := {
 	"orbital_command_node": preload("res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle_v2.png"),
 	"phase_control_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png"),
@@ -831,6 +844,7 @@ func _draw_enemy_effect_frame(surface: CanvasItem, center: Vector2, family: Stri
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
 	_draw_mercenary_boss_entrance(surface, p, enemy_id, enemy, texture)
 	_draw_production_sprite(surface, p, texture)
+	_draw_machine_boss_mechanics(surface,p,enemy_id,enemy)
 	if not BOSS_PHASE_OVERLAYS.has(enemy_id):
 		return
 	var overlays: Dictionary = BOSS_PHASE_OVERLAYS[enemy_id]
@@ -843,6 +857,55 @@ func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, en
 		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % critical_frames.size()
 		_draw_production_sprite(surface, p, critical_frames[frame_index])
 	_draw_mercenary_boss_mechanics(surface, p, enemy_id, enemy)
+
+func _draw_machine_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
+	if not MACHINE_BOSS_SPECIALIST_ART.has(enemy_id):
+		return
+	var definition: Dictionary = MACHINE_BOSS_SPECIALIST_ART[enemy_id]
+	var age := float(enemy.get("age",0.0))
+	var cycle_frame := machine_boss_cycle_frame_index(age)
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer",0.0))/0.10,0.0,1.0)
+	if enemy_id == "swarm_controller":
+		var rack: Texture2D = definition["rack"]
+		var drone: Texture2D = definition["drone"]
+		var rack_center := p+Vector2(definition["rack_anchor"])
+		surface.draw_texture(rack,(rack_center-rack.get_size()*0.5).round())
+		var cradle_offsets := [Vector2(-8,-7),Vector2(8,-7),Vector2(-8,7),Vector2(8,7)]
+		for index in range(cradle_offsets.size()):
+			var drone_center: Vector2 = rack_center+Vector2(cradle_offsets[index])
+			var drone_alpha := 1.0
+			if recoil_ratio > 0.01:
+				var launch_progress := 1.0-recoil_ratio
+				var direction := Vector2(-0.55 if index%2==0 else 0.55,1.0).normalized()
+				drone_center += direction*launch_progress*18.0
+				drone_alpha = 1.0-smoothstep(0.65,1.0,launch_progress)
+			elif float(enemy.get("fire_timer",1.0))<0.35:
+				drone_center += Vector2(0,2)
+			surface.draw_texture(drone,(drone_center-drone.get_size()*0.5).round(),Color(1,1,1,drone_alpha))
+		return
+	var conveyor: Texture2D = definition["conveyor"]
+	var blank: Texture2D = definition["blank"]
+	var conveyor_center := p+Vector2(-34,0)
+	surface.draw_texture(conveyor,(conveyor_center-conveyor.get_size()*0.5).round())
+	var conveyor_shift: float = [0.0,2.0,5.0,2.0][cycle_frame]
+	for blank_y in [-21.0,-2.0,17.0]:
+		var blank_center := conveyor_center+Vector2(0,blank_y+conveyor_shift)
+		surface.draw_texture(blank,(blank_center-blank.get_size()*0.5).round())
+	var press: Texture2D = definition["press"]
+	var press_travel: float = [0.0,2.0,8.0,3.0][cycle_frame]
+	var press_center := p+Vector2(0,-8+press_travel)
+	surface.draw_texture(press,(press_center-press.get_size()*0.5).round())
+	var tool: Texture2D = definition["tool"]
+	var tool_angles := [-0.18,0.02,0.22,0.05]
+	var tool_center := p+Vector2(31,-7+float([0,2,5,2][cycle_frame]))
+	surface.draw_set_transform(tool_center.round(),float(tool_angles[cycle_frame]),Vector2.ONE)
+	surface.draw_texture(tool,-tool.get_size()*0.5)
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	if cycle_frame==2 and recoil_ratio>0.15:
+		_draw_enemy_effect_frame(surface,tool_center+Vector2(-3,13),"damage_sparks",int(age*12.0),0.55,Color(0.88,0.68,0.40,0.78))
+
+static func machine_boss_cycle_frame_index(age: float) -> int:
+	return posmod(int(floor(age*4.0)),4)
 
 func _draw_mercenary_boss_entrance(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
 	if not MERCENARY_BOSS_SPECIALIST_ART.has(enemy_id):

@@ -1,6 +1,6 @@
 {
   "asset_family":"machine_boss",
-  "status":"runtime_phase_animation_v1",
+  "status":"runtime_industrial_animation_v2",
   "review_note":"v2 replaces mirrored cyan-core concept treatment with asymmetric human-industrial ancestry and role-readable physical subsystems",
   "sources":[
     {"id":"swarm_controller","path":"res://assets/source/enemies/candidates/machine_boss/swarm_controller_candidate_02.png","sha256":"D0364B92D393D5F405A75415092A2712E80CF01BC194A07F27785431559969E7"},
@@ -12,6 +12,13 @@
     {"id":"swarm_controller","path":"res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png","size":[106,88],"sha256":"339B2E44CAF00BF4BDD5300E80E8D8D81DCB2B03DAB8BD74085A1615A3610027","landmarks":["offset radar mast","paired buried lift fans","four drone cradles","unequal maintenance arms","plated crew spaces"],"weak_points":[[31,39],[75,37],[53,63]]},
     {"id":"ai_forge_core","path":"res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png","size":[112,112],"sha256":"7DD12075BBEE45DEB39D60087C5E5516B295A673FB37F037EF7C1BC5DB2A92AC","landmarks":["three hull blanks on conveyor","off-center press/furnace","tool-change gantry","unequal crawler bogies","cooling scrubbers"],"weak_points":[[25,46],[62,53],[88,42]]}
   ],
-  "runtime_animation":{"phase_damage":"two physical damage overlays","critical_exposure":"four-frame critical cycle at 8 fps"},
-  "remaining_animation_gate":["drone release","conveyor and press cycling","tool gantry articulation","multi-stage destruction"]
+  "runtime_animation":{
+    "phase_damage":"two physical damage overlays",
+    "critical_exposure":"four-frame critical cycle at 8 fps",
+    "drone_release":"four occupied physical rack cells lift and release outward during the real recoil window",
+    "forge_cycle":"three hull blanks advance over masked rails through four held conveyor/press poses",
+    "tool_gantry":"attached asymmetric service tool articulates through four held reach positions with localized hot-work sparks",
+    "destruction":"controller separates into three cold disrupted modules; forge loses both crawler treads around a cascading hot industrial collapse"
+  },
+  "remaining_animation_gate":[]
 }

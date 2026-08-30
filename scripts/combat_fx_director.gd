@@ -33,6 +33,10 @@ const MERCENARY_BOSS_WRECK_HULLS := {
 	"armoured_train": preload("res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png"),
 	"missile_cruiser": preload("res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png"),
 }
+const MACHINE_BOSS_WRECK_HULLS := {
+	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
+	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png"),
+}
 
 var _surface: Control
 var _events: Array = []
@@ -232,6 +236,9 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 	if MERCENARY_BOSS_WRECK_HULLS.has(enemy_id):
 		_draw_mercenary_boss_breakup(surface,p,late_ratio,enemy_id,serial)
 		return
+	if MACHINE_BOSS_WRECK_HULLS.has(enemy_id):
+		_draw_machine_boss_breakup(surface,p,late_ratio,enemy_id,serial)
+		return
 	if category == "sea" and NAVAL_WRECK_HULLS.has(enemy_id):
 		_draw_naval_sinking(surface, p, late_ratio, enemy_id, serial)
 		return
@@ -316,6 +323,42 @@ func _draw_boss_breakup_burst(surface: CanvasItem, p: Vector2, local_ratio: floa
 	var frame: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(burst_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 	var draw_size := Vector2.ONE*size*lerpf(0.72,1.18,burst_ratio)
 	surface.draw_texture_rect(frame,Rect2((p-draw_size*0.5).round(),draw_size),false,Color(1,1,1,1.0-smoothstep(0.72,1.0,burst_ratio)))
+
+func _draw_machine_boss_breakup(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
+	var hull: Texture2D = MACHINE_BOSS_WRECK_HULLS[enemy_id]
+	var fade := 1.0-smoothstep(0.84,1.0,ratio)
+	if enemy_id=="swarm_controller":
+		var section_width := hull.get_width()/3.0
+		for section in range(3):
+			var direction := float(section-1)
+			var local_ratio := clampf((ratio-section*0.08)/0.92,0.0,1.0)
+			var source_region := Rect2(section_width*section,0,section_width,hull.get_height())
+			var section_center := Vector2(-hull.get_width()*0.5+section_width*(section+0.5),0)
+			var drift := Vector2(direction*18.0*local_ratio,(8.0+absf(direction)*7.0)*local_ratio*local_ratio)
+			surface.draw_set_transform((p+section_center+drift).round(),direction*0.24*local_ratio,Vector2.ONE)
+			surface.draw_texture_rect_region(hull,Rect2(-section_width*0.5,-hull.get_height()*0.5,section_width,hull.get_height()),source_region,Color(0.54,0.64,0.65,fade))
+			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+			_draw_boss_breakup_burst(surface,p+section_center,ratio-(0.06+section*0.18),34.0)
+		var emp := ImpactArtLibrary.frame_for_ratio("emp_disruption",fmod(ratio*1.45,0.999))
+		var emp_size := Vector2.ONE*lerpf(58,108,ratio)
+		surface.draw_texture_rect(emp,Rect2((p-emp_size*0.5).round(),emp_size),false,Color(0.56,0.78,0.82,0.55*(1.0-ratio)))
+		return
+	var central_fall := Vector2(0,12.0*ratio*ratio)
+	var tread_width := 21.0
+	var central_width := hull.get_width()-tread_width*2.0
+	surface.draw_texture_rect_region(hull,Rect2((p+central_fall-Vector2(central_width,hull.get_height())*0.5).round(),Vector2(central_width,hull.get_height())),Rect2(tread_width,0,central_width,hull.get_height()),Color(0.52,0.49,0.42,fade))
+	for side in [-1.0,1.0]:
+		var source_x := 0.0 if side<0.0 else hull.get_width()-tread_width
+		var source_region := Rect2(source_x,0,tread_width,hull.get_height())
+		var tread_center := p+Vector2(side*(hull.get_width()*0.5-tread_width*0.5+18.0*ratio),8.0*ratio*ratio)
+		surface.draw_set_transform(tread_center.round(),side*0.20*ratio,Vector2.ONE)
+		surface.draw_texture_rect_region(hull,Rect2(-tread_width*0.5,-hull.get_height()*0.5,tread_width,hull.get_height()),source_region,Color(0.45,0.44,0.39,fade))
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	for event in [{"at":0.04,"point":Vector2(-34,-18)},{"at":0.23,"point":Vector2(0,-8)},{"at":0.42,"point":Vector2(31,-5)},{"at":0.62,"point":Vector2(0,28)}]:
+		_draw_boss_breakup_burst(surface,p+event["point"]+central_fall,ratio-float(event["at"]),40.0)
+	if ratio>0.34 and ratio<0.88:
+		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial+int(ratio*8.0),4)]
+		surface.draw_texture_rect(smoke,Rect2((p+Vector2(2,-20)-Vector2(20,20)).round(),Vector2(40,40)),false,Color(0.48,0.47,0.42,0.68*(1.0-ratio)))
 
 func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool) -> void:
 	var texture := ImpactArtLibrary.frame_for_ratio("shield_hit" if shield else "armor_hit", ratio)

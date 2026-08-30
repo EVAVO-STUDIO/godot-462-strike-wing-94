@@ -9,7 +9,8 @@
     "sea": "blast followed by a retained hull that lists, submerges, displaces water separately at bow and stern, smokes and fades",
     "autonomous": "cold debris tint plus broken EMP field collapse",
     "infantry": "subdued dust/scatter consequence with no wreck fire",
-    "mercenary_bosses": "gunship cascading roll, three-section armoured-train breakup, and retained missile-cruiser sinking"
+    "mercenary_bosses": "gunship cascading roll, three-section armoured-train breakup, and retained missile-cruiser sinking",
+    "machine_bosses": "cold three-module controller separation and hot forge collapse with independently detached crawler treads"
   },
   "visual_contract": {
     "purpose": "make destruction communicate material, scale and category rather than replaying one universal flash",
