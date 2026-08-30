@@ -188,6 +188,16 @@ func _test_visual_language() -> void:
 	for ground_force_path in ground_force_sizes:
 		var force_texture := load("res://assets/runtime/enemies/%s_idle.png" % ground_force_path)
 		_expect(force_texture is Texture2D and force_texture.get_size() == ground_force_sizes[ground_force_path], "ground-force identity should retain reviewed geometry: %s" % ground_force_path)
+	var ground_specialist_sizes := {
+		"heavy_team_weapon":Vector2(30,26), "rifle_scatter_0":Vector2(26,22), "rifle_scatter_1":Vector2(26,22), "heavy_scatter_0":Vector2(30,26),
+		"security_mech_weapon":Vector2(38,42), "salvage_mech_tool":Vector2(44,42),
+	}
+	for ground_specialist_id in ground_specialist_sizes:
+		var ground_specialist_texture := load("res://assets/runtime/enemies/ground_force_specialist/%s.png" % ground_specialist_id)
+		_expect(ground_specialist_texture is Texture2D and ground_specialist_texture.get_size() == ground_specialist_sizes[ground_specialist_id], "ground-force specialist component should retain registered canvas: %s" % ground_specialist_id)
+	_expect(source.contains('GROUND_FORCE_SPECIALIST_ART') and source.contains('enemy.get("hit_timer", 0.0)') and source.contains('enemy.get("recoil_timer", 0.0)'), "ground troops and mechs should consume live hit and firing state")
+	_expect(source.contains('Vector2(-8,-4)') and source.contains('Vector2(0,9)'), "rifle team should use restrained per-soldier muzzle cadence rather than a single squad-wide flash")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/ground_force_specialist/ground_force_specialist_asset_manifest.json"), "ground-force specialist source/runtime manifest should exist")
 	var mech_animation_sizes := {
 		"security_patrol_mech": Vector2(38,42),
 		"autonomous_salvage_mech": Vector2(44,42),

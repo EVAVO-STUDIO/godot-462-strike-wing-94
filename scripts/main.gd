@@ -644,6 +644,7 @@ func _update_enemies(delta: float) -> void:
 		enemy["age"] = float(enemy["age"]) + delta
 		enemy["fire_timer"] = float(enemy["fire_timer"]) - delta
 		enemy["recoil_timer"] = maxf(0.0, float(enemy.get("recoil_timer", 0.0)) - delta)
+		enemy["hit_timer"] = maxf(0.0, float(enemy.get("hit_timer", 0.0)) - delta)
 		var position: Vector2 = enemy["position"]
 		var previous_x := position.x
 		var is_boss := bool(enemy.get("boss", false))
@@ -752,6 +753,7 @@ func _resolve_combat() -> void:
 					int(round(float(bullet["damage"]) * _target_damage_multiplier(enemy_class)))
 				)
 				enemies[enemy_index]["hp"] -= applied_damage
+				enemies[enemy_index]["hit_timer"] = 0.14
 				if not bool(bullet.get("accuracy_registered", false)):
 					shots_hit += 1
 					bullet["accuracy_registered"] = true
