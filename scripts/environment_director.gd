@@ -9,6 +9,7 @@ const STORM_SEA := preload("res://assets/runtime/environments/water/storm_sea_lo
 const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
 const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
+const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -289,21 +290,18 @@ func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> v
 
 func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var dock := Color("38474a", 0.82)
-	var edge := Color("718084", 0.50)
-	var lamp := Color("e0a449", 0.74)
-	var wake := Color("7599a0", 0.34)
-	var scroll := t * 29.0
-	for i in range(6):
-		var y := fposmod(float(i) * 89.0 + scroll, 356.0) + 48.0
-		var from_left := i % 2 == 0
-		var width := 128.0 + float(i % 3) * 34.0
-		var x := 8.0 if from_left else 632.0 - width
-		surface.draw_rect(Rect2(x, y, width, 18), dock)
-		surface.draw_line(Vector2(x if from_left else x + width, y + 18), Vector2(x + width if from_left else x, y + 18), edge, 2.0)
-		for lamp_index in range(3): surface.draw_rect(Rect2(x + 18 + lamp_index * 34, y + 5, 2, 2), lamp)
-		var water_x := x + width + 8.0 if from_left else x - 42.0
-		surface.draw_line(Vector2(water_x, y + 24), Vector2(water_x + (32.0 if from_left else -32.0), y + 24), wake, 1.0)
+	var scroll := fposmod(t * 29.0, 720.0)
+	_draw_vertical_loop(surface, NIGHT_HARBOR, scroll, Rect2(0, 58, 640, 302))
+	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.008, 0.018, 0.032, 0.12))
+	var reflection := Color("bd8a43", 0.20)
+	var wake := Color("7999a4", 0.20)
+	for i in range(7):
+		var y := fposmod(float(i) * 73.0 + scroll, 318.0) + 58.0
+		var x := 170.0 + float((i * 137) % 310)
+		if i % 2 == 0:
+			surface.draw_line(Vector2(x, y), Vector2(x + 2.0, y + 9.0), reflection, 1.0)
+		else:
+			surface.draw_line(Vector2(x, y), Vector2(x + 26.0, y), wake, 1.0)
 
 func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)

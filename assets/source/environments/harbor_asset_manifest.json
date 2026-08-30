@@ -1,0 +1,23 @@
+{
+  "family": "night_harbor",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/harbor/night_harbor_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/harbor/night_harbor_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 64,
+  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "art_direction": [
+    "rain-wet militarized blackout harbor",
+    "interlocking quays, piers, cranes, warehouses, tanks and rail",
+    "open ship berths and central naval attack channel",
+    "sparse sodium and red obstruction lights",
+    "animated subdued reflections and wake remnants"
+  ],
+  "reject": [
+    "flat dock rectangles",
+    "simple horizontal pier bars",
+    "bright container-port colors",
+    "baked enemy ships",
+    "neon cyberpunk lighting"
+  ]
+}
