@@ -11,6 +11,7 @@ const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_c
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
 const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png")
 const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
+const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -330,20 +331,19 @@ func _draw_orbital(surface: CanvasItem, profile: Dictionary, state: Dictionary, 
 	var mix := clampf(orbital_mix, 0.0, 1.0)
 	if mix <= 0.01:
 		return
+	var scroll := fposmod(t * 8.0, 720.0)
+	_draw_vertical_loop(surface, BLACK_SKY_STATION, scroll, Rect2(0, 58, 640, 302), Color(0.76, 0.82, 0.88, 0.88 * mix))
+	# A few independently drifting points keep the vacuum alive without turning it into star wallpaper.
 	var star := _tone(profile, "near", 0.65 * mix)
-	for i in range(42):
+	for i in range(18):
 		var x := float((i * 97 + 31) % 604) + 18.0
 		var y := float((i * 53 + int(t * 2.0)) % 272) + 66
 		surface.draw_rect(Rect2(roundf(x), roundf(y), 1, 1), star)
 	var glow := _horizon_glow(state) * mix
 	if glow > 0.0:
 		var atmosphere := Color("4f86aa")
-		atmosphere.a = 0.20 * glow
-		surface.draw_arc(Vector2(320, 420), 270, PI, TAU, 64, atmosphere, 8.0)
-		var station := _tone(profile, "mid", 0.34 * mix)
-		var sx := 520.0 + sin(t * 0.08) * 22.0
-		surface.draw_rect(Rect2(sx-28,118,56,6),station)
-		surface.draw_rect(Rect2(sx-4,98,8,46),station)
+		atmosphere.a = 0.08 * glow
+		surface.draw_arc(Vector2(320, 420), 270, PI, TAU, 64, atmosphere, 3.0)
 
 func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)

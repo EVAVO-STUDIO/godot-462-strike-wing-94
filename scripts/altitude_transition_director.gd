@@ -3,6 +3,12 @@ extends CanvasLayer
 const AltitudeTransitionSurface = preload("res://scripts/altitude_transition_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
+const TRANSITION_CLOUDS := [
+	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_a.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_b.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_b.png"),
+]
 
 var _surface: Control
 
@@ -64,15 +70,16 @@ func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
 func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var travel := 160.0 * ratio
 	var sign_dir := -1.0 if direction > 0 else 1.0
-	var cloud := Color(0.78,0.84,0.86,0.13)
 	var edge := Color(0.65,0.78,0.82,0.22)
 	for i in range(7):
 		var base_y := 86.0 + float(i) * 42.0
 		var y := fposmod(base_y + sign_dir * travel, 330.0) + 36.0
 		var x := 72.0 + float((i * 83) % 430)
-		surface.draw_circle(Vector2(x,y), 16.0 + float(i % 3) * 5.0, cloud)
-		surface.draw_circle(Vector2(x+18,y+2), 11.0 + float(i % 2) * 4.0, cloud)
-		surface.draw_line(Vector2(x-22,y+10),Vector2(x+36,y+10),edge,1.0)
+		var texture: Texture2D = TRANSITION_CLOUDS[i % TRANSITION_CLOUDS.size()]
+		var scale := 0.58 + float(i % 3) * 0.10
+		var size := Vector2(texture.get_size()) * scale
+		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.84,0.86,0.18))
+		surface.draw_line(Vector2(x-size.x*0.38,y+size.y*0.32),Vector2(x+size.x*0.44,y+size.y*0.32),edge,1.0)
 
 func _draw_speed_brackets(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var alpha := sin(ratio * PI) * 0.55

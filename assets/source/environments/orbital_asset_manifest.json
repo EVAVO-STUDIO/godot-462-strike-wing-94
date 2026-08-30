@@ -1,0 +1,23 @@
+{
+  "family": "black_sky_orbital",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/orbital/black_sky_station_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 54,
+  "construction": "central station field reduced at 320x180, palette-limited, upscaled 2x nearest-neighbour and mirrored into a vertical loop",
+  "art_direction": [
+    "hostile orbital machinery canyon",
+    "physically connected trusses, armor, radiators, docks and conduits",
+    "broad central fighter-combat lane",
+    "sparse stars and restrained service lights",
+    "late-1990s pre-rendered military raster finish"
+  ],
+  "reject": [
+    "colorful nebula wallpaper",
+    "dense star noise",
+    "generic disconnected greebles",
+    "neon cyberpunk lighting",
+    "baked spacecraft, enemies or UI"
+  ]
+}
