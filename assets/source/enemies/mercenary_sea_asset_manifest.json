@@ -1,0 +1,24 @@
+{
+  "asset_family": "mercenary_sea",
+  "status": "runtime_idle_candidates",
+  "source": {
+    "path": "res://assets/source/enemies/candidates/mercenary_sea/mercenary_sea_identity_sheet_candidate_01_raw.png",
+    "sha256": "6B77CCA8DE00AE80D7D11BB64FA24AA101E84256751C2A53066734F79950A8DF",
+    "order": ["river_patrol", "torpedo_boat", "fast_attack_craft", "missile_corvette"]
+  },
+  "process": {
+    "orientation": "bows facing down toward player",
+    "alpha_review": "composited over cyan sea test plate; no matte halo",
+    "downsample": "Lanczos with one-pixel transparent inset",
+    "alpha": "20 percent threshold, preserved separately during palette remap",
+    "palette": "one shared 31-colour RGB palette plus transparency",
+    "altitude": "runtime texture rectangle follows canonical surface-target scale"
+  },
+  "runtime": [
+    {"id":"river_patrol","path":"res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png","size":[30,44],"sha256":"3D39C522216D71F0D7275AA57737F7B7F8F7FC148719C234624E6151AFC1720D","center":[15,22],"muzzle":[15,38],"wake_origin":[15,3]},
+    {"id":"torpedo_boat","path":"res://assets/runtime/enemies/mercenary_sea/torpedo_boat_idle.png","size":[34,48],"sha256":"F157B73055D0701DDCD3CB21D3E262EECA9257B268335AD55B3333EC8E65689C","center":[17,24],"muzzle":[17,42],"launcher_points":[[8,30],[26,30]],"wake_origin":[17,3]},
+    {"id":"fast_attack_craft","path":"res://assets/runtime/enemies/mercenary_sea/fast_attack_craft_idle.png","size":[36,50],"sha256":"100115949E87A44B02F31F1F7614E94446345C42F14DAAFB08BC3BB47597AAF9","center":[18,25],"muzzle":[[14,44],[22,44]],"launcher_points":[[6,31],[30,31]],"wake_origin":[18,3]},
+    {"id":"missile_corvette","path":"res://assets/runtime/enemies/mercenary_sea/missile_corvette_idle.png","size":[50,66],"sha256":"A2C11C57E6289B5227E235FA7416ADFAEC688E3C6D8EFB9DE35E20F549B76531","center":[25,33],"muzzle":[25,58],"launcher_points":[[17,38],[33,38]],"wake_origin":[25,3]}
+  ],
+  "remaining_animation_gate": ["turret tracking", "missile hatch or launcher deployment", "wake cycle", "recoil", "multi-stage sinking destruction"]
+}

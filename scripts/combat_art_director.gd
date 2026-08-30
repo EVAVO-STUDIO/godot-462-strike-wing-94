@@ -16,6 +16,12 @@ const MERCENARY_GROUND_SPRITES := {
 	"coastal_flak": preload("res://assets/runtime/enemies/mercenary_ground/coastal_flak_idle.png"),
 	"armoured_aa_carrier": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
 }
+const MERCENARY_SEA_SPRITES := {
+	"river_patrol": preload("res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png"),
+	"torpedo_boat": preload("res://assets/runtime/enemies/mercenary_sea/torpedo_boat_idle.png"),
+	"fast_attack_craft": preload("res://assets/runtime/enemies/mercenary_sea/fast_attack_craft_idle.png"),
+	"missile_corvette": preload("res://assets/runtime/enemies/mercenary_sea/missile_corvette_idle.png"),
+}
 
 const PLAYER := Color("d9e0e5")
 const PLAYER_DARK := Color("667985")
@@ -185,6 +191,8 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground":
 		_draw_ground(surface, p, scale)
+	elif category == "sea" and MERCENARY_SEA_SPRITES.has(enemy_id):
+		_draw_production_sprite(surface, p, MERCENARY_SEA_SPRITES[enemy_id], scale)
 	elif category == "sea":
 		_draw_sea(surface, p, scale)
 	elif MERCENARY_AIR_SPRITES.has(enemy_id):

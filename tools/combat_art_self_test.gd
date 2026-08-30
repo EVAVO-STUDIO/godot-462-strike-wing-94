@@ -57,7 +57,7 @@ func _test_visual_language() -> void:
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("func _draw_ground") and source.contains("func _draw_sea") and source.contains("func _draw_air"), "mercenary air/ground/sea roles should have distinct silhouette renderers")
-	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed mercenary units should use production sprite assets")
+	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed mercenary units should use production sprite assets")
 	_expect(source.contains("func _draw_autonomous"), "autonomous machines should have their own visual language")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
 	_expect(source.contains("func _draw_boss"), "boss-scale enemies should have dedicated presentation")
@@ -84,6 +84,15 @@ func _test_visual_language() -> void:
 	for enemy_id in ground_sizes:
 		var texture := load("res://assets/runtime/enemies/mercenary_ground/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == ground_sizes[enemy_id], "ground production sprite should retain reviewed geometry: %s" % enemy_id)
+	var sea_sizes := {
+		"river_patrol": Vector2(30,44),
+		"torpedo_boat": Vector2(34,48),
+		"fast_attack_craft": Vector2(36,50),
+		"missile_corvette": Vector2(50,66),
+	}
+	for enemy_id in sea_sizes:
+		var texture := load("res://assets/runtime/enemies/mercenary_sea/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == sea_sizes[enemy_id], "sea production sprite should retain reviewed geometry: %s" % enemy_id)
 
 func _test_transform_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
