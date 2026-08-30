@@ -3,6 +3,7 @@ extends CanvasLayer
 const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
+const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const VX94_GAMEPLAY_FORMS := [
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_transform_01.png"),
@@ -96,6 +97,16 @@ const MERCENARY_GROUND_SPRITES := {
 	"armoured_aa_carrier": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
 }
 const LAYERED_GROUND_SPRITES := {
+	"light_tank": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/light_tank_weapon.png"),
+		"weapon_scale": 0.82,
+	},
+	"sam_truck": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png"),
+		"weapon_scale": 0.82,
+	},
 	"fortified_turret": {
 		"base": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_base.png"),
 		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_weapon.png"),
@@ -107,6 +118,11 @@ const LAYERED_GROUND_SPRITES := {
 		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_weapon.png"),
 		"barrel": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_barrel.png"),
 		"damage": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_damage.png"),
+	},
+	"armoured_aa_carrier": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/aa_carrier_weapon.png"),
+		"weapon_scale": 0.82,
 	},
 }
 const MERCENARY_GROUND_FORCE_SPRITES := {
@@ -532,13 +548,14 @@ func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, la
 	var pulse := 1.0
 	if bool(layers.get("core_pulse", false)):
 		pulse = 0.88 + 0.12 * (0.5 + 0.5 * sin(float(enemy.get("age", 0.0)) * 6.0))
-	surface.draw_set_transform(p.round(), rotation, Vector2.ONE * scale)
+	var weapon_scale := float(layers.get("weapon_scale", 1.0))
+	surface.draw_set_transform(p.round(), rotation, Vector2.ONE * scale * weapon_scale)
 	surface.draw_texture(weapon, -weapon.get_size() * 0.5 + local_recoil, Color(pulse, pulse, 1.0, 1.0))
 	if barrel != null:
 		surface.draw_texture(barrel, -barrel.get_size() * 0.5 + local_recoil)
 	if recoil_ratio > 0.45:
-		surface.draw_circle(Vector2(0, 14), 2.0, PLAYER_MUZZLE)
-		surface.draw_line(Vector2(0, 13), Vector2(0, 18), Color("fff0b0"), 1.0)
+		var muzzle := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
+		surface.draw_texture_rect(muzzle, Rect2(-6, 10, 12, 12), false)
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _player_position() -> Vector2:

@@ -76,6 +76,7 @@ func _test_visual_language() -> void:
 				_expect(CombatArtDirector.has_production_art(enemy_id), "canonical enemy is missing production sprite coverage: %s" % enemy_id)
 	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("LAYERED_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("MACHINE_BOSS_SPRITES") and source.contains("ORBITAL_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
 	_expect(source.contains("func _draw_layered_ground") and source.contains("Vector2.DOWN.angle_to") and source.contains("recoil_timer"), "layered emplacements should track targets and recoil around registered pivots")
+	_expect(source.contains('ImpactArtLibrary.frame_for_ratio("muzzle"') and not source.contains("surface.draw_circle(Vector2(0, 14)"), "layered weapon recoil should use authored muzzle sprites instead of circle/line programmer art")
 	_expect(source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES"), "autonomous machines should retain their own authored visual families")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
 	_expect(source.contains("func _draw_enemy_damage_attachments") and source.contains("damage_ratio < 0.35") and source.contains("damage_ratio >= 0.62") and source.contains("damage_ratio >= 0.82"), "ordinary enemies should expose progressive smoke, spark and critical-fire states")
@@ -113,6 +114,12 @@ func _test_visual_language() -> void:
 		var layer_texture := load("res://assets/runtime/enemies/mercenary_ground_layered/%s.png" % layer_path)
 		_expect(layer_texture is Texture2D and layer_texture.get_size() == Vector2(28,28), "registered emplacement layer should retain 28x28 canvas: %s" % layer_path)
 	_expect(source.contains('float(enemy.get("hp", max_hp)) / max_hp <= 0.55'), "layered emplacements should reveal physical damage from real hull ratio")
+	var vehicle_weapon_layers := {"light_tank_weapon":Vector2(30,30), "sam_truck_weapon":Vector2(34,34), "aa_carrier_weapon":Vector2(38,38)}
+	for layer_id in vehicle_weapon_layers:
+		var vehicle_layer := load("res://assets/runtime/enemies/mercenary_ground_layered/%s.png" % layer_id)
+		_expect(vehicle_layer is Texture2D and vehicle_layer.get_size() == vehicle_weapon_layers[layer_id], "articulated vehicle weapon layer should retain registered pivot canvas: %s" % layer_id)
+	_expect(source.contains('"light_tank": {') and source.contains('"sam_truck": {') and source.contains('"armoured_aa_carrier": {'), "tank, SAM and AA carrier should use layered target-tracking weapon assemblies")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/vehicle_articulation/vehicle_articulation_asset_manifest.json"), "vehicle articulation source/runtime manifest should exist")
 	var ground_force_sizes := {
 		"mercenary_infantry/mercenary_rifle_team": Vector2(26,22),
 		"mercenary_infantry/mercenary_heavy_team": Vector2(30,26),

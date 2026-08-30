@@ -1,6 +1,6 @@
 {
   "asset_family": "mercenary_ground",
-  "status": "runtime_articulation_v1",
+  "status": "runtime_articulation_v2",
   "source": {
     "path": "res://assets/source/enemies/candidates/mercenary_ground/mercenary_ground_identity_sheet_candidate_01.png",
     "sha256": "1774C0E5C5F7379429F302BEAB5B25EEDF51862D477E35D67D91DBE17A08F8AB",
@@ -20,6 +20,6 @@
     {"id":"coastal_flak","path":"res://assets/runtime/enemies/mercenary_ground/coastal_flak_idle.png","size":[28,28],"sha256":"0715F29135AEE60816639E40052CFB615E26ED7CC8E826780B61F5522970854B","center":[14,14],"muzzle":[[8,26],[12,26],[16,26],[20,26]]},
     {"id":"armoured_aa_carrier","path":"res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png","size":[38,30],"sha256":"BCEDBA9D9A54E26B9E752177DE0B8ABA275DF743A645A79E9C64891FC3742165","center":[19,15],"muzzle":[[15,28],[23,28]],"missile_points":[[7,20],[31,20]]}
   ],
-  "runtime_animation": {"layered_emplacements":"fortified turret and coastal flak track, recoil and expose physical damage layers","destruction":"ground blast, debris, short wreck fire and smoke consequence"},
-  "remaining_animation_gate": ["vehicle turret tracking", "launcher deployment", "vehicle recoil", "missile launch"]
+  "runtime_animation": {"layered_emplacements":"fortified turret and coastal flak track, recoil and expose physical damage layers","layered_vehicles":"light tank, SAM truck and armoured AA carrier use separately pivoted weapon assemblies with target tracking and recoil","destruction":"ground blast, debris, short wreck fire and smoke consequence"},
+  "remaining_animation_gate": ["launcher deployment", "missile launch"]
 }
