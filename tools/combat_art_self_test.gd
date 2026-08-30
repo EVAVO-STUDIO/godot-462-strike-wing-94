@@ -453,6 +453,8 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("GROUND_EMPLACEMENT_BREAKUP_FRAMES") and source.contains("func _draw_ground_emplacement_breakup"),"layered human emplacements should retain authored weapon/ring breakup silhouettes after the primary blast")
 	_expect(source.contains("GROUND_MECH_WRECK_HULLS") and source.contains("func _draw_ground_mech_breakup") and source.contains("torso_height") and source.contains("leg_center"),"ground mechs should retain authored torso and actuator clusters through a staged destruction sequence")
 	_expect(source.contains("GROUND_VEHICLE_WRECK_LAYERS") and source.contains("func _draw_ground_vehicle_breakup") and source.contains("weapon_lift") and source.contains("chassis_offset"),"layered ground vehicles should preserve independent chassis and weapon assemblies through destruction")
+	_expect(source.contains("AIRFRAME_WRECK_HULLS") and source.contains("func _draw_airframe_breakup") and source.contains("wing_width") and source.contains("center_width"),"hostile aircraft should retain their authored wings and fuselage through staged destruction")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/airframe_breakup_manifest.json"),"hostile-airframe breakup production manifest should exist")
 	for emplacement in ["fort","flak"]:
 		for frame_index in range(3):
 			var breakup_frame := load("res://assets/runtime/effects/ground_breakup/%s_breakup_%d.png" % [emplacement,frame_index])

@@ -82,6 +82,22 @@ const GROUND_VEHICLE_WRECK_LAYERS := {
 		"weapon": preload("res://assets/runtime/enemies/machine_ground_layered/factory_defence_weapon.png"),
 	},
 }
+const AIRFRAME_WRECK_HULLS := {
+	"scout_falcon": preload("res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png"),
+	"gunship_mk1": preload("res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png"),
+	"attack_chopper": preload("res://assets/runtime/enemies/mercenary_air/attack_chopper_idle.png"),
+	"ace_interceptor": preload("res://assets/runtime/enemies/mercenary_air/ace_interceptor_idle.png"),
+	"heavy_bomber": preload("res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png"),
+	"drone_scout": preload("res://assets/runtime/enemies/machine_air/drone_scout_idle.png"),
+	"drone_hunter": preload("res://assets/runtime/enemies/machine_air/drone_hunter_idle.png"),
+	"drone_bomber": preload("res://assets/runtime/enemies/machine_air/drone_bomber_idle.png"),
+	"drone_missile_node": preload("res://assets/runtime/enemies/machine_air/drone_missile_node_idle.png"),
+	"exo_drone": preload("res://assets/runtime/enemies/orbital_air/exo_drone_idle.png"),
+	"orbital_sentry": preload("res://assets/runtime/enemies/orbital_air/orbital_sentry_idle.png"),
+	"phase_interceptor": preload("res://assets/runtime/enemies/orbital_air/phase_interceptor_idle.png"),
+	"beam_sentry": preload("res://assets/runtime/enemies/orbital_air/beam_sentry_idle.png"),
+	"orbital_lancer": preload("res://assets/runtime/enemies/orbital_air/orbital_lancer_idle.png"),
+}
 
 var _surface: Control
 var _events: Array = []
@@ -149,8 +165,10 @@ func _observe_combat() -> void:
 				duration = 1.10
 			if GROUND_VEHICLE_WRECK_LAYERS.has(str(previous.get("id", ""))):
 				duration = 0.96
-			var large_ground_wreck := GROUND_MECH_WRECK_HULLS.has(str(previous.get("id", ""))) or GROUND_VEHICLE_WRECK_LAYERS.has(str(previous.get("id", "")))
-			var size := 28.0 if kind == "boss_explosion" else (19.0 if large_ground_wreck else 15.0)
+			if AIRFRAME_WRECK_HULLS.has(str(previous.get("id", ""))):
+				duration = 0.92
+			var retained_wreck := GROUND_MECH_WRECK_HULLS.has(str(previous.get("id", ""))) or GROUND_VEHICLE_WRECK_LAYERS.has(str(previous.get("id", ""))) or AIRFRAME_WRECK_HULLS.has(str(previous.get("id", "")))
+			var size := 28.0 if kind == "boss_explosion" else (19.0 if retained_wreck else 15.0)
 			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration, {
 				"enemy_id": str(previous.get("id", "enemy")),
 				"category": str(previous.get("category", "air")),
@@ -307,6 +325,9 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 	if GROUND_VEHICLE_WRECK_LAYERS.has(enemy_id):
 		_draw_ground_vehicle_breakup(surface,p,late_ratio,enemy_id,serial,faction)
 		return
+	if AIRFRAME_WRECK_HULLS.has(enemy_id):
+		_draw_airframe_breakup(surface,p,late_ratio,enemy_id,serial,faction)
+		return
 	if enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]:
 		var dust := ImpactArtLibrary.frame_for_ratio("dust_impact", late_ratio)
 		var dust_size := Vector2.ONE * lerpf(22.0, 38.0, late_ratio)
@@ -409,6 +430,42 @@ func _draw_ground_vehicle_breakup(surface: CanvasItem, p: Vector2, ratio: float,
 	elif ratio>0.28 and ratio<0.82:
 		var fire: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_fire"][posmod(serial+int(ratio*6.0),4)]
 		surface.draw_texture_rect(fire,Rect2((p+Vector2(direction*4,-4)-Vector2(10,10)).round(),Vector2(20,20)),false,Color(0.88,0.65,0.38,0.70*(1.0-ratio)))
+
+func _draw_airframe_breakup(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int, faction: String) -> void:
+	var hull: Texture2D = AIRFRAME_WRECK_HULLS[enemy_id]
+	var width := float(hull.get_width())
+	var height := float(hull.get_height())
+	var wing_width := floorf(width*0.30)
+	var center_width := width-wing_width*2.0
+	var fade := 1.0-smoothstep(0.80,1.0,ratio)
+	var machine := faction == "autonomous"
+	var tint := Color(0.52,0.61,0.64,fade) if machine else Color(0.62,0.59,0.52,fade)
+	var spin_sign := -1.0 if posmod(serial,2)==0 else 1.0
+
+	# Preserve each aircraft's actual painted clusters by separating the left
+	# wing, fuselage and right wing directly from its registered production hull.
+	for section in range(3):
+		var source_x := 0.0 if section==0 else (wing_width if section==1 else wing_width+center_width)
+		var section_width := wing_width if section!=1 else center_width
+		var lateral := float(section-1)
+		var local_ratio := clampf((ratio-float(section)*0.035)/0.965,0.0,1.0)
+		var local_center := Vector2(-width*0.5+source_x+section_width*0.5,0)
+		var drift := Vector2(lateral*(9.0+absf(lateral)*8.0)*local_ratio,(5.0+absf(lateral)*7.0)*local_ratio*local_ratio)
+		var rotation := (lateral*0.38+spin_sign*0.08)*local_ratio
+		surface.draw_set_transform((p+local_center+drift).round(),rotation,Vector2.ONE)
+		surface.draw_texture_rect_region(hull,Rect2(-section_width*0.5,-height*0.5,section_width,height),Rect2(source_x,0,section_width,height),tint)
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+	_draw_boss_breakup_burst(surface,p+Vector2(-6,-2),ratio-0.04,25.0)
+	_draw_boss_breakup_burst(surface,p+Vector2(7,4),ratio-0.31,20.0)
+	if machine:
+		var disruption := ImpactArtLibrary.frame_for_ratio("emp_disruption",fmod(ratio*1.62,0.999))
+		var field_size := Vector2.ONE*lerpf(28.0,50.0,ratio)
+		surface.draw_texture_rect(disruption,Rect2((p-field_size*0.5).round(),field_size),false,Color(0.56,0.80,0.88,0.58*(1.0-ratio)))
+	elif ratio>0.18 and ratio<0.84:
+		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial+int(ratio*8.0),4)]
+		var smoke_center := p+Vector2(spin_sign*5.0,-7.0+10.0*ratio)
+		surface.draw_texture_rect(smoke,Rect2((smoke_center-Vector2(13,13)).round(),Vector2(26,26)),false,Color(0.58,0.57,0.52,0.64*(1.0-ratio)))
 
 func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
 	var hull: Texture2D = NAVAL_WRECK_HULLS[enemy_id]

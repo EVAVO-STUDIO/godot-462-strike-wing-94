@@ -1,0 +1,15 @@
+{
+  "asset_family": "hostile_airframe_breakup",
+  "status": "runtime_v1",
+  "method": "registered production hulls remain visible as left-wing, fuselage and right-wing sprite regions through a held arcade destruction window",
+  "coverage": {
+    "mercenary": ["scout_falcon", "gunship_mk1", "attack_chopper", "ace_interceptor", "heavy_bomber"],
+    "machine": ["drone_scout", "drone_hunter", "drone_bomber", "drone_missile_node"],
+    "black_sky": ["exo_drone", "orbital_sentry", "phase_interceptor", "beam_sentry", "orbital_lancer"]
+  },
+  "timing": "0.92 seconds total; primary blast, wing separation, secondary burst, smoke or cold EMP fade",
+  "visual_contract": {
+    "preserve": ["approved hull palette", "recognizable silhouette fragments", "material-specific aftermath"],
+    "avoid": ["generic debris-only death", "full intact sprite spinning away", "gore", "long combat obstruction"]
+  }
+}
