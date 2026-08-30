@@ -88,7 +88,7 @@
     "animation": {
       "normal_exhaust": {"frames": 4, "fps": 12},
       "wing_sweep": {"frames": 5, "seconds": 0.42},
-      "damage_overlays": 2
+      "damage_overlays": {"manifest":"res://assets/source/craft/vx94/vx94_damage_overlay_manifest.json", "forms":2, "stages_per_form":3}
     },
     "collision_contract": "visual sprite is deliberately larger than the fair gameplay collision radius supplied by CraftFormRules; no image-derived collision mask"
   },

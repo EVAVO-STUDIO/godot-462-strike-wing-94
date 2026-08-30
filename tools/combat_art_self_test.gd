@@ -480,8 +480,17 @@ func _test_damage_state() -> void:
 	_expect(source.contains("ratio >= 0.86"), "small flame cue should be reserved for severe damage")
 	_expect(source.contains('_craft_form() == "bomber"'), "battle-damage attachments should react to fighter/bomber geometry")
 	_expect(source.contains('scene.call("_max_hull")'), "damage presentation should read canonical airframe hull capacity")
+	_expect(not source.contains("draw_line") and not source.contains("draw_rect") and not source.contains("_draw_panel_scars"), "VX-94 damage must not regress to procedural line/rectangle scars")
 	for forbidden in ['scene.set("hull"', 'scene.set("shield"', 'var extra_health']:
 		_expect(not source.contains(forbidden), "damage-state presentation must not create or mutate durability state: %s" % forbidden)
+	var combat_file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
+	var combat_source := combat_file.get_as_text() if combat_file != null else ""
+	_expect(combat_source.contains('VX94_DAMAGE := {') and combat_source.contains('VX94_DAMAGE["fighter"]') and combat_source.contains('VX94_DAMAGE["bomber"]') and combat_source.contains("func _draw_player_damage"), "VX-94 hull scars should use form-registered authored overlays")
+	for form_name in ["fighter", "bomber"]:
+		for stage_name in ["light", "damaged", "critical"]:
+			var damage_texture := load("res://assets/runtime/craft/vx94/gameplay/damage/%s_%s.png" % [form_name, stage_name])
+			_expect(damage_texture is Texture2D and damage_texture.get_size() == Vector2(48,54), "VX-94 damage overlay should retain gameplay registration: %s %s" % [form_name, stage_name])
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/vx94_damage_overlay_manifest.json"), "VX-94 form damage source/runtime manifest should exist")
 
 func _test_projectile_art() -> void:
 	var projectile_source := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)

@@ -5,7 +5,6 @@ const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_
 const TRANSFORM_VISUAL_SECONDS := 0.42
 
 var _surface: Control
-var _phase := 0.0
 var _form_sweep := 0.0
 
 func _ready() -> void:
@@ -19,7 +18,6 @@ func _ready() -> void:
 	add_child(_surface)
 
 func _process(delta: float) -> void:
-	_phase = fposmod(_phase + maxf(0.0, delta) * 9.0, TAU)
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
 	_form_sweep = move_toward(_form_sweep, target, maxf(0.0, delta) / TRANSFORM_VISUAL_SECONDS)
 	if _surface != null:
@@ -37,7 +35,6 @@ func _draw_damage_state(surface: CanvasItem) -> void:
 	if damage_ratio < 0.20:
 		return
 	var p: Vector2 = scene.get("player_position")
-	_draw_panel_scars(surface, p, damage_ratio)
 	if damage_ratio >= 0.45:
 		_draw_smoke(surface, p, damage_ratio)
 	if damage_ratio >= 0.72:
@@ -47,17 +44,6 @@ func _lerp_mount(fighter_offset: Vector2, bomber_offset: Vector2) -> Vector2:
 	var t := smoothstep(0.0, 1.0, clampf(_form_sweep, 0.0, 1.0))
 	var point := fighter_offset.lerp(bomber_offset, t)
 	return Vector2(roundf(point.x), roundf(point.y))
-
-func _draw_panel_scars(surface: CanvasItem, p: Vector2, ratio: float) -> void:
-	var alpha := clampf(0.28 + ratio * 0.45, 0.0, 0.78)
-	var color := Color(0.18,0.20,0.21,alpha)
-	var fighter_offsets := [Vector2(-9,5),Vector2(8,7),Vector2(-4,-5),Vector2(5,-1)]
-	var bomber_offsets := [Vector2(-20,4),Vector2(17,7),Vector2(-9,-5),Vector2(11,-2)]
-	var count := clampi(int(ceil(ratio * float(fighter_offsets.size()))), 1, fighter_offsets.size())
-	for i in range(count):
-		var q := p + _lerp_mount(fighter_offsets[i], bomber_offsets[i])
-		surface.draw_line(q + Vector2(-3,-1), q + Vector2(3,2), color, 1.0)
-		surface.draw_rect(Rect2(roundf(q.x)-1, roundf(q.y)+2, 2, 1), color)
 
 func _draw_smoke(surface: CanvasItem, p: Vector2, ratio: float) -> void:
 	var origin := p + _lerp_mount(Vector2(-6,11), Vector2(-14,10))

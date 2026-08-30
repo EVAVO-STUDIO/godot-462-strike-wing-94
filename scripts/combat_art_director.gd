@@ -31,10 +31,18 @@ const VX94_EXHAUST := [
 	preload("res://assets/runtime/craft/vx94/gameplay/fx/exhaust_2.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/fx/exhaust_3.png"),
 ]
-const VX94_DAMAGE := [
-	preload("res://assets/runtime/craft/vx94/gameplay/fx/damage_1.png"),
-	preload("res://assets/runtime/craft/vx94/gameplay/fx/damage_2.png"),
-]
+const VX94_DAMAGE := {
+	"fighter": [
+		preload("res://assets/runtime/craft/vx94/gameplay/damage/fighter_light.png"),
+		preload("res://assets/runtime/craft/vx94/gameplay/damage/fighter_damaged.png"),
+		preload("res://assets/runtime/craft/vx94/gameplay/damage/fighter_critical.png"),
+	],
+	"bomber": [
+		preload("res://assets/runtime/craft/vx94/gameplay/damage/bomber_light.png"),
+		preload("res://assets/runtime/craft/vx94/gameplay/damage/bomber_damaged.png"),
+		preload("res://assets/runtime/craft/vx94/gameplay/damage/bomber_critical.png"),
+	],
+}
 const VX94_FIGHTER_BREAKUP := [
 	preload("res://assets/runtime/craft/vx94/gameplay/destruction/fighter_breakup_0.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/destruction/fighter_breakup_1.png"),
@@ -601,10 +609,23 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(texture, origin)
 	var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
 	var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
-	if damage_ratio >= 0.62:
-		surface.draw_texture(VX94_DAMAGE[1], origin)
-	elif damage_ratio >= 0.28:
-		surface.draw_texture(VX94_DAMAGE[0], origin)
+	_draw_player_damage(surface, origin, damage_ratio)
+
+func _draw_player_damage(surface: CanvasItem, origin: Vector2, damage_ratio: float) -> void:
+	var stage := -1
+	if damage_ratio >= 0.72:
+		stage = 2
+	elif damage_ratio >= 0.48:
+		stage = 1
+	elif damage_ratio >= 0.22:
+		stage = 0
+	if stage < 0:
+		return
+	var sweep := smoothstep(0.0, 1.0, clampf(_visual_sweep, 0.0, 1.0))
+	if sweep < 0.999:
+		surface.draw_texture(VX94_DAMAGE["fighter"][stage], origin, Color(1,1,1,1.0-sweep))
+	if sweep > 0.001:
+		surface.draw_texture(VX94_DAMAGE["bomber"][stage], origin, Color(1,1,1,sweep))
 
 func _draw_player_loss(surface: CanvasItem, p: Vector2, origin: Vector2, loss_timer: float) -> void:
 	var ratio := clampf(1.0 - loss_timer / PLAYER_LOSS_SEQUENCE_SECONDS, 0.0, 1.0)
