@@ -56,6 +56,13 @@ func _run() -> void:
 				if typeof(shot) == TYPE_DICTIONARY and str(shot.get("id", "")).begins_with("s3_") and float(shot.get("fx_fps", 0.0)) == 3.0:
 					black_sky_fx_shots += 1
 	_expect(black_sky_fx_shots == 4, "BLACK SKY reveal should retain authored three-fps held FX exposures", failures)
+	var ending_fx_shots := 0
+	for sequence in sequences:
+		if typeof(sequence) == TYPE_DICTIONARY:
+			for shot in sequence.get("shots", []):
+				if typeof(shot) == TYPE_DICTIONARY and str(shot.get("id", "")).begins_with("end_") and float(shot.get("fx_fps", 0.0)) == 3.0:
+					ending_fx_shots += 1
+	_expect(ending_fx_shots == 5, "campaign ending should retain authored three-fps held FX exposures", failures)
 	for plate_id in PLATES:
 		var plate := load("res://assets/runtime/cinematics/plates/%s.png" % plate_id)
 		_expect(plate is Texture2D and plate.get_size() == Vector2(640,320), "cinematic plate should preserve authored 640x320 composition: %s" % plate_id, failures)
@@ -70,6 +77,11 @@ func _run() -> void:
 			var fx := load("res://assets/runtime/cinematics/fx/black_sky/%s_%d.png" % [shot_id, frame_index])
 			_expect(fx is Texture2D and fx.get_size() == Vector2(640,272), "BLACK SKY FX cel should retain registered 640x272 geometry: %s %d" % [shot_id, frame_index], failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/black_sky_fx_manifest.json"), "BLACK SKY held-cel source/runtime manifest should exist", failures)
+	for shot_id in ["end_consequence", "end_action", "end_observation", "end_consequence_final", "end_title"]:
+		for frame_index in range(4):
+			var fx := load("res://assets/runtime/cinematics/fx/ending/%s_%d.png" % [shot_id, frame_index])
+			_expect(fx is Texture2D and fx.get_size() == Vector2(640,272), "ending FX cel should retain registered 640x272 geometry: %s %d" % [shot_id, frame_index], failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/ending_fx_manifest.json"), "ending held-cel source/runtime manifest should exist", failures)
 	var director_file := FileAccess.open("res://scripts/campaign_cinematic_director.gd", FileAccess.READ)
 	var director_source := director_file.get_as_text() if director_file != null else ""
 	_expect(director_source.contains("SUBJECT_FRAMES") and director_source.contains("SUBJECT_OVERLAYS") and director_source.contains("animation_fps"), "cinematic subjects should consume approved limited-animation frames and boss overlays", failures)

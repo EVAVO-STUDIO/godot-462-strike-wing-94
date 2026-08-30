@@ -97,6 +97,36 @@ const SHOT_FX_FRAMES := {
 		preload("res://assets/runtime/cinematics/fx/black_sky/s3_consequence_2.png"),
 		preload("res://assets/runtime/cinematics/fx/black_sky/s3_consequence_3.png"),
 	],
+	"end_consequence": [
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_0.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_1.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_2.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_3.png"),
+	],
+	"end_action": [
+		preload("res://assets/runtime/cinematics/fx/ending/end_action_0.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_action_1.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_action_2.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_action_3.png"),
+	],
+	"end_observation": [
+		preload("res://assets/runtime/cinematics/fx/ending/end_observation_0.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_observation_1.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_observation_2.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_observation_3.png"),
+	],
+	"end_consequence_final": [
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_final_0.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_final_1.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_final_2.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_consequence_final_3.png"),
+	],
+	"end_title": [
+		preload("res://assets/runtime/cinematics/fx/ending/end_title_0.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_title_1.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_title_2.png"),
+		preload("res://assets/runtime/cinematics/fx/ending/end_title_3.png"),
+	],
 }
 
 var _sequences: Array = []

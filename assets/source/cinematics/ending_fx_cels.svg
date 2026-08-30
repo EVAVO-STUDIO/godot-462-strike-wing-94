@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1360" viewBox="0 0 2560 1360" shape-rendering="crispEdges">
+  <!-- Row 0: Ark breakup core and physically falling fragments. -->
+  <g stroke-linecap="square">
+    <g transform="translate(0 0)" opacity=".42"><path d="M318 92v164M238 174h164" stroke="#a65a42"/><rect x="196" y="72" width="5" height="3" fill="#8ca2ad"/><rect x="444" y="112" width="3" height="5" fill="#8ca2ad"/></g>
+    <g transform="translate(640 0)" opacity=".58"><path d="M318 80v176M226 174h184" stroke="#dc6655"/><path d="M298 154h40l12 20l-12 20h-40l-12-20Z" fill="none" stroke="#e8ca6a" stroke-width="2"/><rect x="184" y="88" width="7" height="4" fill="#8ca2ad"/><rect x="456" y="136" width="4" height="7" fill="#8ca2ad"/></g>
+    <g transform="translate(1280 0)" opacity=".84"><path d="M318 62v198M208 174h220" stroke="#dc6655" stroke-width="2"/><path d="M292 144h52l18 30l-18 30h-52l-18-30Z" fill="#e8ca6a" fill-opacity=".12" stroke="#f2df9a" stroke-width="3"/><path d="M270 120l-28-30M368 118l34-38M278 220l-30 26M360 220l38 30" stroke="#a65a42" stroke-width="2"/><rect x="164" y="116" width="9" height="5" fill="#b8d4e2"/><rect x="470" y="168" width="5" height="9" fill="#b8d4e2"/></g>
+    <g transform="translate(1920 0)" opacity=".5"><path d="M318 86v170M232 174h172" stroke="#a65a42"/><path d="M300 156h36l10 18l-10 18h-36l-10-18Z" fill="none" stroke="#dc6655" stroke-width="2"/><rect x="178" y="146" width="7" height="4" fill="#8ca2ad"/><rect x="462" y="198" width="4" height="7" fill="#8ca2ad"/></g>
+  </g>
+  <!-- Row 1: re-entry compression bow and stepped plasma streaks. -->
+  <g fill="none" stroke-linecap="square">
+    <g transform="translate(0 272)" opacity=".32"><path d="M286 76Q320 54 354 76M274 88Q320 56 366 88" stroke="#b8d4e2"/><path d="M292 204l-24 52M348 204l24 52" stroke="#a65a42" stroke-width="3"/></g>
+    <g transform="translate(640 272)" opacity=".5"><path d="M274 72Q320 40 366 72M258 88Q320 44 382 88" stroke="#b8d4e2" stroke-width="2"/><path d="M290 198l-38 62M350 198l38 62" stroke="#dc6655" stroke-width="4"/><path d="M304 210l-12 50M336 210l12 50" stroke="#e8ca6a" stroke-width="2"/></g>
+    <g transform="translate(1280 272)" opacity=".8"><path d="M260 68Q320 24 380 68M240 90Q320 32 400 90" stroke="#dceaf0" stroke-width="3"/><path d="M286 192l-52 68M354 192l52 68" stroke="#dc6655" stroke-width="5"/><path d="M302 204l-22 56M338 204l22 56" stroke="#f2df9a" stroke-width="3"/><path d="M208 118l-74 34M432 118l74 34" stroke="#a65a42" stroke-width="2"/></g>
+    <g transform="translate(1920 272)" opacity=".46"><path d="M278 74Q320 46 362 74M264 88Q320 48 376 88" stroke="#b8d4e2" stroke-width="2"/><path d="M290 200l-34 58M350 200l34 58" stroke="#dc6655" stroke-width="3"/></g>
+  </g>
+  <!-- Row 2: weather returns over a silent city; tiny utility windows wake, no text. -->
+  <g stroke="#7893a2" fill="none">
+    <g transform="translate(0 544)" opacity=".3"><path d="M76 42l-32 42M184 28l-34 44M498 36l-34 46M590 24l-34 44"/><rect x="148" y="208" width="3" height="3" fill="#e8ca6a" stroke="none"/></g>
+    <g transform="translate(640 544)" opacity=".44"><path d="M58 54l-38 50M172 34l-42 54M476 52l-40 52M582 30l-44 58"/><rect x="148" y="208" width="3" height="3" fill="#e8ca6a" stroke="none"/><rect x="404" y="226" width="4" height="3" fill="#e8ca6a" stroke="none"/></g>
+    <g transform="translate(1280 544)" opacity=".62"><path d="M42 68l-46 60M156 46l-48 62M458 70l-48 62M566 44l-52 68" stroke-width="2"/><rect x="148" y="208" width="3" height="3" fill="#f2df9a" stroke="none"/><rect x="404" y="226" width="4" height="3" fill="#f2df9a" stroke="none"/><rect x="276" y="218" width="3" height="3" fill="#e8ca6a" stroke="none"/><rect x="492" y="202" width="3" height="3" fill="#e8ca6a" stroke="none"/></g>
+    <g transform="translate(1920 544)" opacity=".38"><path d="M66 50l-36 48M178 32l-40 52M482 48l-40 54M584 28l-42 56"/><rect x="276" y="218" width="3" height="3" fill="#e8ca6a" stroke="none"/><rect x="492" y="202" width="3" height="3" fill="#e8ca6a" stroke="none"/></g>
+  </g>
+  <!-- Row 3: radar watch sweep and paired patrol contrails. -->
+  <g fill="none" stroke="#6aa4c8" stroke-width="2">
+    <g transform="translate(0 816)" opacity=".28"><path d="M320 212A86 86 0 0 1 246 169M320 212V126"/><path d="M292 170l-8 78M348 170l8 78" stroke="#b8d4e2"/></g>
+    <g transform="translate(640 816)" opacity=".44"><path d="M320 212A86 86 0 0 1 292 131M320 212l-28-81"/><path d="M290 166l-13 84M350 166l13 84" stroke="#b8d4e2" stroke-width="3"/></g>
+    <g transform="translate(1280 816)" opacity=".68"><path d="M320 212A86 86 0 0 1 354 133M320 212l34-79"/><path d="M288 162l-18 90M352 162l18 90" stroke="#dceaf0" stroke-width="3"/><path d="M234 212h172M320 106v18" stroke="#67c3a5"/></g>
+    <g transform="translate(1920 816)" opacity=".4"><path d="M320 212A86 86 0 0 1 392 165M320 212l72-47"/><path d="M290 168l-11 82M350 168l11 82" stroke="#b8d4e2" stroke-width="2"/></g>
+  </g>
+  <!-- Row 4: restrained horizon resolve and completion reticle, deliberately no baked title. -->
+  <g fill="none" stroke-linecap="square">
+    <g transform="translate(0 1088)" opacity=".26"><path d="M72 188h496" stroke="#6a8190"/><path d="M296 174h48M320 150v48" stroke="#e8ca6a"/></g>
+    <g transform="translate(640 1088)" opacity=".42"><path d="M54 184h532M86 178h468" stroke="#7893a2"/><path d="M286 164h68v40h-68ZM320 144v20M320 204v20" stroke="#e8ca6a" stroke-width="2"/></g>
+    <g transform="translate(1280 1088)" opacity=".7"><path d="M36 180h568M68 172h504" stroke="#b8d4e2"/><path d="M276 154h88v58h-88ZM298 166h44v34h-44M320 130v24M320 212v26M252 183h24M364 183h24" stroke="#f2df9a" stroke-width="2"/><path d="M238 214h164" stroke="#67c3a5"/></g>
+    <g transform="translate(1920 1088)" opacity=".46"><path d="M50 184h540M80 176h480" stroke="#7893a2"/><path d="M284 160h72v48h-72ZM320 140v20M320 208v22" stroke="#e8ca6a" stroke-width="2"/></g>
+  </g>
+</svg>
