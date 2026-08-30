@@ -8,8 +8,8 @@
       "title": "SECTOR II // MACHINE WAR",
       "shots": [
         {"id":"s2_observation","role":"observation","duration":2.4,"camera":"locked","plate":"s2_dead_refinery","caption":"THE WAR DID NOT END.","sound_bridge":"environmental"},
-        {"id":"s2_anticipation","role":"anticipation","duration":2.2,"camera":"pan","plate":"s2_factory_awakens","sprite":"salvage_mech","sprite_position":[448,214],"sprite_scale":2.3,"caption":"THE FACTORIES KEPT BUILDING.","sound_bridge":"prelap"},
-        {"id":"s2_consequence","role":"consequence","duration":2.8,"camera":"locked","plate":"s2_city_warning","sprite":"drone_hunter","sprite_position":[320,176],"sprite_scale":2.0,"caption":"NOW BOTH ARMIES HAVE THE SAME ENEMY.","sound_bridge":"hard silence"}
+        {"id":"s2_anticipation","role":"anticipation","duration":2.2,"camera":"pan","plate":"s2_factory_awakens","sprite":"salvage_mech","sprite_position":[448,214],"sprite_scale":2.3,"animation_fps":5.0,"caption":"THE FACTORIES KEPT BUILDING.","sound_bridge":"prelap"},
+        {"id":"s2_consequence","role":"consequence","duration":2.8,"camera":"locked","plate":"s2_city_warning","sprite":"drone_hunter","sprite_position":[320,176],"sprite_scale":2.0,"animation_fps":8.0,"caption":"NOW BOTH ARMIES HAVE THE SAME ENEMY.","sound_bridge":"hard silence"}
       ]
     },
     {
@@ -19,8 +19,8 @@
       "title": "SECTOR III // BLACK SKY",
       "shots": [
         {"id":"s3_observation","role":"observation","duration":2.5,"camera":"locked","plate":"s3_weather_ceiling","sprite":"vx94_fighter","sprite_position":[320,212],"sprite_scale":1.5,"caption":"THE NETWORK RETREATED ABOVE THE WEATHER.","sound_bridge":"environmental"},
-        {"id":"s3_anticipation","role":"anticipation","duration":2.3,"camera":"pan","plate":"s3_phase_protocol","sprite":"phase_array","sprite_position":[430,174],"sprite_scale":1.25,"caption":"BLACK SKY PROTOCOL IS ACTIVE.","sound_bridge":"prelap"},
-        {"id":"s3_action","role":"action","duration":2.0,"camera":"track","plate":"s3_ark_reveal","sprite":"machine_ark","sprite_position":[320,166],"sprite_scale":0.92,"caption":"VX-94: CLIMB UNTIL THE SKY ENDS.","sound_bridge":"carry"},
+        {"id":"s3_anticipation","role":"anticipation","duration":2.3,"camera":"pan","plate":"s3_phase_protocol","sprite":"phase_array","sprite_position":[430,174],"sprite_scale":1.25,"animation_fps":4.0,"caption":"BLACK SKY PROTOCOL IS ACTIVE.","sound_bridge":"prelap"},
+        {"id":"s3_action","role":"action","duration":2.0,"camera":"track","plate":"s3_ark_reveal","sprite":"machine_ark","sprite_position":[320,166],"sprite_scale":0.92,"animation_fps":6.0,"caption":"VX-94: CLIMB UNTIL THE SKY ENDS.","sound_bridge":"carry"},
         {"id":"s3_consequence","role":"consequence","duration":1.6,"camera":"locked","plate":"s3_authorized","caption":"OPERATION BLACK SKY // AUTHORIZED","sound_bridge":"hard silence"}
       ]
     },
@@ -30,7 +30,7 @@
       "mission_id": "m12_machine_ark",
       "title": "EPILOGUE // AFTER BLACK SKY",
       "shots": [
-        {"id":"end_consequence","role":"consequence","duration":2.6,"camera":"track","plate":"end_ark_fall","sprite":"machine_ark","sprite_position":[320,178],"sprite_scale":0.82,"caption":"THE ARK FELL WITHOUT A SIGNAL.","sound_bridge":"hard silence"},
+        {"id":"end_consequence","role":"consequence","duration":2.6,"camera":"track","plate":"end_ark_fall","sprite":"machine_ark","sprite_position":[320,178],"sprite_scale":0.82,"animation_fps":5.0,"caption":"THE ARK FELL WITHOUT A SIGNAL.","sound_bridge":"hard silence"},
         {"id":"end_action","role":"action","duration":2.2,"camera":"pan","plate":"end_reentry","sprite":"vx94_bomber","sprite_position":[320,194],"sprite_scale":1.55,"caption":"VX-94: RE-ENTRY CONFIGURATION.","sound_bridge":"carry"},
         {"id":"end_observation","role":"observation","duration":2.8,"camera":"locked","plate":"end_city_silence","caption":"FOR THE FIRST TIME, THE CITIES HEARD ONLY WEATHER.","sound_bridge":"environmental"},
         {"id":"end_consequence_final","role":"consequence","duration":3.2,"camera":"locked","plate":"end_watch","sprite":"vx94_fighter","sprite_position":[320,205],"sprite_scale":1.35,"caption":"BLACK SKY ENDED. THE WATCH CONTINUES.","sound_bridge":"prelap"},

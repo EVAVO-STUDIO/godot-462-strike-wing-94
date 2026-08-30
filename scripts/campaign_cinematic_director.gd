@@ -26,6 +26,34 @@ const SPRITES := {
 	"phase_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png"),
 	"machine_ark": preload("res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png"),
 }
+const SUBJECT_FRAMES := {
+	"salvage_mech": [
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_3.png"),
+	],
+	"drone_hunter": [
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_3.png"),
+	],
+}
+const SUBJECT_OVERLAYS := {
+	"phase_array": [
+		preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_0.png"),
+		preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_1.png"),
+		preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_2.png"),
+		preload("res://assets/runtime/enemies/boss_animation/phase_control_array/critical_3.png"),
+	],
+	"machine_ark": [
+		preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_0.png"),
+		preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_1.png"),
+		preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_2.png"),
+		preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_3.png"),
+	],
+}
 
 var _sequences: Array = []
 var _launch_by_mission: Dictionary = {}
@@ -128,9 +156,17 @@ func _draw_plate(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: flo
 	surface.draw_rect(Rect2(0,24,640,272), Color(0.01,0.025,0.04,0.13*alpha))
 
 func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: float) -> void:
-	var texture: Texture2D = SPRITES.get(str(shot.get("sprite", "")), null)
+	var sprite_id := str(shot.get("sprite", ""))
+	var texture: Texture2D = SPRITES.get(sprite_id, null)
 	if texture == null:
 		return
+	var animation_fps := float(shot.get("animation_fps", 0.0))
+	var animation_index := 0
+	if animation_fps > 0.0:
+		animation_index = int(floor(_shot_elapsed * animation_fps))
+	if SUBJECT_FRAMES.has(sprite_id):
+		var frames: Array = SUBJECT_FRAMES[sprite_id]
+		texture = frames[posmod(animation_index, frames.size())]
 	var raw = shot.get("sprite_position", [320,170])
 	var position := Vector2(float(raw[0]), float(raw[1])) if typeof(raw) == TYPE_ARRAY and raw.size() >= 2 else Vector2(320,170)
 	var camera := str(shot.get("camera", "locked"))
@@ -139,6 +175,11 @@ func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: f
 	var scale := float(shot.get("sprite_scale", 1.0))
 	var size := texture.get_size() * scale
 	surface.draw_texture_rect(texture, Rect2((position-size*0.5).round(),size.round()), false, Color(0.86,0.91,0.92,alpha))
+	if SUBJECT_OVERLAYS.has(sprite_id) and animation_fps > 0.0:
+		var overlays: Array = SUBJECT_OVERLAYS[sprite_id]
+		var overlay: Texture2D = overlays[posmod(animation_index, overlays.size())]
+		var overlay_size := overlay.get_size() * scale
+		surface.draw_texture_rect(overlay, Rect2((position-overlay_size*0.5).round(),overlay_size.round()), false, Color(0.90,0.94,0.95,alpha*0.72))
 
 func _current_shot() -> Dictionary:
 	var shots: Array = _active.get("shots", [])
