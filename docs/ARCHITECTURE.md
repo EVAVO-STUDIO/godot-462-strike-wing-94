@@ -483,13 +483,14 @@ These must remain absent:
 
 With Godot 4.6.2 available it runs focused suites covering runtime rules, rewards, service/energy/airframes, mission flow, save recovery, encounters, tactical/battlefield support, craft/altitude, environment, ordnance, tech progression, boss signatures and combat art, followed by editor smoke parsing.
 
-## Remaining production cutover
+## Production presentation cutover
 
-`main.gd` still contains temporary prototype player/enemy drawing under `CombatArtDirector`.
+The temporary prototype player/enemy/projectile drawing has been removed from `main.gd` after live visual capture confirmed production presentation coverage.
 
-Do not add another masking layer.
-
-After a real Godot visual smoke/playtest confirms production combat art covers every target family, remove prototype combat drawing directly from `main.gd` so `CombatArtDirector` becomes sole combat-art presentation owner.
+- `CombatArtDirector` is the sole craft/enemy presentation owner.
+- `ProjectileCueDirector` is the sole projectile presentation owner.
+- `main.gd` retains authoritative simulation/collision and the pickup marker until a dedicated pickup-art owner replaces it.
+- Do not reintroduce prototype geometry or add a masking/correction layer.
 
 ## Invariants
 

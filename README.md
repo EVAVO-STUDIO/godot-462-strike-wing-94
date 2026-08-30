@@ -44,7 +44,7 @@ Implemented now:
 - production-oriented integer-grid combat-art overlays for the VX-94, enemies, bosses, projectiles, airframes and support set pieces
 - local PowerShell validation with optional Godot headless test/editor smoke pass
 
-The remaining major visual cutover is removing the old prototype player/enemy polygons from `main.gd` after a real Godot visual smoke test confirms the production combat-art layer covers every live target state correctly.
+The prototype player/enemy/projectile polygons have been removed from `main.gd` after live visual capture confirmed the production combat-art and projectile-cue layers cover the active states. The remaining visual work is replacement of procedural production-direction silhouettes and sparse environment overlays with final governed sprite/background assets.
 
 ## Controls
 

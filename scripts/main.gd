@@ -70,6 +70,8 @@ func _ready() -> void:
 	_configure_input()
 	_load_content()
 	_prepare_mission(mission_index)
+	if "--capture-gameplay" in OS.get_cmdline_user_args():
+		call_deferred("_start_mission")
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -1058,69 +1060,13 @@ func _draw_gameplay() -> void:
 			Color("1c2a34"),
 			1
 		)
-	for bullet in bullets:
-		var b: Vector2 = bullet["position"]
-		draw_rect(Rect2(b.x - 1, b.y - 6, 3, 9), Color("f0d87a"))
-	for shot in enemy_bullets:
-		var s: Vector2 = shot["position"]
-		draw_circle(s, 3, Color("e8644f"))
+	# CombatArtDirector and ProjectileCueDirector are the sole production
+	# presentation owners for craft, enemies and projectiles. Simulation and
+	# collision stay here, but duplicate prototype geometry must not bleed
+	# through altitude-scaled silhouettes or weapon-specific cues.
 	for pickup in pickups:
 		var q: Vector2 = pickup["position"]
 		draw_rect(Rect2(q.x - 5, q.y - 5, 10, 10), Color("72c7b2"), false, 2)
-	for enemy in enemies:
-		var e: Vector2 = enemy["position"]
-		var is_boss := bool(enemy.get("boss", false))
-		var size := 1.65 if is_boss else 1.0
-		var tone := Color("d05b4f") if is_boss else (
-			Color("a84c43")
-			if enemy.get("category", "air") == "air"
-			else Color("80745d")
-		)
-		draw_colored_polygon(
-			PackedVector2Array([
-				e + Vector2(0, 11) * size,
-				e + Vector2(-13, -8) * size,
-				e + Vector2(0, -4) * size,
-				e + Vector2(13, -8) * size
-			]),
-			tone
-		)
-	var p := player_position
-	if _craft_form_name() == "BOMBER":
-		draw_colored_polygon(
-			PackedVector2Array([
-				p + Vector2(0, -16),
-				p + Vector2(-26, 7),
-				p + Vector2(-16, 13),
-				p + Vector2(0, 7),
-				p + Vector2(16, 13),
-				p + Vector2(26, 7)
-			]),
-			Color("d8dde2")
-		)
-		draw_rect(Rect2(p.x - 3, p.y - 10, 6, 18), Color("8997a1"))
-	else:
-		draw_colored_polygon(
-			PackedVector2Array([
-				p + Vector2(0, -19),
-				p + Vector2(-11, 12),
-				p + Vector2(0, 7),
-				p + Vector2(11, 12)
-			]),
-			Color("d8dde2")
-		)
-		draw_line(
-			p + Vector2(-7, 5),
-			p + Vector2(-16, 12),
-			Color("8997a1"),
-			2
-		)
-		draw_line(
-			p + Vector2(7, 5),
-			p + Vector2(16, 12),
-			Color("8997a1"),
-			2
-		)
 	draw_rect(Rect2(8, 8, 624, 52), Color("080b0f"))
 	var remaining := maxi(0, int(ceil(mission_duration - mission_time)))
 	var energy_pct := int(round(EnergyRules.normalized(energy, _active_generator()) * 100.0))

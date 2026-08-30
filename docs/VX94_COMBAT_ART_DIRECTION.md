@@ -199,10 +199,10 @@ Several narrow descending kinetic/energy lanes with discrete impacts, not one op
 
 Simulation/collision remains in the gameplay source systems.
 
-## Required cleanup before final art replacement
+## Production presentation cutover
 
-The prototype combat polygons still drawn directly by `main.gd` must eventually be removed once the new combat-art layer has passed a real Godot visual smoke test. This is especially important for altitude-scaled surface targets because a smaller production silhouette can expose part of the larger placeholder underneath.
+The prototype combat polygons previously drawn directly by `main.gd` were removed after a real Godot visual smoke capture confirmed that the production combat-art and projectile-cue layers cover live player, enemy and projectile states. This prevents altitude-scaled surface targets from exposing a larger placeholder underneath.
 
-Do not solve that by adding another masking/correction director. The final architecture should simply stop drawing prototype player/enemy art in `main.gd` once production presentation is proven.
+`CombatArtDirector` is now the sole craft/enemy presentation owner and `ProjectileCueDirector` is the sole projectile presentation owner. `main.gd` retains simulation, collision and pickup drawing only.
 
-After that cutover, production sprite sheets can replace the procedural combat-art silhouettes while keeping the same simulation owners and visual contracts.
+Production sprite sheets can replace the procedural combat-art silhouettes while keeping the same simulation owners and visual contracts.

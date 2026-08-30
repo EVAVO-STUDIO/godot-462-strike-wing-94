@@ -37,6 +37,8 @@ func _ready() -> void:
 	add_child(_surface)
 	set_process_input(true)
 	set_process_unhandled_input(true)
+	if "--capture-gameplay" in OS.get_cmdline_user_args():
+		call_deferred("_complete")
 
 func _process(delta: float) -> void:
 	if stage == Stage.COMPLETE:

@@ -77,6 +77,14 @@ func _test_transform_presentation() -> void:
 	_expect(source.contains("_draw_rotary_cannon(surface, p, deploy)"), "nose rotary should deploy during bomber transformation")
 	_expect(source.contains("Fighter wing-root cannons") or source.contains("wing-root cannon"), "fighter should visibly retain wing-root cannon packs")
 	_expect(source.contains("Under-wing hardpoints"), "bomber configuration should expose physical bomb/rocket/missile hardpoints")
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_file != null, "main gameplay source should be readable for production-art cutover")
+	if main_file != null:
+		var main_source := main_file.get_as_text()
+		var gameplay_start := main_source.find("func _draw_gameplay()")
+		var gameplay_source := main_source.substr(gameplay_start) if gameplay_start >= 0 else ""
+		_expect(not gameplay_source.contains("draw_colored_polygon"), "main gameplay draw must not retain prototype craft/enemy polygons")
+		_expect(not gameplay_source.contains('for bullet in bullets:'), "main gameplay draw must not duplicate production projectile cues")
 
 func _test_altitude_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
