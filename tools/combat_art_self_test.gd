@@ -144,6 +144,11 @@ func _test_visual_language() -> void:
 	for enemy_id in sea_sizes:
 		var texture := load("res://assets/runtime/enemies/mercenary_sea/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == sea_sizes[enemy_id], "sea production sprite should retain reviewed geometry: %s" % enemy_id)
+	for frame_index in range(4):
+		var wake_frame := load("res://assets/runtime/effects/naval_wake/%d.png" % frame_index)
+		_expect(wake_frame is Texture2D and wake_frame.get_size() == Vector2(32,40), "naval wake frame should retain registered 32x40 geometry: %d" % frame_index)
+	_expect(source.contains("NAVAL_WAKE_FRAMES") and source.contains("func _draw_naval_unit") and source.contains("* 8.0"), "naval production sprites should carry a restrained eight-fps authored wake cycle")
+	_expect(FileAccess.file_exists("res://assets/source/effects/naval_wake/naval_wake_asset_manifest.json"), "naval wake source/runtime manifest should exist")
 	var machine_air_sizes := {
 		"drone_scout": Vector2(24,26),
 		"drone_hunter": Vector2(30,30),

@@ -1,0 +1,26 @@
+{
+  "asset_family": "naval_wake",
+  "status": "runtime_animation_v1",
+  "source": {
+    "path": "res://assets/source/effects/naval_wake/candidates/naval_wake_candidate_01.png",
+    "method": "built-in image generation followed by deterministic crop, point downsample, 16-colour reduction and alpha cleanup",
+    "prompt_summary": "four top-down V-shaped military prop-wash phases; transparent; late-1990s pre-rendered pixel source; muted steel-blue and off-white; no ship, text, glow or modern particles"
+  },
+  "runtime": {
+    "frames": [
+      "res://assets/runtime/effects/naval_wake/0.png",
+      "res://assets/runtime/effects/naval_wake/1.png",
+      "res://assets/runtime/effects/naval_wake/2.png",
+      "res://assets/runtime/effects/naval_wake/3.png"
+    ],
+    "frame_size": [32, 40],
+    "fps": 8,
+    "anchor": "bottom-center tucks beneath stern",
+    "layer": "below naval hull",
+    "palette_guidance": "muted blue-gray water shadow, steel-blue turbulence, restrained off-white foam"
+  },
+  "visual_contract": {
+    "read": "propeller-driven displacement and speed without hiding the hull silhouette",
+    "reject": ["neon trail", "soft modern particle spray", "opaque rectangle", "photorealistic wake pasted into pixel art"]
+  }
+}

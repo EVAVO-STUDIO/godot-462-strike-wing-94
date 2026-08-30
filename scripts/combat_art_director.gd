@@ -122,6 +122,12 @@ const MERCENARY_SEA_SPRITES := {
 	"fast_attack_craft": preload("res://assets/runtime/enemies/mercenary_sea/fast_attack_craft_idle.png"),
 	"missile_corvette": preload("res://assets/runtime/enemies/mercenary_sea/missile_corvette_idle.png"),
 }
+const NAVAL_WAKE_FRAMES := [
+	preload("res://assets/runtime/effects/naval_wake/0.png"),
+	preload("res://assets/runtime/effects/naval_wake/1.png"),
+	preload("res://assets/runtime/effects/naval_wake/2.png"),
+	preload("res://assets/runtime/effects/naval_wake/3.png"),
+]
 const MACHINE_AIR_SPRITES := {
 	"drone_scout": preload("res://assets/runtime/enemies/machine_air/drone_scout_idle.png"),
 	"drone_hunter": preload("res://assets/runtime/enemies/machine_air/drone_hunter_idle.png"),
@@ -385,7 +391,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "ground":
 		_report_missing_art(enemy_id)
 	elif category == "sea" and MERCENARY_SEA_SPRITES.has(enemy_id):
-		_draw_production_sprite(surface, p, MERCENARY_SEA_SPRITES[enemy_id], scale)
+		_draw_naval_unit(surface, p, enemy, MERCENARY_SEA_SPRITES[enemy_id], scale)
 	elif category == "sea":
 		_report_missing_art(enemy_id)
 	elif MERCENARY_AIR_SPRITES.has(enemy_id):
@@ -415,6 +421,16 @@ func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enem
 	var frames: Array = animation["frames"]
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * float(animation["fps"]))) % frames.size()
 	_draw_production_sprite(surface, p, frames[frame_index], scale)
+
+func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
+	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()
+	var wake: Texture2D = NAVAL_WAKE_FRAMES[frame_index]
+	var wake_scale := scale * clampf(hull.get_width() / 40.0, 0.72, 1.15)
+	var wake_size := wake.get_size() * wake_scale
+	var wake_center := p + Vector2(0.0, -hull.get_height() * scale * 0.5 - wake_size.y * 0.42 + 4.0 * scale)
+	var destination := Rect2((wake_center - wake_size * 0.5).round(), wake_size.round())
+	surface.draw_texture_rect(wake, destination, false, Color(0.72, 0.82, 0.86, 0.68))
+	_draw_production_sprite(surface, p, hull, scale)
 
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
 	_draw_production_sprite(surface, p, texture)
