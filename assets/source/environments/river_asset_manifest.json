@@ -1,0 +1,23 @@
+{
+  "family": "river_corridor",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/river/river_corridor_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/river/river_corridor_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 64,
+  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "art_direction": [
+    "overcast militarized temperate floodplain",
+    "two structurally believable bridge landmarks",
+    "wet roads, rail, pumping stations and fortified embankments",
+    "dark winding river with marsh and drainage detail",
+    "animated subdued current streaks"
+  ],
+  "reject": [
+    "flat green bank polygons",
+    "simple horizontal bridge bars",
+    "bright pastoral countryside",
+    "perfectly symmetrical channel",
+    "satellite-photo noise"
+  ]
+}

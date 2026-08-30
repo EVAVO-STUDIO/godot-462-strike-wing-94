@@ -7,6 +7,7 @@ const COASTAL_STRIKE_ZONE := preload("res://assets/runtime/environments/coast/co
 const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png")
 const STORM_SEA := preload("res://assets/runtime/environments/water/storm_sea_loop_v1.png")
 const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
+const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -266,26 +267,14 @@ func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> voi
 
 func _draw_river_corridor(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scale := _ground_scale(state)
-	var bank := Color("405948", 0.68)
-	var shallows := Color("688678", 0.48)
-	var bridge := Color("8a8068", 0.62)
-	var scroll := t * 27.0
-	var left_points := PackedVector2Array([Vector2(8, 60)])
-	var right_points := PackedVector2Array([Vector2(632, 60)])
-	for y in range(60, 369, 10):
-		var bend := sin((float(y) - scroll) * 0.018) * 58.0
-		left_points.append(Vector2(170.0 * scale + bend, y))
-		right_points.append(Vector2(470.0 + bend * 0.55, y))
-	left_points.append(Vector2(8, 368)); right_points.append(Vector2(632, 368))
-	surface.draw_colored_polygon(left_points, bank); surface.draw_colored_polygon(right_points, bank)
-	for y in range(60, 360, 10):
-		var bend := sin((float(y) - scroll) * 0.018) * 58.0
-		surface.draw_line(Vector2(170.0 * scale + bend + 6.0, y), Vector2(170.0 * scale + bend + 20.0, y), shallows, 1.0)
-		surface.draw_line(Vector2(450.0 + bend * 0.55, y), Vector2(470.0 + bend * 0.55, y), shallows, 1.0)
-	for i in range(3):
-		var by := fposmod(90.0 + i * 173.0 + scroll, 519.0) + 44.0
-		if by < 354.0: surface.draw_rect(Rect2(135, by, 380, 5), bridge)
+	var scroll := fposmod(t * 27.0, 720.0)
+	_draw_vertical_loop(surface, RIVER_CORRIDOR, scroll, Rect2(0, 58, 640, 302))
+	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.015, 0.035, 0.032, 0.13))
+	var current := Color("87a3a6", 0.18)
+	for i in range(8):
+		var y := fposmod(float(i) * 67.0 + t * 20.0, 320.0) + 58.0
+		var x := 270.0 + sin((y - scroll) * 0.021 + float(i)) * 62.0
+		surface.draw_line(Vector2(x, y), Vector2(x + 16.0 + float(i % 3) * 6.0, y), current, 1.0)
 
 func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	var scale := maxf(0.45, _ground_scale(state))
