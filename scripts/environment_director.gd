@@ -101,6 +101,10 @@ func _tone(profile: Dictionary, key: String, alpha: float) -> Color:
 	return color
 
 func _parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String) -> float:
+	var forward_scale := 1.0
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("world_speed_multiplier"):
+		forward_scale = float(craft.call("world_speed_multiplier"))
 	if bool(state.get("transition", false)):
 		return EnvironmentRules.blended_parallax_speed(
 			profile,
@@ -108,8 +112,8 @@ func _parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String)
 			str(state.get("to", "mid")),
 			float(state.get("ratio", 1.0)),
 			layer_name
-		)
-	return EnvironmentRules.parallax_speed(profile, str(state.get("current", "mid")), layer_name)
+		) * forward_scale
+	return EnvironmentRules.parallax_speed(profile, str(state.get("current", "mid")), layer_name) * forward_scale
 
 func _ground_scale(state: Dictionary) -> float:
 	if bool(state.get("transition", false)):

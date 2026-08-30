@@ -259,6 +259,8 @@ $SfxRulesText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_rules.gd')
 Assert-Contains $SfxRulesText @('FIRE_ROTARY','ALTITUDE_CLIMB','ALTITUDE_DIVE','BOSS_EXPLOSION','PLAYER_HIT','"wave":"blast"') 'Procedural SFX rules'
 $SfxDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_director.gd')
 Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event','"blast"','MAX_VOICES := 8') 'Procedural SFX runtime'
+$HypersonicText = Get-Content -Raw (Join-Path $Root 'scripts/hypersonic_rules.gd')
+Assert-Contains $HypersonicText @('SPEED_MULTIPLIER := 2.20','TURN_SCALE := 0.38','structural_damage_per_second','enemy_can_pursue') 'Hypersonic flight rules'
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 Assert-Contains $SaveText @('SAVE_VERSION := 6','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
@@ -277,7 +279,7 @@ if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit cod
 $Tests = @(
     'product_identity_self_test.gd','input_bindings_self_test.gd','startup_sequence_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
-    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','player_mount_self_test.gd'
+    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
 )
 foreach ($Test in $Tests) {
     Write-Host "Running $Test..." -ForegroundColor DarkCyan

@@ -5,6 +5,7 @@ const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
+const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 
 const AFTERBURNER_CAPACITY := 8.0
 const FIGHTER_AFTERBURNER_MULTIPLIER := 1.35
@@ -14,6 +15,9 @@ var form := CraftFormRules.FIGHTER
 var altitude := AltitudeRules.MID
 var afterburner_fuel := AFTERBURNER_CAPACITY
 var _afterburner_active := false
+var _hypersonic_active := false
+var _hypersonic_charge := 0.0
+var _hypersonic_damage_carry := 0.0
 var _cooldown := 0.0
 var _world: Dictionary = {}
 var _base_spawn_profiles: Array = []
@@ -44,6 +48,8 @@ func _process(delta: float) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		_afterburner_active = false
+		_hypersonic_active = false
+		_hypersonic_charge = 0.0
 		return
 	_publish_generator_context(scene)
 	var mission_index := int(scene.get("mission_index"))
@@ -67,10 +73,41 @@ func _process(delta: float) -> void:
 
 func _update_afterburner(delta: float) -> void:
 	_afterburner_active = Input.is_action_pressed("afterburner") and afterburner_fuel > 0.001
+	var may_charge := HypersonicRules.can_charge(form, altitude_transition_active(), afterburner_fuel)
+	if _afterburner_active and may_charge:
+		_hypersonic_charge = minf(HypersonicRules.charge_seconds(altitude), _hypersonic_charge + maxf(0.0, delta))
+		_hypersonic_active = _hypersonic_charge >= HypersonicRules.charge_seconds(altitude)
+	else:
+		_hypersonic_charge = maxf(0.0, _hypersonic_charge - maxf(0.0, delta) * 2.5)
+		_hypersonic_active = false
 	if _afterburner_active:
-		afterburner_fuel = maxf(0.0, afterburner_fuel - maxf(0.0, delta) * _afterburner_burn_rate())
+		var burn := _afterburner_burn_rate()
+		if _hypersonic_active:
+			burn *= HypersonicRules.fuel_burn_multiplier(altitude)
+		afterburner_fuel = maxf(0.0, afterburner_fuel - maxf(0.0, delta) * burn)
+		_apply_hypersonic_airframe_risk(delta)
 		if afterburner_fuel <= 0.001:
 			_afterburner_active = false
+			_hypersonic_active = false
+
+func _apply_hypersonic_airframe_risk(delta: float) -> void:
+	if not _hypersonic_active:
+		_hypersonic_damage_carry = 0.0
+		return
+	var damage_rate := HypersonicRules.structural_damage_per_second(altitude)
+	if damage_rate <= 0.0:
+		return
+	_hypersonic_damage_carry += damage_rate * maxf(0.0, delta)
+	var whole_damage := floori(_hypersonic_damage_carry)
+	if whole_damage <= 0:
+		return
+	_hypersonic_damage_carry -= float(whole_damage)
+	var scene := get_tree().current_scene
+	if scene != null and _has_property(scene, "hull"):
+		scene.set("hull", maxi(1, int(scene.get("hull")) - whole_damage))
+		if _has_property(scene, "status_text"):
+			scene.set("status_text", "OVERSPEED - AIRFRAME LOAD")
+			scene.set("status_timer", 0.35)
 
 func _afterburner_burn_rate() -> float:
 	if form == CraftFormRules.BOMBER and altitude == AltitudeRules.LOW:
@@ -89,6 +126,12 @@ func afterburner_ratio() -> float:
 
 func afterburner_active() -> bool:
 	return _afterburner_active
+
+func hypersonic_active() -> bool:
+	return _hypersonic_active
+
+func hypersonic_charge_ratio() -> float:
+	return clampf(_hypersonic_charge / HypersonicRules.charge_seconds(altitude), 0.0, 1.0)
 
 func _publish_generator_context(scene: Object) -> void:
 	if scene.has_method("_active_generator"):
@@ -293,7 +336,11 @@ func movement_multiplier() -> float:
 	if not _afterburner_active:
 		return base
 	var boost := FIGHTER_AFTERBURNER_MULTIPLIER if form == CraftFormRules.FIGHTER else BOMBER_AFTERBURNER_MULTIPLIER
-	return base * boost
+	# Forward velocity belongs to world scroll; local arcade steering tightens at Mach transition.
+	return base * boost * (HypersonicRules.TURN_SCALE if _hypersonic_active else 1.0)
+
+func world_speed_multiplier() -> float:
+	return HypersonicRules.SPEED_MULTIPLIER if _hypersonic_active else 1.0
 
 func collision_radius_sq() -> float:
 	return CraftFormRules.collision_radius_sq(form)
@@ -309,6 +356,12 @@ func primary_damage_multiplier() -> float:
 
 func support_energy_multiplier() -> float:
 	return CraftFormRules.support_energy_multiplier(form)
+
+func _has_property(object: Object, property_name: String) -> bool:
+	for property in object.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false
 
 func primary_mount_offsets(weapon: Dictionary, projectile_count: int) -> Array[Vector2]:
 	var mounts := get_node_or_null("/root/PlayerMountDirector")

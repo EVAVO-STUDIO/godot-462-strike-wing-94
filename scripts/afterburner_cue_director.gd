@@ -11,6 +11,8 @@ const HOT := Color("e8894f")
 const CORE := Color("d9e9ff")
 
 var _surface: Control
+var _boom_age := 99.0
+var _last_hypersonic := false
 
 func _ready() -> void:
 	layer = 14
@@ -22,7 +24,13 @@ func _ready() -> void:
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_boom_age += maxf(0.0, delta)
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	var active := craft != null and craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
+	if active and not _last_hypersonic:
+		_boom_age = 0.0
+	_last_hypersonic = active
 	if _surface != null:
 		_surface.queue_redraw()
 
@@ -37,6 +45,10 @@ func draw_afterburner(surface: CanvasItem) -> void:
 	_draw_meter(surface, ratio)
 	if craft.has_method("afterburner_active") and bool(craft.call("afterburner_active")) and _has_property(scene, "player_position"):
 		_draw_flame(surface, scene.get("player_position"), str(craft.call("current_form")) if craft.has_method("current_form") else "fighter")
+	if _boom_age < 0.42 and _has_property(scene, "player_position"):
+		var t := _boom_age / 0.42
+		var radius := lerpf(10.0, 118.0, t)
+		surface.draw_arc(scene.get("player_position"), radius, 0.0, TAU, 64, Color(0.75,0.88,1.0,1.0-t), 2.0)
 
 func _draw_meter(surface: CanvasItem, ratio: float) -> void:
 	surface.draw_rect(Rect2(14, 315, 92, 13), PANEL)

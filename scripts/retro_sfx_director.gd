@@ -13,6 +13,7 @@ var _last_shots_fired := 0
 var _last_form := ""
 var _last_altitude := ""
 var _last_afterburner := false
+var _last_hypersonic := false
 var _last_missile_level := 0
 var _last_strike_ordnance := -1
 var _noise_state := 0x1345ABCD
@@ -78,6 +79,11 @@ func _observe_gameplay() -> void:
 			if active and not _last_afterburner:
 				_trigger(RetroSfxRules.AFTERBURNER)
 			_last_afterburner = active
+		if craft.has_method("hypersonic_active"):
+			var hypersonic := bool(craft.call("hypersonic_active"))
+			if hypersonic and not _last_hypersonic:
+				_trigger(RetroSfxRules.SONIC_BOOM)
+			_last_hypersonic = hypersonic
 
 	_observe_missile_threat(scene)
 
