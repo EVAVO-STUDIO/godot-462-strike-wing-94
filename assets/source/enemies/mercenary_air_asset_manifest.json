@@ -1,6 +1,6 @@
 {
   "asset_family": "mercenary_air",
-  "status": "runtime_idle_candidates",
+  "status": "runtime_motion_v2",
   "source": {
     "path": "res://assets/source/enemies/candidates/mercenary_air/mercenary_air_identity_sheet_candidate_01.png",
     "sha256": "307D6A4EA283A37D36D153BD67C4732CA7654004BEB538164E17CDF7EFB3995",
@@ -22,11 +22,16 @@
     {"id":"ace_interceptor","path":"res://assets/runtime/enemies/mercenary_air/ace_interceptor_idle.png","size":[32,34],"sha256":"A153B8D5C7713233094D360C653D71772B7AFB145EF75FE2890BDB7EE978E97C","center":[16,17],"muzzle":[[11,30],[21,30]],"exhaust":[[13,3],[19,3]]},
     {"id":"heavy_bomber","path":"res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png","size":[50,42],"sha256":"EF74F16CE94B6AA5FBE02857E605EFE5011261C358D19B4F86A16103165933B9","center":[25,21],"muzzle":[[10,34],[40,34]],"exhaust":[[17,4],[33,4]],"bay_center":[25,23]}
   ],
+  "runtime_animation": {
+    "propulsion": "human_turbine family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
+    "attack_chopper": "four-frame bespoke rotor cycle",
+    "ace_interceptor": "four-frame bespoke high-speed thrust cycle"
+  },
   "remaining_animation_gate": {
-    "scout_falcon": ["bank", "exhaust", "destroy"],
-    "gunship_mk1": ["bank", "turret", "exhaust", "destroy"],
-    "attack_chopper": ["rotor", "bank", "recoil", "destroy"],
-    "ace_interceptor": ["bank", "exhaust", "destroy"],
-    "heavy_bomber": ["bank", "bay", "exhaust", "destroy"]
+    "scout_falcon": ["bank", "destroy"],
+    "gunship_mk1": ["bank", "turret", "destroy"],
+    "attack_chopper": ["bank", "recoil", "destroy"],
+    "ace_interceptor": ["bank", "destroy"],
+    "heavy_bomber": ["bank", "bay", "destroy"]
   }
 }

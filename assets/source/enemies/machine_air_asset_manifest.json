@@ -1,6 +1,6 @@
 {
   "asset_family": "machine_air",
-  "status": "runtime_idle_candidates",
+  "status": "runtime_motion_v1",
   "source": {
     "path": "res://assets/source/enemies/candidates/machine_air/machine_air_identity_sheet_candidate_01.png",
     "sha256": "48AE02374A7E2D6ADE8AC8241BD093F78DDB24068250926ED2D1492A24BAE2CE",
@@ -24,5 +24,9 @@
     {"id":"drone_bomber","path":"res://assets/runtime/enemies/machine_air/drone_bomber_idle.png","size":[44,38],"sha256":"479C668FB81480F1C455C56A00014A7E12C36DDE431432331E59739F5941EFCB","center":[22,19],"muzzle":[[9,33],[35,33]],"core":[22,18],"bay_center":[22,24]},
     {"id":"drone_missile_node","path":"res://assets/runtime/enemies/machine_air/drone_missile_node_idle.png","size":[38,36],"sha256":"D76CA4EE44B1335D0458891B25B89D4B1AA986DA1238432D0B4B77B0752763BA","center":[19,18],"launcher_points":[[7,9],[31,9],[7,27],[31,27]],"core":[19,18]}
   ],
+  "runtime_animation": {
+    "propulsion": "machine_thruster family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
+    "drone_hunter": "four-frame bespoke pursuit thrust cycle"
+  },
   "remaining_animation_gate": ["bank", "core pulse", "missile hatches", "bomb bay", "recoil", "destruction"]
 }

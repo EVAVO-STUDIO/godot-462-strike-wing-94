@@ -1,6 +1,6 @@
 {
   "asset_family": "orbital_air",
-  "status": "runtime_idle_candidates",
+  "status": "runtime_motion_v1",
   "source": {
     "path": "res://assets/source/enemies/candidates/orbital_air/orbital_air_identity_sheet_candidate_01.png",
     "sha256": "CEA114C09ED70E6B88B0D8F84314727437A3355A34DA38823574BF482771D7E4",
@@ -26,5 +26,9 @@
     {"id":"beam_sentry","path":"res://assets/runtime/enemies/orbital_air/beam_sentry_idle.png","size":[42,40],"sha256":"62CFFE9ED3FC9EC3601829AA6CAB12DC24E70A7CD90E04C43EEB01319BC0EAB6","center":[21,20],"beam_aperture":[21,23],"radiators":[[5,18],[37,18]]},
     {"id":"orbital_lancer","path":"res://assets/runtime/enemies/orbital_air/orbital_lancer_idle.png","size":[48,58],"sha256":"CF59E6D6DD1E6E209C50014581FAC10CE39E59461E30722C800EB7070931F4E4","center":[24,29],"rail_muzzle":[24,55],"thrusters":[[13,7],[35,7]],"radiators":[[7,29],[41,29]]}
   ],
-  "remaining_animation_gate": ["bank", "attitude thrusters", "turret tracking", "phase nodes", "beam aperture", "rail charge", "destruction"]
+  "runtime_animation": {
+    "propulsion": "orbital_impulse family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
+    "phase_interceptor": "four-frame bespoke phase-pursuit thrust cycle"
+  },
+  "remaining_animation_gate": ["bank", "turret tracking", "phase nodes", "beam aperture", "rail charge", "destruction"]
 }

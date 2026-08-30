@@ -167,6 +167,13 @@ func _test_visual_language() -> void:
 		for frame_index in range(4):
 			var thrust_frame := load("res://assets/runtime/enemies/unit_animation/%s/thrust_%d.png" % [pursuit_id, frame_index])
 			_expect(thrust_frame is Texture2D and thrust_frame.get_size() == pursuit_animation_sizes[pursuit_id], "hypersonic-pursuit thrust frame should retain registered geometry: %s/%d" % [pursuit_id, frame_index])
+	for family in ["human_turbine", "machine_thruster", "orbital_impulse"]:
+		for frame_index in range(4):
+			var propulsion_frame := load("res://assets/runtime/effects/enemy_propulsion/%s/%d.png" % [family, frame_index])
+			_expect(propulsion_frame is Texture2D and propulsion_frame.get_size() == Vector2(16,24), "enemy propulsion frame should retain registered 16x24 geometry: %s/%d" % [family, frame_index])
+	_expect(source.contains("AIR_PROPULSION_FRAMES") and source.contains("AIR_PROPULSION_STYLE") and source.contains("func _draw_hostile_airframe"), "static hostile airframes should receive faction-specific production propulsion animation")
+	_expect(source.contains('"human_turbine"') and source.contains('"machine_thruster"') and source.contains('"orbital_impulse"'), "human, machine and orbital propulsion should remain visually distinct")
+	_expect(FileAccess.file_exists("res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json"), "enemy propulsion source/runtime manifest should exist")
 	var machine_ground_sizes := {
 		"autonomous_armor": Vector2(36,30),
 		"factory_defence_node": Vector2(34,34),

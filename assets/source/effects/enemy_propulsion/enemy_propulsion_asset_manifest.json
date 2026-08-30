@@ -1,0 +1,23 @@
+{
+  "asset_family": "enemy_propulsion",
+  "status": "runtime_animation_v1",
+  "source": {
+    "path": "res://assets/source/effects/enemy_propulsion/candidates/enemy_propulsion_candidate_01.png",
+    "method": "built-in image generation followed by deterministic grid crop, point downsample, 12-colour reduction and alpha cleanup",
+    "prompt_summary": "three rows of four top-down propulsion phases: human dirty-amber turbine, autonomous desaturated-cyan thruster, orbital white-violet impulse; transparent; 1997 pre-rendered pixel source; no vehicles, glow cloud or modern particles"
+  },
+  "runtime": {
+    "families": ["human_turbine", "machine_thruster", "orbital_impulse"],
+    "frames_per_family": 4,
+    "frame_size": [16, 24],
+    "fps": 12,
+    "anchor": "top-center of source frame, rotated behind downward-facing hostile airframes",
+    "layer": "below hostile airframe hull"
+  },
+  "visual_contract": {
+    "human": "compact dirty amber combustion heat",
+    "machine": "narrow desaturated cyan-white plasma",
+    "orbital": "short cold white-violet attitude impulse",
+    "reject": ["shared neon trail", "large bloom", "soft particle cloud", "fantasy flame", "propulsion hiding the hull silhouette"]
+  }
+}

@@ -128,6 +128,38 @@ const NAVAL_WAKE_FRAMES := [
 	preload("res://assets/runtime/effects/naval_wake/2.png"),
 	preload("res://assets/runtime/effects/naval_wake/3.png"),
 ]
+const AIR_PROPULSION_FRAMES := {
+	"human_turbine": [
+		preload("res://assets/runtime/effects/enemy_propulsion/human_turbine/0.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/human_turbine/1.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/human_turbine/2.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/human_turbine/3.png"),
+	],
+	"machine_thruster": [
+		preload("res://assets/runtime/effects/enemy_propulsion/machine_thruster/0.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/machine_thruster/1.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/machine_thruster/2.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/machine_thruster/3.png"),
+	],
+	"orbital_impulse": [
+		preload("res://assets/runtime/effects/enemy_propulsion/orbital_impulse/0.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/orbital_impulse/1.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/orbital_impulse/2.png"),
+		preload("res://assets/runtime/effects/enemy_propulsion/orbital_impulse/3.png"),
+	],
+}
+const AIR_PROPULSION_STYLE := {
+	"scout_falcon": "human_turbine",
+	"gunship_mk1": "human_turbine",
+	"heavy_bomber": "human_turbine",
+	"drone_scout": "machine_thruster",
+	"drone_bomber": "machine_thruster",
+	"drone_missile_node": "machine_thruster",
+	"exo_drone": "orbital_impulse",
+	"orbital_sentry": "orbital_impulse",
+	"beam_sentry": "orbital_impulse",
+	"orbital_lancer": "orbital_impulse",
+}
 const MACHINE_AIR_SPRITES := {
 	"drone_scout": preload("res://assets/runtime/enemies/machine_air/drone_scout_idle.png"),
 	"drone_hunter": preload("res://assets/runtime/enemies/machine_air/drone_hunter_idle.png"),
@@ -377,9 +409,9 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif faction == "autonomous" and category == "ground" and MACHINE_MECH_SPRITES.has(enemy_id):
 		_draw_animated_unit(surface, p, enemy_id, enemy, MACHINE_MECH_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and ORBITAL_AIR_SPRITES.has(enemy_id):
-		_draw_animated_unit(surface, p, enemy_id, enemy, ORBITAL_AIR_SPRITES[enemy_id])
+		_draw_hostile_airframe(surface, p, enemy_id, enemy, ORBITAL_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous" and MACHINE_AIR_SPRITES.has(enemy_id):
-		_draw_animated_unit(surface, p, enemy_id, enemy, MACHINE_AIR_SPRITES[enemy_id])
+		_draw_hostile_airframe(surface, p, enemy_id, enemy, MACHINE_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous":
 		_report_missing_art(enemy_id)
 	elif category == "ground" and LAYERED_GROUND_SPRITES.has(enemy_id):
@@ -395,7 +427,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "sea":
 		_report_missing_art(enemy_id)
 	elif MERCENARY_AIR_SPRITES.has(enemy_id):
-		_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_AIR_SPRITES[enemy_id])
+		_draw_hostile_airframe(surface, p, enemy_id, enemy, MERCENARY_AIR_SPRITES[enemy_id])
 	else:
 		_report_missing_art(enemy_id)
 
@@ -421,6 +453,18 @@ func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enem
 	var frames: Array = animation["frames"]
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * float(animation["fps"]))) % frames.size()
 	_draw_production_sprite(surface, p, frames[frame_index], scale)
+
+func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
+	if AIR_PROPULSION_STYLE.has(enemy_id) and not UNIT_ANIMATION_FRAMES.has(enemy_id):
+		var family := str(AIR_PROPULSION_STYLE[enemy_id])
+		var frames: Array = AIR_PROPULSION_FRAMES[family]
+		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 12.0)) % frames.size()
+		var plume: Texture2D = frames[frame_index]
+		var engine_anchor := p + Vector2(0.0, -hull.get_height() * 0.30)
+		surface.draw_set_transform(engine_anchor.round(), PI, Vector2(0.58, 0.58))
+		surface.draw_texture(plume, Vector2(-8.0, 0.0), Color(0.84, 0.90, 0.94, 0.82))
+		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	_draw_animated_unit(surface, p, enemy_id, enemy, hull)
 
 func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()
