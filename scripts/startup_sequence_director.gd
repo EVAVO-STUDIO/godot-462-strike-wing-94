@@ -2,8 +2,16 @@ extends CanvasLayer
 
 const StartupSequenceSurface = preload("res://scripts/startup_sequence_surface.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const EVAVO_SPLASH := preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
+const TITLE_SKY := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
+const TITLE_CLOUDS := [
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_b.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_a.png"),
+	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
+]
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
 const VX94_TRANSFORM_FRAMES := [
@@ -128,7 +136,9 @@ func _draw_hypersonic(surface: CanvasItem) -> void:
 	_draw_vx94_forms(surface, Vector2(320, craft_y), craft_scale, deploy)
 	var flare := sin(clampf(_range_progress(3.72, 4.55), 0.0, 1.0) * PI)
 	if flare > 0.0:
-		surface.draw_circle(Vector2(320, craft_y+26.0*craft_scale), 5.0+flare*10.0, Color(1.0,0.48,0.18,flare*0.8))
+		var plume := PersistentEffectArtLibrary.frame_for_ratio("afterburner", flare)
+		var plume_size := Vector2(30, 38) * craft_scale
+		surface.draw_texture_rect(plume, Rect2(Vector2(320, craft_y+26.0*craft_scale) - Vector2(plume_size.x*0.5, 0), plume_size), false, Color(1,1,1,flare))
 	var title_alpha := smoothstep(0.0, 1.0, _range_progress(4.35, 5.05))
 	if title_alpha > 0.0:
 		var identity := get_node_or_null("/root/ProductIdentity")
@@ -141,22 +151,27 @@ func _draw_hypersonic(surface: CanvasItem) -> void:
 
 func _draw_cloud_field(surface: CanvasItem) -> void:
 	var reveal := _range_progress(0.0, 1.2)
-	surface.draw_rect(Rect2(0,0,640,360), Color(0.025,0.07,0.11,reveal))
-	_draw_cloud_wisp(surface, -90.0 + fposmod(elapsed * 5.0, 820.0), 178.0, 1.35, Color(0.20,0.31,0.38,0.17 * reveal))
-	_draw_cloud_wisp(surface, 310.0 + fposmod(elapsed * 3.0, 880.0), 268.0, 1.7, Color(0.15,0.25,0.32,0.13 * reveal))
-	_draw_cloud_wisp(surface, 78.0 - fposmod(elapsed * 7.0, 760.0), 318.0, 0.9, Color(0.31,0.41,0.45,0.10 * reveal))
-	_draw_cloud_wisp(surface, 510.0 - fposmod(elapsed * 4.0, 900.0), 128.0, 0.72, Color(0.26,0.36,0.41,0.09 * reveal))
+	_draw_vertical_loop(surface, TITLE_SKY, elapsed * 9.0, Rect2(0,0,640,360), Color(0.30,0.43,0.52,reveal * 0.78))
+	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.035,0.055,0.36 * reveal))
+	_draw_title_cloud(surface, TITLE_CLOUDS[0], Vector2(-74.0 + fposmod(elapsed * 13.0, 820.0), 226), 1.55, 0.34 * reveal)
+	_draw_title_cloud(surface, TITLE_CLOUDS[1], Vector2(470.0 - fposmod(elapsed * 8.0, 880.0), 282), 1.30, 0.28 * reveal)
+	_draw_title_cloud(surface, TITLE_CLOUDS[2], Vector2(162.0 + fposmod(elapsed * 7.0, 760.0), 154), 1.08, 0.25 * reveal)
+	_draw_title_cloud(surface, TITLE_CLOUDS[3], Vector2(518.0 - fposmod(elapsed * 11.0, 900.0), 336), 1.22, 0.30 * reveal)
 
-func _draw_cloud_wisp(surface: CanvasItem, x: float, y: float, scale: float, color: Color) -> void:
-	var points := PackedVector2Array([
-		Vector2(-118, 8), Vector2(-91, -3), Vector2(-63, -7), Vector2(-38, -17),
-		Vector2(-10, -13), Vector2(18, -24), Vector2(49, -15), Vector2(74, -18),
-		Vector2(101, -5), Vector2(126, 2), Vector2(91, 10), Vector2(54, 14),
-		Vector2(17, 11), Vector2(-25, 18), Vector2(-66, 14), Vector2(-99, 16)
-	])
-	for index in range(points.size()):
-		points[index] = Vector2(x, y) + points[index] * scale
-	surface.draw_colored_polygon(points, color)
+func _draw_title_cloud(surface: CanvasItem, texture: Texture2D, position: Vector2, scale: float, alpha: float) -> void:
+	var size := texture.get_size() * scale
+	surface.draw_texture_rect(texture, Rect2(position - size * 0.5, size), false, Color(0.62,0.74,0.80,alpha))
+
+func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2, modulate: Color) -> void:
+	var remaining := destination.size.y
+	var draw_y := destination.position.y
+	var sample_y := fposmod(source_y, float(texture.get_height()))
+	while remaining > 0.0:
+		var segment := minf(remaining, float(texture.get_height()) - sample_y)
+		surface.draw_texture_rect_region(texture, Rect2(destination.position.x, draw_y, destination.size.x, segment), Rect2(0, sample_y, float(texture.get_width()), segment), modulate)
+		remaining -= segment
+		draw_y += segment
+		sample_y = 0.0
 
 func _draw_vx94_forms(surface: CanvasItem, p: Vector2, scale: float, deploy: float) -> void:
 	var size := Vector2(64, 72) * scale

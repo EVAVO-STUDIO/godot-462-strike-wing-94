@@ -33,6 +33,13 @@
     "subtitle_source": "ProductIdentity.title_subtitle rendered with PixelFont",
     "sequence_hierarchy": "wordmark -> VX-94 VARIABLE STRIKE FIGHTER -> PRESS FIRE / PRESS START"
   },
+  "sequence_environment": {
+    "background_master": "assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png",
+    "cloud_family": "assets/runtime/environments/clouds",
+    "engine_ignition_family": "assets/runtime/effects/persistent/afterburner",
+    "presentation": "dark scrolling stratospheric deck with independently drifting cloud masses and authored twin-engine compression plume",
+    "replaced_prototypes": ["flat polygon cloud wisps", "circular engine flare"]
+  },
   "rejections": [
     "candidate_01: modern chrome/esports treatment",
     "candidate_02: excessive bevel and unreadable generated subtitle"

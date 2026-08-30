@@ -28,11 +28,13 @@ func _initialize() -> void:
 	_expect(source_file != null, "startup sequence source should be readable", failures)
 	if source_file != null:
 		var source := source_file.get_as_text()
-		for token in ["EVAVO_SPLASH", "EVAVO_SPARKLE_FRAMES", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "VX94_BOMBER", "VX94_TRANSFORM_FRAMES", "BLACK_PAUSE", "PRESS FIRE / PRESS START", "_draw_vx94_forms"]:
+		for token in ["EVAVO_SPLASH", "EVAVO_SPARKLE_FRAMES", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "VX94_BOMBER", "VX94_TRANSFORM_FRAMES", "TITLE_SKY", "TITLE_CLOUDS", "PersistentEffectArtLibrary", "BLACK_PAUSE", "PRESS FIRE / PRESS START", "_draw_vx94_forms"]:
 			_expect(source.contains(token), "startup sequence missing production cue: %s" % token, failures)
 		_expect(source.contains("Rect2(70, 42, 500, 64)"), "approved wordmark should retain its canonical title-screen placement", failures)
 		_expect(source.contains('identity.call("title_subtitle")'), "title subtitle should remain centralized through ProductIdentity", failures)
 		_expect(source.contains("PixelFont.draw_centered(surface, subtitle"), "VX-94 subtitle should remain visually subordinate to the raster wordmark", failures)
+		_expect(source.contains('frame_for_ratio("afterburner"'), "title-sequence ignition should use the authored twin-engine compression plume", failures)
+		_expect(not source.contains("func _draw_cloud_wisp") and not source.contains("surface.draw_circle(Vector2(320, craft_y"), "title atmosphere should not regress to polygon wisps or a circular engine flare", failures)
 	if failures.is_empty():
 		print("HYPERSONIC startup sequence self-test passed.")
 		quit(0)
