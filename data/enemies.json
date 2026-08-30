@@ -30,7 +30,7 @@
     {"id":"orbital_sentry","class":"air","hp":21,"speed":58,"value":2600,"pattern":"tracking_sweep","weapon":"cannon","faction":"autonomous","emp_resistance":0.55},
     {"id":"phase_interceptor","class":"air","hp":18,"speed":198,"value":3300,"pattern":"aggressive_weave","weapon":"twin_burst","faction":"autonomous","emp_resistance":0.62,"hypersonic_capable":true},
     {"id":"beam_sentry","class":"air","hp":27,"speed":48,"value":3800,"pattern":"hover_strafe","weapon":"cannon","faction":"autonomous","emp_resistance":0.68},
-    {"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"missile","faction":"autonomous","emp_resistance":0.72},
+    {"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"cannon","faction":"autonomous","emp_resistance":0.72},
 
     {"id":"gunship_alpha","class":"boss","hp":55,"speed":38,"value":5000,"pattern":"boss_sweep","weapon":"twin_burst","boss":true,"phases":3,"weak_point_phase":3},
     {"id":"armoured_train","class":"boss","hp":78,"speed":22,"value":6500,"pattern":"boss_column","weapon":"cannon","boss":true,"phases":3,"weak_point_phase":3},

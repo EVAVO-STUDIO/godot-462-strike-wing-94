@@ -137,6 +137,20 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.machine_weapon_door_frame_index(0.1, 0.0) == 2 and CombatArtDirector.machine_weapon_door_frame_index(1.0, 0.8) == 3, "machine weapon doors should expose ready and authored firing poses")
 	_expect(source.contains('MACHINE_AIR_SPECIALIST_ART') and source.contains('pulse_cycle := [0, 1, 2, 1]'), "machine airframes should share restrained perceptual core animation")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_specialist/machine_air_specialist_asset_manifest.json"), "machine-air specialist source/runtime manifest should exist")
+	var orbital_specialist_sizes := {
+		"sentry_turret":Vector2(40,38), "phase_nodes_0":Vector2(34,34), "phase_nodes_1":Vector2(34,34), "phase_nodes_2":Vector2(34,34),
+		"beam_aperture_closed":Vector2(42,40), "beam_aperture_opening":Vector2(42,40), "beam_aperture_open":Vector2(42,40), "beam_aperture_fire":Vector2(42,40),
+		"rail_charge_0":Vector2(48,58), "rail_charge_1":Vector2(48,58), "rail_charge_2":Vector2(48,58), "rail_charge_fire":Vector2(48,58),
+	}
+	for orbital_specialist_id in orbital_specialist_sizes:
+		var orbital_specialist_texture := load("res://assets/runtime/enemies/orbital_air_specialist/%s.png" % orbital_specialist_id)
+		_expect(orbital_specialist_texture is Texture2D and orbital_specialist_texture.get_size() == orbital_specialist_sizes[orbital_specialist_id], "orbital-air specialist component should retain registered canvas: %s" % orbital_specialist_id)
+	_expect(CombatArtDirector.orbital_weapon_frame_index(1.0, 0.0) == 0 and CombatArtDirector.orbital_weapon_frame_index(0.5, 0.0) == 1, "orbital apertures should hold safe then visibly prepare before firing")
+	_expect(CombatArtDirector.orbital_weapon_frame_index(0.1, 0.0) == 2 and CombatArtDirector.orbital_weapon_frame_index(1.0, 0.8) == 3, "orbital apertures should expose charged and discharge poses")
+	_expect(source.contains('ORBITAL_AIR_SPECIALIST_ART') and source.contains('enemy_id == "orbital_sentry"') and source.contains('enemy_id == "phase_interceptor"'), "BLACK SKY airframes should receive specialist mechanical animation")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_specialist/orbital_air_specialist_asset_manifest.json"), "orbital-air specialist source/runtime manifest should exist")
+	var enemy_file := FileAccess.open("res://data/enemies.json", FileAccess.READ)
+	_expect(enemy_file != null and enemy_file.get_as_text().contains('{"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"cannon"'), "orbital lancer gameplay should fire through its authored ballistic rail rather than a mismatched homing missile")
 	var ground_sizes := {
 		"light_tank": Vector2(30,24),
 		"sam_truck": Vector2(34,26),
