@@ -451,6 +451,7 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("ORBITAL_BOSS_WRECK_HULLS") and source.contains("ORBITAL_BOSS_DESTRUCTION_SECONDS") and source.contains("func _draw_orbital_boss_breakup"),"BLACK SKY bosses should receive an extended vacuum-breakup window with retained authored hull material")
 	_expect(source.contains('enemy_id=="phase_control_array"') and source.contains('enemy_id=="machine_ark"') and source.contains("section_count"),"phase array should separate by projector quadrant while other orbital infrastructure breaks along authored longitudinal sections")
 	_expect(source.contains("GROUND_EMPLACEMENT_BREAKUP_FRAMES") and source.contains("func _draw_ground_emplacement_breakup"),"layered human emplacements should retain authored weapon/ring breakup silhouettes after the primary blast")
+	_expect(source.contains("GROUND_MECH_WRECK_HULLS") and source.contains("func _draw_ground_mech_breakup") and source.contains("torso_height") and source.contains("leg_center"),"ground mechs should retain authored torso and actuator clusters through a staged destruction sequence")
 	for emplacement in ["fort","flak"]:
 		for frame_index in range(3):
 			var breakup_frame := load("res://assets/runtime/effects/ground_breakup/%s_breakup_%d.png" % [emplacement,frame_index])

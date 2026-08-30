@@ -56,6 +56,10 @@ const GROUND_EMPLACEMENT_BREAKUP_FRAMES := {
 		preload("res://assets/runtime/effects/ground_breakup/flak_breakup_2.png"),
 	],
 }
+const GROUND_MECH_WRECK_HULLS := {
+	"security_patrol_mech": preload("res://assets/runtime/enemies/ground_mechs/security_patrol_mech_idle.png"),
+	"autonomous_salvage_mech": preload("res://assets/runtime/enemies/ground_mechs/autonomous_salvage_mech_idle.png"),
+}
 
 var _surface: Control
 var _events: Array = []
@@ -119,7 +123,9 @@ func _observe_combat() -> void:
 				duration=ORBITAL_BOSS_DESTRUCTION_SECONDS
 			if kind != "boss_explosion" and str(previous.get("category", "air")) == "sea":
 				duration = NAVAL_SINK_SECONDS
-			var size := 28.0 if kind == "boss_explosion" else 15.0
+			if GROUND_MECH_WRECK_HULLS.has(str(previous.get("id", ""))):
+				duration = 1.10
+			var size := 28.0 if kind == "boss_explosion" else (19.0 if GROUND_MECH_WRECK_HULLS.has(str(previous.get("id", ""))) else 15.0)
 			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration, {
 				"enemy_id": str(previous.get("id", "enemy")),
 				"category": str(previous.get("category", "air")),
@@ -270,6 +276,9 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 	if GROUND_EMPLACEMENT_BREAKUP_FRAMES.has(enemy_id):
 		_draw_ground_emplacement_breakup(surface,p,late_ratio,enemy_id,serial)
 		return
+	if GROUND_MECH_WRECK_HULLS.has(enemy_id):
+		_draw_ground_mech_breakup(surface,p,late_ratio,enemy_id,serial,faction)
+		return
 	if enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]:
 		var dust := ImpactArtLibrary.frame_for_ratio("dust_impact", late_ratio)
 		var dust_size := Vector2.ONE * lerpf(22.0, 38.0, late_ratio)
@@ -304,6 +313,42 @@ func _draw_ground_emplacement_breakup(surface: CanvasItem, p: Vector2, ratio: fl
 	if ratio>0.28:
 		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(phase+1,4)]
 		surface.draw_texture_rect(smoke,Rect2((p+Vector2(-4,-9)-Vector2(12,12)).round(),Vector2(24,24)),false,Color(0.57,0.58,0.54,0.62*(1.0-ratio)))
+
+func _draw_ground_mech_breakup(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int, faction: String) -> void:
+	var hull: Texture2D = GROUND_MECH_WRECK_HULLS[enemy_id]
+	var width := float(hull.get_width())
+	var height := float(hull.get_height())
+	var torso_height := floorf(height * 0.62)
+	var lower_height := height - torso_height
+	var half_width := floorf(width * 0.5)
+	var direction := -1.0 if posmod(serial, 2) == 0 else 1.0
+	var fade := 1.0 - smoothstep(0.78, 1.0, ratio)
+	var tint := Color(0.52,0.56,0.55,fade) if faction == "autonomous" else Color(0.58,0.54,0.46,fade)
+
+	# Preserve the authored clusters: the torso falls as one heavy assembly
+	# while each lower actuator separates along a different trajectory.
+	var torso_center := p + Vector2(direction * 7.0 * ratio, -height * 0.19 + 10.0 * ratio * ratio)
+	surface.draw_set_transform(torso_center.round(), direction * 0.34 * ratio, Vector2.ONE)
+	surface.draw_texture_rect_region(hull, Rect2(-width*0.5,-torso_height*0.5,width,torso_height), Rect2(0,0,width,torso_height), tint)
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	for side_index in range(2):
+		var side := -1.0 if side_index == 0 else 1.0
+		var source_x := 0.0 if side_index == 0 else half_width
+		var section_width := half_width if side_index == 0 else width-half_width
+		var leg_center := p + Vector2(side*(width*0.24+9.0*ratio),height*0.18+14.0*ratio*ratio)
+		surface.draw_set_transform(leg_center.round(),side*0.42*ratio,Vector2.ONE)
+		surface.draw_texture_rect_region(hull,Rect2(-section_width*0.5,-lower_height*0.5,section_width,lower_height),Rect2(source_x,torso_height,section_width,lower_height),tint)
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+	_draw_boss_breakup_burst(surface,p+Vector2(direction*4,-5),ratio-0.05,25.0)
+	_draw_boss_breakup_burst(surface,p+Vector2(-direction*7,8),ratio-0.34,20.0)
+	if faction == "autonomous":
+		var disruption := ImpactArtLibrary.frame_for_ratio("emp_disruption",fmod(ratio*1.65,0.999))
+		var field_size := Vector2.ONE*lerpf(28.0,48.0,ratio)
+		surface.draw_texture_rect(disruption,Rect2((p-field_size*0.5).round(),field_size),false,Color(0.56,0.80,0.86,0.62*(1.0-ratio)))
+	elif ratio > 0.22 and ratio < 0.82:
+		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial+int(ratio*7.0),4)]
+		surface.draw_texture_rect(smoke,Rect2((p+Vector2(3,-12)-Vector2(14,14)).round(),Vector2(28,28)),false,Color(0.54,0.52,0.46,0.70*(1.0-ratio)))
 
 func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
 	var hull: Texture2D = NAVAL_WRECK_HULLS[enemy_id]

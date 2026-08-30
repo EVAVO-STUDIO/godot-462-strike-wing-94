@@ -2,7 +2,7 @@
   "asset_family": "ground_mech_gait_animation",
   "status": "runtime_animations_reviewed",
   "registration": "all frames preserve their approved idle canvas and gameplay centre",
-  "animation_method": "four held mechanical poses with one-pixel alternating lower-limb travel and actuator accents",
+  "animation_method": "four held mechanical poses with one-pixel alternating lower-limb travel and actuator accents; destruction preserves authored torso and lower-actuator clusters as separately moving sprite regions",
   "mechs": {
     "security_patrol_mech": {
       "canvas": [38, 42], "fps": 7, "cadence": "slow piloted weight with a brief neutral settle",
