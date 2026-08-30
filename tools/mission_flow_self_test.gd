@@ -258,7 +258,7 @@ func _test_pixel_ui() -> void:
 	_expect(pause_file != null, "pause director should exist")
 	if pause_file != null:
 		var pause_source := pause_file.get_as_text()
-		for token in ["PROCESS_MODE_ALWAYS", "get_tree().paused = true", "resume_game", "restart_sortie", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "CONTROL_ROW", "CONTROL_ICONS", "OPERATIONS_SCREEN", "OPERATIONS_BUTTON"]:
+		for token in ["PROCESS_MODE_ALWAYS", "get_tree().paused = true", "resume_game", "restart_sortie", "return_to_menu", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "COMMAND_LABELS", "COMMAND_ICONS", "WARNING_FRAME", "OPERATIONS_SCREEN", "_draw_options"]:
 			_expect(pause_source.contains(token), "tactical pause presentation missing token: %s" % token)
 		_expect(not pause_source.contains("Label.new()") and not pause_source.contains("Button.new()") and not pause_source.contains("PanelContainer.new()"), "tactical pause must stay inside the authored pixel-console sprite language")
 	var project_file := FileAccess.open("res://project.godot", FileAccess.READ)

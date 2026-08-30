@@ -6,32 +6,27 @@ const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
-const OPERATIONS_BUTTON := preload("res://assets/runtime/ui/menu/operations_button_9slice.png")
-const CONTROL_ROW := preload("res://assets/runtime/ui/menu/mission_intel/row_frame.png")
-const CONTROL_ICONS := [
-	preload("res://assets/runtime/ui/menu/mission_intel/icon_lanes.png"),
-	preload("res://assets/runtime/ui/menu/mission_intel/icon_threat.png"),
-	preload("res://assets/runtime/ui/menu/mission_intel/icon_routes.png"),
-	preload("res://assets/runtime/ui/menu/mission_intel/icon_envelope.png"),
-	preload("res://assets/runtime/ui/menu/mission_intel/icon_allied.png"),
-]
-const CONTROL_LINES := [
-	"MOVE        ARROWS / WASD / LEFT STICK",
-	"WEAPONS     SPACE PRIMARY   X SECONDARY",
-	"GEOMETRY    Q SWEEP   SHIFT AFTERBURNER",
-	"ALTITUDE    PGUP CLIMB   PGDN DIVE",
-	"SUPPORT     C TACTICAL   F CALL   B CYCLE",
-]
-
-const TEXT := Color("d9e0e5")
-const MUTED := Color("7f909b")
-const BLUE := Color("6aa4c8")
-const GOLD := Color("e8ca6a")
-const GREEN := Color("67c3a5")
-const RED := Color("dc6655")
+const FRONT_END_CURSOR := preload("res://assets/runtime/ui/menu/front_end/cursor.png")
+const ROW_IDLE := preload("res://assets/runtime/ui/menu/system_options/row_idle.png")
+const ROW_SELECTED := preload("res://assets/runtime/ui/menu/system_options/row_selected.png")
+const VALUE_TROUGH := preload("res://assets/runtime/ui/menu/system_options/value_trough.png")
+const VALUE_FILL := preload("res://assets/runtime/ui/menu/system_options/value_fill.png")
+const TOGGLE_OFF := preload("res://assets/runtime/ui/menu/system_options/toggle_off.png")
+const TOGGLE_ON := preload("res://assets/runtime/ui/menu/system_options/toggle_on.png")
+const WARNING_FRAME := preload("res://assets/runtime/ui/menu/pause_command/warning_frame.png")
+const COMMAND_ICONS := [
+	preload("res://assets/runtime/ui/menu/pause_command/icon_resume.png"), preload("res://assets/runtime/ui/menu/pause_command/icon_options.png"),
+	preload("res://assets/runtime/ui/menu/pause_command/icon_restart.png"), preload("res://assets/runtime/ui/menu/pause_command/icon_return.png")]
+const WARNING_ICON := preload("res://assets/runtime/ui/menu/pause_command/icon_warning.png")
+const COMMAND_LABELS := ["RESUME FLIGHT", "SYSTEM OPTIONS", "RESTART SORTIE", "RETURN TO MENU"]
+const TEXT := Color("d9e0e5"); const MUTED := Color("7f909b"); const BLUE := Color("6aa4c8")
+const GOLD := Color("e8ca6a"); const GREEN := Color("67c3a5"); const RED := Color("dc6655")
 
 var _paused := false
 var _surface: Control
+var _mode := "menu"
+var _selection := 0
+var _option_selection := 0
 
 func _ready() -> void:
 	layer = 110
@@ -47,30 +42,58 @@ func _ready() -> void:
 	_surface.visible = false
 
 func _process(_delta: float) -> void:
-	if not _paused:
-		return
+	if not _paused: return
 	if not get_tree().paused:
 		_close_overlay()
 		return
-	if Input.is_action_just_pressed("cancel") or Input.is_action_just_pressed("confirm"):
-		resume_game()
-	elif Input.is_action_just_pressed("restart"):
-		restart_sortie()
-	if _surface != null:
-		_surface.queue_redraw()
+	match _mode:
+		"menu": _update_menu()
+		"options": _update_options()
+		_: _update_confirmation()
+	if _surface != null: _surface.queue_redraw()
+
+func _update_menu() -> void:
+	if Input.is_action_just_pressed("cancel"):
+		resume_game(); return
+	if Input.is_action_just_pressed("move_up"): _selection = posmod(_selection - 1, COMMAND_LABELS.size())
+	elif Input.is_action_just_pressed("move_down"): _selection = posmod(_selection + 1, COMMAND_LABELS.size())
+	elif Input.is_action_just_pressed("restart"): _mode = "confirm_restart"
+	elif Input.is_action_just_pressed("confirm"): _activate_menu_item(_selection)
+
+func _update_options() -> void:
+	if Input.is_action_just_pressed("cancel"):
+		_mode = "menu"; return
+	if Input.is_action_just_pressed("move_up"): _option_selection = posmod(_option_selection - 1, 4)
+	elif Input.is_action_just_pressed("move_down"): _option_selection = posmod(_option_selection + 1, 4)
+	var direction := 0
+	if Input.is_action_just_pressed("move_left"): direction = -1
+	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("confirm"): direction = 1
+	if direction != 0:
+		var settings := get_node_or_null("/root/SettingsDirector")
+		if settings != null and settings.has_method("adjust_setting"): settings.call("adjust_setting", _option_selection, direction)
+
+func _update_confirmation() -> void:
+	if Input.is_action_just_pressed("cancel"): _mode = "menu"
+	elif Input.is_action_just_pressed("confirm"):
+		if _mode == "confirm_restart": restart_sortie()
+		else: return_to_menu()
+
+func _activate_menu_item(index: int) -> void:
+	match index:
+		0: resume_game()
+		1: _mode = "options"
+		2: _mode = "confirm_restart"
+		3: _mode = "confirm_return"
 
 func pause_game() -> bool:
 	var scene := get_tree().current_scene
-	if scene == null or not _supports_playing_scene(scene) or int(scene.get("phase")) != 1:
-		return false
+	if scene == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 1: return false
 	var cinematic := get_node_or_null("/root/CampaignCinematicDirector")
-	if cinematic != null and cinematic.has_method("cinematic_active") and bool(cinematic.call("cinematic_active")):
-		return false
-	_paused = true
+	if cinematic != null and cinematic.has_method("cinematic_active") and bool(cinematic.call("cinematic_active")): return false
+	_paused = true; _mode = "menu"; _selection = 0
 	get_tree().paused = true
 	if _surface != null:
-		_surface.visible = true
-		_surface.queue_redraw()
+		_surface.visible = true; _surface.queue_redraw()
 	return true
 
 func resume_game() -> void:
@@ -81,39 +104,76 @@ func restart_sortie() -> void:
 	var scene := get_tree().current_scene
 	get_tree().paused = false
 	_close_overlay()
-	if scene != null and scene.has_method("_start_mission"):
-		scene.call("_start_mission")
+	if scene != null and scene.has_method("_start_mission"): scene.call("_start_mission")
 
-func pause_active() -> bool:
-	return _paused
+func return_to_menu() -> void:
+	var scene := get_tree().current_scene
+	get_tree().paused = false
+	_close_overlay()
+	if scene == null: return
+	if scene.has_method("_clear_combat"): scene.call("_clear_combat")
+	scene.set("phase", 0)
+	if _has_property(scene, "front_end_screen"): scene.set("front_end_screen", "main_menu")
+	if _has_property(scene, "menu_selection"): scene.set("menu_selection", 0)
+
+func pause_active() -> bool: return _paused
 
 func draw_pause(surface: CanvasItem) -> void:
-	if not _paused:
-		return
-	surface.draw_rect(Rect2(0, 0, 640, 360), Color(0.005, 0.01, 0.015, 0.78))
-	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, Rect2(54, 32, 532, 296), 8)
-	surface.draw_texture_rect(VX94_FIGHTER, Rect2(76, 48, 72, 80), false, Color(0.82, 0.90, 0.94, 1.0))
-	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(188, 49, 264, 34), false)
-	PixelFont.draw_centered(surface, "VX-94 FLIGHT CONTROL // TACTICAL HOLD", 344, 92, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "SIMULATION PAUSED", 344, 105, 1, GOLD, 1)
-	for index in range(CONTROL_LINES.size()):
-		var row_y := 124.0 + float(index * 23)
-		surface.draw_texture(CONTROL_ROW, Vector2(80, row_y))
-		surface.draw_texture(CONTROL_ICONS[index], Vector2(86, row_y + 2.0))
-		PixelFont.draw_text(surface, CONTROL_LINES[index], Vector2(112, row_y + 7.0), 1, TEXT if index < 3 else GREEN, 1)
-	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_BUTTON, Rect2(80, 247, 480, 28), 6)
-	PixelFont.draw_text(surface, ">>", Vector2(94, 257), 1, RED, 1)
-	PixelFont.draw_centered(surface, "ENTER / ESC RESUME FLIGHT", 320, 257, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, "R RESTART SORTIE", 320, 290, 1, MUTED, 1)
-	PixelFont.draw_centered(surface, "MISSION TIME AND ENCOUNTER STATE HELD", 320, 307, 1, BLUE, 1)
+	if not _paused: return
+	surface.draw_rect(Rect2(0, 0, 640, 360), Color(0.005, 0.01, 0.015, 0.82))
+	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, Rect2(54, 24, 532, 312), 8)
+	surface.draw_texture_rect(VX94_FIGHTER, Rect2(76, 40, 64, 72), false, Color(0.82, 0.90, 0.94, 1.0))
+	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(190, 41, 260, 34), false)
+	PixelFont.draw_centered(surface, "VX-94 FLIGHT CONTROL // TACTICAL HOLD", 344, 84, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "SIMULATION PAUSED", 344, 98, 1, GOLD, 1)
+	if _mode == "options": _draw_options(surface)
+	elif _mode.begins_with("confirm_"): _draw_confirmation(surface)
+	else: _draw_menu(surface)
+
+func _draw_menu(surface: CanvasItem) -> void:
+	for index in range(COMMAND_LABELS.size()):
+		var position := Vector2(100, 120 + index * 38)
+		surface.draw_texture(ROW_SELECTED if index == _selection else ROW_IDLE, position)
+		if index == _selection: surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
+		surface.draw_texture(COMMAND_ICONS[index], position + Vector2(12, 6))
+		PixelFont.draw_text(surface, COMMAND_LABELS[index], position + Vector2(40, 9), 1, GOLD if index == _selection else TEXT, 1)
+	PixelFont.draw_centered(surface, "ENTER SELECT   ESC RESUME", 320, 290, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "MISSION TIME AND ENCOUNTER STATE HELD", 320, 310, 1, BLUE, 1)
+
+func _draw_options(surface: CanvasItem) -> void:
+	var settings := get_node_or_null("/root/SettingsDirector")
+	for index in range(4):
+		var position := Vector2(100, 120 + index * 38)
+		surface.draw_texture(ROW_SELECTED if index == _option_selection else ROW_IDLE, position)
+		if index == _option_selection: surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
+		var label := str(settings.call("setting_label", index)) if settings != null else "OPTION"
+		var value := str(settings.call("setting_value", index)) if settings != null else "--"
+		var ratio := float(settings.call("setting_ratio", index)) if settings != null else 0.0
+		PixelFont.draw_text(surface, label, position + Vector2(18, 9), 1, GOLD if index == _option_selection else TEXT, 1)
+		if index in [0, 3]: surface.draw_texture(TOGGLE_ON if ratio >= 0.5 else TOGGLE_OFF, position + Vector2(306, 8))
+		else:
+			surface.draw_texture(VALUE_TROUGH, position + Vector2(286, 11))
+			_draw_clipped_fill(surface, VALUE_FILL, position + Vector2(288, 13), ratio)
+		PixelFont.draw_text(surface, value, position + Vector2(382 - PixelFont.text_width(value,1,1), 9), 1, GREEN if ratio >= 0.5 else MUTED, 1)
+	PixelFont.draw_centered(surface, "LEFT / RIGHT ADJUST   ESC COMMANDS", 320, 294, 1, MUTED, 1)
+
+func _draw_confirmation(surface: CanvasItem) -> void:
+	var title := "RESTART CURRENT SORTIE?" if _mode == "confirm_restart" else "ABORT TO MAIN MENU?"
+	surface.draw_texture(WARNING_FRAME, Vector2(120, 142))
+	surface.draw_texture(WARNING_ICON, Vector2(144, 160))
+	PixelFont.draw_centered(surface, title, 320, 157, 2, RED, 1)
+	PixelFont.draw_centered(surface, "CURRENT MISSION PROGRESS WILL BE LOST", 320, 184, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, "ENTER CONFIRM   ESC CANCEL", 320, 202, 1, TEXT, 1)
+
+func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
+	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))
+	if width > 0.0: surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0,0,width,texture.get_height()))
 
 func _close_overlay() -> void:
-	_paused = false
-	if _surface != null:
-		_surface.visible = false
+	_paused = false; _mode = "menu"
+	if _surface != null: _surface.visible = false
 
-func _supports_playing_scene(scene: Object) -> bool:
-	for property in scene.get_property_list():
-		if str(property.get("name", "")) == "phase":
-			return true
+func _has_property(object: Object, property_name: String) -> bool:
+	for property in object.get_property_list():
+		if str(property.get("name", "")) == property_name: return true
 	return false

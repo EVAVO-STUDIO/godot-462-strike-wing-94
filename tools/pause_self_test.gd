@@ -31,6 +31,20 @@ func _run() -> void:
 		pause.call("restart_sortie")
 		_expect(not paused and not bool(pause.call("pause_active")), "restart should leave simulation running")
 		_expect(int(scene.get("phase")) == 1 and is_zero_approx(float(scene.get("mission_time"))), "restart should reset the current sortie to its initial gameplay state")
+		scene.set("mission_time", 33.0)
+		_expect(bool(pause.call("pause_game")), "restarted sortie should remain pausable")
+		pause.call("_activate_menu_item", 2)
+		_expect(str(pause.get("_mode")) == "confirm_restart" and is_equal_approx(float(scene.get("mission_time")), 33.0), "restart command should require confirmation before discarding progress")
+		pause.set("_mode", "menu")
+		pause.call("_activate_menu_item", 3)
+		_expect(str(pause.get("_mode")) == "confirm_return", "return command should require explicit sortie-loss confirmation")
+		pause.call("return_to_menu")
+		_expect(not paused and int(scene.get("phase")) == 0 and str(scene.get("front_end_screen")) == "main_menu", "confirmed return should leave combat at the main menu without mutating campaign selection")
+	var pause_sizes := {"warning_frame":Vector2(400,74),"icon_resume":Vector2(16,16),"icon_options":Vector2(16,16),"icon_restart":Vector2(16,16),"icon_return":Vector2(16,16),"icon_warning":Vector2(16,16)}
+	for asset_name in pause_sizes:
+		var texture := load("res://assets/runtime/ui/menu/pause_command/%s.png" % asset_name)
+		_expect(texture is Texture2D and texture.get_size() == pause_sizes[asset_name], "pause command sprite should retain registered geometry: %s" % asset_name)
+	_expect(FileAccess.file_exists("res://assets/source/ui/menu/pause_command_manifest.json"), "pause command source/runtime manifest should exist")
 	if failures.is_empty():
 		print("HYPERSONIC tactical pause self-test passed.")
 		quit(0)
