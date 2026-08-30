@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const VX94_GAMEPLAY_FORMS := [
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_transform_01.png"),
@@ -430,6 +431,8 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		_draw_hostile_airframe(surface, p, enemy_id, enemy, MERCENARY_AIR_SPRITES[enemy_id])
 	else:
 		_report_missing_art(enemy_id)
+	if not is_boss:
+		_draw_enemy_damage_attachments(surface, p, enemy, category, faction, scale)
 
 static func has_production_art(enemy_id: String) -> bool:
 	return MERCENARY_AIR_SPRITES.has(enemy_id) or MERCENARY_GROUND_SPRITES.has(enemy_id) or MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id) or MERCENARY_SEA_SPRITES.has(enemy_id) or MACHINE_AIR_SPRITES.has(enemy_id) or MACHINE_GROUND_SPRITES.has(enemy_id) or MACHINE_MECH_SPRITES.has(enemy_id) or ORBITAL_AIR_SPRITES.has(enemy_id) or MERCENARY_BOSS_SPRITES.has(enemy_id) or MACHINE_BOSS_SPRITES.has(enemy_id) or ORBITAL_BOSS_SPRITES.has(enemy_id)
@@ -475,6 +478,30 @@ func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy: Dictionary, hull: 
 	var destination := Rect2((wake_center - wake_size * 0.5).round(), wake_size.round())
 	surface.draw_texture_rect(wake, destination, false, Color(0.72, 0.82, 0.86, 0.68))
 	_draw_production_sprite(surface, p, hull, scale)
+
+func _draw_enemy_damage_attachments(surface: CanvasItem, p: Vector2, enemy: Dictionary, category: String, faction: String, scale: float) -> void:
+	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
+	var damage_ratio := 1.0 - clampf(float(enemy.get("hp", max_hp)) / max_hp, 0.0, 1.0)
+	if damage_ratio < 0.35:
+		return
+	var effect_scale := maxf(0.58, scale * 0.72)
+	var base_offset := Vector2(-4.0, -7.0)
+	if category == "sea": base_offset = Vector2(5.0, -6.0)
+	elif category == "ground": base_offset = Vector2(-3.0, 0.0)
+	var phase := int(floor(float(enemy.get("age", 0.0)) * 9.0))
+	var smoke_tint := Color(0.62, 0.68, 0.70, 0.76)
+	if faction == "autonomous": smoke_tint = Color(0.54, 0.66, 0.72, 0.72)
+	_draw_enemy_effect_frame(surface, p + base_offset * effect_scale, "damage_smoke", phase, effect_scale, smoke_tint)
+	if damage_ratio >= 0.62:
+		_draw_enemy_effect_frame(surface, p - base_offset * 0.35, "damage_sparks", phase + 1, effect_scale, Color(1.0, 0.90, 0.66, 0.92))
+	if damage_ratio >= 0.82:
+		_draw_enemy_effect_frame(surface, p + Vector2(3.0, 2.0) * effect_scale, "damage_fire", phase + 2, effect_scale, Color(0.92, 0.76, 0.52, 0.88))
+
+func _draw_enemy_effect_frame(surface: CanvasItem, center: Vector2, family: String, phase: int, scale: float, modulate: Color) -> void:
+	var frames: Array = PersistentEffectArtLibrary.FRAMES[family]
+	var texture: Texture2D = frames[posmod(phase, frames.size())]
+	var size := texture.get_size() * scale
+	surface.draw_texture_rect(texture, Rect2((center - size * 0.5).round(), size.round()), false, modulate)
 
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
 	_draw_production_sprite(surface, p, texture)

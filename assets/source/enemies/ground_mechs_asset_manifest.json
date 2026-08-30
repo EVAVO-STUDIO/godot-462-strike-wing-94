@@ -7,6 +7,6 @@
     {"id":"security_patrol_mech","path":"res://assets/runtime/enemies/ground_mechs/security_patrol_mech_idle.png","size":[38,42],"sha256":"657EFF8BEE9AD628199FD1C801DFDC2FAFD52B7CB034F25B8769295EC59732BA","landmarks":["cockpit cage","offset amber camera","autocannon arm","shield/tool hardpoint"]},
     {"id":"autonomous_salvage_mech","path":"res://assets/runtime/enemies/ground_mechs/autonomous_salvage_mech_idle.png","size":[44,42],"sha256":"8409CBDD748319FCE84BFCB33CCCBBB2693F8FCB99051EAF684FD3FA55978E64","landmarks":["no cockpit","four load-bearing limbs","cutting tool","hydraulic grapple"]}
   ],
-  "runtime_animation":{"walk_gait":"four authored frames per mech at 7-9 fps"},
-  "remaining_animation_gate":["weapon/tool articulation","damage states","destruction breakup"]
+  "runtime_animation":{"walk_gait":"four authored frames per mech at 7-9 fps","damage_states":"shared physical smoke, spark and critical-fire attachments driven by real hull ratio"},
+  "remaining_animation_gate":["weapon/tool articulation","destruction breakup"]
 }

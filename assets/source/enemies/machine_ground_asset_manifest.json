@@ -33,6 +33,6 @@
     {"id":"factory_defence_base","path":"res://assets/runtime/enemies/machine_ground_layered/factory_defence_base.png","size":[34,34],"sha256":"BCDAFF83A7B4315CC7120D3956E54213275056CCA7444304E8A377753A436D1D"},
     {"id":"factory_defence_weapon","path":"res://assets/runtime/enemies/machine_ground_layered/factory_defence_weapon.png","size":[34,38],"sha256":"C6EC8A9D86386B0EAB9CED925E8AC7493A22C14CD3D092D0B366062233BE815A","pivot":[17,19]}
   ],
-  "runtime_animation": ["player-facing turret or aperture tracking", "weapon recoil", "protected core pulse"],
-  "remaining_animation_gate": ["damage overlay", "destruction sequence"]
+  "runtime_animation": ["player-facing turret or aperture tracking", "weapon recoil", "protected core pulse", "physical smoke, spark and critical-fire damage attachments"],
+  "remaining_animation_gate": ["destruction sequence"]
 }

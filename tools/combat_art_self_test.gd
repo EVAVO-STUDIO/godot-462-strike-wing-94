@@ -78,6 +78,9 @@ func _test_visual_language() -> void:
 	_expect(source.contains("func _draw_layered_ground") and source.contains("Vector2.DOWN.angle_to") and source.contains("recoil_timer"), "layered emplacements should track targets and recoil around registered pivots")
 	_expect(source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES"), "autonomous machines should retain their own authored visual families")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
+	_expect(source.contains("func _draw_enemy_damage_attachments") and source.contains("damage_ratio < 0.35") and source.contains("damage_ratio >= 0.62") and source.contains("damage_ratio >= 0.82"), "ordinary enemies should expose progressive smoke, spark and critical-fire states")
+	_expect(source.contains('"damage_smoke"') and source.contains('"damage_sparks"') and source.contains('"damage_fire"'), "enemy damage states should reuse authored persistent raster effects")
+	_expect(not source.contains('enemy["hp"] =') and not source.contains('enemy["max_hp"] ='), "enemy damage art must remain presentation-only")
 	_expect(source.contains("_draw_production_boss") and source.contains("BOSS_PHASE_OVERLAYS"), "boss-scale enemies should retain dedicated production presentation")
 	_expect(source.contains("layer = 12"), "combat art should remain below tactical ordnance/HUD layers")
 	for forbidden in ["Label.new()", "PanelContainer.new()", "ProgressBar.new()"]:
