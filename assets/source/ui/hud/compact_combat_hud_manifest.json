@@ -1,0 +1,13 @@
+{
+  "asset_family": "hypersonic_compact_combat_hud",
+  "style": "late-1990s aerospace avionics, sparse combat-safe hierarchy",
+  "source": [
+    "res://assets/source/ui/hud/compact_combat_fascia.svg",
+    "res://assets/source/ui/hud/compact_notification_frame.svg"
+  ],
+  "runtime": {
+    "fascia": {"path": "res://assets/runtime/ui/hud/compact_combat_fascia.png", "size": [624, 30]},
+    "notification": {"path": "res://assets/runtime/ui/hud/compact_notification_frame.png", "size": [336, 32]}
+  },
+  "hierarchy": "permanent flight instruments occupy 30px; boss, threat, ingress, and objective states are mutually exclusive"
+}

@@ -49,7 +49,8 @@ const REPORT_METRIC_ICONS := {
 	"secret": preload("res://assets/runtime/ui/menu/mission_report/metrics/icon_secret.png"),
 	"repair": preload("res://assets/runtime/ui/menu/mission_report/metrics/icon_repair.png"),
 }
-const HUD_TOP_FRAME := preload("res://assets/runtime/ui/hud/top_frame.png")
+const HUD_TOP_FRAME := preload("res://assets/runtime/ui/hud/compact_combat_fascia.png")
+const HUD_NOTIFICATION_FRAME := preload("res://assets/runtime/ui/hud/compact_notification_frame.png")
 const HUD_METER_TROUGH := preload("res://assets/runtime/ui/hud/meter_trough.png")
 const HUD_HULL_FILL := preload("res://assets/runtime/ui/hud/hull_fill.png")
 const HUD_SHIELD_FILL := preload("res://assets/runtime/ui/hud/shield_fill.png")
@@ -134,7 +135,7 @@ const GOLD := Color("e8ca6a")
 const GREEN := Color("67c3a5")
 const RED := Color("dc6655")
 const BLUE := Color("6aa4c8")
-const INGRESS_SECONDS := 3.2
+const INGRESS_SECONDS := 2.0
 
 var _surface: Control
 var _last_phase := -1
@@ -438,42 +439,40 @@ func _identity_subtitle() -> String:
 	return str(identity.call("title_subtitle")) if identity != null and identity.has_method("title_subtitle") else "VX-94 VARIABLE STRIKE FIGHTER"
 
 func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
-	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 8))
+	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 5))
 	var max_hull := _call_int(scene, "_max_hull", 100)
 	var max_shield := _call_int(scene, "_max_shield", 100)
 	var generator := _call_dictionary(scene, "_active_generator")
 	var energy := float(scene.get("energy")) if _has_property(scene, "energy") else 0.0
-	_draw_primary_meter(surface, Vector2(12, 11), int(scene.get("hull")), max_hull, HUD_HULL_FILL, HUD_HULL_FRAME, HUD_HULL_WARNING_FRAME, 0.30)
-	_draw_primary_meter(surface, Vector2(108, 11), int(scene.get("shield")), maxi(1, max_shield), HUD_SHIELD_FILL, HUD_SHIELD_FRAME, HUD_SHIELD_WARNING_FRAME, 0.24)
-	_draw_primary_meter(surface, Vector2(204, 11), int(round(energy)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, HUD_ENERGY_FRAME, HUD_ENERGY_WARNING_FRAME, 0.18)
-	surface.draw_texture(HUD_ICON_BOMB, Vector2(304, 12))
-	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(318, 15), 1, TEXT, 1)
-	surface.draw_texture(HUD_ICON_WAVE, Vector2(342, 12))
-	PixelFont.draw_text(surface, "%02d" % int(scene.get("wave")), Vector2(356, 15), 1, TEXT, 1)
+	_draw_primary_meter(surface, Vector2(12, 7), int(scene.get("hull")), max_hull, HUD_HULL_FILL, HUD_HULL_FRAME, HUD_HULL_WARNING_FRAME, 0.30)
+	_draw_primary_meter(surface, Vector2(106, 7), int(scene.get("shield")), maxi(1, max_shield), HUD_SHIELD_FILL, HUD_SHIELD_FRAME, HUD_SHIELD_WARNING_FRAME, 0.24)
+	_draw_primary_meter(surface, Vector2(200, 7), int(round(energy)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, HUD_ENERGY_FRAME, HUD_ENERGY_WARNING_FRAME, 0.18)
+	surface.draw_texture(HUD_ICON_BOMB, Vector2(342, 10))
+	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(356, 13), 1, TEXT, 1)
 	var remaining := maxi(0, int(ceil(float(scene.get("mission_duration")) - float(scene.get("mission_time")))))
-	surface.draw_texture(HUD_ICON_TIME, Vector2(388, 12))
-	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(402, 15), 1, TEXT, 1)
-	surface.draw_texture(HUD_ICON_SCORE, Vector2(504, 12))
-	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(520, 15), 1, TEXT, 1)
-	var mission_name := str(scene.get("current_mission_name"))
+	surface.draw_texture(HUD_ICON_TIME, Vector2(390, 10))
+	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(404, 13), 1, TEXT, 1)
+	surface.draw_texture(HUD_ICON_SCORE, Vector2(506, 10))
+	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(522, 13), 1, TEXT, 1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
-	PixelFont.draw_text(surface, _clip(mission_name, 16), Vector2(16, 39), 1, MUTED, 1)
-	_draw_flight_state(surface)
-	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 18), 326, 39, 1, TEXT, 1)
-	PixelFont.draw_text(surface, _clip(_support_name(), 14), Vector2(422, 38), 1, GREEN, 1)
-	PixelFont.draw_text(surface, _clip(_battlefield_support_name(), 16), Vector2(518, 38), 1, BLUE, 1)
-	_draw_support_links(surface)
-	_draw_boss(surface, scene)
-	_draw_threat(surface, scene)
-	_draw_mission_ingress(surface, scene)
-	_draw_objective_tracker(surface, scene)
+	PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _short_form()], Vector2(298, 13), 1, BLUE, 1)
+	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 12), Vector2(448, 13), 1, MUTED, 1)
+	# One shared information lane: urgent combat state always replaces routine mission data.
+	if not _active_boss(scene).is_empty():
+		_draw_boss(surface, scene)
+	elif _has_threat_warning(scene):
+		_draw_threat(surface, scene)
+	elif _ingress_time > 0.0:
+		_draw_mission_ingress(surface, scene)
+	else:
+		_draw_objective_tracker(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
 		var status := str(scene.get("status_text"))
 		if status.begins_with("SECRET - "):
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
 		else:
-			surface.draw_texture(HUD_STATUS_FRAME, Vector2(116, 330))
-			PixelFont.draw_centered(surface, _clip(status, 70), 320, 336, 1, GOLD, 1)
+			surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
+			PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
 
 func _draw_secret_discovery(surface: CanvasItem, status: String, remaining: float) -> void:
 	var position := Vector2(120, 108)
@@ -491,17 +490,17 @@ func _draw_mission_ingress(surface: CanvasItem, scene: Object) -> void:
 		return
 	var age := INGRESS_SECONDS - _ingress_time
 	var frame_step := clampi(int(floor(age / 0.045)), 0, 4)
-	var y := 116.0 - float(4 - frame_step) * 2.0
+	var y := 42.0 - float(4 - frame_step) * 2.0
 	var alpha := clampf(age / 0.16, 0.0, 1.0) * clampf(_ingress_time / 0.28, 0.0, 1.0)
 	var tint := Color(1, 1, 1, alpha)
-	surface.draw_texture(MISSION_INGRESS_FRAME, Vector2(116, y), tint)
-	PixelFont.draw_text(surface, "MISSION DATA // INGRESS", Vector2(128, y + 7), 1, Color(GOLD, alpha), 1)
-	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(448, y + 7), 1, Color(BLUE, alpha), 1)
-	PixelFont.draw_centered(surface, _clip(str(scene.get("current_mission_name")), 34), 320, y + 18, 2, Color(TEXT, alpha), 1)
+	surface.draw_texture(HUD_NOTIFICATION_FRAME, Vector2(152, y), tint)
+	PixelFont.draw_text(surface, "INGRESS", Vector2(164, y + 6), 1, Color(GOLD, alpha), 1)
+	PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _short_form()], Vector2(420, y + 6), 1, Color(BLUE, alpha), 1)
+	PixelFont.draw_centered(surface, _clip(str(scene.get("current_mission_name")), 30), 320, y + 6, 1, Color(TEXT, alpha), 1)
 	var objective := _primary_objective(scene)
 	var required := bool(objective.get("required", true))
-	surface.draw_texture(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, Vector2(128, y + 31), tint)
-	PixelFont.draw_text(surface, _objective_line(scene, objective), Vector2(144, y + 34), 1, Color(GREEN if required else GOLD, alpha), 1)
+	surface.draw_texture(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, Vector2(164, y + 18), tint)
+	PixelFont.draw_text(surface, _clip(_objective_line(scene, objective), 48), Vector2(180, y + 21), 1, Color(GREEN if required else GOLD, alpha), 1)
 
 func _primary_objective(scene: Object) -> Dictionary:
 	if not _has_property(scene, "current_objectives"):
@@ -551,7 +550,7 @@ func _draw_objective_tracker(surface: CanvasItem, scene: Object) -> void:
 	if objective.is_empty():
 		return
 	var required := bool(objective.get("required", true))
-	var position := Vector2(140, 64)
+	var position := Vector2(140, 42)
 	surface.draw_texture(OBJECTIVE_TRACKER_FRAME, position)
 	surface.draw_texture(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, position + Vector2(10, 7))
 	PixelFont.draw_text(surface, _objective_line(scene, objective), position + Vector2(28, 8), 1, GREEN if required else GOLD, 1)
@@ -593,11 +592,11 @@ func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	var phase := int(boss.get("boss_phase", BossRules.phase_for(hp, max_hp)))
 	var cue := " WEAK" if phase >= 3 else ""
 	var phase_index := clampi(phase - 1, 0, HUD_BOSS_PHASE_FRAMES.size() - 1)
-	surface.draw_texture(HUD_BOSS_PHASE_FRAMES[phase_index], Vector2(126, 64))
-	PixelFont.draw_centered(surface, "%s  P%d%s  %d/%d" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, cue, hp, max_hp], 320, 69, 1, TEXT, 1)
+	surface.draw_texture(HUD_BOSS_PHASE_FRAMES[phase_index], Vector2(126, 42))
+	PixelFont.draw_centered(surface, "%s  P%d%s  %d/%d" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, cue, hp, max_hp], 320, 47, 1, TEXT, 1)
 	var ratio := clampf(float(hp) / float(max_hp), 0.0, 1.0)
-	surface.draw_texture(HUD_BOSS_TROUGH, Vector2(143, 80))
-	_draw_clipped_fill(surface, HUD_BOSS_PHASE_FILLS[phase_index], Vector2(144, 81), ratio)
+	surface.draw_texture(HUD_BOSS_TROUGH, Vector2(143, 58))
+	_draw_clipped_fill(surface, HUD_BOSS_PHASE_FILLS[phase_index], Vector2(144, 59), ratio)
 
 func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var bullets: Array = scene.get("enemy_bullets")
@@ -607,7 +606,7 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var text := ThreatWarningRules.warning_text(distance, count)
 	if text == "": return
 	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2)
-	var position := Vector2(180, 96)
+	var position := Vector2(180, 42)
 	surface.draw_texture(HUD_THREAT_FRAMES[level], position)
 	surface.draw_texture(HUD_THREAT_MISSILE_ICON, position + Vector2(7, 5), RED if level >= 2 else (GOLD if level == 1 else BLUE))
 	PixelFont.draw_centered(surface, text, 326, 102, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)

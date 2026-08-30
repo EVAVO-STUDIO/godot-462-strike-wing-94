@@ -146,7 +146,7 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains('_identity_text("version"') and source.contains('_identity_text("developer"'), "front-end version and studio credit should remain centralized through ProductIdentity")
 		for front_end_asset in ["frame.png", "button_idle.png", "button_selected.png", "cursor.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/front_end/%s" % front_end_asset), "front-end menu sprite should exist: %s" % front_end_asset)
-		_expect(source.contains("_draw_support_links(surface)"), "combat HUD should expose tactical and battlefield support readiness")
+		_expect(source.contains("func _draw_support_links"), "support readiness instrumentation should remain available without permanently crowding the combat field")
 		for support_link_asset in ["trough.png", "tactical_fill.png", "battlefield_fill.png", "ready.png", "charging.png", "unavailable.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/hud/support_link/%s" % support_link_asset), "support readiness sprite should exist: %s" % support_link_asset)
 		_expect(source.contains("MERCENARY WAR") and source.contains("MACHINE WAR") and source.contains("BLACK SKY"), "sortie console should preserve the three canonical campaign sectors")
@@ -223,8 +223,11 @@ func _test_pixel_ui() -> void:
 			var boss_phase_fill := load("res://assets/runtime/ui/hud/boss_phase_bar/%s_fill.png" % boss_phase)
 			_expect(boss_phase_frame is Texture2D and boss_phase_frame.get_size() == Vector2(388,28), "boss phase frame should retain exact HUD geometry: %s" % boss_phase)
 			_expect(boss_phase_fill is Texture2D and boss_phase_fill.get_size() == Vector2(352,5), "boss phase fill should retain exact HUD geometry: %s" % boss_phase)
-		var top_fascia := load("res://assets/runtime/ui/hud/top_frame.png")
-		_expect(top_fascia is Texture2D and top_fascia.get_size() == Vector2(624,50), "top avionics fascia should retain exact combat-safe geometry")
+		var top_fascia := load("res://assets/runtime/ui/hud/compact_combat_fascia.png")
+		_expect(top_fascia is Texture2D and top_fascia.get_size() == Vector2(624,30), "compact avionics fascia should preserve a large clean combat field")
+		var notification_frame := load("res://assets/runtime/ui/hud/compact_notification_frame.png")
+		_expect(notification_frame is Texture2D and notification_frame.get_size() == Vector2(336,32), "shared notification lane should use compact registered geometry")
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/compact_combat_hud_manifest.json"), "compact combat HUD source/runtime manifest should exist")
 		_expect(source.contains("MISSION_INGRESS_FRAME") and source.contains("OBJECTIVE_REQUIRED") and source.contains("OBJECTIVE_BONUS") and source.contains("INGRESS_SECONDS") and source.contains("func _draw_mission_ingress"), "mission launch should use the timed authored ingress-card family")
 		var ingress_sizes := {"frame":Vector2(408,46), "objective_required":Vector2(12,12), "objective_bonus":Vector2(12,12)}
 		for asset_name in ingress_sizes:
