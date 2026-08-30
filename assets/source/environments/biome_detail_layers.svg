@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="4096" shape-rendering="crispEdges">
+  <!-- 0: refinery machinery / practical lights -->
+  <g transform="translate(0 0)" opacity=".72">
+    <g fill="none" stroke="#263b43" stroke-width="2"><path d="M22 84h92v30h76M430 50h112v44h76M88 250h128v34h96M350 370h190v42h72"/><path d="M160 26v60M506 94v86M250 280v96M74 398v72"/></g>
+    <g fill="#a5652f"><rect x="112" y="110" width="4" height="4"/><rect x="542" y="90" width="4" height="4"/><rect x="212" y="280" width="4" height="4"/><rect x="538" y="408" width="4" height="4"/></g>
+    <g fill="#4d6871"><rect x="18" y="80" width="12" height="8"/><rect x="426" y="46" width="12" height="8"/><rect x="84" y="246" width="12" height="8"/><rect x="346" y="366" width="12" height="8"/></g>
+    <g stroke="#7a572f"><path d="M300 132h56M12 328h62M516 226h86"/></g>
+  </g>
+  <!-- 1: desert dust and convoy scars -->
+  <g transform="translate(0 512)" fill="none" stroke-linecap="square">
+    <g stroke="#b8925e" opacity=".28"><path d="M28 80h82M190 142h114M416 92h148M66 294h126M286 360h146M482 260h104"/><path d="M98 214l70-8M370 228l96-10M214 444l116-7"/></g>
+    <g stroke="#7b6042" opacity=".40"><path d="M138 24l12 134M150 24l12 134M426 310l10 142M438 310l10 142"/></g>
+    <g fill="#d1ae72" opacity=".22"><rect x="102" y="78" width="4" height="2"/><rect x="300" y="356" width="5" height="2"/><rect x="550" y="258" width="4" height="2"/></g>
+  </g>
+  <!-- 2: river current and bridge reflections -->
+  <g transform="translate(0 1024)" fill="none" stroke-linecap="square">
+    <g stroke="#91aeb0" opacity=".34"><path d="M254 54h48M330 102h70M276 166h84M316 230h48M246 300h72M342 372h54M280 448h92"/></g>
+    <g stroke="#4f7377" opacity=".42"><path d="M270 56h20M350 104h30M300 168h42M326 232h22M264 302h32M358 374h20M304 450h48"/></g>
+    <g stroke="#bd9a5e" opacity=".28"><path d="M234 194h178M230 196h186M258 410h152"/></g>
+  </g>
+  <!-- 3: mountain snow shear / radar glints -->
+  <g transform="translate(0 1536)" fill="none" stroke-linecap="square">
+    <g stroke="#c5d3d7" opacity=".30"><path d="M20 72l42 5M116 126l58 8M244 62l46 6M354 158l70 9M500 94l62 7M64 322l66 8M218 390l54 6M422 304l78 10M548 438l48 6"/></g>
+    <g stroke="#718b96" opacity=".42"><path d="M180 244h18M189 235v18M468 214h18M477 205v18"/></g>
+    <g fill="#b45e47" opacity=".6"><rect x="187" y="242" width="4" height="4"/><rect x="475" y="212" width="4" height="4"/></g>
+  </g>
+  <!-- 4: harbour water reflections and wakes -->
+  <g transform="translate(0 2048)" fill="none" stroke-linecap="square">
+    <g stroke="#b78b45" opacity=".30"><path d="M74 52v18M76 78v10M210 152v24M212 184v14M492 84v28M494 120v12M350 338v26M352 372v12"/></g>
+    <g stroke="#7d9da6" opacity=".34"><path d="M110 112h54M282 248h76M452 198h62M74 428h88M390 460h72"/></g>
+    <g stroke="#354e58" opacity=".52"><path d="M96 116h84M266 252h108M438 202h90M58 432h120"/></g>
+  </g>
+  <!-- 5: city sodium lights / road traffic lanes -->
+  <g transform="translate(0 2560)">
+    <g fill="#c9954d" opacity=".38"><rect x="62" y="72" width="3" height="3"/><rect x="128" y="210" width="3" height="3"/><rect x="246" y="118" width="3" height="3"/><rect x="372" y="282" width="3" height="3"/><rect x="496" y="166" width="3" height="3"/><rect x="566" y="420" width="3" height="3"/></g>
+    <g fill="#7797a2" opacity=".34"><rect x="88" y="364" width="2" height="2"/><rect x="314" y="42" width="2" height="2"/><rect x="448" y="354" width="2" height="2"/></g>
+    <g fill="none" stroke="#55666b" opacity=".36"><path d="M42 98h104M214 188h136M398 76h172M64 402h154M320 448h194"/></g>
+    <g fill="none" stroke="#d7c074" opacity=".28"><path d="M78 98h14M262 188h18M452 76h16M124 402h18M378 448h16"/></g>
+  </g>
+  <!-- 6: autonomous furnace heat / cold machine indicators -->
+  <g transform="translate(0 3072)">
+    <g fill="#ef5719" opacity=".34"><rect x="48" y="72" width="8" height="4"/><rect x="574" y="146" width="10" height="4"/><rect x="84" y="332" width="12" height="5"/><rect x="536" y="414" width="8" height="4"/></g>
+    <g fill="#54aaba" opacity=".38"><rect x="116" y="154" width="3" height="3"/><rect x="502" y="72" width="3" height="3"/><rect x="214" y="424" width="3" height="3"/><rect x="438" y="306" width="3" height="3"/></g>
+    <g fill="none" stroke="#733824" opacity=".46"><path d="M20 76h84M540 150h78M34 336h112M494 418h120"/></g>
+    <g fill="none" stroke="#274952" opacity=".50"><path d="M114 158h70M432 310h92M198 428h86"/></g>
+  </g>
+  <!-- 7: orbital debris / engineered station traffic -->
+  <g transform="translate(0 3584)">
+    <g fill="#718895" opacity=".58"><rect x="48" y="72" width="4" height="2"/><rect x="140" y="232" width="7" height="2"/><rect x="274" y="116" width="3" height="3"/><rect x="422" y="334" width="6" height="2"/><rect x="552" y="186" width="4" height="2"/></g>
+    <g fill="#bd873e" opacity=".48"><rect x="198" y="398" width="2" height="2"/><rect x="484" y="62" width="2" height="2"/></g>
+    <g fill="none" stroke="#445b67" opacity=".50"><path d="M72 150l20 8M334 238l28 10M500 442l24 8"/></g>
+    <g fill="none" stroke="#7da1ae" opacity=".24"><circle cx="320" cy="270" r="18"/><path d="M294 270h52M320 244v52"/></g>
+  </g>
+</svg>

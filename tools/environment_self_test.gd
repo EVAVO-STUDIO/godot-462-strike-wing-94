@@ -76,7 +76,11 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/industrial_asset_manifest.json"), "industrial source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/water/storm_sea_loop_v1.png"), "open-water runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/water_asset_manifest.json"), "open-water source manifest should exist")
-		for layer_path in ["sea_deep_tile.png", "sea_surface_tile.png", "coast_surface_tile.png", "cloud_shadow_tile.png", "cloud_mist_tile.png"]:
+		for layer_path in [
+			"sea_deep_tile.png", "sea_surface_tile.png", "coast_surface_tile.png", "cloud_shadow_tile.png", "cloud_mist_tile.png",
+			"refinery_detail_tile.png", "desert_dust_tile.png", "river_current_tile.png", "mountain_weather_tile.png",
+			"harbor_reflection_tile.png", "city_light_tile.png", "furnace_activity_tile.png", "orbital_debris_tile.png"
+		]:
 			var layer_texture := load("res://assets/runtime/environments/layers/%s" % layer_path)
 			_expect(layer_texture is Texture2D and layer_texture.get_height() == 512, "seamless environment layer should retain 512px vertical registration: %s" % layer_path)
 			if layer_texture is Texture2D:
@@ -84,6 +88,8 @@ func _initialize() -> void:
 				for sample_x in range(0,layer_image.get_width(),32):
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_TILE") and source.contains("SEA_SURFACE_TILE") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored sea and cloud depth layers")
+		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_TILE", "RIVER_CURRENT_TILE", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
+			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(FileAccess.file_exists("res://assets/source/environments/layered_scroll_asset_manifest.json"), "layered scrolling environment manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/desert/desert_front_loop_v1.png"), "desert runtime master should exist")
