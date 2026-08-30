@@ -136,6 +136,13 @@ func _initialize() -> void:
 		var transition_source := transition_file.get_as_text()
 		_expect(transition_source.contains("TRANSITION_CLOUDS"), "altitude sweep should use authored cloud sprites")
 		_expect(not transition_source.contains("draw_circle"), "altitude sweep should not regress to circular cloud placeholders")
+		_expect(transition_source.contains("LANE_PANEL") and transition_source.contains("CLOUD_SHADOW") and transition_source.contains("CLIMB_LEFT") and transition_source.contains("DIVE_RIGHT"), "altitude transitions should use authored HUD, cloud-shadow and motion sprites")
+		_expect(not transition_source.contains("draw_rect") and not transition_source.contains("draw_line"), "altitude transition presentation should not regress to vector boxes or speed lines")
+	var transition_sizes := {"lane_panel":Vector2(32,32),"cloud_shadow":Vector2(96,8),"climb_left":Vector2(32,216),"climb_right":Vector2(32,216),"dive_left":Vector2(32,216),"dive_right":Vector2(32,216)}
+	for transition_asset in transition_sizes:
+		var transition_texture := load("res://assets/runtime/ui/hud/altitude_transition/%s.png" % transition_asset)
+		_expect(transition_texture is Texture2D and transition_texture.get_size() == transition_sizes[transition_asset], "altitude transition asset should retain registered geometry: %s" % transition_asset)
+	_expect(FileAccess.file_exists("res://assets/source/ui/hud/altitude_transition_manifest.json"), "altitude transition source/runtime manifest should exist")
 	if failures.is_empty():
 		print("Strike Wing environment self-test passed.")
 		quit(0)

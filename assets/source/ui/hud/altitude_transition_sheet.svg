@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" shape-rendering="crispEdges">
+ <rect width="256" height="256" fill="none"/>
+ <!-- 32x32 altitude-lane nine-slice -->
+ <path d="M3 0h26l3 3v26l-3 3H3l-3-3V3z" fill="#071016" fill-opacity=".9" stroke="#2f5361" stroke-width="2"/>
+ <path d="M4 3h24l1 1v24l-1 1H4l-1-1V4z" fill="none" stroke="#668794"/>
+ <path d="M0 8h3M29 8h3M8 0v3M24 29v3" stroke="#b3d4d9"/>
+ <rect x="4" y="5" width="3" height="3" fill="#d1a956"/>
+ <!-- 96x8 cloud parallax shadow -->
+ <path d="M32 3h18l8-2h34l9 2h27v2h-25l-12 2H58L47 5H32z" fill="#41616c" opacity=".5"/>
+ <path d="M44 4h72v1H44z" fill="#aac2c6" opacity=".7"/>
+ <!-- climb-left 32x216 at 0,32 -->
+ <g transform="translate(0 32)" fill="none"><path d="M8 10l13 17M8 54l13 17M8 98l13 17M8 142l13 17M8 186l13 17" stroke="#376575" stroke-width="5" opacity=".45"/><path d="M8 10l13 17M8 54l13 17M8 98l13 17M8 142l13 17M8 186l13 17" stroke="#78bcc8" stroke-width="2"/><path d="M9 10l4 5M9 54l4 5M9 98l4 5M9 142l4 5M9 186l4 5" stroke="#d4f0ef" stroke-width="2"/></g>
+ <!-- climb-right -->
+ <g transform="translate(32 32)" fill="none"><path d="M11 10l13 17M11 54l13 17M11 98l13 17M11 142l13 17M11 186l13 17" stroke="#376575" stroke-width="5" opacity=".45"/><path d="M11 10l13 17M11 54l13 17M11 98l13 17M11 142l13 17M11 186l13 17" stroke="#78bcc8" stroke-width="2"/><path d="M12 10l4 5M12 54l4 5M12 98l4 5M12 142l4 5M12 186l4 5" stroke="#d4f0ef" stroke-width="2"/></g>
+ <!-- dive-left -->
+ <g transform="translate(64 32)" fill="none"><path d="M21 10L8 27m13 27L8 71m13 27l-13 17m13 27l-13 17m13 27l-13 17" stroke="#5b4550" stroke-width="5" opacity=".45"/><path d="M21 10L8 27m13 27L8 71m13 27l-13 17m13 27l-13 17m13 27l-13 17" stroke="#9a7f87" stroke-width="2"/><path d="M20 10l-4 5m4 39l-4 5m4 39l-4 5m4 39l-4 5m4 39l-4 5" stroke="#e0c9c5" stroke-width="2"/></g>
+ <!-- dive-right -->
+ <g transform="translate(96 32)" fill="none"><path d="M24 10L11 27m13 27L11 71m13 27l-13 17m13 27l-13 17m13 27l-13 17" stroke="#5b4550" stroke-width="5" opacity=".45"/><path d="M24 10L11 27m13 27L11 71m13 27l-13 17m13 27l-13 17m13 27l-13 17" stroke="#9a7f87" stroke-width="2"/><path d="M23 10l-4 5m4 39l-4 5m4 39l-4 5m4 39l-4 5m4 39l-4 5" stroke="#e0c9c5" stroke-width="2"/></g>
+</svg>

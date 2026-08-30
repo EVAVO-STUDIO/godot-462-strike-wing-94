@@ -3,6 +3,13 @@ extends CanvasLayer
 const AltitudeTransitionSurface = preload("res://scripts/altitude_transition_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
+const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
+const LANE_PANEL := preload("res://assets/runtime/ui/hud/altitude_transition/lane_panel.png")
+const CLOUD_SHADOW := preload("res://assets/runtime/ui/hud/altitude_transition/cloud_shadow.png")
+const CLIMB_LEFT := preload("res://assets/runtime/ui/hud/altitude_transition/climb_left.png")
+const CLIMB_RIGHT := preload("res://assets/runtime/ui/hud/altitude_transition/climb_right.png")
+const DIVE_LEFT := preload("res://assets/runtime/ui/hud/altitude_transition/dive_left.png")
+const DIVE_RIGHT := preload("res://assets/runtime/ui/hud/altitude_transition/dive_right.png")
 const TRANSITION_CLOUDS := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_b.png"),
@@ -63,14 +70,12 @@ func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
 	var text := "ALTITUDE LANE  %s" % "  ".join(parts)
 	var width := float(text.length() * 4 + 14)
 	var x := roundf(320.0 - width * 0.5)
-	surface.draw_rect(Rect2(x, 329, width, 18), Color(0.03,0.06,0.08,0.72))
-	surface.draw_rect(Rect2(x, 329, width, 18), Color(0.34,0.58,0.68,0.68), false, 1.0)
+	UiSpriteRenderer.draw_nine_slice(surface, LANE_PANEL, Rect2(x, 329, width, 18), 6)
 	PixelFont.draw_text(surface, text, Vector2(x+7,335), 1, Color(0.76,0.88,0.92,0.92))
 
 func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var travel := 160.0 * ratio
 	var sign_dir := -1.0 if direction > 0 else 1.0
-	var edge := Color(0.65,0.78,0.82,0.22)
 	for i in range(7):
 		var base_y := 86.0 + float(i) * 42.0
 		var y := fposmod(base_y + sign_dir * travel, 330.0) + 36.0
@@ -79,18 +84,18 @@ func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> voi
 		var scale := 0.58 + float(i % 3) * 0.10
 		var size := Vector2(texture.get_size()) * scale
 		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.84,0.86,0.18))
-		surface.draw_line(Vector2(x-size.x*0.38,y+size.y*0.32),Vector2(x+size.x*0.44,y+size.y*0.32),edge,1.0)
+		var shadow_width := size.x * 0.82
+		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(x - shadow_width * 0.5, y + size.y * 0.27), Vector2(shadow_width, 8)), false, Color(1,1,1,0.44))
 
 func _draw_speed_brackets(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var alpha := sin(ratio * PI) * 0.55
 	if alpha <= 0.01:
 		return
-	var color := Color(0.42,0.72,0.82,alpha)
-	var skew := 10.0 if direction > 0 else -10.0
-	for x in [92.0,548.0]:
-		for i in range(5):
-			var y := 104.0 + i * 48.0
-			surface.draw_line(Vector2(x,y),Vector2(x+skew,y+12),color,1.0)
+	var left := CLIMB_LEFT if direction > 0 else DIVE_LEFT
+	var right := CLIMB_RIGHT if direction > 0 else DIVE_RIGHT
+	var tint := Color(1,1,1,alpha / 0.55)
+	surface.draw_texture(left, Vector2(76, 94), tint)
+	surface.draw_texture(right, Vector2(532, 94), tint)
 
 func _code(band: String) -> String:
 	match AltitudeRules.sanitize(band):
