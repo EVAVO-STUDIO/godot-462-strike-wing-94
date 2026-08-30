@@ -152,6 +152,14 @@ func _initialize() -> void:
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
 		_expect(project.get_as_text().contains('EnvironmentDirector="*res://scripts/environment_director.gd"'), "environment director should remain autoloaded")
+	var gameplay_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(gameplay_file != null, "main gameplay renderer should be readable for environment fallback checks")
+	if gameplay_file != null:
+		var gameplay_source := gameplay_file.get_as_text()
+		var gameplay_start := gameplay_source.find("func _draw_gameplay")
+		var gameplay_environment_section := gameplay_source.substr(gameplay_start, gameplay_source.length() - gameplay_start)
+		_expect(gameplay_environment_section.contains("NEUTRAL_DEPTH_TILE") and gameplay_environment_section.contains("draw_texture_rect_region"), "gameplay fallback should use the authored seamless neutral depth plate")
+		_expect(not gameplay_environment_section.contains("draw_line"), "gameplay fallback must not regress to a scrolling programmer grid")
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)
 	_expect(transition_file != null, "altitude transition renderer should be readable")
 	if transition_file != null:

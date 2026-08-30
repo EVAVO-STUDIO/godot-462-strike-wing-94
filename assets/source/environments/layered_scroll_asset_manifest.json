@@ -25,6 +25,7 @@
   },
   "verified_edge_absolute_error": 0,
   "scroll_contract": {
+	"neutral_fallback": ["sea_deep_tile beneath the mission biome stack; two-piece vertical wrap; no exposed programmer grid"],
     "open_sea": ["deep", "surface", "rain"],
     "coast": ["authored terrain", "water surface", "cloud shadow", "cloud body", "mist"],
     "weather": ["cloud shadow", "discrete cloud banks", "mist"],

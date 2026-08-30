@@ -15,6 +15,7 @@ const BombRules = preload("res://scripts/bomb_rules.gd")
 const ServiceRules = preload("res://scripts/service_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
+const NEUTRAL_DEPTH_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
 
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
@@ -973,18 +974,29 @@ func _draw() -> void:
 		_draw_gameplay()
 
 func _draw_gameplay() -> void:
-	draw_rect(PLAYFIELD, Color("121c23"))
-	for i in range(18):
-		var y := fposmod(float(i * 28) + mission_time * 48.0, 420.0) - 30.0
-		draw_line(
-			Vector2(PLAYFIELD.position.x, y),
-			Vector2(PLAYFIELD.end.x, y),
-			Color("1c2a34"),
-			1
-		)
+	_draw_neutral_depth_fallback()
 	# CombatArtDirector and ProjectileCueDirector are the sole production
 	# presentation owners for craft, enemies and projectiles. Simulation and
 	# collision stay here, but duplicate prototype geometry must not bleed
 	# through altitude-scaled silhouettes or weapon-specific cues.
 	# Pickup simulation stays here; CombatArtDirector owns the authored
 	# recovery-pod sprites and their held-frame acquisition pulse.
+
+func _draw_neutral_depth_fallback() -> void:
+	# EnvironmentDirector normally covers this layer with the mission's authored
+	# biome stack. Keep a seamless, production-authored depth plate underneath so
+	# scene startup and altitude/profile transitions can never expose a debug grid.
+	var source_y := fposmod(mission_time * 12.0, float(NEUTRAL_DEPTH_TILE.get_height()))
+	var first_height := minf(PLAYFIELD.size.y, float(NEUTRAL_DEPTH_TILE.get_height()) - source_y)
+	draw_texture_rect_region(
+		NEUTRAL_DEPTH_TILE,
+		Rect2(PLAYFIELD.position, Vector2(PLAYFIELD.size.x, first_height)),
+		Rect2(Vector2(PLAYFIELD.position.x, source_y), Vector2(PLAYFIELD.size.x, first_height))
+	)
+	var remaining_height := PLAYFIELD.size.y - first_height
+	if remaining_height > 0.0:
+		draw_texture_rect_region(
+			NEUTRAL_DEPTH_TILE,
+			Rect2(Vector2(PLAYFIELD.position.x, PLAYFIELD.position.y + first_height), Vector2(PLAYFIELD.size.x, remaining_height)),
+			Rect2(Vector2(PLAYFIELD.position.x, 0.0), Vector2(PLAYFIELD.size.x, remaining_height))
+		)
