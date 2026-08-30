@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "asset_family": "hypersonic_title",
-  "status": "runtime_candidate_v1",
+  "status": "runtime_master_v1_approved",
   "source": {
     "path": "assets/source/title/candidates/hypersonic_wordmark_candidate_03.png",
     "sha256": "c16bc05eaa56a282813d0b1b29637e2727ec13357ecbf70e10a47e438e9cf155",
@@ -15,13 +15,23 @@
       "Lanczos reduction to 512x171",
       "24-colour no-dither palette reduction",
       "transparent-bound trim"
-    ]
+    ],
+    "acceptance": {
+      "visual_review": "approved in live 640x360 title-sequence capture",
+      "geometry": "500x64 exact",
+      "palette_colors": 23,
+      "alpha": "true 8-bit alpha; transparent exterior preserved",
+      "small_scale_readability": "approved at the canonical 500x64 display rectangle",
+      "style": "wide aerospace construction, painted-metal value steps, technical speed cuts, restrained red-orange warnings",
+      "rejected_traits": ["esports crest", "giant chrome bevel", "neon cyberpunk", "generic grunge", "generated subtitle text"]
+    }
   },
   "runtime_contract": {
     "logical_resolution": [640, 360],
     "display_rect": [70, 42, 500, 64],
     "texture_filter": "nearest",
-    "subtitle_source": "ProductIdentity.title_subtitle rendered with PixelFont"
+    "subtitle_source": "ProductIdentity.title_subtitle rendered with PixelFont",
+    "sequence_hierarchy": "wordmark -> VX-94 VARIABLE STRIKE FIGHTER -> PRESS FIRE / PRESS START"
   },
   "rejections": [
     "candidate_01: modern chrome/esports treatment",

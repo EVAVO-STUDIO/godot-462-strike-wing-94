@@ -12,6 +12,15 @@ func _initialize() -> void:
 	_expect(splash is Texture2D and splash.get_size() == Vector2(640,360), "approved EVAVO plate should retain canonical 640x360 geometry", failures)
 	var wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 	_expect(wordmark is Texture2D and wordmark.get_size() == Vector2(500,64), "HYPERSONIC wordmark should retain reviewed runtime geometry", failures)
+	var manifest_file := FileAccess.open("res://assets/source/title/title_asset_manifest.json", FileAccess.READ)
+	_expect(manifest_file != null, "HYPERSONIC title-art manifest should remain readable", failures)
+	if manifest_file != null:
+		var manifest = JSON.parse_string(manifest_file.get_as_text())
+		_expect(typeof(manifest) == TYPE_DICTIONARY and str(manifest.get("status", "")) == "runtime_master_v1_approved", "HYPERSONIC wordmark should remain an approved production master", failures)
+		if typeof(manifest) == TYPE_DICTIONARY:
+			var master: Dictionary = manifest.get("master", {})
+			var acceptance: Dictionary = master.get("acceptance", {})
+			_expect(int(acceptance.get("palette_colors", 0)) <= 24, "title master should retain its restrained late-90s palette", failures)
 	for frame_path in ["vx94_fighter_v1.png", "vx94_transform_01.png", "vx94_transform_02.png", "vx94_transform_03.png", "vx94_bomber_v1.png"]:
 		var craft := load("res://assets/runtime/craft/vx94/%s" % frame_path)
 		_expect(craft is Texture2D and craft.get_size() == Vector2(64,72), "VX-94 transform frame %s should retain reviewed 64x72 geometry" % frame_path, failures)
@@ -21,6 +30,9 @@ func _initialize() -> void:
 		var source := source_file.get_as_text()
 		for token in ["EVAVO_SPLASH", "EVAVO_SPARKLE_FRAMES", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "VX94_BOMBER", "VX94_TRANSFORM_FRAMES", "BLACK_PAUSE", "PRESS FIRE / PRESS START", "_draw_vx94_forms"]:
 			_expect(source.contains(token), "startup sequence missing production cue: %s" % token, failures)
+		_expect(source.contains("Rect2(70, 42, 500, 64)"), "approved wordmark should retain its canonical title-screen placement", failures)
+		_expect(source.contains('identity.call("title_subtitle")'), "title subtitle should remain centralized through ProductIdentity", failures)
+		_expect(source.contains("PixelFont.draw_centered(surface, subtitle"), "VX-94 subtitle should remain visually subordinate to the raster wordmark", failures)
 	if failures.is_empty():
 		print("HYPERSONIC startup sequence self-test passed.")
 		quit(0)
