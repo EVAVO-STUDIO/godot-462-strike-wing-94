@@ -6,6 +6,18 @@ const MissionIntelSurface = preload("res://scripts/mission_intel_surface.gd")
 const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
 const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
 const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
+const INTEL_ROW_FRAME := preload("res://assets/runtime/ui/menu/mission_intel/row_frame.png")
+const INTEL_READY_LAMP := preload("res://assets/runtime/ui/menu/mission_intel/ready_lamp.png")
+const INTEL_ICONS := [
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_threat.png"),
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_envelope.png"),
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_profile.png"),
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_lanes.png"),
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_routes.png"),
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_boss.png"),
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_allied.png"),
+	preload("res://assets/runtime/ui/menu/mission_intel/icon_advice.png"),
+]
 
 const BG := Color("070a0e")
 const BORDER := Color("34414b")
@@ -13,6 +25,8 @@ const TEXT := Color("d9e0e5")
 const MUTED := Color("7f909b")
 const BLUE := Color("6aa4c8")
 const GOLD := Color("e8ca6a")
+const GREEN := Color("67c3a5")
+const RED := Color("dc6655")
 
 var _surface: Control
 var _open := false
@@ -52,12 +66,26 @@ func draw_intel(surface: CanvasItem) -> void:
 	var beats: Array = mission.get("encounter_beats", []) if typeof(mission) == TYPE_DICTIONARY else []
 	var lines := MissionIntelRules.mission_lines(context, boss_id, beats)
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, Rect2(54, 68, 532, 254), 8)
-	PixelFont.draw_centered(surface, "MISSION INTELLIGENCE", 320, 82, 2, GOLD, 1)
-	PixelFont.draw_centered(surface, _mission_name(scene), 320, 105, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "MISSION INTELLIGENCE", 320, 79, 2, GOLD, 1)
+	PixelFont.draw_centered(surface, _mission_name(scene), 320, 101, 1, TEXT, 1)
 	for i in range(lines.size()):
-		var color := BLUE if i in [0,1,2,3,4] else TEXT
-		PixelFont.draw_text(surface, _clip(lines[i], 74), Vector2(78, 129 + i * 19), 1, color, 1)
-	PixelFont.draw_centered(surface, "I CLOSE   ENTER LAUNCH", 320, 300, 1, MUTED, 1)
+		var row_y := 116.0 + float(i * 21)
+		surface.draw_texture(INTEL_ROW_FRAME, Vector2(80, row_y))
+		if i < INTEL_ICONS.size():
+			surface.draw_texture(INTEL_ICONS[i], Vector2(86, row_y + 2.0))
+		var color := _row_color(i)
+		PixelFont.draw_text(surface, _clip(lines[i], 74), Vector2(110, row_y + 7.0), 1, color, 1)
+	surface.draw_texture(INTEL_READY_LAMP, Vector2(83, 295))
+	PixelFont.draw_text(surface, "DOSSIER COMPLETE", Vector2(102, 299), 1, GREEN, 1)
+	PixelFont.draw_centered(surface, "I CLOSE   ENTER AUTHORIZE LAUNCH", 398, 299, 1, MUTED, 1)
+
+func _row_color(index: int) -> Color:
+	match index:
+		0: return RED
+		5: return RED
+		6: return GREEN
+		7: return GOLD
+	return BLUE
 
 func _mission_context() -> Dictionary:
 	var craft := get_node_or_null("/root/CraftFormDirector")

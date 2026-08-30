@@ -196,6 +196,19 @@ func _test_pixel_ui() -> void:
 	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
 	_expect(intel_file != null and intel_file.get_as_text().contains("layer = 31"), "mission intelligence overlay should render above the layer-30 sortie console")
 	_expect(intel_file != null and intel_file.get_as_text().contains("UiSpriteRenderer.draw_nine_slice"), "mission intelligence overlay should use authored operations-console sprites")
+	if intel_file != null:
+		var intel_source := intel_file.get_as_text()
+		_expect(intel_source.contains("INTEL_ROW_FRAME") and intel_source.contains("INTEL_ICONS") and intel_source.contains("INTEL_READY_LAMP"), "mission intelligence should assemble the authored tactical-dossier sprite family")
+		_expect(intel_source.contains("DOSSIER COMPLETE") and intel_source.contains("_row_color"), "mission intelligence should expose readiness and category hierarchy")
+	var intel_sizes := {
+		"icon_threat":Vector2(16,16), "icon_envelope":Vector2(16,16), "icon_profile":Vector2(16,16), "icon_lanes":Vector2(16,16),
+		"icon_routes":Vector2(16,16), "icon_boss":Vector2(16,16), "icon_allied":Vector2(16,16), "icon_advice":Vector2(16,16),
+		"row_frame":Vector2(480,20), "ready_lamp":Vector2(12,12),
+	}
+	for asset_name in intel_sizes:
+		var intel_texture := load("res://assets/runtime/ui/menu/mission_intel/%s.png" % asset_name)
+		_expect(intel_texture is Texture2D and intel_texture.get_size() == intel_sizes[asset_name], "mission-intelligence sprite should retain registered geometry: %s" % asset_name)
+	_expect(FileAccess.file_exists("res://assets/source/ui/menu/mission_intel_manifest.json"), "mission-intelligence source/runtime manifest should exist")
 	var stores_file := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
 	_expect(stores_file != null and stores_file.get_as_text().contains("layer = 32"), "stores schematic should render above the sortie console and mission intelligence")
 	_expect(stores_file != null and stores_file.get_as_text().contains("UiSpriteRenderer.draw_nine_slice"), "stores schematic should use authored operations-console sprites")
