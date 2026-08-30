@@ -4,6 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
 const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
 const COASTAL_STRIKE_ZONE := preload("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png")
+const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -224,19 +225,19 @@ func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: floa
 		sample_y = 0.0
 
 func _draw_industrial(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var scale := _ground_scale(state)
 	if not _draw_ground_detail(state):
 		return
-	var tone := _tone(profile, "near", 0.25)
-	var edge := _tone(profile, "mid", 0.32)
-	var cell := maxf(18.0, 46.0 * scale)
-	for row in range(7):
-		var y := fposmod(float(row) * 58.0 + t * 30.0, 330.0) + 54.0
-		for col in range(6):
-			var x := 34.0 + col * 102.0 + float((row * 17) % 22)
-			var rect := Rect2(roundf(x), roundf(y), roundf(cell), roundf(cell * 0.45))
-			surface.draw_rect(rect, tone)
-			surface.draw_rect(rect, edge, false, 1.0)
+	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.30, 720.0)
+	_draw_vertical_loop(surface, REFINERY_NIGHT, scroll, Rect2(0, 58, 640, 302))
+	# A sparse alternating hazard-light pass keeps the plant alive without
+	# turning physically engineered infrastructure into neon circuitry.
+	var lamp := Color("d5903b", 0.52)
+	for i in range(8):
+		if int(floor(t * 2.0 + float(i) * 0.7)) % 3 != 0:
+			continue
+		var x := 56.0 + float((i * 173) % 540)
+		var y := fposmod(float(i) * 83.0 + scroll, 318.0) + 58.0
+		surface.draw_rect(Rect2(roundf(x), roundf(y), 2, 2), lamp)
 
 func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var near := _tone(profile, "near", 0.28)

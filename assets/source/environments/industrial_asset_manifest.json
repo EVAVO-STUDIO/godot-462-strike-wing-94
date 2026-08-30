@@ -1,0 +1,23 @@
+{
+  "family": "industrial",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/industrial/refinery_night_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/industrial/refinery_night_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 64,
+  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "art_direction": [
+    "blackout refinery and weapons-industrial district",
+    "physically engineered tanks, pipes, roads, rail and substations",
+    "dark 1999 military-industrial realism",
+    "sparse sodium and hazard practical lights",
+    "central flight corridor with side target zones"
+  ],
+  "reject": [
+    "repeated rectangle programmer art",
+    "neon cyberpunk circuitry",
+    "isometric perspective",
+    "modern clean science fiction",
+    "uncontrolled bright background values"
+  ]
+}
