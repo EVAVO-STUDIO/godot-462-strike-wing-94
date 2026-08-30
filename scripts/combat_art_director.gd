@@ -67,8 +67,8 @@ const MERCENARY_BOSS_SPRITES := {
 	"missile_cruiser": preload("res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png"),
 }
 const MACHINE_BOSS_SPRITES := {
-	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle.png"),
-	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle.png"),
+	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
+	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png"),
 }
 const ORBITAL_BOSS_SPRITES := {
 	"orbital_command_node": preload("res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle.png"),

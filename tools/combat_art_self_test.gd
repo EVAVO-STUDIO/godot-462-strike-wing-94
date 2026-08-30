@@ -146,7 +146,7 @@ func _test_visual_language() -> void:
 		"ai_forge_core": Vector2(112,112),
 	}
 	for enemy_id in machine_boss_sizes:
-		var texture := load("res://assets/runtime/enemies/machine_boss/%s_idle.png" % enemy_id)
+		var texture := load("res://assets/runtime/enemies/machine_boss/%s_idle_v2.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == machine_boss_sizes[enemy_id], "machine boss sprite should retain reviewed geometry: %s" % enemy_id)
 	var orbital_boss_sizes := {
 		"orbital_command_node": Vector2(124,104),

@@ -1,26 +1,16 @@
 {
-  "asset_family": "machine_boss",
-  "status": "provisional_runtime_identity_requires_style_repaint",
-  "review_note": "silhouettes accepted for gameplay readability; surface treatment must be repainted to the HYPERSONIC 1995-1998 authored-pixel art direction before final acceptance",
-  "source": {
-    "path": "res://assets/source/enemies/candidates/machine_boss/machine_boss_identity_sheet_candidate_01.png",
-    "sha256": "63C05C5B8FC6023C4C10173974288BFFEE1F9916079217123723F6CD6B71CB4F",
-    "order": ["swarm_controller", "ai_forge_core"]
-  },
-  "visual_contract": {
-    "era": "Sector II autonomous escalation",
-    "boss_rule": "physically engineered machine silhouettes with exposed functional modules; no alien saucers or decorative neon",
-    "materials": "cold blue-gray structure, pale service armour, graphite machinery, restrained cyan logic cores and amber industrial apertures"
-  },
-  "process": {
-    "orientation": "orthographic top-down, attack front facing down toward player",
-    "alpha_review": "20 percent source-alpha threshold and battlefield-plate review; no matte halo",
-    "downsample": "Lanczos into one-pixel transparent inset",
-    "palette": "one shared 31-colour RGB palette with source alpha restored after remap"
-  },
-  "runtime": [
-    {"id":"swarm_controller","path":"res://assets/runtime/enemies/machine_boss/swarm_controller_idle.png","size":[106,88],"sha256":"C9CF955CECFB010159BAE93C8B16A52CC13852C3D7CFAA9DD424E121EEE66870","center":[53,44],"weak_points":[[53,52],[27,38],[79,38]],"muzzles":[[29,79],[77,79],[53,82]]},
-    {"id":"ai_forge_core","path":"res://assets/runtime/enemies/machine_boss/ai_forge_core_idle.png","size":[112,112],"sha256":"996BE1DDC8490875CA37D62563C0D78639B499281A05CE88D6549EE0B46FBCF5","center":[56,56],"weak_points":[[56,55],[28,30],[84,30]],"muzzles":[[23,98],[89,98]],"fabricators":[[33,68],[79,68]]}
+  "asset_family":"machine_boss",
+  "status":"runtime_identity_v2_approved",
+  "review_note":"v2 replaces mirrored cyan-core concept treatment with asymmetric human-industrial ancestry and role-readable physical subsystems",
+  "sources":[
+    {"id":"swarm_controller","path":"res://assets/source/enemies/candidates/machine_boss/swarm_controller_candidate_02.png","sha256":"D0364B92D393D5F405A75415092A2712E80CF01BC194A07F27785431559969E7"},
+    {"id":"ai_forge_core","path":"res://assets/source/enemies/candidates/machine_boss/ai_forge_core_candidate_02.png","sha256":"1DEDBD82335B14E1FD7A44BA95D1CB977AA141D3DBA68FB1CE99A6D207D28C65"}
   ],
-  "remaining_animation_gate": ["drone release", "fabricator cycling", "phase transitions", "critical core exposure", "multi-stage destruction"]
+  "visual_contract":{"era":"Sector II autonomous escalation","boss_rule":"captured human factories reorganize plausible military and industrial hardware; every major shape explains a function","materials":"cold blue-gray structure, old olive machinery, dirty pale service armour, graphite mechanisms, dull furnace orange and only functional sensor cyan","prohibited":["perfect symmetry","central glowing orb","decorative neon","alien sculpture","uniform greeble field"]},
+  "process":{"orientation":"orthographic top-down, functional front facing down","alpha":"20 percent threshold restored after palette remap","downsample":"Lanczos into one-pixel transparent inset","palette":"one shared 31-colour RGB palette"},
+  "runtime":[
+    {"id":"swarm_controller","path":"res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png","size":[106,88],"sha256":"339B2E44CAF00BF4BDD5300E80E8D8D81DCB2B03DAB8BD74085A1615A3610027","landmarks":["offset radar mast","paired buried lift fans","four drone cradles","unequal maintenance arms","plated crew spaces"],"weak_points":[[31,39],[75,37],[53,63]]},
+    {"id":"ai_forge_core","path":"res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png","size":[112,112],"sha256":"7DD12075BBEE45DEB39D60087C5E5516B295A673FB37F037EF7C1BC5DB2A92AC","landmarks":["three hull blanks on conveyor","off-center press/furnace","tool-change gantry","unequal crawler bogies","cooling scrubbers"],"weak_points":[[25,46],[62,53],[88,42]]}
+  ],
+  "remaining_animation_gate":["drone release","conveyor and press cycling","tool gantry articulation","phase transitions","physical critical exposure","multi-stage destruction"]
 }
