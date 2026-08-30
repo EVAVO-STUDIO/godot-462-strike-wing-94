@@ -1,0 +1,25 @@
+{
+  "asset_family": "mission_environment_landmarks",
+  "status": "runtime_v1",
+  "production_method": "deterministic crisp-edge SVG masters rasterized to transparent nearest-filtered PNG sprites",
+  "visual_contract": {
+    "era": "1997 military-industrial top-down battlefield illustration",
+    "role": "sparse mission-scale silhouettes layered over seamless biome plates",
+    "registration": [128,160],
+    "avoid": ["full-screen replacement plate", "modern minimal icon", "neon cyberpunk", "generic procedural scatter", "baked text"]
+  },
+  "runtime": [
+    {"family":"coast","id":"coastal_battery","path":"res://assets/runtime/environments/landmarks/coastal_battery.png"},
+    {"family":"industrial","id":"refinery_stack","path":"res://assets/runtime/environments/landmarks/refinery_stack.png"},
+    {"family":"water","id":"storm_platform","path":"res://assets/runtime/environments/landmarks/storm_platform.png"},
+    {"family":"desert_front","id":"desert_airstrip","path":"res://assets/runtime/environments/landmarks/desert_airstrip.png"},
+    {"family":"river_corridor","id":"river_bridge","path":"res://assets/runtime/environments/landmarks/river_bridge.png"},
+    {"family":"mountain_radar","id":"mountain_radar","path":"res://assets/runtime/environments/landmarks/mountain_radar.png"},
+    {"family":"night_harbor","id":"harbor_cranes","path":"res://assets/runtime/environments/landmarks/harbor_cranes.png"},
+    {"family":"city_outskirts","id":"city_rail_hub","path":"res://assets/runtime/environments/landmarks/city_rail_hub.png"},
+    {"family":"machine_furnace","id":"machine_gantry","path":"res://assets/runtime/environments/landmarks/machine_gantry.png"},
+    {"family":"cloud_top","id":"weather_relay","path":"res://assets/runtime/environments/landmarks/weather_relay.png"},
+    {"family":"orbital","id":"orbital_truss","path":"res://assets/runtime/environments/landmarks/orbital_truss.png"}
+  ],
+  "runtime_rule": "one deterministic mission-seeded landmark pass on the mid-depth plane, altitude-scaled before cloud occlusion"
+}

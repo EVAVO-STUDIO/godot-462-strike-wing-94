@@ -52,6 +52,19 @@ const CLOUD_HIGH := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_b.png"),
 ]
+const LANDMARKS := {
+	"coast": preload("res://assets/runtime/environments/landmarks/coastal_battery.png"),
+	"industrial": preload("res://assets/runtime/environments/landmarks/refinery_stack.png"),
+	"water": preload("res://assets/runtime/environments/landmarks/storm_platform.png"),
+	"desert_front": preload("res://assets/runtime/environments/landmarks/desert_airstrip.png"),
+	"river_corridor": preload("res://assets/runtime/environments/landmarks/river_bridge.png"),
+	"mountain_radar": preload("res://assets/runtime/environments/landmarks/mountain_radar.png"),
+	"night_harbor": preload("res://assets/runtime/environments/landmarks/harbor_cranes.png"),
+	"city_outskirts": preload("res://assets/runtime/environments/landmarks/city_rail_hub.png"),
+	"machine_furnace": preload("res://assets/runtime/environments/landmarks/machine_gantry.png"),
+	"cloud_top": preload("res://assets/runtime/environments/landmarks/weather_relay.png"),
+	"orbital": preload("res://assets/runtime/environments/landmarks/orbital_truss.png"),
+}
 
 var _profiles: Array = []
 var _surface: Control
@@ -109,7 +122,44 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"water": _draw_water(surface, profile, state, t)
 			"cloud_top": _draw_cloud_top(surface, profile, state, t)
 			"orbital": _draw_orbital(surface, profile, state, t, 1.0)
+	_draw_landmarks(surface, scene, profile, state, t, variant if variant != "" else motif, orbital_mix)
 	_draw_clouds(surface, profile, state, t)
+
+func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float, family: String, orbital_mix: float) -> void:
+	if not LANDMARKS.has(family):
+		return
+	if family not in ["cloud_top", "orbital"] and not _draw_ground_detail(state):
+		return
+	var texture: Texture2D = LANDMARKS[family]
+	var speed := _parallax_speed(profile, state, "mid") * (0.18 if family == "orbital" else 0.28)
+	var mission_seed := _mission_seed(scene)
+	var cycle := 880.0 + float(mission_seed % 5) * 47.0
+	var y := fposmod(t * speed + float(mission_seed % 719), cycle) - 168.0 + 58.0
+	if y > 360.0:
+		return
+	var scale := 0.78 + _ground_scale(state) * 0.34
+	if family == "cloud_top":
+		scale = 0.86
+	elif family == "orbital":
+		scale = 0.82 + 0.16 * clampf(orbital_mix, 0.0, 1.0)
+	var size := texture.get_size() * scale
+	var x_span := maxf(1.0, 640.0 - size.x - 48.0)
+	var x := 24.0 + fposmod(float(mission_seed * 73), x_span)
+	var alpha := 0.88 if family not in ["cloud_top", "orbital"] else 0.74
+	if family == "orbital":
+		alpha *= clampf(orbital_mix, 0.0, 1.0)
+	surface.draw_texture_rect(texture, Rect2(Vector2(x, y), size), false, Color(0.86, 0.89, 0.88, alpha))
+
+func _mission_seed(scene: Object) -> int:
+	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []
+	if typeof(missions) != TYPE_ARRAY or missions.is_empty() or not _has_property(scene, "mission_index"):
+		return 17
+	var mission = missions[clampi(int(scene.get("mission_index")), 0, missions.size() - 1)]
+	var mission_id := str(mission.get("id", "environment")) if typeof(mission) == TYPE_DICTIONARY else "environment"
+	var seed := 0
+	for index in range(mission_id.length()):
+		seed = posmod(seed * 31 + mission_id.unicode_at(index), 104729)
+	return seed
 
 func _mission_variant(scene: Object) -> String:
 	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []

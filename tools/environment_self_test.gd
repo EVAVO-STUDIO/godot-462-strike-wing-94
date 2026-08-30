@@ -94,6 +94,12 @@ func _initialize() -> void:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
+		_expect(source.contains("LANDMARKS") and source.contains("_draw_landmarks") and source.contains("_mission_seed"), "environment renderer should layer sparse deterministic mission landmarks over seamless biome plates")
+		var landmark_names := ["coastal_battery", "refinery_stack", "storm_platform", "desert_airstrip", "river_bridge", "mountain_radar", "harbor_cranes", "city_rail_hub", "machine_gantry", "weather_relay", "orbital_truss"]
+		for landmark_name in landmark_names:
+			var landmark := load("res://assets/runtime/environments/landmarks/%s.png" % landmark_name)
+			_expect(landmark is Texture2D and landmark.get_size() == Vector2(128,160), "mission landmark should retain registered 128x160 sprite geometry: %s" % landmark_name)
+		_expect(FileAccess.file_exists("res://assets/source/environments/landmark_asset_manifest.json"), "mission landmark source/runtime manifest should exist")
 		var parallax_section := source.substr(source.find("func _draw_parallax"), source.find("func _coast_x") - source.find("func _draw_parallax"))
 		var coast_section := source.substr(source.find("func _draw_coast"), source.find("func _draw_vertical_loop") - source.find("func _draw_coast"))
 		var water_section := source.substr(source.find("func _draw_water"), source.find("func _draw_desert_front") - source.find("func _draw_water"))
