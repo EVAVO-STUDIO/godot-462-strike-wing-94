@@ -8,6 +8,7 @@ const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/re
 const STORM_SEA := preload("res://assets/runtime/environments/water/storm_sea_loop_v1.png")
 const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
 const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
+const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -277,21 +278,14 @@ func _draw_river_corridor(surface: CanvasItem, state: Dictionary, t: float) -> v
 		surface.draw_line(Vector2(x, y), Vector2(x + 16.0 + float(i % 3) * 6.0, y), current, 1.0)
 
 func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> void:
-	var scale := maxf(0.45, _ground_scale(state))
-	var rock := Color("53616b", 0.42)
-	var snow := Color("b9c5c8", 0.36)
-	var structure := Color("87989d", 0.55)
-	var scroll := t * 15.0
-	for i in range(6):
-		var y := fposmod(float(i) * 92.0 + scroll, 350.0) + 50.0
-		var x := 20.0 + float((i * 149) % 510)
-		var width := (96.0 + float(i % 2) * 42.0) * scale
-		surface.draw_colored_polygon(PackedVector2Array([Vector2(x, y + 24), Vector2(x + width * 0.48, y - 19), Vector2(x + width, y + 24)]), rock)
-		surface.draw_colored_polygon(PackedVector2Array([Vector2(x + width * 0.31, y - 3), Vector2(x + width * 0.48, y - 19), Vector2(x + width * 0.62, y - 1), Vector2(x + width * 0.5, y - 5)]), snow)
-		if i % 2 == 0:
-			var rx := x + width * 0.48
-			surface.draw_line(Vector2(rx, y - 20), Vector2(rx, y - 34), structure, 2.0)
-			surface.draw_arc(Vector2(rx, y - 35), 8.0, PI, TAU, 8, structure, 2.0)
+	var scroll := fposmod(t * 15.0, 720.0)
+	_draw_vertical_loop(surface, MOUNTAIN_RADAR, scroll, Rect2(0, 58, 640, 302))
+	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.015, 0.025, 0.045, 0.14))
+	var snow := Color("c7d2d5", 0.16)
+	for i in range(12):
+		var x := float((i * 97 + 23) % 690) - 20.0
+		var y := fposmod(float(i) * 47.0 + t * (26.0 + float(i % 3) * 3.0), 330.0) + 50.0
+		surface.draw_line(Vector2(x, y), Vector2(x + 11.0 + float(i % 2) * 7.0, y + 2.0), snow, 1.0)
 
 func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
