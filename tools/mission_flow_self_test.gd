@@ -140,6 +140,11 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("layer = 30"), "pixel UI should render as the production interface layer")
 		_expect(source.contains("PixelFont.draw_centered"), "pixel UI should use bitmap glyph renderer")
 		_expect(source.contains("HYPERSONIC_WORDMARK"), "sortie console should use the approved title art master")
+		_expect(source.contains("_sortie_order_header(mission_index)"), "sortie console should identify the real campaign mission")
+		_expect(source.contains("_draw_campaign_progress(surface, mission_index"), "sortie console should communicate thirty-mission campaign progress")
+		_expect(source.contains("MERCENARY WAR") and source.contains("MACHINE WAR") and source.contains("BLACK SKY"), "sortie console should preserve the three canonical campaign sectors")
+		for path in ["rail.png", "node_complete.png", "node_current.png", "node_locked.png"]:
+			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/campaign_progress/%s" % path), "campaign progress sprite should exist: %s" % path)
 		_expect(source.contains("VX94_FIGHTER") and source.contains("VX94_BOMBER"), "sortie console should retain form-specific aircraft art")
 		_expect(source.contains("SORTIE_BAY_BACKDROP") and source.contains("sortie_bay_backdrop_v1.png"), "sortie console should use the authored maintenance-bay environment")
 		var backdrop := load("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")

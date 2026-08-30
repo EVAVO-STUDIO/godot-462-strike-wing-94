@@ -1,0 +1,13 @@
+{
+  "asset_family": "campaign_progress_instrument",
+  "native_scale": "640x360",
+  "source_format": "svg",
+  "rendering": "nearest_neighbor_binary_alpha",
+  "sprites": {
+    "rail": "campaign_progress_rail.svg",
+    "complete": "campaign_node_complete.svg",
+    "current": "campaign_node_current.svg",
+    "locked": "campaign_node_locked.svg"
+  },
+  "design": "Thirty-sortie rail divided into three ten-mission operational sectors. Completed, current, and locked states use restrained avionics colors and one-pixel construction."
+}

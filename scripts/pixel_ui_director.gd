@@ -15,6 +15,10 @@ const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/sortie_bay_ba
 const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
 const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
 const OPERATIONS_BUTTON := preload("res://assets/runtime/ui/menu/operations_button_9slice.png")
+const CAMPAIGN_PROGRESS_RAIL := preload("res://assets/runtime/ui/menu/campaign_progress/rail.png")
+const CAMPAIGN_NODE_COMPLETE := preload("res://assets/runtime/ui/menu/campaign_progress/node_complete.png")
+const CAMPAIGN_NODE_CURRENT := preload("res://assets/runtime/ui/menu/campaign_progress/node_current.png")
+const CAMPAIGN_NODE_LOCKED := preload("res://assets/runtime/ui/menu/campaign_progress/node_locked.png")
 const PANEL_HEADER_RULE := preload("res://assets/runtime/ui/menu/panel_header_rule.png")
 const PANEL_STATUS_LAMP := preload("res://assets/runtime/ui/menu/panel_status_lamp.png")
 const REPORT_DIVIDER := preload("res://assets/runtime/ui/menu/report_divider.png")
@@ -140,7 +144,8 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(195, 18, 250, 32), false)
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 53, 1, BLUE, 1)
-	_draw_console_panel(surface, Rect2(26, 72, 370, 119), "MISSION 01 / SORTIE ORDER", GOLD)
+	var mission_index := clampi(int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0, 0, 29)
+	_draw_console_panel(surface, Rect2(26, 72, 370, 119), _sortie_order_header(mission_index), GOLD)
 	PixelFont.draw_text(surface, str(scene.get("current_mission_name")), Vector2(40, 94), 2, GOLD, 2)
 	PixelFont.draw_text(surface, "%s // %s // %s" % [_altitude_name(), _form_name(), _tech_era_name()], Vector2(40, 117), 1, BLUE, 1)
 	var briefing := str(scene.get("current_briefing"))
@@ -149,6 +154,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_text(surface, lines[i], Vector2(40, 139 + i * 11), 1, MUTED, 1)
 	PixelFont.draw_text(surface, "INGRESS", Vector2(40, 170), 1, MUTED, 1)
 	PixelFont.draw_text(surface, "HIGH-SPEED / LOW-LEVEL RELEASE", Vector2(105, 170), 1, GREEN, 1)
+	_draw_campaign_progress(surface, mission_index, Vector2(40, 180))
 
 	_draw_console_panel(surface, Rect2(408, 72, 206, 119), "VX-94 AIRFRAME", BLUE)
 	var craft := VX94_FIGHTER if _form_name() == "FIGHTER" else VX94_BOMBER
@@ -188,6 +194,19 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface, "ENTER / START  AUTHORIZE LAUNCH", 320, 317, 1, GOLD, 1)
 	if float(scene.get("status_timer")) > 0.0:
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 340, 1, GREEN, 1)
+
+func _sortie_order_header(mission_index: int) -> String:
+	var sector := clampi(int(mission_index / 10), 0, 2)
+	var sector_names := ["MERCENARY WAR", "MACHINE WAR", "BLACK SKY"]
+	return "MISSION %02d / S%d %s" % [mission_index + 1, sector + 1, sector_names[sector]]
+
+func _draw_campaign_progress(surface: CanvasItem, mission_index: int, position: Vector2) -> void:
+	surface.draw_texture(CAMPAIGN_PROGRESS_RAIL, position)
+	for index in range(30):
+		var sector_gap := int(index / 10) * 5
+		var node_position := position + Vector2(3 + index * 11 + sector_gap, 2)
+		var node: Texture2D = CAMPAIGN_NODE_CURRENT if index == mission_index else (CAMPAIGN_NODE_COMPLETE if index < mission_index else CAMPAIGN_NODE_LOCKED)
+		surface.draw_texture(node, node_position)
 
 func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
