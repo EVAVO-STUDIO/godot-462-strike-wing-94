@@ -1,0 +1,131 @@
+{
+  "schema": "evavo.chess-lord.raw-art-front-door-plates.v1",
+  "status": "canonical_runtime_front_door_plates_from_user_identified_raw_art",
+  "viewport": [
+    640,
+    360
+  ],
+  "evavo": {
+    "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_09_21 AM.png",
+    "source_sha256": "e5d9c64edb0a7cac95062a3127265a0957cf37e8e9da22c61d6909c592a6d379",
+    "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png",
+    "runtime_sha256": "d834faf8795c85eadaf80c50278b0638d8d1b7025c92dc58d40d98a6eeaec232",
+    "transform": "full 16:9 source resized to 640x360; geometry unchanged",
+    "identity_lock": "approved open-bar E and complete metallic frame",
+    "sparkle": {
+      "frames": [
+        {
+          "index": 0,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_03 AM (1).png",
+          "source_sha256": "efde6a77d510b214ee19b5c5b63c2d2e1b4ab521ae79f38b9021f4d829ccf839",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_00.png",
+          "runtime_sha256": "c4c7fd9077527941c94c54f68217cd19dd007c87ff57356040d825278bb899e7"
+        },
+        {
+          "index": 1,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_04 AM (2).png",
+          "source_sha256": "e634cb27028d6184cbbd936de735115a59c558e43ab7069111ed4431df91ddd7",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_01.png",
+          "runtime_sha256": "57691793e05cff11f5c0b4baf1754e6b2a85a48fc41600e52f71421c2e4bc1e8"
+        },
+        {
+          "index": 2,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_04 AM (3).png",
+          "source_sha256": "419e034a20837329721bccdfb9396b55178a6882f18cfb6893bd8a2d0180daab",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_02.png",
+          "runtime_sha256": "52ed691715df72033e769728dd7ba8be29bfc75feb42e84fa430e2b1dd497c16"
+        },
+        {
+          "index": 3,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_04 AM (4).png",
+          "source_sha256": "a3419fe7f67960a66a3032621495ef50927d2417db6ea2f514ebbb6e09dd12c0",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_03.png",
+          "runtime_sha256": "ec55aa46c674f4885eac5f03fb329bb089a9875a053fe1afe79865b55d54dd69"
+        },
+        {
+          "index": 4,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_05 AM (5).png",
+          "source_sha256": "ed5fd89fe78c8b5756d065690fb45df256babec4a83779567b2deb7f8cc8df6f",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_04.png",
+          "runtime_sha256": "e8e7f75c7d7211afd5b836c1f9ff5a9a32170ff244d3ab49f5f6f756b2186158"
+        },
+        {
+          "index": 5,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_05 AM (6).png",
+          "source_sha256": "b0787bd43102b3a1741bd527aac7b89056f6486dc2e480b14721742d5d20a81d",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_05.png",
+          "runtime_sha256": "ceece36dccc33d5666b5ca490b04255536255274d60fd7078aaca3fb64e8e3ea"
+        },
+        {
+          "index": 6,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_05 AM (7).png",
+          "source_sha256": "d21b7f2cde36647ee3d30ee21e842fe1c84627c05d324ad65630ec8c4b4c8db8",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_06.png",
+          "runtime_sha256": "df0a1f7f28f6049285af7c833a9257dc5f89f57c523c266dfce67c9fa68f3e1b"
+        },
+        {
+          "index": 7,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_06 AM (8).png",
+          "source_sha256": "6a2c6d890c0574f8405da2e8ccba940600eeeaa4f36a49a80c548fb6e024eac0",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_07.png",
+          "runtime_sha256": "c80b24096d242f280035af02016b765d14bd8840743aab071b4ed5f68a8228c0"
+        },
+        {
+          "index": 8,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_06 AM (9).png",
+          "source_sha256": "c9208671688a54cc8b66dca1c36fcd4cbbb0ec9ea0cf589265d98231d254c80c",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_08.png",
+          "runtime_sha256": "ebdf10706ade215cf5b69eefa9e2480139b18f1c86d8ea18368021234952fdef"
+        },
+        {
+          "index": 9,
+          "source": "RAW_ART/ChatGPT Image Aug 11, 2026, 12_13_07 AM (10).png",
+          "source_sha256": "19a6b16ac014bb5ca2d70d681e1a5dfc50fe0beabf077612be99552af0373b52",
+          "runtime": "assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_09.png",
+          "runtime_sha256": "73ba295c81d953611776b3e92938512af5e6d3d5c4e1b63ba666bbeef5674ece"
+        }
+      ],
+      "common_source_crop_exclusive": [
+        400,
+        400,
+        850,
+        850
+      ],
+      "runtime_frame_size": [
+        64,
+        64
+      ],
+      "runtime_top_left": [
+        568,
+        66
+      ],
+      "fps": 12,
+      "loop": false,
+      "placement": "upper-right metallic-frame corner"
+    }
+  },
+  "chess_lord": {
+    "source": "RAW_ART/ChatGPT Image Aug 9, 2026, 11_36_18 PM (10).png",
+    "source_sha256": "127d8bccf84d959c8b44fe5b86920e83d72657a837a14827accb10e05db3afb1",
+    "runtime": "assets/runtime/brand/front_door_raw_art_v1/chess_lord_title_plate_v1.png",
+    "runtime_sha256": "094b24fec22c9056f7834509d837eee34f8bba10cd7744d3dac52174a25803ca",
+    "source_crop_exclusive": [
+      0,
+      190,
+      1280,
+      950
+    ],
+    "fitted_size": [
+      606,
+      360
+    ],
+    "placement": [
+      17,
+      0
+    ],
+    "identity_lock": "complete Chess Lord heraldic crest with crown horses rooks red banners and chessboard base"
+  },
+  "raw_art_modified": false,
+  "runtime_authority": true,
+  "sequence_proof": "artifacts/art_review/front_door/raw_art_front_door_sequence_v1.png"
+}

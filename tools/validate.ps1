@@ -47,7 +47,7 @@ function Mission-Context($World, [string]$MissionId) {
 Write-Host 'Validating HYPERSONIC...' -ForegroundColor Cyan
 
 $Required = @(
-    'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','data/product_identity.json',
+    'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
     'scripts/boss_rules.gd','scripts/boss_signature_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
     'scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd','scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd',
@@ -72,7 +72,7 @@ $Required = @(
     'scripts/retro_sfx_rules.gd','scripts/retro_sfx_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
-    'tools/product_identity_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
+    'tools/product_identity_self_test.gd','tools/startup_sequence_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
     'tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
     'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
@@ -119,6 +119,18 @@ Assert-UniqueIds $Mounts.mounts 'player mounts'
 if ([string]$Identity.full_title -ne 'HYPERSONIC' -or [string]$Identity.aircraft_designation -ne 'VX-94' -or [string]$Identity.aircraft_class -ne 'Variable Strike Fighter' -or [string]$Identity.aircraft_class_abbreviation -ne 'VSF') { throw 'Production identity hierarchy is invalid.' }
 if ([string]$Identity.developer -ne 'EVAVO Studio' -or [string]$Identity.publisher -ne 'EVAVO Studio') { throw 'EVAVO Studio product ownership metadata is invalid.' }
 if ([string]$Identity.save_namespace -ne 'hypersonic' -or @($Identity.legacy_save_namespaces) -notcontains 'strike_wing_94') { throw 'Save namespace migration metadata is invalid.' }
+
+$EvavoRoot = Join-Path $Root 'assets/runtime/brand/front_door_raw_art_v1'
+$EvavoHashes = @{
+    'evavo_splash_plate_v1.png' = 'D834FAF8795C85EADAF80C50278B0638D8D1B7025C92DC58D40D98A6EEAEC232'
+    'evavo_corner_sparkle_00.png' = 'C4C7FD9077527941C94C54F68217CD19DD007C87FF57356040D825278BB899E7'
+    'evavo_corner_sparkle_09.png' = '73BA295C81D953611776B3E92938512AF5E6D3D5C4E1B63BA666BBEEF5674ECE'
+}
+foreach ($Asset in $EvavoHashes.Keys) {
+    $AssetPath = Join-Path $EvavoRoot $Asset
+    if (-not (Test-Path -LiteralPath $AssetPath)) { throw "Missing approved EVAVO splash asset: $Asset" }
+    if ((Get-FileHash -LiteralPath $AssetPath -Algorithm SHA256).Hash -ne $EvavoHashes[$Asset]) { throw "Modified approved EVAVO splash asset: $Asset" }
+}
 
 $Primaries = @($Weapons.weapons | Where-Object { $_.slot -eq 'primary' })
 if ($Primaries.Count -ne 8) { throw 'Campaign requires exactly eight primary tiers.' }
@@ -186,6 +198,7 @@ foreach ($Profile in $Profiles.profiles) {
 $ProjectText = Get-Content -Raw (Join-Path $Root 'project.godot')
 foreach ($Autoload in @(
     'ProductIdentity="*res://scripts/product_identity.gd"',
+    'StartupSequenceDirector="*res://scripts/startup_sequence_director.gd"',
     'PlayerMountDirector="*res://scripts/player_mount_director.gd"',
     'CraftFormDirector="*res://scripts/craft_form_director.gd"',
     'EncounterDirector="*res://scripts/encounter_director.gd"',
@@ -254,8 +267,14 @@ if (-not $Godot) {
     exit 0
 }
 
+# Import newly added textures before script preloads are exercised. This makes
+# validation reliable on a clean clone with no generated .godot cache.
+Write-Host 'Running Godot editor import/smoke test...' -ForegroundColor DarkCyan
+& $Godot --headless --path $Root --editor --quit
+if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
+
 $Tests = @(
-    'product_identity_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd',
+    'product_identity_self_test.gd','startup_sequence_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
     'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','player_mount_self_test.gd'
 )
@@ -265,7 +284,4 @@ foreach ($Test in $Tests) {
     if ($LASTEXITCODE -ne 0) { throw "$Test failed with exit code $LASTEXITCODE" }
 }
 
-Write-Host 'Running Godot editor smoke test...' -ForegroundColor DarkCyan
-& $Godot --headless --path $Root --editor --quit
-if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 Write-Host 'HYPERSONIC validation passed.' -ForegroundColor Green

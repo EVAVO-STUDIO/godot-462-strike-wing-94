@@ -12,6 +12,7 @@ Playable 12-mission campaign foundation on `main`.
 
 Implemented now:
 
+- approved EVAVO publisher splash with canonical plate/sparkle assets, black transition, and skippable HYPERSONIC title sequence
 - 640×360 logical canvas with nearest-neighbour presentation to 1280×720
 - bitmap/pixel title, briefing, result and combat HUD
 - VX-94 fighter / bomber transformation with a visible hinge-based wing sweep
