@@ -64,6 +64,16 @@ const HUD_STATUS_FRAME := preload("res://assets/runtime/ui/hud/status_frame.png"
 const HUD_BOSS_FRAME := preload("res://assets/runtime/ui/hud/boss_frame.png")
 const HUD_BOSS_TROUGH := preload("res://assets/runtime/ui/hud/boss_trough.png")
 const HUD_BOSS_FILL := preload("res://assets/runtime/ui/hud/boss_fill.png")
+const HUD_BOSS_PHASE_FRAMES := [
+	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_1.png"),
+	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_2.png"),
+	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_3.png"),
+]
+const HUD_BOSS_PHASE_FILLS := [
+	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_1_fill.png"),
+	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_2_fill.png"),
+	preload("res://assets/runtime/ui/hud/boss_phase_bar/phase_3_fill.png"),
+]
 const HUD_THREAT_FRAME := preload("res://assets/runtime/ui/hud/threat_frame.png")
 const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
 const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
@@ -571,11 +581,12 @@ func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	var max_hp := maxi(1, int(boss.get("max_hp", hp)))
 	var phase := int(boss.get("boss_phase", BossRules.phase_for(hp, max_hp)))
 	var cue := " WEAK" if phase >= 3 else ""
-	surface.draw_texture(HUD_BOSS_FRAME, Vector2(126, 64))
+	var phase_index := clampi(phase - 1, 0, HUD_BOSS_PHASE_FRAMES.size() - 1)
+	surface.draw_texture(HUD_BOSS_PHASE_FRAMES[phase_index], Vector2(126, 64))
 	PixelFont.draw_centered(surface, "%s  P%d%s  %d/%d" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, cue, hp, max_hp], 320, 69, 1, TEXT, 1)
 	var ratio := clampf(float(hp) / float(max_hp), 0.0, 1.0)
 	surface.draw_texture(HUD_BOSS_TROUGH, Vector2(143, 80))
-	_draw_clipped_fill(surface, HUD_BOSS_FILL, Vector2(144, 81), ratio)
+	_draw_clipped_fill(surface, HUD_BOSS_PHASE_FILLS[phase_index], Vector2(144, 81), ratio)
 
 func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var bullets: Array = scene.get("enemy_bullets")

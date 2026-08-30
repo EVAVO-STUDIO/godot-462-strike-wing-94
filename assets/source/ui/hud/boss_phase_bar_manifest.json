@@ -1,0 +1,15 @@
+{
+  "asset_family": "boss_phase_threat_bar",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/boss_phase_bar_sheet.svg",
+  "visual_contract": {
+    "purpose": "make boss armor state and mechanical escalation readable before parsing the phase number",
+    "era": "1997 military threat-analysis display",
+    "phases": {"1":"intact armor","2":"armor failure and escalation","3":"exposed critical core"},
+    "avoid": ["one universal red health bar", "modern gradient gauge", "oversized boss title card", "flashing full-screen warning"]
+  },
+  "runtime": {
+    "frames": {"phase_1":[388,28],"phase_2":[388,28],"phase_3":[388,28]},
+    "fills": {"phase_1_fill":[352,5],"phase_2_fill":[352,5],"phase_3_fill":[352,5]}
+  }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="388" height="105" viewBox="0 0 388 105" shape-rendering="crispEdges">
+  <rect width="388" height="105" fill="none"/>
+  <!-- phase one: intact armor -->
+  <g transform="translate(0 0)">
+    <path d="M4 0h380l4 4v20l-4 4H4l-4-4V4z" fill="#070a0e" stroke="#58312d" stroke-width="2"/>
+    <path d="M6 3h376l3 3v16l-3 3H6l-3-3V6z" fill="#120d0e" stroke="#9b4b42"/>
+    <path d="M16 15h356v9H16z" fill="#030506" stroke="#352322"/>
+    <path d="M10 5h34M344 5h34M10 11h8M370 11h8" stroke="#713d37"/>
+    <rect x="7" y="6" width="4" height="4" fill="#ba5046"/><rect x="377" y="6" width="4" height="4" fill="#ba5046"/>
+    <path d="M48 4h114M226 4h114" stroke="#2b2020"/>
+  </g>
+  <!-- phase two: armor failure / escalation -->
+  <g transform="translate(0 29)">
+    <path d="M4 0h380l4 4v20l-4 4H4l-4-4V4z" fill="#080a0c" stroke="#76502b" stroke-width="2"/>
+    <path d="M6 3h376l3 3v16l-3 3H6l-3-3V6z" fill="#15110b" stroke="#bd7b38"/>
+    <path d="M16 15h356v9H16z" fill="#040504" stroke="#49351d"/>
+    <path d="M10 5h24l6 3h52M296 8h52l6-3h24" stroke="#9b6530"/>
+    <path d="M5 18h8l4-4M383 18h-8l-4-4" stroke="#d09744" stroke-width="2"/>
+    <rect x="7" y="6" width="4" height="4" fill="#ef9b3e"/><rect x="377" y="6" width="4" height="4" fill="#ef9b3e"/>
+    <path d="M164 4h12l3 3h30l3-3h12" stroke="#644424"/>
+  </g>
+  <!-- phase three: exposed core / weak point -->
+  <g transform="translate(0 58)">
+    <path d="M4 0h380l4 4v20l-4 4H4l-4-4V4z" fill="#08090b" stroke="#8c3e38" stroke-width="2"/>
+    <path d="M6 3h376l3 3v16l-3 3H6l-3-3V6z" fill="#170d0d" stroke="#df6658"/>
+    <path d="M16 15h356v9H16z" fill="#050404" stroke="#6d302b"/>
+    <path d="M8 13l8-8h10l-8 8h10l8-8h10M380 13l-8-8h-10l8 8h-10l-8-8h-10" stroke="#e06a50" stroke-width="2"/>
+    <path d="M153 3h18l4 4h38l4-4h18" stroke="#e3b06b"/>
+    <rect x="7" y="17" width="5" height="5" fill="#ff5144"/><rect x="376" y="17" width="5" height="5" fill="#ff5144"/>
+    <rect x="189" y="3" width="10" height="2" fill="#f3c77f"/>
+  </g>
+  <!-- phase fills -->
+  <g transform="translate(18 88)"><rect width="352" height="5" fill="#8f332f"/><rect y="1" width="352" height="2" fill="#d85e54"/><path d="M32 0v5M64 0v5M96 0v5M128 0v5M160 0v5M192 0v5M224 0v5M256 0v5M288 0v5M320 0v5" stroke="#2a1111" stroke-width="2"/></g>
+  <g transform="translate(18 94)"><rect width="352" height="5" fill="#875022"/><rect y="1" width="352" height="2" fill="#e29a45"/><path d="M24 0v5M48 0v5M72 0v5M96 0v5M120 0v5M144 0v5M168 0v5M192 0v5M216 0v5M240 0v5M264 0v5M288 0v5M312 0v5M336 0v5" stroke="#29170a" stroke-width="2"/></g>
+  <g transform="translate(18 100)"><rect width="352" height="5" fill="#8f302b"/><rect y="1" width="352" height="2" fill="#f2b878"/><path d="M16 0v5M32 0v5M48 0v5M64 0v5M80 0v5M96 0v5M112 0v5M128 0v5M144 0v5M160 0v5M176 0v5M192 0v5M208 0v5M224 0v5M240 0v5M256 0v5M272 0v5M288 0v5M304 0v5M320 0v5M336 0v5" stroke="#3b1210"/></g>
+</svg>
