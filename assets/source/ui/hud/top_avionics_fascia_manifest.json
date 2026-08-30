@@ -1,0 +1,16 @@
+{
+  "asset_family": "vx94_top_avionics_fascia",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/top_avionics_fascia.svg",
+  "runtime": {"path": "res://assets/runtime/ui/hud/top_frame.png", "size": [624, 50]},
+  "layout": {
+    "upper": ["primary instruments", "ordnance-wave-time", "score"],
+    "lower": ["mission identity", "flight state", "weapon", "tactical link", "battlefield link"]
+  },
+  "visual_contract": {
+    "era": "1997 dedicated military arcade avionics fascia",
+    "materials": "blackened anodized structure, recessed smoked wells, hard bus dividers, exposed fasteners",
+    "readability": "every permanent datum occupies a deliberate hardware bay; geometry stays behind text and lamps",
+    "avoid": ["empty rectangle", "modern floating card", "decorative sci-fi glyph noise", "bright frame competing with combat"]
+  }
+}

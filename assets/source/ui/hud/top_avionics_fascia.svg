@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="624" height="50" viewBox="0 0 624 50" shape-rendering="crispEdges">
+  <rect width="624" height="50" fill="#050a0e"/>
+  <path d="M0 0h624v50H0zM2 2v46h620V2z" fill="#0e171d" fill-rule="evenodd"/>
+  <path d="M2 2h620v1H2zM2 47h620v1H2z" fill="#53636c"/>
+  <path d="M3 3h618v1H3zM3 46h618v1H3z" fill="#1c2a31"/>
+  <path d="M0 0h12v2H2v10H0zM624 0h-12v2h10v10h2zM0 50h12v-2H2V38H0zM624 50h-12v-2h10V38h2z" fill="#344650"/>
+  <!-- upper instrument wells -->
+  <path d="M4 4h282l4 4v17l-4 3H4z" fill="#091015"/>
+  <path d="M292 4h196l4 4v17l-4 3H292z" fill="#080e13"/>
+  <path d="M494 4h124v24H494z" fill="#080e13"/>
+  <path d="M4 27h282l3-3h-1l-3 2H4zM292 27h196l3-3h-1l-3 2H292zM494 27h124v-1H494z" fill="#263943"/>
+  <path d="M4 4h282l4 4h-2l-3-2H4zM292 4h196l4 4h-2l-3-2H292zM494 4h124v2H494z" fill="#19272e"/>
+  <!-- lower identification and link bays -->
+  <path d="M4 31h116l3 3v12H4zM126 31h174v15H126zM304 31h102v15H304zM410 31h92v15H410zM506 31h112v15H506z" fill="#070d11"/>
+  <path d="M4 31h116l3 3h-2l-2-2H4zM126 31h174v1H126zM304 31h102v1H304zM410 31h92v1H410zM506 31h112v1H506z" fill="#2d4049"/>
+  <path d="M120 34h2v12h-2zM300 31h2v15h-2zM406 31h2v15h-2zM502 31h2v15h-2z" fill="#192a32"/>
+  <path d="M121 35h1v10h-1zM301 32h1v13h-1zM407 32h1v13h-1zM503 32h1v13h-1z" fill="#4b5a61"/>
+  <!-- restrained data-bus markings -->
+  <path d="M306 27h28v1h-28zM340 27h10v1h-10zM414 27h18v1h-18zM438 27h46v1h-46zM510 27h24v1h-24zM540 27h74v1h-74z" fill="#243943"/>
+  <path d="M307 27h8v1h-8zM415 27h6v1h-6zM511 27h7v1h-7z" fill="#7390a0"/>
+  <!-- fasteners and worn catches -->
+  <g fill="#65747b">
+    <rect x="5" y="5" width="2" height="2"/><rect x="617" y="5" width="2" height="2"/>
+    <rect x="5" y="43" width="2" height="2"/><rect x="617" y="43" width="2" height="2"/>
+    <rect x="286" y="6" width="2" height="2"/><rect x="488" y="6" width="2" height="2"/>
+  </g>
+  <g fill="#151d21"><rect x="6" y="6" width="1" height="1"/><rect x="618" y="6" width="1" height="1"/><rect x="6" y="44" width="1" height="1"/><rect x="618" y="44" width="1" height="1"/></g>
+  <path d="M18 3h42v1H18zM66 3h8v1h-8zM552 3h42v1h-42zM598 3h10v1h-10z" fill="#26343a"/>
+  <path d="M16 47h68v1H16zM528 47h80v1h-80z" fill="#111a1f"/>
+</svg>

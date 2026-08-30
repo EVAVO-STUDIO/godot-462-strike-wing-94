@@ -209,6 +209,9 @@ func _test_pixel_ui() -> void:
 			_expect(state_texture is Texture2D and state_texture.get_size() == flight_state_sizes[asset_name], "flight-state sprite should retain registered geometry: %s" % asset_name)
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/flight_state_manifest.json"), "flight-state source/runtime manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud_asset_manifest.json"), "gameplay HUD production manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/top_avionics_fascia_manifest.json"), "top avionics fascia source/runtime manifest should exist")
+		var top_fascia := load("res://assets/runtime/ui/hud/top_frame.png")
+		_expect(top_fascia is Texture2D and top_fascia.get_size() == Vector2(624,50), "top avionics fascia should retain exact combat-safe geometry")
 		_expect(source.contains("MISSION_INGRESS_FRAME") and source.contains("OBJECTIVE_REQUIRED") and source.contains("OBJECTIVE_BONUS") and source.contains("INGRESS_SECONDS") and source.contains("func _draw_mission_ingress"), "mission launch should use the timed authored ingress-card family")
 		var ingress_sizes := {"frame":Vector2(408,46), "objective_required":Vector2(12,12), "objective_bonus":Vector2(12,12)}
 		for asset_name in ingress_sizes:
