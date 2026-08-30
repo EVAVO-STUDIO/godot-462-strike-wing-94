@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const DamageStateSurface = preload("res://scripts/damage_state_surface.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const TRANSFORM_VISUAL_SECONDS := 0.42
 
 var _surface: Control
@@ -60,31 +61,17 @@ func _draw_panel_scars(surface: CanvasItem, p: Vector2, ratio: float) -> void:
 
 func _draw_smoke(surface: CanvasItem, p: Vector2, ratio: float) -> void:
 	var origin := p + _lerp_mount(Vector2(-6,11), Vector2(-14,10))
-	var drift := fposmod(_phase * 7.0, 18.0)
-	var smoke := Color(0.36,0.38,0.37,0.16 + ratio * 0.22)
-	for i in range(4):
-		var y := origin.y + 5.0 + float(i) * 7.0 + drift * 0.25
-		var x := origin.x - float(i) * 2.0 + sin(_phase + i) * 2.0
-		var radius := 2.0 + float(i) * 1.5
-		surface.draw_circle(Vector2(roundf(x), roundf(y)), radius, smoke)
+	var texture := PersistentEffectArtLibrary.frame_for_clock("damage_smoke", 8.0)
+	var alpha := clampf(0.55 + ratio * 0.45, 0.0, 1.0)
+	surface.draw_texture(texture, (origin - Vector2(16,4)).round(), Color(1,1,1,alpha))
 
 func _draw_critical_sparks(surface: CanvasItem, p: Vector2, ratio: float) -> void:
-	var flicker := sin(_phase * 2.4)
-	if flicker < -0.15:
-		return
 	var origin := p + _lerp_mount(Vector2(6,7), Vector2(13,6))
-	var spark := Color(1.0,0.72,0.26,0.72 + ratio * 0.24)
-	var flame := Color(0.96,0.28,0.12,0.55)
-	for i in range(4):
-		var angle := -PI * 0.5 + (float(i) - 1.5) * 0.42 + sin(_phase + i) * 0.12
-		var end := origin + Vector2.RIGHT.rotated(angle) * (5.0 + float(i) * 2.0)
-		surface.draw_line(origin, end, spark, 1.0)
+	var sparks := PersistentEffectArtLibrary.frame_for_clock("damage_sparks", 11.0)
+	surface.draw_texture(sparks, (origin - Vector2(16,4)).round())
 	if ratio >= 0.86:
-		surface.draw_colored_polygon(PackedVector2Array([
-			origin + Vector2(-2,2),
-			origin + Vector2(0,10 + sin(_phase)*2.0),
-			origin + Vector2(3,2)
-		]), flame)
+		var fire := PersistentEffectArtLibrary.frame_for_clock("damage_fire", 9.0, 1)
+		surface.draw_texture(fire, (origin - Vector2(16,4)).round())
 
 func _max_hull(scene: Object) -> int:
 	if scene.has_method("_max_hull"):

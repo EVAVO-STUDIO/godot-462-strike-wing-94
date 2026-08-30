@@ -17,6 +17,7 @@ func _initialize() -> void:
 	_test_combat_fx()
 	_test_projectile_art()
 	_test_impact_art()
+	_test_persistent_effect_art()
 	_test_damage_state()
 	_test_mount_map()
 	if failures.is_empty():
@@ -356,6 +357,28 @@ func _test_impact_art() -> void:
 	if electromagnetic != null:
 		var source := electromagnetic.get_as_text()
 		_expect(source.contains('frame_for_clock("emp_disruption"'), "EMP disruption should use authored broken-arc animation")
+
+func _test_persistent_effect_art() -> void:
+	var trail_families := ["damage_smoke", "damage_fire", "damage_sparks", "afterburner", "contrail", "debris"]
+	for family in trail_families:
+		for frame_index in range(4):
+			var frame := load("res://assets/runtime/effects/persistent/%s/%d.png" % [family, frame_index])
+			_expect(frame is Texture2D and frame.get_size() == Vector2(32,40), "persistent effect should retain registered 32x40 geometry: %s/%d" % [family, frame_index])
+	for frame_index in range(4):
+		var boom := load("res://assets/runtime/effects/persistent/sonic_boom/%d.png" % frame_index)
+		_expect(boom is Texture2D and boom.get_size() == Vector2(64,64), "sonic-boom pressure frame should retain registered 64x64 geometry: %d" % frame_index)
+	_expect(FileAccess.file_exists("res://assets/source/effects/persistent/persistent_asset_manifest.json"), "persistent effect source/runtime manifest should exist")
+	var damage := FileAccess.open("res://scripts/damage_state_director.gd", FileAccess.READ)
+	if damage != null:
+		var source := damage.get_as_text()
+		_expect(source.contains('frame_for_clock("damage_smoke"') and source.contains('frame_for_clock("damage_sparks"') and source.contains('frame_for_clock("damage_fire"'), "VX-94 progressive damage should use authored smoke, spark and fire attachments")
+		_expect(not source.contains("draw_circle") and not source.contains("draw_colored_polygon"), "VX-94 damage effects should not retain smoke circles or vector flame triangles")
+	var afterburner := FileAccess.open("res://scripts/afterburner_cue_director.gd", FileAccess.READ)
+	if afterburner != null:
+		var source := afterburner.get_as_text()
+		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"'), "hypersonic thrust should use authored compression plumes and contrails")
+		_expect(source.contains('frame_for_ratio("sonic_boom"'), "sonic transition should use the authored broken pressure front")
+		_expect(not source.contains("surface.draw_arc(scene.get(\"player_position\")"), "sonic boom should not regress to a perfect vector circle")
 
 func _test_mount_map() -> void:
 	var data = ContentCatalog.load_json("res://data/player_mounts.json")

@@ -3,6 +3,7 @@ extends CanvasLayer
 const CombatFxSurface = preload("res://scripts/combat_fx_surface.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const EXPLOSION_FRAMES := [
 	preload("res://assets/runtime/effects/explosion/explosion_0.png"),
 	preload("res://assets/runtime/effects/explosion/explosion_1.png"),
@@ -192,15 +193,9 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	var draw_size := roundf(max_size * (2.35 if boss else 2.20))
 	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false)
 	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
-	var fade := 1.0 - ratio
-	var fire := Color(0.96, 0.33, 0.16, 0.66 * fade)
-	var smoke := Color(0.42, 0.45, 0.44, 0.38 * fade)
-	for i in range(8 if boss else 5):
-		var angle := float((serial * 37 + i * 71) % 360) * PI / 180.0
-		var distance := radius * (0.38 + float((serial + i * 3) % 5) * 0.11)
-		var point := p + Vector2.RIGHT.rotated(angle) * distance
-		var pixel := 2.0 if boss and i % 2 == 0 else 1.0
-		surface.draw_rect(Rect2(roundf(point.x), roundf(point.y), pixel, pixel), smoke if ratio > 0.45 else fire)
+	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
+	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))
+	surface.draw_texture_rect(debris, Rect2((p - debris_size * 0.5).round(), debris_size), false, Color(1,1,1,1.0-ratio))
 
 func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool) -> void:
 	var texture := ImpactArtLibrary.frame_for_ratio("shield_hit" if shield else "armor_hit", ratio)

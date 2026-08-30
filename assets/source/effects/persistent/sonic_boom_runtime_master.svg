@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="64" viewBox="0 0 256 64" shape-rendering="crispEdges">
+  <!-- Four 64x64 broken pressure-front frames; centre registration 32,32. -->
+  <g transform="translate(0 0)" fill="#d7edf1"><path d="M18 30h10v2H18zM36 30h10v2H36zM29 18h2v9H29zM33 37h2v9H33z"/><path fill="#779baa" d="M20 27h6v2h-6zM38 33h6v2h-6z"/></g>
+  <g transform="translate(64 0)" fill="#c7dfe5"><path d="M8 29h10v2H8zM5 31h8v2H5zM46 29h11v2H46zM51 32h8v2H51zM18 15h7v2h-7zM39 15h7v2h-7zM18 47h8v2h-8zM39 47h7v2h-7z"/><path fill="#6f91a1" d="M12 23h6v2h-6zM46 39h6v2h-6zM22 11h5v2h-5zM37 51h5v2h-5z"/></g>
+  <g transform="translate(128 0)" fill="#afcbd3"><path d="M1 28h12v2H1zM0 32h10v2H0zM52 28h12v2H52zM55 32h9v2H55zM10 11h9v2h-9zM45 10h9v2h-9zM10 51h10v2H10zM44 52h10v2H44z"/><path fill="#668695" d="M4 20h8v2H4zM52 42h8v2h-8zM20 5h7v2h-7zM37 57h7v2h-7z"/></g>
+  <g transform="translate(192 0)" fill="#7898a5"><path d="M0 25h8v2H0zM56 26h8v2h-8zM2 39h7v2H2zM56 40h8v2h-8zM7 10h7v2H7zM50 9h7v2h-7zM8 54h8v2H8zM49 55h7v2h-7z"/><path fill="#4f6c79" d="M17 3h5v2h-5zM42 59h5v2h-5z"/></g>
+</svg>

@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const AfterburnerCueSurface = preload("res://scripts/afterburner_cue_surface.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 
 const PANEL := Color("070a0e")
 const BORDER := Color("34414b")
@@ -44,11 +45,14 @@ func draw_afterburner(surface: CanvasItem) -> void:
 	var ratio := clampf(float(craft.call("afterburner_ratio")), 0.0, 1.0)
 	_draw_meter(surface, ratio)
 	if craft.has_method("afterburner_active") and bool(craft.call("afterburner_active")) and _has_property(scene, "player_position"):
-		_draw_flame(surface, scene.get("player_position"), str(craft.call("current_form")) if craft.has_method("current_form") else "fighter")
+		var hypersonic := craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
+		_draw_flame(surface, scene.get("player_position"), str(craft.call("current_form")) if craft.has_method("current_form") else "fighter", hypersonic)
 	if _boom_age < 0.42 and _has_property(scene, "player_position"):
 		var t := _boom_age / 0.42
-		var radius := lerpf(10.0, 118.0, t)
-		surface.draw_arc(scene.get("player_position"), radius, 0.0, TAU, 64, Color(0.75,0.88,1.0,1.0-t), 2.0)
+		var texture := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
+		var draw_size := roundf(lerpf(64.0, 236.0, t))
+		var p: Vector2 = scene.get("player_position")
+		surface.draw_texture_rect(texture, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-t))
 
 func _draw_meter(surface: CanvasItem, ratio: float) -> void:
 	surface.draw_rect(Rect2(14, 315, 92, 13), PANEL)
@@ -57,13 +61,13 @@ func _draw_meter(surface: CanvasItem, ratio: float) -> void:
 	surface.draw_rect(Rect2(39, 319, 61, 4), BORDER)
 	surface.draw_rect(Rect2(39, 319, floorf(61.0 * ratio), 4), FUEL)
 
-func _draw_flame(surface: CanvasItem, p: Vector2, form: String) -> void:
-	# Gameplay VX-94 art uses engines at roughly +/-4 px from its registered centre.
-	var span := 4.0 if form == "fighter" else 5.0
-	for side in [-1.0, 1.0]:
-		var x: float = p.x + span * side
-		surface.draw_line(Vector2(x, p.y + 20), Vector2(x, p.y + 36), HOT, 3.0)
-		surface.draw_line(Vector2(x, p.y + 20), Vector2(x, p.y + 31), CORE, 1.0)
+func _draw_flame(surface: CanvasItem, p: Vector2, form: String, hypersonic: bool) -> void:
+	var offset := Vector2(-16, 14 if form == "fighter" else 15)
+	if hypersonic:
+		var contrail := PersistentEffectArtLibrary.frame_for_clock("contrail", 7.0)
+		surface.draw_texture(contrail, (p + offset + Vector2(0,12)).round(), Color(0.84,0.92,0.95,0.82))
+	var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
+	surface.draw_texture(plume, (p + offset).round())
 
 func _has_property(object: Object, property_name: String) -> bool:
 	for property in object.get_property_list():
