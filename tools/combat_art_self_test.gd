@@ -57,12 +57,33 @@ func _test_visual_language() -> void:
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("func _draw_ground") and source.contains("func _draw_sea") and source.contains("func _draw_air"), "mercenary air/ground/sea roles should have distinct silhouette renderers")
+	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed mercenary units should use production sprite assets")
 	_expect(source.contains("func _draw_autonomous"), "autonomous machines should have their own visual language")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
 	_expect(source.contains("func _draw_boss"), "boss-scale enemies should have dedicated presentation")
 	_expect(source.contains("layer = 12"), "combat art should remain below tactical ordnance/HUD layers")
 	for forbidden in ["Label.new()", "PanelContainer.new()", "ProgressBar.new()"]:
 		_expect(not source.contains(forbidden), "combat art must remain hard-edged canvas drawing: %s" % forbidden)
+	var expected_sizes := {
+		"scout_falcon": Vector2(28,30),
+		"gunship_mk1": Vector2(42,38),
+		"attack_chopper": Vector2(42,38),
+		"ace_interceptor": Vector2(32,34),
+		"heavy_bomber": Vector2(50,42),
+	}
+	for enemy_id in expected_sizes:
+		var texture := load("res://assets/runtime/enemies/mercenary_air/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == expected_sizes[enemy_id], "production sprite should retain reviewed geometry: %s" % enemy_id)
+	var ground_sizes := {
+		"light_tank": Vector2(30,24),
+		"sam_truck": Vector2(34,26),
+		"fortified_turret": Vector2(28,28),
+		"coastal_flak": Vector2(28,28),
+		"armoured_aa_carrier": Vector2(38,30),
+	}
+	for enemy_id in ground_sizes:
+		var texture := load("res://assets/runtime/enemies/mercenary_ground/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == ground_sizes[enemy_id], "ground production sprite should retain reviewed geometry: %s" % enemy_id)
 
 func _test_transform_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)

@@ -1,0 +1,24 @@
+{
+  "asset_family": "mercenary_ground",
+  "status": "runtime_idle_candidates",
+  "source": {
+    "path": "res://assets/source/enemies/candidates/mercenary_ground/mercenary_ground_identity_sheet_candidate_01.png",
+    "sha256": "1774C0E5C5F7379429F302BEAB5B25EEDF51862D477E35D67D91DBE17A08F8AB",
+    "order": ["light_tank", "sam_truck", "fortified_turret", "coastal_flak", "armoured_aa_carrier"]
+  },
+  "process": {
+    "orientation": "weapons facing down toward player",
+    "downsample": "Lanczos with one-pixel transparent inset",
+    "alpha": "20 percent threshold, preserved separately during palette remap",
+    "palette": "one shared 31-colour RGB palette plus transparency",
+    "altitude": "runtime texture rectangle follows canonical surface-target scale"
+  },
+  "runtime": [
+    {"id":"light_tank","path":"res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png","size":[30,24],"sha256":"32D351631714C71B559CBF8F2936E63CC609169189A3D9F064501A92CA9FD3AC","center":[15,12],"muzzle":[15,22]},
+    {"id":"sam_truck","path":"res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png","size":[34,26],"sha256":"1958C6E0976B0329CEC9B415F2AC32F8FA7316640C497C981DDA6165C0B6249E","center":[17,13],"missile_points":[[13,22],[21,22]]},
+    {"id":"fortified_turret","path":"res://assets/runtime/enemies/mercenary_ground/fortified_turret_idle.png","size":[28,28],"sha256":"CC09D051196DB3DD9546236B8F7B5710D453BC52BB0C7DBE7448501156E6D78C","center":[14,14],"muzzle":[[10,26],[18,26]]},
+    {"id":"coastal_flak","path":"res://assets/runtime/enemies/mercenary_ground/coastal_flak_idle.png","size":[28,28],"sha256":"0715F29135AEE60816639E40052CFB615E26ED7CC8E826780B61F5522970854B","center":[14,14],"muzzle":[[8,26],[12,26],[16,26],[20,26]]},
+    {"id":"armoured_aa_carrier","path":"res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png","size":[38,30],"sha256":"BCEDBA9D9A54E26B9E752177DE0B8ABA275DF743A645A79E9C64891FC3742165","center":[19,15],"muzzle":[[15,28],[23,28]],"missile_points":[[7,20],[31,20]]}
+  ],
+  "remaining_animation_gate": ["turret tracking", "launcher deployment", "recoil", "missile launch", "destruction"]
+}

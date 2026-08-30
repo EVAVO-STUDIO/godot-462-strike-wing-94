@@ -2,6 +2,20 @@ extends CanvasLayer
 
 const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
+const MERCENARY_AIR_SPRITES := {
+	"scout_falcon": preload("res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png"),
+	"gunship_mk1": preload("res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png"),
+	"attack_chopper": preload("res://assets/runtime/enemies/mercenary_air/attack_chopper_idle.png"),
+	"ace_interceptor": preload("res://assets/runtime/enemies/mercenary_air/ace_interceptor_idle.png"),
+	"heavy_bomber": preload("res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png"),
+}
+const MERCENARY_GROUND_SPRITES := {
+	"light_tank": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
+	"sam_truck": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
+	"fortified_turret": preload("res://assets/runtime/enemies/mercenary_ground/fortified_turret_idle.png"),
+	"coastal_flak": preload("res://assets/runtime/enemies/mercenary_ground/coastal_flak_idle.png"),
+	"armoured_aa_carrier": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
+}
 
 const PLAYER := Color("d9e0e5")
 const PLAYER_DARK := Color("667985")
@@ -156,6 +170,7 @@ func _draw_rotary_cannon(surface: CanvasItem, p: Vector2, deploy: float) -> void
 
 func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)
+	var enemy_id := str(enemy.get("id", ""))
 	var is_boss := bool(enemy.get("boss", false))
 	var faction := str(enemy.get("faction", "mercenary"))
 	var category := str(enemy.get("category", "air"))
@@ -163,15 +178,24 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	if category in ["ground", "sea"] and scale < 0.25 and not is_boss:
 		return
 	if is_boss:
-		_draw_boss(surface, p, str(enemy.get("id", "boss")), faction)
+		_draw_boss(surface, p, enemy_id, faction)
 	elif faction == "autonomous":
-		_draw_autonomous(surface, p, str(enemy.get("id", "drone")), category, scale)
+		_draw_autonomous(surface, p, enemy_id, category, scale)
+	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
+		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground":
 		_draw_ground(surface, p, scale)
 	elif category == "sea":
 		_draw_sea(surface, p, scale)
+	elif MERCENARY_AIR_SPRITES.has(enemy_id):
+		_draw_production_sprite(surface, p, MERCENARY_AIR_SPRITES[enemy_id])
 	else:
 		_draw_air(surface, p)
+
+func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D, scale: float = 1.0) -> void:
+	var size := texture.get_size() * scale
+	var destination := Rect2((p - size * 0.5).round(), size.round())
+	surface.draw_texture_rect(texture, destination, false)
 
 func _draw_air(surface: CanvasItem, p: Vector2) -> void:
 	surface.draw_colored_polygon(PackedVector2Array([

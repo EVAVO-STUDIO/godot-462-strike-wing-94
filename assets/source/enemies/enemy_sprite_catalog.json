@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "production_contract",
+  "logical_canvas": [640, 360],
+  "shared_rules": {
+    "view": "orthographic top-down",
+    "pixel_style": "late-1990s SVGA pre-rendered sprites with hand-cleaned clusters",
+    "filtering": "nearest",
+    "alpha": "true transparency",
+    "centering": "integer logical pixels",
+    "damage_flash": "palette-safe additive mask, never a replacement sprite",
+    "collision_rule": "collision remains smaller than the readable outer silhouette"
+  },
+  "factions": {
+    "mercenary": {
+      "palette": "charcoal, gunmetal, sand-gray, muted rust-red, amber optics",
+      "language": "recognizable late-20th-century engines, intakes, hardpoints, armour, naval superstructure"
+    },
+    "autonomous": {
+      "palette": "cold blue-gray, near-black ceramic, pale alloy, restrained cyan-white cores",
+      "language": "human industrial hardware reorganized around visible sensor cores and machine-added structures"
+    },
+    "orbital": {
+      "palette": "pale thermal ceramic, graphite, dark cobalt, sparse cyan-white field hardware",
+      "language": "near-Earth military machinery with radiators, rails, attitude thrusters, antennae and physical weapon apertures"
+    }
+  },
+  "units": [
+    {"id":"scout_falcon","family":"mercenary_air","size":[28,30],"collision_radius":9,"animations":{"bank":5,"exhaust":3,"destroy":6}},
+    {"id":"gunship_mk1","family":"mercenary_air","size":[42,38],"collision_radius":14,"animations":{"bank":3,"turret":5,"exhaust":3,"destroy":7}},
+    {"id":"attack_chopper","family":"mercenary_air","size":[42,38],"collision_radius":13,"animations":{"rotor":4,"bank":3,"recoil":2,"destroy":7}},
+    {"id":"light_tank","family":"mercenary_ground","size":[30,24],"collision_radius":10,"animations":{"turret":5,"recoil":2,"destroy":6}},
+    {"id":"sam_truck","family":"mercenary_ground","size":[34,26],"collision_radius":10,"animations":{"launcher":4,"launch":3,"destroy":6}},
+    {"id":"river_patrol","family":"mercenary_sea","size":[30,44],"collision_radius":11,"animations":{"turret":5,"wake":3,"destroy":7}},
+    {"id":"fortified_turret","family":"mercenary_ground","size":[28,28],"collision_radius":10,"animations":{"turret":8,"recoil":2,"destroy":6}},
+    {"id":"ace_interceptor","family":"mercenary_air","size":[32,34],"collision_radius":10,"animations":{"bank":5,"exhaust":3,"destroy":7}},
+    {"id":"torpedo_boat","family":"mercenary_sea","size":[34,48],"collision_radius":12,"animations":{"launcher":3,"wake":3,"destroy":7}},
+    {"id":"coastal_flak","family":"mercenary_ground","size":[28,28],"collision_radius":10,"animations":{"turret":8,"recoil":3,"destroy":6}},
+    {"id":"heavy_bomber","family":"mercenary_air","size":[50,42],"collision_radius":16,"animations":{"bank":3,"bay":4,"exhaust":3,"destroy":8}},
+    {"id":"armoured_aa_carrier","family":"mercenary_ground","size":[38,30],"collision_radius":13,"animations":{"turret":8,"recoil":2,"destroy":7}},
+    {"id":"fast_attack_craft","family":"mercenary_sea","size":[36,50],"collision_radius":13,"animations":{"turret":5,"wake":3,"destroy":7}},
+    {"id":"missile_corvette","family":"mercenary_sea","size":[50,66],"collision_radius":18,"animations":{"turret":5,"hatches":4,"wake":3,"destroy":9}},
+
+    {"id":"drone_scout","family":"machine_air","size":[24,26],"collision_radius":8,"animations":{"bank":5,"core":3,"destroy":6}},
+    {"id":"drone_hunter","family":"machine_air","size":[30,30],"collision_radius":10,"animations":{"bank":5,"core":3,"recoil":2,"destroy":7}},
+    {"id":"drone_bomber","family":"machine_air","size":[44,38],"collision_radius":14,"animations":{"bank":3,"bay":4,"core":3,"destroy":8}},
+    {"id":"drone_missile_node","family":"machine_air","size":[38,36],"collision_radius":13,"animations":{"hatches":4,"core":3,"destroy":7}},
+    {"id":"autonomous_armor","family":"machine_ground","size":[36,30],"collision_radius":12,"animations":{"turret":8,"core":3,"destroy":7}},
+    {"id":"factory_defence_node","family":"machine_ground","size":[34,34],"collision_radius":12,"animations":{"aperture":4,"core":3,"destroy":7}},
+    {"id":"exo_drone","family":"orbital_air","size":[30,30],"collision_radius":10,"animations":{"bank":5,"thruster":3,"destroy":7}},
+    {"id":"orbital_sentry","family":"orbital_air","size":[40,38],"collision_radius":13,"animations":{"turret":8,"thruster":3,"destroy":8}},
+    {"id":"phase_interceptor","family":"orbital_air","size":[34,34],"collision_radius":10,"animations":{"bank":5,"phase":4,"thruster":3,"destroy":7}},
+    {"id":"beam_sentry","family":"orbital_air","size":[42,40],"collision_radius":14,"animations":{"aperture":5,"charge":4,"thruster":3,"destroy":8}},
+    {"id":"orbital_lancer","family":"orbital_air","size":[48,44],"collision_radius":15,"animations":{"rail":4,"charge":4,"thruster":3,"destroy":8}},
+
+    {"id":"gunship_alpha","family":"mercenary_boss","size":[94,78],"collision_radius":28,"weak_points":[[-26,4],[26,4],[0,-15]],"animations":{"entrance":6,"turrets":8,"phase":3,"critical":4,"destroy":12}},
+    {"id":"armoured_train","family":"mercenary_boss","size":[78,150],"collision_radius":30,"weak_points":[[0,-48],[-20,5],[20,5]],"animations":{"turrets":8,"phase":3,"critical":4,"destroy":14}},
+    {"id":"missile_cruiser","family":"mercenary_boss","size":[92,154],"collision_radius":34,"weak_points":[[-25,-18],[25,-18],[0,32]],"animations":{"turrets":8,"hatches":5,"phase":3,"critical":4,"destroy":14}},
+    {"id":"swarm_controller","family":"machine_boss","size":[106,88],"collision_radius":32,"weak_points":[[-31,8],[31,8],[0,-10]],"animations":{"arms":5,"core":4,"phase":3,"critical":4,"destroy":13}},
+    {"id":"ai_forge_core","family":"machine_boss","size":[112,112],"collision_radius":36,"weak_points":[[-30,10],[30,10],[0,-18]],"animations":{"foundry":6,"core":4,"phase":3,"critical":4,"destroy":14}},
+    {"id":"orbital_command_node","family":"orbital_boss","size":[124,104],"collision_radius":38,"weak_points":[[-38,4],[38,4],[0,-20]],"animations":{"antennae":5,"core":4,"phase":3,"critical":4,"destroy":15}},
+    {"id":"phase_control_array","family":"orbital_boss","size":[126,126],"collision_radius":40,"weak_points":[[-42,0],[42,0],[0,0]],"animations":{"rings":8,"phase":4,"critical":4,"destroy":15}},
+    {"id":"station_warden","family":"orbital_boss","size":[146,116],"collision_radius":44,"weak_points":[[-47,0],[47,0],[0,-16]],"animations":{"turrets":8,"rails":4,"phase":3,"critical":4,"destroy":16}},
+    {"id":"machine_ark","family":"orbital_boss","size":[160,128],"collision_radius":48,"weak_points":[[-52,10],[48,8],[0,-22]],"animations":{"foundry":6,"rails":4,"phase":3,"critical":5,"destroy":18}}
+  ]
+}
