@@ -125,6 +125,18 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(1.0, 0.8) == 3, "heavy bomber bay should expose an authored firing pose during recoil")
 	_expect(source.contains('enemy_id == "gunship_mk1"') and source.contains('enemy_id == "attack_chopper"'), "gunship turret and helicopter cannon should receive specialist articulation")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_specialist/air_specialist_asset_manifest.json"), "air specialist source/runtime manifest should exist")
+	var machine_specialist_sizes := {
+		"core_0":Vector2(5,5), "core_1":Vector2(5,5), "core_2":Vector2(5,5), "hunter_weapon":Vector2(30,30),
+		"bomber_bay_closed":Vector2(44,38), "bomber_bay_opening":Vector2(44,38), "bomber_bay_open":Vector2(44,38), "bomber_bay_fire":Vector2(44,38),
+		"missile_hatch_closed":Vector2(38,36), "missile_hatch_opening":Vector2(38,36), "missile_hatch_open":Vector2(38,36), "missile_hatch_fire":Vector2(38,36),
+	}
+	for machine_specialist_id in machine_specialist_sizes:
+		var machine_specialist_texture := load("res://assets/runtime/enemies/machine_air_specialist/%s.png" % machine_specialist_id)
+		_expect(machine_specialist_texture is Texture2D and machine_specialist_texture.get_size() == machine_specialist_sizes[machine_specialist_id], "machine-air specialist component should retain registered canvas: %s" % machine_specialist_id)
+	_expect(CombatArtDirector.machine_weapon_door_frame_index(1.0, 0.0) == 0 and CombatArtDirector.machine_weapon_door_frame_index(0.5, 0.0) == 1, "machine weapon doors should hold closed then visibly open before firing")
+	_expect(CombatArtDirector.machine_weapon_door_frame_index(0.1, 0.0) == 2 and CombatArtDirector.machine_weapon_door_frame_index(1.0, 0.8) == 3, "machine weapon doors should expose ready and authored firing poses")
+	_expect(source.contains('MACHINE_AIR_SPECIALIST_ART') and source.contains('pulse_cycle := [0, 1, 2, 1]'), "machine airframes should share restrained perceptual core animation")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_specialist/machine_air_specialist_asset_manifest.json"), "machine-air specialist source/runtime manifest should exist")
 	var ground_sizes := {
 		"light_tank": Vector2(30,24),
 		"sam_truck": Vector2(34,26),
