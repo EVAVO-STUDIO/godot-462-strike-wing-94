@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="432" shape-rendering="crispEdges">
+  <!-- Row 0: ceramic-titanium wing strakes -->
+  <g transform="translate(0 0)"><path fill="#9aa6ad" d="M10 36h5v2h-5zM33 36h5v2h-5z"/><path fill="#4d5961" d="M11 38h3v2h-3zM34 38h3v2h-3z"/><path fill="#d4dadd" d="M11 36h3v1h-3zM34 36h3v1h-3z"/></g>
+  <g transform="translate(48 0)"><path fill="#9aa6ad" d="M1 35h6v2H1zM41 35h6v2h-6z"/><path fill="#4d5961" d="M3 37h3v2H3zM42 37h3v2h-3z"/><path fill="#d4dadd" d="M2 35h4v1H2zM42 35h4v1h-4z"/></g>
+  <!-- Row 1: reactive dorsal plates -->
+  <g transform="translate(0 54)"><path fill="#3c484f" d="M14 29h5v4h-5zM29 29h5v4h-5z"/><path fill="#7d898e" d="M15 29h3v1h-3zM30 29h3v1h-3z"/><path fill="#a75c48" d="M15 32h3v1h-3zM30 32h3v1h-3z"/></g>
+  <g transform="translate(48 54)"><path fill="#3c484f" d="M6 29h6v4H6zM36 29h6v4h-6z"/><path fill="#7d898e" d="M7 29h4v1H7zM37 29h4v1h-4z"/><path fill="#a75c48" d="M7 32h4v1H7zM37 32h4v1h-4z"/></g>
+  <!-- Rows 2-4: magneto-composite node pulse -->
+  <g transform="translate(0 108)"><path fill="#315d58" d="M8 31h5v5H8zM35 31h5v5h-5z"/><path fill="#67c3a5" d="M9 32h3v3H9zM36 32h3v3h-3z"/><path fill="#9bdbca" d="M10 33h1v1h-1zM37 33h1v1h-1z"/></g>
+  <g transform="translate(48 108)"><path fill="#315d58" d="M1 31h6v5H1zM41 31h6v5h-6z"/><path fill="#67c3a5" d="M3 32h3v3H3zM42 32h3v3h-3z"/><path fill="#9bdbca" d="M4 33h1v1H4zM43 33h1v1h-1z"/></g>
+  <g transform="translate(0 162)"><path fill="#284943" d="M8 31h5v5H8zM35 31h5v5h-5z"/><path fill="#8ad7bd" d="M8 33h5v1H8zM35 33h5v1h-5z"/><path fill="#d0eee5" d="M10 32h1v3h-1zM37 32h1v3h-1z"/></g>
+  <g transform="translate(48 162)"><path fill="#284943" d="M1 31h6v5H1zM41 31h6v5h-6z"/><path fill="#8ad7bd" d="M1 33h6v1H1zM41 33h6v1h-6z"/><path fill="#d0eee5" d="M4 32h1v3H4zM43 32h1v3h-1z"/></g>
+  <g transform="translate(0 216)"><path fill="#315d58" d="M8 31h5v5H8zM35 31h5v5h-5z"/><path fill="#67c3a5" d="M9 32h3v3H9zM36 32h3v3h-3z"/><path fill="#406f68" d="M6 33h2v1H6zM13 33h2v1h-2zM33 33h2v1h-2zM40 33h2v1h-2z"/></g>
+  <g transform="translate(48 216)"><path fill="#315d58" d="M1 31h6v5H1zM41 31h6v5h-6z"/><path fill="#67c3a5" d="M3 32h3v3H3zM42 32h3v3h-3z"/><path fill="#406f68" d="M0 33h1v1H0zM7 33h2v1H7zM39 33h2v1h-2zM47 33h1v1h-1z"/></g>
+  <!-- Rows 5-7: field-coupled broken lattice -->
+  <g transform="translate(0 270)" fill="none"><path stroke="#385e6e" d="M7 37h5v2h5v1h14v-1h5v-2h5"/><path stroke="#6aa4c8" d="M12 36h4M32 36h4"/><path stroke="#4a847d" d="M18 41h12"/></g>
+  <g transform="translate(48 270)" fill="none"><path stroke="#385e6e" d="M1 37h8v2h8v1h14v-1h8v-2h8"/><path stroke="#6aa4c8" d="M9 36h5M34 36h5"/><path stroke="#4a847d" d="M17 41h14"/></g>
+  <g transform="translate(0 324)" fill="none"><path stroke="#4b7888" d="M6 36h7v2h5v2h12v-2h5v-2h7"/><path stroke="#82bace" d="M10 35h5M33 35h5"/><path stroke="#67c3a5" d="M20 41h8"/></g>
+  <g transform="translate(48 324)" fill="none"><path stroke="#4b7888" d="M0 36h10v2h7v2h14v-2h7v-2h10"/><path stroke="#82bace" d="M7 35h6M35 35h6"/><path stroke="#67c3a5" d="M20 41h8"/></g>
+  <g transform="translate(0 378)" fill="none"><path stroke="#2e5362" d="M8 38h8v2h16v-2h8"/><path stroke="#6aa4c8" d="M6 36h4M38 36h4"/><path stroke="#3e746e" d="M18 42h12"/></g>
+  <g transform="translate(48 378)" fill="none"><path stroke="#2e5362" d="M1 38h15v2h16v-2h15"/><path stroke="#6aa4c8" d="M0 36h5M43 36h5"/><path stroke="#3e746e" d="M18 42h12"/></g>
+</svg>

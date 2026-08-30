@@ -413,8 +413,19 @@ func _test_airframe_cues() -> void:
 		return
 	var source := file.get_as_text()
 	_expect(source.contains("layer = 13"), "airframe cues should remain above combat silhouettes and below projectile/HUD layers")
-	_expect(source.contains('"magneto_composite_frame"') and source.contains("_draw_magnetic_nodes"), "magneto-composite frame should expose restrained magnetic nodes")
-	_expect(source.contains('"field_coupled_frame"') and source.contains("_draw_field_lattice"), "field-coupled frame should expose visible field-lattice language")
+	_expect(source.contains('"magneto_composite_frame"') and source.contains('art["magnetic"][frame_index]'), "magneto-composite frame should expose authored animated magnetic nodes")
+	_expect(source.contains('"field_coupled_frame"') and source.contains('art["field"][frame_index]'), "field-coupled frame should expose an authored broken field lattice")
+	_expect(source.contains("AIRFRAME_ATTACHMENT_ART") and source.contains("_draw_attachment"), "airframe progression should stack registered attachment sprites")
+	_expect(not source.contains("draw_rect") and not source.contains("draw_line") and not source.contains("draw_arc"), "airframe equipment must not regress to primitive rectangle, line or arc drawing")
+	for form in ["fighter", "bomber"]:
+		for static_layer in ["armor", "reactive"]:
+			var static_texture := load("res://assets/runtime/craft/vx94/gameplay/airframe/%s_%s.png" % [form,static_layer])
+			_expect(static_texture is Texture2D and static_texture.get_size()==Vector2(48,54), "airframe static attachment must retain VX-94 canvas: %s %s" % [form,static_layer])
+		for animated_layer in ["magnetic", "field"]:
+			for frame_index in range(3):
+				var animation_texture := load("res://assets/runtime/craft/vx94/gameplay/airframe/%s_%s_%d.png" % [form,animated_layer,frame_index])
+				_expect(animation_texture is Texture2D and animation_texture.get_size()==Vector2(48,54), "airframe animated attachment must retain VX-94 canvas: %s %s %d" % [form,animated_layer,frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/airframe_attachment_manifest.json"), "VX-94 layered airframe attachment manifest should exist")
 
 func _test_combat_fx() -> void:
 	var file := FileAccess.open("res://scripts/combat_fx_director.gd", FileAccess.READ)

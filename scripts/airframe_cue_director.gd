@@ -1,12 +1,21 @@
 extends CanvasLayer
 
 const AirframeCueSurface = preload("res://scripts/airframe_cue_surface.gd")
-
-const ARMOR := Color("9aa6ad")
-const ARMOR_DARK := Color("4d5961")
-const FIELD := Color("67c3a5")
-const FIELD_DIM := Color(0.40, 0.76, 0.65, 0.58)
-const COUPLED := Color("6aa4c8")
+const GAMEPLAY_ANCHOR := Vector2(24,29)
+const AIRFRAME_ATTACHMENT_ART := {
+	"fighter": {
+		"armor": preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_armor.png"),
+		"reactive": preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_reactive.png"),
+		"magnetic": [preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_magnetic_0.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_magnetic_1.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_magnetic_2.png")],
+		"field": [preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_field_0.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_field_1.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/fighter_field_2.png")],
+	},
+	"bomber": {
+		"armor": preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_armor.png"),
+		"reactive": preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_reactive.png"),
+		"magnetic": [preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_magnetic_0.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_magnetic_1.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_magnetic_2.png")],
+		"field": [preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_field_0.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_field_1.png"), preload("res://assets/runtime/craft/vx94/gameplay/airframe/bomber_field_2.png")],
+	},
+}
 
 var _surface: Control
 
@@ -29,46 +38,28 @@ func _draw_airframe_cues(surface: CanvasItem) -> void:
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
 		return
 	var p: Vector2 = scene.get("player_position")
+	var form := _craft_form()
+	var art: Dictionary = AIRFRAME_ATTACHMENT_ART.get(form, AIRFRAME_ATTACHMENT_ART["fighter"])
+	var origin := (p - GAMEPLAY_ANCHOR).round()
+	var frame_index := int(floor((Time.get_ticks_msec() / 1000.0) * 7.0)) % 3
 	match _airframe_id():
 		"ceramic_titanium_frame":
-			_draw_armor_strakes(surface, p, false)
+			_draw_attachment(surface, origin, art["armor"])
 		"reactive_alloy_frame":
-			_draw_armor_strakes(surface, p, true)
+			_draw_attachment(surface, origin, art["armor"])
+			_draw_attachment(surface, origin, art["reactive"])
 		"magneto_composite_frame":
-			_draw_armor_strakes(surface, p, true)
-			_draw_magnetic_nodes(surface, p)
+			_draw_attachment(surface, origin, art["armor"])
+			_draw_attachment(surface, origin, art["reactive"])
+			_draw_attachment(surface, origin, art["magnetic"][frame_index])
 		"field_coupled_frame":
-			_draw_armor_strakes(surface, p, true)
-			_draw_magnetic_nodes(surface, p)
-			_draw_field_lattice(surface, p)
+			_draw_attachment(surface, origin, art["armor"])
+			_draw_attachment(surface, origin, art["reactive"])
+			_draw_attachment(surface, origin, art["magnetic"][frame_index])
+			_draw_attachment(surface, origin, art["field"][frame_index])
 
-func _draw_armor_strakes(surface: CanvasItem, p: Vector2, reactive: bool) -> void:
-	var form := _craft_form()
-	var wing_x := 21.0 if form == "bomber" else 12.0
-	var wing_y := 7.0 if form == "bomber" else 8.0
-	for side in [-1.0, 1.0]:
-		var x: float = p.x + wing_x * side
-		surface.draw_rect(Rect2(roundf(x - 2.0), roundf(p.y + wing_y), 4, 2), ARMOR)
-		surface.draw_rect(Rect2(roundf(x - 1.0), roundf(p.y + wing_y + 2.0), 2, 2), ARMOR_DARK)
-	if reactive:
-		for side in [-1.0, 1.0]:
-			var x: float = p.x + (15.0 if form == "bomber" else 8.0) * side
-			surface.draw_rect(Rect2(roundf(x - 2.0), roundf(p.y + 2.0), 4, 3), ARMOR_DARK)
-
-func _draw_magnetic_nodes(surface: CanvasItem, p: Vector2) -> void:
-	var form := _craft_form()
-	var span := 23.0 if form == "bomber" else 14.0
-	for side in [-1.0, 1.0]:
-		var node := p + Vector2(span * side, 5)
-		surface.draw_rect(Rect2(roundf(node.x - 2), roundf(node.y - 2), 4, 4), FIELD)
-		surface.draw_line(node + Vector2(-3,0), node + Vector2(3,0), FIELD_DIM, 1.0)
-
-func _draw_field_lattice(surface: CanvasItem, p: Vector2) -> void:
-	var form := _craft_form()
-	var span := 26.0 if form == "bomber" else 17.0
-	surface.draw_arc(p, span, deg_to_rad(205.0), deg_to_rad(335.0), 10, FIELD_DIM, 1.0)
-	surface.draw_line(p + Vector2(-7,-2), p + Vector2(-span,7), COUPLED, 1.0)
-	surface.draw_line(p + Vector2(7,-2), p + Vector2(span,7), COUPLED, 1.0)
+func _draw_attachment(surface: CanvasItem, origin: Vector2, texture: Texture2D) -> void:
+	surface.draw_texture(texture, origin)
 
 func _airframe_id() -> String:
 	var director := get_node_or_null("/root/AirframeDirector")

@@ -1,0 +1,23 @@
+{
+  "asset_family": "vx94_layered_airframe_progression",
+  "status": "runtime_layered_v1",
+  "source_sheet": "res://assets/source/craft/vx94/airframe_attachment_sheet.svg",
+  "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/airframe/",
+  "canvas": [48, 54],
+  "registration": [24, 29],
+  "forms": ["fighter", "bomber"],
+  "layers": {
+    "armor": {"frames": 1, "role": "ceramic-titanium wing-root strakes"},
+    "reactive": {"frames": 1, "role": "reactive dorsal armour cassettes"},
+    "magnetic": {"frames": 3, "fps": 7, "role": "magneto-composite field nodes"},
+    "field": {"frames": 3, "fps": 7, "role": "broken field-coupled lattice"}
+  },
+  "composition": {
+    "ceramic_titanium_frame": ["armor"],
+    "reactive_alloy_frame": ["armor", "reactive"],
+    "magneto_composite_frame": ["armor", "reactive", "magnetic"],
+    "field_coupled_frame": ["armor", "reactive", "magnetic", "field"]
+  },
+  "contract": "Every component is a separately authored transparent sprite registered to the same fighter/bomber gameplay canvas; AirframeCueDirector stacks them without changing collision or durability.",
+  "reject": ["primitive rectangles", "smooth vector arcs", "neon force-field bubble", "unregistered floating equipment"]
+}
