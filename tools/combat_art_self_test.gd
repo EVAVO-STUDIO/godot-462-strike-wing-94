@@ -78,7 +78,7 @@ func _test_visual_language() -> void:
 	for frame_index in range(4):
 		var rotor_frame := load("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_%d.png" % frame_index)
 		_expect(rotor_frame is Texture2D and rotor_frame.get_size() == Vector2(42,38), "attack-chopper rotor frame should retain registered 42x38 geometry: %d" % frame_index)
-	_expect(source.contains("UNIT_ANIMATION_FRAMES") and source.contains("func _draw_animated_unit") and source.contains("* 12.0"), "ordinary production units should support deliberate low-frame-rate animation")
+	_expect(source.contains("UNIT_ANIMATION_FRAMES") and source.contains("func _draw_animated_unit") and source.contains('float(animation["fps"])'), "ordinary production units should support deliberate per-family low-frame-rate animation")
 	var ground_sizes := {
 		"light_tank": Vector2(30,24),
 		"sam_truck": Vector2(34,26),
@@ -102,6 +102,14 @@ func _test_visual_language() -> void:
 	for ground_force_path in ground_force_sizes:
 		var force_texture := load("res://assets/runtime/enemies/%s_idle.png" % ground_force_path)
 		_expect(force_texture is Texture2D and force_texture.get_size() == ground_force_sizes[ground_force_path], "ground-force identity should retain reviewed geometry: %s" % ground_force_path)
+	var mech_animation_sizes := {
+		"security_patrol_mech": Vector2(38,42),
+		"autonomous_salvage_mech": Vector2(44,42),
+	}
+	for mech_id in mech_animation_sizes:
+		for frame_index in range(4):
+			var walk_frame := load("res://assets/runtime/enemies/unit_animation/%s/walk_%d.png" % [mech_id, frame_index])
+			_expect(walk_frame is Texture2D and walk_frame.get_size() == mech_animation_sizes[mech_id], "ground-mech gait frame should retain registered geometry: %s/%d" % [mech_id, frame_index])
 	var sea_sizes := {
 		"river_patrol": Vector2(30,44),
 		"torpedo_boat": Vector2(34,48),

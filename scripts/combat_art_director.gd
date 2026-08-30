@@ -10,12 +10,24 @@ const MERCENARY_AIR_SPRITES := {
 	"heavy_bomber": preload("res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png"),
 }
 const UNIT_ANIMATION_FRAMES := {
-	"attack_chopper": [
+	"attack_chopper": {"fps": 12.0, "frames": [
 		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_0.png"),
 		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_1.png"),
 		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_2.png"),
 		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_3.png"),
-	],
+	]},
+	"security_patrol_mech": {"fps": 7.0, "frames": [
+		preload("res://assets/runtime/enemies/unit_animation/security_patrol_mech/walk_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/security_patrol_mech/walk_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/security_patrol_mech/walk_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/security_patrol_mech/walk_3.png"),
+	]},
+	"autonomous_salvage_mech": {"fps": 9.0, "frames": [
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_3.png"),
+	]},
 }
 const MERCENARY_GROUND_SPRITES := {
 	"light_tank": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
@@ -349,7 +361,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif faction == "autonomous" and category == "ground" and MACHINE_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MACHINE_GROUND_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and category == "ground" and MACHINE_MECH_SPRITES.has(enemy_id):
-		_draw_production_sprite(surface, p, MACHINE_MECH_SPRITES[enemy_id], scale)
+		_draw_animated_unit(surface, p, enemy_id, enemy, MACHINE_MECH_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and ORBITAL_AIR_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, ORBITAL_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous" and MACHINE_AIR_SPRITES.has(enemy_id):
@@ -359,7 +371,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "ground" and LAYERED_GROUND_SPRITES.has(enemy_id):
 		_draw_layered_ground(surface, p, enemy, LAYERED_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground" and MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id):
-		_draw_production_sprite(surface, p, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], scale)
+		_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], scale)
 	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground":
@@ -378,13 +390,14 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 	var destination := Rect2((p - size * 0.5).round(), size.round())
 	surface.draw_texture_rect(texture, destination, false)
 
-func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, fallback: Texture2D) -> void:
+func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, fallback: Texture2D, scale: float = 1.0) -> void:
 	if not UNIT_ANIMATION_FRAMES.has(enemy_id):
-		_draw_production_sprite(surface, p, fallback)
+		_draw_production_sprite(surface, p, fallback, scale)
 		return
-	var frames: Array = UNIT_ANIMATION_FRAMES[enemy_id]
-	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 12.0)) % frames.size()
-	_draw_production_sprite(surface, p, frames[frame_index])
+	var animation: Dictionary = UNIT_ANIMATION_FRAMES[enemy_id]
+	var frames: Array = animation["frames"]
+	var frame_index := int(floor(float(enemy.get("age", 0.0)) * float(animation["fps"]))) % frames.size()
+	_draw_production_sprite(surface, p, frames[frame_index], scale)
 
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
 	_draw_production_sprite(surface, p, texture)

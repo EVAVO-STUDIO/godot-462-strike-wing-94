@@ -1,0 +1,20 @@
+{
+  "asset_family": "ground_mech_gait_animation",
+  "status": "runtime_animations_reviewed",
+  "registration": "all frames preserve their approved idle canvas and gameplay centre",
+  "animation_method": "four held mechanical poses with one-pixel alternating lower-limb travel and actuator accents",
+  "mechs": {
+    "security_patrol_mech": {
+      "canvas": [38, 42], "fps": 7, "cadence": "slow piloted weight with a brief neutral settle",
+      "sha256": {
+        "walk_0.png":"657EFF8BEE9AD628199FD1C801DFDC2FAFD52B7CB034F25B8769295EC59732BA","walk_1.png":"2FBC85C63CB02FA792AE0323E0B11ADC665159E0C6FF6BE68E98772FDE92A676","walk_2.png":"CA8D49521151DAA9B9BBA177E5BE248C6A49637264630598E20C5D6103CF9DB6","walk_3.png":"BB15268BEAB7893668035EDB1637BC1B5826F15D88A937C47F5E250242C2E254"
+      }
+    },
+    "autonomous_salvage_mech": {
+      "canvas": [44, 42], "fps": 9, "cadence": "harsher uneven industrial gait with exposed yellow actuator travel",
+      "sha256": {
+        "walk_0.png":"8409CBDD748319FCE84BFCB33CCCBBB2693F8FCB99051EAF684FD3FA55978E64","walk_1.png":"07748942A9AA5BF78986C6653885A306A8F2C54B2FDFE5416B8526B584619F1E","walk_2.png":"17B93B0D0AEC4C315AEBAB9AB105E5E004C8A1C1E67C3FFB057E44F69596DA37","walk_3.png":"840DBA7DC5342F80A721C00D293D2428DDB479EECE0C03FC7EF9245EA111D075"
+      }
+    }
+  }
+}
