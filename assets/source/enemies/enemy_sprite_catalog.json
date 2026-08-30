@@ -51,7 +51,7 @@
     {"id":"orbital_sentry","family":"orbital_air","size":[40,38],"collision_radius":13,"animations":{"turret":8,"thruster":3,"destroy":8}},
     {"id":"phase_interceptor","family":"orbital_air","size":[34,34],"collision_radius":10,"animations":{"bank":5,"phase":4,"thruster":3,"destroy":7}},
     {"id":"beam_sentry","family":"orbital_air","size":[42,40],"collision_radius":14,"animations":{"aperture":5,"charge":4,"thruster":3,"destroy":8}},
-    {"id":"orbital_lancer","family":"orbital_air","size":[48,44],"collision_radius":15,"animations":{"rail":4,"charge":4,"thruster":3,"destroy":8}},
+    {"id":"orbital_lancer","family":"orbital_air","size":[48,58],"collision_radius":15,"animations":{"rail":4,"charge":4,"thruster":3,"destroy":8}},
 
     {"id":"gunship_alpha","family":"mercenary_boss","size":[94,78],"collision_radius":28,"weak_points":[[-26,4],[26,4],[0,-15]],"animations":{"entrance":6,"turrets":8,"phase":3,"critical":4,"destroy":12}},
     {"id":"armoured_train","family":"mercenary_boss","size":[78,150],"collision_radius":30,"weak_points":[[0,-48],[-20,5],[20,5]],"animations":{"turrets":8,"phase":3,"critical":4,"destroy":14}},

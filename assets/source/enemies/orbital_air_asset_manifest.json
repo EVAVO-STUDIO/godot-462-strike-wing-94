@@ -1,0 +1,30 @@
+{
+  "asset_family": "orbital_air",
+  "status": "runtime_idle_candidates",
+  "source": {
+    "path": "res://assets/source/enemies/candidates/orbital_air/orbital_air_identity_sheet_candidate_01.png",
+    "sha256": "CEA114C09ED70E6B88B0D8F84314727437A3355A34DA38823574BF482771D7E4",
+    "order": ["exo_drone", "orbital_sentry", "phase_interceptor", "beam_sentry", "orbital_lancer"]
+  },
+  "visual_contract": {
+    "era": "BLACK SKY upper atmosphere and near-Earth orbit",
+    "materials": "thermal ceramic, graphite, dark cobalt structure, radiators and physical attitude control",
+    "field_rule": "cyan-white light restricted to sensors, field apertures and charge hardware",
+    "ancestry": "recognizably evolved from human military and industrial machinery, never alien"
+  },
+  "process": {
+    "orientation": "attack noses or primary rails facing down toward player",
+    "alpha_review": "composited over purple atmosphere-space plate; no matte halo",
+    "downsample": "Lanczos with one-pixel transparent inset",
+    "alpha": "20 percent threshold, preserved separately during palette remap",
+    "palette": "one shared 31-colour RGB palette plus transparency"
+  },
+  "runtime": [
+    {"id":"exo_drone","path":"res://assets/runtime/enemies/orbital_air/exo_drone_idle.png","size":[30,30],"sha256":"B5F28B5727C80D9DFC2404AAA756BB574A8353D5EC1DA4746C4FB680F44AB1A9","center":[15,15],"missile_points":[[10,26],[20,26]],"thrusters":[[8,5],[22,5]]},
+    {"id":"orbital_sentry","path":"res://assets/runtime/enemies/orbital_air/orbital_sentry_idle.png","size":[40,38],"sha256":"D24B4BB1CB3ED28E5CF3DF7EAC3200B3EE0F153B4A713F7E76E8189A08D4EF36","center":[20,19],"muzzle":[20,35],"core":[20,19]},
+    {"id":"phase_interceptor","path":"res://assets/runtime/enemies/orbital_air/phase_interceptor_idle.png","size":[34,34],"sha256":"E4D3BCD4AAF1B03213827A37FCCF40F5AD0270713033FAA4247F80FDC8AF3EC0","center":[17,17],"muzzle":[[12,31],[22,31]],"phase_nodes":[[9,18],[25,18]]},
+    {"id":"beam_sentry","path":"res://assets/runtime/enemies/orbital_air/beam_sentry_idle.png","size":[42,40],"sha256":"62CFFE9ED3FC9EC3601829AA6CAB12DC24E70A7CD90E04C43EEB01319BC0EAB6","center":[21,20],"beam_aperture":[21,23],"radiators":[[5,18],[37,18]]},
+    {"id":"orbital_lancer","path":"res://assets/runtime/enemies/orbital_air/orbital_lancer_idle.png","size":[48,58],"sha256":"CF59E6D6DD1E6E209C50014581FAC10CE39E59461E30722C800EB7070931F4E4","center":[24,29],"rail_muzzle":[24,55],"thrusters":[[13,7],[35,7]],"radiators":[[7,29],[41,29]]}
+  ],
+  "remaining_animation_gate": ["bank", "attitude thrusters", "turret tracking", "phase nodes", "beam aperture", "rail charge", "destruction"]
+}

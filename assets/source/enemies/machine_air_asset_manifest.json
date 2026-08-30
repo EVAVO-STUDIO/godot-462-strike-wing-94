@@ -1,0 +1,28 @@
+{
+  "asset_family": "machine_air",
+  "status": "runtime_idle_candidates",
+  "source": {
+    "path": "res://assets/source/enemies/candidates/machine_air/machine_air_identity_sheet_candidate_01.png",
+    "sha256": "48AE02374A7E2D6ADE8AC8241BD093F78DDB24068250926ED2D1492A24BAE2CE",
+    "order": ["drone_scout", "drone_hunter", "drone_bomber", "drone_missile_node"]
+  },
+  "visual_contract": {
+    "era": "early machine war",
+    "ancestry": "captured human aerospace production rebuilt without cockpits",
+    "core_rule": "cyan-white light restricted to sensors and thrust hardware",
+    "forbidden": ["alien anatomy", "floating pieces", "unbounded neon", "featureless smartphone-drone minimalism"]
+  },
+  "process": {
+    "orientation": "attack noses facing down toward player",
+    "downsample": "Lanczos with one-pixel transparent inset",
+    "alpha": "20 percent threshold, preserved separately during palette remap",
+    "palette": "one shared 31-colour RGB palette plus transparency"
+  },
+  "runtime": [
+    {"id":"drone_scout","path":"res://assets/runtime/enemies/machine_air/drone_scout_idle.png","size":[24,26],"sha256":"E4F3FF9DB1CC326099DF648B94C0C4135F4A0E25051D681A66BF7C5975B15A92","center":[12,13],"muzzle":[12,23],"core":[12,13]},
+    {"id":"drone_hunter","path":"res://assets/runtime/enemies/machine_air/drone_hunter_idle.png","size":[30,30],"sha256":"7D92E7408BA16C044D759F109F2EFB3583B8910C74630FC7FF093B2C4F2DBA6C","center":[15,15],"muzzle":[[11,27],[19,27]],"core":[15,15]},
+    {"id":"drone_bomber","path":"res://assets/runtime/enemies/machine_air/drone_bomber_idle.png","size":[44,38],"sha256":"479C668FB81480F1C455C56A00014A7E12C36DDE431432331E59739F5941EFCB","center":[22,19],"muzzle":[[9,33],[35,33]],"core":[22,18],"bay_center":[22,24]},
+    {"id":"drone_missile_node","path":"res://assets/runtime/enemies/machine_air/drone_missile_node_idle.png","size":[38,36],"sha256":"D76CA4EE44B1335D0458891B25B89D4B1AA986DA1238432D0B4B77B0752763BA","center":[19,18],"launcher_points":[[7,9],[31,9],[7,27],[31,27]],"core":[19,18]}
+  ],
+  "remaining_animation_gate": ["bank", "core pulse", "missile hatches", "bomb bay", "recoil", "destruction"]
+}

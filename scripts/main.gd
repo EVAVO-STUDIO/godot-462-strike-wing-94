@@ -876,6 +876,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 	enemies.append({
 		"id": str(archetype.get("id", "bogey")),
 		"category": enemy_class,
+		"faction": str(archetype.get("faction", "mercenary")),
 		"position": Vector2(x, PLAYFIELD.position.y - 18),
 		"speed": float(archetype.get("speed", 72)) + speed_bias + (0.0 if is_boss else float(wave) * 4.0),
 		"drift": drift,

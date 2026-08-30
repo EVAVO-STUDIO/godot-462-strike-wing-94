@@ -1,0 +1,27 @@
+{
+  "asset_family": "machine_ground",
+  "status": "runtime_idle_candidates",
+  "source": {
+    "path": "res://assets/source/enemies/candidates/machine_ground/machine_ground_identity_sheet_candidate_01.png",
+    "sha256": "302CEE5D7B4E816E1FAF069D3816F092516207C0BBBF59BDA66A46E86257845A",
+    "order": ["autonomous_armor", "factory_defence_node"]
+  },
+  "visual_contract": {
+    "era": "early machine war",
+    "autonomous_armor": "mobile human-derived armour reorganized around four robotic track pods",
+    "factory_defence_node": "static production-facility interface with clamp foundations and routed coolant",
+    "core_rule": "cyan-white light restricted to protected sensors and coolant routing"
+  },
+  "process": {
+    "orientation": "weapons facing down toward player",
+    "downsample": "Lanczos with one-pixel transparent inset",
+    "alpha": "20 percent threshold, preserved separately during palette remap",
+    "palette": "one shared 31-colour RGB palette plus transparency",
+    "altitude": "runtime texture rectangle follows canonical surface-target scale"
+  },
+  "runtime": [
+    {"id":"autonomous_armor","path":"res://assets/runtime/enemies/machine_ground/autonomous_armor_idle.png","size":[36,30],"sha256":"F318080B7BC3E465D37B9C233B0D602FDD3C269133058D0D9036DC7BF7F93691","center":[18,15],"muzzle":[[14,28],[22,28]],"core":[18,14]},
+    {"id":"factory_defence_node","path":"res://assets/runtime/enemies/machine_ground/factory_defence_node_idle.png","size":[34,34],"sha256":"0EF7469DA798C949CC1468A9E51990B4EF123D53183840289F0121747A97C937","center":[17,17],"muzzle":[17,31],"core":[17,16]}
+  ],
+  "remaining_animation_gate": ["turret or aperture tracking", "core pulse", "recoil", "destruction"]
+}

@@ -57,7 +57,7 @@ func _test_visual_language() -> void:
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("func _draw_ground") and source.contains("func _draw_sea") and source.contains("func _draw_air"), "mercenary air/ground/sea roles should have distinct silhouette renderers")
-	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed mercenary units should use production sprite assets")
+	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
 	_expect(source.contains("func _draw_autonomous"), "autonomous machines should have their own visual language")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
 	_expect(source.contains("func _draw_boss"), "boss-scale enemies should have dedicated presentation")
@@ -93,6 +93,32 @@ func _test_visual_language() -> void:
 	for enemy_id in sea_sizes:
 		var texture := load("res://assets/runtime/enemies/mercenary_sea/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == sea_sizes[enemy_id], "sea production sprite should retain reviewed geometry: %s" % enemy_id)
+	var machine_air_sizes := {
+		"drone_scout": Vector2(24,26),
+		"drone_hunter": Vector2(30,30),
+		"drone_bomber": Vector2(44,38),
+		"drone_missile_node": Vector2(38,36),
+	}
+	for enemy_id in machine_air_sizes:
+		var texture := load("res://assets/runtime/enemies/machine_air/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == machine_air_sizes[enemy_id], "machine-air sprite should retain reviewed geometry: %s" % enemy_id)
+	var machine_ground_sizes := {
+		"autonomous_armor": Vector2(36,30),
+		"factory_defence_node": Vector2(34,34),
+	}
+	for enemy_id in machine_ground_sizes:
+		var texture := load("res://assets/runtime/enemies/machine_ground/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == machine_ground_sizes[enemy_id], "machine-ground sprite should retain reviewed geometry: %s" % enemy_id)
+	var orbital_air_sizes := {
+		"exo_drone": Vector2(30,30),
+		"orbital_sentry": Vector2(40,38),
+		"phase_interceptor": Vector2(34,34),
+		"beam_sentry": Vector2(42,40),
+		"orbital_lancer": Vector2(48,58),
+	}
+	for enemy_id in orbital_air_sizes:
+		var texture := load("res://assets/runtime/enemies/orbital_air/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == orbital_air_sizes[enemy_id], "orbital-air sprite should retain reviewed geometry: %s" % enemy_id)
 
 func _test_transform_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -111,6 +137,7 @@ func _test_transform_presentation() -> void:
 	_expect(main_file != null, "main gameplay source should be readable for production-art cutover")
 	if main_file != null:
 		var main_source := main_file.get_as_text()
+		_expect(main_source.contains('"faction": str(archetype.get("faction", "mercenary"))'), "spawned enemies should preserve authored faction metadata for production art")
 		var gameplay_start := main_source.find("func _draw_gameplay()")
 		var gameplay_source := main_source.substr(gameplay_start) if gameplay_start >= 0 else ""
 		_expect(not gameplay_source.contains("draw_colored_polygon"), "main gameplay draw must not retain prototype craft/enemy polygons")
