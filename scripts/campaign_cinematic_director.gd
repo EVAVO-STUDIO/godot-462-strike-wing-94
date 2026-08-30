@@ -54,6 +54,26 @@ const SUBJECT_OVERLAYS := {
 		preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_3.png"),
 	],
 }
+const SHOT_FX_FRAMES := {
+	"s2_observation": [
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_0.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_1.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_2.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_3.png"),
+	],
+	"s2_anticipation": [
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_anticipation_0.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_anticipation_1.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_anticipation_2.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_anticipation_3.png"),
+	],
+	"s2_consequence": [
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_consequence_0.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_consequence_1.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_consequence_2.png"),
+		preload("res://assets/runtime/cinematics/fx/machine_war/s2_consequence_3.png"),
+	],
+}
 
 var _sequences: Array = []
 var _launch_by_mission: Dictionary = {}
@@ -134,6 +154,7 @@ func draw_cinematic(surface: CanvasItem) -> void:
 	var fade := minf(clampf(ratio / 0.12, 0.0, 1.0), clampf((1.0-ratio) / 0.12, 0.0, 1.0))
 	surface.draw_rect(Rect2(0,0,640,360), Color("020407"))
 	_draw_plate(surface, shot, ratio, fade)
+	_draw_shot_fx(surface, shot, fade)
 	_draw_subject(surface, shot, ratio, fade)
 	surface.draw_rect(Rect2(0,0,640,24), Color("020407"))
 	surface.draw_rect(Rect2(0,296,640,64), Color(0.008,0.014,0.02,0.96))
@@ -180,6 +201,17 @@ func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: f
 		var overlay: Texture2D = overlays[posmod(animation_index, overlays.size())]
 		var overlay_size := overlay.get_size() * scale
 		surface.draw_texture_rect(overlay, Rect2((position-overlay_size*0.5).round(),overlay_size.round()), false, Color(0.90,0.94,0.95,alpha*0.72))
+
+func _draw_shot_fx(surface: CanvasItem, shot: Dictionary, alpha: float) -> void:
+	var shot_id := str(shot.get("id", ""))
+	if not SHOT_FX_FRAMES.has(shot_id):
+		return
+	var frames: Array = SHOT_FX_FRAMES[shot_id]
+	if frames.is_empty():
+		return
+	var fps := maxf(0.1, float(shot.get("fx_fps", 3.0)))
+	var frame_index := posmod(int(floor(_shot_elapsed * fps)), frames.size())
+	surface.draw_texture(frames[frame_index], Vector2(0, 24), Color(1.0, 1.0, 1.0, alpha))
 
 func _current_shot() -> Dictionary:
 	var shots: Array = _active.get("shots", [])

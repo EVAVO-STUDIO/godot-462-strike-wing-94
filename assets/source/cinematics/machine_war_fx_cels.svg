@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="816" viewBox="0 0 2560 816" shape-rendering="crispEdges">
+  <!-- Row 0: dead refinery vapour, four held drawings. -->
+  <g fill="#7f909b" opacity=".20">
+    <g transform="translate(0 0)"><path d="M42 66h72l18 9h68l16 13h-94l-18-8H36ZM348 172h88l22 10h76l26 14H444l-20-9h-92Z"/><path d="M92 44h42v5H92Zm402 97h56v4h-56Z" opacity=".55"/></g>
+    <g transform="translate(640 0)"><path d="M51 64h72l20 10h71l17 13h-96l-18-8H44ZM340 170h88l24 10h78l27 14H438l-20-9h-93Z"/><path d="M104 43h42v5h-42Zm393 96h56v4h-56Z" opacity=".55"/></g>
+    <g transform="translate(1280 0)"><path d="M60 62h74l20 10h73l18 13h-98l-19-8H52ZM332 168h90l24 10h80l28 14H434l-22-9h-94Z"/><path d="M116 42h44v5h-44Zm386 95h56v4h-56Z" opacity=".55"/></g>
+    <g transform="translate(1920 0)"><path d="M50 65h73l19 10h70l18 13h-96l-18-8H43ZM341 171h89l23 10h77l27 14H439l-21-9h-92Z"/><path d="M103 44h43v5h-43Zm394 98h56v4h-56Z" opacity=".55"/></g>
+  </g>
+  <g fill="#b9c3c9" opacity=".14">
+    <path d="M18 98h142v3H18Zm252 113h186v3H270Z"/><path d="M676 96h145v3H676Zm241 114h188v3H917Z"/><path d="M1334 94h148v3h-148Zm232 115h190v3h-190Z"/><path d="M1972 97h145v3h-145Zm242 116h188v3h-188Z"/>
+  </g>
+
+  <!-- Row 1: factory warning activation and ignition sparks. -->
+  <g transform="translate(0 272)"><g fill="#d87a32"><rect x="96" y="60" width="6" height="3"/><rect x="532" y="88" width="4" height="2"/></g><g stroke="#8b4827" stroke-width="2" fill="none"><path d="M452 134h14M459 127v14"/></g></g>
+  <g transform="translate(640 272)"><g fill="#e8ca6a"><rect x="94" y="58" width="10" height="7"/><rect x="528" y="85" width="10" height="6"/></g><g stroke="#d87a32" stroke-width="2" fill="none"><path d="M444 134h30M459 119v30M449 124l20 20M469 124l-20 20"/></g><path d="M92 68h14l5 6H87Z" fill="#d87a32" opacity=".45"/></g>
+  <g transform="translate(1280 272)"><g fill="#f0df99"><rect x="92" y="56" width="14" height="11"/><rect x="526" y="83" width="14" height="10"/></g><g stroke="#e8ca6a" stroke-width="2" fill="none"><path d="M436 134h46M459 111v46M443 118l32 32M475 118l-32 32"/></g><path d="M86 70h26l9 9H77Z" fill="#d87a32" opacity=".52"/><path d="M516 96h34l10 8h-54Z" fill="#d87a32" opacity=".38"/></g>
+  <g transform="translate(1920 272)"><g fill="#d87a32"><rect x="96" y="60" width="6" height="3"/><rect x="532" y="88" width="4" height="2"/></g><g stroke="#8b4827" stroke-width="2" fill="none"><path d="M451 134h16M459 126v16"/></g></g>
+
+  <!-- Row 2: hostile-network signal acquisition around the hunter. -->
+  <g stroke="#6aa4c8" fill="none" stroke-width="2" opacity=".72">
+    <g transform="translate(0 544)"><path d="M268 112h22v-18M350 94v18h22M268 190h22v18M350 208v-18h22"/><path d="M72 52h122M446 216h126" opacity=".38"/></g>
+    <g transform="translate(640 544)"><path d="M280 120h18v-16M342 104v16h18M280 182h18v16M342 198v-16h18"/><path d="M94 56h150M408 212h142" opacity=".46"/></g>
+    <g transform="translate(1280 544)"><path d="M290 128h15v-13M335 115v13h15M290 174h15v13M335 187v-13h15"/><path d="M118 60h176M362 208h164" opacity=".55"/><path d="M320 104v96M272 152h96" stroke="#dc6655" opacity=".55"/></g>
+    <g transform="translate(1920 544)"><path d="M280 120h18v-16M342 104v16h18M280 182h18v16M342 198v-16h18"/><path d="M94 56h150M408 212h142" opacity=".46"/></g>
+  </g>
+  <g fill="#dc6655" opacity=".68"><rect x="1596" y="690" width="8" height="4"/><rect x="2240" y="690" width="5" height="3"/></g>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "asset_family": "sector_ii_machine_war_limited_fx_cels",
+  "status": "runtime_v1",
+  "production_method": {
+    "timing_basis": "authored held-drawing and exposure discipline inspected from local EVAVO Cel Animation Studio",
+    "render_method": "deterministic hard-edge SVG drawings rasterized locally; no provider generation or interpolation claimed",
+    "frame_rate": 24,
+    "exposure": "eight-frame holds",
+    "playback_fps": 3,
+    "registration": [640,272]
+  },
+  "tracks": {
+    "s2_observation": {"role":"environment effects", "drawings":["vapour_0","vapour_1","vapour_2","vapour_3"], "motion":"slow refinery exhaust drift"},
+    "s2_anticipation": {"role":"effects and practical light", "drawings":["warning_0","warning_1","warning_2","warning_3"], "motion":"machine-factory alarm ignition"},
+    "s2_consequence": {"role":"effects and signal acquisition", "drawings":["acquire_0","acquire_1","acquire_2","acquire_3"], "motion":"hostile network brackets close around hunter"}
+  },
+  "runtime_directory": "res://assets/runtime/cinematics/fx/machine_war/",
+  "avoid": ["smooth tweened particles", "modern hologram bloom", "AI interpolation", "random noise", "full-screen generic glitch"]
+}

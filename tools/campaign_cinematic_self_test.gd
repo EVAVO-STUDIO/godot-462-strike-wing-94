@@ -42,13 +42,26 @@ func _run() -> void:
 	_expect(triggers.count("launch") == 2 and triggers.count("ending") == 1, "cinematic schedule should contain two launch transitions and one ending", failures)
 	_expect(used_plates.size() == 12, "each campaign cinematic beat should use its own authored editorial plate", failures)
 	_expect(animated_subject_shots >= 5, "campaign cinematics should use restrained authored subject animation on mechanical story beats", failures)
+	var machine_fx_shots := 0
+	for sequence in sequences:
+		if typeof(sequence) == TYPE_DICTIONARY:
+			for shot in sequence.get("shots", []):
+				if typeof(shot) == TYPE_DICTIONARY and str(shot.get("id", "")).begins_with("s2_") and float(shot.get("fx_fps", 0.0)) == 3.0:
+					machine_fx_shots += 1
+	_expect(machine_fx_shots == 3, "Sector II reveal should retain authored three-fps held FX exposures", failures)
 	for plate_id in PLATES:
 		var plate := load("res://assets/runtime/cinematics/plates/%s.png" % plate_id)
 		_expect(plate is Texture2D and plate.get_size() == Vector2(640,320), "cinematic plate should preserve authored 640x320 composition: %s" % plate_id, failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/cinematic_plate_asset_manifest.json"), "cinematic plate production manifest should exist", failures)
+	for shot_id in ["s2_observation", "s2_anticipation", "s2_consequence"]:
+		for frame_index in range(4):
+			var fx := load("res://assets/runtime/cinematics/fx/machine_war/%s_%d.png" % [shot_id, frame_index])
+			_expect(fx is Texture2D and fx.get_size() == Vector2(640,272), "machine-war FX cel should retain registered 640x272 geometry: %s %d" % [shot_id, frame_index], failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/machine_war_fx_manifest.json"), "machine-war held-cel source/runtime manifest should exist", failures)
 	var director_file := FileAccess.open("res://scripts/campaign_cinematic_director.gd", FileAccess.READ)
 	var director_source := director_file.get_as_text() if director_file != null else ""
 	_expect(director_source.contains("SUBJECT_FRAMES") and director_source.contains("SUBJECT_OVERLAYS") and director_source.contains("animation_fps"), "cinematic subjects should consume approved limited-animation frames and boss overlays", failures)
+	_expect(director_source.contains("SHOT_FX_FRAMES") and director_source.contains("_draw_shot_fx") and director_source.contains("fx_fps"), "campaign cinematic should composite authored held FX cels by shot identity", failures)
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main game source should be readable", failures)
 	if main_file != null:
