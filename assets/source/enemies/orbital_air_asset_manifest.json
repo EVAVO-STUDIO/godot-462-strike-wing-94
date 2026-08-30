@@ -1,6 +1,6 @@
 {
   "asset_family": "orbital_air",
-  "status": "runtime_motion_v1",
+  "status": "runtime_motion_v2",
   "source": {
     "path": "res://assets/source/enemies/candidates/orbital_air/orbital_air_identity_sheet_candidate_01.png",
     "sha256": "CEA114C09ED70E6B88B0D8F84314727437A3355A34DA38823574BF482771D7E4",
@@ -28,8 +28,9 @@
   ],
   "runtime_animation": {
     "propulsion": "orbital_impulse family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
+    "bank": "all five orbital craft use discrete left/neutral/right held poses selected from smoothed real lateral motion",
     "phase_interceptor": "four-frame bespoke phase-pursuit thrust cycle",
     "destruction": "cold debris, field collapse and smoke consequence"
   },
-  "remaining_animation_gate": ["bank", "turret tracking", "phase nodes", "beam aperture", "rail charge"]
+  "remaining_animation_gate": ["turret tracking", "phase nodes", "beam aperture", "rail charge"]
 }

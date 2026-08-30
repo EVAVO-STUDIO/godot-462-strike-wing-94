@@ -1,0 +1,17 @@
+{
+  "asset_family": "hostile_air_bank_poses",
+  "status": "runtime_v1",
+  "method": "approved neutral masters recomposed at native resolution into held left and right roll silhouettes with nearest-neighbour sampling and preserved transparency",
+  "visual_contract": {
+    "exposure": "three held poses selected from real lateral motion",
+    "silhouette": "banked craft compress toward the lowered wing while retaining nose, cockpit, hardpoint and exhaust identity",
+    "rule": "banking is presentation only; collision and deterministic movement remain authoritative",
+    "reject": ["continuous mushy rotation", "subpixel blur", "decorative idle rocking", "modern skeletal tween"]
+  },
+  "families": {
+    "mercenary_air": ["scout_falcon", "gunship_mk1", "attack_chopper", "ace_interceptor", "heavy_bomber"],
+    "machine_air": ["drone_scout", "drone_hunter", "drone_bomber", "drone_missile_node"],
+    "orbital_air": ["exo_drone", "orbital_sentry", "phase_interceptor", "beam_sentry", "orbital_lancer"]
+  },
+  "runtime_pattern": "res://assets/runtime/enemies/bank/{id}/{left|right}.png"
+}

@@ -89,6 +89,22 @@ const UNIT_ANIMATION_FRAMES := {
 		preload("res://assets/runtime/enemies/unit_animation/phase_interceptor/thrust_3.png"),
 	]},
 }
+const HOSTILE_BANK_FRAMES := {
+	"scout_falcon": [preload("res://assets/runtime/enemies/bank/scout_falcon/left.png"), preload("res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png"), preload("res://assets/runtime/enemies/bank/scout_falcon/right.png")],
+	"gunship_mk1": [preload("res://assets/runtime/enemies/bank/gunship_mk1/left.png"), preload("res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png"), preload("res://assets/runtime/enemies/bank/gunship_mk1/right.png")],
+	"attack_chopper": [preload("res://assets/runtime/enemies/bank/attack_chopper/left.png"), preload("res://assets/runtime/enemies/mercenary_air/attack_chopper_idle.png"), preload("res://assets/runtime/enemies/bank/attack_chopper/right.png")],
+	"ace_interceptor": [preload("res://assets/runtime/enemies/bank/ace_interceptor/left.png"), preload("res://assets/runtime/enemies/mercenary_air/ace_interceptor_idle.png"), preload("res://assets/runtime/enemies/bank/ace_interceptor/right.png")],
+	"heavy_bomber": [preload("res://assets/runtime/enemies/bank/heavy_bomber/left.png"), preload("res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png"), preload("res://assets/runtime/enemies/bank/heavy_bomber/right.png")],
+	"drone_scout": [preload("res://assets/runtime/enemies/bank/drone_scout/left.png"), preload("res://assets/runtime/enemies/machine_air/drone_scout_idle.png"), preload("res://assets/runtime/enemies/bank/drone_scout/right.png")],
+	"drone_hunter": [preload("res://assets/runtime/enemies/bank/drone_hunter/left.png"), preload("res://assets/runtime/enemies/machine_air/drone_hunter_idle.png"), preload("res://assets/runtime/enemies/bank/drone_hunter/right.png")],
+	"drone_bomber": [preload("res://assets/runtime/enemies/bank/drone_bomber/left.png"), preload("res://assets/runtime/enemies/machine_air/drone_bomber_idle.png"), preload("res://assets/runtime/enemies/bank/drone_bomber/right.png")],
+	"drone_missile_node": [preload("res://assets/runtime/enemies/bank/drone_missile_node/left.png"), preload("res://assets/runtime/enemies/machine_air/drone_missile_node_idle.png"), preload("res://assets/runtime/enemies/bank/drone_missile_node/right.png")],
+	"exo_drone": [preload("res://assets/runtime/enemies/bank/exo_drone/left.png"), preload("res://assets/runtime/enemies/orbital_air/exo_drone_idle.png"), preload("res://assets/runtime/enemies/bank/exo_drone/right.png")],
+	"orbital_sentry": [preload("res://assets/runtime/enemies/bank/orbital_sentry/left.png"), preload("res://assets/runtime/enemies/orbital_air/orbital_sentry_idle.png"), preload("res://assets/runtime/enemies/bank/orbital_sentry/right.png")],
+	"phase_interceptor": [preload("res://assets/runtime/enemies/bank/phase_interceptor/left.png"), preload("res://assets/runtime/enemies/orbital_air/phase_interceptor_idle.png"), preload("res://assets/runtime/enemies/bank/phase_interceptor/right.png")],
+	"beam_sentry": [preload("res://assets/runtime/enemies/bank/beam_sentry/left.png"), preload("res://assets/runtime/enemies/orbital_air/beam_sentry_idle.png"), preload("res://assets/runtime/enemies/bank/beam_sentry/right.png")],
+	"orbital_lancer": [preload("res://assets/runtime/enemies/bank/orbital_lancer/left.png"), preload("res://assets/runtime/enemies/orbital_air/orbital_lancer_idle.png"), preload("res://assets/runtime/enemies/bank/orbital_lancer/right.png")],
+}
 const MERCENARY_GROUND_SPRITES := {
 	"light_tank": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
 	"sam_truck": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
@@ -489,7 +505,19 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		surface.draw_set_transform(engine_anchor.round(), PI, Vector2(0.58, 0.58))
 		surface.draw_texture(plume, Vector2(-8.0, 0.0), Color(0.84, 0.90, 0.94, 0.82))
 		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	_draw_animated_unit(surface, p, enemy_id, enemy, hull)
+	var bank_index := hostile_bank_frame_index(float(enemy.get("visual_bank", 0.0)))
+	if HOSTILE_BANK_FRAMES.has(enemy_id) and bank_index != 1:
+		var bank_frames: Array = HOSTILE_BANK_FRAMES[enemy_id]
+		_draw_production_sprite(surface, p, bank_frames[bank_index])
+	else:
+		_draw_animated_unit(surface, p, enemy_id, enemy, hull)
+
+static func hostile_bank_frame_index(bank: float) -> int:
+	if bank < -0.24:
+		return 0
+	if bank > 0.24:
+		return 2
+	return 1
 
 func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()

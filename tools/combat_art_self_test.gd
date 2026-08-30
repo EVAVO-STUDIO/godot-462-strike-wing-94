@@ -100,6 +100,18 @@ func _test_visual_language() -> void:
 		var rotor_frame := load("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_%d.png" % frame_index)
 		_expect(rotor_frame is Texture2D and rotor_frame.get_size() == Vector2(42,38), "attack-chopper rotor frame should retain registered 42x38 geometry: %d" % frame_index)
 	_expect(source.contains("UNIT_ANIMATION_FRAMES") and source.contains("func _draw_animated_unit") and source.contains('float(animation["fps"])'), "ordinary production units should support deliberate per-family low-frame-rate animation")
+	var bank_sizes := {
+		"scout_falcon":Vector2(28,30), "gunship_mk1":Vector2(42,38), "attack_chopper":Vector2(42,38), "ace_interceptor":Vector2(32,34), "heavy_bomber":Vector2(50,42),
+		"drone_scout":Vector2(24,26), "drone_hunter":Vector2(30,30), "drone_bomber":Vector2(44,38), "drone_missile_node":Vector2(38,36),
+		"exo_drone":Vector2(30,30), "orbital_sentry":Vector2(40,38), "phase_interceptor":Vector2(34,34), "beam_sentry":Vector2(42,40), "orbital_lancer":Vector2(48,58),
+	}
+	for bank_id in bank_sizes:
+		for direction in ["left", "right"]:
+			var bank_texture := load("res://assets/runtime/enemies/bank/%s/%s.png" % [bank_id, direction])
+			_expect(bank_texture is Texture2D and bank_texture.get_size() == bank_sizes[bank_id], "hostile bank pose should preserve registered canvas: %s %s" % [bank_id, direction])
+	_expect(CombatArtDirector.hostile_bank_frame_index(-0.4) == 0 and CombatArtDirector.hostile_bank_frame_index(0.0) == 1 and CombatArtDirector.hostile_bank_frame_index(0.4) == 2, "hostile airframes should hold discrete left, neutral and right bank poses")
+	_expect(source.contains('enemy.get("visual_bank", 0.0)'), "hostile bank art should consume real movement state")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/air_bank_asset_manifest.json"), "hostile bank source/runtime manifest should exist")
 	var ground_sizes := {
 		"light_tank": Vector2(30,24),
 		"sam_truck": Vector2(34,26),

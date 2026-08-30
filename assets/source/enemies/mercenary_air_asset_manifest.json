@@ -1,6 +1,6 @@
 {
   "asset_family": "mercenary_air",
-  "status": "runtime_motion_v2",
+  "status": "runtime_motion_v3",
   "source": {
     "path": "res://assets/source/enemies/candidates/mercenary_air/mercenary_air_identity_sheet_candidate_01.png",
     "sha256": "307D6A4EA283A37D36D153BD67C4732CA7654004BEB538164E17CDF7EFB3995",
@@ -24,15 +24,16 @@
   ],
   "runtime_animation": {
     "propulsion": "human_turbine family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
+    "bank": "all five aircraft use discrete left/neutral/right held poses selected from smoothed real lateral motion",
     "attack_chopper": "four-frame bespoke rotor cycle",
     "ace_interceptor": "four-frame bespoke high-speed thrust cycle",
     "destruction": "airframe blast, outward debris and trailing smoke consequence"
   },
   "remaining_animation_gate": {
-    "scout_falcon": ["bank"],
-    "gunship_mk1": ["bank", "turret"],
-    "attack_chopper": ["bank", "recoil"],
-    "ace_interceptor": ["bank"],
-    "heavy_bomber": ["bank", "bay"]
+    "scout_falcon": [],
+    "gunship_mk1": ["turret"],
+    "attack_chopper": ["recoil"],
+    "ace_interceptor": [],
+    "heavy_bomber": ["bay"]
   }
 }

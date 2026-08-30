@@ -645,6 +645,7 @@ func _update_enemies(delta: float) -> void:
 		enemy["fire_timer"] = float(enemy["fire_timer"]) - delta
 		enemy["recoil_timer"] = maxf(0.0, float(enemy.get("recoil_timer", 0.0)) - delta)
 		var position: Vector2 = enemy["position"]
+		var previous_x := position.x
 		var is_boss := bool(enemy.get("boss", false))
 
 		if is_boss:
@@ -687,6 +688,11 @@ func _update_enemies(delta: float) -> void:
 			)
 
 		enemy["position"] = position
+		var lateral_delta := position.x - previous_x
+		var bank_target := 0.0
+		if absf(lateral_delta) > maxf(0.12, delta * 2.0):
+			bank_target = signf(lateral_delta)
+		enemy["visual_bank"] = move_toward(float(enemy.get("visual_bank", 0.0)), bank_target, delta * 5.0)
 		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y:
 			_fire_enemy_weapon(enemy)
 			enemy["fire_timer"] = ProjectileRules.enemy_fire_interval(

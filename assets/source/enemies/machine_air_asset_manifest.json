@@ -1,6 +1,6 @@
 {
   "asset_family": "machine_air",
-  "status": "runtime_motion_v1",
+  "status": "runtime_motion_v2",
   "source": {
     "path": "res://assets/source/enemies/candidates/machine_air/machine_air_identity_sheet_candidate_01.png",
     "sha256": "48AE02374A7E2D6ADE8AC8241BD093F78DDB24068250926ED2D1492A24BAE2CE",
@@ -26,8 +26,9 @@
   ],
   "runtime_animation": {
     "propulsion": "machine_thruster family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
+    "bank": "all four machine aircraft use discrete left/neutral/right held poses selected from smoothed real lateral motion",
     "drone_hunter": "four-frame bespoke pursuit thrust cycle",
     "destruction": "cold debris, EMP collapse and smoke consequence"
   },
-  "remaining_animation_gate": ["bank", "core pulse", "missile hatches", "bomb bay", "recoil"]
+  "remaining_animation_gate": ["core pulse", "missile hatches", "bomb bay", "recoil"]
 }
