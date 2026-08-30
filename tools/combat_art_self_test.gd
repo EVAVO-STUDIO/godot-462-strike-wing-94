@@ -281,8 +281,18 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("const MAX_EVENTS := 48"), "combat FX event count should stay bounded")
 	_expect(source.contains('"hit"') and source.contains('"explosion"') and source.contains('"boss_explosion"') and source.contains('"player_hit"'), "combat FX should distinguish hits, kills, bosses and player damage")
 	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
+	_expect(source.contains("EXPLOSION_FRAMES"), "enemy destruction should use the authored eight-frame raster sequence")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
+	for frame_index in range(8):
+		var frame := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index)
+		_expect(frame is Texture2D and frame.get_size() == Vector2(48,48), "explosion animation frame should retain native 48x48 geometry: %d" % frame_index)
+	_expect(FileAccess.file_exists("res://assets/source/effects/explosion_asset_manifest.json"), "explosion source/runtime manifest should exist")
+	var observer := CombatFxDirector.new()
+	_expect(observer.call("_observation_kind", {"hp":4}, {"hp":4}, true) == "", "a surviving unchanged enemy must not emit a false explosion")
+	_expect(observer.call("_observation_kind", {"hp":4}, {"hp":3}, true) == "hit", "a surviving damaged enemy should emit only a hit cue")
+	_expect(observer.call("_observation_kind", {"hp":1}, {}, false) == "destroyed", "a disappeared enemy should emit a destruction cue")
+	observer.free()
 
 func _test_damage_state() -> void:
 	var file := FileAccess.open("res://scripts/damage_state_director.gd", FileAccess.READ)

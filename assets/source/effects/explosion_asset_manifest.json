@@ -1,0 +1,30 @@
+{
+  "asset_family": "military_explosion",
+  "status": "runtime_animation_v1",
+  "source": {
+    "raw": "res://assets/source/effects/candidates/military_explosion_sheet_candidate_01_raw.png",
+    "clean": "res://assets/source/effects/candidates/military_explosion_sheet_candidate_01_clean.png",
+    "provenance": "OpenAI built-in image generation; black provider matte removed deterministically before extraction"
+  },
+  "runtime": {
+    "frame_count": 8,
+    "frame_size": [48, 48],
+    "duration_seconds": 0.42,
+    "paths": [
+      "res://assets/runtime/effects/explosion/explosion_0.png",
+      "res://assets/runtime/effects/explosion/explosion_1.png",
+      "res://assets/runtime/effects/explosion/explosion_2.png",
+      "res://assets/runtime/effects/explosion/explosion_3.png",
+      "res://assets/runtime/effects/explosion/explosion_4.png",
+      "res://assets/runtime/effects/explosion/explosion_5.png",
+      "res://assets/runtime/effects/explosion/explosion_6.png",
+      "res://assets/runtime/effects/explosion/explosion_7.png"
+    ]
+  },
+  "visual_contract": [
+    "hard-edged late-1990s pixel-finished fire clusters",
+    "ignition, pressure bloom, peak fireball, collapse, smoke and ember decay",
+    "shared restrained amber, burnt orange, charcoal and gunmetal palette",
+    "no circular gradient ring or modern bloom"
+  ]
+}

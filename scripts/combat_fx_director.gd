@@ -2,6 +2,16 @@ extends CanvasLayer
 
 const CombatFxSurface = preload("res://scripts/combat_fx_surface.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const EXPLOSION_FRAMES := [
+	preload("res://assets/runtime/effects/explosion/explosion_0.png"),
+	preload("res://assets/runtime/effects/explosion/explosion_1.png"),
+	preload("res://assets/runtime/effects/explosion/explosion_2.png"),
+	preload("res://assets/runtime/effects/explosion/explosion_3.png"),
+	preload("res://assets/runtime/effects/explosion/explosion_4.png"),
+	preload("res://assets/runtime/effects/explosion/explosion_5.png"),
+	preload("res://assets/runtime/effects/explosion/explosion_6.png"),
+	preload("res://assets/runtime/effects/explosion/explosion_7.png"),
+]
 
 const MAX_EVENTS := 48
 const HIT_SECONDS := 0.12
@@ -50,22 +60,28 @@ func _observe_combat() -> void:
 				"id": str(enemy.get("id", "enemy")),
 				"position": Vector2(enemy.get("position", Vector2.ZERO)),
 				"hp": int(enemy.get("hp", 0)),
-				"boss": bool(enemy.get("boss", false))
+				"boss": bool(enemy.get("boss", false)),
+				"category": str(enemy.get("category", "air")),
+				"faction": str(enemy.get("faction", "mercenary"))
 			})
 
 	var matched_current: Dictionary = {}
 	for previous in _previous_enemies:
 		var match_index := _nearest_match(previous, current, matched_current)
+		var now: Dictionary = current[match_index] if match_index >= 0 else {}
+		var observation := _observation_kind(previous, now, match_index >= 0)
 		if match_index >= 0:
 			matched_current[match_index] = true
-			var now: Dictionary = current[match_index]
-			if int(now.get("hp", 0)) < int(previous.get("hp", 0)):
-				_emit("hit", Vector2(now.get("position", Vector2.ZERO)), 8.0, HIT_SECONDS)
-		else:
+		if observation == "hit":
+			_emit("hit", Vector2(now.get("position", Vector2.ZERO)), 8.0, HIT_SECONDS)
+		elif observation == "destroyed":
 			var kind := "boss_explosion" if bool(previous.get("boss", false)) else "explosion"
 			var duration := BOSS_EXPLOSION_SECONDS if kind == "boss_explosion" else EXPLOSION_SECONDS
 			var size := 28.0 if kind == "boss_explosion" else 15.0
-			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration)
+			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration, {
+				"category": str(previous.get("category", "air")),
+				"faction": str(previous.get("faction", "mercenary"))
+			})
 
 	var hull := int(scene.get("hull"))
 	var shield := int(scene.get("shield"))
@@ -74,6 +90,13 @@ func _observe_combat() -> void:
 	_previous_hull = hull
 	_previous_shield = shield
 	_previous_enemies = current
+
+func _observation_kind(previous: Dictionary, current: Dictionary, matched: bool) -> String:
+	if not matched:
+		return "destroyed"
+	if int(current.get("hp", 0)) < int(previous.get("hp", 0)):
+		return "hit"
+	return ""
 
 func _nearest_match(previous: Dictionary, current: Array, used: Dictionary) -> int:
 	var best := -1
@@ -92,16 +115,20 @@ func _nearest_match(previous: Dictionary, current: Array, used: Dictionary) -> i
 			best = i
 	return best
 
-func _emit(kind: String, position: Vector2, size: float, duration: float) -> void:
+func _emit(kind: String, position: Vector2, size: float, duration: float, metadata := {}) -> void:
 	_serial += 1
-	_events.append({
+	var event := {
 		"kind": kind,
 		"position": position,
 		"size": size,
 		"age": 0.0,
 		"duration": duration,
 		"serial": _serial
-	})
+	}
+	if typeof(metadata) == TYPE_DICTIONARY:
+		for key in metadata:
+			event[key] = metadata[key]
+	_events.append(event)
 	while _events.size() > MAX_EVENTS:
 		_events.pop_front()
 	_play_audio_for(kind)
@@ -163,15 +190,14 @@ func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float) -> void:
 	surface.draw_rect(Rect2(roundf(p.x)-1, roundf(p.y)-1, 3, 3), core)
 
 func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool) -> void:
-	var eased := smoothstep(0.0, 1.0, ratio)
-	var radius := maxf(2.0, max_size * eased)
+	var frame_index := clampi(int(floor(ratio * float(EXPLOSION_FRAMES.size()))), 0, EXPLOSION_FRAMES.size() - 1)
+	var frame: Texture2D = EXPLOSION_FRAMES[frame_index]
+	var draw_size := roundf(max_size * (2.35 if boss else 2.20))
+	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false)
+	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
 	var fade := 1.0 - ratio
-	var hot := Color(1.0, 0.82, 0.36, 0.92 * fade)
-	var fire := Color(0.96, 0.33, 0.16, 0.76 * fade)
-	var smoke := Color(0.42, 0.45, 0.44, 0.42 * fade)
-	surface.draw_arc(p, radius, 0.0, TAU, 16 if boss else 10, fire, 2.0)
-	if ratio < 0.52:
-		surface.draw_circle(p, maxf(1.0, radius * 0.34), hot)
+	var fire := Color(0.96, 0.33, 0.16, 0.66 * fade)
+	var smoke := Color(0.42, 0.45, 0.44, 0.38 * fade)
 	for i in range(8 if boss else 5):
 		var angle := float((serial * 37 + i * 71) % 360) * PI / 180.0
 		var distance := radius * (0.38 + float((serial + i * 3) % 5) * 0.11)
