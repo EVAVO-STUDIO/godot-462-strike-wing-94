@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const ElectromagneticCueSurface = preload("res://scripts/electromagnetic_cue_surface.gd")
+const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 
 var _surface: Control
 
@@ -56,9 +57,5 @@ func _draw_emp(surface: CanvasItem, scene: Object) -> void:
 		if typeof(enemy) != TYPE_DICTIONARY or float(enemy.get("emp_timer", 0.0)) <= 0.0:
 			continue
 		var p: Vector2 = enemy.get("position", Vector2.ZERO)
-		var tone := Color(0.48, 0.82, 1.0, 0.72)
-		surface.draw_line(p + Vector2(-8,-7), p + Vector2(-2,-1), tone, 1.0)
-		surface.draw_line(p + Vector2(-2,-1), p + Vector2(-7,4), tone, 1.0)
-		surface.draw_line(p + Vector2(7,-6), p + Vector2(2,0), tone, 1.0)
-		surface.draw_line(p + Vector2(2,0), p + Vector2(7,5), tone, 1.0)
-		surface.draw_arc(p, 12.0, 0.0, TAU, 12, Color(0.48, 0.82, 1.0, 0.30), 1.0)
+		var texture := ImpactArtLibrary.frame_for_clock("emp_disruption", 12.0)
+		surface.draw_texture(texture, (p - Vector2(12, 12)).round())

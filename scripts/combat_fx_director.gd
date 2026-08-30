@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const CombatFxSurface = preload("res://scripts/combat_fx_surface.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const EXPLOSION_FRAMES := [
 	preload("res://assets/runtime/effects/explosion/explosion_0.png"),
 	preload("res://assets/runtime/effects/explosion/explosion_1.png"),
@@ -73,7 +74,7 @@ func _observe_combat() -> void:
 		if match_index >= 0:
 			matched_current[match_index] = true
 		if observation == "hit":
-			_emit("hit", Vector2(now.get("position", Vector2.ZERO)), 8.0, HIT_SECONDS)
+			_emit("hit", Vector2(now.get("position", Vector2.ZERO)), 8.0, HIT_SECONDS, {"category": str(now.get("category", "air"))})
 		elif observation == "destroyed":
 			var kind := "boss_explosion" if bool(previous.get("boss", false)) else "explosion"
 			var duration := BOSS_EXPLOSION_SECONDS if kind == "boss_explosion" else EXPLOSION_SECONDS
@@ -86,7 +87,7 @@ func _observe_combat() -> void:
 	var hull := int(scene.get("hull"))
 	var shield := int(scene.get("shield"))
 	if (_previous_hull >= 0 and hull < _previous_hull) or (_previous_shield >= 0 and shield < _previous_shield):
-		_emit("player_hit", Vector2(scene.get("player_position")), 13.0, PLAYER_HIT_SECONDS)
+		_emit("player_hit", Vector2(scene.get("player_position")), 13.0, PLAYER_HIT_SECONDS, {"shield": _previous_shield >= 0 and shield < _previous_shield})
 	_previous_hull = hull
 	_previous_shield = shield
 	_previous_enemies = current
@@ -172,22 +173,18 @@ func _draw_combat_fx(surface: CanvasItem) -> void:
 		var ratio := clampf(float(event.get("age", 0.0)) / duration, 0.0, 1.0)
 		match kind:
 			"hit":
-				_draw_hit(surface, position, ratio)
+				_draw_hit(surface, position, ratio, str(event.get("category", "air")))
 			"explosion":
 				_draw_explosion(surface, position, ratio, float(event.get("size", 15.0)), int(event.get("serial", 0)), false)
 			"boss_explosion":
 				_draw_explosion(surface, position, ratio, float(event.get("size", 28.0)), int(event.get("serial", 0)), true)
 			"player_hit":
-				_draw_player_hit(surface, position, ratio)
+				_draw_player_hit(surface, position, ratio, bool(event.get("shield", true)))
 
-func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float) -> void:
-	var alpha := 1.0 - ratio
-	var outer := Color(1.0, 0.56, 0.22, 0.92 * alpha)
-	var core := Color(1.0, 0.94, 0.62, 0.98 * alpha)
-	var length := roundf(4.0 + ratio * 5.0)
-	surface.draw_line(p + Vector2(-length, 0), p + Vector2(length, 0), outer, 1.0)
-	surface.draw_line(p + Vector2(0, -length), p + Vector2(0, length), outer, 1.0)
-	surface.draw_rect(Rect2(roundf(p.x)-1, roundf(p.y)-1, 3, 3), core)
+func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float, category: String) -> void:
+	var family := "water_impact" if category == "sea" else "armor_hit"
+	var texture := ImpactArtLibrary.frame_for_ratio(family, ratio)
+	surface.draw_texture(texture, (p - Vector2(12, 12)).round())
 
 func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool) -> void:
 	var frame_index := clampi(int(floor(ratio * float(EXPLOSION_FRAMES.size()))), 0, EXPLOSION_FRAMES.size() - 1)
@@ -205,13 +202,10 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var pixel := 2.0 if boss and i % 2 == 0 else 1.0
 		surface.draw_rect(Rect2(roundf(point.x), roundf(point.y), pixel, pixel), smoke if ratio > 0.45 else fire)
 
-func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float) -> void:
-	var alpha := (1.0 - ratio) * 0.82
-	var color := Color(0.42, 0.84, 0.96, alpha)
-	var radius := 9.0 + ratio * 9.0
-	surface.draw_arc(p, radius, 0.0, TAU, 14, color, 1.0)
-	for offset in [Vector2(-8,-4), Vector2(8,-4), Vector2(-5,7), Vector2(5,7)]:
-		surface.draw_rect(Rect2(roundf(p.x+offset.x), roundf(p.y+offset.y), 2, 2), color)
+func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool) -> void:
+	var texture := ImpactArtLibrary.frame_for_ratio("shield_hit" if shield else "armor_hit", ratio)
+	var size := Vector2.ONE * 34.0 if shield else Vector2.ONE * 26.0
+	surface.draw_texture_rect(texture, Rect2((p - size * 0.5).round(), size), false)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}

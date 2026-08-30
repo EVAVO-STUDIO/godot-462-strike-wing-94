@@ -1,0 +1,35 @@
+{
+  "asset_family": "combat_impacts",
+  "status": "runtime_animation_v1",
+  "native_frame_size": [24, 24],
+  "frames_per_family": 4,
+  "families": [
+    "muzzle", "rotary_muzzle", "armor_hit", "shield_hit",
+    "bomb_impact", "emp_disruption", "water_impact", "dust_impact"
+  ],
+  "registration": {
+    "visual_center": [12, 12],
+    "contact_point": [12, 12],
+    "muzzle_anchor": [12, 16],
+    "intended_layer": 15
+  },
+  "timing": {
+    "muzzle_seconds": 0.065,
+    "rotary_muzzle_seconds": 0.11,
+    "hit_seconds": 0.12,
+    "shield_hit_seconds": 0.18,
+    "heavy_impact_seconds": 0.46,
+    "emp_fps": 12
+  },
+  "source": {
+    "concept": "res://assets/source/effects/impacts/candidates/impact_effects_concept_01_raw.png",
+    "runtime_master": "res://assets/source/effects/impacts/impact_runtime_master.svg",
+    "provenance": "OpenAI built-in image generation used for breakup/timing reference; runtime pixels reconstructed by hand at native scale"
+  },
+  "visual_contract": [
+    "asymmetric hard pixel clusters and readable held keyframes",
+    "shield and EMP use broken engineered field geometry rather than generic rings",
+    "water and earth reactions remain physically distinct",
+    "no soft glow, modern bloom, gradient circle or airbrushed smoke"
+  ]
+}

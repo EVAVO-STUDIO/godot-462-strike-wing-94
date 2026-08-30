@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const PRECISION_BOMB_FRAMES := [
 	preload("res://assets/runtime/effects/projectiles/precision_bomb/0.png"),
 	preload("res://assets/runtime/effects/projectiles/precision_bomb/1.png"),
@@ -142,6 +143,7 @@ func _impact(scene: Object, item: Dictionary) -> void:
 	var altitude := str(item.get("altitude", "low"))
 	var radius_sq := pow(StrikeOrdnanceRules.blast_radius(altitude), 2)
 	var precision_bonus := 0
+	var hit_sea := false
 	for i in range(enemies.size() - 1, -1, -1):
 		var enemy = enemies[i]
 		if typeof(enemy) != TYPE_DICTIONARY:
@@ -151,6 +153,7 @@ func _impact(scene: Object, item: Dictionary) -> void:
 			continue
 		var is_boss := bool(enemy.get("boss", false))
 		var enemy_class := str(enemy.get("category", "air"))
+		if enemy_class == "sea": hit_sea = true
 		var damage := StrikeOrdnanceRules.damage_for_target(enemy_class, is_boss, altitude)
 		if damage <= 0:
 			continue
@@ -170,14 +173,14 @@ func _impact(scene: Object, item: Dictionary) -> void:
 	if precision_bonus > 0:
 		scene.set("score", int(scene.get("score")) + precision_bonus)
 	scene.set("enemies", enemies)
-	_emit_impact_fx(point, altitude, bool(item.get("priority_lock", false)), float(item.get("stability", 0.0)))
+	_emit_impact_fx(point, altitude, bool(item.get("priority_lock", false)), float(item.get("stability", 0.0)), _impact_family(scene, hit_sea))
 	_play_impact_sfx()
 	if precision_bonus > 0:
 		_set_status(scene, "PRECISION ROUTE HIT  +%d" % precision_bonus)
 	else:
 		_set_status(scene, "SURFACE IMPACT")
 
-func _emit_impact_fx(point: Vector2, altitude: String, priority: bool, stability: float) -> void:
+func _emit_impact_fx(point: Vector2, altitude: String, priority: bool, stability: float, family: String = "bomb_impact") -> void:
 	_impact_serial += 1
 	_impact_fx.append({
 		"position": point,
@@ -186,6 +189,7 @@ func _emit_impact_fx(point: Vector2, altitude: String, priority: bool, stability
 		"altitude": altitude,
 		"priority": priority,
 		"stability": clampf(stability, 0.0, 1.0),
+		"family": family,
 		"serial": _impact_serial
 	})
 	while _impact_fx.size() > 8:
@@ -295,23 +299,26 @@ func _draw_impact_fx(surface: CanvasItem) -> void:
 		var duration := maxf(0.001, float(fx.get("duration", IMPACT_FX_SECONDS)))
 		var ratio := clampf(float(fx.get("age", 0.0)) / duration, 0.0, 1.0)
 		var p: Vector2 = fx.get("position", Vector2.ZERO)
-		var priority := bool(fx.get("priority", false))
 		var stability := clampf(float(fx.get("stability", 0.0)), 0.0, 1.0)
-		var fade := 1.0 - ratio
-		var radius := 5.0 + ratio * (34.0 + stability * 8.0)
-		var shock := Color(0.96,0.56,0.20,0.78 * fade)
-		var hot := Color(1.0,0.90,0.48,0.88 * fade)
-		if priority:
-			shock = Color(0.46,0.96,0.62,0.76 * fade)
-		surface.draw_arc(p, radius, 0.0, TAU, 20, shock, 2.0)
-		if ratio < 0.42:
-			surface.draw_circle(p, maxf(2.0, radius * 0.28), hot)
-		var serial := int(fx.get("serial", 0))
-		for i in range(7):
-			var angle := float((serial * 43 + i * 67) % 360) * PI / 180.0
-			var distance := radius * (0.35 + float((serial + i) % 5) * 0.12)
-			var q := p + Vector2.RIGHT.rotated(angle) * distance
-			surface.draw_rect(Rect2(roundf(q.x), roundf(q.y), 2, 2), shock)
+		var texture := ImpactArtLibrary.frame_for_ratio(str(fx.get("family", "bomb_impact")), ratio)
+		var draw_size := roundf(42.0 + stability * 8.0)
+		surface.draw_texture_rect(texture, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false)
+
+func _impact_family(scene: Object, hit_sea: bool) -> String:
+	if hit_sea:
+		return "water_impact"
+	var environment := str(scene.get("current_environment")) if _has_property(scene, "current_environment") else ""
+	if environment in ["storm_sea", "open_water", "river", "night_harbor"]:
+		return "water_impact"
+	if environment in ["desert", "mountain"]:
+		return "dust_impact"
+	return "bomb_impact"
+
+func _has_property(subject: Object, property_name: String) -> bool:
+	for property in subject.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false
 
 func _ensure_action() -> void:
 	if not InputMap.has_action("drop_strike_ordnance"):

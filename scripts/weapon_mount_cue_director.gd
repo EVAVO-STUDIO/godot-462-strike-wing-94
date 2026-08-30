@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const WeaponMountCueSurface = preload("res://scripts/weapon_mount_cue_surface.gd")
+const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 
 const FLASH_SECONDS := 0.065
 const ROTARY_FLASH_SECONDS := 0.11
@@ -82,31 +83,17 @@ func _draw_weapon_mount_cues(surface: CanvasItem) -> void:
 		_draw_mount_flash(surface, origin + offset)
 
 func _draw_mount_flash(surface: CanvasItem, p: Vector2) -> void:
-	var outer := Color(1.0, 0.72, 0.28, 0.88)
-	var core := Color(1.0, 0.94, 0.68, 0.96)
-	if _weapon_id == "needle_rail":
-		outer = Color(0.40, 0.80, 0.94, 0.86)
-		core = Color(0.88, 0.98, 1.0, 0.98)
-	elif _weapon_id in ["storm_cannon", "plasma_lance"]:
-		outer = Color(0.50, 0.54, 0.98, 0.84)
-		core = Color(0.82, 0.94, 1.0, 0.98)
-	surface.draw_line(p, p + Vector2(0, -8), outer, 2.0)
-	surface.draw_rect(Rect2(roundf(p.x)-1, roundf(p.y)-10, 3, 4), core)
+	var ratio := 1.0 - clampf(_flash_timer / FLASH_SECONDS, 0.0, 1.0)
+	var texture := ImpactArtLibrary.frame_for_ratio("muzzle", ratio)
+	var tint := Color.WHITE
+	if _weapon_id == "needle_rail": tint = Color(0.66, 0.92, 1.0)
+	elif _weapon_id in ["storm_cannon", "plasma_lance"]: tint = Color(0.78, 0.74, 1.0)
+	surface.draw_texture(texture, (p - Vector2(12, 16)).round(), tint)
 
 func _draw_rotary_flash(surface: CanvasItem, p: Vector2) -> void:
-	var flicker := 1.0 if sin(_phase) >= 0.0 else 0.72
-	var flame := Color(1.0, 0.63, 0.18, 0.90 * flicker)
-	var core := Color(1.0, 0.92, 0.58, 0.98)
-	surface.draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-4, 0),
-		p + Vector2(-2, -8),
-		p + Vector2(0, -14),
-		p + Vector2(2, -8),
-		p + Vector2(4, 0)
-	]), flame)
-	surface.draw_rect(Rect2(roundf(p.x)-1, roundf(p.y)-12, 3, 8), core)
-	var barrel_offset := 2 if sin(_phase * 1.7) >= 0.0 else -2
-	surface.draw_rect(Rect2(roundf(p.x)+barrel_offset-1, roundf(p.y)-4, 2, 2), Color(0.94,0.78,0.36,0.96))
+	var ratio := 1.0 - clampf(_flash_timer / ROTARY_FLASH_SECONDS, 0.0, 1.0)
+	var texture := ImpactArtLibrary.frame_for_ratio("rotary_muzzle", ratio)
+	surface.draw_texture(texture, (p - Vector2(12, 16)).round())
 
 func _active_weapon(scene: Object) -> Dictionary:
 	if scene.has_method("_active_weapon"):

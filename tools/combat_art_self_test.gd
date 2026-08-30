@@ -16,6 +16,7 @@ func _initialize() -> void:
 	_test_airframe_cues()
 	_test_combat_fx()
 	_test_projectile_art()
+	_test_impact_art()
 	_test_damage_state()
 	_test_mount_map()
 	if failures.is_empty():
@@ -328,6 +329,33 @@ func _test_projectile_art() -> void:
 	if strike_source != null:
 		var source := strike_source.get_as_text()
 		_expect(source.contains("PRECISION_BOMB_FRAMES") and source.contains("bomb_texture"), "precision strike ordnance should use the authored tumble frames")
+
+func _test_impact_art() -> void:
+	var families := ["muzzle", "rotary_muzzle", "armor_hit", "shield_hit", "bomb_impact", "emp_disruption", "water_impact", "dust_impact"]
+	for family in families:
+		for frame_index in range(4):
+			var frame := load("res://assets/runtime/effects/impacts/%s/%d.png" % [family, frame_index])
+			_expect(frame is Texture2D and frame.get_size() == Vector2(24,24), "impact frame should retain registered 24x24 geometry: %s/%d" % [family, frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/effects/impacts/impact_asset_manifest.json"), "impact source/runtime manifest should exist")
+	var library := FileAccess.open("res://scripts/impact_art_library.gd", FileAccess.READ)
+	_expect(library != null, "shared impact art library should be readable")
+	if library != null:
+		var source := library.get_as_text()
+		for family in families:
+			_expect(source.contains('"%s"' % family), "shared impact library should register family: %s" % family)
+	var combat := FileAccess.open("res://scripts/combat_fx_director.gd", FileAccess.READ)
+	if combat != null:
+		var source := combat.get_as_text()
+		_expect(source.contains('category == "sea"') and source.contains('"shield_hit" if shield'), "combat impacts should distinguish water, armour and shield materials")
+	var mounts := FileAccess.open("res://scripts/weapon_mount_cue_director.gd", FileAccess.READ)
+	if mounts != null:
+		var source := mounts.get_as_text()
+		_expect(source.contains('frame_for_ratio("muzzle"') and source.contains('frame_for_ratio("rotary_muzzle"'), "weapon mounts should use authored compact and rotary muzzle sequences")
+		_expect(not source.contains("draw_colored_polygon"), "weapon muzzle flash should not retain the prototype vector flame")
+	var electromagnetic := FileAccess.open("res://scripts/electromagnetic_cue_director.gd", FileAccess.READ)
+	if electromagnetic != null:
+		var source := electromagnetic.get_as_text()
+		_expect(source.contains('frame_for_clock("emp_disruption"'), "EMP disruption should use authored broken-arc animation")
 
 func _test_mount_map() -> void:
 	var data = ContentCatalog.load_json("res://data/player_mounts.json")
