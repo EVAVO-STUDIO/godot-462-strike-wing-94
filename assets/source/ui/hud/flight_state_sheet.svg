@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128" shape-rendering="crispEdges">
+ <rect width="256" height="128" fill="none"/>
+ <!-- 148x16 flight-state chassis: three recessed avionics cells -->
+ <path d="M3 0h142l3 3v10l-3 3H3l-3-3V3z" fill="#070b0f" fill-opacity=".94" stroke="#293b46" stroke-width="2"/>
+ <path d="M4 2h140l2 2v8l-2 2H4l-2-2V4z" fill="none" stroke="#536a75"/>
+ <path d="M62 2v12M112 2v12" stroke="#233740"/>
+ <path d="M63 3v10M113 3v10" stroke="#76909a" opacity=".45"/>
+ <rect x="5" y="3" width="2" height="2" fill="#b1c8cf"/>
+ <rect x="141" y="11" width="2" height="2" fill="#926f37"/>
+ <!-- 24x12 four-band altitude rail -->
+ <g transform="translate(0 20)">
+  <path d="M2 10h4V8h4V6h4V4h4V2h4" fill="none" stroke="#263d48" stroke-width="3"/>
+  <path d="M2 10h4V8h4V6h4V4h4V2h4" fill="none" stroke="#75909a"/>
+  <path d="M3 9h2M7 7h2M11 5h2M15 3h2" stroke="#b7c8cc"/>
+ </g>
+ <!-- active altitude overlays: low, mid, high, orbital -->
+ <g transform="translate(0 32)"><rect x="1" y="8" width="6" height="3" fill="#d2ad56"/><rect x="2" y="8" width="4" height="1" fill="#fff0a8"/></g>
+ <g transform="translate(0 44)"><rect x="5" y="6" width="6" height="3" fill="#7eb8c8"/><rect x="6" y="6" width="4" height="1" fill="#d6f1ef"/></g>
+ <g transform="translate(0 56)"><rect x="9" y="4" width="6" height="3" fill="#7eb8c8"/><rect x="10" y="4" width="4" height="1" fill="#e3f6f2"/></g>
+ <g transform="translate(0 68)"><rect x="13" y="2" width="10" height="3" fill="#9bcbd5"/><rect x="14" y="2" width="7" height="1" fill="#f2ffff"/><rect x="20" y="0" width="2" height="1" fill="#dcebed"/></g>
+ <!-- 24x12 VX-94 fighter and bomber planform lamps -->
+ <g transform="translate(0 84)">
+  <path d="M12 0l2 4 8 5-1 2-8-2-1 3-1-3-8 2-1-2 8-5z" fill="#6f8790"/>
+  <path d="M12 1v8M10 5h4" stroke="#dce8e8"/>
+  <path d="M3 9l7-3M21 9l-7-3" stroke="#89bfca"/>
+ </g>
+ <g transform="translate(24 84)">
+  <path d="M12 0l2 4 9 3v3l-10-1-1 3-1-3-10 1V7l9-3z" fill="#778b91"/>
+  <path d="M12 1v8M3 8h18" stroke="#e0e8e5"/>
+  <rect x="4" y="6" width="3" height="2" fill="#c69d52"/><rect x="17" y="6" width="3" height="2" fill="#c69d52"/>
+ </g>
+ <!-- 24x12 technology-state pictograms: conventional, EM, directed energy, orbital -->
+ <g transform="translate(48 84)"><path d="M5 3h12l2 2v4H3V5z" fill="#53636a" stroke="#a9b5b8"/><rect x="7" y="1" width="8" height="3" fill="#39494f"/><path d="M6 7h10" stroke="#d3b25e"/></g>
+ <g transform="translate(72 84)" fill="none"><path d="M5 8c0-7 14-7 14 0M8 8c0-4 8-4 8 0" stroke="#477988" stroke-width="2"/><path d="M4 9h16M11 5h2v5" stroke="#a8e0e3"/><rect x="11" y="1" width="2" height="2" fill="#efffff"/></g>
+ <g transform="translate(96 84)"><path d="M3 9l5-6h8l5 6-5 2H8z" fill="#425761" stroke="#88aab2"/><path d="M7 8h10M9 6h6" stroke="#d7ecea"/><rect x="11" y="2" width="2" height="7" fill="#d5b85f"/></g>
+ <g transform="translate(120 84)"><path d="M4 7c4-5 12-5 16 0" fill="none" stroke="#709dab" stroke-width="2"/><path d="M3 9c5-3 13-3 18 0" fill="none" stroke="#d7eef0"/><rect x="11" y="1" width="2" height="3" fill="#e3f5f5"/><rect x="18" y="3" width="2" height="2" fill="#8fbcc5"/></g>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "asset_family": "vx94_flight_state_hud",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/flight_state_sheet.svg",
+  "visual_contract": {
+    "purpose": "instant altitude, wing-geometry and technology-state recognition in the gameplay HUD",
+    "era": "late-1990s military mission-computer annunciator cluster",
+    "readability": "native 640x360 pixels; icon silhouette and text abbreviation reinforce one another",
+    "avoid": ["modern flat pills", "generic neon holograms", "text-only flight state", "smooth vector gauges"]
+  },
+  "runtime": {
+    "frame": "res://assets/runtime/ui/hud/flight_state/frame.png",
+    "altitude": ["altitude_rail.png", "altitude_low.png", "altitude_mid.png", "altitude_high.png", "altitude_orbital.png"],
+    "form": ["form_fighter.png", "form_bomber.png"],
+    "technology": ["tech_conventional.png", "tech_em.png", "tech_directed.png", "tech_orbital.png"]
+  }
+}

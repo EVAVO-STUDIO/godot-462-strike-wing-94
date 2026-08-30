@@ -28,6 +28,24 @@ const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
 const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
 const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
+const FLIGHT_STATE_FRAME := preload("res://assets/runtime/ui/hud/flight_state/frame.png")
+const ALTITUDE_RAIL := preload("res://assets/runtime/ui/hud/flight_state/altitude_rail.png")
+const ALTITUDE_STATES := {
+	"low": preload("res://assets/runtime/ui/hud/flight_state/altitude_low.png"),
+	"mid": preload("res://assets/runtime/ui/hud/flight_state/altitude_mid.png"),
+	"high": preload("res://assets/runtime/ui/hud/flight_state/altitude_high.png"),
+	"orbital": preload("res://assets/runtime/ui/hud/flight_state/altitude_orbital.png"),
+}
+const FORM_STATES := {
+	"fighter": preload("res://assets/runtime/ui/hud/flight_state/form_fighter.png"),
+	"bomber": preload("res://assets/runtime/ui/hud/flight_state/form_bomber.png"),
+}
+const TECH_STATES := {
+	"advanced_conventional": preload("res://assets/runtime/ui/hud/flight_state/tech_conventional.png"),
+	"electromagnetic": preload("res://assets/runtime/ui/hud/flight_state/tech_em.png"),
+	"directed_energy": preload("res://assets/runtime/ui/hud/flight_state/tech_directed.png"),
+	"strategic_orbital": preload("res://assets/runtime/ui/hud/flight_state/tech_orbital.png"),
+}
 
 const BG := Color("0b1016")
 const PANEL := Color("070a0e")
@@ -183,7 +201,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	var mission_name := str(scene.get("current_mission_name"))
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	PixelFont.draw_text(surface, _clip(mission_name, 16), Vector2(16, 39), 1, MUTED, 1)
-	PixelFont.draw_text(surface, "%s %s %s" % [_short_altitude(), _short_form(), _short_tech()], Vector2(148, 39), 1, BLUE, 1)
+	_draw_flight_state(surface)
 	PixelFont.draw_centered(surface, _clip(str(weapon.get("name", "CANNON")), 18), 326, 39, 1, TEXT, 1)
 	PixelFont.draw_text(surface, _clip(_support_name(), 14), Vector2(422, 39), 1, GREEN, 1)
 	PixelFont.draw_text(surface, "F:%s" % _clip(_battlefield_support_name(), 12), Vector2(518, 39), 1, BLUE, 1)
@@ -192,6 +210,26 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	if float(scene.get("status_timer")) > 0.0:
 		surface.draw_texture(HUD_STATUS_FRAME, Vector2(116, 330))
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 70), 320, 336, 1, GOLD, 1)
+
+func _draw_flight_state(surface: CanvasItem) -> void:
+	surface.draw_texture(FLIGHT_STATE_FRAME, Vector2(140, 34))
+	surface.draw_texture(ALTITUDE_RAIL, Vector2(144, 36))
+	var altitude_key := _altitude_key()
+	surface.draw_texture(ALTITUDE_STATES.get(altitude_key, ALTITUDE_STATES["mid"]), Vector2(144, 36))
+	PixelFont.draw_text(surface, _short_altitude(), Vector2(170, 39), 1, BLUE, 1)
+	var form_key := "fighter" if _form_name() == "FIGHTER" else "bomber"
+	surface.draw_texture(FORM_STATES[form_key], Vector2(204, 36))
+	PixelFont.draw_text(surface, _short_form(), Vector2(231, 39), 1, GREEN if form_key == "fighter" else GOLD, 1)
+	var tech_key := _tech_era()
+	surface.draw_texture(TECH_STATES.get(tech_key, TECH_STATES["advanced_conventional"]), Vector2(253, 36))
+	PixelFont.draw_text(surface, _short_tech(), Vector2(278, 39), 1, BLUE, 1)
+
+func _altitude_key() -> String:
+	var value := _altitude_name()
+	if value.begins_with("LOW"): return "low"
+	if value.begins_with("HIGH"): return "high"
+	if value.begins_with("ATMOS") or value.begins_with("ORBIT"): return "orbital"
+	return "mid"
 
 func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	var boss := _active_boss(scene)
@@ -251,8 +289,8 @@ func _short_tech() -> String:
 	match _tech_era():
 		"electromagnetic": return "EM"
 		"directed_energy": return "DE"
-		"strategic_orbital": return "ORB"
-	return "CONV"
+		"strategic_orbital": return "OR"
+	return "CV"
 
 func _short_form() -> String:
 	return "FTR" if _form_name() == "FIGHTER" else "BMB"

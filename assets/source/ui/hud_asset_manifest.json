@@ -12,7 +12,8 @@
     "frames": ["top_frame.png", "status_frame.png", "boss_frame.png", "threat_frame.png", "afterburner_frame.png"],
     "troughs": ["meter_trough.png", "boss_trough.png", "afterburner_trough.png", "stability_trough.png"],
     "fills": ["hull_fill.png", "shield_fill.png", "energy_fill.png", "boss_fill.png", "afterburner_fill.png", "stability_fill.png"],
-    "icons": ["icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png"]
+    "icons": ["icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png"],
+    "flight_state_cluster": "res://assets/source/ui/hud/flight_state_manifest.json"
   },
   "concept_reference": "res://assets/source/ui/concepts/hud_environment_style_board_v1.png"
 }

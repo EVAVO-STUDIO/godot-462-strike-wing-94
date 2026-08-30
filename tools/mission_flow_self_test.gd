@@ -157,6 +157,17 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAME"), "gameplay HUD should use authored raster frame and meter families")
 		for hud_path in ["top_frame.png", "meter_trough.png", "hull_fill.png", "shield_fill.png", "energy_fill.png", "status_frame.png", "boss_frame.png", "boss_trough.png", "boss_fill.png", "threat_frame.png", "icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png", "afterburner_frame.png", "afterburner_trough.png", "afterburner_fill.png", "stability_trough.png", "stability_fill.png"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/ui/hud/%s" % hud_path), "missing authored HUD sprite: %s" % hud_path)
+		_expect(source.contains("FLIGHT_STATE_FRAME") and source.contains("ALTITUDE_STATES") and source.contains("FORM_STATES") and source.contains("TECH_STATES") and source.contains("func _draw_flight_state"), "flight state should use authored altitude, geometry and technology sprites")
+		var flight_state_sizes := {
+			"frame": Vector2(148,16), "altitude_rail": Vector2(24,12),
+			"altitude_low": Vector2(24,12), "altitude_mid": Vector2(24,12), "altitude_high": Vector2(24,12), "altitude_orbital": Vector2(24,12),
+			"form_fighter": Vector2(24,12), "form_bomber": Vector2(24,12),
+			"tech_conventional": Vector2(24,12), "tech_em": Vector2(24,12), "tech_directed": Vector2(24,12), "tech_orbital": Vector2(24,12),
+		}
+		for asset_name in flight_state_sizes:
+			var state_texture := load("res://assets/runtime/ui/hud/flight_state/%s.png" % asset_name)
+			_expect(state_texture is Texture2D and state_texture.get_size() == flight_state_sizes[asset_name], "flight-state sprite should retain registered geometry: %s" % asset_name)
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/flight_state_manifest.json"), "flight-state source/runtime manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud_asset_manifest.json"), "gameplay HUD production manifest should exist")
 		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
 	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
