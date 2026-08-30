@@ -26,10 +26,16 @@ func _ready() -> void:
 	generator.buffer_length = 0.12
 	_player = AudioStreamPlayer.new()
 	_player.stream = generator
-	_player.volume_db = -4.0
+	var settings := get_node_or_null("/root/SettingsDirector")
+	set_output_level(int(settings.call("sfx_level")) if settings != null and settings.has_method("sfx_level") else 75)
 	add_child(_player)
 	_player.play()
 	_playback = _player.get_stream_playback() as AudioStreamGeneratorPlayback
+
+func set_output_level(percent: int) -> void:
+	var safe_percent := clampi(percent, 0, 100)
+	if _player != null:
+		_player.volume_db = -80.0 if safe_percent == 0 else linear_to_db(float(safe_percent) / 100.0)
 
 func _process(delta: float) -> void:
 	_rotary_cooldown = maxf(0.0, _rotary_cooldown - maxf(0.0, delta))

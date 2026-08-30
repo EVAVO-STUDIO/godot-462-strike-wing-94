@@ -19,6 +19,12 @@ const FRONT_END_FRAME := preload("res://assets/runtime/ui/menu/front_end/frame.p
 const FRONT_END_BUTTON_IDLE := preload("res://assets/runtime/ui/menu/front_end/button_idle.png")
 const FRONT_END_BUTTON_SELECTED := preload("res://assets/runtime/ui/menu/front_end/button_selected.png")
 const FRONT_END_CURSOR := preload("res://assets/runtime/ui/menu/front_end/cursor.png")
+const OPTIONS_ROW_IDLE := preload("res://assets/runtime/ui/menu/system_options/row_idle.png")
+const OPTIONS_ROW_SELECTED := preload("res://assets/runtime/ui/menu/system_options/row_selected.png")
+const OPTIONS_VALUE_TROUGH := preload("res://assets/runtime/ui/menu/system_options/value_trough.png")
+const OPTIONS_VALUE_FILL := preload("res://assets/runtime/ui/menu/system_options/value_fill.png")
+const OPTIONS_TOGGLE_OFF := preload("res://assets/runtime/ui/menu/system_options/toggle_off.png")
+const OPTIONS_TOGGLE_ON := preload("res://assets/runtime/ui/menu/system_options/toggle_on.png")
 const CAMPAIGN_PROGRESS_RAIL := preload("res://assets/runtime/ui/menu/campaign_progress/rail.png")
 const CAMPAIGN_NODE_COMPLETE := preload("res://assets/runtime/ui/menu/campaign_progress/node_complete.png")
 const CAMPAIGN_NODE_CURRENT := preload("res://assets/runtime/ui/menu/campaign_progress/node_current.png")
@@ -229,6 +235,8 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 102, 1, BLUE, 1)
 	if screen == "controls":
 		_draw_front_end_controls(surface)
+	elif screen == "options":
+		_draw_front_end_options(surface, scene)
 	elif screen == "dossier":
 		_draw_front_end_dossier(surface)
 	else:
@@ -238,10 +246,10 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(30, 128))
 	PixelFont.draw_text(surface, "FLIGHT OPERATIONS", Vector2(48, 137), 1, GOLD, 1)
-	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 3)
-	var labels := ["CONTINUE CAMPAIGN", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
+	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 4)
+	var labels := ["CONTINUE CAMPAIGN", "SYSTEM OPTIONS", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
 	for index in range(labels.size()):
-		var position := Vector2(50, 158 + index * 30)
+		var position := Vector2(50, 154 + index * 27)
 		surface.draw_texture(FRONT_END_BUTTON_SELECTED if index == selection else FRONT_END_BUTTON_IDLE, position)
 		if index == selection:
 			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
@@ -264,6 +272,28 @@ func _draw_front_end_controls(surface: CanvasItem) -> void:
 	for index in range(lines.size()):
 		PixelFont.draw_text(surface, lines[index], Vector2(198, 162 + index * 17), 1, TEXT if index < 4 else BLUE, 1)
 	PixelFont.draw_centered(surface, "ENTER / ESC RETURN", 320, 281, 1, GOLD, 1)
+
+func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
+	var settings := get_node_or_null("/root/SettingsDirector")
+	var selection := clampi(int(scene.get("option_selection")) if _has_property(scene, "option_selection") else 0, 0, 3)
+	PixelFont.draw_centered(surface, "SYSTEM OPTIONS", 320, 128, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, "VIDEO // AUDIO // CONTROL // ACCESSIBILITY", 320, 141, 1, BLUE, 1)
+	for index in range(4):
+		var position := Vector2(100, 154 + index * 35)
+		surface.draw_texture(OPTIONS_ROW_SELECTED if index == selection else OPTIONS_ROW_IDLE, position)
+		if index == selection:
+			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
+		var label := str(settings.call("setting_label", index)) if settings != null and settings.has_method("setting_label") else "OPTION"
+		var value := str(settings.call("setting_value", index)) if settings != null and settings.has_method("setting_value") else "--"
+		var ratio := float(settings.call("setting_ratio", index)) if settings != null and settings.has_method("setting_ratio") else 0.0
+		PixelFont.draw_text(surface, label, position + Vector2(18, 9), 1, GOLD if index == selection else TEXT, 1)
+		if index in [0, 3]:
+			surface.draw_texture(OPTIONS_TOGGLE_ON if ratio >= 0.5 else OPTIONS_TOGGLE_OFF, position + Vector2(306, 8))
+		else:
+			surface.draw_texture(OPTIONS_VALUE_TROUGH, position + Vector2(286, 11))
+			_draw_clipped_fill(surface, OPTIONS_VALUE_FILL, position + Vector2(288, 13), ratio)
+		PixelFont.draw_text(surface, value, position + Vector2(382 - PixelFont.text_width(value, 1, 1), 9), 1, GREEN if ratio >= 0.5 else MUTED, 1)
+	PixelFont.draw_centered(surface, "LEFT / RIGHT ADJUST   ESC RETURN", 320, 305, 1, MUTED, 1)
 
 func _draw_front_end_dossier(surface: CanvasItem) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))

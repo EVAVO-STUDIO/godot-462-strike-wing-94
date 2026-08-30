@@ -9,6 +9,7 @@ run/main_scene="res://scenes/main.tscn"
 [autoload]
 ProductIdentity="*res://scripts/product_identity.gd"
 InputBindings="*res://scripts/input_bindings.gd"
+SettingsDirector="*res://scripts/settings_director.gd"
 StartupSequenceDirector="*res://scripts/startup_sequence_director.gd"
 CampaignCinematicDirector="*res://scripts/campaign_cinematic_director.gd"
 PlayerMountDirector="*res://scripts/player_mount_director.gd"

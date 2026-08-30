@@ -27,6 +27,7 @@ enum GamePhase { TITLE, PLAYING, RESULT }
 var phase := GamePhase.TITLE
 var front_end_screen := "main_menu"
 var menu_selection := 0
+var option_selection := 0
 var player_position := Vector2(320.0, 292.0)
 var fire_timer := 0.0
 var secondary_timer := 0.0
@@ -137,20 +138,40 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _update_front_end_menu() -> void:
+	if front_end_screen == "options":
+		_update_front_end_options()
+		return
 	if front_end_screen in ["controls", "dossier"]:
 		if Input.is_action_just_pressed("confirm") or Input.is_action_just_pressed("cancel"):
 			front_end_screen = "main_menu"
 		return
 	if Input.is_action_just_pressed("move_up"):
-		menu_selection = posmod(menu_selection - 1, 4)
+		menu_selection = posmod(menu_selection - 1, 5)
 	elif Input.is_action_just_pressed("move_down"):
-		menu_selection = posmod(menu_selection + 1, 4)
+		menu_selection = posmod(menu_selection + 1, 5)
 	elif Input.is_action_just_pressed("confirm"):
 		match menu_selection:
 			0: front_end_screen = "sortie"
-			1: front_end_screen = "controls"
-			2: front_end_screen = "dossier"
-			3: get_tree().quit()
+			1: front_end_screen = "options"
+			2: front_end_screen = "controls"
+			3: front_end_screen = "dossier"
+			4: get_tree().quit()
+
+func _update_front_end_options() -> void:
+	if Input.is_action_just_pressed("cancel"):
+		front_end_screen = "main_menu"
+		return
+	if Input.is_action_just_pressed("move_up"):
+		option_selection = posmod(option_selection - 1, 4)
+	elif Input.is_action_just_pressed("move_down"):
+		option_selection = posmod(option_selection + 1, 4)
+	var direction := 0
+	if Input.is_action_just_pressed("move_left"): direction = -1
+	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("confirm"): direction = 1
+	if direction != 0:
+		var settings := get_node_or_null("/root/SettingsDirector")
+		if settings != null and settings.has_method("adjust_setting"):
+			settings.call("adjust_setting", option_selection, direction)
 
 func _update_mission(delta: float) -> void:
 	if player_loss_timer > 0.0:
