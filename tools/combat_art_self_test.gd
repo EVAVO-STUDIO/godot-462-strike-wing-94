@@ -145,7 +145,7 @@ func _test_visual_language() -> void:
 		for overlay_name in ["phase_2_damage", "phase_3_damage", "critical_0", "critical_1", "critical_2", "critical_3"]:
 			var overlay := load("res://assets/runtime/enemies/boss_animation/%s/%s.png" % [boss_id, overlay_name])
 			_expect(overlay is Texture2D and overlay.get_size() == mercenary_boss_sizes[boss_id], "mercenary boss phase overlay should retain its registered canvas: %s/%s" % [boss_id, overlay_name])
-	_expect(source.contains("MERCENARY_BOSS_PHASE_OVERLAYS") and source.contains('enemy.get("boss_phase", 1)') and source.contains('enemy.get("age", 0.0)') and source.contains("* 8.0"), "mercenary bosses should use canonical boss phase and age-driven critical animation")
+	_expect(source.contains("BOSS_PHASE_OVERLAYS") and source.contains('enemy.get("boss_phase", 1)') and source.contains('enemy.get("age", 0.0)') and source.contains("* 8.0"), "production bosses should use canonical boss phase and age-driven critical animation")
 	var machine_boss_sizes := {
 		"swarm_controller": Vector2(106,88),
 		"ai_forge_core": Vector2(112,112),
@@ -153,6 +153,9 @@ func _test_visual_language() -> void:
 	for enemy_id in machine_boss_sizes:
 		var texture := load("res://assets/runtime/enemies/machine_boss/%s_idle_v2.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == machine_boss_sizes[enemy_id], "machine boss sprite should retain reviewed geometry: %s" % enemy_id)
+		for overlay_name in ["phase_2_damage", "phase_3_damage", "critical_0", "critical_1", "critical_2", "critical_3"]:
+			var overlay := load("res://assets/runtime/enemies/boss_animation/%s/%s.png" % [enemy_id, overlay_name])
+			_expect(overlay is Texture2D and overlay.get_size() == machine_boss_sizes[enemy_id], "machine boss phase overlay should retain its registered canvas: %s/%s" % [enemy_id, overlay_name])
 	var orbital_boss_sizes := {
 		"orbital_command_node": Vector2(124,104),
 		"phase_control_array": Vector2(126,126),

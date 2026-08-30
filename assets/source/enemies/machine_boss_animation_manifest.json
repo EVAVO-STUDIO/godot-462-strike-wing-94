@@ -1,0 +1,37 @@
+{
+  "asset_family": "machine_boss_phase_animation",
+  "status": "runtime_phase_overlays_reviewed",
+  "registration": "all overlays share the corresponding v2 idle sprite canvas and centre pivot",
+  "state_mapping": {
+    "phase_1": ["idle_v2"],
+    "phase_2": ["idle_v2", "phase_2_damage"],
+    "phase_3": ["idle_v2", "phase_2_damage", "phase_3_damage", "critical_0..3"]
+  },
+  "animation": {"critical_fps": 8, "loop": true, "frame_count": 4},
+  "bosses": {
+    "swarm_controller": {
+      "canvas": [106, 88],
+      "damage_logic": "severed drone-service arm followed by lift and command-bus failure; human retrofit construction remains readable",
+      "sha256": {
+        "critical_0.png": "2931C74DAA0C98E02BC147BAE4CFA654B131F765BDE3F5D9E224B38A77A89222",
+        "critical_1.png": "497FD0A16DD01160189E525E994BE1B5200D4005F3FE1467954EBB7FBEAC136E",
+        "critical_2.png": "F8D296408D9C5FA7730664F5FC3A25C11EBC510EEB97225CCAC14E90323B9E4B",
+        "critical_3.png": "DE6C151AAF0F6B8C1F7078A6701BFEA9B69602BD733E0736C3508B3790634F5B",
+        "phase_2_damage.png": "D47DACB4D11752F70F3AB5EFC762CAA59D1C0E234E43525D6A9F19BE69A0D692",
+        "phase_3_damage.png": "A7B6338C6121CC66E348C215938AEAA51F5E5E2FDC324511C846561633B97D1F"
+      }
+    },
+    "ai_forge_core": {
+      "canvas": [112, 112],
+      "damage_logic": "crawler conveyor destruction followed by foundry-tooling and furnace-control failure",
+      "sha256": {
+        "critical_0.png": "7BA593B022D6C907348FF9435E882E84220DDF08975B7C3333F51E89826014BA",
+        "critical_1.png": "4991099C03A6B8CDC3170EC77578CB801F1F743F0B23F28DAD10E9C28ECBE7D4",
+        "critical_2.png": "58337C214BBC59DC73BB1B2218DF662B3051F128E3A18FF1B880A3E12D49FDBE",
+        "critical_3.png": "9BE6196A9E5A5D4F4FC675108D2D2ACF31043453CA823C70DF4846508281540B",
+        "phase_2_damage.png": "A3A63BBE2C2876FC7D7B52A2E6B0F040B0143A5CEB353673CF7131012E5B51FC",
+        "phase_3_damage.png": "4A5BFC9F6EE9C41DA87624E1EC29249F676CB0A2A30D6BFFDE08976ECD2F3090"
+      }
+    }
+  }
+}
