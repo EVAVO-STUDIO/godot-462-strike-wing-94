@@ -66,15 +66,37 @@ const MERCENARY_BOSS_SPRITES := {
 	"armoured_train": preload("res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png"),
 	"missile_cruiser": preload("res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png"),
 }
-const GUNSHIP_ALPHA_PHASE_OVERLAYS := {
-	"phase_2": preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/phase_2_damage.png"),
-	"phase_3": preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/phase_3_damage.png"),
-	"critical": [
-		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_0.png"),
-		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_1.png"),
-		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_2.png"),
-		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_3.png"),
-	],
+const MERCENARY_BOSS_PHASE_OVERLAYS := {
+	"gunship_alpha": {
+		"phase_2": preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/phase_2_damage.png"),
+		"phase_3": preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/phase_3_damage.png"),
+		"critical": [
+			preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_0.png"),
+			preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_1.png"),
+			preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_2.png"),
+			preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_3.png"),
+		],
+	},
+	"armoured_train": {
+		"phase_2": preload("res://assets/runtime/enemies/boss_animation/armoured_train/phase_2_damage.png"),
+		"phase_3": preload("res://assets/runtime/enemies/boss_animation/armoured_train/phase_3_damage.png"),
+		"critical": [
+			preload("res://assets/runtime/enemies/boss_animation/armoured_train/critical_0.png"),
+			preload("res://assets/runtime/enemies/boss_animation/armoured_train/critical_1.png"),
+			preload("res://assets/runtime/enemies/boss_animation/armoured_train/critical_2.png"),
+			preload("res://assets/runtime/enemies/boss_animation/armoured_train/critical_3.png"),
+		],
+	},
+	"missile_cruiser": {
+		"phase_2": preload("res://assets/runtime/enemies/boss_animation/missile_cruiser/phase_2_damage.png"),
+		"phase_3": preload("res://assets/runtime/enemies/boss_animation/missile_cruiser/phase_3_damage.png"),
+		"critical": [
+			preload("res://assets/runtime/enemies/boss_animation/missile_cruiser/critical_0.png"),
+			preload("res://assets/runtime/enemies/boss_animation/missile_cruiser/critical_1.png"),
+			preload("res://assets/runtime/enemies/boss_animation/missile_cruiser/critical_2.png"),
+			preload("res://assets/runtime/enemies/boss_animation/missile_cruiser/critical_3.png"),
+		],
+	},
 }
 const MACHINE_BOSS_SPRITES := {
 	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
@@ -290,14 +312,15 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
 	_draw_production_sprite(surface, p, texture)
-	if enemy_id != "gunship_alpha":
+	if not MERCENARY_BOSS_PHASE_OVERLAYS.has(enemy_id):
 		return
+	var overlays: Dictionary = MERCENARY_BOSS_PHASE_OVERLAYS[enemy_id]
 	var boss_phase := clampi(int(enemy.get("boss_phase", 1)), 1, 3)
 	if boss_phase >= 2:
-		_draw_production_sprite(surface, p, GUNSHIP_ALPHA_PHASE_OVERLAYS["phase_2"])
+		_draw_production_sprite(surface, p, overlays["phase_2"])
 	if boss_phase >= 3:
-		_draw_production_sprite(surface, p, GUNSHIP_ALPHA_PHASE_OVERLAYS["phase_3"])
-		var critical_frames: Array = GUNSHIP_ALPHA_PHASE_OVERLAYS["critical"]
+		_draw_production_sprite(surface, p, overlays["phase_3"])
+		var critical_frames: Array = overlays["critical"]
 		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % critical_frames.size()
 		_draw_production_sprite(surface, p, critical_frames[frame_index])
 
