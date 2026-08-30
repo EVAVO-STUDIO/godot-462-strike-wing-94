@@ -1,5 +1,12 @@
 extends CanvasLayer
 
+const PRECISION_BOMB_FRAMES := [
+	preload("res://assets/runtime/effects/projectiles/precision_bomb/0.png"),
+	preload("res://assets/runtime/effects/projectiles/precision_bomb/1.png"),
+	preload("res://assets/runtime/effects/projectiles/precision_bomb/2.png"),
+	preload("res://assets/runtime/effects/projectiles/precision_bomb/3.png")
+]
+
 const StrikeOrdnanceRules = preload("res://scripts/strike_ordnance_rules.gd")
 const StrikeOrdnanceSurface = preload("res://scripts/strike_ordnance_surface.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
@@ -276,8 +283,10 @@ func _draw_surface(surface: CanvasItem) -> void:
 		var color := Color(0.42, 0.96, 0.62, 0.78) if bool(item.get("priority_lock", false)) else Color(1.0, 0.48, 0.20, 0.7)
 		surface.draw_circle(point, pulse, color, false, 1.0)
 		surface.draw_line(release, point, Color(color.r, color.g, color.b, 0.16), 1.0)
-		surface.draw_rect(Rect2(roundf(bomb_position.x)-roundf(2.0*bomb_scale), roundf(bomb_position.y)-roundf(4.0*bomb_scale), maxf(1.0,roundf(4.0*bomb_scale)), maxf(2.0,roundf(8.0*bomb_scale))), Color(0.74,0.76,0.72,0.94))
-		surface.draw_rect(Rect2(roundf(bomb_position.x)-1, roundf(bomb_position.y)-roundf(5.0*bomb_scale), 2, 2), Color(0.92,0.74,0.30,0.92))
+		var bomb_frame_index := int(floor(progress * 10.0)) % PRECISION_BOMB_FRAMES.size()
+		var bomb_texture: Texture2D = PRECISION_BOMB_FRAMES[bomb_frame_index]
+		var bomb_size := (bomb_texture.get_size() * bomb_scale).round()
+		surface.draw_texture_rect(bomb_texture, Rect2((bomb_position - Vector2(8, 7) * bomb_scale).round(), bomb_size), false)
 
 func _draw_impact_fx(surface: CanvasItem) -> void:
 	for fx in _impact_fx:

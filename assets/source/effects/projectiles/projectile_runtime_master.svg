@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="192" viewBox="0 0 64 192" shape-rendering="crispEdges">
+  <!-- Four registered 16x24 frames per row. Native late-SVGA pixel construction. -->
+  <defs>
+    <g id="ballistic"><path fill="#62452a" d="M7 4h2v8H7z"/><path fill="#d89b42" d="M7 2h2v7H7z"/><path fill="#fff0a1" d="M8 1h1v6H8z"/></g>
+    <g id="enemy"><path fill="#3b2020" d="M6 5h4v7H6z"/><path fill="#a83228" d="M7 2h2v9H7z"/><path fill="#ff9a3c" d="M8 3h1v6H8z"/></g>
+    <g id="missile"><path fill="#30343a" d="M7 3h2v10H7zM5 10h2v4H5zM9 10h2v4H9z"/><path fill="#c9c2aa" d="M7 2h2v9H7z"/><path fill="#a52b28" d="M7 5h2v2H7z"/></g>
+    <g id="rail"><path fill="#17313e" d="M7 2h2v12H7z"/><path fill="#8ed9df" d="M8 1h1v11H8z"/><path fill="#e8ffff" d="M8 2h1v5H8z"/></g>
+    <g id="plasma"><path fill="#3d2a69" d="M6 5h4v8H6zM7 2h2v14H7z"/><path fill="#9674dd" d="M7 4h2v9H7z"/><path fill="#f0eaff" d="M8 5h1v6H8z"/></g>
+    <g id="support"><path fill="#283124" d="M6 5h4v9H6zM5 11h2v4H5zM9 11h2v4H9z"/><path fill="#7e8b4a" d="M7 2h2v11H7z"/><path fill="#d5b348" d="M7 7h2v2H7z"/></g>
+    <g id="strategic"><path fill="#342f2a" d="M5 6h6v10H5zM4 13h3v4H4zM9 13h3v4H9z"/><path fill="#d7c9a0" d="M6 3h4v12H6z"/><path fill="#b72d27" d="M6 4h4v3H6zM6 10h4v2H6z"/><path fill="#fff1bd" d="M7 5h1v8H7z"/></g>
+    <g id="bomb"><path fill="#262a2e" d="M6 4h4v12H6zM4 14h4v4H4zM8 14h4v4H8z"/><path fill="#7b8182" d="M7 2h2v14H7z"/><path fill="#bd9635" d="M6 9h4v2H6z"/></g>
+    <g id="fire1"><path fill="#8e2920" d="M7 14h2v3H7z"/><path fill="#f07828" d="M7 13h2v3H7z"/><path fill="#ffe083" d="M8 13h1v2H8z"/></g>
+    <g id="fire2"><path fill="#642a22" d="M6 14h4v5H6z"/><path fill="#df4925" d="M7 13h2v6H7z"/><path fill="#ffb23f" d="M7 14h2v4H7z"/><path fill="#fff0a0" d="M8 14h1v3H8z"/></g>
+    <g id="smoke"><path fill="#34373a" d="M6 18h3v3H6zM9 20h2v2H9z"/><path fill="#69665f" d="M7 17h3v3H7z"/></g>
+    <g id="cyan1"><path fill="#21677a" d="M7 14h2v5H7z"/><path fill="#8cf5ff" d="M8 13h1v5H8z"/></g>
+    <g id="violet1"><path fill="#49337c" d="M6 14h4v5H6z"/><path fill="#b78cff" d="M7 13h2v6H7z"/></g>
+  </defs>
+  <!-- ballistic tracer -->
+  <g transform="translate(0 0)"><use xlink:href="#ballistic"/></g>
+  <g transform="translate(16 0)"><use xlink:href="#ballistic"/><path fill="#8b5d2e" d="M7 12h2v4H7z"/></g>
+  <g transform="translate(32 0)"><use xlink:href="#ballistic"/><path fill="#8b5d2e" d="M7 12h2v7H7z"/><path fill="#d89b42" d="M8 12h1v4H8z"/></g>
+  <g transform="translate(48 0)"><use xlink:href="#ballistic"/><path fill="#493521" d="M7 12h2v10H7z"/><path fill="#d89b42" d="M8 12h1v6H8z"/></g>
+  <!-- hostile cannon shell -->
+  <g transform="translate(0 24)"><use xlink:href="#enemy"/></g>
+  <g transform="translate(16 24)"><use xlink:href="#enemy"/><use xlink:href="#fire1"/></g>
+  <g transform="translate(32 24)"><use xlink:href="#enemy"/><use xlink:href="#fire2"/></g>
+  <g transform="translate(48 24)"><use xlink:href="#enemy"/><use xlink:href="#fire2"/><path fill="#5d3029" d="M7 20h2v3H7z"/></g>
+  <!-- homing missile -->
+  <g transform="translate(0 48)"><use xlink:href="#missile"/></g>
+  <g transform="translate(16 48)"><use xlink:href="#missile"/><use xlink:href="#fire1"/></g>
+  <g transform="translate(32 48)"><use xlink:href="#missile"/><use xlink:href="#fire2"/></g>
+  <g transform="translate(48 48)"><use xlink:href="#missile"/><use xlink:href="#fire2"/><use xlink:href="#smoke"/></g>
+  <!-- needle rail -->
+  <g transform="translate(0 72)"><use xlink:href="#rail"/></g>
+  <g transform="translate(16 72)"><use xlink:href="#rail"/><use xlink:href="#cyan1"/></g>
+  <g transform="translate(32 72)"><use xlink:href="#rail"/><path fill="#21677a" d="M7 14h2v8H7z"/><path fill="#c7ffff" d="M8 13h1v7H8z"/></g>
+  <g transform="translate(48 72)"><use xlink:href="#rail"/><path fill="#173f50" d="M7 14h2v10H7z"/><path fill="#8cf5ff" d="M8 13h1v9H8z"/></g>
+  <!-- plasma lance -->
+  <g transform="translate(0 96)"><use xlink:href="#plasma"/></g>
+  <g transform="translate(16 96)"><use xlink:href="#plasma"/><use xlink:href="#violet1"/></g>
+  <g transform="translate(32 96)"><use xlink:href="#plasma"/><path fill="#49337c" d="M6 14h4v8H6z"/><path fill="#d5c3ff" d="M8 13h1v8H8z"/></g>
+  <g transform="translate(48 96)"><use xlink:href="#plasma"/><path fill="#312556" d="M6 14h4v10H6z"/><path fill="#9674dd" d="M7 13h2v9H7z"/></g>
+  <!-- tactical support rocket -->
+  <g transform="translate(0 120)"><use xlink:href="#support"/></g>
+  <g transform="translate(16 120)"><use xlink:href="#support"/><use xlink:href="#fire1"/></g>
+  <g transform="translate(32 120)"><use xlink:href="#support"/><use xlink:href="#fire2"/></g>
+  <g transform="translate(48 120)"><use xlink:href="#support"/><use xlink:href="#fire2"/><use xlink:href="#smoke"/></g>
+  <!-- strategic warhead -->
+  <g transform="translate(0 144)"><use xlink:href="#strategic"/></g>
+  <g transform="translate(16 144)"><use xlink:href="#strategic"/><use xlink:href="#fire1" transform="translate(0 3)"/></g>
+  <g transform="translate(32 144)"><use xlink:href="#strategic"/><use xlink:href="#fire2" transform="translate(0 3)"/></g>
+  <g transform="translate(48 144)"><use xlink:href="#strategic"/><use xlink:href="#fire2" transform="translate(0 3)"/><use xlink:href="#smoke" transform="translate(0 1)"/></g>
+  <!-- precision bomb: held tumble poses, no powered trail -->
+  <g transform="translate(0 168)"><use xlink:href="#bomb"/></g>
+  <g transform="translate(16 168) rotate(-8 8 10)"><use xlink:href="#bomb"/></g>
+  <g transform="translate(32 168) rotate(8 8 10)"><use xlink:href="#bomb"/></g>
+  <g transform="translate(48 168)"><use xlink:href="#bomb"/><path fill="#d14b2c" d="M7 18h2v2H7z"/></g>
+</svg>

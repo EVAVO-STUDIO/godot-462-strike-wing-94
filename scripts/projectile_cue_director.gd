@@ -1,6 +1,50 @@
 extends CanvasLayer
 
 const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
+const PROJECTILE_FRAMES := {
+	"ballistic": [
+		preload("res://assets/runtime/effects/projectiles/ballistic/0.png"),
+		preload("res://assets/runtime/effects/projectiles/ballistic/1.png"),
+		preload("res://assets/runtime/effects/projectiles/ballistic/2.png"),
+		preload("res://assets/runtime/effects/projectiles/ballistic/3.png")
+	],
+	"enemy_cannon": [
+		preload("res://assets/runtime/effects/projectiles/enemy_cannon/0.png"),
+		preload("res://assets/runtime/effects/projectiles/enemy_cannon/1.png"),
+		preload("res://assets/runtime/effects/projectiles/enemy_cannon/2.png"),
+		preload("res://assets/runtime/effects/projectiles/enemy_cannon/3.png")
+	],
+	"homing_missile": [
+		preload("res://assets/runtime/effects/projectiles/homing_missile/0.png"),
+		preload("res://assets/runtime/effects/projectiles/homing_missile/1.png"),
+		preload("res://assets/runtime/effects/projectiles/homing_missile/2.png"),
+		preload("res://assets/runtime/effects/projectiles/homing_missile/3.png")
+	],
+	"needle_rail": [
+		preload("res://assets/runtime/effects/projectiles/needle_rail/0.png"),
+		preload("res://assets/runtime/effects/projectiles/needle_rail/1.png"),
+		preload("res://assets/runtime/effects/projectiles/needle_rail/2.png"),
+		preload("res://assets/runtime/effects/projectiles/needle_rail/3.png")
+	],
+	"plasma_lance": [
+		preload("res://assets/runtime/effects/projectiles/plasma_lance/0.png"),
+		preload("res://assets/runtime/effects/projectiles/plasma_lance/1.png"),
+		preload("res://assets/runtime/effects/projectiles/plasma_lance/2.png"),
+		preload("res://assets/runtime/effects/projectiles/plasma_lance/3.png")
+	],
+	"support_rocket": [
+		preload("res://assets/runtime/effects/projectiles/support_rocket/0.png"),
+		preload("res://assets/runtime/effects/projectiles/support_rocket/1.png"),
+		preload("res://assets/runtime/effects/projectiles/support_rocket/2.png"),
+		preload("res://assets/runtime/effects/projectiles/support_rocket/3.png")
+	],
+	"strategic_warhead": [
+		preload("res://assets/runtime/effects/projectiles/strategic_warhead/0.png"),
+		preload("res://assets/runtime/effects/projectiles/strategic_warhead/1.png"),
+		preload("res://assets/runtime/effects/projectiles/strategic_warhead/2.png"),
+		preload("res://assets/runtime/effects/projectiles/strategic_warhead/3.png")
+	]
+}
 
 class ProjectileCueCanvas:
 	extends Control
@@ -17,18 +61,8 @@ class ProjectileCueCanvas:
 				continue
 			var position: Vector2 = shot.get("position", Vector2.ZERO)
 			var direction := ProjectileCueRules.direction_for(shot)
-			var radius := ProjectileCueRules.radius_for(shot)
-			var trail := ProjectileCueRules.trail_length_for(shot)
 			var type := ProjectileCueRules.projectile_type(shot)
-			var body := Color(1.0, 0.86, 0.48, 0.92)
-			if type == ProjectileCueRules.TYPE_MISSILE:
-				body = Color(1.0, 0.36, 0.28, 0.96)
-			elif type == ProjectileCueRules.TYPE_CANNON:
-				body = Color(1.0, 0.68, 0.26, 0.94)
-			draw_line(position - direction * trail, position - direction * radius, body, 2.0)
-			draw_circle(position, radius, body)
-			if type == ProjectileCueRules.TYPE_MISSILE:
-				draw_arc(position, radius + 3.0, 0.0, TAU, 12, Color(1.0, 0.78, 0.38, 0.72), 1.0)
+			_draw_registered_sprite(position, direction, "homing_missile" if type == ProjectileCueRules.TYPE_MISSILE else "enemy_cannon")
 
 	func _draw_player_shots() -> void:
 		for shot in player_shots:
@@ -52,50 +86,30 @@ class ProjectileCueCanvas:
 				_draw_ballistic(position, direction)
 
 	func _draw_ballistic(position: Vector2, direction: Vector2) -> void:
-		var color := Color(0.95, 0.82, 0.42, 0.9)
-		draw_line(position - direction * 7.0, position + direction * 2.0, color, 1.0)
-		draw_rect(Rect2(position.x-1, position.y-2, 2, 4), color)
+		_draw_registered_sprite(position, direction, "ballistic")
 
 	func _draw_kinetic(position: Vector2, direction: Vector2) -> void:
-		var core := Color(0.78, 0.95, 1.0, 0.98)
-		var wake := Color(0.30, 0.66, 0.78, 0.68)
-		draw_line(position - direction * 18.0, position - direction * 3.0, wake, 1.0)
-		draw_line(position - direction * 6.0, position + direction * 5.0, core, 2.0)
+		_draw_registered_sprite(position, direction, "needle_rail")
 
 	func _draw_energy_pulse(position: Vector2, direction: Vector2) -> void:
-		var core := Color(0.55, 0.90, 1.0, 0.96)
-		var edge := Color(0.24, 0.58, 0.82, 0.76)
-		draw_circle(position, 3.0, core)
-		draw_arc(position, 5.0, 0.0, TAU, 8, edge, 1.0)
-		draw_line(position - direction * 8.0, position - direction * 3.0, edge, 1.0)
+		_draw_registered_sprite(position, direction, "needle_rail")
 
 	func _draw_plasma_lance(position: Vector2, direction: Vector2) -> void:
-		var core := Color(0.82, 0.88, 1.0, 0.98)
-		var plasma := Color(0.62, 0.42, 0.95, 0.88)
-		var field := Color(0.28, 0.76, 0.92, 0.72)
-		draw_line(position - direction * 16.0, position + direction * 4.0, plasma, 3.0)
-		draw_line(position - direction * 7.0, position + direction * 6.0, core, 2.0)
-		draw_arc(position, 6.0, 0.0, TAU, 10, field, 1.0)
-		for offset in [11.0, 17.0]:
-			var wake_point: Vector2 = position - direction * offset
-			draw_rect(Rect2(roundf(wake_point.x)-1, roundf(wake_point.y)-1, 2, 2), plasma)
+		_draw_registered_sprite(position, direction, "plasma_lance")
 
 	func _draw_support_round(position: Vector2, direction: Vector2, homing: bool) -> void:
-		var core := Color(0.52, 0.84, 0.66, 0.94)
-		draw_line(position - direction * 10.0, position, core, 2.0)
-		draw_circle(position, 2.0, core)
-		if homing:
-			draw_arc(position, 4.0, 0.0, TAU, 8, Color(0.72, 0.95, 0.78, 0.7), 1.0)
+		_draw_registered_sprite(position, direction, "support_rocket" if homing else "ballistic")
 
 	func _draw_strategic_warhead(position: Vector2, direction: Vector2) -> void:
-		var body := Color(0.96, 0.84, 0.58, 0.98)
-		var warning := Color(0.92, 0.32, 0.24, 0.90)
-		var wake := Color(0.55, 0.72, 0.72, 0.66)
-		draw_line(position - direction * 19.0, position - direction * 5.0, wake, 2.0)
-		draw_line(position - direction * 7.0, position + direction * 5.0, body, 3.0)
-		draw_arc(position, 6.0, 0.0, TAU, 8, warning, 1.0)
-		var tail := position - direction * 9.0
-		draw_rect(Rect2(roundf(tail.x)-2, roundf(tail.y)-1, 4, 2), warning)
+		_draw_registered_sprite(position, direction, "strategic_warhead")
+
+	func _draw_registered_sprite(position: Vector2, direction: Vector2, family: String) -> void:
+		var frames: Array = PROJECTILE_FRAMES[family]
+		var frame_index := int(floor(Time.get_ticks_msec() / 83.0)) % frames.size()
+		var texture: Texture2D = frames[frame_index]
+		draw_set_transform(position.round(), Vector2.UP.angle_to(direction), Vector2.ONE)
+		draw_texture(texture, Vector2(-8, -7))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 var _canvas: ProjectileCueCanvas
 

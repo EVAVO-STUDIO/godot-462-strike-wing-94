@@ -1,0 +1,29 @@
+{
+  "asset_family": "projectile_ordnance",
+  "status": "runtime_animation_v1",
+  "native_frame_size": [16, 24],
+  "frames_per_family": 4,
+  "families": [
+    "ballistic", "enemy_cannon", "homing_missile", "needle_rail",
+    "plasma_lance", "support_rocket", "strategic_warhead", "precision_bomb"
+  ],
+  "registration": {
+    "visual_center": [8, 10],
+    "gameplay_origin": [8, 7],
+    "forward_anchor": [8, 2],
+    "exhaust_anchor": [8, 14],
+    "intended_layer": 16
+  },
+  "source": {
+    "concept": "res://assets/source/effects/projectiles/candidates/projectile_ordnance_concept_01_raw.png",
+    "runtime_master": "res://assets/source/effects/projectiles/projectile_runtime_master.svg",
+    "provenance": "OpenAI built-in image generation used for silhouette reference; runtime pixels reconstructed and registered by hand at native scale"
+  },
+  "visual_contract": [
+    "hard native pixel clusters with no runtime filtering",
+    "physical ordnance bodies remain distinct from energy projectiles",
+    "trail rhythm communicates ignition and acceleration",
+    "dangerous hostile rounds preserve warm value separation",
+    "no modern bloom, circular generic bolt or soft generated edge"
+  ]
+}

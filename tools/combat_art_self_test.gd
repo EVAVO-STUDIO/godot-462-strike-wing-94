@@ -15,6 +15,7 @@ func _initialize() -> void:
 	_test_late_boss_silhouettes()
 	_test_airframe_cues()
 	_test_combat_fx()
+	_test_projectile_art()
 	_test_damage_state()
 	_test_mount_map()
 	if failures.is_empty():
@@ -308,6 +309,25 @@ func _test_damage_state() -> void:
 	_expect(source.contains('scene.call("_max_hull")'), "damage presentation should read canonical airframe hull capacity")
 	for forbidden in ['scene.set("hull"', 'scene.set("shield"', 'var extra_health']:
 		_expect(not source.contains(forbidden), "damage-state presentation must not create or mutate durability state: %s" % forbidden)
+
+func _test_projectile_art() -> void:
+	var projectile_source := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)
+	_expect(projectile_source != null, "projectile cue director should be readable")
+	if projectile_source != null:
+		var source := projectile_source.get_as_text()
+		_expect(source.contains("PROJECTILE_FRAMES") and source.contains("_draw_registered_sprite"), "live projectile cues should use registered production sprites")
+		_expect(not source.contains("draw_circle(position") and not source.contains("draw_arc(position"), "live projectile bodies should not retain generic vector circles")
+	var families := ["ballistic", "enemy_cannon", "homing_missile", "needle_rail", "plasma_lance", "support_rocket", "strategic_warhead", "precision_bomb"]
+	for family in families:
+		for frame_index in range(4):
+			var frame := load("res://assets/runtime/effects/projectiles/%s/%d.png" % [family, frame_index])
+			_expect(frame is Texture2D and frame.get_size() == Vector2(16,24), "projectile frame should retain registered 16x24 geometry: %s/%d" % [family, frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/effects/projectiles/projectile_asset_manifest.json"), "projectile source/runtime manifest should exist")
+	var strike_source := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)
+	_expect(strike_source != null, "strike ordnance director should be readable for bomb-art checks")
+	if strike_source != null:
+		var source := strike_source.get_as_text()
+		_expect(source.contains("PRECISION_BOMB_FRAMES") and source.contains("bomb_texture"), "precision strike ordnance should use the authored tumble frames")
 
 func _test_mount_map() -> void:
 	var data = ContentCatalog.load_json("res://data/player_mounts.json")
