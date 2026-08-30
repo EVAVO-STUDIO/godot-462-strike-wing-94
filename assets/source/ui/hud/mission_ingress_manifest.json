@@ -1,0 +1,15 @@
+{
+  "asset_family": "hypersonic_mission_ingress_hud",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/mission_ingress_sheet.svg",
+  "visual_contract": {
+    "purpose": "brief mission identity and objective confirmation on transition into live combat",
+    "timing": "short held exposure after launch; production pixel UI remains sole interface owner",
+    "era": "late-1990s military mission-computer transmission card",
+    "avoid": ["default engine font", "full-screen modern modal", "persistent combat obstruction", "smooth translucent glass panel"]
+  },
+  "runtime": {
+    "frame": "res://assets/runtime/ui/hud/mission_ingress/frame.png",
+    "objective_lamps": ["objective_required.png", "objective_bonus.png"]
+  }
+}

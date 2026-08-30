@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="128" viewBox="0 0 512 128" shape-rendering="crispEdges">
+ <rect width="512" height="128" fill="none"/>
+ <!-- 408x46 mission-ingress data card -->
+ <path d="M8 0h392l8 8v30l-8 8H8l-8-8V8z" fill="#05090d" fill-opacity=".92"/>
+ <path d="M8 1h392l7 7v30l-7 7H8l-7-7V8z" fill="none" stroke="#263c47" stroke-width="2"/>
+ <path d="M12 4h384l7 7v24l-7 7H12l-7-7V11z" fill="none" stroke="#58707b"/>
+ <path d="M20 7h92M296 7h92" stroke="#8ba0a7"/>
+ <path d="M116 7h176" stroke="#8a6d36" stroke-width="3"/>
+ <path d="M120 7h168" stroke="#d6b45f"/>
+ <path d="M9 15v16M399 15v16" stroke="#9eb2b8" stroke-width="2"/>
+ <path d="M13 37h382" stroke="#243a44"/>
+ <path d="M18 40h98M292 40h98" stroke="#526a75"/>
+ <path d="M0 12h5M403 12h5M0 34h5M403 34h5" stroke="#d3dde0"/>
+ <rect x="12" y="8" width="3" height="3" fill="#d5b55c"/>
+ <rect x="393" y="35" width="3" height="3" fill="#7099a4"/>
+ <!-- 12x12 required objective hard-square lamp -->
+ <g transform="translate(0 52)">
+  <path d="M1 1h10v10H1z" fill="#172a2d" stroke="#648c87"/>
+  <path d="M3 6l2 2 4-5" fill="none" stroke="#c9ead8" stroke-width="2"/>
+  <rect x="2" y="2" width="2" height="1" fill="#8fc3b4"/>
+ </g>
+ <!-- 12x12 bonus objective split-chevron lamp -->
+ <g transform="translate(12 52)">
+  <path d="M1 1h10v10H1z" fill="#2c2515" stroke="#927743"/>
+  <path d="M2 8l4-5 4 5-4-2z" fill="#d8b65d"/>
+  <rect x="5" y="8" width="2" height="2" fill="#f1dda0"/>
+ </g>
+</svg>

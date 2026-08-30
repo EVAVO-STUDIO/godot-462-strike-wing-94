@@ -137,7 +137,7 @@ func _test_pixel_ui() -> void:
 	_expect(source_file != null, "pixel_ui_director.gd should be readable")
 	if source_file != null:
 		var source := source_file.get_as_text()
-		_expect(source.contains("layer = 30"), "pixel UI should render above prototype scene HUD")
+		_expect(source.contains("layer = 30"), "pixel UI should render as the production interface layer")
 		_expect(source.contains("PixelFont.draw_centered"), "pixel UI should use bitmap glyph renderer")
 		_expect(source.contains("HYPERSONIC_WORDMARK"), "sortie console should use the approved title art master")
 		_expect(source.contains("VX94_FIGHTER") and source.contains("VX94_BOMBER"), "sortie console should retain form-specific aircraft art")
@@ -169,6 +169,12 @@ func _test_pixel_ui() -> void:
 			_expect(state_texture is Texture2D and state_texture.get_size() == flight_state_sizes[asset_name], "flight-state sprite should retain registered geometry: %s" % asset_name)
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/flight_state_manifest.json"), "flight-state source/runtime manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud_asset_manifest.json"), "gameplay HUD production manifest should exist")
+		_expect(source.contains("MISSION_INGRESS_FRAME") and source.contains("OBJECTIVE_REQUIRED") and source.contains("OBJECTIVE_BONUS") and source.contains("INGRESS_SECONDS") and source.contains("func _draw_mission_ingress"), "mission launch should use the timed authored ingress-card family")
+		var ingress_sizes := {"frame":Vector2(408,46), "objective_required":Vector2(12,12), "objective_bonus":Vector2(12,12)}
+		for asset_name in ingress_sizes:
+			var ingress_texture := load("res://assets/runtime/ui/hud/mission_ingress/%s.png" % asset_name)
+			_expect(ingress_texture is Texture2D and ingress_texture.get_size() == ingress_sizes[asset_name], "mission-ingress sprite should retain registered geometry: %s" % asset_name)
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/mission_ingress_manifest.json"), "mission-ingress source/runtime manifest should exist")
 		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
 	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
 	_expect(intel_file != null and intel_file.get_as_text().contains("layer = 31"), "mission intelligence overlay should render above the layer-30 sortie console")
@@ -178,6 +184,8 @@ func _test_pixel_ui() -> void:
 	_expect(stores_file != null and stores_file.get_as_text().contains("UiSpriteRenderer.draw_nine_slice"), "stores schematic should use authored operations-console sprites")
 	_expect(not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete boss HUD widget director should remain deleted")
 	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")
+	var main_ui_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main_ui_file != null and not main_ui_file.get_as_text().contains("draw_string("), "main simulation scene must not retain a hidden default-font duplicate UI")
 
 func _test_combat_art() -> void:
 	var art := CombatArtDirector.new()

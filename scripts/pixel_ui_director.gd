@@ -7,6 +7,7 @@ const BossRules = preload("res://scripts/boss_rules.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
+const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
@@ -28,6 +29,9 @@ const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
 const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
 const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
+const MISSION_INGRESS_FRAME := preload("res://assets/runtime/ui/hud/mission_ingress/frame.png")
+const OBJECTIVE_REQUIRED := preload("res://assets/runtime/ui/hud/mission_ingress/objective_required.png")
+const OBJECTIVE_BONUS := preload("res://assets/runtime/ui/hud/mission_ingress/objective_bonus.png")
 const FLIGHT_STATE_FRAME := preload("res://assets/runtime/ui/hud/flight_state/frame.png")
 const ALTITUDE_RAIL := preload("res://assets/runtime/ui/hud/flight_state/altitude_rail.png")
 const ALTITUDE_STATES := {
@@ -56,8 +60,12 @@ const GOLD := Color("e8ca6a")
 const GREEN := Color("67c3a5")
 const RED := Color("dc6655")
 const BLUE := Color("6aa4c8")
+const INGRESS_SECONDS := 3.2
 
 var _surface: Control
+var _last_phase := -1
+var _last_mission_index := -1
+var _ingress_time := 0.0
 
 func _ready() -> void:
 	layer = 30
@@ -69,7 +77,19 @@ func _ready() -> void:
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	var scene := get_tree().current_scene
+	if scene != null and _supports(scene):
+		var phase := int(scene.get("phase"))
+		var mission_index := int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0
+		if phase == 1 and (_last_phase != 1 or mission_index != _last_mission_index):
+			_ingress_time = INGRESS_SECONDS
+		elif phase == 1:
+			_ingress_time = maxf(0.0, _ingress_time - maxf(0.0, delta))
+		else:
+			_ingress_time = 0.0
+		_last_phase = phase
+		_last_mission_index = mission_index
 	if _surface != null:
 		_surface.queue_redraw()
 
@@ -207,9 +227,48 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "F:%s" % _clip(_battlefield_support_name(), 12), Vector2(518, 39), 1, BLUE, 1)
 	_draw_boss(surface, scene)
 	_draw_threat(surface, scene)
+	_draw_mission_ingress(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
 		surface.draw_texture(HUD_STATUS_FRAME, Vector2(116, 330))
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 70), 320, 336, 1, GOLD, 1)
+
+func _draw_mission_ingress(surface: CanvasItem, scene: Object) -> void:
+	if _ingress_time <= 0.0:
+		return
+	var age := INGRESS_SECONDS - _ingress_time
+	var frame_step := clampi(int(floor(age / 0.045)), 0, 4)
+	var y := 116.0 - float(4 - frame_step) * 2.0
+	var alpha := clampf(age / 0.16, 0.0, 1.0) * clampf(_ingress_time / 0.28, 0.0, 1.0)
+	var tint := Color(1, 1, 1, alpha)
+	surface.draw_texture(MISSION_INGRESS_FRAME, Vector2(116, y), tint)
+	PixelFont.draw_text(surface, "MISSION DATA // INGRESS", Vector2(128, y + 7), 1, Color(GOLD, alpha), 1)
+	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(448, y + 7), 1, Color(BLUE, alpha), 1)
+	PixelFont.draw_centered(surface, _clip(str(scene.get("current_mission_name")), 34), 320, y + 18, 2, Color(TEXT, alpha), 1)
+	var objective := _primary_objective(scene)
+	var required := bool(objective.get("required", true))
+	surface.draw_texture(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, Vector2(128, y + 31), tint)
+	PixelFont.draw_text(surface, _objective_line(scene, objective), Vector2(144, y + 34), 1, Color(GREEN if required else GOLD, alpha), 1)
+
+func _primary_objective(scene: Object) -> Dictionary:
+	if not _has_property(scene, "current_objectives"):
+		return {"id":"mission", "label":"COMPLETE AUTHORIZED OBJECTIVES", "required":true}
+	var objectives = scene.get("current_objectives")
+	if typeof(objectives) != TYPE_ARRAY:
+		return {"id":"mission", "label":"COMPLETE AUTHORIZED OBJECTIVES", "required":true}
+	for objective in objectives:
+		if typeof(objective) == TYPE_DICTIONARY and bool(objective.get("required", true)):
+			return objective
+	for objective in objectives:
+		if typeof(objective) == TYPE_DICTIONARY:
+			return objective
+	return {"id":"mission", "label":"COMPLETE AUTHORIZED OBJECTIVES", "required":true}
+
+func _objective_line(scene: Object, objective: Dictionary) -> String:
+	var label := str(objective.get("label", objective.get("id", "OBJECTIVE"))).to_upper().replace("_", " ")
+	var progress: Dictionary = scene.get("objective_progress") if _has_property(scene, "objective_progress") and typeof(scene.get("objective_progress")) == TYPE_DICTIONARY else {}
+	var progress_text := ObjectiveRules.progress_text(objective, progress) if not objective.is_empty() else ""
+	var prefix := "REQ" if bool(objective.get("required", true)) else "BONUS"
+	return _clip("%s %s  %s" % [prefix, label, progress_text], 58)
 
 func _draw_flight_state(surface: CanvasItem) -> void:
 	surface.draw_texture(FLIGHT_STATE_FRAME, Vector2(140, 34))

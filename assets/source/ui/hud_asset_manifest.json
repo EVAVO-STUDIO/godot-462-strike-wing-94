@@ -14,7 +14,8 @@
     "fills": ["hull_fill.png", "shield_fill.png", "energy_fill.png", "boss_fill.png", "afterburner_fill.png", "stability_fill.png"],
     "icons": ["icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png"],
     "flight_state_cluster": "res://assets/source/ui/hud/flight_state_manifest.json",
-    "lower_systems_dock": "res://assets/source/ui/hud/lower_systems_dock_manifest.json"
+    "lower_systems_dock": "res://assets/source/ui/hud/lower_systems_dock_manifest.json",
+    "mission_ingress": "res://assets/source/ui/hud/mission_ingress_manifest.json"
   },
   "concept_reference": "res://assets/source/ui/concepts/hud_environment_style_board_v1.png"
 }
