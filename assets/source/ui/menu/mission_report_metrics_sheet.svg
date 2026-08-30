@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="64" viewBox="0 0 256 64" shape-rendering="crispEdges">
+ <rect width="256" height="64" fill="none"/>
+ <path d="M5 0h118l5 5v16l-5 5H5l-5-5V5z" fill="#080d12"/>
+ <path d="M5 1h118l4 4v16l-4 4H5l-4-4V5z" fill="none" stroke="#40535f" stroke-width="2"/>
+ <path d="M8 4h18l4 3h68l4-3h18M8 22h18l4-3h68l4 3h18" fill="none" stroke="#6d8189"/>
+ <rect x="5" y="7" width="2" height="12" fill="#9a7250"/><rect x="121" y="7" width="2" height="12" fill="#52636d"/>
+ <g transform="translate(0 34)" fill="none" stroke="#8fb9c2"><path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8"/><rect x="4" y="4" width="4" height="4"/><path d="M6 2v2M6 8v2M2 6h2M8 6h2"/></g>
+ <g transform="translate(16 34)"><path d="M6 0l6 6-6 6-6-6z" fill="#40201d" stroke="#b95b50"/><path d="M6 2L4 6h2L5 10l4-5H7l1-3z" fill="#f0a16f"/></g>
+ <g transform="translate(32 34)"><rect x="1" y="1" width="10" height="10" fill="#11252a" stroke="#4d8f8e"/><path d="M2 8l3-5 2 4 3-3" fill="none" stroke="#73c0b0"/><rect x="8" y="8" width="2" height="2" fill="#e0bd59"/></g>
+ <g transform="translate(48 34)"><path d="M1 2l3 3 4-4 3 1-4 4 4 4-1 1-4-4-4 4-1-1 4-4-3-3z" fill="#9aaab0"/><rect x="1" y="1" width="2" height="2" fill="#e0bd59"/></g>
+</svg>

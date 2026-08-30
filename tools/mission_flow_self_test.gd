@@ -174,6 +174,12 @@ func _test_pixel_ui() -> void:
 			var report_texture := load("res://assets/runtime/ui/menu/mission_report/%s.png" % asset_name)
 			_expect(report_texture is Texture2D and report_texture.get_size() == report_sizes[asset_name], "mission-report sprite should retain registered geometry: %s" % asset_name)
 		_expect(source.contains("REPORT_BADGES") and source.contains("REPORT_FAILURE_BADGE") and source.contains("REPORT_STAT_FRAME") and source.contains("REPORT_ACCURACY_TROUGH") and source.contains("REPORT_ACCURACY_FILL"), "mission report should use authored qualification, failure and instrumentation sprites")
+		_expect(source.contains("REPORT_METRIC_CELL") and source.contains("REPORT_METRIC_ICONS") and source.contains("func _draw_report_metric") and source.contains("func _objective_report"), "mission report should expose sprite-backed sortie telemetry and objective completion")
+		var metric_sizes := {"cell":Vector2(128,26), "icon_targets":Vector2(12,12), "icon_damage":Vector2(12,12), "icon_secret":Vector2(12,12), "icon_repair":Vector2(12,12)}
+		for asset_name in metric_sizes:
+			var metric_texture := load("res://assets/runtime/ui/menu/mission_report/metrics/%s.png" % asset_name)
+			_expect(metric_texture is Texture2D and metric_texture.get_size() == metric_sizes[asset_name], "mission-report metric sprite should retain registered geometry: %s" % asset_name)
+		_expect(FileAccess.file_exists("res://assets/source/ui/menu/mission_report_metrics_manifest.json"), "mission-report metric source/runtime manifest should exist")
 		_expect(source.contains("SORTIE FAILURE") and source.contains("AIRFRAME RECOVERY REQUIRED") and source.contains("ENTER / R RETRY SORTIE"), "failed sorties should use an explicit recovery dossier instead of a success qualification")
 		_expect(source.contains("func _sortie_grade") and source.contains('accuracy >= 90') and source.contains('accuracy >= 75') and source.contains('accuracy >= 55'), "mission report should derive its visible strike rating from sortie accuracy")
 		_expect(FileAccess.file_exists("res://assets/source/ui/menu/mission_report_manifest.json"), "mission-report source/runtime manifest should exist")
@@ -244,7 +250,10 @@ func _test_pixel_ui() -> void:
 	var main_ui_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_ui_file != null and not main_ui_file.get_as_text().contains("draw_string("), "main simulation scene must not retain a hidden default-font duplicate UI")
 	if main_ui_file != null:
-		_expect(main_ui_file.get_as_text().contains('get_node_or_null("/root/PauseDirector")'), "gameplay cancel should route through the tactical pause controller")
+		var main_ui_source := main_ui_file.get_as_text()
+		_expect(main_ui_source.contains('get_node_or_null("/root/PauseDirector")'), "gameplay cancel should route through the tactical pause controller")
+		for telemetry_token in ["targets_destroyed += 1", "damage_taken +=", "mission_reward_earned = total_reward", "repair_cost = ServiceRules.service_cost"]:
+			_expect(main_ui_source.contains(telemetry_token), "sortie report telemetry should remain bound to authoritative runtime events: %s" % telemetry_token)
 	var pause_file := FileAccess.open("res://scripts/pause_director.gd", FileAccess.READ)
 	_expect(pause_file != null, "pause director should exist")
 	if pause_file != null:

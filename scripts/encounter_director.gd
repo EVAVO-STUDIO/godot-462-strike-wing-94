@@ -116,6 +116,8 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 		scene.set("enemy_spawn_timer", maxf(float(scene.get("enemy_spawn_timer")), suppression))
 
 	var prefix := "SECRET - " if EncounterRules.is_secret(beat) else ""
+	if EncounterRules.is_secret(beat) and _has_property(scene, "secrets_discovered"):
+		scene.set("secrets_discovered", int(scene.get("secrets_discovered")) + 1)
 	var suffix := "" if eligible.size() == enemy_ids.size() else "  ALTITUDE FILTER"
 	if strike_priority:
 		suffix += "  STRIKE TARGETS"
@@ -123,6 +125,12 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 		suffix += "  INTERCEPT TARGETS"
 	scene.set("status_text", "%s%s%s" % [prefix, EncounterRules.label(beat), suffix])
 	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
+
+func _has_property(object: Object, property_name: String) -> bool:
+	for property in object.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false
 
 func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priority: bool = false, intercept_priority: bool = false, route_id: String = "") -> void:
 	var enemies: Array = scene.get("enemies")

@@ -48,6 +48,11 @@ var temporary_weapon_boost := 0
 var energy := 100.0
 var shots_fired := 0
 var shots_hit := 0
+var targets_destroyed := 0
+var damage_taken := 0
+var secrets_discovered := 0
+var mission_reward_earned := 0
+var repair_cost := 0
 var boss_spawned := false
 var current_boss_id := ""
 var current_environment := "coast"
@@ -328,6 +333,11 @@ func _start_mission() -> void:
 	score = 0
 	shots_fired = 0
 	shots_hit = 0
+	targets_destroyed = 0
+	damage_taken = 0
+	secrets_discovered = 0
+	mission_reward_earned = 0
+	repair_cost = 0
 	mission_success = false
 	hull = clampi(service_hull, 1, _max_hull())
 	shield = clampi(service_shield, 0, _max_shield())
@@ -362,6 +372,7 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 			clampi(shots_hit, 0, shots_fired)
 		)
 		var total_reward := base_reward + objective_bonus + int(extras.get("total", 0))
+		mission_reward_earned = total_reward
 		credits += total_reward
 		service_hull = clampi(hull, 1, _max_hull())
 		service_shield = clampi(shield, 0, _max_shield())
@@ -388,6 +399,7 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 			result_text += "  %s" % "  ".join(parts)
 	else:
 		result_text = "%s  PRESS R TO RETRY" % failure_reason
+	repair_cost = ServiceRules.service_cost(hull, _max_hull(), int(_campaign_config().get("repair_cost_per_hull", 0)))
 	_clear_combat()
 
 func _clear_combat() -> void:
@@ -840,6 +852,7 @@ func _resolve_combat() -> void:
 				enemies.remove_at(enemy_index)
 
 func _register_destroy(enemy: Dictionary) -> void:
+	targets_destroyed += 1
 	ObjectiveRules.register_destroy(
 		current_objectives,
 		objective_progress,
@@ -875,9 +888,11 @@ func _apply_pickup(kind: String) -> void:
 func _apply_damage(amount: int) -> void:
 	if "--capture-invulnerable" in OS.get_cmdline_user_args():
 		return
+	var previous_integrity := hull + shield
 	var state := CombatRules.apply_shielded_damage(hull, shield, amount)
 	hull = int(state["hull"])
 	shield = int(state["shield"])
+	damage_taken += maxi(0, previous_integrity - hull - shield)
 	if hull <= 0:
 		player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS
 

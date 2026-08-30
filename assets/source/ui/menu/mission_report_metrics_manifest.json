@@ -1,0 +1,12 @@
+{
+  "asset_family": "mission_report_sortie_telemetry",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/menu/mission_report_metrics_sheet.svg",
+  "visual_contract": {
+    "purpose": "dense, truthful sortie telemetry for destruction, damage, secrets, and repair liability",
+    "era": "late-1990s military qualification dossier",
+    "avoid": ["achievement cards", "generic icon font", "rounded dashboard widgets", "decorative fake statistics"]
+  },
+  "runtime_directory": "res://assets/runtime/ui/menu/mission_report/metrics/",
+  "assets": {"cell.png":[128,26],"icon_targets.png":[12,12],"icon_damage.png":[12,12],"icon_secret.png":[12,12],"icon_repair.png":[12,12]}
+}

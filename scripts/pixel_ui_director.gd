@@ -36,6 +36,13 @@ const REPORT_FAILURE_BADGE := preload("res://assets/runtime/ui/menu/mission_repo
 const REPORT_STAT_FRAME := preload("res://assets/runtime/ui/menu/mission_report/stat_frame.png")
 const REPORT_ACCURACY_TROUGH := preload("res://assets/runtime/ui/menu/mission_report/accuracy_trough.png")
 const REPORT_ACCURACY_FILL := preload("res://assets/runtime/ui/menu/mission_report/accuracy_fill.png")
+const REPORT_METRIC_CELL := preload("res://assets/runtime/ui/menu/mission_report/metrics/cell.png")
+const REPORT_METRIC_ICONS := {
+	"targets": preload("res://assets/runtime/ui/menu/mission_report/metrics/icon_targets.png"),
+	"damage": preload("res://assets/runtime/ui/menu/mission_report/metrics/icon_damage.png"),
+	"secret": preload("res://assets/runtime/ui/menu/mission_report/metrics/icon_secret.png"),
+	"repair": preload("res://assets/runtime/ui/menu/mission_report/metrics/icon_repair.png"),
+}
 const HUD_TOP_FRAME := preload("res://assets/runtime/ui/hud/top_frame.png")
 const HUD_METER_TROUGH := preload("res://assets/runtime/ui/hud/meter_trough.png")
 const HUD_HULL_FILL := preload("res://assets/runtime/ui/hud/hull_fill.png")
@@ -315,15 +322,34 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface, grade, 320, 156, 3, TEXT, 2)
 	PixelFont.draw_centered(surface, _sortie_grade_label(grade) if mission_success else "AIRFRAME RECOVERY REQUIRED", 320, 198, 1, grade_color, 1)
 
-	PixelFont.draw_centered(surface, "WEAPON ACCURACY %03d%%" % accuracy, 320, 216, 1, GREEN, 1)
-	surface.draw_texture(REPORT_ACCURACY_TROUGH, Vector2(140, 231))
-	_draw_clipped_fill(surface, REPORT_ACCURACY_FILL, Vector2(144, 235), float(accuracy) / 100.0)
-	PixelFont.draw_centered(surface, "CONFIRMED HITS %04d / ROUNDS %04d" % [hits, fired], 320, 250, 1, MUTED, 1)
-	PixelFont.draw_centered(surface, "%s   %s   %s   FRAME %s" % [_altitude_name(), _form_name(), _tech_era_name(), _airframe_name()], 320, 269, 1, BLUE, 1)
+	_draw_report_metric(surface, Vector2(40, 208), "targets", "TARGETS", int(scene.get("targets_destroyed")) if _has_property(scene, "targets_destroyed") else 0, TEXT)
+	_draw_report_metric(surface, Vector2(184, 208), "damage", "DAMAGE", int(scene.get("damage_taken")) if _has_property(scene, "damage_taken") else 0, RED)
+	_draw_report_metric(surface, Vector2(328, 208), "secret", "VECTORS", int(scene.get("secrets_discovered")) if _has_property(scene, "secrets_discovered") else 0, GREEN)
+	_draw_report_metric(surface, Vector2(472, 208), "repair", "REPAIR", int(scene.get("repair_cost")) if _has_property(scene, "repair_cost") else 0, GOLD)
+	PixelFont.draw_centered(surface, "WEAPON ACCURACY %03d%%" % accuracy, 320, 240, 1, GREEN, 1)
+	surface.draw_texture(REPORT_ACCURACY_TROUGH, Vector2(140, 251))
+	_draw_clipped_fill(surface, REPORT_ACCURACY_FILL, Vector2(144, 255), float(accuracy) / 100.0)
+	PixelFont.draw_centered(surface, "CONFIRMED HITS %04d / ROUNDS %04d   %s" % [hits, fired, _objective_report(scene)], 320, 270, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "%s   %s   %s" % [_altitude_name(), _form_name(), _tech_era_name()], 320, 286, 1, BLUE, 1)
 
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_BUTTON, Rect2(26, 306, 588, 27), 6)
 	PixelFont.draw_text(surface, ">>", Vector2(40, 315), 1, RED, 1)
 	PixelFont.draw_centered(surface, "ENTER NEXT MISSION   R RETRY" if mission_success else "ENTER / R RETRY SORTIE", 320, 315, 1, TEXT, 1)
+
+func _draw_report_metric(surface: CanvasItem, position: Vector2, icon_key: String, label: String, value: int, color: Color) -> void:
+	surface.draw_texture(REPORT_METRIC_CELL, position)
+	surface.draw_texture(REPORT_METRIC_ICONS[icon_key], position + Vector2(10, 7))
+	PixelFont.draw_text(surface, label, position + Vector2(28, 5), 1, MUTED, 1)
+	PixelFont.draw_text(surface, "%05d" % maxi(0, value), position + Vector2(28, 15), 1, color, 1)
+
+func _objective_report(scene: Object) -> String:
+	var objectives: Array = scene.get("current_objectives") if _has_property(scene, "current_objectives") else []
+	var progress: Dictionary = scene.get("objective_progress") if _has_property(scene, "objective_progress") and typeof(scene.get("objective_progress")) == TYPE_DICTIONARY else {}
+	var complete := 0
+	for objective in objectives:
+		if typeof(objective) == TYPE_DICTIONARY and ObjectiveRules.is_complete(objective, progress):
+			complete += 1
+	return "OBJECTIVES %d/%d" % [complete, objectives.size()]
 
 func _sortie_grade(accuracy: int) -> String:
 	if accuracy >= 90: return "S"
