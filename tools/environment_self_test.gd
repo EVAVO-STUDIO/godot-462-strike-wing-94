@@ -102,6 +102,19 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/city_asset_manifest.json"), "city source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png"), "machine furnace runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/machine_furnace_asset_manifest.json"), "machine furnace source manifest should exist")
+		var master_paths := [
+			"coast/coastal_strike_zone_loop_v1.png", "industrial/refinery_night_loop_v1.png", "water/storm_sea_loop_v1.png",
+			"desert/desert_front_loop_v1.png", "river/river_corridor_loop_v1.png", "mountain/mountain_radar_loop_v1.png",
+			"harbor/night_harbor_loop_v1.png", "high_atmosphere/stratospheric_cloud_deck_loop_v1.png", "orbital/black_sky_station_loop_v1.png",
+			"city/city_outskirts_loop_v1.png", "machine_furnace/machine_furnace_loop_v1.png"
+		]
+		for master_path in master_paths:
+			var master_texture := load("res://assets/runtime/environments/%s" % master_path) as Texture2D
+			_expect(master_texture != null and master_texture.get_size() == Vector2(640,720), "environment master should retain 640x720 scroll geometry: %s" % master_path)
+			if master_texture != null:
+				var master_image: Image = master_texture.get_image()
+				for sample_x in range(0,640,64):
+					_expect(master_image.get_pixel(sample_x,0).is_equal_approx(master_image.get_pixel(sample_x,719)), "environment master must close its vertical seam: %s x=%d" % [master_path,sample_x])
 		for cloud_asset in ["low_wisp_a", "low_wisp_b", "mid_broken_a", "mid_broken_b", "high_mass_a", "high_mass_b"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/environments/clouds/cloud_bank_%s.png" % cloud_asset), "missing authored cloud sprite %s" % cloud_asset)
 		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor", "_draw_city_outskirts", "_draw_machine_furnace"]:

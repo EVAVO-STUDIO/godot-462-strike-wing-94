@@ -1,11 +1,11 @@
 {
   "family": "coast",
-  "status": "runtime_master_v1",
+  "status": "runtime_master_exact_seam_v2",
   "source_candidate": "res://assets/source/environments/candidates/coast/coastal_strike_zone_candidate_01.png",
   "runtime_master": "res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png",
   "runtime_size": [640, 720],
   "palette_limit": 96,
-  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop; first and last runtime rows made pixel-identical for an exact vertical wrap",
   "art_direction": [
     "dark 1999 military arcade realism",
     "strict orthographic top-down scale",
