@@ -1,11 +1,12 @@
 {
   "family": "coast",
-  "status": "runtime_master_exact_seam_v2",
+  "status": "runtime_master_exact_seam_v3_restored_source_detail",
   "source_candidate": "res://assets/source/environments/candidates/coast/coastal_strike_zone_candidate_01.png",
   "runtime_master": "res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png",
+  "composition": "source crop preserves the fortified road, radar site, seawall, breakwaters, rocky surf and open-water combat lane; animated water is a restrained translucent overlay",
   "runtime_size": [640, 720],
-  "palette_limit": 96,
-  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop; first and last runtime rows made pixel-identical for an exact vertical wrap",
+  "palette_limit": 192,
+  "construction": "approved 1672x941 source crop reduced to the 640x719 gameplay plate with restrained palette quantization; the first row is appended as row 720 for exact vertical closure",
   "art_direction": [
     "dark 1999 military arcade realism",
     "strict orthographic top-down scale",

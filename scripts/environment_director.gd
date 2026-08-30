@@ -31,6 +31,7 @@ const ORBITAL_DEBRIS_TILE := preload("res://assets/runtime/environments/layers/o
 const ORBITAL_STARFIELD_TILE := preload("res://assets/runtime/environments/orbital/starfield_tile.png")
 const HIGH_ATMOSPHERE_RIM := preload("res://assets/runtime/environments/orbital/high_atmosphere_rim.png")
 const ORBITAL_RIM := preload("res://assets/runtime/environments/orbital/orbital_rim.png")
+const ENVIRONMENT_VIEW := Rect2(0, 36, 640, 324)
 const PARALLAX_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/parallax_far.png"),
 	preload("res://assets/runtime/environments/motion/parallax_mid.png"),
@@ -166,7 +167,7 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	var speed := _parallax_speed(profile, state, "mid") * (0.18 if family == "orbital" else 0.28)
 	var mission_seed := _mission_seed(scene)
 	var cycle := 880.0 + float(mission_seed % 5) * 47.0
-	var y := fposmod(t * speed + float(mission_seed % 719), cycle) - 168.0 + 58.0
+	var y := fposmod(t * speed + float(mission_seed % 719), cycle) - 168.0 + ENVIRONMENT_VIEW.position.y
 	if y > 360.0:
 		return
 	var scale := 0.78 + _ground_scale(state) * 0.34
@@ -328,7 +329,7 @@ func _draw_high_atmosphere_near(surface: CanvasItem, state: Dictionary, t: float
 	for i in range(count):
 		var texture: Texture2D = CONTRAIL_NEAR[i % CONTRAIL_NEAR.size()]
 		var x := 42.0 + float((i * 139 + 47) % 550)
-		var y := fposmod(float(i) * 107.0 + t * (48.0 + float(i % 3) * 7.0), 410.0) + 58.0
+		var y := fposmod(float(i) * 107.0 + t * (48.0 + float(i % 3) * 7.0), 410.0) + ENVIRONMENT_VIEW.position.y
 		var alpha := (0.18 + float(i % 2) * 0.05) * mix
 		surface.draw_texture(texture, Vector2(x,y), Color(0.82,0.90,0.92,alpha))
 
@@ -355,15 +356,15 @@ func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 	if not _draw_ground_detail(state):
 		return
 	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.32, 720.0)
-	_draw_vertical_loop(surface, COASTAL_STRIKE_ZONE, scroll, Rect2(0, 58, 640, 302))
+	_draw_vertical_loop(surface, COASTAL_STRIKE_ZONE, scroll, ENVIRONMENT_VIEW)
 	var surface_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.41, 512.0)
-	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,58,340,302))
+	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,ENVIRONMENT_VIEW.position.y,340,ENVIRONMENT_VIEW.size.y), Color(1,1,1,0.18))
 	# Restrained moving wakes prevent the authored plate from reading as a static
 	# illustration while preserving projectile contrast over the open water.
 	var foam := _tone(profile, "foam", 0.34)
 	for i in range(7):
-		var sy := fposmod(float(i) * 53.0 + t * 21.0, 310.0) + 58.0
-		var sx := 382.0 + float((i * 73) % 190)
+		var sy := fposmod(float(i) * 53.0 + t * 21.0, 332.0) + ENVIRONMENT_VIEW.position.y
+		var sx := 440.0 + float((i * 73) % 150)
 		var wake_width := 18.0 + float(i % 3) * 7.0
 		surface.draw_texture_rect(COAST_WAKE, Rect2(Vector2(sx,sy-5),Vector2(wake_width,10)), false, foam)
 
@@ -387,20 +388,20 @@ func _draw_industrial(surface: CanvasItem, profile: Dictionary, state: Dictionar
 	if not _draw_ground_detail(state):
 		return
 	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.30, 720.0)
-	_draw_vertical_loop(surface, REFINERY_NIGHT, scroll, Rect2(0, 58, 640, 302))
+	_draw_vertical_loop(surface, REFINERY_NIGHT, scroll, ENVIRONMENT_VIEW)
 	var detail_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.42, 512.0)
 	var pulse := 0.70 + 0.18 * (0.5 + 0.5 * sin(t * 2.1))
-	_draw_vertical_loop(surface, REFINERY_DETAIL_TILE, detail_scroll, Rect2(0,58,640,302), Color(1,1,1,pulse))
+	_draw_vertical_loop(surface, REFINERY_DETAIL_TILE, detail_scroll, ENVIRONMENT_VIEW, Color(1,1,1,pulse))
 
 func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var speed := _parallax_speed(profile, state, "near")
 	var deep_scroll := fposmod(t * speed * 0.17, 512.0)
 	var surface_scroll := fposmod(t * speed * 0.33, 512.0)
 	var foam_scroll := fposmod(t * speed * 0.51, 512.0)
-	_draw_vertical_loop(surface, SEA_DEEP_TILE, deep_scroll, Rect2(0,58,640,302))
-	_draw_vertical_loop(surface, SEA_SURFACE_TILE, surface_scroll, Rect2(0,58,640,302))
-	_draw_vertical_loop(surface, SEA_FOAM_TILE, foam_scroll, Rect2(0,58,640,302), Color(0.70,0.82,0.84,0.34))
-	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.01, 0.025, 0.045, 0.16))
+	_draw_vertical_loop(surface, SEA_DEEP_TILE, deep_scroll, ENVIRONMENT_VIEW)
+	_draw_vertical_loop(surface, SEA_SURFACE_TILE, surface_scroll, ENVIRONMENT_VIEW)
+	_draw_vertical_loop(surface, SEA_FOAM_TILE, foam_scroll, ENVIRONMENT_VIEW, Color(0.70,0.82,0.84,0.34))
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.01, 0.025, 0.045, 0.16))
 	for i in range(14):
 		var x := float((i * 109 + 31) % 690) - 20.0
 		var y := fposmod(float(i) * 43.0 + t * (42.0 + float(i % 3) * 4.0), 340.0) + 48.0
@@ -410,54 +411,54 @@ func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
 	var scroll := fposmod(t * 30.0, 720.0)
-	_draw_vertical_loop(surface, DESERT_FRONT, scroll, Rect2(0, 58, 640, 302))
-	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.075, 0.045, 0.025, 0.18))
+	_draw_vertical_loop(surface, DESERT_FRONT, scroll, ENVIRONMENT_VIEW)
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.075, 0.045, 0.025, 0.18))
 	var dust_scroll := fposmod(t * 24.0, 512.0)
-	_draw_vertical_loop(surface, DESERT_DUST_TILE, dust_scroll, Rect2(0,58,640,302), Color(1,1,1,0.82))
+	_draw_vertical_loop(surface, DESERT_DUST_TILE, dust_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.82))
 
 func _draw_river_corridor(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
 	var scroll := fposmod(t * 27.0, 720.0)
-	_draw_vertical_loop(surface, RIVER_CORRIDOR, scroll, Rect2(0, 58, 640, 302))
-	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.015, 0.035, 0.032, 0.13))
+	_draw_vertical_loop(surface, RIVER_CORRIDOR, scroll, ENVIRONMENT_VIEW)
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.035, 0.032, 0.13))
 	var current_scroll := fposmod(t * 19.0, 512.0)
-	_draw_vertical_loop(surface, RIVER_CURRENT_TILE, current_scroll, Rect2(0,58,640,302), Color(1,1,1,0.86))
+	_draw_vertical_loop(surface, RIVER_CURRENT_TILE, current_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.86))
 
 func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	var scroll := fposmod(t * 15.0, 720.0)
-	_draw_vertical_loop(surface, MOUNTAIN_RADAR, scroll, Rect2(0, 58, 640, 302))
-	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.015, 0.025, 0.045, 0.14))
+	_draw_vertical_loop(surface, MOUNTAIN_RADAR, scroll, ENVIRONMENT_VIEW)
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.025, 0.045, 0.14))
 	var weather_scroll := fposmod(t * 27.0, 512.0)
-	_draw_vertical_loop(surface, MOUNTAIN_WEATHER_TILE, weather_scroll, Rect2(0,58,640,302), Color(1,1,1,0.80))
+	_draw_vertical_loop(surface, MOUNTAIN_WEATHER_TILE, weather_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.80))
 
 func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
 	var scroll := fposmod(t * 29.0, 720.0)
-	_draw_vertical_loop(surface, NIGHT_HARBOR, scroll, Rect2(0, 58, 640, 302))
-	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.008, 0.018, 0.032, 0.12))
+	_draw_vertical_loop(surface, NIGHT_HARBOR, scroll, ENVIRONMENT_VIEW)
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.008, 0.018, 0.032, 0.12))
 	var reflection_scroll := fposmod(t * 22.0, 512.0)
-	_draw_vertical_loop(surface, HARBOR_REFLECTION_TILE, reflection_scroll, Rect2(0,58,640,302), Color(1,1,1,0.88))
+	_draw_vertical_loop(surface, HARBOR_REFLECTION_TILE, reflection_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.88))
 
 func _draw_city_outskirts(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
 	var scroll := fposmod(t * 38.0, 720.0)
-	_draw_vertical_loop(surface, CITY_OUTSKIRTS, scroll, Rect2(0, 58, 640, 302), Color(0.82, 0.84, 0.82, 0.92))
+	_draw_vertical_loop(surface, CITY_OUTSKIRTS, scroll, ENVIRONMENT_VIEW, Color(0.82, 0.84, 0.82, 0.92))
 	var light_scroll := fposmod(t * 31.0, 512.0)
 	var light_pulse := 0.74 + 0.16 * (0.5 + 0.5 * sin(t * 1.3))
-	_draw_vertical_loop(surface, CITY_LIGHT_TILE, light_scroll, Rect2(0,58,640,302), Color(1,1,1,light_pulse))
+	_draw_vertical_loop(surface, CITY_LIGHT_TILE, light_scroll, ENVIRONMENT_VIEW, Color(1,1,1,light_pulse))
 
 func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
 	var scroll := fposmod(t * 34.0, 720.0)
-	_draw_vertical_loop(surface, MACHINE_FURNACE, scroll, Rect2(0, 58, 640, 302), Color(0.80, 0.80, 0.78, 0.94))
+	_draw_vertical_loop(surface, MACHINE_FURNACE, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.80, 0.78, 0.94))
 	var activity_scroll := fposmod(t * 28.0, 512.0)
 	var activity_pulse := 0.68 + 0.22 * (0.5 + 0.5 * sin(t * 1.7))
-	_draw_vertical_loop(surface, FURNACE_ACTIVITY_TILE, activity_scroll, Rect2(0,58,640,302), Color(1,1,1,activity_pulse))
+	_draw_vertical_loop(surface, FURNACE_ACTIVITY_TILE, activity_scroll, ENVIRONMENT_VIEW, Color(1,1,1,activity_pulse))
 
 func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
 	var scroll := fposmod(t * 14.0, 720.0)
-	_draw_vertical_loop(surface, STRATOSPHERIC_CLOUD_DECK, scroll, Rect2(0, 58, 640, 302), Color(0.78, 0.86, 0.91, 0.66))
+	_draw_vertical_loop(surface, STRATOSPHERIC_CLOUD_DECK, scroll, ENVIRONMENT_VIEW, Color(0.78, 0.86, 0.91, 0.66))
 	_draw_high_atmosphere_horizon(surface, profile, _horizon_glow(state))
 	# Sparse moving banks preserve depth without hiding the authored cloud-deck structure.
 	var count := maxi(4, int(round(8.0 * maxf(0.42, density))))
@@ -466,7 +467,7 @@ func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary
 		var x := float((i * 137 + 43) % 720) - 40.0
 		var scale := 0.72 + float(i % 3) * 0.13
 		var size := Vector2(texture.get_size()) * scale
-		var y := fposmod(float(i) * 71.0 + t * 14.0, 302.0) + 58.0 + size.y * 0.5
+		var y := fposmod(float(i) * 71.0 + t * 14.0, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, _profile: Dictionary, glow: float) -> void:
@@ -477,12 +478,12 @@ func _draw_orbital(surface: CanvasItem, _profile: Dictionary, state: Dictionary,
 	if mix <= 0.01:
 		return
 	var scroll := fposmod(t * 8.0, 720.0)
-	_draw_vertical_loop(surface, BLACK_SKY_STATION, scroll, Rect2(0, 58, 640, 302), Color(0.76, 0.82, 0.88, 0.88 * mix))
+	_draw_vertical_loop(surface, BLACK_SKY_STATION, scroll, ENVIRONMENT_VIEW, Color(0.76, 0.82, 0.88, 0.88 * mix))
 	var debris_scroll := fposmod(t * 15.0, 512.0)
-	_draw_vertical_loop(surface, ORBITAL_DEBRIS_TILE, debris_scroll, Rect2(0,58,640,302), Color(1,1,1,0.78*mix))
+	_draw_vertical_loop(surface, ORBITAL_DEBRIS_TILE, debris_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.78*mix))
 	# The authored sparse tile drifts independently without becoming star wallpaper.
 	var star_scroll := fposmod(t * 2.0, 512.0)
-	_draw_vertical_loop(surface, ORBITAL_STARFIELD_TILE, star_scroll, Rect2(0,58,640,302), Color(1,1,1,0.82*mix))
+	_draw_vertical_loop(surface, ORBITAL_STARFIELD_TILE, star_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.82*mix))
 	var glow := _horizon_glow(state) * mix
 	if glow > 0.0:
 		surface.draw_texture(ORBITAL_RIM, Vector2(0,150), Color(1,1,1,glow))
@@ -499,7 +500,7 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 	if band == "high": alpha *= 1.18
 	if density >= 0.22:
 		var shadow_scroll := fposmod(t * (7.0 + density * 8.0), 512.0)
-		_draw_vertical_loop(surface,CLOUD_SHADOW_TILE,shadow_scroll,Rect2(0,58,640,302),Color(1,1,1,clampf(density*0.52,0.0,0.58)))
+		_draw_vertical_loop(surface,CLOUD_SHADOW_TILE,shadow_scroll,ENVIRONMENT_VIEW,Color(1,1,1,clampf(density*0.52,0.0,0.58)))
 	for i in range(count):
 		var texture: Texture2D = family[i % family.size()]
 		var speed := 10.0 + density * 20.0 + float(i % 3) * 2.0
@@ -507,12 +508,12 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 		var x := fposmod(float(i * 149 + 61) + t * wind, 800.0) - 80.0
 		var scale := 0.72 + float((i * 5) % 4) * 0.12
 		var size := Vector2(texture.get_size()) * scale
-		var y := fposmod(float(i) * 97.0 + t * speed, 302.0) + 58.0 + size.y * 0.5
+		var y := fposmod(float(i) * 97.0 + t * speed, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
 		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, i)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
 	if density >= 0.32:
 		var mist_scroll := fposmod(t * (18.0 + density * 14.0), 512.0)
-		_draw_vertical_loop(surface,CLOUD_MIST_TILE,mist_scroll,Rect2(0,58,640,302),Color(1,1,1,clampf(density*0.34,0.0,0.42)))
+		_draw_vertical_loop(surface,CLOUD_MIST_TILE,mist_scroll,ENVIRONMENT_VIEW,Color(1,1,1,clampf(density*0.34,0.0,0.42)))
 
 func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, index: int) -> void:
 	# The shadow reuses the authored bank alpha so every visible cloud has a
