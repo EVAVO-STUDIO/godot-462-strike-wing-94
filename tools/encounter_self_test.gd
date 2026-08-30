@@ -125,8 +125,15 @@ func _test_route_runtime_wiring() -> void:
 	if cue != null:
 		var source := cue.get_as_text()
 		_expect(source.contains("INTERCEPT CHAIN" ) or source.contains("InterceptRouteRules.label"), "high-route presentation should expose rapid-intercept chain")
+		_expect(source.contains("TARGET_FRAME") and source.contains("CLOSURE_FILL") and source.contains("CHAIN_FILL"), "intercept routes should use authored target and timing sprites")
+		_expect(not source.contains("draw_line") and not source.contains("draw_rect"), "intercept route presentation should not regress to vector brackets or bars")
 		_expect(source.contains("_chain_timer") and source.contains("_last_score"), "intercept chain should remain presentation-derived without mutating score")
 		_expect(not source.contains('scene.set("score"'), "intercept presentation must not own score mutation")
+	var intercept_sizes := {"target_frame":Vector2(32,32),"closure_trough":Vector2(16,3),"closure_fill":Vector2(16,3),"chain_trough":Vector2(84,4),"chain_fill":Vector2(84,4)}
+	for asset_name in intercept_sizes:
+		var texture := load("res://assets/runtime/ui/hud/intercept_route/%s.png" % asset_name)
+		_expect(texture is Texture2D and texture.get_size() == intercept_sizes[asset_name], "intercept HUD sprite should retain registered geometry: %s" % asset_name)
+	_expect(FileAccess.file_exists("res://assets/source/ui/hud/intercept_route_manifest.json"), "intercept route source/runtime manifest should exist")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

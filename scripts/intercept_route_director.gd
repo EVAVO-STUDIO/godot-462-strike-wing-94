@@ -3,6 +3,11 @@ extends CanvasLayer
 const InterceptRouteSurface = preload("res://scripts/intercept_route_surface.gd")
 const InterceptRouteRules = preload("res://scripts/intercept_route_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
+const TARGET_FRAME := preload("res://assets/runtime/ui/hud/intercept_route/target_frame.png")
+const CLOSURE_TROUGH := preload("res://assets/runtime/ui/hud/intercept_route/closure_trough.png")
+const CLOSURE_FILL := preload("res://assets/runtime/ui/hud/intercept_route/closure_fill.png")
+const CHAIN_TROUGH := preload("res://assets/runtime/ui/hud/intercept_route/chain_trough.png")
+const CHAIN_FILL := preload("res://assets/runtime/ui/hud/intercept_route/chain_fill.png")
 
 var _surface: Control
 var _previous_targets: Dictionary = {}
@@ -104,24 +109,24 @@ func _draw_intercept_routes(surface: CanvasItem) -> void:
 		var ratio := clampf(_chain_timer / InterceptRouteRules.CHAIN_SECONDS, 0.0, 1.0)
 		var color := Color(0.78,0.96,1.0,0.94)
 		PixelFont.draw_text(surface, InterceptRouteRules.label(_chain), Vector2(448, 300), 1, color, 1)
-		surface.draw_rect(Rect2(448, 309, roundf(84.0 * ratio), 2), color)
+		surface.draw_texture(CHAIN_TROUGH, Vector2(448, 309))
+		_draw_clipped_fill(surface, CHAIN_FILL, Vector2(448, 309), ratio)
 
 func _draw_target(surface: CanvasItem, player: Vector2, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)
 	var distance := p.distance_to(player)
 	var bracket := Color(0.56,0.88,1.0,0.92)
-	var half := 11.0
-	var arm := 5.0
-	for sx in [-1.0, 1.0]:
-		for sy in [-1.0, 1.0]:
-			var corner := p + Vector2(half * sx, half * sy)
-			surface.draw_line(corner, corner + Vector2(-arm * sx, 0), bracket, 1.0)
-			surface.draw_line(corner, corner + Vector2(0, -arm * sy), bracket, 1.0)
+	surface.draw_texture(TARGET_FRAME, (p - Vector2(16,16)).round())
 	var closure_ratio := clampf(1.0 - distance / 420.0, 0.0, 1.0)
-	var closure_color := Color(0.42 + closure_ratio * 0.34, 0.72 + closure_ratio * 0.22, 1.0, 0.9)
-	surface.draw_line(p + Vector2(-8, 15), p + Vector2(8, 15), closure_color, 1.0)
-	surface.draw_line(p + Vector2(-8, 15), p + Vector2(-8 + roundf(16.0 * closure_ratio), 15), Color(0.92,0.96,1.0,0.96), 2.0)
+	var gauge_position := (p + Vector2(-8, 15)).round()
+	surface.draw_texture(CLOSURE_TROUGH, gauge_position)
+	_draw_clipped_fill(surface, CLOSURE_FILL, gauge_position, closure_ratio)
 	PixelFont.draw_text(surface, "INT %03d" % int(round(distance)), p + Vector2(-12, 19), 1, bracket, 1)
+
+func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
+	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))
+	if width > 0.0:
+		surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0, 0, width, texture.get_height()))
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
