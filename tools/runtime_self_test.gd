@@ -136,6 +136,8 @@ func _test_direct_runtime_ownership() -> void:
 		_expect(text.contains("shots_hit += 1"), "player bullet collision should increment shots hit at source")
 		_expect(text.contains("RewardRules.extra_success_bonus") and text.contains("credits += total_reward"), "main should apply complete mission reward at source")
 		_expect(text.contains("EnergyRules.recharge") and text.contains("EnergyRules.can_fire") and text.contains("EnergyRules.consume"), "main should own generator energy lifecycle")
+		_expect(text.contains('mission_catalog = _ordered_missions(mission_catalog, cfg.get("missions", []))'), "runtime should honor authored campaign order instead of raw JSON order")
+		_expect(text.contains("return ordered if ordered.size() == source.size() else source"), "campaign ordering should fail safely when the order catalogue is incomplete")
 		_expect(text.count("if phase != GamePhase.PLAYING:") >= 2, "lethal damage paths should stop before mutating combat arrays cleared by mission failure")
 		_expect(text.contains("if i < enemy_bullets.size():"), "enemy projectile cleanup should remain bounds-safe after damage callbacks")
 		_expect(text.contains('"--capture-invulnerable" in OS.get_cmdline_user_args()'), "long visual QA captures should expose an explicit test-only invulnerability flag")

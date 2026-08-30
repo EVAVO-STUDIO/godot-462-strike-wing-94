@@ -260,7 +260,7 @@ Assert-Contains $SfxRulesText @('FIRE_ROTARY','ALTITUDE_CLIMB','ALTITUDE_DIVE','
 $SfxDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_director.gd')
 Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event','"blast"','MAX_VOICES := 8') 'Procedural SFX runtime'
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-Assert-Contains $SaveText @('SAVE_VERSION := 5','airframe_index','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
+Assert-Contains $SaveText @('SAVE_VERSION := 6','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {

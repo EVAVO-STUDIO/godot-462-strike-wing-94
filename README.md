@@ -40,7 +40,7 @@ Implemented now:
 - Needle Rail penetration, Storm Cannon pulse discharge and Plasma Lance field discharge
 - bounded strategic Micro-Warhead pre-impact blast
 - persistent campaign credits, equipment and serviced airframe state
-- versioned v5 local autosave with validated backup recovery and v1-v4 migration compatibility
+- versioned v6 local autosave with stable mission identity, validated backup recovery and v1-v5 migration compatibility
 - production-oriented integer-grid combat-art overlays for the VX-94, enemies, bosses, projectiles, airframes and support set pieces
 - local PowerShell validation with optional Godot headless test/editor smoke pass
 

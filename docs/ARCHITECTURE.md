@@ -304,7 +304,7 @@ Primary UI stays on the original 3x5 bitmap font and 640x360 logical grid.
 
 ## Persistence
 
-`CampaignSave` is canonical schema **v5**.
+`CampaignSave` is canonical schema **v6**. It persists stable mission IDs so authored campaign reordering and optional branches do not reinterpret progress; v1-v5 saves remain migration-compatible, including the original 12-mission index map.
 
 Persistent state:
 

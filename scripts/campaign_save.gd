@@ -1,9 +1,14 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_VERSION := 5
+const SAVE_VERSION := 6
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
+const LEGACY_V5_MISSION_IDS := [
+	"m01_coastal_intercept", "m02_refinery_run", "m03_black_sea", "m04_breakwater",
+	"m05_furnace_line", "m06_black_flag", "m07_ghost_sky", "m08_machine_furnace",
+	"m09_black_horizon", "m10_blue_fire", "m11_cold_station", "m12_machine_ark"
+]
 
 var _restored_scene_id := 0
 var _timer := 0.0
@@ -98,6 +103,7 @@ func _snapshot(scene: Object) -> Dictionary:
 		"version": SAVE_VERSION,
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
 		"mission_index": clampi(int(scene.get("mission_index")), 0, _mission_count(scene) - 1),
+		"mission_id": _mission_id_at(scene, int(scene.get("mission_index"))),
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
@@ -106,6 +112,35 @@ func _snapshot(scene: Object) -> Dictionary:
 		"support_selected": maxi(0, int(support.get("selected_index", 0))),
 		"support_unlocked": maxi(0, int(support.get("unlocked_index", 0)))
 	}
+
+func _mission_id_at(scene: Object, index: int) -> String:
+	var catalog = scene.get("mission_catalog")
+	if typeof(catalog) != TYPE_ARRAY or catalog.is_empty():
+		return ""
+	var mission = catalog[clampi(index, 0, catalog.size() - 1)]
+	return str(mission.get("id", "")) if typeof(mission) == TYPE_DICTIONARY else ""
+
+func _mission_index_for_id(scene: Object, mission_id: String) -> int:
+	var catalog = scene.get("mission_catalog")
+	if typeof(catalog) != TYPE_ARRAY:
+		return -1
+	for index in range(catalog.size()):
+		var mission = catalog[index]
+		if typeof(mission) == TYPE_DICTIONARY and str(mission.get("id", "")) == mission_id:
+			return index
+	return -1
+
+func _restored_mission_index(scene: Object, parsed: Dictionary) -> int:
+	var stable_id := str(parsed.get("mission_id", ""))
+	var stable_index := _mission_index_for_id(scene, stable_id)
+	if stable_index >= 0:
+		return stable_index
+	var saved_index := int(parsed.get("mission_index", scene.get("mission_index")))
+	if int(parsed.get("version", SAVE_VERSION)) <= 5 and saved_index >= 0 and saved_index < LEGACY_V5_MISSION_IDS.size():
+		var legacy_index := _mission_index_for_id(scene, LEGACY_V5_MISSION_IDS[saved_index])
+		if legacy_index >= 0:
+			return legacy_index
+	return clampi(saved_index, 0, _mission_count(scene) - 1)
 
 func _signature(scene: Object) -> String:
 	return JSON.stringify(_snapshot(scene))
@@ -148,7 +183,7 @@ func _restore(scene: Object) -> void:
 	var airframe_director := get_node_or_null("/root/AirframeDirector")
 	if airframe_director != null and airframe_director.has_method("restore_airframe_state"):
 		airframe_director.call("restore_airframe_state", int(parsed.get("airframe_index", 0)))
-	var mission_index := clampi(int(parsed.get("mission_index", scene.get("mission_index"))), 0, _mission_count(scene) - 1)
+	var mission_index := _restored_mission_index(scene, parsed)
 	var weapon_index := clampi(int(parsed.get("weapon_index", scene.get("weapon_index"))), 0, _primary_weapon_count(scene) - 1)
 	var generator_index := clampi(int(parsed.get("generator_index", scene.get("generator_index"))), 0, _generator_count(scene) - 1)
 	var credits := clampi(int(parsed.get("credits", scene.get("credits"))), 0, MAX_CREDITS)

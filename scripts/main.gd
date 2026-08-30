@@ -176,9 +176,21 @@ func _load_content() -> void:
 	if typeof(campaign_data) == TYPE_DICTIONARY:
 		campaign = campaign_data
 		var cfg := _campaign_config()
+		mission_catalog = _ordered_missions(mission_catalog, cfg.get("missions", []))
 		credits = int(cfg.get("starting_credits", 0))
 		service_hull = MissionStateRules.starting_hull(cfg, 100)
 		service_shield = MissionStateRules.starting_shield(cfg, 100)
+
+func _ordered_missions(source: Array, authored_ids: Variant) -> Array:
+	if typeof(authored_ids) != TYPE_ARRAY or authored_ids.is_empty():
+		return source
+	var by_id := ContentCatalog.by_id(source)
+	var ordered: Array = []
+	for mission_id in authored_ids:
+		var mission = by_id.get(str(mission_id), {})
+		if typeof(mission) == TYPE_DICTIONARY and not mission.is_empty():
+			ordered.append(mission)
+	return ordered if ordered.size() == source.size() else source
 
 func _prepare_mission(index: int) -> void:
 	if mission_catalog.is_empty():
