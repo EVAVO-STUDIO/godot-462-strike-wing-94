@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const PixelUiSurface = preload("res://scripts/pixel_ui_surface.gd")
+const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
@@ -10,6 +11,9 @@ const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_word
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
 const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
+const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
+const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
+const OPERATIONS_BUTTON := preload("res://assets/runtime/ui/menu/operations_button_9slice.png")
 const HUD_TOP_FRAME := preload("res://assets/runtime/ui/hud/top_frame.png")
 const HUD_METER_TROUGH := preload("res://assets/runtime/ui/hud/meter_trough.png")
 const HUD_HULL_FILL := preload("res://assets/runtime/ui/hud/hull_fill.png")
@@ -122,8 +126,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "J SHIELD %03d/%03d" % [service_shield, max_shield], Vector2(422, 258), 1, BLUE, 1)
 	PixelFont.draw_text(surface, "L STORES SCHEMATIC", Vector2(422, 280), 1, MUTED, 1)
 
-	surface.draw_rect(Rect2(26, 308, 588, 27), Color("11191e"))
-	surface.draw_rect(Rect2(26, 308, 588, 27), GOLD, false, 1.0)
+	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_BUTTON, Rect2(26, 308, 588, 27), 6)
 	PixelFont.draw_text(surface, ">>", Vector2(40, 317), 1, RED, 1)
 	PixelFont.draw_centered(surface, "ENTER / START  AUTHORIZE LAUNCH", 320, 317, 1, GOLD, 1)
 	if float(scene.get("status_timer")) > 0.0:
@@ -276,20 +279,19 @@ func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vecto
 	surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0, 0, width, texture.get_height()))
 
 func _draw_frame(surface: CanvasItem, rect: Rect2, fill_background: bool = true) -> void:
-	if fill_background:
-		surface.draw_rect(rect, PANEL)
-	surface.draw_rect(rect, BORDER, false, 1.0)
-	surface.draw_rect(rect.grow(-3), Color("1b242b"), false, 1.0)
+	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, rect, 8)
+	if not fill_background:
+		surface.draw_rect(rect.grow(-8), Color(0, 0, 0, 0.03), false, 1.0)
 
 func _draw_console_panel(surface: CanvasItem, rect: Rect2, label: String, accent: Color) -> void:
-	surface.draw_rect(rect, Color(0.025,0.04,0.055,0.94))
-	surface.draw_rect(rect, BORDER, false, 1.0)
-	surface.draw_line(rect.position + Vector2(0, 16), Vector2(rect.end.x, rect.position.y + 16), BORDER, 1.0)
+	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_PANEL, rect, 6)
+	surface.draw_line(rect.position + Vector2(6, 16), Vector2(rect.end.x - 6, rect.position.y + 16), BORDER, 1.0)
 	surface.draw_rect(Rect2(rect.position + Vector2(4, 5), Vector2(4, 4)), accent)
 	PixelFont.draw_text(surface, label, rect.position + Vector2(14, 5), 1, accent, 1)
 
 func _draw_divider(surface: CanvasItem, y: float) -> void:
-	surface.draw_line(Vector2(42, y), Vector2(598, y), BORDER, 1.0)
+	surface.draw_line(Vector2(42, y), Vector2(598, y), Color("19252c"), 3.0)
+	surface.draw_line(Vector2(46, y), Vector2(594, y), BORDER, 1.0)
 
 func _active_boss(scene: Object) -> Dictionary:
 	var enemies: Array = scene.get("enemies")

@@ -145,6 +145,10 @@ func _test_pixel_ui() -> void:
 		var backdrop := load("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
 		_expect(backdrop is Texture2D and backdrop.get_size() == Vector2(640,360), "sortie-bay backdrop should retain canonical 640x360 geometry")
 		_expect(FileAccess.file_exists("res://assets/source/ui/menu/menu_ui_asset_manifest.json"), "sortie-menu art manifest should exist")
+		for menu_path in ["operations_panel_9slice.png", "operations_screen_9slice.png", "operations_button_9slice.png"]:
+			var menu_texture := load("res://assets/runtime/ui/menu/%s" % menu_path)
+			_expect(menu_texture is Texture2D, "missing authored menu interface sprite: %s" % menu_path)
+		_expect(source.contains("UiSpriteRenderer.draw_nine_slice") and source.contains("OPERATIONS_PANEL") and source.contains("OPERATIONS_SCREEN") and source.contains("OPERATIONS_BUTTON"), "sortie console should assemble authored sprite frames instead of flat rectangle chrome")
 		_expect(source.contains("AUTHORIZE LAUNCH"), "sortie console should retain a distinct launch control")
 		_expect(source.contains("func _draw_console_panel"), "sortie console should retain its late-90s panel hierarchy")
 		_expect(source.contains("func _draw_boss"), "pixel UI should own boss HUD")
@@ -157,8 +161,10 @@ func _test_pixel_ui() -> void:
 		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
 	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
 	_expect(intel_file != null and intel_file.get_as_text().contains("layer = 31"), "mission intelligence overlay should render above the layer-30 sortie console")
+	_expect(intel_file != null and intel_file.get_as_text().contains("UiSpriteRenderer.draw_nine_slice"), "mission intelligence overlay should use authored operations-console sprites")
 	var stores_file := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
 	_expect(stores_file != null and stores_file.get_as_text().contains("layer = 32"), "stores schematic should render above the sortie console and mission intelligence")
+	_expect(stores_file != null and stores_file.get_as_text().contains("UiSpriteRenderer.draw_nine_slice"), "stores schematic should use authored operations-console sprites")
 	_expect(not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete boss HUD widget director should remain deleted")
 	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")
 

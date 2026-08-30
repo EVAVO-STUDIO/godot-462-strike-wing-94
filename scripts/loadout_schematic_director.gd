@@ -4,6 +4,9 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const PlayerMountRules = preload("res://scripts/player_mount_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const LoadoutSchematicSurface = preload("res://scripts/loadout_schematic_surface.gd")
+const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
+const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
+const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
 const VX94_PLANFORMS := {
 	"fighter": preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png"),
 	"bomber": preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png"),
@@ -52,14 +55,11 @@ func draw_schematic(surface: CanvasItem) -> void:
 	if scene == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 0:
 		return
 	if not _open:
-		surface.draw_rect(Rect2(462, 334, 78, 15), BG)
-		surface.draw_rect(Rect2(462, 334, 78, 15), BORDER, false, 1.0)
+		UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_PANEL, Rect2(462, 334, 78, 15), 5)
 		PixelFont.draw_centered(surface, "L STORES", 501, 339, 1, MUTED, 1)
 		return
 
-	surface.draw_rect(Rect2(38, 54, 564, 266), BG)
-	surface.draw_rect(Rect2(38, 54, 564, 266), BORDER, false, 1.0)
-	surface.draw_rect(Rect2(42, 58, 556, 258), PANEL, false, 1.0)
+	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, Rect2(38, 54, 564, 266), 8)
 	PixelFont.draw_centered(surface, "VX-94 STORES / VARIABLE GEOMETRY", 320, 68, 2, GOLD, 1)
 	_draw_planform(surface, Vector2(176, 176), "fighter")
 	_draw_planform(surface, Vector2(464, 176), "bomber")

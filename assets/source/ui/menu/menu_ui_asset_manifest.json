@@ -1,12 +1,17 @@
 {
-  "family": "sortie_menu_environment",
+  "family": "sortie_operations_console",
   "runtime_master": "res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png",
   "canvas": [640, 360],
   "palette_limit": 20,
   "role": "subdued maintenance-bay environment beneath the mission console UI",
   "art_direction": ["1997 military operations console", "recessed steel service bay", "low practical lighting", "large quiet shapes", "restrained amber and cool-blue indicators"],
   "layering": "Backdrop is independent of wordmark, console panels, text, VX-94 preview and launch highlight.",
+  "interface_sprites": [
+    {"id": "operations_panel", "source": "res://assets/source/ui/menu/operations_panel_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_panel_9slice.png", "size": [24, 24], "border": 6, "role": "sortie cards and collapsed overlay controls"},
+    {"id": "operations_screen", "source": "res://assets/source/ui/menu/operations_screen_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_screen_9slice.png", "size": [32, 32], "border": 8, "role": "outer console, mission report, intelligence and stores overlays"},
+    {"id": "operations_button", "source": "res://assets/source/ui/menu/operations_button_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_button_9slice.png", "size": [24, 16], "border": 6, "role": "launch authorization control"}
+  ],
   "concept_reference": "res://assets/source/ui/menu/candidates/maintenance_bay_concept_01_raw.png",
-  "runtime_process": "Manually reconstructed hard-edge SVG; rasterized at native size and palette-reduced without dithering.",
+  "runtime_process": "Manually reconstructed hard-edge SVG sprites; rasterized at native size and palette-reduced without dithering. Nine-slice assembly preserves authored corners and one-pixel hardware edges at every console size.",
   "reject": ["modern glass UI", "neon cyberpunk", "generic spaceship bridge", "painterly generated runtime background", "ornamental clutter"]
 }

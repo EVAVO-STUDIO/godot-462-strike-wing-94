@@ -3,6 +3,9 @@ extends CanvasLayer
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const MissionIntelRules = preload("res://scripts/mission_intel_rules.gd")
 const MissionIntelSurface = preload("res://scripts/mission_intel_surface.gd")
+const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
+const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
+const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
 
 const BG := Color("070a0e")
 const BORDER := Color("34414b")
@@ -40,8 +43,7 @@ func draw_intel(surface: CanvasItem) -> void:
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 0:
 		return
 	if not _open:
-		surface.draw_rect(Rect2(548, 334, 78, 15), BG)
-		surface.draw_rect(Rect2(548, 334, 78, 15), BORDER, false, 1.0)
+		UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_PANEL, Rect2(548, 334, 78, 15), 5)
 		PixelFont.draw_centered(surface, "I INTEL", 587, 339, 1, MUTED, 1)
 		return
 	var context := _mission_context()
@@ -49,9 +51,7 @@ func draw_intel(surface: CanvasItem) -> void:
 	var boss_id := str(mission.get("boss_id", "UNKNOWN"))
 	var beats: Array = mission.get("encounter_beats", []) if typeof(mission) == TYPE_DICTIONARY else []
 	var lines := MissionIntelRules.mission_lines(context, boss_id, beats)
-	surface.draw_rect(Rect2(54, 68, 532, 254), BG)
-	surface.draw_rect(Rect2(54, 68, 532, 254), BORDER, false, 1.0)
-	surface.draw_rect(Rect2(58, 72, 524, 246), Color("10171d"), false, 1.0)
+	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, Rect2(54, 68, 532, 254), 8)
 	PixelFont.draw_centered(surface, "MISSION INTELLIGENCE", 320, 82, 2, GOLD, 1)
 	PixelFont.draw_centered(surface, _mission_name(scene), 320, 105, 1, TEXT, 1)
 	for i in range(lines.size()):
