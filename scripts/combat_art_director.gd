@@ -44,6 +44,14 @@ const MERCENARY_BOSS_SPRITES := {
 	"armoured_train": preload("res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png"),
 	"missile_cruiser": preload("res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png"),
 }
+const MACHINE_BOSS_SPRITES := {
+	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle.png"),
+	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle.png"),
+}
+const ORBITAL_BOSS_SPRITES := {
+	"orbital_command_node": preload("res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle.png"),
+	"phase_control_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle.png"),
+}
 
 const PLAYER := Color("d9e0e5")
 const PLAYER_DARK := Color("667985")
@@ -208,6 +216,10 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	if is_boss:
 		if MERCENARY_BOSS_SPRITES.has(enemy_id):
 			_draw_production_sprite(surface, p, MERCENARY_BOSS_SPRITES[enemy_id])
+		elif MACHINE_BOSS_SPRITES.has(enemy_id):
+			_draw_production_sprite(surface, p, MACHINE_BOSS_SPRITES[enemy_id])
+		elif ORBITAL_BOSS_SPRITES.has(enemy_id):
+			_draw_production_sprite(surface, p, ORBITAL_BOSS_SPRITES[enemy_id])
 		else:
 			_draw_boss(surface, p, enemy_id, faction)
 	elif faction == "autonomous" and category == "ground" and MACHINE_GROUND_SPRITES.has(enemy_id):

@@ -57,7 +57,7 @@ func _test_visual_language() -> void:
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("func _draw_ground") and source.contains("func _draw_sea") and source.contains("func _draw_air"), "mercenary air/ground/sea roles should have distinct silhouette renderers")
-	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
+	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("MACHINE_BOSS_SPRITES") and source.contains("ORBITAL_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
 	_expect(source.contains("func _draw_autonomous"), "autonomous machines should have their own visual language")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
 	_expect(source.contains("func _draw_boss"), "boss-scale enemies should have dedicated presentation")
@@ -127,6 +127,20 @@ func _test_visual_language() -> void:
 	for enemy_id in mercenary_boss_sizes:
 		var texture := load("res://assets/runtime/enemies/mercenary_boss/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == mercenary_boss_sizes[enemy_id], "mercenary boss sprite should retain reviewed geometry: %s" % enemy_id)
+	var machine_boss_sizes := {
+		"swarm_controller": Vector2(106,88),
+		"ai_forge_core": Vector2(112,112),
+	}
+	for enemy_id in machine_boss_sizes:
+		var texture := load("res://assets/runtime/enemies/machine_boss/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == machine_boss_sizes[enemy_id], "machine boss sprite should retain reviewed geometry: %s" % enemy_id)
+	var orbital_boss_sizes := {
+		"orbital_command_node": Vector2(124,104),
+		"phase_control_array": Vector2(126,126),
+	}
+	for enemy_id in orbital_boss_sizes:
+		var texture := load("res://assets/runtime/enemies/orbital_boss/%s_idle.png" % enemy_id)
+		_expect(texture is Texture2D and texture.get_size() == orbital_boss_sizes[enemy_id], "orbital boss sprite should retain reviewed geometry: %s" % enemy_id)
 
 func _test_transform_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)

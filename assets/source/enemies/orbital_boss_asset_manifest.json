@@ -1,0 +1,14 @@
+{
+  "asset_family": "orbital_boss",
+  "status": "provisional_runtime_identity_requires_style_repaint",
+  "review_note": "command roles read clearly, but symmetrical greeble density and cyan emphasis remain above final HYPERSONIC limits",
+  "source": {"path":"res://assets/source/enemies/candidates/orbital_boss/orbital_boss_command_sheet_candidate_01.png","sha256":"9F042168B28437E0DB15315781EB7C19CB1D6DE41BDEF42026AC99B82EE1FE59","order":["orbital_command_node","phase_control_array"]},
+  "visual_contract": {"era":"Sector III BLACK SKY orbital war","boss_rule":"severe engineered orbital infrastructure with large readable functional zones; never organic alien ornament","materials":"desaturated blue-black armor, graphite mechanisms, limited pale ceramic panels, restrained cold-cyan phase emitters and warning amber"},
+  "process": {"orientation":"orthographic top-down, attack front facing down","alpha":"20 percent threshold restored after palette remap","downsample":"Lanczos with one-pixel transparent inset","palette":"one shared 31-colour RGB palette plus transparency"},
+  "runtime": [
+    {"id":"orbital_command_node","path":"res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle.png","size":[124,104],"sha256":"6F7C91C33F69C94EBC1B4AD8CFD8F3858BCA3801074F44DD43FCA93C600B7B46","center":[62,52],"weak_points":[[62,52],[23,33],[101,33]],"muzzles":[[29,91],[95,91],[62,96]]},
+    {"id":"phase_control_array","path":"res://assets/runtime/enemies/orbital_boss/phase_control_array_idle.png","size":[126,126],"sha256":"5BF060CC6BC13BD6067BA7DCE44A79E37460152759A328EF01D0EFE8C89751D4","center":[63,63],"weak_points":[[63,63],[19,63],[107,63]],"emitters":[[63,18],[108,63],[63,108],[18,63]]}
+  ],
+  "remaining_identities": ["station_warden","machine_ark"],
+  "remaining_animation_gate": ["phase-field cycling","pylon tracking","phase transitions","critical chamber exposure","multi-stage destruction"]
+}

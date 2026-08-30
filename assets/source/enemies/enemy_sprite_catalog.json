@@ -10,6 +10,8 @@
     "centering": "integer logical pixels",
     "damage_flash": "palette-safe additive mask, never a replacement sprite",
     "collision_rule": "collision remains smaller than the readable outer silhouette"
+    ,"art_direction": "res://docs/art/hypersonic_sprite_art_direction.md"
+    ,"layer_contract": "res://assets/source/enemies/layered_sprite_contract.json"
   },
   "factions": {
     "mercenary": {
@@ -47,6 +49,11 @@
     {"id":"drone_missile_node","family":"machine_air","size":[38,36],"collision_radius":13,"animations":{"hatches":4,"core":3,"destroy":7}},
     {"id":"autonomous_armor","family":"machine_ground","size":[36,30],"collision_radius":12,"animations":{"turret":8,"core":3,"destroy":7}},
     {"id":"factory_defence_node","family":"machine_ground","size":[34,34],"collision_radius":12,"animations":{"aperture":4,"core":3,"destroy":7}},
+    {"id":"mercenary_rifle_team","family":"mercenary_infantry","size":[26,22],"collision_radius":9,"animations":{"move":4,"fire":3,"scatter":4,"destroy":5}},
+    {"id":"mercenary_heavy_team","family":"mercenary_infantry","size":[30,26],"collision_radius":10,"layers":["base","weapon","muzzle","damage_overlay"],"animations":{"deploy":4,"fire":3,"destroy":6}},
+    {"id":"security_patrol_mech","family":"mercenary_mech","size":[38,42],"collision_radius":13,"layers":["base","weapon","muzzle","damage_overlay"],"animations":{"walk":6,"aim":5,"recoil":3,"destroy":8}},
+    {"id":"autonomous_salvage_mech","family":"machine_mech","size":[44,42],"collision_radius":14,"layers":["base","weapon","damage_overlay"],"animations":{"walk":6,"tool_arm":5,"core":3,"destroy":8}},
+    {"id":"autonomous_quadruped","family":"machine_ground","size":[34,30],"collision_radius":11,"layers":["base","mount","weapon","muzzle","damage_overlay"],"animations":{"gait":6,"turret":8,"core":3,"destroy":7}},
     {"id":"exo_drone","family":"orbital_air","size":[30,30],"collision_radius":10,"animations":{"bank":5,"thruster":3,"destroy":7}},
     {"id":"orbital_sentry","family":"orbital_air","size":[40,38],"collision_radius":13,"animations":{"turret":8,"thruster":3,"destroy":8}},
     {"id":"phase_interceptor","family":"orbital_air","size":[34,34],"collision_radius":10,"animations":{"bank":5,"phase":4,"thruster":3,"destroy":7}},

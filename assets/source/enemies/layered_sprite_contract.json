@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "coordinate_rule": "all layers use the same exact canvas and integer origin; runtime zero-angle weapons face down",
+  "filtering": "nearest",
+  "required_metadata": ["canvas", "origin", "collision_radius", "layers", "pivots", "attachment_points", "damage_states"],
+  "layer_order": ["contact_shadow", "base", "mount", "weapon", "barrel", "muzzle", "damage_overlay"],
+  "layer_definitions": {
+    "base": "non-rotating chassis, hull, legs or foundation",
+    "mount": "optional ring, shoulder or hinge below the rotating weapon",
+    "weapon": "rotating turret, arm, sensor head or launcher",
+    "barrel": "optional independent recoil component",
+    "muzzle": "short registered effect sequence; not baked into idle",
+    "damage_overlay": "registered physical damage, never a whole-sprite colour wash"
+  },
+  "animation_minimums": {
+    "turret_rotation": "continuous engine rotation around declared integer pivot",
+    "recoil": 3,
+    "muzzle": 3,
+    "damage_states": 3,
+    "destruction": 6
+  },
+  "planned_layered_units": {
+    "light_tank": ["base", "mount", "weapon", "barrel", "muzzle", "damage_overlay"],
+    "fortified_turret": ["base", "weapon", "barrel", "muzzle", "damage_overlay"],
+    "coastal_flak": ["base", "weapon", "barrel", "muzzle", "damage_overlay"],
+    "armoured_aa_carrier": ["base", "mount", "weapon", "muzzle", "damage_overlay"],
+    "autonomous_armor": ["base", "mount", "weapon", "barrel", "muzzle", "damage_overlay"],
+    "security_patrol_mech": ["base", "weapon", "muzzle", "damage_overlay"],
+    "autonomous_salvage_mech": ["base", "weapon", "damage_overlay"]
+  }
+}
