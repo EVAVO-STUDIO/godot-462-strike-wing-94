@@ -1,0 +1,23 @@
+{
+  "family": "desert_front",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/desert/desert_front_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/desert/desert_front_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 63,
+  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "art_direction": [
+    "late-afternoon combined-arms desert front",
+    "fortified checkpoints, radar pads, logistics compounds and revetments",
+    "winding military highway and vehicle-track language",
+    "physically grounded 1999 military technology",
+    "animated dust streak pass with combat-safe values"
+  ],
+  "reject": [
+    "repeated triangle dunes",
+    "fantasy ruins or pyramids",
+    "bright adventure-desert palette",
+    "satellite-photo noise",
+    "symmetrical arena layout"
+  ]
+}

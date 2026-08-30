@@ -6,6 +6,7 @@ const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
 const COASTAL_STRIKE_ZONE := preload("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png")
 const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png")
 const STORM_SEA := preload("res://assets/runtime/environments/water/storm_sea_loop_v1.png")
+const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -253,20 +254,15 @@ func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 
 func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scale := _ground_scale(state)
-	var sand := Color("78694e", 0.62)
-	var ridge := Color("a18b61", 0.42)
-	var road := Color("3b3931", 0.74)
-	var scroll := t * 30.0
-	for i in range(7):
-		var y := fposmod(float(i) * 74.0 + scroll, 350.0) + 45.0
-		var x := 24.0 + float((i * 131) % 420)
-		var width := (92.0 + float(i % 3) * 31.0) * scale
-		surface.draw_colored_polygon(PackedVector2Array([Vector2(x, y + 10), Vector2(x + width * 0.45, y - 8), Vector2(x + width, y + 8)]), sand)
-		surface.draw_line(Vector2(x + width * 0.18, y + 4), Vector2(x + width * 0.65, y), ridge, 1.0)
-	var road_x := 420.0 + sin((scroll - 120.0) * 0.012) * 42.0
-	surface.draw_line(Vector2(road_x - 22.0, 60), Vector2(road_x + 18.0, 360), road, 12.0 * scale)
-	surface.draw_line(Vector2(road_x - 22.0, 60), Vector2(road_x + 18.0, 360), ridge, 1.0)
+	var scroll := fposmod(t * 30.0, 720.0)
+	_draw_vertical_loop(surface, DESERT_FRONT, scroll, Rect2(0, 58, 640, 302))
+	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.075, 0.045, 0.025, 0.18))
+	var dust := Color("c3a16b", 0.15)
+	for i in range(9):
+		var x := float((i * 127 + 37) % 720) - 40.0
+		var y := fposmod(float(i) * 61.0 + t * (23.0 + float(i % 2) * 4.0), 340.0) + 48.0
+		var length := 18.0 + float(i % 3) * 9.0
+		surface.draw_line(Vector2(x, y), Vector2(x + length, y - 3.0), dust, 1.0)
 
 func _draw_river_corridor(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
