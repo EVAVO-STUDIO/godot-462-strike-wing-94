@@ -119,6 +119,14 @@ func _test_visual_language() -> void:
 		var vehicle_layer := load("res://assets/runtime/enemies/mercenary_ground_layered/%s.png" % layer_id)
 		_expect(vehicle_layer is Texture2D and vehicle_layer.get_size() == vehicle_weapon_layers[layer_id], "articulated vehicle weapon layer should retain registered pivot canvas: %s" % layer_id)
 	_expect(source.contains('"light_tank": {') and source.contains('"sam_truck": {') and source.contains('"armoured_aa_carrier": {'), "tank, SAM and AA carrier should use layered target-tracking weapon assemblies")
+	for sam_pose in ["sam_truck_weapon_stowed", "sam_truck_weapon_rising", "sam_truck_weapon_launch"]:
+		var sam_texture := load("res://assets/runtime/enemies/mercenary_ground_layered/%s.png" % sam_pose)
+		_expect(sam_texture is Texture2D and sam_texture.get_size() == Vector2(34,34), "SAM key pose should retain registered 34x34 pivot canvas: %s" % sam_pose)
+	_expect(CombatArtDirector.sam_launcher_frame_index(1.0, 0.0) == 0, "SAM launcher should remain stowed outside its attack window")
+	_expect(CombatArtDirector.sam_launcher_frame_index(0.5, 0.0) == 1, "SAM launcher should visibly rise before firing")
+	_expect(CombatArtDirector.sam_launcher_frame_index(0.15, 0.0) == 2, "SAM launcher should lock in a deployed tracking pose before firing")
+	_expect(CombatArtDirector.sam_launcher_frame_index(1.0, 0.8) == 3, "SAM launcher should show its authored launch pose during recoil")
+	_expect(source.contains('Rect2(-8, 9, 7, 11)') and source.contains('Rect2(1, 9, 7, 11)'), "SAM launch should show separate authored ignition at both missile tubes")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/vehicle_articulation/vehicle_articulation_asset_manifest.json"), "vehicle articulation source/runtime manifest should exist")
 	var ground_force_sizes := {
 		"mercenary_infantry/mercenary_rifle_team": Vector2(26,22),

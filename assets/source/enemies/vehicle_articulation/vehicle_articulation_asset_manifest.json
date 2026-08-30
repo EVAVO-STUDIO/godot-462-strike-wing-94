@@ -1,11 +1,11 @@
 {
   "asset_family":"mercenary_ground_vehicle_articulation",
-  "status":"runtime_layers_v1",
+  "status":"runtime_layers_v2",
   "method":"deterministic crisp-edge SVG component masters rendered one-to-one into indexed-scale transparent PNG layers",
   "visual_contract":{"style":"1997 grounded military vehicle hardware","palette":"charcoal pivot collars, worn gunmetal, sand-gray alloy, muted oxide-red recognition","rule":"opaque pivot housing masks the original fixed cluster while the approved hull master remains intact","reject":["floating gun","neon optics","smooth vector look","oversized fantasy cannon"]},
   "runtime":[
     {"id":"light_tank","weapon":"res://assets/runtime/enemies/mercenary_ground_layered/light_tank_weapon.png","canvas":[30,30],"pivot":[15,15],"cue":"turret tracking and recoil"},
-    {"id":"sam_truck","weapon":"res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png","canvas":[34,34],"pivot":[17,17],"cue":"launcher tracking and launch recoil"},
+    {"id":"sam_truck","weapon":"res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png","animation":["sam_truck_weapon_stowed.png","sam_truck_weapon_rising.png","sam_truck_weapon.png","sam_truck_weapon_launch.png"],"canvas":[34,34],"pivot":[17,17],"cue":"stowed hold, hydraulic rise, tracking lock, twin ignition and launch recoil"},
     {"id":"armoured_aa_carrier","weapon":"res://assets/runtime/enemies/mercenary_ground_layered/aa_carrier_weapon.png","canvas":[38,38],"pivot":[19,19],"cue":"dual-cannon tracking and recoil"}
   ]
 }

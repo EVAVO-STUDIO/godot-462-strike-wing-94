@@ -105,6 +105,12 @@ const LAYERED_GROUND_SPRITES := {
 	"sam_truck": {
 		"base": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
 		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png"),
+		"weapon_animation": [
+			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon_stowed.png"),
+			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon_rising.png"),
+			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png"),
+			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon_launch.png"),
+		],
 		"weapon_scale": 0.82,
 	},
 	"fortified_turret": {
@@ -544,6 +550,11 @@ func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, la
 	var direction := _player_position() - p
 	var rotation := 0.0 if direction.length_squared() < 0.001 else Vector2.DOWN.angle_to(direction.normalized())
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
+	var sam_frame := -1
+	if layers.has("weapon_animation"):
+		sam_frame = sam_launcher_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
+		var weapon_animation: Array = layers["weapon_animation"]
+		weapon = weapon_animation[sam_frame]
 	var local_recoil := Vector2(0.0, -roundf(2.0 * recoil_ratio))
 	var pulse := 1.0
 	if bool(layers.get("core_pulse", false)):
@@ -553,10 +564,23 @@ func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, la
 	surface.draw_texture(weapon, -weapon.get_size() * 0.5 + local_recoil, Color(pulse, pulse, 1.0, 1.0))
 	if barrel != null:
 		surface.draw_texture(barrel, -barrel.get_size() * 0.5 + local_recoil)
-	if recoil_ratio > 0.45:
+	if sam_frame == 3:
+		var ignition := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
+		surface.draw_texture_rect(ignition, Rect2(-8, 9, 7, 11), false, Color(1.0, 0.84, 0.52, 0.96))
+		surface.draw_texture_rect(ignition, Rect2(1, 9, 7, 11), false, Color(1.0, 0.84, 0.52, 0.96))
+	elif recoil_ratio > 0.45:
 		var muzzle := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
 		surface.draw_texture_rect(muzzle, Rect2(-6, 10, 12, 12), false)
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+static func sam_launcher_frame_index(fire_timer: float, recoil_ratio: float) -> int:
+	if recoil_ratio > 0.01:
+		return 3
+	if fire_timer > 0.62:
+		return 0
+	if fire_timer > 0.30:
+		return 1
+	return 2
 
 func _player_position() -> Vector2:
 	var scene := get_tree().current_scene
