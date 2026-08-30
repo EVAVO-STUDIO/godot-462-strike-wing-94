@@ -60,6 +60,28 @@ const GROUND_MECH_WRECK_HULLS := {
 	"security_patrol_mech": preload("res://assets/runtime/enemies/ground_mechs/security_patrol_mech_idle.png"),
 	"autonomous_salvage_mech": preload("res://assets/runtime/enemies/ground_mechs/autonomous_salvage_mech_idle.png"),
 }
+const GROUND_VEHICLE_WRECK_LAYERS := {
+	"light_tank": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/light_tank_weapon.png"),
+	},
+	"sam_truck": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png"),
+	},
+	"armoured_aa_carrier": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/aa_carrier_weapon.png"),
+	},
+	"autonomous_armor": {
+		"base": preload("res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_weapon.png"),
+	},
+	"factory_defence_node": {
+		"base": preload("res://assets/runtime/enemies/machine_ground_layered/factory_defence_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/machine_ground_layered/factory_defence_weapon.png"),
+	},
+}
 
 var _surface: Control
 var _events: Array = []
@@ -125,7 +147,10 @@ func _observe_combat() -> void:
 				duration = NAVAL_SINK_SECONDS
 			if GROUND_MECH_WRECK_HULLS.has(str(previous.get("id", ""))):
 				duration = 1.10
-			var size := 28.0 if kind == "boss_explosion" else (19.0 if GROUND_MECH_WRECK_HULLS.has(str(previous.get("id", ""))) else 15.0)
+			if GROUND_VEHICLE_WRECK_LAYERS.has(str(previous.get("id", ""))):
+				duration = 0.96
+			var large_ground_wreck := GROUND_MECH_WRECK_HULLS.has(str(previous.get("id", ""))) or GROUND_VEHICLE_WRECK_LAYERS.has(str(previous.get("id", "")))
+			var size := 28.0 if kind == "boss_explosion" else (19.0 if large_ground_wreck else 15.0)
 			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration, {
 				"enemy_id": str(previous.get("id", "enemy")),
 				"category": str(previous.get("category", "air")),
@@ -279,6 +304,9 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 	if GROUND_MECH_WRECK_HULLS.has(enemy_id):
 		_draw_ground_mech_breakup(surface,p,late_ratio,enemy_id,serial,faction)
 		return
+	if GROUND_VEHICLE_WRECK_LAYERS.has(enemy_id):
+		_draw_ground_vehicle_breakup(surface,p,late_ratio,enemy_id,serial,faction)
+		return
 	if enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]:
 		var dust := ImpactArtLibrary.frame_for_ratio("dust_impact", late_ratio)
 		var dust_size := Vector2.ONE * lerpf(22.0, 38.0, late_ratio)
@@ -349,6 +377,38 @@ func _draw_ground_mech_breakup(surface: CanvasItem, p: Vector2, ratio: float, en
 	elif ratio > 0.22 and ratio < 0.82:
 		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial+int(ratio*7.0),4)]
 		surface.draw_texture_rect(smoke,Rect2((p+Vector2(3,-12)-Vector2(14,14)).round(),Vector2(28,28)),false,Color(0.54,0.52,0.46,0.70*(1.0-ratio)))
+
+func _draw_ground_vehicle_breakup(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int, faction: String) -> void:
+	var layers: Dictionary = GROUND_VEHICLE_WRECK_LAYERS[enemy_id]
+	var chassis: Texture2D = layers["base"]
+	var weapon: Texture2D = layers["weapon"]
+	var direction := -1.0 if posmod(serial,2)==0 else 1.0
+	var fade := 1.0-smoothstep(0.82,1.0,ratio)
+	var cold := faction == "autonomous"
+	var chassis_tint := Color(0.46,0.53,0.54,fade) if cold else Color(0.54,0.50,0.42,fade)
+	var chassis_offset := Vector2(direction*3.0*ratio,7.0*ratio*ratio)
+	surface.draw_set_transform((p+chassis_offset).round(),direction*0.12*ratio,Vector2(1.0,1.0-0.10*ratio))
+	surface.draw_texture(chassis,-chassis.get_size()*0.5,chassis_tint)
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+	# The separately registered live weapon remains a distinct physical mass:
+	# blast impulse lifts it off its traverse ring before it falls and rotates.
+	var weapon_lift := sin(ratio*PI)*13.0
+	var weapon_center := p+Vector2(-direction*8.0*ratio,-weapon_lift+5.0*ratio*ratio)
+	surface.draw_set_transform(weapon_center.round(),direction*ratio*1.25,Vector2.ONE*0.84)
+	surface.draw_texture(weapon,-weapon.get_size()*0.5,Color(chassis_tint,fade))
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	_draw_boss_breakup_burst(surface,p+Vector2(0,-2),ratio-0.06,24.0)
+	var dust := ImpactArtLibrary.frame_for_ratio("dust_impact",fmod(ratio*1.52,0.999))
+	var dust_size := Vector2.ONE*lerpf(24.0,42.0,ratio)
+	surface.draw_texture_rect(dust,Rect2((p+Vector2(0,7)-dust_size*0.5).round(),dust_size),false,Color(0.60,0.58,0.50,0.52*(1.0-ratio)))
+	if cold:
+		var disruption := ImpactArtLibrary.frame_for_ratio("emp_disruption",fmod(ratio*1.72,0.999))
+		var field_size := Vector2.ONE*lerpf(26.0,46.0,ratio)
+		surface.draw_texture_rect(disruption,Rect2((p-field_size*0.5).round(),field_size),false,Color(0.55,0.79,0.85,0.58*(1.0-ratio)))
+	elif ratio>0.28 and ratio<0.82:
+		var fire: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_fire"][posmod(serial+int(ratio*6.0),4)]
+		surface.draw_texture_rect(fire,Rect2((p+Vector2(direction*4,-4)-Vector2(10,10)).round(),Vector2(20,20)),false,Color(0.88,0.65,0.38,0.70*(1.0-ratio)))
 
 func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
 	var hull: Texture2D = NAVAL_WRECK_HULLS[enemy_id]
