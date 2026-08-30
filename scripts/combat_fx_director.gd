@@ -29,6 +29,22 @@ const NAVAL_WRECK_HULLS := {
 	"fast_attack_craft": preload("res://assets/runtime/enemies/mercenary_sea/fast_attack_craft_idle.png"),
 	"missile_corvette": preload("res://assets/runtime/enemies/mercenary_sea/missile_corvette_idle.png"),
 }
+const NAVAL_WRECK_COMPONENTS := {
+	"river_patrol": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/river_turret.png"),
+	},
+	"torpedo_boat": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/torpedo_turret.png"),
+		"launcher": preload("res://assets/runtime/enemies/naval_specialist/torpedo_launcher_open.png"),
+	},
+	"fast_attack_craft": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/fast_turret.png"),
+	},
+	"missile_corvette": {
+		"turret": preload("res://assets/runtime/enemies/naval_specialist/corvette_turret.png"),
+		"launcher": preload("res://assets/runtime/enemies/naval_specialist/corvette_hatch_open.png"),
+	},
+}
 const MERCENARY_BOSS_WRECK_HULLS := {
 	"gunship_alpha": preload("res://assets/runtime/enemies/mercenary_boss/gunship_alpha_idle.png"),
 	"armoured_train": preload("res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png"),
@@ -469,6 +485,7 @@ func _draw_airframe_breakup(surface: CanvasItem, p: Vector2, ratio: float, enemy
 
 func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
 	var hull: Texture2D = NAVAL_WRECK_HULLS[enemy_id]
+	var components: Dictionary = NAVAL_WRECK_COMPONENTS.get(enemy_id,{})
 	var list_direction := -1.0 if posmod(serial, 2) == 0 else 1.0
 	var list_angle := list_direction * lerpf(0.025, 0.27, smoothstep(0.10, 1.0, ratio))
 	var sink_offset := Vector2(list_direction * 2.5 * ratio, 9.0 * ratio * ratio)
@@ -476,7 +493,18 @@ func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id
 	var hull_alpha := 1.0 - smoothstep(0.72, 1.0, ratio)
 	surface.draw_set_transform((p + sink_offset).round(), list_angle, sink_scale)
 	surface.draw_texture(hull, -hull.get_size() * 0.5, Color(0.68, 0.74, 0.75, hull_alpha))
+	if components.has("launcher"):
+		var launcher: Texture2D = components["launcher"]
+		surface.draw_texture(launcher,-launcher.get_size()*0.5,Color(0.64,0.69,0.69,hull_alpha))
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	if components.has("turret"):
+		var turret: Texture2D = components["turret"]
+		var eject_ratio := smoothstep(0.04,0.78,ratio)
+		var turret_center := p+Vector2(-list_direction*lerpf(1.0,13.0,eject_ratio),-sin(eject_ratio*PI)*10.0+8.0*eject_ratio*eject_ratio)
+		var turret_alpha := 1.0-smoothstep(0.76,1.0,ratio)
+		surface.draw_set_transform(turret_center.round(),list_direction*eject_ratio*1.05,Vector2.ONE*(1.0-0.14*eject_ratio))
+		surface.draw_texture(turret,-turret.get_size()*0.5,Color(0.62,0.68,0.68,turret_alpha))
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 	var stage := clampi(int(floor(ratio * 4.0)), 0, 3)
 	var displacement := ImpactArtLibrary.frame_for_ratio("water_impact", fmod(ratio * 1.7, 0.999))
 	var bow := p + Vector2(list_direction * lerpf(3.0, 8.0, ratio), -hull.get_height() * 0.20 + 6.0 * ratio)
@@ -485,6 +513,9 @@ func _draw_naval_sinking(surface: CanvasItem, p: Vector2, ratio: float, enemy_id
 	surface.draw_texture_rect(displacement, Rect2((stern - water_size * 0.5).round(), water_size), false, Color(0.70, 0.84, 0.88, 0.78 * (1.0-ratio)))
 	if stage >= 1:
 		surface.draw_texture_rect(displacement, Rect2((bow - water_size * 0.40).round(), water_size * 0.80), false, Color(0.74, 0.86, 0.90, 0.62 * (1.0-ratio)))
+	if components.has("turret") and stage>=2:
+		var turret_splash := p+Vector2(-list_direction*lerpf(5.0,15.0,ratio),7.0+10.0*ratio)
+		surface.draw_texture_rect(displacement,Rect2((turret_splash-water_size*0.28).round(),water_size*0.56),false,Color(0.74,0.86,0.90,0.54*(1.0-ratio)))
 	if stage >= 2 and ratio < 0.86:
 		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial + stage, 4)]
 		surface.draw_texture_rect(smoke, Rect2((p + Vector2(3,-9) - Vector2(13,13)).round(), Vector2(26,26)), false, Color(0.52,0.56,0.56,0.62*(1.0-ratio)))
