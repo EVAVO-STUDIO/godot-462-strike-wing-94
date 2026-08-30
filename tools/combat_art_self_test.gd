@@ -152,6 +152,17 @@ func _test_visual_language() -> void:
 	for enemy_id in machine_ground_sizes:
 		var texture := load("res://assets/runtime/enemies/machine_ground/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == machine_ground_sizes[enemy_id], "machine-ground sprite should retain reviewed geometry: %s" % enemy_id)
+	var machine_ground_layers := {
+		"autonomous_armor_base": Vector2(36,30),
+		"autonomous_armor_weapon": Vector2(36,36),
+		"factory_defence_base": Vector2(34,34),
+		"factory_defence_weapon": Vector2(34,38),
+	}
+	for layer_id in machine_ground_layers:
+		var layer_texture := load("res://assets/runtime/enemies/machine_ground_layered/%s.png" % layer_id)
+		_expect(layer_texture is Texture2D and layer_texture.get_size() == machine_ground_layers[layer_id], "machine-ground articulated layer should retain registered geometry: %s" % layer_id)
+	_expect(source.contains("LAYERED_MACHINE_GROUND_SPRITES"), "autonomous armor and factory nodes should use separately articulated production layers")
+	_expect(source.contains('layers.get("core_pulse", false)'), "machine-ground protected cores should retain restrained age-driven pulse animation")
 	var orbital_air_sizes := {
 		"exo_drone": Vector2(30,30),
 		"orbital_sentry": Vector2(40,38),

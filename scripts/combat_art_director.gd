@@ -104,6 +104,18 @@ const MACHINE_GROUND_SPRITES := {
 	"autonomous_armor": preload("res://assets/runtime/enemies/machine_ground/autonomous_armor_idle.png"),
 	"factory_defence_node": preload("res://assets/runtime/enemies/machine_ground/factory_defence_node_idle.png"),
 }
+const LAYERED_MACHINE_GROUND_SPRITES := {
+	"autonomous_armor": {
+		"base": preload("res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_weapon.png"),
+		"core_pulse": true,
+	},
+	"factory_defence_node": {
+		"base": preload("res://assets/runtime/enemies/machine_ground_layered/factory_defence_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/machine_ground_layered/factory_defence_weapon.png"),
+		"core_pulse": true,
+	},
+}
 const ORBITAL_AIR_SPRITES := {
 	"exo_drone": preload("res://assets/runtime/enemies/orbital_air/exo_drone_idle.png"),
 	"orbital_sentry": preload("res://assets/runtime/enemies/orbital_air/orbital_sentry_idle.png"),
@@ -388,6 +400,8 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 			_draw_production_boss(surface, p, enemy_id, enemy, ORBITAL_BOSS_SPRITES[enemy_id])
 		else:
 			_draw_boss(surface, p, enemy_id, faction)
+	elif faction == "autonomous" and category == "ground" and LAYERED_MACHINE_GROUND_SPRITES.has(enemy_id):
+		_draw_layered_ground(surface, p, enemy, LAYERED_MACHINE_GROUND_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and category == "ground" and MACHINE_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MACHINE_GROUND_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and category == "ground" and MACHINE_MECH_SPRITES.has(enemy_id):
@@ -446,7 +460,7 @@ func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, en
 func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, layers: Dictionary, scale: float) -> void:
 	var base: Texture2D = layers.get("base")
 	var weapon: Texture2D = layers.get("weapon")
-	var barrel: Texture2D = layers.get("barrel")
+	var barrel: Texture2D = layers.get("barrel", null)
 	_draw_production_sprite(surface, p, base, scale)
 	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
 	if float(enemy.get("hp", max_hp)) / max_hp <= 0.55 and layers.has("damage"):
@@ -455,9 +469,13 @@ func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, la
 	var rotation := 0.0 if direction.length_squared() < 0.001 else Vector2.DOWN.angle_to(direction.normalized())
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
 	var local_recoil := Vector2(0.0, -roundf(2.0 * recoil_ratio))
+	var pulse := 1.0
+	if bool(layers.get("core_pulse", false)):
+		pulse = 0.88 + 0.12 * (0.5 + 0.5 * sin(float(enemy.get("age", 0.0)) * 6.0))
 	surface.draw_set_transform(p.round(), rotation, Vector2.ONE * scale)
-	surface.draw_texture(weapon, -weapon.get_size() * 0.5)
-	surface.draw_texture(barrel, -barrel.get_size() * 0.5 + local_recoil)
+	surface.draw_texture(weapon, -weapon.get_size() * 0.5 + local_recoil, Color(pulse, pulse, 1.0, 1.0))
+	if barrel != null:
+		surface.draw_texture(barrel, -barrel.get_size() * 0.5 + local_recoil)
 	if recoil_ratio > 0.45:
 		surface.draw_circle(Vector2(0, 14), 2.0, PLAYER_MUZZLE)
 		surface.draw_line(Vector2(0, 13), Vector2(0, 18), Color("fff0b0"), 1.0)

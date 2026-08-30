@@ -1,10 +1,14 @@
 {
   "asset_family": "machine_ground",
-  "status": "runtime_idle_candidates",
+  "status": "layered_runtime_v1",
   "source": {
     "path": "res://assets/source/enemies/candidates/machine_ground/machine_ground_identity_sheet_candidate_01.png",
     "sha256": "302CEE5D7B4E816E1FAF069D3816F092516207C0BBBF59BDA66A46E86257845A",
     "order": ["autonomous_armor", "factory_defence_node"]
+  },
+  "component_source": {
+    "path": "res://assets/source/enemies/candidates/machine_ground_layered/machine_ground_component_sheet_candidate_01.png",
+    "purpose": "weaponless chassis and separately pivoted autonomous weapon assemblies"
   },
   "visual_contract": {
     "era": "early machine war",
@@ -23,5 +27,12 @@
     {"id":"autonomous_armor","path":"res://assets/runtime/enemies/machine_ground/autonomous_armor_idle.png","size":[36,30],"sha256":"F318080B7BC3E465D37B9C233B0D602FDD3C269133058D0D9036DC7BF7F93691","center":[18,15],"muzzle":[[14,28],[22,28]],"core":[18,14]},
     {"id":"factory_defence_node","path":"res://assets/runtime/enemies/machine_ground/factory_defence_node_idle.png","size":[34,34],"sha256":"0EF7469DA798C949CC1468A9E51990B4EF123D53183840289F0121747A97C937","center":[17,17],"muzzle":[17,31],"core":[17,16]}
   ],
-  "remaining_animation_gate": ["turret or aperture tracking", "core pulse", "recoil", "destruction"]
+  "articulated_layers": [
+    {"id":"autonomous_armor_base","path":"res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_base.png","size":[36,30],"sha256":"20B616EC503C3A4E85D69EF1EF9C06094B4C1A66239CCA66AA8DEC2EFAFA6174"},
+    {"id":"autonomous_armor_weapon","path":"res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_weapon.png","size":[36,36],"sha256":"8D9911BDBBA7C98DA063A126D45A3BF6AC41D3B110B4B0389AA842BC2DF68B3C","pivot":[18,18]},
+    {"id":"factory_defence_base","path":"res://assets/runtime/enemies/machine_ground_layered/factory_defence_base.png","size":[34,34],"sha256":"BCDAFF83A7B4315CC7120D3956E54213275056CCA7444304E8A377753A436D1D"},
+    {"id":"factory_defence_weapon","path":"res://assets/runtime/enemies/machine_ground_layered/factory_defence_weapon.png","size":[34,38],"sha256":"C6EC8A9D86386B0EAB9CED925E8AC7493A22C14CD3D092D0B366062233BE815A","pivot":[17,19]}
+  ],
+  "runtime_animation": ["player-facing turret or aperture tracking", "weapon recoil", "protected core pulse"],
+  "remaining_animation_gate": ["damage overlay", "destruction sequence"]
 }
