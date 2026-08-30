@@ -90,7 +90,8 @@ func _process(delta: float) -> void:
 	match phase:
 		GamePhase.TITLE:
 			if Input.is_action_just_pressed("confirm"):
-				_start_mission()
+				if not _cinematic_blocks_launch():
+					_start_mission()
 			elif Input.is_action_just_pressed("upgrade"):
 				_try_buy_next_weapon()
 			elif Input.is_action_just_pressed("upgrade_generator"):
@@ -269,6 +270,12 @@ func _target_damage_multiplier(enemy_class: String) -> float:
 	if director != null and director.has_method("target_damage_multiplier"):
 		return maxf(0.1, float(director.call("target_damage_multiplier", enemy_class)))
 	return 1.0
+
+func _cinematic_blocks_launch() -> bool:
+	var cinematic := get_node_or_null("/root/CampaignCinematicDirector")
+	if cinematic == null or not cinematic.has_method("intercept_launch"):
+		return false
+	return bool(cinematic.call("intercept_launch", str(_active_mission().get("id", ""))))
 
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
