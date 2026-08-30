@@ -147,25 +147,60 @@ func _draw_parallax(surface: CanvasItem, profile: Dictionary, state: Dictionary,
 		_parallax_speed(profile, state, "near")
 	]
 	var tones := [_tone(profile, "far", 0.18), _tone(profile, "mid", 0.20), _tone(profile, "near", 0.22)]
-	var gaps := [44.0, 32.0, 22.0]
+	var gaps := [47.0, 34.0, 25.0]
 	for layer_index in range(3):
-		for i in range(18):
+		for i in range(16):
 			var y := fposmod(float(i) * gaps[layer_index] + t * speeds[layer_index], 340.0) + 54.0
-			var x0 := 24.0 + float((i * (37 + layer_index * 11)) % 120)
-			surface.draw_line(Vector2(x0, y), Vector2(620.0 - x0 * 0.25, y), tones[layer_index], 1.0)
+			var x0 := 18.0 + float((i * (83 + layer_index * 19)) % 520)
+			var length := 7.0 + float((i * 13 + layer_index * 7) % 28)
+			surface.draw_line(Vector2(x0, y), Vector2(minf(622.0, x0 + length), y), tones[layer_index], 1.0)
+
+func _coast_x(world_y: float, scale: float) -> float:
+	return 148.0 * scale + sin(world_y * 0.018) * 35.0 * scale + sin(world_y * 0.047 + 1.3) * 13.0 * scale
 
 func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var scale := _ground_scale(state)
 	if not _draw_ground_detail(state):
 		return
-	var land := _tone(profile, "near", 0.26)
-	var shore := _tone(profile, "mid", 0.32)
-	var width := 105.0 * scale
-	for i in range(7):
-		var y := fposmod(float(i) * 76.0 + t * 26.0, 330.0) + 54.0
-		var left := 18.0 + sin(float(i) * 1.7) * 18.0
-		surface.draw_colored_polygon(PackedVector2Array([Vector2(left,y-20),Vector2(left+width,y-14),Vector2(left+width+20,y+12),Vector2(left,y+20)]), land)
-		surface.draw_line(Vector2(left+width,y-16),Vector2(left+width+20,y+14),shore,2.0)
+	var scroll := t * _parallax_speed(profile, state, "mid")
+	var land := _tone(profile, "land", 0.72)
+	var inland := _tone(profile, "inland", 0.46)
+	var sand := _tone(profile, "sand", 0.60)
+	var foam := _tone(profile, "foam", 0.58)
+	var road := _tone(profile, "road", 0.52)
+	var coast_points := PackedVector2Array([Vector2(8, 60)])
+	var shore_points: Array[Vector2] = []
+	for y in range(60, 369, 8):
+		var coast_x := _coast_x(float(y) - scroll, scale)
+		shore_points.append(Vector2(coast_x, float(y)))
+		coast_points.append(Vector2(coast_x, float(y)))
+	coast_points.append(Vector2(8, 368))
+	surface.draw_colored_polygon(coast_points, land)
+	for index in range(shore_points.size() - 1):
+		var a := shore_points[index]
+		var b := shore_points[index + 1]
+		surface.draw_line(a, b, sand, 5.0)
+		surface.draw_line(a + Vector2(7, 0), b + Vector2(7, 0), foam, 1.0)
+		surface.draw_line(a + Vector2(13, 0), b + Vector2(13, 0), Color(foam, foam.a * 0.48), 1.0)
+	for y in range(66, 366, 24):
+		var world_y := float(y) - scroll
+		var edge := _coast_x(world_y, scale)
+		surface.draw_line(Vector2(10, y), Vector2(maxf(12.0, edge - 31.0 * scale), y), inland, 1.0)
+		var road_x := maxf(23.0, edge - 48.0 * scale)
+		surface.draw_rect(Rect2(roundf(road_x), y, 2, 12), road)
+	for landmark in range(3):
+		var ly := fposmod(116.0 + landmark * 174.0 + scroll, 522.0) + 48.0
+		var lx := _coast_x(ly - scroll, scale)
+		if ly < 350.0:
+			surface.draw_rect(Rect2(28, roundf(ly), maxf(34.0, lx - 74.0), 8), road)
+			surface.draw_line(Vector2(34, ly + 4), Vector2(maxf(42.0, lx - 48.0), ly + 4), foam, 1.0)
+			surface.draw_rect(Rect2(roundf(lx - 20.0), roundf(ly + 18.0), 42, 3), road)
+			surface.draw_rect(Rect2(roundf(lx + 17.0), roundf(ly + 18.0), 3, 15), road)
+	# Sandbars and wakes break up the open water without competing with bullets.
+	for i in range(9):
+		var sy := fposmod(float(i) * 61.0 + scroll * 1.18, 310.0) + 62.0
+		var sx := 240.0 + float((i * 97) % 340)
+		surface.draw_line(Vector2(sx, sy), Vector2(sx + 18.0 + float(i % 3) * 8.0, sy), Color(foam, foam.a * 0.42), 1.0)
 
 func _draw_industrial(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var scale := _ground_scale(state)
@@ -233,12 +268,18 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 	var density := _cloud_density(state)
 	if density <= 0.08:
 		return
-	var count := int(round(10.0 * density))
+	var count := int(round(8.0 * density))
 	var cloud := Color("d7dfe0")
-	cloud.a = 0.08 + density * 0.08
+	cloud.a = 0.07 + density * 0.07
 	for i in range(count):
 		var x := float((i * 113 + 57) % 590) + 20.0
 		var y := fposmod(float(i) * 67.0 + t * (8.0 + density * 18.0), 290.0) + 70.0
-		var radius := 10.0 + float(i % 3) * 5.0
-		surface.draw_circle(Vector2(x,y),radius,cloud)
-		surface.draw_circle(Vector2(x+radius,y+2),radius*0.72,cloud)
+		var width := 24.0 + float(i % 3) * 9.0
+		var bank := PackedVector2Array([
+			Vector2(x - width, y + 5), Vector2(x - width * 0.72, y - 3),
+			Vector2(x - width * 0.28, y - 8), Vector2(x + width * 0.18, y - 5),
+			Vector2(x + width * 0.63, y - 1), Vector2(x + width, y + 6),
+			Vector2(x + width * 0.45, y + 9), Vector2(x - width * 0.5, y + 10)
+		])
+		surface.draw_colored_polygon(bank, cloud)
+		surface.draw_line(Vector2(x - width * 0.75, y + 11), Vector2(x + width * 0.55, y + 11), Color(cloud, cloud.a * 0.55), 1.0)

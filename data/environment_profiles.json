@@ -8,6 +8,11 @@
       "far": "31505b",
       "mid": "426b73",
       "near": "6c7b63",
+      "land": "536653",
+      "inland": "344f46",
+      "sand": "a79b6e",
+      "foam": "9bc3bd",
+      "road": "82806c",
       "far_speed": 10.0,
       "mid_speed": 24.0,
       "near_speed": 48.0

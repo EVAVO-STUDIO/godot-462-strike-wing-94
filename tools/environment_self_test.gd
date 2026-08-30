@@ -13,6 +13,8 @@ func _initialize() -> void:
 		for required in ["coast","industrial","open_water","high_cloud","orbital"]:
 			_expect(not EnvironmentRules.profile_for(profiles, required).is_empty(), "missing environment profile %s" % required)
 		var coast := EnvironmentRules.profile_for(profiles, "coast")
+		for palette_key in ["land", "inland", "sand", "foam", "road"]:
+			_expect(coast.has(palette_key), "coastal benchmark palette should define %s" % palette_key)
 		var low_speed := EnvironmentRules.parallax_speed(coast, "low", "near")
 		var high_speed := EnvironmentRules.parallax_speed(coast, "high", "near")
 		var blended_speed := EnvironmentRules.blended_parallax_speed(coast, "low", "high", 0.5, "near")
@@ -36,6 +38,8 @@ func _initialize() -> void:
 		_expect(source.contains("blended_cloud_density"), "environment renderer should blend cloud density")
 		_expect(source.contains("_orbital_mix"), "orbital starfield should fade through the atmospheric transition")
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
+		_expect(source.contains("_coast_x"), "coastal benchmark should use a continuous authored shoreline")
+		_expect(source.contains("Sandbars and wakes"), "coastal benchmark should retain subdued open-water scale cues")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
