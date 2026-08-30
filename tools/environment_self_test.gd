@@ -45,6 +45,7 @@ func _initialize() -> void:
 		_expect(source.contains("RIVER_CORRIDOR"), "river benchmark should use its authored corridor raster master")
 		_expect(source.contains("MOUNTAIN_RADAR"), "mountain benchmark should use its authored radar-zone raster master")
 		_expect(source.contains("NIGHT_HARBOR"), "harbor benchmark should use its authored naval-port raster master")
+		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK"), "high-altitude benchmark should use its authored stratospheric raster master")
 		_expect(source.contains("_draw_vertical_loop"), "coastal benchmark should scroll its authored plate without exposed seams")
 		_expect(source.contains("Restrained moving wakes"), "coastal benchmark should retain subdued open-water motion cues")
 		for cloud_family in ["CLOUD_LOW", "CLOUD_MID", "CLOUD_HIGH"]:
@@ -65,6 +66,8 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_asset_manifest.json"), "mountain source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png"), "harbor runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/harbor_asset_manifest.json"), "harbor source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png"), "stratospheric runtime master should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")
 		for cloud_asset in ["low_wisp_a", "low_wisp_b", "mid_broken_a", "mid_broken_b", "high_mass_a", "high_mass_b"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/environments/clouds/cloud_bank_%s.png" % cloud_asset), "missing authored cloud sprite %s" % cloud_asset)
 		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor"]:

@@ -1,0 +1,23 @@
+{
+  "family": "high_atmosphere",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/high_atmosphere/stratospheric_cloud_deck_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 29,
+  "construction": "central cloud field cropped from the source, reduced at 320x180, upscaled 2x nearest-neighbour and mirrored into a vertical loop",
+  "art_direction": [
+    "cold extreme-altitude storm deck",
+    "broad shadowed combat corridor",
+    "restrained reconnaissance-imagery realism",
+    "thin atmospheric curvature supplied by the runtime transition layer",
+    "late-1990s palette-limited raster finish"
+  ],
+  "reject": [
+    "fantasy space clouds",
+    "bright blue holiday skies",
+    "smooth generic cloud noise",
+    "baked aircraft or UI",
+    "neon nebula effects"
+  ]
+}

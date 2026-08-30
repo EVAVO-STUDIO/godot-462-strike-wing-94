@@ -10,6 +10,7 @@ const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_f
 const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
 const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png")
+const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -62,7 +63,6 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	var orbital_mix := _orbital_mix(state)
 	if motif == "orbital" and orbital_mix < 0.98:
 		_draw_cloud_top(surface, profile, state, t)
-		_draw_high_atmosphere_horizon(surface, profile, _horizon_glow(state))
 		if orbital_mix > 0.02:
 			_draw_orbital(surface, profile, state, t, orbital_mix)
 	elif variant != "":
@@ -214,7 +214,7 @@ func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 		var sx := 382.0 + float((i * 73) % 190)
 		surface.draw_line(Vector2(sx, sy), Vector2(sx + 12.0 + float(i % 3) * 6.0, sy), foam, 1.0)
 
-func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2) -> void:
+func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2, modulate := Color.WHITE) -> void:
 	var remaining := destination.size.y
 	var draw_y := destination.position.y
 	var sample_y := fposmod(source_y, float(texture.get_height()))
@@ -223,7 +223,8 @@ func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: floa
 		surface.draw_texture_rect_region(
 			texture,
 			Rect2(destination.position.x, draw_y, destination.size.x, segment),
-			Rect2(0, sample_y, float(texture.get_width()), segment)
+			Rect2(0, sample_y, float(texture.get_width()), segment),
+			modulate
 		)
 		remaining -= segment
 		draw_y += segment
@@ -305,6 +306,10 @@ func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> voi
 
 func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
+	var scroll := fposmod(t * 14.0, 720.0)
+	_draw_vertical_loop(surface, STRATOSPHERIC_CLOUD_DECK, scroll, Rect2(0, 58, 640, 302), Color(0.78, 0.86, 0.91, 0.66))
+	_draw_high_atmosphere_horizon(surface, profile, _horizon_glow(state))
+	# Sparse moving banks preserve depth without hiding the authored cloud-deck structure.
 	var count := maxi(4, int(round(8.0 * maxf(0.42, density))))
 	for i in range(count):
 		var texture: Texture2D = CLOUD_HIGH[i % CLOUD_HIGH.size()]
@@ -315,11 +320,11 @@ func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, profile: Dictionary, glow: float) -> void:
-	var atmosphere := _tone(profile, "mid", 0.12 + 0.18 * glow)
-	surface.draw_arc(Vector2(320, 438), 286, PI, TAU, 64, atmosphere, 7.0)
+	var atmosphere := _tone(profile, "mid", 0.04 + 0.10 * glow)
+	surface.draw_arc(Vector2(320, 438), 286, PI, TAU, 64, atmosphere, 3.0)
 	var upper := Color("5d86a0")
-	upper.a = 0.05 + 0.12 * glow
-	surface.draw_arc(Vector2(320, 442), 294, PI, TAU, 64, upper, 2.0)
+	upper.a = 0.02 + 0.07 * glow
+	surface.draw_arc(Vector2(320, 442), 294, PI, TAU, 64, upper, 1.0)
 
 func _draw_orbital(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float, orbital_mix: float) -> void:
 	var mix := clampf(orbital_mix, 0.0, 1.0)
