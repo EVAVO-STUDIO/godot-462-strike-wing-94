@@ -158,8 +158,9 @@ func _test_combat_art() -> void:
 	_expect(file != null, "combat art director should be readable")
 	if file == null: return
 	var source := file.get_as_text()
-	for token in ["func _draw_fighter", "func _draw_bomber", "func _draw_air", "func _draw_ground", "func _draw_sea", "func _draw_autonomous", "func _draw_boss", "PLAYER_GLASS", "AI_CORE", "layer = 12"]:
+	for token in ["VX94_GAMEPLAY_FORMS", "VX94_FIGHTER_BANK", "VX94_BOMBER_BANK", "MERCENARY_AIR_SPRITES", "MERCENARY_GROUND_SPRITES", "MERCENARY_SEA_SPRITES", "MACHINE_AIR_SPRITES", "MACHINE_GROUND_SPRITES", "ORBITAL_AIR_SPRITES", "BOSS_PHASE_OVERLAYS", "has_production_art", "_report_missing_art", "layer = 12"]:
 		_expect(source.contains(token), "combat art presentation missing token: %s" % token)
+	_expect(not source.contains("func _draw_air") and not source.contains("func _draw_ground") and not source.contains("func _draw_sea") and not source.contains("func _draw_autonomous"), "combat art should not retain generic vector fallbacks")
 	_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()"), "combat art should remain canvas/pixel presentation")
 
 func _test_threat_warning() -> void:

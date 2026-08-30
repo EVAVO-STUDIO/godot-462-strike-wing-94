@@ -55,8 +55,6 @@ func _test_visual_language() -> void:
 	if file == null:
 		return
 	var source := file.get_as_text()
-	_expect(source.contains("func _draw_fighter"), "VX-94 fighter silhouette should have dedicated rendering")
-	_expect(source.contains("func _draw_bomber"), "VX-94 bomber silhouette should have dedicated rendering")
 	_expect(source.contains("VX94_GAMEPLAY_FORMS") and source.contains("VX94_FIGHTER_BANK") and source.contains("VX94_BOMBER_BANK"), "live VX-94 should use authored form and bank sprites")
 	_expect(source.contains("VX94_EXHAUST") and source.contains("VX94_DAMAGE"), "live VX-94 should use authored thrust and damage overlays")
 	for frame_path in ["vx94_fighter_v1.png", "vx94_transform_01.png", "vx94_transform_02.png", "vx94_transform_03.png", "vx94_bomber_v1.png"]:
@@ -67,12 +65,20 @@ func _test_visual_language() -> void:
 		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(48,54), "VX-94 bank frame should retain native 48x54 geometry: %s" % bank_path)
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
-	_expect(source.contains("func _draw_ground") and source.contains("func _draw_sea") and source.contains("func _draw_air"), "mercenary air/ground/sea roles should have distinct silhouette renderers")
+	_expect(source.contains("has_production_art") and source.contains("_report_missing_art"), "unregistered enemies should fail explicitly instead of receiving generic vector silhouettes")
+	_expect(not source.contains("func _draw_ground") and not source.contains("func _draw_sea") and not source.contains("func _draw_air") and not source.contains("func _draw_autonomous"), "obsolete generic enemy silhouette fallbacks should remain removed")
+	var enemy_catalog = ContentCatalog.load_json("res://data/enemies.json")
+	_expect(typeof(enemy_catalog) == TYPE_DICTIONARY, "enemy catalogue should load for production-art coverage")
+	if typeof(enemy_catalog) == TYPE_DICTIONARY:
+		for enemy in enemy_catalog.get("enemies", []):
+			if typeof(enemy) == TYPE_DICTIONARY:
+				var enemy_id := str(enemy.get("id", ""))
+				_expect(CombatArtDirector.has_production_art(enemy_id), "canonical enemy is missing production sprite coverage: %s" % enemy_id)
 	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("LAYERED_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("MACHINE_BOSS_SPRITES") and source.contains("ORBITAL_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
 	_expect(source.contains("func _draw_layered_ground") and source.contains("Vector2.DOWN.angle_to") and source.contains("recoil_timer"), "layered emplacements should track targets and recoil around registered pivots")
-	_expect(source.contains("func _draw_autonomous"), "autonomous machines should have their own visual language")
+	_expect(source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES"), "autonomous machines should retain their own authored visual families")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
-	_expect(source.contains("func _draw_boss"), "boss-scale enemies should have dedicated presentation")
+	_expect(source.contains("_draw_production_boss") and source.contains("BOSS_PHASE_OVERLAYS"), "boss-scale enemies should retain dedicated production presentation")
 	_expect(source.contains("layer = 12"), "combat art should remain below tactical ordnance/HUD layers")
 	for forbidden in ["Label.new()", "PanelContainer.new()", "ProgressBar.new()"]:
 		_expect(not source.contains(forbidden), "combat art must remain hard-edged canvas drawing: %s" % forbidden)
@@ -229,11 +235,9 @@ func _test_transform_presentation() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "variable geometry sweep should remain visibly mechanical")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
-	_expect(source.contains("fighter_tip_l.lerp(bomber_tip_l, t)"), "wing tips should physically sweep around the hinge")
-	_expect(source.contains("Visible variable-geometry hinge plates"), "wing sweep should retain visible mechanical hinges")
-	_expect(source.contains("_draw_rotary_cannon(surface, p, deploy)"), "nose rotary should deploy during bomber transformation")
-	_expect(source.contains("Fighter wing-root cannons") or source.contains("wing-root cannon"), "fighter should visibly retain wing-root cannon packs")
-	_expect(source.contains("Under-wing hardpoints"), "bomber configuration should expose physical bomb/rocket/missile hardpoints")
+	_expect(source.contains("VX94_GAMEPLAY_FORMS[form_index]"), "variable geometry should advance through the authored mechanical keyframes")
+	_expect(source.contains("vx94_transform_01.png") and source.contains("vx94_transform_02.png") and source.contains("vx94_transform_03.png"), "VX-94 transformation should retain all three authored mechanical intermediate keyframes")
+	_expect(not source.contains("func _draw_transforming") and not source.contains("func _draw_rotary_cannon"), "obsolete procedural VX-94 construction should remain removed")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main gameplay source should be readable for production-art cutover")
 	if main_file != null:
@@ -261,9 +265,8 @@ func _test_late_boss_silhouettes() -> void:
 	if file == null:
 		return
 	var source := file.get_as_text()
-	_expect(source.contains('id == "phase_control_array"') and source.contains("func _draw_phase_array"), "Phase Control Array should have a dedicated ring-array silhouette")
-	_expect(source.contains('id == "station_warden"') and source.contains("func _draw_station_warden"), "Station Warden should have a dedicated fortified station silhouette")
-	_expect(source.contains('id == "machine_ark"') and source.contains("func _draw_machine_ark"), "Machine Ark should have a dedicated carrier/command silhouette")
+	_expect(source.contains('"phase_control_array": preload') and source.contains('"station_warden": preload') and source.contains('"machine_ark": preload'), "late bosses should retain dedicated production sprite registrations")
+	_expect(not source.contains("func _draw_phase_array") and not source.contains("func _draw_station_warden") and not source.contains("func _draw_machine_ark"), "late bosses should not retain prototype vector substitutes")
 
 func _test_airframe_cues() -> void:
 	var file := FileAccess.open("res://scripts/airframe_cue_director.gd", FileAccess.READ)

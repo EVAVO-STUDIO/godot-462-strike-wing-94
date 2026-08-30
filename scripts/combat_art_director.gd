@@ -279,6 +279,7 @@ const TRANSFORM_VISUAL_SECONDS := 0.42
 var _surface: Control
 var _visual_sweep := 0.0
 var _bank_visual := 0.0
+var _missing_art_ids: Dictionary = {}
 
 func _ready() -> void:
 	layer = 12
@@ -345,97 +346,6 @@ func _bank_frame_index() -> int:
 	if _bank_visual > 0.22: return 2
 	return 1
 
-func _draw_transforming(surface: CanvasItem, p: Vector2, sweep: float) -> void:
-	var t := smoothstep(0.0, 1.0, clampf(sweep, 0.0, 1.0))
-	var hinge_l := p + Vector2(-7, 3)
-	var hinge_r := p + Vector2(7, 3)
-	var fighter_tip_l := p + Vector2(-18, 11)
-	var fighter_tip_r := p + Vector2(18, 11)
-	var bomber_tip_l := p + Vector2(-31, 5)
-	var bomber_tip_r := p + Vector2(31, 5)
-	var tip_l := fighter_tip_l.lerp(bomber_tip_l, t)
-	var tip_r := fighter_tip_r.lerp(bomber_tip_r, t)
-	var trailing_l := p + Vector2(-lerpf(8.0, 25.0, t), lerpf(9.0, 13.0, t))
-	var trailing_r := p + Vector2(lerpf(8.0, 25.0, t), lerpf(9.0, 13.0, t))
-	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,-21), p+Vector2(-5,-8), hinge_l, tip_l, trailing_l,
-		p+Vector2(-7,17), p+Vector2(0,12), p+Vector2(7,17), trailing_r, tip_r, hinge_r, p+Vector2(5,-8)
-	]), PLAYER)
-	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,lerpf(-15.0,-14.0,t)), p+Vector2(-4,-4), p+Vector2(0,5), p+Vector2(4,-4)
-	]), PLAYER_GLASS)
-	# Visible variable-geometry hinge plates.
-	for hinge in [hinge_l, hinge_r]:
-		surface.draw_rect(Rect2(roundf(hinge.x)-2, roundf(hinge.y)-2, 4, 4), PLAYER_DARK)
-	var engine_span := roundf(lerpf(6.0, 12.0, t))
-	surface.draw_rect(Rect2(p.x-engine_span-2, p.y+12, 4, 4), PLAYER_ENGINE)
-	surface.draw_rect(Rect2(p.x+engine_span-2, p.y+12, 4, 4), PLAYER_ENGINE)
-	# Fighter wing-root cannons slide inward/retract as bomber geometry deploys.
-	var wing_gun_alpha := clampf(1.0 - t * 1.35, 0.0, 1.0)
-	if wing_gun_alpha > 0.02:
-		var gun_color := Color(PLAYER_GUN, wing_gun_alpha)
-		var lx := lerpf(-13.0, -7.0, t)
-		var rx := -lx
-		surface.draw_rect(Rect2(p.x+lx-2,p.y-9,4,8),gun_color)
-		surface.draw_rect(Rect2(p.x+rx-2,p.y-9,4,8),gun_color)
-	# Bomber rotary cannon extends from the forward fuselage as the wings open.
-	var deploy := smoothstep(0.18, 0.92, t)
-	_draw_rotary_cannon(surface, p, deploy)
-
-func _draw_fighter(surface: CanvasItem, p: Vector2) -> void:
-	surface.draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0,-21), p + Vector2(-5,-7), p + Vector2(-18,11),
-		p + Vector2(-8,8), p + Vector2(-5,16), p + Vector2(0,11),
-		p + Vector2(5,16), p + Vector2(8,8), p + Vector2(18,11), p + Vector2(5,-7)
-	]), PLAYER)
-	surface.draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0,-15), p + Vector2(-4,-4), p + Vector2(0,5), p + Vector2(4,-4)
-	]), PLAYER_GLASS)
-	surface.draw_rect(Rect2(p.x-2, p.y+6, 4, 8), PLAYER_DARK)
-	surface.draw_rect(Rect2(p.x-8, p.y+13, 4, 3), PLAYER_ENGINE)
-	surface.draw_rect(Rect2(p.x+4, p.y+13, 4, 3), PLAYER_ENGINE)
-	# Swept-wing hinge and two dedicated wing-root cannon packs.
-	for side in [-1.0, 1.0]:
-		var hinge := p + Vector2(7.0*side,3)
-		surface.draw_line(hinge, p + Vector2(18.0*side,11), PLAYER_DARK, 2)
-		surface.draw_rect(Rect2(p.x+11.0*side-2,p.y-10,4,8),PLAYER_GUN)
-		surface.draw_line(Vector2(p.x+11.0*side,p.y-10),Vector2(p.x+11.0*side,p.y-15),PLAYER_GUN,2)
-	# Folded rotary housing remains visible but flush with the nose.
-	surface.draw_rect(Rect2(p.x-3,p.y-20,6,3),PLAYER_DARK)
-
-func _draw_bomber(surface: CanvasItem, p: Vector2) -> void:
-	# Broad attack configuration: straight-ish deployed wings and heavier nacelle posture.
-	surface.draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0,-20), p + Vector2(-6,-8), p + Vector2(-31,4),
-		p + Vector2(-30,10), p + Vector2(-12,10), p + Vector2(-8,18),
-		p + Vector2(0,13), p + Vector2(8,18), p + Vector2(12,10),
-		p + Vector2(30,10), p + Vector2(31,4), p + Vector2(6,-8)
-	]), PLAYER)
-	surface.draw_rect(Rect2(p.x-23, p.y+6, 46, 4), PLAYER_DARK)
-	surface.draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0,-14), p + Vector2(-5,-3), p + Vector2(0,5), p + Vector2(5,-3)
-	]), PLAYER_GLASS)
-	# Twin engine nacelles / reinforced attack-frame shoulders.
-	for x in [-12, 8]:
-		surface.draw_rect(Rect2(p.x+x,p.y+9,5,8),PLAYER_DARK)
-		surface.draw_rect(Rect2(p.x+x,p.y+15,5,3),PLAYER_ENGINE)
-	# Under-wing hardpoints make bombs/rockets/missiles physically believable.
-	for x in [-24,-16,13,21]:
-		surface.draw_rect(Rect2(p.x+x,p.y+10,3,5),PLAYER_DARK)
-	_draw_rotary_cannon(surface, p, 1.0)
-
-func _draw_rotary_cannon(surface: CanvasItem, p: Vector2, deploy: float) -> void:
-	var t := clampf(deploy,0.0,1.0)
-	if t <= 0.01:
-		return
-	var housing_top := lerpf(-19.0,-24.0,t)
-	var barrel_tip := lerpf(-21.0,-33.0,t)
-	surface.draw_rect(Rect2(p.x-4,p.y+housing_top,8,maxf(3.0,7.0*t)),PLAYER_GUN)
-	for x in [-2.0,0.0,2.0]:
-		surface.draw_line(Vector2(p.x+x,p.y+housing_top-1),Vector2(p.x+x,p.y+barrel_tip),PLAYER_GUN,1.0)
-	if t > 0.82:
-		surface.draw_rect(Rect2(p.x-3,p.y+barrel_tip-2,6,2),PLAYER_MUZZLE)
-
 func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)
 	var enemy_id := str(enemy.get("id", ""))
@@ -453,7 +363,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		elif ORBITAL_BOSS_SPRITES.has(enemy_id):
 			_draw_production_boss(surface, p, enemy_id, enemy, ORBITAL_BOSS_SPRITES[enemy_id])
 		else:
-			_draw_boss(surface, p, enemy_id, faction)
+			_report_missing_art(enemy_id)
 	elif faction == "autonomous" and category == "ground" and LAYERED_MACHINE_GROUND_SPRITES.has(enemy_id):
 		_draw_layered_ground(surface, p, enemy, LAYERED_MACHINE_GROUND_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and category == "ground" and MACHINE_GROUND_SPRITES.has(enemy_id):
@@ -465,7 +375,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif faction == "autonomous" and MACHINE_AIR_SPRITES.has(enemy_id):
 		_draw_animated_unit(surface, p, enemy_id, enemy, MACHINE_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous":
-		_draw_autonomous(surface, p, enemy_id, category, scale)
+		_report_missing_art(enemy_id)
 	elif category == "ground" and LAYERED_GROUND_SPRITES.has(enemy_id):
 		_draw_layered_ground(surface, p, enemy, LAYERED_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground" and MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id):
@@ -473,15 +383,24 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground":
-		_draw_ground(surface, p, scale)
+		_report_missing_art(enemy_id)
 	elif category == "sea" and MERCENARY_SEA_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_SEA_SPRITES[enemy_id], scale)
 	elif category == "sea":
-		_draw_sea(surface, p, scale)
+		_report_missing_art(enemy_id)
 	elif MERCENARY_AIR_SPRITES.has(enemy_id):
 		_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_AIR_SPRITES[enemy_id])
 	else:
-		_draw_air(surface, p)
+		_report_missing_art(enemy_id)
+
+static func has_production_art(enemy_id: String) -> bool:
+	return MERCENARY_AIR_SPRITES.has(enemy_id) or MERCENARY_GROUND_SPRITES.has(enemy_id) or MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id) or MERCENARY_SEA_SPRITES.has(enemy_id) or MACHINE_AIR_SPRITES.has(enemy_id) or MACHINE_GROUND_SPRITES.has(enemy_id) or MACHINE_MECH_SPRITES.has(enemy_id) or ORBITAL_AIR_SPRITES.has(enemy_id) or MERCENARY_BOSS_SPRITES.has(enemy_id) or MACHINE_BOSS_SPRITES.has(enemy_id) or ORBITAL_BOSS_SPRITES.has(enemy_id)
+
+func _report_missing_art(enemy_id: String) -> void:
+	if _missing_art_ids.has(enemy_id):
+		return
+	_missing_art_ids[enemy_id] = true
+	push_error("Production enemy art is not registered: %s" % enemy_id)
 
 func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D, scale: float = 1.0) -> void:
 	var size := texture.get_size() * scale
@@ -542,113 +461,6 @@ func _player_position() -> Vector2:
 			if str(property.get("name", "")) == "player_position":
 				return scene.get("player_position")
 	return Vector2(320, 292)
-
-func _draw_air(surface: CanvasItem, p: Vector2) -> void:
-	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,12), p+Vector2(-15,-7), p+Vector2(-5,-4),
-		p+Vector2(0,-10), p+Vector2(5,-4), p+Vector2(15,-7)
-	]), MERC_AIR)
-	surface.draw_rect(Rect2(p.x-3,p.y-7,6,15), MERC_DARK)
-	surface.draw_rect(Rect2(p.x-8,p.y-6,3,3), Color("d3a56c"))
-	surface.draw_rect(Rect2(p.x+5,p.y-6,3,3), Color("d3a56c"))
-
-func _scaled(v: Vector2, scale: float) -> Vector2:
-	return Vector2(roundf(v.x * scale), roundf(v.y * scale))
-
-func _draw_ground(surface: CanvasItem, p: Vector2, scale: float) -> void:
-	var s := clampf(scale, 0.45, 1.0)
-	var w := roundf(26.0 * s)
-	var h := roundf(14.0 * s)
-	surface.draw_rect(Rect2(p.x-w*0.5,p.y-h*0.5,w,h), SURFACE)
-	var turret_w := roundf(18.0 * s)
-	surface.draw_rect(Rect2(p.x-turret_w*0.5,p.y-roundf(11.0*s),turret_w,maxf(3.0,roundf(7.0*s))), SURFACE_DARK)
-	surface.draw_line(p+_scaled(Vector2(1,-12),s), p+_scaled(Vector2(11,-17),s), SURFACE_DARK, maxf(1.0,roundf(2.0*s)))
-	var track_y := p.y + roundf(6.0*s)
-	surface.draw_line(Vector2(p.x-w*0.4,track_y), Vector2(p.x+w*0.4,track_y), Color("252722"), maxf(1.0,roundf(2.0*s)))
-
-func _draw_sea(surface: CanvasItem, p: Vector2, scale: float) -> void:
-	var s := clampf(scale, 0.45, 1.0)
-	surface.draw_colored_polygon(PackedVector2Array([
-		p+_scaled(Vector2(0,-16),s), p+_scaled(Vector2(-12,9),s), p+_scaled(Vector2(-8,14),s),
-		p+_scaled(Vector2(8,14),s), p+_scaled(Vector2(12,9),s)
-	]), SURFACE)
-	var cabin_w := maxf(4.0,roundf(10.0*s))
-	var cabin_h := maxf(5.0,roundf(12.0*s))
-	surface.draw_rect(Rect2(p.x-cabin_w*0.5,p.y-roundf(6.0*s),cabin_w,cabin_h), SURFACE_DARK)
-
-func _draw_autonomous(surface: CanvasItem, p: Vector2, id: String, category: String, scale: float = 1.0) -> void:
-	if category == "ground":
-		var s := clampf(scale, 0.45, 1.0)
-		var w := roundf(24.0*s)
-		var h := roundf(18.0*s)
-		surface.draw_rect(Rect2(p.x-w*0.5,p.y-h*0.5,w,h), AI_DARK)
-		surface.draw_rect(Rect2(p.x-roundf(8.0*s),p.y-roundf(13.0*s),roundf(16.0*s),maxf(4.0,roundf(8.0*s))), AI)
-		var core := maxf(3.0,roundf(6.0*s))
-		surface.draw_rect(Rect2(p.x-core*0.5,p.y-core*0.5,core,core), AI_CORE)
-		return
-	var wide := 18.0 if id in ["drone_bomber","orbital_sentry","beam_sentry"] else 13.0
-	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,13), p+Vector2(-wide,-4), p+Vector2(-6,-10),
-		p+Vector2(0,-6), p+Vector2(6,-10), p+Vector2(wide,-4)
-	]), AI)
-	surface.draw_rect(Rect2(p.x-3,p.y-4,6,7), AI_CORE)
-	surface.draw_line(p+Vector2(-wide+3,-3), p+Vector2(-5,5), AI_DARK, 2)
-	surface.draw_line(p+Vector2(wide-3,-3), p+Vector2(5,5), AI_DARK, 2)
-
-func _draw_boss(surface: CanvasItem, p: Vector2, id: String, faction: String) -> void:
-	if id == "phase_control_array":
-		_draw_phase_array(surface, p)
-		return
-	if id == "station_warden":
-		_draw_station_warden(surface, p)
-		return
-	if id == "machine_ark":
-		_draw_machine_ark(surface, p)
-		return
-	var body := AI if faction == "autonomous" else BOSS
-	var dark := AI_DARK if faction == "autonomous" else BOSS_DARK
-	var half_width := 34.0
-	if id in ["missile_cruiser","orbital_command_node"]:
-		half_width = 43.0
-	elif id in ["armoured_train","ai_forge_core"]:
-		half_width = 38.0
-	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,24), p+Vector2(-half_width,0), p+Vector2(-25,-15),
-		p+Vector2(0,-20), p+Vector2(25,-15), p+Vector2(half_width,0)
-	]), body)
-	surface.draw_rect(Rect2(p.x-15,p.y-9,30,19), dark)
-	surface.draw_rect(Rect2(p.x-5,p.y-14,10,10), AI_CORE if faction == "autonomous" else Color("e1b16d"))
-	for x in [-25,20]:
-		surface.draw_rect(Rect2(p.x+x,p.y+5,6,4), dark)
-
-func _draw_phase_array(surface: CanvasItem, p: Vector2) -> void:
-	surface.draw_arc(p, 32.0, 0.0, TAU, 20, AI, 5.0)
-	surface.draw_arc(p, 22.0, 0.0, TAU, 16, AI_DARK, 3.0)
-	surface.draw_rect(Rect2(p.x-7,p.y-7,14,14), AI_CORE)
-	for axis in [Vector2(0,-40), Vector2(40,0), Vector2(0,40), Vector2(-40,0)]:
-		surface.draw_line(p + axis.normalized()*20.0, p + axis, AI, 4.0)
-		surface.draw_rect(Rect2((p+axis).x-4,(p+axis).y-4,8,8), AI_DARK)
-
-func _draw_station_warden(surface: CanvasItem, p: Vector2) -> void:
-	surface.draw_rect(Rect2(p.x-15,p.y-38,30,76), AI_DARK)
-	surface.draw_rect(Rect2(p.x-50,p.y-11,100,22), AI)
-	surface.draw_rect(Rect2(p.x-27,p.y-19,54,38), AI_DARK)
-	surface.draw_rect(Rect2(p.x-8,p.y-8,16,16), AI_CORE)
-	for x in [-44,-32,26,38]:
-		surface.draw_rect(Rect2(p.x+x,p.y-5,7,10), AI_CORE)
-
-func _draw_machine_ark(surface: CanvasItem, p: Vector2) -> void:
-	surface.draw_colored_polygon(PackedVector2Array([
-		p+Vector2(0,-32), p+Vector2(-34,-22), p+Vector2(-62,-4), p+Vector2(-54,22),
-		p+Vector2(-18,30), p+Vector2(8,24), p+Vector2(58,18), p+Vector2(68,-2),
-		p+Vector2(44,-22), p+Vector2(18,-28)
-	]), AI)
-	surface.draw_rect(Rect2(p.x-34,p.y-13,72,28), AI_DARK)
-	surface.draw_rect(Rect2(p.x-9,p.y-18,18,18), AI_CORE)
-	surface.draw_rect(Rect2(p.x-42,p.y+1,10,10), AI_CORE)
-	surface.draw_rect(Rect2(p.x+31,p.y+2,10,10), AI_CORE)
-	for x in [-50,-32,22,42]:
-		surface.draw_rect(Rect2(p.x+x,p.y+18,8,4), Color("6aa4c8"))
 
 func _surface_target_scale() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")

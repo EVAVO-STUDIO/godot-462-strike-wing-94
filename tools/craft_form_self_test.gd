@@ -106,7 +106,8 @@ func _test_source_integration() -> void:
 	if art_file != null:
 		var source := art_file.get_as_text()
 		_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "wing sweep should remain visibly mechanical")
-		_expect(source.contains("_draw_rotary_cannon"), "bomber art should deploy a nose rotary cannon")
+		_expect(source.contains("vx94_bomber_v1.png") and source.contains("vx94_transform_03.png"), "bomber art should use the authored attack-form and final mechanical deployment keyframe")
+		_expect(not source.contains("_draw_rotary_cannon"), "bomber presentation should not regress to a procedural cannon substitute")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
