@@ -16,6 +16,28 @@ const MERCENARY_GROUND_SPRITES := {
 	"coastal_flak": preload("res://assets/runtime/enemies/mercenary_ground/coastal_flak_idle.png"),
 	"armoured_aa_carrier": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
 }
+const LAYERED_GROUND_SPRITES := {
+	"fortified_turret": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_weapon.png"),
+		"barrel": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_barrel.png"),
+		"damage": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_damage.png"),
+	},
+	"coastal_flak": {
+		"base": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_weapon.png"),
+		"barrel": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_barrel.png"),
+		"damage": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_damage.png"),
+	},
+}
+const MERCENARY_GROUND_FORCE_SPRITES := {
+	"mercenary_rifle_team": preload("res://assets/runtime/enemies/mercenary_infantry/mercenary_rifle_team_idle.png"),
+	"mercenary_heavy_team": preload("res://assets/runtime/enemies/mercenary_infantry/mercenary_heavy_team_idle.png"),
+	"security_patrol_mech": preload("res://assets/runtime/enemies/ground_mechs/security_patrol_mech_idle.png"),
+}
+const MACHINE_MECH_SPRITES := {
+	"autonomous_salvage_mech": preload("res://assets/runtime/enemies/ground_mechs/autonomous_salvage_mech_idle.png"),
+}
 const MERCENARY_SEA_SPRITES := {
 	"river_patrol": preload("res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png"),
 	"torpedo_boat": preload("res://assets/runtime/enemies/mercenary_sea/torpedo_boat_idle.png"),
@@ -224,12 +246,18 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 			_draw_boss(surface, p, enemy_id, faction)
 	elif faction == "autonomous" and category == "ground" and MACHINE_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MACHINE_GROUND_SPRITES[enemy_id], scale)
+	elif faction == "autonomous" and category == "ground" and MACHINE_MECH_SPRITES.has(enemy_id):
+		_draw_production_sprite(surface, p, MACHINE_MECH_SPRITES[enemy_id], scale)
 	elif faction == "autonomous" and ORBITAL_AIR_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, ORBITAL_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous" and MACHINE_AIR_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MACHINE_AIR_SPRITES[enemy_id])
 	elif faction == "autonomous":
 		_draw_autonomous(surface, p, enemy_id, category, scale)
+	elif category == "ground" and LAYERED_GROUND_SPRITES.has(enemy_id):
+		_draw_layered_ground(surface, p, enemy, LAYERED_GROUND_SPRITES[enemy_id], scale)
+	elif category == "ground" and MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id):
+		_draw_production_sprite(surface, p, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], scale)
 	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground":
@@ -247,6 +275,34 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 	var size := texture.get_size() * scale
 	var destination := Rect2((p - size * 0.5).round(), size.round())
 	surface.draw_texture_rect(texture, destination, false)
+
+func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, layers: Dictionary, scale: float) -> void:
+	var base: Texture2D = layers.get("base")
+	var weapon: Texture2D = layers.get("weapon")
+	var barrel: Texture2D = layers.get("barrel")
+	_draw_production_sprite(surface, p, base, scale)
+	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
+	if float(enemy.get("hp", max_hp)) / max_hp <= 0.55 and layers.has("damage"):
+		_draw_production_sprite(surface, p, layers["damage"], scale)
+	var direction := _player_position() - p
+	var rotation := 0.0 if direction.length_squared() < 0.001 else Vector2.DOWN.angle_to(direction.normalized())
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
+	var local_recoil := Vector2(0.0, -roundf(2.0 * recoil_ratio))
+	surface.draw_set_transform(p.round(), rotation, Vector2.ONE * scale)
+	surface.draw_texture(weapon, -weapon.get_size() * 0.5)
+	surface.draw_texture(barrel, -barrel.get_size() * 0.5 + local_recoil)
+	if recoil_ratio > 0.45:
+		surface.draw_circle(Vector2(0, 14), 2.0, PLAYER_MUZZLE)
+		surface.draw_line(Vector2(0, 13), Vector2(0, 18), Color("fff0b0"), 1.0)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+func _player_position() -> Vector2:
+	var scene := get_tree().current_scene
+	if scene != null:
+		for property in scene.get_property_list():
+			if str(property.get("name", "")) == "player_position":
+				return scene.get("player_position")
+	return Vector2(320, 292)
 
 func _draw_air(surface: CanvasItem, p: Vector2) -> void:
 	surface.draw_colored_polygon(PackedVector2Array([

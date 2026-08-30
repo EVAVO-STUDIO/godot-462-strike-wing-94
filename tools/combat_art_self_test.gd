@@ -57,7 +57,8 @@ func _test_visual_language() -> void:
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("func _draw_ground") and source.contains("func _draw_sea") and source.contains("func _draw_air"), "mercenary air/ground/sea roles should have distinct silhouette renderers")
-	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("MACHINE_BOSS_SPRITES") and source.contains("ORBITAL_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
+	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("LAYERED_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("MACHINE_BOSS_SPRITES") and source.contains("ORBITAL_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
+	_expect(source.contains("func _draw_layered_ground") and source.contains("Vector2.DOWN.angle_to") and source.contains("recoil_timer"), "layered emplacements should track targets and recoil around registered pivots")
 	_expect(source.contains("func _draw_autonomous"), "autonomous machines should have their own visual language")
 	_expect(source.contains("AI_CORE"), "autonomous enemies should expose readable machine-core accents")
 	_expect(source.contains("func _draw_boss"), "boss-scale enemies should have dedicated presentation")
@@ -84,6 +85,19 @@ func _test_visual_language() -> void:
 	for enemy_id in ground_sizes:
 		var texture := load("res://assets/runtime/enemies/mercenary_ground/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == ground_sizes[enemy_id], "ground production sprite should retain reviewed geometry: %s" % enemy_id)
+	for layer_path in ["fort_base", "fort_weapon", "fort_barrel", "fort_damage", "flak_base", "flak_weapon", "flak_barrel", "flak_damage"]:
+		var layer_texture := load("res://assets/runtime/enemies/mercenary_ground_layered/%s.png" % layer_path)
+		_expect(layer_texture is Texture2D and layer_texture.get_size() == Vector2(28,28), "registered emplacement layer should retain 28x28 canvas: %s" % layer_path)
+	_expect(source.contains('float(enemy.get("hp", max_hp)) / max_hp <= 0.55'), "layered emplacements should reveal physical damage from real hull ratio")
+	var ground_force_sizes := {
+		"mercenary_infantry/mercenary_rifle_team": Vector2(26,22),
+		"mercenary_infantry/mercenary_heavy_team": Vector2(30,26),
+		"ground_mechs/security_patrol_mech": Vector2(38,42),
+		"ground_mechs/autonomous_salvage_mech": Vector2(44,42),
+	}
+	for ground_force_path in ground_force_sizes:
+		var force_texture := load("res://assets/runtime/enemies/%s_idle.png" % ground_force_path)
+		_expect(force_texture is Texture2D and force_texture.get_size() == ground_force_sizes[ground_force_path], "ground-force identity should retain reviewed geometry: %s" % ground_force_path)
 	var sea_sizes := {
 		"river_patrol": Vector2(30,44),
 		"torpedo_boat": Vector2(34,48),

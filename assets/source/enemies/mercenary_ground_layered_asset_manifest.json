@@ -1,0 +1,42 @@
+{
+  "asset_family": "mercenary_ground_layered",
+  "status": "runtime_tracking_recoil_candidate",
+  "source": {
+    "path": "res://assets/source/enemies/candidates/mercenary_ground_layered/layered_emplacements_candidate_01.png",
+    "sha256": "2C0AD74669214BBF1BB20B34207206A28F910DC5C0D7B3E6A47F741155940C50"
+  },
+  "visual_contract": {
+    "era": "1995-1998 grounded near-future military arcade",
+    "construction": "plausible rings, traverse motors, ammunition paths, recoil rails, crew/service access and useful asymmetry",
+    "palette": "weathered concrete and gray-green steel, charcoal machinery, muted oxide-red recognition, restrained amber optics",
+    "prohibited": ["cyan decoration", "sci-fi glow rings", "alien forms", "baked-in weapon rotation", "uniform greeble noise"]
+  },
+  "registration": {
+    "canvas": [28,28],
+    "origin": [14,14],
+    "zero_angle": "weapon faces down",
+    "runtime_layers": ["base","weapon","barrel","damage"],
+    "runtime_motion": ["continuous target tracking","two-pixel barrel recoil","registered muzzle flash"]
+  },
+  "units": [
+    {
+      "id": "fortified_turret",
+      "layers": {
+        "base": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/fort_base.png","sha256":"56D240B98CA846E7AFAB23023D340E0589746B4339B9A67D382DFC9269D76AA0"},
+        "weapon": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/fort_weapon.png","sha256":"FEE8DA7DF5A2E006080B916245DD158C2DE957182CFFCEE085DAE57A49DD63F2"},
+        "barrel": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/fort_barrel.png","sha256":"9F83D90C6E3EC2483BCB680656D6F1C47401C9D55FCD406F5FCA214E9425310C"},
+        "damage": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/fort_damage.png","sha256":"7F48B5BCF4CA9ABFDABAB80B2E65BBBA822BBFC2191A80AB153B7020B89AE3BF"}
+      }
+    },
+    {
+      "id": "coastal_flak",
+      "layers": {
+        "base": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/flak_base.png","sha256":"FB4F98F965DEC4BB4CF54E15F805B876FA82367C20FEAC3D3767A75288261826"},
+        "weapon": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/flak_weapon.png","sha256":"24EB9A149FA842FEB2AF16A4538C41310B8EFA661B9D4A6C9B31A5934E26B8D1"},
+        "barrel": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/flak_barrel.png","sha256":"FD571531FD7A57400A297E4BF820B9077F0A5D409A4B619852F8D78D2A094ECF"},
+        "damage": {"path":"res://assets/runtime/enemies/mercenary_ground_layered/flak_damage.png","sha256":"D712BCB70390B2449F1B0344C1EC50FE0691B483C34FD78A6FD227D40C55B197"}
+      }
+    }
+  ],
+  "remaining_gate": ["destruction breakup frames"]
+}

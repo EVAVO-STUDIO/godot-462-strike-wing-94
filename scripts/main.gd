@@ -629,6 +629,7 @@ func _update_enemies(delta: float) -> void:
 		var enemy: Dictionary = enemies[i]
 		enemy["age"] = float(enemy["age"]) + delta
 		enemy["fire_timer"] = float(enemy["fire_timer"]) - delta
+		enemy["recoil_timer"] = maxf(0.0, float(enemy.get("recoil_timer", 0.0)) - delta)
 		var position: Vector2 = enemy["position"]
 		var is_boss := bool(enemy.get("boss", false))
 
@@ -701,6 +702,7 @@ func _make_enemy_shot(
 	return shot
 
 func _fire_enemy_weapon(enemy: Dictionary) -> void:
+	enemy["recoil_timer"] = 0.10
 	var origin: Vector2 = enemy["position"]
 	var weapon_id := str(enemy.get("weapon", "single_burst"))
 	var damage := 14 if bool(enemy.get("boss", false)) else 8
@@ -884,11 +886,13 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"phase": mission_rng.randf_range(0, TAU),
 		"age": 0.0,
 		"hp": hp,
+		"max_hp": hp,
 		"value": CombatRules.destroy_value(int(archetype.get("value", 100)), wave),
 		"weapon": str(archetype.get("weapon", "single_burst")),
 		"pattern": str(archetype.get("pattern", "sine_dive")),
 		"pattern_anchor_x": x,
 		"fire_timer": mission_rng.randf_range(0.5, 1.6),
+		"recoil_timer": 0.0,
 		"boss": is_boss
 	})
 
