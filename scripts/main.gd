@@ -54,6 +54,7 @@ var current_briefing := ""
 var current_objectives: Array = []
 var objective_progress: Dictionary = {}
 var result_text := ""
+var mission_success := false
 var status_text := ""
 var status_timer := 0.0
 var player_loss_timer := 0.0
@@ -112,7 +113,9 @@ func _process(delta: float) -> void:
 					_clear_combat()
 		GamePhase.RESULT:
 			if Input.is_action_just_pressed("confirm"):
-				if not _cinematic_blocks_ending():
+				if not mission_success:
+					_start_mission()
+				elif not _cinematic_blocks_ending():
 					mission_index = (mission_index + 1) % maxi(1, mission_catalog.size())
 					_prepare_mission(mission_index)
 					phase = GamePhase.TITLE
@@ -301,6 +304,7 @@ func _start_mission() -> void:
 	score = 0
 	shots_fired = 0
 	shots_hit = 0
+	mission_success = false
 	hull = clampi(service_hull, 1, _max_hull())
 	shield = clampi(service_shield, 0, _max_shield())
 	bombs = 3
@@ -318,6 +322,7 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 	if phase == GamePhase.RESULT:
 		return
 	phase = GamePhase.RESULT
+	mission_success = success
 	if success:
 		var base_reward := ProgressionRules.mission_reward(score)
 		var objective_bonus := ObjectiveRules.bonus_credits(current_objectives, objective_progress)

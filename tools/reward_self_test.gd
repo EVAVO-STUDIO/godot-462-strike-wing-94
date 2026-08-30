@@ -45,6 +45,8 @@ func _test_reward_source_ownership() -> void:
 		_expect(source.contains("var total_reward := base_reward + objective_bonus + int(extras.get(\"total\", 0))"), "success source should compose one total payout")
 		_expect(source.contains("credits += total_reward"), "success source should apply credits exactly once")
 		_expect(source.contains("MISSION COMPLETE  +%d"), "success source should format complete payout result")
+		_expect(source.contains("mission_success = success"), "mission result should persist explicit success/failure state for presentation and flow")
+		_expect(source.contains("if not mission_success:") and source.contains("_start_mission()"), "confirm on a failed sortie should retry instead of advancing campaign progression")
 		_expect(source.contains("shots_fired") and source.contains("shots_hit"), "success payout should consume exact scene accuracy counters")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable for reward autoload checks")

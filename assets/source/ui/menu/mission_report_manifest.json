@@ -3,7 +3,7 @@
   "status": "runtime_v1",
   "visual_contract": {
     "purpose": "turn the sortie result into a dense late-1990s military qualification report instead of a text-only completion screen",
-    "rank_logic": "C below 55 percent, B from 55, A from 75, S from 90",
+    "rank_logic": "successful sorties: C below 55 percent, B from 55, A from 75, S from 90; failed sorties: red X recovery status with no qualification grade",
     "avoid": ["modern achievement card", "glossy medal", "generic trophy icon", "unframed floating statistics"]
   },
   "source": "res://assets/source/ui/menu/mission_report_sheet.svg",
@@ -13,6 +13,7 @@
     "badge_b.png": [80, 72],
     "badge_a.png": [80, 72],
     "badge_s.png": [80, 72],
+    "badge_failure.png": [80, 72],
     "stat_frame.png": [192, 52],
     "accuracy_trough.png": [360, 14],
     "accuracy_fill.png": [352, 6]
