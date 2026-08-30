@@ -1,6 +1,6 @@
 {
   "asset_family": "orbital_boss",
-  "status": "runtime_phase_animation_v1",
+  "status": "runtime_mechanical_animation_v2",
   "review_note": "v2 replaces radial cyan iconography with asymmetric pressure hardware, radiators, trusses and physically distinct control subsystems",
   "sources": [
     {"id":"orbital_command_node","path":"res://assets/source/enemies/candidates/orbital_boss/orbital_command_node_candidate_02.png","sha256":"B834B8D3426D2534E232167C81E980E9E8E9B50925C5D92CBBFE933345126459"},
@@ -16,6 +16,12 @@
     {"id":"station_warden","path":"res://assets/runtime/enemies/orbital_boss/station_warden_idle.png","size":[146,116],"sha256":"8C2F6D4094D54E5553DA3CF9E9E955B3C45D890AD9CD8916A15A0F8A0A8A7371","landmarks":["port mass driver","starboard missile coffins","caged propellant tanks","traffic-control mast","forward service jaw"],"weak_points":[[25,54],[72,45],[118,52]]},
     {"id":"machine_ark","path":"res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png","size":[160,128],"sha256":"F3170E670791DF6AFA5B472C1E2F8E2333317B78C5A3807895910D56D9DFF1AA","landmarks":["open construction slip and unfinished hull","central accelerator keel","starboard foundry and storage tanks","buried command cylinder","unequal radiator systems"],"weak_points":[[34,64],[80,50],[126,70],[91,25]]}
   ],
-  "runtime_animation": {"phase_damage":"two physical damage overlays per boss","critical_exposure":"four-frame critical cycle per boss at 8 fps"},
-  "remaining_animation_gate": ["phase-field cycling","pylon tracking","multi-stage destruction"]
+  "runtime_animation": {
+    "phase_damage":"two physical damage overlays per boss",
+    "critical_exposure":"four-frame critical cycle per boss at 8 fps",
+    "phase_field":"four held broken-square calibration, charge and discharge exposures behind the physical array truss; cadence increases with canonical boss phase",
+    "pylon_tracking":"fixed pressure-hardware collars carry independently player-tracking twin-barrel pylons at documented subsystem anchors",
+    "destruction":"three-second vacuum breakup; phase array separates by projector quadrant while command node, warden and ark split along distinct longitudinal infrastructure sections"
+  },
+  "remaining_animation_gate": []
 }

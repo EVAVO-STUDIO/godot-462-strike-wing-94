@@ -10,7 +10,8 @@
     "autonomous": "cold debris tint plus broken EMP field collapse",
     "infantry": "subdued dust/scatter consequence with no wreck fire",
     "mercenary_bosses": "gunship cascading roll, three-section armoured-train breakup, and retained missile-cruiser sinking",
-    "machine_bosses": "cold three-module controller separation and hot forge collapse with independently detached crawler treads"
+    "machine_bosses": "cold three-module controller separation and hot forge collapse with independently detached crawler treads",
+    "orbital_bosses": "extended vacuum breakup with quadrant separation for the phase array and longitudinal infrastructure separation for command, warden and ark platforms"
   },
   "visual_contract": {
     "purpose": "make destruction communicate material, scale and category rather than replaying one universal flash",

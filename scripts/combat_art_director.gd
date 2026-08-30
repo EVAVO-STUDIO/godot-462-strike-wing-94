@@ -466,6 +466,20 @@ const ORBITAL_BOSS_SPRITES := {
 	"station_warden": preload("res://assets/runtime/enemies/orbital_boss/station_warden_idle.png"),
 	"machine_ark": preload("res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png"),
 }
+const ORBITAL_BOSS_SPECIALIST_ART := {
+	"orbital_command_node": {"anchors":[Vector2(-31,-1),Vector2(32,8)]},
+	"phase_control_array": {"anchors":[Vector2(-38,-2),Vector2(36,-12)]},
+	"station_warden": {"anchors":[Vector2(-48,-4),Vector2(45,-6)]},
+	"machine_ark": {"anchors":[Vector2(-46,0),Vector2(46,6)]},
+}
+const ORBITAL_PYLON_MOUNT := preload("res://assets/runtime/enemies/orbital_boss_specialist/pylon_mount.png")
+const ORBITAL_TRACKING_PYLON := preload("res://assets/runtime/enemies/orbital_boss_specialist/tracking_pylon.png")
+const PHASE_FIELD_FRAMES := [
+	preload("res://assets/runtime/enemies/orbital_boss_specialist/phase_field_0.png"),
+	preload("res://assets/runtime/enemies/orbital_boss_specialist/phase_field_1.png"),
+	preload("res://assets/runtime/enemies/orbital_boss_specialist/phase_field_2.png"),
+	preload("res://assets/runtime/enemies/orbital_boss_specialist/phase_field_3.png"),
+]
 
 const PLAYER := Color("d9e0e5")
 const PLAYER_DARK := Color("667985")
@@ -843,8 +857,10 @@ func _draw_enemy_effect_frame(surface: CanvasItem, center: Vector2, family: Stri
 
 func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
 	_draw_mercenary_boss_entrance(surface, p, enemy_id, enemy, texture)
+	_draw_orbital_boss_field(surface,p,enemy_id,enemy)
 	_draw_production_sprite(surface, p, texture)
 	_draw_machine_boss_mechanics(surface,p,enemy_id,enemy)
+	_draw_orbital_boss_mechanics(surface,p,enemy_id,enemy)
 	if not BOSS_PHASE_OVERLAYS.has(enemy_id):
 		return
 	var overlays: Dictionary = BOSS_PHASE_OVERLAYS[enemy_id]
@@ -906,6 +922,36 @@ func _draw_machine_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: Str
 
 static func machine_boss_cycle_frame_index(age: float) -> int:
 	return posmod(int(floor(age*4.0)),4)
+
+func _draw_orbital_boss_field(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
+	if enemy_id!="phase_control_array":
+		return
+	var frame_index := phase_field_cycle_index(float(enemy.get("age",0.0)),int(enemy.get("boss_phase",1)))
+	var frame: Texture2D = PHASE_FIELD_FRAMES[frame_index]
+	var phase_strength := 0.58+0.09*clampi(int(enemy.get("boss_phase",1)),1,3)
+	surface.draw_texture(frame,(p-frame.get_size()*0.5).round(),Color(0.78,0.88,0.88,phase_strength))
+
+func _draw_orbital_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
+	if not ORBITAL_BOSS_SPECIALIST_ART.has(enemy_id):
+		return
+	var definition: Dictionary = ORBITAL_BOSS_SPECIALIST_ART[enemy_id]
+	var aim := _player_position()-p
+	var rotation := 0.0 if aim.length_squared()<0.001 else Vector2.DOWN.angle_to(aim.normalized())
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer",0.0))/0.10,0.0,1.0)
+	var component_scale := 0.66
+	for anchor_value in definition["anchors"]:
+		var anchor := p+Vector2(anchor_value)
+		var mount_size := ORBITAL_PYLON_MOUNT.get_size()*component_scale
+		surface.draw_texture_rect(ORBITAL_PYLON_MOUNT,Rect2((anchor-mount_size*0.5).round(),mount_size.round()),false)
+		surface.draw_set_transform(anchor.round(),rotation,Vector2.ONE*component_scale)
+		surface.draw_texture(ORBITAL_TRACKING_PYLON,-ORBITAL_TRACKING_PYLON.get_size()*0.5+Vector2(0,-roundf(recoil_ratio*3.0)))
+		if recoil_ratio>0.45:
+			var flash := ImpactArtLibrary.frame_for_ratio("muzzle",1.0-recoil_ratio)
+			surface.draw_texture_rect(flash,Rect2(-5,ORBITAL_TRACKING_PYLON.get_height()*0.5-2,10,10),false,Color(0.76,0.86,0.86,0.86))
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+static func phase_field_cycle_index(age: float, boss_phase: int) -> int:
+	return posmod(int(floor(age*float(2+clampi(boss_phase,1,3)))),4)
 
 func _draw_mercenary_boss_entrance(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
 	if not MERCENARY_BOSS_SPECIALIST_ART.has(enemy_id):

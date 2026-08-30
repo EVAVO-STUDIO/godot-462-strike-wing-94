@@ -345,6 +345,13 @@ func _test_visual_language() -> void:
 		for overlay_name in ["phase_2_damage", "phase_3_damage", "critical_0", "critical_1", "critical_2", "critical_3"]:
 			var overlay := load("res://assets/runtime/enemies/boss_animation/%s/%s.png" % [enemy_id, overlay_name])
 			_expect(overlay is Texture2D and overlay.get_size() == orbital_boss_sizes[enemy_id], "orbital boss phase overlay should retain its registered canvas: %s/%s" % [enemy_id, overlay_name])
+	var orbital_boss_specialist_sizes := {"pylon_mount":Vector2(20,20),"tracking_pylon":Vector2(18,30),"phase_field_0":Vector2(126,126),"phase_field_1":Vector2(126,126),"phase_field_2":Vector2(126,126),"phase_field_3":Vector2(126,126)}
+	for component_id in orbital_boss_specialist_sizes:
+		var component := load("res://assets/runtime/enemies/orbital_boss_specialist/%s.png" % component_id)
+		_expect(component is Texture2D and component.get_size()==orbital_boss_specialist_sizes[component_id],"BLACK SKY boss component should retain registered geometry: %s" % component_id)
+	_expect(source.contains("ORBITAL_BOSS_SPECIALIST_ART") and source.contains("PHASE_FIELD_FRAMES") and source.contains("_draw_orbital_boss_mechanics"),"BLACK SKY bosses should expose authored field and independently tracking pressure-hardware pylons")
+	_expect(CombatArtDirector.phase_field_cycle_index(0.0,1)==0 and CombatArtDirector.phase_field_cycle_index(0.34,1)==1 and CombatArtDirector.phase_field_cycle_index(0.50,2)==2,"phase field should use held calibration exposures whose cadence responds to canonical boss phase")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_boss_specialist/orbital_boss_specialist_asset_manifest.json"),"BLACK SKY boss mechanics source/runtime manifest should exist")
 
 func _test_transform_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
@@ -417,6 +424,8 @@ func _test_combat_fx() -> void:
 	_expect(source.contains('enemy_id == "gunship_alpha"') and source.contains('enemy_id == "armoured_train"') and source.contains("source_region"),"gunship, train and cruiser boss deaths should use materially different roll, sectional breakup and sinking behavior")
 	_expect(source.contains("MACHINE_BOSS_WRECK_HULLS") and source.contains("func _draw_machine_boss_breakup"),"machine bosses should retain reviewed hull material through extended physical breakup")
 	_expect(source.contains('enemy_id=="swarm_controller"') and source.contains("central_width") and source.contains("tread_center"),"swarm controller and forge should use distinct three-way controller separation and tread/forge collapse")
+	_expect(source.contains("ORBITAL_BOSS_WRECK_HULLS") and source.contains("ORBITAL_BOSS_DESTRUCTION_SECONDS") and source.contains("func _draw_orbital_boss_breakup"),"BLACK SKY bosses should receive an extended vacuum-breakup window with retained authored hull material")
+	_expect(source.contains('enemy_id=="phase_control_array"') and source.contains('enemy_id=="machine_ark"') and source.contains("section_count"),"phase array should separate by projector quadrant while other orbital infrastructure breaks along authored longitudinal sections")
 	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")

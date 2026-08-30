@@ -20,6 +20,7 @@ const HIT_SECONDS := 0.12
 const EXPLOSION_SECONDS := 0.72
 const BOSS_EXPLOSION_SECONDS := 1.05
 const BOSS_DESTRUCTION_SECONDS := 2.30
+const ORBITAL_BOSS_DESTRUCTION_SECONDS := 3.00
 const NAVAL_SINK_SECONDS := 1.35
 const PLAYER_HIT_SECONDS := 0.18
 const NAVAL_WRECK_HULLS := {
@@ -36,6 +37,12 @@ const MERCENARY_BOSS_WRECK_HULLS := {
 const MACHINE_BOSS_WRECK_HULLS := {
 	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
 	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png"),
+}
+const ORBITAL_BOSS_WRECK_HULLS := {
+	"orbital_command_node": preload("res://assets/runtime/enemies/orbital_boss/orbital_command_node_idle_v2.png"),
+	"phase_control_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png"),
+	"station_warden": preload("res://assets/runtime/enemies/orbital_boss/station_warden_idle.png"),
+	"machine_ark": preload("res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png"),
 }
 
 var _surface: Control
@@ -96,6 +103,8 @@ func _observe_combat() -> void:
 		elif observation == "destroyed":
 			var kind := "boss_explosion" if bool(previous.get("boss", false)) else "explosion"
 			var duration := BOSS_DESTRUCTION_SECONDS if kind == "boss_explosion" else EXPLOSION_SECONDS
+			if kind=="boss_explosion" and ORBITAL_BOSS_WRECK_HULLS.has(str(previous.get("id",""))):
+				duration=ORBITAL_BOSS_DESTRUCTION_SECONDS
 			if kind != "boss_explosion" and str(previous.get("category", "air")) == "sea":
 				duration = NAVAL_SINK_SECONDS
 			var size := 28.0 if kind == "boss_explosion" else 15.0
@@ -210,7 +219,8 @@ func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float, category: String) 
 func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool, category: String, faction: String, enemy_id: String) -> void:
 	var visual_ratio := ratio
 	if boss:
-		visual_ratio = clampf(ratio * (BOSS_DESTRUCTION_SECONDS / BOSS_EXPLOSION_SECONDS),0.0,0.999)
+		var boss_duration := ORBITAL_BOSS_DESTRUCTION_SECONDS if ORBITAL_BOSS_WRECK_HULLS.has(enemy_id) else BOSS_DESTRUCTION_SECONDS
+		visual_ratio = clampf(ratio * (boss_duration / BOSS_EXPLOSION_SECONDS),0.0,0.999)
 	elif category == "sea":
 		visual_ratio = clampf(ratio * (NAVAL_SINK_SECONDS / EXPLOSION_SECONDS),0.0,0.999)
 	var blast_ratio := clampf(visual_ratio / 0.66, 0.0, 0.999)
@@ -238,6 +248,9 @@ func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float
 		return
 	if MACHINE_BOSS_WRECK_HULLS.has(enemy_id):
 		_draw_machine_boss_breakup(surface,p,late_ratio,enemy_id,serial)
+		return
+	if ORBITAL_BOSS_WRECK_HULLS.has(enemy_id):
+		_draw_orbital_boss_breakup(surface,p,late_ratio,enemy_id,serial)
 		return
 	if category == "sea" and NAVAL_WRECK_HULLS.has(enemy_id):
 		_draw_naval_sinking(surface, p, late_ratio, enemy_id, serial)
@@ -359,6 +372,45 @@ func _draw_machine_boss_breakup(surface: CanvasItem, p: Vector2, ratio: float, e
 	if ratio>0.34 and ratio<0.88:
 		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial+int(ratio*8.0),4)]
 		surface.draw_texture_rect(smoke,Rect2((p+Vector2(2,-20)-Vector2(20,20)).round(),Vector2(40,40)),false,Color(0.48,0.47,0.42,0.68*(1.0-ratio)))
+
+func _draw_orbital_boss_breakup(surface: CanvasItem, p: Vector2, ratio: float, enemy_id: String, serial: int) -> void:
+	var hull: Texture2D = ORBITAL_BOSS_WRECK_HULLS[enemy_id]
+	var fade := 1.0-smoothstep(0.86,1.0,ratio)
+	if enemy_id=="phase_control_array":
+		var half := hull.get_size()*0.5
+		for row in range(2):
+			for column in range(2):
+				var index := row*2+column
+				var local_ratio := clampf((ratio-index*0.06)/0.94,0.0,1.0)
+				var direction := Vector2(-1.0 if column==0 else 1.0,-1.0 if row==0 else 1.0)
+				var source_region := Rect2(Vector2(column,row)*half,half)
+				var local_center := Vector2((column-0.5)*half.x,(row-0.5)*half.y)
+				var drift := direction*local_ratio*18.0
+				surface.draw_set_transform((p+local_center+drift).round(),direction.x*direction.y*0.20*local_ratio,Vector2.ONE)
+				surface.draw_texture_rect_region(hull,Rect2(-half*0.5,half),source_region,Color(0.55,0.64,0.68,fade))
+				surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+				_draw_boss_breakup_burst(surface,p+local_center,ratio-(0.08+index*0.14),36.0)
+		var disruption := ImpactArtLibrary.frame_for_ratio("emp_disruption",fmod(ratio*1.55,0.999))
+		var field_size := Vector2.ONE*lerpf(72,138,ratio)
+		surface.draw_texture_rect(disruption,Rect2((p-field_size*0.5).round(),field_size),false,Color(0.56,0.76,0.80,0.58*(1.0-ratio)))
+		return
+	var section_count := 4 if enemy_id=="machine_ark" else 3
+	var section_width := hull.get_width()/float(section_count)
+	for section in range(section_count):
+		var normalized := float(section)/maxf(1.0,float(section_count-1))*2.0-1.0
+		var local_ratio := clampf((ratio-section*0.055)/0.95,0.0,1.0)
+		var source_region := Rect2(section_width*section,0,section_width,hull.get_height())
+		var section_center := Vector2(-hull.get_width()*0.5+section_width*(section+0.5),0)
+		var vertical_bias := 12.0 if enemy_id=="station_warden" else (6.0+absf(normalized)*8.0)
+		var drift := Vector2(normalized*24.0*local_ratio,vertical_bias*local_ratio*local_ratio)
+		surface.draw_set_transform((p+section_center+drift).round(),normalized*0.22*local_ratio,Vector2.ONE)
+		surface.draw_texture_rect_region(hull,Rect2(-Vector2(section_width,hull.get_height())*0.5,Vector2(section_width,hull.get_height())),source_region,Color(0.50,0.56,0.58,fade))
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+		_draw_boss_breakup_burst(surface,p+section_center,ratio-(0.06+section*0.15),42.0 if enemy_id=="machine_ark" else 36.0)
+	if ratio>0.28 and ratio<0.90:
+		var debris: Texture2D = PersistentEffectArtLibrary.FRAMES["debris"][posmod(serial+int(ratio*10.0),4)]
+		var debris_size := Vector2.ONE*lerpf(54,96,ratio)
+		surface.draw_texture_rect(debris,Rect2((p-debris_size*0.5).round(),debris_size),false,Color(0.58,0.66,0.68,0.62*(1.0-ratio)))
 
 func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool) -> void:
 	var texture := ImpactArtLibrary.frame_for_ratio("shield_hit" if shield else "armor_hit", ratio)
