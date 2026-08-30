@@ -58,11 +58,12 @@ func _draw_meter(surface: CanvasItem, ratio: float) -> void:
 	surface.draw_rect(Rect2(39, 319, floorf(61.0 * ratio), 4), FUEL)
 
 func _draw_flame(surface: CanvasItem, p: Vector2, form: String) -> void:
-	var span := 8.0 if form == "fighter" else 18.0
+	# Gameplay VX-94 art uses engines at roughly +/-4 px from its registered centre.
+	var span := 4.0 if form == "fighter" else 5.0
 	for side in [-1.0, 1.0]:
 		var x: float = p.x + span * side
-		surface.draw_line(Vector2(x, p.y + 14), Vector2(x, p.y + 25), HOT, 3.0)
-		surface.draw_line(Vector2(x, p.y + 15), Vector2(x, p.y + 21), CORE, 1.0)
+		surface.draw_line(Vector2(x, p.y + 20), Vector2(x, p.y + 36), HOT, 3.0)
+		surface.draw_line(Vector2(x, p.y + 20), Vector2(x, p.y + 31), CORE, 1.0)
 
 func _has_property(object: Object, property_name: String) -> bool:
 	for property in object.get_property_list():
