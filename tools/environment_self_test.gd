@@ -87,6 +87,23 @@ func _initialize() -> void:
 		if modular_coast_source is Texture2D:
 			var coast_source_image: Image = modular_coast_source.get_image()
 			_expect(coast_source_image.detect_alpha() != Image.ALPHA_NONE, "modular coast source sheet must retain genuine transparent alpha")
+		var coast_runtime_manifest = ContentCatalog.load_json("res://assets/source/environments/modular_coast/modular_coast_runtime_manifest.json")
+		_expect(typeof(coast_runtime_manifest) == TYPE_DICTIONARY, "modular coast runtime manifest should load")
+		if typeof(coast_runtime_manifest) == TYPE_DICTIONARY:
+			var coast_chunks: Array = coast_runtime_manifest.get("finite_chunks", [])
+			_expect(coast_chunks.size() == 24, "modular coast kit should expose 24 finite authored chunk families")
+			for chunk_name in coast_chunks:
+				var chunk_texture := load("res://assets/runtime/environments/modular_coast/%s.png" % chunk_name)
+				_expect(chunk_texture is Texture2D, "modular coast runtime chunk should load: %s" % chunk_name)
+				if chunk_texture is Texture2D:
+					_expect(chunk_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "modular coast chunk must retain transparency: %s" % chunk_name)
+		for frame_index in range(3):
+			var shore_frame := load("res://assets/runtime/environments/modular_coast/shore_wash_%d.png" % frame_index)
+			_expect(shore_frame is Texture2D and shore_frame.get_size() == Vector2(288,80), "shore-wash animation frame should retain 288x80 registration: %d" % frame_index)
+		for frame_index in range(4):
+			var impact_frame := load("res://assets/runtime/environments/modular_coast/breakwater_impact_%d.png" % frame_index)
+			_expect(impact_frame is Texture2D and impact_frame.get_size() == Vector2(120,120), "breakwater-impact animation frame should retain 120x120 registration: %d" % frame_index)
+		_expect(FileAccess.file_exists("res://tools/build_modular_coast_art.ps1"), "modular coast runtime crops should remain reproducible through the registered builder")
 		_expect(FileAccess.file_exists("res://assets/source/environments/coast_asset_manifest.json"), "coastal source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_asset_manifest.json"), "cloud source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png"), "industrial runtime master should exist")

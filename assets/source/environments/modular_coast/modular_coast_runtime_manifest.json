@@ -1,0 +1,27 @@
+{
+  "asset_family": "hypersonic_modular_coast_runtime_v1",
+  "source": "res://assets/source/environments/modular_coast/coast_construction_kit_source_v1.png",
+  "builder": "res://tools/build_modular_coast_art.ps1",
+  "runtime_directory": "res://assets/runtime/environments/modular_coast/",
+  "registration_grid": [16, 16],
+  "finite_chunks": [
+    "seawall_straight", "seawall_access", "seawall_endcap", "seawall_inner_corner", "seawall_outer_corner",
+    "breakwater_straight", "breakwater_corner", "tetrapod_cluster", "rock_cluster_large", "rock_cluster_small",
+    "military_pier", "road_straight", "road_bend", "road_tee", "road_cross",
+    "radar_bunker", "weapon_revetment", "utility_bunker", "generator_shed",
+    "pipe_corner", "pipe_tee", "cable_trench", "hazard_lamps", "debris_cluster"
+  ],
+  "shore_wash": {
+    "frames": ["shore_wash_0", "shore_wash_1", "shore_wash_2", "shore_wash_1"],
+    "exposure_fps": 6,
+    "mode": "advance_hold_withdraw",
+    "spatial_loop": false
+  },
+  "breakwater_impact": {
+    "frames": ["breakwater_impact_0", "breakwater_impact_1", "breakwater_impact_2", "breakwater_impact_3", "breakwater_impact_2", "breakwater_impact_1"],
+    "exposure_fps": 8,
+    "mode": "impact_spread_dissolve",
+    "spatial_loop": false
+  },
+  "contract": "All assets retain genuine RGBA transparency. Finite chunks never scroll as a repeated full-screen wallpaper; continuous sea/cloud layers remain independent."
+}
