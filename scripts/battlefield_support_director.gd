@@ -3,6 +3,7 @@ extends CanvasLayer
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const BattlefieldSupportRules = preload("res://scripts/battlefield_support_rules.gd")
 const BattlefieldSupportSurface = preload("res://scripts/battlefield_support_surface.gd")
+const BattlefieldSupportArtLibrary = preload("res://scripts/battlefield_support_art_library.gd")
 
 var _catalog: Array = []
 var _allowed_ids: Array[String] = []
@@ -18,6 +19,7 @@ var _visual_id := ""
 var _visual_type := ""
 var _visual_timer := 0.0
 var _visual_target := Vector2(320, 150)
+var _animation_clock := 0.0
 var _surface: Control
 
 func _ready() -> void:
@@ -36,6 +38,7 @@ func _ready() -> void:
 	_ensure_actions()
 
 func _process(delta: float) -> void:
+	_animation_clock += delta
 	_tick_cooldowns(delta)
 	_visual_timer = maxf(0.0, _visual_timer - delta)
 	if _visual_timer <= 0.0:
@@ -306,15 +309,10 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 		"orbital_bombardment": _draw_orbital_strike(surface, progress)
 
 func _draw_tanker(surface: CanvasItem) -> void:
-	var body := Color("798a93")
 	var dark := Color("26323a")
 	var hose := Color("d5c878")
 	var p := _tanker_position
-	surface.draw_rect(Rect2(p.x - 34, p.y - 6, 68, 12), body)
-	surface.draw_rect(Rect2(p.x - 12, p.y - 12, 24, 24), body)
-	surface.draw_colored_polygon(PackedVector2Array([p + Vector2(-12,0), p + Vector2(-52,12), p + Vector2(-18,14), p + Vector2(0,4)]), body)
-	surface.draw_colored_polygon(PackedVector2Array([p + Vector2(12,0), p + Vector2(52,12), p + Vector2(18,14), p + Vector2(0,4)]), body)
-	surface.draw_rect(Rect2(p.x - 4, p.y - 14, 8, 7), dark)
+	_draw_support_craft(surface, p, "atlas_tanker", 6.0)
 	var hose_point := BattlefieldSupportRules.tanker_hose_point(p)
 	surface.draw_line(p + Vector2(0, 12), hose_point, hose, 2.0)
 	surface.draw_circle(hose_point, BattlefieldSupportRules.TANKER_RADIUS, Color(0.85, 0.75, 0.35, 0.25), false, 1.0)
@@ -324,31 +322,31 @@ func _draw_tanker(surface: CanvasItem) -> void:
 	surface.draw_rect(Rect2(p.x - 40, p.y + 28, floorf(bar_width * ratio), 4), hose)
 
 func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
-	var body := Color("91a5af")
 	for i in range(3):
 		var x := -40.0 + progress * 760.0 + float(i) * 52.0
 		var y := 112.0 + float(i) * 24.0
 		var p := Vector2(x, y)
-		surface.draw_colored_polygon(PackedVector2Array([p+Vector2(14,0),p+Vector2(-9,-6),p+Vector2(-3,0),p+Vector2(-9,6)]), body)
-		surface.draw_line(p+Vector2(-12,0), p+Vector2(-32,0), Color("d7c66c"), 1.0)
+		_draw_support_craft(surface, p, "rapier_fighter", 11.0 + float(i))
 
 func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
-	var body := Color("8799a2")
 	for i in range(3):
 		var x := 700.0 - progress * 820.0 - float(i) * 64.0
 		var y := 92.0 + float(i) * 20.0
 		var p := Vector2(x, y)
-		surface.draw_colored_polygon(PackedVector2Array([p+Vector2(-18,0),p+Vector2(0,-7),p+Vector2(22,0),p+Vector2(0,7)]), body)
+		_draw_support_craft(surface, p, "hammer_bomber", 7.0 + float(i))
 		if progress > 0.35:
 			surface.draw_line(p+Vector2(0,8), p+Vector2(0,32), Color("d9b15f"), 1.0)
 
 func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 	var p := Vector2(552, 118 + sin(progress * PI) * 8.0)
-	var body := Color("7e919b")
-	surface.draw_rect(Rect2(p.x-42,p.y-7,84,14), body)
-	surface.draw_colored_polygon(PackedVector2Array([p+Vector2(-10,0),p+Vector2(-48,18),p+Vector2(-5,10),p+Vector2(12,0)]), body)
+	_draw_support_craft(surface, p, "spectre_gunship", 6.0)
 	for offset in [-12.0, 0.0, 12.0]:
-		surface.draw_line(p+Vector2(-35,offset*0.2), _visual_target+Vector2(offset,0), Color("e0b45b"), 1.0)
+		surface.draw_line(p+Vector2(-31,18+offset*0.2), _visual_target+Vector2(offset,0), Color("e0b45b"), 1.0)
+
+func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float) -> void:
+	var texture := BattlefieldSupportArtLibrary.frame_for_clock(family, _animation_clock, fps)
+	if texture != null:
+		surface.draw_texture(texture, (position - texture.get_size() * 0.5).round())
 
 func _draw_missile_strike(surface: CanvasItem, progress: float) -> void:
 	var start := Vector2(80, 330)

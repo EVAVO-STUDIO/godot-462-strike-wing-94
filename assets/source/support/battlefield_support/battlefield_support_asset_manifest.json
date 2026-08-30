@@ -1,0 +1,12 @@
+{
+  "art_direction": "Original late-1990s military support aircraft; dark grounded aerospace forms with restrained identification accents.",
+  "animation": "Four held perceptual frames per craft for engine compression and navigation-light cadence.",
+  "families": {
+    "atlas_tanker": {"frame_size": [112, 64], "frames": 4},
+    "rapier_fighter": {"frame_size": [48, 28], "frames": 4},
+    "hammer_bomber": {"frame_size": [64, 36], "frames": 4},
+    "spectre_gunship": {"frame_size": [96, 56], "frames": 4}
+  },
+  "layering": "Aircraft bodies are authored sprites; tanker hose, drogue, progress UI, gunship fire and target effects remain independent animated gameplay layers.",
+  "provenance": "Manually constructed EVAVO production pixel art; no proprietary source material."
+}

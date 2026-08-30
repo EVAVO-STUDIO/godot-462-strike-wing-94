@@ -8,6 +8,7 @@ var failures: Array[String] = []
 func _initialize() -> void:
 	_test_catalog()
 	_test_tanker()
+	_test_production_art()
 	_test_source_contract()
 	if failures.is_empty():
 		print("Strike Wing battlefield support self-test passed.")
@@ -44,6 +45,19 @@ func _test_tanker() -> void:
 	_expect(BattlefieldSupportRules.tanker_complete(BattlefieldSupportRules.TANKER_REQUIRED_SECONDS), "full authored hookup duration should complete tanker rearm")
 	_expect(BattlefieldSupportRules.tanker_restore(90.0, 100.0, 32.0, 1.0) == 100.0, "tanker restore should clamp at system maximum")
 
+func _test_production_art() -> void:
+	var registered_sizes := {
+		"atlas_tanker": Vector2(112,64),
+		"rapier_fighter": Vector2(48,28),
+		"hammer_bomber": Vector2(64,36),
+		"spectre_gunship": Vector2(96,56),
+	}
+	for family in registered_sizes:
+		for frame_index in range(4):
+			var frame := load("res://assets/runtime/support/battlefield/%s/%d.png" % [family, frame_index])
+			_expect(frame is Texture2D and frame.get_size() == registered_sizes[family], "battlefield support frame should retain registered geometry: %s/%d" % [family, frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/battlefield_support_asset_manifest.json"), "battlefield support source/runtime manifest should exist")
+
 func _test_source_contract() -> void:
 	var file := FileAccess.open("res://scripts/battlefield_support_director.gd", FileAccess.READ)
 	_expect(file != null, "battlefield_support_director.gd should be readable")
@@ -59,6 +73,11 @@ func _test_source_contract() -> void:
 			_expect(source.contains(visual), "allied support presentation missing set piece: %s" % visual)
 		_expect(source.contains("_visual_timer = 1.25"), "immediate support set pieces should remain short and readable")
 		_expect(source.contains("_priority_target_position(scene)"), "precision support visuals should anchor to a real priority target")
+		_expect(source.contains("BattlefieldSupportArtLibrary") and source.contains("_draw_support_craft"), "tanker, fighter, bomber and gunship set pieces should use authored sprite animation")
+		var craft_section_start := source.find("func _draw_tanker")
+		var craft_section_end := source.find("func _draw_missile_strike")
+		var craft_source := source.substr(craft_section_start, craft_section_end - craft_section_start)
+		_expect(not craft_source.contains("draw_colored_polygon") and not craft_source.contains('var body := Color'), "support aircraft bodies should not regress to prototype vector geometry")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

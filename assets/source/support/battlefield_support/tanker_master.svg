@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="448" height="64" viewBox="0 0 448 64" shape-rendering="crispEdges">
+  <defs><g id="craft">
+    <path fill="#161e22" d="M10 31h18l13-12h10l8 7h22l13-9h7l-5 14h12v5H96l5 14h-7L81 41H59l-8 7H41L28 36H10z"/>
+    <path fill="#3a4a50" d="M14 30h16l14-9h7l9 7h21l14-8h3l-4 11h10v4H94l4 11h-3l-14-8H60l-9 7h-7l-14-9H14z"/>
+    <path fill="#6f7d7f" d="M21 30h27l11 3h32v3H59l-11 3H21z"/>
+    <path fill="#91a0a0" d="M28 29h21l10 3h22v2H57l-10-2H28z"/>
+    <path fill="#26343a" d="M39 22h14l8 6H49zM39 44h14l8-6H49z"/>
+    <path fill="#18252c" d="M82 29h8v9h-8zM92 30h8v7h-8z"/>
+    <path fill="#8fb4bc" d="M16 31h7v4h-7z"/>
+    <path fill="#c2a85d" d="M47 27h5v2h-5zM47 39h5v2h-5z"/>
+    <path fill="#9b4438" d="M64 29h11v2H64z"/>
+    <path fill="#20282a" d="M26 28h4v11h-4z"/>
+  </g></defs>
+  <g transform="translate(0)"><use xlink:href="#craft"/><path fill="#6f9a9e" d="M102 31h5v5h-5z"/><path fill="#d8b85e" d="M9 32h3v3H9z"/></g>
+  <g transform="translate(112)"><use xlink:href="#craft"/><path fill="#8ab4b6" d="M102 32h7v3h-7z"/><path fill="#8f3c33" d="M9 32h3v3H9z"/></g>
+  <g transform="translate(224)"><use xlink:href="#craft"/><path fill="#5e878c" d="M102 31h4v5h-4z"/><path fill="#d8b85e" d="M9 32h3v3H9z"/></g>
+  <g transform="translate(336)"><use xlink:href="#craft"/><path fill="#9dc5c5" d="M102 32h8v3h-8z"/><path fill="#8f3c33" d="M9 32h3v3H9z"/></g>
+</svg>
