@@ -582,6 +582,13 @@ func _test_mount_map() -> void:
 		_expect(source.contains("VX94_PLANFORMS") and source.contains("vx94_fighter_v1.png") and source.contains("vx94_bomber_v1.png"), "stores schematic should use the reviewed VX-94 planform masters")
 		_expect(source.contains("texture.get_size() * 2.25"), "schematic planforms should align with the 2.25x physical mount-coordinate map")
 		_expect(not source.contains("draw_colored_polygon"), "stores schematic should not retain prototype vector aircraft")
+		_expect(source.contains("MOUNT_SOCKET") and source.contains("MOUNT_SOCKET_ACTIVE") and source.contains("HARNESS_ACTIVE"), "stores schematic should use authored station sockets and wiring harness sprites")
+		_expect(not source.contains("draw_rect") and not source.contains("draw_line"), "stores schematic should not regress to vector station boxes or leader lines")
+	var schematic_sizes := {"mount_socket":Vector2(12,12),"mount_socket_active":Vector2(12,12),"harness":Vector2(64,6),"harness_active":Vector2(64,6)}
+	for asset_name in schematic_sizes:
+		var texture := load("res://assets/runtime/ui/menu/loadout_schematic/%s.png" % asset_name)
+		_expect(texture is Texture2D and texture.get_size() == schematic_sizes[asset_name], "stores schematic sprite should retain registered geometry: %s" % asset_name)
+	_expect(FileAccess.file_exists("res://assets/source/ui/menu/loadout_schematic_manifest.json"), "stores schematic source/runtime manifest should exist")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:

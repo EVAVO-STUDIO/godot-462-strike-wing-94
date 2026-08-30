@@ -7,6 +7,10 @@ const LoadoutSchematicSurface = preload("res://scripts/loadout_schematic_surface
 const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
 const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
 const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
+const MOUNT_SOCKET := preload("res://assets/runtime/ui/menu/loadout_schematic/mount_socket.png")
+const MOUNT_SOCKET_ACTIVE := preload("res://assets/runtime/ui/menu/loadout_schematic/mount_socket_active.png")
+const HARNESS := preload("res://assets/runtime/ui/menu/loadout_schematic/harness.png")
+const HARNESS_ACTIVE := preload("res://assets/runtime/ui/menu/loadout_schematic/harness_active.png")
 const VX94_PLANFORMS := {
 	"fighter": preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png"),
 	"bomber": preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png"),
@@ -93,10 +97,6 @@ func _draw_mounts(surface: CanvasItem, p: Vector2, form: String) -> void:
 		var local := Vector2(float(raw[0]) * 2.25, float(raw[1]) * 2.25)
 		var point := p + local
 		var active := _mount_active(mount, form)
-		var mount_color := ACTIVE_MOUNT if active else MOUNT
-		surface.draw_rect(Rect2(roundf(point.x)-3,roundf(point.y)-3,7,7),mount_color,false,2.0 if active else 1.0)
-		if active:
-			surface.draw_rect(Rect2(roundf(point.x)-1,roundf(point.y)-1,3,3),mount_color)
 		if shown < 7:
 			var name := str(mount.get("name", mount.get("id", "MOUNT"))).to_upper()
 			var side := -1.0 if point.x < p.x else 1.0
@@ -105,9 +105,20 @@ func _draw_mounts(surface: CanvasItem, p: Vector2, form: String) -> void:
 			var label_x := p.x - 128.0 if side < 0 else p.x + 72.0
 			var label_y := p.y - 62.0 + shown * 15.0
 			var label_color := ACTIVE_MOUNT if active else MUTED
-			surface.draw_line(point,Vector2(label_x + (58 if side < 0 else 0),label_y+3),Color(mount_color,0.55 if active else 0.35),1.0)
+			var endpoint := Vector2(label_x + (58 if side < 0 else 0),label_y+3)
+			_draw_harness(surface, HARNESS_ACTIVE if active else HARNESS, point, endpoint, 4.0, 0.72 if active else 0.48)
 			PixelFont.draw_text(surface,_clip(name,18),Vector2(label_x,label_y),1,label_color,1)
 			shown += 1
+		var socket: Texture2D = MOUNT_SOCKET_ACTIVE if active else MOUNT_SOCKET
+		surface.draw_texture(socket, (point - socket.get_size() * 0.5).round())
+
+func _draw_harness(surface: CanvasItem, texture: Texture2D, start: Vector2, finish: Vector2, height: float, alpha: float) -> void:
+	var delta := finish - start
+	if delta.length() < 1.0:
+		return
+	surface.draw_set_transform(start, delta.angle(), Vector2(delta.length() / texture.get_width(), height / texture.get_height()))
+	surface.draw_texture(texture, Vector2(0,-texture.get_height()*0.5), Color(1,1,1,alpha))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _mount_active(mount: Dictionary, form: String) -> bool:
 	var roles = mount.get("roles", [])
