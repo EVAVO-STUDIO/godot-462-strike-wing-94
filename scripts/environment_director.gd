@@ -14,6 +14,11 @@ const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/hig
 const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
 const CITY_OUTSKIRTS := preload("res://assets/runtime/environments/city/city_outskirts_loop_v1.png")
 const MACHINE_FURNACE := preload("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png")
+const SEA_DEEP_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
+const SEA_SURFACE_TILE := preload("res://assets/runtime/environments/layers/sea_surface_tile.png")
+const COAST_SURFACE_TILE := preload("res://assets/runtime/environments/layers/coast_surface_tile.png")
+const CLOUD_SHADOW_TILE := preload("res://assets/runtime/environments/layers/cloud_shadow_tile.png")
+const CLOUD_MIST_TILE := preload("res://assets/runtime/environments/layers/cloud_mist_tile.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -211,6 +216,8 @@ func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 		return
 	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.32, 720.0)
 	_draw_vertical_loop(surface, COASTAL_STRIKE_ZONE, scroll, Rect2(0, 58, 640, 302))
+	var surface_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.41, 512.0)
+	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,58,340,302))
 	# Restrained moving wakes prevent the authored plate from reading as a static
 	# illustration while preserving projectile contrast over the open water.
 	var foam := _tone(profile, "foam", 0.34)
@@ -252,8 +259,10 @@ func _draw_industrial(surface: CanvasItem, profile: Dictionary, state: Dictionar
 
 func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var speed := _parallax_speed(profile, state, "near")
-	var scroll := fposmod(t * speed * 0.26, 720.0)
-	_draw_vertical_loop(surface, STORM_SEA, scroll, Rect2(0, 58, 640, 302))
+	var deep_scroll := fposmod(t * speed * 0.17, 512.0)
+	var surface_scroll := fposmod(t * speed * 0.33, 512.0)
+	_draw_vertical_loop(surface, SEA_DEEP_TILE, deep_scroll, Rect2(0,58,640,302))
+	_draw_vertical_loop(surface, SEA_SURFACE_TILE, surface_scroll, Rect2(0,58,640,302))
 	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.01, 0.025, 0.045, 0.16))
 	var rain := Color("7796a8", 0.14)
 	for i in range(14):
@@ -383,6 +392,8 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 	var alpha := 0.12 + density * 0.18
 	if band == "low": alpha *= 0.72
 	if band == "high": alpha *= 1.18
+	var shadow_scroll := fposmod(t * (7.0 + density * 8.0), 512.0)
+	_draw_vertical_loop(surface,CLOUD_SHADOW_TILE,shadow_scroll,Rect2(0,58,640,302),Color(1,1,1,clampf(density*0.72,0.0,0.78)))
 	for i in range(count):
 		var texture: Texture2D = family[i % family.size()]
 		var x := float((i * 149 + 61) % 760) - 60.0
@@ -391,3 +402,5 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 		var scale := 0.72 + float((i * 5) % 4) * 0.12
 		var size := Vector2(texture.get_size()) * scale
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
+	var mist_scroll := fposmod(t * (18.0 + density * 14.0), 512.0)
+	_draw_vertical_loop(surface,CLOUD_MIST_TILE,mist_scroll,Rect2(0,58,640,302),Color(1,1,1,clampf(density*0.58,0.0,0.64)))

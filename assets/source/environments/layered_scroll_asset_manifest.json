@@ -1,0 +1,24 @@
+{
+  "asset_family": "seamless_environment_depth_layers",
+  "status": "runtime_v1",
+  "visual_contract": {
+    "purpose": "independently scrolling sea, cloud-shadow, cloud-body and atmospheric-mist layers beneath and above the approved authored terrain masters",
+    "loop_axis": "vertical",
+    "seam_method": "448 pixels of natural source variation plus a narrow 64-pixel boundary crossfade; final row is pixel-identical to first row",
+    "avoid": ["single moving wallpaper", "full-tile mirror symmetry", "visible hard reset", "dominant repeated focal motif"]
+  },
+  "runtime_directory": "res://assets/runtime/environments/layers/",
+  "tiles": {
+    "sea_deep_tile.png": [640, 512],
+    "sea_surface_tile.png": [640, 512],
+    "coast_surface_tile.png": [340, 512],
+    "cloud_shadow_tile.png": [640, 512],
+    "cloud_mist_tile.png": [640, 512]
+  },
+  "verified_edge_absolute_error": 0,
+  "scroll_contract": {
+    "open_sea": ["deep", "surface", "rain"],
+    "coast": ["authored terrain", "water surface", "cloud shadow", "cloud body", "mist"],
+    "weather": ["cloud shadow", "discrete cloud banks", "mist"]
+  }
+}
