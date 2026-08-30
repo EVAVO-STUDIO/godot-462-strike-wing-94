@@ -1,0 +1,22 @@
+{
+  "asset_family": "vx94_destruction_escape",
+  "status": "runtime_v1",
+  "visual_contract": {
+    "intent": "A readable late-1990s arcade airframe loss: the approved VX-94 planform remains identifiable while nose, wing-root, engine and tail masses separate; the cockpit escape capsule clears the burning wreck before mission failure.",
+    "style": "restrained military-anime mechanical breakup using native approved gameplay pixels, not a generic fireball or smooth vector debris",
+    "timing_seconds": 2.4
+  },
+  "derivation": {
+    "fighter_master": "res://assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+    "bomber_master": "res://assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+    "damage_overlay": "res://assets/runtime/craft/vx94/gameplay/fx/damage_2.png",
+    "method": "Native 48x54 approved raster layers are separated into authored mechanical masses and repositioned on transparent canvases; no generated replacement airframe pixels."
+  },
+  "runtime": {
+    "canvas": [48, 54],
+    "fighter_frames": ["fighter_breakup_0.png", "fighter_breakup_1.png", "fighter_breakup_2.png", "fighter_breakup_3.png"],
+    "bomber_frames": ["bomber_breakup_0.png", "bomber_breakup_1.png", "bomber_breakup_2.png", "bomber_breakup_3.png"],
+    "escape_capsule": {"path": "escape_capsule.png", "canvas": [16, 20]},
+    "directory": "res://assets/runtime/craft/vx94/gameplay/destruction/"
+  }
+}

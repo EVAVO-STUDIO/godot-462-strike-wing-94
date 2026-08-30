@@ -19,6 +19,7 @@ const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
+const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 
 enum GamePhase { TITLE, PLAYING, RESULT }
 
@@ -54,6 +55,7 @@ var objective_progress: Dictionary = {}
 var result_text := ""
 var status_text := ""
 var status_timer := 0.0
+var player_loss_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
 var enemies: Array = []
@@ -116,6 +118,11 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _update_mission(delta: float) -> void:
+	if player_loss_timer > 0.0:
+		player_loss_timer = maxf(0.0, player_loss_timer - delta)
+		if player_loss_timer <= 0.0:
+			_finish_mission(false)
+		return
 	mission_time += delta
 	ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)
 	fire_timer = maxf(0.0, fire_timer - delta)
@@ -300,6 +307,7 @@ func _start_mission() -> void:
 	boss_spawned = false
 	enemy_spawn_timer = 0.35
 	player_position = Vector2(320.0, 292.0)
+	player_loss_timer = 0.0
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_clear_combat()
 
@@ -839,7 +847,7 @@ func _apply_damage(amount: int) -> void:
 	hull = int(state["hull"])
 	shield = int(state["shield"])
 	if hull <= 0:
-		_finish_mission(false)
+		player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS
 
 func _find_enemy_archetype(id: String) -> Dictionary:
 	for enemy in enemy_catalog:

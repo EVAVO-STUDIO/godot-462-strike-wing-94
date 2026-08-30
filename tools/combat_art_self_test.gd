@@ -63,6 +63,17 @@ func _test_visual_language() -> void:
 	for bank_path in ["fighter_left.png", "fighter_neutral.png", "fighter_right.png", "bomber_left.png", "bomber_neutral.png", "bomber_right.png"]:
 		var bank_frame := load("res://assets/runtime/craft/vx94/gameplay/bank/%s" % bank_path)
 		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(48,54), "VX-94 bank frame should retain native 48x54 geometry: %s" % bank_path)
+	for form in ["fighter", "bomber"]:
+		for frame_index in range(4):
+			var breakup := load("res://assets/runtime/craft/vx94/gameplay/destruction/%s_breakup_%d.png" % [form, frame_index])
+			_expect(breakup is Texture2D and breakup.get_size() == Vector2(48,54), "VX-94 breakup frame should retain native 48x54 geometry: %s %d" % [form, frame_index])
+	var escape_capsule := load("res://assets/runtime/craft/vx94/gameplay/destruction/escape_capsule.png")
+	_expect(escape_capsule is Texture2D and escape_capsule.get_size() == Vector2(16,20), "VX-94 escape capsule should retain registered 16x20 geometry")
+	_expect(source.contains("VX94_FIGHTER_BREAKUP") and source.contains("VX94_BOMBER_BREAKUP") and source.contains("VX94_ESCAPE_CAPSULE") and source.contains("_draw_player_loss"), "VX-94 loss should render authored form-specific breakup and escape art")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/vx94_destruction_asset_manifest.json"), "VX-94 destruction/escape manifest should exist")
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	var main_source := main_file.get_as_text() if main_file != null else ""
+	_expect(main_source.contains("PLAYER_LOSS_SEQUENCE_SECONDS") and main_source.contains("player_loss_timer") and main_source.contains("_finish_mission(false)"), "fatal hull damage should hold gameplay for the authored VX-94 loss sequence before mission failure")
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("has_production_art") and source.contains("_report_missing_art"), "unregistered enemies should fail explicitly instead of receiving generic vector silhouettes")

@@ -1,6 +1,6 @@
 {
   "asset_family": "vx94_variable_strike_fighter",
-  "status": "gameplay_master_v1",
+  "status": "gameplay_destruction_escape_v2",
   "visual_contract": {
     "era": "late-1990s SVGA pre-rendered arcade shooter",
     "view": "orthographic top-down",
@@ -92,5 +92,11 @@
     },
     "collision_contract": "visual sprite is deliberately larger than the fair gameplay collision radius supplied by CraftFormRules; no image-derived collision mask"
   },
-  "remaining_gate": "author final destruction/escape sequence and optional form-specific banking extremes"
+  "destruction_escape": {
+    "manifest": "res://assets/source/craft/vx94/vx94_destruction_asset_manifest.json",
+    "forms": ["fighter", "bomber"],
+    "sequence_seconds": 2.4,
+    "live_runtime": "CombatArtDirector renders authored mechanical breakup, persistent fire/smoke, and cockpit escape before the result screen"
+  },
+  "remaining_gate": "optional form-specific banking extremes beyond the approved left/neutral/right poses"
 }

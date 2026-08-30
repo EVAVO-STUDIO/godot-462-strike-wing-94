@@ -31,6 +31,20 @@ const VX94_DAMAGE := [
 	preload("res://assets/runtime/craft/vx94/gameplay/fx/damage_1.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/fx/damage_2.png"),
 ]
+const VX94_FIGHTER_BREAKUP := [
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/fighter_breakup_0.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/fighter_breakup_1.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/fighter_breakup_2.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/fighter_breakup_3.png"),
+]
+const VX94_BOMBER_BREAKUP := [
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/bomber_breakup_0.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/bomber_breakup_1.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/bomber_breakup_2.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/destruction/bomber_breakup_3.png"),
+]
+const VX94_ESCAPE_CAPSULE := preload("res://assets/runtime/craft/vx94/gameplay/destruction/escape_capsule.png")
+const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 const VX94_GAMEPLAY_ANCHOR := Vector2(24, 29)
 const MERCENARY_AIR_SPRITES := {
 	"scout_falcon": preload("res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png"),
@@ -544,6 +558,10 @@ func _has_property(subject: Object, property_name: String) -> bool:
 func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	var p: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
 	var origin := (p - VX94_GAMEPLAY_ANCHOR).round()
+	var loss_timer := float(scene.get("player_loss_timer")) if _has_property(scene, "player_loss_timer") else 0.0
+	if loss_timer > 0.0:
+		_draw_player_loss(surface, p, origin, loss_timer)
+		return
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else Time.get_ticks_msec() / 1000.0
 	var exhaust_frame: Texture2D = VX94_EXHAUST[int(floor(time * 12.0)) % VX94_EXHAUST.size()]
 	surface.draw_texture(exhaust_frame, origin)
@@ -562,6 +580,22 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 		surface.draw_texture(VX94_DAMAGE[1], origin)
 	elif damage_ratio >= 0.28:
 		surface.draw_texture(VX94_DAMAGE[0], origin)
+
+func _draw_player_loss(surface: CanvasItem, p: Vector2, origin: Vector2, loss_timer: float) -> void:
+	var ratio := clampf(1.0 - loss_timer / PLAYER_LOSS_SEQUENCE_SECONDS, 0.0, 1.0)
+	var frames: Array = VX94_BOMBER_BREAKUP if _craft_form() == "bomber" else VX94_FIGHTER_BREAKUP
+	var frame_index := clampi(int(floor(ratio * 4.8)), 0, frames.size() - 1)
+	var wreck_fall := Vector2(sin(ratio * 9.0) * 3.0, ratio * ratio * 24.0)
+	surface.draw_texture(frames[frame_index], (origin + wreck_fall).round(), Color(0.88, 0.86, 0.79, 1.0 - smoothstep(0.76, 1.0, ratio)))
+	var phase := int(floor(ratio * 30.0))
+	_draw_enemy_effect_frame(surface, p + wreck_fall + Vector2(-5, 5), "damage_smoke", phase, 1.15, Color(0.64, 0.68, 0.67, 0.82))
+	if ratio < 0.72:
+		_draw_enemy_effect_frame(surface, p + wreck_fall + Vector2(5, 7), "damage_fire", phase + 1, 0.92, Color(1.0, 0.78, 0.46, 0.94))
+	if ratio >= 0.18:
+		var escape_ratio := clampf((ratio - 0.18) / 0.82, 0.0, 1.0)
+		var capsule_center := p + Vector2(7.0 + sin(escape_ratio * 5.0) * 2.0, -10.0 - escape_ratio * 76.0)
+		surface.draw_texture(VX94_ESCAPE_CAPSULE, (capsule_center - VX94_ESCAPE_CAPSULE.get_size() * 0.5).round())
+		_draw_enemy_effect_frame(surface, capsule_center + Vector2(0, 9), "damage_sparks", phase, 0.46, Color(1.0, 0.88, 0.58, 0.82))
 
 func _bank_frame_index() -> int:
 	if _bank_visual < -0.22: return 0
