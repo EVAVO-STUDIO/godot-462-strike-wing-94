@@ -29,6 +29,14 @@ var _surface: Control
 
 func _ready() -> void:
 	layer = 100
+	if DisplayServer.get_name() == "headless":
+		# Rule tests load project autoloads but do not need GPU presentation.
+		# Avoid constructing texture-backed surfaces during immediate headless
+		# shutdown, which can destabilize some Windows Godot builds.
+		set_process(false)
+		set_process_input(false)
+		set_process_unhandled_input(false)
+		return
 	_surface = StartupSequenceSurface.new()
 	_surface.director = self
 	_surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

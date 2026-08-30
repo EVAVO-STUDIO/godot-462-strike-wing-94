@@ -61,6 +61,19 @@ The prototype player/enemy/projectile polygons have been removed from `main.gd` 
 - Onboard tactical support: `Z`
 - Call selected allied battlefield support: `F`
 
+Controller defaults use Godot's standard Xbox/PlayStation-style mapping:
+
+- Move: left stick
+- Primary / confirm: south face button
+- Screen bomb / cancel: east face button
+- Tactical support: west face button
+- Transform: north face button
+- Afterburner: left shoulder
+- Battlefield support: right shoulder
+- Altitude: D-pad up/down
+- Cycle tactical/battlefield support: D-pad left/right
+- Precision strike ordnance: right-stick click
+
 ### Briefing / loadout
 
 - Launch / continue: `Enter`
