@@ -6,6 +6,13 @@ const EVAVO_SPLASH := preload("res://assets/runtime/brand/front_door_raw_art_v1/
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
+const VX94_TRANSFORM_FRAMES := [
+	VX94_FIGHTER,
+	preload("res://assets/runtime/craft/vx94/vx94_transform_01.png"),
+	preload("res://assets/runtime/craft/vx94/vx94_transform_02.png"),
+	preload("res://assets/runtime/craft/vx94/vx94_transform_03.png"),
+	VX94_BOMBER,
+]
 const EVAVO_SPARKLE_FRAMES := [
 	preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_00.png"),
 	preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_corner_sparkle_01.png"),
@@ -154,10 +161,8 @@ func _draw_cloud_wisp(surface: CanvasItem, x: float, y: float, scale: float, col
 func _draw_vx94_forms(surface: CanvasItem, p: Vector2, scale: float, deploy: float) -> void:
 	var size := Vector2(64, 72) * scale
 	var destination := Rect2(p - size * 0.5, size)
-	if deploy < 1.0:
-		surface.draw_texture_rect(VX94_FIGHTER, destination, false, Color(1, 1, 1, 1.0 - deploy))
-	if deploy > 0.0:
-		surface.draw_texture_rect(VX94_BOMBER, destination, false, Color(1, 1, 1, deploy))
+	var frame_index := clampi(int(round(deploy * float(VX94_TRANSFORM_FRAMES.size() - 1))), 0, VX94_TRANSFORM_FRAMES.size() - 1)
+	surface.draw_texture_rect(VX94_TRANSFORM_FRAMES[frame_index], destination, false)
 
 func _range_progress(start: float, finish: float) -> float:
 	return clampf((elapsed-start)/maxf(0.001,finish-start),0.0,1.0)

@@ -18,6 +18,16 @@
     {
       "path": "res://assets/source/craft/vx94/candidates/vx94_bomber_identity_candidate_01.png",
       "sha256": "EB09AEAB0E291C6D3CD1069AA608407CF5D6CF5F122DE9C1615F7A30D643D71B"
+    },
+    {
+      "path": "res://assets/source/craft/vx94/candidates/vx94_transform_sheet_candidate_01_raw.png",
+      "sha256": "CE07DB3317EAA9FD83DD5957EFBAE015ACFDB51B310195C78D1D1DECAFC3CA98",
+      "note": "immutable provider output with baked checkerboard"
+    },
+    {
+      "path": "res://assets/source/craft/vx94/candidates/vx94_transform_sheet_candidate_01_clean.png",
+      "sha256": "03CD31A3E99BAF5A8C890CBBDC7042AA86EB520ACE0530A5D46E3DC31C1D1D2C",
+      "note": "Sprite Studio border-connected matte cleanup; aircraft pixels preserved"
     }
   ],
   "runtime": {
@@ -27,11 +37,28 @@
     "filter": "Lanczos downsample from identity master",
     "fighter": {
       "path": "res://assets/runtime/craft/vx94/vx94_fighter_v1.png",
-      "sha256": "6CF2F652F80459ACA85CE2EFEF99510FFEEBD325619DB5A566C6EF1CA8DD79E0"
+      "sha256": "77D5F26C0A588010D1359D87511CC3BE20CC65AD5DE9F96D6C1E5CE4045F15CF"
     },
     "bomber": {
       "path": "res://assets/runtime/craft/vx94/vx94_bomber_v1.png",
-      "sha256": "696EB20A3B4CB955B604F18AF8086C38C492DDAD07169135CA4F4C8C9C0880D0"
+      "sha256": "B2516F3166ABBE9871359C4369260DC6D9B87FC52469E6B54B047B0590BCF8E3"
+    },
+    "transform": {
+      "frame_paths": [
+        "res://assets/runtime/craft/vx94/vx94_fighter_v1.png",
+        "res://assets/runtime/craft/vx94/vx94_transform_01.png",
+        "res://assets/runtime/craft/vx94/vx94_transform_02.png",
+        "res://assets/runtime/craft/vx94/vx94_transform_03.png",
+        "res://assets/runtime/craft/vx94/vx94_bomber_v1.png"
+      ],
+      "frame_sha256": [
+        "77D5F26C0A588010D1359D87511CC3BE20CC65AD5DE9F96D6C1E5CE4045F15CF",
+        "1FFC19393BDB5880623D7BAA5A01F957432BA471FC7D066A6CE29BB0383168B5",
+        "E65D283E98BF9C43F187B5A85A3782AC05209A4CA7E429F5233ABF7762199539",
+        "791D0BDAC7D8EDA881EB7A4B765CA442E20932A56081C981FB8641EA11D9BAF4",
+        "B2516F3166ABBE9871359C4369260DC6D9B87FC52469E6B54B047B0590BCF8E3"
+      ],
+      "title_timing_seconds": 0.53
     },
     "anchors": {
       "visual_center": [32, 36],
@@ -44,5 +71,5 @@
       "shadow_origin": [32, 40]
     }
   },
-  "remaining_gate": "author transformation intermediates, bank frames, thrust frames, damage states, and collision masks before gameplay replacement"
+  "remaining_gate": "author bank frames, thrust frames, damage states, and collision masks before gameplay replacement"
 }
