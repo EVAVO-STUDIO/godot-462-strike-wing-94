@@ -1,0 +1,20 @@
+{
+  "asset_family": "sector_iii_black_sky_limited_fx_cels",
+  "status": "runtime_v1",
+  "production_method": {
+    "timing_basis": "authored held-drawing and exposure discipline inspected from local EVAVO Cel Animation Studio",
+    "render_method": "deterministic hard-edge SVG drawings rasterized locally; no provider generation or interpolation claimed",
+    "frame_rate": 24,
+    "exposure": "eight-frame holds",
+    "playback_fps": 3,
+    "registration": [640,272]
+  },
+  "tracks": {
+    "s3_observation": {"drawings":4,"motion":"climb shear and twin contrail extension"},
+    "s3_anticipation": {"drawings":4,"motion":"phase-control lattice expands around array"},
+    "s3_action": {"drawings":4,"motion":"Ark debris wake and sensor brackets close"},
+    "s3_consequence": {"drawings":4,"motion":"command authorization rails converge on central seal"}
+  },
+  "runtime_directory": "res://assets/runtime/cinematics/fx/black_sky/",
+  "avoid": ["generic star warp", "smooth hologram tween", "neon bloom", "random glitch", "AI interpolation"]
+}

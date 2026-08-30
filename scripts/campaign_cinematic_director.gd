@@ -73,6 +73,30 @@ const SHOT_FX_FRAMES := {
 		preload("res://assets/runtime/cinematics/fx/machine_war/s2_consequence_2.png"),
 		preload("res://assets/runtime/cinematics/fx/machine_war/s2_consequence_3.png"),
 	],
+	"s3_observation": [
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_observation_0.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_observation_1.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_observation_2.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_observation_3.png"),
+	],
+	"s3_anticipation": [
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_anticipation_0.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_anticipation_1.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_anticipation_2.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_anticipation_3.png"),
+	],
+	"s3_action": [
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_action_0.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_action_1.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_action_2.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_action_3.png"),
+	],
+	"s3_consequence": [
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_consequence_0.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_consequence_1.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_consequence_2.png"),
+		preload("res://assets/runtime/cinematics/fx/black_sky/s3_consequence_3.png"),
+	],
 }
 
 var _sequences: Array = []

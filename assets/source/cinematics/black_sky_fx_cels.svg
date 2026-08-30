@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1088" viewBox="0 0 2560 1088" shape-rendering="crispEdges">
+  <!-- Row 0: atmospheric climb shear and VX-94 contrails. -->
+  <g stroke="#b8d4e2" fill="none" opacity=".34">
+    <g transform="translate(0 0)"><path d="M42 40l42 18M540 48l-44 18M118 106l30 12M508 112l-34 14"/><path d="M310 204l-7 54M330 204l7 54" stroke-width="3"/></g>
+    <g transform="translate(640 0)"><path d="M32 54l52 22M550 58l-54 22M104 122l44 18M522 128l-48 20"/><path d="M309 202l-11 58M331 202l11 58" stroke-width="3"/></g>
+    <g transform="translate(1280 0)"><path d="M22 70l62 26M560 72l-64 27M90 140l58 24M536 144l-62 26"/><path d="M308 200l-15 62M332 200l15 62" stroke-width="3"/><path d="M260 230h26M354 230h26" opacity=".55"/></g>
+    <g transform="translate(1920 0)"><path d="M38 48l46 20M544 54l-48 19M112 116l36 15M514 122l-40 17"/><path d="M310 203l-9 56M330 203l9 56" stroke-width="3"/></g>
+  </g>
+
+  <!-- Row 1: phase-control field activation around the array. -->
+  <g fill="none" stroke="#6aa4c8" stroke-width="2">
+    <g transform="translate(0 272)" opacity=".35"><path d="M384 116h24V92M452 92v24h24M384 184h24v24M452 208v-24h24"/></g>
+    <g transform="translate(640 272)" opacity=".52"><path d="M374 106h28V78M458 78v28h28M374 194h28v28M458 222v-28h28"/><path d="M430 84v-18M430 234v-18"/></g>
+    <g transform="translate(1280 272)" opacity=".75"><path d="M364 96h32V64M464 64v32h32M364 204h32v32M464 236v-32h32"/><path d="M430 72v-26M430 254v-26M352 150h-26M534 150h-26"/><path d="M400 120l30-18l30 18v60l-30 18l-30-18Z" stroke="#67c3a5"/></g>
+    <g transform="translate(1920 272)" opacity=".48"><path d="M378 110h26V84M456 84v26h26M378 190h26v26M456 216v-26h26"/><path d="M430 90V72M430 228v-18"/></g>
+  </g>
+
+  <!-- Row 2: Machine Ark debris wake and sensor closure. -->
+  <g fill="#8ca2ad">
+    <g transform="translate(0 544)" opacity=".42"><rect x="196" y="82" width="4" height="3"/><rect x="458" y="194" width="3" height="3"/><rect x="116" y="210" width="5" height="2"/><path d="M276 94h16v-12M348 82v12h16M276 190h16v12M348 202v-12h16" fill="none" stroke="#6aa4c8" stroke-width="2"/></g>
+    <g transform="translate(640 544)" opacity=".55"><rect x="208" y="88" width="5" height="3"/><rect x="446" y="187" width="4" height="3"/><rect x="132" y="202" width="6" height="2"/><path d="M284 102h14V88M342 88v14h14M284 182h14v14M342 196v-14h14" fill="none" stroke="#6aa4c8" stroke-width="2"/></g>
+    <g transform="translate(1280 544)" opacity=".72"><rect x="222" y="96" width="6" height="4"/><rect x="432" y="178" width="5" height="4"/><rect x="150" y="194" width="7" height="3"/><rect x="504" y="74" width="4" height="3"/><path d="M292 110h12V98M336 98v12h12M292 174h12v12M336 186v-12h12" fill="none" stroke="#dc6655" stroke-width="2"/><path d="M320 86v18M320 192v18" fill="none" stroke="#6aa4c8" stroke-width="2"/></g>
+    <g transform="translate(1920 544)" opacity=".50"><rect x="212" y="90" width="5" height="3"/><rect x="442" y="184" width="4" height="3"/><rect x="138" y="200" width="6" height="2"/><path d="M284 102h14V88M342 88v14h14M284 182h14v14M342 196v-14h14" fill="none" stroke="#6aa4c8" stroke-width="2"/></g>
+  </g>
+
+  <!-- Row 3: command authorization sweep, no baked text. -->
+  <g fill="none" stroke="#e8ca6a" stroke-width="2">
+    <g transform="translate(0 816)" opacity=".32"><path d="M72 136h148M420 136h148"/><path d="M304 120h32l12 16l-12 16h-32l-12-16Z"/></g>
+    <g transform="translate(640 816)" opacity=".52"><path d="M92 136h164M384 136h164"/><path d="M300 114h40l16 22l-16 22h-40l-16-22Z"/><path d="M320 102v-18M320 188v-18" stroke="#6aa4c8"/></g>
+    <g transform="translate(1280 816)" opacity=".82"><path d="M112 136h178M350 136h178"/><path d="M296 106h48l20 30l-20 30h-48l-20-30Z"/><path d="M320 116l14 20l-14 20l-14-20Z" stroke="#67c3a5"/><path d="M320 94V66M320 206v-28M264 136h-32M408 136h-32" stroke="#6aa4c8"/></g>
+    <g transform="translate(1920 816)" opacity=".58"><path d="M96 136h166M378 136h166"/><path d="M300 112h40l17 24l-17 24h-40l-17-24Z"/><path d="M320 100V82M320 190v-18" stroke="#6aa4c8"/></g>
+  </g>
+</svg>
