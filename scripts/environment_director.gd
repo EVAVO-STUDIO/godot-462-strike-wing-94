@@ -65,6 +65,19 @@ const LANDMARKS := {
 	"cloud_top": preload("res://assets/runtime/environments/landmarks/weather_relay.png"),
 	"orbital": preload("res://assets/runtime/environments/landmarks/orbital_truss.png"),
 }
+const LANDMARK_FX_FRAMES := {
+	"coast": [preload("res://assets/runtime/environments/landmark_animation/coast_0.png"), preload("res://assets/runtime/environments/landmark_animation/coast_1.png"), preload("res://assets/runtime/environments/landmark_animation/coast_2.png"), preload("res://assets/runtime/environments/landmark_animation/coast_3.png")],
+	"industrial": [preload("res://assets/runtime/environments/landmark_animation/industrial_0.png"), preload("res://assets/runtime/environments/landmark_animation/industrial_1.png"), preload("res://assets/runtime/environments/landmark_animation/industrial_2.png"), preload("res://assets/runtime/environments/landmark_animation/industrial_3.png")],
+	"water": [preload("res://assets/runtime/environments/landmark_animation/water_0.png"), preload("res://assets/runtime/environments/landmark_animation/water_1.png"), preload("res://assets/runtime/environments/landmark_animation/water_2.png"), preload("res://assets/runtime/environments/landmark_animation/water_3.png")],
+	"desert_front": [preload("res://assets/runtime/environments/landmark_animation/desert_front_0.png"), preload("res://assets/runtime/environments/landmark_animation/desert_front_1.png"), preload("res://assets/runtime/environments/landmark_animation/desert_front_2.png"), preload("res://assets/runtime/environments/landmark_animation/desert_front_3.png")],
+	"river_corridor": [preload("res://assets/runtime/environments/landmark_animation/river_corridor_0.png"), preload("res://assets/runtime/environments/landmark_animation/river_corridor_1.png"), preload("res://assets/runtime/environments/landmark_animation/river_corridor_2.png"), preload("res://assets/runtime/environments/landmark_animation/river_corridor_3.png")],
+	"mountain_radar": [preload("res://assets/runtime/environments/landmark_animation/mountain_radar_0.png"), preload("res://assets/runtime/environments/landmark_animation/mountain_radar_1.png"), preload("res://assets/runtime/environments/landmark_animation/mountain_radar_2.png"), preload("res://assets/runtime/environments/landmark_animation/mountain_radar_3.png")],
+	"night_harbor": [preload("res://assets/runtime/environments/landmark_animation/night_harbor_0.png"), preload("res://assets/runtime/environments/landmark_animation/night_harbor_1.png"), preload("res://assets/runtime/environments/landmark_animation/night_harbor_2.png"), preload("res://assets/runtime/environments/landmark_animation/night_harbor_3.png")],
+	"city_outskirts": [preload("res://assets/runtime/environments/landmark_animation/city_outskirts_0.png"), preload("res://assets/runtime/environments/landmark_animation/city_outskirts_1.png"), preload("res://assets/runtime/environments/landmark_animation/city_outskirts_2.png"), preload("res://assets/runtime/environments/landmark_animation/city_outskirts_3.png")],
+	"machine_furnace": [preload("res://assets/runtime/environments/landmark_animation/machine_furnace_0.png"), preload("res://assets/runtime/environments/landmark_animation/machine_furnace_1.png"), preload("res://assets/runtime/environments/landmark_animation/machine_furnace_2.png"), preload("res://assets/runtime/environments/landmark_animation/machine_furnace_3.png")],
+	"cloud_top": [preload("res://assets/runtime/environments/landmark_animation/cloud_top_0.png"), preload("res://assets/runtime/environments/landmark_animation/cloud_top_1.png"), preload("res://assets/runtime/environments/landmark_animation/cloud_top_2.png"), preload("res://assets/runtime/environments/landmark_animation/cloud_top_3.png")],
+	"orbital": [preload("res://assets/runtime/environments/landmark_animation/orbital_0.png"), preload("res://assets/runtime/environments/landmark_animation/orbital_1.png"), preload("res://assets/runtime/environments/landmark_animation/orbital_2.png"), preload("res://assets/runtime/environments/landmark_animation/orbital_3.png")],
+}
 
 var _profiles: Array = []
 var _surface: Control
@@ -149,6 +162,10 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	if family == "orbital":
 		alpha *= clampf(orbital_mix, 0.0, 1.0)
 	surface.draw_texture_rect(texture, Rect2(Vector2(x, y), size), false, Color(0.86, 0.89, 0.88, alpha))
+	if LANDMARK_FX_FRAMES.has(family):
+		var fx_frames: Array = LANDMARK_FX_FRAMES[family]
+		var fx: Texture2D = fx_frames[posmod(int(floor(t * 4.0)), fx_frames.size())]
+		surface.draw_texture_rect(fx, Rect2(Vector2(x, y), size), false, Color(1.0, 1.0, 1.0, alpha))
 
 func _mission_seed(scene: Object) -> int:
 	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []

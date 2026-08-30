@@ -95,11 +95,16 @@ func _initialize() -> void:
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
 		_expect(source.contains("LANDMARKS") and source.contains("_draw_landmarks") and source.contains("_mission_seed"), "environment renderer should layer sparse deterministic mission landmarks over seamless biome plates")
+		_expect(source.contains("LANDMARK_FX_FRAMES") and source.contains("floor(t * 4.0)"), "mission landmarks should consume deliberate four-fps held sprite animation")
 		var landmark_names := ["coastal_battery", "refinery_stack", "storm_platform", "desert_airstrip", "river_bridge", "mountain_radar", "harbor_cranes", "city_rail_hub", "machine_gantry", "weather_relay", "orbital_truss"]
 		for landmark_name in landmark_names:
 			var landmark := load("res://assets/runtime/environments/landmarks/%s.png" % landmark_name)
 			_expect(landmark is Texture2D and landmark.get_size() == Vector2(128,160), "mission landmark should retain registered 128x160 sprite geometry: %s" % landmark_name)
 		_expect(FileAccess.file_exists("res://assets/source/environments/landmark_asset_manifest.json"), "mission landmark source/runtime manifest should exist")
+		for landmark_family in ["coast", "industrial", "water", "desert_front", "river_corridor", "mountain_radar", "night_harbor", "city_outskirts", "machine_furnace", "cloud_top", "orbital"]:
+			for frame_index in range(4):
+				var landmark_fx := load("res://assets/runtime/environments/landmark_animation/%s_%d.png" % [landmark_family, frame_index])
+				_expect(landmark_fx is Texture2D and landmark_fx.get_size() == Vector2(128,160), "landmark FX frame should retain 128x160 registration: %s %d" % [landmark_family, frame_index])
 		var parallax_section := source.substr(source.find("func _draw_parallax"), source.find("func _coast_x") - source.find("func _draw_parallax"))
 		var coast_section := source.substr(source.find("func _draw_coast"), source.find("func _draw_vertical_loop") - source.find("func _draw_coast"))
 		var water_section := source.substr(source.find("func _draw_water"), source.find("func _draw_desert_front") - source.find("func _draw_water"))

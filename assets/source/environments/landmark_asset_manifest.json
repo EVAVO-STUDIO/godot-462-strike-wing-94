@@ -1,6 +1,6 @@
 {
   "asset_family": "mission_environment_landmarks",
-  "status": "runtime_v1",
+  "status": "runtime_motion_v2",
   "production_method": "deterministic crisp-edge SVG masters rasterized to transparent nearest-filtered PNG sprites",
   "visual_contract": {
     "era": "1997 military-industrial top-down battlefield illustration",
@@ -21,5 +21,14 @@
     {"family":"cloud_top","id":"weather_relay","path":"res://assets/runtime/environments/landmarks/weather_relay.png"},
     {"family":"orbital","id":"orbital_truss","path":"res://assets/runtime/environments/landmarks/orbital_truss.png"}
   ],
-  "runtime_rule": "one deterministic mission-seeded landmark pass on the mid-depth plane, altitude-scaled before cloud occlusion"
+  "runtime_rule": "one deterministic mission-seeded landmark pass on the mid-depth plane, altitude-scaled before cloud occlusion",
+  "animation": {
+    "source": "res://assets/source/environments/landmark_animation_sheet.svg",
+    "runtime_directory": "res://assets/runtime/environments/landmark_animation/",
+    "families": 11,
+    "drawings_per_family": 4,
+    "fps": 4,
+    "exposure": "six-frame holds on a 24fps timing basis",
+    "cues": ["tracking sweep", "warning lamps", "heat vent", "runway sequence", "water foam", "crane hook sway", "rail signal", "machine core pulse", "attitude thruster"]
+  }
 }
