@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="56" viewBox="0 0 280 56" shape-rendering="crispEdges">
+  <rect width="280" height="56" fill="none"/>
+  <!-- normal -->
+  <g transform="translate(0 0)">
+    <path d="M3 0h190l3 3v7l-3 3H3l-3-3V3z" fill="#060a0e" stroke="#334650" stroke-width="2"/>
+    <path d="M4 2h188l2 2v5l-2 2H4L2 9V4z" fill="#10181d" stroke="#60717a"/>
+    <path d="M24 2h66v9H24zM120 2h66v9h-66z" fill="#03070a" stroke="#253841"/>
+    <path d="M92 2h26v9H92z" fill="#0a1116"/><path d="M96 6h18" stroke="#304954"/>
+    <rect x="190" y="3" width="2" height="2" fill="#75878f"/>
+  </g>
+  <!-- burning -->
+  <g transform="translate(0 14)">
+    <path d="M3 0h190l3 3v7l-3 3H3l-3-3V3z" fill="#080a0d" stroke="#815535" stroke-width="2"/>
+    <path d="M4 2h188l2 2v5l-2 2H4L2 9V4z" fill="#16120f" stroke="#ba7642"/>
+    <path d="M24 2h66v9H24zM120 2h66v9h-66z" fill="#050706" stroke="#5a3c26"/>
+    <path d="M92 2h26v9H92z" fill="#130d08"/><path d="M96 6h18" stroke="#b36d36"/>
+    <rect x="190" y="3" width="2" height="2" fill="#f0a043"/>
+  </g>
+  <!-- reserve low -->
+  <g transform="translate(0 28)">
+    <path d="M3 0h190l3 3v7l-3 3H3l-3-3V3z" fill="#08090c" stroke="#713f36" stroke-width="2"/>
+    <path d="M4 2h188l2 2v5l-2 2H4L2 9V4z" fill="#17100f" stroke="#b65f4e"/>
+    <path d="M24 2h66v9H24zM120 2h66v9h-66z" fill="#060607" stroke="#542e2b"/>
+    <path d="M92 2h26v9H92z" fill="#150b0a"/><path d="M96 6h18" stroke="#8f4035"/>
+    <path d="M188 3h4v4h-4zM189 8h3v2h-3z" fill="#ff4e3f"/>
+  </g>
+  <!-- hypersonic latched -->
+  <g transform="translate(0 42)">
+    <path d="M3 0h190l3 3v7l-3 3H3l-3-3V3z" fill="#050a0d" stroke="#4c7585" stroke-width="2"/>
+    <path d="M4 2h188l2 2v5l-2 2H4L2 9V4z" fill="#0c171b" stroke="#9bc0ca"/>
+    <path d="M24 2h66v9H24zM120 2h66v9h-66z" fill="#02080a" stroke="#436c78"/>
+    <path d="M92 2h26v9H92z" fill="#071318"/><path d="M95 6h20" stroke="#9adceb"/>
+    <rect x="188" y="3" width="4" height="7" fill="#c9f6ff"/>
+  </g>
+  <!-- fill masters -->
+  <g transform="translate(204 0)"><rect width="64" height="4" fill="#4a391b"/><rect x="1" y="1" width="62" height="2" fill="#e5c55c"/><path d="M8 0v4M16 0v4M24 0v4M32 0v4M40 0v4M48 0v4M56 0v4" stroke="#17130b"/></g>
+  <g transform="translate(204 8)"><rect width="64" height="4" fill="#263d48"/><rect x="1" y="1" width="62" height="2" fill="#8dc6d9"/><path d="M8 0v4M16 0v4M24 0v4M32 0v4M40 0v4M48 0v4M56 0v4" stroke="#0c171c"/></g>
+</svg>

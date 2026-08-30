@@ -66,6 +66,16 @@ func _test_retro_sfx() -> void:
 		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "rotary SFX should identify deployment through canonical mount owner")
 		_expect(source.contains('mounts.call("bomber_rotary_deployed"'), "audio should use the same bomber rotary mount contract as art")
 		_expect(source.contains("ThreatWarningRules.warning_level"), "missile warning SFX should consume the same live threat rules as HUD")
+	var cue_file := FileAccess.open("res://scripts/afterburner_cue_director.gd", FileAccess.READ)
+	if cue_file != null:
+		var cue_source := cue_file.get_as_text()
+		_expect(cue_source.contains("PROPULSION_HYPERSONIC") and cue_source.contains("hypersonic_charge_ratio") and cue_source.contains("PROPULSION_RESERVE_LOW"), "propulsion HUD should expose authored fuel, spool and latched-speed states")
+	for propulsion_asset in ["normal","burning","reserve_low","hypersonic_latched"]:
+		var propulsion_frame := load("res://assets/runtime/ui/hud/propulsion_instrument/%s.png" % propulsion_asset)
+		_expect(propulsion_frame is Texture2D and propulsion_frame.get_size() == Vector2(196,13), "propulsion instrument state should retain registered geometry: %s" % propulsion_asset)
+	for propulsion_fill in ["fuel_fill","charge_fill"]:
+		var fill_texture := load("res://assets/runtime/ui/hud/propulsion_instrument/%s.png" % propulsion_fill)
+		_expect(fill_texture is Texture2D and fill_texture.get_size() == Vector2(64,4), "propulsion instrument fill should retain registered geometry: %s" % propulsion_fill)
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition: failures.append(message)

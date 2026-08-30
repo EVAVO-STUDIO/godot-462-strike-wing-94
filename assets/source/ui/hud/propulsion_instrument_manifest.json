@@ -1,0 +1,16 @@
+{
+  "asset_family": "vx94_propulsion_velocity_instrument",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/propulsion_instrument_sheet.svg",
+  "visual_contract": {
+    "purpose": "make afterburner reserve and hypersonic spool state one central readable system",
+    "era": "1997 hardwired propulsion management annunciator",
+    "states": ["normal", "burning", "reserve_low", "hypersonic_latched"],
+    "readability": "fuel and Mach charge have separate segmented channels and state is reinforced by housing, lamp and label",
+    "avoid": ["generic single progress bar", "speedometer dial", "modern glowing pill", "text-only hypersonic state"]
+  },
+  "runtime": {
+    "frames": {"normal":[196,13],"burning":[196,13],"reserve_low":[196,13],"hypersonic_latched":[196,13]},
+    "fills": {"fuel":[64,4],"charge":[64,4]}
+  }
+}
