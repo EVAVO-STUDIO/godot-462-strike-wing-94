@@ -3,7 +3,7 @@ extends SceneTree
 const ALLOWED_ROLES := ["observation", "anticipation", "action", "consequence"]
 const ALLOWED_CAMERAS := ["locked", "pan", "track"]
 const ALLOWED_BRIDGES := ["environmental", "prelap", "carry", "hard silence"]
-const PLATES := ["industrial", "machine_furnace", "city", "high_atmosphere", "orbital"]
+const PLATES := ["s2_dead_refinery", "s2_factory_awakens", "s2_city_warning", "s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized", "end_ark_fall", "end_reentry", "end_city_silence", "end_watch", "end_title_sky"]
 const SPRITES := ["salvage_mech", "drone_hunter", "vx94_fighter", "vx94_bomber", "phase_array", "machine_ark"]
 
 func _initialize() -> void:
@@ -28,11 +28,20 @@ func _run() -> void:
 	var sequences: Array = data.get("sequences", [])
 	_expect(sequences.size() == 3, "campaign should retain two sector transitions and an ending", failures)
 	var triggers: Array[String] = []
+	var used_plates: Dictionary = {}
 	for sequence in sequences:
 		_validate_sequence(sequence, mission_ids, failures)
 		if typeof(sequence) == TYPE_DICTIONARY:
 			triggers.append(str(sequence.get("trigger", "launch")))
+			for shot in sequence.get("shots", []):
+				if typeof(shot) == TYPE_DICTIONARY:
+					used_plates[str(shot.get("plate", ""))] = true
 	_expect(triggers.count("launch") == 2 and triggers.count("ending") == 1, "cinematic schedule should contain two launch transitions and one ending", failures)
+	_expect(used_plates.size() == 12, "each campaign cinematic beat should use its own authored editorial plate", failures)
+	for plate_id in PLATES:
+		var plate := load("res://assets/runtime/cinematics/plates/%s.png" % plate_id)
+		_expect(plate is Texture2D and plate.get_size() == Vector2(640,320), "cinematic plate should preserve authored 640x320 composition: %s" % plate_id, failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/cinematic_plate_asset_manifest.json"), "cinematic plate production manifest should exist", failures)
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main game source should be readable", failures)
 	if main_file != null:

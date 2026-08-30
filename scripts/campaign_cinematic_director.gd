@@ -5,11 +5,18 @@ const PixelFont = preload("res://scripts/pixel_font.gd")
 const CampaignCinematicSurface = preload("res://scripts/campaign_cinematic_surface.gd")
 
 const PLATES := {
-	"industrial": preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png"),
-	"machine_furnace": preload("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png"),
-	"city": preload("res://assets/runtime/environments/city/city_outskirts_loop_v1.png"),
-	"high_atmosphere": preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png"),
-	"orbital": preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"),
+	"s2_dead_refinery": preload("res://assets/runtime/cinematics/plates/s2_dead_refinery.png"),
+	"s2_factory_awakens": preload("res://assets/runtime/cinematics/plates/s2_factory_awakens.png"),
+	"s2_city_warning": preload("res://assets/runtime/cinematics/plates/s2_city_warning.png"),
+	"s3_weather_ceiling": preload("res://assets/runtime/cinematics/plates/s3_weather_ceiling.png"),
+	"s3_phase_protocol": preload("res://assets/runtime/cinematics/plates/s3_phase_protocol.png"),
+	"s3_ark_reveal": preload("res://assets/runtime/cinematics/plates/s3_ark_reveal.png"),
+	"s3_authorized": preload("res://assets/runtime/cinematics/plates/s3_authorized.png"),
+	"end_ark_fall": preload("res://assets/runtime/cinematics/plates/end_ark_fall.png"),
+	"end_reentry": preload("res://assets/runtime/cinematics/plates/end_reentry.png"),
+	"end_city_silence": preload("res://assets/runtime/cinematics/plates/end_city_silence.png"),
+	"end_watch": preload("res://assets/runtime/cinematics/plates/end_watch.png"),
+	"end_title_sky": preload("res://assets/runtime/cinematics/plates/end_title_sky.png"),
 }
 const SPRITES := {
 	"salvage_mech": preload("res://assets/runtime/enemies/ground_mechs/autonomous_salvage_mech_idle.png"),
@@ -117,8 +124,8 @@ func _draw_plate(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: flo
 	elif camera == "track": drift = lerpf(210.0, 128.0, ratio)
 	else: drift = 132.0
 	var source_y := clampf(drift, 0.0, maxf(0.0, plate.get_height()-272.0))
-	surface.draw_texture_rect_region(plate, Rect2(0,24,640,272), Rect2(0,source_y,640,272), Color(0.62,0.72,0.76,alpha*0.78))
-	surface.draw_rect(Rect2(0,24,640,272), Color(0.01,0.025,0.04,0.28*alpha))
+	surface.draw_texture_rect_region(plate, Rect2(0,24,640,272), Rect2(0,source_y,640,272), Color(0.84,0.88,0.90,alpha*0.94))
+	surface.draw_rect(Rect2(0,24,640,272), Color(0.01,0.025,0.04,0.13*alpha))
 
 func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: float) -> void:
 	var texture: Texture2D = SPRITES.get(str(shot.get("sprite", "")), null)

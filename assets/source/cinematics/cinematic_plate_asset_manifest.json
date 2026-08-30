@@ -1,0 +1,20 @@
+{
+  "asset_family": "campaign_limited_cel_plates",
+  "status": "runtime_v1",
+  "visual_contract": {
+    "era": "late-1990s military anime game interstitial",
+    "method": "dedicated held editorial compositions derived from approved environment masters, with restrained palette grading and negative space reserved for limited-animation subjects",
+    "avoid": ["paused gameplay framing", "modern cinematic bloom", "AI interpolation", "generic concept-art montage"]
+  },
+  "runtime": {
+    "canvas": [640, 320],
+    "palette_limit": 64,
+    "directory": "res://assets/runtime/cinematics/plates/",
+    "plates": ["s2_dead_refinery", "s2_factory_awakens", "s2_city_warning", "s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized", "end_ark_fall", "end_reentry", "end_city_silence", "end_watch", "end_title_sky"]
+  },
+  "coverage": {
+    "sector_ii_machine_war": 3,
+    "sector_iii_black_sky": 4,
+    "ending_after_machine_ark": 5
+  }
+}
