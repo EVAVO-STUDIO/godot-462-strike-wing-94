@@ -1,0 +1,15 @@
+{
+  "asset_family": "atlas_tanker_docking_instrument",
+  "status": "runtime_v1",
+  "source": "res://assets/source/support/battlefield_support/tanker_docking_instrument_sheet.svg",
+  "visual_contract": {
+    "purpose": "show physical alignment, hose contact, resource transfer and rearm completion at the tanker",
+    "era": "1997 probe-and-drogue docking annunciator",
+    "states": ["align", "contact", "transfer", "complete"],
+    "avoid": ["bare progress bar", "floating modern card", "text-only contact feedback", "large screen-center prompt"]
+  },
+  "runtime": {
+    "frames": {"align":[128,18],"contact":[128,18],"transfer":[128,18],"complete":[128,18]},
+    "fill": {"transfer_fill":[74,4]}
+  }
+}

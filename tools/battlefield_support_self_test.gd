@@ -66,6 +66,12 @@ func _test_production_art() -> void:
 			var frame := load("res://assets/runtime/support/battlefield/effects/%s_%d.png" % [prefix, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == Vector2(48,48), "support effect animation should retain registered geometry: %s/%d" % [prefix, frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/effect_manifest.json"), "battlefield support effect manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/tanker_docking_instrument_manifest.json"), "tanker docking instrument source/runtime manifest should exist")
+	for dock_state in ["align","contact","transfer","complete"]:
+		var dock_frame := load("res://assets/runtime/support/battlefield/tanker_docking_instrument/%s.png" % dock_state)
+		_expect(dock_frame is Texture2D and dock_frame.get_size() == Vector2(128,18), "tanker docking state should retain registered geometry: %s" % dock_state)
+	var dock_fill := load("res://assets/runtime/support/battlefield/tanker_docking_instrument/transfer_fill.png")
+	_expect(dock_fill is Texture2D and dock_fill.get_size() == Vector2(74,4), "tanker transfer fill should retain registered geometry")
 
 func _test_source_contract() -> void:
 	var file := FileAccess.open("res://scripts/battlefield_support_director.gd", FileAccess.READ)
@@ -75,8 +81,9 @@ func _test_source_contract() -> void:
 		_expect(source.contains('KEY_B') and source.contains('KEY_F'), "battlefield support should expose cycle/call controls")
 		_expect(source.contains('BattlefieldSupportRules.tanker_connected'), "tanker runtime should use shared hookup rules")
 		_expect(source.contains('TANKER REARM COMPLETE'), "successful tanker hookup should communicate completion")
+		_expect(source.contains('tanker_dock_%s') and source.contains('"align":"ALIGN"') and source.contains('"complete":"COMPLETE"'), "tanker HUD should expose alignment, contact, transfer and completion through authored docking states")
 		_expect(source.contains('support_director.call("rearm_support")'), "tanker should reset tactical support cooldown")
-		_expect(source.contains("func readiness_ratio()") and source.contains("func cooldown_remaining()") and source.contains("func support_available()"), "battlefield support should expose cooldown and altitude-aware HUD readiness")
+		_expect(source.contains("func readiness_ratio()") and source.contains("func cooldown_remaining()") and source.contains("func support_available()") and source.contains("func active_support_id()"), "battlefield support should expose cooldown, active identity and altitude-aware HUD readiness")
 		_expect(source.contains('applied = mini(applied, maxi(0, hp - 1))'), "battlefield support strikes must remain nonlethal to bosses")
 		_expect(source.contains('scene.call("_register_destroy", enemy)'), "support kills should register mission objectives")
 		for visual in ["_draw_fighter_sweep", "_draw_bomber_run", "_draw_gunship_fire", "_draw_missile_strike", "_draw_rail_strike", "_draw_orbital_strike"]:

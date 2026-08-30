@@ -5,6 +5,7 @@
   "runtime_root": "res://assets/runtime/support/battlefield/effects",
   "assets": {
     "tanker_hose": [64, 32], "tanker_contact": [64, 64], "tanker_meter_trough": [80, 6], "tanker_meter_fill": [80, 4],
+    "tanker_docking_instrument": "res://assets/source/support/battlefield_support/tanker_docking_instrument_manifest.json",
     "strike_bomb": [16, 32], "tracer": [64, 8], "impact": [48, 48, 3], "rail_charge": [48, 48, 3],
     "rail_beam": [12, 64], "orbital_beam": [12, 64], "orbital_impact": [48, 48]
   }

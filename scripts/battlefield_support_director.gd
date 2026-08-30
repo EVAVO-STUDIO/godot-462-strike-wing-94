@@ -4,6 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const BattlefieldSupportRules = preload("res://scripts/battlefield_support_rules.gd")
 const BattlefieldSupportSurface = preload("res://scripts/battlefield_support_surface.gd")
 const BattlefieldSupportArtLibrary = preload("res://scripts/battlefield_support_art_library.gd")
+const PixelFont = preload("res://scripts/pixel_font.gd")
 
 var _catalog: Array = []
 var _allowed_ids: Array[String] = []
@@ -106,6 +107,9 @@ func readiness_ratio() -> float:
 func support_available() -> bool:
 	var support := BattlefieldSupportRules.support_for_id(_catalog, current_support_id())
 	return not support.is_empty() and _active_id == "" and BattlefieldSupportRules.altitude_allowed(support, _current_altitude())
+
+func active_support_id() -> String:
+	return _active_id
 
 func _cycle(scene: Object) -> void:
 	if _allowed_ids.is_empty():
@@ -304,6 +308,12 @@ func _set_status(scene: Object, text: String, duration: float = 1.8) -> void:
 	scene.set("status_text", text)
 	scene.set("status_timer", duration)
 
+func _has_property(object: Object, property_name: String) -> bool:
+	for property in object.get_property_list():
+		if str(property.get("name","")) == property_name:
+			return true
+	return false
+
 func _queue_surface() -> void:
 	if _surface != null:
 		_surface.queue_redraw()
@@ -331,8 +341,13 @@ func _draw_tanker(surface: CanvasItem) -> void:
 	surface.draw_texture(hose, (p + Vector2(-32, 8)).round())
 	surface.draw_texture(contact, (hose_point - contact.get_size() * 0.5).round())
 	var ratio := clampf(_tanker_progress / BattlefieldSupportRules.TANKER_REQUIRED_SECONDS, 0.0, 1.0)
-	surface.draw_texture(BattlefieldSupportArtLibrary.effect("tanker_meter_trough"), (p + Vector2(-40, 29)).round())
-	_draw_clipped_effect(surface, BattlefieldSupportArtLibrary.effect("tanker_meter_fill"), (p + Vector2(-40, 30)).round(), ratio)
+	var scene := get_tree().current_scene
+	var connected := scene != null and _has_property(scene,"player_position") and BattlefieldSupportRules.tanker_connected(scene.get("player_position"),p)
+	var dock_state := "complete" if _tanker_rewarded else ("transfer" if connected and ratio > 0.02 else ("contact" if connected else "align"))
+	var dock_position := (p + Vector2(-64,29)).round()
+	surface.draw_texture(BattlefieldSupportArtLibrary.effect("tanker_dock_%s" % dock_state),dock_position)
+	PixelFont.draw_text(surface,{"align":"ALIGN","contact":"CONTACT","transfer":"XFER","complete":"COMPLETE"}.get(dock_state,"ALIGN"),dock_position+Vector2(7,6),1,Color("d7e1df"),1)
+	_draw_clipped_effect(surface,BattlefieldSupportArtLibrary.effect("tanker_dock_fill"),dock_position+Vector2(49,7),ratio)
 
 func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
 	for i in range(3):

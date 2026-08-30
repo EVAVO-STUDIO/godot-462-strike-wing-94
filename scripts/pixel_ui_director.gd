@@ -536,6 +536,9 @@ func _has_threat_warning(scene: Object) -> bool:
 func _draw_objective_tracker(surface: CanvasItem, scene: Object) -> void:
 	if _ingress_time > 0.0 or not _active_boss(scene).is_empty() or _has_threat_warning(scene):
 		return
+	var battlefield_support := get_node_or_null("/root/BattlefieldSupportDirector")
+	if battlefield_support != null and battlefield_support.has_method("active_support_id") and str(battlefield_support.call("active_support_id")) == "atlas_tanker":
+		return
 	var objective := _tracked_objective(scene)
 	if objective.is_empty():
 		return

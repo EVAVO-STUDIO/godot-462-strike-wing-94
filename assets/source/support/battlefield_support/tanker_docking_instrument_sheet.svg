@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="76" viewBox="0 0 210 76" shape-rendering="crispEdges">
+  <rect width="210" height="76" fill="none"/>
+  <!-- align -->
+  <g transform="translate(0 0)">
+    <path d="M3 0h122l3 3v12l-3 3H3l-3-3V3z" fill="#060a0e" stroke="#304550" stroke-width="2"/>
+    <path d="M5 2h118l3 3v8l-3 3H5l-3-3V5z" fill="#0b1318" stroke="#5f7781"/>
+    <path d="M48 6h75v7H48z" fill="#020608" stroke="#203640"/>
+    <rect x="121" y="4" width="3" height="3" fill="#60747d"/>
+  </g>
+  <!-- contact -->
+  <g transform="translate(0 19)">
+    <path d="M3 0h122l3 3v12l-3 3H3l-3-3V3z" fill="#060b0d" stroke="#315a53" stroke-width="2"/>
+    <path d="M5 2h118l3 3v8l-3 3H5l-3-3V5z" fill="#0a1614" stroke="#63a08e"/>
+    <path d="M48 6h75v7H48z" fill="#020706" stroke="#28584d"/>
+    <rect x="120" y="4" width="4" height="4" fill="#79c9a9"/>
+  </g>
+  <!-- transfer -->
+  <g transform="translate(0 38)">
+    <path d="M3 0h122l3 3v12l-3 3H3l-3-3V3z" fill="#080b0c" stroke="#6a5630" stroke-width="2"/>
+    <path d="M5 2h118l3 3v8l-3 3H5l-3-3V5z" fill="#16140d" stroke="#b89a4e"/>
+    <path d="M48 6h75v7H48z" fill="#050603" stroke="#5b4b26"/>
+    <rect x="120" y="4" width="4" height="4" fill="#efcb62"/>
+  </g>
+  <!-- complete -->
+  <g transform="translate(0 57)">
+    <path d="M3 0h122l3 3v12l-3 3H3l-3-3V3z" fill="#060b0c" stroke="#446d61" stroke-width="2"/>
+    <path d="M5 2h118l3 3v8l-3 3H5l-3-3V5z" fill="#0b1714" stroke="#8bb9a2"/>
+    <path d="M48 6h75v7H48z" fill="#020706" stroke="#3c6b5d"/>
+    <rect x="119" y="3" width="5" height="5" fill="#d8e99a"/>
+  </g>
+  <!-- transfer fill -->
+  <g transform="translate(136 0)"><rect width="74" height="4" fill="#4a3c1d"/><rect x="1" y="1" width="72" height="2" fill="#e3c15c"/><path d="M9 0v4M18 0v4M27 0v4M36 0v4M45 0v4M54 0v4M63 0v4" stroke="#171309"/></g>
+</svg>
