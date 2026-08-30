@@ -1,8 +1,6 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_PATH := "user://strike_wing_94_save.json"
-const BACKUP_PATH := "user://strike_wing_94_save.bak.json"
 const SAVE_VERSION := 5
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
@@ -121,25 +119,27 @@ func _write_text(path: String, text: String) -> bool:
 	return true
 
 func _backup_current_primary() -> void:
-	var current_text := _read_text(SAVE_PATH)
+	var current_text := _read_text(_save_path())
 	if SaveRecoveryRules.parse_supported_json(current_text, 1, SAVE_VERSION).is_empty():
 		return
-	if not _write_text(BACKUP_PATH, current_text):
-		push_warning("Strike Wing save backup could not be written.")
+	if not _write_text(_backup_path(), current_text):
+		push_warning("HYPERSONIC save backup could not be written.")
 
 func _save(scene: Object) -> void:
 	var text := JSON.stringify(_snapshot(scene), "  ")
 	_backup_current_primary()
-	if not _write_text(SAVE_PATH, text):
-		push_warning("Strike Wing save could not be opened for writing.")
+	if not _write_text(_save_path(), text):
+		push_warning("HYPERSONIC save could not be opened for writing.")
 
 func _restore(scene: Object) -> void:
-	var choice := SaveRecoveryRules.choose_primary_or_backup(_read_text(SAVE_PATH), _read_text(BACKUP_PATH), 1, SAVE_VERSION)
+	var choice := SaveRecoveryRules.choose_primary_or_backup(_read_text(_save_path()), _read_text(_backup_path()), 1, SAVE_VERSION)
+	if choice.get("data", {}).is_empty():
+		choice = _legacy_save_choice()
 	var parsed = choice.get("data", {})
 	if typeof(parsed) != TYPE_DICTIONARY or parsed.is_empty():
 		return
 	if str(choice.get("source", "")) == "backup":
-		push_warning("Strike Wing recovered campaign state from backup save.")
+		push_warning("HYPERSONIC recovered campaign state from backup save.")
 	var airframe_director := get_node_or_null("/root/AirframeDirector")
 	if airframe_director != null and airframe_director.has_method("restore_airframe_state"):
 		airframe_director.call("restore_airframe_state", int(parsed.get("airframe_index", 0)))
@@ -162,3 +162,25 @@ func _restore(scene: Object) -> void:
 		support_director.call("restore_support_state", int(parsed.get("support_selected", 0)), int(parsed.get("support_unlocked", 0)))
 	if scene.has_method("_prepare_mission"):
 		scene.call("_prepare_mission", mission_index)
+
+func _identity() -> Node:
+	return get_node_or_null("/root/ProductIdentity")
+
+func _save_path() -> String:
+	var identity := _identity()
+	return str(identity.call("save_path")) if identity != null and identity.has_method("save_path") else "user://hypersonic_save.json"
+
+func _backup_path() -> String:
+	var identity := _identity()
+	return str(identity.call("backup_save_path")) if identity != null and identity.has_method("backup_save_path") else "user://hypersonic_save.bak.json"
+
+func _legacy_save_choice() -> Dictionary:
+	var identity := _identity()
+	if identity == null or not identity.has_method("legacy_save_paths"):
+		return {}
+	for path in identity.call("legacy_save_paths"):
+		var parsed := SaveRecoveryRules.parse_supported_json(_read_text(str(path)), 1, SAVE_VERSION)
+		if not parsed.is_empty():
+			push_warning("HYPERSONIC migrated campaign state from legacy save namespace.")
+			return {"source":"legacy", "data":parsed}
+	return {}

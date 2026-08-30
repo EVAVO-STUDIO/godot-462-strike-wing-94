@@ -33,7 +33,7 @@ func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 		_draw_cloud_sweep(surface, eased, direction)
 		_draw_speed_brackets(surface, eased, direction)
 		var label := "CLIMB" if direction > 0 else "DIVE"
-		PixelFont.draw_text(surface, Vector2(272, 68), "%s  %s > %s" % [label, _code(from_band), _code(to_band)], 1, Color(0.78,0.9,0.94,0.94))
+		PixelFont.draw_text(surface, "%s  %s > %s" % [label, _code(from_band), _code(to_band)], Vector2(272, 68), 1, Color(0.78,0.9,0.94,0.94))
 		return
 	_draw_choice_prompt(surface, craft)
 
@@ -59,7 +59,7 @@ func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
 	var x := roundf(320.0 - width * 0.5)
 	surface.draw_rect(Rect2(x, 329, width, 18), Color(0.03,0.06,0.08,0.72))
 	surface.draw_rect(Rect2(x, 329, width, 18), Color(0.34,0.58,0.68,0.68), false, 1.0)
-	PixelFont.draw_text(surface, Vector2(x+7,335), text, 1, Color(0.76,0.88,0.92,0.92))
+	PixelFont.draw_text(surface, text, Vector2(x+7,335), 1, Color(0.76,0.88,0.92,0.92))
 
 func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var travel := 160.0 * ratio

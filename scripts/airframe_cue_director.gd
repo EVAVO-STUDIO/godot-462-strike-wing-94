@@ -47,12 +47,12 @@ func _draw_armor_strakes(surface: CanvasItem, p: Vector2, reactive: bool) -> voi
 	var wing_x := 21.0 if form == "bomber" else 12.0
 	var wing_y := 7.0 if form == "bomber" else 8.0
 	for side in [-1.0, 1.0]:
-		var x := p.x + wing_x * side
+		var x: float = p.x + wing_x * side
 		surface.draw_rect(Rect2(roundf(x - 2.0), roundf(p.y + wing_y), 4, 2), ARMOR)
 		surface.draw_rect(Rect2(roundf(x - 1.0), roundf(p.y + wing_y + 2.0), 2, 2), ARMOR_DARK)
 	if reactive:
 		for side in [-1.0, 1.0]:
-			var x := p.x + (15.0 if form == "bomber" else 8.0) * side
+			var x: float = p.x + (15.0 if form == "bomber" else 8.0) * side
 			surface.draw_rect(Rect2(roundf(x - 2.0), roundf(p.y + 2.0), 4, 3), ARMOR_DARK)
 
 func _draw_magnetic_nodes(surface: CanvasItem, p: Vector2) -> void:

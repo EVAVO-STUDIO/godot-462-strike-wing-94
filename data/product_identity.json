@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "full_title": "HYPERSONIC",
+  "aircraft_designation": "VX-94",
+  "aircraft_class": "Variable Strike Fighter",
+  "aircraft_class_abbreviation": "VSF",
+  "developer": "EVAVO Studio",
+  "publisher": "EVAVO Studio",
+  "window_title": "HYPERSONIC",
+  "executable_title": "HYPERSONIC",
+  "title_screen": {
+    "primary": "HYPERSONIC",
+    "subtitle": "VX-94 VARIABLE STRIKE FIGHTER"
+  },
+  "version": "0.1.0-dev",
+  "copyright": "Copyright (c) 2026 EVAVO Studio",
+  "save_namespace": "hypersonic",
+  "store": {
+    "name": "HYPERSONIC",
+    "short_name": "HYPERSONIC",
+    "tagline": "VX-94 VARIABLE STRIKE FIGHTER"
+  },
+  "legacy_aliases": [
+    "Strike Wing '94",
+    "Strike Wing 94",
+    "strike_wing_94",
+    "vx_94_strikewing"
+  ],
+  "legacy_save_namespaces": ["strike_wing_94"]
+}

@@ -927,12 +927,13 @@ func _draw_title() -> void:
 	draw_string(
 		ThemeDB.fallback_font,
 		Vector2(0, 62),
-		"STRIKE WING '94",
+		_identity_title(),
 		HORIZONTAL_ALIGNMENT_CENTER,
 		640,
 		30,
 		Color("e3e6e8")
 	)
+
 	draw_string(
 		ThemeDB.fallback_font,
 		Vector2(0, 103),
@@ -942,6 +943,7 @@ func _draw_title() -> void:
 		18,
 		Color("f0d87a")
 	)
+
 	draw_string(
 		ThemeDB.fallback_font,
 		Vector2(80, 133),
@@ -1003,6 +1005,10 @@ func _draw_title() -> void:
 			12,
 			Color("72c7b2")
 		)
+
+func _identity_title() -> String:
+	var identity := get_node_or_null("/root/ProductIdentity")
+	return str(identity.call("title_primary")) if identity != null and identity.has_method("title_primary") else "HYPERSONIC"
 
 func _draw_result() -> void:
 	draw_string(

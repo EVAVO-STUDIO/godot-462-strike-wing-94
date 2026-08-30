@@ -1,8 +1,10 @@
-# Strike Wing '94
+# HYPERSONIC
 
 Original 90s PC-style vertical scrolling combat shooter built in Godot 4.6.2.
 
-Strike Wing '94 is centered on the **VX-94 Strike Wing**, a 1999 imagined-future variable-geometry strike craft that can shift between a narrow fighter configuration and a wide bomber/attack configuration while operating from terrain-skimming altitude through near orbit.
+**VX-94 VARIABLE STRIKE FIGHTER**
+
+HYPERSONIC is centered on the **VX-94 Variable Strike Fighter (VSF)**, a 1999 imagined-future variable-geometry strike craft that can shift between a narrow fighter configuration and a wide bomber/attack configuration while operating from terrain-skimming altitude through near orbit. `Strike Wing '94` is retained only as a legacy/internal development alias and repository identifier.
 
 ## Current status
 

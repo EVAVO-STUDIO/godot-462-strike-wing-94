@@ -77,7 +77,7 @@ class ProjectileCueCanvas:
 		draw_line(position - direction * 7.0, position + direction * 6.0, core, 2.0)
 		draw_arc(position, 6.0, 0.0, TAU, 10, field, 1.0)
 		for offset in [11.0, 17.0]:
-			var wake_point := position - direction * offset
+			var wake_point: Vector2 = position - direction * offset
 			draw_rect(Rect2(roundf(wake_point.x)-1, roundf(wake_point.y)-1, 2, 2), plasma)
 
 	func _draw_support_round(position: Vector2, direction: Vector2, homing: bool) -> void:

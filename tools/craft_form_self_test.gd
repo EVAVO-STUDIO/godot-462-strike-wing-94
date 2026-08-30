@@ -70,7 +70,7 @@ func _test_campaign_world() -> void:
 			_expect(at > last_time, "%s altitude transitions should be time ordered" % mission_id)
 			last_time = at
 	_expect(choice_count >= 7, "campaign should contain multiple optional altitude-lane windows")
-	var ark := contexts.get("m12_machine_ark", {})
+	var ark: Dictionary = contexts.get("m12_machine_ark", {})
 	var ark_transitions: Array = ark.get("altitude_transitions", [])
 	_expect(str(ark.get("altitude", "")) == "high", "Machine Ark should begin high before orbital burn")
 	_expect(ark_transitions.size() == 1 and int(ark_transitions[0].get("at_seconds", 0)) == 156 and str(ark_transitions[0].get("altitude", "")) == "orbital", "Machine Ark should execute post-rearm orbital burn at 156 seconds")

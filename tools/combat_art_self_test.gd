@@ -131,7 +131,7 @@ func _test_damage_state() -> void:
 	_expect(source.contains("damage_ratio >= 0.45"), "mid damage should introduce smoke")
 	_expect(source.contains("damage_ratio >= 0.72"), "critical damage should introduce sparks")
 	_expect(source.contains("ratio >= 0.86"), "small flame cue should be reserved for severe damage")
-	_expect(source.contains('form == "bomber"'), "battle-damage attachments should react to fighter/bomber geometry")
+	_expect(source.contains('_craft_form() == "bomber"'), "battle-damage attachments should react to fighter/bomber geometry")
 	_expect(source.contains('scene.call("_max_hull")'), "damage presentation should read canonical airframe hull capacity")
 	for forbidden in ['scene.set("hull"', 'scene.set("shield"', 'var extra_health']:
 		_expect(not source.contains(forbidden), "damage-state presentation must not create or mutate durability state: %s" % forbidden)

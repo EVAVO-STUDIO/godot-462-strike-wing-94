@@ -48,7 +48,7 @@ func _draw_meter(surface: CanvasItem, ratio: float) -> void:
 func _draw_flame(surface: CanvasItem, p: Vector2, form: String) -> void:
 	var span := 8.0 if form == "fighter" else 18.0
 	for side in [-1.0, 1.0]:
-		var x := p.x + span * side
+		var x: float = p.x + span * side
 		surface.draw_line(Vector2(x, p.y + 14), Vector2(x, p.y + 25), HOT, 3.0)
 		surface.draw_line(Vector2(x, p.y + 15), Vector2(x, p.y + 21), CORE, 1.0)
 

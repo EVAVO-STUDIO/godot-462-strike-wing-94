@@ -12,7 +12,7 @@ static func profile_for(profiles: Array, environment_id: String) -> Dictionary:
 static func parallax_speed(profile: Dictionary, band: String, layer_name: String) -> float:
 	var base := float(profile.get("%s_speed" % layer_name, 0.0))
 	var altitude := AltitudeRules.index(band)
-	var multiplier := [1.35, 1.0, 0.62, 0.28][clampi(altitude, 0, 3)]
+	var multiplier: float = [1.35, 1.0, 0.62, 0.28][clampi(altitude, 0, 3)]
 	return maxf(0.0, base * multiplier)
 
 static func blended_parallax_speed(profile: Dictionary, from_band: String, to_band: String, ratio: float, layer_name: String) -> float:

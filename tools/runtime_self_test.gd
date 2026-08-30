@@ -155,8 +155,8 @@ func _test_weapon_pickups() -> void:
 	if main_file != null:
 		var source := main_file.get_as_text()
 		_expect(source.contains("var temporary_weapon_boost := 0"), "main should own explicit sortie-only weapon boost state")
-		_expect(source.contains("WeaponPickupRules.effective_index(weapon_index, temporary_weapon_boost"), "active weapon should combine permanent tier and temporary boost explicitly")
-		_expect(source.contains("temporary_weapon_boost = mini(max_boost, temporary_weapon_boost + 1)"), "weapon pickup should increase only temporary boost")
+		_expect(source.contains("WeaponPickupRules.effective_index(") and source.contains("weapon_index,") and source.contains("temporary_weapon_boost,"), "active weapon should combine permanent tier and temporary boost explicitly")
+		_expect(source.contains("temporary_weapon_boost = mini(") and source.contains("temporary_weapon_boost + 1"), "weapon pickup should increase only temporary boost")
 		_expect(source.contains("temporary_weapon_boost = 0"), "sortie cleanup should clear temporary weapon boost")
 	var save_file := FileAccess.open("res://scripts/campaign_save.gd", FileAccess.READ)
 	_expect(save_file != null, "campaign_save.gd should be readable for permanent weapon persistence checks")

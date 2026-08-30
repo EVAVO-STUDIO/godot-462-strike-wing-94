@@ -4,7 +4,10 @@ extends RefCounted
 static func parse_supported_json(text: String, min_version: int, max_version: int) -> Dictionary:
 	if text.strip_edges() == "":
 		return {}
-	var parsed = JSON.parse_string(text)
+	var parser := JSON.new()
+	if parser.parse(text) != OK:
+		return {}
+	var parsed = parser.data
 	if typeof(parsed) != TYPE_DICTIONARY:
 		return {}
 	var version := int(parsed.get("version", -1))

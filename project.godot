@@ -1,12 +1,13 @@
 ; Engine configuration file.
-; Strike Wing '94
+; HYPERSONIC
 config_version=5
 
 [application]
-config/name="Strike Wing '94"
+config/name="HYPERSONIC"
 run/main_scene="res://scenes/main.tscn"
 
 [autoload]
+ProductIdentity="*res://scripts/product_identity.gd"
 PlayerMountDirector="*res://scripts/player_mount_director.gd"
 SupportDirector="*res://scripts/support_director.gd"
 CampaignSave="*res://scripts/campaign_save.gd"

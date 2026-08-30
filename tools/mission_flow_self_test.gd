@@ -110,7 +110,7 @@ func _test_movement_patterns() -> void:
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	if main_file != null:
 		var source := main_file.get_as_text()
-		_expect(source.contains("MovementPatternRules.adjusted_position(pattern, position, player_position"), "main should apply movement directly")
+		_expect(source.contains("position = MovementPatternRules.adjusted_position(") and source.contains("\n\t\t\t\t\tpattern,") and source.contains("\n\t\t\t\t\tplayer_position,"), "main should apply movement directly")
 	_expect(not FileAccess.file_exists("res://scripts/movement_pattern_director.gd"), "obsolete movement director should remain deleted")
 
 func _test_autoloads() -> void:

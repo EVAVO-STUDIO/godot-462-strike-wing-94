@@ -57,8 +57,9 @@ func _supports(scene: Object) -> bool:
 func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
-	PixelFont.draw_centered(surface, "STRIKE WING '94", 320, 28, 3, TEXT, 2)
-	PixelFont.draw_centered(surface, str(scene.get("current_mission_name")), 320, 66, 2, GOLD, 2)
+	PixelFont.draw_centered(surface, _identity_title(), 320, 24, 3, TEXT, 2)
+	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 48, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, str(scene.get("current_mission_name")), 320, 70, 2, GOLD, 2)
 	PixelFont.draw_centered(surface, "%s   %s CONFIG   TECH %s" % [_altitude_name(), _form_name(), _tech_era_name()], 320, 88, 1, BLUE, 1)
 	var briefing := str(scene.get("current_briefing"))
 	var lines := _wrap_text(briefing, 72)
@@ -91,6 +92,7 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	PixelFont.draw_centered(surface, "MISSION REPORT", 320, 44, 3, GOLD, 2)
+
 	var result_lines := _wrap_text(str(scene.get("result_text")), 66)
 	for i in range(mini(3, result_lines.size())):
 		PixelFont.draw_centered(surface, result_lines[i], 320, 94 + i * 12, 1, TEXT, 1)
@@ -105,6 +107,14 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 		var accuracy := int(round(float(hits) / float(fired) * 100.0))
 		PixelFont.draw_centered(surface, "ACCURACY %03d%%   HITS %d/%d" % [accuracy, hits, fired], 320, 232, 1, GREEN, 1)
 	PixelFont.draw_centered(surface, "ENTER NEXT MISSION   R RETRY", 320, 274, 1, TEXT, 1)
+
+func _identity_title() -> String:
+	var identity := get_node_or_null("/root/ProductIdentity")
+	return str(identity.call("title_primary")) if identity != null and identity.has_method("title_primary") else "HYPERSONIC"
+
+func _identity_subtitle() -> String:
+	var identity := get_node_or_null("/root/ProductIdentity")
+	return str(identity.call("title_subtitle")) if identity != null and identity.has_method("title_subtitle") else "VX-94 VARIABLE STRIKE FIGHTER"
 
 func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(8, 8, 624, 50), PANEL)

@@ -42,7 +42,7 @@ func _test_reward_source_ownership() -> void:
 		_expect(source.contains("const RewardRules = preload"), "main should preload shared reward rules")
 		_expect(source.contains("func _finish_mission(success: bool"), "mission result source should own payout")
 		_expect(source.contains("RewardRules.extra_success_bonus("), "success source should calculate authored extra rewards directly")
-		_expect(source.contains("var total_reward := base_reward + objective_bonus + extra_total"), "success source should compose one total payout")
+		_expect(source.contains("var total_reward := base_reward + objective_bonus + int(extras.get(\"total\", 0))"), "success source should compose one total payout")
 		_expect(source.contains("credits += total_reward"), "success source should apply credits exactly once")
 		_expect(source.contains("MISSION COMPLETE  +%d"), "success source should format complete payout result")
 		_expect(source.contains("shots_fired") and source.contains("shots_hit"), "success payout should consume exact scene accuracy counters")
