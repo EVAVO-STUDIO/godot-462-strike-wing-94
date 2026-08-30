@@ -1,0 +1,20 @@
+{
+  "asset_family": "mercenary_infantry_advance_animation",
+  "status": "runtime_animations_reviewed",
+  "registration": "all frames preserve squad spacing, approved canvas, and gameplay centre",
+  "animation_method": "four held squad poses using one-pixel lateral weight shifts, lowered settle, boot accents, and restrained weapon-ready cues",
+  "teams": {
+    "mercenary_rifle_team": {
+      "canvas": [26, 22], "fps": 8, "cadence": "mobile rifle-team advance",
+      "sha256": {
+        "advance_0.png":"8432513CC7705CA2F63E7CCDFB9A08ABE8BB455BF50D97E9C9A9D217DF849BE1","advance_1.png":"790C917CF8DFA1202634CF6667A4AA88E5CDEF38A53952F8C545FA3BD6D72958","advance_2.png":"683858898C2CA3D31FD3393FDB8A9475075104673089C634BAF9F5D6A4A8EDCE","advance_3.png":"17D0880F7A5C0CCFF7FFE2500E24AEE0AD484E1E33B6691B51487AAA1B145EBB"
+      }
+    },
+    "mercenary_heavy_team": {
+      "canvas": [30, 26], "fps": 6, "cadence": "slower heavy-weapon team movement with a single-pixel muzzle glint",
+      "sha256": {
+        "advance_0.png":"E4CD7455F065AC1A0EC71410BEDAA93AC18249231D5C9C5774B79B6C0BE09C2A","advance_1.png":"FCBA418BF965FB1CD57E879ABDE1FD3596E87E1B29F2D8E5634432A8FC89FC14","advance_2.png":"DAE536A5FF20ABE20D19AEE2F0D3DF62434B469F8EEE0ED2F98C2A412344F9FE","advance_3.png":"EC93A7828D5F4180AF04017B0322E4471FDF3E75A034F8B3C492CFEE50CAF7E2"
+      }
+    }
+  }
+}

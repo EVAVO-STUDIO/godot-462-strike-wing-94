@@ -28,6 +28,18 @@ const UNIT_ANIMATION_FRAMES := {
 		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_2.png"),
 		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_3.png"),
 	]},
+	"mercenary_rifle_team": {"fps": 8.0, "frames": [
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_rifle_team/advance_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_rifle_team/advance_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_rifle_team/advance_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_rifle_team/advance_3.png"),
+	]},
+	"mercenary_heavy_team": {"fps": 6.0, "frames": [
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_heavy_team/advance_0.png"),
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_heavy_team/advance_1.png"),
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_heavy_team/advance_2.png"),
+		preload("res://assets/runtime/enemies/unit_animation/mercenary_heavy_team/advance_3.png"),
+	]},
 }
 const MERCENARY_GROUND_SPRITES := {
 	"light_tank": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),

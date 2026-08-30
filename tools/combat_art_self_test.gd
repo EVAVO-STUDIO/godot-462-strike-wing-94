@@ -110,6 +110,14 @@ func _test_visual_language() -> void:
 		for frame_index in range(4):
 			var walk_frame := load("res://assets/runtime/enemies/unit_animation/%s/walk_%d.png" % [mech_id, frame_index])
 			_expect(walk_frame is Texture2D and walk_frame.get_size() == mech_animation_sizes[mech_id], "ground-mech gait frame should retain registered geometry: %s/%d" % [mech_id, frame_index])
+	var infantry_animation_sizes := {
+		"mercenary_rifle_team": Vector2(26,22),
+		"mercenary_heavy_team": Vector2(30,26),
+	}
+	for team_id in infantry_animation_sizes:
+		for frame_index in range(4):
+			var advance_frame := load("res://assets/runtime/enemies/unit_animation/%s/advance_%d.png" % [team_id, frame_index])
+			_expect(advance_frame is Texture2D and advance_frame.get_size() == infantry_animation_sizes[team_id], "infantry advance frame should retain registered geometry: %s/%d" % [team_id, frame_index])
 	var sea_sizes := {
 		"river_patrol": Vector2(30,44),
 		"torpedo_boat": Vector2(34,48),
