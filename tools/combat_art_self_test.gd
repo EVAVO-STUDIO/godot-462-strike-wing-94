@@ -112,6 +112,19 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.hostile_bank_frame_index(-0.4) == 0 and CombatArtDirector.hostile_bank_frame_index(0.0) == 1 and CombatArtDirector.hostile_bank_frame_index(0.4) == 2, "hostile airframes should hold discrete left, neutral and right bank poses")
 	_expect(source.contains('enemy.get("visual_bank", 0.0)'), "hostile bank art should consume real movement state")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_bank_asset_manifest.json"), "hostile bank source/runtime manifest should exist")
+	var specialist_sizes := {
+		"gunship_turret":Vector2(42,38), "chopper_cannon":Vector2(42,38),
+		"heavy_bomber_bay_closed":Vector2(50,42), "heavy_bomber_bay_opening":Vector2(50,42), "heavy_bomber_bay_open":Vector2(50,42), "heavy_bomber_bay_fire":Vector2(50,42),
+	}
+	for specialist_id in specialist_sizes:
+		var specialist_texture := load("res://assets/runtime/enemies/air_specialist/%s.png" % specialist_id)
+		_expect(specialist_texture is Texture2D and specialist_texture.get_size() == specialist_sizes[specialist_id], "air specialist component should retain registered pivot canvas: %s" % specialist_id)
+	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(1.0, 0.0) == 0, "heavy bomber bay should hold closed between attacks")
+	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(0.5, 0.0) == 1, "heavy bomber bay should visibly open before firing")
+	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(0.1, 0.0) == 2, "heavy bomber bay should reach an open weapon-ready pose")
+	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(1.0, 0.8) == 3, "heavy bomber bay should expose an authored firing pose during recoil")
+	_expect(source.contains('enemy_id == "gunship_mk1"') and source.contains('enemy_id == "attack_chopper"'), "gunship turret and helicopter cannon should receive specialist articulation")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/air_specialist/air_specialist_asset_manifest.json"), "air specialist source/runtime manifest should exist")
 	var ground_sizes := {
 		"light_tank": Vector2(30,24),
 		"sam_truck": Vector2(34,26),

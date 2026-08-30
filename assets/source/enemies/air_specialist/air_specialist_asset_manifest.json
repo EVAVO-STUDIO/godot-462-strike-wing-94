@@ -1,0 +1,7 @@
+{
+  "asset_family":"mercenary_air_specialist_mechanics",
+  "status":"runtime_v1",
+  "method":"deterministic crisp-edge transparent SVG component masters rendered one-to-one as native pixel overlays",
+  "visual_contract":{"era":"1997 conventional aerospace hardware","materials":"worn gunmetal, sand-gray alloy, dark service cavities, muted oxide-red heat markings","rule":"every pose exposes a physical pivot, hinge, rail or recoil path and is keyed to real weapon timing","reject":["floating weapon", "neon aperture", "smooth morph", "unmotivated idle animation"]},
+  "runtime":{"gunship_mk1":"target-tracking belly turret","attack_chopper":"chin cannon recoil and muzzle impulse","heavy_bomber":"closed, opening, open and firing ventral cannon-bay poses"}
+}

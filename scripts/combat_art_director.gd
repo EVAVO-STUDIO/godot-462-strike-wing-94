@@ -105,6 +105,16 @@ const HOSTILE_BANK_FRAMES := {
 	"beam_sentry": [preload("res://assets/runtime/enemies/bank/beam_sentry/left.png"), preload("res://assets/runtime/enemies/orbital_air/beam_sentry_idle.png"), preload("res://assets/runtime/enemies/bank/beam_sentry/right.png")],
 	"orbital_lancer": [preload("res://assets/runtime/enemies/bank/orbital_lancer/left.png"), preload("res://assets/runtime/enemies/orbital_air/orbital_lancer_idle.png"), preload("res://assets/runtime/enemies/bank/orbital_lancer/right.png")],
 }
+const AIR_SPECIALIST_ART := {
+	"gunship_mk1": preload("res://assets/runtime/enemies/air_specialist/gunship_turret.png"),
+	"attack_chopper": preload("res://assets/runtime/enemies/air_specialist/chopper_cannon.png"),
+	"heavy_bomber": [
+		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_closed.png"),
+		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_opening.png"),
+		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_open.png"),
+		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_fire.png"),
+	],
+}
 const MERCENARY_GROUND_SPRITES := {
 	"light_tank": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
 	"sam_truck": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
@@ -511,6 +521,7 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		_draw_production_sprite(surface, p, bank_frames[bank_index])
 	else:
 		_draw_animated_unit(surface, p, enemy_id, enemy, hull)
+		_render_air_specialist(surface, p, enemy_id, enemy)
 
 static func hostile_bank_frame_index(bank: float) -> int:
 	if bank < -0.24:
@@ -518,6 +529,41 @@ static func hostile_bank_frame_index(bank: float) -> int:
 	if bank > 0.24:
 		return 2
 	return 1
+
+func _render_air_specialist(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
+	if not AIR_SPECIALIST_ART.has(enemy_id):
+		return
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
+	if enemy_id == "gunship_mk1":
+		var turret: Texture2D = AIR_SPECIALIST_ART[enemy_id]
+		var direction := _player_position() - p
+		var rotation := 0.0 if direction.length_squared() < 0.001 else Vector2.DOWN.angle_to(direction.normalized())
+		surface.draw_set_transform(p.round(), rotation, Vector2.ONE)
+		surface.draw_texture(turret, -turret.get_size() * 0.5 + Vector2(0.0, -roundf(recoil_ratio * 2.0)))
+		if recoil_ratio > 0.45:
+			var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
+			surface.draw_texture_rect(flash, Rect2(-5, 12, 10, 10), false)
+		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	elif enemy_id == "attack_chopper":
+		var cannon: Texture2D = AIR_SPECIALIST_ART[enemy_id]
+		var offset := Vector2(0.0, -roundf(recoil_ratio * 2.0))
+		surface.draw_texture(cannon, (p - cannon.get_size() * 0.5 + offset).round())
+		if recoil_ratio > 0.45:
+			var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
+			surface.draw_texture_rect(flash, Rect2((p + Vector2(-5, 12)).round(), Vector2(10,10)), false)
+	elif enemy_id == "heavy_bomber":
+		var bay_frames: Array = AIR_SPECIALIST_ART[enemy_id]
+		var frame_index := heavy_bomber_bay_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
+		_draw_production_sprite(surface, p, bay_frames[frame_index])
+
+static func heavy_bomber_bay_frame_index(fire_timer: float, recoil_ratio: float) -> int:
+	if recoil_ratio > 0.01:
+		return 3
+	if fire_timer > 0.62:
+		return 0
+	if fire_timer > 0.30:
+		return 1
+	return 2
 
 func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()
