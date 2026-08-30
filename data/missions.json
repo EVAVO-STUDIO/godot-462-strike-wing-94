@@ -247,6 +247,7 @@
       "id": "m08_machine_furnace",
       "name": "Machine Furnace",
       "environment": "industrial",
+      "environment_variant": "machine_furnace",
       "duration_seconds": 220,
       "starting_wave": 20,
       "boss_id": "ai_forge_core",
@@ -276,7 +277,7 @@
       "objectives":[{"id":"survive","type":"survive","seconds":210,"required":true},{"id":"break_override","type":"destroy_enemy","enemy_id":"swarm_controller","count":1,"required":true},{"id":"protect_truce","type":"destroy_enemy","enemy_id":"drone_hunter","count":4,"required":false,"bonus_credits":1900}]
     },
     {
-      "id":"s2_m04_dead_factory","name":"Dead Factory","environment":"industrial","duration_seconds":225,"starting_wave":24,"boss_id":"ai_forge_core","briefing":"Enter a lights-out weapons plant that continues building armour without workers. Trace the assembly line to the self-directed forge core.",
+      "id":"s2_m04_dead_factory","name":"Dead Factory","environment":"industrial","environment_variant":"machine_furnace","duration_seconds":225,"starting_wave":24,"boss_id":"ai_forge_core","briefing":"Enter a lights-out weapons plant that continues building armour without workers. Trace the assembly line to the self-directed forge core.",
       "encounter_beats":[
         {"id":"empty_gate","at_seconds":8,"label":"EMPTY GATE","formation":"column","enemies":[{"id":"light_tank","count":2},{"id":"autonomous_armor","count":2}],"suppress_random_seconds":6},
         {"id":"assembly_restart","at_seconds":51,"label":"ASSEMBLY RESTART","formation":"delayed_reinforcement","enemies":[{"id":"factory_defence_node","count":3},{"id":"drone_scout","count":3}],"suppress_random_seconds":7},

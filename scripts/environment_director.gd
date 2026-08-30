@@ -13,6 +13,7 @@ const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_ha
 const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
 const CITY_OUTSKIRTS := preload("res://assets/runtime/environments/city/city_outskirts_loop_v1.png")
+const MACHINE_FURNACE := preload("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -74,6 +75,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"mountain_radar": _draw_mountain_radar(surface, state, t)
 			"night_harbor": _draw_night_harbor(surface, state, t)
 			"city_outskirts": _draw_city_outskirts(surface, state, t)
+			"machine_furnace": _draw_machine_furnace(surface, state, t)
 	else:
 		match motif:
 			"coast": _draw_coast(surface, profile, state, t)
@@ -317,6 +319,19 @@ func _draw_city_outskirts(surface: CanvasItem, state: Dictionary, t: float) -> v
 		var y := fposmod(float(i) * 91.0 + scroll, 312.0) + 58.0
 		var x := 88.0 + float((i * 173) % 470)
 		surface.draw_rect(Rect2(roundf(x), roundf(y), 2, 2), lamp)
+
+func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	if not _draw_ground_detail(state): return
+	var scroll := fposmod(t * 34.0, 720.0)
+	_draw_vertical_loop(surface, MACHINE_FURNACE, scroll, Rect2(0, 58, 640, 302), Color(0.80, 0.80, 0.78, 0.94))
+	# Furnace throats pulse slowly; machine indicators answer in a colder rhythm.
+	var heat := 0.13 + 0.07 * (0.5 + 0.5 * sin(t * 1.7))
+	var machine := 0.10 + 0.06 * (0.5 + 0.5 * sin(t * 2.3 + 1.1))
+	for i in range(5):
+		var y := fposmod(float(i) * 113.0 + scroll, 318.0) + 58.0
+		var x := 56.0 if i % 2 == 0 else 574.0
+		surface.draw_rect(Rect2(x, y, 3, 3), Color(0.95, 0.34, 0.09, heat))
+		surface.draw_rect(Rect2(640.0-x, y+19.0, 2, 2), Color(0.32, 0.74, 0.82, machine))
 
 func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)

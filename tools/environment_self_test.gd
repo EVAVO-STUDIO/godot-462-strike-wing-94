@@ -37,6 +37,12 @@ func _initialize() -> void:
 				city_assignments[str(mission.get("id", ""))] = str(mission.get("environment_variant", ""))
 		_expect(city_assignments.get("s2_m06_ghost_convoy", "") == "city_outskirts", "Ghost Convoy should use the authored city belt")
 		_expect(city_assignments.get("s2_m09_silent_city", "") == "city_outskirts", "Silent City should use the authored city belt")
+		var furnace_assignments: Dictionary = {}
+		for mission in mission_data.get("missions", []):
+			if typeof(mission) == TYPE_DICTIONARY and str(mission.get("id", "")) in ["m08_machine_furnace", "s2_m04_dead_factory"]:
+				furnace_assignments[str(mission.get("id", ""))] = str(mission.get("environment_variant", ""))
+		_expect(furnace_assignments.get("m08_machine_furnace", "") == "machine_furnace", "Machine Furnace should use the authored autonomous foundry")
+		_expect(furnace_assignments.get("s2_m04_dead_factory", "") == "machine_furnace", "Dead Factory should use the authored autonomous foundry")
 	var director_file := FileAccess.open("res://scripts/environment_director.gd", FileAccess.READ)
 	_expect(director_file != null, "environment_director.gd should be readable")
 	if director_file != null:
@@ -57,6 +63,7 @@ func _initialize() -> void:
 		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK"), "high-altitude benchmark should use its authored stratospheric raster master")
 		_expect(source.contains("BLACK_SKY_STATION"), "orbital benchmark should use its authored station raster master")
 		_expect(source.contains("CITY_OUTSKIRTS"), "city-belt benchmark should use its authored urban raster master")
+		_expect(source.contains("MACHINE_FURNACE"), "machine-war reveal should use its authored autonomous-foundry raster master")
 		_expect(source.contains("_draw_vertical_loop"), "coastal benchmark should scroll its authored plate without exposed seams")
 		_expect(source.contains("Restrained moving wakes"), "coastal benchmark should retain subdued open-water motion cues")
 		for cloud_family in ["CLOUD_LOW", "CLOUD_MID", "CLOUD_HIGH"]:
@@ -83,9 +90,11 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_asset_manifest.json"), "orbital source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/city/city_outskirts_loop_v1.png"), "city runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/city_asset_manifest.json"), "city source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png"), "machine furnace runtime master should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/machine_furnace_asset_manifest.json"), "machine furnace source manifest should exist")
 		for cloud_asset in ["low_wisp_a", "low_wisp_b", "mid_broken_a", "mid_broken_b", "high_mass_a", "high_mass_b"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/environments/clouds/cloud_bank_%s.png" % cloud_asset), "missing authored cloud sprite %s" % cloud_asset)
-		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor", "_draw_city_outskirts"]:
+		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor", "_draw_city_outskirts", "_draw_machine_furnace"]:
 			_expect(source.contains(variant_function), "Sector I environment identity missing %s" % variant_function)
 		_expect(not source.substr(source.find("func _draw_cloud_top"), source.find("func _draw_high_atmosphere_horizon") - source.find("func _draw_cloud_top")).contains("draw_circle"), "cloud-top renderer should use hand-shaped banks instead of circular placeholders")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)

@@ -1,0 +1,24 @@
+{
+  "family": "machine_furnace",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/machine_furnace/machine_furnace_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 63,
+  "construction": "foundry field reduced at 320x180, palette-limited, upscaled 2x nearest-neighbour and mirrored into a vertical loop",
+  "mission_assignments": ["m08_machine_furnace", "s2_m04_dead_factory"],
+  "art_direction": [
+    "human weapons foundry reorganized by autonomous machinery",
+    "physically connected assembly bays, conveyors, gantries and furnace throats",
+    "inhuman diagonal additions interrupt the original factory grid",
+    "open central boss and ground-target route",
+    "restrained hot furnace and cold machine indicator rhythm"
+  ],
+  "reject": [
+    "fantasy lava dungeon",
+    "alien organic machinery",
+    "neon circuit-board floor",
+    "generic refinery repetition",
+    "baked mechs, bosses or UI"
+  ]
+}
