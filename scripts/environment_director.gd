@@ -502,12 +502,31 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 		_draw_vertical_loop(surface,CLOUD_SHADOW_TILE,shadow_scroll,Rect2(0,58,640,302),Color(1,1,1,clampf(density*0.52,0.0,0.58)))
 	for i in range(count):
 		var texture: Texture2D = family[i % family.size()]
-		var x := float((i * 149 + 61) % 760) - 60.0
 		var speed := 10.0 + density * 20.0 + float(i % 3) * 2.0
+		var wind := 2.4 + float(i % 4) * 0.8
+		var x := fposmod(float(i * 149 + 61) + t * wind, 800.0) - 80.0
 		var scale := 0.72 + float((i * 5) % 4) * 0.12
 		var size := Vector2(texture.get_size()) * scale
 		var y := fposmod(float(i) * 97.0 + t * speed, 302.0) + 58.0 + size.y * 0.5
+		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, i)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
 	if density >= 0.32:
 		var mist_scroll := fposmod(t * (18.0 + density * 14.0), 512.0)
 		_draw_vertical_loop(surface,CLOUD_MIST_TILE,mist_scroll,Rect2(0,58,640,302),Color(1,1,1,clampf(density*0.34,0.0,0.42)))
+
+func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, index: int) -> void:
+	# The shadow reuses the authored bank alpha so every visible cloud has a
+	# registered undercast shape. A small deterministic offset implies the low
+	# late-day light used throughout the campaign without adding soft filtering.
+	var distance := 7.0 if band == "low" else (11.0 if band == "mid" else 15.0)
+	var offset := Vector2(distance + float(index % 2) * 2.0, distance * 0.62)
+	var shadow_alpha := clampf(0.055 + density * 0.12, 0.06, 0.18)
+	if band == "high" or band == "orbital":
+		shadow_alpha *= 0.68
+	var shadow_size := size * Vector2(1.04, 0.94)
+	surface.draw_texture_rect(
+		texture,
+		Rect2(center + offset - shadow_size * 0.5, shadow_size),
+		false,
+		Color(0.075, 0.10, 0.13, shadow_alpha)
+	)

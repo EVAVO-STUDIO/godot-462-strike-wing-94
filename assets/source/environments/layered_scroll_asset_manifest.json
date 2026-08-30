@@ -29,7 +29,7 @@
 	"neutral_fallback": ["sea_deep_tile beneath the mission biome stack; two-piece vertical wrap; no exposed programmer grid"],
     "open_sea": ["deep swell", "surface chop", "sparse foam crest", "rain", "cloud shadow", "discrete cloud banks"],
     "coast": ["authored terrain", "water surface", "cloud shadow", "cloud body", "mist"],
-    "weather": ["cloud shadow", "discrete cloud banks", "mist"],
+    "weather": ["broad cloud-shadow plate", "discrete cloud banks with registered offset undercasts", "independent wind shear", "mist"],
     "refinery": ["authored plant", "independent machinery and practical lights"],
     "desert": ["authored terrain", "independent dust and vehicle scars"],
     "river": ["authored corridor", "independent current and bridge reflections"],

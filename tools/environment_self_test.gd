@@ -99,6 +99,7 @@ func _initialize() -> void:
 				for sample_x in range(0,layer_image.get_width(),32):
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_TILE") and source.contains("SEA_SURFACE_TILE") and source.contains("SEA_FOAM_TILE") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored sea and cloud depth layers")
+		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_TILE", "RIVER_CURRENT_TILE", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
