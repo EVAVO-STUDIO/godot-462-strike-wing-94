@@ -5,6 +5,7 @@ const EnvironmentRules = preload("res://scripts/environment_rules.gd")
 const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
 const COASTAL_STRIKE_ZONE := preload("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png")
 const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png")
+const STORM_SEA := preload("res://assets/runtime/environments/water/storm_sea_loop_v1.png")
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -240,14 +241,15 @@ func _draw_industrial(surface: CanvasItem, profile: Dictionary, state: Dictionar
 		surface.draw_rect(Rect2(roundf(x), roundf(y), 2, 2), lamp)
 
 func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var near := _tone(profile, "near", 0.28)
-	var mid := _tone(profile, "mid", 0.22)
 	var speed := _parallax_speed(profile, state, "near")
-	for i in range(22):
-		var y := fposmod(float(i) * 19.0 + t * speed, 330.0) + 54.0
-		var offset := float((i * 41) % 90)
-		surface.draw_line(Vector2(24+offset,y),Vector2(104+offset,y),near,1.0)
-		surface.draw_line(Vector2(330+offset*0.4,y+7),Vector2(430+offset*0.4,y+7),mid,1.0)
+	var scroll := fposmod(t * speed * 0.26, 720.0)
+	_draw_vertical_loop(surface, STORM_SEA, scroll, Rect2(0, 58, 640, 302))
+	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.01, 0.025, 0.045, 0.16))
+	var rain := Color("7796a8", 0.14)
+	for i in range(14):
+		var x := float((i * 109 + 31) % 690) - 20.0
+		var y := fposmod(float(i) * 43.0 + t * (42.0 + float(i % 3) * 4.0), 340.0) + 48.0
+		surface.draw_line(Vector2(x, y), Vector2(x - 7.0, y + 15.0), rain, 1.0)
 
 func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return

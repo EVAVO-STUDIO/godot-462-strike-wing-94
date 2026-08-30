@@ -1,0 +1,23 @@
+{
+  "family": "open_water",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/water/storm_sea_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/water/storm_sea_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_colors": 52,
+  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "art_direction": [
+    "cold predawn military squall",
+    "crossing directional swell and wind-sheared foam",
+    "sparse navigation lights and distant wake scars",
+    "broad combat-safe naval target space",
+    "animated diagonal rain pass"
+  ],
+  "reject": [
+    "repeated horizontal line texture",
+    "tropical water",
+    "photographic noise",
+    "smooth vector waves",
+    "bright foam that competes with projectiles"
+  ]
+}
