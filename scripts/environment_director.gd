@@ -3,6 +3,7 @@ extends CanvasLayer
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
 const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
+const COASTAL_STRIKE_ZONE := preload("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png")
 
 var _profiles: Array = []
 var _surface: Control
@@ -183,48 +184,32 @@ func _coast_x(world_y: float, scale: float) -> float:
 	return 148.0 * scale + sin(world_y * 0.018) * 35.0 * scale + sin(world_y * 0.047 + 1.3) * 13.0 * scale
 
 func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var scale := _ground_scale(state)
 	if not _draw_ground_detail(state):
 		return
-	var scroll := t * _parallax_speed(profile, state, "mid")
-	var land := _tone(profile, "land", 0.72)
-	var inland := _tone(profile, "inland", 0.46)
-	var sand := _tone(profile, "sand", 0.60)
-	var foam := _tone(profile, "foam", 0.58)
-	var road := _tone(profile, "road", 0.52)
-	var coast_points := PackedVector2Array([Vector2(8, 60)])
-	var shore_points: Array[Vector2] = []
-	for y in range(60, 369, 8):
-		var coast_x := _coast_x(float(y) - scroll, scale)
-		shore_points.append(Vector2(coast_x, float(y)))
-		coast_points.append(Vector2(coast_x, float(y)))
-	coast_points.append(Vector2(8, 368))
-	surface.draw_colored_polygon(coast_points, land)
-	for index in range(shore_points.size() - 1):
-		var a := shore_points[index]
-		var b := shore_points[index + 1]
-		surface.draw_line(a, b, sand, 5.0)
-		surface.draw_line(a + Vector2(7, 0), b + Vector2(7, 0), foam, 1.0)
-		surface.draw_line(a + Vector2(13, 0), b + Vector2(13, 0), Color(foam, foam.a * 0.48), 1.0)
-	for y in range(66, 366, 24):
-		var world_y := float(y) - scroll
-		var edge := _coast_x(world_y, scale)
-		surface.draw_line(Vector2(10, y), Vector2(maxf(12.0, edge - 31.0 * scale), y), inland, 1.0)
-		var road_x := maxf(23.0, edge - 48.0 * scale)
-		surface.draw_rect(Rect2(roundf(road_x), y, 2, 12), road)
-	for landmark in range(3):
-		var ly := fposmod(116.0 + landmark * 174.0 + scroll, 522.0) + 48.0
-		var lx := _coast_x(ly - scroll, scale)
-		if ly < 350.0:
-			surface.draw_rect(Rect2(28, roundf(ly), maxf(34.0, lx - 74.0), 8), road)
-			surface.draw_line(Vector2(34, ly + 4), Vector2(maxf(42.0, lx - 48.0), ly + 4), foam, 1.0)
-			surface.draw_rect(Rect2(roundf(lx - 20.0), roundf(ly + 18.0), 42, 3), road)
-			surface.draw_rect(Rect2(roundf(lx + 17.0), roundf(ly + 18.0), 3, 15), road)
-	# Sandbars and wakes break up the open water without competing with bullets.
-	for i in range(9):
-		var sy := fposmod(float(i) * 61.0 + scroll * 1.18, 310.0) + 62.0
-		var sx := 240.0 + float((i * 97) % 340)
-		surface.draw_line(Vector2(sx, sy), Vector2(sx + 18.0 + float(i % 3) * 8.0, sy), Color(foam, foam.a * 0.42), 1.0)
+	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.32, 720.0)
+	_draw_vertical_loop(surface, COASTAL_STRIKE_ZONE, scroll, Rect2(0, 58, 640, 302))
+	# Restrained moving wakes prevent the authored plate from reading as a static
+	# illustration while preserving projectile contrast over the open water.
+	var foam := _tone(profile, "foam", 0.34)
+	for i in range(7):
+		var sy := fposmod(float(i) * 53.0 + t * 21.0, 310.0) + 58.0
+		var sx := 382.0 + float((i * 73) % 190)
+		surface.draw_line(Vector2(sx, sy), Vector2(sx + 12.0 + float(i % 3) * 6.0, sy), foam, 1.0)
+
+func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2) -> void:
+	var remaining := destination.size.y
+	var draw_y := destination.position.y
+	var sample_y := fposmod(source_y, float(texture.get_height()))
+	while remaining > 0.0:
+		var segment := minf(remaining, float(texture.get_height()) - sample_y)
+		surface.draw_texture_rect_region(
+			texture,
+			Rect2(destination.position.x, draw_y, destination.size.x, segment),
+			Rect2(0, sample_y, float(texture.get_width()), segment)
+		)
+		remaining -= segment
+		draw_y += segment
+		sample_y = 0.0
 
 func _draw_industrial(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var scale := _ground_scale(state)

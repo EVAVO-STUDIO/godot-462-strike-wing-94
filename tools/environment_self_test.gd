@@ -38,8 +38,11 @@ func _initialize() -> void:
 		_expect(source.contains("blended_cloud_density"), "environment renderer should blend cloud density")
 		_expect(source.contains("_orbital_mix"), "orbital starfield should fade through the atmospheric transition")
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
-		_expect(source.contains("_coast_x"), "coastal benchmark should use a continuous authored shoreline")
-		_expect(source.contains("Sandbars and wakes"), "coastal benchmark should retain subdued open-water scale cues")
+		_expect(source.contains("COASTAL_STRIKE_ZONE"), "coastal benchmark should use its authored raster master")
+		_expect(source.contains("_draw_vertical_loop"), "coastal benchmark should scroll its authored plate without exposed seams")
+		_expect(source.contains("Restrained moving wakes"), "coastal benchmark should retain subdued open-water motion cues")
+		_expect(FileAccess.file_exists("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png"), "coastal runtime master should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/coast_asset_manifest.json"), "coastal source manifest should exist")
 		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor"]:
 			_expect(source.contains(variant_function), "Sector I environment identity missing %s" % variant_function)
 		_expect(not source.substr(source.find("func _draw_cloud_top"), source.find("func _draw_high_atmosphere_horizon") - source.find("func _draw_cloud_top")).contains("draw_circle"), "cloud-top renderer should use hand-shaped banks instead of circular placeholders")

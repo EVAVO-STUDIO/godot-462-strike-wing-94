@@ -1,0 +1,23 @@
+{
+  "family": "coast",
+  "status": "runtime_master_v1",
+  "source_candidate": "res://assets/source/environments/candidates/coast/coastal_strike_zone_candidate_01.png",
+  "runtime_master": "res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png",
+  "runtime_size": [640, 720],
+  "palette_limit": 96,
+  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "art_direction": [
+    "dark 1999 military arcade realism",
+    "strict orthographic top-down scale",
+    "fortified concrete coastline and analog utility infrastructure",
+    "low-contrast combat-safe sea and terrain",
+    "restrained amber practical lights"
+  ],
+  "reject": [
+    "perspective horizon",
+    "modern neon science fiction",
+    "photographic satellite texture",
+    "smooth vector geometry",
+    "uncontrolled painterly detail"
+  ]
+}
