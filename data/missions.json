@@ -416,6 +416,72 @@
       ]
     },
     {
+      "id":"s3_m02_thin_blue_line","name":"Thin Blue Line","environment":"high_cloud","duration_seconds":255,"starting_wave":38,"boss_id":"orbital_command_node","briefing":"Defend the last atmospheric relay while the VX-94 receives its orbital flight package, then climb through the machine blockade guarding the blue line.",
+      "encounter_beats":[
+        {"id":"relay_defence","at_seconds":7,"label":"RELAY DEFENCE","formation":"missile_screen","enemies":[{"id":"phase_interceptor","count":3},{"id":"drone_missile_node","count":3}],"suppress_random_seconds":6},
+        {"id":"blue_line_climb","at_seconds":58,"label":"BLUE LINE CLIMB","formation":"pursuit","enemies":[{"id":"exo_drone","count":4},{"id":"drone_hunter","count":2}],"suppress_random_seconds":8},
+        {"id":"upper_stage_link","at_seconds":110,"label":"UPPER STAGE LINK","formation":"hunter_pair","enemies":[{"id":"exo_drone","count":2}],"pickup":"shield","suppress_random_seconds":12},
+        {"id":"weather_satellite","at_seconds":145,"label":"WEATHER SATELLITE","formation":"echelon_right","secret":true,"condition":{"type":"accuracy_at_least","value":0.81,"minimum_shots":150},"enemies":[{"id":"orbital_sentry","count":2}],"pickup":"weapon","suppress_random_seconds":9},
+        {"id":"blockade_node","at_seconds":191,"label":"BLOCKADE NODE","formation":"escort_shell","enemies":[{"id":"orbital_sentry","count":3},{"id":"phase_interceptor","count":3},{"id":"exo_drone","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":255,"required":true},{"id":"break_blockade","type":"destroy_enemy","enemy_id":"orbital_command_node","count":1,"required":true},{"id":"hold_relay","type":"destroy_enemy","enemy_id":"drone_missile_node","count":3,"required":false,"bonus_credits":3400}]
+    },
+    {
+      "id":"s3_m04_kinetic_dawn","name":"Kinetic Dawn","environment":"orbital","duration_seconds":270,"starting_wave":42,"boss_id":"station_warden","briefing":"Escort Longshot targeting packages across sunrise orbit and seize the unfinished rail platform before its Warden turns the weapon on Earth.",
+      "encounter_beats":[
+        {"id":"sunrise_escort","at_seconds":8,"label":"SUNRISE ESCORT","formation":"bomber_box","enemies":[{"id":"orbital_lancer","count":3},{"id":"exo_drone","count":3}],"suppress_random_seconds":7},
+        {"id":"rail_lane_crossing","at_seconds":63,"label":"RAIL LANE CROSSING","formation":"crossing_attack","enemies":[{"id":"beam_sentry","count":3},{"id":"orbital_sentry","count":3}],"suppress_random_seconds":9},
+        {"id":"targeting_handoff","at_seconds":120,"label":"TARGETING HANDOFF","formation":"column","enemies":[{"id":"exo_drone","count":2}],"pickup":"repair","suppress_random_seconds":12},
+        {"id":"blind_orbit","at_seconds":156,"label":"BLIND ORBIT","formation":"ambush","secret":true,"condition":{"type":"bombs_at_least","value":2},"enemies":[{"id":"orbital_lancer","count":2},{"id":"beam_sentry","count":1}],"pickup":"bomb","suppress_random_seconds":9},
+        {"id":"rail_platform_shell","at_seconds":204,"label":"RAIL PLATFORM SHELL","formation":"escort_shell","enemies":[{"id":"beam_sentry","count":3},{"id":"orbital_lancer","count":3},{"id":"phase_interceptor","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":270,"required":true},{"id":"seize_rail_platform","type":"destroy_enemy","enemy_id":"station_warden","count":1,"required":true},{"id":"clear_rail_lane","type":"destroy_enemy","enemy_id":"orbital_sentry","count":5,"required":false,"bonus_credits":3800}]
+    },
+    {
+      "id":"s3_m05_orbitfall","name":"Orbitfall","environment":"orbital","duration_seconds":275,"starting_wave":44,"boss_id":"orbital_command_node","briefing":"Machine debris is being deorbited onto allied launch sites. Enter the falling wreckage stream and sever the command node steering the bombardment.",
+      "encounter_beats":[
+        {"id":"debris_front","at_seconds":7,"label":"DEBRIS FRONT","formation":"low_high_layer","enemies":[{"id":"exo_drone","count":4},{"id":"orbital_sentry","count":2}],"suppress_random_seconds":7},
+        {"id":"falling_lancers","at_seconds":62,"label":"FALLING LANCERS","formation":"pursuit","enemies":[{"id":"orbital_lancer","count":4},{"id":"phase_interceptor","count":2}],"suppress_random_seconds":9},
+        {"id":"safe_orbit_window","at_seconds":122,"label":"SAFE ORBIT WINDOW","formation":"line","enemies":[{"id":"exo_drone","count":2}],"pickup":"shield","suppress_random_seconds":12},
+        {"id":"launch_site_vector","at_seconds":159,"label":"LAUNCH SITE VECTOR","formation":"reverse_wedge","secret":true,"condition":{"type":"score_at_least","value":31000},"enemies":[{"id":"beam_sentry","count":2}],"pickup":"weapon","suppress_random_seconds":10},
+        {"id":"orbitfall_control","at_seconds":210,"label":"ORBITFALL CONTROL","formation":"rotating_swarm","enemies":[{"id":"orbital_sentry","count":4},{"id":"orbital_lancer","count":3},{"id":"beam_sentry","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":275,"required":true},{"id":"stop_orbitfall","type":"destroy_enemy","enemy_id":"orbital_command_node","count":1,"required":true},{"id":"save_launch_sites","type":"destroy_enemy","enemy_id":"orbital_lancer","count":6,"required":false,"bonus_credits":4100}]
+    },
+    {
+      "id":"s3_m07_dead_satellite","name":"Dead Satellite","environment":"orbital","duration_seconds":280,"starting_wave":46,"boss_id":"station_warden","briefing":"Board the shadow of a dead reconnaissance lattice, recover its intelligence core and destroy the Warden nesting inside its collapsed antenna field.",
+      "encounter_beats":[
+        {"id":"antenna_field","at_seconds":8,"label":"ANTENNA FIELD","formation":"stagger","enemies":[{"id":"orbital_sentry","count":3},{"id":"exo_drone","count":3}],"suppress_random_seconds":7},
+        {"id":"shadow_hunters","at_seconds":65,"label":"SHADOW HUNTERS","formation":"ambush","enemies":[{"id":"phase_interceptor","count":3},{"id":"orbital_lancer","count":3}],"suppress_random_seconds":9},
+        {"id":"intelligence_core","at_seconds":126,"label":"INTELLIGENCE CORE","formation":"hunter_pair","enemies":[{"id":"exo_drone","count":2}],"pickup":"repair","suppress_random_seconds":12},
+        {"id":"cold_antenna_route","at_seconds":165,"label":"COLD ANTENNA ROUTE","formation":"echelon_left","secret":true,"condition":{"type":"accuracy_at_least","value":0.82,"minimum_shots":165},"enemies":[{"id":"beam_sentry","count":2},{"id":"orbital_lancer","count":1}],"pickup":"weapon","suppress_random_seconds":10},
+        {"id":"lattice_warden","at_seconds":216,"label":"LATTICE WARDEN","formation":"missile_screen","enemies":[{"id":"beam_sentry","count":4},{"id":"orbital_lancer","count":3},{"id":"phase_interceptor","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":280,"required":true},{"id":"destroy_lattice_warden","type":"destroy_enemy","enemy_id":"station_warden","count":1,"required":true},{"id":"recover_core","type":"destroy_enemy","enemy_id":"beam_sentry","count":6,"required":false,"bonus_credits":4400}]
+    },
+    {
+      "id":"s3_m08_black_sky","name":"Black Sky","environment":"orbital","duration_seconds":290,"starting_wave":48,"boss_id":"phase_control_array","briefing":"The final operation begins. Tear open the network's planetary field curtain and mark the Machine Ark's escape orbit for the allied fleet.",
+      "encounter_beats":[
+        {"id":"black_sky_entry","at_seconds":8,"label":"BLACK SKY","formation":"bomber_box","enemies":[{"id":"phase_interceptor","count":3},{"id":"orbital_lancer","count":3}],"suppress_random_seconds":7},
+        {"id":"field_curtain","at_seconds":68,"label":"FIELD CURTAIN","formation":"missile_screen","enemies":[{"id":"beam_sentry","count":4},{"id":"orbital_sentry","count":3}],"suppress_random_seconds":10},
+        {"id":"fleet_mark","at_seconds":131,"label":"FLEET MARK","formation":"column","enemies":[{"id":"exo_drone","count":2}],"pickup":"shield","suppress_random_seconds":12},
+        {"id":"dark_side_gap","at_seconds":172,"label":"DARK SIDE GAP","formation":"pursuit","secret":true,"condition":{"type":"bombs_at_least","value":2},"enemies":[{"id":"orbital_lancer","count":2},{"id":"phase_interceptor","count":2}],"pickup":"bomb","suppress_random_seconds":10},
+        {"id":"curtain_anchor","at_seconds":225,"label":"CURTAIN ANCHOR","formation":"escort_shell","enemies":[{"id":"beam_sentry","count":4},{"id":"phase_interceptor","count":3},{"id":"orbital_lancer","count":2}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":290,"required":true},{"id":"tear_field_curtain","type":"destroy_enemy","enemy_id":"phase_control_array","count":1,"required":true},{"id":"mark_escape_orbit","type":"destroy_enemy","enemy_id":"orbital_lancer","count":5,"required":false,"bonus_credits":4800}]
+    },
+    {
+      "id":"s3_m09_last_horizon","name":"Last Horizon","environment":"orbital","duration_seconds":295,"starting_wave":50,"boss_id":"orbital_command_node","briefing":"Hold the Ark in Earth orbit while allied kinetic batteries align. Break its outer command shell and survive the last horizon before the final assault.",
+      "encounter_beats":[
+        {"id":"ark_far_guard","at_seconds":9,"label":"ARK FAR GUARD","formation":"echelon_right","enemies":[{"id":"orbital_lancer","count":4},{"id":"exo_drone","count":2}],"suppress_random_seconds":8},
+        {"id":"kinetic_alignment","at_seconds":70,"label":"KINETIC ALIGNMENT","formation":"crossing_attack","enemies":[{"id":"phase_interceptor","count":4},{"id":"beam_sentry","count":3}],"suppress_random_seconds":10},
+        {"id":"final_tanker_link","at_seconds":135,"label":"FINAL TANKER LINK","formation":"hunter_pair","enemies":[{"id":"exo_drone","count":2}],"pickup":"repair","suppress_random_seconds":12},
+        {"id":"command_shell_gap","at_seconds":178,"label":"COMMAND SHELL GAP","formation":"ambush","secret":true,"condition":{"type":"accuracy_at_least","value":0.83,"minimum_shots":180},"enemies":[{"id":"orbital_lancer","count":2},{"id":"beam_sentry","count":2}],"pickup":"weapon","suppress_random_seconds":10},
+        {"id":"last_horizon_wall","at_seconds":232,"label":"LAST HORIZON WALL","formation":"low_high_layer","enemies":[{"id":"orbital_sentry","count":4},{"id":"phase_interceptor","count":3},{"id":"orbital_lancer","count":3}],"suppress_random_seconds":12}
+      ],
+      "objectives":[{"id":"survive","type":"survive","seconds":295,"required":true},{"id":"break_outer_command","type":"destroy_enemy","enemy_id":"orbital_command_node","count":1,"required":true},{"id":"hold_ark_orbit","type":"destroy_enemy","enemy_id":"orbital_lancer","count":7,"required":false,"bonus_credits":5200}]
+    },
+    {
       "id": "m12_machine_ark",
       "name": "Machine Ark",
       "environment": "orbital",

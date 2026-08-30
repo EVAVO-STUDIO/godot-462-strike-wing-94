@@ -51,7 +51,7 @@ Upper atmosphere and near orbit. Planetary glow, orbital stations, satellites an
 
 Altitude changes are authored mission events, never arbitrary camera zooms.
 
-## Current playable campaign: 24 missions
+## Current playable campaign: 30 missions
 
 ### Act I - Mercenary War
 
@@ -84,9 +84,15 @@ The opening establishes criminal private armies, black-market aircraft, armour, 
 ### Act III - BLACK SKY
 
 21. Black Horizon - first exo-atmospheric breakout and Orbital Command Node.
-22. Blue Fire - phase-screen breakthrough ending at the Phase Control Array.
-23. Cold Station - full orbital station assault against Beam Sentries and Station Warden.
-24. Machine Ark - current strategic-orbital climax against the mobile AI command/factory ark.
+22. Thin Blue Line - defence of the last atmospheric relay and orbital-package climb.
+23. Blue Fire - phase-screen breakthrough ending at the Phase Control Array.
+24. Kinetic Dawn - sunrise-orbit seizure of an unfinished rail platform.
+25. Orbitfall - interception inside a machine-steered deorbit bombardment stream.
+26. Cold Station - full orbital station assault against Beam Sentries and Station Warden.
+27. Dead Satellite - reconnaissance lattice recovery inside a collapsed antenna field.
+28. Black Sky - planetary field-curtain assault opening the final operation.
+29. Last Horizon - containment of the Machine Ark while allied batteries align.
+30. Machine Ark - strategic-orbital finale against the mobile AI command/factory ark.
 
 The human enemy does not vanish instantly when the AI emerges. The transition from conventional conflict into machine war must remain visible.
 
