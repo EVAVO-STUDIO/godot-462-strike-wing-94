@@ -66,6 +66,16 @@ const MERCENARY_BOSS_SPRITES := {
 	"armoured_train": preload("res://assets/runtime/enemies/mercenary_boss/armoured_train_idle.png"),
 	"missile_cruiser": preload("res://assets/runtime/enemies/mercenary_boss/missile_cruiser_idle.png"),
 }
+const GUNSHIP_ALPHA_PHASE_OVERLAYS := {
+	"phase_2": preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/phase_2_damage.png"),
+	"phase_3": preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/phase_3_damage.png"),
+	"critical": [
+		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_0.png"),
+		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_1.png"),
+		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_2.png"),
+		preload("res://assets/runtime/enemies/boss_animation/gunship_alpha/critical_3.png"),
+	],
+}
 const MACHINE_BOSS_SPRITES := {
 	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
 	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png"),
@@ -239,7 +249,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		return
 	if is_boss:
 		if MERCENARY_BOSS_SPRITES.has(enemy_id):
-			_draw_production_sprite(surface, p, MERCENARY_BOSS_SPRITES[enemy_id])
+			_draw_production_boss(surface, p, enemy_id, enemy, MERCENARY_BOSS_SPRITES[enemy_id])
 		elif MACHINE_BOSS_SPRITES.has(enemy_id):
 			_draw_production_sprite(surface, p, MACHINE_BOSS_SPRITES[enemy_id])
 		elif ORBITAL_BOSS_SPRITES.has(enemy_id):
@@ -277,6 +287,19 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 	var size := texture.get_size() * scale
 	var destination := Rect2((p - size * 0.5).round(), size.round())
 	surface.draw_texture_rect(texture, destination, false)
+
+func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, texture: Texture2D) -> void:
+	_draw_production_sprite(surface, p, texture)
+	if enemy_id != "gunship_alpha":
+		return
+	var boss_phase := clampi(int(enemy.get("boss_phase", 1)), 1, 3)
+	if boss_phase >= 2:
+		_draw_production_sprite(surface, p, GUNSHIP_ALPHA_PHASE_OVERLAYS["phase_2"])
+	if boss_phase >= 3:
+		_draw_production_sprite(surface, p, GUNSHIP_ALPHA_PHASE_OVERLAYS["phase_3"])
+		var critical_frames: Array = GUNSHIP_ALPHA_PHASE_OVERLAYS["critical"]
+		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % critical_frames.size()
+		_draw_production_sprite(surface, p, critical_frames[frame_index])
 
 func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, layers: Dictionary, scale: float) -> void:
 	var base: Texture2D = layers.get("base")

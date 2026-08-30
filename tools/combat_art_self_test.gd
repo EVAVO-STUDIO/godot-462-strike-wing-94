@@ -141,6 +141,10 @@ func _test_visual_language() -> void:
 	for enemy_id in mercenary_boss_sizes:
 		var texture := load("res://assets/runtime/enemies/mercenary_boss/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == mercenary_boss_sizes[enemy_id], "mercenary boss sprite should retain reviewed geometry: %s" % enemy_id)
+	for overlay_name in ["phase_2_damage", "phase_3_damage", "critical_0", "critical_1", "critical_2", "critical_3"]:
+		var overlay := load("res://assets/runtime/enemies/boss_animation/gunship_alpha/%s.png" % overlay_name)
+		_expect(overlay is Texture2D and overlay.get_size() == Vector2(94,78), "Gunship Alpha phase overlay should retain registered 94x78 canvas: %s" % overlay_name)
+	_expect(source.contains("GUNSHIP_ALPHA_PHASE_OVERLAYS") and source.contains('enemy.get("boss_phase", 1)') and source.contains('enemy.get("age", 0.0)') and source.contains("* 8.0"), "Gunship Alpha should use canonical boss phase and age-driven critical animation")
 	var machine_boss_sizes := {
 		"swarm_controller": Vector2(106,88),
 		"ai_forge_core": Vector2(112,112),
