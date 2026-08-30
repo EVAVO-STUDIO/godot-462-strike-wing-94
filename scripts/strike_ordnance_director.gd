@@ -2,6 +2,12 @@ extends CanvasLayer
 
 const HUD_STABILITY_TROUGH := preload("res://assets/runtime/ui/hud/stability_trough.png")
 const HUD_STABILITY_FILL := preload("res://assets/runtime/ui/hud/stability_fill.png")
+const HUD_STRIKE_FRAME := preload("res://assets/runtime/ui/hud/lower_systems_dock/strike_frame.png")
+const HUD_STRIKE_BOMB := preload("res://assets/runtime/ui/hud/lower_systems_dock/icon_bomb.png")
+const HUD_STRIKE_LOCK := preload("res://assets/runtime/ui/hud/lower_systems_dock/icon_lock.png")
+const HUD_STRIKE_ROUTE := preload("res://assets/runtime/ui/hud/lower_systems_dock/icon_route.png")
+const HUD_STRIKE_SAFE := preload("res://assets/runtime/ui/hud/lower_systems_dock/icon_safe.png")
+const HUD_STRIKE_STABLE := preload("res://assets/runtime/ui/hud/lower_systems_dock/icon_stable.png")
 const AIM_LATTICE := preload("res://assets/runtime/ui/hud/strike_targeting/aim_lattice.png")
 const BLAST_ENVELOPE := preload("res://assets/runtime/ui/hud/strike_targeting/blast_envelope.png")
 const PRIORITY_FRAME := preload("res://assets/runtime/ui/hud/strike_targeting/priority_frame.png")
@@ -268,21 +274,7 @@ func _draw_surface(surface: CanvasItem) -> void:
 	if priority:
 		surface.draw_texture(PRIORITY_FRAME, (target - Vector2(16,16)).round())
 		PixelFont.draw_text(surface, "ROUTE TARGET", target + Vector2(-24, 15), 1, reticle, 1)
-	var stability_pct := int(round(_stability * 100.0))
-	var transition_text := " SAFE" if _altitude_transition_active() else ""
-	PixelFont.draw_text(
-		surface,
-		"E BOMB %d  %s%s%s%s  STB%03d" % [ordnance, "LOW" if altitude == "low" else "MID", " LOCK" if assisted else "", " ROUTE" if priority else "", transition_text, stability_pct],
-		Vector2(18, 314),
-		1,
-		Color(0.92, 0.74, 0.30, 0.92),
-		1
-	)
-	if altitude == "low" and target_index >= 0:
-		surface.draw_texture(HUD_STABILITY_TROUGH, Vector2(17,324))
-		var stability_width := roundf(float(HUD_STABILITY_FILL.get_width()) * _stability)
-		if stability_width > 0.0:
-			surface.draw_texture_rect_region(HUD_STABILITY_FILL,Rect2(Vector2(18,325),Vector2(stability_width,HUD_STABILITY_FILL.get_height())),Rect2(0,0,stability_width,HUD_STABILITY_FILL.get_height()))
+	_draw_strike_status(surface, altitude, assisted, priority, stable)
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)
 		var release: Vector2 = item.get("release_position", scene.get("player_position"))
@@ -300,6 +292,27 @@ func _draw_surface(surface: CanvasItem) -> void:
 		var bomb_texture: Texture2D = PRECISION_BOMB_FRAMES[bomb_frame_index]
 		var bomb_size := (bomb_texture.get_size() * bomb_scale).round()
 		surface.draw_texture_rect(bomb_texture, Rect2((bomb_position - Vector2(8, 7) * bomb_scale).round(), bomb_size), false)
+
+func _draw_strike_status(surface: CanvasItem, altitude: String, assisted: bool, priority: bool, stable: bool) -> void:
+	var transition_active := _altitude_transition_active()
+	var stability_pct := int(round(_stability * 100.0))
+	surface.draw_texture(HUD_STRIKE_FRAME, Vector2(14, 298))
+	surface.draw_texture(HUD_STRIKE_BOMB, Vector2(18, 300))
+	PixelFont.draw_text(surface, "%d" % ordnance, Vector2(32, 302), 1, Color(0.92, 0.74, 0.30, 0.92), 1)
+	PixelFont.draw_text(surface, "LOW" if altitude == "low" else "MID", Vector2(47, 302), 1, Color(0.92, 0.74, 0.30, 0.92), 1)
+	if assisted:
+		surface.draw_texture(HUD_STRIKE_LOCK, Vector2(72, 300))
+	if priority:
+		surface.draw_texture(HUD_STRIKE_ROUTE, Vector2(90, 300))
+	if transition_active:
+		surface.draw_texture(HUD_STRIKE_SAFE, Vector2(108, 300))
+	elif stable:
+		surface.draw_texture(HUD_STRIKE_STABLE, Vector2(108, 300))
+	PixelFont.draw_text(surface, "STB%03d" % stability_pct, Vector2(124, 302), 1, Color(0.72, 0.88, 0.80, 0.94), 1)
+	surface.draw_texture(HUD_STABILITY_TROUGH, Vector2(151, 303))
+	var stability_width := roundf(float(HUD_STABILITY_FILL.get_width()) * _stability)
+	if stability_width > 0.0:
+		surface.draw_texture_rect_region(HUD_STABILITY_FILL,Rect2(Vector2(152,304),Vector2(stability_width,HUD_STABILITY_FILL.get_height())),Rect2(0,0,stability_width,HUD_STABILITY_FILL.get_height()))
 
 func _draw_effect_between(surface: CanvasItem, texture: Texture2D, start: Vector2, finish: Vector2, height: float, tint: Color = Color.WHITE) -> void:
 	var delta := finish - start

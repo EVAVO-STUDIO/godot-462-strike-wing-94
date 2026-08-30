@@ -1,0 +1,16 @@
+{
+  "asset_family": "vx94_lower_systems_dock",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/lower_systems_dock_sheet.svg",
+  "visual_contract": {
+    "purpose": "non-overlapping bomber strike-computer and afterburner fuel presentation",
+    "layout": "strike row at y298 followed by the existing afterburner row at y315",
+    "era": "late-1990s hardwired stores-management annunciator",
+    "avoid": ["colliding text", "floating programmer labels", "modern rounded status pills", "generic circular reticles"]
+  },
+  "runtime": {
+    "frame": "res://assets/runtime/ui/hud/lower_systems_dock/strike_frame.png",
+    "states": ["icon_bomb.png", "icon_lock.png", "icon_route.png", "icon_safe.png", "icon_stable.png"],
+    "shared_bars": ["res://assets/runtime/ui/hud/stability_trough.png", "res://assets/runtime/ui/hud/stability_fill.png", "res://assets/runtime/ui/hud/afterburner_trough.png", "res://assets/runtime/ui/hud/afterburner_fill.png"]
+  }
+}

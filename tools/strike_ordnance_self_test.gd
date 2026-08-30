@@ -93,8 +93,9 @@ func _test_source_wiring() -> void:
 		_expect(source.contains('EncounterRules.is_low_bomber_route(beat)'), "strike-priority tags should originate from authored route conditions")
 	var ordnance := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)
 	_expect(ordnance != null, "strike ordnance director should be readable")
+	var ordnance_source := ordnance.get_as_text() if ordnance != null else ""
 	if ordnance != null:
-		var source := ordnance.get_as_text()
+		var source := ordnance_source
 		_expect(source.contains("ROUTE TARGET"), "route target should receive stronger visual designation")
 		_expect(source.contains("PRECISION ROUTE HIT"), "precision route kill should produce player feedback")
 		_expect(source.contains("route_precision_score"), "ordnance kill path should award bounded route score")
@@ -103,7 +104,7 @@ func _test_source_wiring() -> void:
 		_expect(source.contains("stabilized_impact_delay"), "drop timing should consume stabilization rules")
 		_expect(source.contains('"ORDNANCE SAFE - ALTITUDE TRANSITION"'), "bombing computer should safe release during climb/dive")
 		_expect(source.contains("not _altitude_transition_active()"), "attack-run stability should not build while changing altitude")
-		_expect(source.contains('transition_text := " SAFE"'), "bombing HUD should expose transition-safe state")
+		_expect(source.contains("HUD_STRIKE_SAFE") and source.contains("transition_active"), "bombing HUD should expose transition-safe state with authored annunciator art")
 		_expect(source.contains("maxi(1, hp - damage)"), "strike ordnance must remain nonlethal against bosses")
 		_expect(source.contains("AIM_LATTICE") and source.contains("BLAST_ENVELOPE") and source.contains("PRIORITY_FRAME") and source.contains("IMPACT_MARKER") and source.contains("GUIDANCE_RIBBON"), "bomber targeting should use the complete authored strike-HUD sprite kit")
 		_expect(not source.contains("draw_arc") and not source.contains("draw_circle") and not source.contains("draw_line") and not source.contains("draw_rect"), "bomber targeting should not regress to vector circles, lines or boxes")
@@ -112,6 +113,12 @@ func _test_source_wiring() -> void:
 		var texture := load("res://assets/runtime/ui/hud/strike_targeting/%s.png" % asset_name)
 		_expect(texture is Texture2D and texture.get_size() == targeting_sizes[asset_name], "strike targeting sprite should retain registered geometry: %s" % asset_name)
 	_expect(FileAccess.file_exists("res://assets/source/ui/hud/strike_targeting_manifest.json"), "strike targeting source/runtime manifest should exist")
+	var dock_sizes := {"strike_frame":Vector2(196,15), "icon_bomb":Vector2(12,12), "icon_lock":Vector2(12,12), "icon_route":Vector2(12,12), "icon_safe":Vector2(12,12), "icon_stable":Vector2(12,12)}
+	for asset_name in dock_sizes:
+		var dock_texture := load("res://assets/runtime/ui/hud/lower_systems_dock/%s.png" % asset_name)
+		_expect(dock_texture is Texture2D and dock_texture.get_size() == dock_sizes[asset_name], "lower systems-dock sprite should retain registered geometry: %s" % asset_name)
+	_expect(ordnance_source.contains("func _draw_strike_status") and ordnance_source.contains("Vector2(14, 298)") and not ordnance_source.contains("Vector2(18, 314)"), "strike computer should occupy the dedicated row above the afterburner meter")
+	_expect(FileAccess.file_exists("res://assets/source/ui/hud/lower_systems_dock_manifest.json"), "lower systems-dock source/runtime manifest should exist")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
