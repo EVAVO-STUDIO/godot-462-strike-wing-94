@@ -160,6 +160,7 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.orbital_weapon_frame_index(1.0, 0.0) == 0 and CombatArtDirector.orbital_weapon_frame_index(0.5, 0.0) == 1, "orbital apertures should hold safe then visibly prepare before firing")
 	_expect(CombatArtDirector.orbital_weapon_frame_index(0.1, 0.0) == 2 and CombatArtDirector.orbital_weapon_frame_index(1.0, 0.8) == 3, "orbital apertures should expose charged and discharge poses")
 	_expect(source.contains('ORBITAL_AIR_SPECIALIST_ART') and source.contains('enemy_id == "orbital_sentry"') and source.contains('enemy_id == "phase_interceptor"'), "BLACK SKY airframes should receive specialist mechanical animation")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/specialist_mechanics_upgrade_manifest.json"), "machine and BLACK SKY specialist mechanics v2 manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_specialist/orbital_air_specialist_asset_manifest.json"), "orbital-air specialist source/runtime manifest should exist")
 	var enemy_file := FileAccess.open("res://data/enemies.json", FileAccess.READ)
 	_expect(enemy_file != null and enemy_file.get_as_text().contains('{"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"cannon"'), "orbital lancer gameplay should fire through its authored ballistic rail rather than a mismatched homing missile")

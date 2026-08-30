@@ -1,0 +1,16 @@
+{
+  "asset_family": "machine_and_black_sky_specialist_mechanics_v2",
+  "status": "runtime_v2",
+  "source": "res://assets/source/enemies/specialist_mechanics_upgrade_sheet.svg",
+  "visual_contract": {
+    "purpose": "replace flat placeholder overlays with readable mechanical doors, gimbals and charged rails",
+    "materials": "graphite housings, thermal ceramic edges, dull brass actuators and restrained cobalt discharge hardware",
+    "mechanical_rule": "missile cells open before launch, the sentry weapon rotates as a caged gimbal, and the lancer rail accumulates energy through physical conductor stages",
+    "avoid": ["flat rectangle overlay", "floating neon rod", "unhoused glow", "generic symmetric block"]
+  },
+  "runtime": {
+    "drone_missile_node": {"frames":4,"size":[38,36]},
+    "orbital_sentry": {"gimbal":[40,38]},
+    "orbital_lancer": {"frames":4,"size":[48,58]}
+  }
+}
