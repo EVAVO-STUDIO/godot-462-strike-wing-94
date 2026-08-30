@@ -16,6 +16,7 @@ const MOTION_MANIFESTS := [
 	"ground_mechs_asset_manifest.json", "mercenary_infantry_asset_manifest.json",
 	"mercenary_air_asset_manifest.json", "machine_air_asset_manifest.json", "orbital_air_asset_manifest.json",
 	"mercenary_sea_asset_manifest.json", "machine_ground_asset_manifest.json",
+	"mercenary_ground_asset_manifest.json",
 	"mercenary_boss_asset_manifest.json", "machine_boss_asset_manifest.json", "orbital_boss_asset_manifest.json",
 ]
 

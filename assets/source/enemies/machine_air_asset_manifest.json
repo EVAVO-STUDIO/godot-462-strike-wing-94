@@ -26,7 +26,8 @@
   ],
   "runtime_animation": {
     "propulsion": "machine_thruster family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
-    "drone_hunter": "four-frame bespoke pursuit thrust cycle"
+    "drone_hunter": "four-frame bespoke pursuit thrust cycle",
+    "destruction": "cold debris, EMP collapse and smoke consequence"
   },
-  "remaining_animation_gate": ["bank", "core pulse", "missile hatches", "bomb bay", "recoil", "destruction"]
+  "remaining_animation_gate": ["bank", "core pulse", "missile hatches", "bomb bay", "recoil"]
 }

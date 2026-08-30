@@ -17,8 +17,8 @@ const EXPLOSION_FRAMES := [
 
 const MAX_EVENTS := 48
 const HIT_SECONDS := 0.12
-const EXPLOSION_SECONDS := 0.42
-const BOSS_EXPLOSION_SECONDS := 0.68
+const EXPLOSION_SECONDS := 0.72
+const BOSS_EXPLOSION_SECONDS := 1.05
 const PLAYER_HIT_SECONDS := 0.18
 
 var _surface: Control
@@ -81,6 +81,7 @@ func _observe_combat() -> void:
 			var duration := BOSS_EXPLOSION_SECONDS if kind == "boss_explosion" else EXPLOSION_SECONDS
 			var size := 28.0 if kind == "boss_explosion" else 15.0
 			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration, {
+				"enemy_id": str(previous.get("id", "enemy")),
 				"category": str(previous.get("category", "air")),
 				"faction": str(previous.get("faction", "mercenary"))
 			})
@@ -176,9 +177,9 @@ func _draw_combat_fx(surface: CanvasItem) -> void:
 			"hit":
 				_draw_hit(surface, position, ratio, str(event.get("category", "air")))
 			"explosion":
-				_draw_explosion(surface, position, ratio, float(event.get("size", 15.0)), int(event.get("serial", 0)), false)
+				_draw_explosion(surface, position, ratio, float(event.get("size", 15.0)), int(event.get("serial", 0)), false, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "enemy")))
 			"boss_explosion":
-				_draw_explosion(surface, position, ratio, float(event.get("size", 28.0)), int(event.get("serial", 0)), true)
+				_draw_explosion(surface, position, ratio, float(event.get("size", 28.0)), int(event.get("serial", 0)), true, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "boss")))
 			"player_hit":
 				_draw_player_hit(surface, position, ratio, bool(event.get("shield", true)))
 
@@ -187,15 +188,44 @@ func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float, category: String) 
 	var texture := ImpactArtLibrary.frame_for_ratio(family, ratio)
 	surface.draw_texture(texture, (p - Vector2(12, 12)).round())
 
-func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool) -> void:
-	var frame_index := clampi(int(floor(ratio * float(EXPLOSION_FRAMES.size()))), 0, EXPLOSION_FRAMES.size() - 1)
+func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool, category: String, faction: String, enemy_id: String) -> void:
+	var blast_ratio := clampf(ratio / 0.66, 0.0, 0.999)
+	if category == "sea":
+		var water := ImpactArtLibrary.frame_for_ratio("water_impact", clampf(ratio / 0.72, 0.0, 0.999))
+		var water_size := Vector2.ONE * lerpf(20.0, 38.0, ratio)
+		surface.draw_texture_rect(water, Rect2((p - water_size * 0.5).round(), water_size), false, Color(0.66,0.80,0.86,0.72*(1.0-ratio*0.65)))
+	var frame_index := clampi(int(floor(blast_ratio * float(EXPLOSION_FRAMES.size()))), 0, EXPLOSION_FRAMES.size() - 1)
 	var frame: Texture2D = EXPLOSION_FRAMES[frame_index]
 	var draw_size := roundf(max_size * (2.35 if boss else 2.20))
-	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false)
+	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,ratio)))
 	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
 	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
 	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))
-	surface.draw_texture_rect(debris, Rect2((p - debris_size * 0.5).round(), debris_size), false, Color(1,1,1,1.0-ratio))
+	var debris_tint := Color(0.78,0.86,0.90,1.0-ratio) if faction == "autonomous" else Color(0.86,0.78,0.62,1.0-ratio)
+	surface.draw_texture_rect(debris, Rect2((p - debris_size * 0.5).round(), debris_size), false, debris_tint)
+	_draw_destruction_consequence(surface, p, ratio, category, faction, enemy_id, serial, boss)
+
+func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float, category: String, faction: String, enemy_id: String, serial: int, boss: bool) -> void:
+	var late_ratio := clampf((ratio - 0.32) / 0.68, 0.0, 0.999)
+	if late_ratio <= 0.0:
+		return
+	if enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]:
+		var dust := ImpactArtLibrary.frame_for_ratio("dust_impact", late_ratio)
+		var dust_size := Vector2.ONE * lerpf(22.0, 38.0, late_ratio)
+		surface.draw_texture_rect(dust, Rect2((p - dust_size * 0.5).round(), dust_size), false, Color(0.72,0.68,0.56,1.0-late_ratio))
+		return
+	if faction == "autonomous":
+		var disruption := ImpactArtLibrary.frame_for_ratio("emp_disruption", late_ratio)
+		var field_size := Vector2.ONE * lerpf(24.0, 42.0 if boss else 32.0, late_ratio)
+		surface.draw_texture_rect(disruption, Rect2((p - field_size * 0.5).round(), field_size), false, Color(0.62,0.84,0.92,1.0-late_ratio))
+	var phase := serial + int(floor(late_ratio * 4.0))
+	var smoke := PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(phase, 4)] as Texture2D
+	var smoke_center := p + Vector2(-5.0 if category == "air" else 4.0, -8.0)
+	var smoke_size := Vector2.ONE * (42.0 if boss else 28.0)
+	surface.draw_texture_rect(smoke, Rect2((smoke_center - smoke_size * 0.5).round(), smoke_size), false, Color(0.68,0.70,0.68,0.82*(1.0-late_ratio)))
+	if category == "ground" and faction != "autonomous" and late_ratio < 0.72:
+		var fire := PersistentEffectArtLibrary.FRAMES["damage_fire"][posmod(phase + 1, 4)] as Texture2D
+		surface.draw_texture_rect(fire, Rect2((p - Vector2(14,14)).round(), Vector2(28,28)), false, Color(0.94,0.76,0.48,1.0-late_ratio))
 
 func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool) -> void:
 	var texture := ImpactArtLibrary.frame_for_ratio("shield_hit" if shield else "armor_hit", ratio)

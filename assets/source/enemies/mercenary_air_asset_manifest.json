@@ -25,13 +25,14 @@
   "runtime_animation": {
     "propulsion": "human_turbine family in res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json",
     "attack_chopper": "four-frame bespoke rotor cycle",
-    "ace_interceptor": "four-frame bespoke high-speed thrust cycle"
+    "ace_interceptor": "four-frame bespoke high-speed thrust cycle",
+    "destruction": "airframe blast, outward debris and trailing smoke consequence"
   },
   "remaining_animation_gate": {
-    "scout_falcon": ["bank", "destroy"],
-    "gunship_mk1": ["bank", "turret", "destroy"],
-    "attack_chopper": ["bank", "recoil", "destroy"],
-    "ace_interceptor": ["bank", "destroy"],
-    "heavy_bomber": ["bank", "bay", "destroy"]
+    "scout_falcon": ["bank"],
+    "gunship_mk1": ["bank", "turret"],
+    "attack_chopper": ["bank", "recoil"],
+    "ace_interceptor": ["bank"],
+    "heavy_bomber": ["bank", "bay"]
   }
 }

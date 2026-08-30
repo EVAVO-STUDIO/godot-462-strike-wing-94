@@ -303,6 +303,10 @@ func _test_combat_fx() -> void:
 	_expect(source.contains('"hit"') and source.contains('"explosion"') and source.contains('"boss_explosion"') and source.contains('"player_hit"'), "combat FX should distinguish hits, kills, bosses and player damage")
 	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
 	_expect(source.contains("EXPLOSION_FRAMES"), "enemy destruction should use the authored eight-frame raster sequence")
+	_expect(source.contains("func _draw_destruction_consequence") and source.contains('category == "sea"') and source.contains('faction == "autonomous"'), "enemy destruction should branch into naval, machine, air and ground material consequences")
+	_expect(source.contains('enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]'), "infantry destruction should use subdued dust/scatter instead of a wreck fire")
+	_expect(source.contains('ImpactArtLibrary.frame_for_ratio("water_impact"') and source.contains('ImpactArtLibrary.frame_for_ratio("emp_disruption"'), "naval and autonomous destruction should use authored water and EMP raster effects")
+	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
 	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
 	for frame_index in range(8):
