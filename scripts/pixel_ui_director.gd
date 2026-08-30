@@ -10,6 +10,20 @@ const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_word
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
 const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
+const HUD_TOP_FRAME := preload("res://assets/runtime/ui/hud/top_frame.png")
+const HUD_METER_TROUGH := preload("res://assets/runtime/ui/hud/meter_trough.png")
+const HUD_HULL_FILL := preload("res://assets/runtime/ui/hud/hull_fill.png")
+const HUD_SHIELD_FILL := preload("res://assets/runtime/ui/hud/shield_fill.png")
+const HUD_ENERGY_FILL := preload("res://assets/runtime/ui/hud/energy_fill.png")
+const HUD_STATUS_FRAME := preload("res://assets/runtime/ui/hud/status_frame.png")
+const HUD_BOSS_FRAME := preload("res://assets/runtime/ui/hud/boss_frame.png")
+const HUD_BOSS_TROUGH := preload("res://assets/runtime/ui/hud/boss_trough.png")
+const HUD_BOSS_FILL := preload("res://assets/runtime/ui/hud/boss_fill.png")
+const HUD_THREAT_FRAME := preload("res://assets/runtime/ui/hud/threat_frame.png")
+const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
+const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
+const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
+const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
 
 const BG := Color("0b1016")
 const PANEL := Color("070a0e")
@@ -146,19 +160,22 @@ func _identity_subtitle() -> String:
 	return str(identity.call("title_subtitle")) if identity != null and identity.has_method("title_subtitle") else "VX-94 VARIABLE STRIKE FIGHTER"
 
 func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
-	surface.draw_rect(Rect2(8, 8, 624, 50), PANEL)
-	surface.draw_rect(Rect2(8, 8, 624, 50), BORDER, false, 1.0)
+	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 8))
 	var max_hull := _call_int(scene, "_max_hull", 100)
 	var max_shield := _call_int(scene, "_max_shield", 100)
 	var generator := _call_dictionary(scene, "_active_generator")
 	var energy := float(scene.get("energy")) if _has_property(scene, "energy") else 0.0
-	_draw_meter(surface, Vector2(16, 14), "H", int(scene.get("hull")), max_hull, RED)
-	_draw_meter(surface, Vector2(112, 14), "S", int(scene.get("shield")), maxi(1, max_shield), BLUE)
-	_draw_meter(surface, Vector2(208, 14), "E", int(round(energy)), maxi(1, int(round(EnergyRules.capacity(generator)))), GOLD)
-	PixelFont.draw_text(surface, "B%d" % int(scene.get("bombs")), Vector2(310, 15), 1, TEXT, 1)
-	PixelFont.draw_text(surface, "W%02d" % int(scene.get("wave")), Vector2(344, 15), 1, TEXT, 1)
+	_draw_meter(surface, Vector2(16, 14), "H", int(scene.get("hull")), max_hull, HUD_HULL_FILL)
+	_draw_meter(surface, Vector2(112, 14), "S", int(scene.get("shield")), maxi(1, max_shield), HUD_SHIELD_FILL)
+	_draw_meter(surface, Vector2(208, 14), "E", int(round(energy)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL)
+	surface.draw_texture(HUD_ICON_BOMB, Vector2(304, 12))
+	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(318, 15), 1, TEXT, 1)
+	surface.draw_texture(HUD_ICON_WAVE, Vector2(342, 12))
+	PixelFont.draw_text(surface, "%02d" % int(scene.get("wave")), Vector2(356, 15), 1, TEXT, 1)
 	var remaining := maxi(0, int(ceil(float(scene.get("mission_duration")) - float(scene.get("mission_time")))))
-	PixelFont.draw_text(surface, "T%03d" % remaining, Vector2(390, 15), 1, TEXT, 1)
+	surface.draw_texture(HUD_ICON_TIME, Vector2(388, 12))
+	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(402, 15), 1, TEXT, 1)
+	surface.draw_texture(HUD_ICON_SCORE, Vector2(504, 12))
 	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(520, 15), 1, TEXT, 1)
 	var mission_name := str(scene.get("current_mission_name"))
 	var weapon := _call_dictionary(scene, "_active_weapon")
@@ -170,7 +187,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	_draw_boss(surface, scene)
 	_draw_threat(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
-		surface.draw_rect(Rect2(116, 330, 408, 18), PANEL)
+		surface.draw_texture(HUD_STATUS_FRAME, Vector2(116, 330))
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 70), 320, 336, 1, GOLD, 1)
 
 func _draw_boss(surface: CanvasItem, scene: Object) -> void:
@@ -180,12 +197,11 @@ func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	var max_hp := maxi(1, int(boss.get("max_hp", hp)))
 	var phase := int(boss.get("boss_phase", BossRules.phase_for(hp, max_hp)))
 	var cue := " WEAK" if phase >= 3 else ""
-	surface.draw_rect(Rect2(126, 64, 388, 28), PANEL)
-	surface.draw_rect(Rect2(126, 64, 388, 28), RED, false, 1.0)
+	surface.draw_texture(HUD_BOSS_FRAME, Vector2(126, 64))
 	PixelFont.draw_centered(surface, "%s  P%d%s  %d/%d" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, cue, hp, max_hp], 320, 69, 1, TEXT, 1)
 	var ratio := clampf(float(hp) / float(max_hp), 0.0, 1.0)
-	surface.draw_rect(Rect2(144, 82, 352, 4), BORDER)
-	surface.draw_rect(Rect2(144, 82, floorf(352.0 * ratio), 4), RED)
+	surface.draw_texture(HUD_BOSS_TROUGH, Vector2(143, 80))
+	_draw_clipped_fill(surface, HUD_BOSS_FILL, Vector2(144, 81), ratio)
 
 func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var bullets: Array = scene.get("enemy_bullets")
@@ -194,8 +210,7 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var distance := ThreatWarningRules.nearest_homing_distance(bullets, player_position)
 	var text := ThreatWarningRules.warning_text(distance, count)
 	if text == "": return
-	surface.draw_rect(Rect2(180, 98, 280, 17), PANEL)
-	surface.draw_rect(Rect2(180, 98, 280, 17), RED, false, 1.0)
+	surface.draw_texture(HUD_THREAT_FRAME, Vector2(180, 98))
 	PixelFont.draw_centered(surface, text, 320, 104, 1, RED, 1)
 
 func _support_name() -> String:
@@ -246,13 +261,19 @@ func _short_altitude() -> String:
 	if value.begins_with("ATMOS"): return "ORB"
 	return "MID"
 
-func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current: int, maximum: int, color: Color) -> void:
+func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current: int, maximum: int, fill_texture: Texture2D) -> void:
 	var max_value := maxi(1, maximum)
 	var value := clampi(current, 0, max_value)
 	PixelFont.draw_text(surface, "%s%03d" % [label, value], position, 1, TEXT, 1)
 	var ratio := clampf(float(value) / float(max_value), 0.0, 1.0)
-	surface.draw_rect(Rect2(position.x, position.y + 14, 78, 4), BORDER)
-	surface.draw_rect(Rect2(position.x, position.y + 14, floorf(78.0 * ratio), 4), color)
+	surface.draw_texture(HUD_METER_TROUGH, position + Vector2(0, 13))
+	_draw_clipped_fill(surface, fill_texture, position + Vector2(1, 14), ratio)
+
+func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
+	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))
+	if width <= 0.0:
+		return
+	surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0, 0, width, texture.get_height()))
 
 func _draw_frame(surface: CanvasItem, rect: Rect2, fill_background: bool = true) -> void:
 	if fill_background:

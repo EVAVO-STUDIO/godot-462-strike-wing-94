@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+const HUD_STABILITY_TROUGH := preload("res://assets/runtime/ui/hud/stability_trough.png")
+const HUD_STABILITY_FILL := preload("res://assets/runtime/ui/hud/stability_fill.png")
+
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const PRECISION_BOMB_FRAMES := [
 	preload("res://assets/runtime/effects/projectiles/precision_bomb/0.png"),
@@ -271,9 +274,10 @@ func _draw_surface(surface: CanvasItem) -> void:
 		1
 	)
 	if altitude == "low" and target_index >= 0:
-		var bar_width := 48.0
-		surface.draw_rect(Rect2(18, 325, bar_width, 3), Color(0.12,0.18,0.20,0.82))
-		surface.draw_rect(Rect2(18, 325, roundf(bar_width * _stability), 3), Color(0.42,0.86,0.64,0.92))
+		surface.draw_texture(HUD_STABILITY_TROUGH, Vector2(17,324))
+		var stability_width := roundf(float(HUD_STABILITY_FILL.get_width()) * _stability)
+		if stability_width > 0.0:
+			surface.draw_texture_rect_region(HUD_STABILITY_FILL,Rect2(Vector2(18,325),Vector2(stability_width,HUD_STABILITY_FILL.get_height())),Rect2(0,0,stability_width,HUD_STABILITY_FILL.get_height()))
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)
 		var release: Vector2 = item.get("release_position", scene.get("player_position"))

@@ -1,0 +1,18 @@
+{
+  "asset_family": "hypersonic_gameplay_hud",
+  "status": "runtime_v1",
+  "visual_contract": {
+    "era": "1997-1999 military PC arcade avionics",
+    "materials": "worn anodized blue-black metal, recessed instrument glass, restrained screws and status lamps",
+    "readability": "native 640x360 pixel geometry with segmented fills and compact pictograms",
+    "avoid": ["flat programmer rectangles", "modern glassmorphism", "neon cyberpunk", "generic holograms"]
+  },
+  "runtime_directory": "res://assets/runtime/ui/hud/",
+  "components": {
+    "frames": ["top_frame.png", "status_frame.png", "boss_frame.png", "threat_frame.png", "afterburner_frame.png"],
+    "troughs": ["meter_trough.png", "boss_trough.png", "afterburner_trough.png", "stability_trough.png"],
+    "fills": ["hull_fill.png", "shield_fill.png", "energy_fill.png", "boss_fill.png", "afterburner_fill.png", "stability_fill.png"],
+    "icons": ["icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png"]
+  },
+  "concept_reference": "res://assets/source/ui/concepts/hud_environment_style_board_v1.png"
+}

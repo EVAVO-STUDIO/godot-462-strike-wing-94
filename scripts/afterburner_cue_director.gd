@@ -3,6 +3,9 @@ extends CanvasLayer
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const AfterburnerCueSurface = preload("res://scripts/afterburner_cue_surface.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
+const HUD_AFTERBURNER_FRAME := preload("res://assets/runtime/ui/hud/afterburner_frame.png")
+const HUD_AFTERBURNER_TROUGH := preload("res://assets/runtime/ui/hud/afterburner_trough.png")
+const HUD_AFTERBURNER_FILL := preload("res://assets/runtime/ui/hud/afterburner_fill.png")
 
 const PANEL := Color("070a0e")
 const BORDER := Color("34414b")
@@ -55,11 +58,12 @@ func draw_afterburner(surface: CanvasItem) -> void:
 		surface.draw_texture_rect(texture, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-t))
 
 func _draw_meter(surface: CanvasItem, ratio: float) -> void:
-	surface.draw_rect(Rect2(14, 315, 92, 13), PANEL)
-	surface.draw_rect(Rect2(14, 315, 92, 13), BORDER, false, 1.0)
+	surface.draw_texture(HUD_AFTERBURNER_FRAME, Vector2(14, 315))
 	PixelFont.draw_text(surface, "AB", Vector2(19, 319), 1, TEXT, 1)
-	surface.draw_rect(Rect2(39, 319, 61, 4), BORDER)
-	surface.draw_rect(Rect2(39, 319, floorf(61.0 * ratio), 4), FUEL)
+	surface.draw_texture(HUD_AFTERBURNER_TROUGH, Vector2(38, 318))
+	var width := floorf(float(HUD_AFTERBURNER_FILL.get_width()) * ratio)
+	if width > 0.0:
+		surface.draw_texture_rect_region(HUD_AFTERBURNER_FILL, Rect2(Vector2(39,319),Vector2(width,HUD_AFTERBURNER_FILL.get_height())),Rect2(0,0,width,HUD_AFTERBURNER_FILL.get_height()))
 
 func _draw_flame(surface: CanvasItem, p: Vector2, form: String, hypersonic: bool) -> void:
 	var offset := Vector2(-16, 14 if form == "fighter" else 15)

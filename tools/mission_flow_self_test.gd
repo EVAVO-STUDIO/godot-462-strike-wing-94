@@ -150,6 +150,10 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("func _draw_boss"), "pixel UI should own boss HUD")
 		_expect(source.contains('var cue := " WEAK" if phase >= 3'), "phase-three boss HUD should retain weak-point cue")
 		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
+		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAME"), "gameplay HUD should use authored raster frame and meter families")
+		for hud_path in ["top_frame.png", "meter_trough.png", "hull_fill.png", "shield_fill.png", "energy_fill.png", "status_frame.png", "boss_frame.png", "boss_trough.png", "boss_fill.png", "threat_frame.png", "icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png", "afterburner_frame.png", "afterburner_trough.png", "afterburner_fill.png", "stability_trough.png", "stability_fill.png"]:
+			_expect(FileAccess.file_exists("res://assets/runtime/ui/hud/%s" % hud_path), "missing authored HUD sprite: %s" % hud_path)
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud_asset_manifest.json"), "gameplay HUD production manifest should exist")
 		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
 	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
 	_expect(intel_file != null and intel_file.get_as_text().contains("layer = 31"), "mission intelligence overlay should render above the layer-30 sortie console")
