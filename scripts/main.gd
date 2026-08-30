@@ -107,9 +107,10 @@ func _process(delta: float) -> void:
 				_clear_combat()
 		GamePhase.RESULT:
 			if Input.is_action_just_pressed("confirm"):
-				mission_index = (mission_index + 1) % maxi(1, mission_catalog.size())
-				_prepare_mission(mission_index)
-				phase = GamePhase.TITLE
+				if not _cinematic_blocks_ending():
+					mission_index = (mission_index + 1) % maxi(1, mission_catalog.size())
+					_prepare_mission(mission_index)
+					phase = GamePhase.TITLE
 			elif Input.is_action_just_pressed("restart"):
 				_start_mission()
 	queue_redraw()
@@ -276,6 +277,12 @@ func _cinematic_blocks_launch() -> bool:
 	if cinematic == null or not cinematic.has_method("intercept_launch"):
 		return false
 	return bool(cinematic.call("intercept_launch", str(_active_mission().get("id", ""))))
+
+func _cinematic_blocks_ending() -> bool:
+	var cinematic := get_node_or_null("/root/CampaignCinematicDirector")
+	if cinematic == null or not cinematic.has_method("intercept_ending"):
+		return false
+	return bool(cinematic.call("intercept_ending", str(_active_mission().get("id", ""))))
 
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)

@@ -4,12 +4,21 @@ const ALLOWED_ROLES := ["observation", "anticipation", "action", "consequence"]
 const ALLOWED_CAMERAS := ["locked", "pan", "track"]
 const ALLOWED_BRIDGES := ["environmental", "prelap", "carry", "hard silence"]
 const PLATES := ["industrial", "machine_furnace", "city", "high_atmosphere", "orbital"]
-const SPRITES := ["salvage_mech", "drone_hunter", "vx94_fighter", "phase_array", "machine_ark"]
+const SPRITES := ["salvage_mech", "drone_hunter", "vx94_fighter", "vx94_bomber", "phase_array", "machine_ark"]
 
 func _initialize() -> void:
+	call_deferred("_run")
+
+func _run() -> void:
 	var failures: Array[String] = []
 	var cinematic := root.get_node_or_null("CampaignCinematicDirector")
 	_expect(cinematic != null, "campaign cinematic autoload should exist", failures)
+	if cinematic != null:
+		_expect(not bool(cinematic.call("intercept_ending", "m01_coastal_intercept")), "ordinary mission results should not open the ending", failures)
+		_expect(bool(cinematic.call("intercept_ending", "m12_machine_ark")), "Machine Ark result should open the campaign ending", failures)
+		_expect(bool(cinematic.call("cinematic_active")), "campaign ending should remain active until completed or skipped", failures)
+		cinematic.call("_finish")
+		_expect(not bool(cinematic.call("intercept_ending", "m12_machine_ark")), "campaign ending should play once per session", failures)
 	var data := _load_json("res://data/cinematics.json")
 	var missions := _load_json("res://data/missions.json")
 	var mission_ids: Array[String] = []
@@ -17,15 +26,20 @@ func _initialize() -> void:
 		if typeof(mission) == TYPE_DICTIONARY:
 			mission_ids.append(str(mission.get("id", "")))
 	var sequences: Array = data.get("sequences", [])
-	_expect(sequences.size() == 2, "campaign should retain its two sector-transition cinematics", failures)
+	_expect(sequences.size() == 3, "campaign should retain two sector transitions and an ending", failures)
+	var triggers: Array[String] = []
 	for sequence in sequences:
 		_validate_sequence(sequence, mission_ids, failures)
+		if typeof(sequence) == TYPE_DICTIONARY:
+			triggers.append(str(sequence.get("trigger", "launch")))
+	_expect(triggers.count("launch") == 2 and triggers.count("ending") == 1, "cinematic schedule should contain two launch transitions and one ending", failures)
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main game source should be readable", failures)
 	if main_file != null:
 		var source := main_file.get_as_text()
 		_expect(source.contains("_cinematic_blocks_launch()"), "mission launch should pass through the cinematic gate", failures)
 		_expect(source.contains('get_node_or_null("/root/CampaignCinematicDirector")'), "mission launch should address the cinematic autoload", failures)
+		_expect(source.contains("_cinematic_blocks_ending()"), "final mission result should pass through the ending cinematic gate", failures)
 	if failures.is_empty():
 		print("HYPERSONIC campaign cinematic self-test passed.")
 		quit(0)

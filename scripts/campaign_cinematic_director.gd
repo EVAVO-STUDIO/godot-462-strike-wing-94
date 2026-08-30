@@ -15,12 +15,14 @@ const SPRITES := {
 	"salvage_mech": preload("res://assets/runtime/enemies/ground_mechs/autonomous_salvage_mech_idle.png"),
 	"drone_hunter": preload("res://assets/runtime/enemies/machine_air/drone_hunter_idle.png"),
 	"vx94_fighter": preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png"),
+	"vx94_bomber": preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png"),
 	"phase_array": preload("res://assets/runtime/enemies/orbital_boss/phase_control_array_idle_v2.png"),
 	"machine_ark": preload("res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png"),
 }
 
 var _sequences: Array = []
-var _by_mission: Dictionary = {}
+var _launch_by_mission: Dictionary = {}
+var _ending_by_mission: Dictionary = {}
 var _seen: Dictionary = {}
 var _active: Dictionary = {}
 var _shot_index := 0
@@ -34,7 +36,8 @@ func _ready() -> void:
 		_sequences = data.get("sequences", [])
 	for sequence in _sequences:
 		if typeof(sequence) == TYPE_DICTIONARY:
-			_by_mission[str(sequence.get("mission_id", ""))] = sequence
+			var target := _ending_by_mission if str(sequence.get("trigger", "launch")) == "ending" else _launch_by_mission
+			target[str(sequence.get("mission_id", ""))] = sequence
 	_surface = CampaignCinematicSurface.new()
 	_surface.director = self
 	_surface.position = Vector2.ZERO
@@ -62,11 +65,19 @@ func _process(delta: float) -> void:
 		_surface.queue_redraw()
 
 func intercept_launch(mission_id: String) -> bool:
+	return _intercept(mission_id, _launch_by_mission, "launch")
+
+func intercept_ending(mission_id: String) -> bool:
+	return _intercept(mission_id, _ending_by_mission, "ending")
+
+func _intercept(mission_id: String, registry: Dictionary, trigger: String) -> bool:
 	if not _active.is_empty():
 		return true
-	if _seen.has(mission_id) or not _by_mission.has(mission_id):
+	var seen_key := "%s:%s" % [trigger, mission_id]
+	if _seen.has(seen_key) or not registry.has(mission_id):
 		return false
-	_active = _by_mission[mission_id]
+	_active = registry[mission_id]
+	_active["seen_key"] = seen_key
 	_shot_index = 0
 	_shot_elapsed = 0.0
 	if _surface != null:
@@ -136,7 +147,7 @@ func _advance() -> void:
 
 func _finish() -> void:
 	if not _active.is_empty():
-		_seen[str(_active.get("mission_id", ""))] = true
+		_seen[str(_active.get("seen_key", "launch:%s" % str(_active.get("mission_id", ""))))] = true
 	_active = {}
 	_shot_index = 0
 	_shot_elapsed = 0.0
