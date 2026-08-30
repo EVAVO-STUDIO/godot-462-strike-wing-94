@@ -15,6 +15,10 @@ const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/sortie_bay_ba
 const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
 const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
 const OPERATIONS_BUTTON := preload("res://assets/runtime/ui/menu/operations_button_9slice.png")
+const FRONT_END_FRAME := preload("res://assets/runtime/ui/menu/front_end/frame.png")
+const FRONT_END_BUTTON_IDLE := preload("res://assets/runtime/ui/menu/front_end/button_idle.png")
+const FRONT_END_BUTTON_SELECTED := preload("res://assets/runtime/ui/menu/front_end/button_selected.png")
+const FRONT_END_CURSOR := preload("res://assets/runtime/ui/menu/front_end/cursor.png")
 const CAMPAIGN_PROGRESS_RAIL := preload("res://assets/runtime/ui/menu/campaign_progress/rail.png")
 const CAMPAIGN_NODE_COMPLETE := preload("res://assets/runtime/ui/menu/campaign_progress/node_complete.png")
 const CAMPAIGN_NODE_CURRENT := preload("res://assets/runtime/ui/menu/campaign_progress/node_current.png")
@@ -144,6 +148,10 @@ func _supports(scene: Object) -> bool:
 	return true
 
 func _draw_title(surface: CanvasItem, scene: Object) -> void:
+	var front_end := str(scene.get("front_end_screen")) if _has_property(scene, "front_end_screen") else "sortie"
+	if front_end != "sortie":
+		_draw_front_end(surface, scene, front_end)
+		return
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.78,0.86,0.88,0.88))
 	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.025,0.035,0.42))
@@ -200,6 +208,65 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface, "ENTER / START  AUTHORIZE LAUNCH", 320, 317, 1, GOLD, 1)
 	if float(scene.get("status_timer")) > 0.0:
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 340, 1, GREEN, 1)
+
+func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void:
+	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
+	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.55,0.64,0.68,0.70))
+	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,0.52))
+	_draw_frame(surface, Rect2(10, 10, 620, 340))
+	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(70, 28, 500, 64), false)
+	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 102, 1, BLUE, 1)
+	if screen == "controls":
+		_draw_front_end_controls(surface)
+	elif screen == "dossier":
+		_draw_front_end_dossier(surface)
+	else:
+		_draw_front_end_main(surface, scene)
+	PixelFont.draw_centered(surface, "%s // %s %s" % [_identity_text("developer", "EVAVO STUDIO"), _identity_title(), _identity_text("version", "0.0.0-DEV")], 320, 334, 1, MUTED, 1)
+
+func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
+	surface.draw_texture(FRONT_END_FRAME, Vector2(30, 128))
+	PixelFont.draw_text(surface, "FLIGHT OPERATIONS", Vector2(48, 137), 1, GOLD, 1)
+	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 3)
+	var labels := ["CONTINUE CAMPAIGN", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
+	for index in range(labels.size()):
+		var position := Vector2(50, 158 + index * 30)
+		surface.draw_texture(FRONT_END_BUTTON_SELECTED if index == selection else FRONT_END_BUTTON_IDLE, position)
+		if index == selection:
+			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
+		PixelFont.draw_text(surface, labels[index], position + Vector2(18, 8), 1, GOLD if index == selection else TEXT, 1)
+	_draw_console_panel(surface, Rect2(336, 128, 274, 170), "CAMPAIGN STATUS", BLUE)
+	var mission_index := clampi(int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0, 0, 29)
+	var craft := VX94_FIGHTER if _form_name() == "FIGHTER" else VX94_BOMBER
+	surface.draw_texture_rect(craft, Rect2(352, 151, 96, 108), false)
+	PixelFont.draw_text(surface, "VX-94", Vector2(464, 154), 2, TEXT, 1)
+	PixelFont.draw_text(surface, "MISSION %02d / 30" % (mission_index + 1), Vector2(464, 181), 1, GOLD, 1)
+	PixelFont.draw_text(surface, _front_end_sector(mission_index), Vector2(464, 197), 1, BLUE, 1)
+	PixelFont.draw_text(surface, _clip(str(scene.get("current_mission_name")), 20), Vector2(464, 217), 1, GREEN, 1)
+	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(464, 238), 1, MUTED, 1)
+	PixelFont.draw_text(surface, "ENTER SELECT", Vector2(464, 274), 1, GOLD, 1)
+
+func _draw_front_end_controls(surface: CanvasItem) -> void:
+	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))
+	PixelFont.draw_centered(surface, "FLIGHT CONTROLS", 320, 139, 1, GOLD, 1)
+	var lines := ["ARROWS / WASD   MANEUVER", "SPACE           PRIMARY FIRE", "X               SECONDARY", "Q               WING GEOMETRY", "SHIFT           AFTERBURNER", "Z / F           TACTICAL / ALLIED", "ENTER / ESC     CONFIRM / RETURN"]
+	for index in range(lines.size()):
+		PixelFont.draw_text(surface, lines[index], Vector2(198, 162 + index * 17), 1, TEXT if index < 4 else BLUE, 1)
+	PixelFont.draw_centered(surface, "ENTER / ESC RETURN", 320, 281, 1, GOLD, 1)
+
+func _draw_front_end_dossier(surface: CanvasItem) -> void:
+	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))
+	PixelFont.draw_centered(surface, "EVAVO DOSSIER", 320, 139, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, "HYPERSONIC", 320, 169, 2, TEXT, 1)
+	PixelFont.draw_centered(surface, "VX-94 VARIABLE STRIKE FIGHTER", 320, 194, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "DEVELOPED AND PUBLISHED BY", 320, 222, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, _identity_text("developer", "EVAVO STUDIO"), 320, 241, 2, GOLD, 1)
+	PixelFont.draw_centered(surface, "ENTER / ESC RETURN", 320, 281, 1, GREEN, 1)
+
+func _front_end_sector(mission_index: int) -> String:
+	if mission_index >= 20: return "S3 BLACK SKY"
+	if mission_index >= 10: return "S2 MACHINE WAR"
+	return "S1 MERCENARY WAR"
 
 func _sortie_order_header(mission_index: int) -> String:
 	var sector := clampi(int(mission_index / 10), 0, 2)
@@ -277,6 +344,10 @@ func _sortie_grade_label(grade: String) -> String:
 func _identity_title() -> String:
 	var identity := get_node_or_null("/root/ProductIdentity")
 	return str(identity.call("title_primary")) if identity != null and identity.has_method("title_primary") else "HYPERSONIC"
+
+func _identity_text(key: String, fallback: String) -> String:
+	var identity := get_node_or_null("/root/ProductIdentity")
+	return str(identity.call("text", key, fallback)).to_upper() if identity != null and identity.has_method("text") else fallback
 
 func _identity_subtitle() -> String:
 	var identity := get_node_or_null("/root/ProductIdentity")

@@ -1,0 +1,17 @@
+{
+  "asset_family": "hypersonic_front_end_menu",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/menu/front_end_menu_sheet.svg",
+  "visual_contract": {
+    "purpose": "distinct front door between the HYPERSONIC title sequence and sortie operations",
+    "era": "premium 1997 military PC game front-end",
+    "flow": ["publisher ident", "title sequence", "main menu", "sortie operations"],
+    "avoid": ["modern card UI", "fake game modes", "esports styling", "generic gradient buttons", "title-to-loadout hard cut"]
+  },
+  "runtime": {
+    "frame": [288, 170],
+    "button_idle": [244, 24],
+    "button_selected": [244, 24],
+    "cursor": [12, 12]
+  }
+}

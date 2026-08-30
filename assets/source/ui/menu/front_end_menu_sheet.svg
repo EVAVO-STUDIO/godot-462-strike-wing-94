@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="230" shape-rendering="crispEdges">
+  <g id="frame">
+    <rect x="0" y="0" width="288" height="170" fill="#070b0f"/>
+    <path d="M0 10L10 0h268l10 10v150l-10 10H10L0 160z" fill="#111a20"/>
+    <path d="M2 11L11 2h266l9 9v148l-9 9H11l-9-9z" fill="#070b0f" stroke="#5f747e"/>
+    <path d="M10 12h268M10 157h268" stroke="#273a44"/>
+    <path d="M10 13h92M186 13h92M10 156h70M208 156h70" stroke="#6aa4c8"/>
+    <path d="M3 23h4v124H3M281 23h4v124h-4" fill="#344952"/>
+    <path d="M12 5h34v2H12M242 5h34v2h-34" stroke="#e8ca6a"/>
+  </g>
+  <g id="idle" transform="translate(0 176)">
+    <rect width="244" height="24" fill="#091016"/>
+    <path d="M0 0h244v24H0zm2 2v20h240V2z" fill="#263841"/>
+    <path d="M8 19h228" stroke="#17262e"/>
+    <rect x="4" y="5" width="2" height="14" fill="#40545e"/>
+  </g>
+  <g id="selected" transform="translate(0 202)">
+    <rect width="244" height="24" fill="#111a20"/>
+    <path d="M0 0h244v24H0zm2 2v20h240V2z" fill="#6a7d83"/>
+    <path d="M8 19h228" stroke="#314852"/>
+    <path d="M4 3h3v18H4zM8 5h2v14H8" fill="#e8ca6a"/>
+    <path d="M222 4h13l5 5v6l-5 5h-13" fill="none" stroke="#6aa4c8"/>
+  </g>
+  <g id="cursor" transform="translate(280 178)">
+    <path d="M0 1h4l6 5-6 5H0l6-5z" fill="#dc6655"/>
+    <path d="M2 3l4 3-4 3" stroke="#ffd18a"/>
+  </g>
+</svg>

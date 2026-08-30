@@ -142,6 +142,10 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("HYPERSONIC_WORDMARK"), "sortie console should use the approved title art master")
 		_expect(source.contains("_sortie_order_header(mission_index)"), "sortie console should identify the real campaign mission")
 		_expect(source.contains("_draw_campaign_progress(surface, mission_index"), "sortie console should communicate thirty-mission campaign progress")
+		_expect(source.contains("_draw_front_end(surface, scene, front_end)"), "title sequence should resolve into a distinct front-end menu before sortie operations")
+		_expect(source.contains('_identity_text("version"') and source.contains('_identity_text("developer"'), "front-end version and studio credit should remain centralized through ProductIdentity")
+		for front_end_asset in ["frame.png", "button_idle.png", "button_selected.png", "cursor.png"]:
+			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/front_end/%s" % front_end_asset), "front-end menu sprite should exist: %s" % front_end_asset)
 		_expect(source.contains("_draw_support_links(surface)"), "combat HUD should expose tactical and battlefield support readiness")
 		for support_link_asset in ["trough.png", "tactical_fill.png", "battlefield_fill.png", "ready.png", "charging.png", "unavailable.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/hud/support_link/%s" % support_link_asset), "support readiness sprite should exist: %s" % support_link_asset)
@@ -215,6 +219,7 @@ func _test_pixel_ui() -> void:
 		var intel_source := intel_file.get_as_text()
 		_expect(intel_source.contains("INTEL_ROW_FRAME") and intel_source.contains("INTEL_ICONS") and intel_source.contains("INTEL_READY_LAMP"), "mission intelligence should assemble the authored tactical-dossier sprite family")
 		_expect(intel_source.contains("DOSSIER COMPLETE") and intel_source.contains("_row_color"), "mission intelligence should expose readiness and category hierarchy")
+		_expect(intel_source.contains("_sortie_front_end(scene)"), "mission intelligence hotkey should remain hidden outside sortie operations")
 	var intel_sizes := {
 		"icon_threat":Vector2(16,16), "icon_envelope":Vector2(16,16), "icon_profile":Vector2(16,16), "icon_lanes":Vector2(16,16),
 		"icon_routes":Vector2(16,16), "icon_boss":Vector2(16,16), "icon_allied":Vector2(16,16), "icon_advice":Vector2(16,16),
@@ -227,6 +232,7 @@ func _test_pixel_ui() -> void:
 	var stores_file := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
 	_expect(stores_file != null and stores_file.get_as_text().contains("layer = 32"), "stores schematic should render above the sortie console and mission intelligence")
 	_expect(stores_file != null and stores_file.get_as_text().contains("UiSpriteRenderer.draw_nine_slice"), "stores schematic should use authored operations-console sprites")
+	_expect(stores_file != null and stores_file.get_as_text().contains("_sortie_front_end(scene)"), "stores hotkey should remain hidden outside sortie operations")
 	_expect(not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete boss HUD widget director should remain deleted")
 	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")
 	var main_ui_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)

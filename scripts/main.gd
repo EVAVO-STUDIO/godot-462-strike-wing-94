@@ -25,6 +25,8 @@ const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 enum GamePhase { TITLE, PLAYING, RESULT }
 
 var phase := GamePhase.TITLE
+var front_end_screen := "main_menu"
+var menu_selection := 0
 var player_position := Vector2(320.0, 292.0)
 var fire_timer := 0.0
 var secondary_timer := 0.0
@@ -93,9 +95,13 @@ func _process(delta: float) -> void:
 	status_timer = maxf(0.0, status_timer - delta)
 	match phase:
 		GamePhase.TITLE:
-			if Input.is_action_just_pressed("confirm"):
+			if front_end_screen != "sortie":
+				_update_front_end_menu()
+			elif Input.is_action_just_pressed("confirm"):
 				if not _cinematic_blocks_launch():
 					_start_mission()
+			elif Input.is_action_just_pressed("cancel"):
+				front_end_screen = "main_menu"
 			elif Input.is_action_just_pressed("upgrade"):
 				_try_buy_next_weapon()
 			elif Input.is_action_just_pressed("upgrade_generator"):
@@ -110,6 +116,7 @@ func _process(delta: float) -> void:
 				var pause := get_node_or_null("/root/PauseDirector")
 				if pause == null or not pause.has_method("pause_game") or not bool(pause.call("pause_game")):
 					phase = GamePhase.TITLE
+					front_end_screen = "sortie"
 					_clear_combat()
 		GamePhase.RESULT:
 			if Input.is_action_just_pressed("confirm"):
@@ -119,9 +126,26 @@ func _process(delta: float) -> void:
 					mission_index = (mission_index + 1) % maxi(1, mission_catalog.size())
 					_prepare_mission(mission_index)
 					phase = GamePhase.TITLE
+					front_end_screen = "sortie"
 			elif Input.is_action_just_pressed("restart"):
 				_start_mission()
 	queue_redraw()
+
+func _update_front_end_menu() -> void:
+	if front_end_screen in ["controls", "dossier"]:
+		if Input.is_action_just_pressed("confirm") or Input.is_action_just_pressed("cancel"):
+			front_end_screen = "main_menu"
+		return
+	if Input.is_action_just_pressed("move_up"):
+		menu_selection = posmod(menu_selection - 1, 4)
+	elif Input.is_action_just_pressed("move_down"):
+		menu_selection = posmod(menu_selection + 1, 4)
+	elif Input.is_action_just_pressed("confirm"):
+		match menu_selection:
+			0: front_end_screen = "sortie"
+			1: front_end_screen = "controls"
+			2: front_end_screen = "dossier"
+			3: get_tree().quit()
 
 func _update_mission(delta: float) -> void:
 	if player_loss_timer > 0.0:

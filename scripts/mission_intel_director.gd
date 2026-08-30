@@ -44,7 +44,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	var scene := get_tree().current_scene
-	if scene != null and _supports(scene) and int(scene.get("phase")) == 0:
+	if scene != null and _sortie_front_end(scene):
 		if Input.is_action_just_pressed("toggle_mission_intel"):
 			_open = not _open
 	else:
@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 
 func draw_intel(surface: CanvasItem) -> void:
 	var scene := get_tree().current_scene
-	if scene == null or not _supports(scene) or int(scene.get("phase")) != 0:
+	if scene == null or not _sortie_front_end(scene):
 		return
 	if not _open:
 		UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_PANEL, Rect2(548, 334, 78, 15), 5)
@@ -109,6 +109,9 @@ func _mission_name(scene: Object) -> String:
 
 func _supports(scene: Object) -> bool:
 	return _has_property(scene, "phase") and _has_property(scene, "current_mission_name")
+
+func _sortie_front_end(scene: Object) -> bool:
+	return _supports(scene) and int(scene.get("phase")) == 0 and (not _has_property(scene, "front_end_screen") or str(scene.get("front_end_screen")) == "sortie")
 
 func _has_property(object: Object, property_name: String) -> bool:
 	for property in object.get_property_list():
