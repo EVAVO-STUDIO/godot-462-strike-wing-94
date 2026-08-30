@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="720" height="160" viewBox="0 0 720 160" shape-rendering="crispEdges">
+  <defs>
+    <g id="badge">
+      <path d="M8 29H22L31 21H49L58 29H72V39H59L54 47H26L21 39H8Z" fill="#111a21" stroke="#9a7250" stroke-width="2"/>
+      <path d="M4 31H20V36H4ZM60 31H76V36H60Z" fill="#9a7250"/>
+      <path d="M27 17H53L59 24V52L49 62H31L21 52V24Z" fill="#080d12" stroke="#52636d" stroke-width="2"/>
+      <path d="M32 22H48L54 28V47L46 56H34L26 47V28Z" fill="#9a7250"/>
+      <path d="M36 26H44L49 32V44L43 51H37L31 44V32Z" fill="#0b1117"/>
+      <path d="M12 42H22V46H12ZM58 42H68V46H58Z" fill="#52636d"/>
+      <path d="M27 12H33V17H27ZM47 12H53V17H47Z" fill="#9a7250"/>
+    </g>
+  </defs>
+  <g transform="translate(0 0)"><use xlink:href="#badge"/></g>
+  <g transform="translate(80 0)"><use xlink:href="#badge"/></g>
+  <g transform="translate(160 0)"><use xlink:href="#badge"/></g>
+  <g transform="translate(240 0)"><use xlink:href="#badge"/><path d="M38 8H42V14H38Z" fill="#e8ca6a"/></g>
+
+  <g transform="translate(320 4)">
+    <rect x="0" y="0" width="192" height="52" fill="#080d12" stroke="#40535f" stroke-width="2"/>
+    <path d="M0 0H24L30 5H162L168 0H192V5H170L164 10H28L22 5H0Z" fill="#17262f"/>
+    <path d="M0 47H22L27 42H165L170 47H192V52H168L163 47H29L24 52H0Z" fill="#1b2931"/>
+    <rect x="8" y="8" width="3" height="36" fill="#52636d"/>
+    <rect x="181" y="8" width="3" height="36" fill="#e8ca6a"/>
+    <rect x="15" y="12" width="2" height="2" fill="#67c3a5"/>
+  </g>
+
+  <g transform="translate(320 72)">
+    <rect x="0" y="0" width="360" height="14" fill="#080d12" stroke="#40535f" stroke-width="2"/>
+    <path d="M5 4H355V10H5Z" fill="#151f25"/>
+    <path d="M8 5H352V9H8Z" fill="#26343b"/>
+    <g fill="#080d12">
+      <rect x="42" y="4" width="2" height="6"/><rect x="78" y="4" width="2" height="6"/><rect x="114" y="4" width="2" height="6"/>
+      <rect x="150" y="4" width="2" height="6"/><rect x="186" y="4" width="2" height="6"/><rect x="222" y="4" width="2" height="6"/>
+      <rect x="258" y="4" width="2" height="6"/><rect x="294" y="4" width="2" height="6"/><rect x="330" y="4" width="2" height="6"/>
+    </g>
+  </g>
+  <g transform="translate(320 96)">
+    <rect x="0" y="0" width="352" height="6" fill="#67c3a5"/>
+    <path d="M0 0H352V2H0Z" fill="#b8e2cf"/>
+    <g fill="#0b1016">
+      <rect x="34" y="0" width="2" height="6"/><rect x="70" y="0" width="2" height="6"/><rect x="106" y="0" width="2" height="6"/>
+      <rect x="142" y="0" width="2" height="6"/><rect x="178" y="0" width="2" height="6"/><rect x="214" y="0" width="2" height="6"/>
+      <rect x="250" y="0" width="2" height="6"/><rect x="286" y="0" width="2" height="6"/><rect x="322" y="0" width="2" height="6"/>
+    </g>
+  </g>
+</svg>

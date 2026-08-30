@@ -18,6 +18,15 @@ const OPERATIONS_BUTTON := preload("res://assets/runtime/ui/menu/operations_butt
 const PANEL_HEADER_RULE := preload("res://assets/runtime/ui/menu/panel_header_rule.png")
 const PANEL_STATUS_LAMP := preload("res://assets/runtime/ui/menu/panel_status_lamp.png")
 const REPORT_DIVIDER := preload("res://assets/runtime/ui/menu/report_divider.png")
+const REPORT_BADGES := {
+	"C": preload("res://assets/runtime/ui/menu/mission_report/badge_c.png"),
+	"B": preload("res://assets/runtime/ui/menu/mission_report/badge_b.png"),
+	"A": preload("res://assets/runtime/ui/menu/mission_report/badge_a.png"),
+	"S": preload("res://assets/runtime/ui/menu/mission_report/badge_s.png"),
+}
+const REPORT_STAT_FRAME := preload("res://assets/runtime/ui/menu/mission_report/stat_frame.png")
+const REPORT_ACCURACY_TROUGH := preload("res://assets/runtime/ui/menu/mission_report/accuracy_trough.png")
+const REPORT_ACCURACY_FILL := preload("res://assets/runtime/ui/menu/mission_report/accuracy_fill.png")
 const HUD_TOP_FRAME := preload("res://assets/runtime/ui/hud/top_frame.png")
 const HUD_METER_TROUGH := preload("res://assets/runtime/ui/hud/meter_trough.png")
 const HUD_HULL_FILL := preload("res://assets/runtime/ui/hud/hull_fill.png")
@@ -177,22 +186,59 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.62,0.70,0.73,0.72))
 	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,0.66))
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
-	PixelFont.draw_centered(surface, "MISSION REPORT", 320, 44, 3, GOLD, 2)
+	PixelFont.draw_centered(surface, "MISSION REPORT", 320, 35, 3, GOLD, 2)
 
 	var result_lines := _wrap_text(str(scene.get("result_text")), 66)
 	for i in range(mini(3, result_lines.size())):
-		PixelFont.draw_centered(surface, result_lines[i], 320, 94 + i * 12, 1, TEXT, 1)
-	_draw_divider(surface, 142)
-	PixelFont.draw_centered(surface, "SCORE %08d" % int(scene.get("score")), 210, 169, 2, TEXT, 1)
-	PixelFont.draw_centered(surface, "CREDITS %06d" % int(scene.get("credits")), 430, 169, 2, TEXT, 1)
-	PixelFont.draw_centered(surface, "%s   %s   %s" % [_altitude_name(), _form_name(), _tech_era_name()], 320, 198, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "FRAME %s" % _airframe_name(), 320, 214, 1, MUTED, 1)
-	if _has_property(scene, "shots_fired") and int(scene.get("shots_fired")) > 0:
-		var fired := int(scene.get("shots_fired"))
-		var hits := clampi(int(scene.get("shots_hit")), 0, fired)
-		var accuracy := int(round(float(hits) / float(fired) * 100.0))
-		PixelFont.draw_centered(surface, "ACCURACY %03d%%   HITS %d/%d" % [accuracy, hits, fired], 320, 232, 1, GREEN, 1)
-	PixelFont.draw_centered(surface, "ENTER NEXT MISSION   R RETRY", 320, 274, 1, TEXT, 1)
+		PixelFont.draw_centered(surface, result_lines[i], 320, 73 + i * 11, 1, TEXT, 1)
+	_draw_divider(surface, 118)
+
+	var fired := int(scene.get("shots_fired")) if _has_property(scene, "shots_fired") else 0
+	var hits := clampi(int(scene.get("shots_hit")), 0, fired) if fired > 0 else 0
+	var accuracy := int(round(float(hits) / float(fired) * 100.0)) if fired > 0 else 0
+	var grade := _sortie_grade(accuracy)
+	var grade_color := _sortie_grade_color(grade)
+	surface.draw_texture(REPORT_STAT_FRAME, Vector2(48, 139))
+	surface.draw_texture(REPORT_STAT_FRAME, Vector2(400, 139))
+	PixelFont.draw_centered(surface, "COMBAT SCORE", 144, 148, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "%08d" % int(scene.get("score")), 144, 165, 2, TEXT, 1)
+	PixelFont.draw_centered(surface, "SALVAGE CREDIT", 496, 148, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "%06d" % int(scene.get("credits")), 496, 165, 2, GOLD, 1)
+
+	PixelFont.draw_centered(surface, "STRIKE RATING", 320, 128, 1, grade_color, 1)
+	surface.draw_texture(REPORT_BADGES.get(grade, REPORT_BADGES["C"]), Vector2(280, 134))
+	PixelFont.draw_centered(surface, grade, 320, 156, 3, TEXT, 2)
+	PixelFont.draw_centered(surface, _sortie_grade_label(grade), 320, 198, 1, grade_color, 1)
+
+	PixelFont.draw_centered(surface, "WEAPON ACCURACY %03d%%" % accuracy, 320, 216, 1, GREEN, 1)
+	surface.draw_texture(REPORT_ACCURACY_TROUGH, Vector2(140, 231))
+	_draw_clipped_fill(surface, REPORT_ACCURACY_FILL, Vector2(144, 235), float(accuracy) / 100.0)
+	PixelFont.draw_centered(surface, "CONFIRMED HITS %04d / ROUNDS %04d" % [hits, fired], 320, 250, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "%s   %s   %s   FRAME %s" % [_altitude_name(), _form_name(), _tech_era_name(), _airframe_name()], 320, 269, 1, BLUE, 1)
+
+	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_BUTTON, Rect2(26, 306, 588, 27), 6)
+	PixelFont.draw_text(surface, ">>", Vector2(40, 315), 1, RED, 1)
+	PixelFont.draw_centered(surface, "ENTER NEXT MISSION   R RETRY", 320, 315, 1, TEXT, 1)
+
+func _sortie_grade(accuracy: int) -> String:
+	if accuracy >= 90: return "S"
+	if accuracy >= 75: return "A"
+	if accuracy >= 55: return "B"
+	return "C"
+
+func _sortie_grade_color(grade: String) -> Color:
+	match grade:
+		"S": return Color("62b9be")
+		"A": return Color("e0bd59")
+		"B": return Color("8ca2ad")
+	return Color("9a7250")
+
+func _sortie_grade_label(grade: String) -> String:
+	match grade:
+		"S": return "BLACK SKY QUALIFIED"
+		"A": return "PRECISION STRIKE"
+		"B": return "COMBAT EFFECTIVE"
+	return "SORTIE COMPLETE"
 
 func _identity_title() -> String:
 	var identity := get_node_or_null("/root/ProductIdentity")

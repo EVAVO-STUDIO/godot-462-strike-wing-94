@@ -154,8 +154,19 @@ func _test_pixel_ui() -> void:
 			var chrome_texture := load("res://assets/runtime/ui/menu/%s.png" % asset_name)
 			_expect(chrome_texture is Texture2D and chrome_texture.get_size() == chrome_sizes[asset_name], "operations-console chrome should retain registered geometry: %s" % asset_name)
 		_expect(source.contains("PANEL_HEADER_RULE") and source.contains("PANEL_STATUS_LAMP") and source.contains("REPORT_DIVIDER") and source.contains("draw_three_slice_horizontal"), "sortie and report screens should use authored panel chrome sprites")
+		var report_sizes := {
+			"badge_c": Vector2(80,72), "badge_b": Vector2(80,72), "badge_a": Vector2(80,72), "badge_s": Vector2(80,72),
+			"stat_frame": Vector2(192,52), "accuracy_trough": Vector2(360,14), "accuracy_fill": Vector2(352,6),
+		}
+		for asset_name in report_sizes:
+			var report_texture := load("res://assets/runtime/ui/menu/mission_report/%s.png" % asset_name)
+			_expect(report_texture is Texture2D and report_texture.get_size() == report_sizes[asset_name], "mission-report sprite should retain registered geometry: %s" % asset_name)
+		_expect(source.contains("REPORT_BADGES") and source.contains("REPORT_STAT_FRAME") and source.contains("REPORT_ACCURACY_TROUGH") and source.contains("REPORT_ACCURACY_FILL"), "mission report should use authored qualification and instrumentation sprites")
+		_expect(source.contains("func _sortie_grade") and source.contains('accuracy >= 90') and source.contains('accuracy >= 75') and source.contains('accuracy >= 55'), "mission report should derive its visible strike rating from sortie accuracy")
+		_expect(FileAccess.file_exists("res://assets/source/ui/menu/mission_report_manifest.json"), "mission-report source/runtime manifest should exist")
 		_expect(not source.contains("draw_line") and not source.contains("rect.grow(-8)"), "primary pixel UI must not regress to primitive panel rules or outline furniture")
 		_expect(source.contains("AUTHORIZE LAUNCH"), "sortie console should retain a distinct launch control")
+		_expect(PixelFont.GLYPHS.has(">") and PixelFont.GLYPHS.has("<"), "pixel console font should render action chevrons instead of question-mark fallbacks")
 		_expect(source.contains("func _draw_console_panel"), "sortie console should retain its late-90s panel hierarchy")
 		_expect(source.contains("func _draw_boss"), "pixel UI should own boss HUD")
 		_expect(source.contains('var cue := " WEAK" if phase >= 3'), "phase-three boss HUD should retain weak-point cue")
