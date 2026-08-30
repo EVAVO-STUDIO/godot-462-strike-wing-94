@@ -193,6 +193,12 @@ func _test_pixel_ui() -> void:
 			var ingress_texture := load("res://assets/runtime/ui/hud/mission_ingress/%s.png" % asset_name)
 			_expect(ingress_texture is Texture2D and ingress_texture.get_size() == ingress_sizes[asset_name], "mission-ingress sprite should retain registered geometry: %s" % asset_name)
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/mission_ingress_manifest.json"), "mission-ingress source/runtime manifest should exist")
+		_expect(source.contains("SECRET_DISCOVERY_FRAME") and source.contains("SECRET_DISCOVERY_FX") and source.contains("func _draw_secret_discovery") and source.contains('status.begins_with("SECRET - ")'), "mastery secrets should use a distinct sprite-animated encrypted-vector panel")
+		var secret_sizes := {"frame":Vector2(400,52), "fx_0":Vector2(400,52), "fx_1":Vector2(400,52), "fx_2":Vector2(400,52), "fx_3":Vector2(400,52)}
+		for asset_name in secret_sizes:
+			var secret_texture := load("res://assets/runtime/ui/hud/secret_discovery/%s.png" % asset_name)
+			_expect(secret_texture is Texture2D and secret_texture.get_size() == secret_sizes[asset_name], "secret-discovery sprite should retain registered geometry: %s" % asset_name)
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/secret_discovery_manifest.json"), "secret-discovery source/runtime manifest should exist")
 		_expect(not source.contains("PanelContainer.new()") and not source.contains("Label.new()") and not source.contains("ProgressBar.new()"), "primary pixel HUD must not use modern widget chrome")
 	var intel_file := FileAccess.open("res://scripts/mission_intel_director.gd", FileAccess.READ)
 	_expect(intel_file != null and intel_file.get_as_text().contains("layer = 31"), "mission intelligence overlay should render above the layer-30 sortie console")

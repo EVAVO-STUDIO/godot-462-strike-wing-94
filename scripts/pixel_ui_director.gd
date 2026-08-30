@@ -45,6 +45,13 @@ const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
 const MISSION_INGRESS_FRAME := preload("res://assets/runtime/ui/hud/mission_ingress/frame.png")
 const OBJECTIVE_REQUIRED := preload("res://assets/runtime/ui/hud/mission_ingress/objective_required.png")
 const OBJECTIVE_BONUS := preload("res://assets/runtime/ui/hud/mission_ingress/objective_bonus.png")
+const SECRET_DISCOVERY_FRAME := preload("res://assets/runtime/ui/hud/secret_discovery/frame.png")
+const SECRET_DISCOVERY_FX := [
+	preload("res://assets/runtime/ui/hud/secret_discovery/fx_0.png"),
+	preload("res://assets/runtime/ui/hud/secret_discovery/fx_1.png"),
+	preload("res://assets/runtime/ui/hud/secret_discovery/fx_2.png"),
+	preload("res://assets/runtime/ui/hud/secret_discovery/fx_3.png"),
+]
 const FLIGHT_STATE_FRAME := preload("res://assets/runtime/ui/hud/flight_state/frame.png")
 const ALTITUDE_RAIL := preload("res://assets/runtime/ui/hud/flight_state/altitude_rail.png")
 const ALTITUDE_STATES := {
@@ -279,8 +286,23 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	_draw_threat(surface, scene)
 	_draw_mission_ingress(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
-		surface.draw_texture(HUD_STATUS_FRAME, Vector2(116, 330))
-		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 70), 320, 336, 1, GOLD, 1)
+		var status := str(scene.get("status_text"))
+		if status.begins_with("SECRET - "):
+			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
+		else:
+			surface.draw_texture(HUD_STATUS_FRAME, Vector2(116, 330))
+			PixelFont.draw_centered(surface, _clip(status, 70), 320, 336, 1, GOLD, 1)
+
+func _draw_secret_discovery(surface: CanvasItem, status: String, remaining: float) -> void:
+	var position := Vector2(120, 108)
+	var age := maxf(0.0, 2.4 - remaining)
+	var frame_index := posmod(int(floor(age * 5.0)), SECRET_DISCOVERY_FX.size())
+	var reveal_step := clampi(int(floor(age / 0.045)), 0, 4)
+	position.y -= float(4 - reveal_step) * 2.0
+	surface.draw_texture(SECRET_DISCOVERY_FRAME, position)
+	surface.draw_texture(SECRET_DISCOVERY_FX[frame_index], position)
+	PixelFont.draw_text(surface, "ENCRYPTED VECTOR // ACQUIRED", position + Vector2(46, 8), 1, BLUE, 1)
+	PixelFont.draw_text(surface, _clip(status.trim_prefix("SECRET - "), 45), position + Vector2(46, 25), 2, GOLD, 1)
 
 func _draw_mission_ingress(surface: CanvasItem, scene: Object) -> void:
 	if _ingress_time <= 0.0:
