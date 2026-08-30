@@ -91,6 +91,16 @@ func _initialize() -> void:
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_TILE", "RIVER_CURRENT_TILE", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
+		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
+		var parallax_section := source.substr(source.find("func _draw_parallax"), source.find("func _coast_x") - source.find("func _draw_parallax"))
+		var coast_section := source.substr(source.find("func _draw_coast"), source.find("func _draw_vertical_loop") - source.find("func _draw_coast"))
+		var water_section := source.substr(source.find("func _draw_water"), source.find("func _draw_desert_front") - source.find("func _draw_water"))
+		_expect(not parallax_section.contains("draw_line") and not coast_section.contains("draw_line") and not water_section.contains("draw_line"), "surface motion should not regress to one-pixel procedural lines")
+		var motion_sizes := {"parallax_far":Vector2(32,8),"parallax_mid":Vector2(48,8),"parallax_near":Vector2(64,8),"coast_wake":Vector2(40,10),"rain_a":Vector2(16,24),"rain_b":Vector2(16,24)}
+		for motion_name in motion_sizes:
+			var motion_texture := load("res://assets/runtime/environments/motion/%s.png" % motion_name)
+			_expect(motion_texture is Texture2D and motion_texture.get_size() == motion_sizes[motion_name], "environment motion sprite should retain registered geometry: %s" % motion_name)
+		_expect(FileAccess.file_exists("res://assets/source/environments/motion_accent_manifest.json"), "environment motion source/runtime manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/layered_scroll_asset_manifest.json"), "layered scrolling environment manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/desert/desert_front_loop_v1.png"), "desert runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/desert_asset_manifest.json"), "desert source manifest should exist")

@@ -27,6 +27,16 @@ const HARBOR_REFLECTION_TILE := preload("res://assets/runtime/environments/layer
 const CITY_LIGHT_TILE := preload("res://assets/runtime/environments/layers/city_light_tile.png")
 const FURNACE_ACTIVITY_TILE := preload("res://assets/runtime/environments/layers/furnace_activity_tile.png")
 const ORBITAL_DEBRIS_TILE := preload("res://assets/runtime/environments/layers/orbital_debris_tile.png")
+const PARALLAX_ACCENTS := [
+	preload("res://assets/runtime/environments/motion/parallax_far.png"),
+	preload("res://assets/runtime/environments/motion/parallax_mid.png"),
+	preload("res://assets/runtime/environments/motion/parallax_near.png"),
+]
+const COAST_WAKE := preload("res://assets/runtime/environments/motion/coast_wake.png")
+const RAIN_ACCENTS := [
+	preload("res://assets/runtime/environments/motion/rain_a.png"),
+	preload("res://assets/runtime/environments/motion/rain_b.png"),
+]
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -214,7 +224,8 @@ func _draw_parallax(surface: CanvasItem, profile: Dictionary, state: Dictionary,
 			var y := fposmod(float(i) * gaps[layer_index] + t * speeds[layer_index], 340.0) + 54.0
 			var x0 := 18.0 + float((i * (83 + layer_index * 19)) % 520)
 			var length := 7.0 + float((i * 13 + layer_index * 7) % 28)
-			surface.draw_line(Vector2(x0, y), Vector2(minf(622.0, x0 + length), y), tones[layer_index], 1.0)
+			var accent: Texture2D = PARALLAX_ACCENTS[layer_index]
+			surface.draw_texture_rect(accent, Rect2(Vector2(x0,y-4),Vector2(minf(length,622.0-x0),8)), false, tones[layer_index])
 
 func _coast_x(world_y: float, scale: float) -> float:
 	return 148.0 * scale + sin(world_y * 0.018) * 35.0 * scale + sin(world_y * 0.047 + 1.3) * 13.0 * scale
@@ -232,7 +243,8 @@ func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 	for i in range(7):
 		var sy := fposmod(float(i) * 53.0 + t * 21.0, 310.0) + 58.0
 		var sx := 382.0 + float((i * 73) % 190)
-		surface.draw_line(Vector2(sx, sy), Vector2(sx + 12.0 + float(i % 3) * 6.0, sy), foam, 1.0)
+		var wake_width := 18.0 + float(i % 3) * 7.0
+		surface.draw_texture_rect(COAST_WAKE, Rect2(Vector2(sx,sy-5),Vector2(wake_width,10)), false, foam)
 
 func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2, modulate := Color.WHITE) -> void:
 	var remaining := destination.size.y
@@ -266,11 +278,11 @@ func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 	_draw_vertical_loop(surface, SEA_DEEP_TILE, deep_scroll, Rect2(0,58,640,302))
 	_draw_vertical_loop(surface, SEA_SURFACE_TILE, surface_scroll, Rect2(0,58,640,302))
 	surface.draw_rect(Rect2(0, 58, 640, 302), Color(0.01, 0.025, 0.045, 0.16))
-	var rain := Color("7796a8", 0.14)
 	for i in range(14):
 		var x := float((i * 109 + 31) % 690) - 20.0
 		var y := fposmod(float(i) * 43.0 + t * (42.0 + float(i % 3) * 4.0), 340.0) + 48.0
-		surface.draw_line(Vector2(x, y), Vector2(x - 7.0, y + 15.0), rain, 1.0)
+		var rain_texture: Texture2D = RAIN_ACCENTS[i % RAIN_ACCENTS.size()]
+		surface.draw_texture(rain_texture, Vector2(x-8,y), Color(1,1,1,0.30))
 
 func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
