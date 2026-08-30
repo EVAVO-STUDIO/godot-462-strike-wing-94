@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="176" viewBox="0 0 512 176" shape-rendering="crispEdges">
+ <rect width="512" height="176" fill="none"/>
+ <!-- 192x48 far-cirrus ribbons, deliberately thin and broken -->
+ <g opacity=".72"><path d="M0 29h18l13-7h29l15-8h36l17 7h30l12 6h22v8h-38l-13 5H92l-17-6H42l-14 5H0z" fill="#82939c"/><path d="M8 27h26l11-5h38l14-5h27l15 7h35v4h-42l-11-4H98l-14 5H51l-12 4H8z" fill="#b0bec3"/><path d="M22 36h4M54 29h6M112 34h8M151 30h5" stroke="#53666f" stroke-width="2"/></g>
+ <g transform="translate(192 0)" opacity=".68"><path d="M0 18h25l18-9h33l18 8h21l17 8h42l18 8v8h-31l-14-5h-42l-15-7H69l-16 6H17L0 31z" fill="#738791"/><path d="M11 19h22l14-6h27l18 8h26l13 7h38l15 5h-47l-12-5H94l-13-4H48l-15 6H11z" fill="#a9b8bd"/><path d="M19 30h7M61 22h5M102 29h6M148 35h9" stroke="#4d626c" stroke-width="2"/></g>
+ <!-- near vertical contrails / shock wakes -->
+ <g transform="translate(0 56)"><path d="M6 0h4l2 20-2 25 2 25-3 42H5L3 70l2-25-2-25z" fill="#bed1d5"/><path d="M7 8h1v96H7z" fill="#eef3f2"/><path d="M4 26h2M9 39h2M4 63h2M9 83h2" stroke="#718a94"/></g>
+ <g transform="translate(20 56)"><path d="M5 0h3l2 15-2 18 2 20-3 35H4L2 54l2-20-2-18z" fill="#9eb6bd"/><path d="M6 6h1v74H6z" fill="#e3ecec"/><path d="M3 23h2M7 42h2M3 64h2" stroke="#627a84"/></g>
+ <g transform="translate(40 56)"><path d="M6 0h4l2 14-3 12 3 17-3 13 2 20-3 28H5L3 77l2-20-3-14 3-17-2-12z" fill="#a9c0c5"/><path d="M7 6h1v17H7zM7 31h1v20H7zM7 62h1v34H7z" fill="#eef3f2"/><path d="M4 19h2M9 38h2M4 71h2M9 87h2" stroke="#657d86"/></g>
+ <!-- 192x80 broad anvil shadow for high-altitude depth -->
+ <g transform="translate(256 64)" opacity=".68"><path d="M8 39l22-17 31-4L82 5h38l17 12 29 5 18 15 8 20-18 14-45 4-37-6-43 7-34-12L0 51z" fill="#1b2a33"/><path d="M18 41l28-14 32-2 19-12h24l17 11 30 5 14 12-16 9-38-3-27 8-35-8-33 9-19-7z" fill="#334750"/><path d="M32 34h17M62 27h13M104 20h15M137 31h20M43 55h22M92 60h18M142 53h15" stroke="#50636b" stroke-width="2"/></g>
+</svg>

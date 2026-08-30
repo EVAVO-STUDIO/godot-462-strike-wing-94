@@ -27,6 +27,9 @@ func _initialize() -> void:
 	_expect(blended_clouds > EnvironmentRules.cloud_density("mid") and blended_clouds < EnvironmentRules.cloud_density("high"), "cloud density should blend between altitude lanes")
 	var blended_glow := EnvironmentRules.blended_horizon_glow("high", "orbital", 0.5)
 	_expect(blended_glow > EnvironmentRules.horizon_glow("high") and blended_glow < EnvironmentRules.horizon_glow("orbital"), "atmospheric glow should blend into orbital presentation")
+	_expect(EnvironmentRules.high_atmosphere_mix("high") > EnvironmentRules.high_atmosphere_mix("mid"), "high-altitude motion depth should peak in the high band")
+	var blended_atmosphere := EnvironmentRules.blended_high_atmosphere_mix("mid", "high", 0.5)
+	_expect(blended_atmosphere > EnvironmentRules.high_atmosphere_mix("mid") and blended_atmosphere < EnvironmentRules.high_atmosphere_mix("high"), "cirrus and contrail depth should blend through altitude transitions")
 	_expect(not EnvironmentRules.should_draw_ground_detail("orbital"), "orbital presentation should not use normal ground-detail motifs")
 	var mission_data = ContentCatalog.load_json("res://data/missions.json")
 	_expect(typeof(mission_data) == TYPE_DICTIONARY, "mission catalogue should load for environment identity checks")
@@ -70,6 +73,12 @@ func _initialize() -> void:
 		_expect(source.contains("Restrained moving wakes"), "coastal benchmark should retain subdued open-water motion cues")
 		for cloud_family in ["CLOUD_LOW", "CLOUD_MID", "CLOUD_HIGH"]:
 			_expect(source.contains(cloud_family), "environment renderer should retain authored %s family" % cloud_family)
+		_expect(source.contains("CIRRUS_FAR") and source.contains("CONTRAIL_NEAR") and source.contains("ANVIL_SHADOW") and source.contains("_draw_high_atmosphere_far") and source.contains("_draw_high_atmosphere_near"), "high-altitude environments should retain independent authored far-weather and near-speed layers")
+		var atmosphere_sizes := {"cirrus_a":Vector2(192,48),"cirrus_b":Vector2(192,48),"contrail_long":Vector2(12,112),"contrail_short":Vector2(10,88),"contrail_broken":Vector2(12,104),"anvil_shadow":Vector2(192,80)}
+		for atmosphere_asset in atmosphere_sizes:
+			var atmosphere_texture := load("res://assets/runtime/environments/high_atmosphere_motion/%s.png" % atmosphere_asset)
+			_expect(atmosphere_texture is Texture2D and atmosphere_texture.get_size() == atmosphere_sizes[atmosphere_asset], "high-atmosphere motion sprite should retain registered geometry: %s" % atmosphere_asset)
+		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_motion_manifest.json"), "high-atmosphere motion source/runtime manifest should exist")
 		_expect(not source.substr(source.find("func _draw_clouds"), source.length() - source.find("func _draw_clouds")).contains("draw_colored_polygon"), "foreground clouds should not regress to polygon lozenges")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png"), "coastal runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/coast_asset_manifest.json"), "coastal source manifest should exist")

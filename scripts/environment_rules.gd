@@ -49,6 +49,18 @@ static func blended_horizon_glow(from_band: String, to_band: String, ratio: floa
 	var t := smoothstep(0.0, 1.0, clampf(ratio, 0.0, 1.0))
 	return lerpf(horizon_glow(from_band), horizon_glow(to_band), t)
 
+static func high_atmosphere_mix(band: String) -> float:
+	match AltitudeRules.sanitize(band):
+		AltitudeRules.LOW: return 0.0
+		AltitudeRules.MID: return 0.26
+		AltitudeRules.HIGH: return 1.0
+		AltitudeRules.ORBITAL: return 0.12
+	return 0.0
+
+static func blended_high_atmosphere_mix(from_band: String, to_band: String, ratio: float) -> float:
+	var t := smoothstep(0.0, 1.0, clampf(ratio, 0.0, 1.0))
+	return lerpf(high_atmosphere_mix(from_band), high_atmosphere_mix(to_band), t)
+
 static func ground_target_visual_scale(band: String) -> float:
 	return clampf(AltitudeRules.ground_scale(band), 0.10, 1.0)
 

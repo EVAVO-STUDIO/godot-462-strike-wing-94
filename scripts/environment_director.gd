@@ -59,6 +59,16 @@ const CLOUD_HIGH := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_c.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_d.png"),
 ]
+const CIRRUS_FAR := [
+	preload("res://assets/runtime/environments/high_atmosphere_motion/cirrus_a.png"),
+	preload("res://assets/runtime/environments/high_atmosphere_motion/cirrus_b.png"),
+]
+const CONTRAIL_NEAR := [
+	preload("res://assets/runtime/environments/high_atmosphere_motion/contrail_long.png"),
+	preload("res://assets/runtime/environments/high_atmosphere_motion/contrail_short.png"),
+	preload("res://assets/runtime/environments/high_atmosphere_motion/contrail_broken.png"),
+]
+const ANVIL_SHADOW := preload("res://assets/runtime/environments/high_atmosphere_motion/anvil_shadow.png")
 const LANDMARKS := {
 	"coast": preload("res://assets/runtime/environments/landmarks/coastal_battery.png"),
 	"industrial": preload("res://assets/runtime/environments/landmarks/refinery_stack.png"),
@@ -142,8 +152,10 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"water": _draw_water(surface, profile, state, t)
 			"cloud_top": _draw_cloud_top(surface, profile, state, t)
 			"orbital": _draw_orbital(surface, profile, state, t, 1.0)
+	_draw_high_atmosphere_far(surface, state, t)
 	_draw_landmarks(surface, scene, profile, state, t, variant if variant != "" else motif, orbital_mix)
 	_draw_clouds(surface, profile, state, t)
+	_draw_high_atmosphere_near(surface, state, t)
 
 func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float, family: String, orbital_mix: float) -> void:
 	if not LANDMARKS.has(family):
@@ -288,6 +300,38 @@ func _orbital_mix(state: Dictionary) -> float:
 		return ratio
 	return 0.0
 
+func _high_atmosphere_mix(state: Dictionary) -> float:
+	if bool(state.get("transition", false)):
+		return EnvironmentRules.blended_high_atmosphere_mix(str(state.get("from", "mid")), str(state.get("to", "mid")), float(state.get("ratio", 1.0)))
+	return EnvironmentRules.high_atmosphere_mix(str(state.get("current", "mid")))
+
+func _draw_high_atmosphere_far(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	var mix := _high_atmosphere_mix(state)
+	if mix <= 0.08: return
+	for i in range(4):
+		var texture: Texture2D = CIRRUS_FAR[i % CIRRUS_FAR.size()]
+		var x := float((i * 181 + 29) % 760) - 80.0
+		var y := fposmod(float(i) * 91.0 + t * (5.0 + float(i % 2) * 1.4), 330.0) + 82.0
+		var scale := 0.86 + float(i % 3) * 0.14
+		var size := texture.get_size() * scale
+		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.86,0.89,0.10 + mix * 0.14))
+	for i in range(2):
+		var x := float((i * 337 + 73) % 690) - 40.0
+		var y := fposmod(float(i) * 191.0 + t * (8.0 + float(i) * 1.5), 350.0) + 100.0
+		var size := ANVIL_SHADOW.get_size() * (0.86 + float(i) * 0.12)
+		surface.draw_texture_rect(ANVIL_SHADOW, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.58,0.67,0.71,0.08 + mix * 0.14))
+
+func _draw_high_atmosphere_near(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	var mix := _high_atmosphere_mix(state)
+	if mix <= 0.20: return
+	var count := maxi(1, int(round(5.0 * mix)))
+	for i in range(count):
+		var texture: Texture2D = CONTRAIL_NEAR[i % CONTRAIL_NEAR.size()]
+		var x := 42.0 + float((i * 139 + 47) % 550)
+		var y := fposmod(float(i) * 107.0 + t * (48.0 + float(i % 3) * 7.0), 410.0) + 58.0
+		var alpha := (0.18 + float(i % 2) * 0.05) * mix
+		surface.draw_texture(texture, Vector2(x,y), Color(0.82,0.90,0.92,alpha))
+
 func _draw_parallax(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var speeds := [
 		_parallax_speed(profile, state, "far"),
@@ -420,9 +464,9 @@ func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary
 	for i in range(count):
 		var texture: Texture2D = CLOUD_HIGH[i % CLOUD_HIGH.size()]
 		var x := float((i * 137 + 43) % 720) - 40.0
-		var y := fposmod(float(i) * 71.0 + t * 14.0, 380.0) + 48.0
 		var scale := 0.72 + float(i % 3) * 0.13
 		var size := Vector2(texture.get_size()) * scale
+		var y := fposmod(float(i) * 71.0 + t * 14.0, 302.0) + 58.0 + size.y * 0.5
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, _profile: Dictionary, glow: float) -> void:
@@ -460,9 +504,9 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 		var texture: Texture2D = family[i % family.size()]
 		var x := float((i * 149 + 61) % 760) - 60.0
 		var speed := 10.0 + density * 20.0 + float(i % 3) * 2.0
-		var y := fposmod(float(i) * 97.0 + t * speed, 410.0) + 30.0
 		var scale := 0.72 + float((i * 5) % 4) * 0.12
 		var size := Vector2(texture.get_size()) * scale
+		var y := fposmod(float(i) * 97.0 + t * speed, 302.0) + 58.0 + size.y * 0.5
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
 	if density >= 0.32:
 		var mist_scroll := fposmod(t * (18.0 + density * 14.0), 512.0)
