@@ -82,8 +82,8 @@
       "res://assets/runtime/craft/vx94/gameplay/vx94_bomber_v1.png"
     ],
     "bank_frames": {
-      "fighter": ["fighter_left.png", "fighter_neutral.png", "fighter_right.png"],
-      "bomber": ["bomber_left.png", "bomber_neutral.png", "bomber_right.png"]
+      "fighter": ["fighter_hard_left.png", "fighter_left.png", "fighter_neutral.png", "fighter_right.png", "fighter_hard_right.png"],
+      "bomber": ["bomber_hard_left.png", "bomber_left.png", "bomber_neutral.png", "bomber_right.png", "bomber_hard_right.png"]
     },
     "animation": {
       "normal_exhaust": {"frames": 4, "fps": 12},
@@ -98,5 +98,5 @@
     "sequence_seconds": 2.4,
     "live_runtime": "CombatArtDirector renders authored mechanical breakup, persistent fire/smoke, and cockpit escape before the result screen"
   },
-  "remaining_gate": "optional form-specific banking extremes beyond the approved left/neutral/right poses"
+  "remaining_gate": []
 }

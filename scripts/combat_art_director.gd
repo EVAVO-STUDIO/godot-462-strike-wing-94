@@ -12,14 +12,18 @@ const VX94_GAMEPLAY_FORMS := [
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_bomber_v1.png"),
 ]
 const VX94_FIGHTER_BANK := [
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_left.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_right.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png"),
 ]
 const VX94_BOMBER_BANK := [
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_left.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_right.png"),
+	preload("res://assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png"),
 ]
 const VX94_EXHAUST := [
 	preload("res://assets/runtime/craft/vx94/gameplay/fx/exhaust_0.png"),
@@ -598,9 +602,11 @@ func _draw_player_loss(surface: CanvasItem, p: Vector2, origin: Vector2, loss_ti
 		_draw_enemy_effect_frame(surface, capsule_center + Vector2(0, 9), "damage_sparks", phase, 0.46, Color(1.0, 0.88, 0.58, 0.82))
 
 func _bank_frame_index() -> int:
-	if _bank_visual < -0.22: return 0
-	if _bank_visual > 0.22: return 2
-	return 1
+	if _bank_visual < -0.78: return 0
+	if _bank_visual < -0.22: return 1
+	if _bank_visual > 0.78: return 4
+	if _bank_visual > 0.22: return 3
+	return 2
 
 func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)

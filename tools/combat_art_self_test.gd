@@ -60,9 +60,10 @@ func _test_visual_language() -> void:
 	for frame_path in ["vx94_fighter_v1.png", "vx94_transform_01.png", "vx94_transform_02.png", "vx94_transform_03.png", "vx94_bomber_v1.png"]:
 		var gameplay_form := load("res://assets/runtime/craft/vx94/gameplay/%s" % frame_path)
 		_expect(gameplay_form is Texture2D and gameplay_form.get_size() == Vector2(48,54), "VX-94 gameplay form should retain native 48x54 geometry: %s" % frame_path)
-	for bank_path in ["fighter_left.png", "fighter_neutral.png", "fighter_right.png", "bomber_left.png", "bomber_neutral.png", "bomber_right.png"]:
+	for bank_path in ["fighter_hard_left.png", "fighter_left.png", "fighter_neutral.png", "fighter_right.png", "fighter_hard_right.png", "bomber_hard_left.png", "bomber_left.png", "bomber_neutral.png", "bomber_right.png", "bomber_hard_right.png"]:
 		var bank_frame := load("res://assets/runtime/craft/vx94/gameplay/bank/%s" % bank_path)
 		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(48,54), "VX-94 bank frame should retain native 48x54 geometry: %s" % bank_path)
+	_expect(source.contains("_bank_visual < -0.78") and source.contains("_bank_visual > 0.78"), "VX-94 hard-bank art should engage only during committed lateral input")
 	for form in ["fighter", "bomber"]:
 		for frame_index in range(4):
 			var breakup := load("res://assets/runtime/craft/vx94/gameplay/destruction/%s_breakup_%d.png" % [form, frame_index])
