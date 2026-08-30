@@ -1,11 +1,12 @@
 {
   "asset_family":"mercenary_infantry",
-  "status":"runtime_idle_candidates",
+  "status":"runtime_motion_v1",
   "source":{"path":"res://assets/source/enemies/candidates/mercenary_infantry/infantry_teams_candidate_01.png","sha256":"136D3A8432DEC205C3D07B567F73C99EE38FE5E5540BE57261464BDA6B637906"},
   "visual_contract":{"purpose":"human-scale contrast for vehicles and mechs","style":"grounded 1990s Japanese near-future military arcade","palette":"gray-green cloth and armour, charcoal webbing, faded oxide-red team marks, restrained amber optics","rejection":"never toy soldiers, bright faction dots, clone symmetry, glowing-visored sci-fi troopers or oversized weapons"},
   "runtime":[
     {"id":"mercenary_rifle_team","path":"res://assets/runtime/enemies/mercenary_infantry/mercenary_rifle_team_idle.png","size":[26,22],"sha256":"8432513CC7705CA2F63E7CCDFB9A08ABE8BB455BF50D97E9C9A9D217DF849BE1","formation":"asymmetric five-person patrol wedge"},
     {"id":"mercenary_heavy_team","path":"res://assets/runtime/enemies/mercenary_infantry/mercenary_heavy_team_idle.png","size":[30,26],"sha256":"E4CD7455F065AC1A0EC71410BEDAA93AC18249231D5C9C5774B79B6C0BE09C2A","formation":"three-person deployed crew and crew-served gun"}
   ],
-  "remaining_animation_gate":["movement cadence","muzzle cadence","heavy-weapon traverse","scatter-on-hit","destruction"]
+  "runtime_animation":{"movement_cadence":"four authored advance frames per team at 6-8 fps"},
+  "remaining_animation_gate":["muzzle cadence","heavy-weapon traverse","scatter-on-hit","destruction"]
 }

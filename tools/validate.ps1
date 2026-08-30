@@ -73,7 +73,7 @@ $Required = @(
     'scripts/retro_sfx_rules.gd','scripts/retro_sfx_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
-    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
+    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/save_recovery_self_test.gd',
     'tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
     'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
@@ -279,14 +279,22 @@ Write-Host 'Running Godot editor import/smoke test...' -ForegroundColor DarkCyan
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 
 $Tests = @(
-    'product_identity_self_test.gd','input_bindings_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd',
+    'product_identity_self_test.gd','input_bindings_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
     'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
 )
 foreach ($Test in $Tests) {
     Write-Host "Running $Test..." -ForegroundColor DarkCyan
-    & $Godot --headless --path $Root --script "res://tools/$Test"
-    if ($LASTEXITCODE -ne 0) { throw "$Test failed with exit code $LASTEXITCODE" }
+    $TestExitCode = 0
+    for ($Attempt = 1; $Attempt -le 3; $Attempt++) {
+        & $Godot --headless --path $Root --script "res://tools/$Test"
+        $TestExitCode = $LASTEXITCODE
+        if ($TestExitCode -eq 0) { break }
+        if ($TestExitCode -ne -1073741819 -or $Attempt -eq 3) { break }
+        Write-Warning "$Test encountered transient Godot shutdown access violation; retrying ($Attempt/3)."
+        Start-Sleep -Milliseconds 250
+    }
+    if ($TestExitCode -ne 0) { throw "$Test failed with exit code $TestExitCode" }
 }
 
 Write-Host 'HYPERSONIC validation passed.' -ForegroundColor Green

@@ -1,11 +1,12 @@
 {
   "asset_family":"ground_mechs",
-  "status":"runtime_idle_candidates",
+  "status":"runtime_motion_v1",
   "source":{"path":"res://assets/source/enemies/candidates/ground_mechs/ground_mechs_candidate_01.png","sha256":"ECEE7A7985B7FF737D0336CF1249701BD3EF11041E735BFAF0C1FD7DB5BAB120"},
   "visual_contract":{"style":"functional 1990s Japanese industrial military machinery","human_rule":"visible cockpit, maintenance logic and deliberate weapon/tool mounts","machine_rule":"no crew volume, construction-equipment ancestry, replaceable task-specific tools","rejection":"no heroic giant robot, fantasy mecha, generic glowing spider or decorative neon"},
   "runtime":[
     {"id":"security_patrol_mech","path":"res://assets/runtime/enemies/ground_mechs/security_patrol_mech_idle.png","size":[38,42],"sha256":"657EFF8BEE9AD628199FD1C801DFDC2FAFD52B7CB034F25B8769295EC59732BA","landmarks":["cockpit cage","offset amber camera","autocannon arm","shield/tool hardpoint"]},
     {"id":"autonomous_salvage_mech","path":"res://assets/runtime/enemies/ground_mechs/autonomous_salvage_mech_idle.png","size":[44,42],"sha256":"8409CBDD748319FCE84BFCB33CCCBBB2693F8FCB99051EAF684FD3FA55978E64","landmarks":["no cockpit","four load-bearing limbs","cutting tool","hydraulic grapple"]}
   ],
-  "remaining_animation_gate":["walk/gait","weapon/tool articulation","damage states","destruction breakup"]
+  "runtime_animation":{"walk_gait":"four authored frames per mech at 7-9 fps"},
+  "remaining_animation_gate":["weapon/tool articulation","damage states","destruction breakup"]
 }
