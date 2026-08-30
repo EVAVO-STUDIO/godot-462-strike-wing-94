@@ -9,7 +9,10 @@
   "interface_sprites": [
     {"id": "operations_panel", "source": "res://assets/source/ui/menu/operations_panel_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_panel_9slice.png", "size": [24, 24], "border": 6, "role": "sortie cards and collapsed overlay controls"},
     {"id": "operations_screen", "source": "res://assets/source/ui/menu/operations_screen_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_screen_9slice.png", "size": [32, 32], "border": 8, "role": "outer console, mission report, intelligence and stores overlays"},
-    {"id": "operations_button", "source": "res://assets/source/ui/menu/operations_button_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_button_9slice.png", "size": [24, 16], "border": 6, "role": "launch authorization control"}
+    {"id": "operations_button", "source": "res://assets/source/ui/menu/operations_button_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_button_9slice.png", "size": [24, 16], "border": 6, "role": "launch authorization control"},
+    {"id": "panel_header_rule", "source": "res://assets/source/ui/menu/operations_chrome_sheet.svg", "runtime": "res://assets/runtime/ui/menu/panel_header_rule.png", "size": [16, 3], "border": 4, "role": "three-slice console-card header bus"},
+    {"id": "panel_status_lamp", "source": "res://assets/source/ui/menu/operations_chrome_sheet.svg", "runtime": "res://assets/runtime/ui/menu/panel_status_lamp.png", "size": [8, 8], "role": "tintable recessed console-card annunciator"},
+    {"id": "report_divider", "source": "res://assets/source/ui/menu/operations_chrome_sheet.svg", "runtime": "res://assets/runtime/ui/menu/report_divider.png", "size": [556, 5], "role": "mission-report data-bus divider"}
   ],
   "concept_reference": "res://assets/source/ui/menu/candidates/maintenance_bay_concept_01_raw.png",
   "runtime_process": "Manually reconstructed hard-edge SVG sprites; rasterized at native size and palette-reduced without dithering. Nine-slice assembly preserves authored corners and one-pixel hardware edges at every console size.",

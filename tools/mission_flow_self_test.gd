@@ -149,6 +149,12 @@ func _test_pixel_ui() -> void:
 			var menu_texture := load("res://assets/runtime/ui/menu/%s" % menu_path)
 			_expect(menu_texture is Texture2D, "missing authored menu interface sprite: %s" % menu_path)
 		_expect(source.contains("UiSpriteRenderer.draw_nine_slice") and source.contains("OPERATIONS_PANEL") and source.contains("OPERATIONS_SCREEN") and source.contains("OPERATIONS_BUTTON"), "sortie console should assemble authored sprite frames instead of flat rectangle chrome")
+		var chrome_sizes := {"panel_header_rule":Vector2(16,3), "panel_status_lamp":Vector2(8,8), "report_divider":Vector2(556,5)}
+		for asset_name in chrome_sizes:
+			var chrome_texture := load("res://assets/runtime/ui/menu/%s.png" % asset_name)
+			_expect(chrome_texture is Texture2D and chrome_texture.get_size() == chrome_sizes[asset_name], "operations-console chrome should retain registered geometry: %s" % asset_name)
+		_expect(source.contains("PANEL_HEADER_RULE") and source.contains("PANEL_STATUS_LAMP") and source.contains("REPORT_DIVIDER") and source.contains("draw_three_slice_horizontal"), "sortie and report screens should use authored panel chrome sprites")
+		_expect(not source.contains("draw_line") and not source.contains("rect.grow(-8)"), "primary pixel UI must not regress to primitive panel rules or outline furniture")
 		_expect(source.contains("AUTHORIZE LAUNCH"), "sortie console should retain a distinct launch control")
 		_expect(source.contains("func _draw_console_panel"), "sortie console should retain its late-90s panel hierarchy")
 		_expect(source.contains("func _draw_boss"), "pixel UI should own boss HUD")

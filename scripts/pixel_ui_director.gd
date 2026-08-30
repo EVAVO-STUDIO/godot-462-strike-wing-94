@@ -15,6 +15,9 @@ const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/sortie_bay_ba
 const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
 const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
 const OPERATIONS_BUTTON := preload("res://assets/runtime/ui/menu/operations_button_9slice.png")
+const PANEL_HEADER_RULE := preload("res://assets/runtime/ui/menu/panel_header_rule.png")
+const PANEL_STATUS_LAMP := preload("res://assets/runtime/ui/menu/panel_status_lamp.png")
+const REPORT_DIVIDER := preload("res://assets/runtime/ui/menu/report_divider.png")
 const HUD_TOP_FRAME := preload("res://assets/runtime/ui/hud/top_frame.png")
 const HUD_METER_TROUGH := preload("res://assets/runtime/ui/hud/meter_trough.png")
 const HUD_HULL_FILL := preload("res://assets/runtime/ui/hud/hull_fill.png")
@@ -53,7 +56,6 @@ const TECH_STATES := {
 
 const BG := Color("0b1016")
 const PANEL := Color("070a0e")
-const BORDER := Color("34414b")
 const TEXT := Color("d9e0e5")
 const MUTED := Color("7f909b")
 const GOLD := Color("e8ca6a")
@@ -118,7 +120,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.78,0.86,0.88,0.88))
 	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.025,0.035,0.42))
-	_draw_frame(surface, Rect2(10, 10, 620, 340), false)
+	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(195, 18, 250, 32), false)
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 53, 1, BLUE, 1)
 	_draw_console_panel(surface, Rect2(26, 72, 370, 119), "MISSION 01 / SORTIE ORDER", GOLD)
@@ -174,7 +176,7 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.62,0.70,0.73,0.72))
 	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,0.66))
-	_draw_frame(surface, Rect2(10, 10, 620, 340), false)
+	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	PixelFont.draw_centered(surface, "MISSION REPORT", 320, 44, 3, GOLD, 2)
 
 	var result_lines := _wrap_text(str(scene.get("result_text")), 66)
@@ -375,20 +377,17 @@ func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vecto
 		return
 	surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0, 0, width, texture.get_height()))
 
-func _draw_frame(surface: CanvasItem, rect: Rect2, fill_background: bool = true) -> void:
+func _draw_frame(surface: CanvasItem, rect: Rect2) -> void:
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, rect, 8)
-	if not fill_background:
-		surface.draw_rect(rect.grow(-8), Color(0, 0, 0, 0.03), false, 1.0)
 
 func _draw_console_panel(surface: CanvasItem, rect: Rect2, label: String, accent: Color) -> void:
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_PANEL, rect, 6)
-	surface.draw_line(rect.position + Vector2(6, 16), Vector2(rect.end.x - 6, rect.position.y + 16), BORDER, 1.0)
-	surface.draw_rect(Rect2(rect.position + Vector2(4, 5), Vector2(4, 4)), accent)
+	UiSpriteRenderer.draw_three_slice_horizontal(surface, PANEL_HEADER_RULE, Rect2(rect.position + Vector2(6, 15), Vector2(rect.size.x - 12, 3)), 4)
+	surface.draw_texture(PANEL_STATUS_LAMP, rect.position + Vector2(3, 3), accent)
 	PixelFont.draw_text(surface, label, rect.position + Vector2(14, 5), 1, accent, 1)
 
 func _draw_divider(surface: CanvasItem, y: float) -> void:
-	surface.draw_line(Vector2(42, y), Vector2(598, y), Color("19252c"), 3.0)
-	surface.draw_line(Vector2(46, y), Vector2(594, y), BORDER, 1.0)
+	surface.draw_texture(REPORT_DIVIDER, Vector2(42, y - 2))
 
 func _active_boss(scene: Object) -> Dictionary:
 	var enemies: Array = scene.get("enemies")
