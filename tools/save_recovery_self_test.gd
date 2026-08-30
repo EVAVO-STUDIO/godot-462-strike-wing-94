@@ -39,6 +39,7 @@ func _initialize() -> void:
 		_expect(source.contains('"support_selected"') and source.contains('"support_unlocked"'), "v5 snapshot should include support selection/unlock state")
 		_expect(source.contains("restore_airframe_state"), "v5 restore should restore airframe through public API")
 		_expect(source.contains("restore_support_state"), "v5 restore should use public support restore API")
+		_expect(source.contains("if _capture_mode():"), "deterministic visual captures must not restore or mutate campaign saves")
 	if failures.is_empty():
 		print("Strike Wing save recovery self-test passed.")
 		quit(0)

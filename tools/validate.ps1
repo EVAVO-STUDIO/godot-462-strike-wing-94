@@ -137,7 +137,7 @@ if ($Primaries.Count -ne 8) { throw 'Campaign requires exactly eight primary tie
 if (@($Generators.generators).Count -lt 5) { throw 'Generator progression requires at least five tiers.' }
 if (@($Airframes.airframes).Count -ne 5) { throw 'VX-94 requires exactly five airframe tiers.' }
 if (@($Supports.supports).Count -ne 7) { throw 'Tactical catalogue requires exactly seven systems.' }
-if (@($Missions.missions).Count -ne 12) { throw 'Campaign requires exactly twelve missions.' }
+if (@($Missions.missions).Count -ne 16) { throw 'Campaign tranche requires sixteen authored missions.' }
 if ([int]$Mounts.schema_version -lt 2 -or [string]$Mounts.craft_id -ne 'vx_94_strikewing' -or @($Mounts.mounts).Count -lt 11) { throw 'VX-94 mount catalogue is incomplete.' }
 foreach ($MountId in @('nose_rotary','wing_root_left','wing_root_right','centerline_emitter','inner_pylon_left','inner_pylon_right','outer_pylon_left','outer_pylon_right','ventral_strike_bay','ventral_strategic_bay','dorsal_module')) {
     if (@($Mounts.mounts | ForEach-Object { $_.id }) -notcontains $MountId) { throw "Missing VX-94 mount: $MountId" }
@@ -150,7 +150,7 @@ if (-not [bool]$Micro.strategic -or [double]$Micro.cooldown -lt 900) { throw 'Mi
 
 $MissionIds = @($Missions.missions | ForEach-Object { $_.id })
 $CampaignIds = @($Campaign.campaign.missions)
-if ($CampaignIds.Count -ne 12 -or @($CampaignIds | Sort-Object -Unique).Count -ne 12) { throw 'Campaign order must contain twelve unique missions.' }
+if ($CampaignIds.Count -ne 16 -or @($CampaignIds | Sort-Object -Unique).Count -ne 16) { throw 'Campaign order must contain sixteen unique missions.' }
 foreach ($Id in $CampaignIds) { if ($MissionIds -notcontains $Id) { throw "Unknown campaign mission: $Id" } }
 
 $AllowedConditionTypes = @('accuracy_at_least','score_at_least','bombs_at_least','altitude_is','form_is','altitude_form')

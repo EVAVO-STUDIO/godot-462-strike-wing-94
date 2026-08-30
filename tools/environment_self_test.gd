@@ -40,6 +40,9 @@ func _initialize() -> void:
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
 		_expect(source.contains("_coast_x"), "coastal benchmark should use a continuous authored shoreline")
 		_expect(source.contains("Sandbars and wakes"), "coastal benchmark should retain subdued open-water scale cues")
+		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor"]:
+			_expect(source.contains(variant_function), "Sector I environment identity missing %s" % variant_function)
+		_expect(not source.substr(source.find("func _draw_cloud_top"), source.find("func _draw_high_atmosphere_horizon") - source.find("func _draw_cloud_top")).contains("draw_circle"), "cloud-top renderer should use hand-shaped banks instead of circular placeholders")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

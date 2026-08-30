@@ -48,6 +48,8 @@ func _test_overtime() -> void:
 		_expect(source.contains("BOSS_OVERTIME_LIMIT_SECONDS := 45.0"), "boss overtime should retain hard cap")
 		_expect(source.contains("MissionFlowRules.should_hold_overtime"), "main should evaluate boss overtime directly")
 		_expect(source.contains("BOSS OVERTIME EXPIRED"), "expired overtime should fail explicitly")
+		_expect(source.contains("_capture_mission_index"), "visual QA should be able to launch any authored mission deterministically")
+		_expect(source.contains('argument.begins_with("--capture-mission=")'), "mission capture selector should remain command-line isolated")
 	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:

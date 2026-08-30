@@ -10,6 +10,8 @@ var _timer := 0.0
 var _last_signature := ""
 
 func _process(delta: float) -> void:
+	if _capture_mode():
+		return
 	var scene := get_tree().current_scene
 	if scene == null or not _supports_campaign_state(scene):
 		return
@@ -30,10 +32,13 @@ func _process(delta: float) -> void:
 		_last_signature = signature
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST and not _capture_mode():
 		var scene := get_tree().current_scene
 		if scene != null and _supports_campaign_state(scene):
 			_save(scene)
+
+func _capture_mode() -> bool:
+	return "--capture-gameplay" in OS.get_cmdline_user_args()
 
 func _supports_campaign_state(scene: Object) -> bool:
 	var required := ["credits", "mission_index", "weapon_index", "generator_index", "service_hull", "service_shield"]

@@ -6,7 +6,12 @@ const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
 
 const ALLOWED_PICKUPS := ["", "shield", "repair", "bomb", "weapon"]
 const ALLOWED_CONDITIONS := ["", "accuracy_at_least", "score_at_least", "bombs_at_least", "altitude_is", "form_is", "altitude_form"]
-const ALLOWED_FORMATIONS := ["scatter", "line", "wedge", "split", "column", "stagger"]
+const ALLOWED_FORMATIONS := [
+	"scatter", "line", "column", "wedge", "reverse_wedge", "echelon_left", "echelon_right",
+	"stagger", "split", "pincer", "crossing_attack", "bomber_box", "escort_shell", "hunter_pair",
+	"rotating_swarm", "missile_screen", "low_high_layer", "delayed_reinforcement", "pursuit",
+	"retreat_bait", "ambush", "feint"
+]
 const MAX_ENEMIES_PER_BEAT := 12
 const MAX_SUPPRESSION_SECONDS := 12.0
 const HIGH_INTERCEPT_VALUE_BONUS := 450
@@ -76,6 +81,13 @@ static func formation_points(beat: Dictionary, count: int) -> Array[Vector2]:
 					var rank := int((i + 1) / 2)
 					var side := -1.0 if i % 2 == 1 else 1.0
 					point = Vector2(clampf(0.5 + side * 0.13 * rank, 0.1, 0.9), float(rank) * 12.0)
+			"reverse_wedge":
+				var rank := int((total - i) / 2)
+				var side := -1.0 if i % 2 == 0 else 1.0
+				point = Vector2(clampf(0.5 + side * 0.13 * rank, 0.1, 0.9), float(i / 2) * 12.0)
+			"echelon_left", "echelon_right":
+				var direction := -1.0 if kind == "echelon_left" else 1.0
+				point = Vector2(clampf(0.5 + direction * float(i) * 0.1, 0.1, 0.9), float(i) * 11.0)
 			"split":
 				var rank := int(i / 2)
 				point = Vector2(0.18 + float(rank) * 0.07 if i % 2 == 0 else 0.82 - float(rank) * 0.07, float(rank) * 12.0)
@@ -84,6 +96,40 @@ static func formation_points(beat: Dictionary, count: int) -> Array[Vector2]:
 			"stagger":
 				var lanes := [0.2, 0.4, 0.6, 0.8]
 				point = Vector2(float(lanes[i % lanes.size()]), float(i) * 9.0)
+			"pincer":
+				var rank := int(i / 2)
+				point = Vector2(0.08 + rank * 0.08 if i % 2 == 0 else 0.92 - rank * 0.08, float(rank) * 15.0)
+			"crossing_attack":
+				var side := -1.0 if i % 2 == 0 else 1.0
+				point = Vector2(0.12 if side < 0.0 else 0.88, float(i / 2) * 18.0 + (8.0 if side > 0.0 else 0.0))
+			"bomber_box":
+				var columns := mini(3, total)
+				point = Vector2(0.32 + float(i % columns) * 0.18, float(i / columns) * 18.0)
+			"escort_shell":
+				if i == 0:
+					point = Vector2(0.5, 12.0)
+				else:
+					var shell_rank := int((i + 1) / 2)
+					point = Vector2(0.5 + (-1.0 if i % 2 == 1 else 1.0) * shell_rank * 0.15, float(shell_rank - 1) * 10.0)
+			"hunter_pair":
+				point = Vector2(0.32 if i % 2 == 0 else 0.68, float(i / 2) * 20.0)
+			"rotating_swarm":
+				var angle := TAU * float(i) / float(total)
+				point = Vector2(0.5 + cos(angle) * 0.3, 18.0 + sin(angle) * 18.0)
+			"missile_screen":
+				point = Vector2(0.1 if total == 1 else lerpf(0.1, 0.9, float(i) / float(total - 1)), 9.0 if i % 2 == 0 else 0.0)
+			"low_high_layer":
+				point = Vector2(0.2 + float(i % 4) * 0.2, 28.0 if i % 2 == 0 else 0.0)
+			"delayed_reinforcement":
+				point = Vector2(0.24 + float(i % 3) * 0.26, float(i) * 24.0)
+			"pursuit":
+				point = Vector2(0.5 + (-0.08 if i % 2 == 0 else 0.08), float(i) * 22.0)
+			"retreat_bait":
+				point = Vector2(0.5 if i == 0 else (0.18 if i % 2 == 1 else 0.82), 0.0 if i == 0 else 20.0 + float(i / 2) * 12.0)
+			"ambush":
+				point = Vector2(0.06 if i % 2 == 0 else 0.94, 36.0 + float(i / 2) * 10.0)
+			"feint":
+				point = Vector2(0.18 + float(i) * 0.08 if i < maxi(1, total / 2) else 0.88 - float(i - total / 2) * 0.04, float(i) * 9.0)
 			_:
 				var lanes := [0.17, 0.33, 0.5, 0.67, 0.83]
 				point = Vector2(float(lanes[(i * 2 + total) % lanes.size()]), float(i) * 7.0)

@@ -51,7 +51,7 @@ Upper atmosphere and near orbit. Planetary glow, orbital stations, satellites an
 
 Altitude changes are authored mission events, never arbitrary camera zooms.
 
-## Current playable campaign: 12 missions
+## Current playable campaign: 16 missions
 
 ### Act I - Mercenary War
 
@@ -61,17 +61,21 @@ Altitude changes are authored mission events, never arbitrary camera zooms.
 4. Breakwater
 5. Furnace Line
 6. Black Flag
+7. Desert Lance - salt-flat armour pursuit ending at a mobile rail fortress.
+8. River Hammer - flooded-valley combined-arms defence beneath the bridge network.
+9. Mountain Eye - storm-wall climb and over-horizon radar assault above the snow line.
+10. Night Harbor - blackout fleet strike that reveals the concealed autonomous shipment.
 
 The opening establishes criminal private armies, black-market aircraft, armour, naval units and captured industry. Electromagnetic technology first appears late in this act instead of dominating the opening missions.
 
 ### Act II - Autonomous Drone War
 
-7. Ghost Sky - first autonomous high-altitude swarm and Swarm Controller.
-8. Machine Furnace - human holdouts overlap with autonomous production and AI Forge Core.
-9. Black Horizon - first exo-atmospheric breakout and Orbital Command Node; directed-energy era begins.
-10. Blue Fire - high-altitude phase-screen breakthrough ending at the Phase Control Array.
-11. Cold Station - full orbital station assault against Beam Sentries and Station Warden.
-12. Machine Ark - strategic-orbital machine-war finale against the mobile AI command/factory ark.
+11. Ghost Sky - first autonomous high-altitude swarm and Swarm Controller.
+12. Machine Furnace - human holdouts overlap with autonomous production and AI Forge Core.
+13. Black Horizon - first exo-atmospheric breakout and Orbital Command Node; directed-energy era begins.
+14. Blue Fire - high-altitude phase-screen breakthrough ending at the Phase Control Array.
+15. Cold Station - full orbital station assault against Beam Sentries and Station Warden.
+16. Machine Ark - current strategic-orbital climax against the mobile AI command/factory ark.
 
 The human enemy does not vanish instantly when the AI emerges. The transition from conventional conflict into machine war must remain visible.
 
@@ -89,7 +93,7 @@ Primary campaign hardware in Missions 1-4:
 
 ### Electromagnetic
 
-Introduced in Missions 5-8:
+Introduced across the back half of Sector I and early Sector II:
 
 - EMP disruption;
 - magnetic defence;
@@ -100,7 +104,7 @@ Introduced in Missions 5-8:
 
 ### Directed energy
 
-Playable development across Missions 9-11:
+Playable development through the later machine-war missions:
 
 - Storm Cannon pulse discharge;
 - beam-class autonomous weapons;
@@ -110,7 +114,7 @@ Playable development across Missions 9-11:
 
 ### Strategic orbital
 
-First reaches full campaign status in Mission 12:
+First reaches full campaign status in the current orbital climax:
 
 - strategic kinetic lanes;
 - orbital rail/kinetic support;

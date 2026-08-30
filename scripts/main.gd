@@ -69,10 +69,21 @@ var mission_rng := RandomNumberGenerator.new()
 func _ready() -> void:
 	_configure_input()
 	_load_content()
+	mission_index = _capture_mission_index(OS.get_cmdline_user_args(), mission_index, mission_catalog.size())
 	_prepare_mission(mission_index)
 	if "--capture-gameplay" in OS.get_cmdline_user_args():
 		call_deferred("_start_mission")
 	queue_redraw()
+
+func _capture_mission_index(arguments: PackedStringArray, fallback: int, mission_count: int) -> int:
+	if not "--capture-gameplay" in arguments:
+		return fallback
+	for argument in arguments:
+		if argument.begins_with("--capture-mission="):
+			var value := argument.trim_prefix("--capture-mission=")
+			if value.is_valid_int():
+				return clampi(value.to_int(), 0, maxi(0, mission_count - 1))
+	return fallback
 
 func _process(delta: float) -> void:
 	status_timer = maxf(0.0, status_timer - delta)

@@ -36,6 +36,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	var band := str(state.get("current", "mid"))
 	var t := float(scene.get("mission_time"))
 	var motif := str(profile.get("motif", environment_id))
+	var variant := _mission_variant(scene)
 	_draw_parallax(surface, profile, state, t)
 
 	# Orbital-profile missions can begin in atmosphere and cross the boundary visibly.
@@ -45,6 +46,12 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 		_draw_high_atmosphere_horizon(surface, profile, _horizon_glow(state))
 		if orbital_mix > 0.02:
 			_draw_orbital(surface, profile, state, t, orbital_mix)
+	elif variant != "":
+		match variant:
+			"desert_front": _draw_desert_front(surface, state, t)
+			"river_corridor": _draw_river_corridor(surface, state, t)
+			"mountain_radar": _draw_mountain_radar(surface, state, t)
+			"night_harbor": _draw_night_harbor(surface, state, t)
 	else:
 		match motif:
 			"coast": _draw_coast(surface, profile, state, t)
@@ -53,6 +60,19 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"cloud_top": _draw_cloud_top(surface, profile, state, t)
 			"orbital": _draw_orbital(surface, profile, state, t, 1.0)
 	_draw_clouds(surface, profile, state, t)
+
+func _mission_variant(scene: Object) -> String:
+	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []
+	if typeof(missions) != TYPE_ARRAY or missions.is_empty() or not _has_property(scene, "mission_index"):
+		return ""
+	var mission = missions[clampi(int(scene.get("mission_index")), 0, missions.size() - 1)]
+	return str(mission.get("environment_variant", "")) if typeof(mission) == TYPE_DICTIONARY else ""
+
+func _has_property(subject: Object, property_name: String) -> bool:
+	for property in subject.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -227,6 +247,81 @@ func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 		surface.draw_line(Vector2(24+offset,y),Vector2(104+offset,y),near,1.0)
 		surface.draw_line(Vector2(330+offset*0.4,y+7),Vector2(430+offset*0.4,y+7),mid,1.0)
 
+func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	if not _draw_ground_detail(state): return
+	var scale := _ground_scale(state)
+	var sand := Color("78694e", 0.62)
+	var ridge := Color("a18b61", 0.42)
+	var road := Color("3b3931", 0.74)
+	var scroll := t * 30.0
+	for i in range(7):
+		var y := fposmod(float(i) * 74.0 + scroll, 350.0) + 45.0
+		var x := 24.0 + float((i * 131) % 420)
+		var width := (92.0 + float(i % 3) * 31.0) * scale
+		surface.draw_colored_polygon(PackedVector2Array([Vector2(x, y + 10), Vector2(x + width * 0.45, y - 8), Vector2(x + width, y + 8)]), sand)
+		surface.draw_line(Vector2(x + width * 0.18, y + 4), Vector2(x + width * 0.65, y), ridge, 1.0)
+	var road_x := 420.0 + sin((scroll - 120.0) * 0.012) * 42.0
+	surface.draw_line(Vector2(road_x - 22.0, 60), Vector2(road_x + 18.0, 360), road, 12.0 * scale)
+	surface.draw_line(Vector2(road_x - 22.0, 60), Vector2(road_x + 18.0, 360), ridge, 1.0)
+
+func _draw_river_corridor(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	if not _draw_ground_detail(state): return
+	var scale := _ground_scale(state)
+	var bank := Color("405948", 0.68)
+	var shallows := Color("688678", 0.48)
+	var bridge := Color("8a8068", 0.62)
+	var scroll := t * 27.0
+	var left_points := PackedVector2Array([Vector2(8, 60)])
+	var right_points := PackedVector2Array([Vector2(632, 60)])
+	for y in range(60, 369, 10):
+		var bend := sin((float(y) - scroll) * 0.018) * 58.0
+		left_points.append(Vector2(170.0 * scale + bend, y))
+		right_points.append(Vector2(470.0 + bend * 0.55, y))
+	left_points.append(Vector2(8, 368)); right_points.append(Vector2(632, 368))
+	surface.draw_colored_polygon(left_points, bank); surface.draw_colored_polygon(right_points, bank)
+	for y in range(60, 360, 10):
+		var bend := sin((float(y) - scroll) * 0.018) * 58.0
+		surface.draw_line(Vector2(170.0 * scale + bend + 6.0, y), Vector2(170.0 * scale + bend + 20.0, y), shallows, 1.0)
+		surface.draw_line(Vector2(450.0 + bend * 0.55, y), Vector2(470.0 + bend * 0.55, y), shallows, 1.0)
+	for i in range(3):
+		var by := fposmod(90.0 + i * 173.0 + scroll, 519.0) + 44.0
+		if by < 354.0: surface.draw_rect(Rect2(135, by, 380, 5), bridge)
+
+func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	var scale := maxf(0.45, _ground_scale(state))
+	var rock := Color("53616b", 0.42)
+	var snow := Color("b9c5c8", 0.36)
+	var structure := Color("87989d", 0.55)
+	var scroll := t * 15.0
+	for i in range(6):
+		var y := fposmod(float(i) * 92.0 + scroll, 350.0) + 50.0
+		var x := 20.0 + float((i * 149) % 510)
+		var width := (96.0 + float(i % 2) * 42.0) * scale
+		surface.draw_colored_polygon(PackedVector2Array([Vector2(x, y + 24), Vector2(x + width * 0.48, y - 19), Vector2(x + width, y + 24)]), rock)
+		surface.draw_colored_polygon(PackedVector2Array([Vector2(x + width * 0.31, y - 3), Vector2(x + width * 0.48, y - 19), Vector2(x + width * 0.62, y - 1), Vector2(x + width * 0.5, y - 5)]), snow)
+		if i % 2 == 0:
+			var rx := x + width * 0.48
+			surface.draw_line(Vector2(rx, y - 20), Vector2(rx, y - 34), structure, 2.0)
+			surface.draw_arc(Vector2(rx, y - 35), 8.0, PI, TAU, 8, structure, 2.0)
+
+func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> void:
+	if not _draw_ground_detail(state): return
+	var dock := Color("38474a", 0.82)
+	var edge := Color("718084", 0.50)
+	var lamp := Color("e0a449", 0.74)
+	var wake := Color("7599a0", 0.34)
+	var scroll := t * 29.0
+	for i in range(6):
+		var y := fposmod(float(i) * 89.0 + scroll, 356.0) + 48.0
+		var from_left := i % 2 == 0
+		var width := 128.0 + float(i % 3) * 34.0
+		var x := 8.0 if from_left else 632.0 - width
+		surface.draw_rect(Rect2(x, y, width, 18), dock)
+		surface.draw_line(Vector2(x if from_left else x + width, y + 18), Vector2(x + width if from_left else x, y + 18), edge, 2.0)
+		for lamp_index in range(3): surface.draw_rect(Rect2(x + 18 + lamp_index * 34, y + 5, 2, 2), lamp)
+		var water_x := x + width + 8.0 if from_left else x - 42.0
+		surface.draw_line(Vector2(water_x, y + 24), Vector2(water_x + (32.0 if from_left else -32.0), y + 24), wake, 1.0)
+
 func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var tone := _tone(profile, "near", 0.26)
 	var density := _cloud_density(state)
@@ -234,9 +329,8 @@ func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary
 	for i in range(count):
 		var x := float((i * 79 + 41) % 610) + 15.0
 		var y := fposmod(float(i) * 49.0 + t * 14.0, 300.0) + 72.0
-		var r := 13.0 + float(i % 4) * 4.0
-		surface.draw_circle(Vector2(x,y),r,tone)
-		surface.draw_circle(Vector2(x+r*0.8,y+3),r*0.72,tone)
+		var width := 24.0 + float(i % 4) * 7.0
+		surface.draw_colored_polygon(PackedVector2Array([Vector2(x-width,y+7),Vector2(x-width*0.55,y-2),Vector2(x-width*0.15,y-8),Vector2(x+width*0.4,y-4),Vector2(x+width,y+7),Vector2(x+width*0.45,y+11),Vector2(x-width*0.5,y+11)]),tone)
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, profile: Dictionary, glow: float) -> void:
 	var atmosphere := _tone(profile, "mid", 0.12 + 0.18 * glow)

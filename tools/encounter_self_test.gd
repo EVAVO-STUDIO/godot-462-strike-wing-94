@@ -98,10 +98,19 @@ func _test_intercept_chain() -> void:
 	_expect(not InterceptRouteRules.likely_destroyed(Vector2(100,120), 0), "disappearance without score gain must not count as intercept")
 
 func _test_formation_geometry() -> void:
+	for required in ["reverse_wedge", "echelon_left", "echelon_right", "pincer", "crossing_attack", "bomber_box", "escort_shell", "hunter_pair", "rotating_swarm", "missile_screen", "low_high_layer", "delayed_reinforcement", "pursuit", "retreat_bait", "ambush", "feint"]:
+		_expect(required in EncounterRules.ALLOWED_FORMATIONS, "authored formation language missing %s" % required)
+		_expect(EncounterRules.formation_points({"formation":required}, 8).size() == 8, "%s should provide one point per combatant" % required)
 	var wedge := EncounterRules.formation_points({"formation":"wedge"}, 5)
 	_expect(wedge.size() == 5 and absf(wedge[0].x - 0.5) < 0.001, "wedge should lead from centre lane")
 	var split := EncounterRules.formation_points({"formation":"split"}, 4)
 	_expect(split[0].x < 0.3 and split[1].x > 0.7, "split formation should attack from both flanks")
+	var pincer := EncounterRules.formation_points({"formation":"pincer"}, 6)
+	_expect(pincer[0].x < 0.15 and pincer[1].x > 0.85, "pincer should establish opposing edge attacks")
+	var box := EncounterRules.formation_points({"formation":"bomber_box"}, 6)
+	_expect(box[0].y == box[1].y and box[3].y > box[0].y, "bomber box should use disciplined rows")
+	var shell := EncounterRules.formation_points({"formation":"escort_shell"}, 5)
+	_expect(absf(shell[0].x - 0.5) < 0.001 and shell[1].x < 0.5 and shell[2].x > 0.5, "escort shell should protect a centre principal")
 
 func _test_route_runtime_wiring() -> void:
 	var director := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
