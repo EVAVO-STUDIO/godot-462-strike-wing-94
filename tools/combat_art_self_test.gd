@@ -497,6 +497,17 @@ func _test_damage_state() -> void:
 			var damage_texture := load("res://assets/runtime/craft/vx94/gameplay/damage/%s_%s.png" % [form_name, stage_name])
 			_expect(damage_texture is Texture2D and damage_texture.get_size() == Vector2(48,54), "VX-94 damage overlay should retain gameplay registration: %s %s" % [form_name, stage_name])
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/vx94_damage_overlay_manifest.json"), "VX-94 form damage source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/layered/vx94_layered_manifest.json"), "VX-94 should retain a governed articulated component and pivot contract")
+	_expect(FileAccess.file_exists("res://tools/build_vx94_layered_art.ps1"), "VX-94 articulated runtime components should remain reproducible")
+	var vx94_component_raw := load("res://assets/source/craft/vx94/layered/vx94_component_sheet_raw_v1.png") as Texture2D
+	var vx94_component_clean := load("res://assets/source/craft/vx94/layered/vx94_component_sheet_source_v1.png") as Texture2D
+	_expect(vx94_component_raw != null and vx94_component_clean != null and vx94_component_raw.get_size() == Vector2(1536,1024) and vx94_component_clean.get_size() == Vector2(1536,1024), "VX-94 RAW_ART and clean component source should retain identical registration")
+	if vx94_component_raw != null and vx94_component_clean != null:
+		_expect(vx94_component_raw.get_image().detect_alpha() == Image.ALPHA_NONE, "VX-94 RAW_ART should preserve provider output unchanged")
+		_expect(vx94_component_clean.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 finished component sheet should use genuine border-connected alpha")
+	for component_name in ["fuselage", "wing_left", "wing_right", "actuator_left", "actuator_right", "bay_closed", "bay_open", "hardpoint_left", "hardpoint_right", "tailplane_left", "tailplane_right", "nozzle_left", "nozzle_right", "settle_panel"]:
+		var component_texture := load("res://assets/runtime/craft/vx94/layered/%s.png" % component_name) as Texture2D
+		_expect(component_texture != null and component_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 articulated component should retain transparency: %s" % component_name)
 
 func _test_projectile_art() -> void:
 	var projectile_source := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)

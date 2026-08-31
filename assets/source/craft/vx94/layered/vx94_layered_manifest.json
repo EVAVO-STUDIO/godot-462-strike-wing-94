@@ -1,0 +1,31 @@
+{
+  "asset_family": "vx94_articulated_airframe_v1",
+  "raw_art": "res://assets/source/craft/vx94/layered/vx94_component_sheet_raw_v1.png",
+  "clean_source": "res://assets/source/craft/vx94/layered/vx94_component_sheet_source_v1.png",
+  "builder": "res://tools/build_vx94_layered_art.ps1",
+  "runtime_directory": "res://assets/runtime/craft/vx94/layered/",
+  "view": "orthographic top-down north-up",
+  "components": {
+    "fuselage": {"pivot_normalized": [0.5, 0.52], "z": 30},
+    "wing_left": {"pivot_normalized": [0.88, 0.18], "z": 20, "sweep_degrees": [-23, 18]},
+    "wing_right": {"pivot_normalized": [0.12, 0.18], "z": 20, "sweep_degrees": [23, -18]},
+    "actuator_left": {"pivot_normalized": [0.55, 0.08], "z": 25},
+    "actuator_right": {"pivot_normalized": [0.45, 0.08], "z": 25},
+    "bay_closed": {"pivot_normalized": [0.5, 0.5], "z": 35},
+    "bay_open": {"pivot_normalized": [0.5, 0.5], "z": 35},
+    "hardpoint_left": {"pivot_normalized": [0.78, 0.5], "z": 26},
+    "hardpoint_right": {"pivot_normalized": [0.22, 0.5], "z": 26},
+    "tailplane_left": {"pivot_normalized": [0.82, 0.5], "z": 18},
+    "tailplane_right": {"pivot_normalized": [0.18, 0.5], "z": 18},
+    "nozzle_left": {"pivot_normalized": [0.5, 0.5], "z": 32},
+    "nozzle_right": {"pivot_normalized": [0.5, 0.5], "z": 32},
+    "settle_panel": {"pivot_normalized": [0.5, 0.5], "z": 36}
+  },
+  "animation_contract": {
+    "wing_sweep": "anticipation, decisive mirrored hinge rotation, two-frame mechanical settle, ready cue",
+    "duration_seconds": [0.4, 0.6],
+    "weapon_interlock": true,
+    "hypersonic_form": "fighter/swept geometry; exhaust and shockwave remain separate effect layers"
+  },
+  "qa": ["border-connected matte removal", "colored-plate halo review", "paired wing pivot review", "native-scale registration", "Godot motion capture"]
+}
