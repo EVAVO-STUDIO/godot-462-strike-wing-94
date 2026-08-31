@@ -201,15 +201,6 @@ const ORBITAL_AIR_SPECIALIST_ART := {
 	],
 }
 const GROUND_FORCE_SPECIALIST_ART := {
-	"mercenary_rifle_team": [
-		preload("res://assets/runtime/enemies/ground_force_specialist/rifle_scatter_0.png"),
-		preload("res://assets/runtime/enemies/ground_force_specialist/rifle_scatter_1.png"),
-	],
-	"mercenary_heavy_team": {
-		"weapon": preload("res://assets/runtime/enemies/ground_force_specialist/heavy_team_weapon.png"),
-		"scatter": preload("res://assets/runtime/enemies/ground_force_specialist/heavy_scatter_0.png"),
-		"scale": 0.82,
-	},
 	"security_patrol_mech": {
 		"weapon": preload("res://assets/runtime/enemies/ground_mech_layered/security_cannon.png"),
 		"weapon_recoil": preload("res://assets/runtime/enemies/ground_mech_layered/security_cannon_recoil.png"),
@@ -230,6 +221,37 @@ const GROUND_FORCE_SPECIALIST_ART := {
 		"collar": preload("res://assets/runtime/enemies/ground_mech_layered/salvage_collar.png"),
 		"primary_anchor": Vector2(-13, -4),
 		"secondary_anchor": Vector2(13, -4),
+	},
+}
+const INFANTRY_LAYERED_ART := {
+	"mercenary_rifle_team": {
+		"advance": [
+			preload("res://assets/runtime/enemies/infantry_layered/rifle_advance_0.png"),
+			preload("res://assets/runtime/enemies/infantry_layered/rifle_advance_1.png"),
+			preload("res://assets/runtime/enemies/infantry_layered/rifle_advance_2.png"),
+		],
+		"aim": preload("res://assets/runtime/enemies/infantry_layered/rifle_aim.png"),
+		"fire": preload("res://assets/runtime/enemies/infantry_layered/rifle_fire.png"),
+		"flinch": preload("res://assets/runtime/enemies/infantry_layered/rifle_flinch.png"),
+		"dust": [
+			preload("res://assets/runtime/enemies/infantry_layered/hit_dust_0.png"),
+			preload("res://assets/runtime/enemies/infantry_layered/hit_dust_1.png"),
+		],
+	},
+	"mercenary_heavy_team": {
+		"gunner": preload("res://assets/runtime/enemies/infantry_layered/rifle_kneel.png"),
+		"gunner_fire": preload("res://assets/runtime/enemies/infantry_layered/rifle_kneel_fire.png"),
+		"loader": preload("res://assets/runtime/enemies/infantry_layered/heavy_loader.png"),
+		"spotter": preload("res://assets/runtime/enemies/infantry_layered/heavy_spotter.png"),
+		"tripod": preload("res://assets/runtime/enemies/infantry_layered/heavy_tripod.png"),
+		"tripod_recoil": preload("res://assets/runtime/enemies/infantry_layered/heavy_tripod_recoil.png"),
+		"crate": preload("res://assets/runtime/enemies/infantry_layered/heavy_ammo_crate.png"),
+		"belt": preload("res://assets/runtime/enemies/infantry_layered/heavy_ammo_belt.png"),
+		"flinch": preload("res://assets/runtime/enemies/infantry_layered/rifle_flinch.png"),
+		"dust": [
+			preload("res://assets/runtime/enemies/infantry_layered/hit_dust_0.png"),
+			preload("res://assets/runtime/enemies/infantry_layered/hit_dust_1.png"),
+		],
 	},
 }
 const MERCENARY_GROUND_SPRITES := {
@@ -609,6 +631,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_render_naval_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _capture_ground_state() == "infantry":
+		_render_infantry_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
@@ -650,6 +676,17 @@ func _render_naval_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_naval_unit(surface, enemy["position"], enemy["id"], enemy, MERCENARY_SEA_SPRITES[enemy["id"]], 1.0)
+
+func _render_infantry_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time, 0.90) < 0.12 else 0.0
+	var hit := 0.14 if fposmod(time+0.35, 1.70) < 0.14 else 0.0
+	var definitions := [
+		{"id":"mercenary_rifle_team", "position":Vector2(220,150), "hit_timer":hit, "recoil_timer":recoil, "hp":8, "max_hp":8, "age":time},
+		{"id":"mercenary_heavy_team", "position":Vector2(420,150), "hit_timer":hit, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
+	]
+	for enemy in definitions:
+		_draw_infantry_team(surface, enemy["position"], enemy["id"], enemy, 1.0)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -825,7 +862,10 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "ground" and LAYERED_GROUND_SPRITES.has(enemy_id):
 		_draw_layered_ground(surface, p, enemy, LAYERED_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground" and MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id):
-		_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], scale)
+		if INFANTRY_LAYERED_ART.has(enemy_id):
+			_draw_infantry_team(surface, p, enemy_id, enemy, scale)
+		else:
+			_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], scale)
 	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground":
@@ -992,17 +1032,6 @@ static func orbital_weapon_frame_index(fire_timer: float, recoil_ratio: float) -
 func _render_ground_force_specialist(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, scale: float) -> void:
 	var hit_ratio := clampf(float(enemy.get("hit_timer", 0.0)) / 0.14, 0.0, 1.0)
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
-	if enemy_id == "mercenary_rifle_team":
-		if hit_ratio > 0.01:
-			var scatter_frames: Array = GROUND_FORCE_SPECIALIST_ART[enemy_id]
-			var scatter_index := 0 if hit_ratio > 0.52 else 1
-			_draw_production_sprite(surface, p, scatter_frames[scatter_index], scale)
-		if recoil_ratio > 0.45:
-			var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
-			for offset in [Vector2(-8,-4), Vector2(7,-2), Vector2(-3,4), Vector2(5,6), Vector2(0,9)]:
-				var center: Vector2 = p + Vector2(offset) * scale
-				surface.draw_texture_rect(flash, Rect2((center - Vector2(2,2) * scale).round(), Vector2(4,4) * scale), false)
-		return
 	var definition: Dictionary = GROUND_FORCE_SPECIALIST_ART[enemy_id]
 	if enemy_id in ["security_patrol_mech", "autonomous_salvage_mech"]:
 		_render_mech_appendages(surface, p, enemy_id, enemy, definition, scale, recoil_ratio)
@@ -1020,6 +1049,52 @@ func _render_ground_force_specialist(surface: CanvasItem, p: Vector2, enemy_id: 
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if hit_ratio > 0.01 and definition.has("scatter"):
 		_draw_production_sprite(surface, p, definition["scatter"], scale)
+
+func _draw_infantry_team(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, scale: float) -> void:
+	var definition: Dictionary = INFANTRY_LAYERED_ART[enemy_id]
+	var age := float(enemy.get("age", 0.0))
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
+	var hit_ratio := clampf(float(enemy.get("hit_timer", 0.0)) / 0.14, 0.0, 1.0)
+	if enemy_id == "mercenary_rifle_team":
+		var offsets := [Vector2(-9,-5), Vector2(8,-4), Vector2(-5,4), Vector2(6,5), Vector2(0,10)]
+		var active_member := int(floor(age * 6.0)) % offsets.size()
+		var advance_frames: Array = definition["advance"]
+		for member_index in range(offsets.size()):
+			var texture: Texture2D = advance_frames[(int(floor(age * 7.0))+member_index) % advance_frames.size()]
+			if member_index == active_member and hit_ratio > 0.01:
+				texture = definition["flinch"]
+			elif member_index == active_member and recoil_ratio > 0.01:
+				texture = definition["fire"]
+			_draw_production_sprite(surface, p + offsets[member_index] * scale, texture, scale)
+		if hit_ratio > 0.01:
+			var dust_frames: Array = definition["dust"]
+			_draw_infantry_effect(surface, p + offsets[active_member] * scale, dust_frames[int(hit_ratio > 0.52)], scale)
+		if recoil_ratio > 0.45:
+			_draw_infantry_muzzle(surface, p + (offsets[active_member]+Vector2(0,7)) * scale, recoil_ratio, scale)
+		return
+	_draw_production_sprite(surface, p + Vector2(-11,5) * scale, definition["crate"], scale)
+	_draw_production_sprite(surface, p + Vector2(-5,3) * scale, definition["belt"], scale)
+	_draw_production_sprite(surface, p + Vector2(-9,-4) * scale, definition["loader"], scale)
+	_draw_production_sprite(surface, p + Vector2(9,-6) * scale, definition["spotter"], scale)
+	var gunner: Texture2D = definition["gunner_fire"] if recoil_ratio > 0.01 else definition["gunner"]
+	var tripod: Texture2D = definition["tripod_recoil"] if recoil_ratio > 0.01 else definition["tripod"]
+	_draw_production_sprite(surface, p + Vector2(0,-3) * scale, gunner, scale)
+	_draw_production_sprite(surface, p + Vector2(0,7) * scale, tripod, scale)
+	if hit_ratio > 0.01:
+		var heavy_dust_frames: Array = definition["dust"]
+		var hit_offset := Vector2(-9,-4) if int(floor(age*5.0)) % 2 == 0 else Vector2(9,-6)
+		_draw_production_sprite(surface, p + hit_offset * scale, definition["flinch"], scale)
+		_draw_infantry_effect(surface, p + hit_offset * scale, heavy_dust_frames[int(hit_ratio > 0.52)], scale)
+	if recoil_ratio > 0.45:
+		_draw_infantry_muzzle(surface, p + Vector2(0,17) * scale, recoil_ratio, scale)
+
+func _draw_infantry_effect(surface: CanvasItem, center: Vector2, texture: Texture2D, scale: float) -> void:
+	var size := texture.get_size() * scale
+	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(), size.round()), false, Color(0.54,0.50,0.43,0.68))
+
+func _draw_infantry_muzzle(surface: CanvasItem, center: Vector2, recoil_ratio: float, scale: float) -> void:
+	var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
+	surface.draw_texture_rect(flash, Rect2((center-Vector2(2,2)*scale).round(), Vector2(4,4)*scale), false)
 
 func _render_mech_appendages(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, definition: Dictionary, scale: float, recoil_ratio: float) -> void:
 	var direction := _player_position() - p

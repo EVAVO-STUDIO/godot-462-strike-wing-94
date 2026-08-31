@@ -219,8 +219,20 @@ func _test_visual_language() -> void:
 		var ground_specialist_texture := load("res://assets/runtime/enemies/ground_force_specialist/%s.png" % ground_specialist_id)
 		_expect(ground_specialist_texture is Texture2D and ground_specialist_texture.get_size() == ground_specialist_sizes[ground_specialist_id], "ground-force specialist component should retain registered canvas: %s" % ground_specialist_id)
 	_expect(source.contains('GROUND_FORCE_SPECIALIST_ART') and source.contains('enemy.get("hit_timer", 0.0)') and source.contains('enemy.get("recoil_timer", 0.0)'), "ground troops and mechs should consume live hit and firing state")
-	_expect(source.contains('Vector2(-8,-4)') and source.contains('Vector2(0,9)'), "rifle team should use restrained per-soldier muzzle cadence rather than a single squad-wide flash")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/ground_force_specialist/ground_force_specialist_asset_manifest.json"), "ground-force specialist source/runtime manifest should exist")
+	var layered_infantry_sizes := {
+		"rifle_advance_0":Vector2(10,16), "rifle_advance_1":Vector2(10,16), "rifle_advance_2":Vector2(10,16), "rifle_aim":Vector2(12,14), "rifle_fire":Vector2(12,14), "rifle_flinch":Vector2(10,14),
+		"rifle_kneel":Vector2(14,11), "rifle_kneel_fire":Vector2(14,11), "rifle_prone":Vector2(19,8), "radio_operator":Vector2(10,13), "dropped_rifle":Vector2(11,9), "radio_pack":Vector2(8,11),
+		"heavy_loader":Vector2(13,12), "heavy_spotter":Vector2(10,13), "heavy_tripod":Vector2(15,19), "heavy_tripod_recoil":Vector2(15,19), "heavy_ammo_crate":Vector2(9,10), "heavy_ammo_belt":Vector2(12,6),
+		"fallen_rifleman":Vector2(18,10), "fallen_heavy":Vector2(18,10), "damaged_tripod":Vector2(11,11), "loose_helmet":Vector2(8,8), "loose_pack":Vector2(9,9), "hit_dust_0":Vector2(13,9), "hit_dust_1":Vector2(14,8),
+	}
+	for infantry_layer_id in layered_infantry_sizes:
+		var infantry_layer := load("res://assets/runtime/enemies/infantry_layered/%s.png" % infantry_layer_id) as Texture2D
+		_expect(infantry_layer != null and infantry_layer.get_size() == layered_infantry_sizes[infantry_layer_id], "layered infantry component should retain its registered canvas: %s" % infantry_layer_id)
+	_expect(source.contains("INFANTRY_LAYERED_ART") and source.contains("var active_member") and source.contains("offsets[active_member]+Vector2(0,7)"), "rifle squads should assemble independent members with restrained one-at-a-time firing cadence")
+	_expect(source.contains('"belt": preload("res://assets/runtime/enemies/infantry_layered/heavy_ammo_belt.png")') and source.contains('definition["tripod_recoil"]') and source.contains('definition["belt"]'), "heavy teams should assemble independent crew, ammunition feed, and tripod recoil layers")
+	_expect(source.contains('_capture_ground_state() == "infantry"') and source.contains("_render_infantry_capture"), "visual QA should expose an isolated infantry gait, firing, recoil, and hit fixture")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/infantry_layered/infantry_layered_manifest.json"), "layered infantry source/runtime manifest should exist")
 	var mech_layer_sizes := {
 		"security_cannon":Vector2(18,38), "security_cannon_recoil":Vector2(18,38), "security_barrel":Vector2(12,30), "security_shield":Vector2(16,28), "security_collar":Vector2(14,14),
 		"salvage_cutter_arm":Vector2(18,38), "salvage_grapple_open":Vector2(18,38), "salvage_grapple_closed":Vector2(18,38), "salvage_disc_0":Vector2(16,16), "salvage_disc_1":Vector2(16,16), "salvage_disc_2":Vector2(16,16), "salvage_collar":Vector2(14,14),

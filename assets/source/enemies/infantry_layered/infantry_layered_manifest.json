@@ -1,0 +1,20 @@
+{
+  "asset_family": "mercenary_infantry_layered_v1",
+  "raw_art": "res://assets/source/enemies/infantry_layered/infantry_component_sheet_raw_v1.png",
+  "clean_source": "res://assets/source/enemies/infantry_layered/infantry_component_sheet_source_v1.png",
+  "cleanup_profile": "res://assets/source/enemies/infantry_layered/infantry_cleanup.sprite.json",
+  "builder": "res://tools/build_infantry_layered_art.ps1",
+  "runtime_directory": "res://assets/runtime/enemies/infantry_layered/",
+  "units": {
+    "mercenary_rifle_team": ["rifle_advance_0", "rifle_advance_1", "rifle_advance_2", "rifle_aim", "rifle_fire", "rifle_flinch", "rifle_kneel", "rifle_kneel_fire", "rifle_prone", "radio_operator"],
+    "mercenary_heavy_team": ["rifle_kneel", "heavy_loader", "heavy_spotter", "heavy_tripod", "heavy_tripod_recoil", "heavy_ammo_crate", "heavy_ammo_belt"],
+    "aftermath": ["fallen_rifleman", "fallen_heavy", "damaged_tripod", "dropped_rifle", "radio_pack", "loose_helmet", "loose_pack", "hit_dust_0", "hit_dust_1"]
+  },
+  "animation_contract": {
+    "rifle_team": "five independently registered members with staggered gait, restrained single-member firing cadence, kneeling and prone silhouette options",
+    "heavy_team": "separate gunner, loader, spotter, tripod recoil, ammunition feed, and field equipment layers",
+    "damage": "individual flinch and restrained dust layers preserve readable human-scale hits without arcade fireballs",
+    "registration": "all individual poses retain shoulder-centred pivots and assemble inside a compact squad footprint"
+  },
+  "qa": ["exterior checker cleanup", "native-scale silhouette separation", "staggered gait", "single-member muzzle cadence", "tripod recoil", "in-engine terrain contrast"]
+}
