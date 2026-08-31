@@ -624,15 +624,21 @@ const MACHINE_BOSS_SPRITES := {
 }
 const MACHINE_BOSS_SPECIALIST_ART := {
 	"swarm_controller": {
-		"rack": preload("res://assets/runtime/enemies/machine_boss_specialist/swarm_rack.png"),
-		"drone": preload("res://assets/runtime/enemies/machine_boss_specialist/swarm_drone.png"),
+		"racks": [preload("res://assets/runtime/enemies/machine_boss_layered/swarm_rack_closed.png"), preload("res://assets/runtime/enemies/machine_boss_layered/swarm_rack_opening.png"), preload("res://assets/runtime/enemies/machine_boss_layered/swarm_rack_open.png")],
+		"drones": [preload("res://assets/runtime/enemies/machine_boss_layered/swarm_drone_folded.png"), preload("res://assets/runtime/enemies/machine_boss_layered/swarm_drone_ready.png")],
+		"sensor": preload("res://assets/runtime/enemies/machine_boss_layered/swarm_sensor.png"),
+		"sensor_damaged": preload("res://assets/runtime/enemies/machine_boss_layered/swarm_sensor_damaged.png"),
+		"sensor_anchor": Vector2(-28,-5),
+		"cores": [preload("res://assets/runtime/enemies/machine_boss_layered/swarm_core_normal.png"), preload("res://assets/runtime/enemies/machine_boss_layered/swarm_core_overload.png"), preload("res://assets/runtime/enemies/machine_boss_layered/swarm_core_ruptured.png")],
 		"rack_anchor": Vector2(29,1),
 	},
 	"ai_forge_core": {
-		"conveyor": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_conveyor.png"),
-		"blank": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_blank.png"),
-		"press": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_press.png"),
-		"tool": preload("res://assets/runtime/enemies/machine_boss_specialist/forge_tool.png"),
+		"conveyors": [preload("res://assets/runtime/enemies/machine_boss_layered/forge_conveyor.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_conveyor_broken.png")],
+		"blanks": [preload("res://assets/runtime/enemies/machine_boss_layered/forge_blank_light.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_blank_medium.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_blank_heavy.png")],
+		"presses": [preload("res://assets/runtime/enemies/machine_boss_layered/forge_press_raised.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_press_lowered.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_press_scorched.png")],
+		"arms": [preload("res://assets/runtime/enemies/machine_boss_layered/forge_arm_retracted.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_arm_extended.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_arm_severed.png")],
+		"tool": preload("res://assets/runtime/enemies/machine_boss_layered/forge_tool_head.png"),
+		"crucibles": [preload("res://assets/runtime/enemies/machine_boss_layered/forge_crucible_closed.png"), preload("res://assets/runtime/enemies/machine_boss_layered/forge_crucible_open.png")],
 	},
 }
 const ORBITAL_BOSS_SPRITES := {
@@ -730,6 +736,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		return
 	if _capture_boss_state() == "mercenary":
 		_render_mercenary_boss_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
+	if _capture_boss_state() == "machine":
+		_render_machine_boss_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
 	for enemy in scene.get("enemies"):
@@ -836,6 +846,18 @@ func _render_mercenary_boss_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_production_boss(surface, enemy["position"], enemy["id"], enemy, MERCENARY_BOSS_SPRITES[enemy["id"]])
+
+func _render_machine_boss_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time,1.55)<0.18 else 0.0
+	var fire_timer := fposmod(1.0-time,1.0)
+	var phase := 1+posmod(int(floor(time/2.0)),3)
+	var definitions := [
+		{"id":"swarm_controller", "position":Vector2(215,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":38 if phase<3 else 9, "max_hp":55, "boss_phase":phase, "age":time+2.0},
+		{"id":"ai_forge_core", "position":Vector2(435,150), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":52 if phase<3 else 12, "max_hp":75, "boss_phase":phase, "age":time+2.0},
+	]
+	for enemy in definitions:
+		_draw_production_boss(surface,enemy["position"],enemy["id"],enemy,MACHINE_BOSS_SPRITES[enemy["id"]])
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -1470,44 +1492,75 @@ func _draw_machine_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: Str
 	var age := float(enemy.get("age",0.0))
 	var cycle_frame := machine_boss_cycle_frame_index(age)
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer",0.0))/0.10,0.0,1.0)
+	var fire_timer := float(enemy.get("fire_timer",1.0))
+	var boss_phase := clampi(int(enemy.get("boss_phase",1)),1,3)
+	var max_hp := maxf(1.0,float(enemy.get("max_hp",enemy.get("hp",1.0))))
+	var health_ratio := clampf(float(enemy.get("hp",max_hp))/max_hp,0.0,1.0)
 	if enemy_id == "swarm_controller":
-		var rack: Texture2D = definition["rack"]
-		var drone: Texture2D = definition["drone"]
+		var rack_index := machine_swarm_rack_frame_index(fire_timer,recoil_ratio)
+		var rack: Texture2D = definition["racks"][rack_index]
 		var rack_center := p+Vector2(definition["rack_anchor"])
 		surface.draw_texture(rack,(rack_center-rack.get_size()*0.5).round())
-		var cradle_offsets := [Vector2(-8,-7),Vector2(8,-7),Vector2(-8,7),Vector2(8,7)]
+		var sensor: Texture2D = definition["sensor_damaged"] if health_ratio<=0.35 else definition["sensor"]
+		var sensor_center := p+Vector2(definition["sensor_anchor"])
+		surface.draw_set_transform(sensor_center.round(),sin(age*1.9)*0.17,Vector2.ONE)
+		surface.draw_texture(sensor,-sensor.get_size()*0.5)
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+		var core_index := 2 if health_ratio<=0.28 else (1 if boss_phase>=3 else 0)
+		var core: Texture2D = definition["cores"][core_index]
+		surface.draw_texture(core,(p-core.get_size()*0.5).round(),Color(1,1,1,0.94))
+		var cradle_offsets := [Vector2(-10,-8),Vector2(10,-8),Vector2(-10,8),Vector2(10,8)]
 		for index in range(cradle_offsets.size()):
 			var drone_center: Vector2 = rack_center+Vector2(cradle_offsets[index])
 			var drone_alpha := 1.0
+			var drone: Texture2D = definition["drones"][1 if rack_index>=1 else 0]
 			if recoil_ratio > 0.01:
 				var launch_progress := 1.0-recoil_ratio
 				var direction := Vector2(-0.55 if index%2==0 else 0.55,1.0).normalized()
-				drone_center += direction*launch_progress*18.0
+				drone_center += direction*launch_progress*24.0
 				drone_alpha = 1.0-smoothstep(0.65,1.0,launch_progress)
-			elif float(enemy.get("fire_timer",1.0))<0.35:
+			elif fire_timer<0.35:
 				drone_center += Vector2(0,2)
 			surface.draw_texture(drone,(drone_center-drone.get_size()*0.5).round(),Color(1,1,1,drone_alpha))
 		return
-	var conveyor: Texture2D = definition["conveyor"]
-	var blank: Texture2D = definition["blank"]
+	var conveyor: Texture2D = definition["conveyors"][1 if health_ratio<=0.32 else 0]
 	var conveyor_center := p+Vector2(-34,0)
 	surface.draw_texture(conveyor,(conveyor_center-conveyor.get_size()*0.5).round())
 	var conveyor_shift: float = [0.0,2.0,5.0,2.0][cycle_frame]
-	for blank_y in [-21.0,-2.0,17.0]:
+	for blank_index in range(3):
+		var blank: Texture2D = definition["blanks"][blank_index]
+		var blank_y: float = [-21.0,-2.0,17.0][blank_index]
 		var blank_center := conveyor_center+Vector2(0,blank_y+conveyor_shift)
 		surface.draw_texture(blank,(blank_center-blank.get_size()*0.5).round())
-	var press: Texture2D = definition["press"]
+	var press_index := 2 if health_ratio<=0.42 else (1 if cycle_frame==2 else 0)
+	var press: Texture2D = definition["presses"][press_index]
 	var press_travel: float = [0.0,2.0,8.0,3.0][cycle_frame]
 	var press_center := p+Vector2(0,-8+press_travel)
 	surface.draw_texture(press,(press_center-press.get_size()*0.5).round())
+	var arm_index := 2 if health_ratio<=0.24 else (1 if cycle_frame in [1,2] else 0)
+	var arm: Texture2D = definition["arms"][arm_index]
+	var arm_center := p+Vector2(31,-7+float([0,2,5,2][cycle_frame]))
+	var arm_angle: float = [-0.10,0.02,0.12,0.02][cycle_frame]
+	surface.draw_set_transform(arm_center.round(),arm_angle,Vector2.ONE)
+	surface.draw_texture(arm,-arm.get_size()*0.5)
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 	var tool: Texture2D = definition["tool"]
-	var tool_angles := [-0.18,0.02,0.22,0.05]
-	var tool_center := p+Vector2(31,-7+float([0,2,5,2][cycle_frame]))
-	surface.draw_set_transform(tool_center.round(),float(tool_angles[cycle_frame]),Vector2.ONE)
+	var tool_center := arm_center+Vector2(0,14)
+	surface.draw_set_transform(tool_center.round(),age*1.8,Vector2.ONE)
 	surface.draw_texture(tool,-tool.get_size()*0.5)
 	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	var crucible: Texture2D = definition["crucibles"][1 if boss_phase>=2 and cycle_frame>=2 else 0]
+	var crucible_center := p+Vector2(25,31)
+	surface.draw_texture(crucible,(crucible_center-crucible.get_size()*0.5).round())
 	if cycle_frame==2 and recoil_ratio>0.15:
 		_draw_enemy_effect_frame(surface,tool_center+Vector2(-3,13),"damage_sparks",int(age*12.0),0.55,Color(0.88,0.68,0.40,0.78))
+
+static func machine_swarm_rack_frame_index(fire_timer: float,recoil_ratio: float) -> int:
+	if recoil_ratio>0.01 or fire_timer<0.28:
+		return 2
+	if fire_timer<0.62:
+		return 1
+	return 0
 
 static func machine_boss_cycle_frame_index(age: float) -> int:
 	return posmod(int(floor(age*4.0)),4)

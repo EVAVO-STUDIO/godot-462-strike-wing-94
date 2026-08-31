@@ -1,0 +1,34 @@
+{
+  "asset_family": "sector_two_machine_boss_layered_mechanics_v2",
+  "status": "production_candidate",
+  "source": "machine_boss_component_sheet_source_v1.png",
+  "build_tool": "tools/build_machine_boss_layered_art.ps1",
+  "visual_contract": {
+    "era": "1997 military-industrial machine escalation",
+    "materials": ["soot-dark steel", "worn ivory armor", "restrained cyan optics", "orange foundry heat"],
+    "rules": ["physical boss-scale machinery", "held key poses", "damage replaces mechanisms", "machine purpose remains readable"],
+    "reject": ["tiny schematic overlays", "neon cyberpunk", "organic alien forms", "modern glossy drones", "unbounded glow"]
+  },
+  "assemblies": {
+    "swarm_controller": {
+      "rack_anchor": [29,1],
+      "rack_frames": ["swarm_rack_closed", "swarm_rack_opening", "swarm_rack_open"],
+      "drone_states": ["swarm_drone_folded", "swarm_drone_ready"],
+      "sensor_anchor": [-28,-5],
+      "core_anchor": [0,0],
+      "damage_states": ["swarm_sensor_damaged", "swarm_core_ruptured"]
+    },
+    "ai_forge_core": {
+      "conveyor_anchor": [-34,0],
+      "press_anchor": [0,-8],
+      "arm_anchor": [31,-7],
+      "crucible_anchor": [24,29],
+      "damage_states": ["forge_conveyor_broken", "forge_press_scorched", "forge_arm_severed"]
+    }
+  },
+  "gameplay_contract": {
+    "collision_policy": "existing boss hull collision remains authoritative",
+    "damage_anchor": [0,0],
+    "intended_layers": ["hull", "machine_process", "attack_mechanism", "phase_damage", "critical_fx"]
+  }
+}

@@ -444,6 +444,22 @@ func _test_visual_language() -> void:
 	_expect(source.contains("MACHINE_BOSS_SPECIALIST_ART") and source.contains("_draw_machine_boss_mechanics") and source.contains("cradle_offsets"),"machine bosses should expose physical drone rack and forge machinery layers")
 	_expect(CombatArtDirector.machine_boss_cycle_frame_index(0.0)==0 and CombatArtDirector.machine_boss_cycle_frame_index(0.25)==1 and CombatArtDirector.machine_boss_cycle_frame_index(0.50)==2 and CombatArtDirector.machine_boss_cycle_frame_index(0.75)==3,"forge machinery should use four held industrial poses")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_boss_specialist/machine_boss_specialist_asset_manifest.json"),"machine boss specialist source/runtime manifest should exist")
+	var layered_machine_boss_sizes := {
+		"swarm_rack_closed":Vector2(48,46), "swarm_rack_opening":Vector2(48,46), "swarm_rack_open":Vector2(48,46),
+		"swarm_drone_folded":Vector2(23,26), "swarm_drone_ready":Vector2(31,27), "swarm_sensor":Vector2(33,32), "swarm_sensor_damaged":Vector2(33,32),
+		"swarm_core_normal":Vector2(18,30), "swarm_core_overload":Vector2(18,30), "swarm_core_ruptured":Vector2(19,30),
+		"forge_conveyor":Vector2(54,35), "forge_conveyor_broken":Vector2(58,31), "forge_blank_light":Vector2(22,27), "forge_blank_medium":Vector2(22,27), "forge_blank_heavy":Vector2(23,27),
+		"forge_press_raised":Vector2(42,35), "forge_press_lowered":Vector2(44,35), "forge_press_scorched":Vector2(45,30),
+		"forge_arm_extended":Vector2(46,37), "forge_arm_retracted":Vector2(40,35), "forge_arm_severed":Vector2(54,31), "forge_tool_head":Vector2(34,33),
+		"forge_crucible_closed":Vector2(40,37), "forge_crucible_open":Vector2(43,37),
+	}
+	for component_id in layered_machine_boss_sizes:
+		var component := load("res://assets/runtime/enemies/machine_boss_layered/%s.png" % component_id)
+		_expect(component is Texture2D and component.get_size()==layered_machine_boss_sizes[component_id],"layered machine-boss mechanism should retain its registered pivot canvas: %s" % component_id)
+	_expect(CombatArtDirector.machine_swarm_rack_frame_index(1.0,0.0)==0 and CombatArtDirector.machine_swarm_rack_frame_index(0.5,0.0)==1 and CombatArtDirector.machine_swarm_rack_frame_index(0.2,0.0)==2 and CombatArtDirector.machine_swarm_rack_frame_index(1.0,0.8)==2,"swarm rack should communicate closed, preparing and launch-ready poses")
+	_expect(source.contains('_capture_boss_state() == "machine"') and source.contains("_render_machine_boss_capture"),"visual QA should expose isolated machine-boss process, phase, launch, and damage fixtures")
+	_expect(source.contains('definition["cores"]') and source.contains('definition["conveyors"]') and source.contains('definition["presses"]') and source.contains('definition["crucibles"]'),"machine bosses should visibly change their physical process and damaged mechanisms")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_boss_layered/machine_boss_layered_manifest.json"),"layered machine-boss source/runtime manifest should exist")
 	var orbital_boss_sizes := {
 		"orbital_command_node": Vector2(124,104),
 		"phase_control_array": Vector2(126,126),
