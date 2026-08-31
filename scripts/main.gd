@@ -92,6 +92,7 @@ func _ready() -> void:
 	mission_index = _capture_mission_index(OS.get_cmdline_user_args(), mission_index, mission_catalog.size())
 	_prepare_mission(mission_index)
 	mode_selection = _capture_mode_selection(OS.get_cmdline_user_args(),mode_selection)
+	option_selection = _capture_option_selection(OS.get_cmdline_user_args(),option_selection)
 	var capture_front_end := _capture_front_end(OS.get_cmdline_user_args())
 	var capture_game_mode := _capture_game_mode(OS.get_cmdline_user_args())
 	if not capture_game_mode.is_empty():
@@ -112,6 +113,13 @@ func _capture_mode_selection(arguments: PackedStringArray, fallback: int) -> int
 	for argument in arguments:
 		if argument.begins_with("--capture-mode-selection="):
 			var value := argument.trim_prefix("--capture-mode-selection=")
+			if value.is_valid_int(): return maxi(0,value.to_int())
+	return fallback
+
+func _capture_option_selection(arguments: PackedStringArray, fallback: int) -> int:
+	for argument in arguments:
+		if argument.begins_with("--capture-option-selection="):
+			var value := argument.trim_prefix("--capture-option-selection=")
 			if value.is_valid_int(): return maxi(0,value.to_int())
 	return fallback
 
@@ -225,18 +233,19 @@ func _update_front_end_modes() -> void:
 		modes.call("start_selected",self,mode_selection)
 
 func _update_front_end_options() -> void:
+	var settings := get_node_or_null("/root/SettingsDirector")
+	var setting_count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
 	if Input.is_action_just_pressed("cancel"):
 		front_end_screen = "main_menu"
 		return
 	if Input.is_action_just_pressed("move_up"):
-		option_selection = posmod(option_selection - 1, 4)
+		option_selection = posmod(option_selection - 1, setting_count)
 	elif Input.is_action_just_pressed("move_down"):
-		option_selection = posmod(option_selection + 1, 4)
+		option_selection = posmod(option_selection + 1, setting_count)
 	var direction := 0
 	if Input.is_action_just_pressed("move_left"): direction = -1
 	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("confirm"): direction = 1
 	if direction != 0:
-		var settings := get_node_or_null("/root/SettingsDirector")
 		if settings != null and settings.has_method("adjust_setting"):
 			settings.call("adjust_setting", option_selection, direction)
 
@@ -285,7 +294,7 @@ func _update_mission(delta: float) -> void:
 
 	if enemy_spawn_timer <= 0.0 and not _boss_alive():
 		_spawn_enemy()
-		enemy_spawn_timer = CombatRules.enemy_spawn_interval(wave)
+		enemy_spawn_timer = _difficulty_spawn_interval(CombatRules.enemy_spawn_interval(wave))
 
 func _load_content() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
@@ -482,7 +491,7 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 			shots_fired,
 			clampi(shots_hit, 0, shots_fired)
 		)
-		var total_reward := base_reward + objective_bonus + int(extras.get("total", 0))
+		var total_reward := _difficulty_reward(base_reward + objective_bonus + int(extras.get("total", 0)))
 		mission_reward_earned = total_reward
 		credits += total_reward
 		service_hull = clampi(hull, 1, _max_hull())
@@ -859,10 +868,10 @@ func _update_enemies(delta: float) -> void:
 		enemy["visual_bank"] = move_toward(float(enemy.get("visual_bank", 0.0)), bank_target, delta * 5.0)
 		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y:
 			_fire_enemy_weapon(enemy)
-			enemy["fire_timer"] = ProjectileRules.enemy_fire_interval(
+			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(
 				str(enemy.get("weapon", "single_burst")),
 				wave
-			)
+			))
 		enemies[i] = enemy
 		if not is_boss and position.y > PLAYFIELD.end.y + 22:
 			enemies.remove_at(i)
@@ -893,7 +902,7 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	var velocity := ProjectileRules.enemy_shot_velocity(
 		origin,
 		player_position,
-		ProjectileRules.enemy_projectile_speed(weapon_id)
+		_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 	)
 	var is_missile := weapon_id == "missile"
 	enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, is_missile))
@@ -971,7 +980,7 @@ func _register_destroy(enemy: Dictionary) -> void:
 	)
 
 func _maybe_drop_pickup(position: Vector2, guaranteed := false) -> void:
-	var kind := "weapon" if guaranteed else ProjectileRules.pickup_kind_for_roll(mission_rng.randf())
+	var kind := "weapon" if guaranteed else ProjectileRules.pickup_kind_for_roll(_difficulty_pickup_roll(mission_rng.randf()))
 	if kind != "":
 		pickups.append({"position": position, "kind": kind})
 
@@ -1038,15 +1047,21 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		var candidates := _spawn_candidates()
 		if candidates.is_empty():
 			return
-		archetype = candidates[mission_rng.randi_range(0, candidates.size() - 1)]
+		var elite_pick := _difficulty_elite_index(candidates.size(),mission_rng.randf())
+		if elite_pick >= 0:
+			candidates.sort_custom(func(a: Dictionary,b: Dictionary): return int(a.get("value",0)) < int(b.get("value",0)))
+			archetype = candidates[mission_rng.randi_range(elite_pick,candidates.size()-1)]
+		else:
+			archetype = candidates[mission_rng.randi_range(0, candidates.size() - 1)]
 
 	var is_boss := bool(archetype.get("boss", false))
+	var elite := not is_boss and mission_rng.randf() < _difficulty_elite_chance()
 	var enemy_class := str(archetype.get("class", "air"))
 	var hp := maxi(
 		1,
 		int(archetype.get("hp", 1)) + (0 if is_boss else int(wave / 5))
 	)
-	hp = _mode_enemy_hp(hp)
+	hp = _mode_enemy_hp(_difficulty_enemy_hp(hp,elite))
 	var x := (
 		PLAYFIELD.get_center().x
 		if is_boss
@@ -1069,14 +1084,15 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"category": enemy_class,
 		"faction": str(archetype.get("faction", "mercenary")),
 		"position": Vector2(x, PLAYFIELD.position.y - 18),
-		"speed": _mode_enemy_speed(float(archetype.get("speed", 72)) + speed_bias + (0.0 if is_boss else float(wave) * 4.0)),
+		"speed": _mode_enemy_speed(_difficulty_enemy_speed(float(archetype.get("speed", 72)) + speed_bias + (0.0 if is_boss else float(wave) * 4.0))),
 		"drift": drift,
 		"turn_rate": 0.75 if is_boss else mission_rng.randf_range(1.1, 2.4),
 		"phase": mission_rng.randf_range(0, TAU),
 		"age": 0.0,
 		"hp": hp,
 		"max_hp": hp,
-		"value": CombatRules.destroy_value(int(archetype.get("value", 100)), wave),
+		"value": _difficulty_elite_value(CombatRules.destroy_value(int(archetype.get("value", 100)), wave)) if elite else CombatRules.destroy_value(int(archetype.get("value", 100)), wave),
+		"elite": elite,
 		"weapon": str(archetype.get("weapon", "single_burst")),
 		"pattern": str(archetype.get("pattern", "sine_dive")),
 		"pattern_anchor_x": x,
@@ -1096,6 +1112,28 @@ func _mode_enemy_speed(base_speed: float) -> float:
 func _mode_score_value(base_score: int) -> int:
 	var modes := get_node_or_null("/root/GameModeDirector")
 	return int(modes.call("score_value",base_score)) if modes != null and modes.has_method("score_value") else base_score
+
+func _difficulty() -> Node: return get_node_or_null("/root/DifficultyDirector")
+func _difficulty_enemy_hp(base: int, elite: bool) -> int:
+	var director := _difficulty(); return int(director.call("enemy_hp",base,elite)) if director != null else base
+func _difficulty_enemy_speed(base: float) -> float:
+	var director := _difficulty(); return float(director.call("enemy_speed",base)) if director != null else base
+func _difficulty_spawn_interval(base: float) -> float:
+	var director := _difficulty(); return float(director.call("spawn_interval",base)) if director != null else base
+func _difficulty_fire_interval(base: float) -> float:
+	var director := _difficulty(); return float(director.call("fire_interval",base)) if director != null else base
+func _difficulty_projectile_speed(base: float) -> float:
+	var director := _difficulty(); return float(director.call("projectile_speed",base)) if director != null else base
+func _difficulty_pickup_roll(roll: float) -> float:
+	var director := _difficulty(); return float(director.call("pickup_roll",roll)) if director != null else roll
+func _difficulty_reward(base: int) -> int:
+	var director := _difficulty(); return int(director.call("reward",base)) if director != null else base
+func _difficulty_elite_index(count: int, roll: float) -> int:
+	var director := _difficulty(); return int(director.call("elite_index",count,roll)) if director != null else -1
+func _difficulty_elite_chance() -> float:
+	var director := _difficulty(); return float(director.call("active_profile").get("elite_chance",0.0)) if director != null else 0.0
+func _difficulty_elite_value(base: int) -> int:
+	var director := _difficulty(); return int(director.call("elite_value",base)) if director != null else base
 
 func _try_spawn_boss() -> void:
 	if boss_spawned or current_boss_id == "" or mission_time < mission_duration * 0.72:

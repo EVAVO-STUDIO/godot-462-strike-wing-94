@@ -48,7 +48,7 @@ Write-Host 'Validating HYPERSONIC...' -ForegroundColor Cyan
 
 $Required = @(
     'project.godot','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/input_bindings.gd','scripts/settings_director.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
-    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd',
+    'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/difficulty_rules.gd','scripts/difficulty_director.gd','data/difficulty_profiles.json',
     'scripts/boss_rules.gd','scripts/boss_signature_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
     'scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd','scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd',
     'scripts/movement_pattern_rules.gd','scripts/weapon_pickup_rules.gd','scripts/accuracy_rules.gd','scripts/reward_rules.gd','scripts/service_rules.gd',
@@ -73,7 +73,7 @@ $Required = @(
     'scripts/retro_sfx_rules.gd','scripts/retro_sfx_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
-    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/credits_self_test.gd','tools/game_modes_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
+    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/difficulty_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/credits_self_test.gd','tools/game_modes_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
     'tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
     'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
@@ -281,7 +281,7 @@ Write-Host 'Running Godot editor import/smoke test...' -ForegroundColor DarkCyan
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 
 $Tests = @(
-    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
+    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','difficulty_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
     'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
 )

@@ -1,0 +1,10 @@
+{
+  "schema_version":1,
+  "default":"combat",
+  "profiles":[
+    {"id":"cadet","name":"CADET","description":"Long warnings, lighter formations and generous field recovery.","enemy_hp":0.92,"enemy_speed":0.94,"spawn_interval":1.16,"fire_interval":1.18,"projectile_speed":0.88,"elite_chance":0.04,"elite_hp":1.04,"elite_value":1.05,"boss_interval":1.18,"telegraph_seconds":1.25,"pickup_rate":1.35,"reward":0.90},
+    {"id":"combat","name":"COMBAT","description":"The authored HYPERSONIC campaign balance.","enemy_hp":1.00,"enemy_speed":1.00,"spawn_interval":1.00,"fire_interval":1.00,"projectile_speed":1.00,"elite_chance":0.12,"elite_hp":1.08,"elite_value":1.10,"boss_interval":1.00,"telegraph_seconds":0.90,"pickup_rate":1.00,"reward":1.00},
+    {"id":"veteran","name":"VETERAN","description":"Aggressive formations, faster ordnance and rarer recovery.","enemy_hp":1.04,"enemy_speed":1.06,"spawn_interval":0.88,"fire_interval":0.86,"projectile_speed":1.12,"elite_chance":0.26,"elite_hp":1.12,"elite_value":1.18,"boss_interval":0.86,"telegraph_seconds":0.72,"pickup_rate":0.78,"reward":1.18},
+    {"id":"ace","name":"ACE","description":"Dense elite opposition with brief but readable attack warnings.","enemy_hp":1.08,"enemy_speed":1.10,"spawn_interval":0.76,"fire_interval":0.74,"projectile_speed":1.22,"elite_chance":0.42,"elite_hp":1.16,"elite_value":1.28,"boss_interval":0.74,"telegraph_seconds":0.58,"pickup_rate":0.62,"reward":1.35}
+  ]
+}

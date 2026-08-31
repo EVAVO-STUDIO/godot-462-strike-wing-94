@@ -61,15 +61,16 @@ func _update_menu() -> void:
 	elif Input.is_action_just_pressed("confirm"): _activate_menu_item(_selection)
 
 func _update_options() -> void:
+	var settings := get_node_or_null("/root/SettingsDirector")
+	var setting_count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
 	if Input.is_action_just_pressed("cancel"):
 		_mode = "menu"; return
-	if Input.is_action_just_pressed("move_up"): _option_selection = posmod(_option_selection - 1, 4)
-	elif Input.is_action_just_pressed("move_down"): _option_selection = posmod(_option_selection + 1, 4)
+	if Input.is_action_just_pressed("move_up"): _option_selection = posmod(_option_selection - 1, setting_count)
+	elif Input.is_action_just_pressed("move_down"): _option_selection = posmod(_option_selection + 1, setting_count)
 	var direction := 0
 	if Input.is_action_just_pressed("move_left"): direction = -1
 	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("confirm"): direction = 1
 	if direction != 0:
-		var settings := get_node_or_null("/root/SettingsDirector")
 		if settings != null and settings.has_method("adjust_setting"): settings.call("adjust_setting", _option_selection, direction)
 
 func _update_confirmation() -> void:
@@ -142,8 +143,9 @@ func _draw_menu(surface: CanvasItem) -> void:
 
 func _draw_options(surface: CanvasItem) -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
-	for index in range(4):
-		var position := Vector2(100, 120 + index * 38)
+	var count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
+	for index in range(count):
+		var position := Vector2(100, 112 + index * 34)
 		surface.draw_texture(ROW_SELECTED if index == _option_selection else ROW_IDLE, position)
 		if index == _option_selection: surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
 		var label := str(settings.call("setting_label", index)) if settings != null else "OPTION"

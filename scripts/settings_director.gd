@@ -4,14 +4,17 @@ const SAVE_PATH := "user://hypersonic_options.cfg"
 const MOVE_ACTIONS := [&"move_left", &"move_right", &"move_up", &"move_down"]
 const SFX_LEVELS := [0, 25, 50, 75, 100]
 const DEADZONE_LEVELS := [0.12, 0.18, 0.24, 0.30]
+const DIFFICULTY_IDS := ["cadet", "combat", "veteran", "ace"]
 
 var _fullscreen := false
 var _sfx_level := 75
 var _deadzone := 0.18
 var _enhanced_projectiles := false
+var _difficulty_id := "combat"
 
 func _ready() -> void:
 	_load_settings()
+	_apply_capture_override(OS.get_cmdline_user_args())
 	_apply_all()
 
 func adjust_setting(index: int, direction: int) -> void:
@@ -20,6 +23,7 @@ func adjust_setting(index: int, direction: int) -> void:
 		1: _sfx_level = SFX_LEVELS[posmod(SFX_LEVELS.find(_sfx_level) + direction, SFX_LEVELS.size())]
 		2: _deadzone = DEADZONE_LEVELS[posmod(_nearest_deadzone_index() + direction, DEADZONE_LEVELS.size())]
 		3: _enhanced_projectiles = not _enhanced_projectiles
+		4: _difficulty_id = DIFFICULTY_IDS[posmod(DIFFICULTY_IDS.find(_difficulty_id) + direction, DIFFICULTY_IDS.size())]
 	_apply_all()
 	_save_settings()
 
@@ -29,6 +33,7 @@ func setting_label(index: int) -> String:
 		1: return "SFX LEVEL"
 		2: return "STICK DEADZONE"
 		3: return "PROJECTILE CONTRAST"
+		4: return "CAMPAIGN DIFFICULTY"
 	return "OPTION"
 
 func setting_value(index: int) -> String:
@@ -37,6 +42,7 @@ func setting_value(index: int) -> String:
 		1: return "%03d%%" % _sfx_level
 		2: return "%02d%%" % int(round(_deadzone * 100.0))
 		3: return "ENHANCED" if _enhanced_projectiles else "AUTHENTIC"
+		4: return _difficulty_id.to_upper()
 	return "--"
 
 func setting_ratio(index: int) -> float:
@@ -45,6 +51,7 @@ func setting_ratio(index: int) -> float:
 		1: return float(_sfx_level) / 100.0
 		2: return inverse_lerp(DEADZONE_LEVELS[0], DEADZONE_LEVELS[-1], _deadzone)
 		3: return 1.0 if _enhanced_projectiles else 0.0
+		4: return float(DIFFICULTY_IDS.find(_difficulty_id)) / float(DIFFICULTY_IDS.size()-1)
 	return 0.0
 
 func sfx_level() -> int:
@@ -52,6 +59,15 @@ func sfx_level() -> int:
 
 func enhanced_projectile_contrast() -> bool:
 	return _enhanced_projectiles
+
+func difficulty_id() -> String: return _difficulty_id
+func setting_count() -> int: return 5
+
+func _apply_capture_override(arguments: PackedStringArray) -> void:
+	for argument in arguments:
+		if argument.begins_with("--capture-difficulty="):
+			var requested := argument.trim_prefix("--capture-difficulty=").to_lower()
+			if requested in DIFFICULTY_IDS: _difficulty_id = requested
 
 func _apply_all() -> void:
 	if DisplayServer.get_name() != "headless":
@@ -81,6 +97,8 @@ func _load_settings() -> void:
 	_sfx_level = clampi(int(config.get_value("audio", "sfx_level", _sfx_level)), 0, 100)
 	_deadzone = clampf(float(config.get_value("controls", "deadzone", _deadzone)), DEADZONE_LEVELS[0], DEADZONE_LEVELS[-1])
 	_enhanced_projectiles = bool(config.get_value("accessibility", "enhanced_projectiles", _enhanced_projectiles))
+	var loaded_difficulty := str(config.get_value("gameplay", "difficulty", _difficulty_id)).to_lower()
+	_difficulty_id = loaded_difficulty if loaded_difficulty in DIFFICULTY_IDS else "combat"
 
 func _save_settings() -> void:
 	var config := ConfigFile.new()
@@ -88,4 +106,5 @@ func _save_settings() -> void:
 	config.set_value("audio", "sfx_level", _sfx_level)
 	config.set_value("controls", "deadzone", _deadzone)
 	config.set_value("accessibility", "enhanced_projectiles", _enhanced_projectiles)
+	config.set_value("gameplay", "difficulty", _difficulty_id)
 	config.save(SAVE_PATH)

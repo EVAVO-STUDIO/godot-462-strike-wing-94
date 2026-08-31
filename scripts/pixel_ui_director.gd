@@ -346,11 +346,12 @@ func _draw_front_end_controls(surface: CanvasItem) -> void:
 
 func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
-	var selection := clampi(int(scene.get("option_selection")) if _has_property(scene, "option_selection") else 0, 0, 3)
+	var count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
+	var selection := clampi(int(scene.get("option_selection")) if _has_property(scene, "option_selection") else 0, 0, count - 1)
 	PixelFont.draw_centered(surface, "SYSTEM OPTIONS", 320, 128, 1, GOLD, 1)
 	PixelFont.draw_centered(surface, "VIDEO // AUDIO // CONTROL // ACCESSIBILITY", 320, 141, 1, BLUE, 1)
-	for index in range(4):
-		var position := Vector2(100, 154 + index * 35)
+	for index in range(count):
+		var position := Vector2(100, 151 + index * 31)
 		surface.draw_texture(OPTIONS_ROW_SELECTED if index == selection else OPTIONS_ROW_IDLE, position)
 		if index == selection:
 			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
@@ -364,7 +365,11 @@ func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
 			surface.draw_texture(OPTIONS_VALUE_TROUGH, position + Vector2(286, 11))
 			_draw_clipped_fill(surface, OPTIONS_VALUE_FILL, position + Vector2(288, 13), ratio)
 		PixelFont.draw_text(surface, value, position + Vector2(382 - PixelFont.text_width(value, 1, 1), 9), 1, GREEN if ratio >= 0.5 else MUTED, 1)
-	PixelFont.draw_centered(surface, "LEFT / RIGHT ADJUST   ESC RETURN", 320, 305, 1, MUTED, 1)
+	var difficulty := get_node_or_null("/root/DifficultyDirector")
+	if selection == 4 and difficulty != null:
+		var profile: Dictionary = difficulty.call("active_profile")
+		PixelFont.draw_centered(surface, _clip(str(profile.get("description", "")), 72), 320, 312, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "LEFT / RIGHT ADJUST   ESC RETURN", 320, 324, 1, MUTED, 1)
 
 func _draw_front_end_dossier(surface: CanvasItem) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))

@@ -50,6 +50,7 @@ func _update_bosses(scene: Object, delta: float) -> void:
 			boss["base_drift"] = float(boss.get("drift", 28.0))
 			boss["phase_salvo_timer"] = 1.4
 			boss["signature_timer"] = BossSignatureRules.interval(boss_id, 1)
+			boss["signature_warning_timer"] = -1.0
 			boss["last_hp"] = hp
 			boss["last_reported_phase"] = BossRules.phase_for(hp, max_hp)
 
@@ -68,6 +69,9 @@ func _update_bosses(scene: Object, delta: float) -> void:
 		boss["fire_timer"] = minf(float(boss.get("fire_timer", 1.0)), 1.4 * BossRules.phase_fire_multiplier(phase))
 		boss["phase_salvo_timer"] = float(boss.get("phase_salvo_timer", 1.4)) - delta
 		boss["signature_timer"] = float(boss.get("signature_timer", BossSignatureRules.interval(boss_id, phase))) - delta
+		var warning_timer := float(boss.get("signature_warning_timer", -1.0))
+		if warning_timer >= 0.0:
+			boss["signature_warning_timer"] = warning_timer - delta
 
 		var reported_phase := int(boss.get("last_reported_phase", phase))
 		if phase > reported_phase:
@@ -78,10 +82,14 @@ func _update_bosses(scene: Object, delta: float) -> void:
 			_emit_phase_salvo(bullets, boss, target, phase)
 			boss["phase_salvo_timer"] = 2.4 if phase == 2 else 1.55
 
-		if BossSignatureRules.is_signature_boss(boss_id) and float(boss["signature_timer"]) <= 0.0:
-			_emit_signature_attack(bullets, boss, target, phase)
-			boss["signature_timer"] = BossSignatureRules.interval(boss_id, phase)
-			_report_signature(scene, boss_id)
+		if BossSignatureRules.is_signature_boss(boss_id):
+			if warning_timer >= 0.0 and float(boss["signature_warning_timer"]) <= 0.0:
+				_emit_signature_attack(bullets, boss, target, phase)
+				boss["signature_warning_timer"] = -1.0
+				boss["signature_timer"] = _difficulty_boss_interval(BossSignatureRules.interval(boss_id, phase))
+			elif warning_timer < 0.0 and float(boss["signature_timer"]) <= 0.0:
+				boss["signature_warning_timer"] = _difficulty_telegraph_seconds()
+				_report_signature(scene, boss_id)
 		enemies[i] = boss
 
 	scene.set("enemies", enemies)
@@ -105,7 +113,7 @@ func _emit_phase_salvo(bullets: Array, boss: Dictionary, target: Vector2, phase:
 	var weapon_id := str(boss.get("weapon", "aimed_burst"))
 	var count := BossRules.volley_count(weapon_id, phase)
 	var spread := BossRules.volley_spread_radians(weapon_id, phase)
-	var speed := ProjectileRules.enemy_projectile_speed(weapon_id)
+	var speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 	for i in range(count):
 		var t := 0.5 if count <= 1 else float(i) / float(count - 1)
 		var offset := lerpf(-spread, spread, t)
@@ -125,7 +133,7 @@ func _emit_signature_attack(bullets: Array, boss: Dictionary, target: Vector2, p
 	var origin: Vector2 = boss.get("position", Vector2.ZERO)
 	var count := BossSignatureRules.shot_count(boss_id, phase)
 	var spread := BossSignatureRules.spread_radians(boss_id, phase)
-	var speed := BossSignatureRules.projectile_speed(boss_id, phase)
+	var speed := _difficulty_projectile_speed(BossSignatureRules.projectile_speed(boss_id, phase))
 	var damage := BossSignatureRules.damage(boss_id, phase)
 	if count <= 0:
 		return
@@ -180,3 +188,15 @@ func _has_property(object: Object, property_name: String) -> bool:
 		if str(property.get("name", "")) == property_name:
 			return true
 	return false
+
+func _difficulty_projectile_speed(base: float) -> float:
+	var director := get_node_or_null("/root/DifficultyDirector")
+	return float(director.call("projectile_speed", base)) if director != null else base
+
+func _difficulty_boss_interval(base: float) -> float:
+	var director := get_node_or_null("/root/DifficultyDirector")
+	return float(director.call("boss_interval", base)) if director != null else base
+
+func _difficulty_telegraph_seconds() -> float:
+	var director := get_node_or_null("/root/DifficultyDirector")
+	return float(director.call("telegraph_seconds")) if director != null else 0.9

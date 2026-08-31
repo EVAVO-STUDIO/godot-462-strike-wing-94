@@ -90,7 +90,7 @@ func _test_dedicated_rng_and_fail_closed_spawns() -> void:
 		var text := main_file.get_as_text()
 		_expect(text.contains("mission_rng := RandomNumberGenerator.new()"), "main should own mission RNG")
 		_expect(text.contains("mission_rng.seed = RunSeedRules.mission_seed(mission_index)"), "mission RNG should reseed per mission/retry")
-		_expect(text.contains("ProjectileRules.pickup_kind_for_roll(mission_rng.randf())"), "pickup rolls should use mission RNG")
+		_expect(text.contains("ProjectileRules.pickup_kind_for_roll(_difficulty_pickup_roll(mission_rng.randf()))"), "pickup rolls should remain mission-RNG deterministic while respecting difficulty generosity")
 		_expect(text.contains("if allowed_ids.is_empty():\n\t\treturn []"), "missing spawn profile should fail closed")
 
 func _test_movement_patterns() -> void:
