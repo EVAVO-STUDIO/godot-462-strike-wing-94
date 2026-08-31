@@ -12,7 +12,7 @@
   "runtime": [
     {"family":"coast","id":"coastal_battery","path":"res://assets/runtime/environments/landmarks/coastal_battery.png"},
     {"family":"industrial","id":"refinery_stack","path":"res://assets/runtime/environments/landmarks/refinery_stack.png"},
-    {"family":"water","id":"storm_platform","path":"res://assets/runtime/environments/landmarks/storm_platform.png"},
+    {"family":"water","id":"storm_platform","path":"res://assets/runtime/environments/landmarks/storm_platform_v2.png","source":"res://assets/source/environments/candidates/landmarks/storm_platform_candidate_02_raw.png","size":[128,160],"construction":"transparent generated source retained separately; mastered to binary alpha and a bounded VGA palette as a physically engineered offshore surveillance platform"},
     {"family":"desert_front","id":"desert_airstrip","path":"res://assets/runtime/environments/landmarks/desert_airstrip.png"},
     {"family":"river_corridor","id":"river_bridge","path":"res://assets/runtime/environments/landmarks/river_bridge.png"},
     {"family":"mountain_radar","id":"mountain_radar","path":"res://assets/runtime/environments/landmarks/mountain_radar.png"},

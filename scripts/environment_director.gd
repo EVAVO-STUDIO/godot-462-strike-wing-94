@@ -113,7 +113,7 @@ const ANVIL_SHADOW := preload("res://assets/runtime/environments/high_atmosphere
 const LANDMARKS := {
 	"coast": preload("res://assets/runtime/environments/landmarks/coastal_battery.png"),
 	"industrial": preload("res://assets/runtime/environments/landmarks/refinery_stack.png"),
-	"water": preload("res://assets/runtime/environments/landmarks/storm_platform.png"),
+	"water": preload("res://assets/runtime/environments/landmarks/storm_platform_v2.png"),
 	"desert_front": preload("res://assets/runtime/environments/landmarks/desert_airstrip.png"),
 	"river_corridor": preload("res://assets/runtime/environments/landmarks/river_bridge.png"),
 	"mountain_radar": preload("res://assets/runtime/environments/landmarks/mountain_radar.png"),
@@ -220,6 +220,8 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 		scale = 0.86
 	elif family == "orbital":
 		scale = 0.82 + 0.16 * clampf(orbital_mix, 0.0, 1.0)
+	elif family == "water":
+		scale = 0.62
 	var size := texture.get_size() * scale
 	var x_span := maxf(1.0, 640.0 - size.x - 48.0)
 	var x := 24.0 + fposmod(float(mission_seed * 73), x_span)

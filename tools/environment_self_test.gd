@@ -172,6 +172,9 @@ func _initialize() -> void:
 							binary_alpha = false
 				_expect(landmark_palette.size() <= 31, "mission landmark should retain a disciplined VGA-size palette: %s" % landmark_name)
 				_expect(binary_alpha, "mission landmark should retain crisp binary alpha edges: %s" % landmark_name)
+		var storm_platform_v2 := load("res://assets/runtime/environments/landmarks/storm_platform_v2.png") as Texture2D
+		_expect(storm_platform_v2 != null and storm_platform_v2.get_size() == Vector2(128,160), "open-water landmark should use the registered v2 offshore platform sprite")
+		_expect(source.contains('"water": preload("res://assets/runtime/environments/landmarks/storm_platform_v2.png")') and source.contains('family == "water"'), "water landmark should select its physically engineered v2 art and world-scale treatment")
 		_expect(FileAccess.file_exists("res://assets/source/environments/landmark_asset_manifest.json"), "mission landmark source/runtime manifest should exist")
 		for landmark_family in ["coast", "industrial", "water", "desert_front", "river_corridor", "mountain_radar", "night_harbor", "city_outskirts", "machine_furnace", "cloud_top", "orbital"]:
 			for frame_index in range(4):
