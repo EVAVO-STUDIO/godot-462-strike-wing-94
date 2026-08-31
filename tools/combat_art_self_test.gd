@@ -508,6 +508,8 @@ func _test_damage_state() -> void:
 	for component_name in ["fuselage", "wing_left", "wing_right", "actuator_left", "actuator_right", "bay_closed", "bay_open", "hardpoint_left", "hardpoint_right", "tailplane_left", "tailplane_right", "nozzle_left", "nozzle_right", "settle_panel"]:
 		var component_texture := load("res://assets/runtime/craft/vx94/layered/%s.png" % component_name) as Texture2D
 		_expect(component_texture != null and component_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 articulated component should retain transparency: %s" % component_name)
+	_expect(combat_source.contains('argument.begins_with("--capture-craft=")') and combat_source.contains('"layered-sweep"'), "visual QA should expose a simulation-isolated articulated VX-94 sweep fixture")
+	_expect(combat_source.contains("_draw_layered_vx94") and combat_source.contains("_draw_pivoted_component") and combat_source.contains("left_hinge") and combat_source.contains("right_hinge"), "VX-94 layered QA should assemble mirrored components around explicit wing-root pivots")
 
 func _test_projectile_art() -> void:
 	var projectile_source := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)
