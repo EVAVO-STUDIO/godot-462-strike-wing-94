@@ -653,6 +653,7 @@ func _test_projectile_art() -> void:
 			var frame := load("res://assets/runtime/effects/projectiles/%s/%d.png" % [family, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == Vector2(16,24), "projectile frame should retain registered 16x24 geometry: %s/%d" % [family, frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/effects/projectiles/projectile_asset_manifest.json"), "projectile source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/effects/combat_fx_v2/combat_fx_v2_manifest.json"), "combat FX v2 source/runtime contract should exist")
 	var strike_source := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)
 	_expect(strike_source != null, "strike ordnance director should be readable for bomb-art checks")
 	if strike_source != null:
@@ -666,6 +667,7 @@ func _test_impact_art() -> void:
 			var frame := load("res://assets/runtime/effects/impacts/%s/%d.png" % [family, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == Vector2(24,24), "impact frame should retain registered 24x24 geometry: %s/%d" % [family, frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/effects/impacts/impact_asset_manifest.json"), "impact source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://tools/build_combat_fx_v2.ps1"), "combat FX v2 should remain reproducible from its cleaned source sheets")
 	var library := FileAccess.open("res://scripts/impact_art_library.gd", FileAccess.READ)
 	_expect(library != null, "shared impact art library should be readable")
 	if library != null:
@@ -700,6 +702,9 @@ func _test_persistent_effect_art() -> void:
 		var boom := load("res://assets/runtime/effects/persistent/sonic_boom/%d.png" % frame_index)
 		_expect(boom is Texture2D and boom.get_size() == Vector2(64,64), "sonic-boom pressure frame should retain registered 64x64 geometry: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/effects/persistent/persistent_asset_manifest.json"), "persistent effect source/runtime manifest should exist")
+	var combat_source_file := FileAccess.open("res://scripts/combat_art_director.gd",FileAccess.READ)
+	var combat_source := combat_source_file.get_as_text() if combat_source_file != null else ""
+	_expect(combat_source.contains('_capture_fx_state() == "combat"') and combat_source.contains("_render_combat_fx_capture"),"visual QA should expose the complete projectile, impact and persistent FX fixture")
 	var damage := FileAccess.open("res://scripts/damage_state_director.gd", FileAccess.READ)
 	if damage != null:
 		var source := damage.get_as_text()

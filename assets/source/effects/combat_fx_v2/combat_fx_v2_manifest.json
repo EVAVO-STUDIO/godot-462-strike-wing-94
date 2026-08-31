@@ -1,0 +1,19 @@
+{
+  "asset_family": "hypersonic_combat_fx_v2",
+  "status": "production_candidate",
+  "sources": ["projectile_sheet_source_v2.png", "impact_sheet_source_v2.png", "persistent_sheet_source_v2.png"],
+  "build_tool": "tools/build_combat_fx_v2.ps1",
+  "runtime_contract": {
+    "projectiles": {"families": 8, "frames_per_family": 4, "canvas": [16,24]},
+    "impacts": {"families": 8, "frames_per_family": 4, "canvas": [24,24]},
+    "strategic_blast": {"frames": 4, "canvas": [128,128]},
+    "persistent": {"families": 6, "frames_per_family": 4, "canvas": [32,40]},
+    "sonic_boom": {"frames": 4, "canvas": [64,64]}
+  },
+  "timing_contract": ["contact", "expansion", "breakup", "dissipation"],
+  "visual_contract": {
+    "era": "premium 1995-1998 military arcade shooter",
+    "rules": ["material-specific silhouettes", "bounded bloom", "strong held keyframes", "danger remains readable at 640x360"],
+    "reject": ["shared generic starburst", "blurry particle blobs", "modern vector FX", "neon cyberpunk", "smooth radial gradients"]
+  }
+}

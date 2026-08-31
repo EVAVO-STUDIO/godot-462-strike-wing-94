@@ -4,6 +4,7 @@ const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
+const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
 const VX94_GAMEPLAY_FORMS := [
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_transform_01.png"),
@@ -724,6 +725,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
 		return
 	_draw_pickups(surface, scene)
+	if _capture_fx_state() == "combat":
+		_render_combat_fx_capture(surface,scene)
+		_draw_player(surface,scene)
+		return
 	if _capture_ground_state() == "mobile":
 		_draw_mobile_ground_capture(surface, scene)
 		_draw_player(surface, scene)
@@ -895,6 +900,28 @@ func _render_orbital_boss_capture(surface: CanvasItem, scene: Object) -> void:
 	for enemy in definitions:
 		_draw_production_boss(surface,enemy["position"],enemy["id"],enemy,ORBITAL_BOSS_SPRITES[enemy["id"]])
 
+func _render_combat_fx_capture(surface: CanvasItem,scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene,"mission_time") else 0.0
+	var frame_index := posmod(int(floor(time*7.0)),4)
+	var projectile_families := ["ballistic","enemy_cannon","homing_missile","needle_rail","plasma_lance","support_rocket","strategic_warhead"]
+	for index in range(projectile_families.size()):
+		var frames: Array = ProjectileCueDirector.PROJECTILE_FRAMES[projectile_families[index]]
+		var texture: Texture2D = frames[frame_index]
+		var center := Vector2(85+index*78,82)
+		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
+	var impact_families := ["muzzle","rotary_muzzle","armor_hit","shield_hit","bomb_impact","emp_disruption","water_impact","dust_impact"]
+	for index in range(impact_families.size()):
+		var frames: Array = ImpactArtLibrary.FRAMES[impact_families[index]]
+		var texture: Texture2D = frames[frame_index]
+		var center := Vector2(55+index*75,155)
+		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
+	var persistent_families := ["damage_smoke","damage_fire","damage_sparks","afterburner","contrail","debris","sonic_boom"]
+	for index in range(persistent_families.size()):
+		var frames: Array = PersistentEffectArtLibrary.FRAMES[persistent_families[index]]
+		var texture: Texture2D = frames[frame_index]
+		var center := Vector2(75+index*82,232)
+		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
+
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
 	for property in scene.get_property_list():
@@ -1009,6 +1036,13 @@ func _capture_boss_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-boss="):
 			return argument.trim_prefix("--capture-boss=").to_lower()
+	return ""
+
+func _capture_fx_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args(): return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-fx="):
+			return argument.trim_prefix("--capture-fx=").to_lower()
 	return ""
 
 func _draw_player_damage(surface: CanvasItem, origin: Vector2, damage_ratio: float) -> void:
