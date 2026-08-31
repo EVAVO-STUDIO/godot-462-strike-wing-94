@@ -1,0 +1,16 @@
+{
+  "library": "HYPERSONIC destruction and reward FX v2",
+  "sources": ["destruction_reward_raw_v2.png", "pickup_sheet_raw_v2.png"],
+  "source_method": "OpenAI built-in image generation, then deterministic crop, EVAVO Sprite Studio cleanup, palette reduction, and runtime packing",
+  "runtime_contract": {
+    "explosion": {"frames": 8, "canvas": "48x48"},
+    "flak_breakup": {"frames": 3, "canvas": "40x40"},
+    "fort_breakup": {"frames": 3, "canvas": "40x40"},
+    "pickups": {"families": ["bomb", "repair", "shield", "weapon"], "frames_each": 4, "canvas": "24x24"}
+  },
+  "design_notes": [
+    "Explosion timing progresses from white ignition through fire, smoke, fragments, and dissipation.",
+    "Ground breakup preserves distinct flak and fortified-emplacement silhouettes with directional debris.",
+    "Pickups are compact physical devices with restrained identification glows, not oversized inventory crates."
+  ]
+}

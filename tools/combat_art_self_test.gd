@@ -18,6 +18,7 @@ func _initialize() -> void:
 	_test_projectile_art()
 	_test_impact_art()
 	_test_persistent_effect_art()
+	_test_destruction_reward_art()
 	_test_damage_state()
 	_test_mount_map()
 	if failures.is_empty():
@@ -716,6 +717,24 @@ func _test_persistent_effect_art() -> void:
 		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"'), "hypersonic thrust should use authored compression plumes and contrails")
 		_expect(source.contains('frame_for_ratio("sonic_boom"'), "sonic transition should use the authored broken pressure front")
 		_expect(not source.contains("surface.draw_arc(scene.get(\"player_position\")"), "sonic boom should not regress to a perfect vector circle")
+
+func _test_destruction_reward_art() -> void:
+	for frame_index in range(8):
+		var explosion := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index) as Texture2D
+		_expect(explosion != null and explosion.get_size() == Vector2(48,48), "explosion frame should retain registered 48x48 geometry: %d" % frame_index)
+	for family in ["flak", "fort"]:
+		for frame_index in range(3):
+			var breakup := load("res://assets/runtime/effects/ground_breakup/%s_breakup_%d.png" % [family,frame_index]) as Texture2D
+			_expect(breakup != null and breakup.get_size() == Vector2(40,40), "ground breakup should retain registered 40x40 geometry: %s/%d" % [family,frame_index])
+	for family in ["bomb", "repair", "shield", "weapon"]:
+		for frame_index in range(4):
+			var pickup := load("res://assets/runtime/effects/pickups/%s_%d.png" % [family,frame_index]) as Texture2D
+			_expect(pickup != null and pickup.get_size() == Vector2(24,24), "pickup should retain registered 24x24 geometry: %s/%d" % [family,frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_reward_v2/destruction_reward_v2_manifest.json"), "destruction and reward source/runtime contract should exist")
+	_expect(FileAccess.file_exists("res://tools/build_destruction_reward_fx_v2.ps1"), "destruction and reward art should remain reproducible through Sprite Studio")
+	var combat_file := FileAccess.open("res://scripts/combat_art_director.gd",FileAccess.READ)
+	var combat_source := combat_file.get_as_text() if combat_file != null else ""
+	_expect(combat_source.contains('_capture_fx_state() == "destruction"') and combat_source.contains("_render_destruction_reward_capture"), "visual QA should expose isolated destruction and reward fixtures")
 
 func _test_mount_map() -> void:
 	var data = ContentCatalog.load_json("res://data/player_mounts.json")

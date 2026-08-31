@@ -76,6 +76,14 @@ const PICKUP_ANIMATION_FRAMES := {
 	"bomb": [preload("res://assets/runtime/effects/pickups/bomb_0.png"), preload("res://assets/runtime/effects/pickups/bomb_1.png"), preload("res://assets/runtime/effects/pickups/bomb_2.png"), preload("res://assets/runtime/effects/pickups/bomb_3.png")],
 	"weapon": [preload("res://assets/runtime/effects/pickups/weapon_0.png"), preload("res://assets/runtime/effects/pickups/weapon_1.png"), preload("res://assets/runtime/effects/pickups/weapon_2.png"), preload("res://assets/runtime/effects/pickups/weapon_3.png")],
 }
+const DESTRUCTION_CAPTURE_FRAMES := {
+	"explosion": [
+		preload("res://assets/runtime/effects/explosion/explosion_0.png"), preload("res://assets/runtime/effects/explosion/explosion_1.png"), preload("res://assets/runtime/effects/explosion/explosion_2.png"), preload("res://assets/runtime/effects/explosion/explosion_3.png"),
+		preload("res://assets/runtime/effects/explosion/explosion_4.png"), preload("res://assets/runtime/effects/explosion/explosion_5.png"), preload("res://assets/runtime/effects/explosion/explosion_6.png"), preload("res://assets/runtime/effects/explosion/explosion_7.png"),
+	],
+	"flak": [preload("res://assets/runtime/effects/ground_breakup/flak_breakup_0.png"), preload("res://assets/runtime/effects/ground_breakup/flak_breakup_1.png"), preload("res://assets/runtime/effects/ground_breakup/flak_breakup_2.png")],
+	"fort": [preload("res://assets/runtime/effects/ground_breakup/fort_breakup_0.png"), preload("res://assets/runtime/effects/ground_breakup/fort_breakup_1.png"), preload("res://assets/runtime/effects/ground_breakup/fort_breakup_2.png")],
+}
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 const VX94_GAMEPLAY_ANCHOR := Vector2(24, 29)
 const MERCENARY_AIR_SPRITES := {
@@ -725,6 +733,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
 		return
 	_draw_pickups(surface, scene)
+	if _capture_fx_state() == "destruction":
+		_render_destruction_reward_capture(surface,scene)
+		_draw_player(surface,scene)
+		return
 	if _capture_fx_state() == "combat":
 		_render_combat_fx_capture(surface,scene)
 		_draw_player(surface,scene)
@@ -920,6 +932,25 @@ func _render_combat_fx_capture(surface: CanvasItem,scene: Object) -> void:
 		var frames: Array = PersistentEffectArtLibrary.FRAMES[persistent_families[index]]
 		var texture: Texture2D = frames[frame_index]
 		var center := Vector2(75+index*82,232)
+		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
+
+func _render_destruction_reward_capture(surface: CanvasItem,scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene,"mission_time") else 0.0
+	for index in range(DESTRUCTION_CAPTURE_FRAMES["explosion"].size()):
+		var texture: Texture2D = DESTRUCTION_CAPTURE_FRAMES["explosion"][index]
+		var center := Vector2(74+index*70,84)
+		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
+	for family_index in range(2):
+		var family := "flak" if family_index == 0 else "fort"
+		for frame_index in range(3):
+			var texture: Texture2D = DESTRUCTION_CAPTURE_FRAMES[family][frame_index]
+			var center := Vector2(140+family_index*330+frame_index*72,170)
+			surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
+	var pickup_families := ["bomb","repair","shield","weapon"]
+	var pickup_frame := posmod(int(floor(time*6.0)),4)
+	for index in range(pickup_families.size()):
+		var texture: Texture2D = PICKUP_ANIMATION_FRAMES[pickup_families[index]][pickup_frame]
+		var center := Vector2(150+index*115,252)
 		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
 
 func _supports(scene: Object) -> bool:

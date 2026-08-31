@@ -1,0 +1,14 @@
+{
+  "name": "destruction_reward_v2",
+  "pixel_art": false,
+  "cleanup": {
+    "background": "auto",
+    "color_tolerance": 42,
+    "alpha_threshold": 2,
+    "matte_decontaminate": true,
+    "despeckle_min_area": 6,
+    "clear_hidden_rgb": true
+  },
+  "previews": {"enabled": false},
+  "export": {"godot": false, "generic_json": false, "animated_scene": false, "event_timeline": false, "integration_contract": false}
+}
