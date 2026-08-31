@@ -188,6 +188,20 @@ func _test_visual_language() -> void:
 	_expect(source.contains('ORBITAL_AIR_SPECIALIST_ART') and source.contains('enemy_id == "orbital_sentry"') and source.contains('enemy_id == "phase_interceptor"'), "BLACK SKY airframes should receive specialist mechanical animation")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/specialist_mechanics_upgrade_manifest.json"), "machine and BLACK SKY specialist mechanics v2 manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_specialist/orbital_air_specialist_asset_manifest.json"), "orbital-air specialist source/runtime manifest should exist")
+	var layered_orbital_air_sizes := {
+		"sentry_collar":Vector2(17,14), "sentry_turret":Vector2(17,15), "sentry_barrel":Vector2(6,22), "sentry_barrel_recoil":Vector2(6,22),
+		"phase_nodes_dormant":Vector2(20,12), "phase_nodes_active":Vector2(20,12), "phase_nodes_overload":Vector2(20,13), "phase_nodes_damaged":Vector2(20,14),
+		"beam_aperture_closed":Vector2(18,28), "beam_aperture_opening":Vector2(18,28), "beam_aperture_open":Vector2(18,28), "beam_aperture_fire":Vector2(18,28),
+		"rail_safe":Vector2(14,34), "rail_charge_1":Vector2(14,34), "rail_charge_2":Vector2(14,34), "rail_fire":Vector2(14,34), "rail_capacitor_bank":Vector2(12,15), "rail_barrel":Vector2(6,27),
+		"orbital_thruster_dim":Vector2(14,12), "orbital_thruster_active":Vector2(15,13), "orbital_thruster_overload":Vector2(16,14), "radiator_cool":Vector2(12,16), "radiator_hot":Vector2(12,16),
+		"orbital_fragment_large":Vector2(15,12), "orbital_fragment_small":Vector2(13,10),
+	}
+	for orbital_air_layer_id in layered_orbital_air_sizes:
+		var orbital_air_layer := load("res://assets/runtime/enemies/orbital_air_layered/%s.png" % orbital_air_layer_id) as Texture2D
+		_expect(orbital_air_layer != null and orbital_air_layer.get_size() == layered_orbital_air_sizes[orbital_air_layer_id], "layered BLACK SKY component should retain its registered canvas: %s" % orbital_air_layer_id)
+	_expect(source.contains('_capture_air_state() == "orbital"') and source.contains("_render_orbital_air_capture") and source.contains("_render_orbital_air_propulsion"), "visual QA should expose isolated BLACK SKY bank, thrust, phase, iris and rail fixtures")
+	_expect(source.contains('definition["barrel_recoil"]') and source.contains('definition["capacitor"]'), "BLACK SKY sentry and lancer should use separately articulated weapon hardware")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_layered/orbital_air_layered_manifest.json"), "layered BLACK SKY source/runtime manifest should exist")
 	var enemy_file := FileAccess.open("res://data/enemies.json", FileAccess.READ)
 	_expect(enemy_file != null and enemy_file.get_as_text().contains('{"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"cannon"'), "orbital lancer gameplay should fire through its authored ballistic rail rather than a mismatched homing missile")
 	var ground_sizes := {

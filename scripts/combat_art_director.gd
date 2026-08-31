@@ -215,24 +215,53 @@ const MACHINE_AIR_SPECIALIST_ART := {
 	},
 }
 const ORBITAL_AIR_SPECIALIST_ART := {
-	"orbital_sentry": preload("res://assets/runtime/enemies/orbital_air_specialist/sentry_turret.png"),
-	"phase_interceptor": [
-		preload("res://assets/runtime/enemies/orbital_air_specialist/phase_nodes_0.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/phase_nodes_1.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/phase_nodes_2.png"),
+	"propulsion": [
+		preload("res://assets/runtime/enemies/orbital_air_layered/orbital_thruster_dim.png"),
+		preload("res://assets/runtime/enemies/orbital_air_layered/orbital_thruster_active.png"),
+		preload("res://assets/runtime/enemies/orbital_air_layered/orbital_thruster_overload.png"),
 	],
-	"beam_sentry": [
-		preload("res://assets/runtime/enemies/orbital_air_specialist/beam_aperture_closed.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/beam_aperture_opening.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/beam_aperture_open.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/beam_aperture_fire.png"),
-	],
-	"orbital_lancer": [
-		preload("res://assets/runtime/enemies/orbital_air_specialist/rail_charge_0.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/rail_charge_1.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/rail_charge_2.png"),
-		preload("res://assets/runtime/enemies/orbital_air_specialist/rail_charge_fire.png"),
-	],
+	"fragment_large": preload("res://assets/runtime/enemies/orbital_air_layered/orbital_fragment_large.png"),
+	"fragment_small": preload("res://assets/runtime/enemies/orbital_air_layered/orbital_fragment_small.png"),
+	"exo_drone": {
+		"radiator_cool": preload("res://assets/runtime/enemies/orbital_air_layered/radiator_cool.png"),
+		"radiator_hot": preload("res://assets/runtime/enemies/orbital_air_layered/radiator_hot.png"),
+		"anchor": Vector2(0, 1),
+	},
+	"orbital_sentry": {
+		"collar": preload("res://assets/runtime/enemies/orbital_air_layered/sentry_collar.png"),
+		"turret": preload("res://assets/runtime/enemies/orbital_air_layered/sentry_turret.png"),
+		"barrel": preload("res://assets/runtime/enemies/orbital_air_layered/sentry_barrel.png"),
+		"barrel_recoil": preload("res://assets/runtime/enemies/orbital_air_layered/sentry_barrel_recoil.png"),
+		"anchor": Vector2(0, 3),
+	},
+	"phase_interceptor": {
+		"frames": [
+			preload("res://assets/runtime/enemies/orbital_air_layered/phase_nodes_dormant.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/phase_nodes_active.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/phase_nodes_overload.png"),
+		],
+		"damaged": preload("res://assets/runtime/enemies/orbital_air_layered/phase_nodes_damaged.png"),
+		"anchor": Vector2(0, 0),
+	},
+	"beam_sentry": {
+		"frames": [
+			preload("res://assets/runtime/enemies/orbital_air_layered/beam_aperture_closed.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/beam_aperture_opening.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/beam_aperture_open.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/beam_aperture_fire.png"),
+		],
+		"anchor": Vector2(0, 2),
+	},
+	"orbital_lancer": {
+		"frames": [
+			preload("res://assets/runtime/enemies/orbital_air_layered/rail_safe.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/rail_charge_1.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/rail_charge_2.png"),
+			preload("res://assets/runtime/enemies/orbital_air_layered/rail_fire.png"),
+		],
+		"capacitor": preload("res://assets/runtime/enemies/orbital_air_layered/rail_capacitor_bank.png"),
+		"anchor": Vector2(0, 5),
+	},
 }
 const GROUND_FORCE_SPECIALIST_ART := {
 	"security_patrol_mech": {
@@ -677,6 +706,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_render_machine_air_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _capture_air_state() == "orbital":
+		_render_orbital_air_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
@@ -754,6 +787,20 @@ func _render_machine_air_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, MACHINE_AIR_SPRITES[enemy["id"]])
+
+func _render_orbital_air_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
+	var fire_timer := fposmod(1.0-time, 1.0)
+	var definitions := [
+		{"id":"exo_drone", "position":Vector2(85,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":13, "max_hp":13, "age":time, "visual_bank":sin(time*1.7)},
+		{"id":"orbital_sentry", "position":Vector2(205,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":16, "max_hp":16, "age":time, "visual_bank":sin(time*1.9)},
+		{"id":"phase_interceptor", "position":Vector2(320,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":18, "max_hp":18, "age":time, "visual_bank":sin(time*2.1)},
+		{"id":"beam_sentry", "position":Vector2(445,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":24, "max_hp":24, "age":time, "visual_bank":sin(time*1.5)},
+		{"id":"orbital_lancer", "position":Vector2(570,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time, "visual_bank":sin(time*1.3)},
+	]
+	for enemy in definitions:
+		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, ORBITAL_AIR_SPRITES[enemy["id"]])
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -983,6 +1030,8 @@ func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enem
 func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
 	if MACHINE_AIR_SPRITES.has(enemy_id):
 		_render_machine_air_propulsion(surface, p, enemy_id, enemy)
+	elif ORBITAL_AIR_SPRITES.has(enemy_id):
+		_render_orbital_air_propulsion(surface, p, enemy_id, enemy)
 	elif AIR_PROPULSION_STYLE.has(enemy_id) and not UNIT_ANIMATION_FRAMES.has(enemy_id):
 		var family := str(AIR_PROPULSION_STYLE[enemy_id])
 		var frames: Array = AIR_PROPULSION_FRAMES[family]
@@ -1125,22 +1174,51 @@ func _render_orbital_air_specialist(surface: CanvasItem, p: Vector2, enemy_id: S
 	if not ORBITAL_AIR_SPECIALIST_ART.has(enemy_id):
 		return
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
-	if bank_index == 1 and enemy_id == "orbital_sentry":
-		var turret: Texture2D = ORBITAL_AIR_SPECIALIST_ART[enemy_id]
+	var bank_scale := Vector2(0.82 if bank_index != 1 else 1.0, 1.0)
+	var definition: Dictionary = ORBITAL_AIR_SPECIALIST_ART[enemy_id]
+	if enemy_id == "exo_drone":
+		var hot := fposmod(float(enemy.get("age",0.0)), 1.2) > 0.72
+		var radiator: Texture2D = definition["radiator_hot"] if hot else definition["radiator_cool"]
+		_render_machine_component(surface, radiator, p + Vector2(-7,1), 0.0, Vector2(0.5,0.5), bank_scale)
+		_render_machine_component(surface, radiator, p + Vector2(7,1), 0.0, Vector2(0.5,0.5), bank_scale)
+	elif enemy_id == "orbital_sentry":
+		var anchor: Vector2 = p + Vector2(definition["anchor"])
 		var direction := _player_position() - p
-		var rotation := 0.0 if direction.length_squared() < 0.001 else Vector2.DOWN.angle_to(direction.normalized())
-		surface.draw_set_transform(p.round(), rotation, Vector2.ONE)
-		surface.draw_texture(turret, -turret.get_size() * 0.5 + Vector2(0.0, -roundf(recoil_ratio * 2.0)))
-		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		var rotation := 0.0 if direction.length_squared() < 0.001 else clampf(Vector2.DOWN.angle_to(direction.normalized()), -0.82, 0.82)
+		_render_machine_component(surface, definition["collar"], anchor, 0.0, Vector2(0.5,0.5), bank_scale)
+		_render_machine_component(surface, definition["turret"], anchor, rotation, Vector2(0.5,0.45), bank_scale)
+		var barrel: Texture2D = definition["barrel_recoil"] if recoil_ratio > 0.01 else definition["barrel"]
+		_render_machine_component(surface, barrel, anchor, rotation, Vector2(0.5,0.10), bank_scale)
+		if recoil_ratio > 0.45:
+			_render_air_muzzle(surface, anchor + Vector2.DOWN.rotated(rotation)*18.0, recoil_ratio)
 	elif enemy_id == "phase_interceptor":
-		var phase_frames: Array = ORBITAL_AIR_SPECIALIST_ART[enemy_id]
+		var phase_frames: Array = definition["frames"]
 		var phase_cycle := [0, 1, 2, 1]
 		var phase_index: int = phase_cycle[int(floor(float(enemy.get("age", 0.0)) * 7.0)) % phase_cycle.size()]
-		_draw_production_sprite(surface, p, phase_frames[phase_index])
-	elif bank_index == 1 and enemy_id in ["beam_sentry", "orbital_lancer"]:
-		var weapon_frames: Array = ORBITAL_AIR_SPECIALIST_ART[enemy_id]
+		var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp",1.0))))
+		var nodes: Texture2D = definition["damaged"] if float(enemy.get("hp",max_hp))/max_hp <= 0.45 else phase_frames[phase_index]
+		_render_machine_component(surface, nodes, p + Vector2(definition["anchor"]), 0.0, Vector2(0.5,0.5), bank_scale)
+	elif enemy_id in ["beam_sentry", "orbital_lancer"]:
+		var weapon_frames: Array = definition["frames"]
 		var weapon_index := orbital_weapon_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
-		_draw_production_sprite(surface, p, weapon_frames[weapon_index])
+		_render_machine_component(surface, weapon_frames[weapon_index], p + Vector2(definition["anchor"]), 0.0, Vector2(0.5,0.5), bank_scale)
+		if enemy_id == "orbital_lancer":
+			_render_machine_component(surface, definition["capacitor"], p + Vector2(-9,0), 0.0, Vector2(0.5,0.5), bank_scale)
+			_render_machine_component(surface, definition["capacitor"], p + Vector2(9,0), 0.0, Vector2(0.5,0.5), bank_scale)
+	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp",1.0))))
+	if float(enemy.get("hp",max_hp))/max_hp <= 0.35:
+		_render_machine_component(surface, ORBITAL_AIR_SPECIALIST_ART["fragment_small"], p + Vector2(7,-4), 0.0, Vector2(0.5,0.5), bank_scale)
+
+func _render_orbital_air_propulsion(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
+	var frames: Array = ORBITAL_AIR_SPECIALIST_ART["propulsion"]
+	var cycle := [0, 1, 2, 1]
+	var frame_index: int = cycle[int(floor(float(enemy.get("age",0.0))*8.0)) % cycle.size()]
+	var thruster: Texture2D = frames[frame_index]
+	var anchors := {"exo_drone":-10.0, "orbital_sentry":-13.0, "phase_interceptor":-12.0, "beam_sentry":-15.0, "orbital_lancer":-22.0}
+	var anchor := p + Vector2(0, float(anchors.get(enemy_id,-13.0)))
+	surface.draw_set_transform(anchor.round(), PI, Vector2(0.78,0.78))
+	surface.draw_texture(thruster, -thruster.get_size()*0.5)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 static func orbital_weapon_frame_index(fire_timer: float, recoil_ratio: float) -> int:
 	if recoil_ratio > 0.01:

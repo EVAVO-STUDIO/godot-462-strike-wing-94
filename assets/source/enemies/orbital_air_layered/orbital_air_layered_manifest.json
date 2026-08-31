@@ -1,0 +1,29 @@
+{
+  "asset_family": "black_sky_orbital_air_layered_mechanics_v2",
+  "status": "production_candidate",
+  "source": "orbital_air_component_sheet_source_v1.png",
+  "build_tool": "tools/build_orbital_air_layered_art.ps1",
+  "visual_contract": {
+    "era": "1997-imagined near-Earth military orbital warfare",
+    "ancestry": "human aerospace hardware adapted by autonomous systems",
+    "materials": ["aged ivory thermal armor", "desaturated navy", "dark gunmetal", "amber service marks", "localized icy cyan energy"],
+    "rules": ["mechanically enclosed emitters", "physical radiators", "capacitor-fed rails", "constant animation pivots", "small-sprite readability"],
+    "reject": ["aliens", "magic rings", "floating panels", "full-hull neon", "generic glossy science fiction"]
+  },
+  "assemblies": {
+    "orbital_sentry": {"anchor": [0, 3], "parts": ["sentry_collar", "sentry_turret", "sentry_barrel", "sentry_barrel_recoil"], "events": ["track", "recoil", "muzzle"]},
+    "phase_interceptor": {"anchor": [0, 0], "frames": ["phase_nodes_dormant", "phase_nodes_active", "phase_nodes_overload"], "fps": 7, "damage_state": "phase_nodes_damaged"},
+    "beam_sentry": {"anchor": [0, 2], "frames": ["beam_aperture_closed", "beam_aperture_opening", "beam_aperture_open", "beam_aperture_fire"], "events": ["iris_open", "beam_fire"]},
+    "orbital_lancer": {"anchor": [0, 5], "frames": ["rail_safe", "rail_charge_1", "rail_charge_2", "rail_fire"], "events": ["capacitor_charge", "rail_fire"]},
+    "propulsion": {"anchor": [0, -13], "frames": ["orbital_thruster_dim", "orbital_thruster_active", "orbital_thruster_overload"], "fps": 8},
+    "thermal": {"frames": ["radiator_cool", "radiator_hot"]}
+  },
+  "gameplay_contract": {
+    "visual_center": [0, 0],
+    "gameplay_center": [0, 0],
+    "collision_policy": "existing orbital hull collision remains authoritative",
+    "shadow_point": [0, 14],
+    "damage_anchor": [0, 0],
+    "intended_layers": ["propulsion", "hull", "mount", "weapon", "phase_or_thermal", "damage"]
+  }
+}
