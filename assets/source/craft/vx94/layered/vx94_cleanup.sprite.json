@@ -1,0 +1,31 @@
+{
+  "name": "vx94_layered_source",
+  "pixel_art": false,
+  "source_filter": {
+    "include": ["vx94_component_sheet_raw_v1.png"],
+    "exclude": [],
+    "animation_grouping": "auto"
+  },
+  "cleanup": {
+    "background": "border-palette",
+    "key_colors": [
+      [254, 254, 254],
+      [247, 247, 247]
+    ],
+    "color_tolerance": 12,
+    "alpha_threshold": 1,
+    "matte_decontaminate": false,
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "previews": {
+    "enabled": false
+  },
+  "export": {
+    "godot": false,
+    "generic_json": false,
+    "animated_scene": false,
+    "event_timeline": false,
+    "integration_contract": false
+  }
+}

@@ -2,6 +2,8 @@
   "asset_family": "vx94_articulated_airframe_v1",
   "raw_art": "res://assets/source/craft/vx94/layered/vx94_component_sheet_raw_v1.png",
   "clean_source": "res://assets/source/craft/vx94/layered/vx94_component_sheet_source_v1.png",
+  "cleaner": "res://tools/clean_vx94_layered_source.ps1",
+  "cleanup_profile": "res://assets/source/craft/vx94/layered/vx94_cleanup.sprite.json",
   "builder": "res://tools/build_vx94_layered_art.ps1",
   "runtime_directory": "res://assets/runtime/craft/vx94/layered/",
   "view": "orthographic top-down north-up",
@@ -27,5 +29,5 @@
     "weapon_interlock": true,
     "hypersonic_form": "fighter/swept geometry; exhaust and shockwave remain separate effect layers"
   },
-  "qa": ["border-connected matte removal", "colored-plate halo review", "paired wing pivot review", "native-scale registration", "Godot motion capture"]
+  "qa": ["Sprite Studio multi-colour exterior-matte removal", "enclosed ivory-pixel preservation", "colored-plate halo review", "paired wing pivot review", "native-scale registration", "Godot motion capture"]
 }
