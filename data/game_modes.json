@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "modes": [
+    {
+      "id":"arcade_assault","name":"ARCADE ASSAULT","tagline":"12-SORTIE ONE-CREDIT WAR","icon":"arcade",
+      "description":"A compressed route through all three sectors. Three airframes, fixed stores, escalating speed.",
+      "missions":["m01_coastal_intercept","m02_refinery_run","m03_black_sea","m06_black_flag","m07_ghost_sky","m08_machine_furnace","s2_m07_red_circuit","s2_m10_machine_crown","m09_black_horizon","m10_blue_fire","m11_cold_station","m12_machine_ark"],
+      "lives":3,"weapon_index":2,"generator_index":2,"airframe_index":2,"support_index":2,
+      "enemy_speed_multiplier":1.08,"enemy_hp_multiplier":1.00,"score_multiplier":1.20
+    },
+    {
+      "id":"boss_rush","name":"BOSS RUSH","tagline":"7 COMMAND TARGETS","icon":"boss",
+      "description":"No patrol route. Seven decisive command targets with reinforced armour and maximum stores.",
+      "missions":["m04_breakwater","m06_black_flag","s1_m10_night_harbor","s2_m10_machine_crown","m10_blue_fire","m11_cold_station","m12_machine_ark"],
+      "lives":3,"weapon_index":7,"generator_index":4,"airframe_index":4,"support_index":6,
+      "enemy_speed_multiplier":1.06,"enemy_hp_multiplier":1.18,"score_multiplier":1.35
+    },
+    {
+      "id":"hypersonic_trial","name":"HYPERSONIC TRIAL","tagline":"HIGH-ALTITUDE PURSUIT","icon":"hypersonic",
+      "description":"A fast high/orbital pursuit route. Two airframes, aggressive interceptors, double-value chains.",
+      "missions":["s1_m09_mountain_eye","m07_ghost_sky","s2_m05_iron_rain","s2_m10_machine_crown","m09_black_horizon","s3_m02_thin_blue_line","m10_blue_fire","s3_m09_last_horizon","m12_machine_ark"],
+      "lives":2,"weapon_index":5,"generator_index":4,"airframe_index":4,"support_index":5,
+      "enemy_speed_multiplier":1.22,"enemy_hp_multiplier":1.10,"score_multiplier":1.75
+    },
+    {
+      "id":"strike_mastery","name":"STRIKE MASTERY","tagline":"LOW-LEVEL BOMBER ROUTE","icon":"strike",
+      "description":"Precision surface warfare. One airframe, hard targets, scarce recovery and heavy score stakes.",
+      "missions":["m02_refinery_run","m03_black_sea","m05_furnace_line","s1_m07_desert_lance","s1_m08_river_hammer","s2_m04_dead_factory","s2_m06_ghost_convoy","s2_m08_swarm_sea","s2_m09_silent_city"],
+      "lives":1,"weapon_index":4,"generator_index":3,"airframe_index":3,"support_index":4,
+      "enemy_speed_multiplier":1.10,"enemy_hp_multiplier":1.24,"score_multiplier":2.00
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "asset_family":"hypersonic_arcade_challenge_mode_board",
+  "status":"runtime_v1",
+  "sources":["res://assets/source/ui/modes/mode_emblems.svg","res://assets/source/ui/modes/mode_run_frame.svg"],
+  "builder":"res://tools/build_mode_art.ps1",
+  "runtime_directory":"res://assets/runtime/ui/modes/",
+  "emblems":["arcade","boss","hypersonic","strike"],
+  "canvas":[64,64],
+  "run_frame_canvas":[212,18],
+  "visual_contract":{"era":"late-1990s military arcade operations selector","purpose":"distinct silhouettes for four mechanically different replay modes","avoid":["mobile achievement badges","neon esports crests","generic menu dots","campaign-only decorative tabs"]}
+}

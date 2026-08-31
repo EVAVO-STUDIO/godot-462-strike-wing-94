@@ -19,6 +19,13 @@ const FRONT_END_FRAME := preload("res://assets/runtime/ui/menu/front_end/frame.p
 const FRONT_END_BUTTON_IDLE := preload("res://assets/runtime/ui/menu/front_end/button_idle.png")
 const FRONT_END_BUTTON_SELECTED := preload("res://assets/runtime/ui/menu/front_end/button_selected.png")
 const FRONT_END_CURSOR := preload("res://assets/runtime/ui/menu/front_end/cursor.png")
+const MODE_EMBLEMS := {
+	"arcade": preload("res://assets/runtime/ui/modes/arcade.png"),
+	"boss": preload("res://assets/runtime/ui/modes/boss.png"),
+	"hypersonic": preload("res://assets/runtime/ui/modes/hypersonic.png"),
+	"strike": preload("res://assets/runtime/ui/modes/strike.png"),
+}
+const MODE_RUN_FRAME := preload("res://assets/runtime/ui/modes/mode_run_frame.png")
 const OPTIONS_ROW_IDLE := preload("res://assets/runtime/ui/menu/system_options/row_idle.png")
 const OPTIONS_ROW_SELECTED := preload("res://assets/runtime/ui/menu/system_options/row_selected.png")
 const OPTIONS_VALUE_TROUGH := preload("res://assets/runtime/ui/menu/system_options/value_trough.png")
@@ -203,7 +210,9 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(195, 18, 250, 32), false)
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 53, 1, BLUE, 1)
 	var mission_index := clampi(int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0, 0, 29)
-	_draw_console_panel(surface, Rect2(26, 72, 370, 119), _sortie_order_header(mission_index), GOLD)
+	var mode_active := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
+	var sortie_header := str(scene.get("mode_name")) if mode_active else _sortie_order_header(mission_index)
+	_draw_console_panel(surface, Rect2(26, 72, 370, 119), sortie_header, GOLD)
 	PixelFont.draw_text(surface, str(scene.get("current_mission_name")), Vector2(40, 94), 2, GOLD, 2)
 	PixelFont.draw_text(surface, "%s // %s // %s" % [_altitude_name(), _form_name(), _tech_era_name()], Vector2(40, 117), 1, BLUE, 1)
 	var briefing := str(scene.get("current_briefing"))
@@ -212,7 +221,10 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_text(surface, lines[i], Vector2(40, 139 + i * 11), 1, MUTED, 1)
 	PixelFont.draw_text(surface, "INGRESS", Vector2(40, 170), 1, MUTED, 1)
 	PixelFont.draw_text(surface, "HIGH-SPEED / LOW-LEVEL RELEASE", Vector2(105, 170), 1, GREEN, 1)
-	_draw_campaign_progress(surface, mission_index, Vector2(40, 180))
+	if mode_active:
+		_draw_mode_progress(surface,int(scene.get("mode_route_index")),int(scene.get("mode_route_total")),Vector2(40,180))
+	else:
+		_draw_campaign_progress(surface, mission_index, Vector2(40, 180))
 
 	_draw_console_panel(surface, Rect2(408, 72, 206, 119), "VX-94 AIRFRAME", BLUE)
 	var craft := VX94_FIGHTER if _form_name() == "FIGHTER" else VX94_BOMBER
@@ -223,7 +235,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "VARIABLE", Vector2(493, 143), 1, GREEN, 1)
 	PixelFont.draw_text(surface, "Q SWEEP", Vector2(493, 166), 1, GOLD, 1)
 
-	_draw_console_panel(surface, Rect2(26, 203, 370, 93), "ARM / SERVICE", TEXT)
+	_draw_console_panel(surface, Rect2(26, 203, 370, 93), "FIXED MODE STORES" if mode_active else "ARM / SERVICE", TEXT)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var generator := _call_dictionary(scene, "_active_generator")
 	PixelFont.draw_text(surface, "U PRIMARY", Vector2(40, 224), 1, MUTED, 1)
@@ -237,15 +249,15 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "B BATTLE", Vector2(40, 284), 1, MUTED, 1)
 	PixelFont.draw_text(surface, _clip(_battlefield_support_name(), 22), Vector2(126, 284), 1, BLUE, 1)
 
-	_draw_console_panel(surface, Rect2(408, 203, 206, 93), "READINESS", TEXT)
-	PixelFont.draw_text(surface, "CREDITS %06d" % int(scene.get("credits")), Vector2(422, 224), 1, TEXT, 1)
+	_draw_console_panel(surface, Rect2(408, 203, 206, 93), "RUN STATE" if mode_active else "READINESS", TEXT)
+	PixelFont.draw_text(surface, "TOTAL %08d" % int(scene.get("mode_total_score")) if mode_active else "CREDITS %06d" % int(scene.get("credits")), Vector2(422, 224), 1, TEXT, 1)
 	var service_hull := int(scene.get("service_hull")) if _has_property(scene, "service_hull") else int(scene.get("hull"))
 	var service_shield := int(scene.get("service_shield")) if _has_property(scene, "service_shield") else int(scene.get("shield"))
 	var max_hull := _call_int(scene, "_max_hull", 100)
 	var max_shield := _call_int(scene, "_max_shield", 100)
-	PixelFont.draw_text(surface, "H HULL   %03d/%03d" % [service_hull, max_hull], Vector2(422, 243), 1, GREEN, 1)
-	PixelFont.draw_text(surface, "J SHIELD %03d/%03d" % [service_shield, max_shield], Vector2(422, 258), 1, BLUE, 1)
-	PixelFont.draw_text(surface, "L STORES SCHEMATIC", Vector2(422, 280), 1, MUTED, 1)
+	PixelFont.draw_text(surface, "LIVES %02d" % int(scene.get("mode_lives")) if mode_active else "H HULL   %03d/%03d" % [service_hull, max_hull], Vector2(422, 243), 1, GREEN, 1)
+	PixelFont.draw_text(surface, str(scene.get("mode_rule_summary")) if mode_active else "J SHIELD %03d/%03d" % [service_shield, max_shield], Vector2(422, 258), 1, BLUE, 1)
+	PixelFont.draw_text(surface, "FIXED LOADOUT" if mode_active else "L STORES SCHEMATIC", Vector2(422, 280), 1, MUTED, 1)
 
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_BUTTON, Rect2(26, 308, 588, 27), 6)
 	PixelFont.draw_text(surface, ">>", Vector2(40, 317), 1, RED, 1)
@@ -260,7 +272,9 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(70, 28, 500, 64), false)
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 102, 1, BLUE, 1)
-	if screen == "controls":
+	if screen == "modes":
+		_draw_front_end_modes(surface,scene)
+	elif screen == "controls":
 		_draw_front_end_controls(surface)
 	elif screen == "options":
 		_draw_front_end_options(surface, scene)
@@ -273,10 +287,10 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(30, 128))
 	PixelFont.draw_text(surface, "FLIGHT OPERATIONS", Vector2(48, 137), 1, GOLD, 1)
-	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 4)
-	var labels := ["CONTINUE CAMPAIGN", "SYSTEM OPTIONS", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
+	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 5)
+	var labels := ["CONTINUE CAMPAIGN", "ARCADE / CHALLENGE", "SYSTEM OPTIONS", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
 	for index in range(labels.size()):
-		var position := Vector2(50, 154 + index * 27)
+		var position := Vector2(50, 145 + index * 25)
 		surface.draw_texture(FRONT_END_BUTTON_SELECTED if index == selection else FRONT_END_BUTTON_IDLE, position)
 		if index == selection:
 			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
@@ -291,6 +305,36 @@ func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, _clip(str(scene.get("current_mission_name")), 20), Vector2(464, 217), 1, GREEN, 1)
 	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(464, 238), 1, MUTED, 1)
 	PixelFont.draw_text(surface, "ENTER SELECT", Vector2(464, 274), 1, GOLD, 1)
+
+func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
+	var director := get_node_or_null("/root/GameModeDirector")
+	var modes: Array = director.call("modes") if director != null and director.has_method("modes") else []
+	if modes.is_empty():
+		PixelFont.draw_centered(surface,"NO MODES AVAILABLE",320,190,2,RED,1)
+		return
+	var selection := clampi(int(scene.get("mode_selection")),0,modes.size()-1)
+	PixelFont.draw_centered(surface,"ARCADE / CHALLENGE OPERATIONS",320,122,1,GOLD,1)
+	for i in range(modes.size()):
+		var mode: Dictionary = modes[i]
+		var y := 140+i*42
+		surface.draw_rect(Rect2(34,y,250,36),Color("12212b") if i == selection else Color("08131b"))
+		surface.draw_rect(Rect2(34,y,250,36),GOLD if i == selection else Color("314955"),false,1.0)
+		var icon: Texture2D = MODE_EMBLEMS.get(str(mode.get("icon","arcade")),MODE_EMBLEMS["arcade"])
+		surface.draw_texture_rect(icon,Rect2(38,y+2,32,32),false)
+		PixelFont.draw_text(surface,str(mode.get("name","MODE")),Vector2(78,y+7),1,GOLD if i == selection else TEXT,1)
+		PixelFont.draw_text(surface,str(mode.get("tagline","")),Vector2(78,y+20),1,BLUE if i == selection else MUTED,1)
+		if i == selection: surface.draw_texture(FRONT_END_CURSOR,Vector2(20,y+10))
+	var selected: Dictionary = modes[selection]
+	_draw_console_panel(surface,Rect2(300,140,306,162),str(selected.get("name","MODE")),BLUE)
+	var large_icon: Texture2D = MODE_EMBLEMS.get(str(selected.get("icon","arcade")),MODE_EMBLEMS["arcade"])
+	surface.draw_texture_rect(large_icon,Rect2(320,160,64,64),false)
+	PixelFont.draw_text(surface,"ROUTE %02d" % selected.get("missions",[]).size(),Vector2(404,164),1,GOLD,1)
+	PixelFont.draw_text(surface,"AIRFRAMES %02d" % int(selected.get("lives",1)),Vector2(404,181),1,GREEN,1)
+	PixelFont.draw_text(surface,"SCORE X%.2f" % float(selected.get("score_multiplier",1.0)),Vector2(404,198),1,BLUE,1)
+	var lines := _wrap_text(str(selected.get("description","")),35)
+	for i in range(mini(3,lines.size())):
+		PixelFont.draw_text(surface,lines[i],Vector2(320,238+i*12),1,MUTED,1)
+	PixelFont.draw_centered(surface,"ENTER DEPLOY   ESC RETURN",453,286,1,GOLD,1)
 
 func _draw_front_end_controls(surface: CanvasItem) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))
@@ -349,13 +393,22 @@ func _draw_campaign_progress(surface: CanvasItem, mission_index: int, position: 
 		var node: Texture2D = CAMPAIGN_NODE_CURRENT if index == mission_index else (CAMPAIGN_NODE_COMPLETE if index < mission_index else CAMPAIGN_NODE_LOCKED)
 		surface.draw_texture(node, node_position)
 
+func _draw_mode_progress(surface: CanvasItem, route_index: int, route_total: int, position: Vector2) -> void:
+	surface.draw_texture(CAMPAIGN_PROGRESS_RAIL,position)
+	var count := clampi(route_total,1,18)
+	for index in range(count):
+		var node_position := position+Vector2(3+index*18,2)
+		var node: Texture2D = CAMPAIGN_NODE_CURRENT if index == route_index else (CAMPAIGN_NODE_COMPLETE if index < route_index else CAMPAIGN_NODE_LOCKED)
+		surface.draw_texture(node,node_position)
+
 func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
 	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.62,0.70,0.73,0.72))
 	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,0.66))
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	var mission_success := bool(scene.get("mission_success")) if _has_property(scene, "mission_success") else true
-	PixelFont.draw_centered(surface, "MISSION REPORT" if mission_success else "SORTIE FAILURE", 320, 35, 3, GOLD if mission_success else RED, 2)
+	var mode_active := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
+	PixelFont.draw_centered(surface, "MODE REPORT" if mode_active else ("MISSION REPORT" if mission_success else "SORTIE FAILURE"), 320, 35, 3, GOLD if mission_success else RED, 2)
 
 	var result_lines := _wrap_text(str(scene.get("result_text")), 66)
 	for i in range(mini(3, result_lines.size())):
@@ -391,7 +444,8 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_BUTTON, Rect2(26, 306, 588, 27), 6)
 	PixelFont.draw_text(surface, ">>", Vector2(40, 315), 1, RED, 1)
-	PixelFont.draw_centered(surface, "ENTER NEXT MISSION   R RETRY" if mission_success else "ENTER / R RETRY SORTIE", 320, 315, 1, TEXT, 1)
+	var result_prompt := "ENTER CONTINUE RUN   R CONTINUE" if mode_active else ("ENTER NEXT MISSION   R RETRY" if mission_success else "ENTER / R RETRY SORTIE")
+	PixelFont.draw_centered(surface,result_prompt,320,315,1,TEXT,1)
 
 func _draw_report_metric(surface: CanvasItem, position: Vector2, icon_key: String, label: String, value: int, color: Color) -> void:
 	surface.draw_texture(REPORT_METRIC_CELL, position)
@@ -472,6 +526,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		_draw_mission_ingress(surface, scene)
 	else:
 		_draw_objective_tracker(surface, scene)
+	_draw_mode_run_state(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
 		var status := str(scene.get("status_text"))
 		if status.begins_with("SECRET - "):
@@ -479,6 +534,27 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		else:
 			surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
 			PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
+
+func _draw_mode_run_state(surface: CanvasItem, scene: Object) -> void:
+	if not _has_property(scene, "game_mode") or str(scene.get("game_mode")) == "campaign":
+		return
+	var labels := {
+		"arcade_assault": "ASSAULT",
+		"boss_rush": "BOSS",
+		"hypersonic_trial": "TRIAL",
+		"strike_mastery": "STRIKE",
+	}
+	var mode_id := str(scene.get("game_mode"))
+	var route := int(scene.get("mode_route_index")) + 1 if _has_property(scene, "mode_route_index") else 1
+	var total := int(scene.get("mode_route_total")) if _has_property(scene, "mode_route_total") else 1
+	var lives := int(scene.get("mode_lives")) if _has_property(scene, "mode_lives") else 0
+	var run_score := int(scene.get("mode_total_score")) + int(scene.get("score")) if _has_property(scene, "mode_total_score") else int(scene.get("score"))
+	var position := Vector2(420, 316)
+	surface.draw_texture(MODE_RUN_FRAME, position)
+	PixelFont.draw_text(surface, str(labels.get(mode_id, "SPECIAL")), position + Vector2(9, 7), 1, BLUE, 1)
+	PixelFont.draw_text(surface, "%02d/%02d" % [route, total], position + Vector2(68, 7), 1, TEXT, 1)
+	PixelFont.draw_text(surface, "A%02d" % lives, position + Vector2(122, 7), 1, GOLD, 1)
+	PixelFont.draw_text(surface, "%08d" % run_score, position + Vector2(151, 7), 1, TEXT, 1)
 
 func _draw_secret_discovery(surface: CanvasItem, status: String, remaining: float) -> void:
 	var position := Vector2(120, 108)

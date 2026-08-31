@@ -59,7 +59,7 @@ $Required = @(
     'scripts/player_mount_rules.gd','scripts/player_mount_director.gd',
     'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/craft_form_director.gd',
     'scripts/environment_rules.gd','scripts/environment_surface.gd','scripts/environment_director.gd',
-    'scripts/campaign_cinematic_surface.gd','scripts/campaign_cinematic_director.gd','scripts/credits_surface.gd','scripts/credits_director.gd','data/credits.json',
+    'scripts/campaign_cinematic_surface.gd','scripts/campaign_cinematic_director.gd','scripts/credits_surface.gd','scripts/credits_director.gd','data/credits.json','scripts/game_mode_rules.gd','scripts/game_mode_director.gd','data/game_modes.json',
     'scripts/altitude_transition_surface.gd','scripts/altitude_transition_director.gd',
     'scripts/combat_art_surface.gd','scripts/combat_art_director.gd','scripts/airframe_cue_surface.gd','scripts/airframe_cue_director.gd',
     'scripts/afterburner_cue_surface.gd','scripts/afterburner_cue_director.gd','scripts/weapon_mount_cue_surface.gd','scripts/weapon_mount_cue_director.gd',
@@ -73,7 +73,7 @@ $Required = @(
     'scripts/retro_sfx_rules.gd','scripts/retro_sfx_director.gd',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
-    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/credits_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
+    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/credits_self_test.gd','tools/game_modes_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
     'tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
     'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
@@ -203,6 +203,7 @@ foreach ($Autoload in @(
     'StartupSequenceDirector="*res://scripts/startup_sequence_director.gd"',
     'CampaignCinematicDirector="*res://scripts/campaign_cinematic_director.gd"',
     'CreditsDirector="*res://scripts/credits_director.gd"',
+    'GameModeDirector="*res://scripts/game_mode_director.gd"',
     'PlayerMountDirector="*res://scripts/player_mount_director.gd"',
     'CraftFormDirector="*res://scripts/craft_form_director.gd"',
     'EncounterDirector="*res://scripts/encounter_director.gd"',
@@ -280,7 +281,7 @@ Write-Host 'Running Godot editor import/smoke test...' -ForegroundColor DarkCyan
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 
 $Tests = @(
-    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','credits_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
+    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
     'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
 )

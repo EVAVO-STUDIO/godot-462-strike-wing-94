@@ -28,6 +28,14 @@ var phase := GamePhase.TITLE
 var front_end_screen := "main_menu"
 var menu_selection := 0
 var option_selection := 0
+var mode_selection := 0
+var game_mode := "campaign"
+var mode_name := "CAMPAIGN"
+var mode_rule_summary := "30-SORTIE AUTHORED WAR"
+var mode_route_index := 0
+var mode_route_total := 0
+var mode_lives := 0
+var mode_total_score := 0
 var player_position := Vector2(320.0, 292.0)
 var fire_timer := 0.0
 var secondary_timer := 0.0
@@ -83,9 +91,45 @@ func _ready() -> void:
 	_load_content()
 	mission_index = _capture_mission_index(OS.get_cmdline_user_args(), mission_index, mission_catalog.size())
 	_prepare_mission(mission_index)
-	if "--capture-gameplay" in OS.get_cmdline_user_args():
+	mode_selection = _capture_mode_selection(OS.get_cmdline_user_args(),mode_selection)
+	var capture_front_end := _capture_front_end(OS.get_cmdline_user_args())
+	var capture_game_mode := _capture_game_mode(OS.get_cmdline_user_args())
+	if not capture_game_mode.is_empty():
+		call_deferred("_begin_capture_game_mode",capture_game_mode)
+	elif not capture_front_end.is_empty():
+		front_end_screen = capture_front_end
+	elif "--capture-gameplay" in OS.get_cmdline_user_args():
 		call_deferred("_start_mission")
 	queue_redraw()
+
+func _capture_front_end(arguments: PackedStringArray) -> String:
+	for argument in arguments:
+		if argument.begins_with("--capture-front-end="):
+			return argument.trim_prefix("--capture-front-end=").to_lower()
+	return ""
+
+func _capture_mode_selection(arguments: PackedStringArray, fallback: int) -> int:
+	for argument in arguments:
+		if argument.begins_with("--capture-mode-selection="):
+			var value := argument.trim_prefix("--capture-mode-selection=")
+			if value.is_valid_int(): return maxi(0,value.to_int())
+	return fallback
+
+func _capture_game_mode(arguments: PackedStringArray) -> String:
+	for argument in arguments:
+		if argument.begins_with("--capture-game-mode="):
+			return argument.trim_prefix("--capture-game-mode=").to_lower()
+	return ""
+
+func _begin_capture_game_mode(mode_id: String) -> void:
+	var modes := get_node_or_null("/root/GameModeDirector")
+	if modes == null or not modes.has_method("modes"): return
+	var catalogue: Array = modes.call("modes")
+	for i in range(catalogue.size()):
+		if str(catalogue[i].get("id","")) == mode_id:
+			modes.call("start_selected",self,i)
+			_start_mission()
+			return
 
 func _capture_mission_index(arguments: PackedStringArray, fallback: int, mission_count: int) -> int:
 	if not "--capture-gameplay" in arguments:
@@ -109,13 +153,13 @@ func _process(delta: float) -> void:
 			elif Input.is_action_just_pressed("cancel"):
 				front_end_screen = "main_menu"
 			elif Input.is_action_just_pressed("upgrade"):
-				_try_buy_next_weapon()
+				if not _mode_active(): _try_buy_next_weapon()
 			elif Input.is_action_just_pressed("upgrade_generator"):
-				_try_buy_next_generator()
+				if not _mode_active(): _try_buy_next_generator()
 			elif Input.is_action_just_pressed("service_hull"):
-				_service_hull_full()
+				if not _mode_active(): _service_hull_full()
 			elif Input.is_action_just_pressed("service_shield"):
-				_service_shield_full()
+				if not _mode_active(): _service_shield_full()
 		GamePhase.PLAYING:
 			_update_mission(delta)
 			if Input.is_action_just_pressed("cancel"):
@@ -128,6 +172,10 @@ func _process(delta: float) -> void:
 			if _credits_blocking():
 				pass
 			elif Input.is_action_just_pressed("confirm"):
+				if _mode_active():
+					_advance_mode_result()
+					queue_redraw()
+					return
 				if not mission_success:
 					_start_mission()
 				elif not _cinematic_blocks_ending():
@@ -136,10 +184,14 @@ func _process(delta: float) -> void:
 					phase = GamePhase.TITLE
 					front_end_screen = "sortie"
 			elif Input.is_action_just_pressed("restart"):
-				_start_mission()
+				if _mode_active(): _advance_mode_result()
+				else: _start_mission()
 	queue_redraw()
 
 func _update_front_end_menu() -> void:
+	if front_end_screen == "modes":
+		_update_front_end_modes()
+		return
 	if front_end_screen == "options":
 		_update_front_end_options()
 		return
@@ -148,16 +200,29 @@ func _update_front_end_menu() -> void:
 			front_end_screen = "main_menu"
 		return
 	if Input.is_action_just_pressed("move_up"):
-		menu_selection = posmod(menu_selection - 1, 5)
+		menu_selection = posmod(menu_selection - 1, 6)
 	elif Input.is_action_just_pressed("move_down"):
-		menu_selection = posmod(menu_selection + 1, 5)
+		menu_selection = posmod(menu_selection + 1, 6)
 	elif Input.is_action_just_pressed("confirm"):
 		match menu_selection:
 			0: front_end_screen = "sortie"
-			1: front_end_screen = "options"
-			2: front_end_screen = "controls"
-			3: front_end_screen = "dossier"
-			4: get_tree().quit()
+			1: front_end_screen = "modes"
+			2: front_end_screen = "options"
+			3: front_end_screen = "controls"
+			4: front_end_screen = "dossier"
+			5: get_tree().quit()
+
+func _update_front_end_modes() -> void:
+	var modes := get_node_or_null("/root/GameModeDirector")
+	var count := int(modes.call("mode_count")) if modes != null and modes.has_method("mode_count") else 0
+	if Input.is_action_just_pressed("cancel"):
+		front_end_screen = "main_menu"
+	elif count > 0 and Input.is_action_just_pressed("move_up"):
+		mode_selection = posmod(mode_selection-1,count)
+	elif count > 0 and Input.is_action_just_pressed("move_down"):
+		mode_selection = posmod(mode_selection+1,count)
+	elif count > 0 and Input.is_action_just_pressed("confirm") and modes.has_method("start_selected"):
+		modes.call("start_selected",self,mode_selection)
 
 func _update_front_end_options() -> void:
 	if Input.is_action_just_pressed("cancel"):
@@ -353,6 +418,14 @@ func _credits_blocking() -> bool:
 	var credits_director := get_node_or_null("/root/CreditsDirector")
 	return credits_director != null and credits_director.has_method("credits_active") and bool(credits_director.call("credits_active"))
 
+func _mode_active() -> bool:
+	return game_mode != "campaign"
+
+func _advance_mode_result() -> void:
+	var modes := get_node_or_null("/root/GameModeDirector")
+	if modes != null and modes.has_method("advance_result"):
+		modes.call("advance_result",self,mission_success)
+
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
 	phase = GamePhase.PLAYING
@@ -384,6 +457,17 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 		return
 	phase = GamePhase.RESULT
 	mission_success = success
+	if _mode_active():
+		var modes := get_node_or_null("/root/GameModeDirector")
+		if modes != null and modes.has_method("record_result"):
+			modes.call("record_result",self,success,score)
+		result_text = (
+			"%s  ROUTE %02d/%02d  TOTAL %08d" % [mode_name,mode_route_index+1,mode_route_total,mode_total_score]
+			if success else "%s  AIRFRAME LOST  %d REMAIN" % [mode_name,mode_lives]
+		)
+		repair_cost = 0
+		_clear_combat()
+		return
 	if success:
 		var base_reward := ProgressionRules.mission_reward(score)
 		var objective_bonus := ObjectiveRules.bonus_credits(current_objectives, objective_progress)
@@ -670,7 +754,7 @@ func _update_weapons() -> void:
 				boss_damaged = true
 			else:
 				_register_destroy(enemy)
-				score += 75 + int(enemy.get("hp", 1)) * 25
+				score += _mode_score_value(75 + int(enemy.get("hp", 1)) * 25)
 		enemies = survivors
 		enemy_bullets.clear()
 		if boss_damaged:
@@ -839,7 +923,7 @@ func _resolve_combat() -> void:
 				if int(enemies[enemy_index]["hp"]) <= 0:
 					var destroyed: Dictionary = enemies[enemy_index]
 					_register_destroy(destroyed)
-					score += int(destroyed["value"])
+					score += _mode_score_value(int(destroyed["value"]))
 					_maybe_drop_pickup(
 						destroyed["position"],
 						bool(destroyed.get("boss", false))
@@ -962,6 +1046,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		1,
 		int(archetype.get("hp", 1)) + (0 if is_boss else int(wave / 5))
 	)
+	hp = _mode_enemy_hp(hp)
 	var x := (
 		PLAYFIELD.get_center().x
 		if is_boss
@@ -984,7 +1069,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"category": enemy_class,
 		"faction": str(archetype.get("faction", "mercenary")),
 		"position": Vector2(x, PLAYFIELD.position.y - 18),
-		"speed": float(archetype.get("speed", 72)) + speed_bias + (0.0 if is_boss else float(wave) * 4.0),
+		"speed": _mode_enemy_speed(float(archetype.get("speed", 72)) + speed_bias + (0.0 if is_boss else float(wave) * 4.0)),
 		"drift": drift,
 		"turn_rate": 0.75 if is_boss else mission_rng.randf_range(1.1, 2.4),
 		"phase": mission_rng.randf_range(0, TAU),
@@ -999,6 +1084,18 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"recoil_timer": 0.0,
 		"boss": is_boss
 	})
+
+func _mode_enemy_hp(base_hp: int) -> int:
+	var modes := get_node_or_null("/root/GameModeDirector")
+	return int(modes.call("enemy_hp",base_hp)) if modes != null and modes.has_method("enemy_hp") else base_hp
+
+func _mode_enemy_speed(base_speed: float) -> float:
+	var modes := get_node_or_null("/root/GameModeDirector")
+	return float(modes.call("enemy_speed",base_speed)) if modes != null and modes.has_method("enemy_speed") else base_speed
+
+func _mode_score_value(base_score: int) -> int:
+	var modes := get_node_or_null("/root/GameModeDirector")
+	return int(modes.call("score_value",base_score)) if modes != null and modes.has_method("score_value") else base_score
 
 func _try_spawn_boss() -> void:
 	if boss_spawned or current_boss_id == "" or mission_time < mission_duration * 0.72:

@@ -20,6 +20,8 @@ func _process(delta: float) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or not _supports_campaign_state(scene):
 		return
+	if not _campaign_mode(scene):
+		return
 	var scene_id := scene.get_instance_id()
 	if _restored_scene_id != scene_id:
 		_restore(scene)
@@ -39,7 +41,7 @@ func _process(delta: float) -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and not _capture_mode():
 		var scene := get_tree().current_scene
-		if scene != null and _supports_campaign_state(scene):
+		if scene != null and _supports_campaign_state(scene) and _campaign_mode(scene):
 			_save(scene)
 
 func _capture_mode() -> bool:
@@ -53,6 +55,12 @@ func _supports_campaign_state(scene: Object) -> bool:
 	for name in required:
 		if not names.has(name):
 			return false
+	return true
+
+func _campaign_mode(scene: Object) -> bool:
+	for property in scene.get_property_list():
+		if str(property.get("name", "")) == "game_mode":
+			return str(scene.get("game_mode")) == "campaign"
 	return true
 
 func _mission_count(scene: Object) -> int:
