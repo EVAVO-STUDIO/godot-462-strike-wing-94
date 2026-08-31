@@ -1,0 +1,27 @@
+{
+  "asset_family": "machine_air_layered_mechanics_v2",
+  "status": "production_candidate",
+  "source": "machine_air_component_sheet_source_v1.png",
+  "build_tool": "tools/build_machine_air_layered_art.ps1",
+  "visual_contract": {
+    "era": "serious 1997 military-industrial autonomous aerospace",
+    "materials": ["dark gunmetal", "desaturated navy", "worn pale composite", "localized cyan-white emission", "amber service marks"],
+    "rules": ["physically mounted mechanisms", "constant animation pivots", "restrained emission", "readable at 640x360"],
+    "reject": ["organic machine anatomy", "floating panels", "full-hull neon", "smooth morphs", "modern glossy concept art"]
+  },
+  "assemblies": {
+    "shared_core": {"anchor": [0, 0], "frames": ["core_dim", "core_active", "core_overload"], "fps": 6, "sequence": [0, 1, 2, 1], "damage_state": "core_damaged"},
+    "drone_hunter": {"anchor": [0, 5], "parts": ["hunter_mount", "hunter_barrel", "hunter_barrel_recoil"], "events": ["track", "recoil", "muzzle"]},
+    "drone_bomber": {"anchor": [0, 4], "frames": ["bomber_bay_closed", "bomber_bay_opening", "bomber_bay_open", "bomber_bay_fire"], "events": ["door_open", "release"]},
+    "drone_missile_node": {"anchor": [0, 3], "frames": ["missile_hatch_closed", "missile_hatch_opening", "missile_hatch_open", "missile_hatch_fire"], "events": ["hatch_open", "missile_launch"]},
+    "propulsion": {"anchor": [0, -11], "frames": ["thruster_dim", "thruster_active", "thruster_overload"], "fps": 9}
+  },
+  "gameplay_contract": {
+    "visual_center": [0, 0],
+    "gameplay_center": [0, 0],
+    "collision_policy": "existing hull collision remains authoritative",
+    "shadow_point": [0, 12],
+    "damage_anchor": [0, 0],
+    "intended_layers": ["propulsion", "hull", "mount", "weapon", "core", "damage"]
+  }
+}

@@ -162,6 +162,19 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.machine_weapon_door_frame_index(0.1, 0.0) == 2 and CombatArtDirector.machine_weapon_door_frame_index(1.0, 0.8) == 3, "machine weapon doors should expose ready and authored firing poses")
 	_expect(source.contains('MACHINE_AIR_SPECIALIST_ART') and source.contains('pulse_cycle := [0, 1, 2, 1]'), "machine airframes should share restrained perceptual core animation")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_specialist/machine_air_specialist_asset_manifest.json"), "machine-air specialist source/runtime manifest should exist")
+	var layered_machine_air_sizes := {
+		"core_dim":Vector2(13,13), "core_active":Vector2(13,13), "core_overload":Vector2(13,13), "core_collar":Vector2(15,15), "core_damaged":Vector2(14,14),
+		"hunter_mount":Vector2(17,20), "hunter_barrel":Vector2(6,18), "hunter_barrel_recoil":Vector2(6,18),
+		"bomber_bay_closed":Vector2(17,22), "bomber_bay_opening":Vector2(17,22), "bomber_bay_open":Vector2(17,22), "bomber_bay_fire":Vector2(17,22), "bomber_door_left":Vector2(8,19), "bomber_door_right":Vector2(8,19),
+		"missile_hatch_closed":Vector2(12,21), "missile_hatch_opening":Vector2(12,21), "missile_hatch_open":Vector2(12,21), "missile_hatch_fire":Vector2(12,27), "missile_hatch_door":Vector2(12,15), "mounted_missile":Vector2(8,17),
+		"armor_fragment_large":Vector2(10,13), "armor_fragment_small":Vector2(8,11), "thruster_dim":Vector2(10,12), "thruster_active":Vector2(10,13), "thruster_overload":Vector2(10,16),
+	}
+	for machine_air_layer_id in layered_machine_air_sizes:
+		var machine_air_layer := load("res://assets/runtime/enemies/machine_air_layered/%s.png" % machine_air_layer_id) as Texture2D
+		_expect(machine_air_layer != null and machine_air_layer.get_size() == layered_machine_air_sizes[machine_air_layer_id], "layered machine-air component should retain its registered canvas: %s" % machine_air_layer_id)
+	_expect(source.contains('_capture_air_state() == "machine"') and source.contains("_render_machine_air_capture") and source.contains("_render_machine_component"), "visual QA should expose isolated machine-air banking, propulsion, recoil, core and weapon-door fixtures")
+	_expect(source.contains('MACHINE_AIR_SPECIALIST_ART["damaged_core"]') and source.contains("_render_machine_air_propulsion"), "machine airframes should expose layered damage and propulsion states")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_layered/machine_air_layered_manifest.json"), "layered machine-air source/runtime manifest should exist")
 	var orbital_specialist_sizes := {
 		"sentry_turret":Vector2(40,38), "phase_nodes_0":Vector2(34,34), "phase_nodes_1":Vector2(34,34), "phase_nodes_2":Vector2(34,34),
 		"beam_aperture_closed":Vector2(42,40), "beam_aperture_opening":Vector2(42,40), "beam_aperture_open":Vector2(42,40), "beam_aperture_fire":Vector2(42,40),

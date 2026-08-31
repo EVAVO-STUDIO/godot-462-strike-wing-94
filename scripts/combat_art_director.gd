@@ -178,23 +178,41 @@ const AIR_SPECIALIST_ART := {
 }
 const MACHINE_AIR_SPECIALIST_ART := {
 	"core": [
-		preload("res://assets/runtime/enemies/machine_air_specialist/core_0.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/core_1.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/core_2.png"),
+		preload("res://assets/runtime/enemies/machine_air_layered/core_dim.png"),
+		preload("res://assets/runtime/enemies/machine_air_layered/core_active.png"),
+		preload("res://assets/runtime/enemies/machine_air_layered/core_overload.png"),
 	],
-	"drone_hunter": preload("res://assets/runtime/enemies/machine_air_specialist/hunter_weapon.png"),
-	"drone_bomber": [
-		preload("res://assets/runtime/enemies/machine_air_specialist/bomber_bay_closed.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/bomber_bay_opening.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/bomber_bay_open.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/bomber_bay_fire.png"),
+	"collar": preload("res://assets/runtime/enemies/machine_air_layered/core_collar.png"),
+	"damaged_core": preload("res://assets/runtime/enemies/machine_air_layered/core_damaged.png"),
+	"propulsion": [
+		preload("res://assets/runtime/enemies/machine_air_layered/thruster_dim.png"),
+		preload("res://assets/runtime/enemies/machine_air_layered/thruster_active.png"),
+		preload("res://assets/runtime/enemies/machine_air_layered/thruster_overload.png"),
 	],
-	"drone_missile_node": [
-		preload("res://assets/runtime/enemies/machine_air_specialist/missile_hatch_closed.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/missile_hatch_opening.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/missile_hatch_open.png"),
-		preload("res://assets/runtime/enemies/machine_air_specialist/missile_hatch_fire.png"),
-	],
+	"drone_hunter": {
+		"mount": preload("res://assets/runtime/enemies/machine_air_layered/hunter_mount.png"),
+		"barrel": preload("res://assets/runtime/enemies/machine_air_layered/hunter_barrel.png"),
+		"barrel_recoil": preload("res://assets/runtime/enemies/machine_air_layered/hunter_barrel_recoil.png"),
+		"anchor": Vector2(0, 5),
+	},
+	"drone_bomber": {
+		"frames": [
+			preload("res://assets/runtime/enemies/machine_air_layered/bomber_bay_closed.png"),
+			preload("res://assets/runtime/enemies/machine_air_layered/bomber_bay_opening.png"),
+			preload("res://assets/runtime/enemies/machine_air_layered/bomber_bay_open.png"),
+			preload("res://assets/runtime/enemies/machine_air_layered/bomber_bay_fire.png"),
+		],
+		"anchor": Vector2(0, 4),
+	},
+	"drone_missile_node": {
+		"frames": [
+			preload("res://assets/runtime/enemies/machine_air_layered/missile_hatch_closed.png"),
+			preload("res://assets/runtime/enemies/machine_air_layered/missile_hatch_opening.png"),
+			preload("res://assets/runtime/enemies/machine_air_layered/missile_hatch_open.png"),
+			preload("res://assets/runtime/enemies/machine_air_layered/missile_hatch_fire.png"),
+		],
+		"anchor": Vector2(0, 3),
+	},
 }
 const ORBITAL_AIR_SPECIALIST_ART := {
 	"orbital_sentry": preload("res://assets/runtime/enemies/orbital_air_specialist/sentry_turret.png"),
@@ -655,6 +673,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_render_human_air_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _capture_air_state() == "machine":
+		_render_machine_air_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
@@ -719,6 +741,19 @@ func _render_human_air_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, MERCENARY_AIR_SPRITES[enemy["id"]])
+
+func _render_machine_air_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
+	var fire_timer := fposmod(1.0-time, 1.0)
+	var definitions := [
+		{"id":"drone_scout", "position":Vector2(110,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":4, "max_hp":4, "age":time, "visual_bank":sin(time*2.2)},
+		{"id":"drone_hunter", "position":Vector2(245,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":8, "max_hp":8, "age":time, "visual_bank":sin(time*1.8)},
+		{"id":"drone_bomber", "position":Vector2(390,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":15, "max_hp":15, "age":time, "visual_bank":sin(time*1.4)},
+		{"id":"drone_missile_node", "position":Vector2(530,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":11, "max_hp":11, "age":time, "visual_bank":sin(time*1.6)},
+	]
+	for enemy in definitions:
+		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, MACHINE_AIR_SPRITES[enemy["id"]])
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -946,7 +981,9 @@ func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enem
 	_draw_production_sprite(surface, p, frames[frame_index], scale)
 
 func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
-	if AIR_PROPULSION_STYLE.has(enemy_id) and not UNIT_ANIMATION_FRAMES.has(enemy_id):
+	if MACHINE_AIR_SPRITES.has(enemy_id):
+		_render_machine_air_propulsion(surface, p, enemy_id, enemy)
+	elif AIR_PROPULSION_STYLE.has(enemy_id) and not UNIT_ANIMATION_FRAMES.has(enemy_id):
 		var family := str(AIR_PROPULSION_STYLE[enemy_id])
 		var frames: Array = AIR_PROPULSION_FRAMES[family]
 		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 12.0)) % frames.size()
@@ -1032,23 +1069,48 @@ static func heavy_bomber_bay_frame_index(fire_timer: float, recoil_ratio: float)
 
 func _render_machine_air_specialist(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, bank_index: int) -> void:
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
-	if bank_index == 1 and enemy_id == "drone_hunter":
-		var weapon: Texture2D = MACHINE_AIR_SPECIALIST_ART[enemy_id]
-		var offset := Vector2(0.0, -roundf(recoil_ratio * 2.0))
-		surface.draw_texture(weapon, (p - weapon.get_size() * 0.5 + offset).round())
+	var bank_scale := Vector2(0.82 if bank_index != 1 else 1.0, 1.0)
+	if enemy_id == "drone_hunter":
+		var definition: Dictionary = MACHINE_AIR_SPECIALIST_ART[enemy_id]
+		var anchor: Vector2 = p + Vector2(definition["anchor"])
+		var direction := _player_position() - p
+		var rotation := 0.0 if direction.length_squared() < 0.001 else clampf(Vector2.DOWN.angle_to(direction.normalized()), -0.58, 0.58)
+		_render_machine_component(surface, definition["mount"], anchor, 0.0, Vector2(0.5,0.42), bank_scale)
+		var barrel: Texture2D = definition["barrel_recoil"] if recoil_ratio > 0.01 else definition["barrel"]
+		_render_machine_component(surface, barrel, anchor + Vector2(-4,1), rotation, Vector2(0.5,0.10), bank_scale)
+		_render_machine_component(surface, barrel, anchor + Vector2(4,1), rotation, Vector2(0.5,0.10), bank_scale)
 		if recoil_ratio > 0.45:
 			var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
-			surface.draw_texture_rect(flash, Rect2((p + Vector2(-8, 11)).round(), Vector2(7,9)), false)
-			surface.draw_texture_rect(flash, Rect2((p + Vector2(1, 11)).round(), Vector2(7,9)), false)
-	elif bank_index == 1 and enemy_id in ["drone_bomber", "drone_missile_node"]:
-		var door_frames: Array = MACHINE_AIR_SPECIALIST_ART[enemy_id]
+			surface.draw_texture_rect(flash, Rect2((anchor + Vector2(-7, 11)).round(), Vector2(7,9)), false)
+			surface.draw_texture_rect(flash, Rect2((anchor + Vector2(1, 11)).round(), Vector2(7,9)), false)
+	elif enemy_id in ["drone_bomber", "drone_missile_node"]:
+		var definition: Dictionary = MACHINE_AIR_SPECIALIST_ART[enemy_id]
+		var door_frames: Array = definition["frames"]
 		var door_index := machine_weapon_door_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
-		_draw_production_sprite(surface, p, door_frames[door_index])
+		_render_machine_component(surface, door_frames[door_index], p + Vector2(definition["anchor"]), 0.0, Vector2(0.5,0.5), bank_scale)
+	_render_machine_component(surface, MACHINE_AIR_SPECIALIST_ART["collar"], p, 0.0, Vector2(0.5,0.5), bank_scale)
 	var core_frames: Array = MACHINE_AIR_SPECIALIST_ART["core"]
 	var pulse_cycle := [0, 1, 2, 1]
 	var core_index: int = pulse_cycle[int(floor(float(enemy.get("age", 0.0)) * 6.0)) % pulse_cycle.size()]
-	var core: Texture2D = core_frames[core_index]
-	surface.draw_texture(core, (p - core.get_size() * 0.5).round())
+	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1.0))))
+	var core: Texture2D = MACHINE_AIR_SPECIALIST_ART["damaged_core"] if float(enemy.get("hp", max_hp)) / max_hp <= 0.45 else core_frames[core_index]
+	_render_machine_component(surface, core, p, 0.0, Vector2(0.5,0.5), bank_scale)
+
+func _render_machine_air_propulsion(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
+	var frames: Array = MACHINE_AIR_SPECIALIST_ART["propulsion"]
+	var cycle := [0, 1, 2, 1]
+	var frame_index: int = cycle[int(floor(float(enemy.get("age",0.0))*9.0)) % cycle.size()]
+	var thruster: Texture2D = frames[frame_index]
+	var anchor := p + Vector2(0, -12 if enemy_id != "drone_bomber" else -16)
+	surface.draw_set_transform(anchor.round(), PI, Vector2(0.80,0.80))
+	surface.draw_texture(thruster, -thruster.get_size()*0.5)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+func _render_machine_component(surface: CanvasItem, texture: Texture2D, world_pivot: Vector2, angle: float, normalized_pivot: Vector2, component_scale: Vector2) -> void:
+	var local_pivot := texture.get_size() * normalized_pivot
+	surface.draw_set_transform(world_pivot.round(), angle, component_scale)
+	surface.draw_texture(texture, -local_pivot.round())
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 static func machine_weapon_door_frame_index(fire_timer: float, recoil_ratio: float) -> int:
 	if recoil_ratio > 0.01:
