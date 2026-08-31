@@ -807,8 +807,9 @@ func _render_mech_capture(surface: CanvasItem, scene: Object) -> void:
 	for enemy in definitions:
 		var enemy_id: String = enemy["id"]
 		var fallback: Texture2D = MERCENARY_GROUND_FORCE_SPRITES[enemy_id] if enemy_id == "security_patrol_mech" else MACHINE_MECH_SPRITES[enemy_id]
-		_draw_animated_unit(surface, enemy["position"], enemy_id, enemy, fallback, 1.0)
-		_render_ground_force_specialist(surface, enemy["position"], enemy_id, enemy, 1.0)
+		var presentation_scale := 1.16 if enemy_id == "security_patrol_mech" else 1.0
+		_draw_animated_unit(surface, enemy["position"], enemy_id, enemy, fallback, presentation_scale)
+		_render_ground_force_specialist(surface, enemy["position"], enemy_id, enemy, presentation_scale)
 
 func _render_naval_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
@@ -1151,7 +1152,8 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		if INFANTRY_LAYERED_ART.has(enemy_id):
 			_draw_infantry_team(surface, p, enemy_id, enemy, scale)
 		else:
-			_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], scale)
+			var unit_scale := scale * (1.16 if enemy_id == "security_patrol_mech" else 1.0)
+			_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], unit_scale)
 	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground":
@@ -1165,7 +1167,8 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	else:
 		_report_missing_art(enemy_id)
 	if category == "ground" and GROUND_FORCE_SPECIALIST_ART.has(enemy_id):
-		_render_ground_force_specialist(surface, p, enemy_id, enemy, scale)
+		var specialist_scale := scale * (1.16 if enemy_id == "security_patrol_mech" else 1.0)
+		_render_ground_force_specialist(surface, p, enemy_id, enemy, specialist_scale)
 	if not is_boss:
 		_draw_enemy_damage_attachments(surface, p, enemy, category, faction, scale)
 
