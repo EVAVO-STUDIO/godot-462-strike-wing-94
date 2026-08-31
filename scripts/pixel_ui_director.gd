@@ -541,9 +541,13 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		var status := str(scene.get("status_text"))
 		if status.begins_with("SECRET - "):
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
-		else:
+		elif not _altitude_choice_active(scene):
 			surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
 			PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
+
+func _altitude_choice_active(scene: Object) -> bool:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	return craft != null and craft.has_method("altitude_choice_available") and craft.call("altitude_choice_available", float(scene.get("mission_time")))
 
 func _draw_mode_run_state(surface: CanvasItem, scene: Object) -> void:
 	if not _has_property(scene, "game_mode") or str(scene.get("game_mode")) == "campaign":

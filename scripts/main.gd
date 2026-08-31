@@ -105,7 +105,7 @@ func _ready() -> void:
 	elif not capture_front_end.is_empty():
 		front_end_screen = capture_front_end
 	elif "--capture-gameplay" in OS.get_cmdline_user_args():
-		call_deferred("_start_mission")
+		call_deferred("_begin_capture_gameplay")
 	queue_redraw()
 
 func _capture_front_end(arguments: PackedStringArray) -> String:
@@ -149,6 +149,19 @@ func _capture_result_state(arguments: PackedStringArray) -> String:
 			var value := argument.trim_prefix("--capture-result=").to_lower()
 			return value if value in ["success", "failure"] else ""
 	return ""
+
+func _capture_time(arguments: PackedStringArray) -> float:
+	for argument in arguments:
+		if argument.begins_with("--capture-time="):
+			var value := argument.trim_prefix("--capture-time=")
+			if value.is_valid_float():
+				return clampf(value.to_float(), 0.0, 240.0)
+	return 0.0
+
+func _begin_capture_gameplay() -> void:
+	_start_mission()
+	mission_time = minf(_capture_time(OS.get_cmdline_user_args()), maxf(0.0, mission_duration - 1.0))
+	queue_redraw()
 
 func _begin_capture_result(state: String) -> void:
 	phase = GamePhase.RESULT

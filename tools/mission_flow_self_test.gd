@@ -51,6 +51,7 @@ func _test_overtime() -> void:
 		_expect(source.contains("_capture_mission_index"), "visual QA should be able to launch any authored mission deterministically")
 		_expect(source.contains('argument.begins_with("--capture-mission=")'), "mission capture selector should remain command-line isolated")
 		_expect(source.contains('argument.begins_with("--capture-result=")') and source.contains("_begin_capture_result"), "mission report visual QA should expose deterministic success and failure fixtures")
+		_expect(source.contains('argument.begins_with("--capture-time=")') and source.contains("_begin_capture_gameplay"), "representative mission visual QA should support a bounded mid-mission clock")
 	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:
@@ -150,6 +151,7 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("func _draw_support_links"), "support readiness instrumentation should remain available without permanently crowding the combat field")
 		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "warning", "boss"]'), "visual QA should expose deterministic objective, warning and boss HUD fixtures without mutating simulation")
 		_expect(source.contains('if _capture_hud_state() == "boss"') and source.contains('if _capture_hud_state() == "warning"'), "critical HUD capture fixtures should provide deterministic boss and missile-lock presentation data")
+		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("elif not _altitude_choice_active(scene)"), "control-critical altitude choice should suppress colliding routine status notices")
 		_expect(FileAccess.file_exists("res://tools/build_hud_threat_art.ps1"), "threat-annunciator sprites should remain reproducible from their governed SVG source")
 		var threat_lock := load("res://assets/runtime/ui/hud/threat_annunciator/lock.png") as Texture2D
 		_expect(threat_lock != null and threat_lock.get_image().get_pixel(100,10).a > 0.9, "threat annunciator must retain its smoked backing over detailed terrain")

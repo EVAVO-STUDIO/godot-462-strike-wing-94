@@ -108,6 +108,9 @@ func _test_source_integration() -> void:
 		_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "wing sweep should remain visibly mechanical")
 		_expect(source.contains("vx94_bomber_v1.png") and source.contains("vx94_transform_03.png"), "bomber art should use the authored attack-form and final mechanical deployment keyframe")
 		_expect(not source.contains("_draw_rotary_cannon"), "bomber presentation should not regress to a procedural cannon substitute")
+	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)
+	var transition_source := transition_file.get_as_text() if transition_file != null else ""
+	_expect(transition_source.contains('"CLIMB %s"') and transition_source.contains('"DIVE %s"'), "altitude choice HUD should use device-neutral tactical direction labels")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

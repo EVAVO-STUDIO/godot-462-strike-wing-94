@@ -62,9 +62,9 @@ func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
 	var lower := AltitudeRules.adjacent_band(current, -1)
 	var parts: Array[String] = []
 	if higher != current and higher in bands:
-		parts.append("PGUP %s" % _code(higher))
+		parts.append("CLIMB %s" % _code(higher))
 	if lower != current and lower in bands:
-		parts.append("PGDN %s" % _code(lower))
+		parts.append("DIVE %s" % _code(lower))
 	if parts.is_empty():
 		return
 	var text := "ALTITUDE LANE  %s" % "  ".join(parts)

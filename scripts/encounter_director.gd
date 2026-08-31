@@ -75,7 +75,8 @@ func _apply_due_beats(scene: Object) -> void:
 		var beat := EncounterRules.due_beat(beats, _next_beat_index, float(scene.get("mission_time")))
 		if beat.is_empty():
 			return
-		if EncounterRules.condition_met(beat, _condition_state(scene)):
+		var capture_secret := "--capture-gameplay" in OS.get_cmdline_user_args() and "--capture-secret" in OS.get_cmdline_user_args() and EncounterRules.is_secret(beat)
+		if capture_secret or EncounterRules.condition_met(beat, _condition_state(scene)):
 			_apply_beat(scene, beat)
 		_next_beat_index += 1
 
