@@ -113,6 +113,24 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_asset_manifest.json"), "cloud source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png"), "industrial runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/industrial_asset_manifest.json"), "industrial source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/modular_refinery/modular_refinery_manifest.json"), "modular refinery RAW_ART, clean source and runtime contract should exist")
+		_expect(FileAccess.file_exists("res://tools/build_modular_refinery_art.ps1"), "modular refinery runtime extraction should remain reproducible")
+		var refinery_raw := load("res://assets/source/environments/modular_refinery/refinery_construction_kit_raw_v1.png") as Texture2D
+		var refinery_clean := load("res://assets/source/environments/modular_refinery/refinery_construction_kit_source_v1.png") as Texture2D
+		_expect(refinery_raw != null and refinery_clean != null and refinery_raw.get_size() == Vector2(1672,941) and refinery_clean.get_size() == Vector2(1672,941), "modular refinery RAW_ART and clean source should retain identical registered geometry")
+		if refinery_raw != null and refinery_clean != null:
+			_expect(refinery_raw.get_image().detect_alpha() == Image.ALPHA_NONE, "untouched refinery RAW_ART should preserve the generated baked background for provenance")
+			_expect(refinery_clean.get_image().detect_alpha() != Image.ALPHA_NONE, "finished refinery source should replace fake checkerboard with genuine RGBA transparency")
+		for refinery_chunk in ["tank_cluster_quad", "cracking_tower_b", "pipe_rack_long", "generator_house", "cooling_bank", "transformer_yard", "maintenance_gantry", "oil_stains"]:
+			var refinery_texture := load("res://assets/runtime/environments/modular_refinery/%s.png" % refinery_chunk) as Texture2D
+			_expect(refinery_texture != null and refinery_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "modular refinery finite chunk should retain genuine alpha: %s" % refinery_chunk)
+		for refinery_sequence in {"steam":6,"flare":5,"smoke":5}:
+			for frame_index in range(int({"steam":6,"flare":5,"smoke":5}[refinery_sequence])):
+				var refinery_frame := load("res://assets/runtime/environments/modular_refinery/%s_%d.png" % [refinery_sequence,frame_index]) as Texture2D
+				_expect(refinery_frame != null and refinery_frame.get_size() == Vector2(96,140), "modular refinery animation should retain shared registration: %s %d" % [refinery_sequence,frame_index])
+		_expect(source.contains("REFINERY_FINITE_CHUNKS") and source.contains("_draw_modular_refinery_pass"), "industrial renderer should compose physical finite refinery machinery")
+		_expect(source.contains("REFINERY_STEAM") and source.contains("floor(t * 5.0)") and source.contains("REFINERY_FLARE") and source.contains("floor(t * 8.0)"), "industrial renderer should consume deliberate held steam and flare animation")
+		_expect(not source.substr(source.find("func _draw_industrial"), source.find("func _draw_water") - source.find("func _draw_industrial")).contains("REFINERY_DETAIL_TILE"), "industrial gameplay should not regress to schematic circuit-line overlays")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/water/storm_sea_loop_v1.png"), "open-water runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/water_asset_manifest.json"), "open-water source manifest should exist")
 		for layer_path in [

@@ -1,0 +1,14 @@
+{
+  "asset_family": "hypersonic_modular_refinery_v1",
+  "raw_art": "res://assets/source/environments/modular_refinery/refinery_construction_kit_raw_v1.png",
+  "clean_source": "res://assets/source/environments/modular_refinery/refinery_construction_kit_source_v1.png",
+  "builder": "res://tools/build_modular_refinery_art.ps1",
+  "runtime_directory": "res://assets/runtime/environments/modular_refinery/",
+  "finite_chunks": 24,
+  "animation": {
+    "steam": {"frames": 6, "fps": 5, "loop": "pressure-rise-drift"},
+    "flare": {"frames": 5, "fps": 8, "loop": "irregular-held-burn"},
+    "smoke": {"frames": 5, "fps": 4, "loop": "heavy-stack-drift"}
+  },
+  "contract": "The untouched generated RAW_ART is preserved. Runtime sprites derive only from the separately alpha-cleaned RGBA source and represent physical refinery machinery, never UI schematics."
+}

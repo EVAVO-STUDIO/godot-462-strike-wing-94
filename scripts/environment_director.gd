@@ -21,6 +21,24 @@ const COAST_SURFACE_TILE := preload("res://assets/runtime/environments/layers/co
 const CLOUD_SHADOW_TILE := preload("res://assets/runtime/environments/layers/cloud_shadow_tile.png")
 const CLOUD_MIST_TILE := preload("res://assets/runtime/environments/layers/cloud_mist_tile.png")
 const REFINERY_DETAIL_TILE := preload("res://assets/runtime/environments/layers/refinery_detail_tile.png")
+const REFINERY_FINITE_CHUNKS := [
+	preload("res://assets/runtime/environments/modular_refinery/cracking_tower_a.png"),
+	preload("res://assets/runtime/environments/modular_refinery/cracking_tower_b.png"),
+	preload("res://assets/runtime/environments/modular_refinery/pipe_rack_long.png"),
+	preload("res://assets/runtime/environments/modular_refinery/pipe_rack_short.png"),
+	preload("res://assets/runtime/environments/modular_refinery/hazard_lamps.png"),
+	preload("res://assets/runtime/environments/modular_refinery/oil_stains.png"),
+]
+const REFINERY_STEAM := [
+	preload("res://assets/runtime/environments/modular_refinery/steam_0.png"), preload("res://assets/runtime/environments/modular_refinery/steam_1.png"),
+	preload("res://assets/runtime/environments/modular_refinery/steam_2.png"), preload("res://assets/runtime/environments/modular_refinery/steam_3.png"),
+	preload("res://assets/runtime/environments/modular_refinery/steam_4.png"), preload("res://assets/runtime/environments/modular_refinery/steam_5.png"),
+]
+const REFINERY_FLARE := [
+	preload("res://assets/runtime/environments/modular_refinery/flare_0.png"), preload("res://assets/runtime/environments/modular_refinery/flare_1.png"),
+	preload("res://assets/runtime/environments/modular_refinery/flare_2.png"), preload("res://assets/runtime/environments/modular_refinery/flare_3.png"),
+	preload("res://assets/runtime/environments/modular_refinery/flare_4.png"),
+]
 const DESERT_DUST_TILE := preload("res://assets/runtime/environments/layers/desert_dust_tile.png")
 const RIVER_CURRENT_TILE := preload("res://assets/runtime/environments/layers/river_current_tile.png")
 const MOUNTAIN_WEATHER_TILE := preload("res://assets/runtime/environments/layers/mountain_weather_tile.png")
@@ -171,7 +189,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	else:
 		match motif:
 			"coast": _draw_coast(surface, scene, profile, state, t)
-			"industrial": _draw_industrial(surface, profile, state, t)
+			"industrial": _draw_industrial(surface, scene, profile, state, t)
 			"water": _draw_water(surface, profile, state, t)
 			"cloud_top": _draw_cloud_top(surface, profile, state, t)
 			"orbital": _draw_orbital(surface, profile, state, t, 1.0)
@@ -186,7 +204,7 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	# These restored masters already contain their mission-scale radar, bridge,
 	# rail and coastal structures. Stacking the older simplified landmark cards
 	# over them duplicates the same subject and reads as a prototype overlay.
-	if family in ["coast", "river_corridor", "mountain_radar", "city_outskirts"]:
+	if family in ["coast", "industrial", "river_corridor", "mountain_radar", "city_outskirts"]:
 		return
 	if family not in ["cloud_top", "orbital"] and not _draw_ground_detail(state):
 		return
@@ -463,14 +481,38 @@ func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: floa
 		draw_y += segment
 		sample_y = 0.0
 
-func _draw_industrial(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
+func _draw_industrial(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state):
 		return
 	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.30, 720.0)
 	_draw_vertical_loop(surface, REFINERY_NIGHT, scroll, ENVIRONMENT_VIEW)
-	var detail_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.42, 512.0)
-	var pulse := 0.70 + 0.18 * (0.5 + 0.5 * sin(t * 2.1))
-	_draw_vertical_loop(surface, REFINERY_DETAIL_TILE, detail_scroll, ENVIRONMENT_VIEW, Color(1,1,1,pulse))
+	_draw_modular_refinery_pass(surface, scene, profile, state, t)
+
+func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
+	var speed := _parallax_speed(profile, state, "mid") * 0.30
+	var world_scroll := t * speed
+	var seed := _mission_seed(scene)
+	var cycle := 1800.0
+	var scale := 0.42 + 0.15 * _ground_scale(state)
+	var slots := [
+		{"x":34.0,"y":210.0,"chunk":0},
+		{"x":424.0,"y":810.0,"chunk":2},
+		{"x":28.0,"y":1420.0,"chunk":4},
+	]
+	for slot_index in range(slots.size()):
+		var slot: Dictionary = slots[slot_index]
+		var texture: Texture2D = REFINERY_FINITE_CHUNKS[int(slot["chunk"])]
+		var y := fposmod(float(slot["y"]) + world_scroll + float(seed % 83), cycle) - 170.0 + ENVIRONMENT_VIEW.position.y
+		var size := (texture.get_size() * scale).round()
+		var x := clampf(float(slot["x"]) + float((seed + slot_index * 19) % 23), 8.0, 632.0 - size.x)
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.70,0.74,0.73,0.46))
+
+	var steam: Texture2D = REFINERY_STEAM[posmod(int(floor(t * 5.0)), REFINERY_STEAM.size())]
+	var steam_y := fposmod(world_scroll + 510.0 + float(seed % 97), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
+	_draw_texture_rect_clipped(surface, steam, Rect2(Vector2(438,steam_y).round(),Vector2(46,68)),ENVIRONMENT_VIEW,Color(0.74,0.79,0.78,0.38))
+	var flare: Texture2D = REFINERY_FLARE[posmod(int(floor(t * 8.0)), REFINERY_FLARE.size())]
+	var flare_y := fposmod(world_scroll + 1010.0 + float(seed % 113), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
+	_draw_texture_rect_clipped(surface, flare, Rect2(Vector2(104,flare_y).round(),Vector2(42,62)),ENVIRONMENT_VIEW,Color(0.92,0.78,0.58,0.62))
 
 func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var speed := _parallax_speed(profile, state, "near")
