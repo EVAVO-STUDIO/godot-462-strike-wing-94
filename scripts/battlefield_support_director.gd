@@ -319,6 +319,21 @@ func _queue_surface() -> void:
 		_surface.queue_redraw()
 
 func _draw_support_surface(surface: CanvasItem) -> void:
+	var capture := _capture_support_state()
+	if not capture.is_empty():
+		_visual_target = Vector2(440, 168)
+		match capture:
+			"tanker":
+				_tanker_position = Vector2(320, 112)
+				_tanker_progress = BattlefieldSupportRules.TANKER_REQUIRED_SECONDS * 0.62
+				_draw_tanker(surface, true)
+			"fighter": _draw_fighter_sweep(surface, 0.46)
+			"bomber": _draw_bomber_run(surface, 0.52)
+			"gunship": _draw_gunship_fire(surface, 0.56)
+			"missile": _draw_missile_strike(surface, 0.72)
+			"rail": _draw_rail_strike(surface, 0.52)
+			"orbital": _draw_orbital_strike(surface, 0.66)
+		return
 	if _active_id == "atlas_tanker":
 		_draw_tanker(surface)
 	if _visual_timer <= 0.0:
@@ -332,7 +347,16 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 		"rail_strike": _draw_rail_strike(surface, progress)
 		"orbital_bombardment": _draw_orbital_strike(surface, progress)
 
-func _draw_tanker(surface: CanvasItem) -> void:
+func _capture_support_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-support="):
+			var value := argument.trim_prefix("--capture-support=").to_lower()
+			return value if value in ["tanker", "fighter", "bomber", "gunship", "missile", "rail", "orbital"] else ""
+	return ""
+
+func _draw_tanker(surface: CanvasItem, capture_connected := false) -> void:
 	var p := _tanker_position
 	_draw_support_craft(surface, p, "atlas_tanker", 6.0)
 	var hose_point := BattlefieldSupportRules.tanker_hose_point(p)
@@ -342,7 +366,7 @@ func _draw_tanker(surface: CanvasItem) -> void:
 	surface.draw_texture(contact, (hose_point - contact.get_size() * 0.5).round())
 	var ratio := clampf(_tanker_progress / BattlefieldSupportRules.TANKER_REQUIRED_SECONDS, 0.0, 1.0)
 	var scene := get_tree().current_scene
-	var connected := scene != null and _has_property(scene,"player_position") and BattlefieldSupportRules.tanker_connected(scene.get("player_position"),p)
+	var connected := capture_connected or (scene != null and _has_property(scene,"player_position") and BattlefieldSupportRules.tanker_connected(scene.get("player_position"),p))
 	var dock_state := "complete" if _tanker_rewarded else ("transfer" if connected and ratio > 0.02 else ("contact" if connected else "align"))
 	var dock_position := (p + Vector2(-64,29)).round()
 	surface.draw_texture(BattlefieldSupportArtLibrary.effect("tanker_dock_%s" % dock_state),dock_position)

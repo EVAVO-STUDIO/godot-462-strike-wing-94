@@ -45,6 +45,9 @@ func _run() -> void:
 		var texture := load("res://assets/runtime/ui/menu/pause_command/%s.png" % asset_name)
 		_expect(texture is Texture2D and texture.get_size() == pause_sizes[asset_name], "pause command sprite should retain registered geometry: %s" % asset_name)
 	_expect(FileAccess.file_exists("res://assets/source/ui/menu/pause_command_manifest.json"), "pause command source/runtime manifest should exist")
+	var pause_source_file := FileAccess.open("res://scripts/pause_director.gd", FileAccess.READ)
+	var pause_source := pause_source_file.get_as_text() if pause_source_file != null else ""
+	_expect(pause_source.contains('argument.begins_with("--capture-pause=")') and pause_source.contains('"confirm_restart", "confirm_return"'), "pause menu and destructive confirmations should expose deterministic visual QA fixtures")
 	if failures.is_empty():
 		print("HYPERSONIC tactical pause self-test passed.")
 		quit(0)

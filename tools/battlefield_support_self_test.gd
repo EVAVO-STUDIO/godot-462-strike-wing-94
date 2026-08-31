@@ -91,6 +91,7 @@ func _test_source_contract() -> void:
 		_expect(source.contains("_visual_timer = 1.25"), "immediate support set pieces should remain short and readable")
 		_expect(source.contains("_priority_target_position(scene)"), "precision support visuals should anchor to a real priority target")
 		_expect(source.contains("BattlefieldSupportArtLibrary") and source.contains("_draw_support_craft"), "tanker, fighter, bomber and gunship set pieces should use authored sprite animation")
+		_expect(source.contains('argument.begins_with("--capture-support=")') and source.contains('"tanker", "fighter", "bomber", "gunship", "missile", "rail", "orbital"'), "all battlefield support presentations should expose deterministic visual QA fixtures")
 		_expect(not source.contains("draw_line") and not source.contains("draw_circle") and not source.contains("draw_rect"), "battlefield support effects should not regress to vector line, circle or rectangle programmer art")
 		var craft_section_start := source.find("func _draw_tanker")
 		var craft_section_end := source.find("func _draw_missile_strike")

@@ -28,6 +28,7 @@ var _mode := "menu"
 var _selection := 0
 var _option_selection := 0
 var _option_category := 0
+var _capture_pending := ""
 
 func _ready() -> void:
 	layer = 110
@@ -41,8 +42,31 @@ func _ready() -> void:
 	_surface.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(_surface)
 	_surface.visible = false
+	var capture := _capture_pause_state()
+	if not capture.is_empty():
+		_capture_pending = capture
+
+func _capture_pause_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-pause="):
+			var value := argument.trim_prefix("--capture-pause=").to_lower()
+			return value if value in ["menu", "options", "confirm_restart", "confirm_return"] else ""
+	return ""
 
 func _process(_delta: float) -> void:
+	if not _capture_pending.is_empty():
+		var capture_scene := get_tree().current_scene
+		if capture_scene != null and _has_property(capture_scene, "phase") and int(capture_scene.get("phase")) == 1:
+			_paused = true
+			_mode = _capture_pending
+			_capture_pending = ""
+			_surface.visible = true
+			get_tree().paused = true
+			_surface.queue_redraw()
+		else:
+			return
 	if not _paused: return
 	if not get_tree().paused:
 		_close_overlay()
