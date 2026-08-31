@@ -648,10 +648,28 @@ const ORBITAL_BOSS_SPRITES := {
 	"machine_ark": preload("res://assets/runtime/enemies/orbital_boss/machine_ark_idle.png"),
 }
 const ORBITAL_BOSS_SPECIALIST_ART := {
-	"orbital_command_node": {"anchors":[Vector2(-31,-1),Vector2(32,8)]},
-	"phase_control_array": {"anchors":[Vector2(-38,-2),Vector2(36,-12)]},
-	"station_warden": {"anchors":[Vector2(-48,-4),Vector2(45,-6)]},
-	"machine_ark": {"anchors":[Vector2(-46,0),Vector2(46,6)]},
+	"orbital_command_node": {
+		"anchors":[Vector2(-31,-1),Vector2(32,8)], "mount":preload("res://assets/runtime/enemies/orbital_boss_layered/command_collar.png"),
+		"weapon":preload("res://assets/runtime/enemies/orbital_boss_layered/command_beam.png"), "weapon_recoil":preload("res://assets/runtime/enemies/orbital_boss_layered/command_beam_recoil.png"),
+		"dish":preload("res://assets/runtime/enemies/orbital_boss_layered/command_dish.png"), "masts":[preload("res://assets/runtime/enemies/orbital_boss_layered/command_mast_folded.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/command_mast_deployed.png")],
+		"cores":[preload("res://assets/runtime/enemies/orbital_boss_layered/command_core_normal.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/command_core_overload.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/command_core_ruptured.png")],
+	},
+	"phase_control_array": {
+		"anchors":[Vector2(-38,-2),Vector2(36,-12)], "lenses":[preload("res://assets/runtime/enemies/orbital_boss_layered/phase_lens_calm.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/phase_lens_charge.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/phase_lens_aligned.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/phase_lens_unstable.png")],
+		"shutters":[preload("res://assets/runtime/enemies/orbital_boss_layered/phase_shutter_closed.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/phase_shutter_open.png")],
+		"projectors":[preload("res://assets/runtime/enemies/orbital_boss_layered/phase_projector.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/phase_projector_damaged.png")],
+	},
+	"station_warden": {
+		"anchors":[Vector2(-48,-4),Vector2(45,-6)], "mount":preload("res://assets/runtime/enemies/orbital_boss_layered/warden_collar.png"),
+		"weapon":preload("res://assets/runtime/enemies/orbital_boss_layered/warden_rail.png"), "weapon_recoil":preload("res://assets/runtime/enemies/orbital_boss_layered/warden_rail_recoil.png"),
+		"point_turret":preload("res://assets/runtime/enemies/orbital_boss_layered/warden_point_turret.png"), "clamps":[preload("res://assets/runtime/enemies/orbital_boss_layered/warden_clamp_closed.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/warden_clamp_open.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/warden_clamp_broken.png")],
+		"vents":[preload("res://assets/runtime/enemies/orbital_boss_layered/warden_vent_closed.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/warden_vent_hot.png")], "damage":preload("res://assets/runtime/enemies/orbital_boss_layered/warden_rail_scorched.png"),
+	},
+	"machine_ark": {
+		"anchors":[Vector2(-46,0),Vector2(46,6)], "apertures":[preload("res://assets/runtime/enemies/orbital_boss_layered/ark_aperture_closed.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/ark_aperture_opening.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/ark_aperture_open.png")],
+		"arcs":[preload("res://assets/runtime/enemies/orbital_boss_layered/ark_arc_retracted.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/ark_arc_extended.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/ark_arc_severed.png")],
+		"pylon":preload("res://assets/runtime/enemies/orbital_boss_layered/ark_tracking_pylon.png"), "cores":[preload("res://assets/runtime/enemies/orbital_boss_layered/ark_core_normal.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/ark_core_overload.png"),preload("res://assets/runtime/enemies/orbital_boss_layered/ark_core_ruptured.png")], "damage":preload("res://assets/runtime/enemies/orbital_boss_layered/ark_cracked_plate.png"),
+	},
 }
 const ORBITAL_PYLON_MOUNT := preload("res://assets/runtime/enemies/orbital_boss_specialist/pylon_mount.png")
 const ORBITAL_TRACKING_PYLON := preload("res://assets/runtime/enemies/orbital_boss_specialist/tracking_pylon.png")
@@ -740,6 +758,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		return
 	if _capture_boss_state() == "machine":
 		_render_machine_boss_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
+	if _capture_boss_state() == "orbital":
+		_render_orbital_boss_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
 	for enemy in scene.get("enemies"):
@@ -858,6 +880,20 @@ func _render_machine_boss_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_production_boss(surface,enemy["position"],enemy["id"],enemy,MACHINE_BOSS_SPRITES[enemy["id"]])
+
+func _render_orbital_boss_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene,"mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time,1.45)<0.16 else 0.0
+	var fire_timer := fposmod(1.0-time,1.0)
+	var phase := 1+posmod(int(floor(time/2.0)),3)
+	var definitions := [
+		{"id":"orbital_command_node","position":Vector2(175,115),"fire_timer":fire_timer,"recoil_timer":recoil,"hp":48 if phase<3 else 10,"max_hp":64,"boss_phase":phase,"age":time+2.0},
+		{"id":"phase_control_array","position":Vector2(465,115),"fire_timer":fire_timer,"recoil_timer":recoil,"hp":55 if phase<3 else 12,"max_hp":72,"boss_phase":phase,"age":time+2.0},
+		{"id":"station_warden","position":Vector2(165,245),"fire_timer":fire_timer,"recoil_timer":recoil,"hp":70 if phase<3 else 15,"max_hp":90,"boss_phase":phase,"age":time+2.0},
+		{"id":"machine_ark","position":Vector2(475,240),"fire_timer":fire_timer,"recoil_timer":recoil,"hp":92 if phase<3 else 19,"max_hp":120,"boss_phase":phase,"age":time+2.0},
+	]
+	for enemy in definitions:
+		_draw_production_boss(surface,enemy["position"],enemy["id"],enemy,ORBITAL_BOSS_SPRITES[enemy["id"]])
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -1577,20 +1613,90 @@ func _draw_orbital_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: Str
 	if not ORBITAL_BOSS_SPECIALIST_ART.has(enemy_id):
 		return
 	var definition: Dictionary = ORBITAL_BOSS_SPECIALIST_ART[enemy_id]
+	var age := float(enemy.get("age",0.0))
+	var boss_phase := clampi(int(enemy.get("boss_phase",1)),1,3)
+	var max_hp := maxf(1.0,float(enemy.get("max_hp",enemy.get("hp",1.0))))
+	var health_ratio := clampf(float(enemy.get("hp",max_hp))/max_hp,0.0,1.0)
+	var fire_timer := float(enemy.get("fire_timer",1.0))
 	var aim := _player_position()-p
 	var rotation := 0.0 if aim.length_squared()<0.001 else Vector2.DOWN.angle_to(aim.normalized())
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer",0.0))/0.10,0.0,1.0)
-	var component_scale := 0.66
+	if enemy_id=="orbital_command_node":
+		var dish: Texture2D = definition["dish"]
+		var dish_center := p+Vector2(-30,-25)
+		surface.draw_set_transform(dish_center.round(),sin(age*1.7)*0.20,Vector2.ONE)
+		surface.draw_texture(dish,-dish.get_size()*0.5)
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+		var mast: Texture2D = definition["masts"][1 if boss_phase>=2 else 0]
+		surface.draw_texture(mast,(p+Vector2(27,-24)-mast.get_size()*0.5).round())
+		var core_index := 2 if health_ratio<=0.28 else (1 if boss_phase>=3 else 0)
+		var core: Texture2D = definition["cores"][core_index]
+		surface.draw_texture(core,(p-core.get_size()*0.5).round())
+		_draw_orbital_tracking_hardware(surface,p,definition,rotation,recoil_ratio)
+		return
+	if enemy_id=="phase_control_array":
+		var lens_index := orbital_mechanism_frame_index(age,boss_phase)
+		var lens: Texture2D = definition["lenses"][lens_index]
+		surface.draw_texture(lens,(p-lens.get_size()*0.5).round(),Color(1,1,1,0.92))
+		var shutter: Texture2D = definition["shutters"][1 if lens_index>=1 else 0]
+		for shutter_x in [-28.0,28.0]:
+			surface.draw_texture(shutter,(p+Vector2(shutter_x,18)-shutter.get_size()*0.5).round())
+		var projector: Texture2D = definition["projectors"][1 if health_ratio<=0.34 else 0]
+		for anchor_value in definition["anchors"]:
+			var anchor := p+Vector2(anchor_value)
+			surface.draw_set_transform(anchor.round(),rotation,Vector2.ONE)
+			surface.draw_texture(projector,-projector.get_size()*0.5+Vector2(0,-roundf(recoil_ratio*2.0)))
+			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+		return
+	if enemy_id=="station_warden":
+		var clamp_index := 2 if health_ratio<=0.28 else (1 if fire_timer<0.55 else 0)
+		var clamp_part: Texture2D = definition["clamps"][clamp_index]
+		for clamp_x in [-40.0,40.0]:
+			surface.draw_texture(clamp_part,(p+Vector2(clamp_x,28)-clamp_part.get_size()*0.5).round())
+		var vent: Texture2D = definition["vents"][1 if boss_phase>=2 else 0]
+		for vent_x in [-24.0,24.0]:
+			surface.draw_texture(vent,(p+Vector2(vent_x,-28)-vent.get_size()*0.5).round())
+		var point_turret: Texture2D = definition["point_turret"]
+		surface.draw_texture(point_turret,(p+Vector2(0,12)-point_turret.get_size()*0.5).round())
+		if health_ratio<=0.46:
+			var damage: Texture2D = definition["damage"]
+			surface.draw_texture(damage,(p+Vector2(0,-8)-damage.get_size()*0.5).round())
+		_draw_orbital_tracking_hardware(surface,p,definition,rotation,recoil_ratio)
+		return
+	var aperture_index := 2 if recoil_ratio>0.01 or fire_timer<0.30 else (1 if fire_timer<0.62 else 0)
+	var aperture: Texture2D = definition["apertures"][aperture_index]
+	surface.draw_texture(aperture,(p-aperture.get_size()*0.5).round())
+	var core_index := 2 if health_ratio<=0.27 else (1 if boss_phase>=3 else 0)
+	var ark_core: Texture2D = definition["cores"][core_index]
+	surface.draw_texture(ark_core,(p+Vector2(0,-30)-ark_core.get_size()*0.5).round())
+	var arc_index := 2 if health_ratio<=0.30 else (1 if aperture_index>=1 else 0)
+	var arc: Texture2D = definition["arcs"][arc_index]
+	for anchor_value in definition["anchors"]:
+		var arc_center := p+Vector2(anchor_value)
+		surface.draw_texture(arc,(arc_center-arc.get_size()*0.5).round())
+	var pylon: Texture2D = definition["pylon"]
+	surface.draw_set_transform((p+Vector2(0,35)).round(),rotation,Vector2.ONE)
+	surface.draw_texture(pylon,-pylon.get_size()*0.5+Vector2(0,-roundf(recoil_ratio*3.0)))
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	if health_ratio<=0.50:
+		var plate: Texture2D = definition["damage"]
+		surface.draw_texture(plate,(p+Vector2(26,22)-plate.get_size()*0.5).round())
+
+func _draw_orbital_tracking_hardware(surface: CanvasItem,p: Vector2,definition: Dictionary,rotation: float,recoil_ratio: float) -> void:
+	var mount: Texture2D = definition["mount"]
+	var weapon: Texture2D = definition["weapon_recoil"] if recoil_ratio>0.01 else definition["weapon"]
 	for anchor_value in definition["anchors"]:
 		var anchor := p+Vector2(anchor_value)
-		var mount_size := ORBITAL_PYLON_MOUNT.get_size()*component_scale
-		surface.draw_texture_rect(ORBITAL_PYLON_MOUNT,Rect2((anchor-mount_size*0.5).round(),mount_size.round()),false)
-		surface.draw_set_transform(anchor.round(),rotation,Vector2.ONE*component_scale)
-		surface.draw_texture(ORBITAL_TRACKING_PYLON,-ORBITAL_TRACKING_PYLON.get_size()*0.5+Vector2(0,-roundf(recoil_ratio*3.0)))
+		surface.draw_texture(mount,(anchor-mount.get_size()*0.5).round())
+		surface.draw_set_transform(anchor.round(),rotation,Vector2.ONE)
+		surface.draw_texture(weapon,-weapon.get_size()*0.5+Vector2(0,-roundf(recoil_ratio*3.0)))
 		if recoil_ratio>0.45:
 			var flash := ImpactArtLibrary.frame_for_ratio("muzzle",1.0-recoil_ratio)
-			surface.draw_texture_rect(flash,Rect2(-5,ORBITAL_TRACKING_PYLON.get_height()*0.5-2,10,10),false,Color(0.76,0.86,0.86,0.86))
+			surface.draw_texture_rect(flash,Rect2(-5,weapon.get_height()*0.35,10,10),false,Color(0.76,0.86,0.86,0.86))
 		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+static func orbital_mechanism_frame_index(age: float,boss_phase: int) -> int:
+	return posmod(int(floor(age*float(2+clampi(boss_phase,1,3)))),4)
 
 static func phase_field_cycle_index(age: float, boss_phase: int) -> int:
 	return posmod(int(floor(age*float(2+clampi(boss_phase,1,3)))),4)

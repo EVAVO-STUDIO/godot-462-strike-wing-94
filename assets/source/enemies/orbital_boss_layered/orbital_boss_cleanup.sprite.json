@@ -1,0 +1,20 @@
+{
+  "name": "orbital_boss_layered_source",
+  "pixel_art": false,
+  "cleanup": {
+    "background": "none",
+    "color_tolerance": 0,
+    "alpha_threshold": 2,
+    "matte_decontaminate": false,
+    "despeckle_min_area": 180,
+    "clear_hidden_rgb": true
+  },
+  "previews": {"enabled": false},
+  "export": {
+    "godot": false,
+    "generic_json": false,
+    "animated_scene": false,
+    "event_timeline": false,
+    "integration_contract": false
+  }
+}

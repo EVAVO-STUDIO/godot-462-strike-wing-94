@@ -1,0 +1,19 @@
+{
+  "asset_family": "black_sky_orbital_boss_layered_mechanics_v2",
+  "status": "production_candidate",
+  "source": "orbital_boss_component_sheet_source_v1.png",
+  "build_tool": "tools/build_orbital_boss_layered_art.ps1",
+  "visual_contract": {
+    "era": "1997 near-Earth military orbital escalation",
+    "materials": ["dark gunmetal", "worn ivory thermal armor", "sparse orange warnings", "bounded cyan energy"],
+    "rules": ["each boss has unique machinery", "energy remains physically contained", "held mechanical key poses", "damage replaces hardware"],
+    "reject": ["shared generic pylons", "magic portals", "alien organic forms", "neon cyberpunk", "modern glossy spacecraft"]
+  },
+  "assemblies": {
+    "orbital_command_node": {"anchors": [[-31,-1],[32,8]], "systems": ["command_dish", "command_beam", "command_mast_deployed"], "core_states": ["command_core_normal", "command_core_overload", "command_core_ruptured"]},
+    "phase_control_array": {"anchors": [[-38,-2],[36,-12]], "lens_states": ["phase_lens_calm", "phase_lens_charge", "phase_lens_aligned", "phase_lens_unstable"], "projector_states": ["phase_projector", "phase_projector_damaged"]},
+    "station_warden": {"anchors": [[-48,-4],[45,-6]], "systems": ["warden_rail", "warden_point_turret", "warden_clamp_open"], "damage_states": ["warden_rail_scorched", "warden_clamp_broken"]},
+    "machine_ark": {"anchors": [[-46,0],[46,6]], "aperture_states": ["ark_aperture_closed", "ark_aperture_opening", "ark_aperture_open"], "core_states": ["ark_core_normal", "ark_core_overload", "ark_core_ruptured"], "damage_states": ["ark_cracked_plate", "ark_arc_severed"]}
+  },
+  "gameplay_contract": {"collision_policy": "existing boss hull collision remains authoritative", "intended_layers": ["field", "hull", "mechanism", "phase_damage", "critical_fx"]}
+}

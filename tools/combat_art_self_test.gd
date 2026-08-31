@@ -480,6 +480,20 @@ func _test_visual_language() -> void:
 	_expect(source.contains("ORBITAL_BOSS_SPECIALIST_ART") and source.contains("PHASE_FIELD_FRAMES") and source.contains("_draw_orbital_boss_mechanics"),"BLACK SKY bosses should expose authored field and independently tracking pressure-hardware pylons")
 	_expect(CombatArtDirector.phase_field_cycle_index(0.0,1)==0 and CombatArtDirector.phase_field_cycle_index(0.34,1)==1 and CombatArtDirector.phase_field_cycle_index(0.50,2)==2,"phase field should use held calibration exposures whose cadence responds to canonical boss phase")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_boss_specialist/orbital_boss_specialist_asset_manifest.json"),"BLACK SKY boss mechanics source/runtime manifest should exist")
+	var layered_orbital_boss_sizes := {
+		"command_collar":Vector2(33,33), "command_dish":Vector2(33,31), "command_beam":Vector2(18,34), "command_beam_recoil":Vector2(18,34), "command_mast_folded":Vector2(20,35), "command_mast_deployed":Vector2(20,36),
+		"command_core_normal":Vector2(17,29), "command_core_overload":Vector2(17,29), "command_core_ruptured":Vector2(18,29),
+		"phase_lens_calm":Vector2(44,44), "phase_lens_charge":Vector2(44,44), "phase_lens_aligned":Vector2(44,44), "phase_lens_unstable":Vector2(45,44), "phase_shutter_closed":Vector2(21,35), "phase_shutter_open":Vector2(23,35), "phase_projector":Vector2(26,32), "phase_projector_damaged":Vector2(28,32),
+		"warden_collar":Vector2(36,36), "warden_rail":Vector2(20,43), "warden_rail_recoil":Vector2(20,43), "warden_point_turret":Vector2(31,27), "warden_clamp_closed":Vector2(22,34), "warden_clamp_open":Vector2(32,34), "warden_clamp_broken":Vector2(47,28), "warden_vent_closed":Vector2(29,27), "warden_vent_hot":Vector2(29,27), "warden_rail_scorched":Vector2(43,28),
+		"ark_aperture_closed":Vector2(41,41), "ark_aperture_opening":Vector2(41,41), "ark_aperture_open":Vector2(43,41), "ark_arc_retracted":Vector2(21,38), "ark_arc_extended":Vector2(29,41), "ark_arc_severed":Vector2(26,32), "ark_tracking_pylon":Vector2(28,35), "ark_core_normal":Vector2(21,32), "ark_core_overload":Vector2(21,32), "ark_core_ruptured":Vector2(23,32), "ark_cracked_plate":Vector2(30,27),
+	}
+	for component_id in layered_orbital_boss_sizes:
+		var component := load("res://assets/runtime/enemies/orbital_boss_layered/%s.png" % component_id)
+		_expect(component is Texture2D and component.get_size()==layered_orbital_boss_sizes[component_id],"layered BLACK SKY boss mechanism should retain its registered pivot canvas: %s" % component_id)
+	_expect(CombatArtDirector.orbital_mechanism_frame_index(0.0,1)==0 and CombatArtDirector.orbital_mechanism_frame_index(0.34,1)==1 and CombatArtDirector.orbital_mechanism_frame_index(0.50,2)==2,"orbital mechanisms should retain held phase-responsive exposures")
+	_expect(source.contains('_capture_boss_state() == "orbital"') and source.contains("_render_orbital_boss_capture"),"visual QA should expose all four isolated BLACK SKY boss mechanism, phase and damage fixtures")
+	_expect(source.contains('definition["lenses"]') and source.contains('definition["clamps"]') and source.contains('definition["apertures"]') and source.contains('definition["cores"]'),"BLACK SKY bosses should use distinct command, phase, station and ark machinery")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_boss_layered/orbital_boss_layered_manifest.json"),"layered BLACK SKY boss source/runtime manifest should exist")
 
 func _test_transform_presentation() -> void:
 	var file := FileAccess.open("res://scripts/combat_art_director.gd", FileAccess.READ)
