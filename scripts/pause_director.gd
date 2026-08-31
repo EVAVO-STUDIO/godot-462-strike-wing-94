@@ -158,7 +158,7 @@ func _draw_options(surface: CanvasItem) -> void:
 		var value:=str(settings.call("setting_value",global_index)) if settings!=null else "--"
 		var ratio:=float(settings.call("setting_ratio",global_index)) if settings!=null else 0.0
 		PixelFont.draw_text(surface, label, position + Vector2(18, 9), 1, GOLD if index == _option_selection else TEXT, 1)
-		if global_index in [0,1,6,7,8]:surface.draw_texture(TOGGLE_ON if ratio>=0.5 else TOGGLE_OFF,position+Vector2(306,8))
+		if global_index in [0,1,8,9,10]:surface.draw_texture(TOGGLE_ON if ratio>=0.5 else TOGGLE_OFF,position+Vector2(306,8))
 		else:
 			surface.draw_texture(VALUE_TROUGH, position + Vector2(286, 11))
 			_draw_clipped_fill(surface, VALUE_FILL, position + Vector2(288, 13), ratio)

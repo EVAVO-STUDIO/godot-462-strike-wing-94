@@ -18,6 +18,8 @@ var _last_missile_level := 0
 var _last_strike_ordnance := -1
 var _noise_state := 0x1345ABCD
 var _rotary_cooldown := 0.0
+var _sfx_gain:=0.75
+var _radio_gain:=0.80
 
 func _ready() -> void:
 	process_priority = 220
@@ -27,7 +29,7 @@ func _ready() -> void:
 	_player = AudioStreamPlayer.new()
 	_player.stream = generator
 	var settings := get_node_or_null("/root/SettingsDirector")
-	set_output_level(int(settings.call("sfx_level")) if settings != null and settings.has_method("sfx_level") else 75)
+	set_mix_levels(int(settings.call("master_level")) if settings!=null and settings.has_method("master_level") else 80,int(settings.call("sfx_level")) if settings!=null and settings.has_method("sfx_level") else 75,int(settings.call("radio_level")) if settings!=null and settings.has_method("radio_level") else 80)
 	add_child(_player)
 	_player.play()
 	_playback = _player.get_stream_playback() as AudioStreamGeneratorPlayback
@@ -37,8 +39,8 @@ func set_output_level(percent: int) -> void:
 	if _player != null:
 		_player.volume_db = -80.0 if safe_percent == 0 else linear_to_db(float(safe_percent) / 100.0)
 
-func set_mix_levels(master_percent: int, sfx_percent: int) -> void:
-	set_output_level(int(round(float(clampi(master_percent,0,100)*clampi(sfx_percent,0,100))/100.0)))
+func set_mix_levels(master_percent:int,sfx_percent:int,radio_percent:int=100)->void:
+	set_output_level(master_percent);_sfx_gain=float(clampi(sfx_percent,0,100))/100.0;_radio_gain=float(clampi(radio_percent,0,100))/100.0
 
 func _process(delta: float) -> void:
 	_rotary_cooldown = maxf(0.0, _rotary_cooldown - maxf(0.0, delta))
@@ -163,6 +165,7 @@ func _trigger(event_id: String) -> void:
 	if _voices.size() >= MAX_VOICES:
 		_voices.pop_front()
 	var voice := spec.duplicate(true)
+	voice["mix_gain"]=_radio_gain if event_id in [RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_SHIFT,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE] else _sfx_gain
 	voice["elapsed"] = 0.0
 	voice["phase"] = 0.0
 	_voices.append(voice)
@@ -190,7 +193,7 @@ func _fill_audio_buffer() -> void:
 			voice["phase"] = phase
 			voice["elapsed"] = elapsed + 1.0 / MIX_RATE
 			var envelope := (1.0 - t) * (1.0 - t)
-			var gain := float(voice.get("gain", 0.12)) * envelope
+			var gain := float(voice.get("gain",0.12))*float(voice.get("mix_gain",1.0))*envelope
 			sample += _wave_sample(str(voice.get("wave", "sine")), phase, t) * gain
 			_voices[vi] = voice
 		sample = clampf(sample, -0.85, 0.85)

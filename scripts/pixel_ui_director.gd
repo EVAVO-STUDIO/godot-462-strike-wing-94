@@ -142,7 +142,7 @@ const GOLD := Color("e8ca6a")
 const GREEN := Color("67c3a5")
 const RED := Color("dc6655")
 const BLUE := Color("6aa4c8")
-const INGRESS_SECONDS := 2.0
+const INGRESS_SECONDS := 1.35
 
 var _surface: Control
 var _last_phase := -1
@@ -364,7 +364,7 @@ func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
 		var value:=str(settings.call("setting_value",global_index)) if settings!=null else "--"
 		var ratio:=float(settings.call("setting_ratio",global_index)) if settings!=null else 0.0
 		PixelFont.draw_text(surface, label, position + Vector2(18, 9), 1, GOLD if index == selection else TEXT, 1)
-		if global_index in [0,1,6,7,8]:
+		if global_index in [0,1,8,9,10]:
 			surface.draw_texture(OPTIONS_TOGGLE_ON if ratio >= 0.5 else OPTIONS_TOGGLE_OFF, position + Vector2(306, 8))
 		else:
 			surface.draw_texture(OPTIONS_VALUE_TROUGH, position + Vector2(286, 11))

@@ -43,6 +43,7 @@ PixelUiDirector="*res://scripts/pixel_ui_director.gd"
 PauseDirector="*res://scripts/pause_director.gd"
 ProjectileCueDirector="*res://scripts/projectile_cue_director.gd"
 RetroSfxDirector="*res://scripts/retro_sfx_director.gd"
+RetroMusicDirector="*res://scripts/retro_music_director.gd"
 
 [display]
 window/size/viewport_width=640
