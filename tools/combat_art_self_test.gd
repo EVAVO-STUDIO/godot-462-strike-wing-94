@@ -412,6 +412,21 @@ func _test_visual_language() -> void:
 	_expect(source.contains("MERCENARY_BOSS_SPECIALIST_ART") and source.contains("_draw_mercenary_boss_entrance") and source.contains("_draw_mercenary_boss_mechanics"),"mercenary bosses should receive authored entrance and mechanical combat layers")
 	_expect(CombatArtDirector.boss_hatch_frame_index(1.0,0.0)==0 and CombatArtDirector.boss_hatch_frame_index(0.6,0.0)==1 and CombatArtDirector.boss_hatch_frame_index(0.2,0.0)==2 and CombatArtDirector.boss_hatch_frame_index(1.0,0.8)==3,"missile-cruiser hatches should communicate closed, opening, armed and launch poses")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/mercenary_boss_specialist/mercenary_boss_specialist_asset_manifest.json"),"mercenary boss mechanics manifest should exist")
+	var layered_mercenary_boss_sizes := {
+		"gunship_collar":Vector2(28,25), "gunship_turret":Vector2(26,28), "gunship_barrel":Vector2(14,31), "gunship_barrel_recoil":Vector2(14,31), "gunship_barrel_hot":Vector2(14,31),
+		"gunship_engine_normal":Vector2(24,28), "gunship_engine_hot":Vector2(24,28), "gunship_engine_damaged":Vector2(24,28), "gunship_cracked_plate":Vector2(22,24),
+		"train_collar":Vector2(28,23), "train_turret":Vector2(26,28), "train_turret_damaged":Vector2(27,29), "train_barrel":Vector2(15,31), "train_barrel_recoil":Vector2(15,31), "train_barrel_hot":Vector2(15,31),
+		"train_vent_closed":Vector2(14,12), "train_vent_open":Vector2(14,12), "train_bogie_intact":Vector2(22,17), "train_bogie_damaged":Vector2(23,17),
+		"cruiser_collar":Vector2(28,21), "cruiser_turret":Vector2(26,27), "cruiser_barrel":Vector2(16,31), "cruiser_barrel_recoil":Vector2(16,31),
+		"cruiser_hatch_port":Vector2(29,17), "cruiser_hatch_starboard":Vector2(29,17), "cruiser_cells_closed":Vector2(24,26), "cruiser_cells_opening":Vector2(24,26), "cruiser_cells_open":Vector2(24,26), "cruiser_cells_fire":Vector2(24,26),
+		"cruiser_radar_damaged":Vector2(26,24), "cruiser_scorched_deck":Vector2(46,21),
+	}
+	for component_id in layered_mercenary_boss_sizes:
+		var component := load("res://assets/runtime/enemies/mercenary_boss_layered/%s.png" % component_id)
+		_expect(component is Texture2D and component.get_size()==layered_mercenary_boss_sizes[component_id],"layered mercenary-boss mechanism should retain its registered pivot canvas: %s" % component_id)
+	_expect(source.contains('argument.begins_with("--capture-boss=")') and source.contains('_capture_boss_state() == "mercenary"') and source.contains("_render_mercenary_boss_capture"),"visual QA should expose isolated conventional boss phase, recoil, engine, vent and missile-cell fixtures")
+	_expect(source.contains('definition["barrel_recoil"]') and source.contains('definition["engines"]') and source.contains('definition["bogies"]') and source.contains('definition["damage"]'),"mercenary bosses should expose independently animated weapon, propulsion and damage mechanisms")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/mercenary_boss_layered/mercenary_boss_layered_manifest.json"),"layered mercenary-boss source/runtime manifest should exist")
 	var machine_boss_sizes := {
 		"swarm_controller": Vector2(106,88),
 		"ai_forge_core": Vector2(112,112),

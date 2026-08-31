@@ -1,0 +1,23 @@
+{
+  "asset_family": "sector_one_mercenary_boss_layered_mechanics_v2",
+  "status": "production_candidate",
+  "source": "mercenary_boss_component_sheet_source_v1.png",
+  "build_tool": "tools/build_mercenary_boss_layered_art.ps1",
+  "visual_contract": {
+    "era": "serious 1997 conventional near-future warfare",
+    "materials": ["soot-dark steel", "worn ivory armor", "faded red identification panels", "restrained amber heat"],
+    "rules": ["boss-scale physical mounts", "separate collars and barrels", "constant weapon-state pivots", "damage alters visible machinery"],
+    "reject": ["flat programmer overlays", "floating weapons", "neon science fiction", "generic modern gloss", "unbounded muzzle glow"]
+  },
+  "assemblies": {
+    "gunship_alpha": {"anchors": [[-22,-5],[22,-5]], "parts": ["gunship_collar", "gunship_turret", "gunship_barrel", "gunship_barrel_recoil"], "engine_states": ["gunship_engine_normal", "gunship_engine_hot", "gunship_engine_damaged"]},
+    "armoured_train": {"anchors": [[0,-46],[0,2],[0,47]], "parts": ["train_collar", "train_turret", "train_barrel", "train_barrel_recoil"], "damage_states": ["train_turret_damaged", "train_bogie_damaged"]},
+    "missile_cruiser": {"turret_anchor": [0,-36], "cell_anchors": [[-21,-7],[21,-7]], "cell_frames": ["cruiser_cells_closed", "cruiser_cells_opening", "cruiser_cells_open", "cruiser_cells_fire"], "damage_states": ["cruiser_radar_damaged", "cruiser_scorched_deck"]}
+  },
+  "gameplay_contract": {
+    "collision_policy": "existing boss hull collision remains authoritative",
+    "muzzle_anchors": "derived from rotating barrel endpoints",
+    "damage_anchor": [0,0],
+    "intended_layers": ["entrance_fx", "hull", "mount", "weapon", "phase_damage", "critical_fx"]
+  }
+}

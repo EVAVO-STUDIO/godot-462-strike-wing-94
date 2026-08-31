@@ -486,26 +486,44 @@ const MERCENARY_BOSS_SPRITES := {
 }
 const MERCENARY_BOSS_SPECIALIST_ART := {
 	"gunship_alpha": {
-		"mount": preload("res://assets/runtime/enemies/mercenary_boss_specialist/gunship_mount.png"),
-		"turret": preload("res://assets/runtime/enemies/mercenary_boss_specialist/gunship_turret.png"),
+		"mount": preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_collar.png"),
+		"turret": preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_turret.png"),
+		"barrel": preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_barrel.png"),
+		"barrel_recoil": preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_barrel_recoil.png"),
+		"barrel_hot": preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_barrel_hot.png"),
+		"engines": [preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_engine_normal.png"), preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_engine_hot.png"), preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_engine_damaged.png")],
+		"engine_anchors": [Vector2(-28,-25), Vector2(28,-25)],
+		"damage": preload("res://assets/runtime/enemies/mercenary_boss_layered/gunship_cracked_plate.png"),
 		"anchors": [Vector2(-22,-5), Vector2(22,-5)],
 	},
 	"armoured_train": {
-		"mount": preload("res://assets/runtime/enemies/mercenary_boss_specialist/train_mount.png"),
-		"turret": preload("res://assets/runtime/enemies/mercenary_boss_specialist/train_turret.png"),
+		"mount": preload("res://assets/runtime/enemies/mercenary_boss_layered/train_collar.png"),
+		"turret": preload("res://assets/runtime/enemies/mercenary_boss_layered/train_turret.png"),
+		"turret_damaged": preload("res://assets/runtime/enemies/mercenary_boss_layered/train_turret_damaged.png"),
+		"barrel": preload("res://assets/runtime/enemies/mercenary_boss_layered/train_barrel.png"),
+		"barrel_recoil": preload("res://assets/runtime/enemies/mercenary_boss_layered/train_barrel_recoil.png"),
+		"barrel_hot": preload("res://assets/runtime/enemies/mercenary_boss_layered/train_barrel_hot.png"),
+		"vents": [preload("res://assets/runtime/enemies/mercenary_boss_layered/train_vent_closed.png"), preload("res://assets/runtime/enemies/mercenary_boss_layered/train_vent_open.png")],
+		"vent_anchors": [Vector2(-18,-23), Vector2(18,23)],
+		"bogies": [preload("res://assets/runtime/enemies/mercenary_boss_layered/train_bogie_intact.png"), preload("res://assets/runtime/enemies/mercenary_boss_layered/train_bogie_damaged.png")],
+		"bogie_anchors": [Vector2(-19,-57), Vector2(19,57)],
 		"anchors": [Vector2(0,-46), Vector2(0,2), Vector2(0,47)],
 	},
 	"missile_cruiser": {
-		"mount": preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_mount.png"),
-		"turret": preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_turret.png"),
+		"mount": preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_collar.png"),
+		"turret": preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_turret.png"),
+		"barrel": preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_barrel.png"),
+		"barrel_recoil": preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_barrel_recoil.png"),
 		"anchors": [Vector2(0,-36)],
 		"hatch_anchors": [Vector2(-21,-7), Vector2(21,-7)],
 		"hatches": [
-			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_closed.png"),
-			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_opening.png"),
-			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_open.png"),
-			preload("res://assets/runtime/enemies/mercenary_boss_specialist/cruiser_hatch_fire.png"),
+			preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_cells_closed.png"),
+			preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_cells_opening.png"),
+			preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_cells_open.png"),
+			preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_cells_fire.png"),
 		],
+		"doors": [preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_hatch_port.png"), preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_hatch_starboard.png")],
+		"damage": [preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_radar_damaged.png"), preload("res://assets/runtime/enemies/mercenary_boss_layered/cruiser_scorched_deck.png")],
 	},
 }
 const BOSS_PHASE_OVERLAYS := {
@@ -710,6 +728,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_render_orbital_air_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _capture_boss_state() == "mercenary":
+		_render_mercenary_boss_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
@@ -801,6 +823,19 @@ func _render_orbital_air_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, ORBITAL_AIR_SPRITES[enemy["id"]])
+
+func _render_mercenary_boss_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time, 1.40) < 0.14 else 0.0
+	var fire_timer := fposmod(1.0-time, 1.0)
+	var phase := 1 + posmod(int(floor(time / 2.0)), 3)
+	var definitions := [
+		{"id":"gunship_alpha", "position":Vector2(125,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":28 if phase < 3 else 8, "max_hp":40, "boss_phase":phase, "age":time+2.0},
+		{"id":"armoured_train", "position":Vector2(320,155), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":45 if phase < 3 else 12, "max_hp":70, "boss_phase":phase, "age":time+2.0},
+		{"id":"missile_cruiser", "position":Vector2(515,155), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":52 if phase < 3 else 14, "max_hp":80, "boss_phase":phase, "age":time+2.0},
+	]
+	for enemy in definitions:
+		_draw_production_boss(surface, enemy["position"], enemy["id"], enemy, MERCENARY_BOSS_SPRITES[enemy["id"]])
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -909,6 +944,13 @@ func _capture_air_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-air="):
 			return argument.trim_prefix("--capture-air=").to_lower()
+	return ""
+
+func _capture_boss_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args(): return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-boss="):
+			return argument.trim_prefix("--capture-boss=").to_lower()
 	return ""
 
 func _draw_player_damage(surface: CanvasItem, origin: Vector2, damage_ratio: float) -> void:
@@ -1524,25 +1566,62 @@ func _draw_mercenary_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: S
 		return
 	var definition: Dictionary = MERCENARY_BOSS_SPECIALIST_ART[enemy_id]
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer",0.0))/0.10,0.0,1.0)
+	var age := float(enemy.get("age",0.0))
+	var boss_phase := clampi(int(enemy.get("boss_phase",1)),1,3)
+	var max_hp := maxf(1.0,float(enemy.get("max_hp",enemy.get("hp",1.0))))
+	var health_ratio := clampf(float(enemy.get("hp",max_hp))/max_hp,0.0,1.0)
 	var aim := _player_position()-p
 	var rotation := 0.0 if aim.length_squared()<0.001 else Vector2.DOWN.angle_to(aim.normalized())
+	if enemy_id == "gunship_alpha":
+		var engine_index := 2 if health_ratio <= 0.35 else (1 if boss_phase >= 2 or float(enemy.get("fire_timer",1.0)) < 0.38 else 0)
+		var engine: Texture2D = definition["engines"][engine_index]
+		for engine_anchor in definition["engine_anchors"]:
+			var engine_center := p+Vector2(engine_anchor)+Vector2(0,roundf(sin(age*11.0)*0.8))
+			surface.draw_texture(engine,(engine_center-engine.get_size()*0.5).round())
+		if health_ratio <= 0.55:
+			var cracked_plate: Texture2D = definition["damage"]
+			surface.draw_texture(cracked_plate,(p+Vector2(0,13)-cracked_plate.get_size()*0.5).round())
+	elif enemy_id == "armoured_train":
+		var vent: Texture2D = definition["vents"][1 if boss_phase >= 2 or fposmod(age,1.4)<0.52 else 0]
+		for vent_anchor in definition["vent_anchors"]:
+			surface.draw_texture(vent,(p+Vector2(vent_anchor)-vent.get_size()*0.5).round())
+		for index in range(definition["bogie_anchors"].size()):
+			var damaged_bogie := health_ratio <= 0.42 and index == posmod(int(floor(age*0.4)),2)
+			var bogie: Texture2D = definition["bogies"][1 if damaged_bogie else 0]
+			var bogie_center := p+Vector2(definition["bogie_anchors"][index])
+			surface.draw_texture(bogie,(bogie_center-bogie.get_size()*0.5).round())
 	if definition.has("hatches"):
 		var hatches: Array = definition["hatches"]
 		var hatch_index := boss_hatch_frame_index(float(enemy.get("fire_timer",1.0)),recoil_ratio)
-		for hatch_anchor in definition["hatch_anchors"]:
+		for hatch_i in range(definition["hatch_anchors"].size()):
+			var hatch_anchor = definition["hatch_anchors"][hatch_i]
 			var hatch: Texture2D = hatches[hatch_index]
 			surface.draw_texture(hatch,(p+Vector2(hatch_anchor)-hatch.get_size()*0.5).round())
-	var turret: Texture2D = definition["turret"]
+			if hatch_index > 0:
+				var door: Texture2D = definition["doors"][hatch_i]
+				var door_center := p+Vector2(hatch_anchor)+Vector2(-13 if hatch_i==0 else 13,-2)
+				surface.draw_texture(door,(door_center-door.get_size()*0.5).round())
+		if health_ratio <= 0.58:
+			var scorched: Texture2D = definition["damage"][1]
+			surface.draw_texture(scorched,(p+Vector2(0,22)-scorched.get_size()*0.5).round())
+		if health_ratio <= 0.35:
+			var radar: Texture2D = definition["damage"][0]
+			surface.draw_texture(radar,(p+Vector2(0,-5)-radar.get_size()*0.5).round())
 	for anchor_value in definition["anchors"]:
 		var anchor := p + Vector2(anchor_value)
 		var mount: Texture2D = definition["mount"]
 		surface.draw_texture(mount,(anchor-mount.get_size()*0.5).round())
-		var local_recoil := Vector2(0,-roundf(recoil_ratio*3.0))
+		var turret: Texture2D = definition["turret_damaged"] if enemy_id == "armoured_train" and health_ratio <= 0.35 else definition["turret"]
+		var barrel: Texture2D = definition["barrel_recoil"] if recoil_ratio > 0.01 else definition["barrel"]
+		if definition.has("barrel_hot") and boss_phase >= 3 and recoil_ratio <= 0.01:
+			barrel = definition["barrel_hot"]
 		surface.draw_set_transform(anchor.round(),rotation,Vector2.ONE)
-		surface.draw_texture(turret,-turret.get_size()*0.5+local_recoil)
+		surface.draw_texture(turret,-turret.get_size()*0.5)
+		var barrel_center := Vector2(0,roundf(turret.get_height()*0.28)-roundf(recoil_ratio*3.0))
+		surface.draw_texture(barrel,barrel_center-barrel.get_size()*0.5)
 		if recoil_ratio > 0.45:
 			var flash := ImpactArtLibrary.frame_for_ratio("muzzle",1.0-recoil_ratio)
-			surface.draw_texture_rect(flash,Rect2(-5,turret.get_height()*0.32,10,10),false)
+			surface.draw_texture_rect(flash,Rect2(-5,barrel_center.y+barrel.get_height()*0.42,10,10),false)
 		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 
 static func boss_hatch_frame_index(fire_timer: float, recoil_ratio: float) -> int:
