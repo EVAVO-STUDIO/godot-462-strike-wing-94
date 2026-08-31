@@ -147,6 +147,11 @@ func _test_pixel_ui() -> void:
 		for front_end_asset in ["frame.png", "button_idle.png", "button_selected.png", "cursor.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/front_end/%s" % front_end_asset), "front-end menu sprite should exist: %s" % front_end_asset)
 		_expect(source.contains("func _draw_support_links"), "support readiness instrumentation should remain available without permanently crowding the combat field")
+		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "warning", "boss"]'), "visual QA should expose deterministic objective, warning and boss HUD fixtures without mutating simulation")
+		_expect(source.contains('if _capture_hud_state() == "boss"') and source.contains('if _capture_hud_state() == "warning"'), "critical HUD capture fixtures should provide deterministic boss and missile-lock presentation data")
+		_expect(FileAccess.file_exists("res://tools/build_hud_threat_art.ps1"), "threat-annunciator sprites should remain reproducible from their governed SVG source")
+		var threat_lock := load("res://assets/runtime/ui/hud/threat_annunciator/lock.png") as Texture2D
+		_expect(threat_lock != null and threat_lock.get_image().get_pixel(100,10).a > 0.9, "threat annunciator must retain its smoked backing over detailed terrain")
 		for support_link_asset in ["trough.png", "tactical_fill.png", "battlefield_fill.png", "ready.png", "charging.png", "unavailable.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/hud/support_link/%s" % support_link_asset), "support readiness sprite should exist: %s" % support_link_asset)
 		_expect(source.contains("MERCENARY WAR") and source.contains("MACHINE WAR") and source.contains("BLACK SKY"), "sortie console should preserve the three canonical campaign sectors")

@@ -163,6 +163,8 @@ func _process(delta: float) -> void:
 			_ingress_time = maxf(0.0, _ingress_time - maxf(0.0, delta))
 		else:
 			_ingress_time = 0.0
+		if phase == 1 and _capture_hud_state() == "objective":
+			_ingress_time = 0.0
 		_last_phase = phase
 		_last_mission_index = mission_index
 	if _surface != null:
@@ -444,9 +446,13 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	var max_shield := _call_int(scene, "_max_shield", 100)
 	var generator := _call_dictionary(scene, "_active_generator")
 	var energy := float(scene.get("energy")) if _has_property(scene, "energy") else 0.0
-	_draw_primary_meter(surface, Vector2(12, 7), int(scene.get("hull")), max_hull, HUD_HULL_FILL, HUD_HULL_FRAME, HUD_HULL_WARNING_FRAME, 0.30)
-	_draw_primary_meter(surface, Vector2(106, 7), int(scene.get("shield")), maxi(1, max_shield), HUD_SHIELD_FILL, HUD_SHIELD_FRAME, HUD_SHIELD_WARNING_FRAME, 0.24)
-	_draw_primary_meter(surface, Vector2(200, 7), int(round(energy)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, HUD_ENERGY_FRAME, HUD_ENERGY_WARNING_FRAME, 0.18)
+	var capture_warning := _capture_hud_state() == "warning"
+	var hull_value := mini(int(scene.get("hull")), 18) if capture_warning else int(scene.get("hull"))
+	var shield_value := mini(int(scene.get("shield")), 15) if capture_warning else int(scene.get("shield"))
+	var energy_value := minf(energy, 12.0) if capture_warning else energy
+	_draw_primary_meter(surface, Vector2(12, 7), hull_value, max_hull, HUD_HULL_FILL, HUD_HULL_FRAME, HUD_HULL_WARNING_FRAME, 0.30)
+	_draw_primary_meter(surface, Vector2(106, 7), shield_value, maxi(1, max_shield), HUD_SHIELD_FILL, HUD_SHIELD_FRAME, HUD_SHIELD_WARNING_FRAME, 0.24)
+	_draw_primary_meter(surface, Vector2(200, 7), int(round(energy_value)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, HUD_ENERGY_FRAME, HUD_ENERGY_WARNING_FRAME, 0.18)
 	surface.draw_texture(HUD_ICON_BOMB, Vector2(342, 10))
 	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(356, 13), 1, TEXT, 1)
 	var remaining := maxi(0, int(ceil(float(scene.get("mission_duration")) - float(scene.get("mission_time")))))
@@ -536,9 +542,7 @@ func _objective_ratio(scene: Object, objective: Dictionary) -> float:
 	return clampf(value / maxf(1.0, target), 0.0, 1.0)
 
 func _has_threat_warning(scene: Object) -> bool:
-	var bullets: Array = scene.get("enemy_bullets")
-	var player_position: Vector2 = scene.get("player_position")
-	return ThreatWarningRules.warning_text(ThreatWarningRules.nearest_homing_distance(bullets, player_position), ThreatWarningRules.homing_count(bullets)) != ""
+	return not _threat_snapshot(scene).is_empty()
 
 func _draw_objective_tracker(surface: CanvasItem, scene: Object) -> void:
 	if _ingress_time > 0.0 or not _active_boss(scene).is_empty() or _has_threat_warning(scene):
@@ -601,17 +605,17 @@ func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	_draw_clipped_fill(surface, HUD_BOSS_PHASE_FILLS[phase_index], Vector2(144, 59), ratio)
 
 func _draw_threat(surface: CanvasItem, scene: Object) -> void:
-	var bullets: Array = scene.get("enemy_bullets")
-	var player_position: Vector2 = scene.get("player_position")
-	var count := ThreatWarningRules.homing_count(bullets)
-	var distance := ThreatWarningRules.nearest_homing_distance(bullets, player_position)
+	var snapshot := _threat_snapshot(scene)
+	if snapshot.is_empty(): return
+	var count := int(snapshot.get("count", 0))
+	var distance := float(snapshot.get("distance", INF))
 	var text := ThreatWarningRules.warning_text(distance, count)
 	if text == "": return
 	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2)
 	var position := Vector2(180, 42)
 	surface.draw_texture(HUD_THREAT_FRAMES[level], position)
 	surface.draw_texture(HUD_THREAT_MISSILE_ICON, position + Vector2(7, 5), RED if level >= 2 else (GOLD if level == 1 else BLUE))
-	PixelFont.draw_centered(surface, text, 326, 102, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)
+	PixelFont.draw_centered(surface, text, 326, 48, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)
 	surface.draw_texture(HUD_THREAT_APPROACH_TROUGH, position + Vector2(190, 16))
 	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0)
 	_draw_clipped_fill(surface, HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL, position + Vector2(191, 17), approach_ratio)
@@ -718,10 +722,30 @@ func _draw_divider(surface: CanvasItem, y: float) -> void:
 	surface.draw_texture(REPORT_DIVIDER, Vector2(42, y - 2))
 
 func _active_boss(scene: Object) -> Dictionary:
+	if _capture_hud_state() == "boss":
+		return {"id":"SKY FORTRESS", "boss":true, "hp":720, "max_hp":1200, "boss_phase":2}
 	var enemies: Array = scene.get("enemies")
 	for enemy in enemies:
 		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and int(enemy.get("hp", 0)) > 0: return enemy
 	return {}
+
+func _threat_snapshot(scene: Object) -> Dictionary:
+	if _capture_hud_state() == "warning":
+		return {"count":3, "distance":96.0}
+	var bullets: Array = scene.get("enemy_bullets")
+	var player_position: Vector2 = scene.get("player_position")
+	var count := ThreatWarningRules.homing_count(bullets)
+	var distance := ThreatWarningRules.nearest_homing_distance(bullets, player_position)
+	return {} if ThreatWarningRules.warning_text(distance, count) == "" else {"count":count, "distance":distance}
+
+func _capture_hud_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-hud="):
+			var state := argument.trim_prefix("--capture-hud=").to_lower()
+			return state if state in ["objective", "warning", "boss"] else ""
+	return ""
 
 func _call_dictionary(scene: Object, method_name: String) -> Dictionary:
 	if scene.has_method(method_name):
