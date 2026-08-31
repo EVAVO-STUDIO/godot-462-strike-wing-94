@@ -221,6 +221,16 @@ func _test_visual_language() -> void:
 	_expect(source.contains('GROUND_FORCE_SPECIALIST_ART') and source.contains('enemy.get("hit_timer", 0.0)') and source.contains('enemy.get("recoil_timer", 0.0)'), "ground troops and mechs should consume live hit and firing state")
 	_expect(source.contains('Vector2(-8,-4)') and source.contains('Vector2(0,9)'), "rifle team should use restrained per-soldier muzzle cadence rather than a single squad-wide flash")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/ground_force_specialist/ground_force_specialist_asset_manifest.json"), "ground-force specialist source/runtime manifest should exist")
+	var mech_layer_sizes := {
+		"security_cannon":Vector2(18,38), "security_cannon_recoil":Vector2(18,38), "security_barrel":Vector2(12,30), "security_shield":Vector2(16,28), "security_collar":Vector2(14,14),
+		"salvage_cutter_arm":Vector2(18,38), "salvage_grapple_open":Vector2(18,38), "salvage_grapple_closed":Vector2(18,38), "salvage_disc_0":Vector2(16,16), "salvage_disc_1":Vector2(16,16), "salvage_disc_2":Vector2(16,16), "salvage_collar":Vector2(14,14),
+	}
+	for mech_layer_id in mech_layer_sizes:
+		var mech_layer := load("res://assets/runtime/enemies/ground_mech_layered/%s.png" % mech_layer_id) as Texture2D
+		_expect(mech_layer != null and mech_layer.get_size() == mech_layer_sizes[mech_layer_id], "ground-mech appendage should retain its registered pivot canvas: %s" % mech_layer_id)
+	_expect(source.contains('"primary_anchor": Vector2(-10, -5)') and source.contains('"secondary_anchor": Vector2(13, -4)'), "ground-mech appendages should attach at reviewed independent shoulder hardpoints")
+	_expect(source.contains('_capture_ground_state() == "mechs"') and source.contains("_render_mech_capture"), "visual QA should expose an isolated live mech gait, aim, recoil, grapple, and cutter fixture")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/ground_mech_layered/ground_mech_layered_manifest.json"), "layered ground-mech source/runtime manifest should exist")
 	var mech_animation_sizes := {
 		"security_patrol_mech": Vector2(38,42),
 		"autonomous_salvage_mech": Vector2(44,42),

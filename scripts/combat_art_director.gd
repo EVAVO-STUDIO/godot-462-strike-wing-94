@@ -211,12 +211,25 @@ const GROUND_FORCE_SPECIALIST_ART := {
 		"scale": 0.82,
 	},
 	"security_patrol_mech": {
-		"weapon": preload("res://assets/runtime/enemies/ground_force_specialist/security_mech_weapon.png"),
-		"scale": 0.80,
+		"weapon": preload("res://assets/runtime/enemies/ground_mech_layered/security_cannon.png"),
+		"weapon_recoil": preload("res://assets/runtime/enemies/ground_mech_layered/security_cannon_recoil.png"),
+		"shield": preload("res://assets/runtime/enemies/ground_mech_layered/security_shield.png"),
+		"collar": preload("res://assets/runtime/enemies/ground_mech_layered/security_collar.png"),
+		"primary_anchor": Vector2(-10, -5),
+		"secondary_anchor": Vector2(10, -3),
 	},
 	"autonomous_salvage_mech": {
-		"weapon": preload("res://assets/runtime/enemies/ground_force_specialist/salvage_mech_tool.png"),
-		"scale": 0.78,
+		"weapon": preload("res://assets/runtime/enemies/ground_mech_layered/salvage_cutter_arm.png"),
+		"grapple_open": preload("res://assets/runtime/enemies/ground_mech_layered/salvage_grapple_open.png"),
+		"grapple_closed": preload("res://assets/runtime/enemies/ground_mech_layered/salvage_grapple_closed.png"),
+		"disc": [
+			preload("res://assets/runtime/enemies/ground_mech_layered/salvage_disc_0.png"),
+			preload("res://assets/runtime/enemies/ground_mech_layered/salvage_disc_1.png"),
+			preload("res://assets/runtime/enemies/ground_mech_layered/salvage_disc_2.png"),
+		],
+		"collar": preload("res://assets/runtime/enemies/ground_mech_layered/salvage_collar.png"),
+		"primary_anchor": Vector2(-13, -4),
+		"secondary_anchor": Vector2(13, -4),
 	},
 }
 const MERCENARY_GROUND_SPRITES := {
@@ -573,6 +586,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_draw_mobile_ground_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _capture_ground_state() == "mechs":
+		_render_mech_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
@@ -588,6 +605,19 @@ func _draw_mobile_ground_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_GROUND_SPRITES[enemy["id"]], 1.0)
+
+func _render_mech_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
+	var definitions := [
+		{"id":"security_patrol_mech", "position":Vector2(220,150), "hit_timer":0.0, "recoil_timer":recoil, "hp":20, "max_hp":20, "age":time},
+		{"id":"autonomous_salvage_mech", "position":Vector2(420,150), "hit_timer":0.0, "recoil_timer":recoil, "hp":20, "max_hp":20, "age":time},
+	]
+	for enemy in definitions:
+		var enemy_id: String = enemy["id"]
+		var fallback: Texture2D = MERCENARY_GROUND_FORCE_SPRITES[enemy_id] if enemy_id == "security_patrol_mech" else MACHINE_MECH_SPRITES[enemy_id]
+		_draw_animated_unit(surface, enemy["position"], enemy_id, enemy, fallback, 1.0)
+		_render_ground_force_specialist(surface, enemy["position"], enemy_id, enemy, 1.0)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -942,6 +972,9 @@ func _render_ground_force_specialist(surface: CanvasItem, p: Vector2, enemy_id: 
 				surface.draw_texture_rect(flash, Rect2((center - Vector2(2,2) * scale).round(), Vector2(4,4) * scale), false)
 		return
 	var definition: Dictionary = GROUND_FORCE_SPECIALIST_ART[enemy_id]
+	if enemy_id in ["security_patrol_mech", "autonomous_salvage_mech"]:
+		_render_mech_appendages(surface, p, enemy_id, enemy, definition, scale, recoil_ratio)
+		return
 	var weapon: Texture2D = definition["weapon"]
 	var direction := _player_position() - p
 	var rotation := 0.0 if direction.length_squared() < 0.001 else Vector2.DOWN.angle_to(direction.normalized())
@@ -955,6 +988,38 @@ func _render_ground_force_specialist(surface: CanvasItem, p: Vector2, enemy_id: 
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if hit_ratio > 0.01 and definition.has("scatter"):
 		_draw_production_sprite(surface, p, definition["scatter"], scale)
+
+func _render_mech_appendages(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, definition: Dictionary, scale: float, recoil_ratio: float) -> void:
+	var direction := _player_position() - p
+	var aim_angle := 0.0 if direction.length_squared() < 0.001 else clampf(Vector2.DOWN.angle_to(direction.normalized()), -0.72, 0.72)
+	var primary_anchor: Vector2 = p + Vector2(definition["primary_anchor"]) * scale
+	var secondary_anchor: Vector2 = p + Vector2(definition["secondary_anchor"]) * scale
+	var collar: Texture2D = definition["collar"]
+	_draw_mech_component(surface, collar, primary_anchor, 0.0, scale, Vector2(0.5, 0.5))
+	_draw_mech_component(surface, collar, secondary_anchor, 0.0, scale, Vector2(0.5, 0.5))
+	if enemy_id == "security_patrol_mech":
+		var cannon: Texture2D = definition["weapon_recoil"] if recoil_ratio > 0.01 else definition["weapon"]
+		_draw_mech_component(surface, cannon, primary_anchor, aim_angle, scale, Vector2(0.5, 0.08))
+		_draw_mech_component(surface, definition["shield"], secondary_anchor, aim_angle * 0.22, scale, Vector2(0.5, 0.08))
+		if recoil_ratio > 0.45:
+			var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
+			var muzzle := primary_anchor + Vector2.DOWN.rotated(aim_angle) * 31.0 * scale
+			surface.draw_texture_rect(flash, Rect2((muzzle-Vector2(4,4)*scale).round(), Vector2(8,8)*scale), false)
+		return
+	var cutter: Texture2D = definition["weapon"]
+	var grapple: Texture2D = definition["grapple_closed"] if recoil_ratio > 0.01 else definition["grapple_open"]
+	_draw_mech_component(surface, cutter, primary_anchor, aim_angle, scale, Vector2(0.5, 0.08))
+	_draw_mech_component(surface, grapple, secondary_anchor, -aim_angle * 0.78, scale, Vector2(0.5, 0.08))
+	var disc_frames: Array = definition["disc"]
+	var disc: Texture2D = disc_frames[int(floor(float(enemy.get("age", 0.0)) * 9.0)) % disc_frames.size()]
+	var disc_center := primary_anchor + Vector2.DOWN.rotated(aim_angle) * 28.0 * scale
+	_draw_mech_component(surface, disc, disc_center, aim_angle, scale, Vector2(0.5, 0.5))
+
+func _draw_mech_component(surface: CanvasItem, texture: Texture2D, world_pivot: Vector2, angle: float, scale: float, normalized_pivot: Vector2) -> void:
+	var local_pivot := texture.get_size() * normalized_pivot
+	surface.draw_set_transform(world_pivot.round(), angle, Vector2.ONE * scale)
+	surface.draw_texture(texture, -local_pivot.round())
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()

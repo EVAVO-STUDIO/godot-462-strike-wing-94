@@ -1,0 +1,18 @@
+{
+  "asset_family": "ground_mech_articulated_appendages_v1",
+  "raw_art": "res://assets/source/enemies/ground_mech_layered/ground_mech_component_sheet_raw_v1.png",
+  "clean_source": "res://assets/source/enemies/ground_mech_layered/ground_mech_component_sheet_source_v1.png",
+  "cleanup_profile": "res://assets/source/enemies/ground_mech_layered/ground_mech_cleanup.sprite.json",
+  "builder": "res://tools/build_ground_mech_layered_art.ps1",
+  "runtime_directory": "res://assets/runtime/enemies/ground_mech_layered/",
+  "units": {
+    "security_patrol_mech": ["security_cannon", "security_cannon_recoil", "security_barrel", "security_shield", "security_collar"],
+    "autonomous_salvage_mech": ["salvage_cutter_arm", "salvage_grapple_open", "salvage_grapple_closed", "salvage_disc_0", "salvage_disc_1", "salvage_disc_2", "salvage_collar"]
+  },
+  "animation_contract": {
+    "security": "shoulder-pivoted target tracking, authored recoil key pose, stable shield hardpoint",
+    "salvage": "independent cutter and grapple shoulder pivots, three-frame low-exposure disc cycle, open/closed claw attack state",
+    "registration": "appendage pivots attach to the approved four-frame gait bodies without changing gameplay centres"
+  },
+  "qa": ["seeded checkerboard cleanup", "native-scale shoulder registration", "recoil silhouette", "disc cycle", "grapple closure", "in-engine tracking capture"]
+}
