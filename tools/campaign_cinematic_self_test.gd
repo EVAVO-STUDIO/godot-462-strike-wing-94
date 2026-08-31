@@ -67,11 +67,18 @@ func _run() -> void:
 		var plate := load("res://assets/runtime/cinematics/plates/%s.png" % plate_id)
 		_expect(plate is Texture2D and plate.get_size() == Vector2(640,320), "cinematic plate should preserve authored 640x320 composition: %s" % plate_id, failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/cinematic_plate_asset_manifest.json"), "cinematic plate production manifest should exist", failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/plates_v2/machine_war/machine_war_plate_manifest_v2.json"), "Sector II authored plate production manifest v2 should exist", failures)
+	_expect(FileAccess.file_exists("res://tools/build_machine_war_cinematic_plates_v2.ps1"), "Sector II authored plate masters should remain deterministically rebuildable", failures)
 	for shot_id in ["s2_observation", "s2_anticipation", "s2_consequence"]:
 		for frame_index in range(4):
 			var fx := load("res://assets/runtime/cinematics/fx/machine_war/%s_%d.png" % [shot_id, frame_index])
 			_expect(fx is Texture2D and fx.get_size() == Vector2(640,272), "machine-war FX cel should retain registered 640x272 geometry: %s %d" % [shot_id, frame_index], failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/machine_war_fx_manifest.json"), "machine-war held-cel source/runtime manifest should exist", failures)
+	for subject_id in ["salvage_mech", "drone_hunter"]:
+		for frame_index in range(4):
+			var subject := load("res://assets/runtime/cinematics/subjects/machine_war/%s_%d.png" % [subject_id, frame_index]) as Texture2D
+			var expected := Vector2(160,160) if subject_id == "salvage_mech" else Vector2(144,96)
+			_expect(subject != null and subject.get_size() == expected, "machine-war cinematic subject should retain registered cel canvas: %s %d" % [subject_id,frame_index], failures)
 	for shot_id in ["s3_observation", "s3_anticipation", "s3_action", "s3_consequence"]:
 		for frame_index in range(4):
 			var fx := load("res://assets/runtime/cinematics/fx/black_sky/%s_%d.png" % [shot_id, frame_index])
@@ -86,6 +93,7 @@ func _run() -> void:
 	var director_source := director_file.get_as_text() if director_file != null else ""
 	_expect(director_source.contains("SUBJECT_FRAMES") and director_source.contains("SUBJECT_OVERLAYS") and director_source.contains("animation_fps"), "cinematic subjects should consume approved limited-animation frames and boss overlays", failures)
 	_expect(director_source.contains("SHOT_FX_FRAMES") and director_source.contains("_draw_shot_fx") and director_source.contains("fx_fps"), "campaign cinematic should composite authored held FX cels by shot identity", failures)
+	_expect(director_source.contains('argument.begins_with("--capture-cinematic=")') and director_source.contains("_begin_capture_sequence"), "visual QA should expose deterministic campaign cinematic sequence capture", failures)
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main game source should be readable", failures)
 	if main_file != null:

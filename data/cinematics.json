@@ -8,8 +8,8 @@
       "title": "SECTOR II // MACHINE WAR",
       "shots": [
         {"id":"s2_observation","role":"observation","duration":2.4,"camera":"locked","plate":"s2_dead_refinery","fx_fps":3.0,"caption":"THE WAR DID NOT END.","sound_bridge":"environmental"},
-        {"id":"s2_anticipation","role":"anticipation","duration":2.2,"camera":"pan","plate":"s2_factory_awakens","sprite":"salvage_mech","sprite_position":[448,214],"sprite_scale":2.3,"animation_fps":5.0,"fx_fps":3.0,"caption":"THE FACTORIES KEPT BUILDING.","sound_bridge":"prelap"},
-        {"id":"s2_consequence","role":"consequence","duration":2.8,"camera":"locked","plate":"s2_city_warning","sprite":"drone_hunter","sprite_position":[320,176],"sprite_scale":2.0,"animation_fps":8.0,"fx_fps":3.0,"caption":"NOW BOTH ARMIES HAVE THE SAME ENEMY.","sound_bridge":"hard silence"}
+        {"id":"s2_anticipation","role":"anticipation","duration":2.2,"camera":"pan","plate":"s2_factory_awakens","sprite":"salvage_mech","sprite_position":[346,207],"sprite_scale":1.0,"animation_fps":3.0,"fx_fps":3.0,"caption":"THE FACTORIES KEPT BUILDING.","sound_bridge":"prelap"},
+        {"id":"s2_consequence","role":"consequence","duration":2.8,"camera":"locked","plate":"s2_city_warning","sprite":"drone_hunter","sprite_position":[320,174],"sprite_scale":1.0,"animation_fps":4.0,"fx_fps":3.0,"caption":"NOW BOTH ARMIES HAVE THE SAME ENEMY.","sound_bridge":"hard silence"}
       ]
     },
     {

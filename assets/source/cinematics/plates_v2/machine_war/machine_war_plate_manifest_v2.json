@@ -1,0 +1,27 @@
+{
+  "asset_family": "sector_ii_machine_war_authored_cinematic_plates_v2",
+  "status": "runtime_v2",
+  "source_method": "OpenAI built-in image generation followed by deterministic editorial crop, palette shaping, and Godot runtime packing",
+  "visual_contract": {
+    "era": "serious 1995-1998 military CD-ROM limited-cel interstitial",
+    "canvas": [640, 320],
+    "palette_limit": 64,
+    "caption_safe_area": "runtime-owned lower caption band remains outside the plate",
+    "avoid": ["paused gameplay", "mirrored environment tiles", "modern glossy concept art", "cyberpunk neon", "AI interpolation"]
+  },
+  "plates": {
+    "s2_dead_refinery": {"shot_role":"observation", "composition":"storm-damaged coastal refinery after human withdrawal"},
+    "s2_factory_awakens": {"shot_role":"anticipation", "composition":"operatorless assembly hall relighting around autonomous production"},
+    "s2_city_warning": {"shot_role":"consequence", "composition":"empty analogue command bunker overlooking first machine attack"}
+  },
+  "limited_motion": {
+    "registration": [640,272],
+    "playback_fps": 3,
+    "source_manifest": "res://assets/source/cinematics/machine_war_fx_manifest.json",
+    "tracks": ["refinery vapour drift", "factory practical-light ignition", "hostile acquisition brackets"],
+    "subject_cels": {
+      "salvage_mech": {"frames":4,"canvas":[160,160],"exposure_fps":3},
+      "drone_hunter": {"frames":4,"canvas":[144,96],"exposure_fps":4}
+    }
+  }
+}

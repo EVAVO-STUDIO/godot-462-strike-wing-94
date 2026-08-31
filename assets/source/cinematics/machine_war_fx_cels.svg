@@ -11,10 +11,10 @@
   </g>
 
   <!-- Row 1: factory warning activation and ignition sparks. -->
-  <g transform="translate(0 272)"><g fill="#d87a32"><rect x="96" y="60" width="6" height="3"/><rect x="532" y="88" width="4" height="2"/></g><g stroke="#8b4827" stroke-width="2" fill="none"><path d="M452 134h14M459 127v14"/></g></g>
-  <g transform="translate(640 272)"><g fill="#e8ca6a"><rect x="94" y="58" width="10" height="7"/><rect x="528" y="85" width="10" height="6"/></g><g stroke="#d87a32" stroke-width="2" fill="none"><path d="M444 134h30M459 119v30M449 124l20 20M469 124l-20 20"/></g><path d="M92 68h14l5 6H87Z" fill="#d87a32" opacity=".45"/></g>
-  <g transform="translate(1280 272)"><g fill="#f0df99"><rect x="92" y="56" width="14" height="11"/><rect x="526" y="83" width="14" height="10"/></g><g stroke="#e8ca6a" stroke-width="2" fill="none"><path d="M436 134h46M459 111v46M443 118l32 32M475 118l-32 32"/></g><path d="M86 70h26l9 9H77Z" fill="#d87a32" opacity=".52"/><path d="M516 96h34l10 8h-54Z" fill="#d87a32" opacity=".38"/></g>
-  <g transform="translate(1920 272)"><g fill="#d87a32"><rect x="96" y="60" width="6" height="3"/><rect x="532" y="88" width="4" height="2"/></g><g stroke="#8b4827" stroke-width="2" fill="none"><path d="M451 134h16M459 126v16"/></g></g>
+  <g transform="translate(0 272)" fill="#b74332" opacity=".55"><circle cx="84" cy="73" r="2"/><circle cx="548" cy="96" r="2"/></g>
+  <g transform="translate(640 272)"><g fill="#dc5640" opacity=".80"><circle cx="84" cy="73" r="3"/><circle cx="548" cy="96" r="3"/><circle cx="408" cy="107" r="2"/></g><g stroke="#d67a3a" stroke-width="1" fill="none" opacity=".70"><path d="M514 105l8-5m-5 11 10-2m-8 7 7 3"/></g></g>
+  <g transform="translate(1280 272)"><g fill="#ed6750"><circle cx="84" cy="73" r="3"/><circle cx="548" cy="96" r="3"/><circle cx="408" cy="107" r="2"/></g><g stroke="#e3a14d" stroke-width="1" fill="none" opacity=".82"><path d="M512 104l11-8m-5 13 14-3m-13 8 10 6m-15-2 1 10"/></g></g>
+  <g transform="translate(1920 272)" fill="#b74332" opacity=".62"><circle cx="84" cy="73" r="2"/><circle cx="548" cy="96" r="2"/></g>
 
   <!-- Row 2: hostile-network signal acquisition around the hunter. -->
   <g stroke="#6aa4c8" fill="none" stroke-width="2" opacity=".72">

@@ -28,16 +28,16 @@ const SPRITES := {
 }
 const SUBJECT_FRAMES := {
 	"salvage_mech": [
-		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_0.png"),
-		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_1.png"),
-		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_2.png"),
-		preload("res://assets/runtime/enemies/unit_animation/autonomous_salvage_mech/walk_3.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/salvage_mech_0.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/salvage_mech_1.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/salvage_mech_2.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/salvage_mech_3.png"),
 	],
 	"drone_hunter": [
-		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_0.png"),
-		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_1.png"),
-		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_2.png"),
-		preload("res://assets/runtime/enemies/unit_animation/drone_hunter/thrust_3.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/drone_hunter_0.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/drone_hunter_1.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/drone_hunter_2.png"),
+		preload("res://assets/runtime/cinematics/subjects/machine_war/drone_hunter_3.png"),
 	],
 }
 const SUBJECT_OVERLAYS := {
@@ -155,6 +155,9 @@ func _ready() -> void:
 	_surface.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_surface)
 	_surface.visible = false
+	var capture_sequence := _capture_sequence_id()
+	if not capture_sequence.is_empty():
+		call_deferred("_begin_capture_sequence", capture_sequence)
 
 func _process(delta: float) -> void:
 	if _active.is_empty():
@@ -196,6 +199,26 @@ func _intercept(mission_id: String, registry: Dictionary, trigger: String) -> bo
 
 func cinematic_active() -> bool:
 	return not _active.is_empty()
+
+func _capture_sequence_id() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-cinematic="):
+			return argument.trim_prefix("--capture-cinematic=").to_lower()
+	return ""
+
+func _begin_capture_sequence(sequence_id: String) -> void:
+	for sequence in _sequences:
+		if typeof(sequence) == TYPE_DICTIONARY and str(sequence.get("id", "")).to_lower() == sequence_id:
+			_active = sequence.duplicate(true)
+			_active["seen_key"] = "capture:%s" % sequence_id
+			_shot_index = 0
+			_shot_elapsed = 0.0
+			if _surface != null:
+				_surface.visible = true
+				_surface.queue_redraw()
+			return
 
 func draw_cinematic(surface: CanvasItem) -> void:
 	if _active.is_empty():
