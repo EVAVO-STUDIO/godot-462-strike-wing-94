@@ -1,0 +1,21 @@
+{
+  "asset_family": "mercenary_human_air_articulation_v1",
+  "raw_art": "res://assets/source/enemies/human_air_layered/human_air_component_sheet_raw_v1.png",
+  "clean_source": "res://assets/source/enemies/human_air_layered/human_air_component_sheet_source_v1.png",
+  "cleanup_profile": "res://assets/source/enemies/human_air_layered/human_air_cleanup.sprite.json",
+  "builder": "res://tools/build_human_air_layered_art.ps1",
+  "runtime_directory": "res://assets/runtime/enemies/human_air_layered/",
+  "units": {
+    "gunship_mk1": ["gunship_mount", "gunship_turret", "gunship_barrel", "gunship_barrel_recoil", "gunship_sensor"],
+    "attack_chopper": ["chopper_rotor_0", "chopper_rotor_1", "chopper_rotor_2", "chopper_rotor_3", "chopper_rotor_hub", "chopper_cannon", "chopper_barrel", "chopper_barrel_recoil"],
+    "heavy_bomber": ["bomber_bay_closed", "bomber_bay_opening", "bomber_bay_open", "bomber_bay_fire", "bomber_door_left", "bomber_door_right"],
+    "shared": ["missile_rail_loaded", "mounted_missile", "missile_rail_empty", "air_sensor_cluster", "damaged_turret", "separated_rotor_blade"]
+  },
+  "animation_contract": {
+    "gunship": "ventral mount, target-tracking pod, independent normal/recoil barrels, and fixed sensor",
+    "attack_chopper": "four deterministic rotor angles derived from one crisp blade source plus articulated chin cannon",
+    "heavy_bomber": "registered closed, opening, open, and firing bay states driven by live attack timing",
+    "registration": "all layers attach to reviewed airframe hardpoints without changing hull centres or bank canvases"
+  },
+  "qa": ["seeded enclosed-matte cleanup", "native-scale airframe registration", "rotor diameter consistency", "barrel recoil", "bay state continuity", "in-engine sky and terrain capture"]
+}

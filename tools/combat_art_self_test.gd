@@ -137,6 +137,19 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(1.0, 0.8) == 3, "heavy bomber bay should expose an authored firing pose during recoil")
 	_expect(source.contains('enemy_id == "gunship_mk1"') and source.contains('enemy_id == "attack_chopper"'), "gunship turret and helicopter cannon should receive specialist articulation")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_specialist/air_specialist_asset_manifest.json"), "air specialist source/runtime manifest should exist")
+	var layered_human_air_sizes := {
+		"gunship_mount":Vector2(15,15), "gunship_turret":Vector2(16,20), "gunship_barrel":Vector2(12,24), "gunship_barrel_recoil":Vector2(12,24), "gunship_sensor":Vector2(8,8),
+		"chopper_rotor_0":Vector2(36,36), "chopper_rotor_1":Vector2(36,36), "chopper_rotor_2":Vector2(36,36), "chopper_rotor_3":Vector2(36,36), "chopper_rotor_hub":Vector2(12,12),
+		"chopper_cannon":Vector2(12,15), "chopper_barrel":Vector2(10,20), "chopper_barrel_recoil":Vector2(10,20),
+		"bomber_bay_closed":Vector2(20,20), "bomber_bay_opening":Vector2(20,20), "bomber_bay_open":Vector2(20,20), "bomber_bay_fire":Vector2(20,20), "bomber_door_left":Vector2(7,18), "bomber_door_right":Vector2(7,18),
+		"missile_rail_loaded":Vector2(7,13), "mounted_missile":Vector2(8,14), "missile_rail_empty":Vector2(7,13), "air_sensor_cluster":Vector2(11,8), "damaged_turret":Vector2(16,19), "separated_rotor_blade":Vector2(29,8),
+	}
+	for human_air_layer_id in layered_human_air_sizes:
+		var human_air_layer := load("res://assets/runtime/enemies/human_air_layered/%s.png" % human_air_layer_id) as Texture2D
+		_expect(human_air_layer != null and human_air_layer.get_size() == layered_human_air_sizes[human_air_layer_id], "layered human-air component should retain its registered canvas: %s" % human_air_layer_id)
+	_expect(source.contains('"anchor": Vector2(0, 5)') and source.contains('"anchor": Vector2(0, 7)') and source.contains("_render_air_component"), "gunship and helicopter weapons should attach to reviewed independent hardpoints")
+	_expect(source.contains('argument.begins_with("--capture-air=")') and source.contains('_capture_air_state() == "human"') and source.contains("_render_human_air_capture") and source.contains('"visual_bank":sin(time*2.0)'), "visual QA should expose an isolated human-air bank, rotor, tracking, recoil, and bay fixture")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/human_air_layered/human_air_layered_manifest.json"), "layered human-air source/runtime manifest should exist")
 	var machine_specialist_sizes := {
 		"core_0":Vector2(5,5), "core_1":Vector2(5,5), "core_2":Vector2(5,5), "hunter_weapon":Vector2(30,30),
 		"bomber_bay_closed":Vector2(44,38), "bomber_bay_opening":Vector2(44,38), "bomber_bay_open":Vector2(44,38), "bomber_bay_fire":Vector2(44,38),

@@ -85,12 +85,6 @@ const MERCENARY_AIR_SPRITES := {
 	"heavy_bomber": preload("res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png"),
 }
 const UNIT_ANIMATION_FRAMES := {
-	"attack_chopper": {"fps": 12.0, "frames": [
-		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_0.png"),
-		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_1.png"),
-		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_2.png"),
-		preload("res://assets/runtime/enemies/unit_animation/attack_chopper/rotor_3.png"),
-	]},
 	"security_patrol_mech": {"fps": 7.0, "frames": [
 		preload("res://assets/runtime/enemies/unit_animation/security_patrol_mech/walk_0.png"),
 		preload("res://assets/runtime/enemies/unit_animation/security_patrol_mech/walk_1.png"),
@@ -151,14 +145,36 @@ const HOSTILE_BANK_FRAMES := {
 	"orbital_lancer": [preload("res://assets/runtime/enemies/bank/orbital_lancer/left.png"), preload("res://assets/runtime/enemies/orbital_air/orbital_lancer_idle.png"), preload("res://assets/runtime/enemies/bank/orbital_lancer/right.png")],
 }
 const AIR_SPECIALIST_ART := {
-	"gunship_mk1": preload("res://assets/runtime/enemies/air_specialist/gunship_turret.png"),
-	"attack_chopper": preload("res://assets/runtime/enemies/air_specialist/chopper_cannon.png"),
-	"heavy_bomber": [
-		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_closed.png"),
-		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_opening.png"),
-		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_open.png"),
-		preload("res://assets/runtime/enemies/air_specialist/heavy_bomber_bay_fire.png"),
-	],
+	"gunship_mk1": {
+		"mount": preload("res://assets/runtime/enemies/human_air_layered/gunship_mount.png"),
+		"turret": preload("res://assets/runtime/enemies/human_air_layered/gunship_turret.png"),
+		"barrel": preload("res://assets/runtime/enemies/human_air_layered/gunship_barrel.png"),
+		"barrel_recoil": preload("res://assets/runtime/enemies/human_air_layered/gunship_barrel_recoil.png"),
+		"sensor": preload("res://assets/runtime/enemies/human_air_layered/gunship_sensor.png"),
+		"anchor": Vector2(0, 5),
+	},
+	"attack_chopper": {
+		"rotor": [
+			preload("res://assets/runtime/enemies/human_air_layered/chopper_rotor_0.png"),
+			preload("res://assets/runtime/enemies/human_air_layered/chopper_rotor_1.png"),
+			preload("res://assets/runtime/enemies/human_air_layered/chopper_rotor_2.png"),
+			preload("res://assets/runtime/enemies/human_air_layered/chopper_rotor_3.png"),
+		],
+		"hub": preload("res://assets/runtime/enemies/human_air_layered/chopper_rotor_hub.png"),
+		"turret": preload("res://assets/runtime/enemies/human_air_layered/chopper_cannon.png"),
+		"barrel": preload("res://assets/runtime/enemies/human_air_layered/chopper_barrel.png"),
+		"barrel_recoil": preload("res://assets/runtime/enemies/human_air_layered/chopper_barrel_recoil.png"),
+		"anchor": Vector2(0, 7),
+	},
+	"heavy_bomber": {
+		"bay": [
+			preload("res://assets/runtime/enemies/human_air_layered/bomber_bay_closed.png"),
+			preload("res://assets/runtime/enemies/human_air_layered/bomber_bay_opening.png"),
+			preload("res://assets/runtime/enemies/human_air_layered/bomber_bay_open.png"),
+			preload("res://assets/runtime/enemies/human_air_layered/bomber_bay_fire.png"),
+		],
+		"anchor": Vector2(0, 4),
+	},
 }
 const MACHINE_AIR_SPECIALIST_ART := {
 	"core": [
@@ -635,6 +651,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_render_infantry_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _capture_air_state() == "human":
+		_render_human_air_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
@@ -687,6 +707,18 @@ func _render_infantry_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_infantry_team(surface, enemy["position"], enemy["id"], enemy, 1.0)
+
+func _render_human_air_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
+	var fire_timer := fposmod(1.0-time, 1.0)
+	var definitions := [
+		{"id":"gunship_mk1", "position":Vector2(175,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time, "visual_bank":sin(time*2.0)},
+		{"id":"attack_chopper", "position":Vector2(320,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":16, "max_hp":16, "age":time, "visual_bank":0.0},
+		{"id":"heavy_bomber", "position":Vector2(475,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time, "visual_bank":0.0},
+	]
+	for enemy in definitions:
+		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, MERCENARY_AIR_SPRITES[enemy["id"]])
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -788,6 +820,13 @@ func _capture_ground_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-ground="):
 			return argument.trim_prefix("--capture-ground=").to_lower()
+	return ""
+
+func _capture_air_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args(): return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-air="):
+			return argument.trim_prefix("--capture-air=").to_lower()
 	return ""
 
 func _draw_player_damage(surface: CanvasItem, origin: Vector2, damage_ratio: float) -> void:
@@ -922,6 +961,7 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		_draw_production_sprite(surface, p, bank_frames[bank_index])
 	else:
 		_draw_animated_unit(surface, p, enemy_id, enemy, hull)
+	if AIR_SPECIALIST_ART.has(enemy_id):
 		_render_air_specialist(surface, p, enemy_id, enemy)
 	if MACHINE_AIR_SPRITES.has(enemy_id):
 		_render_machine_air_specialist(surface, p, enemy_id, enemy, bank_index)
@@ -940,26 +980,46 @@ func _render_air_specialist(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		return
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
 	if enemy_id == "gunship_mk1":
-		var turret: Texture2D = AIR_SPECIALIST_ART[enemy_id]
+		var definition: Dictionary = AIR_SPECIALIST_ART[enemy_id]
+		var anchor: Vector2 = p + Vector2(definition["anchor"])
 		var direction := _player_position() - p
-		var rotation := 0.0 if direction.length_squared() < 0.001 else Vector2.DOWN.angle_to(direction.normalized())
-		surface.draw_set_transform(p.round(), rotation, Vector2.ONE)
-		surface.draw_texture(turret, -turret.get_size() * 0.5 + Vector2(0.0, -roundf(recoil_ratio * 2.0)))
+		var rotation := 0.0 if direction.length_squared() < 0.001 else clampf(Vector2.DOWN.angle_to(direction.normalized()), -0.78, 0.78)
+		_draw_production_sprite(surface, anchor, definition["mount"])
+		_render_air_component(surface, definition["turret"], anchor, rotation, Vector2(0.5,0.38))
+		var barrel: Texture2D = definition["barrel_recoil"] if recoil_ratio > 0.01 else definition["barrel"]
+		_render_air_component(surface, barrel, anchor, rotation, Vector2(0.5,0.12))
+		_draw_production_sprite(surface, p + Vector2(0,-3), definition["sensor"])
 		if recoil_ratio > 0.45:
-			var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
-			surface.draw_texture_rect(flash, Rect2(-5, 12, 10, 10), false)
-		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+			_render_air_muzzle(surface, anchor + Vector2.DOWN.rotated(rotation) * 17.0, recoil_ratio)
 	elif enemy_id == "attack_chopper":
-		var cannon: Texture2D = AIR_SPECIALIST_ART[enemy_id]
-		var offset := Vector2(0.0, -roundf(recoil_ratio * 2.0))
-		surface.draw_texture(cannon, (p - cannon.get_size() * 0.5 + offset).round())
+		var definition: Dictionary = AIR_SPECIALIST_ART[enemy_id]
+		var rotor_frames: Array = definition["rotor"]
+		var rotor: Texture2D = rotor_frames[int(floor(float(enemy.get("age",0.0))*12.0)) % rotor_frames.size()]
+		_draw_production_sprite(surface, p+Vector2(0,-2), rotor)
+		_draw_production_sprite(surface, p+Vector2(0,-2), definition["hub"])
+		var anchor: Vector2 = p + Vector2(definition["anchor"])
+		var direction := _player_position() - p
+		var rotation := 0.0 if direction.length_squared() < 0.001 else clampf(Vector2.DOWN.angle_to(direction.normalized()), -0.48, 0.48)
+		_render_air_component(surface, definition["turret"], anchor, rotation, Vector2(0.5,0.36))
+		var barrel: Texture2D = definition["barrel_recoil"] if recoil_ratio > 0.01 else definition["barrel"]
+		_render_air_component(surface, barrel, anchor, rotation, Vector2(0.5,0.12))
 		if recoil_ratio > 0.45:
-			var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
-			surface.draw_texture_rect(flash, Rect2((p + Vector2(-5, 12)).round(), Vector2(10,10)), false)
+			_render_air_muzzle(surface, anchor + Vector2.DOWN.rotated(rotation) * 15.0, recoil_ratio)
 	elif enemy_id == "heavy_bomber":
-		var bay_frames: Array = AIR_SPECIALIST_ART[enemy_id]
+		var definition: Dictionary = AIR_SPECIALIST_ART[enemy_id]
+		var bay_frames: Array = definition["bay"]
 		var frame_index := heavy_bomber_bay_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
-		_draw_production_sprite(surface, p, bay_frames[frame_index])
+		_draw_production_sprite(surface, p + Vector2(definition["anchor"]), bay_frames[frame_index])
+
+func _render_air_component(surface: CanvasItem, texture: Texture2D, world_pivot: Vector2, angle: float, normalized_pivot: Vector2) -> void:
+	var local_pivot := texture.get_size() * normalized_pivot
+	surface.draw_set_transform(world_pivot.round(), angle, Vector2.ONE)
+	surface.draw_texture(texture, -local_pivot.round())
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+func _render_air_muzzle(surface: CanvasItem, center: Vector2, recoil_ratio: float) -> void:
+	var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
+	surface.draw_texture_rect(flash, Rect2((center-Vector2(4,4)).round(), Vector2(8,8)), false)
 
 static func heavy_bomber_bay_frame_index(fire_timer: float, recoil_ratio: float) -> int:
 	if recoil_ratio > 0.01:
