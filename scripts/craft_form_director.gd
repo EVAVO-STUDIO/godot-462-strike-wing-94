@@ -122,16 +122,29 @@ func refuel_afterburner_full() -> void:
 	afterburner_fuel = AFTERBURNER_CAPACITY
 
 func afterburner_ratio() -> float:
+	if _capture_hypersonic():
+		return 0.82
 	return clampf(afterburner_fuel / AFTERBURNER_CAPACITY, 0.0, 1.0)
 
 func afterburner_active() -> bool:
+	if _capture_hypersonic():
+		return true
 	return _afterburner_active
 
 func hypersonic_active() -> bool:
+	if _capture_hypersonic():
+		return true
 	return _hypersonic_active
 
 func hypersonic_charge_ratio() -> float:
+	if _capture_hypersonic():
+		return 1.0
 	return clampf(_hypersonic_charge / HypersonicRules.charge_seconds(altitude), 0.0, 1.0)
+
+func _capture_hypersonic() -> bool:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return false
+	return "--capture-flight=hypersonic" in OS.get_cmdline_user_args()
 
 func _publish_generator_context(scene: Object) -> void:
 	if scene.has_method("_active_generator"):

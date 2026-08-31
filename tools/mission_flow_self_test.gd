@@ -50,6 +50,7 @@ func _test_overtime() -> void:
 		_expect(source.contains("BOSS OVERTIME EXPIRED"), "expired overtime should fail explicitly")
 		_expect(source.contains("_capture_mission_index"), "visual QA should be able to launch any authored mission deterministically")
 		_expect(source.contains('argument.begins_with("--capture-mission=")'), "mission capture selector should remain command-line isolated")
+		_expect(source.contains('argument.begins_with("--capture-result=")') and source.contains("_begin_capture_result"), "mission report visual QA should expose deterministic success and failure fixtures")
 	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:

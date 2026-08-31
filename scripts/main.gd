@@ -97,7 +97,10 @@ func _ready() -> void:
 	option_category = _capture_option_category(OS.get_cmdline_user_args(),option_category)
 	var capture_front_end := _capture_front_end(OS.get_cmdline_user_args())
 	var capture_game_mode := _capture_game_mode(OS.get_cmdline_user_args())
-	if not capture_game_mode.is_empty():
+	var capture_result := _capture_result_state(OS.get_cmdline_user_args())
+	if not capture_result.is_empty():
+		_begin_capture_result(capture_result)
+	elif not capture_game_mode.is_empty():
 		call_deferred("_begin_capture_game_mode",capture_game_mode)
 	elif not capture_front_end.is_empty():
 		front_end_screen = capture_front_end
@@ -137,6 +140,30 @@ func _capture_game_mode(arguments: PackedStringArray) -> String:
 		if argument.begins_with("--capture-game-mode="):
 			return argument.trim_prefix("--capture-game-mode=").to_lower()
 	return ""
+
+func _capture_result_state(arguments: PackedStringArray) -> String:
+	if not "--capture-gameplay" in arguments:
+		return ""
+	for argument in arguments:
+		if argument.begins_with("--capture-result="):
+			var value := argument.trim_prefix("--capture-result=").to_lower()
+			return value if value in ["success", "failure"] else ""
+	return ""
+
+func _begin_capture_result(state: String) -> void:
+	phase = GamePhase.RESULT
+	mission_success = state == "success"
+	score = 184260 if mission_success else 42780
+	credits = 28640
+	shots_fired = 164
+	shots_hit = 129 if mission_success else 61
+	targets_destroyed = 43 if mission_success else 17
+	damage_taken = 18 if mission_success else 100
+	secrets_discovered = 1 if mission_success else 0
+	repair_cost = 520 if mission_success else 4800
+	result_text = "MISSION COMPLETE  +6420  BOSS +1800  ACCURACY 79% +900" if mission_success else "AIRFRAME LOST  PRESS R TO RETRY"
+	_clear_combat()
+	queue_redraw()
 
 func _begin_capture_game_mode(mode_id: String) -> void:
 	var modes := get_node_or_null("/root/GameModeDirector")
