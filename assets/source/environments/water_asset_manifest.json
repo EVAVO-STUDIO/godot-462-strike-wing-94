@@ -1,11 +1,11 @@
 {
   "family": "open_water",
-  "status": "runtime_master_v1",
-  "source_candidate": "res://assets/source/environments/candidates/water/storm_sea_candidate_01.png",
-  "runtime_master": "res://assets/runtime/environments/water/storm_sea_loop_v1.png",
+  "status": "runtime_master_v2",
+  "source_candidate": "res://assets/source/environments/candidates/water/storm_sea_candidate_02_raw.png",
+  "runtime_master": "res://assets/runtime/environments/water/storm_sea_loop_v2.png",
   "runtime_size": [640, 720],
-  "palette_colors": 52,
-  "construction": "320x180 authored clusters upscaled 2x nearest-neighbour; mirrored vertical loop",
+  "palette_colors": 60,
+  "construction": "1254x1254 generated source retained unapproved; centre-cropped to 640x360, palette-mastered, and mirrored into an exact 640x720 vertical loop",
   "art_direction": [
     "cold predawn military squall",
     "crossing directional swell and wind-sheared foam",

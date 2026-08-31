@@ -132,6 +132,10 @@ func _initialize() -> void:
 		_expect(source.contains("REFINERY_STEAM") and source.contains("floor(t * 5.0)") and source.contains("REFINERY_FLARE") and source.contains("floor(t * 8.0)"), "industrial renderer should consume deliberate held steam and flare animation")
 		_expect(not source.substr(source.find("func _draw_industrial"), source.find("func _draw_water") - source.find("func _draw_industrial")).contains("REFINERY_DETAIL_TILE"), "industrial gameplay should not regress to schematic circuit-line overlays")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/water/storm_sea_loop_v1.png"), "open-water runtime master should exist")
+		var storm_v2 := load("res://assets/runtime/environments/water/storm_sea_loop_v2.png") as Texture2D
+		_expect(storm_v2 != null and storm_v2.get_size() == Vector2(640,720), "open-water v2 master should retain reviewed 640x720 scroll geometry")
+		_expect(source.contains("storm_sea_loop_v2.png"), "open-water renderer should select the mastered v2 ocean plate")
+		_expect(source.contains("_draw_vertical_loop(surface, STORM_SEA, master_scroll"), "open-water renderer should actually draw its large authored ocean master")
 		_expect(FileAccess.file_exists("res://assets/source/environments/water_asset_manifest.json"), "open-water source manifest should exist")
 		for layer_path in [
 			"sea_deep_tile.png", "sea_surface_tile.png", "sea_foam_tile.png", "coast_surface_tile.png", "cloud_shadow_tile.png", "cloud_mist_tile.png",
