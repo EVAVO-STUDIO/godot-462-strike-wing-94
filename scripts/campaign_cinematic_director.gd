@@ -3,6 +3,7 @@ extends CanvasLayer
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const CampaignCinematicSurface = preload("res://scripts/campaign_cinematic_surface.gd")
+const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 
 const PLATES := {
 	"s2_dead_refinery": preload("res://assets/runtime/cinematics/plates/s2_dead_refinery.png"),
@@ -249,8 +250,14 @@ func draw_cinematic(surface: CanvasItem) -> void:
 	_draw_shot_fx(surface, shot, fade)
 	_draw_subject(surface, shot, ratio, fade)
 	if str(shot.get("id", "")) == "end_title":
-		PixelFont.draw_centered(surface, "HYPERSONIC", 320, 142, 3, Color(0.86,0.91,0.92,fade), 2)
-		PixelFont.draw_centered(surface, "VX-94 VARIABLE STRIKE FIGHTER", 320, 178, 1, Color(0.42,0.64,0.78,fade), 1)
+		var wordmark_size := Vector2(400, 51)
+		surface.draw_texture_rect(
+			HYPERSONIC_WORDMARK,
+			Rect2(Vector2(320, 151) - wordmark_size * 0.5, wordmark_size),
+			false,
+			Color(0.92, 0.95, 0.96, fade)
+		)
+		PixelFont.draw_centered(surface, "VX-94 VARIABLE STRIKE FIGHTER", 320, 187, 1, Color(0.42,0.64,0.78,fade), 1)
 	surface.draw_rect(Rect2(0,0,640,24), Color("020407"))
 	surface.draw_rect(Rect2(0,296,640,64), Color(0.008,0.014,0.02,0.96))
 	PixelFont.draw_text(surface, str(_active.get("title", "HYPERSONIC")).to_upper(), Vector2(18,9), 1, Color("6aa4c8"), 1)

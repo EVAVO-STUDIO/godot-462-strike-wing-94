@@ -98,6 +98,8 @@ func _run() -> void:
 	for subject_id in ["vx94_bomber", "vx94_fighter"]:
 		var subject := load("res://assets/runtime/cinematics/subjects/ending/%s_0.png" % subject_id) as Texture2D
 		_expect(subject != null and subject.get_size() == Vector2(144,160), "ending VX-94 subject should retain approved identity on its 144x160 cinematic canvas: %s" % subject_id, failures)
+	var ending_wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v1.png") as Texture2D
+	_expect(ending_wordmark != null and ending_wordmark.get_size() == Vector2(500,64), "ending title should retain the authored 500x64 HYPERSONIC wordmark", failures)
 	for shot_id in ["end_consequence", "end_action", "end_observation", "end_consequence_final", "end_title"]:
 		for frame_index in range(4):
 			var fx := load("res://assets/runtime/cinematics/fx/ending/%s_%d.png" % [shot_id, frame_index])
@@ -110,7 +112,7 @@ func _run() -> void:
 	_expect(director_source.contains('argument.begins_with("--capture-cinematic=")') and director_source.contains("_begin_capture_sequence"), "visual QA should expose deterministic campaign cinematic sequence capture", failures)
 	_expect(director_source.contains("BLACK_SKY_SUBJECT_FRAMES") and director_source.contains('shot_id.begins_with("s3_")'), "BLACK SKY shots should use dedicated cinematic subject cels rather than enlarged gameplay sprites", failures)
 	_expect(director_source.contains("ENDING_SUBJECT_FRAMES") and director_source.contains('shot_id.begins_with("end_")'), "ending shots should use dedicated identity-correct VX-94 cinematic subjects", failures)
-	_expect(director_source.contains('== "end_title"') and director_source.contains('"VX-94 VARIABLE STRIKE FIGHTER"'), "final ending plate should resolve the authoritative HYPERSONIC title hierarchy", failures)
+	_expect(director_source.contains('== "end_title"') and director_source.contains("HYPERSONIC_WORDMARK") and director_source.contains('"VX-94 VARIABLE STRIKE FIGHTER"'), "final ending plate should resolve the authoritative authored HYPERSONIC title hierarchy", failures)
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main game source should be readable", failures)
 	if main_file != null:
