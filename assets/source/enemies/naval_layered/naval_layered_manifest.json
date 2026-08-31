@@ -1,0 +1,21 @@
+{
+  "asset_family": "mercenary_naval_articulation_v1",
+  "raw_art": "res://assets/source/enemies/naval_layered/naval_component_sheet_raw_v1.png",
+  "clean_source": "res://assets/source/enemies/naval_layered/naval_component_sheet_source_v1.png",
+  "cleanup_profile": "res://assets/source/enemies/naval_layered/naval_cleanup.sprite.json",
+  "builder": "res://tools/build_naval_layered_art.ps1",
+  "runtime_directory": "res://assets/runtime/enemies/naval_layered/",
+  "units": {
+    "river_patrol": ["river_mount", "river_turret", "river_turret_recoil"],
+    "torpedo_boat": ["torpedo_turret", "torpedo_launcher_closed", "torpedo_launcher_opening", "torpedo_launcher_open", "torpedo_launcher_fire"],
+    "fast_attack_craft": ["fast_turret", "fast_radar_pedestal", "fast_radar_array"],
+    "missile_corvette": ["corvette_mount", "corvette_turret", "corvette_launcher_closed", "corvette_launcher_opening", "corvette_launcher_open", "corvette_launcher_fire"]
+  },
+  "animation_contract": {
+    "turrets": "deck-hardpoint target tracking with clamped arcs and physical recoil",
+    "launchers": "registered closed, opening, open, and firing key poses driven by live attack timing",
+    "radar": "independent pedestal and scanning array motion",
+    "registration": "all layers remain centred on authored deck anchors while hull and wake stay independently animated"
+  },
+  "qa": ["seeded enclosed-matte cleanup", "native-scale deck registration", "recoil silhouette", "launcher state continuity", "radar scan", "in-engine wake capture"]
+}

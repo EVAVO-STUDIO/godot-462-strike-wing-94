@@ -271,6 +271,18 @@ func _test_visual_language() -> void:
 		_expect(specialist_texture is Texture2D and specialist_texture.get_size() == naval_specialist_sizes[asset_name], "naval specialist layer should retain its registered hull canvas: %s" % asset_name)
 	_expect(source.contains("NAVAL_SPECIALIST_ART") and source.contains("naval_launcher_frame_index") and source.contains("recoil_timer"), "naval hulls should expose target-tracking turrets, launcher deployment and recoil")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/naval_specialist/naval_specialist_asset_manifest.json"), "naval articulation source/runtime manifest should exist")
+	var layered_naval_sizes := {
+		"river_mount":Vector2(14,14), "river_turret":Vector2(14,28), "river_turret_recoil":Vector2(14,28),
+		"torpedo_turret":Vector2(14,21), "torpedo_launcher_closed":Vector2(12,19), "torpedo_launcher_opening":Vector2(12,19), "torpedo_launcher_open":Vector2(12,19), "torpedo_launcher_fire":Vector2(12,19),
+		"fast_turret":Vector2(16,23), "fast_radar_pedestal":Vector2(10,13), "fast_radar_array":Vector2(14,12),
+		"corvette_turret":Vector2(18,25), "corvette_mount":Vector2(13,13), "corvette_launcher_closed":Vector2(15,23), "corvette_launcher_opening":Vector2(15,23), "corvette_launcher_open":Vector2(15,23), "corvette_launcher_fire":Vector2(15,23),
+	}
+	for naval_layer_id in layered_naval_sizes:
+		var naval_layer := load("res://assets/runtime/enemies/naval_layered/%s.png" % naval_layer_id) as Texture2D
+		_expect(naval_layer != null and naval_layer.get_size() == layered_naval_sizes[naval_layer_id], "layered naval component should retain its registered pivot canvas: %s" % naval_layer_id)
+	_expect(source.contains('"radar_anchor": Vector2(0, -11)') and source.contains('"turret_anchor": Vector2(0, 17)'), "naval components should attach to reviewed independent deck hardpoints")
+	_expect(source.contains('_capture_ground_state() == "naval"') and source.contains("_render_naval_capture"), "visual QA should expose an isolated live naval wake, tracking, recoil, radar, and launcher fixture")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/naval_layered/naval_layered_manifest.json"), "layered naval source/runtime manifest should exist")
 	var machine_air_sizes := {
 		"drone_scout": Vector2(24,26),
 		"drone_hunter": Vector2(30,30),
