@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "title": "HYPERSONIC",
+  "subtitle": "VX-94 VARIABLE STRIKE FIGHTER",
+  "pages": [
+    {"heading":"A GAME BY","lines":["EVAVO STUDIO"],"plate":"title","duration":4.0},
+    {"heading":"CREATIVE COMMAND","lines":["GAME DESIGN","PROGRAMMING","CAMPAIGN & SYSTEMS","EVAVO STUDIO"],"plate":"ark","duration":4.5},
+    {"heading":"VISUAL PRODUCTION","lines":["ART DIRECTION","PIXEL ART & ANIMATION","CINEMATIC PRODUCTION","EVAVO STUDIO"],"plate":"city","duration":4.5},
+    {"heading":"AUDIO PRODUCTION","lines":["MUSIC & SOUND DESIGN","COMBAT AUDIO SYSTEMS","EVAVO STUDIO"],"plate":"reentry","duration":4.0},
+    {"heading":"TECHNOLOGY","lines":["BUILT WITH GODOT ENGINE","PRODUCTION BY EVAVO STUDIO"],"plate":"watch","duration":4.0},
+    {"heading":"THANK YOU FOR FLYING","lines":["BLACK SKY ENDED.","THE WATCH CONTINUES."],"plate":"title","duration":5.0,"vx94":true}
+  ]
+}

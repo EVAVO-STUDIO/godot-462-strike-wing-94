@@ -1,0 +1,9 @@
+{
+  "asset_family":"hypersonic_post_campaign_credits",
+  "status":"runtime_v1",
+  "source":"res://assets/source/ui/credits/credits_frame.svg",
+  "runtime":"res://assets/runtime/ui/credits/credits_frame.png",
+  "canvas":[608,312],
+  "visual_contract":{"era":"late-1990s military arcade staff roll","presentation":"held editorial cards over authored epilogue plates","avoid":["modern scrolling website credits","invented individual names","blank black screen","generic gradient panel"]},
+  "data":"res://data/credits.json"
+}

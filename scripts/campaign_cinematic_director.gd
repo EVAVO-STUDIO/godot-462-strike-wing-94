@@ -328,6 +328,7 @@ func _advance() -> void:
 		_finish()
 
 func _finish() -> void:
+	var was_campaign_ending := str(_active.get("id", "")) == "ending_after_machine_ark"
 	if not _active.is_empty():
 		_seen[str(_active.get("seen_key", "launch:%s" % str(_active.get("mission_id", ""))))] = true
 	_active = {}
@@ -335,3 +336,7 @@ func _finish() -> void:
 	_shot_elapsed = 0.0
 	if _surface != null:
 		_surface.visible = false
+	if was_campaign_ending:
+		var credits := get_node_or_null("/root/CreditsDirector")
+		if credits != null and credits.has_method("begin"):
+			credits.call("begin")

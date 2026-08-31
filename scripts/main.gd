@@ -125,7 +125,9 @@ func _process(delta: float) -> void:
 					front_end_screen = "sortie"
 					_clear_combat()
 		GamePhase.RESULT:
-			if Input.is_action_just_pressed("confirm"):
+			if _credits_blocking():
+				pass
+			elif Input.is_action_just_pressed("confirm"):
 				if not mission_success:
 					_start_mission()
 				elif not _cinematic_blocks_ending():
@@ -346,6 +348,10 @@ func _cinematic_blocks_ending() -> bool:
 	if cinematic == null or not cinematic.has_method("intercept_ending"):
 		return false
 	return bool(cinematic.call("intercept_ending", str(_active_mission().get("id", ""))))
+
+func _credits_blocking() -> bool:
+	var credits_director := get_node_or_null("/root/CreditsDirector")
+	return credits_director != null and credits_director.has_method("credits_active") and bool(credits_director.call("credits_active"))
 
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
