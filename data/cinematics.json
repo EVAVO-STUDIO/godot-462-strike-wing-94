@@ -18,9 +18,9 @@
       "mission_id": "m09_black_horizon",
       "title": "SECTOR III // BLACK SKY",
       "shots": [
-        {"id":"s3_observation","role":"observation","duration":2.5,"camera":"locked","plate":"s3_weather_ceiling","sprite":"vx94_fighter","sprite_position":[320,212],"sprite_scale":1.5,"fx_fps":3.0,"caption":"THE NETWORK RETREATED ABOVE THE WEATHER.","sound_bridge":"environmental"},
-        {"id":"s3_anticipation","role":"anticipation","duration":2.3,"camera":"pan","plate":"s3_phase_protocol","sprite":"phase_array","sprite_position":[430,174],"sprite_scale":1.25,"animation_fps":4.0,"fx_fps":3.0,"caption":"BLACK SKY PROTOCOL IS ACTIVE.","sound_bridge":"prelap"},
-        {"id":"s3_action","role":"action","duration":2.0,"camera":"track","plate":"s3_ark_reveal","sprite":"machine_ark","sprite_position":[320,166],"sprite_scale":0.92,"animation_fps":6.0,"fx_fps":3.0,"caption":"VX-94: CLIMB UNTIL THE SKY ENDS.","sound_bridge":"carry"},
+        {"id":"s3_observation","role":"observation","duration":2.5,"camera":"locked","plate":"s3_weather_ceiling","sprite":"vx94_fighter","sprite_position":[320,210],"sprite_scale":0.8,"fx_fps":3.0,"caption":"THE NETWORK RETREATED ABOVE THE WEATHER.","sound_bridge":"environmental"},
+        {"id":"s3_anticipation","role":"anticipation","duration":2.3,"camera":"pan","plate":"s3_phase_protocol","sprite":"phase_array","sprite_position":[320,172],"sprite_scale":0.8,"animation_fps":4.0,"fx_fps":3.0,"caption":"BLACK SKY PROTOCOL IS ACTIVE.","sound_bridge":"prelap"},
+        {"id":"s3_action","role":"action","duration":2.0,"camera":"track","plate":"s3_ark_reveal","sprite":"machine_ark","sprite_position":[336,164],"sprite_scale":0.72,"animation_fps":6.0,"fx_fps":3.0,"caption":"VX-94: CLIMB UNTIL THE SKY ENDS.","sound_bridge":"carry"},
         {"id":"s3_consequence","role":"consequence","duration":1.6,"camera":"locked","plate":"s3_authorized","fx_fps":3.0,"caption":"OPERATION BLACK SKY // AUTHORIZED","sound_bridge":"hard silence"}
       ]
     },

@@ -54,6 +54,17 @@ const SUBJECT_OVERLAYS := {
 		preload("res://assets/runtime/enemies/boss_animation/machine_ark/critical_3.png"),
 	],
 }
+const BLACK_SKY_SUBJECT_FRAMES := {
+	"vx94_fighter": [preload("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_0.png")],
+	"phase_array": [
+		preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_0.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_1.png"),
+		preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_2.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_3.png"),
+	],
+	"machine_ark": [
+		preload("res://assets/runtime/cinematics/subjects/black_sky/machine_ark_0.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/machine_ark_1.png"),
+		preload("res://assets/runtime/cinematics/subjects/black_sky/machine_ark_2.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/machine_ark_3.png"),
+	],
+}
 const SHOT_FX_FRAMES := {
 	"s2_observation": [
 		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_0.png"),
@@ -262,7 +273,11 @@ func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: f
 	var animation_index := 0
 	if animation_fps > 0.0:
 		animation_index = int(floor(_shot_elapsed * animation_fps))
-	if SUBJECT_FRAMES.has(sprite_id):
+	var shot_id := str(shot.get("id", ""))
+	if shot_id.begins_with("s3_") and BLACK_SKY_SUBJECT_FRAMES.has(sprite_id):
+		var frames: Array = BLACK_SKY_SUBJECT_FRAMES[sprite_id]
+		texture = frames[posmod(animation_index, frames.size())]
+	elif SUBJECT_FRAMES.has(sprite_id):
 		var frames: Array = SUBJECT_FRAMES[sprite_id]
 		texture = frames[posmod(animation_index, frames.size())]
 	var raw = shot.get("sprite_position", [320,170])
@@ -273,7 +288,7 @@ func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: f
 	var scale := float(shot.get("sprite_scale", 1.0))
 	var size := texture.get_size() * scale
 	surface.draw_texture_rect(texture, Rect2((position-size*0.5).round(),size.round()), false, Color(0.86,0.91,0.92,alpha))
-	if SUBJECT_OVERLAYS.has(sprite_id) and animation_fps > 0.0:
+	if not shot_id.begins_with("s3_") and SUBJECT_OVERLAYS.has(sprite_id) and animation_fps > 0.0:
 		var overlays: Array = SUBJECT_OVERLAYS[sprite_id]
 		var overlay: Texture2D = overlays[posmod(animation_index, overlays.size())]
 		var overlay_size := overlay.get_size() * scale

@@ -1,9 +1,9 @@
 {
   "asset_family": "campaign_limited_cel_plates",
-  "status": "runtime_v2_sector_ii",
+  "status": "runtime_v2_sectors_ii_iii",
   "visual_contract": {
     "era": "late-1990s military anime game interstitial",
-    "method": "dedicated held editorial compositions; Sector II uses authored perspective-painted plate masters while remaining shots retain approved environment-derived v1 plates until their own v2 tranches",
+    "method": "dedicated held editorial compositions; Sectors II and III use authored perspective-painted plate masters while ending shots retain approved environment-derived v1 plates until their own v2 tranche",
     "avoid": ["paused gameplay framing", "modern cinematic bloom", "AI interpolation", "generic concept-art montage"]
   },
   "runtime": {
@@ -14,7 +14,7 @@
   },
   "coverage": {
     "sector_ii_machine_war": {"plates":3,"version":"authored_v2"},
-    "sector_iii_black_sky": 4,
+    "sector_iii_black_sky": {"plates":4,"version":"authored_v2"},
     "ending_after_machine_ark": 5
   }
 }

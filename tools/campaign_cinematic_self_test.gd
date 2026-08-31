@@ -69,6 +69,8 @@ func _run() -> void:
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/cinematic_plate_asset_manifest.json"), "cinematic plate production manifest should exist", failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/plates_v2/machine_war/machine_war_plate_manifest_v2.json"), "Sector II authored plate production manifest v2 should exist", failures)
 	_expect(FileAccess.file_exists("res://tools/build_machine_war_cinematic_plates_v2.ps1"), "Sector II authored plate masters should remain deterministically rebuildable", failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/plates_v2/black_sky/black_sky_plate_manifest_v2.json"), "BLACK SKY authored plate production manifest v2 should exist", failures)
+	_expect(FileAccess.file_exists("res://tools/build_black_sky_cinematic_plates_v2.ps1"), "BLACK SKY authored plate masters should remain deterministically rebuildable", failures)
 	for shot_id in ["s2_observation", "s2_anticipation", "s2_consequence"]:
 		for frame_index in range(4):
 			var fx := load("res://assets/runtime/cinematics/fx/machine_war/%s_%d.png" % [shot_id, frame_index])
@@ -84,6 +86,13 @@ func _run() -> void:
 			var fx := load("res://assets/runtime/cinematics/fx/black_sky/%s_%d.png" % [shot_id, frame_index])
 			_expect(fx is Texture2D and fx.get_size() == Vector2(640,272), "BLACK SKY FX cel should retain registered 640x272 geometry: %s %d" % [shot_id, frame_index], failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/black_sky_fx_manifest.json"), "BLACK SKY held-cel source/runtime manifest should exist", failures)
+	for subject_id in ["phase_array", "machine_ark"]:
+		for frame_index in range(4):
+			var subject := load("res://assets/runtime/cinematics/subjects/black_sky/%s_%d.png" % [subject_id,frame_index]) as Texture2D
+			var expected := Vector2(144,144) if subject_id == "phase_array" else Vector2(176,160)
+			_expect(subject != null and subject.get_size() == expected, "BLACK SKY cinematic subject should retain registered cel canvas: %s %d" % [subject_id,frame_index], failures)
+	var vx94_cinematic := load("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_0.png") as Texture2D
+	_expect(vx94_cinematic != null and vx94_cinematic.get_size() == Vector2(144,160), "BLACK SKY VX-94 subject should retain approved identity on its 144x160 cinematic canvas", failures)
 	for shot_id in ["end_consequence", "end_action", "end_observation", "end_consequence_final", "end_title"]:
 		for frame_index in range(4):
 			var fx := load("res://assets/runtime/cinematics/fx/ending/%s_%d.png" % [shot_id, frame_index])
@@ -94,6 +103,7 @@ func _run() -> void:
 	_expect(director_source.contains("SUBJECT_FRAMES") and director_source.contains("SUBJECT_OVERLAYS") and director_source.contains("animation_fps"), "cinematic subjects should consume approved limited-animation frames and boss overlays", failures)
 	_expect(director_source.contains("SHOT_FX_FRAMES") and director_source.contains("_draw_shot_fx") and director_source.contains("fx_fps"), "campaign cinematic should composite authored held FX cels by shot identity", failures)
 	_expect(director_source.contains('argument.begins_with("--capture-cinematic=")') and director_source.contains("_begin_capture_sequence"), "visual QA should expose deterministic campaign cinematic sequence capture", failures)
+	_expect(director_source.contains("BLACK_SKY_SUBJECT_FRAMES") and director_source.contains('shot_id.begins_with("s3_")'), "BLACK SKY shots should use dedicated cinematic subject cels rather than enlarged gameplay sprites", failures)
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main game source should be readable", failures)
 	if main_file != null:

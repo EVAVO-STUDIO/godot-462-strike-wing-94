@@ -1,0 +1,19 @@
+{
+  "asset_family": "sector_iii_black_sky_authored_cinematic_plates_v2",
+  "status": "runtime_v2",
+  "source_method": "OpenAI built-in image generation for plate masters and machine subjects; approved VX-94 identity master retained for hero fidelity; deterministic crop, palette shaping, and runtime packing",
+  "visual_contract": {
+    "era": "serious 1995-1998 military CD-ROM upper-atmosphere interstitial",
+    "canvas": [640,320],
+    "palette_limit": 64,
+    "world_rule": "near-Earth aerospace escalation rather than generic outer space",
+    "avoid": ["environment-tile crops", "fantasy spacecraft", "neon cyberpunk", "modern glossy render", "generic starfield"]
+  },
+  "plates": ["s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized"],
+  "subject_cels": {
+    "vx94_fighter": {"frames":1,"canvas":[144,160],"identity_source":"res://assets/source/craft/vx94/candidates/vx94_fighter_identity_candidate_01.png"},
+    "phase_array": {"frames":4,"canvas":[144,144],"exposure_fps":4},
+    "machine_ark": {"frames":4,"canvas":[176,160],"exposure_fps":6}
+  },
+  "limited_motion": {"registration":[640,272],"playback_fps":3,"source_manifest":"res://assets/source/cinematics/black_sky_fx_manifest.json","tracks":["atmospheric shear and contrails","broken phase-field arcs","Ark debris and sensor wake","physical launch-rail readiness lamps"]}
+}
