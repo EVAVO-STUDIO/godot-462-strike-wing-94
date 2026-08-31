@@ -103,6 +103,11 @@ func _initialize() -> void:
 		for frame_index in range(4):
 			var impact_frame := load("res://assets/runtime/environments/modular_coast/breakwater_impact_%d.png" % frame_index)
 			_expect(impact_frame is Texture2D and impact_frame.get_size() == Vector2(120,120), "breakwater-impact animation frame should retain 120x120 registration: %d" % frame_index)
+		_expect(source.contains("COAST_FINITE_CHUNKS") and source.contains("_draw_modular_coast_pass"), "coastal renderer should compose finite registered construction chunks over the continuous terrain bed")
+		_expect(source.contains("COAST_SHORE_WASH") and source.contains("floor(t * 6.0)"), "coastal renderer should consume held six-fps shoreline wash animation")
+		_expect(source.contains("COAST_BREAKWATER_IMPACT") and source.contains("floor(t * 8.0)"), "coastal renderer should consume held eight-fps breakwater impact animation")
+		_expect(source.contains("cycle := 1480.0"), "finite coast modules should use a long authored world cycle instead of obvious screen-height wallpaper repetition")
+		_expect(source.contains("_draw_texture_rect_clipped") and source.contains("destination.intersection(clip_rect)"), "finite coast sprites and edge animation must clip cleanly beneath the HUD viewport")
 		_expect(FileAccess.file_exists("res://tools/build_modular_coast_art.ps1"), "modular coast runtime crops should remain reproducible through the registered builder")
 		_expect(FileAccess.file_exists("res://assets/source/environments/coast_asset_manifest.json"), "coastal source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_asset_manifest.json"), "cloud source manifest should exist")

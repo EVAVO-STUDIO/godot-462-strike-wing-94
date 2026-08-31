@@ -38,6 +38,28 @@ const PARALLAX_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/parallax_near.png"),
 ]
 const COAST_WAKE := preload("res://assets/runtime/environments/motion/coast_wake.png")
+const COAST_SHORE_WASH := [
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_0.png"),
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_1.png"),
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_2.png"),
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_1.png"),
+]
+const COAST_BREAKWATER_IMPACT := [
+	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_0.png"),
+	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_1.png"),
+	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_2.png"),
+	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_3.png"),
+	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_2.png"),
+	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_1.png"),
+]
+const COAST_FINITE_CHUNKS := [
+	preload("res://assets/runtime/environments/modular_coast/breakwater_straight.png"),
+	preload("res://assets/runtime/environments/modular_coast/seawall_access.png"),
+	preload("res://assets/runtime/environments/modular_coast/radar_bunker.png"),
+	preload("res://assets/runtime/environments/modular_coast/weapon_revetment.png"),
+	preload("res://assets/runtime/environments/modular_coast/tetrapod_cluster.png"),
+	preload("res://assets/runtime/environments/modular_coast/utility_bunker.png"),
+]
 const RAIN_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/rain_a.png"),
 	preload("res://assets/runtime/environments/motion/rain_b.png"),
@@ -148,7 +170,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"machine_furnace": _draw_machine_furnace(surface, state, t)
 	else:
 		match motif:
-			"coast": _draw_coast(surface, profile, state, t)
+			"coast": _draw_coast(surface, scene, profile, state, t)
 			"industrial": _draw_industrial(surface, profile, state, t)
 			"water": _draw_water(surface, profile, state, t)
 			"cloud_top": _draw_cloud_top(surface, profile, state, t)
@@ -357,13 +379,14 @@ func _draw_parallax(surface: CanvasItem, profile: Dictionary, state: Dictionary,
 func _coast_x(world_y: float, scale: float) -> float:
 	return 148.0 * scale + sin(world_y * 0.018) * 35.0 * scale + sin(world_y * 0.047 + 1.3) * 13.0 * scale
 
-func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
+func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state):
 		return
 	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.32, 720.0)
 	_draw_vertical_loop(surface, COASTAL_STRIKE_ZONE, scroll, ENVIRONMENT_VIEW)
 	var surface_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.41, 512.0)
 	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,ENVIRONMENT_VIEW.position.y,340,ENVIRONMENT_VIEW.size.y), Color(1,1,1,0.18))
+	_draw_modular_coast_pass(surface, scene, profile, state, t)
 	# Restrained moving wakes prevent the authored plate from reading as a static
 	# illustration while preserving projectile contrast over the open water.
 	var foam := _tone(profile, "foam", 0.34)
@@ -372,6 +395,57 @@ func _draw_coast(surface: CanvasItem, profile: Dictionary, state: Dictionary, t:
 		var sx := 440.0 + float((i * 73) % 150)
 		var wake_width := 18.0 + float(i % 3) * 7.0
 		surface.draw_texture_rect(COAST_WAKE, Rect2(Vector2(sx,sy-5),Vector2(wake_width,10)), false, foam)
+
+func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
+	# Finite authored modules use a long world-space cycle instead of wallpaper
+	# tiling. The source master remains the continuous terrain bed; these pieces
+	# provide separately registered structures and animated shoreline edges.
+	var speed := _parallax_speed(profile, state, "mid") * 0.32
+	var world_scroll := t * speed
+	var seed := _mission_seed(scene)
+	var scale := 0.46 + 0.18 * _ground_scale(state)
+	var cycle := 1480.0
+	var slots := [
+		{"x": 354.0, "y": 112.0, "chunk": 0},
+		{"x": 184.0, "y": 438.0, "chunk": 2},
+		{"x": 72.0, "y": 776.0, "chunk": 3},
+		{"x": 310.0, "y": 1090.0, "chunk": 1},
+		{"x": 404.0, "y": 1262.0, "chunk": 4},
+	]
+	for slot_index in range(slots.size()):
+		var slot: Dictionary = slots[slot_index]
+		var texture_index := posmod(int(slot["chunk"]) + seed, COAST_FINITE_CHUNKS.size())
+		var texture: Texture2D = COAST_FINITE_CHUNKS[texture_index]
+		var y := fposmod(float(slot["y"]) + world_scroll + float(seed % 97), cycle) - 190.0 + ENVIRONMENT_VIEW.position.y
+		var size := (texture.get_size() * scale).round()
+		if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
+			continue
+		var x := clampf(float(slot["x"]) + float((seed + slot_index * 31) % 29) - 14.0, 8.0, 632.0 - size.x)
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x, y).round(), size), ENVIRONMENT_VIEW, Color(0.78, 0.84, 0.84, 0.68))
+
+	# Shore wash is a temporal loop but not a spatial wallpaper. Two registered
+	# edge events pass through the coast at different phases and never cover the
+	# open-water combat lane together.
+	var wash_frame: Texture2D = COAST_SHORE_WASH[posmod(int(floor(t * 6.0)), COAST_SHORE_WASH.size())]
+	for wash_index in range(2):
+		var wash_y := fposmod(world_scroll + float(wash_index * 706 + seed % 181), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
+		var wash_size := (wash_frame.get_size() * Vector2(0.58, 0.42)).round()
+		if wash_y >= ENVIRONMENT_VIEW.position.y and wash_y + wash_size.y <= ENVIRONMENT_VIEW.end.y:
+			var edge_fade := minf(clampf((wash_y - ENVIRONMENT_VIEW.position.y) / 24.0, 0.0, 1.0), clampf((ENVIRONMENT_VIEW.end.y - wash_y - wash_size.y) / 24.0, 0.0, 1.0))
+			_draw_texture_rect_clipped(surface, wash_frame, Rect2(Vector2(316.0 + wash_index * 42.0, wash_y).round(), wash_size), ENVIRONMENT_VIEW, Color(0.86, 0.94, 0.96, 0.34 * edge_fade))
+
+	var impact_frame: Texture2D = COAST_BREAKWATER_IMPACT[posmod(int(floor(t * 8.0)), COAST_BREAKWATER_IMPACT.size())]
+	var impact_y := fposmod(world_scroll + 360.0 + float(seed % 239), cycle) - 100.0 + ENVIRONMENT_VIEW.position.y
+	if impact_y + 66.0 >= ENVIRONMENT_VIEW.position.y and impact_y <= ENVIRONMENT_VIEW.end.y:
+		_draw_texture_rect_clipped(surface, impact_frame, Rect2(Vector2(374, impact_y).round(), Vector2(66,66)), ENVIRONMENT_VIEW, Color(0.90,0.96,0.98,0.48))
+
+func _draw_texture_rect_clipped(surface: CanvasItem, texture: Texture2D, destination: Rect2, clip_rect: Rect2, modulate := Color.WHITE) -> void:
+	var clipped := destination.intersection(clip_rect)
+	if clipped.size.x <= 0.0 or clipped.size.y <= 0.0:
+		return
+	var scale := texture.get_size() / destination.size
+	var source := Rect2((clipped.position - destination.position) * scale, clipped.size * scale)
+	surface.draw_texture_rect_region(texture, clipped, source, modulate)
 
 func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2, modulate := Color.WHITE) -> void:
 	var remaining := destination.size.y
