@@ -833,7 +833,7 @@ func _render_infantry_capture(surface: CanvasItem, scene: Object) -> void:
 		{"id":"mercenary_heavy_team", "position":Vector2(420,150), "hit_timer":hit, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
 	]
 	for enemy in definitions:
-		_draw_infantry_team(surface, enemy["position"], enemy["id"], enemy, 1.0)
+		_draw_infantry_team(surface, enemy["position"], enemy["id"], enemy, 1.18)
 
 func _render_human_air_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
@@ -1150,7 +1150,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		_draw_layered_ground(surface, p, enemy, LAYERED_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground" and MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id):
 		if INFANTRY_LAYERED_ART.has(enemy_id):
-			_draw_infantry_team(surface, p, enemy_id, enemy, scale)
+			_draw_infantry_team(surface, p, enemy_id, enemy, scale * 1.18)
 		else:
 			var unit_scale := scale * (1.16 if enemy_id == "security_patrol_mech" else 1.0)
 			_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], unit_scale)
