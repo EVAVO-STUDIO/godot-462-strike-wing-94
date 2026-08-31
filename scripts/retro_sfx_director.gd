@@ -37,6 +37,9 @@ func set_output_level(percent: int) -> void:
 	if _player != null:
 		_player.volume_db = -80.0 if safe_percent == 0 else linear_to_db(float(safe_percent) / 100.0)
 
+func set_mix_levels(master_percent: int, sfx_percent: int) -> void:
+	set_output_level(int(round(float(clampi(master_percent,0,100)*clampi(sfx_percent,0,100))/100.0)))
+
 func _process(delta: float) -> void:
 	_rotary_cooldown = maxf(0.0, _rotary_cooldown - maxf(0.0, delta))
 	_observe_gameplay()

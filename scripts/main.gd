@@ -28,6 +28,7 @@ var phase := GamePhase.TITLE
 var front_end_screen := "main_menu"
 var menu_selection := 0
 var option_selection := 0
+var option_category := 0
 var mode_selection := 0
 var game_mode := "campaign"
 var mode_name := "CAMPAIGN"
@@ -93,6 +94,7 @@ func _ready() -> void:
 	_prepare_mission(mission_index)
 	mode_selection = _capture_mode_selection(OS.get_cmdline_user_args(),mode_selection)
 	option_selection = _capture_option_selection(OS.get_cmdline_user_args(),option_selection)
+	option_category = _capture_option_category(OS.get_cmdline_user_args(),option_category)
 	var capture_front_end := _capture_front_end(OS.get_cmdline_user_args())
 	var capture_game_mode := _capture_game_mode(OS.get_cmdline_user_args())
 	if not capture_game_mode.is_empty():
@@ -121,6 +123,13 @@ func _capture_option_selection(arguments: PackedStringArray, fallback: int) -> i
 		if argument.begins_with("--capture-option-selection="):
 			var value := argument.trim_prefix("--capture-option-selection=")
 			if value.is_valid_int(): return maxi(0,value.to_int())
+	return fallback
+
+func _capture_option_category(arguments: PackedStringArray, fallback: int) -> int:
+	for argument in arguments:
+		if argument.begins_with("--capture-option-category="):
+			var value:=argument.trim_prefix("--capture-option-category=")
+			if value.is_valid_int():return maxi(0,value.to_int())
 	return fallback
 
 func _capture_game_mode(arguments: PackedStringArray) -> String:
@@ -234,7 +243,12 @@ func _update_front_end_modes() -> void:
 
 func _update_front_end_options() -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
-	var setting_count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
+	var category_count:=int(settings.call("category_count")) if settings!=null and settings.has_method("category_count") else 1
+	if Input.is_action_just_pressed("transform_craft"):
+		option_category=posmod(option_category-1,category_count);option_selection=0;return
+	if Input.is_action_just_pressed("fire_secondary"):
+		option_category=posmod(option_category+1,category_count);option_selection=0;return
+	var setting_count:=int(settings.call("category_setting_count",option_category)) if settings!=null and settings.has_method("category_setting_count") else 1
 	if Input.is_action_just_pressed("cancel"):
 		front_end_screen = "main_menu"
 		return
@@ -247,7 +261,8 @@ func _update_front_end_options() -> void:
 	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("confirm"): direction = 1
 	if direction != 0:
 		if settings != null and settings.has_method("adjust_setting"):
-			settings.call("adjust_setting", option_selection, direction)
+			var global_index:=int(settings.call("category_global_index",option_category,option_selection)) if settings.has_method("category_global_index") else option_selection
+			settings.call("adjust_setting",global_index,direction)
 
 func _update_mission(delta: float) -> void:
 	if player_loss_timer > 0.0:

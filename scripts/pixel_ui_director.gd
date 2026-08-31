@@ -346,30 +346,35 @@ func _draw_front_end_controls(surface: CanvasItem) -> void:
 
 func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
-	var count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
+	var category:=clampi(int(scene.get("option_category")) if _has_property(scene,"option_category") else 0,0,4)
+	var count:=int(settings.call("category_setting_count",category)) if settings!=null and settings.has_method("category_setting_count") else 1
 	var selection := clampi(int(scene.get("option_selection")) if _has_property(scene, "option_selection") else 0, 0, count - 1)
 	PixelFont.draw_centered(surface, "SYSTEM OPTIONS", 320, 128, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, "VIDEO // AUDIO // CONTROL // ACCESSIBILITY", 320, 141, 1, BLUE, 1)
+	var tabs:=[]
+	for i in range(int(settings.call("category_count")) if settings!=null and settings.has_method("category_count") else 1):tabs.append(str(settings.call("category_name",i)))
+	PixelFont.draw_centered(surface,"  ".join(tabs),320,141,1,BLUE,1)
+	PixelFont.draw_centered(surface,"< %s >" % str(settings.call("category_name",category)),320,153,1,GOLD,1)
 	for index in range(count):
-		var position := Vector2(100, 151 + index * 31)
+		var position:=Vector2(100,170+index*35)
 		surface.draw_texture(OPTIONS_ROW_SELECTED if index == selection else OPTIONS_ROW_IDLE, position)
 		if index == selection:
 			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
-		var label := str(settings.call("setting_label", index)) if settings != null and settings.has_method("setting_label") else "OPTION"
-		var value := str(settings.call("setting_value", index)) if settings != null and settings.has_method("setting_value") else "--"
-		var ratio := float(settings.call("setting_ratio", index)) if settings != null and settings.has_method("setting_ratio") else 0.0
+		var global_index:=int(settings.call("category_global_index",category,index)) if settings!=null and settings.has_method("category_global_index") else index
+		var label:=str(settings.call("setting_label",global_index)) if settings!=null else "OPTION"
+		var value:=str(settings.call("setting_value",global_index)) if settings!=null else "--"
+		var ratio:=float(settings.call("setting_ratio",global_index)) if settings!=null else 0.0
 		PixelFont.draw_text(surface, label, position + Vector2(18, 9), 1, GOLD if index == selection else TEXT, 1)
-		if index in [0, 3]:
+		if global_index in [0,1,6,7,8]:
 			surface.draw_texture(OPTIONS_TOGGLE_ON if ratio >= 0.5 else OPTIONS_TOGGLE_OFF, position + Vector2(306, 8))
 		else:
 			surface.draw_texture(OPTIONS_VALUE_TROUGH, position + Vector2(286, 11))
 			_draw_clipped_fill(surface, OPTIONS_VALUE_FILL, position + Vector2(288, 13), ratio)
 		PixelFont.draw_text(surface, value, position + Vector2(382 - PixelFont.text_width(value, 1, 1), 9), 1, GREEN if ratio >= 0.5 else MUTED, 1)
-	var difficulty := get_node_or_null("/root/DifficultyDirector")
-	if selection == 4 and difficulty != null:
+	var difficulty:=get_node_or_null("/root/DifficultyDirector")
+	if category==4 and difficulty!=null:
 		var profile: Dictionary = difficulty.call("active_profile")
 		PixelFont.draw_centered(surface, _clip(str(profile.get("description", "")), 72), 320, 312, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "LEFT / RIGHT ADJUST   ESC RETURN", 320, 324, 1, MUTED, 1)
+	PixelFont.draw_centered(surface,"Q / X CATEGORY   LEFT / RIGHT ADJUST   ESC RETURN",320,324,1,MUTED,1)
 
 func _draw_front_end_dossier(surface: CanvasItem) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))

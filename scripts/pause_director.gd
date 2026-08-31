@@ -27,6 +27,7 @@ var _surface: Control
 var _mode := "menu"
 var _selection := 0
 var _option_selection := 0
+var _option_category := 0
 
 func _ready() -> void:
 	layer = 110
@@ -62,7 +63,10 @@ func _update_menu() -> void:
 
 func _update_options() -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
-	var setting_count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
+	var category_count:=int(settings.call("category_count")) if settings!=null and settings.has_method("category_count") else 1
+	if Input.is_action_just_pressed("transform_craft"):_option_category=posmod(_option_category-1,category_count);_option_selection=0;return
+	if Input.is_action_just_pressed("fire_secondary"):_option_category=posmod(_option_category+1,category_count);_option_selection=0;return
+	var setting_count:=int(settings.call("category_setting_count",_option_category)) if settings!=null and settings.has_method("category_setting_count") else 1
 	if Input.is_action_just_pressed("cancel"):
 		_mode = "menu"; return
 	if Input.is_action_just_pressed("move_up"): _option_selection = posmod(_option_selection - 1, setting_count)
@@ -71,7 +75,7 @@ func _update_options() -> void:
 	if Input.is_action_just_pressed("move_left"): direction = -1
 	elif Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("confirm"): direction = 1
 	if direction != 0:
-		if settings != null and settings.has_method("adjust_setting"): settings.call("adjust_setting", _option_selection, direction)
+		if settings!=null and settings.has_method("adjust_setting"):settings.call("adjust_setting",int(settings.call("category_global_index",_option_category,_option_selection)),direction)
 
 func _update_confirmation() -> void:
 	if Input.is_action_just_pressed("cancel"): _mode = "menu"
@@ -143,16 +147,18 @@ func _draw_menu(surface: CanvasItem) -> void:
 
 func _draw_options(surface: CanvasItem) -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
-	var count := int(settings.call("setting_count")) if settings != null and settings.has_method("setting_count") else 5
+	var count:=int(settings.call("category_setting_count",_option_category)) if settings!=null and settings.has_method("category_setting_count") else 1
+	PixelFont.draw_centered(surface,"< %s >" % str(settings.call("category_name",_option_category)),320,108,1,GOLD,1)
 	for index in range(count):
-		var position := Vector2(100, 112 + index * 34)
+		var position:=Vector2(100,122+index*38)
 		surface.draw_texture(ROW_SELECTED if index == _option_selection else ROW_IDLE, position)
 		if index == _option_selection: surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
-		var label := str(settings.call("setting_label", index)) if settings != null else "OPTION"
-		var value := str(settings.call("setting_value", index)) if settings != null else "--"
-		var ratio := float(settings.call("setting_ratio", index)) if settings != null else 0.0
+		var global_index:=int(settings.call("category_global_index",_option_category,index)) if settings!=null else index
+		var label:=str(settings.call("setting_label",global_index)) if settings!=null else "OPTION"
+		var value:=str(settings.call("setting_value",global_index)) if settings!=null else "--"
+		var ratio:=float(settings.call("setting_ratio",global_index)) if settings!=null else 0.0
 		PixelFont.draw_text(surface, label, position + Vector2(18, 9), 1, GOLD if index == _option_selection else TEXT, 1)
-		if index in [0, 3]: surface.draw_texture(TOGGLE_ON if ratio >= 0.5 else TOGGLE_OFF, position + Vector2(306, 8))
+		if global_index in [0,1,6,7,8]:surface.draw_texture(TOGGLE_ON if ratio>=0.5 else TOGGLE_OFF,position+Vector2(306,8))
 		else:
 			surface.draw_texture(VALUE_TROUGH, position + Vector2(286, 11))
 			_draw_clipped_fill(surface, VALUE_FILL, position + Vector2(288, 13), ratio)
