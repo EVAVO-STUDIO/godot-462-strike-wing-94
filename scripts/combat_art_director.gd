@@ -228,20 +228,19 @@ const MERCENARY_GROUND_SPRITES := {
 }
 const LAYERED_GROUND_SPRITES := {
 	"light_tank": {
-		"base": preload("res://assets/runtime/enemies/mercenary_ground/light_tank_idle.png"),
-		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/light_tank_weapon.png"),
-		"weapon_scale": 0.82,
+		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_turret.png"),
+		"barrel": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_barrel.png"),
 	},
 	"sam_truck": {
-		"base": preload("res://assets/runtime/enemies/mercenary_ground/sam_truck_idle.png"),
-		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png"),
+		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/sam_truck_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_deployed.png"),
 		"weapon_animation": [
-			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon_stowed.png"),
-			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon_rising.png"),
-			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon.png"),
-			preload("res://assets/runtime/enemies/mercenary_ground_layered/sam_truck_weapon_launch.png"),
+			preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_stowed.png"),
+			preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_rising.png"),
+			preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_deployed.png"),
+			preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_launch.png"),
 		],
-		"weapon_scale": 0.82,
 	},
 	"fortified_turret": {
 		"base": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_base.png"),
@@ -256,9 +255,9 @@ const LAYERED_GROUND_SPRITES := {
 		"damage": preload("res://assets/runtime/enemies/mercenary_ground_layered/flak_damage.png"),
 	},
 	"armoured_aa_carrier": {
-		"base": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
-		"weapon": preload("res://assets/runtime/enemies/mercenary_ground_layered/aa_carrier_weapon.png"),
-		"weapon_scale": 0.82,
+		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_carrier_base.png"),
+		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_weapon_head.png"),
+		"barrel": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_twin_barrels.png"),
 	},
 }
 const MERCENARY_GROUND_FORCE_SPRITES := {
@@ -570,10 +569,25 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
 		return
 	_draw_pickups(surface, scene)
+	if _capture_ground_state() == "mobile":
+		_draw_mobile_ground_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
 	_draw_player(surface, scene)
+
+func _draw_mobile_ground_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
+	var definitions := [
+		{"id":"light_tank", "position":Vector2(176,158), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+		{"id":"sam_truck", "position":Vector2(320,142), "fire_timer":fposmod(1.1-time, 1.1), "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+		{"id":"armoured_aa_carrier", "position":Vector2(464,158), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+	]
+	for enemy in definitions:
+		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_GROUND_SPRITES[enemy["id"]], 1.0)
 
 func _supports(scene: Object) -> bool:
 	var names: Dictionary = {}
@@ -668,6 +682,13 @@ func _capture_craft_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-craft="):
 			return argument.trim_prefix("--capture-craft=").to_lower()
+	return ""
+
+func _capture_ground_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args(): return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-ground="):
+			return argument.trim_prefix("--capture-ground=").to_lower()
 	return ""
 
 func _draw_player_damage(surface: CanvasItem, origin: Vector2, damage_ratio: float) -> void:

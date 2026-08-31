@@ -1,0 +1,21 @@
+{
+  "asset_family": "mercenary_mobile_ground_layered_v1",
+  "raw_art": "res://assets/source/enemies/mobile_ground_layered/mobile_ground_component_sheet_raw_v1.png",
+  "clean_source": "res://assets/source/enemies/mobile_ground_layered/mobile_ground_component_sheet_source_v1.png",
+  "cleanup_profile": "res://assets/source/enemies/mobile_ground_layered/mobile_ground_cleanup.sprite.json",
+  "builder": "res://tools/build_mobile_ground_layered_art.ps1",
+  "runtime_directory": "res://assets/runtime/enemies/mobile_ground_layered/",
+  "view": "orthographic top-down north-up",
+  "units": {
+    "light_tank": ["light_tank_base", "light_tank_turret", "light_tank_barrel"],
+    "sam_truck": ["sam_truck_base", "sam_launcher_stowed", "sam_launcher_rising", "sam_launcher_deployed", "sam_launcher_launch"],
+    "armoured_aa_carrier": ["aa_carrier_base", "aa_weapon_head", "aa_twin_barrels"]
+  },
+  "animation_contract": {
+    "tracking": "weapon assemblies rotate independently around registered hull mounting wells",
+    "recoil": "barrel layers translate opposite the firing vector while hulls remain stable",
+    "sam_deployment": "stowed, rising, deployed, launch/recoil",
+    "palette": "cream and charcoal mercenary armour with restrained faded-red recognition marks"
+  },
+  "qa": ["Sprite Studio exterior and seeded enclosed-matte removal", "weaponless hull review", "native-scale pivot review", "tracking and recoil capture"]
+}

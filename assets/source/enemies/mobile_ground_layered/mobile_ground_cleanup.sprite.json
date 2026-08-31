@@ -1,0 +1,31 @@
+{
+  "name": "mobile_ground_layered_source",
+  "pixel_art": false,
+  "cleanup": {
+    "background": "border-palette",
+    "key_colors": [
+      [254, 254, 254],
+      [244, 244, 244]
+    ],
+    "matte_seed_points": [
+      [270, 286],
+      [681, 300],
+      [1175, 306]
+    ],
+    "color_tolerance": 8,
+    "alpha_threshold": 1,
+    "matte_decontaminate": false,
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "previews": {
+    "enabled": false
+  },
+  "export": {
+    "godot": false,
+    "generic_json": false,
+    "animated_scene": false,
+    "event_timeline": false,
+    "integration_contract": false
+  }
+}
