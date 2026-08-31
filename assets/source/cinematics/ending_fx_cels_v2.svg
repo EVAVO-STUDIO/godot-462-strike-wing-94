@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1360" viewBox="0 0 2560 1360" shape-rendering="crispEdges">
+  <!-- Row 0: small cold wreck fragments drift away from the plate-authored Ark. -->
+  <g fill="#8ca2ad">
+    <g transform="translate(0 0)" opacity=".35"><rect x="428" y="88" width="5" height="3"/><rect x="482" y="132" width="3" height="6"/><path d="M514 92l8 3l-5 5Z"/></g>
+    <g transform="translate(640 0)" opacity=".48"><rect x="438" y="96" width="6" height="3"/><rect x="494" y="148" width="3" height="7"/><path d="M532 108l9 4l-6 6Z" fill="#a65a42"/></g>
+    <g transform="translate(1280 0)" opacity=".66"><rect x="450" y="108" width="7" height="4"/><rect x="508" y="166" width="4" height="8"/><path d="M548 126l10 5l-7 7Z" fill="#dc6655"/></g>
+    <g transform="translate(1920 0)" opacity=".42"><rect x="462" y="120" width="5" height="3"/><rect x="520" y="182" width="3" height="7"/><path d="M558 144l8 4l-6 6Z"/></g>
+  </g>
+  <!-- Row 1: local re-entry bow shock and a narrow stepped plasma wake around the separate VX-94 cel. -->
+  <g fill="none" stroke-linecap="square">
+    <g transform="translate(0 272)" opacity=".28"><path d="M278 84Q320 54 362 84" stroke="#b8d4e2"/><path d="M296 198l-22 52M344 198l22 52" stroke="#a65a42" stroke-width="3"/></g>
+    <g transform="translate(640 272)" opacity=".46"><path d="M266 82Q320 42 374 82" stroke="#dceaf0" stroke-width="2"/><path d="M292 194l-34 62M348 194l34 62" stroke="#dc6655" stroke-width="4"/></g>
+    <g transform="translate(1280 272)" opacity=".70"><path d="M254 80Q320 30 386 80" stroke="#dceaf0" stroke-width="3"/><path d="M288 190l-48 70M352 190l48 70" stroke="#dc6655" stroke-width="5"/><path d="M304 206l-16 50M336 206l16 50" stroke="#f2df9a" stroke-width="2"/></g>
+    <g transform="translate(1920 272)" opacity=".38"><path d="M270 84Q320 48 370 84" stroke="#b8d4e2" stroke-width="2"/><path d="M294 196l-30 58M346 196l30 58" stroke="#a65a42" stroke-width="3"/></g>
+  </g>
+  <!-- Row 2: the final rain front withdraws while a handful of utilities return. -->
+  <g stroke="#7893a2" fill="none">
+    <g transform="translate(0 544)" opacity=".28"><path d="M66 42l-26 36M566 34l-28 38"/><rect x="178" y="214" width="3" height="3" fill="#e8ca6a" stroke="none"/></g>
+    <g transform="translate(640 544)" opacity=".34"><path d="M52 54l-24 34M580 46l-26 36"/><rect x="178" y="214" width="3" height="3" fill="#e8ca6a" stroke="none"/><rect x="426" y="226" width="3" height="3" fill="#e8ca6a" stroke="none"/></g>
+    <g transform="translate(1280 544)" opacity=".42"><path d="M38 66l-20 30M596 58l-22 32"/><rect x="178" y="214" width="3" height="3" fill="#f2df9a" stroke="none"/><rect x="426" y="226" width="3" height="3" fill="#f2df9a" stroke="none"/><rect x="304" y="220" width="3" height="3" fill="#e8ca6a" stroke="none"/></g>
+    <g transform="translate(1920 544)" opacity=".24"><rect x="304" y="220" width="3" height="3" fill="#e8ca6a" stroke="none"/><rect x="492" y="204" width="3" height="3" fill="#e8ca6a" stroke="none"/></g>
+  </g>
+  <!-- Row 3: a restrained sweep originates at the lower-left coastal radar station; paired patrol wakes sit locally around the subject. -->
+  <g fill="none" stroke-linecap="square">
+    <g transform="translate(0 816)" opacity=".20"><path d="M86 246A118 118 0 0 1 150 142" stroke="#67c3a5"/><path d="M298 184l-8 58M342 184l8 58" stroke="#b8d4e2"/></g>
+    <g transform="translate(640 816)" opacity=".30"><path d="M86 246A156 156 0 0 1 210 96" stroke="#67c3a5"/><path d="M296 180l-12 64M344 180l12 64" stroke="#b8d4e2" stroke-width="2"/></g>
+    <g transform="translate(1280 816)" opacity=".42"><path d="M86 246A194 194 0 0 1 284 52" stroke="#67c3a5"/><path d="M294 176l-16 70M346 176l16 70" stroke="#dceaf0" stroke-width="2"/></g>
+    <g transform="translate(1920 816)" opacity=".25"><path d="M86 246A224 224 0 0 1 374 44" stroke="#67c3a5"/><path d="M296 182l-10 62M344 182l10 62" stroke="#b8d4e2"/></g>
+  </g>
+  <!-- Row 4: only a quiet horizon glint; title typography remains runtime-authored. -->
+  <g fill="none" stroke-linecap="square">
+    <g transform="translate(0 1088)" opacity=".18"><path d="M212 202h216" stroke="#7893a2"/></g>
+    <g transform="translate(640 1088)" opacity=".28"><path d="M168 200h304" stroke="#8ca2ad"/><path d="M296 196h48" stroke="#e8ca6a"/></g>
+    <g transform="translate(1280 1088)" opacity=".42"><path d="M126 198h388" stroke="#b8d4e2"/><path d="M278 194h84" stroke="#f2df9a" stroke-width="2"/></g>
+    <g transform="translate(1920 1088)" opacity=".24"><path d="M174 200h292" stroke="#8ca2ad"/><path d="M300 196h40" stroke="#e8ca6a"/></g>
+  </g>
+</svg>

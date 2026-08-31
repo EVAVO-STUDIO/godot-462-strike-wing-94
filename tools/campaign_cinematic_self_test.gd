@@ -41,7 +41,7 @@ func _run() -> void:
 						animated_subject_shots += 1
 	_expect(triggers.count("launch") == 2 and triggers.count("ending") == 1, "cinematic schedule should contain two launch transitions and one ending", failures)
 	_expect(used_plates.size() == 12, "each campaign cinematic beat should use its own authored editorial plate", failures)
-	_expect(animated_subject_shots >= 5, "campaign cinematics should use restrained authored subject animation on mechanical story beats", failures)
+	_expect(animated_subject_shots >= 4, "campaign cinematics should use restrained authored subject animation on mechanical story beats", failures)
 	var machine_fx_shots := 0
 	for sequence in sequences:
 		if typeof(sequence) == TYPE_DICTIONARY:
@@ -71,6 +71,8 @@ func _run() -> void:
 	_expect(FileAccess.file_exists("res://tools/build_machine_war_cinematic_plates_v2.ps1"), "Sector II authored plate masters should remain deterministically rebuildable", failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/plates_v2/black_sky/black_sky_plate_manifest_v2.json"), "BLACK SKY authored plate production manifest v2 should exist", failures)
 	_expect(FileAccess.file_exists("res://tools/build_black_sky_cinematic_plates_v2.ps1"), "BLACK SKY authored plate masters should remain deterministically rebuildable", failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/plates_v2/ending/ending_plate_manifest_v2.json"), "ending authored plate production manifest v2 should exist", failures)
+	_expect(FileAccess.file_exists("res://tools/build_ending_cinematic_plates_v2.ps1"), "ending authored plate masters should remain deterministically rebuildable", failures)
 	for shot_id in ["s2_observation", "s2_anticipation", "s2_consequence"]:
 		for frame_index in range(4):
 			var fx := load("res://assets/runtime/cinematics/fx/machine_war/%s_%d.png" % [shot_id, frame_index])
@@ -93,6 +95,9 @@ func _run() -> void:
 			_expect(subject != null and subject.get_size() == expected, "BLACK SKY cinematic subject should retain registered cel canvas: %s %d" % [subject_id,frame_index], failures)
 	var vx94_cinematic := load("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_0.png") as Texture2D
 	_expect(vx94_cinematic != null and vx94_cinematic.get_size() == Vector2(144,160), "BLACK SKY VX-94 subject should retain approved identity on its 144x160 cinematic canvas", failures)
+	for subject_id in ["vx94_bomber", "vx94_fighter"]:
+		var subject := load("res://assets/runtime/cinematics/subjects/ending/%s_0.png" % subject_id) as Texture2D
+		_expect(subject != null and subject.get_size() == Vector2(144,160), "ending VX-94 subject should retain approved identity on its 144x160 cinematic canvas: %s" % subject_id, failures)
 	for shot_id in ["end_consequence", "end_action", "end_observation", "end_consequence_final", "end_title"]:
 		for frame_index in range(4):
 			var fx := load("res://assets/runtime/cinematics/fx/ending/%s_%d.png" % [shot_id, frame_index])
@@ -104,6 +109,8 @@ func _run() -> void:
 	_expect(director_source.contains("SHOT_FX_FRAMES") and director_source.contains("_draw_shot_fx") and director_source.contains("fx_fps"), "campaign cinematic should composite authored held FX cels by shot identity", failures)
 	_expect(director_source.contains('argument.begins_with("--capture-cinematic=")') and director_source.contains("_begin_capture_sequence"), "visual QA should expose deterministic campaign cinematic sequence capture", failures)
 	_expect(director_source.contains("BLACK_SKY_SUBJECT_FRAMES") and director_source.contains('shot_id.begins_with("s3_")'), "BLACK SKY shots should use dedicated cinematic subject cels rather than enlarged gameplay sprites", failures)
+	_expect(director_source.contains("ENDING_SUBJECT_FRAMES") and director_source.contains('shot_id.begins_with("end_")'), "ending shots should use dedicated identity-correct VX-94 cinematic subjects", failures)
+	_expect(director_source.contains('== "end_title"') and director_source.contains('"VX-94 VARIABLE STRIKE FIGHTER"'), "final ending plate should resolve the authoritative HYPERSONIC title hierarchy", failures)
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main game source should be readable", failures)
 	if main_file != null:

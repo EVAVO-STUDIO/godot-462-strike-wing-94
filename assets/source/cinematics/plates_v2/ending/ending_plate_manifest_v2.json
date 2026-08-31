@@ -1,0 +1,24 @@
+{
+  "asset_family": "ending_after_machine_ark_authored_plates_v2",
+  "runtime_canvas": [640, 320],
+  "palette_limit": 64,
+  "builder": "res://tools/build_ending_cinematic_plates_v2.ps1",
+  "visual_contract": {
+    "era": "late-1990s military-anime PC arcade ending interstitial",
+    "arc": "dead Ark in orbit -> controlled re-entry -> silent recovering city -> continuing coastal watch -> clear upper-atmosphere title sky",
+    "subject_policy": "VX-94 cels derive from approved project identity masters; the broken Ark is authored into its plate to preserve scale and avoid a duplicate overlay",
+    "avoid": ["recycled gameplay terrain", "generic space wallpaper", "oversized HUD overlays", "modern bloom", "baked typography"]
+  },
+  "plates": [
+    {"id":"end_ark_fall","source":"end_ark_fall_raw_v2.png","role":"orbital wreck consequence"},
+    {"id":"end_reentry","source":"end_reentry_raw_v2.png","role":"dangerous atmospheric return"},
+    {"id":"end_city_silence","source":"end_city_silence_raw_v2.png","role":"weather and utility recovery"},
+    {"id":"end_watch","source":"end_watch_raw_v2.png","role":"coastal early-warning patrol"},
+    {"id":"end_title_sky","source":"end_title_sky_raw_v2.png","role":"final title resolve"}
+  ],
+  "subjects": {
+    "vx94_bomber": {"frames":1,"canvas":[144,160],"source":"approved VX-94 bomber identity master"},
+    "vx94_fighter": {"frames":1,"canvas":[144,160],"source":"approved VX-94 fighter identity master"}
+  },
+  "fx": {"families":5,"frames_per_family":4,"canvas":[640,272]}
+}

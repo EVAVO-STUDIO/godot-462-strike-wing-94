@@ -30,10 +30,10 @@
       "mission_id": "m12_machine_ark",
       "title": "EPILOGUE // AFTER BLACK SKY",
       "shots": [
-        {"id":"end_consequence","role":"consequence","duration":2.6,"camera":"track","plate":"end_ark_fall","sprite":"machine_ark","sprite_position":[320,178],"sprite_scale":0.82,"animation_fps":5.0,"fx_fps":3.0,"caption":"THE ARK FELL WITHOUT A SIGNAL.","sound_bridge":"hard silence"},
-        {"id":"end_action","role":"action","duration":2.2,"camera":"pan","plate":"end_reentry","sprite":"vx94_bomber","sprite_position":[320,194],"sprite_scale":1.55,"fx_fps":3.0,"caption":"VX-94: RE-ENTRY CONFIGURATION.","sound_bridge":"carry"},
+        {"id":"end_consequence","role":"consequence","duration":2.6,"camera":"track","plate":"end_ark_fall","fx_fps":3.0,"caption":"THE ARK FELL WITHOUT A SIGNAL.","sound_bridge":"hard silence"},
+        {"id":"end_action","role":"action","duration":2.2,"camera":"pan","plate":"end_reentry","sprite":"vx94_bomber","sprite_position":[320,174],"sprite_scale":0.88,"fx_fps":3.0,"caption":"VX-94: RE-ENTRY CONFIGURATION.","sound_bridge":"carry"},
         {"id":"end_observation","role":"observation","duration":2.8,"camera":"locked","plate":"end_city_silence","fx_fps":3.0,"caption":"FOR THE FIRST TIME, THE CITIES HEARD ONLY WEATHER.","sound_bridge":"environmental"},
-        {"id":"end_consequence_final","role":"consequence","duration":3.2,"camera":"locked","plate":"end_watch","sprite":"vx94_fighter","sprite_position":[320,205],"sprite_scale":1.35,"fx_fps":3.0,"caption":"BLACK SKY ENDED. THE WATCH CONTINUES.","sound_bridge":"prelap"},
+        {"id":"end_consequence_final","role":"consequence","duration":3.2,"camera":"locked","plate":"end_watch","sprite":"vx94_fighter","sprite_position":[390,164],"sprite_scale":0.82,"fx_fps":3.0,"caption":"BLACK SKY ENDED. THE WATCH CONTINUES.","sound_bridge":"prelap"},
         {"id":"end_title","role":"consequence","duration":3.0,"camera":"locked","plate":"end_title_sky","fx_fps":3.0,"caption":"HYPERSONIC // MISSION COMPLETE","sound_bridge":"hard silence"}
       ]
     }

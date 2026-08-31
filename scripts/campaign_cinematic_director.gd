@@ -65,6 +65,10 @@ const BLACK_SKY_SUBJECT_FRAMES := {
 		preload("res://assets/runtime/cinematics/subjects/black_sky/machine_ark_2.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/machine_ark_3.png"),
 	],
 }
+const ENDING_SUBJECT_FRAMES := {
+	"vx94_bomber": [preload("res://assets/runtime/cinematics/subjects/ending/vx94_bomber_0.png")],
+	"vx94_fighter": [preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_0.png")],
+}
 const SHOT_FX_FRAMES := {
 	"s2_observation": [
 		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_0.png"),
@@ -244,6 +248,9 @@ func draw_cinematic(surface: CanvasItem) -> void:
 	_draw_plate(surface, shot, ratio, fade)
 	_draw_shot_fx(surface, shot, fade)
 	_draw_subject(surface, shot, ratio, fade)
+	if str(shot.get("id", "")) == "end_title":
+		PixelFont.draw_centered(surface, "HYPERSONIC", 320, 142, 3, Color(0.86,0.91,0.92,fade), 2)
+		PixelFont.draw_centered(surface, "VX-94 VARIABLE STRIKE FIGHTER", 320, 178, 1, Color(0.42,0.64,0.78,fade), 1)
 	surface.draw_rect(Rect2(0,0,640,24), Color("020407"))
 	surface.draw_rect(Rect2(0,296,640,64), Color(0.008,0.014,0.02,0.96))
 	PixelFont.draw_text(surface, str(_active.get("title", "HYPERSONIC")).to_upper(), Vector2(18,9), 1, Color("6aa4c8"), 1)
@@ -274,7 +281,10 @@ func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: f
 	if animation_fps > 0.0:
 		animation_index = int(floor(_shot_elapsed * animation_fps))
 	var shot_id := str(shot.get("id", ""))
-	if shot_id.begins_with("s3_") and BLACK_SKY_SUBJECT_FRAMES.has(sprite_id):
+	if shot_id.begins_with("end_") and ENDING_SUBJECT_FRAMES.has(sprite_id):
+		var frames: Array = ENDING_SUBJECT_FRAMES[sprite_id]
+		texture = frames[posmod(animation_index, frames.size())]
+	elif shot_id.begins_with("s3_") and BLACK_SKY_SUBJECT_FRAMES.has(sprite_id):
 		var frames: Array = BLACK_SKY_SUBJECT_FRAMES[sprite_id]
 		texture = frames[posmod(animation_index, frames.size())]
 	elif SUBJECT_FRAMES.has(sprite_id):
@@ -288,7 +298,7 @@ func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: f
 	var scale := float(shot.get("sprite_scale", 1.0))
 	var size := texture.get_size() * scale
 	surface.draw_texture_rect(texture, Rect2((position-size*0.5).round(),size.round()), false, Color(0.86,0.91,0.92,alpha))
-	if not shot_id.begins_with("s3_") and SUBJECT_OVERLAYS.has(sprite_id) and animation_fps > 0.0:
+	if not shot_id.begins_with("s3_") and not shot_id.begins_with("end_") and SUBJECT_OVERLAYS.has(sprite_id) and animation_fps > 0.0:
 		var overlays: Array = SUBJECT_OVERLAYS[sprite_id]
 		var overlay: Texture2D = overlays[posmod(animation_index, overlays.size())]
 		var overlay_size := overlay.get_size() * scale
