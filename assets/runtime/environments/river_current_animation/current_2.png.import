@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://og6fac1v0hfw"
-path="res://.godot/imported/river_bridge.png-efd66dffaa755651d648b56a619490bb.ctex"
+uid="uid://bjmur3ae61i1r"
+path="res://.godot/imported/current_2.png-fc49d952f9b65c364142cd2585fbbe30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/runtime/environments/landmarks/river_bridge.png"
-dest_files=["res://.godot/imported/river_bridge.png-efd66dffaa755651d648b56a619490bb.ctex"]
+source_file="res://assets/runtime/environments/river_current_animation/current_2.png"
+dest_files=["res://.godot/imported/current_2.png-fc49d952f9b65c364142cd2585fbbe30.ctex"]
 
 [params]
 
@@ -31,7 +31,7 @@ process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
 process/channel_remap/alpha=3
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

@@ -19,7 +19,11 @@ const DESERT_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/desert_chunks/wadi_crossing.png"),
 	preload("res://assets/runtime/environments/desert_chunks/logistics_belt.png"),
 ]
-const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
+const RIVER_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/river_chunks/floodplain.png"),
+	preload("res://assets/runtime/environments/river_chunks/defended_crossing.png"),
+	preload("res://assets/runtime/environments/river_chunks/industrial_bend.png"),
+]
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
 const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png")
 const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
@@ -85,7 +89,11 @@ const DESERT_DUST_GUST := [
 	preload("res://assets/runtime/environments/desert_dust_animation/gust_2.png"), preload("res://assets/runtime/environments/desert_dust_animation/gust_3.png"),
 	preload("res://assets/runtime/environments/desert_dust_animation/gust_4.png"), preload("res://assets/runtime/environments/desert_dust_animation/gust_5.png"),
 ]
-const RIVER_CURRENT_TILE := preload("res://assets/runtime/environments/layers/river_current_tile.png")
+const RIVER_CURRENT_ANIMATION := [
+	preload("res://assets/runtime/environments/river_current_animation/current_0.png"), preload("res://assets/runtime/environments/river_current_animation/current_1.png"),
+	preload("res://assets/runtime/environments/river_current_animation/current_2.png"), preload("res://assets/runtime/environments/river_current_animation/current_3.png"),
+	preload("res://assets/runtime/environments/river_current_animation/current_4.png"), preload("res://assets/runtime/environments/river_current_animation/current_5.png"),
+]
 const MOUNTAIN_WEATHER_TILE := preload("res://assets/runtime/environments/layers/mountain_weather_tile.png")
 const HARBOR_REFLECTION_TILE := preload("res://assets/runtime/environments/layers/harbor_reflection_tile.png")
 const CITY_LIGHT_TILE := preload("res://assets/runtime/environments/layers/city_light_tile.png")
@@ -226,7 +234,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	elif variant != "":
 		match variant:
 			"desert_front": _draw_desert_front(surface, scene, state, t)
-			"river_corridor": _draw_river_corridor(surface, state, t)
+			"river_corridor": _draw_river_corridor(surface, scene, state, t)
 			"mountain_radar": _draw_mountain_radar(surface, state, t)
 			"night_harbor": _draw_night_harbor(surface, state, t)
 			"city_outskirts": _draw_city_outskirts(surface, state, t)
@@ -249,11 +257,14 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	# These restored masters already contain their mission-scale radar, bridge,
 	# rail and coastal structures. Stacking the older simplified landmark cards
 	# over them duplicates the same subject and reads as a prototype overlay.
-	if family in ["coast", "industrial", "river_corridor", "mountain_radar", "city_outskirts"]:
+	if family in ["coast", "industrial", "mountain_radar", "city_outskirts"]:
 		return
 	if family not in ["cloud_top", "orbital"] and not _draw_ground_detail(state):
 		return
 	var texture: Texture2D = LANDMARKS[family]
+	if family == "river_corridor":
+		_draw_registered_river_bridge(surface, scene, state, t, texture)
+		return
 	var speed := _parallax_speed(profile, state, "mid") * (0.18 if family == "orbital" else 0.28)
 	var mission_seed := _mission_seed(scene)
 	var cycle := 880.0 + float(mission_seed % 5) * 47.0
@@ -278,6 +289,26 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 		var fx_frames: Array = LANDMARK_FX_FRAMES[family]
 		var fx: Texture2D = fx_frames[posmod(int(floor(t * 4.0)), fx_frames.size())]
 		surface.draw_texture_rect(fx, Rect2(Vector2(x, y), size), false, Color(1.0, 1.0, 1.0, alpha))
+
+func _draw_registered_river_bridge(surface: CanvasItem, scene: Object, state: Dictionary, t: float, texture: Texture2D) -> void:
+	# The complete span belongs over the matching abutments in the defended-
+	# crossing chunk. Keeping the sprite separate still permits destruction and
+	# animation, while this shared world coordinate prevents seeded dry-land drops.
+	var scroll := t * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
+	var scale := 0.78 + _ground_scale(state) * 0.34
+	var size := texture.get_size() * scale
+	var crossing_world_y := 1594.0
+	var center_y := fposmod(crossing_world_y - scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+	var y := center_y - size.y * 0.5
+	if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
+		return
+	var x := 320.0 - size.x * 0.5
+	var rect := Rect2(Vector2(x, y).round(), size.round())
+	_draw_texture_rect_clipped(surface, texture, rect, ENVIRONMENT_VIEW, Color(0.86, 0.89, 0.88, 0.92))
+	if LANDMARK_FX_FRAMES.has("river_corridor"):
+		var fx_frames: Array = LANDMARK_FX_FRAMES["river_corridor"]
+		var fx: Texture2D = fx_frames[posmod(int(floor(t * 4.0)), fx_frames.size())]
+		_draw_texture_rect_clipped(surface, fx, rect, ENVIRONMENT_VIEW, Color(1.0, 1.0, 1.0, 0.92))
 
 func _mission_seed(scene: Object) -> int:
 	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []
@@ -639,13 +670,20 @@ func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t
 		var gust_x := 48.0 + float((seed + gust_index * 271) % 420)
 		_draw_texture_rect_clipped(surface, gust, Rect2(Vector2(gust_x,gust_y).round(),Vector2(160,96)),ENVIRONMENT_VIEW,Color(0.84,0.76,0.62,0.26))
 
-func _draw_river_corridor(surface: CanvasItem, state: Dictionary, t: float) -> void:
+func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := fposmod(t * 27.0, 720.0)
-	_draw_vertical_loop(surface, RIVER_CORRIDOR, scroll, ENVIRONMENT_VIEW)
+	var scroll := t * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
+	_draw_vertical_chunk_sequence(surface, RIVER_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.035, 0.032, 0.13))
-	var current_scroll := fposmod(t * 19.0, 512.0)
-	_draw_vertical_loop(surface, RIVER_CURRENT_TILE, current_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.86))
+	var current_slots := [
+		{"x":292.0,"y":110.0}, {"x":370.0,"y":610.0}, {"x":264.0,"y":1110.0},
+		{"x":310.0,"y":1600.0}, {"x":344.0,"y":2110.0}, {"x":338.0,"y":2630.0},
+	]
+	for slot_index in range(current_slots.size()):
+		var slot: Dictionary = current_slots[slot_index]
+		var current: Texture2D = RIVER_CURRENT_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2,RIVER_CURRENT_ANIMATION.size())]
+		var y := fposmod(float(slot["y"]) - scroll,3072.0) + ENVIRONMENT_VIEW.position.y
+		_draw_texture_rect_clipped(surface,current,Rect2(Vector2(float(slot["x"]),y).round(),Vector2(112,220)),ENVIRONMENT_VIEW,Color(0.62,0.72,0.78,0.18))
 
 func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	var scroll := fposmod(t * 15.0, 720.0)

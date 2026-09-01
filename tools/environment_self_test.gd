@@ -62,7 +62,7 @@ func _initialize() -> void:
 		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble registered authored refinery geography chunks")
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
 		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should assemble registered authored battlefield geography chunks")
-		_expect(source.contains("RIVER_CORRIDOR"), "river benchmark should use its authored corridor raster master")
+		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
 		_expect(source.contains("MOUNTAIN_RADAR"), "mountain benchmark should use its authored radar-zone raster master")
 		_expect(source.contains("NIGHT_HARBOR"), "harbor benchmark should use its authored naval-port raster master")
 		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK"), "high-altitude benchmark should use its authored stratospheric raster master")
@@ -196,7 +196,7 @@ func _initialize() -> void:
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored temporal sea and cloud depth layers")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
-		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_TILE", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
+		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
@@ -263,6 +263,29 @@ func _initialize() -> void:
 		_expect(not source.contains("_draw_vertical_loop(surface, DESERT_DUST_TILE"), "desert presentation must not regress to full-screen ruler-line dust tiling")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/river/river_corridor_loop_v1.png"), "river runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/river_asset_manifest.json"), "river source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/river_chunks/river_geography_manifest.json"), "river geography/current source and assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_river_geography_art.ps1"), "river geography should retain a reproducible registered builder")
+		_expect(FileAccess.file_exists("res://tools/build_river_bridge_art.ps1"), "river bridge should retain a reproducible source finisher")
+		var river_manifest = ContentCatalog.load_json("res://assets/source/environments/river_chunks/river_geography_manifest.json")
+		_expect(typeof(river_manifest) == TYPE_DICTIONARY and river_manifest.get("chunks", []).size() == 3, "river manifest should register three distinct 1024px sections")
+		var river_names := ["floodplain", "defended_crossing", "industrial_bend"]
+		var river_images: Array[Image] = []
+		for chunk_name in river_names:
+			var river_texture := load("res://assets/runtime/environments/river_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(river_texture != null and river_texture.get_size() == Vector2(640,1024), "river chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if river_texture != null: river_images.append(river_texture.get_image())
+		for chunk_index in range(river_images.size()):
+			for sample_x in range(0,640,16):
+				_expect(river_images[chunk_index].get_pixel(sample_x,1023).is_equal_approx(river_images[(chunk_index+1)%river_images.size()].get_pixel(sample_x,0)), "adjacent river chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
+		for frame_index in range(6):
+			var current_frame := load("res://assets/runtime/environments/river_current_animation/current_%d.png" % frame_index) as Texture2D
+			_expect(current_frame != null and current_frame.get_size() == Vector2(112,220), "river current should retain shared 112x220 registration: %d" % frame_index)
+			if current_frame != null: _expect(current_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "river current frame must retain genuine alpha: %d" % frame_index)
+		_expect(source.contains("RIVER_CURRENT_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) - scroll'), "river current should use held frames registered to geography world coordinates")
+		_expect(not source.contains("_draw_vertical_loop(surface, RIVER_CURRENT_TILE"), "river presentation must not regress to full-screen straight-line current tiling")
+		_expect(not source.contains('family in ["coast", "industrial", "river_corridor"'), "river geography should allow its complete bridge landmark to remain a separate layer")
+		_expect(source.contains("_draw_registered_river_bridge"), "river bridge should use geography-registered placement")
+		_expect(source.contains("crossing_world_y := 1594.0"), "river bridge should align to defended-crossing abutments")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png"), "mountain runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_asset_manifest.json"), "mountain source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png"), "harbor runtime master should exist")

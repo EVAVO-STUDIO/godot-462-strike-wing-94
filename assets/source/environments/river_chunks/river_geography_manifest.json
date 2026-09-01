@@ -1,0 +1,19 @@
+{
+  "asset_family": "hypersonic_river_geography_v1",
+  "source": "res://assets/source/environments/river_chunks/river_geography_source_v1.png",
+  "current_source": "res://assets/source/environments/river_chunks/river_current_source_v1.png",
+  "builder": "res://tools/build_river_geography_art.ps1",
+  "source_method": "Built-in image generation created opaque geography and transparent current sources; deterministic EVAVO finishing registers, seam-closes and exports runtime assets.",
+  "chunks": [
+    {"id":"floodplain","role":"broad marsh and levee approach","size":[640,1024]},
+    {"id":"defended_crossing","role":"bridge-abutment and flood-control choke point","size":[640,1024]},
+    {"id":"industrial_bend","role":"quay and industrial river strike lane","size":[640,1024]}
+  ],
+  "current_animation": {"frames":6,"exposure_fps":6,"registration":[112,220],"spatial_loop":false,"world_registered":true},
+  "assembly_contract": {
+    "geography_cycle_pixels":3072,
+    "shared_connector_height":48,
+    "base_order":["geography_chunk","world_registered_current","finite_bridge_and_targets","reflection_and_wakes","cloud_shadow","cloud_body","rain_and_mist"],
+    "rules":["No complete bridge span is baked into geography.","Current events stay registered inside authored channels.","Adjacent chunks close at zero scanline error.","Recognizable geography never repeats at the former 720-pixel interval."]
+  }
+}
