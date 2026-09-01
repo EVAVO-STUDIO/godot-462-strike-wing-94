@@ -306,7 +306,9 @@ func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(464, 238), 1, MUTED, 1)
 	if _has_property(scene, "campaign_completed") and bool(scene.get("campaign_completed")):
 		var clear_count := maxi(1, int(scene.get("campaign_completions"))) if _has_property(scene, "campaign_completions") else 1
-		PixelFont.draw_text(surface, "BLACK SKY CLEAR // %02d" % clear_count, Vector2(352, 272), 1, GOLD, 1)
+		PixelFont.draw_text(surface, "BLACK SKY CLEAR // %02d" % clear_count, Vector2(352, 264), 1, GOLD, 1)
+		var vector_count: int = scene.get("discovered_secret_ids").size() if _has_property(scene, "discovered_secret_ids") else 0
+		PixelFont.draw_text(surface, "SECRET VECTORS // %02d" % vector_count, Vector2(352, 278), 1, GREEN, 1)
 	else:
 		PixelFont.draw_text(surface, "ENTER SELECT", Vector2(464, 274), 1, GOLD, 1)
 
@@ -335,6 +337,10 @@ func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface,"ROUTE %02d" % selected.get("missions",[]).size(),Vector2(404,164),1,GOLD,1)
 	PixelFont.draw_text(surface,"AIRFRAMES %02d" % int(selected.get("lives",1)),Vector2(404,181),1,GREEN,1)
 	PixelFont.draw_text(surface,"SCORE X%.2f" % float(selected.get("score_multiplier",1.0)),Vector2(404,198),1,BLUE,1)
+	var records: Dictionary = scene.get("mode_records") if _has_property(scene,"mode_records") else {}
+	var record: Dictionary = records.get(str(selected.get("id","")),{})
+	if not record.is_empty():
+		PixelFont.draw_text(surface,"BEST %08d  CLEAR %02d" % [int(record.get("best_score",0)),int(record.get("clears",0))],Vector2(404,215),1,GREEN,1)
 	var lines := _wrap_text(str(selected.get("description","")),35)
 	for i in range(mini(3,lines.size())):
 		PixelFont.draw_text(surface,lines[i],Vector2(320,238+i*12),1,MUTED,1)

@@ -119,6 +119,17 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	var prefix := "SECRET - " if EncounterRules.is_secret(beat) else ""
 	if EncounterRules.is_secret(beat) and _has_property(scene, "secrets_discovered"):
 		scene.set("secrets_discovered", int(scene.get("secrets_discovered")) + 1)
+		if _has_property(scene, "discovered_secret_ids"):
+			var discovered: Array = scene.get("discovered_secret_ids").duplicate()
+			var mission_id := "unknown"
+			if scene.has_method("_active_mission"):
+				var mission = scene.call("_active_mission")
+				if typeof(mission) == TYPE_DICTIONARY:
+					mission_id = str(mission.get("id", "unknown"))
+			var stable_id := "%s:%s" % [mission_id, str(beat.get("id", "secret"))]
+			if not stable_id in discovered:
+				discovered.append(stable_id)
+				scene.set("discovered_secret_ids", discovered)
 	var suffix := "" if eligible.size() == enemy_ids.size() else "  ALTITUDE FILTER"
 	if strike_priority:
 		suffix += "  STRIKE TARGETS"

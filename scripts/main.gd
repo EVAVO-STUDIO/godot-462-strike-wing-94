@@ -56,6 +56,8 @@ var campaign_completed := false
 var campaign_completions := 0
 var completed_difficulties: Array = []
 var campaign_completion_committed := false
+var discovered_secret_ids: Array = []
+var mode_records: Dictionary = {}
 var weapon_index := 0
 var generator_index := 0
 var temporary_weapon_boost := 0
@@ -106,8 +108,15 @@ func _ready() -> void:
 		campaign_completed = true
 		campaign_completions = 3
 		completed_difficulties = ["cadet", "combat", "veteran"]
+		discovered_secret_ids = ["m01:hidden_ace", "m02:stockpile", "m03:black_wake", "m04:hunter_cell", "m05:armoury", "m06:dead_channel", "m07:fuel_dump", "m08:floodgate", "m09:summit", "m10:machine_hold", "m11:signal", "m12:core_vector"]
 		mission_index = maxi(0, mission_catalog.size() - 1)
 		_prepare_mission(mission_index)
+	if "--capture-mode-records" in OS.get_cmdline_user_args() and "--capture-gameplay" in OS.get_cmdline_user_args():
+		var mode_director := get_node_or_null("/root/GameModeDirector")
+		var mode: Dictionary = mode_director.call("mode_at", mode_selection) if mode_director != null and mode_director.has_method("mode_at") else {}
+		var mode_id := str(mode.get("id", "arcade_assault"))
+		var route_total: int = mode.get("missions", []).size()
+		mode_records[mode_id] = {"attempts":4,"clears":1,"best_route":route_total,"route_total":route_total,"best_score":284600,"cleared":true}
 	if not capture_result.is_empty():
 		_begin_capture_result(capture_result)
 	elif not capture_game_mode.is_empty():
@@ -194,6 +203,7 @@ func _begin_capture_game_mode(mode_id: String) -> void:
 	var catalogue: Array = modes.call("modes")
 	for i in range(catalogue.size()):
 		if str(catalogue[i].get("id","")) == mode_id:
+			mode_records[mode_id] = {"attempts":4,"clears":1,"best_route":catalogue[i].get("missions",[]).size(),"route_total":catalogue[i].get("missions",[]).size(),"best_score":284600,"cleared":true}
 			modes.call("start_selected",self,i)
 			_start_mission()
 			return

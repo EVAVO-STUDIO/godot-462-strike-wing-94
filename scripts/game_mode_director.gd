@@ -60,14 +60,31 @@ func advance_result(scene: Object, success: bool) -> String:
 	if success:
 		route_index += 1
 		if route_index >= _active.get("missions",[]).size():
+			_record_run(scene, route_index, true)
 			_end_run(scene)
 			return "complete"
 	elif int(scene.get("mode_lives")) <= 0:
+		_record_run(scene, route_index, false)
 		_end_run(scene)
 		return "failed"
 	_set_if(scene,"mode_route_index",route_index)
 	_prepare_route_mission(scene,route_index)
 	return "continue"
+
+func _record_run(scene: Object, route_progress: int, cleared: bool) -> void:
+	if not _has_property(scene, "mode_records"):
+		return
+	var records: Dictionary = scene.get("mode_records").duplicate(true)
+	var mode_id := str(_active.get("id", "mode"))
+	var record: Dictionary = records.get(mode_id, {})
+	record["attempts"] = maxi(0, int(record.get("attempts", 0))) + 1
+	record["clears"] = maxi(0, int(record.get("clears", 0))) + (1 if cleared else 0)
+	record["best_route"] = maxi(int(record.get("best_route", 0)), route_progress)
+	record["best_score"] = maxi(int(record.get("best_score", 0)), int(scene.get("mode_total_score")))
+	record["route_total"] = _active.get("missions", []).size()
+	record["cleared"] = bool(record.get("cleared", false)) or cleared
+	records[mode_id] = record
+	scene.set("mode_records", records)
 
 func enemy_hp(base_hp: int) -> int:
 	return GameModeRules.scaled_hp(base_hp,_active) if active() else maxi(1,base_hp)
@@ -145,3 +162,9 @@ func _set_if(scene: Object, property_name: String, value: Variant) -> void:
 		if str(property.get("name","")) == property_name:
 			scene.set(property_name,value)
 			return
+
+func _has_property(scene: Object, property_name: String) -> bool:
+	for property in scene.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false

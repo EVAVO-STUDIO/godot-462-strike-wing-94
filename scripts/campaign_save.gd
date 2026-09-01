@@ -1,7 +1,7 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_VERSION := 7
+const SAVE_VERSION := 8
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 const LEGACY_V5_MISSION_IDS := [
@@ -115,6 +115,8 @@ func _snapshot(scene: Object) -> Dictionary:
 		"campaign_completed": bool(scene.get("campaign_completed")) if _has_property(scene, "campaign_completed") else false,
 		"campaign_completions": maxi(0, int(scene.get("campaign_completions"))) if _has_property(scene, "campaign_completions") else 0,
 		"completed_difficulties": _string_array(scene.get("completed_difficulties")) if _has_property(scene, "completed_difficulties") else [],
+		"discovered_secret_ids": _string_array(scene.get("discovered_secret_ids")) if _has_property(scene, "discovered_secret_ids") else [],
+		"mode_records": _mode_records(scene.get("mode_records")) if _has_property(scene, "mode_records") else {},
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
@@ -138,6 +140,25 @@ func _string_array(value: Variant) -> Array[String]:
 		var text := str(item).strip_edges().to_lower()
 		if not text.is_empty() and not text in result:
 			result.append(text)
+	return result
+
+func _mode_records(value: Variant) -> Dictionary:
+	var result: Dictionary = {}
+	if typeof(value) != TYPE_DICTIONARY:
+		return result
+	for raw_id in value.keys():
+		var mode_id := str(raw_id).strip_edges().to_lower()
+		var raw_record = value[raw_id]
+		if mode_id.is_empty() or typeof(raw_record) != TYPE_DICTIONARY:
+			continue
+		result[mode_id] = {
+			"attempts": maxi(0, int(raw_record.get("attempts", 0))),
+			"clears": maxi(0, int(raw_record.get("clears", 0))),
+			"best_route": maxi(0, int(raw_record.get("best_route", 0))),
+			"route_total": maxi(0, int(raw_record.get("route_total", 0))),
+			"best_score": maxi(0, int(raw_record.get("best_score", 0))),
+			"cleared": bool(raw_record.get("cleared", false))
+		}
 	return result
 
 func _mission_id_at(scene: Object, index: int) -> String:
@@ -230,6 +251,10 @@ func _restore(scene: Object) -> void:
 		scene.set("campaign_completions", maxi(0, int(parsed.get("campaign_completions", 0))))
 	if _has_property(scene, "completed_difficulties"):
 		scene.set("completed_difficulties", _string_array(parsed.get("completed_difficulties", [])))
+	if _has_property(scene, "discovered_secret_ids"):
+		scene.set("discovered_secret_ids", _string_array(parsed.get("discovered_secret_ids", [])))
+	if _has_property(scene, "mode_records"):
+		scene.set("mode_records", _mode_records(parsed.get("mode_records", {})))
 	var support_director := get_node_or_null("/root/SupportDirector")
 	if support_director != null and support_director.has_method("restore_support_state"):
 		support_director.call("restore_support_state", int(parsed.get("support_selected", 0)), int(parsed.get("support_unlocked", 0)))

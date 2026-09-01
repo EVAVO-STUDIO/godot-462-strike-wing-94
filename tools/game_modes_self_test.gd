@@ -19,6 +19,7 @@ class ModeScene extends Node:
 	var phase := 0
 	var front_end_screen := "modes"
 	var mission_catalog: Array = []
+	var mode_records: Dictionary = {}
 	var prepared_index := -1
 	func _prepare_mission(index: int) -> void: prepared_index = index
 	func _max_hull() -> int: return 100
@@ -63,6 +64,8 @@ func _run() -> void:
 		_expect(scene.prepared_index >= 0 and scene.front_end_screen == "sortie","alternate mode should prepare its first real sortie",failures)
 		director.call("record_result",scene,false,1250)
 		_expect(scene.mode_lives == 2 and scene.mode_total_score == 1250,"failed alternate sortie should consume one airframe and bank run score",failures)
+		director.call("_record_run",scene,5,false)
+		_expect(int(scene.mode_records.get("arcade_assault",{}).get("attempts",0)) == 1 and int(scene.mode_records.get("arcade_assault",{}).get("best_score",0)) == 1250,"alternate run should persist attempts, route progress and best score",failures)
 		director.call("_end_run",scene)
 		_expect(scene.game_mode == "campaign" and scene.credits == 4200 and scene.mission_index == 3,"ending a mode should restore isolated campaign state",failures)
 		scene.queue_free()
@@ -70,11 +73,13 @@ func _run() -> void:
 	_expect(main_source.contains("_mode_enemy_hp") and main_source.contains("_mode_enemy_speed") and main_source.contains("_mode_score_value"),"alternate modifiers should hook canonical combat spawn and score paths",failures)
 	_expect(main_source.contains("_advance_mode_result") and main_source.contains("_update_front_end_modes"),"alternate routes should own real result and menu flow",failures)
 	_expect(main_source.contains("--capture-game-mode=") and main_source.contains("--capture-mode-selection="),"mode board and live routes should expose deterministic visual QA capture",failures)
+	_expect(main_source.contains('"--capture-mode-records"') and main_source.contains('"best_score":284600'),"persistent mode records should expose deterministic front-door visual QA",failures)
 	var save_source := _source("res://scripts/campaign_save.gd")
 	_expect(save_source.contains("_campaign_mode(scene)"),"alternate modes should be isolated from persistent campaign saves",failures)
 	var ui_source := _source("res://scripts/pixel_ui_director.gd")
 	_expect(ui_source.contains("ARCADE / CHALLENGE OPERATIONS") and ui_source.contains("MODE_EMBLEMS"),"front end should expose a dedicated authored mode board",failures)
 	_expect(ui_source.contains("_draw_mode_run_state") and ui_source.contains("MODE_RUN_FRAME"),"live alternate sorties should expose route, airframes, and banked run score",failures)
+	_expect(ui_source.contains('BEST %08d  CLEAR %02d') and ui_source.contains('scene.get("mode_records")'),"mode board should expose persistent best score and clear history",failures)
 	if failures.is_empty():
 		print("HYPERSONIC arcade/challenge modes self-test passed.")
 		quit(0)

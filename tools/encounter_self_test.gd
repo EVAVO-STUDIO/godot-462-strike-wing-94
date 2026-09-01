@@ -122,6 +122,7 @@ func _test_route_runtime_wiring() -> void:
 		_expect(source.contains('enemy["intercept_priority"] = true'), "HIGH+FTR route should tag air intercept-priority targets")
 		_expect(source.contains("HIGH_INTERCEPT_VALUE_BONUS"), "high-route target packet should carry bounded extra core combat value")
 		_expect(source.contains('scene.set("secrets_discovered"') and source.contains("EncounterRules.is_secret(beat)"), "triggered mastery secrets should feed authoritative sortie telemetry")
+		_expect(source.contains("discovered_secret_ids") and source.contains('var stable_id := "%s:%s"'), "triggered mastery secrets should persist stable mission-and-vector identities")
 	var cue := FileAccess.open("res://scripts/intercept_route_director.gd", FileAccess.READ)
 	_expect(cue != null, "intercept route director should be readable")
 	if cue != null:
