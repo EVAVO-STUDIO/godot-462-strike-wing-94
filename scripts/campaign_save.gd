@@ -1,7 +1,7 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_VERSION := 6
+const SAVE_VERSION := 7
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 const LEGACY_V5_MISSION_IDS := [
@@ -112,6 +112,9 @@ func _snapshot(scene: Object) -> Dictionary:
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
 		"mission_index": clampi(int(scene.get("mission_index")), 0, _mission_count(scene) - 1),
 		"mission_id": _mission_id_at(scene, int(scene.get("mission_index"))),
+		"campaign_completed": bool(scene.get("campaign_completed")) if _has_property(scene, "campaign_completed") else false,
+		"campaign_completions": maxi(0, int(scene.get("campaign_completions"))) if _has_property(scene, "campaign_completions") else 0,
+		"completed_difficulties": _string_array(scene.get("completed_difficulties")) if _has_property(scene, "completed_difficulties") else [],
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
@@ -120,6 +123,22 @@ func _snapshot(scene: Object) -> Dictionary:
 		"support_selected": maxi(0, int(support.get("selected_index", 0))),
 		"support_unlocked": maxi(0, int(support.get("unlocked_index", 0)))
 	}
+
+func _has_property(scene: Object, property_name: String) -> bool:
+	for property in scene.get_property_list():
+		if str(property.get("name", "")) == property_name:
+			return true
+	return false
+
+func _string_array(value: Variant) -> Array[String]:
+	var result: Array[String] = []
+	if typeof(value) != TYPE_ARRAY:
+		return result
+	for item in value:
+		var text := str(item).strip_edges().to_lower()
+		if not text.is_empty() and not text in result:
+			result.append(text)
+	return result
 
 func _mission_id_at(scene: Object, index: int) -> String:
 	var catalog = scene.get("mission_catalog")
@@ -205,11 +224,23 @@ func _restore(scene: Object) -> void:
 	scene.set("generator_index", generator_index)
 	scene.set("service_hull", service_hull)
 	scene.set("service_shield", service_shield)
+	if _has_property(scene, "campaign_completed"):
+		scene.set("campaign_completed", bool(parsed.get("campaign_completed", false)))
+	if _has_property(scene, "campaign_completions"):
+		scene.set("campaign_completions", maxi(0, int(parsed.get("campaign_completions", 0))))
+	if _has_property(scene, "completed_difficulties"):
+		scene.set("completed_difficulties", _string_array(parsed.get("completed_difficulties", [])))
 	var support_director := get_node_or_null("/root/SupportDirector")
 	if support_director != null and support_director.has_method("restore_support_state"):
 		support_director.call("restore_support_state", int(parsed.get("support_selected", 0)), int(parsed.get("support_unlocked", 0)))
 	if scene.has_method("_prepare_mission"):
 		scene.call("_prepare_mission", mission_index)
+
+func save_now(scene: Object) -> void:
+	if scene == null or not _supports_campaign_state(scene) or not _campaign_mode(scene) or _capture_mode():
+		return
+	_save(scene)
+	_last_signature = _signature(scene)
 
 func _identity() -> Node:
 	return get_node_or_null("/root/ProductIdentity")

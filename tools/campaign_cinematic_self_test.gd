@@ -120,6 +120,14 @@ func _run() -> void:
 		_expect(source.contains("_cinematic_blocks_launch()"), "mission launch should pass through the cinematic gate", failures)
 		_expect(source.contains('get_node_or_null("/root/CampaignCinematicDirector")'), "mission launch should address the cinematic autoload", failures)
 		_expect(source.contains("_cinematic_blocks_ending()"), "final mission result should pass through the ending cinematic gate", failures)
+		_expect(source.contains("_is_final_campaign_mission()") and source.contains("_complete_campaign()"), "final mission result should enter an explicit terminal campaign-completion path", failures)
+		_expect(not source.contains("mission_index = (mission_index + 1) %"), "campaign completion must never wrap Mission 30 back to Mission 1", failures)
+		_expect(source.contains("campaign_completed = true") and source.contains("completed_difficulties.append"), "campaign completion should persist post-game and difficulty-clear records", failures)
+		_expect(source.contains("campaign_completion_committed") and source.contains("campaign_completion_committed = false"), "one final result should commit its campaign clear exactly once while allowing later replays", failures)
+		_expect(source.contains('"--capture-campaign-clear"') and source.contains("campaign_completions = 3"), "completed-campaign front door should expose deterministic visual QA state", failures)
+	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
+	var ui_source := ui_file.get_as_text() if ui_file != null else ""
+	_expect(ui_source.contains("BLACK SKY CLEAR // %02d") and ui_source.contains("campaign_completions"), "front door should visibly recognize persistent campaign completion", failures)
 	if failures.is_empty():
 		print("HYPERSONIC campaign cinematic self-test passed.")
 		quit(0)

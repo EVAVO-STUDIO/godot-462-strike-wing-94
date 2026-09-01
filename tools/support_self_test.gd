@@ -162,7 +162,7 @@ func _test_wiring() -> void:
 	_expect(save_file != null, "campaign_save.gd should be readable")
 	if save_file != null:
 		var source := save_file.get_as_text()
-		_expect(source.contains("SAVE_VERSION := 6"), "support persistence should remain inside campaign save v6")
+		_expect(source.contains("SAVE_VERSION := 7"), "support persistence should remain inside campaign save v7")
 	var director_file := FileAccess.open("res://scripts/support_director.gd", FileAccess.READ)
 	_expect(director_file != null, "support director source should be readable")
 	if director_file != null:

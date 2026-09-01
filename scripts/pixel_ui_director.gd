@@ -304,7 +304,11 @@ func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, _front_end_sector(mission_index), Vector2(464, 197), 1, BLUE, 1)
 	PixelFont.draw_text(surface, _clip(str(scene.get("current_mission_name")), 20), Vector2(464, 217), 1, GREEN, 1)
 	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(464, 238), 1, MUTED, 1)
-	PixelFont.draw_text(surface, "ENTER SELECT", Vector2(464, 274), 1, GOLD, 1)
+	if _has_property(scene, "campaign_completed") and bool(scene.get("campaign_completed")):
+		var clear_count := maxi(1, int(scene.get("campaign_completions"))) if _has_property(scene, "campaign_completions") else 1
+		PixelFont.draw_text(surface, "BLACK SKY CLEAR // %02d" % clear_count, Vector2(352, 272), 1, GOLD, 1)
+	else:
+		PixelFont.draw_text(surface, "ENTER SELECT", Vector2(464, 274), 1, GOLD, 1)
 
 func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
 	var director := get_node_or_null("/root/GameModeDirector")

@@ -52,6 +52,10 @@ var wave := 1
 var bombs := 3
 var credits := 0
 var mission_index := 0
+var campaign_completed := false
+var campaign_completions := 0
+var completed_difficulties: Array = []
+var campaign_completion_committed := false
 var weapon_index := 0
 var generator_index := 0
 var temporary_weapon_boost := 0
@@ -98,6 +102,12 @@ func _ready() -> void:
 	var capture_front_end := _capture_front_end(OS.get_cmdline_user_args())
 	var capture_game_mode := _capture_game_mode(OS.get_cmdline_user_args())
 	var capture_result := _capture_result_state(OS.get_cmdline_user_args())
+	if "--capture-campaign-clear" in OS.get_cmdline_user_args() and "--capture-gameplay" in OS.get_cmdline_user_args():
+		campaign_completed = true
+		campaign_completions = 3
+		completed_difficulties = ["cadet", "combat", "veteran"]
+		mission_index = maxi(0, mission_catalog.size() - 1)
+		_prepare_mission(mission_index)
 	if not capture_result.is_empty():
 		_begin_capture_result(capture_result)
 	elif not capture_game_mode.is_empty():
@@ -235,8 +245,10 @@ func _process(delta: float) -> void:
 					return
 				if not mission_success:
 					_start_mission()
-				elif not _cinematic_blocks_ending():
-					mission_index = (mission_index + 1) % maxi(1, mission_catalog.size())
+				elif _is_final_campaign_mission():
+					_complete_campaign()
+				else:
+					mission_index = mini(mission_index + 1, maxi(0, mission_catalog.size() - 1))
 					_prepare_mission(mission_index)
 					phase = GamePhase.TITLE
 					front_end_screen = "sortie"
@@ -478,6 +490,39 @@ func _cinematic_blocks_ending() -> bool:
 		return false
 	return bool(cinematic.call("intercept_ending", str(_active_mission().get("id", ""))))
 
+func _is_final_campaign_mission() -> bool:
+	return not mission_catalog.is_empty() and mission_index >= mission_catalog.size() - 1
+
+func _active_difficulty_id() -> String:
+	var director := _difficulty()
+	if director != null and director.has_method("active_profile"):
+		var profile = director.call("active_profile")
+		if typeof(profile) == TYPE_DICTIONARY:
+			return str(profile.get("id", "combat"))
+	return "combat"
+
+func _complete_campaign() -> void:
+	if campaign_completion_committed:
+		return
+	campaign_completion_committed = true
+	campaign_completed = true
+	campaign_completions += 1
+	var difficulty_id := _active_difficulty_id()
+	if not difficulty_id in completed_difficulties:
+		completed_difficulties.append(difficulty_id)
+	var save := get_node_or_null("/root/CampaignSave")
+	if save != null and save.has_method("save_now"):
+		save.call("save_now", self)
+	if not _cinematic_blocks_ending():
+		_return_from_credits()
+
+func _return_from_credits() -> void:
+	phase = GamePhase.TITLE
+	front_end_screen = "main_menu"
+	menu_selection = 0
+	status_text = "BLACK SKY CAMPAIGN CLEARED"
+	status_timer = 4.0
+
 func _credits_blocking() -> bool:
 	var credits_director := get_node_or_null("/root/CreditsDirector")
 	return credits_director != null and credits_director.has_method("credits_active") and bool(credits_director.call("credits_active"))
@@ -492,6 +537,7 @@ func _advance_mode_result() -> void:
 
 func _start_mission() -> void:
 	mission_rng.seed = RunSeedRules.mission_seed(mission_index)
+	campaign_completion_committed = false
 	phase = GamePhase.PLAYING
 	mission_time = 0.0
 	score = 0

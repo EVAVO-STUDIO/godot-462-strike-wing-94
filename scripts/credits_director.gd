@@ -119,6 +119,11 @@ func _return_to_front_door() -> void:
 	var scene := get_tree().current_scene
 	if scene == null:
 		return
+	if scene.has_method("_return_from_credits"):
+		scene.call("_return_from_credits")
+		if scene.has_method("queue_redraw"):
+			scene.call("queue_redraw")
+		return
 	for property in scene.get_property_list():
 		if str(property.get("name", "")) == "phase": scene.set("phase",0)
 		elif str(property.get("name", "")) == "front_end_screen": scene.set("front_end_screen","main_menu")
