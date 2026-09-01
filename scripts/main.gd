@@ -15,6 +15,7 @@ const BombRules = preload("res://scripts/bomb_rules.gd")
 const ServiceRules = preload("res://scripts/service_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
+const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 const NEUTRAL_DEPTH_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
 
 const PLAYER_SPEED := 220.0
@@ -515,6 +516,9 @@ func _update_mission(delta: float) -> void:
 	energy = EnergyRules.recharge(energy, _active_generator(), delta)
 	wave = MissionStateRules.live_wave(_active_mission(), mission_time)
 	_update_player(delta)
+	var evasive := get_node_or_null("/root/EvasiveRollDirector")
+	if evasive != null and evasive.has_method("update_maneuver"):
+		evasive.call("update_maneuver", self, delta)
 	_update_weapons()
 	_update_bullets(delta)
 	_update_enemy_bullets(delta)
@@ -1093,7 +1097,7 @@ func _update_enemy_bullets(delta: float) -> void:
 		position += shot["velocity"] * delta
 		shot["position"] = position
 		enemy_bullets[i] = shot
-		var projectile_hit_radius_sq := _craft_float("projectile_hit_radius_sq", 120.0)
+		var projectile_hit_radius_sq := _craft_float("projectile_hit_radius_sq", 120.0) * _evasive_collision_multiplier()
 		if position.distance_squared_to(player_position) <= projectile_hit_radius_sq:
 			_apply_damage(int(shot.get("damage", 8)))
 			if phase != GamePhase.PLAYING:
@@ -1126,6 +1130,20 @@ func _update_enemies(delta: float) -> void:
 		var position: Vector2 = enemy["position"]
 		var previous_x := position.x
 		var is_boss := bool(enemy.get("boss", false))
+		var pursuit_charge := float(enemy.get("hypersonic_charge", 0.0))
+		var player_hypersonic := _player_hypersonic_active()
+		if bool(enemy.get("hypersonic_capable", false)) and player_hypersonic:
+			pursuit_charge = minf(HypersonicRules.ENEMY_CHARGE_SECONDS, pursuit_charge + delta)
+		else:
+			pursuit_charge = maxf(0.0, pursuit_charge - delta * 1.8)
+		var pursuit_ratio := HypersonicRules.enemy_pursuit_ratio(pursuit_charge)
+		var pursuit_active := pursuit_ratio >= 0.999
+		if pursuit_active and not bool(enemy.get("hypersonic_active", false)):
+			enemy["hypersonic_boom_age"] = 0.0
+		enemy["hypersonic_charge"] = pursuit_charge
+		enemy["hypersonic_ratio"] = pursuit_ratio
+		enemy["hypersonic_active"] = pursuit_active
+		enemy["hypersonic_boom_age"] = float(enemy.get("hypersonic_boom_age", 99.0)) + delta
 
 		if is_boss:
 			if position.y < 105.0:
@@ -1140,6 +1158,9 @@ func _update_enemies(delta: float) -> void:
 				PLAYFIELD.position.x + 18.0,
 				PLAYFIELD.end.x - 18.0
 			)
+		elif pursuit_active:
+			position.y = move_toward(position.y, player_position.y - 92.0, float(enemy["speed"]) * HypersonicRules.ENEMY_SPEED_MULTIPLIER * delta)
+			position.x = move_toward(position.x, player_position.x, float(enemy["speed"]) * 0.72 * delta)
 		else:
 			position.y += float(enemy["speed"]) * delta
 			var pattern := str(enemy.get("pattern", "sine_dive"))
@@ -1172,8 +1193,16 @@ func _update_enemies(delta: float) -> void:
 		if absf(lateral_delta) > maxf(0.12, delta * 2.0):
 			bank_target = signf(lateral_delta)
 		enemy["visual_bank"] = move_toward(float(enemy.get("visual_bank", 0.0)), bank_target, delta * 5.0)
-		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y:
+		var missile_lock_ready := true
+		if str(enemy.get("weapon", "")) == "missile" and not is_boss:
+			var in_envelope := position.distance_to(player_position) <= 430.0
+			var lock_ratio := float(enemy.get("missile_lock_ratio", 0.0))
+			lock_ratio = move_toward(lock_ratio, 1.0 if in_envelope else 0.0, delta / (0.82 if pursuit_active else 1.20))
+			enemy["missile_lock_ratio"] = lock_ratio
+			missile_lock_ready = lock_ratio >= 0.999
+		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and missile_lock_ready:
 			_fire_enemy_weapon(enemy)
+			if str(enemy.get("weapon", "")) == "missile": enemy["missile_lock_ratio"] = 0.0
 			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(
 				str(enemy.get("weapon", "single_burst")),
 				wave
@@ -1265,7 +1294,7 @@ func _resolve_combat() -> void:
 		else:
 			bullets[bullet_index] = bullet
 
-	var player_contact_radius_sq := _craft_float("collision_radius_sq", 420.0)
+	var player_contact_radius_sq := _craft_float("collision_radius_sq", 420.0) * _evasive_collision_multiplier()
 	for enemy_index in range(enemies.size() - 1, -1, -1):
 		if (
 			enemies[enemy_index]["position"].distance_squared_to(player_position)
@@ -1400,12 +1429,21 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"value": _difficulty_elite_value(CombatRules.destroy_value(int(archetype.get("value", 100)), wave)) if elite else CombatRules.destroy_value(int(archetype.get("value", 100)), wave),
 		"elite": elite,
 		"weapon": str(archetype.get("weapon", "single_burst")),
+		"hypersonic_capable": HypersonicRules.enemy_can_pursue(archetype),
+		"hypersonic_charge": 0.0,
+		"hypersonic_ratio": 0.0,
+		"hypersonic_active": false,
+		"hypersonic_boom_age": 99.0,
 		"pattern": str(archetype.get("pattern", "sine_dive")),
 		"pattern_anchor_x": x,
 		"fire_timer": mission_rng.randf_range(0.5, 1.6),
 		"recoil_timer": 0.0,
 		"boss": is_boss
 	})
+
+func _player_hypersonic_active() -> bool:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	return craft != null and craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
 
 func _mode_enemy_hp(base_hp: int) -> int:
 	var modes := get_node_or_null("/root/GameModeDirector")
@@ -1473,6 +1511,11 @@ func _configure_input() -> void:
 	_add_key_action("upgrade_generator", KEY_G)
 	_add_key_action("service_hull", KEY_H)
 	_add_key_action("service_shield", KEY_J)
+	_add_key_action("evasive_roll", KEY_C)
+
+func _evasive_collision_multiplier() -> float:
+	var evasive := get_node_or_null("/root/EvasiveRollDirector")
+	return clampf(float(evasive.call("collision_multiplier")), 0.30, 1.0) if evasive != null and evasive.has_method("collision_multiplier") else 1.0
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action):

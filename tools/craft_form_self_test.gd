@@ -105,7 +105,7 @@ func _test_source_integration() -> void:
 	_expect(art_file != null, "combat art should be readable")
 	if art_file != null:
 		var source := art_file.get_as_text()
-		_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "wing sweep should remain visibly mechanical")
+		_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.92") and source.contains("TRANSFORM_EXPOSURES := 10"), "wing sweep should use ten deliberate exposures over almost one second")
 		_expect(source.contains("vx94_bomber_v1.png") and source.contains("vx94_transform_03.png"), "bomber art should use the authored attack-form and final mechanical deployment keyframe")
 		_expect(not source.contains("_draw_rotary_cannon"), "bomber presentation should not regress to a procedural cannon substitute")
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)

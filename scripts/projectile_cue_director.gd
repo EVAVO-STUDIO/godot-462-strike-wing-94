@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const PROJECTILE_FRAMES := {
 	"ballistic": [
 		preload("res://assets/runtime/effects/projectiles/ballistic/0.png"),
@@ -143,7 +144,4 @@ func _process(_delta: float) -> void:
 	_canvas.queue_redraw()
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("enemy_bullets") and names.has("bullets")
+	return SceneContractCache.supports(scene, ["phase", "enemy_bullets", "bullets"])

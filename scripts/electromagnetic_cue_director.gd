@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const ElectromagneticCueSurface = preload("res://scripts/electromagnetic_cue_surface.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
@@ -35,10 +36,7 @@ func _draw_surface(surface: CanvasItem) -> void:
 	_draw_emp(surface, scene)
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("player_position") and names.has("enemies")
+	return SceneContractCache.supports(scene, ["phase", "player_position", "enemies"])
 
 func _draw_magnetic(surface: CanvasItem, scene: Object) -> void:
 	var support := get_node_or_null("/root/SupportDirector")

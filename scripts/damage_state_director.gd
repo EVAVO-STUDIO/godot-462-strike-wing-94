@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const DamageStateSurface = preload("res://scripts/damage_state_surface.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
@@ -71,10 +72,4 @@ func _craft_form() -> String:
 	return "fighter"
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "hull", "player_position"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "hull", "player_position"])

@@ -2,8 +2,10 @@ class_name HypersonicRules
 extends RefCounted
 
 const CHARGE_SECONDS := {"low":1.40,"mid":1.15,"high":0.85,"orbital":0.70}
-const SPEED_MULTIPLIER := 2.20
+const SPEED_MULTIPLIER := 3.40
 const TURN_SCALE := 0.38
+const ENEMY_CHARGE_SECONDS := 0.82
+const ENEMY_SPEED_MULTIPLIER := 2.65
 
 static func can_charge(form: String, altitude_transition_active: bool, fuel: float) -> bool:
 	return form == "fighter" and not altitude_transition_active and fuel > 0.001
@@ -27,3 +29,6 @@ static func fuel_burn_multiplier(altitude: String) -> float:
 
 static func enemy_can_pursue(archetype: Dictionary) -> bool:
 	return bool(archetype.get("hypersonic_capable", false)) and str(archetype.get("class", "air")) == "air"
+
+static func enemy_pursuit_ratio(charge: float) -> float:
+	return clampf(charge / ENEMY_CHARGE_SECONDS, 0.0, 1.0)

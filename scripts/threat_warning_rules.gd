@@ -20,6 +20,34 @@ static func nearest_homing_distance(bullets: Array, player_position: Vector2) ->
 		nearest = minf(nearest, position.distance_to(player_position))
 	return nearest
 
+static func nearest_homing(bullets: Array, player_position: Vector2) -> Dictionary:
+	var nearest: Dictionary = {}
+	var nearest_distance := INF
+	for shot in bullets:
+		if typeof(shot) != TYPE_DICTIONARY or not bool(shot.get("homing", false)):
+			continue
+		var position: Vector2 = shot.get("position", Vector2.ZERO)
+		var distance := position.distance_to(player_position)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest = shot
+	return nearest
+
+static func clock_bearing(source: Vector2, target: Vector2) -> int:
+	var relative := source - target
+	if relative.length_squared() <= 0.001:
+		return 12
+	var clockwise := fposmod(atan2(relative.x, -relative.y), TAU)
+	var clock := posmod(int(round(clockwise / TAU * 12.0)), 12)
+	return 12 if clock == 0 else clock
+
+static func time_to_impact(shot: Dictionary, player_position: Vector2) -> float:
+	var position: Vector2 = shot.get("position", Vector2.ZERO)
+	var velocity: Vector2 = shot.get("velocity", Vector2.ZERO)
+	var to_player := player_position - position
+	var closing_speed := velocity.dot(to_player.normalized()) if to_player.length_squared() > 0.001 else velocity.length()
+	return to_player.length() / maxf(1.0, closing_speed)
+
 static func warning_level(distance: float, count: int) -> int:
 	if count <= 0 or is_inf(distance):
 		return 0

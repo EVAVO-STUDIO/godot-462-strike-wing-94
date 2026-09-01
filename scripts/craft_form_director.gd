@@ -1,4 +1,5 @@
 extends Node
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
@@ -141,6 +142,9 @@ func hypersonic_charge_ratio() -> float:
 		return 1.0
 	return clampf(_hypersonic_charge / HypersonicRules.charge_seconds(altitude), 0.0, 1.0)
 
+func hypersonic_visual_ratio() -> float:
+	return hypersonic_charge_ratio()
+
 func _capture_hypersonic() -> bool:
 	if not "--capture-gameplay" in OS.get_cmdline_user_args():
 		return false
@@ -153,13 +157,7 @@ func _publish_generator_context(scene: Object) -> void:
 			EnergyRules.set_active_generator(generator)
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer", "spawn_profiles", "enemy_catalog"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer", "spawn_profiles", "enemy_catalog"])
 
 func _active_mission_id(scene: Object) -> String:
 	var missions = scene.get("mission_catalog")
@@ -247,12 +245,15 @@ func _handle_manual_altitude_input(scene: Object) -> void:
 
 func _try_manual_altitude(scene: Object, direction: int) -> void:
 	var window := _active_altitude_window(float(scene.get("mission_time")))
-	if window.is_empty():
+	if window.is_empty() and not _hypersonic_active:
 		_set_status(scene, "ALTITUDE LANE LOCKED")
 		return
-	var allowed := AltitudeRules.allowed_manual_bands(window)
+	var allowed: Array[String] = AltitudeRules.BANDS.duplicate() if _hypersonic_active else AltitudeRules.allowed_manual_bands(window)
 	var candidate := AltitudeRules.adjacent_band(altitude, direction)
-	if candidate == altitude or candidate not in allowed:
+	if candidate == altitude:
+		_set_status(scene, "ALTITUDE LIMIT - %s" % AltitudeRules.display_name(altitude))
+		return
+	if candidate not in allowed:
 		_set_status(scene, "NO %s ALTITUDE LANE" % ("HIGHER" if direction > 0 else "LOWER"))
 		return
 	_begin_altitude_transition(scene, candidate, "PILOT SELECTED %s" % AltitudeRules.display_name(candidate))

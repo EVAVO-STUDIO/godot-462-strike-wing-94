@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const CombatFxSurface = preload("res://scripts/combat_fx_surface.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
@@ -643,10 +644,4 @@ func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: boo
 	surface.draw_texture_rect(texture, Rect2((p - size * 0.5).round(), size), false)
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "enemies", "hull", "shield", "player_position"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "enemies", "hull", "shield", "player_position"])

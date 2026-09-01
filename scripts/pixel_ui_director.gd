@@ -9,6 +9,7 @@ const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
@@ -191,13 +192,7 @@ func _draw_surface(surface: CanvasItem) -> void:
 		_draw_gameplay_hud(surface, scene)
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "credits", "mission_time", "mission_duration", "hull", "shield", "bombs", "wave", "score", "status_text", "status_timer", "enemies", "enemy_bullets", "player_position"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "credits", "mission_time", "mission_duration", "hull", "shield", "bombs", "wave", "score", "status_text", "status_timer", "enemies", "enemy_bullets", "player_position"])
 
 func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	var front_end := str(scene.get("front_end_screen")) if _has_property(scene, "front_end_screen") else "sortie"
@@ -807,15 +802,20 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	if snapshot.is_empty(): return
 	var count := int(snapshot.get("count", 0))
 	var distance := float(snapshot.get("distance", INF))
+	var acquiring := float(snapshot.get("acquiring", 0.0))
 	var text := ThreatWarningRules.warning_text(distance, count)
+	if count > 0:
+		text = "RWR  MSL %d  %d OC  TTI %.1f" % [count, int(snapshot.get("bearing", 12)), float(snapshot.get("tti", 9.9))]
+	elif acquiring > 0.0:
+		text = "RWR  SPIKE  %02d%%  MANEUVER" % int(roundf(acquiring * 100.0))
 	if text == "": return
-	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2)
+	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2) if count > 0 else 1
 	var position := Vector2(180, 42)
 	surface.draw_texture(HUD_THREAT_FRAMES[level], position)
 	surface.draw_texture(HUD_THREAT_MISSILE_ICON, position + Vector2(7, 5), RED if level >= 2 else (GOLD if level == 1 else BLUE))
 	PixelFont.draw_centered(surface, text, 326, 48, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)
 	surface.draw_texture(HUD_THREAT_APPROACH_TROUGH, position + Vector2(190, 16))
-	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0)
+	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0) if count > 0 else acquiring
 	_draw_clipped_fill(surface, HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL, position + Vector2(191, 17), approach_ratio)
 
 func _support_name() -> String:
@@ -929,12 +929,19 @@ func _active_boss(scene: Object) -> Dictionary:
 
 func _threat_snapshot(scene: Object) -> Dictionary:
 	if _capture_hud_state() == "warning":
-		return {"count":3, "distance":96.0}
+		return {"count":3, "distance":96.0, "bearing":5, "tti":1.4, "acquiring":1.0}
 	var bullets: Array = scene.get("enemy_bullets")
 	var player_position: Vector2 = scene.get("player_position")
 	var count := ThreatWarningRules.homing_count(bullets)
 	var distance := ThreatWarningRules.nearest_homing_distance(bullets, player_position)
-	return {} if ThreatWarningRules.warning_text(distance, count) == "" else {"count":count, "distance":distance}
+	var acquiring := 0.0
+	for enemy in scene.get("enemies"):
+		if typeof(enemy) == TYPE_DICTIONARY:
+			acquiring = maxf(acquiring, float(enemy.get("missile_lock_ratio", 0.0)))
+	if count <= 0:
+		return {"count":0,"distance":INF,"acquiring":acquiring} if acquiring > 0.05 else {}
+	var nearest := ThreatWarningRules.nearest_homing(bullets, player_position)
+	return {"count":count, "distance":distance, "bearing":ThreatWarningRules.clock_bearing(nearest.get("position",Vector2.ZERO),player_position), "tti":ThreatWarningRules.time_to_impact(nearest,player_position), "acquiring":acquiring}
 
 func _capture_hud_state() -> String:
 	if not "--capture-gameplay" in OS.get_cmdline_user_args():

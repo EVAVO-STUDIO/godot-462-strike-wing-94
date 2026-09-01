@@ -1,0 +1,20 @@
+{
+  "name": "vx94_evasive_roll_source",
+  "pixel_art": false,
+  "source_filter": {
+    "include": ["vx94_evasive_roll_source_v1.png"],
+    "exclude": [],
+    "animation_grouping": "auto"
+  },
+  "cleanup": {
+    "background": "border-palette",
+    "key_colors": [[255, 255, 255], [239, 239, 239]],
+    "color_tolerance": 18,
+    "alpha_threshold": 1,
+    "matte_decontaminate": true,
+    "despeckle_min_area": 10,
+    "clear_hidden_rgb": true
+  },
+  "previews": {"enabled": false},
+  "export": {"godot": false, "generic_json": false, "animated_scene": false, "event_timeline": false, "integration_contract": false}
+}

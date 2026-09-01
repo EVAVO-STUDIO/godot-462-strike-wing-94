@@ -63,15 +63,21 @@ func draw_afterburner(surface: CanvasItem) -> void:
 		var draw_size := roundf(lerpf(64.0, 236.0, t))
 		var p: Vector2 = scene.get("player_position")
 		surface.draw_texture_rect(texture, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-t))
+		if _boom_age < 0.12:
+			var flash_ratio := 1.0 - _boom_age / 0.12
+			surface.draw_circle((p + Vector2(0,15)).round(), lerpf(4.0,22.0,flash_ratio), Color(0.86,0.94,1.0,flash_ratio*0.88))
 
 func _draw_meter(surface: CanvasItem, ratio: float, charge_ratio: float, burning: bool, hypersonic: bool) -> void:
 	var frame: Texture2D = PROPULSION_HYPERSONIC if hypersonic else (PROPULSION_RESERVE_LOW if ratio <= 0.20 else (PROPULSION_BURNING if burning else PROPULSION_NORMAL))
 	var position := Vector2(14,315)
 	surface.draw_texture(frame, position)
 	PixelFont.draw_text(surface, "AB", position + Vector2(7,3), 1, ALERT if ratio <= 0.20 else FUEL, 1)
-	PixelFont.draw_text(surface, "MACH", position + Vector2(95,3), 1, CORE if hypersonic else CHARGE, 1)
+	PixelFont.draw_text(surface, "MACH" if hypersonic else "GEOM", position + Vector2(91,3), 1, CORE if hypersonic else CHARGE, 1)
+	var exposure := clampi(int(roundf(charge_ratio * 9.0)) + 1, 1, 10) if charge_ratio > 0.0 else 0
+	PixelFont.draw_text(surface, "%02d" % exposure if exposure > 0 else "--", position + Vector2(115,3), 1, CORE if hypersonic else CHARGE, 1)
 	_draw_fill(surface, PROPULSION_FUEL_FILL, position + Vector2(25,5), ratio)
-	_draw_fill(surface, PROPULSION_CHARGE_FILL, position + Vector2(121,5), charge_ratio)
+	var stepped_charge := float(floori(charge_ratio * 10.0)) / 10.0
+	_draw_fill(surface, PROPULSION_CHARGE_FILL, position + Vector2(141,5), stepped_charge)
 
 func _draw_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
 	var width := floorf(float(texture.get_width()) * clampf(ratio,0.0,1.0))

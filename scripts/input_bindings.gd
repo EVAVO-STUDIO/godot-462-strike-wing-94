@@ -10,6 +10,7 @@ const BUTTON_BINDINGS := {
 	"fire_support": JOY_BUTTON_X,
 	"transform_craft": JOY_BUTTON_Y,
 	"afterburner": JOY_BUTTON_LEFT_SHOULDER,
+	"evasive_roll": JOY_BUTTON_LEFT_STICK,
 	"call_battlefield_support": JOY_BUTTON_RIGHT_SHOULDER,
 	"cycle_support": JOY_BUTTON_DPAD_LEFT,
 	"cycle_battlefield_support": JOY_BUTTON_DPAD_RIGHT,

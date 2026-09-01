@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const AirframeCueSurface = preload("res://scripts/airframe_cue_surface.gd")
 const GAMEPLAY_ANCHOR := Vector2(24,29)
@@ -76,7 +77,4 @@ func _craft_form() -> String:
 	return "fighter"
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("player_position")
+	return SceneContractCache.supports(scene, ["phase", "player_position"])

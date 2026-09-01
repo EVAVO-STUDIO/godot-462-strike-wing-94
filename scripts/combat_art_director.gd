@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
@@ -704,7 +705,20 @@ const AI_DARK := Color("45545a")
 const AI_CORE := Color("67c3a5")
 const BOSS := Color("c86054")
 const BOSS_DARK := Color("55322f")
-const TRANSFORM_VISUAL_SECONDS := 0.42
+const TRANSFORM_VISUAL_SECONDS := 0.92
+const TRANSFORM_EXPOSURES := 10
+const VX94_EVASIVE_ROLL := [
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_00.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_01.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_02.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_03.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_04.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_05.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_06.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_07.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_08.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_09.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_10.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_11.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_12.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_13.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_14.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_15.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_16.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_17.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_18.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_19.png"),
+]
 
 var _surface: Control
 var _visual_sweep := 0.0
@@ -767,6 +781,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		return
 	if _capture_air_state() == "orbital":
 		_render_orbital_air_capture(surface, scene)
+		_draw_player(surface, scene)
+		return
+	if _capture_air_state() == "hypersonic":
+		_render_hypersonic_air_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
 	if _capture_boss_state() == "mercenary":
@@ -874,6 +892,20 @@ func _render_orbital_air_capture(surface: CanvasItem, scene: Object) -> void:
 	for enemy in definitions:
 		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, ORBITAL_AIR_SPRITES[enemy["id"]])
 
+func _render_hypersonic_air_capture(surface: CanvasItem, scene: Object) -> void:
+	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
+	var pulse := fposmod(time, 2.4) / 2.4
+	var boom_age := fposmod(time, 0.72)
+	var definitions := [
+		{"id":"ace_interceptor", "position":Vector2(175,142), "hp":18, "max_hp":18, "age":time, "visual_bank":-0.15, "hypersonic_ratio":clampf(pulse * 1.8, 0.0, 1.0), "hypersonic_boom_age":99.0},
+		{"id":"drone_hunter", "position":Vector2(320,142), "hp":12, "max_hp":12, "age":time, "visual_bank":0.10, "hypersonic_ratio":clampf(0.35 + pulse, 0.0, 1.0), "hypersonic_boom_age":99.0},
+		{"id":"phase_interceptor", "position":Vector2(465,142), "hp":20, "max_hp":20, "age":time, "visual_bank":0.0, "hypersonic_ratio":1.0, "hypersonic_boom_age":boom_age},
+	]
+	for enemy in definitions:
+		var enemy_id: String = enemy["id"]
+		var texture: Texture2D = MERCENARY_AIR_SPRITES[enemy_id] if MERCENARY_AIR_SPRITES.has(enemy_id) else (MACHINE_AIR_SPRITES[enemy_id] if MACHINE_AIR_SPRITES.has(enemy_id) else ORBITAL_AIR_SPRITES[enemy_id])
+		_draw_hostile_airframe(surface, enemy["position"], enemy_id, enemy, texture)
+
 func _render_mercenary_boss_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
 	var recoil := 0.10 if fposmod(time, 1.40) < 0.14 else 0.0
@@ -955,10 +987,7 @@ func _render_destruction_reward_capture(surface: CanvasItem,scene: Object) -> vo
 		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("player_position") and names.has("enemies") and names.has("pickups")
+	return SceneContractCache.supports(scene, ["phase", "player_position", "enemies", "pickups"])
 
 func _draw_pickups(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else Time.get_ticks_msec() / 1000.0
@@ -988,34 +1017,64 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 		_draw_player_loss(surface, p, origin, loss_timer)
 		return
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else Time.get_ticks_msec() / 1000.0
+	if _capture_craft_state() == "evasive-roll":
+		var capture_progress := fposmod(time, 1.2) / 1.2
+		_draw_evasive_player(surface, p, time, capture_progress, -1 if fposmod(time, 2.4) < 1.2 else 1)
+		return
+	var evasive := get_node_or_null("/root/EvasiveRollDirector")
+	if evasive != null and evasive.has_method("active") and bool(evasive.call("active")):
+		_draw_evasive_player(surface, p, time, float(evasive.call("progress")), int(evasive.call("direction")))
+		return
 	var exhaust_frame: Texture2D = VX94_EXHAUST[int(floor(time * 12.0)) % VX94_EXHAUST.size()]
 	surface.draw_texture(exhaust_frame, origin)
-	if _capture_craft_state() == "layered-sweep":
-		_draw_layered_vx94(surface, p, _capture_sweep_ratio(time))
+	if _capture_craft_state() in ["layered-sweep", "hypersonic-sweep"]:
+		var sweep := _capture_sweep_ratio(time)
+		_draw_layered_vx94(surface, p, -sweep if _capture_craft_state() == "hypersonic-sweep" else sweep)
 		return
 	var texture: Texture2D
+	var hypersonic_sweep := _hypersonic_visual_ratio()
+	if hypersonic_sweep > 0.01:
+		var exposure := roundf(hypersonic_sweep * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
+		_draw_layered_vx94(surface, p, -exposure)
+		var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
+		var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
+		_draw_player_damage(surface, origin, damage_ratio)
+		return
 	if _visual_sweep <= 0.02:
 		texture = VX94_FIGHTER_BANK[_bank_frame_index()]
 	elif _visual_sweep >= 0.98:
 		texture = VX94_BOMBER_BANK[_bank_frame_index()]
 	else:
-		var form_index := clampi(int(round(_visual_sweep * float(VX94_GAMEPLAY_FORMS.size() - 1))), 0, VX94_GAMEPLAY_FORMS.size() - 1)
-		texture = VX94_GAMEPLAY_FORMS[form_index]
-	surface.draw_texture(texture, origin)
+		var exposure := roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
+		_draw_layered_vx94(surface, p, exposure)
+		texture = null
+	if texture != null:
+		surface.draw_texture(texture, origin)
 	var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
 	var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
 	_draw_player_damage(surface, origin, damage_ratio)
 
+func _draw_evasive_player(surface: CanvasItem, p: Vector2, time: float, progress: float, direction: int) -> void:
+	var roll_phase := clampf(progress, 0.0, 1.0)
+	var authored_index := clampi(int(roundf(roll_phase * float(VX94_EVASIVE_ROLL.size() - 1))), 0, VX94_EVASIVE_ROLL.size() - 1)
+	var frame_index := authored_index if direction < 0 else posmod(VX94_EVASIVE_ROLL.size() - authored_index, VX94_EVASIVE_ROLL.size())
+	var texture: Texture2D = VX94_EVASIVE_ROLL[frame_index]
+	var exhaust: Texture2D = VX94_EXHAUST[int(floor(time * 12.0)) % VX94_EXHAUST.size()]
+	surface.draw_texture(exhaust, (p - VX94_GAMEPLAY_ANCHOR).round())
+	surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round())
+
 func _draw_layered_vx94(surface: CanvasItem, p: Vector2, sweep: float) -> void:
-	var eased := smoothstep(0.0, 1.0, clampf(sweep, 0.0, 1.0))
-	var settle := sin(clampf((sweep - 0.72) / 0.28, 0.0, 1.0) * PI) * 0.055
+	var bomber_sweep := clampf(sweep, 0.0, 1.0)
+	var hypersonic_sweep := clampf(-sweep, 0.0, 1.0)
+	var eased := smoothstep(0.0, 1.0, bomber_sweep)
+	var settle := sin(clampf((bomber_sweep - 0.72) / 0.28, 0.0, 1.0) * PI) * 0.055
 	var articulated := clampf(eased + settle, 0.0, 1.06)
 	var left_hinge := p + Vector2(-6,-6)
 	var right_hinge := p + Vector2(6,-6)
 	_draw_pivoted_component(surface, VX94_LAYERED["tailplane_left"], p + Vector2(-5,14), Vector2(0.82,0.50), 0.0)
 	_draw_pivoted_component(surface, VX94_LAYERED["tailplane_right"], p + Vector2(5,14), Vector2(0.18,0.50), 0.0)
-	var left_angle := deg_to_rad(lerpf(-18.0, 13.0, articulated))
-	var right_angle := deg_to_rad(lerpf(18.0, -13.0, articulated))
+	var left_angle := deg_to_rad(lerpf(lerpf(-18.0, -44.0, hypersonic_sweep), 13.0, articulated))
+	var right_angle := deg_to_rad(lerpf(lerpf(18.0, 44.0, hypersonic_sweep), -13.0, articulated))
 	_draw_pivoted_component(surface, VX94_LAYERED["wing_left"], left_hinge, Vector2(0.88,0.18), left_angle)
 	_draw_pivoted_component(surface, VX94_LAYERED["wing_right"], right_hinge, Vector2(0.12,0.18), right_angle)
 	_draw_pivoted_component(surface, VX94_LAYERED["hardpoint_left"], left_hinge + Vector2(-7,9), Vector2(0.78,0.50), left_angle * 0.55)
@@ -1026,6 +1085,10 @@ func _draw_layered_vx94(surface: CanvasItem, p: Vector2, sweep: float) -> void:
 	surface.draw_texture(fuselage, (p - Vector2(fuselage.get_width() * 0.5, 29)).round())
 	var bay: Texture2D = VX94_LAYERED["bay_open"] if articulated > 0.72 else VX94_LAYERED["bay_closed"]
 	_draw_pivoted_component(surface, bay, p + Vector2(0,4), Vector2(0.50,0.50), 0.0, Color(1,1,1,0.72))
+
+func _hypersonic_visual_ratio() -> float:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	return clampf(float(craft.call("hypersonic_visual_ratio")), 0.0, 1.0) if craft != null and craft.has_method("hypersonic_visual_ratio") else 0.0
 
 func _draw_pivoted_component(surface: CanvasItem, texture: Texture2D, world_pivot: Vector2, normalized_pivot: Vector2, angle: float, tint := Color.WHITE) -> void:
 	var local_pivot := texture.get_size() * normalized_pivot
@@ -1119,6 +1182,8 @@ func _bank_frame_index() -> int:
 func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)
 	var enemy_id := str(enemy.get("id", ""))
+	if float(enemy.get("hypersonic_ratio", 0.0)) > 0.01 and _draw_hypersonic_interceptor(surface, p, enemy_id, enemy):
+		return
 	var is_boss := bool(enemy.get("boss", false))
 	var faction := str(enemy.get("faction", "mercenary"))
 	var category := str(enemy.get("category", "air"))
@@ -1171,6 +1236,26 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		_render_ground_force_specialist(surface, p, enemy_id, enemy, specialist_scale)
 	if not is_boss:
 		_draw_enemy_damage_attachments(surface, p, enemy, category, faction, scale)
+
+func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> bool:
+	var hull: Texture2D
+	if MERCENARY_AIR_SPRITES.has(enemy_id): hull = MERCENARY_AIR_SPRITES[enemy_id]
+	elif MACHINE_AIR_SPRITES.has(enemy_id): hull = MACHINE_AIR_SPRITES[enemy_id]
+	elif ORBITAL_AIR_SPRITES.has(enemy_id): hull = ORBITAL_AIR_SPRITES[enemy_id]
+	else: return false
+	var ratio := roundf(clampf(float(enemy.get("hypersonic_ratio", 0.0)), 0.0, 1.0) * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
+	var width := hull.get_width() * lerpf(1.0, 0.62, ratio)
+	var height := hull.get_height() * lerpf(1.0, 1.08, ratio)
+	surface.draw_texture_rect(hull, Rect2((p - Vector2(width, height) * 0.5).round(), Vector2(width, height).round()), false)
+	var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
+	surface.draw_texture(plume, (p + Vector2(-plume.get_width() * 0.5, height * 0.30)).round(), Color(0.88,0.94,1.0,ratio))
+	var boom_age := float(enemy.get("hypersonic_boom_age", 99.0))
+	if boom_age < 0.42:
+		var t := boom_age / 0.42
+		var boom := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
+		var size := roundf(lerpf(36.0, 112.0, t))
+		surface.draw_texture_rect(boom, Rect2((p-Vector2.ONE*size*0.5).round(),Vector2.ONE*size),false,Color(1,1,1,1.0-t))
+	return true
 
 static func has_production_art(enemy_id: String) -> bool:
 	return MERCENARY_AIR_SPRITES.has(enemy_id) or MERCENARY_GROUND_SPRITES.has(enemy_id) or MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id) or MERCENARY_SEA_SPRITES.has(enemy_id) or MACHINE_AIR_SPRITES.has(enemy_id) or MACHINE_GROUND_SPRITES.has(enemy_id) or MACHINE_MECH_SPRITES.has(enemy_id) or ORBITAL_AIR_SPRITES.has(enemy_id) or MERCENARY_BOSS_SPRITES.has(enemy_id) or MACHINE_BOSS_SPRITES.has(enemy_id) or ORBITAL_BOSS_SPRITES.has(enemy_id)

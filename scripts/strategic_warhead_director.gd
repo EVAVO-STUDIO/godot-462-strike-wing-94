@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const StrategicWarheadRules = preload("res://scripts/strategic_warhead_rules.gd")
 const StrategicWarheadSurface = preload("res://scripts/strategic_warhead_surface.gd")
@@ -72,7 +73,4 @@ func draw_blast(surface: CanvasItem) -> void:
 	surface.draw_texture(texture, (_burst_position - texture.get_size() * 0.5).round(), Color(1,1,1,alpha))
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("bullets") and names.has("enemies")
+	return SceneContractCache.supports(scene, ["phase", "bullets", "enemies"])

@@ -150,6 +150,7 @@ func _test_visual_language() -> void:
 		_expect(human_air_layer != null and human_air_layer.get_size() == layered_human_air_sizes[human_air_layer_id], "layered human-air component should retain its registered canvas: %s" % human_air_layer_id)
 	_expect(source.contains('"anchor": Vector2(0, 5)') and source.contains('"anchor": Vector2(0, 7)') and source.contains("_render_air_component"), "gunship and helicopter weapons should attach to reviewed independent hardpoints")
 	_expect(source.contains('argument.begins_with("--capture-air=")') and source.contains('_capture_air_state() == "human"') and source.contains("_render_human_air_capture") and source.contains('"visual_bank":sin(time*2.0)'), "visual QA should expose an isolated human-air bank, rotor, tracking, recoil, and bay fixture")
+	_expect(source.contains('_capture_air_state() == "hypersonic"') and source.contains("_render_hypersonic_air_capture") and source.contains('"hypersonic_boom_age":boom_age'), "visual QA should expose transforming human, machine, and orbital hypersonic pursuers")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/human_air_layered/human_air_layered_manifest.json"), "layered human-air source/runtime manifest should exist")
 	var machine_specialist_sizes := {
 		"core_0":Vector2(5,5), "core_1":Vector2(5,5), "core_2":Vector2(5,5), "hunter_weapon":Vector2(30,30),
@@ -503,9 +504,11 @@ func _test_transform_presentation() -> void:
 	if file == null:
 		return
 	var source := file.get_as_text()
-	_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.42"), "variable geometry sweep should remain visibly mechanical")
+	_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.92"), "variable geometry sweep should retain its near-one-second mechanical cadence")
+	_expect(source.contains("TRANSFORM_EXPOSURES := 10"), "variable geometry should retain ten deliberate animation exposures")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
-	_expect(source.contains("VX94_GAMEPLAY_FORMS[form_index]"), "variable geometry should advance through the authored mechanical keyframes")
+	_expect(source.contains("roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1))"), "variable geometry should advance through quantized authored exposures")
+	_expect(source.contains("_draw_layered_vx94(surface, p, -exposure"), "hypersonic charge should continue beyond fighter geometry into a deeper folded-wing silhouette")
 	_expect(source.contains("vx94_transform_01.png") and source.contains("vx94_transform_02.png") and source.contains("vx94_transform_03.png"), "VX-94 transformation should retain all three authored mechanical intermediate keyframes")
 	_expect(not source.contains("func _draw_transforming") and not source.contains("func _draw_rotary_cannon"), "obsolete procedural VX-94 construction should remain removed")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
@@ -640,6 +643,7 @@ func _test_damage_state() -> void:
 		var component_texture := load("res://assets/runtime/craft/vx94/layered/%s.png" % component_name) as Texture2D
 		_expect(component_texture != null and component_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 articulated component should retain transparency: %s" % component_name)
 	_expect(combat_source.contains('argument.begins_with("--capture-craft=")') and combat_source.contains('"layered-sweep"'), "visual QA should expose a simulation-isolated articulated VX-94 sweep fixture")
+	_expect(combat_source.contains('"hypersonic-sweep"') and combat_source.contains('-sweep if _capture_craft_state() == "hypersonic-sweep"'), "visual QA should expose the deeper ten-exposure hypersonic wing fold")
 	_expect(combat_source.contains("_draw_layered_vx94") and combat_source.contains("_draw_pivoted_component") and combat_source.contains("left_hinge") and combat_source.contains("right_hinge"), "VX-94 layered QA should assemble mirrored components around explicit wing-root pivots")
 
 func _test_projectile_art() -> void:

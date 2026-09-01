@@ -70,6 +70,7 @@ func _test_retro_sfx() -> void:
 	if cue_file != null:
 		var cue_source := cue_file.get_as_text()
 		_expect(cue_source.contains("PROPULSION_HYPERSONIC") and cue_source.contains("hypersonic_charge_ratio") and cue_source.contains("PROPULSION_RESERVE_LOW"), "propulsion HUD should expose authored fuel, spool and latched-speed states")
+		_expect(cue_source.contains('"MACH" if hypersonic else "GEOM"') and cue_source.contains("charge_ratio * 10.0"), "compact propulsion HUD should expose ten deliberate geometry stages and a distinct MACH latch")
 	for propulsion_asset in ["normal","burning","reserve_low","hypersonic_latched"]:
 		var propulsion_frame := load("res://assets/runtime/ui/hud/propulsion_instrument/%s.png" % propulsion_asset)
 		_expect(propulsion_frame is Texture2D and propulsion_frame.get_size() == Vector2(196,13), "propulsion instrument state should retain registered geometry: %s" % propulsion_asset)

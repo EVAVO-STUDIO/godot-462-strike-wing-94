@@ -1,4 +1,5 @@
 extends Node
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
@@ -54,13 +55,7 @@ func _load_catalog() -> void:
 	selected_index = SupportRules.sanitize_selected(selected_index, unlocked_index, support_catalog.size())
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "credits", "energy", "bullets", "enemy_bullets", "enemies", "player_position", "shots_fired", "status_text", "status_timer"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "credits", "energy", "bullets", "enemy_bullets", "enemies", "player_position", "shots_fired", "status_text", "status_timer"])
 
 func current_support() -> Dictionary:
 	if support_catalog.is_empty():

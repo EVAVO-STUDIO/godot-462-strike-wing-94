@@ -1,4 +1,5 @@
 extends Node
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const BossRules = preload("res://scripts/boss_rules.gd")
 const BossSignatureRules = preload("res://scripts/boss_signature_rules.gd")
@@ -13,13 +14,7 @@ func _process(delta: float) -> void:
 	_update_homing_shots(scene, delta)
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["enemies", "enemy_bullets", "player_position"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["enemies", "enemy_bullets", "player_position"])
 
 func _catalog_max_hp(scene: Object, boss_id: String, fallback_hp: int) -> int:
 	if not _has_property(scene, "enemy_catalog"):

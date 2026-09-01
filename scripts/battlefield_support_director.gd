@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const BattlefieldSupportRules = preload("res://scripts/battlefield_support_rules.gd")
@@ -69,13 +70,7 @@ func _process(delta: float) -> void:
 	_queue_surface()
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "mission_index", "player_position", "energy", "bombs", "hull", "shield", "enemies", "score", "status_text", "status_timer"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "mission_index", "player_position", "energy", "bombs", "hull", "shield", "enemies", "score", "status_text", "status_timer"])
 
 func _refresh_allowed() -> void:
 	_allowed_ids.clear()

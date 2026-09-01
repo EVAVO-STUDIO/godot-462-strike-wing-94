@@ -1,4 +1,5 @@
 extends Node
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const DirectedEnergyRules = preload("res://scripts/directed_energy_rules.gd")
 
@@ -47,7 +48,4 @@ func _process(_delta: float) -> void:
 		scene.set("enemies", enemies)
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("bullets") and names.has("enemies")
+	return SceneContractCache.supports(scene, ["phase", "bullets", "enemies"])

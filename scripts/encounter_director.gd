@@ -1,4 +1,5 @@
 extends Node
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const EncounterRules = preload("res://scripts/encounter_rules.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
@@ -30,13 +31,7 @@ func _process(_delta: float) -> void:
 	_last_phase = phase
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "mission_time", "mission_index", "mission_catalog", "enemy_catalog", "enemies", "enemy_spawn_timer", "pickups", "status_text", "status_timer", "shots_fired", "shots_hit", "score", "bombs"]:
-		if not names.has(required):
-			return false
-	return scene.has_method("_spawn_enemy")
+	return scene.has_method("_spawn_enemy") and SceneContractCache.supports(scene, ["phase", "mission_time", "mission_index", "mission_catalog", "enemy_catalog", "enemies", "enemy_spawn_timer", "pickups", "status_text", "status_timer", "shots_fired", "shots_hit", "score", "bombs"])
 
 func _active_mission(scene: Object) -> Dictionary:
 	var missions: Array = scene.get("mission_catalog")

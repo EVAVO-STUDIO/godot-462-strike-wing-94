@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
@@ -259,10 +260,7 @@ func _has_property(subject: Object, property_name: String) -> bool:
 	return false
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("current_environment") and names.has("mission_time")
+	return SceneContractCache.supports(scene, ["phase", "current_environment", "mission_time"])
 
 func _altitude_state() -> Dictionary:
 	var craft := get_node_or_null("/root/CraftFormDirector")

@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const HUD_STABILITY_TROUGH := preload("res://assets/runtime/ui/hud/stability_trough.png")
 const HUD_STABILITY_FILL := preload("res://assets/runtime/ui/hud/stability_fill.png")
@@ -74,13 +75,7 @@ func _process(delta: float) -> void:
 	_surface.queue_redraw()
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "player_position", "enemies", "score", "status_text", "status_timer"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "player_position", "enemies", "score", "status_text", "status_timer"])
 
 func _altitude_transition_active() -> bool:
 	var craft := get_node_or_null("/root/CraftFormDirector")

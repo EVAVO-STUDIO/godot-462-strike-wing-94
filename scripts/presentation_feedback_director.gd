@@ -1,4 +1,5 @@
 extends CanvasLayer
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const FeedbackSurface=preload("res://scripts/presentation_feedback_surface.gd")
 var _surface:Control
 var _scene_id:=0
@@ -38,6 +39,4 @@ func _reset_scene(scene:Node)->void:
 	_trauma=0.0;_flash=0.0
 func _supports(scene:Object)->bool:
 	if not scene is Node2D:return false
-	var names:={}
-	for property in scene.get_property_list():names[str(property.get("name",""))]=true
-	return names.has("phase") and names.has("damage_taken") and names.has("targets_destroyed")
+	return SceneContractCache.supports(scene,["phase","damage_taken","targets_destroyed"])
