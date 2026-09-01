@@ -18,6 +18,7 @@ var _last_afterburner := false
 var _last_hypersonic := false
 var _enemy_boom_latched := false
 var _last_missile_level := 0
+var _last_enemy_missiles_launched := 0
 var _last_strike_ordnance := -1
 var _noise_state := 0x1345ABCD
 var _rotary_cooldown := 0.0
@@ -61,6 +62,7 @@ func _observe_gameplay() -> void:
 	if phase != 1:
 		_last_shots_fired = int(scene.get("shots_fired")) if _has_property(scene, "shots_fired") else 0
 		_last_missile_level = 0
+		_last_enemy_missiles_launched = int(scene.get("enemy_missiles_launched")) if _has_property(scene, "enemy_missiles_launched") else 0
 		_last_strike_ordnance = _strike_ordnance_count()
 		_rotary_cooldown = 0.0
 		_enemy_boom_latched = false
@@ -101,7 +103,16 @@ func _observe_gameplay() -> void:
 			_last_hypersonic = hypersonic
 
 	_observe_missile_threat(scene)
+	_observe_enemy_missile_launch(scene)
 	_observe_enemy_hypersonic_boom(scene)
+
+func _observe_enemy_missile_launch(scene: Object) -> void:
+	if not _has_property(scene, "enemy_missiles_launched"):
+		return
+	var launched := int(scene.get("enemy_missiles_launched"))
+	if launched > _last_enemy_missiles_launched:
+		_trigger(RetroSfxRules.MISSILE_LAUNCH)
+	_last_enemy_missiles_launched = launched
 
 func _observe_enemy_hypersonic_boom(scene: Object) -> void:
 	var fresh_boom := false
@@ -238,6 +249,10 @@ func _wave_sample(kind: String, phase: float, progress: float) -> float:
 			var carrier := 1.0 if phase < 0.38 else -0.82
 			var gate := 1.0 if fposmod(progress * 9.0, 1.0) < 0.62 else 0.20
 			return carrier * gate * 0.72 + _noise_sample() * 0.28
+		"missile":
+			var ignition := _noise_sample() * (0.78 if progress < 0.12 else 0.42)
+			var motor := (phase * 2.0 - 1.0) * (0.28 + 0.38 * (1.0 - progress))
+			return ignition + motor
 	return sin(phase * TAU)
 
 func _noise_sample() -> float:

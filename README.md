@@ -28,6 +28,7 @@ Implemented now:
 - animated climb/dive cloud sweep, pitch cue, target-scale interpolation and separate climb/dive SFX
 - finite afterburner reserve with form/altitude efficiency and Atlas tanker refuel
 - visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
+- distinct missile acquisition and launch voices for interceptor and boss homing salvos
 - mission-intelligence overlay with threat/altitude/form/tech/boss/support information and tactical support advice
 - eight primary weapon tiers from conventional cannon through Plasma Lance
 - generator capacity/recharge progression and matching-era efficiency

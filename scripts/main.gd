@@ -97,6 +97,7 @@ var status_timer := 0.0
 var player_loss_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
+var enemy_missiles_launched := 0
 var enemies: Array = []
 var pickups: Array = []
 var enemy_catalog: Array = []
@@ -1318,6 +1319,10 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(-0.16), damage))
 	elif is_missile:
 		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true))
+		_register_enemy_missile_launch(2)
+
+func _register_enemy_missile_launch(count: int = 1) -> void:
+	enemy_missiles_launched += maxi(0, count)
 
 func _resolve_combat() -> void:
 	for bullet_index in range(bullets.size() - 1, -1, -1):

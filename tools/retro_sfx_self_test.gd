@@ -7,6 +7,7 @@ var failures: Array[String] = []
 class EnemyBoomFixture:
 	extends RefCounted
 	var enemies: Array = []
+	var enemy_missiles_launched := 0
 
 func _initialize() -> void:
 	_test_voice_map()
@@ -23,7 +24,7 @@ func _test_voice_map() -> void:
 	_expect(RetroSfxRules.event_for_weapon("needle_rail") == RetroSfxRules.FIRE_RAIL, "Needle Rail should use kinetic rail voice")
 	_expect(RetroSfxRules.event_for_weapon("storm_cannon") == RetroSfxRules.FIRE_STORM, "Storm Cannon should use directed-energy pulse voice")
 	_expect(RetroSfxRules.event_for_weapon("plasma_lance") == RetroSfxRules.FIRE_PLASMA, "Plasma Lance should use strategic plasma voice")
-	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.ALTITUDE_SHIFT]:
+	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.MISSILE_LAUNCH, RetroSfxRules.ALTITUDE_SHIFT]:
 		var voice := RetroSfxRules.voice(event_id)
 		_expect(RetroSfxRules.valid_voice(voice), "%s should define bounded procedural voice" % event_id)
 		_expect(float(voice.get("duration", 9.0)) <= 0.5, "%s should remain a short arcade SFX" % event_id)
@@ -34,16 +35,24 @@ func _test_runtime_wiring() -> void:
 	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
 	var director: Node = director_script.new()
 	var fixture := EnemyBoomFixture.new()
+	fixture.enemy_missiles_launched = 2
+	director.call("_observe_enemy_missile_launch", fixture)
+	_expect(director.get("_voices").size() == 1, "enemy missile salvo should queue one distinct launch voice")
+	director.call("_observe_enemy_missile_launch", fixture)
+	_expect(director.get("_voices").size() == 1, "observing the same launch serial should not duplicate its voice")
+	fixture.enemy_missiles_launched = 4
+	director.call("_observe_enemy_missile_launch", fixture)
+	_expect(director.get("_voices").size() == 2, "later missile salvos should trigger a new launch voice")
 	fixture.enemies = [{"hypersonic_boom_age":0.01}]
 	director.call("_observe_enemy_hypersonic_boom", fixture)
-	_expect(director.get("_voices").size() == 1, "fresh enemy pursuit break should queue one sonic boom")
+	_expect(director.get("_voices").size() == 3, "fresh enemy pursuit break should queue one sonic boom")
 	director.call("_observe_enemy_hypersonic_boom", fixture)
-	_expect(director.get("_voices").size() == 1, "one enemy shockwave should not retrigger on successive render frames")
+	_expect(director.get("_voices").size() == 3, "one enemy shockwave should not retrigger on successive render frames")
 	fixture.enemies = [{"hypersonic_boom_age":1.0}]
 	director.call("_observe_enemy_hypersonic_boom", fixture)
 	fixture.enemies = [{"hypersonic_boom_age":0.01}]
 	director.call("_observe_enemy_hypersonic_boom", fixture)
-	_expect(director.get("_voices").size() == 2, "later interceptor pursuit break should be able to trigger a new sonic boom")
+	_expect(director.get("_voices").size() == 4, "later interceptor pursuit break should be able to trigger a new sonic boom")
 	director.free()
 	var file := FileAccess.open("res://scripts/retro_sfx_director.gd", FileAccess.READ)
 	_expect(file != null, "retro SFX director should be readable")
@@ -56,10 +65,13 @@ func _test_runtime_wiring() -> void:
 		_expect(source.contains("_noise_state"), "noise voice should use deterministic local noise state rather than global RNG")
 		_expect(source.contains("afterburner_active") and source.contains("MISSILE"), "SFX observer should cover afterburner and missile-warning events")
 		_expect(source.contains("_observe_enemy_hypersonic_boom") and source.contains('enemy.get("hypersonic_boom_age"') and source.contains("_enemy_boom_latched"), "enemy interceptor shockwaves should trigger one bounded sonic boom per pursuit break")
+		_expect(source.contains("_observe_enemy_missile_launch") and source.contains("enemy_missiles_launched") and source.contains("MISSILE_LAUNCH"), "enemy missiles should use a distinct launch voice driven by an authoritative launch counter")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
 		_expect(project.get_as_text().contains('RetroSfxDirector="*res://scripts/retro_sfx_director.gd"'), "procedural SFX owner should remain autoloaded")
+	var gameplay_source := FileAccess.get_file_as_string("res://scripts/main.gd")
+	_expect(gameplay_source.contains("var enemy_missiles_launched := 0") and gameplay_source.contains("_register_enemy_missile_launch(2)"), "ordinary interceptor missile pairs should advance the authoritative launch counter")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition: failures.append(message)

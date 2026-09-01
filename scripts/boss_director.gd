@@ -74,12 +74,16 @@ func _update_bosses(scene: Object, delta: float) -> void:
 			_report_phase(scene, boss, phase)
 
 		if phase >= 2 and float(boss["phase_salvo_timer"]) <= 0.0:
+			var bullets_before := bullets.size()
 			_emit_phase_salvo(bullets, boss, target, phase)
+			_register_new_missiles(scene, bullets, bullets_before)
 			boss["phase_salvo_timer"] = 2.4 if phase == 2 else 1.55
 
 		if BossSignatureRules.is_signature_boss(boss_id):
 			if warning_timer >= 0.0 and float(boss["signature_warning_timer"]) <= 0.0:
+				var bullets_before := bullets.size()
 				_emit_signature_attack(bullets, boss, target, phase)
+				_register_new_missiles(scene, bullets, bullets_before)
 				boss["signature_warning_timer"] = -1.0
 				boss["signature_timer"] = _difficulty_boss_interval(BossSignatureRules.interval(boss_id, phase))
 			elif warning_timer < 0.0 and float(boss["signature_timer"]) <= 0.0:
@@ -89,6 +93,16 @@ func _update_bosses(scene: Object, delta: float) -> void:
 
 	scene.set("enemies", enemies)
 	scene.set("enemy_bullets", bullets)
+
+func _register_new_missiles(scene: Object, bullets: Array, start_index: int) -> void:
+	if not scene.has_method("_register_enemy_missile_launch"):
+		return
+	var count := 0
+	for i in range(maxi(0, start_index), bullets.size()):
+		if typeof(bullets[i]) == TYPE_DICTIONARY and bool(bullets[i].get("homing", false)):
+			count += 1
+	if count > 0:
+		scene.call("_register_enemy_missile_launch", count)
 
 func _report_phase(scene: Object, boss: Dictionary, phase: int) -> void:
 	var name := str(boss.get("id", "BOSS")).replace("_", " ").to_upper()

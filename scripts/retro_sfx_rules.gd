@@ -18,6 +18,7 @@ const TRANSFORM := "transform"
 const AFTERBURNER := "afterburner"
 const SONIC_BOOM := "sonic_boom"
 const MISSILE_WARNING := "missile_warning"
+const MISSILE_LAUNCH := "missile_launch"
 const ALTITUDE_SHIFT := "altitude_shift"
 const ALTITUDE_CLIMB := "altitude_climb"
 const ALTITUDE_DIVE := "altitude_dive"
@@ -66,6 +67,8 @@ static func voice(event_id: String) -> Dictionary:
 		AFTERBURNER: return {"wave":"noise","frequency":72.0,"end_frequency":118.0,"duration":0.16,"gain":0.15}
 		SONIC_BOOM: return {"wave":"blast","frequency":82.0,"end_frequency":31.0,"duration":0.48,"gain":0.28}
 		MISSILE_WARNING: return {"wave":"square","frequency":760.0,"end_frequency":760.0,"duration":0.10,"gain":0.14}
+		# Igniter snap into a descending rocket-motor rasp; deliberately separate from the cockpit lock tone.
+		MISSILE_LAUNCH: return {"wave":"missile","frequency":286.0,"end_frequency":82.0,"duration":0.24,"gain":0.19}
 		ALTITUDE_SHIFT: return {"wave":"sine","frequency":330.0,"end_frequency":660.0,"duration":0.20,"gain":0.15}
 		ALTITUDE_CLIMB: return {"wave":"saw","frequency":180.0,"end_frequency":520.0,"duration":0.34,"gain":0.15}
 		ALTITUDE_DIVE: return {"wave":"saw","frequency":520.0,"end_frequency":150.0,"duration":0.34,"gain":0.15}
