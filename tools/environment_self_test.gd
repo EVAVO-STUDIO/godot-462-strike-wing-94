@@ -46,6 +46,16 @@ func _initialize() -> void:
 				furnace_assignments[str(mission.get("id", ""))] = str(mission.get("environment_variant", ""))
 		_expect(furnace_assignments.get("m08_machine_furnace", "") == "machine_furnace", "Machine Furnace should use the authored autonomous foundry")
 		_expect(furnace_assignments.get("s2_m04_dead_factory", "") == "machine_furnace", "Dead Factory should use the authored autonomous foundry")
+	var secret_data = ContentCatalog.load_json("res://data/secret_missions.json")
+	_expect(typeof(secret_data) == TYPE_DICTIONARY, "secret mission catalogue should load for environment identity checks")
+	if typeof(secret_data) == TYPE_DICTIONARY:
+		var secret_missions: Array = secret_data.get("missions", [])
+		for secret in secret_missions:
+			if typeof(secret) == TYPE_DICTIONARY:
+				_expect(not EnvironmentRules.profile_for(data.get("profiles", []), str(secret.get("environment", ""))).is_empty(), "secret sortie should resolve a registered environment profile: %s" % str(secret.get("id", "")))
+		if secret_missions.size() > 3:
+			var seed_manifest: Dictionary = secret_missions[3]
+			_expect(str(seed_manifest.get("environment_variant", "")) == "city_outskirts", "Seed Manifest should consume the authored city geography stack")
 	var director_file := FileAccess.open("res://scripts/environment_director.gd", FileAccess.READ)
 	_expect(director_file != null, "environment_director.gd should be readable")
 	if director_file != null:

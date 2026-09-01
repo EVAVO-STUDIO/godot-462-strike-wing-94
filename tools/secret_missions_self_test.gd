@@ -9,6 +9,11 @@ func _run() -> void:
 	var secrets: Array = _json("res://data/secret_missions.json").get("missions", [])
 	var core: Array = _json("res://data/missions.json").get("missions", [])
 	var enemies: Array = _json("res://data/enemies.json").get("enemies", [])
+	var profiles: Array = _json("res://data/environment_profiles.json").get("profiles", [])
+	var profile_ids: Array[String] = []
+	for profile in profiles:
+		profile_ids.append(str(profile.get("id", "")))
+	var contexts: Dictionary = _json("res://data/campaign_world.json").get("mission_context", {})
 	var enemy_ids: Dictionary = {}
 	var vector_ids: Dictionary = {}
 	for enemy in enemies:
@@ -28,6 +33,11 @@ func _run() -> void:
 		_expect(mission.get("encounter_beats", []).size() >= 3 and mission.get("objectives", []).size() >= 3, "%s should contain authored encounters and objectives" % id)
 		_expect(enemy_ids.has(str(mission.get("boss_id", ""))), "%s boss should exist in the combat catalogue" % id)
 		_expect(int(mission.get("reward_credits", 0)) > 0 and not str(mission.get("briefing", "")).is_empty(), "%s should provide authored briefing and reward" % id)
+		_expect(str(mission.get("environment", "")) in profile_ids, "%s should resolve a registered base environment profile" % id)
+		_expect(contexts.has(id), "%s should own altitude/form/technology context instead of inheriting the underlying core mission" % id)
+		if contexts.has(id):
+			var context: Dictionary = contexts[id]
+			_expect(str(context.get("altitude", "")) in ["low","mid","high","orbital"] and str(context.get("recommended_form", "")) in ["fighter","bomber"], "%s should define a valid secret-sortie flight posture" % id)
 	var main_script := load("res://scripts/main.gd") as Script
 	var scene = main_script.new()
 	scene.call("_load_content")
@@ -38,6 +48,12 @@ func _run() -> void:
 	scene.set("active_secret_mission_id", str(secrets[0].get("id", "")))
 	scene.call("_prepare_mission", original_index)
 	_expect(str(scene.get("current_mission_name")) == str(secrets[0].get("name", "")).to_upper(), "secret sortie should become the active authored mission")
+	var craft: Node = load("res://scripts/craft_form_director.gd").new()
+	craft.set("_world", _json("res://data/campaign_world.json"))
+	_expect(str(craft.call("_active_mission_id", scene)) == str(secrets[0].get("id", "")), "craft context should resolve the active secret mission rather than the core campaign index")
+	craft.call("_apply_mission_context", scene)
+	_expect(str(craft.get("altitude")) == str(contexts[str(secrets[0].get("id", ""))].get("altitude", "")), "secret sortie should apply its authored starting altitude")
+	craft.free()
 	scene.call("_return_from_secret_sortie")
 	_expect(int(scene.get("mission_index")) == original_index and str(scene.get("front_end_screen")) == "secret_sorties", "returning from a secret sortie should preserve core campaign position")
 	scene.free()

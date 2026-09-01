@@ -54,7 +54,13 @@ func _test_campaign_world() -> void:
 	if typeof(data) != TYPE_DICTIONARY:
 		return
 	var contexts = data.get("mission_context", {})
-	_expect(typeof(contexts) == TYPE_DICTIONARY and contexts.size() == 30, "all thirty core missions should receive campaign-world context")
+	_expect(typeof(contexts) == TYPE_DICTIONARY, "campaign-world contexts should be keyed dictionaries")
+	var core_missions: Array = ContentCatalog.load_json("res://data/missions.json").get("missions", [])
+	var secret_missions: Array = ContentCatalog.load_json("res://data/secret_missions.json").get("missions", [])
+	for mission in core_missions:
+		_expect(contexts.has(str(mission.get("id", ""))), "core mission should receive campaign-world context: %s" % str(mission.get("id", "")))
+	for mission in secret_missions:
+		_expect(contexts.has(str(mission.get("id", ""))), "secret sortie should receive campaign-world context: %s" % str(mission.get("id", "")))
 	var choice_count := 0
 	for mission_id in contexts.keys():
 		var context: Dictionary = contexts[mission_id]

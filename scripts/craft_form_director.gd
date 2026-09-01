@@ -169,6 +169,10 @@ func _supports(scene: Object) -> bool:
 	return SceneContractCache.supports(scene, ["phase", "mission_index", "mission_catalog", "mission_time", "status_text", "status_timer", "spawn_profiles", "enemy_catalog"])
 
 func _active_mission_id(scene: Object) -> String:
+	if scene.has_method("_active_mission"):
+		var active = scene.call("_active_mission")
+		if typeof(active) == TYPE_DICTIONARY and not active.is_empty():
+			return str(active.get("id", ""))
 	var missions = scene.get("mission_catalog")
 	if typeof(missions) != TYPE_ARRAY or missions.is_empty():
 		return ""
