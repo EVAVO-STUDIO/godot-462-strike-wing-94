@@ -21,6 +21,8 @@ const MISSILE_WARNING := "missile_warning"
 const ALTITUDE_SHIFT := "altitude_shift"
 const ALTITUDE_CLIMB := "altitude_climb"
 const ALTITUDE_DIVE := "altitude_dive"
+const RADIO_TX := "radio_tx"
+const RADIO_ALERT := "radio_alert"
 
 static func event_for_weapon(weapon_id: String) -> String:
 	match weapon_id:
@@ -67,6 +69,8 @@ static func voice(event_id: String) -> Dictionary:
 		ALTITUDE_SHIFT: return {"wave":"sine","frequency":330.0,"end_frequency":660.0,"duration":0.20,"gain":0.15}
 		ALTITUDE_CLIMB: return {"wave":"saw","frequency":180.0,"end_frequency":520.0,"duration":0.34,"gain":0.15}
 		ALTITUDE_DIVE: return {"wave":"saw","frequency":520.0,"end_frequency":150.0,"duration":0.34,"gain":0.15}
+		RADIO_TX: return {"wave":"radio","frequency":1240.0,"end_frequency":1840.0,"duration":0.16,"gain":0.13}
+		RADIO_ALERT: return {"wave":"radio","frequency":820.0,"end_frequency":410.0,"duration":0.24,"gain":0.17}
 	return {}
 
 static func valid_voice(value: Dictionary) -> bool:

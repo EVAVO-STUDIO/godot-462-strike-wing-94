@@ -167,7 +167,7 @@ func _trigger(event_id: String) -> void:
 	if _voices.size() >= MAX_VOICES:
 		_voices.pop_front()
 	var voice := spec.duplicate(true)
-	voice["mix_gain"]=_radio_gain if event_id in [RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_SHIFT,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE] else _sfx_gain
+	voice["mix_gain"]=_radio_gain if event_id in [RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_SHIFT,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE,RetroSfxRules.RADIO_TX,RetroSfxRules.RADIO_ALERT] else _sfx_gain
 	voice["elapsed"] = 0.0
 	voice["phase"] = 0.0
 	_voices.append(voice)
@@ -218,6 +218,10 @@ func _wave_sample(kind: String, phase: float, progress: float) -> float:
 			var low := sin(phase * TAU) * (0.55 + 0.25 * (1.0 - progress))
 			var crack := _noise_sample() * (0.72 - progress * 0.35)
 			return low + crack
+		"radio":
+			var carrier := 1.0 if phase < 0.38 else -0.82
+			var gate := 1.0 if fposmod(progress * 9.0, 1.0) < 0.62 else 0.20
+			return carrier * gate * 0.72 + _noise_sample() * 0.28
 	return sin(phase * TAU)
 
 func _noise_sample() -> float:
