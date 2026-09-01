@@ -30,6 +30,7 @@ const ALTITUDE_CLIMB := "altitude_climb"
 const ALTITUDE_DIVE := "altitude_dive"
 const RADIO_TX := "radio_tx"
 const RADIO_ALERT := "radio_alert"
+const TITLE_RADAR := "title_radar"
 
 static func event_for_weapon(weapon_id: String) -> String:
 	match weapon_id:
@@ -82,6 +83,9 @@ static func propulsion_bed(afterburner: bool, hypersonic: bool, altitude: String
 		"airflow": clampf(airflow, 0.0, 0.85),
 	}
 
+static func title_propulsion_bed() -> Dictionary:
+	return {"gain":0.022, "frequency":48.0, "airflow":0.10}
+
 static func voice(event_id: String) -> Dictionary:
 	match event_id:
 		FIRE_BALLISTIC: return {"wave":"square","frequency":176.0,"end_frequency":112.0,"duration":0.055,"gain":0.16}
@@ -115,6 +119,7 @@ static func voice(event_id: String) -> Dictionary:
 		ALTITUDE_DIVE: return {"wave":"saw","frequency":520.0,"end_frequency":150.0,"duration":0.34,"gain":0.15}
 		RADIO_TX: return {"wave":"radio","frequency":1240.0,"end_frequency":1840.0,"duration":0.16,"gain":0.13}
 		RADIO_ALERT: return {"wave":"radio","frequency":820.0,"end_frequency":410.0,"duration":0.24,"gain":0.17}
+		TITLE_RADAR: return {"wave":"sine","frequency":1180.0,"end_frequency":940.0,"duration":0.12,"gain":0.08}
 	return {}
 
 static func valid_voice(value: Dictionary) -> bool:

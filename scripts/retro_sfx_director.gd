@@ -32,6 +32,10 @@ var _propulsion_target_frequency := 58.0
 var _propulsion_airflow := 0.0
 var _propulsion_target_airflow := 0.0
 var _propulsion_phase := 0.0
+var _startup_stage := -1
+var _title_radar_cued := false
+var _title_transform_cued := false
+var _title_ignition_cued := false
 
 func _ready() -> void:
 	process_priority = 220
@@ -66,6 +70,8 @@ func play_event(event_id: String) -> void:
 	_trigger(event_id)
 
 func _observe_gameplay() -> void:
+	if _observe_startup_sequence():
+		return
 	var scene := get_tree().current_scene
 	if scene == null or not _has_property(scene, "phase"):
 		_set_propulsion_target({})
@@ -128,6 +134,37 @@ func _observe_gameplay() -> void:
 	_observe_missile_threat(scene)
 	_observe_enemy_missile_launch(scene)
 	_observe_enemy_hypersonic_boom(scene)
+
+func _observe_startup_sequence() -> bool:
+	var startup := get_node_or_null("/root/StartupSequenceDirector")
+	if startup == null or not _has_property(startup, "stage"):
+		return false
+	var startup_stage := int(startup.get("stage"))
+	var title_elapsed := float(startup.get("elapsed")) if _has_property(startup, "elapsed") else 0.0
+	return _observe_startup_state(startup_stage, title_elapsed)
+
+func _observe_startup_state(startup_stage: int, title_elapsed: float) -> bool:
+	if startup_stage >= 3:
+		return false
+	if startup_stage != _startup_stage:
+		_startup_stage = startup_stage
+		_title_radar_cued = false
+		_title_transform_cued = false
+		_title_ignition_cued = false
+	if startup_stage < 2:
+		_set_propulsion_target({})
+		return true
+	_set_propulsion_target(RetroSfxRules.title_propulsion_bed())
+	if title_elapsed >= 0.45 and not _title_radar_cued:
+		_trigger(RetroSfxRules.TITLE_RADAR)
+		_title_radar_cued = true
+	if title_elapsed >= 3.15 and not _title_transform_cued:
+		_trigger(RetroSfxRules.TRANSFORM)
+		_title_transform_cued = true
+	if title_elapsed >= 3.72 and not _title_ignition_cued:
+		_trigger(RetroSfxRules.AFTERBURNER)
+		_title_ignition_cued = true
+	return true
 
 func _update_propulsion_target(craft: Object) -> void:
 	var afterburner := craft.has_method("afterburner_active") and bool(craft.call("afterburner_active"))

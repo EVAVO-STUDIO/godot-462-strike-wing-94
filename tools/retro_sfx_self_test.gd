@@ -12,6 +12,7 @@ class EnemyBoomFixture:
 func _initialize() -> void:
 	_test_voice_map()
 	_test_runtime_wiring()
+	_test_startup_cues()
 	if failures.is_empty():
 		print("Strike Wing retro SFX self-test passed.")
 		quit(0)
@@ -40,6 +41,9 @@ func _test_voice_map() -> void:
 	_expect(float(high_hypersonic.get("airflow", 0.0)) > float(burn.get("airflow", 0.0)), "hypersonic flight should add sustained high-speed airflow")
 	_expect(float(low_hypersonic_dive.get("gain", 0.0)) > float(high_hypersonic.get("gain", 0.0)), "low-altitude hypersonic dives should sound more dangerous than high-altitude cruise")
 	_expect(float(low_hypersonic_dive.get("gain", 9.0)) <= 0.10 and float(low_hypersonic_dive.get("airflow", 9.0)) <= 0.85, "continuous propulsion targets should remain bounded below combat SFX")
+	var title_bed := RetroSfxRules.title_propulsion_bed()
+	_expect(float(title_bed.get("gain", 0.0)) > 0.0 and float(title_bed.get("gain", 9.0)) < float(cruise.get("gain", 0.0)), "title turbine should be audible but more restrained than in-flight propulsion")
+	_expect(RetroSfxRules.valid_voice(RetroSfxRules.voice(RetroSfxRules.TITLE_RADAR)), "title radar should define a bounded electronic cue")
 
 func _test_runtime_wiring() -> void:
 	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
@@ -78,6 +82,9 @@ func _test_runtime_wiring() -> void:
 		_expect(source.contains("_observe_enemy_hypersonic_boom") and source.contains('enemy.get("hypersonic_boom_age"') and source.contains("_enemy_boom_latched"), "enemy interceptor shockwaves should trigger one bounded sonic boom per pursuit break")
 		_expect(source.contains("_observe_enemy_missile_launch") and source.contains("enemy_missiles_launched") and source.contains("MISSILE_LAUNCH"), "enemy missiles should use a distinct launch voice driven by an authoritative launch counter")
 		_expect(source.contains("_update_propulsion_target") and source.contains("_propulsion_target_gain") and source.contains("_propulsion_phase"), "gameplay should sustain a smoothed procedural propulsion bed instead of relying on ignition one-shots")
+		_expect(source.contains("_observe_startup_sequence") and source.contains("RetroSfxRules.title_propulsion_bed()"), "HYPERSONIC reveal should own a restrained continuous turbine bed")
+		_expect(source.contains("title_elapsed >= 0.45") and source.contains("TITLE_RADAR"), "title reveal should time its subtle radar cue to the moving cloud exposure")
+		_expect(source.contains("title_elapsed >= 3.15") and source.contains("title_elapsed >= 3.72"), "title mechanical sweep and ignition sounds should match their authored visual beats")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
@@ -88,6 +95,21 @@ func _test_runtime_wiring() -> void:
 	var airframe_source := FileAccess.get_file_as_string("res://scripts/airframe_director.gd")
 	var support_source := FileAccess.get_file_as_string("res://scripts/support_director.gd")
 	_expect(airframe_source.contains("RetroSfxRules.UI_PURCHASE") and support_source.contains("RetroSfxRules.UI_PURCHASE"), "airframe and tactical-system purchases should share the sortie-bay confirmation language")
+
+func _test_startup_cues() -> void:
+	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
+	var director: Node = director_script.new()
+	director.call("_observe_startup_state", 2, 0.50)
+	_expect(float(director.get("_propulsion_target_gain")) > 0.0, "HYPERSONIC reveal should engage the low turbine bed")
+	_expect(director.get("_voices").size() == 1, "first title exposure should queue one radar cue")
+	director.call("_observe_startup_state", 2, 3.20)
+	_expect(director.get("_voices").size() == 2, "wing motion should queue one mechanical sweep cue")
+	director.call("_observe_startup_state", 2, 3.80)
+	director.call("_observe_startup_state", 2, 3.80)
+	_expect(director.get("_voices").size() == 3, "engine flare should queue one ignition cue without retriggering")
+	director.call("_observe_startup_state", 0, 0.0)
+	_expect(is_zero_approx(float(director.get("_propulsion_target_gain"))), "approved EVAVO splash should remain free of the HYPERSONIC turbine bed")
+	director.free()
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition: failures.append(message)
