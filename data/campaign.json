@@ -84,6 +84,6 @@
   "save": {
     "schema_version": 11,
     "autosave_seconds": 1.0,
-    "path": "user://strike_wing_94_save.json"
+    "namespace_authority": "data/product_identity.json"
   }
 }

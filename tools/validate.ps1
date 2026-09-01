@@ -121,6 +121,7 @@ Assert-UniqueIds $Mounts.mounts 'player mounts'
 if ([string]$Identity.full_title -ne 'HYPERSONIC' -or [string]$Identity.aircraft_designation -ne 'VX-94' -or [string]$Identity.aircraft_class -ne 'Variable Strike Fighter' -or [string]$Identity.aircraft_class_abbreviation -ne 'VSF') { throw 'Production identity hierarchy is invalid.' }
 if ([string]$Identity.developer -ne 'EVAVO Studio' -or [string]$Identity.publisher -ne 'EVAVO Studio') { throw 'EVAVO Studio product ownership metadata is invalid.' }
 if ([string]$Identity.save_namespace -ne 'hypersonic' -or @($Identity.legacy_save_namespaces) -notcontains 'strike_wing_94') { throw 'Save namespace migration metadata is invalid.' }
+if ($Campaign.save.PSObject.Properties.Name -contains 'path' -or [string]$Campaign.save.namespace_authority -ne 'data/product_identity.json') { throw 'Campaign metadata must not duplicate product-identity save paths.' }
 Assert-Contains $ReadmeText @(
     'Playable 30-mission, three-sector campaign plus six secret sorties on `main`.',
     '30 core missions across Mercenary War, Machine War and BLACK SKY',

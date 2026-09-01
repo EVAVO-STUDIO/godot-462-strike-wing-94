@@ -12,7 +12,9 @@ func _run() -> void:
 	for mission in missions:
 		mission_ids.append(str(mission.get("id", "")))
 	var branches: Array = campaign.get("branches", [])
-	_expect(int(_json("res://data/campaign.json").get("save", {}).get("schema_version", 0)) == 11, "campaign metadata should advertise canonical save schema v11")
+	var save_metadata: Dictionary = _json("res://data/campaign.json").get("save", {})
+	_expect(int(save_metadata.get("schema_version", 0)) == 11, "campaign metadata should advertise canonical save schema v11")
+	_expect(not save_metadata.has("path") and str(save_metadata.get("namespace_authority", "")) == "data/product_identity.json", "campaign metadata must delegate current and legacy save paths to product identity")
 	_expect(branches.size() == 3, "campaign should contain three controlled sector branch decisions")
 	var branch_ids: Dictionary = {}
 	var target_ids: Dictionary = {}
