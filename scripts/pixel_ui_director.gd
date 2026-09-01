@@ -13,6 +13,7 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
+const VX94_MENU_PORTRAIT := preload("res://assets/runtime/craft/vx94/vx94_menu_portrait_fighter_v2.png")
 const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/maintenance_bay_v2.png")
 const MAINTENANCE_BAY_ACTIVITY := [
 	preload("res://assets/runtime/ui/menu/maintenance_bay_activity/activity_0.png"),
@@ -282,10 +283,17 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 340, 1, GREEN, 1)
 
 func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void:
-	_draw_maintenance_bay(surface, 0.52, 0.76)
+	_draw_maintenance_bay(surface, 0.39, 0.82)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
-	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(70, 28, 500, 64), false)
-	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 102, 1, BLUE, 1)
+	# Keep the title authoritative without allowing it to consume half the screen.
+	# Late-90s premium front ends used the logo as a masthead, then gave the hero
+	# machine and the player's next decision room to breathe.
+	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(34, 24, 390, 50), false)
+	PixelFont.draw_text(surface, _identity_subtitle(), Vector2(39, 80), 1, BLUE, 1)
+	PixelFont.draw_text(surface, "TACTICAL FLIGHT OPERATIONS", Vector2(449, 35), 1, GOLD, 1)
+	PixelFont.draw_text(surface, "SYSTEM  VX94-OPS", Vector2(449, 51), 1, MUTED, 1)
+	surface.draw_rect(Rect2(36, 99, 568, 1), Color("6a8794"))
+	surface.draw_rect(Rect2(36, 102, 568, 1), Color("203845"))
 	if screen == "modes":
 		_draw_front_end_modes(surface,scene)
 	elif screen == "branch":
@@ -303,32 +311,37 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 	PixelFont.draw_centered(surface, "%s // %s %s" % [_identity_text("developer", "EVAVO STUDIO"), _identity_title(), _identity_text("version", "0.0.0-DEV")], 320, 334, 1, MUTED, 1)
 
 func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
-	surface.draw_texture(FRONT_END_FRAME, Vector2(30, 128))
-	PixelFont.draw_text(surface, "FLIGHT OPERATIONS", Vector2(48, 137), 1, GOLD, 1)
+	PixelFont.draw_text(surface, "FLIGHT OPERATIONS", Vector2(40, 116), 1, GOLD, 1)
+	PixelFont.draw_text(surface, "SELECT COMMAND", Vector2(178, 116), 1, MUTED, 1)
 	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 6)
 	var labels := ["CONTINUE CAMPAIGN", "ARCADE / CHALLENGE", "SECRET OPERATIONS", "SYSTEM OPTIONS", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
 	for index in range(labels.size()):
-		var position := Vector2(50, 139 + index * 23)
-		surface.draw_texture(FRONT_END_BUTTON_SELECTED if index == selection else FRONT_END_BUTTON_IDLE, position)
+		var position := Vector2(40, 133 + index * 27)
 		if index == selection:
-			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
-		PixelFont.draw_text(surface, labels[index], position + Vector2(18, 8), 1, GOLD if index == selection else TEXT, 1)
-	_draw_console_panel(surface, Rect2(336, 128, 274, 170), "CAMPAIGN STATUS", BLUE)
+			surface.draw_rect(Rect2(position.x, position.y, 246, 22), Color("162b36"))
+			surface.draw_rect(Rect2(position.x, position.y, 3, 22), GOLD)
+			surface.draw_rect(Rect2(position.x + 4, position.y, 242, 1), Color("6a8794"))
+		else:
+			surface.draw_rect(Rect2(position.x + 8, position.y + 21, 238, 1), Color("203845"))
+		if index == selection:
+			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-17, 5))
+		PixelFont.draw_text(surface, labels[index], position + Vector2(14, 7), 1, GOLD if index == selection else TEXT, 1)
+	_draw_console_panel(surface, Rect2(310, 114, 294, 201), "CAMPAIGN STATUS", BLUE)
 	var mission_index := clampi(int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0, 0, 29)
-	var craft := VX94_FIGHTER if _form_name() == "FIGHTER" else VX94_BOMBER
-	surface.draw_texture_rect(craft, Rect2(352, 151, 96, 108), false)
-	PixelFont.draw_text(surface, "VX-94", Vector2(464, 154), 2, TEXT, 1)
-	PixelFont.draw_text(surface, "MISSION %02d / 30" % (mission_index + 1), Vector2(464, 181), 1, GOLD, 1)
-	PixelFont.draw_text(surface, _front_end_sector(mission_index), Vector2(464, 197), 1, BLUE, 1)
-	PixelFont.draw_text(surface, _clip(str(scene.get("current_mission_name")), 20), Vector2(464, 217), 1, GREEN, 1)
-	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(464, 238), 1, MUTED, 1)
+	surface.draw_texture(VX94_MENU_PORTRAIT, Vector2(322, 147))
+	PixelFont.draw_text(surface, "VX-94", Vector2(451, 151), 2, TEXT, 1)
+	PixelFont.draw_text(surface, "VARIABLE STRIKE", Vector2(451, 177), 1, BLUE, 1)
+	PixelFont.draw_text(surface, "MISSION %02d / 30" % (mission_index + 1), Vector2(451, 202), 1, GOLD, 1)
+	PixelFont.draw_text(surface, _front_end_sector(mission_index), Vector2(451, 219), 1, BLUE, 1)
+	PixelFont.draw_text(surface, _clip(str(scene.get("current_mission_name")), 20), Vector2(451, 239), 1, GREEN, 1)
+	PixelFont.draw_text(surface, "%s // %s" % [_short_altitude(), _short_form()], Vector2(451, 259), 1, MUTED, 1)
 	if _has_property(scene, "campaign_completed") and bool(scene.get("campaign_completed")):
 		var clear_count := maxi(1, int(scene.get("campaign_completions"))) if _has_property(scene, "campaign_completions") else 1
-		PixelFont.draw_text(surface, "BLACK SKY CLEAR // %02d" % clear_count, Vector2(352, 264), 1, GOLD, 1)
+		PixelFont.draw_text(surface, "BLACK SKY CLEAR %02d" % clear_count, Vector2(451, 279), 1, GOLD, 1)
 		var vector_count: int = scene.get("discovered_secret_ids").size() if _has_property(scene, "discovered_secret_ids") else 0
-		PixelFont.draw_text(surface, "SECRET VECTORS // %02d" % vector_count, Vector2(352, 278), 1, GREEN, 1)
+		PixelFont.draw_text(surface, "SECRETS %02d" % vector_count, Vector2(451, 296), 1, GREEN, 1)
 	else:
-		PixelFont.draw_text(surface, "ENTER SELECT", Vector2(464, 274), 1, GOLD, 1)
+		PixelFont.draw_text(surface, "ENTER  SELECT", Vector2(451, 288), 1, GOLD, 1)
 
 func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
 	var director := get_node_or_null("/root/GameModeDirector")

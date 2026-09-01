@@ -1,0 +1,10 @@
+{
+  "asset_family": "vx94_menu_portrait_v2",
+  "purpose": "Dedicated native-resolution front-end portrait; never upscale the gameplay collision sprite for menu presentation.",
+  "source_master": "res://assets/source/craft/vx94/vx94_menu_portrait_fighter_v2_master.png",
+  "runtime": "res://assets/runtime/craft/vx94/vx94_menu_portrait_fighter_v2.png",
+  "runtime_size": [112, 136],
+  "format": "indexed PNG with transparency",
+  "art_direction": "1997-imagined variable-geometry military aircraft, physically engineered, cool naval-grey structure with cobalt canopy and restrained warning red",
+  "prohibitions": ["upscaled gameplay thumbnail", "soft filtered edge", "generic spacecraft", "modern mobile-game gloss"]
+}
