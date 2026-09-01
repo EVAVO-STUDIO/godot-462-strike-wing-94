@@ -253,6 +253,12 @@ func _wave_sample(kind: String, phase: float, progress: float) -> float:
 			var ignition := _noise_sample() * (0.78 if progress < 0.12 else 0.42)
 			var motor := (phase * 2.0 - 1.0) * (0.28 + 0.38 * (1.0 - progress))
 			return ignition + motor
+		"service":
+			var ratchet := 1.0 if fposmod(progress * 6.0, 1.0) < 0.24 else -0.38
+			return ratchet * (0.72 - progress * 0.32) + _noise_sample() * 0.18
+		"reward":
+			var step: float = floor(progress * 4.0)
+			return sin(fposmod(phase + step * 0.125, 1.0) * TAU) * (0.82 - progress * 0.18)
 	return sin(phase * TAU)
 
 func _noise_sample() -> float:

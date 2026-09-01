@@ -24,12 +24,13 @@ func _test_voice_map() -> void:
 	_expect(RetroSfxRules.event_for_weapon("needle_rail") == RetroSfxRules.FIRE_RAIL, "Needle Rail should use kinetic rail voice")
 	_expect(RetroSfxRules.event_for_weapon("storm_cannon") == RetroSfxRules.FIRE_STORM, "Storm Cannon should use directed-energy pulse voice")
 	_expect(RetroSfxRules.event_for_weapon("plasma_lance") == RetroSfxRules.FIRE_PLASMA, "Plasma Lance should use strategic plasma voice")
-	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.MISSILE_LAUNCH, RetroSfxRules.ALTITUDE_SHIFT]:
+	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.MISSILE_LAUNCH, RetroSfxRules.UI_PURCHASE, RetroSfxRules.UI_SERVICE, RetroSfxRules.REWARD_STINGER, RetroSfxRules.ALTITUDE_SHIFT]:
 		var voice := RetroSfxRules.voice(event_id)
 		_expect(RetroSfxRules.valid_voice(voice), "%s should define bounded procedural voice" % event_id)
 		_expect(float(voice.get("duration", 9.0)) <= 0.5, "%s should remain a short arcade SFX" % event_id)
 		_expect(float(voice.get("gain", 9.0)) <= 0.30, "%s should remain below hard procedural gain cap" % event_id)
 	_expect(str(RetroSfxRules.voice(RetroSfxRules.FIRE_RAIL).get("wave", "")) != str(RetroSfxRules.voice(RetroSfxRules.FIRE_PLASMA).get("wave", "")), "rail and plasma should not collapse to the same oscillator identity")
+	_expect(str(RetroSfxRules.voice(RetroSfxRules.UI_PURCHASE).get("wave", "")) != str(RetroSfxRules.voice(RetroSfxRules.REWARD_STINGER).get("wave", "")), "sortie-bay confirmation should remain distinct from the mission-clear stinger")
 
 func _test_runtime_wiring() -> void:
 	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
@@ -72,6 +73,10 @@ func _test_runtime_wiring() -> void:
 		_expect(project.get_as_text().contains('RetroSfxDirector="*res://scripts/retro_sfx_director.gd"'), "procedural SFX owner should remain autoloaded")
 	var gameplay_source := FileAccess.get_file_as_string("res://scripts/main.gd")
 	_expect(gameplay_source.contains("var enemy_missiles_launched := 0") and gameplay_source.contains("_register_enemy_missile_launch(2)"), "ordinary interceptor missile pairs should advance the authoritative launch counter")
+	_expect(gameplay_source.contains("RetroSfxRules.UI_PURCHASE") and gameplay_source.contains("RetroSfxRules.UI_SERVICE") and gameplay_source.contains("RetroSfxRules.REWARD_STINGER"), "weapon, generator, servicing and mission-clear transactions should publish authored audio feedback")
+	var airframe_source := FileAccess.get_file_as_string("res://scripts/airframe_director.gd")
+	var support_source := FileAccess.get_file_as_string("res://scripts/support_director.gd")
+	_expect(airframe_source.contains("RetroSfxRules.UI_PURCHASE") and support_source.contains("RetroSfxRules.UI_PURCHASE"), "airframe and tactical-system purchases should share the sortie-bay confirmation language")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition: failures.append(message)

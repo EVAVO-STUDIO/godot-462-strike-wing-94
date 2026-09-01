@@ -8,6 +8,7 @@ const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
+const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 
 var airframe_catalog: Array = []
 var airframe_index := 0
@@ -57,6 +58,7 @@ func _buy_next_airframe(scene: Object) -> void:
 		scene.set("credits", int(result.get("credits", scene.get("credits"))))
 		_publish_context()
 		_set_status(scene, "AIRFRAME INSTALLED - %s" % current_airframe_name().to_upper())
+		_play_sfx(RetroSfxRules.UI_PURCHASE)
 		return
 	var reason := str(result.get("reason", ""))
 	if reason == "TECH_LOCK":
@@ -77,6 +79,11 @@ func _supports(scene: Object) -> bool:
 func _set_status(scene: Object, text: String) -> void:
 	scene.set("status_text", text)
 	scene.set("status_timer", 2.0)
+
+func _play_sfx(event_id: String) -> void:
+	var audio := get_node_or_null("/root/RetroSfxDirector")
+	if audio != null and audio.has_method("play_event"):
+		audio.call("play_event", event_id)
 
 func _ensure_action() -> void:
 	if not InputMap.has_action("upgrade_airframe"):

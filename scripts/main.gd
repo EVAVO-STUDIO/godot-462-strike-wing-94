@@ -18,6 +18,7 @@ const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
+const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const NEUTRAL_DEPTH_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
 
 const PLAYER_SPEED := 220.0
@@ -815,6 +816,8 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 		return
 	phase = GamePhase.RESULT
 	mission_success = success
+	if success:
+		_play_sfx(RetroSfxRules.REWARD_STINGER)
 	if _mode_active():
 		var modes := get_node_or_null("/root/GameModeDirector")
 		if modes != null and modes.has_method("record_result"):
@@ -982,6 +985,7 @@ func _try_buy_next_weapon() -> void:
 		weapon_index = int(result["index"])
 		credits = int(result["credits"])
 		status_text = "UPGRADE PURCHASED: %s" % str(_active_weapon().get("name", "WEAPON")).to_upper()
+		_play_sfx(RetroSfxRules.UI_PURCHASE)
 	else:
 		status_text = "NEED %d CREDITS" % int(next_weapon.get("cost", 0))
 	status_timer = 2.0
@@ -1007,6 +1011,7 @@ func _try_buy_next_generator() -> void:
 		generator_index = int(result["index"])
 		credits = int(result["credits"])
 		status_text = "GENERATOR PURCHASED: %s" % str(_active_generator().get("name", "GENERATOR")).to_upper()
+		_play_sfx(RetroSfxRules.UI_PURCHASE)
 	else:
 		status_text = "GENERATOR NEEDS %d CREDITS" % int(next_generator.get("cost", 0))
 	status_timer = 2.0
@@ -1023,6 +1028,7 @@ func _service_hull_full() -> void:
 		service_hull = int(result["value"])
 		credits = int(result["credits"])
 		status_text = "HULL SERVICED -%d" % int(result["cost"])
+		_play_sfx(RetroSfxRules.UI_SERVICE)
 	else:
 		status_text = _service_failure("HULL", result)
 	status_timer = 3.0
@@ -1039,6 +1045,7 @@ func _service_shield_full() -> void:
 		service_shield = mini(_max_shield(), int(result["value"]))
 		credits = int(result["credits"])
 		status_text = "SHIELD RECHARGED -%d" % int(result["cost"])
+		_play_sfx(RetroSfxRules.UI_SERVICE)
 	else:
 		status_text = _service_failure("SHIELD", result)
 	status_timer = 3.0
@@ -1050,6 +1057,11 @@ func _service_failure(label: String, result: Dictionary) -> String:
 	if reason == "INSUFFICIENT_CREDITS":
 		return "%s SERVICE NEEDS %d CREDITS" % [label, int(result.get("cost", 0))]
 	return "%s SERVICE UNAVAILABLE" % label
+
+func _play_sfx(event_id: String) -> void:
+	var audio := get_node_or_null("/root/RetroSfxDirector")
+	if audio != null and audio.has_method("play_event"):
+		audio.call("play_event", event_id)
 
 func _service_status() -> String:
 	var cfg := _campaign_config()

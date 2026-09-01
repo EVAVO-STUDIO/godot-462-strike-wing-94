@@ -5,6 +5,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
+const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const STRATEGIC_SUPPORT_ID := "micro_warhead_rack"
 
 var support_catalog: Array = []
@@ -126,6 +127,7 @@ func _buy_next_support(scene: Object) -> void:
 		selected_index = unlocked_index
 		scene.set("credits", int(result.get("credits", scene.get("credits"))))
 		_set_status(scene, "SUPPORT UNLOCKED %s" % current_support_name().to_upper())
+		_play_sfx(RetroSfxRules.UI_PURCHASE)
 	else:
 		_set_status(scene, "SUPPORT NEEDS %d CREDITS" % int(next_support.get("cost", 0)))
 
@@ -355,6 +357,11 @@ func _apply_point_defence(scene: Object, indices: Array[int]) -> void:
 func _set_status(scene: Object, text: String) -> void:
 	scene.set("status_text", text)
 	scene.set("status_timer", 1.8)
+
+func _play_sfx(event_id: String) -> void:
+	var audio := get_node_or_null("/root/RetroSfxDirector")
+	if audio != null and audio.has_method("play_event"):
+		audio.call("play_event", event_id)
 
 func _ensure_actions() -> void:
 	_add_key_action("fire_support", KEY_Z)
