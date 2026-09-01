@@ -93,11 +93,13 @@ func _run() -> void:
 			var subject := load("res://assets/runtime/cinematics/subjects/black_sky/%s_%d.png" % [subject_id,frame_index]) as Texture2D
 			var expected := Vector2(144,144) if subject_id == "phase_array" else Vector2(176,160)
 			_expect(subject != null and subject.get_size() == expected, "BLACK SKY cinematic subject should retain registered cel canvas: %s %d" % [subject_id,frame_index], failures)
-	var vx94_cinematic := load("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_0.png") as Texture2D
-	_expect(vx94_cinematic != null and vx94_cinematic.get_size() == Vector2(144,160), "BLACK SKY VX-94 subject should retain approved identity on its 144x160 cinematic canvas", failures)
+	for frame_index in range(4):
+		var vx94_cinematic := load("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_%d.png" % frame_index) as Texture2D
+		_expect(vx94_cinematic != null and vx94_cinematic.get_size() == Vector2(144,160), "BLACK SKY VX-94 thrust cel should retain approved identity on its 144x160 cinematic canvas: %d" % frame_index, failures)
 	for subject_id in ["vx94_bomber", "vx94_fighter"]:
-		var subject := load("res://assets/runtime/cinematics/subjects/ending/%s_0.png" % subject_id) as Texture2D
-		_expect(subject != null and subject.get_size() == Vector2(144,160), "ending VX-94 subject should retain approved identity on its 144x160 cinematic canvas: %s" % subject_id, failures)
+		for frame_index in range(4):
+			var subject := load("res://assets/runtime/cinematics/subjects/ending/%s_%d.png" % [subject_id,frame_index]) as Texture2D
+			_expect(subject != null and subject.get_size() == Vector2(144,160), "ending VX-94 subject should retain approved identity on its 144x160 cinematic canvas: %s %d" % [subject_id,frame_index], failures)
 	var ending_wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v1.png") as Texture2D
 	_expect(ending_wordmark != null and ending_wordmark.get_size() == Vector2(500,64), "ending title should retain the authored 500x64 HYPERSONIC wordmark", failures)
 	for shot_id in ["end_consequence", "end_action", "end_observation", "end_consequence_final", "end_title"]:
@@ -127,7 +129,7 @@ func _run() -> void:
 		_expect(source.contains('"--capture-campaign-clear"') and source.contains("campaign_completions = 3"), "completed-campaign front door should expose deterministic visual QA state", failures)
 	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	var ui_source := ui_file.get_as_text() if ui_file != null else ""
-	_expect(ui_source.contains("BLACK SKY CLEAR // %02d") and ui_source.contains("campaign_completions"), "front door should visibly recognize persistent campaign completion", failures)
+	_expect(ui_source.contains("BLACK SKY CLEAR %02d") and ui_source.contains("campaign_completions"), "front door should visibly recognize persistent campaign completion", failures)
 	if failures.is_empty():
 		print("HYPERSONIC campaign cinematic self-test passed.")
 		quit(0)

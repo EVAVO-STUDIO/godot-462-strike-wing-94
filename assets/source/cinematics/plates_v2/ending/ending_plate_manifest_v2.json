@@ -17,8 +17,8 @@
     {"id":"end_title_sky","source":"end_title_sky_raw_v2.png","role":"final title resolve"}
   ],
   "subjects": {
-    "vx94_bomber": {"frames":1,"canvas":[144,160],"source":"approved VX-94 bomber identity master"},
-    "vx94_fighter": {"frames":1,"canvas":[144,160],"source":"approved VX-94 fighter identity master"}
+    "vx94_bomber": {"frames":4,"canvas":[144,160],"exposure_fps":6,"motion":"hot re-entry twin-engine cadence","source":"approved VX-94 bomber identity master"},
+    "vx94_fighter": {"frames":4,"canvas":[144,160],"exposure_fps":5,"motion":"restrained patrol thrust cadence","source":"approved VX-94 fighter identity master"}
   },
   "fx": {"families":5,"frames_per_family":4,"canvas":[640,272]}
 }

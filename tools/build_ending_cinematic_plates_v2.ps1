@@ -32,6 +32,15 @@ $FighterSource = Join-Path $Root 'assets\source\craft\vx94\candidates\vx94_fight
 if($LASTEXITCODE -ne 0) { throw 'Failed to build ending VX-94 bomber subject.' }
 & $Magick $FighterSource -trim +repage -filter Lanczos -resize '120x150' -gravity center -background none -extent '144x160' -colors 64 -depth 8 (Join-Path $SubjectRuntime 'vx94_fighter_0.png')
 if($LASTEXITCODE -ne 0) { throw 'Failed to build ending VX-94 fighter subject.' }
+foreach($form in @('bomber','fighter')) {
+    for($frame=1;$frame -lt 4;$frame++) {
+        $tip = @(150,158,154)[$frame-1]
+        $outer = if($form -eq 'bomber') { '#d86b3dcc' } else { '#547fa8cc' }
+        $hot = if($frame -eq 2) { '#fff2a4' } else { '#f2bd5c' }
+        & $Magick (Join-Path $SubjectRuntime "vx94_$($form)_0.png") -fill $outer -draw "polygon 64,139 70,139 67,$tip polygon 75,139 81,139 78,$tip" -fill $hot -draw "polygon 66,139 69,139 67,$($tip-3) polygon 77,139 80,139 78,$($tip-3)" -colors 64 -depth 8 (Join-Path $SubjectRuntime "vx94_$($form)_$frame.png")
+        if($LASTEXITCODE -ne 0) { throw "Failed to build ending VX-94 $form thrust cel: $frame" }
+    }
+}
 
 $FxSource = Join-Path $Root 'assets\source\cinematics\ending_fx_cels_v2.svg'
 $FxSheet = Join-Path $Root 'work\ending_fx_cels_v2.png'

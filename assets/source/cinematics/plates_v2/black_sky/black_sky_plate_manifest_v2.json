@@ -11,7 +11,7 @@
   },
   "plates": ["s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized"],
   "subject_cels": {
-    "vx94_fighter": {"frames":1,"canvas":[144,160],"identity_source":"res://assets/source/craft/vx94/candidates/vx94_fighter_identity_candidate_01.png"},
+    "vx94_fighter": {"frames":4,"canvas":[144,160],"exposure_fps":6,"motion":"held twin-engine thrust cadence","identity_source":"res://assets/source/craft/vx94/candidates/vx94_fighter_identity_candidate_01.png"},
     "phase_array": {"frames":4,"canvas":[144,144],"exposure_fps":4},
     "machine_ark": {"frames":4,"canvas":[176,160],"exposure_fps":6}
   },

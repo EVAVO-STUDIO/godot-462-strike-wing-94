@@ -56,7 +56,7 @@ const SUBJECT_OVERLAYS := {
 	],
 }
 const BLACK_SKY_SUBJECT_FRAMES := {
-	"vx94_fighter": [preload("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_0.png")],
+	"vx94_fighter": [preload("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_0.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_1.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_2.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/vx94_fighter_3.png")],
 	"phase_array": [
 		preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_0.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_1.png"),
 		preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_2.png"), preload("res://assets/runtime/cinematics/subjects/black_sky/phase_array_3.png"),
@@ -67,8 +67,8 @@ const BLACK_SKY_SUBJECT_FRAMES := {
 	],
 }
 const ENDING_SUBJECT_FRAMES := {
-	"vx94_bomber": [preload("res://assets/runtime/cinematics/subjects/ending/vx94_bomber_0.png")],
-	"vx94_fighter": [preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_0.png")],
+	"vx94_bomber": [preload("res://assets/runtime/cinematics/subjects/ending/vx94_bomber_0.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_bomber_1.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_bomber_2.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_bomber_3.png")],
+	"vx94_fighter": [preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_0.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_1.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_2.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_3.png")],
 }
 const SHOT_FX_FRAMES := {
 	"s2_observation": [

@@ -27,6 +27,12 @@ foreach($Plate in $Plates) {
 $Vx94Source = Join-Path $Root 'assets\source\craft\vx94\candidates\vx94_fighter_identity_candidate_01.png'
 & $Magick $Vx94Source -trim +repage -filter Lanczos -resize '120x150' -gravity center -background none -extent '144x160' -colors 64 -depth 8 (Join-Path $SubjectRuntime 'vx94_fighter_0.png')
 if($LASTEXITCODE -ne 0) { throw 'Failed to build BLACK SKY VX-94 cinematic subject.' }
+for($frame=1;$frame -lt 4;$frame++) {
+    $tip = @(150,157,153)[$frame-1]
+    $hot = if($frame -eq 2) { '#fff0a0' } else { '#f1c05f' }
+    & $Magick (Join-Path $SubjectRuntime 'vx94_fighter_0.png') -fill '#547fa8cc' -draw "polygon 64,139 70,139 67,$tip polygon 75,139 81,139 78,$tip" -fill $hot -draw "polygon 66,139 69,139 67,$($tip-3) polygon 77,139 80,139 78,$($tip-3)" -colors 64 -depth 8 (Join-Path $SubjectRuntime "vx94_fighter_$frame.png")
+    if($LASTEXITCODE -ne 0) { throw "Failed to build BLACK SKY VX-94 thrust cel: $frame" }
+}
 
 $SubjectSource = Join-Path $SourceRoot 'black_sky_subject_cels_raw_v2.png'
 for($frame=0;$frame -lt 4;$frame++) {
