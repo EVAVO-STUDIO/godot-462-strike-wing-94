@@ -235,6 +235,11 @@ func _test_visual_language() -> void:
 		_expect(mobile_layer != null and mobile_layer.get_size() == mobile_ground_layers[layer_name], "mobile ground layer should retain registered pivot canvas: %s" % layer_name)
 	_expect(source.contains("mobile_ground_layered/light_tank_base.png") and source.contains("mobile_ground_layered/aa_twin_barrels.png"), "mobile armour should use weaponless hulls and separately recoiling barrel layers")
 	_expect(source.contains('argument.begins_with("--capture-ground=")') and source.contains("_draw_mobile_ground_capture"), "visual QA should expose a simulation-isolated mobile-ground tracking and recoil fixture")
+	_expect(source.contains('layers.has("locomotion")') and source.contains('* 8.0'), "mobile tanks and carriers should consume registered held tread/wheel locomotion frames")
+	for vehicle_id in ["light_tank", "sam_truck", "aa_carrier"]:
+		for frame_index in range(4):
+			var locomotion := load("res://assets/runtime/enemies/mobile_ground_layered/locomotion/%s/%d.png" % [vehicle_id, frame_index]) as Texture2D
+			_expect(locomotion != null, "mobile-ground locomotion frame should load: %s %d" % [vehicle_id, frame_index])
 	_expect(source.contains('1.16 if enemy_id == "security_patrol_mech"'), "human security mech should retain its reviewed presentation-only readability scale without changing simulation geometry")
 	for sam_pose in ["sam_truck_weapon_stowed", "sam_truck_weapon_rising", "sam_truck_weapon_launch"]:
 		var sam_texture := load("res://assets/runtime/enemies/mercenary_ground_layered/%s.png" % sam_pose)

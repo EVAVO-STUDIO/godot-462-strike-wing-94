@@ -12,10 +12,11 @@
     "armoured_aa_carrier": ["aa_carrier_base", "aa_weapon_head", "aa_twin_barrels"]
   },
   "animation_contract": {
+	"locomotion": "four registered held tread/wheel-contact exposures at 8 fps; chassis and turret pivot remain stable",
     "tracking": "weapon assemblies rotate independently around registered hull mounting wells",
     "recoil": "barrel layers translate opposite the firing vector while hulls remain stable",
     "sam_deployment": "stowed, rising, deployed, launch/recoil",
     "palette": "cream and charcoal mercenary armour with restrained faded-red recognition marks"
   },
-  "qa": ["Sprite Studio exterior and seeded enclosed-matte removal", "weaponless hull review", "native-scale pivot review", "tracking and recoil capture"]
+  "qa": ["Sprite Studio exterior and seeded enclosed-matte removal", "weaponless hull review", "native-scale pivot review", "four-frame tread registration", "tracking and recoil capture"]
 }

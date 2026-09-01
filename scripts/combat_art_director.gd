@@ -337,11 +337,13 @@ const MERCENARY_GROUND_SPRITES := {
 const LAYERED_GROUND_SPRITES := {
 	"light_tank": {
 		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_base.png"),
+		"locomotion": [preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/0.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/1.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/2.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/3.png")],
 		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_turret.png"),
 		"barrel": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_barrel.png"),
 	},
 	"sam_truck": {
 		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/sam_truck_base.png"),
+		"locomotion": [preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/0.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/1.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/2.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/3.png")],
 		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_deployed.png"),
 		"weapon_animation": [
 			preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_stowed.png"),
@@ -364,6 +366,7 @@ const LAYERED_GROUND_SPRITES := {
 	},
 	"armoured_aa_carrier": {
 		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_carrier_base.png"),
+		"locomotion": [preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/0.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/1.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/2.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/3.png")],
 		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_weapon_head.png"),
 		"barrel": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_twin_barrels.png"),
 	},
@@ -1948,6 +1951,9 @@ static func boss_hatch_frame_index(fire_timer: float, recoil_ratio: float) -> in
 
 func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, layers: Dictionary, scale: float) -> void:
 	var base: Texture2D = layers.get("base")
+	if layers.has("locomotion"):
+		var locomotion: Array = layers["locomotion"]
+		base = locomotion[posmod(int(floor(float(enemy.get("age", 0.0)) * 8.0)), locomotion.size())]
 	var weapon: Texture2D = layers.get("weapon")
 	var barrel: Texture2D = layers.get("barrel", null)
 	_draw_production_sprite(surface, p, base, scale)

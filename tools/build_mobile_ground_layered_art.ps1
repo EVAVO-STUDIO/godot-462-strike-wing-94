@@ -57,4 +57,45 @@ foreach ($Name in $BaseWells.Keys) {
     Invoke-Magick @($Path, '-fill', '#161b1d', '-draw', $BaseWells[$Name], $Path) "$Name mounting well"
 }
 
+# Mobile hulls keep their weaponless base registration while the tread/wheel
+# contact highlights advance in four held exposures. This is deliberately a
+# one-pixel material cycle rather than whole-sprite bobbing: the vehicle keeps
+# its mass and turret pivot while no longer reading as a static cutout sliding
+# over the terrain.
+function Build-LocomotionFamily {
+    param(
+        [string]$Unit,
+        [int]$LeftX0,
+        [int]$LeftX1,
+        [int]$RightX0,
+        [int]$RightX1,
+        [int]$Top,
+        [int]$Bottom
+    )
+    $Base = Join-Path $Output "$Unit`_base.png"
+    $Family = Join-Path $Output "locomotion\$Unit"
+    New-Item -ItemType Directory -Force -Path $Family | Out-Null
+    for ($Frame = 0; $Frame -lt 4; $Frame++) {
+        $Y0 = $Top + $Frame * 2
+        while ($Y0 -gt $Top + 5) { $Y0 -= 6 }
+        $Bright = @()
+        $Dark = @()
+        for ($Y = $Y0; $Y -le $Bottom; $Y += 6) {
+            $Bright += "line $LeftX0,$Y $LeftX1,$Y line $RightX0,$Y $RightX1,$Y"
+            if ($Y + 2 -le $Bottom) { $Dark += "line $LeftX0,$($Y+2) $LeftX1,$($Y+2) line $RightX0,$($Y+2) $RightX1,$($Y+2)" }
+        }
+        $Destination = Join-Path $Family "$Frame.png"
+        Invoke-Magick @(
+            $Base,
+            '-fill', '#929a94', '-draw', ($Bright -join ' '),
+            '-fill', '#24292a', '-draw', ($Dark -join ' '),
+            '-colors', '40', '-depth', '8', $Destination
+        ) "$Unit locomotion frame $Frame"
+    }
+}
+
+Build-LocomotionFamily 'light_tank' 4 6 29 31 8 36
+Build-LocomotionFamily 'sam_truck' 3 5 26 28 9 38
+Build-LocomotionFamily 'aa_carrier' 3 6 33 36 8 38
+
 Write-Host 'Built HYPERSONIC layered mobile ground art.'
