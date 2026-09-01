@@ -277,7 +277,7 @@ Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event'
 $HypersonicText = Get-Content -Raw (Join-Path $Root 'scripts/hypersonic_rules.gd')
 Assert-Contains $HypersonicText @('SPEED_MULTIPLIER := 3.40','TURN_SCALE := 0.38','structural_damage_per_second','enemy_can_pursue','ENEMY_CHARGE_SECONDS') 'Hypersonic flight rules'
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-Assert-Contains $SaveText @('SAVE_VERSION := 11','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','branch_decisions','intelligence_unlocked_ids','completed_secret_mission_ids','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
+Assert-Contains $SaveText @('SAVE_VERSION := 12','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','branch_decisions','intelligence_unlocked_ids','completed_secret_mission_ids','career_statistics','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {

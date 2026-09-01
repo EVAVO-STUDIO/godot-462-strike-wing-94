@@ -42,7 +42,7 @@ func _run() -> void:
 	_expect(ui.contains("EVAVO TACTICAL INTELLIGENCE DATABASE") and ui.contains("TECHNICAL FILE"), "front door should expose a dedicated period military database")
 	_expect(ui.contains('load(str(selected.get("illustration"') and ui.contains("UiSpriteRenderer.draw_nine_slice"), "database should display governed illustrations inside authored UI chrome")
 	var save := _source("res://scripts/campaign_save.gd")
-	_expect(save.contains('SAVE_VERSION := 11') and save.contains('"intelligence_unlocked_ids"'), "intelligence unlocks should persist in save schema v11")
+	_expect(save.contains('SAVE_VERSION := 12') and save.contains('"intelligence_unlocked_ids"'), "intelligence unlocks should persist in save schema v12")
 	if failures.is_empty():
 		print("HYPERSONIC intelligence database self-test passed.")
 		quit(0)

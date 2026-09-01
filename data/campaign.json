@@ -82,7 +82,7 @@
     "boss_kill_bonus": 1500
   },
   "save": {
-    "schema_version": 11,
+    "schema_version": 12,
     "autosave_seconds": 1.0,
     "namespace_authority": "data/product_identity.json"
   }

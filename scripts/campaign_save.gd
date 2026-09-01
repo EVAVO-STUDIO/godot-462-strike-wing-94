@@ -1,7 +1,7 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_VERSION := 11
+const SAVE_VERSION := 12
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 const LEGACY_V5_MISSION_IDS := [
@@ -120,6 +120,7 @@ func _snapshot(scene: Object) -> Dictionary:
 		"branch_decisions": _string_dictionary(scene.get("branch_decisions")) if _has_property(scene, "branch_decisions") else {},
 		"intelligence_unlocked_ids": _string_array(scene.get("intelligence_unlocked_ids")) if _has_property(scene, "intelligence_unlocked_ids") else [],
 		"completed_secret_mission_ids": _string_array(scene.get("completed_secret_mission_ids")) if _has_property(scene, "completed_secret_mission_ids") else [],
+		"career_statistics": _career_statistics(scene.get("career_statistics")) if _has_property(scene, "career_statistics") else {},
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
@@ -162,6 +163,17 @@ func _mode_records(value: Variant) -> Dictionary:
 			"best_score": maxi(0, int(raw_record.get("best_score", 0))),
 			"cleared": bool(raw_record.get("cleared", false))
 		}
+	return result
+
+func _career_statistics(value: Variant) -> Dictionary:
+	var result: Dictionary = {}
+	if typeof(value) != TYPE_DICTIONARY:
+		return result
+	for key in ["sorties_attempted", "sorties_cleared", "shots_fired", "shots_hit", "targets_destroyed", "damage_taken", "secrets_discovered", "credits_earned", "best_score", "best_accuracy_per_mille"]:
+		result[key] = maxi(0, int(value.get(key, 0)))
+	result["sorties_cleared"] = mini(int(result["sorties_cleared"]), int(result["sorties_attempted"]))
+	result["shots_hit"] = mini(int(result["shots_hit"]), int(result["shots_fired"]))
+	result["best_accuracy_per_mille"] = mini(int(result["best_accuracy_per_mille"]), 1000)
 	return result
 
 func _string_dictionary(value: Variant) -> Dictionary:
@@ -275,6 +287,8 @@ func _restore(scene: Object) -> void:
 		scene.set("intelligence_unlocked_ids", _string_array(parsed.get("intelligence_unlocked_ids", [])))
 	if _has_property(scene, "completed_secret_mission_ids"):
 		scene.set("completed_secret_mission_ids", _string_array(parsed.get("completed_secret_mission_ids", [])))
+	if _has_property(scene, "career_statistics"):
+		scene.set("career_statistics", _career_statistics(parsed.get("career_statistics", {})))
 	var support_director := get_node_or_null("/root/SupportDirector")
 	if support_director != null and support_director.has_method("restore_support_state"):
 		support_director.call("restore_support_state", int(parsed.get("support_selected", 0)), int(parsed.get("support_unlocked", 0)))

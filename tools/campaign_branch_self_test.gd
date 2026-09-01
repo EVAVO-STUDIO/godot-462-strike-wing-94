@@ -13,7 +13,7 @@ func _run() -> void:
 		mission_ids.append(str(mission.get("id", "")))
 	var branches: Array = campaign.get("branches", [])
 	var save_metadata: Dictionary = _json("res://data/campaign.json").get("save", {})
-	_expect(int(save_metadata.get("schema_version", 0)) == 11, "campaign metadata should advertise canonical save schema v11")
+	_expect(int(save_metadata.get("schema_version", 0)) == 12, "campaign metadata should advertise canonical save schema v12")
 	_expect(not save_metadata.has("path") and str(save_metadata.get("namespace_authority", "")) == "data/product_identity.json", "campaign metadata must delegate current and legacy save paths to product identity")
 	_expect(branches.size() == 3, "campaign should contain three controlled sector branch decisions")
 	var branch_ids: Dictionary = {}
@@ -38,7 +38,7 @@ func _run() -> void:
 	var ui := _source("res://scripts/pixel_ui_director.gd")
 	_expect(ui.contains("_draw_front_end_branch") and ui.contains("OPERATIONAL BRANCH // COMMAND DECISION"), "branch choice should use a dedicated period-authentic operations screen")
 	var save := _source("res://scripts/campaign_save.gd")
-	_expect(save.contains('SAVE_VERSION := 11') and save.contains('"branch_decisions"'), "branch decisions should persist in save schema v11")
+	_expect(save.contains('SAVE_VERSION := 12') and save.contains('"branch_decisions"'), "branch decisions should persist in save schema v12")
 	_test_runtime_branch()
 	if failures.is_empty():
 		print("HYPERSONIC campaign branch self-test passed.")

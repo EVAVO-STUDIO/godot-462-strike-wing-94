@@ -68,6 +68,7 @@ var branch_decisions: Dictionary = {}
 var current_branch: Dictionary = {}
 var intelligence_unlocked_ids: Array = []
 var completed_secret_mission_ids: Array = []
+var career_statistics: Dictionary = {}
 var active_secret_mission_id := ""
 var weapon_index := 0
 var generator_index := 0
@@ -836,7 +837,7 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 		)
 		var total_reward := _difficulty_reward(base_reward + objective_bonus + int(extras.get("total", 0)))
 		var secret_reward := maxi(0, int(_active_mission().get("reward_credits", 0))) if not active_secret_mission_id.is_empty() else 0
-		mission_reward_earned = total_reward
+		mission_reward_earned = total_reward + secret_reward
 		credits += total_reward + secret_reward
 		if not active_secret_mission_id.is_empty():
 			if not active_secret_mission_id in completed_secret_mission_ids:
@@ -869,7 +870,29 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 	else:
 		result_text = "%s  PRESS R TO RETRY" % failure_reason
 	repair_cost = ServiceRules.service_cost(hull, _max_hull(), int(_campaign_config().get("repair_cost_per_hull", 0)))
+	_record_campaign_statistics(success)
 	_clear_combat()
+
+func _record_campaign_statistics(success: bool) -> void:
+	var attempts := maxi(0, int(career_statistics.get("sorties_attempted", 0))) + 1
+	var clears := maxi(0, int(career_statistics.get("sorties_cleared", 0))) + (1 if success else 0)
+	var fired := maxi(0, shots_fired)
+	var hits := clampi(shots_hit, 0, fired)
+	career_statistics = {
+		"sorties_attempted": attempts,
+		"sorties_cleared": clears,
+		"shots_fired": maxi(0, int(career_statistics.get("shots_fired", 0))) + fired,
+		"shots_hit": maxi(0, int(career_statistics.get("shots_hit", 0))) + hits,
+		"targets_destroyed": maxi(0, int(career_statistics.get("targets_destroyed", 0))) + maxi(0, targets_destroyed),
+		"damage_taken": maxi(0, int(career_statistics.get("damage_taken", 0))) + maxi(0, damage_taken),
+		"secrets_discovered": maxi(0, int(career_statistics.get("secrets_discovered", 0))) + maxi(0, secrets_discovered),
+		"credits_earned": maxi(0, int(career_statistics.get("credits_earned", 0))) + maxi(0, mission_reward_earned),
+		"best_score": maxi(maxi(0, int(career_statistics.get("best_score", 0))), maxi(0, score)),
+		"best_accuracy_per_mille": maxi(
+			maxi(0, int(career_statistics.get("best_accuracy_per_mille", 0))),
+			int(round(1000.0 * float(hits) / float(fired))) if fired > 0 else 0
+		)
+	}
 
 func _return_from_secret_sortie() -> void:
 	active_secret_mission_id = ""

@@ -63,7 +63,7 @@ func _run() -> void:
 	var main := _source("res://scripts/main.gd")
 	_expect(main.contains("--capture-secret-mission=") and main.contains("_return_from_secret_sortie"), "secret sortie flow should expose deterministic presentation QA and an explicit campaign-safe return")
 	var save := _source("res://scripts/campaign_save.gd")
-	_expect(save.contains('SAVE_VERSION := 11') and save.contains('"completed_secret_mission_ids"'), "secret mission clears should persist in save schema v11")
+	_expect(save.contains('SAVE_VERSION := 12') and save.contains('"completed_secret_mission_ids"'), "secret mission clears should persist in save schema v12")
 	if failures.is_empty():
 		print("HYPERSONIC secret missions self-test passed.")
 		quit(0)
