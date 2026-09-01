@@ -506,6 +506,7 @@ func _test_transform_presentation() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.92"), "variable geometry sweep should retain its near-one-second mechanical cadence")
 	_expect(source.contains("TRANSFORM_EXPOSURES := 10"), "variable geometry should retain ten deliberate animation exposures")
+	_expect(source.contains("PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0"), "combat sprites should retain an authentic held-pose 30 Hz presentation cadence over 60 Hz simulation")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
 	_expect(source.contains("roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1))"), "variable geometry should advance through quantized authored exposures")
 	_expect(source.contains("_draw_layered_vx94(surface, p, -exposure"), "hypersonic charge should continue beyond fighter geometry into a deeper folded-wing silhouette")

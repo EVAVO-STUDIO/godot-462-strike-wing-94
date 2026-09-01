@@ -1,4 +1,5 @@
 extends Node
+const SceneContractCache=preload("res://scripts/scene_contract_cache.gd")
 const ContentCatalog=preload("res://scripts/content_catalog.gd")
 const MusicRules=preload("res://scripts/music_rules.gd")
 const MIX_RATE:=22050.0
@@ -59,6 +60,4 @@ func _saw(frequency:float,time:float)->float:return fposmod(time*frequency,1.0)*
 func _noise()->float:
 	_noise_state=int((1103515245*_noise_state+12345)&0x7fffffff);return float(_noise_state)/1073741823.5-1.0
 func _has_property(object:Object,name:String)->bool:
-	for property in object.get_property_list():
-		if str(property.get("name",""))==name:return true
-	return false
+	return SceneContractCache.has_property(object,name)

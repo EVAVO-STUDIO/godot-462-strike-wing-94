@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const MissionIntelRules = preload("res://scripts/mission_intel_rules.gd")
 const MissionIntelSurface = preload("res://scripts/mission_intel_surface.gd")
@@ -114,10 +116,7 @@ func _sortie_front_end(scene: Object) -> bool:
 	return _supports(scene) and int(scene.get("phase")) == 0 and (not _has_property(scene, "front_end_screen") or str(scene.get("front_end_screen")) == "sortie")
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
 
 func _clip(text: String, max_chars: int) -> String:
 	var value := text.to_upper().replace("_", " ")

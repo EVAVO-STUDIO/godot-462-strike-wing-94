@@ -1,0 +1,24 @@
+{
+  "asset_family": "hypersonic_coast_geography_v1",
+  "source": "res://assets/source/environments/coast_chunks/coast_geography_source_v1.png",
+  "builder": "res://tools/build_coast_geography_art.ps1",
+  "runtime_directory": "res://assets/runtime/environments/coast_chunks/",
+  "source_method": "Image generation produced the authored geography source; EVAVO deterministic build performs registration, seam finishing, palette preservation and runtime export.",
+  "chunks": [
+    {"id": "seawall_run", "role": "open approach and shore road", "size": [640, 1024]},
+    {"id": "defended_inlet", "role": "harbor set-piece and naval approach", "size": [640, 1024]},
+    {"id": "reef_cliffs", "role": "dangerous low-altitude cliff route", "size": [640, 1024]}
+  ],
+  "assembly_contract": {
+    "loop_axis": "vertical",
+    "shared_connector_height": 48,
+    "world_cycle_pixels": 3072,
+    "base_order": ["geography_chunk", "sea_surface", "finite_structures", "foam_and_surf", "cloud_shadow", "cloud_body", "mist_and_weather"],
+    "rules": [
+      "Recognizable geography never repeats at the former 720-pixel plate interval.",
+      "Animated water and atmosphere never bake into the geography chunks.",
+      "Finite structures use mission-seeded slots and a different cycle from geography.",
+      "All adjacent chunk boundaries share a zero-error scanline contract."
+    ]
+  }
+}

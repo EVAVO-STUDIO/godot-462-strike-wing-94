@@ -134,10 +134,7 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
 
 func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priority: bool = false, intercept_priority: bool = false, route_id: String = "") -> void:
 	var enemies: Array = scene.get("enemies")

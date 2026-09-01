@@ -144,6 +144,8 @@ func _ready() -> void:
 		front_end_screen = capture_front_end
 	elif "--capture-gameplay" in OS.get_cmdline_user_args():
 		call_deferred("_begin_capture_gameplay")
+	if "--performance-profile" in OS.get_cmdline_user_args():
+		add_child(preload("res://tools/performance_probe.gd").new())
 	queue_redraw()
 
 func _capture_front_end(arguments: PackedStringArray) -> String:

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const PauseSurface = preload("res://scripts/pause_surface.gd")
 const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
@@ -206,6 +208,4 @@ func _close_overlay() -> void:
 	if _surface != null: _surface.visible = false
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name: return true
-	return false
+	return SceneContractCache.has_property(object, property_name)

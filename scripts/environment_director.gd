@@ -4,7 +4,11 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
 const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
-const COASTAL_STRIKE_ZONE := preload("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png")
+const COAST_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/coast_chunks/seawall_run.png"),
+	preload("res://assets/runtime/environments/coast_chunks/defended_inlet.png"),
+	preload("res://assets/runtime/environments/coast_chunks/reef_cliffs.png"),
+]
 const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png")
 const STORM_SEA := preload("res://assets/runtime/environments/water/storm_sea_loop_v2.png")
 const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
@@ -254,10 +258,7 @@ func _mission_variant(scene: Object) -> String:
 	return str(mission.get("environment_variant", "")) if typeof(mission) == TYPE_DICTIONARY else ""
 
 func _has_property(subject: Object, property_name: String) -> bool:
-	for property in subject.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(subject, property_name)
 
 func _supports(scene: Object) -> bool:
 	return SceneContractCache.supports(scene, ["phase", "current_environment", "mission_time"])
@@ -400,8 +401,8 @@ func _coast_x(world_y: float, scale: float) -> float:
 func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state):
 		return
-	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.32, 720.0)
-	_draw_vertical_loop(surface, COASTAL_STRIKE_ZONE, scroll, ENVIRONMENT_VIEW)
+	var scroll := t * _parallax_speed(profile, state, "mid") * 0.32
+	_draw_vertical_chunk_sequence(surface, COAST_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
 	var surface_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.41, 512.0)
 	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,ENVIRONMENT_VIEW.position.y,340,ENVIRONMENT_VIEW.size.y), Color(1,1,1,0.18))
 	_draw_modular_coast_pass(surface, scene, profile, state, t)
@@ -480,6 +481,29 @@ func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: floa
 		remaining -= segment
 		draw_y += segment
 		sample_y = 0.0
+
+func _draw_vertical_chunk_sequence(surface: CanvasItem, chunks: Array, source_y: float, destination: Rect2, modulate := Color.WHITE) -> void:
+	if chunks.is_empty():
+		return
+	var chunk_height := float((chunks[0] as Texture2D).get_height())
+	var cycle_height := chunk_height * float(chunks.size())
+	var sample_world_y := fposmod(source_y, cycle_height)
+	var remaining := destination.size.y
+	var draw_y := destination.position.y
+	while remaining > 0.0:
+		var chunk_index := int(floor(sample_world_y / chunk_height)) % chunks.size()
+		var sample_y := fposmod(sample_world_y, chunk_height)
+		var segment := minf(remaining, chunk_height - sample_y)
+		var texture: Texture2D = chunks[chunk_index]
+		surface.draw_texture_rect_region(
+			texture,
+			Rect2(destination.position.x, draw_y, destination.size.x, segment),
+			Rect2(0, sample_y, float(texture.get_width()), segment),
+			modulate
+		)
+		remaining -= segment
+		draw_y += segment
+		sample_world_y = fposmod(sample_world_y + segment, cycle_height)
 
 func _draw_industrial(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state):

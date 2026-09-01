@@ -1,6 +1,7 @@
 extends Node
 
 const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 var _elapsed := 99.0
 var _cooldown := 0.0
@@ -51,7 +52,4 @@ func collision_multiplier() -> float:
 	return EvasiveRollRules.collision_multiplier(progress()) if active() else 1.0
 
 func _has_property(subject: Object, property_name: String) -> bool:
-	for property in subject.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(subject, property_name)

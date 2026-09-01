@@ -1,5 +1,7 @@
 extends Node
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const AirframeRules = preload("res://scripts/airframe_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
@@ -70,10 +72,7 @@ func _publish_context() -> void:
 	CombatRules.set_incoming_damage_multiplier(AirframeRules.incoming_damage_multiplier(frame))
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	return names.has("phase") and names.has("credits") and names.has("status_text") and names.has("status_timer")
+	return SceneContractCache.supports(scene, ["phase", "credits", "status_text", "status_timer"])
 
 func _set_status(scene: Object, text: String) -> void:
 	scene.set("status_text", text)

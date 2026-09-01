@@ -304,10 +304,7 @@ func _set_status(scene: Object, text: String, duration: float = 1.8) -> void:
 	scene.set("status_timer", duration)
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name","")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
 
 func _queue_surface() -> void:
 	if _surface != null:

@@ -962,9 +962,7 @@ func _call_int(scene: Object, method_name: String, fallback: int) -> int:
 	return int(scene.call(method_name)) if scene.has_method(method_name) else fallback
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name: return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
 
 func _wrap_text(text: String, max_chars: int) -> Array[String]:
 	var result: Array[String] = []

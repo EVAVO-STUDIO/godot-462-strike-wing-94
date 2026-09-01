@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const InterceptRouteSurface = preload("res://scripts/intercept_route_surface.gd")
 const InterceptRouteRules = preload("res://scripts/intercept_route_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
@@ -129,16 +131,7 @@ func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vecto
 		surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0, 0, width, texture.get_height()))
 
 func _supports(scene: Object) -> bool:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	for required in ["phase", "player_position", "enemies", "score"]:
-		if not names.has(required):
-			return false
-	return true
+	return SceneContractCache.supports(scene, ["phase", "player_position", "enemies", "score"])
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)

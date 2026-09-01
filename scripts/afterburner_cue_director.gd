@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const AfterburnerCueSurface = preload("res://scripts/afterburner_cue_surface.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
@@ -93,7 +95,4 @@ func _draw_flame(surface: CanvasItem, p: Vector2, form: String, hypersonic: bool
 	surface.draw_texture(plume, (p + offset).round())
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)

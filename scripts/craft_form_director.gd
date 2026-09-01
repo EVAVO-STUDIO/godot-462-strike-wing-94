@@ -325,12 +325,9 @@ func _try_transform(scene: Object) -> void:
 	_set_status(scene, "VARIABLE GEOMETRY - %s" % CraftFormRules.display_name(form))
 
 func _apply_weapon_interlock(scene: Object) -> void:
-	var names: Dictionary = {}
-	for property in scene.get_property_list():
-		names[str(property.get("name", ""))] = true
-	if names.has("fire_timer"):
+	if SceneContractCache.has_property(scene, "fire_timer"):
 		scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
-	if names.has("secondary_timer"):
+	if SceneContractCache.has_property(scene, "secondary_timer"):
 		scene.set("secondary_timer", maxf(float(scene.get("secondary_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
 
 func current_form() -> String:
@@ -372,10 +369,7 @@ func support_energy_multiplier() -> float:
 	return CraftFormRules.support_energy_multiplier(form)
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
 
 func primary_mount_offsets(weapon: Dictionary, projectile_count: int) -> Array[Vector2]:
 	var mounts := get_node_or_null("/root/PlayerMountDirector")

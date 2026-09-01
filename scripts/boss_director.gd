@@ -179,10 +179,7 @@ func _update_homing_shots(scene: Object, delta: float) -> void:
 	scene.set("enemy_bullets", bullets)
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
 
 func _difficulty_projectile_speed(base: float) -> float:
 	var director := get_node_or_null("/root/DifficultyDirector")

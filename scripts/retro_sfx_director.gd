@@ -1,5 +1,7 @@
 extends Node
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const MIX_RATE := 22050.0
@@ -223,7 +225,4 @@ func _noise_sample() -> float:
 	return (float(_noise_state) / 1073741823.5) - 1.0
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)

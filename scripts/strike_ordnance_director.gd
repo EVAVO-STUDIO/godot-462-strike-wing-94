@@ -342,10 +342,7 @@ func _impact_family(scene: Object, hit_sea: bool) -> String:
 	return "bomb_impact"
 
 func _has_property(subject: Object, property_name: String) -> bool:
-	for property in subject.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(subject, property_name)
 
 func _ensure_action() -> void:
 	if not InputMap.has_action("drop_strike_ordnance"):

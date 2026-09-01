@@ -707,6 +707,7 @@ const BOSS := Color("c86054")
 const BOSS_DARK := Color("55322f")
 const TRANSFORM_VISUAL_SECONDS := 0.92
 const TRANSFORM_EXPOSURES := 10
+const PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0
 const VX94_EVASIVE_ROLL := [
 	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_00.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_01.png"),
 	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_02.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_03.png"),
@@ -723,6 +724,7 @@ const VX94_EVASIVE_ROLL := [
 var _surface: Control
 var _visual_sweep := 0.0
 var _bank_visual := 0.0
+var _redraw_elapsed := 0.0
 var _missing_art_ids: Dictionary = {}
 
 func _ready() -> void:
@@ -739,7 +741,9 @@ func _process(delta: float) -> void:
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
 	_visual_sweep = move_toward(_visual_sweep, target, maxf(0.0, delta) / TRANSFORM_VISUAL_SECONDS)
 	_bank_visual = move_toward(_bank_visual, Input.get_axis("move_left", "move_right"), maxf(0.0, delta) * 5.5)
-	if _surface != null:
+	_redraw_elapsed += maxf(0.0, delta)
+	if _surface != null and _redraw_elapsed >= PRESENTATION_REDRAW_SECONDS:
+		_redraw_elapsed = fposmod(_redraw_elapsed, PRESENTATION_REDRAW_SECONDS)
 		_surface.queue_redraw()
 
 func _draw_combat_art(surface: CanvasItem) -> void:
@@ -1004,10 +1008,7 @@ func _draw_pickups(surface: CanvasItem, scene: Object) -> void:
 		surface.draw_texture(texture, (position - texture.get_size() * 0.5).round())
 
 func _has_property(subject: Object, property_name: String) -> bool:
-	for property in subject.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(subject, property_name)
 
 func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	var p: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
@@ -1990,10 +1991,8 @@ static func sam_launcher_frame_index(fire_timer: float, recoil_ratio: float) -> 
 
 func _player_position() -> Vector2:
 	var scene := get_tree().current_scene
-	if scene != null:
-		for property in scene.get_property_list():
-			if str(property.get("name", "")) == "player_position":
-				return scene.get("player_position")
+	if SceneContractCache.has_property(scene, "player_position"):
+		return scene.get("player_position")
 	return Vector2(320, 292)
 
 func _surface_target_scale() -> float:

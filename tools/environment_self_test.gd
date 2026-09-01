@@ -58,7 +58,7 @@ func _initialize() -> void:
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
 		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("HIGH_ATMOSPHERE_RIM") and source.contains("ORBITAL_RIM"), "upper atmosphere and orbital space should use authored star and curvature layers")
 		_expect(not source.contains("draw_arc") and not source.contains("var star :=") and not source.contains("draw_rect(Rect2(roundf(x)"), "orbital presentation should not regress to perfect vector arcs or one-pixel stars")
-		_expect(source.contains("COASTAL_STRIKE_ZONE"), "coastal benchmark should use its authored raster master")
+		_expect(source.contains("COAST_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "coastal benchmark should assemble registered authored geography chunks")
 		_expect(source.contains("REFINERY_NIGHT"), "industrial benchmark should use its authored refinery raster master")
 		_expect(source.contains("STORM_SEA"), "open-water benchmark should use its authored storm-sea raster master")
 		_expect(source.contains("DESERT_FRONT"), "desert benchmark should use its authored battlefield raster master")
@@ -81,6 +81,22 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_motion_manifest.json"), "high-atmosphere motion source/runtime manifest should exist")
 		_expect(not source.substr(source.find("func _draw_clouds"), source.length() - source.find("func _draw_clouds")).contains("draw_colored_polygon"), "foreground clouds should not regress to polygon lozenges")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png"), "coastal runtime master should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/coast_chunks/coast_geography_manifest.json"), "coast geography source/build/assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_coast_geography_art.ps1") and FileAccess.file_exists("res://tools/test_environment_seams.ps1"), "coast geography should retain reproducible build and seam-gate tooling")
+		var coast_geography_manifest = ContentCatalog.load_json("res://assets/source/environments/coast_chunks/coast_geography_manifest.json")
+		_expect(typeof(coast_geography_manifest) == TYPE_DICTIONARY and coast_geography_manifest.get("chunks", []).size() == 3, "coast geography manifest should register three distinct 1024px sections")
+		var coast_geography_names := ["seawall_run", "defended_inlet", "reef_cliffs"]
+		var coast_geography_images: Array[Image] = []
+		for chunk_name in coast_geography_names:
+			var geography_texture := load("res://assets/runtime/environments/coast_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(geography_texture != null and geography_texture.get_size() == Vector2(640,1024), "coast geography chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if geography_texture != null:
+				coast_geography_images.append(geography_texture.get_image())
+		for chunk_index in range(coast_geography_images.size()):
+			var outgoing: Image = coast_geography_images[chunk_index]
+			var incoming: Image = coast_geography_images[(chunk_index + 1) % coast_geography_images.size()]
+			for sample_x in range(0,640,16):
+				_expect(outgoing.get_pixel(sample_x,1023).is_equal_approx(incoming.get_pixel(sample_x,0)), "adjacent coast chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
 		_expect(FileAccess.file_exists("res://assets/source/environments/modular_coast/modular_coast_kit_manifest.json"), "modular coast kit should register finite chunks, continuous loops and edge-animation families")
 		var modular_coast_source := load("res://assets/source/environments/modular_coast/coast_construction_kit_source_v1.png")
 		_expect(modular_coast_source is Texture2D and modular_coast_source.get_size() == Vector2(1536,1024), "modular coast source sheet should retain registered production geometry")

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const WeaponMountCueSurface = preload("res://scripts/weapon_mount_cue_surface.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 
@@ -103,7 +105,4 @@ func _active_weapon(scene: Object) -> Dictionary:
 	return {}
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)

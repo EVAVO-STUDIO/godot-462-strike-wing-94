@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const PlayerMountRules = preload("res://scripts/player_mount_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
@@ -190,10 +192,7 @@ func _clip(text: String, max_chars: int) -> String:
 	return value if value.length() <= max_chars else value.substr(0,maxi(0,max_chars-1)) + "."
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
 
 func _sortie_front_end(scene: Object) -> bool:
 	return _has_property(scene, "phase") and int(scene.get("phase")) == 0 and (not _has_property(scene, "front_end_screen") or str(scene.get("front_end_screen")) == "sortie")

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+
 const AltitudeTransitionSurface = preload("res://scripts/altitude_transition_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
@@ -106,7 +108,4 @@ func _code(band: String) -> String:
 	return "MID"
 
 func _has_property(object: Object, property_name: String) -> bool:
-	for property in object.get_property_list():
-		if str(property.get("name", "")) == property_name:
-			return true
-	return false
+	return SceneContractCache.has_property(object, property_name)
