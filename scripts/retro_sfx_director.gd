@@ -25,6 +25,13 @@ var _noise_state := 0x1345ABCD
 var _rotary_cooldown := 0.0
 var _sfx_gain:=0.75
 var _radio_gain:=0.80
+var _propulsion_gain := 0.0
+var _propulsion_target_gain := 0.0
+var _propulsion_frequency := 58.0
+var _propulsion_target_frequency := 58.0
+var _propulsion_airflow := 0.0
+var _propulsion_target_airflow := 0.0
+var _propulsion_phase := 0.0
 
 func _ready() -> void:
 	process_priority = 220
@@ -50,6 +57,9 @@ func set_mix_levels(master_percent:int,sfx_percent:int,radio_percent:int=100)->v
 func _process(delta: float) -> void:
 	_rotary_cooldown = maxf(0.0, _rotary_cooldown - maxf(0.0, delta))
 	_observe_gameplay()
+	_propulsion_gain = move_toward(_propulsion_gain, _propulsion_target_gain, maxf(0.0, delta) * 0.18)
+	_propulsion_frequency = move_toward(_propulsion_frequency, _propulsion_target_frequency, maxf(0.0, delta) * 90.0)
+	_propulsion_airflow = move_toward(_propulsion_airflow, _propulsion_target_airflow, maxf(0.0, delta) * 1.8)
 	_fill_audio_buffer()
 
 func play_event(event_id: String) -> void:
@@ -58,9 +68,11 @@ func play_event(event_id: String) -> void:
 func _observe_gameplay() -> void:
 	var scene := get_tree().current_scene
 	if scene == null or not _has_property(scene, "phase"):
+		_set_propulsion_target({})
 		return
 	var phase := int(scene.get("phase"))
 	if phase != 1:
+		_set_propulsion_target({})
 		_last_shots_fired = int(scene.get("shots_fired")) if _has_property(scene, "shots_fired") else 0
 		_last_missile_level = 0
 		_last_enemy_missiles_launched = int(scene.get("enemy_missiles_launched")) if _has_property(scene, "enemy_missiles_launched") else 0
@@ -81,6 +93,7 @@ func _observe_gameplay() -> void:
 
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if craft != null:
+		_update_propulsion_target(craft)
 		if craft.has_method("current_form"):
 			var form := str(craft.call("current_form"))
 			if _last_form != "" and form != _last_form:
@@ -109,10 +122,24 @@ func _observe_gameplay() -> void:
 			if ready_serial > _last_transform_ready_serial:
 				_trigger(RetroSfxRules.TRANSFORM_READY)
 			_last_transform_ready_serial = ready_serial
+	else:
+		_set_propulsion_target({})
 
 	_observe_missile_threat(scene)
 	_observe_enemy_missile_launch(scene)
 	_observe_enemy_hypersonic_boom(scene)
+
+func _update_propulsion_target(craft: Object) -> void:
+	var afterburner := craft.has_method("afterburner_active") and bool(craft.call("afterburner_active"))
+	var hypersonic := craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
+	var altitude := str(craft.call("current_altitude")) if craft.has_method("current_altitude") else "mid"
+	var transition_direction := int(craft.call("altitude_transition_direction")) if craft.has_method("altitude_transition_direction") else 0
+	_set_propulsion_target(RetroSfxRules.propulsion_bed(afterburner, hypersonic, altitude, transition_direction))
+
+func _set_propulsion_target(spec: Dictionary) -> void:
+	_propulsion_target_gain = float(spec.get("gain", 0.0))
+	_propulsion_target_frequency = float(spec.get("frequency", 58.0))
+	_propulsion_target_airflow = float(spec.get("airflow", 0.0))
 
 func _observe_enemy_missile_launch(scene: Object) -> void:
 	if not _has_property(scene, "enemy_missiles_launched"):
@@ -212,7 +239,10 @@ func _fill_audio_buffer() -> void:
 		return
 	var frames := _playback.get_frames_available()
 	for _i in range(frames):
-		var sample := 0.0
+		_propulsion_phase = fposmod(_propulsion_phase + _propulsion_frequency / MIX_RATE, 1.0)
+		var turbine := sin(_propulsion_phase * TAU) * 0.62 + sin(_propulsion_phase * TAU * 2.03) * 0.20
+		var airflow := _noise_sample() * _propulsion_airflow
+		var sample := (turbine + airflow) * _propulsion_gain * _sfx_gain
 		for vi in range(_voices.size() - 1, -1, -1):
 			var voice: Dictionary = _voices[vi]
 			var duration := maxf(0.001, float(voice.get("duration", 0.1)))

@@ -32,6 +32,14 @@ func _test_voice_map() -> void:
 	_expect(str(RetroSfxRules.voice(RetroSfxRules.FIRE_RAIL).get("wave", "")) != str(RetroSfxRules.voice(RetroSfxRules.FIRE_PLASMA).get("wave", "")), "rail and plasma should not collapse to the same oscillator identity")
 	_expect(str(RetroSfxRules.voice(RetroSfxRules.UI_PURCHASE).get("wave", "")) != str(RetroSfxRules.voice(RetroSfxRules.REWARD_STINGER).get("wave", "")), "sortie-bay confirmation should remain distinct from the mission-clear stinger")
 	_expect(str(RetroSfxRules.voice(RetroSfxRules.SHIELD_HIT).get("wave", "")) != str(RetroSfxRules.voice(RetroSfxRules.PLAYER_HIT).get("wave", "")), "field contact should sound materially different from a physical hull strike")
+	var cruise := RetroSfxRules.propulsion_bed(false, false, "mid")
+	var burn := RetroSfxRules.propulsion_bed(true, false, "mid")
+	var high_hypersonic := RetroSfxRules.propulsion_bed(true, true, "high")
+	var low_hypersonic_dive := RetroSfxRules.propulsion_bed(true, true, "low", -1)
+	_expect(float(burn.get("gain", 0.0)) > float(cruise.get("gain", 0.0)), "afterburner should materially strengthen the continuous propulsion bed")
+	_expect(float(high_hypersonic.get("airflow", 0.0)) > float(burn.get("airflow", 0.0)), "hypersonic flight should add sustained high-speed airflow")
+	_expect(float(low_hypersonic_dive.get("gain", 0.0)) > float(high_hypersonic.get("gain", 0.0)), "low-altitude hypersonic dives should sound more dangerous than high-altitude cruise")
+	_expect(float(low_hypersonic_dive.get("gain", 9.0)) <= 0.10 and float(low_hypersonic_dive.get("airflow", 9.0)) <= 0.85, "continuous propulsion targets should remain bounded below combat SFX")
 
 func _test_runtime_wiring() -> void:
 	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
@@ -69,6 +77,7 @@ func _test_runtime_wiring() -> void:
 		_expect(source.contains("transform_ready_serial") and source.contains("RetroSfxRules.TRANSFORM_READY"), "mechanical settle should receive a distinct ready latch after the actuator sweep")
 		_expect(source.contains("_observe_enemy_hypersonic_boom") and source.contains('enemy.get("hypersonic_boom_age"') and source.contains("_enemy_boom_latched"), "enemy interceptor shockwaves should trigger one bounded sonic boom per pursuit break")
 		_expect(source.contains("_observe_enemy_missile_launch") and source.contains("enemy_missiles_launched") and source.contains("MISSILE_LAUNCH"), "enemy missiles should use a distinct launch voice driven by an authoritative launch counter")
+		_expect(source.contains("_update_propulsion_target") and source.contains("_propulsion_target_gain") and source.contains("_propulsion_phase"), "gameplay should sustain a smoothed procedural propulsion bed instead of relying on ignition one-shots")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

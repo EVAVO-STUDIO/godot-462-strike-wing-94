@@ -53,6 +53,35 @@ static func altitude_event(direction: int) -> String:
 	if direction < 0: return ALTITUDE_DIVE
 	return ALTITUDE_SHIFT
 
+static func propulsion_bed(afterburner: bool, hypersonic: bool, altitude: String, transition_direction: int = 0) -> Dictionary:
+	var gain := 0.026
+	var turbine_hz := 58.0
+	var airflow := 0.18
+	if afterburner:
+		gain = 0.052
+		turbine_hz = 82.0
+		airflow = 0.38
+	if hypersonic:
+		gain = 0.078
+		turbine_hz = 112.0
+		airflow = 0.68
+	if altitude == "low":
+		gain += 0.010 if hypersonic else 0.004
+		airflow += 0.10
+	elif altitude == "high":
+		gain -= 0.004
+		airflow -= 0.05
+	if transition_direction < 0:
+		gain += 0.006
+		airflow += 0.08
+	elif transition_direction > 0:
+		turbine_hz += 7.0
+	return {
+		"gain": clampf(gain, 0.0, 0.10),
+		"frequency": clampf(turbine_hz, 40.0, 140.0),
+		"airflow": clampf(airflow, 0.0, 0.85),
+	}
+
 static func voice(event_id: String) -> Dictionary:
 	match event_id:
 		FIRE_BALLISTIC: return {"wave":"square","frequency":176.0,"end_frequency":112.0,"duration":0.055,"gain":0.16}
