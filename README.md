@@ -13,6 +13,7 @@ Playable 30-mission, three-sector campaign plus six secret sorties on `main`.
 Implemented now:
 
 - approved EVAVO publisher splash with canonical plate/sparkle assets, black transition, and skippable HYPERSONIC title sequence
+- deterministic save-isolated arcade attract reel with VX-94 transformation, hypersonic pursuit, weapons and Machine Ark showcase
 - 640×360 logical canvas with nearest-neighbour presentation to 1280×720
 - governed sprite-built title, briefing, debrief, options, pause and combat HUD presentation
 - production VX-94 fighter / bomber sprite animation with a mechanical wing-sweep transition, held key poses and separate banking cels

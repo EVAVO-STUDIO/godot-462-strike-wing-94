@@ -102,6 +102,9 @@ func _complete() -> void:
 	if _surface != null:
 		_surface.queue_free()
 
+func is_complete() -> bool:
+	return stage == Stage.COMPLETE
+
 func draw_startup_sequence(surface: CanvasItem) -> void:
 	surface.draw_rect(Rect2(0, 0, 640, 360), Color("03060a"))
 	match stage:

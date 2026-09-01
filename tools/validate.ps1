@@ -212,6 +212,7 @@ foreach ($Autoload in @(
     'ProductIdentity="*res://scripts/product_identity.gd"',
     'InputBindings="*res://scripts/input_bindings.gd"',
     'StartupSequenceDirector="*res://scripts/startup_sequence_director.gd"',
+    'AttractModeDirector="*res://scripts/attract_mode_director.gd"',
     'CampaignCinematicDirector="*res://scripts/campaign_cinematic_director.gd"',
     'CreditsDirector="*res://scripts/credits_director.gd"',
     'GameModeDirector="*res://scripts/game_mode_director.gd"',
@@ -309,7 +310,7 @@ Write-Host 'Running Godot editor import/smoke test...' -ForegroundColor DarkCyan
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 
 $Tests = @(
-    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','music_self_test.gd','presentation_feedback_self_test.gd','difficulty_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','campaign_branch_self_test.gd','intelligence_database_self_test.gd','secret_missions_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
+    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','music_self_test.gd','presentation_feedback_self_test.gd','difficulty_self_test.gd','startup_sequence_self_test.gd','attract_mode_self_test.gd','campaign_cinematic_self_test.gd','campaign_branch_self_test.gd','intelligence_database_self_test.gd','secret_missions_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','evasive_roll_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
     'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
 )
