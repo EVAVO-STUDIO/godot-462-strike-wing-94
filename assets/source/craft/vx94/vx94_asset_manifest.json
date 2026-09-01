@@ -1,6 +1,6 @@
 {
   "asset_family": "vx94_variable_strike_fighter",
-  "status": "gameplay_destruction_escape_v2",
+  "status": "vertical_slice_candidate_02",
   "visual_contract": {
     "era": "late-1990s SVGA pre-rendered arcade shooter",
     "view": "orthographic top-down",
@@ -28,6 +28,11 @@
       "path": "res://assets/source/craft/vx94/candidates/vx94_transform_sheet_candidate_01_clean.png",
       "sha256": "03CD31A3E99BAF5A8C890CBBDC7042AA86EB520ACE0530A5D46E3DC31C1D1D2C",
       "note": "Sprite Studio border-connected matte cleanup; aircraft pixels preserved"
+    },
+    {
+      "path": "res://assets/source/craft/vx94/candidates/vx94_identity_motion_sheet_candidate_02_raw.png",
+      "sha256": "E030D78F80F119C697709EED5ECBBD05471555CD7C629257C39D7BE1C7566372",
+      "note": "immutable provider source with baked checkerboard; cleaned reproducibly by tools/build_vx94_identity_candidate_02.ps1"
     }
   ],
   "runtime": {
@@ -37,11 +42,11 @@
     "filter": "Lanczos downsample from identity master",
     "fighter": {
       "path": "res://assets/runtime/craft/vx94/vx94_fighter_v1.png",
-      "sha256": "77D5F26C0A588010D1359D87511CC3BE20CC65AD5DE9F96D6C1E5CE4045F15CF"
+      "sha256": "437515FDE136732CC3778962C89F176D0888EA7902DD4509E3C26829B626D8D7"
     },
     "bomber": {
       "path": "res://assets/runtime/craft/vx94/vx94_bomber_v1.png",
-      "sha256": "B2516F3166ABBE9871359C4369260DC6D9B87FC52469E6B54B047B0590BCF8E3"
+      "sha256": "C51C0B441BB92909DC3AB17806502259B29E146AA608382BE73FFD1AA46E96D6"
     },
     "transform": {
       "frame_paths": [
@@ -52,13 +57,13 @@
         "res://assets/runtime/craft/vx94/vx94_bomber_v1.png"
       ],
       "frame_sha256": [
-        "77D5F26C0A588010D1359D87511CC3BE20CC65AD5DE9F96D6C1E5CE4045F15CF",
-        "1FFC19393BDB5880623D7BAA5A01F957432BA471FC7D066A6CE29BB0383168B5",
-        "E65D283E98BF9C43F187B5A85A3782AC05209A4CA7E429F5233ABF7762199539",
-        "791D0BDAC7D8EDA881EB7A4B765CA442E20932A56081C981FB8641EA11D9BAF4",
-        "B2516F3166ABBE9871359C4369260DC6D9B87FC52469E6B54B047B0590BCF8E3"
+        "437515FDE136732CC3778962C89F176D0888EA7902DD4509E3C26829B626D8D7",
+        "2F2DD93A42CA7B5B95D936FA24C141386A3A316BB9148185C277D40B92A6EAF9",
+        "AAE372CEB55159B39C5F67278386CF7015DEE8DF8C8C4266109CA6E4562B02C9",
+        "C51C0B441BB92909DC3AB17806502259B29E146AA608382BE73FFD1AA46E96D6",
+        "C51C0B441BB92909DC3AB17806502259B29E146AA608382BE73FFD1AA46E96D6"
       ],
-      "title_timing_seconds": 0.53
+      "title_timing_seconds": 0.92
     },
     "anchors": {
       "visual_center": [32, 36],
@@ -72,8 +77,8 @@
     }
   },
   "gameplay_runtime": {
-    "canvas": [48, 54],
-    "gameplay_anchor": [24, 29],
+    "canvas": [64, 72],
+    "gameplay_anchor": [32, 38],
     "form_frames": [
       "res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png",
       "res://assets/runtime/craft/vx94/gameplay/vx94_transform_01.png",
@@ -87,7 +92,7 @@
     },
     "animation": {
       "normal_exhaust": {"frames": 4, "fps": 12},
-      "wing_sweep": {"frames": 5, "seconds": 0.42},
+      "wing_sweep": {"frames": 5, "seconds": 0.92},
       "damage_overlays": {"manifest":"res://assets/source/craft/vx94/vx94_damage_overlay_manifest.json", "forms":2, "stages_per_form":3}
     },
     "collision_contract": "visual sprite is deliberately larger than the fair gameplay collision radius supplied by CraftFormRules; no image-derived collision mask"
@@ -98,5 +103,9 @@
     "sequence_seconds": 2.4,
     "live_runtime": "CombatArtDirector renders authored mechanical breakup, persistent fire/smoke, and cockpit escape before the result screen"
   },
-  "remaining_gate": []
+  "remaining_gate": [
+    "replace the five-pose sweep with nine or ten unique mechanically coherent exposures",
+    "complete matching bomber bank poses and refine fighter hard-bank registration",
+    "approve transformation and evasive-roll continuity through recorded native motion review"
+  ]
 }

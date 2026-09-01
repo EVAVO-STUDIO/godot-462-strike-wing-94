@@ -87,7 +87,7 @@ const DESTRUCTION_CAPTURE_FRAMES := {
 	"fort": [preload("res://assets/runtime/effects/ground_breakup/fort_breakup_0.png"), preload("res://assets/runtime/effects/ground_breakup/fort_breakup_1.png"), preload("res://assets/runtime/effects/ground_breakup/fort_breakup_2.png")],
 }
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
-const VX94_GAMEPLAY_ANCHOR := Vector2(24, 29)
+const VX94_GAMEPLAY_ANCHOR := Vector2(32, 38)
 const MERCENARY_AIR_SPRITES := {
 	"scout_falcon": preload("res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png"),
 	"gunship_mk1": preload("res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png"),

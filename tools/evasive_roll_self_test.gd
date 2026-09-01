@@ -16,7 +16,7 @@ func _init() -> void:
 	_expect(not art.contains("edge_profile * inverted"), "evasive-roll art must never regress to flat runtime sprite squashing", failures)
 	for frame_index in range(20):
 		var frame := load("res://assets/runtime/craft/vx94/evasive_roll/roll_%02d.png" % frame_index) as Texture2D
-		_expect(frame != null and frame.get_size() == Vector2(48,54) and frame.get_image().detect_alpha() != Image.ALPHA_NONE, "roll frame %02d should retain registered transparent sprite geometry" % frame_index, failures)
+		_expect(frame != null and frame.get_size() == Vector2(64,72) and frame.get_image().detect_alpha() != Image.ALPHA_NONE, "roll frame %02d should retain reviewed registered transparent sprite geometry" % frame_index, failures)
 	_expect(art.contains('_capture_craft_state() == "evasive-roll"'), "visual QA should expose a deterministic evasive-roll fixture", failures)
 	var main := FileAccess.get_file_as_string("res://scripts/main.gd")
 	_expect(main.contains("_evasive_collision_multiplier()"), "projectile and contact collision should use the physical roll profile", failures)

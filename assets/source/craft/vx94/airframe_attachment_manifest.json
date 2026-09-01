@@ -3,8 +3,8 @@
   "status": "runtime_layered_v1",
   "source_sheet": "res://assets/source/craft/vx94/airframe_attachment_sheet.svg",
   "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/airframe/",
-  "canvas": [48, 54],
-  "registration": [24, 29],
+  "canvas": [64, 72],
+  "registration": [32, 38],
   "forms": ["fighter", "bomber"],
   "layers": {
     "armor": {"frames": 1, "role": "ceramic-titanium wing-root strakes"},

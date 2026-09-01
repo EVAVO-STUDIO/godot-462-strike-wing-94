@@ -10,10 +10,10 @@
     "fighter_master": "res://assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
     "bomber_master": "res://assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
     "damage_overlay": "res://assets/runtime/craft/vx94/gameplay/fx/damage_2.png",
-    "method": "Native 48x54 approved raster layers are separated into authored mechanical masses and repositioned on transparent canvases; no generated replacement airframe pixels."
+    "method": "Approved raster layers are separated into authored mechanical masses and registered on the reviewed 64x72 transparent gameplay canvas; no generated replacement airframe pixels."
   },
   "runtime": {
-    "canvas": [48, 54],
+    "canvas": [64, 72],
     "fighter_frames": ["fighter_breakup_0.png", "fighter_breakup_1.png", "fighter_breakup_2.png", "fighter_breakup_3.png"],
     "bomber_frames": ["bomber_breakup_0.png", "bomber_breakup_1.png", "bomber_breakup_2.png", "bomber_breakup_3.png"],
     "escape_capsule": {"path": "escape_capsule.png", "canvas": [16, 20]},

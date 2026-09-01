@@ -60,15 +60,15 @@ func _test_visual_language() -> void:
 	_expect(source.contains("VX94_EXHAUST") and source.contains("VX94_DAMAGE"), "live VX-94 should use authored thrust and damage overlays")
 	for frame_path in ["vx94_fighter_v1.png", "vx94_transform_01.png", "vx94_transform_02.png", "vx94_transform_03.png", "vx94_bomber_v1.png"]:
 		var gameplay_form := load("res://assets/runtime/craft/vx94/gameplay/%s" % frame_path)
-		_expect(gameplay_form is Texture2D and gameplay_form.get_size() == Vector2(48,54), "VX-94 gameplay form should retain native 48x54 geometry: %s" % frame_path)
+		_expect(gameplay_form is Texture2D and gameplay_form.get_size() == Vector2(64,72), "VX-94 gameplay form should retain reviewed 64x72 geometry: %s" % frame_path)
 	for bank_path in ["fighter_hard_left.png", "fighter_left.png", "fighter_neutral.png", "fighter_right.png", "fighter_hard_right.png", "bomber_hard_left.png", "bomber_left.png", "bomber_neutral.png", "bomber_right.png", "bomber_hard_right.png"]:
 		var bank_frame := load("res://assets/runtime/craft/vx94/gameplay/bank/%s" % bank_path)
-		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(48,54), "VX-94 bank frame should retain native 48x54 geometry: %s" % bank_path)
+		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(64,72), "VX-94 bank frame should retain reviewed 64x72 geometry: %s" % bank_path)
 	_expect(source.contains("_bank_visual < -0.78") and source.contains("_bank_visual > 0.78"), "VX-94 hard-bank art should engage only during committed lateral input")
 	for form in ["fighter", "bomber"]:
 		for frame_index in range(4):
 			var breakup := load("res://assets/runtime/craft/vx94/gameplay/destruction/%s_breakup_%d.png" % [form, frame_index])
-			_expect(breakup is Texture2D and breakup.get_size() == Vector2(48,54), "VX-94 breakup frame should retain native 48x54 geometry: %s %d" % [form, frame_index])
+			_expect(breakup is Texture2D and breakup.get_size() == Vector2(64,72), "VX-94 breakup frame should retain registered 64x72 geometry: %s %d" % [form, frame_index])
 	var escape_capsule := load("res://assets/runtime/craft/vx94/gameplay/destruction/escape_capsule.png")
 	_expect(escape_capsule is Texture2D and escape_capsule.get_size() == Vector2(16,20), "VX-94 escape capsule should retain registered 16x20 geometry")
 	_expect(source.contains("VX94_FIGHTER_BREAKUP") and source.contains("VX94_BOMBER_BREAKUP") and source.contains("VX94_ESCAPE_CAPSULE") and source.contains("_draw_player_loss"), "VX-94 loss should render authored form-specific breakup and escape art")
@@ -566,11 +566,11 @@ func _test_airframe_cues() -> void:
 	for form in ["fighter", "bomber"]:
 		for static_layer in ["armor", "reactive"]:
 			var static_texture := load("res://assets/runtime/craft/vx94/gameplay/airframe/%s_%s.png" % [form,static_layer])
-			_expect(static_texture is Texture2D and static_texture.get_size()==Vector2(48,54), "airframe static attachment must retain VX-94 canvas: %s %s" % [form,static_layer])
+			_expect(static_texture is Texture2D and static_texture.get_size()==Vector2(64,72), "airframe static attachment must retain reviewed VX-94 canvas: %s %s" % [form,static_layer])
 		for animated_layer in ["magnetic", "field"]:
 			for frame_index in range(3):
 				var animation_texture := load("res://assets/runtime/craft/vx94/gameplay/airframe/%s_%s_%d.png" % [form,animated_layer,frame_index])
-				_expect(animation_texture is Texture2D and animation_texture.get_size()==Vector2(48,54), "airframe animated attachment must retain VX-94 canvas: %s %s %d" % [form,animated_layer,frame_index])
+				_expect(animation_texture is Texture2D and animation_texture.get_size()==Vector2(64,72), "airframe animated attachment must retain reviewed VX-94 canvas: %s %s %d" % [form,animated_layer,frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/airframe_attachment_manifest.json"), "VX-94 layered airframe attachment manifest should exist")
 
 func _test_combat_fx() -> void:
@@ -640,7 +640,7 @@ func _test_damage_state() -> void:
 	for form_name in ["fighter", "bomber"]:
 		for stage_name in ["light", "damaged", "critical"]:
 			var damage_texture := load("res://assets/runtime/craft/vx94/gameplay/damage/%s_%s.png" % [form_name, stage_name])
-			_expect(damage_texture is Texture2D and damage_texture.get_size() == Vector2(48,54), "VX-94 damage overlay should retain gameplay registration: %s %s" % [form_name, stage_name])
+			_expect(damage_texture is Texture2D and damage_texture.get_size() == Vector2(64,72), "VX-94 damage overlay should retain reviewed gameplay registration: %s %s" % [form_name, stage_name])
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/vx94_damage_overlay_manifest.json"), "VX-94 form damage source/runtime manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/layered/vx94_layered_manifest.json"), "VX-94 should retain a governed articulated component and pivot contract")
 	_expect(FileAccess.file_exists("res://tools/build_vx94_layered_art.ps1"), "VX-94 articulated runtime components should remain reproducible")

@@ -39,7 +39,7 @@ for ($Index = 0; $Index -lt $PoseCrops.Count; $Index++) {
     $Geometry = $PoseCrops[$Index]
     $Destination = Join-Path $Runtime ('roll_{0:d2}.png' -f $Index)
     $Rotate = if ($Index -ge 10 -and $Index -le 18) { '180' } else { '0' }
-    & $Magick $Clean -crop $Geometry +repage -rotate $Rotate -trim +repage -resize '44x50>' -gravity center -background none -extent '48x54' -colors 48 -depth 8 $Destination
+    & $Magick $Clean -crop $Geometry +repage -background none -rotate $Rotate -trim +repage -resize '56x64>' -gravity center -extent '64x72' -colors 48 -depth 8 $Destination
     if ($LASTEXITCODE -ne 0) { throw "Failed to finish evasive-roll frame $Index." }
     $Channels = & $Magick $Destination -format '%[channels]' info:
     if ($Channels -notmatch 'a') { throw "Evasive-roll frame $Index lost transparency." }

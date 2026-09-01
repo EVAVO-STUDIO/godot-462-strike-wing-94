@@ -1,0 +1,26 @@
+{
+  "name": "vx94_identity_motion_candidate_02",
+  "pixel_art": true,
+  "source_filter": {
+    "include": ["vx94_identity_motion_sheet_candidate_02_raw.png"],
+    "exclude": [],
+    "animation_grouping": "auto"
+  },
+  "cleanup": {
+    "background": "border-palette",
+    "key_colors": [[255, 255, 255], [239, 239, 239]],
+    "color_tolerance": 22,
+    "alpha_threshold": 1,
+    "matte_decontaminate": true,
+    "despeckle_min_area": 12,
+    "clear_hidden_rgb": true
+  },
+  "previews": {"enabled": false},
+  "export": {
+    "godot": false,
+    "generic_json": false,
+    "animated_scene": false,
+    "event_timeline": false,
+    "integration_contract": false
+  }
+}

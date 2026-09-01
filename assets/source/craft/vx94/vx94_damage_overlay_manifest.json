@@ -2,8 +2,8 @@
   "asset_family": "vx94_form_registered_damage",
   "status": "runtime_v1",
   "source": "res://assets/source/craft/vx94/vx94_damage_overlay_sheet.svg",
-  "canvas": [48, 54],
-  "registration": [24, 29],
+  "canvas": [64, 72],
+  "registration": [32, 38],
   "forms": ["fighter", "bomber"],
   "stages": ["light", "damaged", "critical"],
   "visual_contract": {
