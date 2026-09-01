@@ -63,8 +63,32 @@ func _ready() -> void:
 	add_child(_surface)
 	set_process_input(true)
 	set_process_unhandled_input(true)
+	if _apply_capture_override(OS.get_cmdline_user_args()):
+		return
 	if "--capture-gameplay" in OS.get_cmdline_user_args():
 		call_deferred("_complete")
+
+func _apply_capture_override(arguments: PackedStringArray) -> bool:
+	for argument in arguments:
+		if not argument.begins_with("--capture-startup="):
+			continue
+		var fixture := argument.trim_prefix("--capture-startup=").to_lower()
+		var fixtures := {
+			"evavo_ident": {"stage":Stage.EVAVO, "elapsed":1.12},
+			"vx94_transform": {"stage":Stage.HYPERSONIC, "elapsed":3.46},
+			"title_prompt": {"stage":Stage.HYPERSONIC, "elapsed":7.24},
+		}
+		if not fixtures.has(fixture):
+			return false
+		var state: Dictionary = fixtures[fixture]
+		stage = int(state.get("stage", Stage.EVAVO))
+		elapsed = float(state.get("elapsed", 0.0))
+		set_process(false)
+		set_process_input(false)
+		set_process_unhandled_input(false)
+		_surface.queue_redraw()
+		return true
+	return false
 
 func _process(delta: float) -> void:
 	if stage == Stage.COMPLETE:

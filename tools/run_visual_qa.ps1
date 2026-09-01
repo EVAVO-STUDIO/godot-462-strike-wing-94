@@ -25,6 +25,9 @@ if (-not $AbsoluteOutput.StartsWith($WorkRoot + [System.IO.Path]::DirectorySepar
 New-Item -ItemType Directory -Force -Path $AbsoluteOutput | Out-Null
 
 $Cases = @(
+    @{ id='startup_evavo_ident'; args=@('--capture-startup=evavo_ident','--visual-capture-delay=0.25') },
+    @{ id='startup_vx94_transform'; args=@('--capture-startup=vx94_transform','--visual-capture-delay=0.25') },
+    @{ id='startup_title_prompt'; args=@('--capture-startup=title_prompt','--visual-capture-delay=0.25') },
     @{ id='front_main_menu'; args=@('--capture-gameplay','--capture-front-end=main_menu') },
     @{ id='front_sortie_bay'; args=@('--capture-gameplay','--capture-front-end=sortie') },
     @{ id='front_modes'; args=@('--capture-gameplay','--capture-front-end=modes','--capture-campaign-clear','--capture-mode-records') },
