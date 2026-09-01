@@ -6,7 +6,7 @@ const LEVELS := [0, 25, 50, 75, 100]
 const DEADZONE_LEVELS := [0.12, 0.18, 0.24, 0.30]
 const DIFFICULTY_IDS := ["cadet", "combat", "veteran", "ace"]
 const CATEGORY_NAMES := ["VIDEO", "AUDIO", "CONTROLS", "ACCESS", "GAMEPLAY"]
-const CATEGORY_SETTINGS := [[0,1,2],[3,4,5,6],[7],[8,9,10],[11]]
+const CATEGORY_SETTINGS := [[0,1,2],[3,4,5,6],[7],[8,9,10,11],[12]]
 
 var _fullscreen := false
 var _integer_scaling := true
@@ -19,6 +19,7 @@ var _deadzone := 0.18
 var _reduced_shake := false
 var _reduced_flashes := false
 var _enhanced_projectiles := false
+var _subtitles := true
 var _difficulty_id := "combat"
 
 func _ready() -> void:
@@ -37,11 +38,12 @@ func adjust_setting(index: int, direction: int) -> void:
 		8: _reduced_shake = not _reduced_shake
 		9: _reduced_flashes = not _reduced_flashes
 		10: _enhanced_projectiles = not _enhanced_projectiles
-		11: _difficulty_id = DIFFICULTY_IDS[posmod(DIFFICULTY_IDS.find(_difficulty_id)+direction,DIFFICULTY_IDS.size())]
+		11: _subtitles = not _subtitles
+		12: _difficulty_id = DIFFICULTY_IDS[posmod(DIFFICULTY_IDS.find(_difficulty_id)+direction,DIFFICULTY_IDS.size())]
 	_apply_all(); _save_settings()
 
 func setting_label(index: int) -> String:
-	return ["FULLSCREEN","INTEGER SCALING","SCREEN SHAKE","MASTER LEVEL","MUSIC LEVEL","SFX LEVEL","RADIO / UI LEVEL","STICK DEADZONE","REDUCED SHAKE","REDUCED FLASHES","PROJECTILE CONTRAST","CAMPAIGN DIFFICULTY"][clampi(index,0,11)]
+	return ["FULLSCREEN","INTEGER SCALING","SCREEN SHAKE","MASTER LEVEL","MUSIC LEVEL","SFX LEVEL","RADIO / UI LEVEL","STICK DEADZONE","REDUCED SHAKE","REDUCED FLASHES","PROJECTILE CONTRAST","SUBTITLES","CAMPAIGN DIFFICULTY"][clampi(index,0,12)]
 func setting_value(index: int) -> String:
 	match index:
 		0: return "ON" if _fullscreen else "OFF"
@@ -55,7 +57,8 @@ func setting_value(index: int) -> String:
 		8: return "ON" if _reduced_shake else "OFF"
 		9: return "ON" if _reduced_flashes else "OFF"
 		10: return "ENHANCED" if _enhanced_projectiles else "AUTHENTIC"
-		11: return _difficulty_id.to_upper()
+		11: return "ON" if _subtitles else "OFF"
+		12: return _difficulty_id.to_upper()
 	return "--"
 func setting_ratio(index: int) -> float:
 	match index:
@@ -70,7 +73,8 @@ func setting_ratio(index: int) -> float:
 		8: return 1.0 if _reduced_shake else 0.0
 		9: return 1.0 if _reduced_flashes else 0.0
 		10: return 1.0 if _enhanced_projectiles else 0.0
-		11: return float(DIFFICULTY_IDS.find(_difficulty_id))/float(DIFFICULTY_IDS.size()-1)
+		11: return 1.0 if _subtitles else 0.0
+		12: return float(DIFFICULTY_IDS.find(_difficulty_id))/float(DIFFICULTY_IDS.size()-1)
 	return 0.0
 
 func category_count()->int:return CATEGORY_NAMES.size()
@@ -79,7 +83,7 @@ func category_setting_count(index:int)->int:return CATEGORY_SETTINGS[clampi(inde
 func category_global_index(category:int,row:int)->int:
 	var entries:Array=CATEGORY_SETTINGS[clampi(category,0,CATEGORY_SETTINGS.size()-1)]
 	return int(entries[clampi(row,0,entries.size()-1)])
-func setting_count()->int:return 12
+func setting_count()->int:return 13
 func sfx_level()->int:return _sfx_level
 func master_level()->int:return _master_level
 func music_level()->int:return _music_level
@@ -87,6 +91,7 @@ func radio_level()->int:return _radio_level
 func screen_shake_ratio()->float:return float(_shake_level)/100.0*(0.35 if _reduced_shake else 1.0)
 func reduced_flashes()->bool:return _reduced_flashes
 func enhanced_projectile_contrast()->bool:return _enhanced_projectiles
+func subtitles_enabled()->bool:return _subtitles
 func difficulty_id()->String:return _difficulty_id
 
 func _apply_capture_override(arguments:PackedStringArray)->void:
@@ -122,11 +127,11 @@ func _load_settings()->void:
 	_fullscreen=bool(config.get_value("video","fullscreen",_fullscreen));_integer_scaling=bool(config.get_value("video","integer_scaling",_integer_scaling));_shake_level=clampi(int(config.get_value("video","shake_level",_shake_level)),0,100)
 	_master_level=clampi(int(config.get_value("audio","master_level",_master_level)),0,100);_music_level=clampi(int(config.get_value("audio","music_level",_music_level)),0,100);_sfx_level=clampi(int(config.get_value("audio","sfx_level",_sfx_level)),0,100);_radio_level=clampi(int(config.get_value("audio","radio_level",_radio_level)),0,100)
 	_deadzone=clampf(float(config.get_value("controls","deadzone",_deadzone)),DEADZONE_LEVELS[0],DEADZONE_LEVELS[-1])
-	_reduced_shake=bool(config.get_value("accessibility","reduced_shake",_reduced_shake));_reduced_flashes=bool(config.get_value("accessibility","reduced_flashes",_reduced_flashes));_enhanced_projectiles=bool(config.get_value("accessibility","enhanced_projectiles",_enhanced_projectiles))
+	_reduced_shake=bool(config.get_value("accessibility","reduced_shake",_reduced_shake));_reduced_flashes=bool(config.get_value("accessibility","reduced_flashes",_reduced_flashes));_enhanced_projectiles=bool(config.get_value("accessibility","enhanced_projectiles",_enhanced_projectiles));_subtitles=bool(config.get_value("accessibility","subtitles",_subtitles))
 	var loaded:=str(config.get_value("gameplay","difficulty",_difficulty_id)).to_lower();_difficulty_id=loaded if loaded in DIFFICULTY_IDS else "combat"
 func _save_settings()->void:
 	var config:=ConfigFile.new()
 	config.set_value("video","fullscreen",_fullscreen);config.set_value("video","integer_scaling",_integer_scaling);config.set_value("video","shake_level",_shake_level)
 	config.set_value("audio","master_level",_master_level);config.set_value("audio","music_level",_music_level);config.set_value("audio","sfx_level",_sfx_level);config.set_value("audio","radio_level",_radio_level);config.set_value("controls","deadzone",_deadzone)
-	config.set_value("accessibility","reduced_shake",_reduced_shake);config.set_value("accessibility","reduced_flashes",_reduced_flashes);config.set_value("accessibility","enhanced_projectiles",_enhanced_projectiles)
+	config.set_value("accessibility","reduced_shake",_reduced_shake);config.set_value("accessibility","reduced_flashes",_reduced_flashes);config.set_value("accessibility","enhanced_projectiles",_enhanced_projectiles);config.set_value("accessibility","subtitles",_subtitles)
 	config.set_value("gameplay","difficulty",_difficulty_id);config.save(SAVE_PATH)

@@ -46,6 +46,7 @@ Implemented now:
 - verified layered runtime art for the VX-94, enemies, bosses, projectiles, airframes, support set pieces and cinematic hero cels
 - modular, seam-tested coast/refinery environment stacks with animated water, surf, cloud, smoke and weather layers
 - campaign launch/ending cinematics, completion aftermath, credits and post-campaign presentation
+- persistent subtitles, reduced-shake, reduced-flash and enhanced-projectile-contrast accessibility controls
 - local PowerShell validation with optional Godot headless test/editor smoke pass
 
 The obsolete player/enemy/projectile polygons have been removed from `main.gd`. Live combat now resolves through governed sprite manifests and dedicated presentation directors; environment seam gates, art-contract tests and real Godot capture passes protect the active production stack.

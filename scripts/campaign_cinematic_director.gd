@@ -261,9 +261,14 @@ func draw_cinematic(surface: CanvasItem) -> void:
 	surface.draw_rect(Rect2(0,0,640,24), Color("020407"))
 	surface.draw_rect(Rect2(0,296,640,64), Color(0.008,0.014,0.02,0.96))
 	PixelFont.draw_text(surface, str(_active.get("title", "HYPERSONIC")).to_upper(), Vector2(18,9), 1, Color("6aa4c8"), 1)
-	PixelFont.draw_centered(surface, str(shot.get("caption", "")).to_upper(), 320, 313, 1, Color(0.93,0.82,0.44,fade), 1)
+	if _subtitles_enabled():
+		PixelFont.draw_centered(surface, str(shot.get("caption", "")).to_upper(), 320, 313, 1, Color(0.93,0.82,0.44,fade), 1)
 	PixelFont.draw_text(surface, "%02d / %02d" % [_shot_index+1, _active.get("shots", []).size()], Vector2(568,338), 1, Color("52636d"), 1)
 	PixelFont.draw_text(surface, "ENTER ADVANCE   ESC SKIP", Vector2(18,338), 1, Color("52636d"), 1)
+
+func _subtitles_enabled() -> bool:
+	var settings := get_node_or_null("/root/SettingsDirector")
+	return settings == null or not settings.has_method("subtitles_enabled") or bool(settings.call("subtitles_enabled"))
 
 func _draw_plate(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: float) -> void:
 	var plate: Texture2D = PLATES.get(str(shot.get("plate", "")), null)

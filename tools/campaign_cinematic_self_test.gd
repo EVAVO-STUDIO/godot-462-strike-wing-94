@@ -14,6 +14,12 @@ func _run() -> void:
 	var cinematic := root.get_node_or_null("CampaignCinematicDirector")
 	_expect(cinematic != null, "campaign cinematic autoload should exist", failures)
 	if cinematic != null:
+		var settings := root.get_node_or_null("SettingsDirector")
+		if settings != null:
+			settings.set("_subtitles", false)
+			_expect(not bool(cinematic.call("_subtitles_enabled")), "disabled subtitle preference should suppress cinematic captions", failures)
+			settings.set("_subtitles", true)
+			_expect(bool(cinematic.call("_subtitles_enabled")), "enabled subtitle preference should restore cinematic captions", failures)
 		_expect(not bool(cinematic.call("intercept_ending", "m01_coastal_intercept")), "ordinary mission results should not open the ending", failures)
 		_expect(bool(cinematic.call("intercept_ending", "m12_machine_ark")), "Machine Ark result should open the campaign ending", failures)
 		_expect(bool(cinematic.call("cinematic_active")), "campaign ending should remain active until completed or skipped", failures)
