@@ -47,7 +47,7 @@ function Mission-Context($World, [string]$MissionId) {
 Write-Host 'Validating HYPERSONIC...' -ForegroundColor Cyan
 
 $Required = @(
-    'project.godot','export_presets.cfg','tools/export_windows.ps1','tools/verify_windows_export.ps1','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/input_bindings.gd','scripts/settings_director.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
+    'project.godot','export_presets.cfg','tools/export_windows.ps1','tools/verify_windows_export.ps1','tools/build_application_icon.ps1','assets/runtime/brand/hypersonic_application_icon.png','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/input_bindings.gd','scripts/settings_director.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/difficulty_rules.gd','scripts/difficulty_director.gd','data/difficulty_profiles.json','scripts/presentation_feedback_surface.gd','scripts/presentation_feedback_director.gd',
     'scripts/boss_rules.gd','scripts/boss_signature_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
     'scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd','scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd',
@@ -279,7 +279,7 @@ Assert-Contains $HypersonicText @('SPEED_MULTIPLIER := 3.40','TURN_SCALE := 0.38
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 Assert-Contains $SaveText @('SAVE_VERSION := 12','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','branch_decisions','intelligence_unlocked_ids','completed_secret_mission_ids','career_statistics','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 $ExportText = Get-Content -Raw (Join-Path $Root 'export_presets.cfg')
-Assert-Contains $ExportText @('name="Windows Desktop"','export_path="build/windows/HYPERSONIC.exe"','binary_format/embed_pck=true','application/company_name="EVAVO Studio"','application/product_name="HYPERSONIC"') 'Windows export preset'
+Assert-Contains $ExportText @('name="Windows Desktop"','export_path="build/windows/HYPERSONIC.exe"','binary_format/embed_pck=true','application/icon="res://assets/runtime/brand/hypersonic_application_icon.png"','application/company_name="EVAVO Studio"','application/product_name="HYPERSONIC"') 'Windows export preset'
 $ExportScriptPath = Join-Path $Root 'tools/export_windows.ps1'
 $ExportTokens = $null
 $ExportErrors = $null
@@ -290,6 +290,11 @@ $VerifyExportTokens = $null
 $VerifyExportErrors = $null
 [System.Management.Automation.Language.Parser]::ParseFile($VerifyExportScriptPath, [ref]$VerifyExportTokens, [ref]$VerifyExportErrors) | Out-Null
 if ($VerifyExportErrors.Count -gt 0) { throw "Windows export verification script has PowerShell parser errors: $($VerifyExportErrors[0].Message)" }
+$IconBuildScriptPath = Join-Path $Root 'tools/build_application_icon.ps1'
+$IconBuildTokens = $null
+$IconBuildErrors = $null
+[System.Management.Automation.Language.Parser]::ParseFile($IconBuildScriptPath, [ref]$IconBuildTokens, [ref]$IconBuildErrors) | Out-Null
+if ($IconBuildErrors.Count -gt 0) { throw "Application-icon build script has PowerShell parser errors: $($IconBuildErrors[0].Message)" }
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {

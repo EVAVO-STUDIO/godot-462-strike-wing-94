@@ -5,6 +5,7 @@ config_version=5
 [application]
 config/name="HYPERSONIC"
 run/main_scene="res://scenes/main.tscn"
+config/icon="res://assets/runtime/brand/hypersonic_application_icon.png"
 
 [autoload]
 ProductIdentity="*res://scripts/product_identity.gd"
