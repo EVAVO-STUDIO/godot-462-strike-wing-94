@@ -47,7 +47,7 @@ function Mission-Context($World, [string]$MissionId) {
 Write-Host 'Validating HYPERSONIC...' -ForegroundColor Cyan
 
 $Required = @(
-    'project.godot','export_presets.cfg','tools/export_windows.ps1','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/input_bindings.gd','scripts/settings_director.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
+    'project.godot','export_presets.cfg','tools/export_windows.ps1','tools/verify_windows_export.ps1','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/input_bindings.gd','scripts/settings_director.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/difficulty_rules.gd','scripts/difficulty_director.gd','data/difficulty_profiles.json','scripts/presentation_feedback_surface.gd','scripts/presentation_feedback_director.gd',
     'scripts/boss_rules.gd','scripts/boss_signature_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
     'scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd','scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd',
@@ -285,6 +285,11 @@ $ExportTokens = $null
 $ExportErrors = $null
 [System.Management.Automation.Language.Parser]::ParseFile($ExportScriptPath, [ref]$ExportTokens, [ref]$ExportErrors) | Out-Null
 if ($ExportErrors.Count -gt 0) { throw "Windows export script has PowerShell parser errors: $($ExportErrors[0].Message)" }
+$VerifyExportScriptPath = Join-Path $Root 'tools/verify_windows_export.ps1'
+$VerifyExportTokens = $null
+$VerifyExportErrors = $null
+[System.Management.Automation.Language.Parser]::ParseFile($VerifyExportScriptPath, [ref]$VerifyExportTokens, [ref]$VerifyExportErrors) | Out-Null
+if ($VerifyExportErrors.Count -gt 0) { throw "Windows export verification script has PowerShell parser errors: $($VerifyExportErrors[0].Message)" }
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
