@@ -2,7 +2,8 @@
 param(
     [string]$GodotBin = $env:GODOT_BIN,
     [string]$OutputPath = 'build/windows/HYPERSONIC.exe',
-    [switch]$SkipPerformance
+    [switch]$SkipPerformance,
+    [switch]$SkipVisualQa
 )
 
 $ErrorActionPreference = 'Stop'
@@ -10,8 +11,9 @@ $ValidateScript = Join-Path $PSScriptRoot 'validate.ps1'
 $ExportScript = Join-Path $PSScriptRoot 'export_windows.ps1'
 $VerifyScript = Join-Path $PSScriptRoot 'verify_windows_export.ps1'
 $PerformanceScript = Join-Path $PSScriptRoot 'run_performance_profile.ps1'
+$VisualQaScript = Join-Path $PSScriptRoot 'run_visual_qa.ps1'
 
-foreach ($ScriptPath in @($ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript)) {
+foreach ($ScriptPath in @($ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript)) {
     $Tokens = $null
     $Errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($ScriptPath, [ref]$Tokens, [ref]$Errors) | Out-Null
@@ -27,7 +29,14 @@ if (-not $SkipPerformance) {
     Write-Host 'Running the native 1280x720 production combat stress profile...' -ForegroundColor Cyan
     & $PerformanceScript -GodotBin $GodotBin -Density stress -Isolate none
 } else {
-    Write-Warning 'Graphical performance profiling was explicitly skipped; this run is not a complete release-performance audit.'
+	Write-Warning 'Graphical performance profiling was explicitly skipped; this run is not a complete release-performance audit.'
+}
+
+if (-not $SkipVisualQa) {
+    Write-Host 'Capturing the canonical 640x360 representative visual QA matrix...' -ForegroundColor Cyan
+    & $VisualQaScript -GodotBin $GodotBin
+} else {
+    Write-Warning 'Visual QA capture was explicitly skipped; this run is not a complete release-presentation audit.'
 }
 
 Write-Host 'Building the canonical HYPERSONIC Windows package...' -ForegroundColor Cyan

@@ -156,6 +156,10 @@ func _ready() -> void:
 		call_deferred("_begin_capture_gameplay")
 	if "--performance-profile" in OS.get_cmdline_user_args():
 		add_child(preload("res://tools/performance_probe.gd").new())
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--visual-capture="):
+			add_child(preload("res://tools/visual_capture_probe.gd").new())
+			break
 	queue_redraw()
 
 func _capture_front_end(arguments: PackedStringArray) -> String:

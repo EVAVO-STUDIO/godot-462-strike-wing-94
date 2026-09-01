@@ -47,7 +47,7 @@ function Mission-Context($World, [string]$MissionId) {
 Write-Host 'Validating HYPERSONIC...' -ForegroundColor Cyan
 
 $Required = @(
-    'project.godot','export_presets.cfg','tools/export_windows.ps1','tools/verify_windows_export.ps1','tools/validate_windows_release.ps1','tools/run_performance_profile.ps1','tools/performance_probe.gd','tools/build_application_icon.ps1','assets/runtime/brand/hypersonic_application_icon.png','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/input_bindings.gd','scripts/settings_director.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
+    'project.godot','export_presets.cfg','tools/export_windows.ps1','tools/verify_windows_export.ps1','tools/validate_windows_release.ps1','tools/run_performance_profile.ps1','tools/performance_probe.gd','tools/run_visual_qa.ps1','tools/visual_capture_probe.gd','tools/build_application_icon.ps1','assets/runtime/brand/hypersonic_application_icon.png','scenes/main.tscn','scripts/main.gd','scripts/content_catalog.gd','scripts/product_identity.gd','scripts/input_bindings.gd','scripts/settings_director.gd','scripts/startup_sequence_director.gd','scripts/startup_sequence_surface.gd','data/product_identity.json',
     'scripts/combat_rules.gd','scripts/projectile_rules.gd','scripts/progression_rules.gd','scripts/objective_rules.gd','scripts/difficulty_rules.gd','scripts/difficulty_director.gd','data/difficulty_profiles.json','scripts/presentation_feedback_surface.gd','scripts/presentation_feedback_director.gd',
     'scripts/boss_rules.gd','scripts/boss_signature_rules.gd','scripts/boss_director.gd','scripts/bomb_rules.gd',
     'scripts/campaign_save.gd','scripts/save_recovery_rules.gd','scripts/run_seed_rules.gd','scripts/mission_state_rules.gd','scripts/mission_flow_rules.gd',
@@ -261,7 +261,7 @@ if ($InterceptText.Contains('scene.set("score"')) { throw 'Intercept presentatio
 $AltitudeText = Get-Content -Raw (Join-Path $Root 'scripts/altitude_rules.gd')
 Assert-Contains $AltitudeText @('TRANSITION_SECONDS := 1.15','allows_enemy_class','allows_enemy_archetype','adjacent_band') 'Altitude rules'
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
-Assert-Contains $MainText @('_craft_primary_mount_offsets(weapon, count)','"position": player_position + mount_offsets[i]','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','EnvironmentRules.surface_spawn_x') 'Main gameplay'
+Assert-Contains $MainText @('_craft_primary_mount_offsets(weapon, count)','"position": player_position + mount_offsets[i]','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','EnvironmentRules.surface_spawn_x','--visual-capture=','res://tools/visual_capture_probe.gd') 'Main gameplay'
 $StrikeRulesText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_rules.gd')
 Assert-Contains $StrikeRulesText @('ROUTE_PRECISION_SCORE := 450','assisted_target_index','strike_priority','STABILITY_SECONDS := 0.65','update_stability','stabilized_impact_delay','stabilized_aim_radius') 'Bombing computer rules'
 $StrikeText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_director.gd')
@@ -302,6 +302,11 @@ $PerformanceTokens = $null
 $PerformanceErrors = $null
 [System.Management.Automation.Language.Parser]::ParseFile($PerformanceScriptPath, [ref]$PerformanceTokens, [ref]$PerformanceErrors) | Out-Null
 if ($PerformanceErrors.Count -gt 0) { throw "Performance profile script has PowerShell parser errors: $($PerformanceErrors[0].Message)" }
+$VisualQaScriptPath = Join-Path $Root 'tools/run_visual_qa.ps1'
+$VisualQaTokens = $null
+$VisualQaErrors = $null
+[System.Management.Automation.Language.Parser]::ParseFile($VisualQaScriptPath, [ref]$VisualQaTokens, [ref]$VisualQaErrors) | Out-Null
+if ($VisualQaErrors.Count -gt 0) { throw "Visual QA script has PowerShell parser errors: $($VisualQaErrors[0].Message)" }
 $IconBuildScriptPath = Join-Path $Root 'tools/build_application_icon.ps1'
 $IconBuildTokens = $null
 $IconBuildErrors = $null
