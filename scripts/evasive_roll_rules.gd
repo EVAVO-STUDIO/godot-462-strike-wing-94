@@ -19,4 +19,8 @@ static func travel_ratio(progress: float) -> float:
 
 static func collision_multiplier(progress: float) -> float:
 	var edge_on := sin(clampf(progress, 0.0, 1.0) * PI)
-	return lerpf(1.0, MIN_HIT_PROFILE, edge_on)
+	# Main resolves collision with squared distances/radii. Square the visual
+	# radius profile here so the edge-on craft is physically 38% as wide,
+	# rather than accidentally sqrt(0.38), or roughly 62%, as wide.
+	var radius_multiplier := lerpf(1.0, MIN_HIT_PROFILE, edge_on)
+	return radius_multiplier * radius_multiplier

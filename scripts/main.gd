@@ -17,6 +17,7 @@ const ServiceRules = preload("res://scripts/service_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
+const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
 const NEUTRAL_DEPTH_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
 
 const PLAYER_SPEED := 220.0
@@ -1590,7 +1591,8 @@ func _configure_input() -> void:
 
 func _evasive_collision_multiplier() -> float:
 	var evasive := get_node_or_null("/root/EvasiveRollDirector")
-	return clampf(float(evasive.call("collision_multiplier")), 0.30, 1.0) if evasive != null and evasive.has_method("collision_multiplier") else 1.0
+	var minimum_squared := EvasiveRollRules.MIN_HIT_PROFILE * EvasiveRollRules.MIN_HIT_PROFILE
+	return clampf(float(evasive.call("collision_multiplier")), minimum_squared, 1.0) if evasive != null and evasive.has_method("collision_multiplier") else 1.0
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action):

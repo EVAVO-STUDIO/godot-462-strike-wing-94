@@ -62,6 +62,7 @@ The obsolete player/enemy/projectile polygons have been removed from `main.gd`. 
 - Primary fire: `Space`
 - Afterburner: `Shift`
 - Transform fighter / bomber: `Q`
+- Committed evasive roll: hold left/right and press `C`
 - Optional altitude climb during an authored lane window: `PageUp`
 - Optional altitude dive during an authored lane window: `PageDown`
 - Emergency screen bomb: `X`
