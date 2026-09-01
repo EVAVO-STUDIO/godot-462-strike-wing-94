@@ -4,6 +4,7 @@
 *.gd.uid
 export.cfg
 export_presets.cfg
+!export_presets.cfg
 
 # Mono / C#
 .mono/

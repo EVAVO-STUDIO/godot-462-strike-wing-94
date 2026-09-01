@@ -195,6 +195,17 @@ Set-Location C:\GitRepos\godot-462-strike-wing-94
 
 If Godot is not on `PATH`, set `GODOT_BIN` or pass `-GodotBin`. Structural/data/save/content checks still run without the engine executable; when Godot 4.6.2 is found, the script also runs the focused headless self-tests and editor parser smoke test.
 
+## Export for Windows
+
+Install the export templates matching the Godot editor version, then run:
+
+```powershell
+Set-Location C:\GitRepos\godot-462-strike-wing-94
+.\tools\export_windows.ps1
+```
+
+The canonical `Windows Desktop` preset produces a single embedded-PCK executable at `build/windows/HYPERSONIC.exe`. Source-production art, documentation, tools and local work captures are excluded from the player package. The export script refuses output paths outside the repository's ignored `build` directory.
+
 ## Direction
 
 The target is an original, pixel-perfect 90s PC shooter with the depth and authored discipline of the best era references without copying their proprietary content.
