@@ -19,7 +19,8 @@
     "primary_meter_cluster": "res://assets/source/ui/hud/primary_meter_cluster_manifest.json",
     "top_avionics_fascia": "res://assets/source/ui/hud/top_avionics_fascia_manifest.json",
     "boss_phase_bar": "res://assets/source/ui/hud/boss_phase_bar_manifest.json",
-    "threat_annunciator": "res://assets/source/ui/hud/threat_annunciator_manifest.json"
+    "threat_annunciator": "res://assets/source/ui/hud/threat_annunciator_manifest.json",
+    "aircraft_local_rwr_cues": "res://assets/source/ui/hud/rwr_aircraft_cue_manifest.json"
   },
   "concept_reference": "res://assets/source/ui/concepts/hud_environment_style_board_v1.png"
 }

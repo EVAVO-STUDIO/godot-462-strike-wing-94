@@ -149,7 +149,7 @@ func _test_pixel_ui() -> void:
 		for front_end_asset in ["frame.png", "button_idle.png", "button_selected.png", "cursor.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/front_end/%s" % front_end_asset), "front-end menu sprite should exist: %s" % front_end_asset)
 		_expect(source.contains("func _draw_support_links"), "support readiness instrumentation should remain available without permanently crowding the combat field")
-		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "warning", "boss"]'), "visual QA should expose deterministic objective, warning and boss HUD fixtures without mutating simulation")
+		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "acquisition", "warning", "boss"]'), "visual QA should expose deterministic objective, acquisition, warning and boss HUD fixtures without mutating simulation")
 		_expect(source.contains('if _capture_hud_state() == "boss"') and source.contains('if _capture_hud_state() == "warning"'), "critical HUD capture fixtures should provide deterministic boss and missile-lock presentation data")
 		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("elif not _altitude_choice_active(scene)"), "control-critical altitude choice should suppress colliding routine status notices")
 		_expect(FileAccess.file_exists("res://tools/build_hud_threat_art.ps1"), "threat-annunciator sprites should remain reproducible from their governed SVG source")
@@ -226,6 +226,14 @@ func _test_pixel_ui() -> void:
 			_expect(threat_texture is Texture2D and threat_texture.get_size() == threat_sizes[threat_asset], "radar-warning receiver sprite should retain registered geometry: %s" % threat_asset)
 		_expect(source.contains("HUD_THREAT_APPROACH_TROUGH") and source.contains("ThreatWarningRules.warning_level") and source.contains("approach_ratio"), "missile annunciator should expose warning state and closure distance through authored instruments")
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/threat_annunciator_manifest.json"), "radar-warning receiver source/runtime manifest should exist")
+		for bearing_index in range(12):
+			var bearing_texture := load("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_%02d.png" % bearing_index)
+			_expect(bearing_texture is Texture2D and bearing_texture.get_size() == Vector2(16,16), "aircraft-local RWR bearing sprite should retain registered geometry: %02d" % bearing_index)
+		for cue_name in ["spike", "hard_lock", "missile_inbound"]:
+			var cue_texture := load("res://assets/runtime/ui/hud/rwr_aircraft_cues/%s.png" % cue_name)
+			_expect(cue_texture is Texture2D and cue_texture.get_size() == Vector2(28,28), "aircraft-local RWR state sprite should retain registered geometry: %s" % cue_name)
+		_expect(source.contains("func _draw_aircraft_rwr_cue") and source.contains("HUD_RWR_BEARINGS") and source.contains("HUD_RWR_MISSILE_INBOUND"), "missile warnings should place authored clock-bearing and lock-state cues around the aircraft")
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/rwr_aircraft_cue_manifest.json") and FileAccess.file_exists("res://tools/build_rwr_aircraft_cues.ps1"), "aircraft-local RWR cues should retain governed source and deterministic builder")
 		for boss_phase in ["phase_1","phase_2","phase_3"]:
 			var boss_phase_frame := load("res://assets/runtime/ui/hud/boss_phase_bar/%s.png" % boss_phase)
 			var boss_phase_fill := load("res://assets/runtime/ui/hud/boss_phase_bar/%s_fill.png" % boss_phase)

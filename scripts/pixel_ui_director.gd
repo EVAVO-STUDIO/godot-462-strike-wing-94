@@ -93,6 +93,17 @@ const HUD_THREAT_APPROACH_TROUGH := preload("res://assets/runtime/ui/hud/threat_
 const HUD_THREAT_CAUTION_FILL := preload("res://assets/runtime/ui/hud/threat_annunciator/caution_fill.png")
 const HUD_THREAT_LOCK_FILL := preload("res://assets/runtime/ui/hud/threat_annunciator/lock_fill.png")
 const HUD_THREAT_MISSILE_ICON := preload("res://assets/runtime/ui/hud/threat_annunciator/missile_icon.png")
+const HUD_RWR_BEARINGS := [
+	preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_00.png"), preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_01.png"),
+	preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_02.png"), preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_03.png"),
+	preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_04.png"), preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_05.png"),
+	preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_06.png"), preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_07.png"),
+	preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_08.png"), preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_09.png"),
+	preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_10.png"), preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/bearing_11.png"),
+]
+const HUD_RWR_SPIKE := preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/spike.png")
+const HUD_RWR_HARD_LOCK := preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/hard_lock.png")
+const HUD_RWR_MISSILE_INBOUND := preload("res://assets/runtime/ui/hud/rwr_aircraft_cues/missile_inbound.png")
 const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
 const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
@@ -817,6 +828,29 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(HUD_THREAT_APPROACH_TROUGH, position + Vector2(190, 16))
 	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0) if count > 0 else acquiring
 	_draw_clipped_fill(surface, HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL, position + Vector2(191, 17), approach_ratio)
+	_draw_aircraft_rwr_cue(surface, scene, snapshot, level)
+
+func _draw_aircraft_rwr_cue(surface: CanvasItem, scene: Object, snapshot: Dictionary, warning_level: int) -> void:
+	var player: Vector2 = scene.get("player_position")
+	var count := int(snapshot.get("count", 0))
+	var acquiring := float(snapshot.get("acquiring", 0.0))
+	var frame: Texture2D = HUD_RWR_SPIKE
+	if count > 0 and warning_level >= 2:
+		frame = HUD_RWR_MISSILE_INBOUND
+	elif count > 0 or acquiring >= 0.65:
+		frame = HUD_RWR_HARD_LOCK
+	var pulse := 0.78 + 0.22 * absf(sin(float(scene.get("mission_time")) * 18.0)) if count > 0 else 0.88
+	var frame_position := Vector2(clampf(player.x - 14.0, 4.0, 608.0), clampf(player.y - 14.0, 70.0, 328.0)).round()
+	surface.draw_texture(frame, frame_position, Color(1,1,1,pulse))
+	var bearing := clampi(int(snapshot.get("bearing", 12)), 1, 12)
+	var radians := float(bearing % 12) / 12.0 * TAU - PI * 0.5
+	var direction := Vector2(cos(radians), sin(radians))
+	# Keep the direction pip close enough to the airframe that it cannot collide
+	# with bottom-edge altitude/support controls during low-screen maneuvering.
+	var cue_position := player + direction * 31.0 - Vector2(8,8)
+	cue_position.x = clampf(cue_position.x, 6.0, 618.0)
+	cue_position.y = clampf(cue_position.y, 70.0, 338.0)
+	surface.draw_texture(HUD_RWR_BEARINGS[bearing % 12], cue_position.round(), Color(1,1,1,pulse))
 
 func _support_name() -> String:
 	var director := get_node_or_null("/root/SupportDirector")
@@ -930,16 +964,22 @@ func _active_boss(scene: Object) -> Dictionary:
 func _threat_snapshot(scene: Object) -> Dictionary:
 	if _capture_hud_state() == "warning":
 		return {"count":3, "distance":96.0, "bearing":5, "tti":1.4, "acquiring":1.0}
+	if _capture_hud_state() == "acquisition":
+		return {"count":0, "distance":INF, "bearing":10, "tti":INF, "acquiring":0.48}
 	var bullets: Array = scene.get("enemy_bullets")
 	var player_position: Vector2 = scene.get("player_position")
 	var count := ThreatWarningRules.homing_count(bullets)
 	var distance := ThreatWarningRules.nearest_homing_distance(bullets, player_position)
 	var acquiring := 0.0
+	var acquiring_bearing := 12
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
-			acquiring = maxf(acquiring, float(enemy.get("missile_lock_ratio", 0.0)))
+			var ratio := float(enemy.get("missile_lock_ratio", 0.0))
+			if ratio > acquiring:
+				acquiring = ratio
+				acquiring_bearing = ThreatWarningRules.clock_bearing(enemy.get("position", Vector2.ZERO), player_position)
 	if count <= 0:
-		return {"count":0,"distance":INF,"acquiring":acquiring} if acquiring > 0.05 else {}
+		return {"count":0,"distance":INF,"acquiring":acquiring,"bearing":acquiring_bearing} if acquiring > 0.05 else {}
 	var nearest := ThreatWarningRules.nearest_homing(bullets, player_position)
 	return {"count":count, "distance":distance, "bearing":ThreatWarningRules.clock_bearing(nearest.get("position",Vector2.ZERO),player_position), "tti":ThreatWarningRules.time_to_impact(nearest,player_position), "acquiring":acquiring}
 
@@ -949,7 +989,7 @@ func _capture_hud_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-hud="):
 			var state := argument.trim_prefix("--capture-hud=").to_lower()
-			return state if state in ["objective", "warning", "boss"] else ""
+			return state if state in ["objective", "acquisition", "warning", "boss"] else ""
 	return ""
 
 func _call_dictionary(scene: Object, method_name: String) -> Dictionary:

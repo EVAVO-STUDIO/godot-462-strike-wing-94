@@ -1,0 +1,17 @@
+{
+  "asset_family": "vx94_aircraft_local_rwr_cues",
+  "status": "runtime_v1",
+  "source": "res://assets/source/ui/hud/rwr_aircraft_cue_sheet.svg",
+  "builder": "res://tools/build_rwr_aircraft_cues.ps1",
+  "visual_contract": {
+    "purpose": "place concise clock-bearing and lock-state symbology around the VX-94 without a permanent radar panel",
+    "era": "late-1990s dedicated radar-warning receiver and fighter HUD symbology",
+    "states": ["spike", "hard_lock", "missile_inbound"],
+    "bearings": [12,1,2,3,4,5,6,7,8,9,10,11],
+    "avoid": ["large radar overlay", "rotated aircraft art", "modern holographic ring", "persistent screen clutter"]
+  },
+  "runtime": {
+    "bearing_frames": {"count": 12, "size": [16,16]},
+    "state_frames": {"spike": [28,28], "hard_lock": [28,28], "missile_inbound": [28,28]}
+  }
+}
