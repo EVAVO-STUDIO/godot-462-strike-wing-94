@@ -484,7 +484,9 @@ func _update_front_end_modes() -> void:
 	elif count > 0 and Input.is_action_just_pressed("move_down"):
 		mode_selection = posmod(mode_selection+1,count)
 	elif count > 0 and Input.is_action_just_pressed("confirm") and modes.has_method("start_selected"):
-		modes.call("start_selected",self,mode_selection)
+		if not bool(modes.call("start_selected",self,mode_selection)):
+			status_text = "LOCKED // CLEAR BLACK SKY CAMPAIGN"
+			status_timer = 3.0
 
 func _update_front_end_options() -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
@@ -763,7 +765,7 @@ func _return_from_credits() -> void:
 	phase = GamePhase.TITLE
 	front_end_screen = "main_menu"
 	menu_selection = 0
-	status_text = "BLACK SKY CAMPAIGN CLEARED"
+	status_text = "BLACK SKY CLEAR // BOSS RUSH UNLOCKED"
 	status_timer = 4.0
 
 func _credits_blocking() -> bool:

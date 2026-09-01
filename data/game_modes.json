@@ -11,6 +11,7 @@
     {
       "id":"boss_rush","name":"BOSS RUSH","tagline":"7 COMMAND TARGETS","icon":"boss",
       "description":"No patrol route. Seven decisive command targets with reinforced armour and maximum stores.",
+      "requires_campaign_clear":true,
       "missions":["m04_breakwater","m06_black_flag","s1_m10_night_harbor","s2_m10_machine_crown","m10_blue_fire","m11_cold_station","m12_machine_ark"],
       "lives":3,"weapon_index":7,"generator_index":4,"airframe_index":4,"support_index":6,
       "enemy_speed_multiplier":1.06,"enemy_hp_multiplier":1.18,"score_multiplier":1.35

@@ -20,6 +20,7 @@ class ModeScene extends Node:
 	var front_end_screen := "modes"
 	var mission_catalog: Array = []
 	var mode_records: Dictionary = {}
+	var campaign_completed := false
 	var prepared_index := -1
 	func _prepare_mission(index: int) -> void: prepared_index = index
 	func _max_hull() -> int: return 100
@@ -44,6 +45,7 @@ func _run() -> void:
 		_expect(int(mode.get("lives", 0)) >= 1,"each mode should define a real one-credit airframe allowance",failures)
 		_expect(float(mode.get("score_multiplier", 0.0)) > 1.0,"each mode should reward its higher stakes",failures)
 	_expect(ids == ["arcade_assault","boss_rush","hypersonic_trial","strike_mastery"],"mode identity/order should remain canonical",failures)
+	_expect(bool(modes[1].get("requires_campaign_clear", false)),"Boss Rush should be the authored BLACK SKY completion unlock",failures)
 	_expect(GameModeRules.scaled_hp(10,modes[1]) == 12,"Boss Rush should apply authored armour scaling",failures)
 	_expect(GameModeRules.scaled_score(100,modes[3]) == 200,"Strike Mastery should double canonical target score",failures)
 	for emblem in ["arcade","boss","hypersonic","strike"]:
@@ -59,6 +61,8 @@ func _run() -> void:
 		var scene := ModeScene.new()
 		for mission in missions_data.get("missions",[]): scene.mission_catalog.append(mission)
 		root.add_child(scene)
+		_expect(not bool(director.call("is_unlocked",scene,1)),"Boss Rush should remain locked before campaign completion",failures)
+		_expect(not bool(director.call("start_selected",scene,1)),"director should enforce the Boss Rush gate independently of UI",failures)
 		_expect(bool(director.call("start_selected",scene,0)),"Arcade Assault should start against the canonical mission catalogue",failures)
 		_expect(scene.game_mode == "arcade_assault" and scene.mode_route_total == 12 and scene.mode_lives == 3,"Arcade Assault should publish route and airframe state",failures)
 		_expect(scene.prepared_index >= 0 and scene.front_end_screen == "sortie","alternate mode should prepare its first real sortie",failures)
@@ -68,6 +72,8 @@ func _run() -> void:
 		_expect(int(scene.mode_records.get("arcade_assault",{}).get("attempts",0)) == 1 and int(scene.mode_records.get("arcade_assault",{}).get("best_score",0)) == 1250,"alternate run should persist attempts, route progress and best score",failures)
 		director.call("_end_run",scene)
 		_expect(scene.game_mode == "campaign" and scene.credits == 4200 and scene.mission_index == 3,"ending a mode should restore isolated campaign state",failures)
+		scene.campaign_completed = true
+		_expect(bool(director.call("is_unlocked",scene,1)),"campaign completion should unlock Boss Rush",failures)
 		scene.queue_free()
 	var main_source := _source("res://scripts/main.gd")
 	_expect(main_source.contains("_mode_enemy_hp") and main_source.contains("_mode_enemy_speed") and main_source.contains("_mode_score_value"),"alternate modifiers should hook canonical combat spawn and score paths",failures)
@@ -80,6 +86,7 @@ func _run() -> void:
 	_expect(ui_source.contains("ARCADE / CHALLENGE OPERATIONS") and ui_source.contains("MODE_EMBLEMS"),"front end should expose a dedicated authored mode board",failures)
 	_expect(ui_source.contains("_draw_mode_run_state") and ui_source.contains("MODE_RUN_FRAME"),"live alternate sorties should expose route, airframes, and banked run score",failures)
 	_expect(ui_source.contains('BEST %08d  CLEAR %02d') and ui_source.contains('scene.get("mode_records")'),"mode board should expose persistent best score and clear history",failures)
+	_expect(ui_source.contains("LOCKED // CLEAR BLACK SKY") and ui_source.contains("CAMPAIGN CLEAR REQUIRED"),"mode board should communicate the post-game unlock gate",failures)
 	if failures.is_empty():
 		print("HYPERSONIC arcade/challenge modes self-test passed.")
 		quit(0)

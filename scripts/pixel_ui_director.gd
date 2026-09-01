@@ -353,15 +353,17 @@ func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface,"ARCADE / CHALLENGE OPERATIONS",320,122,1,GOLD,1)
 	for i in range(modes.size()):
 		var mode: Dictionary = modes[i]
+		var unlocked := not director.has_method("is_unlocked") or bool(director.call("is_unlocked", scene, i))
 		var y := 140+i*42
 		surface.draw_rect(Rect2(34,y,250,36),Color("12212b") if i == selection else Color("08131b"))
-		surface.draw_rect(Rect2(34,y,250,36),GOLD if i == selection else Color("314955"),false,1.0)
+		surface.draw_rect(Rect2(34,y,250,36),GOLD if i == selection and unlocked else Color("314955"),false,1.0)
 		var icon: Texture2D = MODE_EMBLEMS.get(str(mode.get("icon","arcade")),MODE_EMBLEMS["arcade"])
-		surface.draw_texture_rect(icon,Rect2(38,y+2,32,32),false)
-		PixelFont.draw_text(surface,str(mode.get("name","MODE")),Vector2(78,y+7),1,GOLD if i == selection else TEXT,1)
-		PixelFont.draw_text(surface,str(mode.get("tagline","")),Vector2(78,y+20),1,BLUE if i == selection else MUTED,1)
+		surface.draw_texture_rect(icon,Rect2(38,y+2,32,32),false,Color.WHITE if unlocked else Color(0.32,0.38,0.40))
+		PixelFont.draw_text(surface,str(mode.get("name","MODE")),Vector2(78,y+7),1,GOLD if i == selection and unlocked else (TEXT if unlocked else MUTED),1)
+		PixelFont.draw_text(surface,str(mode.get("tagline","")) if unlocked else "LOCKED // CLEAR BLACK SKY",Vector2(78,y+20),1,BLUE if i == selection and unlocked else MUTED,1)
 		if i == selection: surface.draw_texture(FRONT_END_CURSOR,Vector2(20,y+10))
 	var selected: Dictionary = modes[selection]
+	var selected_unlocked := not director.has_method("is_unlocked") or bool(director.call("is_unlocked", scene, selection))
 	_draw_console_panel(surface,Rect2(300,140,306,162),str(selected.get("name","MODE")),BLUE)
 	var large_icon: Texture2D = MODE_EMBLEMS.get(str(selected.get("icon","arcade")),MODE_EMBLEMS["arcade"])
 	surface.draw_texture_rect(large_icon,Rect2(320,160,64,64),false)
@@ -375,7 +377,7 @@ func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
 	var lines := _wrap_text(str(selected.get("description","")),35)
 	for i in range(mini(3,lines.size())):
 		PixelFont.draw_text(surface,lines[i],Vector2(320,238+i*12),1,MUTED,1)
-	PixelFont.draw_centered(surface,"ENTER DEPLOY   ESC RETURN",453,286,1,GOLD,1)
+	PixelFont.draw_centered(surface,"ENTER DEPLOY   ESC RETURN" if selected_unlocked else "CAMPAIGN CLEAR REQUIRED",453,286,1,GOLD if selected_unlocked else RED,1)
 
 func _draw_front_end_branch(surface: CanvasItem, scene: Object) -> void:
 	var branch: Dictionary = scene.get("current_branch") if _has_property(scene,"current_branch") else {}

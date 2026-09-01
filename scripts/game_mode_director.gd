@@ -28,6 +28,14 @@ func mode_at(index: int) -> Dictionary:
 	if _modes.is_empty(): return {}
 	return _modes[clampi(index,0,_modes.size()-1)].duplicate(true)
 
+func is_unlocked(scene: Object, index: int) -> bool:
+	if scene == null or _modes.is_empty():
+		return false
+	var mode: Dictionary = _modes[clampi(index, 0, _modes.size() - 1)]
+	if not bool(mode.get("requires_campaign_clear", false)):
+		return true
+	return _has_property(scene, "campaign_completed") and bool(scene.get("campaign_completed"))
+
 func active_mode() -> Dictionary:
 	return _active.duplicate(true)
 
@@ -35,7 +43,7 @@ func active() -> bool:
 	return not _active.is_empty()
 
 func start_selected(scene: Object, selection: int) -> bool:
-	if scene == null or _modes.is_empty(): return false
+	if scene == null or _modes.is_empty() or not is_unlocked(scene, selection): return false
 	_active = _modes[clampi(selection,0,_modes.size()-1)].duplicate(true)
 	_campaign_snapshot = _snapshot_campaign(scene)
 	_set_if(scene,"game_mode",str(_active.get("id","arcade")))
