@@ -1,0 +1,23 @@
+{
+  "asset_family": "hypersonic_refinery_geography_v1",
+  "source": "res://assets/source/environments/refinery_chunks/refinery_geography_source_v1.png",
+  "builder": "res://tools/build_refinery_geography_art.ps1",
+  "source_method": "Built-in image generation created the opaque industrial geography source; deterministic EVAVO finishing registers, seam-closes and exports the runtime sections.",
+  "chunks": [
+    {"id": "tank_farm", "role": "containment and storage approach", "size": [640, 1024]},
+    {"id": "cracking_corridor", "role": "dense process and pipe strike corridor", "size": [640, 1024]},
+    {"id": "rail_loading", "role": "loading gantry and rail attack lane", "size": [640, 1024]}
+  ],
+  "assembly_contract": {
+    "geography_cycle_pixels": 3072,
+    "finite_machinery_cycle_pixels": 1800,
+    "shared_connector_height": 48,
+    "base_order": ["geography_chunk", "finite_machinery", "steam_smoke_flare", "practical_light", "cloud_shadow", "cloud_body", "mist"],
+    "rules": [
+      "Recognizable refinery geography never repeats at the former 720-pixel interval.",
+      "Large machinery, steam, flare and smoke remain independent transparent sprites.",
+      "Adjacent geography sections close at zero scanline error.",
+      "Every section retains broad projectile-readable strike lanes."
+    ]
+  }
+}

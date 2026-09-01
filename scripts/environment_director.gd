@@ -9,7 +9,11 @@ const COAST_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/coast_chunks/defended_inlet.png"),
 	preload("res://assets/runtime/environments/coast_chunks/reef_cliffs.png"),
 ]
-const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png")
+const REFINERY_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/refinery_chunks/tank_farm.png"),
+	preload("res://assets/runtime/environments/refinery_chunks/cracking_corridor.png"),
+	preload("res://assets/runtime/environments/refinery_chunks/rail_loading.png"),
+]
 const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
 const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
@@ -66,6 +70,11 @@ const REFINERY_FLARE := [
 	preload("res://assets/runtime/environments/modular_refinery/flare_0.png"), preload("res://assets/runtime/environments/modular_refinery/flare_1.png"),
 	preload("res://assets/runtime/environments/modular_refinery/flare_2.png"), preload("res://assets/runtime/environments/modular_refinery/flare_3.png"),
 	preload("res://assets/runtime/environments/modular_refinery/flare_4.png"),
+]
+const REFINERY_SMOKE := [
+	preload("res://assets/runtime/environments/modular_refinery/smoke_0.png"), preload("res://assets/runtime/environments/modular_refinery/smoke_1.png"),
+	preload("res://assets/runtime/environments/modular_refinery/smoke_2.png"), preload("res://assets/runtime/environments/modular_refinery/smoke_3.png"),
+	preload("res://assets/runtime/environments/modular_refinery/smoke_4.png"),
 ]
 const DESERT_DUST_TILE := preload("res://assets/runtime/environments/layers/desert_dust_tile.png")
 const RIVER_CURRENT_TILE := preload("res://assets/runtime/environments/layers/river_current_tile.png")
@@ -531,8 +540,8 @@ func _draw_vertical_chunk_sequence(surface: CanvasItem, chunks: Array, source_y:
 func _draw_industrial(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state):
 		return
-	var scroll := fposmod(t * _parallax_speed(profile, state, "mid") * 0.30, 720.0)
-	_draw_vertical_loop(surface, REFINERY_NIGHT, scroll, ENVIRONMENT_VIEW)
+	var scroll := t * _parallax_speed(profile, state, "mid") * 0.30
+	_draw_vertical_chunk_sequence(surface, REFINERY_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
 	_draw_modular_refinery_pass(surface, scene, profile, state, t)
 
 func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
@@ -542,9 +551,9 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 	var cycle := 1800.0
 	var scale := 0.42 + 0.15 * _ground_scale(state)
 	var slots := [
-		{"x":34.0,"y":210.0,"chunk":0},
-		{"x":424.0,"y":810.0,"chunk":2},
-		{"x":28.0,"y":1420.0,"chunk":4},
+		{"x":104.0,"y":210.0,"chunk":3,"alpha":0.74},
+		{"x":424.0,"y":810.0,"chunk":2,"alpha":0.70},
+		{"x":230.0,"y":1420.0,"chunk":5,"alpha":0.30},
 	]
 	for slot_index in range(slots.size()):
 		var slot: Dictionary = slots[slot_index]
@@ -552,7 +561,7 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 		var y := fposmod(float(slot["y"]) + world_scroll + float(seed % 83), cycle) - 170.0 + ENVIRONMENT_VIEW.position.y
 		var size := (texture.get_size() * scale).round()
 		var x := clampf(float(slot["x"]) + float((seed + slot_index * 19) % 23), 8.0, 632.0 - size.x)
-		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.70,0.74,0.73,0.46))
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.76,0.80,0.78,float(slot["alpha"])))
 
 	var steam: Texture2D = REFINERY_STEAM[posmod(int(floor(t * 5.0)), REFINERY_STEAM.size())]
 	var steam_y := fposmod(world_scroll + 510.0 + float(seed % 97), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
@@ -560,6 +569,9 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 	var flare: Texture2D = REFINERY_FLARE[posmod(int(floor(t * 8.0)), REFINERY_FLARE.size())]
 	var flare_y := fposmod(world_scroll + 1010.0 + float(seed % 113), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
 	_draw_texture_rect_clipped(surface, flare, Rect2(Vector2(104,flare_y).round(),Vector2(42,62)),ENVIRONMENT_VIEW,Color(0.92,0.78,0.58,0.62))
+	var smoke: Texture2D = REFINERY_SMOKE[posmod(int(floor(t * 4.0)), REFINERY_SMOKE.size())]
+	var smoke_y := fposmod(world_scroll + 1510.0 + float(seed % 131), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
+	_draw_texture_rect_clipped(surface, smoke, Rect2(Vector2(512,smoke_y).round(),Vector2(48,70)),ENVIRONMENT_VIEW,Color(0.68,0.72,0.72,0.34))
 
 func _draw_water(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var speed := _parallax_speed(profile, state, "near")

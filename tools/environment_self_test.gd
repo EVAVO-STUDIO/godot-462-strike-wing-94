@@ -59,7 +59,7 @@ func _initialize() -> void:
 		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("HIGH_ATMOSPHERE_RIM") and source.contains("ORBITAL_RIM"), "upper atmosphere and orbital space should use authored star and curvature layers")
 		_expect(not source.contains("draw_arc") and not source.contains("var star :=") and not source.contains("draw_rect(Rect2(roundf(x)"), "orbital presentation should not regress to perfect vector arcs or one-pixel stars")
 		_expect(source.contains("COAST_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "coastal benchmark should assemble registered authored geography chunks")
-		_expect(source.contains("REFINERY_NIGHT"), "industrial benchmark should use its authored refinery raster master")
+		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble registered authored refinery geography chunks")
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
 		_expect(source.contains("DESERT_FRONT"), "desert benchmark should use its authored battlefield raster master")
 		_expect(source.contains("RIVER_CORRIDOR"), "river benchmark should use its authored corridor raster master")
@@ -128,6 +128,22 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/coast_asset_manifest.json"), "coastal source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_asset_manifest.json"), "cloud source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png"), "industrial runtime master should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/refinery_chunks/refinery_geography_manifest.json"), "refinery geography source/build/assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_refinery_geography_art.ps1"), "refinery geography should retain a reproducible registered builder")
+		var refinery_geography_manifest = ContentCatalog.load_json("res://assets/source/environments/refinery_chunks/refinery_geography_manifest.json")
+		_expect(typeof(refinery_geography_manifest) == TYPE_DICTIONARY and refinery_geography_manifest.get("chunks", []).size() == 3, "refinery geography manifest should register three distinct 1024px sections")
+		var refinery_geography_names := ["tank_farm", "cracking_corridor", "rail_loading"]
+		var refinery_geography_images: Array[Image] = []
+		for chunk_name in refinery_geography_names:
+			var geography_texture := load("res://assets/runtime/environments/refinery_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(geography_texture != null and geography_texture.get_size() == Vector2(640,1024), "refinery geography chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if geography_texture != null:
+				refinery_geography_images.append(geography_texture.get_image())
+		for chunk_index in range(refinery_geography_images.size()):
+			var outgoing: Image = refinery_geography_images[chunk_index]
+			var incoming: Image = refinery_geography_images[(chunk_index + 1) % refinery_geography_images.size()]
+			for sample_x in range(0,640,16):
+				_expect(outgoing.get_pixel(sample_x,1023).is_equal_approx(incoming.get_pixel(sample_x,0)), "adjacent refinery chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
 		_expect(FileAccess.file_exists("res://assets/source/environments/industrial_asset_manifest.json"), "industrial source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/modular_refinery/modular_refinery_manifest.json"), "modular refinery RAW_ART, clean source and runtime contract should exist")
 		_expect(FileAccess.file_exists("res://tools/build_modular_refinery_art.ps1"), "modular refinery runtime extraction should remain reproducible")
@@ -145,7 +161,7 @@ func _initialize() -> void:
 				var refinery_frame := load("res://assets/runtime/environments/modular_refinery/%s_%d.png" % [refinery_sequence,frame_index]) as Texture2D
 				_expect(refinery_frame != null and refinery_frame.get_size() == Vector2(96,140), "modular refinery animation should retain shared registration: %s %d" % [refinery_sequence,frame_index])
 		_expect(source.contains("REFINERY_FINITE_CHUNKS") and source.contains("_draw_modular_refinery_pass"), "industrial renderer should compose physical finite refinery machinery")
-		_expect(source.contains("REFINERY_STEAM") and source.contains("floor(t * 5.0)") and source.contains("REFINERY_FLARE") and source.contains("floor(t * 8.0)"), "industrial renderer should consume deliberate held steam and flare animation")
+		_expect(source.contains("REFINERY_STEAM") and source.contains("floor(t * 5.0)") and source.contains("REFINERY_FLARE") and source.contains("floor(t * 8.0)") and source.contains("REFINERY_SMOKE") and source.contains("floor(t * 4.0)"), "industrial renderer should consume deliberate held steam, flare and heavy-smoke animation")
 		_expect(not source.substr(source.find("func _draw_industrial"), source.find("func _draw_water") - source.find("func _draw_industrial")).contains("REFINERY_DETAIL_TILE"), "industrial gameplay should not regress to schematic circuit-line overlays")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/water/storm_sea_loop_v1.png"), "open-water runtime master should exist")
 		_expect(not source.contains("STORM_SEA") and not source.contains("master_scroll"), "open-water renderer must not hide a recognizable 720px painting beneath the material stack")
