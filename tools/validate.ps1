@@ -261,7 +261,7 @@ if ($InterceptText.Contains('scene.set("score"')) { throw 'Intercept presentatio
 $AltitudeText = Get-Content -Raw (Join-Path $Root 'scripts/altitude_rules.gd')
 Assert-Contains $AltitudeText @('TRANSITION_SECONDS := 1.15','allows_enemy_class','allows_enemy_archetype','adjacent_band') 'Altitude rules'
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
-Assert-Contains $MainText @('_craft_primary_mount_offsets(weapon, count)','"position": player_position + mount_offsets[i]','mission_rng.seed = RunSeedRules.mission_seed(mission_index)') 'Main gameplay'
+Assert-Contains $MainText @('_craft_primary_mount_offsets(weapon, count)','"position": player_position + mount_offsets[i]','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','EnvironmentRules.surface_spawn_x') 'Main gameplay'
 $StrikeRulesText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_rules.gd')
 Assert-Contains $StrikeRulesText @('ROUTE_PRECISION_SCORE := 450','assisted_target_index','strike_priority','STABILITY_SECONDS := 0.65','update_stability','stabilized_impact_delay','stabilized_aim_radius') 'Bombing computer rules'
 $StrikeText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_director.gd')

@@ -64,6 +64,20 @@ static func blended_high_atmosphere_mix(from_band: String, to_band: String, rati
 static func ground_target_visual_scale(band: String) -> float:
 	return clampf(AltitudeRules.ground_scale(band), 0.10, 1.0)
 
+static func surface_spawn_x(environment_id: String, variant_id: String, enemy_class: String, roll: float, minimum_x: float, maximum_x: float) -> float:
+	var ratio := clampf(roll, 0.0, 1.0)
+	var span := maxf(1.0, maximum_x - minimum_x)
+	if variant_id == "river":
+		if enemy_class == "sea": return lerpf(minimum_x + span * 0.37, minimum_x + span * 0.63, ratio)
+		if enemy_class == "ground":
+			return lerpf(minimum_x + span * 0.04, minimum_x + span * 0.27, ratio * 2.0) if ratio < 0.5 else lerpf(minimum_x + span * 0.73, minimum_x + span * 0.96, (ratio - 0.5) * 2.0)
+	if environment_id == "coast":
+		if enemy_class == "ground": return lerpf(minimum_x + span * 0.04, minimum_x + span * 0.46, ratio)
+		if enemy_class == "sea": return lerpf(minimum_x + span * 0.61, minimum_x + span * 0.96, ratio)
+	if environment_id == "open_water" and enemy_class == "sea":
+		return lerpf(minimum_x + span * 0.06, minimum_x + span * 0.94, ratio)
+	return lerpf(minimum_x, maximum_x, ratio)
+
 static func should_draw_ground_detail(band: String) -> bool:
 	return AltitudeRules.sanitize(band) != AltitudeRules.ORBITAL
 

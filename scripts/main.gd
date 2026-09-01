@@ -10,6 +10,7 @@ const RunSeedRules = preload("res://scripts/run_seed_rules.gd")
 const MissionStateRules = preload("res://scripts/mission_state_rules.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
+const EnvironmentRules = preload("res://scripts/environment_rules.gd")
 const WeaponPickupRules = preload("res://scripts/weapon_pickup_rules.gd")
 const BombRules = preload("res://scripts/bomb_rules.gd")
 const ServiceRules = preload("res://scripts/service_rules.gd")
@@ -1470,7 +1471,11 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 	var x := (
 		PLAYFIELD.get_center().x
 		if is_boss
-		else mission_rng.randf_range(
+		else EnvironmentRules.surface_spawn_x(
+			current_environment,
+			str(mission_catalog[mission_index].get("environment_variant", "")) if mission_index >= 0 and mission_index < mission_catalog.size() else "",
+			enemy_class,
+			mission_rng.randf(),
 			PLAYFIELD.position.x + 24,
 			PLAYFIELD.end.x - 24
 		)

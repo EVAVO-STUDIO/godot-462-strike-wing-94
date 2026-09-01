@@ -43,9 +43,10 @@ Implemented now:
 - Needle Rail penetration, Storm Cannon pulse discharge and Plasma Lance field discharge
 - bounded strategic Micro-Warhead pre-impact blast
 - persistent campaign credits, equipment and serviced airframe state
-- versioned v6 local autosave with stable mission identity, validated backup recovery and v1-v5 migration compatibility
+- versioned v12 local autosave with stable mission identity, validated backup recovery and v1-v11 migration compatibility
 - verified layered runtime art for the VX-94, enemies, bosses, projectiles, airframes, support set pieces and cinematic hero cels
 - modular, seam-tested coast/refinery environment stacks with animated water, surf, cloud, smoke and weather layers
+- deterministic surface-force lanes that keep armour and infantry on land, ships in navigable water, and river forces on the correct bank or channel
 - campaign launch/ending cinematics, completion aftermath, credits and post-campaign presentation
 - persistent subtitles, reduced-shake, reduced-flash and enhanced-projectile-contrast accessibility controls
 - mission-wide command radio with sector callsigns, authored briefing/contact/boss calls, transceiver cues and subtitle control

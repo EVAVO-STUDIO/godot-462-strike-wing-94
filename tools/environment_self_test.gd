@@ -31,6 +31,13 @@ func _initialize() -> void:
 	var blended_atmosphere := EnvironmentRules.blended_high_atmosphere_mix("mid", "high", 0.5)
 	_expect(blended_atmosphere > EnvironmentRules.high_atmosphere_mix("mid") and blended_atmosphere < EnvironmentRules.high_atmosphere_mix("high"), "cirrus and contrail depth should blend through altitude transitions")
 	_expect(not EnvironmentRules.should_draw_ground_detail("orbital"), "orbital presentation should not use normal ground-detail motifs")
+	var coast_ground := EnvironmentRules.surface_spawn_x("coast", "", "ground", 0.5, 0.0, 100.0)
+	var coast_sea := EnvironmentRules.surface_spawn_x("coast", "", "sea", 0.5, 0.0, 100.0)
+	_expect(coast_ground < 50.0 and coast_sea > 60.0, "coastal surface targets should separate land and navigable-water lanes")
+	var river_ship := EnvironmentRules.surface_spawn_x("open_water", "river", "sea", 0.5, 0.0, 100.0)
+	var river_left_bank := EnvironmentRules.surface_spawn_x("open_water", "river", "ground", 0.2, 0.0, 100.0)
+	var river_right_bank := EnvironmentRules.surface_spawn_x("open_water", "river", "ground", 0.8, 0.0, 100.0)
+	_expect(river_ship > 35.0 and river_ship < 65.0 and river_left_bank < 30.0 and river_right_bank > 70.0, "river targets should place ships in-channel and ground forces on either bank")
 	var mission_data = ContentCatalog.load_json("res://data/missions.json")
 	_expect(typeof(mission_data) == TYPE_DICTIONARY, "mission catalogue should load for environment identity checks")
 	if typeof(mission_data) == TYPE_DICTIONARY:

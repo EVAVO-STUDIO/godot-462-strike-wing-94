@@ -833,8 +833,8 @@ func _render_mech_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
 	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
 	var definitions := [
-		{"id":"security_patrol_mech", "position":Vector2(220,150), "hit_timer":0.0, "recoil_timer":recoil, "hp":20, "max_hp":20, "age":time},
-		{"id":"autonomous_salvage_mech", "position":Vector2(420,150), "hit_timer":0.0, "recoil_timer":recoil, "hp":20, "max_hp":20, "age":time},
+		{"id":"security_patrol_mech", "position":Vector2(150,150), "hit_timer":0.0, "recoil_timer":recoil, "hp":20, "max_hp":20, "age":time},
+		{"id":"autonomous_salvage_mech", "position":Vector2(270,150), "hit_timer":0.0, "recoil_timer":recoil, "hp":20, "max_hp":20, "age":time},
 	]
 	for enemy in definitions:
 		var enemy_id: String = enemy["id"]
@@ -861,8 +861,8 @@ func _render_infantry_capture(surface: CanvasItem, scene: Object) -> void:
 	var recoil := 0.10 if fposmod(time, 0.90) < 0.12 else 0.0
 	var hit := 0.14 if fposmod(time+0.35, 1.70) < 0.14 else 0.0
 	var definitions := [
-		{"id":"mercenary_rifle_team", "position":Vector2(220,150), "hit_timer":hit, "recoil_timer":recoil, "hp":8, "max_hp":8, "age":time},
-		{"id":"mercenary_heavy_team", "position":Vector2(420,150), "hit_timer":hit, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
+		{"id":"mercenary_rifle_team", "position":Vector2(150,150), "hit_timer":hit, "recoil_timer":recoil, "hp":8, "max_hp":8, "age":time},
+		{"id":"mercenary_heavy_team", "position":Vector2(270,150), "hit_timer":hit, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
 	]
 	for enemy in definitions:
 		_draw_infantry_team(surface, enemy["position"], enemy["id"], enemy, 1.18)
