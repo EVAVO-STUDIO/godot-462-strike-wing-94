@@ -1,7 +1,12 @@
 class_name MusicRules
 extends RefCounted
 
-const TRACK_IDS:=["hangar_signal","title_vector","steel_vector","machine_pressure","black_sky","after_action"]
+const TRACK_IDS:=["hangar_signal","title_vector","steel_vector","salt_wake","furnace_alarm","machine_pressure","dead_factory","ghost_signal","black_sky","thin_blue","ark_descent","after_action"]
+const SECTOR_TRACKS := [
+	["steel_vector", "salt_wake", "furnace_alarm"],
+	["machine_pressure", "dead_factory", "ghost_signal"],
+	["black_sky", "thin_blue", "ark_descent"]
+]
 static func sanitize_tracks(raw:Variant)->Array:
 	var tracks:Array=[]
 	if typeof(raw)!=TYPE_ARRAY:return tracks
@@ -19,7 +24,7 @@ static func sanitize_tracks(raw:Variant)->Array:
 static func track_id_for(phase:int,mission_index:int)->String:
 	if phase==2:return "after_action"
 	if phase!=1:return "hangar_signal"
-	if mission_index>=20:return "black_sky"
-	if mission_index>=10:return "machine_pressure"
-	return "steel_vector"
+	var safe_index := maxi(0, mission_index)
+	var sector := clampi(int(safe_index / 10), 0, SECTOR_TRACKS.size() - 1)
+	return str(SECTOR_TRACKS[sector][safe_index % SECTOR_TRACKS[sector].size()])
 static func midi_frequency(note:int)->float:return 440.0*pow(2.0,(float(note)-69.0)/12.0) if note>=0 else 0.0
