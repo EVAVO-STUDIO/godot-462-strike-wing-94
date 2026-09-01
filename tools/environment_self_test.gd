@@ -98,6 +98,8 @@ func _initialize() -> void:
 			for sample_x in range(0,640,16):
 				_expect(outgoing.get_pixel(sample_x,1023).is_equal_approx(incoming.get_pixel(sample_x,0)), "adjacent coast chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
 		_expect(FileAccess.file_exists("res://assets/source/environments/modular_coast/modular_coast_kit_manifest.json"), "modular coast kit should register finite chunks, continuous loops and edge-animation families")
+		var modular_coast_kit = ContentCatalog.load_json("res://assets/source/environments/modular_coast/modular_coast_kit_manifest.json")
+		_expect(typeof(modular_coast_kit) == TYPE_DICTIONARY and str(modular_coast_kit.get("status", "")).contains("runtime_v1_complete"), "modular coast source contract should identify its completed runtime instead of advertising stale pending work")
 		var modular_coast_source := load("res://assets/source/environments/modular_coast/coast_construction_kit_source_v1.png")
 		_expect(modular_coast_source is Texture2D and modular_coast_source.get_size() == Vector2(1536,1024), "modular coast source sheet should retain registered production geometry")
 		if modular_coast_source is Texture2D:

@@ -1,6 +1,6 @@
 {
   "asset_family": "hypersonic_modular_coast_environment_kit",
-  "status": "source_sheet_v1_alpha_verified_runtime_slicing_pending",
+  "status": "runtime_v1_complete_alpha_and_seams_verified",
   "source": "res://assets/source/environments/modular_coast/coast_construction_kit_source_v1.png",
   "source_geometry": [1536, 1024],
   "source_alpha": "true RGBA; checker background rejected and removed before registration",
@@ -35,11 +35,14 @@
     "base_order": ["deep_sea", "surface_chop", "terrain_chunks", "structures", "foam_drift", "shore_wash", "cloud_shadow", "cloud_bodies", "mist", "weather_foreground"],
     "rule": "continuous layers move independently beneath and above irregular finite chunks; no entire mission plate may visibly repeat as one wallpaper"
   },
-  "runtime_next": [
-    "slice and clean registered transparent components",
-    "author terrain transition masks and collision metadata",
-    "produce temporal water and surf animation frames",
-    "build chunk recipes with multiple valid joins",
-    "capture at least two full vertical wraps without visible repetition or seams"
-  ]
+  "runtime_completion": {
+    "builder": "res://tools/build_modular_coast_art.ps1",
+    "manifest": "res://assets/source/environments/modular_coast/modular_coast_runtime_manifest.json",
+    "finite_transparent_chunks": 24,
+    "temporal_water_frames": 14,
+    "shore_wash_frames": 3,
+    "breakwater_impact_frames": 4,
+    "assembly": "finite registered modules over independently scrolling continuous water, cloud-shadow and mist layers",
+    "qa": ["true RGBA alpha", "16px registration grid", "two-plus world-height cycle", "all spatial and chunk joins AE=0", "live coast capture", "hypersonic forward-scroll acceleration"]
+  }
 }
