@@ -37,6 +37,41 @@
       "s3_m08_black_sky",
       "s3_m09_last_horizon",
       "m12_machine_ark"
+    ],
+    "branches": [
+      {
+        "id": "s1_breakwater_crisis",
+        "after_mission": "m04_breakwater",
+        "title": "BREAKWATER CRISIS",
+        "briefing": "Two hostile groups are moving under the storm front. Command can support only one immediate strike.",
+        "reconverge_mission": "s1_m07_desert_lance",
+        "choices": [
+          {"id":"furnace","label":"FURNACE LINE","mission_id":"m05_furnace_line","detail":"LOW-LEVEL INDUSTRIAL STRIKE","bonus_credits":900},
+          {"id":"black_flag","label":"BLACK FLAG","mission_id":"m06_black_flag","detail":"OPEN-WATER COMMAND HUNT","bonus_credits":1200}
+        ]
+      },
+      {
+        "id": "s2_machine_contact",
+        "after_mission": "s2_m03_broken_truce",
+        "title": "MACHINE CONTACT",
+        "briefing": "The autonomous network has split its attack. Choose the intelligence priority before both sites go dark.",
+        "reconverge_mission": "s2_m06_ghost_convoy",
+        "choices": [
+          {"id":"dead_factory","label":"DEAD FACTORY","mission_id":"s2_m04_dead_factory","detail":"SHUT DOWN THE ASSEMBLY CORE","bonus_credits":1500},
+          {"id":"iron_rain","label":"IRON RAIN","mission_id":"s2_m05_iron_rain","detail":"INTERCEPT THE DRONE WEATHER FRONT","bonus_credits":1800}
+        ]
+      },
+      {
+        "id": "s3_orbitfall_vector",
+        "after_mission": "m10_blue_fire",
+        "title": "ORBITFALL VECTOR",
+        "briefing": "BLACK SKY is collapsing two orbital corridors. Select the strike vector that survives into the final operation.",
+        "reconverge_mission": "m11_cold_station",
+        "choices": [
+          {"id":"kinetic_dawn","label":"KINETIC DAWN","mission_id":"s3_m04_kinetic_dawn","detail":"SEIZE THE RAIL PLATFORM","bonus_credits":2400},
+          {"id":"orbitfall","label":"ORBITFALL","mission_id":"s3_m05_orbitfall","detail":"DEFEND THE PLANETARY LAUNCH SITES","bonus_credits":2800}
+        ]
+      }
     ]
   },
   "progression": {
@@ -47,7 +82,7 @@
     "boss_kill_bonus": 1500
   },
   "save": {
-    "schema_version": 6,
+    "schema_version": 9,
     "autosave_seconds": 1.0,
     "path": "user://strike_wing_94_save.json"
   }

@@ -73,7 +73,7 @@ $Required = @(
     'scripts/retro_sfx_rules.gd','scripts/retro_sfx_director.gd','scripts/music_rules.gd','scripts/retro_music_director.gd','data/music_tracks.json',
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
-    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/music_self_test.gd','tools/presentation_feedback_self_test.gd','tools/difficulty_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/credits_self_test.gd','tools/game_modes_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
+    'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/music_self_test.gd','tools/presentation_feedback_self_test.gd','tools/difficulty_self_test.gd','tools/startup_sequence_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/campaign_branch_self_test.gd','tools/credits_self_test.gd','tools/game_modes_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
     'tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
     'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
@@ -266,7 +266,7 @@ Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event'
 $HypersonicText = Get-Content -Raw (Join-Path $Root 'scripts/hypersonic_rules.gd')
 Assert-Contains $HypersonicText @('SPEED_MULTIPLIER := 2.20','TURN_SCALE := 0.38','structural_damage_per_second','enemy_can_pursue') 'Hypersonic flight rules'
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-Assert-Contains $SaveText @('SAVE_VERSION := 8','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
+Assert-Contains $SaveText @('SAVE_VERSION := 9','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','branch_decisions','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 
 $Godot = Resolve-Godot -Preferred $GodotBin
 if (-not $Godot) {
@@ -281,7 +281,7 @@ Write-Host 'Running Godot editor import/smoke test...' -ForegroundColor DarkCyan
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 
 $Tests = @(
-    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','music_self_test.gd','presentation_feedback_self_test.gd','difficulty_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
+    'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','music_self_test.gd','presentation_feedback_self_test.gd','difficulty_self_test.gd','startup_sequence_self_test.gd','campaign_cinematic_self_test.gd','campaign_branch_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
     'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
 )

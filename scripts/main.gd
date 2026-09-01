@@ -30,6 +30,7 @@ var menu_selection := 0
 var option_selection := 0
 var option_category := 0
 var mode_selection := 0
+var branch_selection := 0
 var game_mode := "campaign"
 var mode_name := "CAMPAIGN"
 var mode_rule_summary := "30-SORTIE AUTHORED WAR"
@@ -58,6 +59,8 @@ var completed_difficulties: Array = []
 var campaign_completion_committed := false
 var discovered_secret_ids: Array = []
 var mode_records: Dictionary = {}
+var branch_decisions: Dictionary = {}
+var current_branch: Dictionary = {}
 var weapon_index := 0
 var generator_index := 0
 var temporary_weapon_boost := 0
@@ -117,6 +120,10 @@ func _ready() -> void:
 		var mode_id := str(mode.get("id", "arcade_assault"))
 		var route_total: int = mode.get("missions", []).size()
 		mode_records[mode_id] = {"attempts":4,"clears":1,"best_route":route_total,"route_total":route_total,"best_score":284600,"cleared":true}
+	if "--capture-branch" in OS.get_cmdline_user_args() and "--capture-gameplay" in OS.get_cmdline_user_args():
+		var branches := _campaign_branches()
+		current_branch = branches[0].duplicate(true) if not branches.is_empty() else {}
+		branch_selection = 0
 	if not capture_result.is_empty():
 		_begin_capture_result(capture_result)
 	elif not capture_game_mode.is_empty():
@@ -257,17 +264,19 @@ func _process(delta: float) -> void:
 					_start_mission()
 				elif _is_final_campaign_mission():
 					_complete_campaign()
+				elif not _pending_branch().is_empty():
+					_open_branch_choice(_pending_branch())
 				else:
-					mission_index = mini(mission_index + 1, maxi(0, mission_catalog.size() - 1))
-					_prepare_mission(mission_index)
-					phase = GamePhase.TITLE
-					front_end_screen = "sortie"
+					_advance_campaign_mission()
 			elif Input.is_action_just_pressed("restart"):
 				if _mode_active(): _advance_mode_result()
 				else: _start_mission()
 	queue_redraw()
 
 func _update_front_end_menu() -> void:
+	if front_end_screen == "branch":
+		_update_branch_choice()
+		return
 	if front_end_screen == "modes":
 		_update_front_end_modes()
 		return
@@ -290,6 +299,85 @@ func _update_front_end_menu() -> void:
 			3: front_end_screen = "controls"
 			4: front_end_screen = "dossier"
 			5: get_tree().quit()
+
+func _campaign_branches() -> Array:
+	var config := _campaign_config()
+	var branches = config.get("branches", [])
+	return branches if typeof(branches) == TYPE_ARRAY else []
+
+func _branch_for_after(mission_id: String) -> Dictionary:
+	for branch in _campaign_branches():
+		if typeof(branch) == TYPE_DICTIONARY and str(branch.get("after_mission", "")) == mission_id:
+			return branch
+	return {}
+
+func _pending_branch() -> Dictionary:
+	var branch := _branch_for_after(str(_active_mission().get("id", "")))
+	return branch if not branch.is_empty() and not branch_decisions.has(str(branch.get("id", ""))) else {}
+
+func _open_branch_choice(branch: Dictionary) -> void:
+	current_branch = branch.duplicate(true)
+	branch_selection = 0
+	phase = GamePhase.TITLE
+	front_end_screen = "branch"
+
+func _update_branch_choice() -> void:
+	var choices: Array = current_branch.get("choices", [])
+	if choices.is_empty():
+		front_end_screen = "sortie"
+		return
+	if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_left"):
+		branch_selection = posmod(branch_selection - 1, choices.size())
+	elif Input.is_action_just_pressed("move_down") or Input.is_action_just_pressed("move_right"):
+		branch_selection = posmod(branch_selection + 1, choices.size())
+	elif Input.is_action_just_pressed("confirm"):
+		_commit_branch_choice(branch_selection)
+
+func _commit_branch_choice(selection: int) -> void:
+	var choices: Array = current_branch.get("choices", [])
+	if choices.is_empty():
+		return
+	var choice: Dictionary = choices[clampi(selection, 0, choices.size() - 1)]
+	var branch_id := str(current_branch.get("id", ""))
+	branch_decisions[branch_id] = str(choice.get("id", ""))
+	credits += maxi(0, int(choice.get("bonus_credits", 0)))
+	var target_index := _mission_index_for_id(str(choice.get("mission_id", "")))
+	current_branch = {}
+	if target_index < 0:
+		front_end_screen = "sortie"
+		return
+	mission_index = target_index
+	_prepare_mission(mission_index)
+	front_end_screen = "sortie"
+	status_text = "OPERATIONS BRANCH COMMITTED"
+	status_timer = 3.0
+
+func _mission_index_for_id(mission_id: String) -> int:
+	for index in range(mission_catalog.size()):
+		if str(mission_catalog[index].get("id", "")) == mission_id:
+			return index
+	return -1
+
+func _advance_campaign_mission() -> void:
+	var current_id := str(_active_mission().get("id", ""))
+	var target_id := ""
+	var branch := _branch_for_after(current_id)
+	if not branch.is_empty():
+		var decision_id := str(branch_decisions.get(str(branch.get("id", "")), ""))
+		for choice in branch.get("choices", []):
+			if typeof(choice) == TYPE_DICTIONARY and str(choice.get("id", "")) == decision_id:
+				target_id = str(choice.get("mission_id", ""))
+	for candidate in _campaign_branches():
+		if typeof(candidate) != TYPE_DICTIONARY:
+			continue
+		for choice in candidate.get("choices", []):
+			if typeof(choice) == TYPE_DICTIONARY and str(choice.get("mission_id", "")) == current_id:
+				target_id = str(candidate.get("reconverge_mission", ""))
+	var target_index := _mission_index_for_id(target_id) if not target_id.is_empty() else mini(mission_index + 1, maxi(0, mission_catalog.size() - 1))
+	mission_index = target_index if target_index >= 0 else mini(mission_index + 1, maxi(0, mission_catalog.size() - 1))
+	_prepare_mission(mission_index)
+	phase = GamePhase.TITLE
+	front_end_screen = "sortie"
 
 func _update_front_end_modes() -> void:
 	var modes := get_node_or_null("/root/GameModeDirector")

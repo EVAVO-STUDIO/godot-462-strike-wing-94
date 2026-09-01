@@ -1,7 +1,7 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_VERSION := 8
+const SAVE_VERSION := 9
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 const LEGACY_V5_MISSION_IDS := [
@@ -117,6 +117,7 @@ func _snapshot(scene: Object) -> Dictionary:
 		"completed_difficulties": _string_array(scene.get("completed_difficulties")) if _has_property(scene, "completed_difficulties") else [],
 		"discovered_secret_ids": _string_array(scene.get("discovered_secret_ids")) if _has_property(scene, "discovered_secret_ids") else [],
 		"mode_records": _mode_records(scene.get("mode_records")) if _has_property(scene, "mode_records") else {},
+		"branch_decisions": _string_dictionary(scene.get("branch_decisions")) if _has_property(scene, "branch_decisions") else {},
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
@@ -159,6 +160,17 @@ func _mode_records(value: Variant) -> Dictionary:
 			"best_score": maxi(0, int(raw_record.get("best_score", 0))),
 			"cleared": bool(raw_record.get("cleared", false))
 		}
+	return result
+
+func _string_dictionary(value: Variant) -> Dictionary:
+	var result: Dictionary = {}
+	if typeof(value) != TYPE_DICTIONARY:
+		return result
+	for raw_key in value.keys():
+		var key := str(raw_key).strip_edges().to_lower()
+		var item := str(value[raw_key]).strip_edges().to_lower()
+		if not key.is_empty() and not item.is_empty():
+			result[key] = item
 	return result
 
 func _mission_id_at(scene: Object, index: int) -> String:
@@ -255,6 +267,8 @@ func _restore(scene: Object) -> void:
 		scene.set("discovered_secret_ids", _string_array(parsed.get("discovered_secret_ids", [])))
 	if _has_property(scene, "mode_records"):
 		scene.set("mode_records", _mode_records(parsed.get("mode_records", {})))
+	if _has_property(scene, "branch_decisions"):
+		scene.set("branch_decisions", _string_dictionary(parsed.get("branch_decisions", {})))
 	var support_director := get_node_or_null("/root/SupportDirector")
 	if support_director != null and support_director.has_method("restore_support_state"):
 		support_director.call("restore_support_state", int(parsed.get("support_selected", 0)), int(parsed.get("support_unlocked", 0)))

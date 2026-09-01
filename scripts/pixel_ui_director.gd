@@ -274,6 +274,8 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 102, 1, BLUE, 1)
 	if screen == "modes":
 		_draw_front_end_modes(surface,scene)
+	elif screen == "branch":
+		_draw_front_end_branch(surface,scene)
 	elif screen == "controls":
 		_draw_front_end_controls(surface)
 	elif screen == "options":
@@ -345,6 +347,25 @@ func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
 	for i in range(mini(3,lines.size())):
 		PixelFont.draw_text(surface,lines[i],Vector2(320,238+i*12),1,MUTED,1)
 	PixelFont.draw_centered(surface,"ENTER DEPLOY   ESC RETURN",453,286,1,GOLD,1)
+
+func _draw_front_end_branch(surface: CanvasItem, scene: Object) -> void:
+	var branch: Dictionary = scene.get("current_branch") if _has_property(scene,"current_branch") else {}
+	var choices: Array = branch.get("choices", [])
+	PixelFont.draw_centered(surface,"OPERATIONAL BRANCH // COMMAND DECISION",320,122,1,GOLD,1)
+	_draw_console_panel(surface,Rect2(42,138,556,168),str(branch.get("title","CRISIS VECTOR")),BLUE)
+	var briefing_lines := _wrap_text(str(branch.get("briefing","SELECT THE NEXT SORTIE.")),78)
+	for line_index in range(mini(2,briefing_lines.size())):
+		PixelFont.draw_centered(surface,briefing_lines[line_index],320,156+line_index*12,1,MUTED,1)
+	var selection := clampi(int(scene.get("branch_selection")) if _has_property(scene,"branch_selection") else 0,0,maxi(0,choices.size()-1))
+	for i in range(mini(2,choices.size())):
+		var choice: Dictionary = choices[i]
+		var position := Vector2(70,190+i*43)
+		surface.draw_texture(FRONT_END_BUTTON_SELECTED if i == selection else FRONT_END_BUTTON_IDLE,position)
+		if i == selection: surface.draw_texture(FRONT_END_CURSOR,position+Vector2(-16,6))
+		PixelFont.draw_text(surface,str(choice.get("label","VECTOR")),position+Vector2(18,7),1,GOLD if i == selection else TEXT,1)
+		PixelFont.draw_text(surface,_clip(str(choice.get("detail","")),28),Vector2(366,position.y+7),1,BLUE if i == selection else MUTED,1)
+		PixelFont.draw_text(surface,"+%04d CR" % int(choice.get("bonus_credits",0)),Vector2(468,position.y+21),1,GREEN,1)
+	PixelFont.draw_centered(surface,"UP / DOWN SELECT   ENTER COMMIT",320,286,1,GOLD,1)
 
 func _draw_front_end_controls(surface: CanvasItem) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))
