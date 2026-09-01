@@ -1,0 +1,27 @@
+{
+  "asset_family": "hypersonic_desert_geography_v1",
+  "source": "res://assets/source/environments/desert_chunks/desert_geography_source_v1.png",
+  "dust_source": "res://assets/source/environments/desert_chunks/desert_dust_source_v1.png",
+  "builder": "res://tools/build_desert_geography_art.ps1",
+  "source_method": "Built-in image generation created the opaque battlefield geography source; deterministic EVAVO finishing removes gutters, registers sections and closes every runtime join.",
+  "chunks": [
+    {"id": "armour_approach", "role": "fast exposed combined-arms approach", "size": [640, 1024]},
+    {"id": "wadi_crossing", "role": "fortified dry-river choke point", "size": [640, 1024]},
+    {"id": "logistics_belt", "role": "forward-base and supply strike corridor", "size": [640, 1024]}
+  ],
+  "assembly_contract": {
+    "geography_cycle_pixels": 3072,
+    "dust_loop_pixels": 512,
+    "landmark_cycle_independent": true,
+    "shared_connector_height": 48,
+    "base_order": ["geography_chunk", "finite_targets_and_wreckage", "dust_and_vehicle_scars", "landmark", "cloud_shadow", "cloud_body", "heat_and_mist"],
+    "rules": [
+      "Recognizable desert geography never repeats at the former 720-pixel interval.",
+      "Dust and vehicle scars remain independent transparent motion layers.",
+      "Complete airstrip and combat targets remain separate from geography.",
+      "Adjacent geography sections close at zero scanline error."
+    ]
+  }
+  ,
+  "dust_animation": {"frames": 6, "exposure_fps": 6, "mode": "form_spread_break_dissipate", "spatial_loop": false}
+}

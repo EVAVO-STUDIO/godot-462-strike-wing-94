@@ -14,7 +14,11 @@ const REFINERY_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/refinery_chunks/cracking_corridor.png"),
 	preload("res://assets/runtime/environments/refinery_chunks/rail_loading.png"),
 ]
-const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
+const DESERT_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/desert_chunks/armour_approach.png"),
+	preload("res://assets/runtime/environments/desert_chunks/wadi_crossing.png"),
+	preload("res://assets/runtime/environments/desert_chunks/logistics_belt.png"),
+]
 const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
 const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png")
@@ -76,7 +80,11 @@ const REFINERY_SMOKE := [
 	preload("res://assets/runtime/environments/modular_refinery/smoke_2.png"), preload("res://assets/runtime/environments/modular_refinery/smoke_3.png"),
 	preload("res://assets/runtime/environments/modular_refinery/smoke_4.png"),
 ]
-const DESERT_DUST_TILE := preload("res://assets/runtime/environments/layers/desert_dust_tile.png")
+const DESERT_DUST_GUST := [
+	preload("res://assets/runtime/environments/desert_dust_animation/gust_0.png"), preload("res://assets/runtime/environments/desert_dust_animation/gust_1.png"),
+	preload("res://assets/runtime/environments/desert_dust_animation/gust_2.png"), preload("res://assets/runtime/environments/desert_dust_animation/gust_3.png"),
+	preload("res://assets/runtime/environments/desert_dust_animation/gust_4.png"), preload("res://assets/runtime/environments/desert_dust_animation/gust_5.png"),
+]
 const RIVER_CURRENT_TILE := preload("res://assets/runtime/environments/layers/river_current_tile.png")
 const MOUNTAIN_WEATHER_TILE := preload("res://assets/runtime/environments/layers/mountain_weather_tile.png")
 const HARBOR_REFLECTION_TILE := preload("res://assets/runtime/environments/layers/harbor_reflection_tile.png")
@@ -217,7 +225,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			_draw_orbital(surface, profile, state, t, orbital_mix)
 	elif variant != "":
 		match variant:
-			"desert_front": _draw_desert_front(surface, state, t)
+			"desert_front": _draw_desert_front(surface, scene, state, t)
 			"river_corridor": _draw_river_corridor(surface, state, t)
 			"mountain_radar": _draw_mountain_radar(surface, state, t)
 			"night_harbor": _draw_night_harbor(surface, state, t)
@@ -619,13 +627,17 @@ func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictio
 		var x := clampf(float(slot["x"]) + float((seed + slot_index * 41) % 47) - 23.0, 8.0, 632.0 - size.x)
 		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.80,0.86,0.88,float(slot["alpha"])))
 
-func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> void:
+func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := fposmod(t * 30.0, 720.0)
-	_draw_vertical_loop(surface, DESERT_FRONT, scroll, ENVIRONMENT_VIEW)
+	var scroll := t * 30.0
+	_draw_vertical_chunk_sequence(surface, DESERT_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.075, 0.045, 0.025, 0.18))
-	var dust_scroll := fposmod(t * 24.0, 512.0)
-	_draw_vertical_loop(surface, DESERT_DUST_TILE, dust_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.82))
+	var gust: Texture2D = DESERT_DUST_GUST[posmod(int(floor(t * 6.0)), DESERT_DUST_GUST.size())]
+	var seed := _mission_seed(scene)
+	for gust_index in range(2):
+		var gust_y := fposmod(scroll + float(gust_index * 690 + seed % 223), 1420.0) - 120.0 + ENVIRONMENT_VIEW.position.y
+		var gust_x := 48.0 + float((seed + gust_index * 271) % 420)
+		_draw_texture_rect_clipped(surface, gust, Rect2(Vector2(gust_x,gust_y).round(),Vector2(160,96)),ENVIRONMENT_VIEW,Color(0.84,0.76,0.62,0.26))
 
 func _draw_river_corridor(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
