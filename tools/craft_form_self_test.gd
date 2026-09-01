@@ -114,6 +114,7 @@ func _test_source_integration() -> void:
 		_expect(source.contains('mounts.call("primary_offsets"'), "primary mount offsets should come from authored mount catalogue")
 		_expect(source.contains('mounts.call("bomber_rotary_deployed"'), "bomber nose-gun state should come from authored mount catalogue")
 		_expect(source.contains("_capture_altitude_override") and source.contains("--capture-altitude="), "visual QA should expose a deterministic altitude override without changing authored campaign context")
+		_expect(source.contains("var allowed: Array = AltitudeRules.BANDS.duplicate()"), "manual altitude selection should accept the canonical runtime Array without a typed-array assignment fault")
 	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
 	_expect(encounter_file != null, "encounter director should be readable")
 	if encounter_file != null:

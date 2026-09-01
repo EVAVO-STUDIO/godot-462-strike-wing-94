@@ -160,6 +160,8 @@ func _ready() -> void:
 		if argument.begins_with("--visual-capture="):
 			add_child(preload("res://tools/visual_capture_probe.gd").new())
 			break
+	if "--playtest-telemetry" in OS.get_cmdline_user_args():
+		add_child(preload("res://tools/playtest_telemetry_probe.gd").new())
 	queue_redraw()
 
 func _capture_front_end(arguments: PackedStringArray) -> String:

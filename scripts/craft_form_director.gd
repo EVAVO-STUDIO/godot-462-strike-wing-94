@@ -268,7 +268,10 @@ func _try_manual_altitude(scene: Object, direction: int) -> void:
 	if window.is_empty() and not _hypersonic_active:
 		_set_status(scene, "ALTITUDE LANE LOCKED")
 		return
-	var allowed: Array[String] = AltitudeRules.BANDS.duplicate() if _hypersonic_active else AltitudeRules.allowed_manual_bands(window)
+	# Both sources are runtime Variants loaded from canonical content/rules.
+	# Keep the local container untyped so a valid Array returned by either path
+	# cannot trigger a typed-array assignment error during live altitude input.
+	var allowed: Array = AltitudeRules.BANDS.duplicate() if _hypersonic_active else AltitudeRules.allowed_manual_bands(window)
 	var candidate := AltitudeRules.adjacent_band(altitude, direction)
 	if candidate == altitude:
 		_set_status(scene, "ALTITUDE LIMIT - %s" % AltitudeRules.display_name(altitude))
