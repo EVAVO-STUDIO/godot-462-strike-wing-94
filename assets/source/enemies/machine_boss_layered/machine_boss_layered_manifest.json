@@ -1,6 +1,6 @@
 {
   "asset_family": "sector_two_machine_boss_layered_mechanics_v2",
-  "status": "production_candidate",
+  "status": "runtime_v2_verified",
   "source": "machine_boss_component_sheet_source_v1.png",
   "build_tool": "tools/build_machine_boss_layered_art.ps1",
   "visual_contract": {

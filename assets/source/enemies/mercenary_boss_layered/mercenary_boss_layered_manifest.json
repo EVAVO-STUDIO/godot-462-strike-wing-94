@@ -1,6 +1,6 @@
 {
   "asset_family": "sector_one_mercenary_boss_layered_mechanics_v2",
-  "status": "production_candidate",
+  "status": "runtime_v2_verified",
   "source": "mercenary_boss_component_sheet_source_v1.png",
   "build_tool": "tools/build_mercenary_boss_layered_art.ps1",
   "visual_contract": {

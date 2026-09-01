@@ -1,6 +1,6 @@
 {
   "asset_family": "black_sky_orbital_boss_layered_mechanics_v2",
-  "status": "production_candidate",
+  "status": "runtime_v2_verified",
   "source": "orbital_boss_component_sheet_source_v1.png",
   "build_tool": "tools/build_orbital_boss_layered_art.ps1",
   "visual_contract": {

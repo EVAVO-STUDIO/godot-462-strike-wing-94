@@ -1,6 +1,6 @@
 {
   "asset_family": "hypersonic_combat_fx_v2",
-  "status": "production_candidate",
+  "status": "runtime_v2_verified",
   "sources": ["projectile_sheet_source_v2.png", "impact_sheet_source_v2.png", "persistent_sheet_source_v2.png"],
   "build_tool": "tools/build_combat_fx_v2.ps1",
   "runtime_contract": {

@@ -1,6 +1,6 @@
 {
   "asset_family": "machine_air_layered_mechanics_v2",
-  "status": "production_candidate",
+  "status": "runtime_v2_verified",
   "source": "machine_air_component_sheet_source_v1.png",
   "build_tool": "tools/build_machine_air_layered_art.ps1",
   "visual_contract": {

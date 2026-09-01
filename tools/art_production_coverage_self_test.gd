@@ -19,6 +19,14 @@ const MOTION_MANIFESTS := [
 	"mercenary_ground_asset_manifest.json",
 	"mercenary_boss_asset_manifest.json", "machine_boss_asset_manifest.json", "orbital_boss_asset_manifest.json",
 ]
+const LAYERED_RUNTIME_MANIFESTS := [
+	"res://assets/source/effects/combat_fx_v2/combat_fx_v2_manifest.json",
+	"res://assets/source/enemies/machine_air_layered/machine_air_layered_manifest.json",
+	"res://assets/source/enemies/machine_boss_layered/machine_boss_layered_manifest.json",
+	"res://assets/source/enemies/mercenary_boss_layered/mercenary_boss_layered_manifest.json",
+	"res://assets/source/enemies/orbital_air_layered/orbital_air_layered_manifest.json",
+	"res://assets/source/enemies/orbital_boss_layered/orbital_boss_layered_manifest.json",
+]
 
 var failures: Array[String] = []
 
@@ -27,6 +35,7 @@ func _initialize() -> void:
 	_test_environment_coverage()
 	_test_support_coverage()
 	_test_motion_manifests()
+	_test_layered_runtime_manifests()
 	_test_presentation_coverage()
 	if failures.is_empty():
 		print("HYPERSONIC production-art coverage self-test passed: 38 enemies, 30 missions, 11 environments, 4 support families.")
@@ -70,6 +79,12 @@ func _test_motion_manifests() -> void:
 		_expect(typeof(data) == TYPE_DICTIONARY, "enemy production manifest should parse: %s" % file_name)
 		_expect(str(data.get("status", "")).contains("runtime"), "enemy production manifest should declare runtime status: %s" % file_name)
 		_expect(data.has("runtime_animation"), "animated enemy family should declare completed runtime animation: %s" % file_name)
+
+func _test_layered_runtime_manifests() -> void:
+	for manifest_path in LAYERED_RUNTIME_MANIFESTS:
+		var data: Dictionary = ContentCatalog.load_json(manifest_path)
+		_expect(typeof(data) == TYPE_DICTIONARY, "layered production manifest should parse: %s" % manifest_path)
+		_expect(str(data.get("status", "")).contains("runtime"), "live layered production art must not remain labelled as a candidate: %s" % manifest_path)
 
 func _test_presentation_coverage() -> void:
 	var title := load("res://assets/runtime/title/hypersonic_wordmark_v1.png")
