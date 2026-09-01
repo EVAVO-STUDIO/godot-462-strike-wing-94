@@ -38,6 +38,7 @@ $Cases = @(
     @{ id='front_secret_operations'; args=@('--capture-gameplay','--capture-front-end=secret_sorties','--capture-campaign-clear') },
     @{ id='front_branch_decision'; args=@('--capture-gameplay','--capture-front-end=branch','--capture-branch') },
     @{ id='mission_01_coastal'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42') },
+    @{ id='hud_objective_compact'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-hud=objective') },
     @{ id='mission_02_bomber'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=68','--capture-altitude=low') },
     @{ id='mission_09_air'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high') },
     @{ id='mission_12_machine_reveal'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=96') },

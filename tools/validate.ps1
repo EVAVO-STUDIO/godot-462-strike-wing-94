@@ -308,7 +308,7 @@ $VisualQaErrors = $null
 [System.Management.Automation.Language.Parser]::ParseFile($VisualQaScriptPath, [ref]$VisualQaTokens, [ref]$VisualQaErrors) | Out-Null
 if ($VisualQaErrors.Count -gt 0) { throw "Visual QA script has PowerShell parser errors: $($VisualQaErrors[0].Message)" }
 $VisualQaText = Get-Content -Raw $VisualQaScriptPath
-Assert-Contains $VisualQaText @('startup_evavo_ident','startup_vx94_transform','startup_title_prompt','front_main_menu','front_sortie_bay','front_modes','front_options_access','front_flight_controls','front_flight_controls_advanced','front_intelligence','front_secret_operations','front_branch_decision','pause_command','pause_options','pause_restart_confirmation','campaign_credits','mission_30_final_boss','hud_missile_warning','debrief_success') 'Visual QA representative matrix'
+Assert-Contains $VisualQaText @('startup_evavo_ident','startup_vx94_transform','startup_title_prompt','front_main_menu','front_sortie_bay','front_modes','front_options_access','front_flight_controls','front_flight_controls_advanced','front_intelligence','front_secret_operations','front_branch_decision','pause_command','pause_options','pause_restart_confirmation','campaign_credits','mission_30_final_boss','hud_objective_compact','hud_missile_warning','debrief_success') 'Visual QA representative matrix'
 $PlaytestTelemetryScriptPath = Join-Path $Root 'tools/run_playtest_telemetry.ps1'
 $PlaytestTelemetryTokens = $null
 $PlaytestTelemetryErrors = $null

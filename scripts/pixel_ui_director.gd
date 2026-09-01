@@ -796,14 +796,16 @@ func _draw_objective_tracker(surface: CanvasItem, scene: Object) -> void:
 	if objective.is_empty():
 		return
 	var required := bool(objective.get("required", true))
-	var position := Vector2(180, 42)
-	surface.draw_texture_rect(HUD_NOTIFICATION_FRAME, Rect2(position, Vector2(280,20)), false)
-	surface.draw_texture_rect(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, Rect2(position + Vector2(8,5),Vector2(8,8)), false)
-	PixelFont.draw_text(surface, _clip(_objective_line(scene, objective), 42), position + Vector2(21, 6), 1, GREEN if required else GOLD, 1)
-	surface.draw_texture_rect(OBJECTIVE_TRACKER_TROUGH, Rect2(position + Vector2(12,15),Vector2(256,3)), false)
+	# Routine mission progress belongs inside the instrument fascia. Reserving
+	# the centered y=42 combat lane for ingress, bosses and genuine RWR events
+	# returns twenty unobstructed pixels to the battlefield at all other times.
+	var position := Vector2(298, 24)
+	surface.draw_texture_rect(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, Rect2(position, Vector2(7,7)), false)
+	PixelFont.draw_text(surface, _clip(_objective_line(scene, objective), 48), position + Vector2(10, 1), 1, GREEN if required else GOLD, 1)
+	surface.draw_texture_rect(OBJECTIVE_TRACKER_TROUGH, Rect2(position + Vector2(10,8),Vector2(310,2)), false)
 	var ratio := _objective_ratio(scene, objective)
 	if ratio > 0.0:
-		surface.draw_texture_rect(OBJECTIVE_TRACKER_REQUIRED_FILL if required else OBJECTIVE_TRACKER_BONUS_FILL, Rect2(position + Vector2(13,16),Vector2(254.0*ratio,1)), false)
+		surface.draw_texture_rect(OBJECTIVE_TRACKER_REQUIRED_FILL if required else OBJECTIVE_TRACKER_BONUS_FILL, Rect2(position + Vector2(11,8),Vector2(308.0*ratio,1)), false)
 
 func _objective_line(scene: Object, objective: Dictionary) -> String:
 	var label := str(objective.get("label", objective.get("id", "OBJECTIVE"))).to_upper().replace("_", " ")
