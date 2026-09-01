@@ -16,7 +16,7 @@
     {"family":"desert_front","id":"desert_airstrip","path":"res://assets/runtime/environments/landmarks/desert_airstrip.png"},
     {"family":"river_corridor","id":"river_bridge","path":"res://assets/runtime/environments/landmarks/river_bridge.png","source":"res://assets/source/environments/candidates/landmarks/river_bridge_candidate_02_raw.png","size":[128,160],"construction":"transparent generated source retained separately; mastered to a bounded 30-colour binary-alpha sprite palette as a reinforced steel road bridge with real deck, girder and abutment structure"},
     {"family":"mountain_radar","id":"mountain_radar","path":"res://assets/runtime/environments/landmarks/mountain_radar.png"},
-    {"family":"night_harbor","id":"harbor_cranes","path":"res://assets/runtime/environments/landmarks/harbor_cranes.png"},
+    {"family":"night_harbor","id":"harbor_cranes","path":"res://assets/runtime/environments/landmarks/harbor_cranes.png","source":"res://assets/source/environments/candidates/landmarks/harbor_crane_candidate_02_raw.png","size":[128,160],"construction":"transparent generated top-down source retained separately; rotated toward the water and mastered to a bounded binary-alpha VGA sprite palette"},
     {"family":"city_outskirts","id":"city_rail_hub","path":"res://assets/runtime/environments/landmarks/city_rail_hub.png"},
     {"family":"machine_furnace","id":"machine_gantry","path":"res://assets/runtime/environments/landmarks/machine_gantry.png"},
     {"family":"cloud_top","id":"weather_relay","path":"res://assets/runtime/environments/landmarks/weather_relay.png"},

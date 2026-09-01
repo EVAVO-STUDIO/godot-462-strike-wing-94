@@ -25,7 +25,11 @@ const RIVER_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/river_chunks/industrial_bend.png"),
 ]
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
-const NIGHT_HARBOR := preload("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png")
+const HARBOR_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/harbor_chunks/outer_breakwater.png"),
+	preload("res://assets/runtime/environments/harbor_chunks/repair_basin.png"),
+	preload("res://assets/runtime/environments/harbor_chunks/command_docks.png"),
+]
 const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
 const CITY_OUTSKIRTS := preload("res://assets/runtime/environments/city/city_outskirts_loop_v1.png")
@@ -95,7 +99,11 @@ const RIVER_CURRENT_ANIMATION := [
 	preload("res://assets/runtime/environments/river_current_animation/current_4.png"), preload("res://assets/runtime/environments/river_current_animation/current_5.png"),
 ]
 const MOUNTAIN_WEATHER_TILE := preload("res://assets/runtime/environments/layers/mountain_weather_tile.png")
-const HARBOR_REFLECTION_TILE := preload("res://assets/runtime/environments/layers/harbor_reflection_tile.png")
+const HARBOR_REFLECTION_ANIMATION := [
+	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_0.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_1.png"),
+	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_2.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_3.png"),
+	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_4.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_5.png"),
+]
 const CITY_LIGHT_TILE := preload("res://assets/runtime/environments/layers/city_light_tile.png")
 const FURNACE_ACTIVITY_TILE := preload("res://assets/runtime/environments/layers/furnace_activity_tile.png")
 const ORBITAL_DEBRIS_TILE := preload("res://assets/runtime/environments/layers/orbital_debris_tile.png")
@@ -236,7 +244,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"desert_front": _draw_desert_front(surface, scene, state, t)
 			"river_corridor": _draw_river_corridor(surface, scene, state, t)
 			"mountain_radar": _draw_mountain_radar(surface, state, t)
-			"night_harbor": _draw_night_harbor(surface, state, t)
+			"night_harbor": _draw_night_harbor(surface, scene, state, t)
 			"city_outskirts": _draw_city_outskirts(surface, state, t)
 			"machine_furnace": _draw_machine_furnace(surface, state, t)
 	else:
@@ -264,6 +272,9 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	var texture: Texture2D = LANDMARKS[family]
 	if family == "river_corridor":
 		_draw_registered_river_bridge(surface, scene, state, t, texture)
+		return
+	if family == "night_harbor":
+		_draw_registered_harbor_crane(surface, scene, state, t, texture)
 		return
 	var speed := _parallax_speed(profile, state, "mid") * (0.18 if family == "orbital" else 0.28)
 	var mission_seed := _mission_seed(scene)
@@ -294,11 +305,11 @@ func _draw_registered_river_bridge(surface: CanvasItem, scene: Object, state: Di
 	# The complete span belongs over the matching abutments in the defended-
 	# crossing chunk. Keeping the sprite separate still permits destruction and
 	# animation, while this shared world coordinate prevents seeded dry-land drops.
-	var scroll := t * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := t * 27.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var size := texture.get_size() * scale
 	var crossing_world_y := 1594.0
-	var center_y := fposmod(crossing_world_y - scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+	var center_y := fposmod(crossing_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
 	var y := center_y - size.y * 0.5
 	if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
 		return
@@ -309,6 +320,21 @@ func _draw_registered_river_bridge(surface: CanvasItem, scene: Object, state: Di
 		var fx_frames: Array = LANDMARK_FX_FRAMES["river_corridor"]
 		var fx: Texture2D = fx_frames[posmod(int(floor(t * 4.0)), fx_frames.size())]
 		_draw_texture_rect_clipped(surface, fx, rect, ENVIRONMENT_VIEW, Color(1.0, 1.0, 1.0, 0.92))
+
+func _draw_registered_harbor_crane(surface: CanvasItem, scene: Object, state: Dictionary, t: float, texture: Texture2D) -> void:
+	# The crane base stays on the repair-basin quay while its boom reaches over the
+	# authored water channel. It remains a separate target/event layer rather than
+	# being baked into repeating geography or dropped at a random seeded X.
+	var scroll := t * 29.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scale := 0.78 + _ground_scale(state) * 0.34
+	var size := texture.get_size() * scale
+	var crane_world_y := 1500.0
+	var center_y := fposmod(crane_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+	var y := center_y - size.y * 0.5
+	if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
+		return
+	var rect := Rect2(Vector2(118.0, y).round(), size.round())
+	_draw_texture_rect_clipped(surface, texture, rect, ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.86, 0.94))
 
 func _mission_seed(scene: Object) -> int:
 	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []
@@ -355,10 +381,7 @@ func _tone(profile: Dictionary, key: String, alpha: float) -> Color:
 	return color
 
 func _parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String) -> float:
-	var forward_scale := 1.0
-	var craft := get_node_or_null("/root/CraftFormDirector")
-	if craft != null and craft.has_method("world_speed_multiplier"):
-		forward_scale = float(craft.call("world_speed_multiplier"))
+	var forward_scale := _world_speed_multiplier()
 	if bool(state.get("transition", false)):
 		return EnvironmentRules.blended_parallax_speed(
 			profile,
@@ -368,6 +391,12 @@ func _parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String)
 			layer_name
 		) * forward_scale
 	return EnvironmentRules.parallax_speed(profile, str(state.get("current", "mid")), layer_name) * forward_scale
+
+func _world_speed_multiplier() -> float:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("world_speed_multiplier"):
+		return maxf(0.0, float(craft.call("world_speed_multiplier")))
+	return 1.0
 
 func _ground_scale(state: Dictionary) -> float:
 	if bool(state.get("transition", false)):
@@ -451,6 +480,8 @@ func _draw_high_atmosphere_near(surface: CanvasItem, state: Dictionary, t: float
 		surface.draw_texture(texture, Vector2(x,y), Color(0.82,0.90,0.92,alpha))
 
 func _draw_parallax(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
+	var forward_scale := _world_speed_multiplier()
+	var hypersonic_ratio := clampf((forward_scale - 1.0) / 2.4, 0.0, 1.0)
 	var speeds := [
 		_parallax_speed(profile, state, "far"),
 		_parallax_speed(profile, state, "mid"),
@@ -462,7 +493,10 @@ func _draw_parallax(surface: CanvasItem, profile: Dictionary, state: Dictionary,
 		for i in range(16):
 			var y := fposmod(float(i) * gaps[layer_index] + t * speeds[layer_index], 340.0) + 54.0
 			var x0 := 18.0 + float((i * (83 + layer_index * 19)) % 520)
-			var length := 7.0 + float((i * 13 + layer_index * 7) % 28)
+			# At hypersonic speed the authored glints stretch into held raster streaks.
+			# This creates directionally correct speed exposure without a full-screen
+			# shader blur that would erase enemies, projectiles and terrain landmarks.
+			var length := (7.0 + float((i * 13 + layer_index * 7) % 28)) * lerpf(1.0, 3.6, hypersonic_ratio)
 			var accent: Texture2D = PARALLAX_ACCENTS[layer_index]
 			surface.draw_texture_rect(accent, Rect2(Vector2(x0,y-4),Vector2(minf(length,622.0-x0),8)), false, tones[layer_index])
 
@@ -540,7 +574,10 @@ func _draw_texture_rect_clipped(surface: CanvasItem, texture: Texture2D, destina
 func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2, modulate := Color.WHITE) -> void:
 	var remaining := destination.size.y
 	var draw_y := destination.position.y
-	var sample_y := fposmod(source_y, float(texture.get_height()))
+	# Positive world travel means scenery enters at the top and passes downward.
+	# Sampling the texture in the opposite direction is the standard scrolling-
+	# background transform; using +source_y made the world visibly run backward.
+	var sample_y := fposmod(-source_y, float(texture.get_height()))
 	while remaining > 0.0:
 		var segment := minf(remaining, float(texture.get_height()) - sample_y)
 		surface.draw_texture_rect_region(
@@ -558,7 +595,7 @@ func _draw_vertical_chunk_sequence(surface: CanvasItem, chunks: Array, source_y:
 		return
 	var chunk_height := float((chunks[0] as Texture2D).get_height())
 	var cycle_height := chunk_height * float(chunks.size())
-	var sample_world_y := fposmod(source_y, cycle_height)
+	var sample_world_y := fposmod(-source_y, cycle_height)
 	var remaining := destination.size.y
 	var draw_y := destination.position.y
 	while remaining > 0.0:
@@ -660,7 +697,7 @@ func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictio
 
 func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := t * 30.0
+	var scroll := t * 30.0 * _world_speed_multiplier()
 	_draw_vertical_chunk_sequence(surface, DESERT_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.075, 0.045, 0.025, 0.18))
 	var gust: Texture2D = DESERT_DUST_GUST[posmod(int(floor(t * 6.0)), DESERT_DUST_GUST.size())]
@@ -672,7 +709,7 @@ func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t
 
 func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := t * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := t * 27.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
 	_draw_vertical_chunk_sequence(surface, RIVER_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.035, 0.032, 0.13))
 	var current_slots := [
@@ -682,37 +719,44 @@ func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary,
 	for slot_index in range(current_slots.size()):
 		var slot: Dictionary = current_slots[slot_index]
 		var current: Texture2D = RIVER_CURRENT_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2,RIVER_CURRENT_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) - scroll,3072.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(slot["y"]) + scroll,3072.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface,current,Rect2(Vector2(float(slot["x"]),y).round(),Vector2(112,220)),ENVIRONMENT_VIEW,Color(0.62,0.72,0.78,0.18))
 
 func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> void:
-	var scroll := fposmod(t * 15.0, 720.0)
+	var scroll := fposmod(t * 15.0 * _world_speed_multiplier(), 720.0)
 	_draw_vertical_loop(surface, MOUNTAIN_RADAR, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.025, 0.045, 0.14))
-	var weather_scroll := fposmod(t * 27.0, 512.0)
+	var weather_scroll := fposmod(t * 27.0 * _world_speed_multiplier(), 512.0)
 	_draw_vertical_loop(surface, MOUNTAIN_WEATHER_TILE, weather_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.80))
 
-func _draw_night_harbor(surface: CanvasItem, state: Dictionary, t: float) -> void:
+func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := fposmod(t * 29.0, 720.0)
-	_draw_vertical_loop(surface, NIGHT_HARBOR, scroll, ENVIRONMENT_VIEW)
+	var scroll := t * 29.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	_draw_vertical_chunk_sequence(surface, HARBOR_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.008, 0.018, 0.032, 0.12))
-	var reflection_scroll := fposmod(t * 22.0, 512.0)
-	_draw_vertical_loop(surface, HARBOR_REFLECTION_TILE, reflection_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.88))
+	var reflection_slots := [
+		{"x":286.0,"y":130.0}, {"x":340.0,"y":620.0}, {"x":304.0,"y":1110.0},
+		{"x":330.0,"y":1580.0}, {"x":292.0,"y":2130.0}, {"x":346.0,"y":2650.0},
+	]
+	for slot_index in range(reflection_slots.size()):
+		var slot: Dictionary = reflection_slots[slot_index]
+		var reflection: Texture2D = HARBOR_REFLECTION_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2,HARBOR_REFLECTION_ANIMATION.size())]
+		var y := fposmod(float(slot["y"]) + scroll,3072.0) + ENVIRONMENT_VIEW.position.y
+		_draw_texture_rect_clipped(surface,reflection,Rect2(Vector2(float(slot["x"]),y).round(),Vector2(128,224)),ENVIRONMENT_VIEW,Color(0.72,0.80,0.82,0.34))
 
 func _draw_city_outskirts(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := fposmod(t * 38.0, 720.0)
+	var scroll := fposmod(t * 38.0 * _world_speed_multiplier(), 720.0)
 	_draw_vertical_loop(surface, CITY_OUTSKIRTS, scroll, ENVIRONMENT_VIEW, Color(0.82, 0.84, 0.82, 0.92))
-	var light_scroll := fposmod(t * 31.0, 512.0)
+	var light_scroll := fposmod(t * 31.0 * _world_speed_multiplier(), 512.0)
 	var light_pulse := 0.74 + 0.16 * (0.5 + 0.5 * sin(t * 1.3))
 	_draw_vertical_loop(surface, CITY_LIGHT_TILE, light_scroll, ENVIRONMENT_VIEW, Color(1,1,1,light_pulse))
 
 func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := fposmod(t * 34.0, 720.0)
+	var scroll := fposmod(t * 34.0 * _world_speed_multiplier(), 720.0)
 	_draw_vertical_loop(surface, MACHINE_FURNACE, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.80, 0.78, 0.94))
-	var activity_scroll := fposmod(t * 28.0, 512.0)
+	var activity_scroll := fposmod(t * 28.0 * _world_speed_multiplier(), 512.0)
 	var activity_pulse := 0.68 + 0.22 * (0.5 + 0.5 * sin(t * 1.7))
 	_draw_vertical_loop(surface, FURNACE_ACTIVITY_TILE, activity_scroll, ENVIRONMENT_VIEW, Color(1,1,1,activity_pulse))
 

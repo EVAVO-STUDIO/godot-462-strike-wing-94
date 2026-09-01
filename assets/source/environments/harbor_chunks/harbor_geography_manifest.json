@@ -1,0 +1,16 @@
+{
+  "family": "night_harbor_modular_geography",
+  "status": "runtime_registered_v1",
+  "production_method": "built-in image generation source sheets with deterministic ImageMagick crop, registration, shared-boundary finishing and alpha reconstruction",
+  "chunks": [
+    {"id":"outer_breakwater","role":"open-sea fortified harbor approach","size":[640,1024]},
+    {"id":"repair_basin","role":"naval repair and logistics choke point","size":[640,1024]},
+    {"id":"command_docks","role":"fortified blackout command fleet basin","size":[640,1024]}
+  ],
+  "animation": {"id":"harbor_reflection","frames":6,"size":[128,224],"fps":6,"registration":"world-space finite water-channel events"},
+  "cycle_height": 3072,
+  "assembly": {
+    "base_order":["geography_chunk","world_registered_reflection","finite_cranes_ships_and_targets","wakes_and_rain","cloud_shadow","cloud_body"],
+    "rules":["No ships or complete cranes are baked into geography.","Every chunk has a broad navigable water channel.","Adjacent chunks close at zero scanline error.","Recognizable port districts do not repeat at the former 720-pixel interval."]
+  }
+}

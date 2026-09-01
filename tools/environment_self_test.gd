@@ -64,7 +64,7 @@ func _initialize() -> void:
 		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should assemble registered authored battlefield geography chunks")
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
 		_expect(source.contains("MOUNTAIN_RADAR"), "mountain benchmark should use its authored radar-zone raster master")
-		_expect(source.contains("NIGHT_HARBOR"), "harbor benchmark should use its authored naval-port raster master")
+		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
 		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK"), "high-altitude benchmark should use its authored stratospheric raster master")
 		_expect(source.contains("BLACK_SKY_STATION"), "orbital benchmark should use its authored station raster master")
 		_expect(source.contains("CITY_OUTSKIRTS"), "city-belt benchmark should use its authored urban raster master")
@@ -196,7 +196,7 @@ func _initialize() -> void:
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored temporal sea and cloud depth layers")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
-		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
+		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_ANIMATION", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
@@ -281,7 +281,7 @@ func _initialize() -> void:
 			var current_frame := load("res://assets/runtime/environments/river_current_animation/current_%d.png" % frame_index) as Texture2D
 			_expect(current_frame != null and current_frame.get_size() == Vector2(112,220), "river current should retain shared 112x220 registration: %d" % frame_index)
 			if current_frame != null: _expect(current_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "river current frame must retain genuine alpha: %d" % frame_index)
-		_expect(source.contains("RIVER_CURRENT_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) - scroll'), "river current should use held frames registered to geography world coordinates")
+		_expect(source.contains("RIVER_CURRENT_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "river current should use held frames registered to forward-moving geography world coordinates")
 		_expect(not source.contains("_draw_vertical_loop(surface, RIVER_CURRENT_TILE"), "river presentation must not regress to full-screen straight-line current tiling")
 		_expect(not source.contains('family in ["coast", "industrial", "river_corridor"'), "river geography should allow its complete bridge landmark to remain a separate layer")
 		_expect(source.contains("_draw_registered_river_bridge"), "river bridge should use geography-registered placement")
@@ -290,6 +290,29 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_asset_manifest.json"), "mountain source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png"), "harbor runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/harbor_asset_manifest.json"), "harbor source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/harbor_chunks/harbor_geography_manifest.json"), "harbor geography/reflection source and assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_harbor_geography_art.ps1"), "harbor geography should retain a reproducible registered builder")
+		_expect(FileAccess.file_exists("res://tools/build_harbor_crane_art.ps1"), "harbor crane should retain a reproducible source finisher")
+		var harbor_manifest = ContentCatalog.load_json("res://assets/source/environments/harbor_chunks/harbor_geography_manifest.json")
+		_expect(typeof(harbor_manifest) == TYPE_DICTIONARY and harbor_manifest.get("chunks", []).size() == 3, "harbor manifest should register three distinct 1024px port districts")
+		var harbor_names := ["outer_breakwater", "repair_basin", "command_docks"]
+		var harbor_images: Array[Image] = []
+		for chunk_name in harbor_names:
+			var harbor_texture := load("res://assets/runtime/environments/harbor_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(harbor_texture != null and harbor_texture.get_size() == Vector2(640,1024), "harbor chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if harbor_texture != null: harbor_images.append(harbor_texture.get_image())
+		for chunk_index in range(harbor_images.size()):
+			for sample_x in range(0,640,16):
+				_expect(harbor_images[chunk_index].get_pixel(sample_x,1023).is_equal_approx(harbor_images[(chunk_index+1)%harbor_images.size()].get_pixel(sample_x,0)), "adjacent harbor chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
+		for frame_index in range(6):
+			var reflection_frame := load("res://assets/runtime/environments/harbor_reflection_animation/reflection_%d.png" % frame_index) as Texture2D
+			_expect(reflection_frame != null and reflection_frame.get_size() == Vector2(128,224), "harbor reflection should retain shared 128x224 registration: %d" % frame_index)
+			if reflection_frame != null: _expect(reflection_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "harbor reflection frame must retain genuine alpha: %d" % frame_index)
+		_expect(source.contains("HARBOR_REFLECTION_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "harbor reflections should use held frames registered to forward-moving geography world coordinates")
+		_expect(not source.contains("_draw_vertical_loop(surface, HARBOR_REFLECTION_TILE"), "harbor presentation must not regress to full-screen schematic reflection tiling")
+		_expect(source.contains("_draw_registered_harbor_crane") and source.contains("crane_world_y := 1500.0"), "harbor crane should align to the repair-basin quay")
+		_expect(source.contains("fposmod(-source_y") and source.contains("_world_speed_multiplier()"), "positive world speed should move tiled and chunked geography downward past the player")
+		_expect(source.contains("lerpf(1.0, 3.6, hypersonic_ratio)"), "hypersonic environment presentation should stretch authored motion accents without blurring combat readability")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png"), "stratospheric runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"), "orbital runtime master should exist")

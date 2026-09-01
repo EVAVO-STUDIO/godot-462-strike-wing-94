@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csvlqsxeqdseh"
-path="res://.godot/imported/harbor_cranes.png-528d3293edec8aa29698ccaf33b752e8.ctex"
+uid="uid://qrfestobecle"
+path="res://.godot/imported/repair_basin.png-04ed61911b9ddfb0c014c3109384c349.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/runtime/environments/landmarks/harbor_cranes.png"
-dest_files=["res://.godot/imported/harbor_cranes.png-528d3293edec8aa29698ccaf33b752e8.ctex"]
+source_file="res://assets/runtime/environments/harbor_chunks/repair_basin.png"
+dest_files=["res://.godot/imported/repair_basin.png-04ed61911b9ddfb0c014c3109384c349.ctex"]
 
 [params]
 
@@ -31,7 +31,7 @@ process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
 process/channel_remap/alpha=3
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
