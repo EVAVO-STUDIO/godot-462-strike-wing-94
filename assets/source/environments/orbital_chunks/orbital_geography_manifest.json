@@ -1,0 +1,15 @@
+{
+  "family": "black_sky_modular_orbital_geography",
+  "status": "runtime_registered_v2",
+  "production_method": "built-in image generation source sheets with deterministic ImageMagick registration, near-black alpha extraction, shared-boundary finishing and finite-event alpha reconstruction",
+  "chunks": [
+    {"id":"dead_lattice","role":"collapsed reconnaissance antenna field","size":[640,1024]},
+    {"id":"kinetic_rail_platform","role":"unfinished strategic rail installation","size":[640,1024]},
+    {"id":"ark_industrial_approach","role":"machine command-ark outer infrastructure","size":[640,1024]}
+  ],
+  "animation": {"id":"orbital_debris","frames":6,"size":[144,144],"fps":6,"registration":"finite world-space tumble events"},
+  "earth_limb": {"id":"earth_limb_v2","size":[640,324],"role":"far background during orbital mix"},
+  "cycle_height": 3072,
+  "assembly": ["sparse starfield", "near-Earth limb", "transparent orbital infrastructure", "finite debris", "combat actors", "sparse landmarks"],
+  "rules": ["Near-Earth identity remains visible without a giant center-screen bubble arc.","Infrastructure forms physically connected districts with readable north-south lanes.","All joins close at zero scanline error.","Debris is finite and held rather than a repeating full-screen tile.","All orbital world motion responds to the shared hypersonic speed multiplier."]
+}

@@ -24,9 +24,15 @@ function Assert-Vertical-Seam([string]$First, [string]$Second, [string]$Label) {
     $Top = Join-Path $Audit "$($Label)_top.png"
     Export-Edge $First 'bottom' $Bottom
     Export-Edge $Second 'top' $Top
-    $MetricText = (& $MagickPath compare -metric AE $Bottom $Top null: 2>&1 | Out-String).Trim()
+    # ImageMagick writes comparison metrics to stderr even when the images are
+    # identical and the process succeeds. Capture that native stream in a file
+    # so Windows PowerShell does not promote the valid metric into an exception.
+    $MetricOutput = Join-Path $Audit "$($Label)_metric.txt"
+    $Comparison = Start-Process -FilePath $MagickPath -ArgumentList @('compare','-metric','AE',$Bottom,$Top,'null:') -RedirectStandardError $MetricOutput -WindowStyle Hidden -Wait -PassThru
+    $CompareExitCode = $Comparison.ExitCode
+    $MetricText = (Get-Content -Raw -LiteralPath $MetricOutput).Trim()
     $Metric = [double](($MetricText -split '\s+')[0])
-    if ($LASTEXITCODE -ne 0 -or $Metric -ne 0) {
+    if ($CompareExitCode -ne 0 -or $Metric -ne 0) {
         throw "Environment seam failed [$Label]: absolute pixel error $MetricText"
     }
     Write-Host "PASS $Label (AE=0)"
@@ -104,4 +110,11 @@ for ($Index = 0; $Index -lt $CloudTopChunks.Count; $Index++) {
     Assert-Vertical-Seam $First $Second "cloud_top_$Index"
 }
 
-Write-Host "Environment seam gate passed: $($Layers.Count) loops, $($AnimatedWater.Count) temporal-water frames, $($Chunks.Count) coast joins, $($RefineryChunks.Count) refinery joins, $($DesertChunks.Count) desert joins, $($RiverChunks.Count) river joins, $($HarborChunks.Count) harbor joins, $($CityChunks.Count) city joins, $($MountainChunks.Count) mountain joins and $($CloudTopChunks.Count) cloud-top joins."
+$OrbitalChunks = @('dead_lattice.png', 'kinetic_rail_platform.png', 'ark_industrial_approach.png')
+for ($Index = 0; $Index -lt $OrbitalChunks.Count; $Index++) {
+    $First = Join-Path $RepoRoot "assets\runtime\environments\orbital_chunks\$($OrbitalChunks[$Index])"
+    $Second = Join-Path $RepoRoot "assets\runtime\environments\orbital_chunks\$($OrbitalChunks[($Index + 1) % $OrbitalChunks.Count])"
+    Assert-Vertical-Seam $First $Second "orbital_$Index"
+}
+
+Write-Host "Environment seam gate passed: $($Layers.Count) loops, $($AnimatedWater.Count) temporal-water frames, $($Chunks.Count) coast joins, $($RefineryChunks.Count) refinery joins, $($DesertChunks.Count) desert joins, $($RiverChunks.Count) river joins, $($HarborChunks.Count) harbor joins, $($CityChunks.Count) city joins, $($MountainChunks.Count) mountain joins, $($CloudTopChunks.Count) cloud-top joins and $($OrbitalChunks.Count) orbital joins."

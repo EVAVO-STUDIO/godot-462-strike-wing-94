@@ -56,7 +56,7 @@ func _initialize() -> void:
 		_expect(source.contains("blended_cloud_density"), "environment renderer should blend cloud density")
 		_expect(source.contains("_orbital_mix"), "orbital starfield should fade through the atmospheric transition")
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
-		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("HIGH_ATMOSPHERE_RIM") and source.contains("ORBITAL_RIM"), "upper atmosphere and orbital space should use authored star and curvature layers")
+		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("EARTH_LIMB_V2"), "upper atmosphere and orbital space should use authored sparse stars and a low near-Earth curvature layer")
 		_expect(not source.contains("draw_arc") and not source.contains("var star :=") and not source.contains("draw_rect(Rect2(roundf(x)"), "orbital presentation should not regress to perfect vector arcs or one-pixel stars")
 		_expect(source.contains("COAST_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "coastal benchmark should assemble registered authored geography chunks")
 		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble registered authored refinery geography chunks")
@@ -66,7 +66,7 @@ func _initialize() -> void:
 		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS"), "mountain benchmark should use three forward-scrolling authored districts")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
 		_expect(source.contains("CLOUD_TOP_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CLOUD_TOP_GEOGRAPHY_CHUNKS"), "high-altitude benchmark should use three forward-scrolling authored cloud districts")
-		_expect(source.contains("BLACK_SKY_STATION"), "orbital benchmark should use its authored station raster master")
+		_expect(source.contains("ORBITAL_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS"), "orbital benchmark should use three forward-scrolling authored infrastructure districts")
 		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS"), "city belt should use three forward-scrolling authored districts")
 		_expect(source.contains("MACHINE_FURNACE"), "machine-war reveal should use its authored autonomous-foundry raster master")
 		_expect(source.contains("_draw_vertical_loop"), "coastal benchmark should scroll its authored plate without exposed seams")
@@ -196,7 +196,7 @@ func _initialize() -> void:
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored temporal sea and cloud depth layers")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
-		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_ANIMATION", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
+		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_ANIMATION", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_ANIMATION"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
@@ -373,7 +373,30 @@ func _initialize() -> void:
 		_expect(source.contains("transition_mix > 0.02") and source.contains("maxf(_horizon_glow(state), transition_mix)"), "planetary curvature should appear during orbital transition rather than cutting across ordinary high-cloud combat")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"), "orbital runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_asset_manifest.json"), "orbital source manifest should exist")
-		var orbital_layer_sizes := {"starfield_tile":Vector2(640,512),"high_atmosphere_rim":Vector2(640,208),"orbital_rim":Vector2(640,208)}
+		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_chunks/orbital_geography_manifest.json"), "orbital geography/debris/Earth-limb assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_orbital_geography_art.ps1"), "orbital geography should retain a reproducible registered builder")
+		var orbital_manifest = ContentCatalog.load_json("res://assets/source/environments/orbital_chunks/orbital_geography_manifest.json")
+		_expect(typeof(orbital_manifest) == TYPE_DICTIONARY and orbital_manifest.get("chunks", []).size() == 3, "orbital manifest should register three distinct 1024px infrastructure districts")
+		var orbital_names := ["dead_lattice", "kinetic_rail_platform", "ark_industrial_approach"]
+		var orbital_images: Array[Image] = []
+		for chunk_name in orbital_names:
+			var orbital_texture := load("res://assets/runtime/environments/orbital_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(orbital_texture != null and orbital_texture.get_size() == Vector2(640,1024), "orbital chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if orbital_texture != null: orbital_images.append(orbital_texture.get_image())
+		for chunk_index in range(orbital_images.size()):
+			for sample_x in range(0,640,16):
+				_expect(orbital_images[chunk_index].get_pixel(sample_x,1023).is_equal_approx(orbital_images[(chunk_index+1)%orbital_images.size()].get_pixel(sample_x,0)), "adjacent orbital chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
+		for frame_index in range(6):
+			var debris_frame := load("res://assets/runtime/environments/orbital_debris_animation/debris_%d.png" % frame_index) as Texture2D
+			_expect(debris_frame != null and debris_frame.get_size() == Vector2(144,144), "orbital debris should retain shared 144x144 registration: %d" % frame_index)
+			if debris_frame != null: _expect(debris_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "orbital debris frame must retain genuine alpha: %d" % frame_index)
+		var earth_limb_v2 := load("res://assets/runtime/environments/orbital/earth_limb_v2.png") as Texture2D
+		_expect(earth_limb_v2 != null and earth_limb_v2.get_size() == Vector2(640,324), "near-Earth limb should retain full playfield registration")
+		if earth_limb_v2 != null: _expect(earth_limb_v2.get_image().detect_alpha() != Image.ALPHA_NONE, "near-Earth limb must retain transparent black space above the planet")
+		_expect(source.contains("ORBITAL_DEBRIS_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "orbital debris should use held frames registered to forward-moving infrastructure coordinates")
+		_expect(not source.contains("_draw_vertical_loop(surface, ORBITAL_DEBRIS_TILE"), "orbital debris must not regress to a full-screen schematic tile")
+		_expect(source.contains("t * 12.0 * speed_scale") and source.contains("_world_speed_multiplier()"), "orbital infrastructure should accelerate with the shared hypersonic world-speed contract")
+		var orbital_layer_sizes := {"starfield_tile":Vector2(640,512),"high_atmosphere_rim":Vector2(640,208),"orbital_rim":Vector2(640,208),"earth_limb_v2":Vector2(640,324)}
 		for orbital_layer in orbital_layer_sizes:
 			var orbital_texture := load("res://assets/runtime/environments/orbital/%s.png" % orbital_layer)
 			_expect(orbital_texture is Texture2D and orbital_texture.get_size() == orbital_layer_sizes[orbital_layer], "orbital atmosphere layer should retain registered geometry: %s" % orbital_layer)

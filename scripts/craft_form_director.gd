@@ -150,6 +150,15 @@ func _capture_hypersonic() -> bool:
 		return false
 	return "--capture-flight=hypersonic" in OS.get_cmdline_user_args()
 
+func _capture_altitude_override() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-altitude="):
+			var requested := argument.trim_prefix("--capture-altitude=").to_lower()
+			return requested if requested in AltitudeRules.BANDS else ""
+	return ""
+
 func _publish_generator_context(scene: Object) -> void:
 	if scene.has_method("_active_generator"):
 		var generator = scene.call("_active_generator")
@@ -177,6 +186,9 @@ func _mission_context(scene: Object) -> Dictionary:
 func _apply_mission_context(scene: Object) -> void:
 	_current_context = _mission_context(scene).duplicate(true)
 	altitude = AltitudeRules.sanitize(str(_current_context.get("altitude", AltitudeRules.MID)))
+	var capture_altitude := _capture_altitude_override()
+	if not capture_altitude.is_empty():
+		altitude = capture_altitude
 	var recommended := CraftFormRules.sanitize(str(_current_context.get("recommended_form", CraftFormRules.FIGHTER)))
 	form = recommended if AltitudeRules.supports_form(altitude, recommended) else CraftFormRules.FIGHTER
 	ProgressionRules.set_current_tech_era(str(_current_context.get("tech_era", "advanced_conventional")))

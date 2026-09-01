@@ -39,7 +39,11 @@ const CLOUD_TOP_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/cloud_top_chunks/silver_breaks.png"),
 	preload("res://assets/runtime/environments/cloud_top_chunks/frontal_boundary.png"),
 ]
-const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
+const ORBITAL_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/orbital_chunks/dead_lattice.png"),
+	preload("res://assets/runtime/environments/orbital_chunks/kinetic_rail_platform.png"),
+	preload("res://assets/runtime/environments/orbital_chunks/ark_industrial_approach.png"),
+]
 const CITY_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/city_chunks/freight_belt.png"),
 	preload("res://assets/runtime/environments/city_chunks/flooded_underpass.png"),
@@ -133,10 +137,13 @@ const CITY_ACTIVITY_ANIMATION := [
 	preload("res://assets/runtime/environments/city_activity_animation/activity_4.png"), preload("res://assets/runtime/environments/city_activity_animation/activity_5.png"),
 ]
 const FURNACE_ACTIVITY_TILE := preload("res://assets/runtime/environments/layers/furnace_activity_tile.png")
-const ORBITAL_DEBRIS_TILE := preload("res://assets/runtime/environments/layers/orbital_debris_tile.png")
+const ORBITAL_DEBRIS_ANIMATION := [
+	preload("res://assets/runtime/environments/orbital_debris_animation/debris_0.png"), preload("res://assets/runtime/environments/orbital_debris_animation/debris_1.png"),
+	preload("res://assets/runtime/environments/orbital_debris_animation/debris_2.png"), preload("res://assets/runtime/environments/orbital_debris_animation/debris_3.png"),
+	preload("res://assets/runtime/environments/orbital_debris_animation/debris_4.png"), preload("res://assets/runtime/environments/orbital_debris_animation/debris_5.png"),
+]
 const ORBITAL_STARFIELD_TILE := preload("res://assets/runtime/environments/orbital/starfield_tile.png")
-const HIGH_ATMOSPHERE_RIM := preload("res://assets/runtime/environments/orbital/high_atmosphere_rim.png")
-const ORBITAL_RIM := preload("res://assets/runtime/environments/orbital/orbital_rim.png")
+const EARTH_LIMB_V2 := preload("res://assets/runtime/environments/orbital/earth_limb_v2.png")
 const ENVIRONMENT_VIEW := Rect2(0, 36, 640, 324)
 const PARALLAX_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/parallax_far.png"),
@@ -265,7 +272,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	if motif == "orbital" and orbital_mix < 0.98:
 		_draw_cloud_top(surface, scene, profile, state, t)
 		if orbital_mix > 0.02:
-			_draw_orbital(surface, profile, state, t, orbital_mix)
+			_draw_orbital(surface, scene, profile, state, t, orbital_mix)
 	elif variant != "":
 		match variant:
 			"desert_front": _draw_desert_front(surface, scene, state, t)
@@ -280,7 +287,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"industrial": _draw_industrial(surface, scene, profile, state, t)
 			"water": _draw_water(surface, scene, profile, state, t)
 			"cloud_top": _draw_cloud_top(surface, scene, profile, state, t)
-			"orbital": _draw_orbital(surface, profile, state, t, 1.0)
+			"orbital": _draw_orbital(surface, scene, profile, state, t, 1.0)
 	_draw_high_atmosphere_far(surface, state, t)
 	_draw_landmarks(surface, scene, profile, state, t, variant if variant != "" else motif, orbital_mix)
 	_draw_clouds(surface, profile, state, t)
@@ -866,22 +873,27 @@ func _draw_cloud_top(surface: CanvasItem, scene: Object, profile: Dictionary, st
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, _profile: Dictionary, glow: float) -> void:
-	surface.draw_texture(HIGH_ATMOSPHERE_RIM, Vector2(0,152), Color(1,1,1,0.26 + 0.74 * glow))
+	surface.draw_texture_rect(EARTH_LIMB_V2, ENVIRONMENT_VIEW, false, Color(1,1,1,clampf(glow * 0.58,0.0,0.62)))
 
-func _draw_orbital(surface: CanvasItem, _profile: Dictionary, state: Dictionary, t: float, orbital_mix: float) -> void:
+func _draw_orbital(surface: CanvasItem, scene: Object, _profile: Dictionary, _state: Dictionary, t: float, orbital_mix: float) -> void:
 	var mix := clampf(orbital_mix, 0.0, 1.0)
 	if mix <= 0.01:
 		return
-	var scroll := fposmod(t * 8.0, 720.0)
-	_draw_vertical_loop(surface, BLACK_SKY_STATION, scroll, ENVIRONMENT_VIEW, Color(0.76, 0.82, 0.88, 0.88 * mix))
-	var debris_scroll := fposmod(t * 15.0, 512.0)
-	_draw_vertical_loop(surface, ORBITAL_DEBRIS_TILE, debris_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.78*mix))
-	# The authored sparse tile drifts independently without becoming star wallpaper.
-	var star_scroll := fposmod(t * 2.0, 512.0)
+	var speed_scale := _world_speed_multiplier()
+	var star_scroll := t * 2.0 * (0.40 + speed_scale * 0.60)
 	_draw_vertical_loop(surface, ORBITAL_STARFIELD_TILE, star_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.82*mix))
-	var glow := _horizon_glow(state) * mix
-	if glow > 0.0:
-		surface.draw_texture(ORBITAL_RIM, Vector2(0,150), Color(1,1,1,glow))
+	surface.draw_texture_rect(EARTH_LIMB_V2, ENVIRONMENT_VIEW, false, Color(1,1,1,0.92*mix))
+	var scroll := t * 12.0 * speed_scale + float(_mission_seed(scene) % 3) * 1024.0
+	_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW, Color(0.82,0.86,0.89,0.94*mix))
+	var debris_slots := [
+		{"x":72.0,"y":210.0}, {"x":394.0,"y":690.0}, {"x":248.0,"y":1160.0},
+		{"x":420.0,"y":1660.0}, {"x":92.0,"y":2170.0}, {"x":360.0,"y":2680.0},
+	]
+	for slot_index in range(debris_slots.size()):
+		var slot: Dictionary = debris_slots[slot_index]
+		var debris: Texture2D = ORBITAL_DEBRIS_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index, ORBITAL_DEBRIS_ANIMATION.size())]
+		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		_draw_texture_rect_clipped(surface, debris, Rect2(Vector2(float(slot["x"]),y).round(),Vector2(144,144)),ENVIRONMENT_VIEW,Color(0.88,0.91,0.94,0.72*mix))
 
 func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
