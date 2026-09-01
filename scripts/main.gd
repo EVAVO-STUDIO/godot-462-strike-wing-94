@@ -121,6 +121,7 @@ func _ready() -> void:
 	mode_selection = _capture_mode_selection(OS.get_cmdline_user_args(),mode_selection)
 	option_selection = _capture_option_selection(OS.get_cmdline_user_args(),option_selection)
 	option_category = _capture_option_category(OS.get_cmdline_user_args(),option_category)
+	control_selection = _capture_control_selection(OS.get_cmdline_user_args(), control_selection)
 	var capture_front_end := _capture_front_end(OS.get_cmdline_user_args())
 	var capture_game_mode := _capture_game_mode(OS.get_cmdline_user_args())
 	var capture_result := _capture_result_state(OS.get_cmdline_user_args())
@@ -189,6 +190,14 @@ func _capture_option_category(arguments: PackedStringArray, fallback: int) -> in
 		if argument.begins_with("--capture-option-category="):
 			var value:=argument.trim_prefix("--capture-option-category=")
 			if value.is_valid_int():return maxi(0,value.to_int())
+	return fallback
+
+func _capture_control_selection(arguments: PackedStringArray, fallback: int) -> int:
+	for argument in arguments:
+		if argument.begins_with("--capture-control-selection="):
+			var value := argument.trim_prefix("--capture-control-selection=")
+			if value.is_valid_int():
+				return maxi(0, value.to_int())
 	return fallback
 
 func _capture_game_mode(arguments: PackedStringArray) -> String:

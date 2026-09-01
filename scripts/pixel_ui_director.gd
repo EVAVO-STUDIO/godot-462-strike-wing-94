@@ -433,10 +433,13 @@ func _draw_front_end_controls(surface: CanvasItem, scene: Object) -> void:
 	var count := int(bindings.call("binding_count")) if bindings != null and bindings.has_method("binding_count") else 0
 	var selection := clampi(int(scene.get("control_selection")), 0, maxi(0, count - 1))
 	var listening := bool(scene.get("control_listening"))
+	var visible_rows := 7
+	var first := clampi(selection - 3, 0, maxi(0, count - visible_rows))
+	var last := mini(first + visible_rows, count)
 	PixelFont.draw_centered(surface, "FLIGHT CONTROL ASSIGNMENT", 320, 119, 1, GOLD, 1)
-	_draw_console_panel(surface, Rect2(88, 133, 464, 174), "KEYBOARD // CONTROLLER REMAINS ACTIVE", BLUE)
-	var first := clampi(selection - 3, 0, maxi(0, count - 7))
-	for row in range(first, mini(first + 7, count)):
+	var range_text := "%02d-%02d / %02d" % [first + 1 if count > 0 else 0, last, count]
+	_draw_console_panel(surface, Rect2(88, 133, 464, 174), "KEYBOARD // CONTROLLER ACTIVE // %s" % range_text, BLUE)
+	for row in range(first, last):
 		var y := 151 + (row - first) * 20
 		var selected := row == selection
 		if selected:
@@ -452,7 +455,7 @@ func _draw_front_end_controls(surface: CanvasItem, scene: Object) -> void:
 		surface.draw_rect(Rect2(151, 239, 338, 34), GOLD, false, 1.0)
 		PixelFont.draw_centered(surface, "PRESS NEW KEY // ESC CANCEL", 320, 251, 1, GOLD, 1)
 	else:
-		PixelFont.draw_centered(surface, "ENTER REBIND   BACKSPACE DEFAULTS   ESC RETURN", 320, 286, 1, MUTED, 1)
+		PixelFont.draw_centered(surface, "UP / DOWN SELECT   ENTER REBIND   BACKSPACE DEFAULTS   ESC RETURN", 320, 286, 1, MUTED, 1)
 
 func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")

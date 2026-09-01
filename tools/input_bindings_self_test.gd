@@ -33,8 +33,10 @@ func _initialize() -> void:
 	_expect(_has_key("transform_craft", KEY_Q), "defaults restore should recover the authored keyboard layout")
 	var main := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main != null and main.get_as_text().contains("control_listening") and main.get_as_text().contains("KEY RESERVED FOR CONTROL STATION"), "front end should own safe live keyboard capture")
+	_expect(main != null and main.get_as_text().contains("--capture-control-selection="), "visual QA should expose the complete scrollable binding catalogue")
 	var ui := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	_expect(ui != null and ui.get_as_text().contains("FLIGHT CONTROL ASSIGNMENT") and ui.get_as_text().contains("PRESS NEW KEY"), "flight-control screen should render the live assignment state")
+	_expect(ui != null and ui.get_as_text().contains('"%02d-%02d / %02d"') and ui.get_as_text().contains("UP / DOWN SELECT"), "flight-control station should identify the visible binding range and scrolling navigation")
 	bindings.free()
 	if failures.is_empty():
 		print("HYPERSONIC controller input self-test passed.")

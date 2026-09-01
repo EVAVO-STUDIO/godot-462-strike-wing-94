@@ -27,6 +27,13 @@ New-Item -ItemType Directory -Force -Path $AbsoluteOutput | Out-Null
 $Cases = @(
     @{ id='front_main_menu'; args=@('--capture-gameplay','--capture-front-end=main_menu') },
     @{ id='front_sortie_bay'; args=@('--capture-gameplay','--capture-front-end=sortie') },
+    @{ id='front_modes'; args=@('--capture-gameplay','--capture-front-end=modes','--capture-campaign-clear','--capture-mode-records') },
+    @{ id='front_options_access'; args=@('--capture-gameplay','--capture-front-end=options','--capture-option-category=3','--capture-option-selection=1') },
+    @{ id='front_flight_controls'; args=@('--capture-gameplay','--capture-front-end=controls') },
+    @{ id='front_flight_controls_advanced'; args=@('--capture-gameplay','--capture-front-end=controls','--capture-control-selection=13') },
+    @{ id='front_intelligence'; args=@('--capture-gameplay','--capture-front-end=dossier','--capture-campaign-clear') },
+    @{ id='front_secret_operations'; args=@('--capture-gameplay','--capture-front-end=secret_sorties','--capture-campaign-clear') },
+    @{ id='front_branch_decision'; args=@('--capture-gameplay','--capture-front-end=branch','--capture-branch') },
     @{ id='mission_01_coastal'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42') },
     @{ id='mission_02_bomber'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=68','--capture-altitude=low') },
     @{ id='mission_09_air'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high') },
@@ -35,7 +42,11 @@ $Cases = @(
     @{ id='mission_30_final_boss'; args=@('--capture-gameplay','--capture-mission=29','--capture-time=180','--capture-hud=boss') },
     @{ id='secret_dead_frequency'; args=@('--capture-gameplay','--capture-secret-mission=sm03_dead_frequency','--capture-time=52','--capture-secret') },
     @{ id='hud_missile_warning'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-hud=warning') },
-    @{ id='debrief_success'; args=@('--capture-gameplay','--capture-result=success') }
+    @{ id='pause_command'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=menu') },
+    @{ id='pause_options'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=options') },
+    @{ id='pause_restart_confirmation'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=confirm_restart') },
+    @{ id='debrief_success'; args=@('--capture-gameplay','--capture-result=success') },
+    @{ id='campaign_credits'; args=@('--capture-gameplay','--capture-credits') }
 )
 
 $Results = @()
