@@ -10,7 +10,6 @@ const COAST_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/coast_chunks/reef_cliffs.png"),
 ]
 const REFINERY_NIGHT := preload("res://assets/runtime/environments/industrial/refinery_night_loop_v1.png")
-const STORM_SEA := preload("res://assets/runtime/environments/water/storm_sea_loop_v2.png")
 const DESERT_FRONT := preload("res://assets/runtime/environments/desert/desert_front_loop_v1.png")
 const RIVER_CORRIDOR := preload("res://assets/runtime/environments/river/river_corridor_loop_v1.png")
 const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
@@ -19,9 +18,33 @@ const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/hig
 const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
 const CITY_OUTSKIRTS := preload("res://assets/runtime/environments/city/city_outskirts_loop_v1.png")
 const MACHINE_FURNACE := preload("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png")
-const SEA_DEEP_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
-const SEA_SURFACE_TILE := preload("res://assets/runtime/environments/layers/sea_surface_tile.png")
-const SEA_FOAM_TILE := preload("res://assets/runtime/environments/layers/sea_foam_tile.png")
+const SEA_DEEP_ANIMATION := [
+	preload("res://assets/runtime/environments/open_water_animation/deep_0.png"), preload("res://assets/runtime/environments/open_water_animation/deep_1.png"),
+	preload("res://assets/runtime/environments/open_water_animation/deep_2.png"), preload("res://assets/runtime/environments/open_water_animation/deep_3.png"),
+]
+const SEA_SURFACE_ANIMATION := [
+	preload("res://assets/runtime/environments/open_water_animation/surface_0.png"), preload("res://assets/runtime/environments/open_water_animation/surface_1.png"),
+	preload("res://assets/runtime/environments/open_water_animation/surface_2.png"), preload("res://assets/runtime/environments/open_water_animation/surface_3.png"),
+]
+const SEA_FOAM_ANIMATION := [
+	preload("res://assets/runtime/environments/open_water_animation/foam_0.png"), preload("res://assets/runtime/environments/open_water_animation/foam_1.png"),
+	preload("res://assets/runtime/environments/open_water_animation/foam_2.png"), preload("res://assets/runtime/environments/open_water_animation/foam_3.png"),
+	preload("res://assets/runtime/environments/open_water_animation/foam_4.png"), preload("res://assets/runtime/environments/open_water_animation/foam_5.png"),
+]
+const OPEN_WATER_FINITE := [
+	preload("res://assets/runtime/environments/open_water_finite/nav_buoy_yellow.png"),
+	preload("res://assets/runtime/environments/open_water_finite/nav_buoy_red.png"),
+	preload("res://assets/runtime/environments/open_water_finite/sensor_buoy.png"),
+	preload("res://assets/runtime/environments/open_water_finite/container_debris.png"),
+	preload("res://assets/runtime/environments/open_water_finite/fuel_slick.png"),
+	preload("res://assets/runtime/environments/open_water_finite/convoy_wake_narrow.png"),
+	preload("res://assets/runtime/environments/open_water_finite/convoy_wake_wide.png"),
+	preload("res://assets/runtime/environments/open_water_finite/platform_wake.png"),
+	preload("res://assets/runtime/environments/open_water_finite/current_scar_a.png"),
+	preload("res://assets/runtime/environments/open_water_finite/current_scar_b.png"),
+	preload("res://assets/runtime/environments/open_water_finite/weather_raft.png"),
+	preload("res://assets/runtime/environments/open_water_finite/mooring_field.png"),
+]
 const COAST_SURFACE_TILE := preload("res://assets/runtime/environments/layers/coast_surface_tile.png")
 const CLOUD_SHADOW_TILE := preload("res://assets/runtime/environments/layers/cloud_shadow_tile.png")
 const CLOUD_MIST_TILE := preload("res://assets/runtime/environments/layers/cloud_mist_tile.png")
@@ -195,7 +218,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 		match motif:
 			"coast": _draw_coast(surface, scene, profile, state, t)
 			"industrial": _draw_industrial(surface, scene, profile, state, t)
-			"water": _draw_water(surface, profile, state, t)
+			"water": _draw_water(surface, scene, profile, state, t)
 			"cloud_top": _draw_cloud_top(surface, profile, state, t)
 			"orbital": _draw_orbital(surface, profile, state, t, 1.0)
 	_draw_high_atmosphere_far(surface, state, t)
@@ -538,22 +561,51 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 	var flare_y := fposmod(world_scroll + 1010.0 + float(seed % 113), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
 	_draw_texture_rect_clipped(surface, flare, Rect2(Vector2(104,flare_y).round(),Vector2(42,62)),ENVIRONMENT_VIEW,Color(0.92,0.78,0.58,0.62))
 
-func _draw_water(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
+func _draw_water(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var speed := _parallax_speed(profile, state, "near")
-	var master_scroll := fposmod(t * speed * 0.11, 720.0)
 	var deep_scroll := fposmod(t * speed * 0.17, 512.0)
 	var surface_scroll := fposmod(t * speed * 0.33, 512.0)
 	var foam_scroll := fposmod(t * speed * 0.51, 512.0)
-	_draw_vertical_loop(surface, STORM_SEA, master_scroll, ENVIRONMENT_VIEW, Color(0.70,0.76,0.80,0.86))
-	_draw_vertical_loop(surface, SEA_DEEP_TILE, deep_scroll, ENVIRONMENT_VIEW, Color(0.72,0.80,0.84,0.34))
-	_draw_vertical_loop(surface, SEA_SURFACE_TILE, surface_scroll, ENVIRONMENT_VIEW, Color(0.78,0.86,0.88,0.42))
-	_draw_vertical_loop(surface, SEA_FOAM_TILE, foam_scroll, ENVIRONMENT_VIEW, Color(0.70,0.82,0.84,0.34))
-	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.01, 0.025, 0.045, 0.16))
+	var deep: Texture2D = SEA_DEEP_ANIMATION[posmod(int(floor(t * 4.0)), SEA_DEEP_ANIMATION.size())]
+	var surface_chop: Texture2D = SEA_SURFACE_ANIMATION[posmod(int(floor(t * 6.0)), SEA_SURFACE_ANIMATION.size())]
+	var foam: Texture2D = SEA_FOAM_ANIMATION[posmod(int(floor(t * 8.0)), SEA_FOAM_ANIMATION.size())]
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.018, 0.045, 0.068, 1.0))
+	_draw_vertical_loop(surface, deep, deep_scroll, ENVIRONMENT_VIEW, Color(0.72,0.80,0.84,0.82))
+	_draw_vertical_loop(surface, surface_chop, surface_scroll, ENVIRONMENT_VIEW, Color(0.78,0.86,0.88,0.46))
+	_draw_open_water_finite(surface, scene, profile, state, t)
+	_draw_vertical_loop(surface, foam, foam_scroll, ENVIRONMENT_VIEW, Color(0.72,0.84,0.86,0.40))
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.01, 0.025, 0.045, 0.12))
 	for i in range(14):
 		var x := float((i * 109 + 31) % 690) - 20.0
 		var y := fposmod(float(i) * 43.0 + t * (42.0 + float(i % 3) * 4.0), 340.0) + 48.0
 		var rain_texture: Texture2D = RAIN_ACCENTS[i % RAIN_ACCENTS.size()]
 		surface.draw_texture(rain_texture, Vector2(x-8,y), Color(1,1,1,0.30))
+
+func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
+	var world_scroll := t * _parallax_speed(profile, state, "mid") * 0.24
+	var seed := _mission_seed(scene)
+	var cycle := 2380.0
+	var scale := 0.58 + 0.14 * _ground_scale(state)
+	var slots := [
+		{"x":76.0, "y":120.0, "asset":10, "alpha":0.72},
+		{"x":428.0, "y":410.0, "asset":0, "alpha":0.76},
+		{"x":205.0, "y":690.0, "asset":5, "alpha":0.44},
+		{"x":470.0, "y":980.0, "asset":3, "alpha":0.58},
+		{"x":112.0, "y":1290.0, "asset":11, "alpha":0.68},
+		{"x":382.0, "y":1620.0, "asset":4, "alpha":0.38},
+		{"x":238.0, "y":1940.0, "asset":2, "alpha":0.76},
+		{"x":514.0, "y":2180.0, "asset":9, "alpha":0.40},
+	]
+	for slot_index in range(slots.size()):
+		var slot: Dictionary = slots[slot_index]
+		var asset_index := posmod(int(slot["asset"]) + seed % 3, OPEN_WATER_FINITE.size())
+		var texture: Texture2D = OPEN_WATER_FINITE[asset_index]
+		var y := fposmod(float(slot["y"]) + world_scroll + float(seed % 173), cycle) - 220.0 + ENVIRONMENT_VIEW.position.y
+		var size := (texture.get_size() * scale).round()
+		if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
+			continue
+		var x := clampf(float(slot["x"]) + float((seed + slot_index * 41) % 47) - 23.0, 8.0, 632.0 - size.x)
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.80,0.86,0.88,float(slot["alpha"])))
 
 func _draw_desert_front(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return

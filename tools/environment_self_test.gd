@@ -60,7 +60,7 @@ func _initialize() -> void:
 		_expect(not source.contains("draw_arc") and not source.contains("var star :=") and not source.contains("draw_rect(Rect2(roundf(x)"), "orbital presentation should not regress to perfect vector arcs or one-pixel stars")
 		_expect(source.contains("COAST_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "coastal benchmark should assemble registered authored geography chunks")
 		_expect(source.contains("REFINERY_NIGHT"), "industrial benchmark should use its authored refinery raster master")
-		_expect(source.contains("STORM_SEA"), "open-water benchmark should use its authored storm-sea raster master")
+		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
 		_expect(source.contains("DESERT_FRONT"), "desert benchmark should use its authored battlefield raster master")
 		_expect(source.contains("RIVER_CORRIDOR"), "river benchmark should use its authored corridor raster master")
 		_expect(source.contains("MOUNTAIN_RADAR"), "mountain benchmark should use its authored radar-zone raster master")
@@ -148,10 +148,24 @@ func _initialize() -> void:
 		_expect(source.contains("REFINERY_STEAM") and source.contains("floor(t * 5.0)") and source.contains("REFINERY_FLARE") and source.contains("floor(t * 8.0)"), "industrial renderer should consume deliberate held steam and flare animation")
 		_expect(not source.substr(source.find("func _draw_industrial"), source.find("func _draw_water") - source.find("func _draw_industrial")).contains("REFINERY_DETAIL_TILE"), "industrial gameplay should not regress to schematic circuit-line overlays")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/water/storm_sea_loop_v1.png"), "open-water runtime master should exist")
-		var storm_v2 := load("res://assets/runtime/environments/water/storm_sea_loop_v2.png") as Texture2D
-		_expect(storm_v2 != null and storm_v2.get_size() == Vector2(640,720), "open-water v2 master should retain reviewed 640x720 scroll geometry")
-		_expect(source.contains("storm_sea_loop_v2.png"), "open-water renderer should select the mastered v2 ocean plate")
-		_expect(source.contains("_draw_vertical_loop(surface, STORM_SEA, master_scroll"), "open-water renderer should actually draw its large authored ocean master")
+		_expect(not source.contains("STORM_SEA") and not source.contains("master_scroll"), "open-water renderer must not hide a recognizable 720px painting beneath the material stack")
+		_expect(FileAccess.file_exists("res://assets/source/environments/open_water/open_water_runtime_manifest.json"), "open-water v3 source/runtime assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_open_water_art.ps1"), "open-water temporal and finite sprite build should remain reproducible")
+		var open_water_manifest = ContentCatalog.load_json("res://assets/source/environments/open_water/open_water_runtime_manifest.json")
+		_expect(typeof(open_water_manifest) == TYPE_DICTIONARY and open_water_manifest.get("finite_events", []).size() == 12, "open-water manifest should register twelve sparse finite event families")
+		for water_family in {"deep":4,"surface":4,"foam":6}:
+			for frame_index in range(int({"deep":4,"surface":4,"foam":6}[water_family])):
+				var water_frame := load("res://assets/runtime/environments/open_water_animation/%s_%d.png" % [water_family,frame_index]) as Texture2D
+				_expect(water_frame != null and water_frame.get_size() == Vector2(640,512), "temporal water frame should retain seamless 640x512 registration: %s %d" % [water_family,frame_index])
+				if water_frame != null:
+					var water_image := water_frame.get_image()
+					for sample_x in range(0,640,32):
+						_expect(water_image.get_pixel(sample_x,0).is_equal_approx(water_image.get_pixel(sample_x,511)), "temporal water frame must close its vertical seam: %s %d x=%d" % [water_family,frame_index,sample_x])
+		for finite_name in open_water_manifest.get("finite_events", []):
+			var finite_texture := load("res://assets/runtime/environments/open_water_finite/%s.png" % finite_name) as Texture2D
+			_expect(finite_texture != null and finite_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "finite open-water event must retain genuine transparency: %s" % finite_name)
+		_expect(source.contains("_draw_open_water_finite") and source.contains("cycle := 2380.0"), "open-water finite events should use a mission-seeded cycle independent from water materials")
+		_expect(source.contains("floor(t * 4.0)") and source.contains("floor(t * 6.0)") and source.contains("floor(t * 8.0)"), "deep swell, surface chop and foam should retain deliberate held temporal exposure rates")
 		_expect(FileAccess.file_exists("res://assets/source/environments/water_asset_manifest.json"), "open-water source manifest should exist")
 		for layer_path in [
 			"sea_deep_tile.png", "sea_surface_tile.png", "sea_foam_tile.png", "coast_surface_tile.png", "cloud_shadow_tile.png", "cloud_mist_tile.png",
@@ -164,7 +178,7 @@ func _initialize() -> void:
 				var layer_image: Image = layer_texture.get_image()
 				for sample_x in range(0,layer_image.get_width(),32):
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
-		_expect(source.contains("SEA_DEEP_TILE") and source.contains("SEA_SURFACE_TILE") and source.contains("SEA_FOAM_TILE") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored sea and cloud depth layers")
+		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored temporal sea and cloud depth layers")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_TILE", "RIVER_CURRENT_TILE", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_TILE", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)

@@ -43,6 +43,11 @@ foreach ($Layer in $Layers) {
     Assert-Vertical-Seam $Path $Path ([IO.Path]::GetFileNameWithoutExtension($Layer))
 }
 
+$AnimatedWater = Get-ChildItem -LiteralPath (Join-Path $RepoRoot 'assets\runtime\environments\open_water_animation') -Filter '*.png' | Sort-Object Name
+foreach ($Frame in $AnimatedWater) {
+    Assert-Vertical-Seam $Frame.FullName $Frame.FullName "water_$($Frame.BaseName)"
+}
+
 $Chunks = @('seawall_run.png', 'defended_inlet.png', 'reef_cliffs.png')
 for ($Index = 0; $Index -lt $Chunks.Count; $Index++) {
     $First = Join-Path $RepoRoot "assets\runtime\environments\coast_chunks\$($Chunks[$Index])"
@@ -50,4 +55,4 @@ for ($Index = 0; $Index -lt $Chunks.Count; $Index++) {
     Assert-Vertical-Seam $First $Second "coast_$Index"
 }
 
-Write-Host "Environment seam gate passed: $($Layers.Count) loops and $($Chunks.Count) coast joins."
+Write-Host "Environment seam gate passed: $($Layers.Count) loops, $($AnimatedWater.Count) temporal-water frames and $($Chunks.Count) coast joins."

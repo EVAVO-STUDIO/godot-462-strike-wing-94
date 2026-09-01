@@ -1,0 +1,26 @@
+{
+  "asset_family": "hypersonic_open_water_runtime_v3",
+  "finite_source": "res://assets/source/environments/open_water/open_water_finite_source_v1.png",
+  "builder": "res://tools/build_open_water_art.ps1",
+  "source_method": "Built-in image generation created the transparent finite-event source; deterministic EVAVO finishing crops, registers and validates runtime assets. Approved seamless layer masters provide temporal phase frames.",
+  "material_animation": {
+    "deep_swell": {"frames": 4, "exposure_fps": 4, "spatial_loop": true},
+    "surface_chop": {"frames": 4, "exposure_fps": 6, "spatial_loop": true},
+    "foam_crests": {"frames": 6, "exposure_fps": 8, "spatial_loop": true}
+  },
+  "finite_events": [
+    "nav_buoy_yellow", "nav_buoy_red", "sensor_buoy", "container_debris", "fuel_slick",
+    "convoy_wake_narrow", "convoy_wake_wide", "platform_wake", "current_scar_a", "current_scar_b",
+    "weather_raft", "mooring_field"
+  ],
+  "assembly_contract": {
+    "base_order": ["ocean_color", "deep_swell", "surface_chop", "finite_events", "foam_crests", "rain", "cloud_shadow", "cloud_body", "mist"],
+    "world_cycle_pixels": 2380,
+    "rules": [
+      "No recognizable full-screen storm painting is allowed beneath the material stack.",
+      "Spatial scrolling stays smooth while water animation uses deliberate held exposures.",
+      "Finite events are mission-seeded and do not share the material-loop period.",
+      "All temporal material frames close their first and last scanlines exactly."
+    ]
+  }
+}
