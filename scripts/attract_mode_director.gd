@@ -181,7 +181,9 @@ func _draw_centered(surface: CanvasItem, texture: Texture2D, position: Vector2, 
 func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, modulate: Color) -> void:
 	var remaining := 360.0
 	var draw_y := 0.0
-	var sample_y := fposmod(source_y, float(texture.get_height()))
+	# The demonstration uses the same forward-flight convention as gameplay:
+	# scenery enters above the VX-94 and travels toward the bottom of frame.
+	var sample_y := fposmod(-source_y, float(texture.get_height()))
 	while remaining > 0.0:
 		var segment := minf(remaining, float(texture.get_height()) - sample_y)
 		surface.draw_texture_rect_region(texture, Rect2(0, draw_y, 640, segment), Rect2(0, sample_y, float(texture.get_width()), segment), modulate)

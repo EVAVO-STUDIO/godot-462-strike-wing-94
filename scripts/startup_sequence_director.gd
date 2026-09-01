@@ -168,7 +168,9 @@ func _draw_title_cloud(surface: CanvasItem, texture: Texture2D, position: Vector
 func _draw_vertical_loop(surface: CanvasItem, texture: Texture2D, source_y: float, destination: Rect2, modulate: Color) -> void:
 	var remaining := destination.size.y
 	var draw_y := destination.position.y
-	var sample_y := fposmod(source_y, float(texture.get_height()))
+	# Positive flight speed must carry the cloud deck down past the aircraft,
+	# matching the gameplay world's forward-scroll convention.
+	var sample_y := fposmod(-source_y, float(texture.get_height()))
 	while remaining > 0.0:
 		var segment := minf(remaining, float(texture.get_height()) - sample_y)
 		surface.draw_texture_rect_region(texture, Rect2(destination.position.x, draw_y, destination.size.x, segment), Rect2(0, sample_y, float(texture.get_width()), segment), modulate)

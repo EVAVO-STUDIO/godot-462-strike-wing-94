@@ -34,6 +34,7 @@ func _initialize() -> void:
 		_expect(source.contains('identity.call("title_subtitle")'), "title subtitle should remain centralized through ProductIdentity", failures)
 		_expect(source.contains("PixelFont.draw_centered(surface, subtitle"), "VX-94 subtitle should remain visually subordinate to the raster wordmark", failures)
 		_expect(source.contains('frame_for_ratio("afterburner"'), "title-sequence ignition should use the authored twin-engine compression plume", failures)
+		_expect(source.contains("fposmod(-source_y"), "title cloud deck should travel forward with the gameplay world instead of running backward", failures)
 		_expect(not source.contains("func _draw_cloud_wisp") and not source.contains("surface.draw_circle(Vector2(320, craft_y"), "title atmosphere should not regress to polygon wisps or a circular engine flare", failures)
 	if failures.is_empty():
 		print("HYPERSONIC startup sequence self-test passed.")

@@ -14,6 +14,7 @@ func _initialize() -> void:
 		for token in ["VX94_FRAMES", "sonic_boom", "afterburner", "MACHINE_ARK", "DEMONSTRATION", "NO CAMPAIGN DATA", "_draw_intercept", "_draw_hypersonic_break", "_draw_boss_engagement", "_draw_return_card"]:
 			_expect(source.contains(token), "attract mode missing production cue: %s" % token, failures)
 		_expect(not source.contains("CampaignSave") and not source.contains('scene.set('), "attract mode must remain isolated from campaign and game state", failures)
+		_expect(source.contains("fposmod(-source_y"), "attract scenery should preserve the gameplay forward-scroll direction", failures)
 	if failures.is_empty():
 		print("HYPERSONIC attract mode self-test passed.")
 		quit(0)
