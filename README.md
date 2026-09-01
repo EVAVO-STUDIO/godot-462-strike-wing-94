@@ -8,14 +8,14 @@ HYPERSONIC is centered on the **VX-94 Variable Strike Fighter (VSF)**, a 1999 im
 
 ## Current status
 
-Playable 12-mission campaign foundation on `main`.
+Playable 30-mission, three-sector campaign plus six secret sorties on `main`.
 
 Implemented now:
 
 - approved EVAVO publisher splash with canonical plate/sparkle assets, black transition, and skippable HYPERSONIC title sequence
 - 640×360 logical canvas with nearest-neighbour presentation to 1280×720
-- bitmap/pixel title, briefing, result and combat HUD
-- VX-94 fighter / bomber transformation with a visible hinge-based wing sweep
+- governed sprite-built title, briefing, debrief, options, pause and combat HUD presentation
+- production VX-94 fighter / bomber sprite animation with a mechanical wing-sweep transition, held key poses and separate banking cels
 - fighter wing-root cannon posture and bomber-deployed nose rotary cannon
 - form-aware projectile muzzle positions and matching muzzle-flash presentation
 - original procedural fighter / bomber rotary / rail / energy / support SFX
@@ -34,17 +34,20 @@ Implemented now:
 - interactive Atlas tanker hose hookup / rearm / refuel sequence
 - dedicated bomber precision-strike ordnance at low/mid altitude
 - deterministic authored encounter beats, formations, recovery windows and mastery secrets
-- 12-mission campaign: mercenary war → autonomous drone war → directed-energy escalation → strategic orbital endgame
-- autonomous late-war enemy families and six bespoke AI bosses
+- 30 core missions across Mercenary War, Machine War and BLACK SKY, plus six discoverable secret sorties
+- arcade assault and authored challenge routes with independent scoring/progression rules
+- 38 canonical enemy identities spanning air, ground, naval and orbital warfare, including nine bosses
 - boss phase / weak-point behavior and signature attacks
 - Needle Rail penetration, Storm Cannon pulse discharge and Plasma Lance field discharge
 - bounded strategic Micro-Warhead pre-impact blast
 - persistent campaign credits, equipment and serviced airframe state
 - versioned v6 local autosave with stable mission identity, validated backup recovery and v1-v5 migration compatibility
-- production-oriented integer-grid combat-art overlays for the VX-94, enemies, bosses, projectiles, airframes and support set pieces
+- verified layered runtime art for the VX-94, enemies, bosses, projectiles, airframes, support set pieces and cinematic hero cels
+- modular, seam-tested coast/refinery environment stacks with animated water, surf, cloud, smoke and weather layers
+- campaign launch/ending cinematics, completion aftermath, credits and post-campaign presentation
 - local PowerShell validation with optional Godot headless test/editor smoke pass
 
-The prototype player/enemy/projectile polygons have been removed from `main.gd` after live visual capture confirmed the production combat-art and projectile-cue layers cover the active states. The remaining visual work is replacement of procedural production-direction silhouettes and sparse environment overlays with final governed sprite/background assets.
+The obsolete player/enemy/projectile polygons have been removed from `main.gd`. Live combat now resolves through governed sprite manifests and dedicated presentation directors; environment seam gates, art-contract tests and real Godot capture passes protect the active production stack.
 
 ## Controls
 
@@ -144,7 +147,7 @@ A climb/dive lasts roughly 1.15 seconds visually and includes moving cloud bands
 3. **Directed energy** — Storm Cannon, advanced field systems, Field-Coupled frame
 4. **Strategic orbital** — Plasma Lance, Micro-Warhead Rack, orbital/strategic support
 
-The current playable campaign ends the machine war at Mission 12. External/alien contact remains deliberately outside the current campaign so the military/AI conflict gets a complete arc first.
+The playable campaign escalates from the Mercenary War through the autonomous Machine War and completes in the near-Earth BLACK SKY campaign. The fiction remains a coherent human/machine military conflict rather than pivoting to generic alien warfare.
 
 ## Project layout
 
@@ -162,11 +165,15 @@ The current playable campaign ends the machine war at Mission 12. External/alien
 - `scripts/strike_ordnance_director.gd` — bomber precision-strike ordnance
 - `scripts/directed_energy_director.gd` — Storm / Plasma secondary field behavior
 - `scripts/strategic_warhead_director.gd` — bounded Micro-Warhead blast behavior/presentation
-- `scripts/combat_art_director.gd` — production combat silhouette presentation
+- `scripts/combat_art_director.gd` — governed layered combat-sprite presentation and animation selection
+- `scripts/environment_director.gd` — modular terrain, water, cloud, weather and altitude presentation
+- `scripts/campaign_cinematic_director.gd` — launch, escalation and ending cinematic sequencing
+- `scripts/game_mode_director.gd` — arcade/challenge route ownership and score progression
+- `scripts/settings_director.gd` — persistent video, audio, control, accessibility and difficulty settings
 - `scripts/pixel_ui_director.gd` — primary bitmap UI/HUD
 - `scripts/mission_intel_director.gd` — toggleable pre-mission tactical intelligence
 - `scripts/campaign_save.gd` — versioned campaign autosave/restore
-- `data/` — weapons, generators, airframes, enemies, missions, spawn/environment profiles and campaign context
+- `data/` — weapons, generators, airframes, 30 core missions, secret sorties, modes, enemies, cinematics, environment profiles and campaign context
 - `docs/90S_SHOOTER_BIBLE.md` — 90s shooter quality/style rules
 - `docs/CRAFT_ALTITUDE_SYSTEM.md` — authoritative transform / mounts / altitude-lane contract
 - `docs/CAMPAIGN_CANON.md` — campaign/world canon
@@ -190,7 +197,7 @@ The target is an original, pixel-perfect 90s PC shooter with the depth and autho
 
 Reference games can inform pacing, upgrade economy, stage rhythm, readability and genre grammar only. Do not copy proprietary names, maps, sprites, UI, sounds, dialogue, story beats or encounter layouts.
 
-Strike Wing's own identity is:
+HYPERSONIC's own identity is:
 
 - believable late-90s imagined-future military hardware
 - transforming variable-geometry aerospace combat

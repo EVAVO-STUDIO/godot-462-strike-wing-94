@@ -107,6 +107,7 @@ $Campaign = Get-Content -Raw (Join-Path $Root 'data/campaign.json') | ConvertFro
 $World = Get-Content -Raw (Join-Path $Root 'data/campaign_world.json') | ConvertFrom-Json
 $Mounts = Get-Content -Raw (Join-Path $Root 'data/player_mounts.json') | ConvertFrom-Json
 $Identity = Get-Content -Raw (Join-Path $Root 'data/product_identity.json') | ConvertFrom-Json
+$ReadmeText = Get-Content -Raw (Join-Path $Root 'README.md')
 
 Assert-UniqueIds $Weapons.weapons 'weapons'
 Assert-UniqueIds $Generators.generators 'generators'
@@ -120,6 +121,15 @@ Assert-UniqueIds $Mounts.mounts 'player mounts'
 if ([string]$Identity.full_title -ne 'HYPERSONIC' -or [string]$Identity.aircraft_designation -ne 'VX-94' -or [string]$Identity.aircraft_class -ne 'Variable Strike Fighter' -or [string]$Identity.aircraft_class_abbreviation -ne 'VSF') { throw 'Production identity hierarchy is invalid.' }
 if ([string]$Identity.developer -ne 'EVAVO Studio' -or [string]$Identity.publisher -ne 'EVAVO Studio') { throw 'EVAVO Studio product ownership metadata is invalid.' }
 if ([string]$Identity.save_namespace -ne 'hypersonic' -or @($Identity.legacy_save_namespaces) -notcontains 'strike_wing_94') { throw 'Save namespace migration metadata is invalid.' }
+Assert-Contains $ReadmeText @(
+    'Playable 30-mission, three-sector campaign plus six secret sorties on `main`.',
+    '30 core missions across Mercenary War, Machine War and BLACK SKY',
+    '38 canonical enemy identities',
+    'HYPERSONIC''s own identity is:'
+) 'README production status'
+foreach ($StaleClaim in @('Playable 12-mission campaign foundation','The current playable campaign ends the machine war at Mission 12','The remaining visual work is replacement of procedural production-direction silhouettes')) {
+    if ($ReadmeText.Contains($StaleClaim)) { throw "README retains stale production claim: $StaleClaim" }
+}
 
 $EvavoRoot = Join-Path $Root 'assets/runtime/brand/front_door_raw_art_v1'
 $EvavoHashes = @{
