@@ -193,6 +193,7 @@ The playable campaign escalates from the Mercenary War through the autonomous Ma
 - `docs/VX94_COMBAT_ART_DIRECTION.md` — production combat-art direction
 - `docs/ARCHITECTURE.md` — runtime ownership and invariants
 - `tools/validate.ps1` — zero-cost local structural + optional Godot validation
+- `tools/validate_windows_release.ps1` — full local source, export, metadata and packaged-runtime gate
 
 ## Validate locally
 
@@ -209,11 +210,10 @@ Install the export templates matching the Godot editor version, then run:
 
 ```powershell
 Set-Location C:\GitRepos\godot-462-strike-wing-94
-.\tools\export_windows.ps1
-.\tools\verify_windows_export.ps1
+.\tools\validate_windows_release.ps1
 ```
 
-The canonical `Windows Desktop` preset produces a single embedded-PCK executable at `build/windows/HYPERSONIC.exe`. Source-production art, documentation, tools and local work captures are excluded from the player package. The export and verification scripts refuse paths outside the repository's ignored `build` directory. Verification checks Windows identity metadata and launches the packaged game through a deterministic headless front-door smoke test.
+The release gate first runs the complete source/engine suite, then the canonical `Windows Desktop` preset produces a single embedded-PCK executable at `build/windows/HYPERSONIC.exe`. Source-production art, documentation, tools and local work captures are excluded from the player package. The export and verification scripts refuse paths outside the repository's ignored `build` directory. Verification checks Windows identity metadata and launches the packaged game through a deterministic headless front-door smoke test. The lower-level `export_windows.ps1` and `verify_windows_export.ps1` commands remain available for focused diagnosis.
 
 ## Direction
 
