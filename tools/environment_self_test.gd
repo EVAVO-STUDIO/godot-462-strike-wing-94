@@ -67,7 +67,7 @@ func _initialize() -> void:
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
 		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK"), "high-altitude benchmark should use its authored stratospheric raster master")
 		_expect(source.contains("BLACK_SKY_STATION"), "orbital benchmark should use its authored station raster master")
-		_expect(source.contains("CITY_OUTSKIRTS"), "city-belt benchmark should use its authored urban raster master")
+		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS"), "city belt should use three forward-scrolling authored districts")
 		_expect(source.contains("MACHINE_FURNACE"), "machine-war reveal should use its authored autonomous-foundry raster master")
 		_expect(source.contains("_draw_vertical_loop"), "coastal benchmark should scroll its authored plate without exposed seams")
 		_expect(source.contains("Restrained moving wakes"), "coastal benchmark should retain subdued open-water motion cues")
@@ -196,7 +196,7 @@ func _initialize() -> void:
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored temporal sea and cloud depth layers")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
-		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_ANIMATION", "CITY_LIGHT_TILE", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
+		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
@@ -329,6 +329,27 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_atmosphere_manifest.json"), "orbital atmosphere source/runtime manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/city/city_outskirts_loop_v1.png"), "city runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/city_asset_manifest.json"), "city source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/city_chunks/city_geography_manifest.json"), "city geography/activity source and assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_city_geography_art.ps1"), "city geography should retain a reproducible registered builder")
+		_expect(FileAccess.file_exists("res://tools/build_city_rail_hub_art.ps1"), "city rail hub should retain a reproducible source finisher")
+		var city_manifest = ContentCatalog.load_json("res://assets/source/environments/city_chunks/city_geography_manifest.json")
+		_expect(typeof(city_manifest) == TYPE_DICTIONARY and city_manifest.get("chunks", []).size() == 3, "city manifest should register three distinct 1024px districts")
+		var city_names := ["freight_belt", "flooded_underpass", "machine_foundations"]
+		var city_images: Array[Image] = []
+		for chunk_name in city_names:
+			var city_texture := load("res://assets/runtime/environments/city_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(city_texture != null and city_texture.get_size() == Vector2(640,1024), "city chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if city_texture != null: city_images.append(city_texture.get_image())
+		for chunk_index in range(city_images.size()):
+			for sample_x in range(0,640,16):
+				_expect(city_images[chunk_index].get_pixel(sample_x,1023).is_equal_approx(city_images[(chunk_index+1)%city_images.size()].get_pixel(sample_x,0)), "adjacent city chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
+		for frame_index in range(6):
+			var activity_frame := load("res://assets/runtime/environments/city_activity_animation/activity_%d.png" % frame_index) as Texture2D
+			_expect(activity_frame != null and activity_frame.get_size() == Vector2(144,208), "city activity should retain shared 144x208 registration: %d" % frame_index)
+			if activity_frame != null: _expect(activity_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "city activity frame must retain genuine alpha: %d" % frame_index)
+		_expect(source.contains("CITY_ACTIVITY_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "city utility activity should use held frames registered to forward-moving geography coordinates")
+		_expect(not source.contains("_draw_vertical_loop(surface, CITY_LIGHT_TILE"), "city presentation must not regress to a full-screen schematic light tile")
+		_expect(source.contains("_draw_registered_city_rail_hub") and source.contains("hub_world_y := 540.0"), "city rail hub should occupy one registered freight-belt coordinate")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png"), "machine furnace runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/machine_furnace_asset_manifest.json"), "machine furnace source manifest should exist")
 		var master_paths := [

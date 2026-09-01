@@ -32,7 +32,11 @@ const HARBOR_GEOGRAPHY_CHUNKS := [
 ]
 const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
-const CITY_OUTSKIRTS := preload("res://assets/runtime/environments/city/city_outskirts_loop_v1.png")
+const CITY_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/city_chunks/freight_belt.png"),
+	preload("res://assets/runtime/environments/city_chunks/flooded_underpass.png"),
+	preload("res://assets/runtime/environments/city_chunks/machine_foundations.png"),
+]
 const MACHINE_FURNACE := preload("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png")
 const SEA_DEEP_ANIMATION := [
 	preload("res://assets/runtime/environments/open_water_animation/deep_0.png"), preload("res://assets/runtime/environments/open_water_animation/deep_1.png"),
@@ -104,7 +108,11 @@ const HARBOR_REFLECTION_ANIMATION := [
 	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_2.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_3.png"),
 	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_4.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_5.png"),
 ]
-const CITY_LIGHT_TILE := preload("res://assets/runtime/environments/layers/city_light_tile.png")
+const CITY_ACTIVITY_ANIMATION := [
+	preload("res://assets/runtime/environments/city_activity_animation/activity_0.png"), preload("res://assets/runtime/environments/city_activity_animation/activity_1.png"),
+	preload("res://assets/runtime/environments/city_activity_animation/activity_2.png"), preload("res://assets/runtime/environments/city_activity_animation/activity_3.png"),
+	preload("res://assets/runtime/environments/city_activity_animation/activity_4.png"), preload("res://assets/runtime/environments/city_activity_animation/activity_5.png"),
+]
 const FURNACE_ACTIVITY_TILE := preload("res://assets/runtime/environments/layers/furnace_activity_tile.png")
 const ORBITAL_DEBRIS_TILE := preload("res://assets/runtime/environments/layers/orbital_debris_tile.png")
 const ORBITAL_STARFIELD_TILE := preload("res://assets/runtime/environments/orbital/starfield_tile.png")
@@ -245,7 +253,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"river_corridor": _draw_river_corridor(surface, scene, state, t)
 			"mountain_radar": _draw_mountain_radar(surface, state, t)
 			"night_harbor": _draw_night_harbor(surface, scene, state, t)
-			"city_outskirts": _draw_city_outskirts(surface, state, t)
+			"city_outskirts": _draw_city_outskirts(surface, scene, state, t)
 			"machine_furnace": _draw_machine_furnace(surface, state, t)
 	else:
 		match motif:
@@ -265,7 +273,7 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	# These restored masters already contain their mission-scale radar, bridge,
 	# rail and coastal structures. Stacking the older simplified landmark cards
 	# over them duplicates the same subject and reads as a prototype overlay.
-	if family in ["coast", "industrial", "mountain_radar", "city_outskirts"]:
+	if family in ["coast", "industrial", "mountain_radar"]:
 		return
 	if family not in ["cloud_top", "orbital"] and not _draw_ground_detail(state):
 		return
@@ -275,6 +283,9 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 		return
 	if family == "night_harbor":
 		_draw_registered_harbor_crane(surface, scene, state, t, texture)
+		return
+	if family == "city_outskirts":
+		_draw_registered_city_rail_hub(surface, scene, state, t, texture)
 		return
 	var speed := _parallax_speed(profile, state, "mid") * (0.18 if family == "orbital" else 0.28)
 	var mission_seed := _mission_seed(scene)
@@ -335,6 +346,20 @@ func _draw_registered_harbor_crane(surface: CanvasItem, scene: Object, state: Di
 		return
 	var rect := Rect2(Vector2(118.0, y).round(), size.round())
 	_draw_texture_rect_clipped(surface, texture, rect, ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.86, 0.94))
+
+func _draw_registered_city_rail_hub(surface: CanvasItem, scene: Object, state: Dictionary, t: float, texture: Texture2D) -> void:
+	# This complete switching hub occupies one authored freight-belt coordinate.
+	# It remains separable for destruction and never repeats at screen height.
+	var scroll := t * 38.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scale := 0.78 + _ground_scale(state) * 0.34
+	var size := texture.get_size() * scale
+	var hub_world_y := 540.0
+	var center_y := fposmod(hub_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+	var y := center_y - size.y * 0.5
+	if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
+		return
+	var rect := Rect2(Vector2(320.0 - size.x * 0.5, y).round(), size.round())
+	_draw_texture_rect_clipped(surface, texture, rect, ENVIRONMENT_VIEW, Color(0.84, 0.87, 0.86, 0.96))
 
 func _mission_seed(scene: Object) -> int:
 	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []
@@ -744,13 +769,20 @@ func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t
 		var y := fposmod(float(slot["y"]) + scroll,3072.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface,reflection,Rect2(Vector2(float(slot["x"]),y).round(),Vector2(128,224)),ENVIRONMENT_VIEW,Color(0.72,0.80,0.82,0.34))
 
-func _draw_city_outskirts(surface: CanvasItem, state: Dictionary, t: float) -> void:
+func _draw_city_outskirts(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := fposmod(t * 38.0 * _world_speed_multiplier(), 720.0)
-	_draw_vertical_loop(surface, CITY_OUTSKIRTS, scroll, ENVIRONMENT_VIEW, Color(0.82, 0.84, 0.82, 0.92))
-	var light_scroll := fposmod(t * 31.0 * _world_speed_multiplier(), 512.0)
-	var light_pulse := 0.74 + 0.16 * (0.5 + 0.5 * sin(t * 1.3))
-	_draw_vertical_loop(surface, CITY_LIGHT_TILE, light_scroll, ENVIRONMENT_VIEW, Color(1,1,1,light_pulse))
+	var scroll := t * 38.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.018, 0.023, 0.026, 0.12))
+	var activity_slots := [
+		{"x":202.0,"y":210.0}, {"x":330.0,"y":690.0}, {"x":248.0,"y":1130.0},
+		{"x":324.0,"y":1650.0}, {"x":216.0,"y":2160.0}, {"x":344.0,"y":2680.0},
+	]
+	for slot_index in range(activity_slots.size()):
+		var slot: Dictionary = activity_slots[slot_index]
+		var activity: Texture2D = CITY_ACTIVITY_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, CITY_ACTIVITY_ANIMATION.size())]
+		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		_draw_texture_rect_clipped(surface, activity, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(144,208)), ENVIRONMENT_VIEW, Color(0.84,0.88,0.86,0.30))
 
 func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return

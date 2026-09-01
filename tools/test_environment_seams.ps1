@@ -83,4 +83,11 @@ for ($Index = 0; $Index -lt $HarborChunks.Count; $Index++) {
     Assert-Vertical-Seam $First $Second "harbor_$Index"
 }
 
-Write-Host "Environment seam gate passed: $($Layers.Count) loops, $($AnimatedWater.Count) temporal-water frames, $($Chunks.Count) coast joins, $($RefineryChunks.Count) refinery joins, $($DesertChunks.Count) desert joins, $($RiverChunks.Count) river joins and $($HarborChunks.Count) harbor joins."
+$CityChunks = @('freight_belt.png', 'flooded_underpass.png', 'machine_foundations.png')
+for ($Index = 0; $Index -lt $CityChunks.Count; $Index++) {
+    $First = Join-Path $RepoRoot "assets\runtime\environments\city_chunks\$($CityChunks[$Index])"
+    $Second = Join-Path $RepoRoot "assets\runtime\environments\city_chunks\$($CityChunks[($Index + 1) % $CityChunks.Count])"
+    Assert-Vertical-Seam $First $Second "city_$Index"
+}
+
+Write-Host "Environment seam gate passed: $($Layers.Count) loops, $($AnimatedWater.Count) temporal-water frames, $($Chunks.Count) coast joins, $($RefineryChunks.Count) refinery joins, $($DesertChunks.Count) desert joins, $($RiverChunks.Count) river joins, $($HarborChunks.Count) harbor joins and $($CityChunks.Count) city joins."

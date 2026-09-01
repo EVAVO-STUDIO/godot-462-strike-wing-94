@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmo7e0gvqxyk2"
-path="res://.godot/imported/city_rail_hub.png-6b0d55ac598fc3a43da9ca69a99acd10.ctex"
+uid="uid://bfrdg4m4m2gow"
+path="res://.godot/imported/activity_2.png-2b4783ae3724f7d1565ba027d2d13078.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/runtime/environments/landmarks/city_rail_hub.png"
-dest_files=["res://.godot/imported/city_rail_hub.png-6b0d55ac598fc3a43da9ca69a99acd10.ctex"]
+source_file="res://assets/runtime/environments/city_activity_animation/activity_2.png"
+dest_files=["res://.godot/imported/activity_2.png-2b4783ae3724f7d1565ba027d2d13078.ctex"]
 
 [params]
 
