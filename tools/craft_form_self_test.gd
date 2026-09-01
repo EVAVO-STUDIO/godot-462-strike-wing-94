@@ -6,6 +6,11 @@ const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 
 var failures: Array[String] = []
 
+class TransformFixture:
+	extends RefCounted
+	var status_text := ""
+	var status_timer := 0.0
+
 func _initialize() -> void:
 	_test_forms()
 	_test_altitudes()
@@ -30,6 +35,19 @@ func _test_forms() -> void:
 	_expect(CraftFormRules.air_attack_multiplier(CraftFormRules.FIGHTER) > CraftFormRules.air_attack_multiplier(CraftFormRules.BOMBER), "fighter should be stronger against air targets")
 	_expect(CraftFormRules.support_energy_multiplier(CraftFormRules.BOMBER) < CraftFormRules.support_energy_multiplier(CraftFormRules.FIGHTER), "bomber should run support systems more efficiently")
 	_expect(CraftFormRules.TRANSFORM_WEAPON_INTERLOCK > 0.0 and CraftFormRules.TRANSFORM_WEAPON_INTERLOCK < CraftFormRules.TRANSFORM_COOLDOWN, "weapon interlock should be brief and shorter than transform anti-spam cooldown")
+	_expect(is_equal_approx(CraftFormRules.TRANSFORM_VISUAL_SECONDS, 0.92), "canonical wing sweep should retain ten near-one-second held exposures")
+	var director_script := load("res://scripts/craft_form_director.gd") as Script
+	var director: Node = director_script.new()
+	var fixture := TransformFixture.new()
+	director.set("_transform_timer", CraftFormRules.TRANSFORM_VISUAL_SECONDS)
+	director.call("_update_transform_settle", fixture, 0.50)
+	_expect(bool(director.call("transform_active")) and int(director.call("transform_ready_serial")) == 0, "configuration should remain mechanically unsettled during the wing sweep")
+	director.call("_update_transform_settle", fixture, 0.50)
+	_expect(not bool(director.call("transform_active")) and int(director.call("transform_ready_serial")) == 1, "wing sweep completion should publish exactly one ready event")
+	_expect(str(fixture.status_text).contains("CONFIGURATION READY"), "settled geometry should publish a clear ready-state annunciation")
+	director.call("_update_transform_settle", fixture, 0.50)
+	_expect(int(director.call("transform_ready_serial")) == 1, "settled geometry should not repeat its ready event on later frames")
+	director.free()
 
 func _test_altitudes() -> void:
 	_expect(AltitudeRules.BANDS == ["low", "mid", "high", "orbital"], "campaign should expose exactly four ordered altitude bands")
@@ -112,7 +130,7 @@ func _test_source_integration() -> void:
 	_expect(art_file != null, "combat art should be readable")
 	if art_file != null:
 		var source := art_file.get_as_text()
-		_expect(source.contains("TRANSFORM_VISUAL_SECONDS := 0.92") and source.contains("TRANSFORM_EXPOSURES := 10"), "wing sweep should use ten deliberate exposures over almost one second")
+		_expect(source.contains("CraftFormRules.TRANSFORM_VISUAL_SECONDS") and source.contains("TRANSFORM_EXPOSURES := 10"), "wing sweep should use the canonical ten-exposure near-one-second cadence")
 		_expect(source.contains("vx94_bomber_v1.png") and source.contains("vx94_transform_03.png"), "bomber art should use the authored attack-form and final mechanical deployment keyframe")
 		_expect(not source.contains("_draw_rotary_cannon"), "bomber presentation should not regress to a procedural cannon substitute")
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)

@@ -13,6 +13,7 @@ var _playback: AudioStreamGeneratorPlayback
 var _voices: Array = []
 var _last_shots_fired := 0
 var _last_form := ""
+var _last_transform_ready_serial := 0
 var _last_altitude := ""
 var _last_afterburner := false
 var _last_hypersonic := false
@@ -66,6 +67,8 @@ func _observe_gameplay() -> void:
 		_last_strike_ordnance = _strike_ordnance_count()
 		_rotary_cooldown = 0.0
 		_enemy_boom_latched = false
+		var idle_craft := get_node_or_null("/root/CraftFormDirector")
+		_last_transform_ready_serial = int(idle_craft.call("transform_ready_serial")) if idle_craft != null and idle_craft.has_method("transform_ready_serial") else 0
 		return
 
 	if _has_property(scene, "shots_fired"):
@@ -101,6 +104,11 @@ func _observe_gameplay() -> void:
 			if hypersonic and not _last_hypersonic:
 				_trigger(RetroSfxRules.SONIC_BOOM)
 			_last_hypersonic = hypersonic
+		if craft.has_method("transform_ready_serial"):
+			var ready_serial := int(craft.call("transform_ready_serial"))
+			if ready_serial > _last_transform_ready_serial:
+				_trigger(RetroSfxRules.TRANSFORM_READY)
+			_last_transform_ready_serial = ready_serial
 
 	_observe_missile_threat(scene)
 	_observe_enemy_missile_launch(scene)

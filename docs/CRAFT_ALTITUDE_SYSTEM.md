@@ -84,12 +84,12 @@ Default input: `Q`.
 
 Rules:
 
-- 0.65 s anti-spam transform cooldown;
-- 0.24 s primary/secondary weapon interlock during the mechanical change;
-- visual wing sweep lasts about 0.42 s;
+- 1.05 s anti-spam transform cooldown;
+- 0.82 s primary/secondary weapon interlock during the mechanical change;
+- visual wing sweep uses ten held exposures across 0.92 s;
 - wing tips move around explicit hinge geometry rather than simply scaling the sprite wider;
 - nose-gun deployment and wing-cannon retraction happen during the same animation;
-- dedicated mechanical procedural SFX accompanies the transition;
+- dedicated actuator SFX starts the transition and a separate mechanical latch confirms the settled ready state;
 - orbital combat forces fighter configuration.
 
 The transformation must remain readable at 640x360 and should feel cool because the mechanics are visible, not because it hides itself behind bloom or particles.

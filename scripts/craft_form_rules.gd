@@ -3,6 +3,7 @@ extends RefCounted
 
 const FIGHTER := "fighter"
 const BOMBER := "bomber"
+const TRANSFORM_VISUAL_SECONDS := 0.92
 const TRANSFORM_COOLDOWN := 1.05
 const TRANSFORM_WEAPON_INTERLOCK := 0.82
 

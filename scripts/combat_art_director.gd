@@ -3,6 +3,7 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
+const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
@@ -709,7 +710,6 @@ const AI_DARK := Color("45545a")
 const AI_CORE := Color("67c3a5")
 const BOSS := Color("c86054")
 const BOSS_DARK := Color("55322f")
-const TRANSFORM_VISUAL_SECONDS := 0.92
 const TRANSFORM_EXPOSURES := 10
 const PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0
 const VX94_EVASIVE_ROLL := [
@@ -743,7 +743,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
-	_visual_sweep = move_toward(_visual_sweep, target, maxf(0.0, delta) / TRANSFORM_VISUAL_SECONDS)
+	_visual_sweep = move_toward(_visual_sweep, target, maxf(0.0, delta) / CraftFormRules.TRANSFORM_VISUAL_SECONDS)
 	_bank_visual = move_toward(_bank_visual, Input.get_axis("move_left", "move_right"), maxf(0.0, delta) * 5.5)
 	_redraw_elapsed += maxf(0.0, delta)
 	if _surface != null and _redraw_elapsed >= PRESENTATION_REDRAW_SECONDS:

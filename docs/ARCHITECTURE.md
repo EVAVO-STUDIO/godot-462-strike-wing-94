@@ -39,8 +39,9 @@ Owns VX-94 variable geometry plus active altitude/mission context.
 
 - reads `data/campaign_world.json`;
 - `Q` toggles fighter/bomber where legal;
-- 0.65 s anti-spam cooldown;
-- 0.24 s primary/secondary weapons interlock during geometry changes;
+- 1.05 s anti-spam cooldown;
+- 0.82 s primary/secondary weapons interlock during the ten-exposure geometry change;
+- 0.92 s canonical visual sweep followed by an authoritative configuration-ready latch;
 - mission-recommended launch configuration;
 - timed altitude transitions;
 - forced fighter retraction where bomber geometry is illegal;

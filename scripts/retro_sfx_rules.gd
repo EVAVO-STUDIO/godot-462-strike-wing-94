@@ -15,6 +15,7 @@ const PLAYER_HIT := "player_hit"
 const STRIKE_RELEASE := "strike_release"
 const STRIKE_IMPACT := "strike_impact"
 const TRANSFORM := "transform"
+const TRANSFORM_READY := "transform_ready"
 const AFTERBURNER := "afterburner"
 const SONIC_BOOM := "sonic_boom"
 const MISSILE_WARNING := "missile_warning"
@@ -67,6 +68,7 @@ static func voice(event_id: String) -> Dictionary:
 		STRIKE_RELEASE: return {"wave":"mechanical","frequency":132.0,"end_frequency":62.0,"duration":0.13,"gain":0.17}
 		STRIKE_IMPACT: return {"wave":"blast","frequency":74.0,"end_frequency":32.0,"duration":0.30,"gain":0.24}
 		TRANSFORM: return {"wave":"mechanical","frequency":84.0,"end_frequency":138.0,"duration":0.32,"gain":0.18}
+		TRANSFORM_READY: return {"wave":"mechanical","frequency":174.0,"end_frequency":242.0,"duration":0.12,"gain":0.13}
 		AFTERBURNER: return {"wave":"noise","frequency":72.0,"end_frequency":118.0,"duration":0.16,"gain":0.15}
 		SONIC_BOOM: return {"wave":"blast","frequency":82.0,"end_frequency":31.0,"duration":0.48,"gain":0.28}
 		MISSILE_WARNING: return {"wave":"square","frequency":760.0,"end_frequency":760.0,"duration":0.10,"gain":0.14}

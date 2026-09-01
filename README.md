@@ -16,7 +16,7 @@ Implemented now:
 - deterministic save-isolated arcade attract reel with VX-94 transformation, hypersonic pursuit, weapons and Machine Ark showcase
 - 640×360 logical canvas with nearest-neighbour presentation to 1280×720
 - governed sprite-built title, briefing, debrief, options, pause and combat HUD presentation
-- production VX-94 fighter / bomber sprite animation with a mechanical wing-sweep transition, held key poses and separate banking cels
+- production VX-94 fighter / bomber sprite animation with a ten-exposure mechanical wing sweep, held key poses, ready-state latch and separate banking cels
 - fighter wing-root cannon posture and bomber-deployed nose rotary cannon
 - form-aware projectile muzzle positions and matching muzzle-flash presentation
 - original procedural fighter / bomber rotary / rail / energy / support SFX

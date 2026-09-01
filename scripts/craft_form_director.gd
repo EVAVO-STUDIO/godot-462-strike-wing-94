@@ -20,6 +20,8 @@ var _hypersonic_active := false
 var _hypersonic_charge := 0.0
 var _hypersonic_damage_carry := 0.0
 var _cooldown := 0.0
+var _transform_timer := 0.0
+var _transform_ready_serial := 0
 var _world: Dictionary = {}
 var _base_spawn_profiles: Array = []
 var _last_mission_index := -1
@@ -52,6 +54,7 @@ func _process(delta: float) -> void:
 		_hypersonic_active = false
 		_hypersonic_charge = 0.0
 		return
+	_update_transform_settle(scene, delta)
 	_publish_generator_context(scene)
 	var mission_index := int(scene.get("mission_index"))
 	var phase := int(scene.get("phase"))
@@ -197,6 +200,7 @@ func _apply_mission_context(scene: Object) -> void:
 	form = recommended if AltitudeRules.supports_form(altitude, recommended) else CraftFormRules.FIGHTER
 	ProgressionRules.set_current_tech_era(str(_current_context.get("tech_era", "advanced_conventional")))
 	_cooldown = 0.0
+	_transform_timer = 0.0
 	_next_altitude_transition = 0
 	_altitude_transition_timer = 0.0
 	_altitude_transition_from = altitude
@@ -305,6 +309,7 @@ func _begin_altitude_transition(scene: Object, next_altitude: String, label: Str
 	if not AltitudeRules.supports_form(altitude, form):
 		form = CraftFormRules.FIGHTER
 		_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
+		_transform_timer = CraftFormRules.TRANSFORM_VISUAL_SECONDS
 		_apply_weapon_interlock(scene)
 	_set_status(scene, "ALTITUDE SHIFT - %s  %s" % [label, CraftFormRules.display_name(form)])
 
@@ -337,8 +342,26 @@ func _try_transform(scene: Object) -> void:
 		return
 	form = candidate
 	_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
+	_transform_timer = CraftFormRules.TRANSFORM_VISUAL_SECONDS
 	_apply_weapon_interlock(scene)
 	_set_status(scene, "VARIABLE GEOMETRY - %s" % CraftFormRules.display_name(form))
+
+func _update_transform_settle(scene: Object, delta: float) -> void:
+	if _transform_timer <= 0.0:
+		return
+	_transform_timer = maxf(0.0, _transform_timer - maxf(0.0, delta))
+	if _transform_timer <= 0.0:
+		_transform_ready_serial += 1
+		_set_status(scene, "%s CONFIGURATION READY" % CraftFormRules.display_name(form))
+
+func transform_active() -> bool:
+	return _transform_timer > 0.0
+
+func transform_ratio() -> float:
+	return clampf(1.0 - _transform_timer / CraftFormRules.TRANSFORM_VISUAL_SECONDS, 0.0, 1.0) if transform_active() else 1.0
+
+func transform_ready_serial() -> int:
+	return _transform_ready_serial
 
 func _apply_weapon_interlock(scene: Object) -> void:
 	if SceneContractCache.has_property(scene, "fire_timer"):
