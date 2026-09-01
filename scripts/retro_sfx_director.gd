@@ -16,6 +16,7 @@ var _last_form := ""
 var _last_altitude := ""
 var _last_afterburner := false
 var _last_hypersonic := false
+var _enemy_boom_latched := false
 var _last_missile_level := 0
 var _last_strike_ordnance := -1
 var _noise_state := 0x1345ABCD
@@ -62,6 +63,7 @@ func _observe_gameplay() -> void:
 		_last_missile_level = 0
 		_last_strike_ordnance = _strike_ordnance_count()
 		_rotary_cooldown = 0.0
+		_enemy_boom_latched = false
 		return
 
 	if _has_property(scene, "shots_fired"):
@@ -99,6 +101,20 @@ func _observe_gameplay() -> void:
 			_last_hypersonic = hypersonic
 
 	_observe_missile_threat(scene)
+	_observe_enemy_hypersonic_boom(scene)
+
+func _observe_enemy_hypersonic_boom(scene: Object) -> void:
+	var fresh_boom := false
+	if _has_property(scene, "enemies"):
+		var enemies = scene.get("enemies")
+		if typeof(enemies) == TYPE_ARRAY:
+			for enemy in enemies:
+				if typeof(enemy) == TYPE_DICTIONARY and float(enemy.get("hypersonic_boom_age", 99.0)) < 0.12:
+					fresh_boom = true
+					break
+	if fresh_boom and not _enemy_boom_latched:
+		_trigger(RetroSfxRules.SONIC_BOOM)
+	_enemy_boom_latched = fresh_boom
 
 func _observe_strike_release() -> void:
 	var count := _strike_ordnance_count()
