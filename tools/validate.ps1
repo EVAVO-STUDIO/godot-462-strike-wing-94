@@ -74,8 +74,8 @@ $Required = @(
     'scripts/pixel_font.gd','scripts/pixel_ui_surface.gd','scripts/pixel_ui_director.gd',
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
     'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/music_self_test.gd','tools/presentation_feedback_self_test.gd','tools/difficulty_self_test.gd','tools/startup_sequence_self_test.gd','tools/attract_mode_self_test.gd','tools/mission_radio_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/campaign_branch_self_test.gd','tools/intelligence_database_self_test.gd','tools/secret_missions_self_test.gd','tools/credits_self_test.gd','tools/game_modes_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
-    'tools/encounter_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/evasive_roll_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
-    'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/afterburner_self_test.gd','tools/player_mount_self_test.gd',
+    'tools/encounter_self_test.gd','tools/movement_pattern_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/evasive_roll_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
+    'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_hud_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/retro_sfx_self_test.gd','tools/afterburner_self_test.gd','tools/hypersonic_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
     'data/enemies.json','data/missions.json','data/secret_missions.json','data/spawn_profiles.json','data/environment_profiles.json','data/cinematics.json','data/campaign.json','data/campaign_world.json','data/player_craft.json','data/player_mounts.json',
     'docs/90S_SHOOTER_BIBLE.md','docs/CAMPAIGN_CANON.md','docs/CRAFT_ALTITUDE_SYSTEM.md','docs/VX94_COMBAT_ART_DIRECTION.md','docs/STRATEGIC_ORBITAL_ENDGAME.md','docs/ARCHITECTURE.md'
@@ -312,8 +312,8 @@ if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit cod
 
 $Tests = @(
     'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','music_self_test.gd','presentation_feedback_self_test.gd','difficulty_self_test.gd','startup_sequence_self_test.gd','attract_mode_self_test.gd','mission_radio_self_test.gd','campaign_cinematic_self_test.gd','campaign_branch_self_test.gd','intelligence_database_self_test.gd','secret_missions_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
-    'encounter_self_test.gd','support_self_test.gd','craft_form_self_test.gd','evasive_roll_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
-    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
+    'encounter_self_test.gd','movement_pattern_self_test.gd','support_self_test.gd','craft_form_self_test.gd','evasive_roll_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
+    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_hud_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','retro_sfx_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','player_mount_self_test.gd'
 )
 foreach ($Test in $Tests) {
     Write-Host "Running $Test..." -ForegroundColor DarkCyan

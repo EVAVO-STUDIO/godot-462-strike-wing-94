@@ -1,19 +1,26 @@
 extends SceneTree
 
-const BossHudRules = preload("res://scripts/boss_hud_rules.gd")
+const BossRules = preload("res://scripts/boss_rules.gd")
 
 var failures: Array[String] = []
 
 func _initialize() -> void:
-	_expect(absf(BossHudRules.health_ratio(50, 100) - 0.5) < 0.001, "boss health ratio should reflect current/max hp")
-	_expect(BossHudRules.health_ratio(-10, 100) == 0.0, "boss health ratio should clamp low")
-	_expect(BossHudRules.health_ratio(150, 100) == 1.0, "boss health ratio should clamp high")
-	_expect(BossHudRules.boss_name("missile_cruiser") == "MISSILE CRUISER", "boss id should become readable HUD name")
-	_expect(BossHudRules.phase_label(3) == "PHASE 3", "boss phase label should expose current phase")
-	var text := BossHudRules.hud_text("gunship_alpha", 25, 55, 2)
-	_expect(text.contains("GUNSHIP ALPHA") and text.contains("PHASE 2") and text.contains("25/55"), "boss HUD text should include name phase and exact HP")
+	_expect(BossRules.phase_for(100, 100) == 1, "full-health boss should begin in phase one")
+	_expect(BossRules.phase_for(50, 100) == 2, "damaged boss should expose phase two")
+	_expect(BossRules.phase_for(20, 100) == 3, "critical boss should expose phase three")
+	for phase_name in ["phase_1", "phase_2", "phase_3"]:
+		var frame := load("res://assets/runtime/ui/hud/boss_phase_bar/%s.png" % phase_name)
+		var fill := load("res://assets/runtime/ui/hud/boss_phase_bar/%s_fill.png" % phase_name)
+		_expect(frame is Texture2D and frame.get_size() == Vector2(388, 28), "%s frame should retain reviewed HUD geometry" % phase_name)
+		_expect(fill is Texture2D and fill.get_size() == Vector2(352, 5), "%s fill should retain reviewed HUD geometry" % phase_name)
+	var source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
+	_expect(source.contains("func _draw_boss") and source.contains("HUD_BOSS_PHASE_FRAMES") and source.contains("HUD_BOSS_PHASE_FILLS"), "live pixel UI should own the authored boss HUD")
+	_expect(source.contains('boss.get("boss_phase", BossRules.phase_for') and source.contains('cue := " WEAK" if phase >= 3'), "boss HUD should expose authoritative phase and critical weak-point state")
+	_expect(source.contains('replace("_", " ")') and source.contains('P%d%s  %d/%d'), "boss HUD should show readable identity, phase, and exact integrity")
+	_expect(source.contains('clampf(float(hp) / float(max_hp), 0.0, 1.0)'), "boss integrity fill should remain safely clamped")
+	_expect(not FileAccess.file_exists("res://scripts/boss_hud_rules.gd") and not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete competing boss HUD owners should remain removed")
 	if failures.is_empty():
-		print("Strike Wing boss HUD self-test passed.")
+		print("HYPERSONIC integrated boss HUD self-test passed.")
 		quit(0)
 		return
 	for failure in failures:
