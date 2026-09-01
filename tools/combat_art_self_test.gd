@@ -580,7 +580,7 @@ func _test_combat_fx() -> void:
 		return
 	var source := file.get_as_text()
 	_expect(source.contains("const MAX_EVENTS := 48"), "combat FX event count should stay bounded")
-	_expect(source.contains('"hit"') and source.contains('"explosion"') and source.contains('"boss_explosion"') and source.contains('"player_hit"'), "combat FX should distinguish hits, kills, bosses and player damage")
+	_expect(source.contains('"hit"') and source.contains('"explosion"') and source.contains('"boss_explosion"') and source.contains('"shield_hit"') and source.contains('"shield_break"') and source.contains('"player_hit"'), "combat FX should distinguish shield contact, shield collapse, hull strikes, kills and bosses")
 	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
 	_expect(source.contains("EXPLOSION_FRAMES"), "enemy destruction should use the authored eight-frame raster sequence")
 	_expect(source.contains("func _draw_destruction_consequence") and source.contains('category == "sea"') and source.contains('faction == "autonomous"'), "enemy destruction should branch into naval, machine, air and ground material consequences")
@@ -607,7 +607,7 @@ func _test_combat_fx() -> void:
 			_expect(breakup_frame is Texture2D and breakup_frame.get_size()==Vector2(40,40),"ground-emplacement breakup frame should retain 40x40 wreck canvas: %s/%d" % [emplacement,frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/effects/ground_breakup/ground_breakup_asset_manifest.json"),"ground-emplacement breakup source/runtime manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
-	_expect(source.contains("_draw_player_hit"), "VX-94 damage should receive visible shield/hull impact feedback")
+	_expect(source.contains("_draw_player_hit") and source.contains("SHIELD_BREAK_SECONDS") and source.contains("RetroSfxRules.SHIELD_BREAK"), "VX-94 damage should receive distinct shield-contact, shield-collapse and hull-impact feedback")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
 	for frame_index in range(8):
 		var frame := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index)

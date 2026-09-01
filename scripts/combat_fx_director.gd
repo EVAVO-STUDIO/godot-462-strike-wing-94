@@ -24,6 +24,7 @@ const BOSS_DESTRUCTION_SECONDS := 2.30
 const ORBITAL_BOSS_DESTRUCTION_SECONDS := 3.00
 const NAVAL_SINK_SECONDS := 1.35
 const PLAYER_HIT_SECONDS := 0.18
+const SHIELD_BREAK_SECONDS := 0.34
 const NAVAL_WRECK_HULLS := {
 	"river_patrol": preload("res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png"),
 	"torpedo_boat": preload("res://assets/runtime/enemies/mercenary_sea/torpedo_boat_idle.png"),
@@ -194,8 +195,12 @@ func _observe_combat() -> void:
 
 	var hull := int(scene.get("hull"))
 	var shield := int(scene.get("shield"))
-	if (_previous_hull >= 0 and hull < _previous_hull) or (_previous_shield >= 0 and shield < _previous_shield):
-		_emit("player_hit", Vector2(scene.get("player_position")), 13.0, PLAYER_HIT_SECONDS, {"shield": _previous_shield >= 0 and shield < _previous_shield})
+	if _previous_shield > 0 and shield < _previous_shield:
+		var shield_kind := "shield_break" if shield <= 0 else "shield_hit"
+		var shield_duration := SHIELD_BREAK_SECONDS if shield_kind == "shield_break" else PLAYER_HIT_SECONDS
+		_emit(shield_kind, Vector2(scene.get("player_position")), 17.0 if shield_kind == "shield_break" else 13.0, shield_duration)
+	if _previous_hull >= 0 and hull < _previous_hull:
+		_emit("player_hit", Vector2(scene.get("player_position")), 13.0, PLAYER_HIT_SECONDS, {"shield": false})
 	_previous_hull = hull
 	_previous_shield = shield
 	_previous_enemies = current
@@ -254,6 +259,10 @@ func _play_audio_for(kind: String) -> void:
 			event_id = RetroSfxRules.EXPLOSION
 		"boss_explosion":
 			event_id = RetroSfxRules.BOSS_EXPLOSION
+		"shield_hit":
+			event_id = RetroSfxRules.SHIELD_HIT
+		"shield_break":
+			event_id = RetroSfxRules.SHIELD_BREAK
 		"player_hit":
 			event_id = RetroSfxRules.PLAYER_HIT
 	if event_id == "":
@@ -286,8 +295,12 @@ func _draw_combat_fx(surface: CanvasItem) -> void:
 				_draw_explosion(surface, position, ratio, float(event.get("size", 15.0)), int(event.get("serial", 0)), false, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "enemy")))
 			"boss_explosion":
 				_draw_explosion(surface, position, ratio, float(event.get("size", 28.0)), int(event.get("serial", 0)), true, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "boss")))
+			"shield_hit":
+				_draw_player_hit(surface, position, ratio, true)
+			"shield_break":
+				_draw_player_hit(surface, position, ratio, true, 1.32)
 			"player_hit":
-				_draw_player_hit(surface, position, ratio, bool(event.get("shield", true)))
+				_draw_player_hit(surface, position, ratio, false)
 
 func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float, category: String) -> void:
 	var family := "water_impact" if category == "sea" else "armor_hit"
@@ -638,9 +651,9 @@ func _draw_orbital_boss_breakup(surface: CanvasItem, p: Vector2, ratio: float, e
 		var debris_size := Vector2.ONE*lerpf(54,96,ratio)
 		surface.draw_texture_rect(debris,Rect2((p-debris_size*0.5).round(),debris_size),false,Color(0.58,0.66,0.68,0.62*(1.0-ratio)))
 
-func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool) -> void:
+func _draw_player_hit(surface: CanvasItem, p: Vector2, ratio: float, shield: bool, scale: float = 1.0) -> void:
 	var texture := ImpactArtLibrary.frame_for_ratio("shield_hit" if shield else "armor_hit", ratio)
-	var size := Vector2.ONE * 34.0 if shield else Vector2.ONE * 26.0
+	var size := (Vector2.ONE * 34.0 if shield else Vector2.ONE * 26.0) * scale
 	surface.draw_texture_rect(texture, Rect2((p - size * 0.5).round(), size), false)
 
 func _supports(scene: Object) -> bool:

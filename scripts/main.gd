@@ -1433,10 +1433,17 @@ func _apply_damage(amount: int) -> void:
 	if "--capture-invulnerable" in OS.get_cmdline_user_args():
 		return
 	var previous_integrity := hull + shield
+	var previous_shield := shield
 	var state := CombatRules.apply_shielded_damage(hull, shield, amount)
 	hull = int(state["hull"])
 	shield = int(state["shield"])
 	damage_taken += maxi(0, previous_integrity - hull - shield)
+	if previous_shield > 0 and shield <= 0:
+		status_text = "SHIELDS DOWN // HULL EXPOSED"
+		status_timer = 1.4
+	elif hull > 0 and hull <= maxi(1, int(round(float(_max_hull()) * 0.25))):
+		status_text = "HULL CRITICAL"
+		status_timer = 1.0
 	if hull <= 0:
 		player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS
 

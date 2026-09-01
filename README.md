@@ -20,6 +20,7 @@ Implemented now:
 - fighter wing-root cannon posture and bomber-deployed nose rotary cannon
 - form-aware projectile muzzle positions and matching muzzle-flash presentation
 - original procedural fighter / bomber rotary / rail / energy / support SFX
+- material-specific shield contact, shield-collapse and physical hull-hit feedback
 - original 12-cue tracker score with three rotating combat identities for each campaign sector
 - short weapons interlock during geometry changes
 - four altitude bands: low / mid / high / orbital

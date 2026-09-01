@@ -54,7 +54,7 @@ func _test_retro_sfx() -> void:
 	_expect(RetroSfxRules.event_for_weapon("plasma_lance") == RetroSfxRules.FIRE_PLASMA, "Plasma Lance should retain strategic SFX identity")
 	_expect(RetroSfxRules.altitude_event(1) == RetroSfxRules.ALTITUDE_CLIMB, "climb should have rising transition voice")
 	_expect(RetroSfxRules.altitude_event(-1) == RetroSfxRules.ALTITUDE_DIVE, "dive should have falling transition voice")
-	for event_id in [RetroSfxRules.FIRE_BALLISTIC,RetroSfxRules.FIRE_ROTARY,RetroSfxRules.FIRE_RAIL,RetroSfxRules.FIRE_STORM,RetroSfxRules.FIRE_PLASMA,RetroSfxRules.FIRE_SUPPORT,RetroSfxRules.FIRE_STRATEGIC,RetroSfxRules.TRANSFORM,RetroSfxRules.AFTERBURNER,RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE,RetroSfxRules.HIT,RetroSfxRules.EXPLOSION,RetroSfxRules.BOSS_EXPLOSION,RetroSfxRules.PLAYER_HIT]:
+	for event_id in [RetroSfxRules.FIRE_BALLISTIC,RetroSfxRules.FIRE_ROTARY,RetroSfxRules.FIRE_RAIL,RetroSfxRules.FIRE_STORM,RetroSfxRules.FIRE_PLASMA,RetroSfxRules.FIRE_SUPPORT,RetroSfxRules.FIRE_STRATEGIC,RetroSfxRules.TRANSFORM,RetroSfxRules.AFTERBURNER,RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE,RetroSfxRules.HIT,RetroSfxRules.EXPLOSION,RetroSfxRules.BOSS_EXPLOSION,RetroSfxRules.SHIELD_HIT,RetroSfxRules.SHIELD_BREAK,RetroSfxRules.PLAYER_HIT]:
 		_expect(RetroSfxRules.valid_voice(RetroSfxRules.voice(event_id)), "%s should have a bounded procedural voice" % event_id)
 	var file := FileAccess.open("res://scripts/retro_sfx_director.gd", FileAccess.READ)
 	_expect(file != null, "retro SFX director should be readable")

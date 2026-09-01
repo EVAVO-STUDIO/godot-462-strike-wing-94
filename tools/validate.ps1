@@ -271,9 +271,9 @@ Assert-Contains $IntelText @('route_opportunity_summary','"ROUTES %s"','LOW','BM
 $DamageText = Get-Content -Raw (Join-Path $Root 'scripts/damage_state_director.gd')
 Assert-Contains $DamageText @('damage_ratio < 0.20','damage_ratio >= 0.45','damage_ratio >= 0.72','ratio >= 0.86','scene.call("_max_hull")') 'VX-94 damage state'
 $FxText = Get-Content -Raw (Join-Path $Root 'scripts/combat_fx_director.gd')
-Assert-Contains $FxText @('MAX_EVENTS := 48','boss_explosion','player_hit','play_event','_hit_audio_cooldown') 'Combat impact FX'
+Assert-Contains $FxText @('MAX_EVENTS := 48','boss_explosion','shield_hit','shield_break','player_hit','play_event','_hit_audio_cooldown') 'Combat impact FX'
 $SfxRulesText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_rules.gd')
-Assert-Contains $SfxRulesText @('FIRE_ROTARY','ALTITUDE_CLIMB','ALTITUDE_DIVE','BOSS_EXPLOSION','PLAYER_HIT','"wave":"blast"') 'Procedural SFX rules'
+Assert-Contains $SfxRulesText @('FIRE_ROTARY','ALTITUDE_CLIMB','ALTITUDE_DIVE','BOSS_EXPLOSION','SHIELD_HIT','SHIELD_BREAK','PLAYER_HIT','"wave":"blast"') 'Procedural SFX rules'
 $SfxDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_director.gd')
 Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event','"blast"','MAX_VOICES := 8') 'Procedural SFX runtime'
 $HypersonicText = Get-Content -Raw (Join-Path $Root 'scripts/hypersonic_rules.gd')

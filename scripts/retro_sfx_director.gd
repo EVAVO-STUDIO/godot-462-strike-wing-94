@@ -267,6 +267,9 @@ func _wave_sample(kind: String, phase: float, progress: float) -> float:
 		"reward":
 			var step: float = floor(progress * 4.0)
 			return sin(fposmod(phase + step * 0.125, 1.0) * TAU) * (0.82 - progress * 0.18)
+		"shield_break":
+			var discharge := sin(phase * TAU) * (0.72 - progress * 0.38)
+			return discharge + _noise_sample() * (0.56 - progress * 0.28)
 	return sin(phase * TAU)
 
 func _noise_sample() -> float:

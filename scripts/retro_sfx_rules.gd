@@ -11,6 +11,8 @@ const FIRE_STRATEGIC := "fire_strategic"
 const HIT := "hit"
 const EXPLOSION := "explosion"
 const BOSS_EXPLOSION := "boss_explosion"
+const SHIELD_HIT := "shield_hit"
+const SHIELD_BREAK := "shield_break"
 const PLAYER_HIT := "player_hit"
 const STRIKE_RELEASE := "strike_release"
 const STRIKE_IMPACT := "strike_impact"
@@ -63,7 +65,9 @@ static func voice(event_id: String) -> Dictionary:
 		HIT: return {"wave":"noise","frequency":420.0,"end_frequency":180.0,"duration":0.045,"gain":0.10}
 		EXPLOSION: return {"wave":"blast","frequency":118.0,"end_frequency":54.0,"duration":0.22,"gain":0.21}
 		BOSS_EXPLOSION: return {"wave":"blast","frequency":92.0,"end_frequency":38.0,"duration":0.42,"gain":0.26}
-		PLAYER_HIT: return {"wave":"square","frequency":250.0,"end_frequency":115.0,"duration":0.09,"gain":0.15}
+		SHIELD_HIT: return {"wave":"sine","frequency":680.0,"end_frequency":310.0,"duration":0.10,"gain":0.13}
+		SHIELD_BREAK: return {"wave":"shield_break","frequency":920.0,"end_frequency":92.0,"duration":0.30,"gain":0.20}
+		PLAYER_HIT: return {"wave":"mechanical","frequency":250.0,"end_frequency":82.0,"duration":0.12,"gain":0.17}
 		# Internal rack solenoid/clunk followed by a short low airflow tail; original procedural release cue.
 		STRIKE_RELEASE: return {"wave":"mechanical","frequency":132.0,"end_frequency":62.0,"duration":0.13,"gain":0.17}
 		STRIKE_IMPACT: return {"wave":"blast","frequency":74.0,"end_frequency":32.0,"duration":0.30,"gain":0.24}
