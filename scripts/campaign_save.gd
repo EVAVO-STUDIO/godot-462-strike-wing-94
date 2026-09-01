@@ -45,7 +45,8 @@ func _notification(what: int) -> void:
 			_save(scene)
 
 func _capture_mode() -> bool:
-	return "--capture-gameplay" in OS.get_cmdline_user_args()
+	var arguments := OS.get_cmdline_user_args()
+	return "--capture-gameplay" in arguments or "--campaign-journey" in arguments
 
 func _supports_campaign_state(scene: Object) -> bool:
 	var required := ["credits", "mission_index", "weapon_index", "generator_index", "service_hull", "service_shield"]

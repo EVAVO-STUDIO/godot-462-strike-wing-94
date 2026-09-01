@@ -205,6 +205,8 @@ Set-Location C:\GitRepos\godot-462-strike-wing-94
 
 If Godot is not on `PATH`, set `GODOT_BIN` or pass `-GodotBin`. Structural/data/save/content checks still run without the engine executable; when Godot 4.6.2 is found, the script also runs the focused headless self-tests and editor parser smoke test.
 
+Campaign validation executes all eight combinations of the three controlled branch decisions through the live mission-result and advancement code. Each route records 27 successful sorties from Coastal Intercept to Machine Ark; the combined matrix visits all 30 core missions and verifies final completion, ending-cinematic handoff, credits, and return to the front door without writing test progress into the player save.
+
 ## Export for Windows
 
 Install the export templates matching the Godot editor version, then run:

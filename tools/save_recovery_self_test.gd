@@ -61,6 +61,7 @@ func _initialize() -> void:
 		_expect(source.contains('"airframe_index"'), "v7 snapshot should persist VX-94 airframe tier")
 		_expect(source.contains('SAVE_VERSION := 12') and source.contains('"support_selected"') and source.contains('"support_unlocked"'), "v12 snapshot should include support selection/unlock state")
 		_expect(source.contains('"campaign_completed"') and source.contains('"completed_difficulties"') and source.contains("func save_now"), "v7 snapshot should persist campaign completion immediately")
+		_expect(source.contains('"--campaign-journey" in arguments'), "full campaign journey validation should remain isolated from real player save data")
 		_expect(source.contains('"discovered_secret_ids"') and source.contains('"mode_records"') and source.contains("func _mode_records"), "v8 snapshot should persist sanitized secret and alternate-mode history")
 		_expect(source.contains('"branch_decisions"') and source.contains("func _string_dictionary"), "v9 snapshot should persist sanitized branch decisions")
 		_expect(source.contains('"intelligence_unlocked_ids"'), "v10 snapshot should persist intelligence database unlocks")

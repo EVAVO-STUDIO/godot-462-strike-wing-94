@@ -512,6 +512,8 @@ These must remain absent:
 
 With Godot 4.6.2 available it runs focused suites covering runtime rules, rewards, service/energy/airframes, mission flow, save recovery, encounters, tactical/battlefield support, craft/altitude, environment, ordnance, tech progression, boss signatures and combat art, followed by editor smoke parsing.
 
+`tools/campaign_journey_self_test.gd` instantiates the production main scene and executes all eight combinations of the three controlled campaign branches. The resulting 216 successful sortie transitions prove every 27-mission route reaches Machine Ark without loops, their union covers all 30 core missions, rewards and career clears are recorded, and final completion flows through the ending cinematic, credits, and back to the main menu. It runs under capture mode so `CampaignSave` cannot restore or overwrite a player's real career.
+
 ## Production presentation cutover
 
 The temporary prototype player/enemy/projectile drawing has been removed from `main.gd` after live visual capture confirmed production presentation coverage.
