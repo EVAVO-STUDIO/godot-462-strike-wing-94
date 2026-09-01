@@ -476,6 +476,7 @@ const MACHINE_GROUND_SPRITES := {
 const LAYERED_MACHINE_GROUND_SPRITES := {
 	"autonomous_armor": {
 		"base": preload("res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_base.png"),
+		"locomotion": [preload("res://assets/runtime/enemies/machine_ground_layered/locomotion/autonomous_armor/0.png"), preload("res://assets/runtime/enemies/machine_ground_layered/locomotion/autonomous_armor/1.png"), preload("res://assets/runtime/enemies/machine_ground_layered/locomotion/autonomous_armor/2.png"), preload("res://assets/runtime/enemies/machine_ground_layered/locomotion/autonomous_armor/3.png")],
 		"weapon": preload("res://assets/runtime/enemies/machine_ground_layered/autonomous_armor_weapon.png"),
 		"core_pulse": true,
 	},
@@ -821,6 +822,12 @@ func _draw_mobile_ground_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in definitions:
 		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_GROUND_SPRITES[enemy["id"]], 1.0)
+	var machine_definitions := [
+		{"id":"autonomous_armor", "position":Vector2(250,222), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
+		{"id":"factory_defence_node", "position":Vector2(390,222), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
+	]
+	for enemy in machine_definitions:
+		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_MACHINE_GROUND_SPRITES[enemy["id"]], 1.0)
 
 func _render_mech_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0

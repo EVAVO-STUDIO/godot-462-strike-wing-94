@@ -235,6 +235,7 @@ func _test_visual_language() -> void:
 		_expect(mobile_layer != null and mobile_layer.get_size() == mobile_ground_layers[layer_name], "mobile ground layer should retain registered pivot canvas: %s" % layer_name)
 	_expect(source.contains("mobile_ground_layered/light_tank_base.png") and source.contains("mobile_ground_layered/aa_twin_barrels.png"), "mobile armour should use weaponless hulls and separately recoiling barrel layers")
 	_expect(source.contains('argument.begins_with("--capture-ground=")') and source.contains("_draw_mobile_ground_capture"), "visual QA should expose a simulation-isolated mobile-ground tracking and recoil fixture")
+	_expect(source.contains("machine_definitions") and source.contains("LAYERED_MACHINE_GROUND_SPRITES[enemy[\"id\"]]"), "mobile-ground visual QA should include autonomous armour locomotion beside its static factory node contrast")
 	_expect(source.contains('layers.has("locomotion")') and source.contains('* 8.0'), "mobile tanks and carriers should consume registered held tread/wheel locomotion frames")
 	for vehicle_id in ["light_tank", "sam_truck", "aa_carrier"]:
 		for frame_index in range(4):
@@ -384,6 +385,10 @@ func _test_visual_language() -> void:
 	for layer_id in machine_ground_layers:
 		var layer_texture := load("res://assets/runtime/enemies/machine_ground_layered/%s.png" % layer_id)
 		_expect(layer_texture is Texture2D and layer_texture.get_size() == machine_ground_layers[layer_id], "machine-ground articulated layer should retain registered geometry: %s" % layer_id)
+	for frame_index in range(4):
+		var armor_locomotion := load("res://assets/runtime/enemies/machine_ground_layered/locomotion/autonomous_armor/%d.png" % frame_index) as Texture2D
+		_expect(armor_locomotion != null and armor_locomotion.get_size() == Vector2(36,30), "autonomous armour locomotion should retain the registered 36x30 chassis canvas: %d" % frame_index)
+	_expect(FileAccess.file_exists("res://tools/build_machine_ground_locomotion_art.ps1"), "autonomous armour locomotion should retain a reproducible builder")
 	_expect(source.contains("LAYERED_MACHINE_GROUND_SPRITES"), "autonomous armor and factory nodes should use separately articulated production layers")
 	_expect(source.contains('layers.get("core_pulse", false)'), "machine-ground protected cores should retain restrained age-driven pulse animation")
 	var orbital_air_sizes := {

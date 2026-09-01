@@ -47,7 +47,7 @@
     {"id":"drone_hunter","family":"machine_air","size":[30,30],"collision_radius":10,"animations":{"bank":5,"core":3,"recoil":2,"destroy":7}},
     {"id":"drone_bomber","family":"machine_air","size":[44,38],"collision_radius":14,"animations":{"bank":3,"bay":4,"core":3,"destroy":8}},
     {"id":"drone_missile_node","family":"machine_air","size":[38,36],"collision_radius":13,"animations":{"hatches":4,"core":3,"destroy":7}},
-    {"id":"autonomous_armor","family":"machine_ground","size":[36,30],"collision_radius":12,"animations":{"turret":8,"core":3,"destroy":7}},
+    {"id":"autonomous_armor","family":"machine_ground","size":[36,30],"collision_radius":12,"animations":{"locomotion":4,"turret":8,"core":3,"destroy":7}},
     {"id":"factory_defence_node","family":"machine_ground","size":[34,34],"collision_radius":12,"animations":{"aperture":4,"core":3,"destroy":7}},
     {"id":"mercenary_rifle_team","family":"mercenary_infantry","size":[26,22],"collision_radius":9,"animations":{"move":4,"fire":3,"scatter":4,"destroy":5}},
     {"id":"mercenary_heavy_team","family":"mercenary_infantry","size":[30,26],"collision_radius":10,"layers":["base","weapon","muzzle","damage_overlay"],"animations":{"deploy":4,"fire":3,"destroy":6}},

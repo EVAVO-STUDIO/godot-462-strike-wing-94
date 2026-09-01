@@ -10,6 +10,7 @@
     "path": "res://assets/source/enemies/candidates/machine_ground_layered/machine_ground_component_sheet_candidate_01.png",
     "purpose": "weaponless chassis and separately pivoted autonomous weapon assemblies"
   },
+  "locomotion_builder": "res://tools/build_machine_ground_locomotion_art.ps1",
   "visual_contract": {
     "era": "early machine war",
     "autonomous_armor": "mobile human-derived armour reorganized around four robotic track pods",
@@ -33,6 +34,6 @@
     {"id":"factory_defence_base","path":"res://assets/runtime/enemies/machine_ground_layered/factory_defence_base.png","size":[34,34],"sha256":"BCDAFF83A7B4315CC7120D3956E54213275056CCA7444304E8A377753A436D1D"},
     {"id":"factory_defence_weapon","path":"res://assets/runtime/enemies/machine_ground_layered/factory_defence_weapon.png","size":[34,38],"sha256":"C6EC8A9D86386B0EAB9CED925E8AC7493A22C14CD3D092D0B366062233BE815A","pivot":[17,19]}
   ],
-  "runtime_animation": ["player-facing turret or aperture tracking", "weapon recoil", "protected core pulse", "physical smoke, spark and critical-fire damage attachments", "cold debris and EMP collapse with the authored weapon assembly separating from its chassis"],
+  "runtime_animation": ["four registered held robotic track-pod exposures on autonomous armour", "player-facing turret or aperture tracking", "weapon recoil", "protected core pulse", "physical smoke, spark and critical-fire damage attachments", "cold debris and EMP collapse with the authored weapon assembly separating from its chassis"],
   "remaining_animation_gate": []
 }
