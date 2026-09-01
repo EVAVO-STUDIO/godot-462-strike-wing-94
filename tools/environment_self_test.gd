@@ -63,7 +63,7 @@ func _initialize() -> void:
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
 		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should assemble registered authored battlefield geography chunks")
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
-		_expect(source.contains("MOUNTAIN_RADAR"), "mountain benchmark should use its authored radar-zone raster master")
+		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS"), "mountain benchmark should use three forward-scrolling authored districts")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
 		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK"), "high-altitude benchmark should use its authored stratospheric raster master")
 		_expect(source.contains("BLACK_SKY_STATION"), "orbital benchmark should use its authored station raster master")
@@ -196,7 +196,7 @@ func _initialize() -> void:
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored temporal sea and cloud depth layers")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
-		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_TILE", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
+		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_ANIMATION", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_TILE"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
@@ -288,6 +288,42 @@ func _initialize() -> void:
 		_expect(source.contains("crossing_world_y := 1594.0"), "river bridge should align to defended-crossing abutments")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png"), "mountain runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_asset_manifest.json"), "mountain source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_chunks/mountain_geography_manifest.json"), "mountain geography/weather/layered-radar manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_mountain_geography_art.ps1"), "mountain geography should retain a reproducible registered builder")
+		_expect(FileAccess.file_exists("res://tools/build_mountain_radar_art.ps1"), "layered mountain radar should retain a reproducible source finisher")
+		var mountain_manifest = ContentCatalog.load_json("res://assets/source/environments/mountain_chunks/mountain_geography_manifest.json")
+		_expect(typeof(mountain_manifest) == TYPE_DICTIONARY and mountain_manifest.get("chunks", []).size() == 3, "mountain manifest should register three distinct 1024px pass districts")
+		var mountain_names := ["switchback_pass", "radar_service_valley", "ice_cliff_corridor"]
+		var mountain_images: Array[Image] = []
+		for chunk_name in mountain_names:
+			var mountain_texture := load("res://assets/runtime/environments/mountain_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(mountain_texture != null and mountain_texture.get_size() == Vector2(640,1024), "mountain chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if mountain_texture != null: mountain_images.append(mountain_texture.get_image())
+		for chunk_index in range(mountain_images.size()):
+			for sample_x in range(0,640,16):
+				_expect(mountain_images[chunk_index].get_pixel(sample_x,1023).is_equal_approx(mountain_images[(chunk_index+1)%mountain_images.size()].get_pixel(sample_x,0)), "adjacent mountain chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
+		for frame_index in range(6):
+			var shear_frame := load("res://assets/runtime/environments/mountain_weather_animation/shear_%d.png" % frame_index) as Texture2D
+			_expect(shear_frame != null and shear_frame.get_size() == Vector2(224,144), "mountain weather should retain shared 224x144 registration: %d" % frame_index)
+			if shear_frame != null: _expect(shear_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "mountain weather frame must retain genuine alpha: %d" % frame_index)
+		var radar_component_sizes := {"radar_base":Vector2(144,160), "radar_dish":Vector2(128,144)}
+		for component_name in radar_component_sizes:
+			var component := load("res://assets/runtime/environments/mountain_radar_layered/%s.png" % component_name) as Texture2D
+			_expect(component != null and component.get_size() == radar_component_sizes[component_name], "mountain radar component should retain registered geometry: %s" % component_name)
+			if component != null:
+				var component_image := component.get_image()
+				var component_palette := {}
+				var binary_component_alpha := true
+				for y in range(component_image.get_height()):
+					for x in range(component_image.get_width()):
+						var pixel := component_image.get_pixel(x,y)
+						component_palette[Color(pixel.r,pixel.g,pixel.b,1.0).to_html(false)] = true
+						if pixel.a > 0.0 and pixel.a < 1.0: binary_component_alpha = false
+				_expect(component_palette.size() <= 31, "mountain radar component should retain disciplined palette: %s" % component_name)
+				_expect(binary_component_alpha, "mountain radar component should retain binary alpha: %s" % component_name)
+		_expect(source.contains("MOUNTAIN_WEATHER_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "mountain snow shear should use held frames registered to forward-moving geography coordinates")
+		_expect(not source.contains("_draw_vertical_loop(surface, MOUNTAIN_WEATHER_TILE"), "mountain presentation must not regress to a full-screen schematic weather tile")
+		_expect(source.contains("_draw_registered_mountain_radar") and source.contains("radar_world_y := 1288.0") and source.contains("surface.draw_set_transform(center.round(), t * 0.32"), "mountain radar should use a registered stationary base and independently tracking dish")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png"), "harbor runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/harbor_asset_manifest.json"), "harbor source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/harbor_chunks/harbor_geography_manifest.json"), "harbor geography/reflection source and assembly manifest should exist")

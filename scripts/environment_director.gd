@@ -24,7 +24,11 @@ const RIVER_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/river_chunks/defended_crossing.png"),
 	preload("res://assets/runtime/environments/river_chunks/industrial_bend.png"),
 ]
-const MOUNTAIN_RADAR := preload("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png")
+const MOUNTAIN_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/mountain_chunks/switchback_pass.png"),
+	preload("res://assets/runtime/environments/mountain_chunks/radar_service_valley.png"),
+	preload("res://assets/runtime/environments/mountain_chunks/ice_cliff_corridor.png"),
+]
 const HARBOR_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/harbor_chunks/outer_breakwater.png"),
 	preload("res://assets/runtime/environments/harbor_chunks/repair_basin.png"),
@@ -102,7 +106,13 @@ const RIVER_CURRENT_ANIMATION := [
 	preload("res://assets/runtime/environments/river_current_animation/current_2.png"), preload("res://assets/runtime/environments/river_current_animation/current_3.png"),
 	preload("res://assets/runtime/environments/river_current_animation/current_4.png"), preload("res://assets/runtime/environments/river_current_animation/current_5.png"),
 ]
-const MOUNTAIN_WEATHER_TILE := preload("res://assets/runtime/environments/layers/mountain_weather_tile.png")
+const MOUNTAIN_WEATHER_ANIMATION := [
+	preload("res://assets/runtime/environments/mountain_weather_animation/shear_0.png"), preload("res://assets/runtime/environments/mountain_weather_animation/shear_1.png"),
+	preload("res://assets/runtime/environments/mountain_weather_animation/shear_2.png"), preload("res://assets/runtime/environments/mountain_weather_animation/shear_3.png"),
+	preload("res://assets/runtime/environments/mountain_weather_animation/shear_4.png"), preload("res://assets/runtime/environments/mountain_weather_animation/shear_5.png"),
+]
+const MOUNTAIN_RADAR_BASE := preload("res://assets/runtime/environments/mountain_radar_layered/radar_base.png")
+const MOUNTAIN_RADAR_DISH := preload("res://assets/runtime/environments/mountain_radar_layered/radar_dish.png")
 const HARBOR_REFLECTION_ANIMATION := [
 	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_0.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_1.png"),
 	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_2.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_3.png"),
@@ -185,7 +195,7 @@ const LANDMARKS := {
 	"water": preload("res://assets/runtime/environments/landmarks/storm_platform_v2.png"),
 	"desert_front": preload("res://assets/runtime/environments/landmarks/desert_airstrip.png"),
 	"river_corridor": preload("res://assets/runtime/environments/landmarks/river_bridge.png"),
-	"mountain_radar": preload("res://assets/runtime/environments/landmarks/mountain_radar.png"),
+	"mountain_radar": MOUNTAIN_RADAR_BASE,
 	"night_harbor": preload("res://assets/runtime/environments/landmarks/harbor_cranes.png"),
 	"city_outskirts": preload("res://assets/runtime/environments/landmarks/city_rail_hub.png"),
 	"machine_furnace": preload("res://assets/runtime/environments/landmarks/machine_gantry.png"),
@@ -251,7 +261,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 		match variant:
 			"desert_front": _draw_desert_front(surface, scene, state, t)
 			"river_corridor": _draw_river_corridor(surface, scene, state, t)
-			"mountain_radar": _draw_mountain_radar(surface, state, t)
+			"mountain_radar": _draw_mountain_radar(surface, scene, state, t)
 			"night_harbor": _draw_night_harbor(surface, scene, state, t)
 			"city_outskirts": _draw_city_outskirts(surface, scene, state, t)
 			"machine_furnace": _draw_machine_furnace(surface, state, t)
@@ -273,7 +283,7 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	# These restored masters already contain their mission-scale radar, bridge,
 	# rail and coastal structures. Stacking the older simplified landmark cards
 	# over them duplicates the same subject and reads as a prototype overlay.
-	if family in ["coast", "industrial", "mountain_radar"]:
+	if family in ["coast", "industrial"]:
 		return
 	if family not in ["cloud_top", "orbital"] and not _draw_ground_detail(state):
 		return
@@ -283,6 +293,9 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 		return
 	if family == "night_harbor":
 		_draw_registered_harbor_crane(surface, scene, state, t, texture)
+		return
+	if family == "mountain_radar":
+		_draw_registered_mountain_radar(surface, scene, state, t)
 		return
 	if family == "city_outskirts":
 		_draw_registered_city_rail_hub(surface, scene, state, t, texture)
@@ -346,6 +359,22 @@ func _draw_registered_harbor_crane(surface: CanvasItem, scene: Object, state: Di
 		return
 	var rect := Rect2(Vector2(118.0, y).round(), size.round())
 	_draw_texture_rect_clipped(surface, texture, rect, ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.86, 0.94))
+
+func _draw_registered_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
+	# The foundation is fixed to the empty service-valley pad while the dish is a
+	# separately pivoted tracking layer. This preserves target/damage animation.
+	var scroll := t * 24.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scale := 0.78 + _ground_scale(state) * 0.34
+	var radar_world_y := 1288.0
+	var center := Vector2(320.0, fposmod(radar_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y)
+	var base_size := MOUNTAIN_RADAR_BASE.get_size() * scale
+	if center.y + base_size.y * 0.5 < ENVIRONMENT_VIEW.position.y or center.y - base_size.y * 0.5 > ENVIRONMENT_VIEW.end.y:
+		return
+	_draw_texture_rect_clipped(surface, MOUNTAIN_RADAR_BASE, Rect2((center - base_size * 0.5).round(), base_size.round()), ENVIRONMENT_VIEW, Color(0.88,0.91,0.92,0.96))
+	var dish_pivot := Vector2(42,72)
+	surface.draw_set_transform(center.round(), t * 0.32, Vector2.ONE * scale)
+	surface.draw_texture(MOUNTAIN_RADAR_DISH, -dish_pivot, Color(0.90,0.93,0.94,0.98))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_registered_city_rail_hub(surface: CanvasItem, scene: Object, state: Dictionary, t: float, texture: Texture2D) -> void:
 	# This complete switching hub occupies one authored freight-belt coordinate.
@@ -747,12 +776,20 @@ func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary,
 		var y := fposmod(float(slot["y"]) + scroll,3072.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface,current,Rect2(Vector2(float(slot["x"]),y).round(),Vector2(112,220)),ENVIRONMENT_VIEW,Color(0.62,0.72,0.78,0.18))
 
-func _draw_mountain_radar(surface: CanvasItem, state: Dictionary, t: float) -> void:
-	var scroll := fposmod(t * 15.0 * _world_speed_multiplier(), 720.0)
-	_draw_vertical_loop(surface, MOUNTAIN_RADAR, scroll, ENVIRONMENT_VIEW)
-	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.025, 0.045, 0.14))
-	var weather_scroll := fposmod(t * 27.0 * _world_speed_multiplier(), 512.0)
-	_draw_vertical_loop(surface, MOUNTAIN_WEATHER_TILE, weather_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.80))
+func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
+	if not _draw_ground_detail(state): return
+	var scroll := t * 24.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.025, 0.045, 0.10))
+	var weather_slots := [
+		{"x":42.0,"y":170.0}, {"x":354.0,"y":650.0}, {"x":118.0,"y":1130.0},
+		{"x":332.0,"y":1620.0}, {"x":64.0,"y":2160.0}, {"x":350.0,"y":2670.0},
+	]
+	for slot_index in range(weather_slots.size()):
+		var slot: Dictionary = weather_slots[slot_index]
+		var weather: Texture2D = MOUNTAIN_WEATHER_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, MOUNTAIN_WEATHER_ANIMATION.size())]
+		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		_draw_texture_rect_clipped(surface, weather, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(224,144)), ENVIRONMENT_VIEW, Color(0.82,0.88,0.92,0.28))
 
 func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
