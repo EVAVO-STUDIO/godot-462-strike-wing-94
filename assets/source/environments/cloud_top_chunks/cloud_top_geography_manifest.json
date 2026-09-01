@@ -1,0 +1,14 @@
+{
+  "family": "cloud_top_modular_geography",
+  "status": "runtime_registered_v1",
+  "production_method": "built-in image generation source sheets with deterministic ImageMagick crop, shared-boundary finishing and alpha reconstruction",
+  "chunks": [
+    {"id":"anvil_wells","role":"towering storm cells and narrow updraft lanes","size":[640,1024]},
+    {"id":"silver_breaks","role":"broken illuminated deck and broad recovery corridor","size":[640,1024]},
+    {"id":"frontal_boundary","role":"sheared storm wall and embedded lightning route","size":[640,1024]}
+  ],
+  "animation": {"id":"cloud_top_turbulence","frames":6,"size":[256,128],"fps":6,"registration":"finite held wind-shear events"},
+  "cycle_height": 3072,
+  "assembly": ["far atmospheric color", "cloud geography chunks", "finite turbulence", "cirrus and anvil shadows", "aircraft and threats", "near cloud banks and contrails", "curvature during orbital transition"],
+  "rules": ["Cloud districts retain readable north-south combat openings.","Adjacent chunks close at zero scanline error.","Turbulence remains sparse and world-registered rather than a full-screen speed-line tile.","Orbital transition layers remain independent from cloud geography."]
+}

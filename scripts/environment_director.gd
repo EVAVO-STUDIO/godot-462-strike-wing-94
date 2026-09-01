@@ -34,7 +34,11 @@ const HARBOR_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/harbor_chunks/repair_basin.png"),
 	preload("res://assets/runtime/environments/harbor_chunks/command_docks.png"),
 ]
-const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
+const CLOUD_TOP_GEOGRAPHY_CHUNKS := [
+	preload("res://assets/runtime/environments/cloud_top_chunks/anvil_wells.png"),
+	preload("res://assets/runtime/environments/cloud_top_chunks/silver_breaks.png"),
+	preload("res://assets/runtime/environments/cloud_top_chunks/frontal_boundary.png"),
+]
 const BLACK_SKY_STATION := preload("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png")
 const CITY_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/city_chunks/freight_belt.png"),
@@ -113,6 +117,11 @@ const MOUNTAIN_WEATHER_ANIMATION := [
 ]
 const MOUNTAIN_RADAR_BASE := preload("res://assets/runtime/environments/mountain_radar_layered/radar_base.png")
 const MOUNTAIN_RADAR_DISH := preload("res://assets/runtime/environments/mountain_radar_layered/radar_dish.png")
+const CLOUD_TOP_TURBULENCE_ANIMATION := [
+	preload("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_0.png"), preload("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_1.png"),
+	preload("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_2.png"), preload("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_3.png"),
+	preload("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_4.png"), preload("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_5.png"),
+]
 const HARBOR_REFLECTION_ANIMATION := [
 	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_0.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_1.png"),
 	preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_2.png"), preload("res://assets/runtime/environments/harbor_reflection_animation/reflection_3.png"),
@@ -254,7 +263,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	# Orbital-profile missions can begin in atmosphere and cross the boundary visibly.
 	var orbital_mix := _orbital_mix(state)
 	if motif == "orbital" and orbital_mix < 0.98:
-		_draw_cloud_top(surface, profile, state, t)
+		_draw_cloud_top(surface, scene, profile, state, t)
 		if orbital_mix > 0.02:
 			_draw_orbital(surface, profile, state, t, orbital_mix)
 	elif variant != "":
@@ -270,7 +279,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"coast": _draw_coast(surface, scene, profile, state, t)
 			"industrial": _draw_industrial(surface, scene, profile, state, t)
 			"water": _draw_water(surface, scene, profile, state, t)
-			"cloud_top": _draw_cloud_top(surface, profile, state, t)
+			"cloud_top": _draw_cloud_top(surface, scene, profile, state, t)
 			"orbital": _draw_orbital(surface, profile, state, t, 1.0)
 	_draw_high_atmosphere_far(surface, state, t)
 	_draw_landmarks(surface, scene, profile, state, t, variant if variant != "" else motif, orbital_mix)
@@ -829,11 +838,23 @@ func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> 
 	var activity_pulse := 0.68 + 0.22 * (0.5 + 0.5 * sin(t * 1.7))
 	_draw_vertical_loop(surface, FURNACE_ACTIVITY_TILE, activity_scroll, ENVIRONMENT_VIEW, Color(1,1,1,activity_pulse))
 
-func _draw_cloud_top(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
+func _draw_cloud_top(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
-	var scroll := fposmod(t * 14.0, 720.0)
-	_draw_vertical_loop(surface, STRATOSPHERIC_CLOUD_DECK, scroll, ENVIRONMENT_VIEW, Color(0.78, 0.86, 0.91, 0.66))
-	_draw_high_atmosphere_horizon(surface, profile, _horizon_glow(state))
+	var scroll := t * 20.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	_draw_vertical_chunk_sequence(surface, CLOUD_TOP_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.86, 0.92, 0.88))
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.012, 0.026, 0.052, 0.10))
+	var turbulence_slots := [
+		{"x":38.0,"y":180.0}, {"x":344.0,"y":660.0}, {"x":166.0,"y":1140.0},
+		{"x":330.0,"y":1640.0}, {"x":54.0,"y":2160.0}, {"x":348.0,"y":2670.0},
+	]
+	for slot_index in range(turbulence_slots.size()):
+		var slot: Dictionary = turbulence_slots[slot_index]
+		var turbulence: Texture2D = CLOUD_TOP_TURBULENCE_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, CLOUD_TOP_TURBULENCE_ANIMATION.size())]
+		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		_draw_texture_rect_clipped(surface, turbulence, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(256,128)), ENVIRONMENT_VIEW, Color(0.78,0.86,0.96,0.20 + density * 0.10))
+	var transition_mix := _orbital_mix(state)
+	if transition_mix > 0.02:
+		_draw_high_atmosphere_horizon(surface, profile, maxf(_horizon_glow(state), transition_mix))
 	# Sparse moving banks preserve depth without hiding the authored cloud-deck structure.
 	var count := maxi(4, int(round(8.0 * maxf(0.42, density))))
 	for i in range(count):

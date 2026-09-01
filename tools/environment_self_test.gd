@@ -65,7 +65,7 @@ func _initialize() -> void:
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
 		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS"), "mountain benchmark should use three forward-scrolling authored districts")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
-		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK"), "high-altitude benchmark should use its authored stratospheric raster master")
+		_expect(source.contains("CLOUD_TOP_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CLOUD_TOP_GEOGRAPHY_CHUNKS"), "high-altitude benchmark should use three forward-scrolling authored cloud districts")
 		_expect(source.contains("BLACK_SKY_STATION"), "orbital benchmark should use its authored station raster master")
 		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS"), "city belt should use three forward-scrolling authored districts")
 		_expect(source.contains("MACHINE_FURNACE"), "machine-war reveal should use its authored autonomous-foundry raster master")
@@ -351,6 +351,26 @@ func _initialize() -> void:
 		_expect(source.contains("lerpf(1.0, 3.6, hypersonic_ratio)"), "hypersonic environment presentation should stretch authored motion accents without blurring combat readability")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png"), "stratospheric runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_top_chunks/cloud_top_geography_manifest.json"), "cloud-top geography/turbulence assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://tools/build_cloud_top_geography_art.ps1"), "cloud-top geography should retain a reproducible registered builder")
+		var cloud_top_manifest = ContentCatalog.load_json("res://assets/source/environments/cloud_top_chunks/cloud_top_geography_manifest.json")
+		_expect(typeof(cloud_top_manifest) == TYPE_DICTIONARY and cloud_top_manifest.get("chunks", []).size() == 3, "cloud-top manifest should register three distinct 1024px atmospheric districts")
+		var cloud_top_names := ["anvil_wells", "silver_breaks", "frontal_boundary"]
+		var cloud_top_images: Array[Image] = []
+		for chunk_name in cloud_top_names:
+			var cloud_top_texture := load("res://assets/runtime/environments/cloud_top_chunks/%s.png" % chunk_name) as Texture2D
+			_expect(cloud_top_texture != null and cloud_top_texture.get_size() == Vector2(640,1024), "cloud-top chunk should retain native 640x1024 registration: %s" % chunk_name)
+			if cloud_top_texture != null: cloud_top_images.append(cloud_top_texture.get_image())
+		for chunk_index in range(cloud_top_images.size()):
+			for sample_x in range(0,640,16):
+				_expect(cloud_top_images[chunk_index].get_pixel(sample_x,1023).is_equal_approx(cloud_top_images[(chunk_index+1)%cloud_top_images.size()].get_pixel(sample_x,0)), "adjacent cloud-top chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
+		for frame_index in range(6):
+			var turbulence_frame := load("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_%d.png" % frame_index) as Texture2D
+			_expect(turbulence_frame != null and turbulence_frame.get_size() == Vector2(256,128), "cloud-top turbulence should retain shared 256x128 registration: %d" % frame_index)
+			if turbulence_frame != null: _expect(turbulence_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "cloud-top turbulence frame must retain genuine alpha: %d" % frame_index)
+		_expect(source.contains("CLOUD_TOP_TURBULENCE_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "cloud-top turbulence should use held frames registered to forward-moving cloud geography coordinates")
+		_expect(source.contains("t * 20.0 * _world_speed_multiplier()"), "cloud-top geography should accelerate with the shared hypersonic world-speed contract")
+		_expect(source.contains("transition_mix > 0.02") and source.contains("maxf(_horizon_glow(state), transition_mix)"), "planetary curvature should appear during orbital transition rather than cutting across ordinary high-cloud combat")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"), "orbital runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_asset_manifest.json"), "orbital source manifest should exist")
 		var orbital_layer_sizes := {"starfield_tile":Vector2(640,512),"high_atmosphere_rim":Vector2(640,208),"orbital_rim":Vector2(640,208)}
