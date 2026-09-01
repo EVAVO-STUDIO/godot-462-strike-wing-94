@@ -301,7 +301,7 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 	elif screen == "secret_sorties":
 		_draw_front_end_secret_sorties(surface,scene)
 	elif screen == "controls":
-		_draw_front_end_controls(surface)
+		_draw_front_end_controls(surface, scene)
 	elif screen == "options":
 		_draw_front_end_options(surface, scene)
 	elif screen == "dossier":
@@ -426,13 +426,31 @@ func _draw_front_end_secret_sorties(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_text(surface,lines[i],Vector2(280,240+i*11),1,MUTED,1)
 	PixelFont.draw_centered(surface,"UP / DOWN VECTOR   ENTER OPEN FILE   ESC RETURN",320,316,1,GOLD,1)
 
-func _draw_front_end_controls(surface: CanvasItem) -> void:
-	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))
-	PixelFont.draw_centered(surface, "FLIGHT CONTROLS", 320, 139, 1, GOLD, 1)
-	var lines := ["ARROWS / WASD   MANEUVER", "SPACE           PRIMARY FIRE", "X               SECONDARY", "Q               WING GEOMETRY", "SHIFT           AFTERBURNER", "Z / F           TACTICAL / ALLIED", "ENTER / ESC     CONFIRM / RETURN"]
-	for index in range(lines.size()):
-		PixelFont.draw_text(surface, lines[index], Vector2(198, 162 + index * 17), 1, TEXT if index < 4 else BLUE, 1)
-	PixelFont.draw_centered(surface, "ENTER / ESC RETURN", 320, 281, 1, GOLD, 1)
+func _draw_front_end_controls(surface: CanvasItem, scene: Object) -> void:
+	var bindings := get_node_or_null("/root/InputBindings")
+	var count := int(bindings.call("binding_count")) if bindings != null and bindings.has_method("binding_count") else 0
+	var selection := clampi(int(scene.get("control_selection")), 0, maxi(0, count - 1))
+	var listening := bool(scene.get("control_listening"))
+	PixelFont.draw_centered(surface, "FLIGHT CONTROL ASSIGNMENT", 320, 119, 1, GOLD, 1)
+	_draw_console_panel(surface, Rect2(88, 133, 464, 174), "KEYBOARD // CONTROLLER REMAINS ACTIVE", BLUE)
+	var first := clampi(selection - 3, 0, maxi(0, count - 7))
+	for row in range(first, mini(first + 7, count)):
+		var y := 151 + (row - first) * 20
+		var selected := row == selection
+		if selected:
+			surface.draw_rect(Rect2(104, y - 3, 432, 18), Color("162b36"))
+			surface.draw_rect(Rect2(104, y - 3, 3, 18), GOLD)
+			surface.draw_texture(FRONT_END_CURSOR, Vector2(87, y + 1))
+		var label := str(bindings.call("binding_label", row)) if bindings != null else "CONTROL"
+		var key_name := str(bindings.call("binding_key_name", row)) if bindings != null else "--"
+		PixelFont.draw_text(surface, label, Vector2(118, y), 1, GOLD if selected else TEXT, 1)
+		PixelFont.draw_text(surface, key_name, Vector2(500 - PixelFont.text_width(key_name, 1, 1), y), 1, GREEN if selected else BLUE, 1)
+	if listening:
+		surface.draw_rect(Rect2(151, 239, 338, 34), Color("071018"))
+		surface.draw_rect(Rect2(151, 239, 338, 34), GOLD, false, 1.0)
+		PixelFont.draw_centered(surface, "PRESS NEW KEY // ESC CANCEL", 320, 251, 1, GOLD, 1)
+	else:
+		PixelFont.draw_centered(surface, "ENTER REBIND   BACKSPACE DEFAULTS   ESC RETURN", 320, 286, 1, MUTED, 1)
 
 func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")

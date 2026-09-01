@@ -77,6 +77,8 @@ Controller defaults use Godot's standard Xbox/PlayStation-style mapping:
 - Cycle tactical/battlefield support: D-pad left/right
 - Precision strike ordnance: right-stick click
 
+Keyboard flight bindings can be reassigned from **FLIGHT CONTROLS** on the main menu. The assignment station captures physical keys, swaps conflicts so both actions remain reachable, persists changes in the local options file, preserves controller bindings, and supports restoring the authored defaults with `Backspace`.
+
 ### Briefing / loadout
 
 - Launch / continue: `Enter`

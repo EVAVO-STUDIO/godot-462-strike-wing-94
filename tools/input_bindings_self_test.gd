@@ -20,6 +20,21 @@ func _initialize() -> void:
 	_expect(_has_button("transform_craft", JOY_BUTTON_Y), "north face button should transform the VX-94")
 	_expect(_has_button("afterburner", JOY_BUTTON_LEFT_SHOULDER), "left shoulder should control afterburner")
 	_expect(_has_button("evasive_roll", JOY_BUTTON_LEFT_STICK), "left-stick press should commit an evasive roll in the held lateral direction")
+	bindings.call("restore_keyboard_defaults", false)
+	_expect(int(bindings.call("binding_count")) == 14, "flight keyboard station should expose all fourteen combat bindings")
+	_expect(str(bindings.call("binding_label", 6)) == "WING GEOMETRY", "binding catalogue should expose player-facing action labels")
+	_expect(str(bindings.call("binding_key_name", 6)) == "Q", "binding catalogue should expose the active physical key")
+	_expect(bool(bindings.call("rebind", 6, KEY_T, false)), "keyboard control should accept a live replacement key")
+	_expect(_has_key("transform_craft", KEY_T) and not _has_key("transform_craft", KEY_Q), "rebinding should replace the gameplay action event")
+	_expect(_has_button("transform_craft", JOY_BUTTON_Y), "keyboard rebinding must preserve controller input")
+	_expect(bool(bindings.call("rebind", 7, KEY_T, false)), "binding conflicts should be resolved instead of rejected")
+	_expect(_has_key("afterburner", KEY_T) and _has_key("transform_craft", KEY_SHIFT), "a conflict should swap keys so both flight actions remain reachable")
+	bindings.call("restore_keyboard_defaults", false)
+	_expect(_has_key("transform_craft", KEY_Q), "defaults restore should recover the authored keyboard layout")
+	var main := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	_expect(main != null and main.get_as_text().contains("control_listening") and main.get_as_text().contains("KEY RESERVED FOR CONTROL STATION"), "front end should own safe live keyboard capture")
+	var ui := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
+	_expect(ui != null and ui.get_as_text().contains("FLIGHT CONTROL ASSIGNMENT") and ui.get_as_text().contains("PRESS NEW KEY"), "flight-control screen should render the live assignment state")
 	bindings.free()
 	if failures.is_empty():
 		print("HYPERSONIC controller input self-test passed.")
@@ -38,6 +53,12 @@ func _has_button(action: StringName, button: int) -> bool:
 func _has_axis(action: StringName, axis: int, value: float) -> bool:
 	for event in InputMap.action_get_events(action):
 		if event is InputEventJoypadMotion and event.axis == axis and is_equal_approx(event.axis_value, value):
+			return true
+	return false
+
+func _has_key(action: StringName, key: Key) -> bool:
+	for event in InputMap.action_get_events(action):
+		if event is InputEventKey and event.physical_keycode == key:
 			return true
 	return false
 

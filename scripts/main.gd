@@ -30,6 +30,8 @@ var front_end_screen := "main_menu"
 var menu_selection := 0
 var option_selection := 0
 var option_category := 0
+var control_selection := 0
+var control_listening := false
 var mode_selection := 0
 var branch_selection := 0
 var dossier_selection := 0
@@ -105,6 +107,9 @@ var mission_rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_configure_input()
+	var bindings := get_node_or_null("/root/InputBindings")
+	if bindings != null and bindings.has_method("apply_saved_keyboard_bindings"):
+		bindings.call("apply_saved_keyboard_bindings")
 	_load_content()
 	mission_index = _capture_mission_index(OS.get_cmdline_user_args(), mission_index, mission_catalog.size())
 	_prepare_mission(mission_index)
@@ -318,8 +323,7 @@ func _update_front_end_menu() -> void:
 		_update_secret_sorties()
 		return
 	if front_end_screen == "controls":
-		if Input.is_action_just_pressed("confirm") or Input.is_action_just_pressed("cancel"):
-			front_end_screen = "main_menu"
+		_update_front_end_controls()
 		return
 	if Input.is_action_just_pressed("move_up"):
 		menu_selection = posmod(menu_selection - 1, 7)
@@ -503,6 +507,45 @@ func _update_front_end_options() -> void:
 		if settings != null and settings.has_method("adjust_setting"):
 			var global_index:=int(settings.call("category_global_index",option_category,option_selection)) if settings.has_method("category_global_index") else option_selection
 			settings.call("adjust_setting",global_index,direction)
+
+func _update_front_end_controls() -> void:
+	if control_listening:
+		return
+	var bindings := get_node_or_null("/root/InputBindings")
+	var count := int(bindings.call("binding_count")) if bindings != null and bindings.has_method("binding_count") else 1
+	if Input.is_action_just_pressed("cancel"):
+		front_end_screen = "main_menu"
+	elif Input.is_action_just_pressed("move_up"):
+		control_selection = posmod(control_selection - 1, count)
+	elif Input.is_action_just_pressed("move_down"):
+		control_selection = posmod(control_selection + 1, count)
+	elif Input.is_action_just_pressed("confirm"):
+		control_listening = true
+	elif Input.is_physical_key_pressed(KEY_BACKSPACE) and bindings != null and bindings.has_method("restore_keyboard_defaults"):
+		bindings.call("restore_keyboard_defaults")
+		status_text = "FLIGHT CONTROLS RESTORED"
+		status_timer = 2.0
+
+func _input(event: InputEvent) -> void:
+	if not control_listening or not event is InputEventKey or not event.pressed or event.echo:
+		return
+	var key_event := event as InputEventKey
+	var key := key_event.physical_keycode if key_event.physical_keycode != KEY_NONE else key_event.keycode
+	if key == KEY_ESCAPE:
+		control_listening = false
+		get_viewport().set_input_as_handled()
+		return
+	if key in [KEY_ENTER, KEY_KP_ENTER, KEY_BACKSPACE]:
+		status_text = "KEY RESERVED FOR CONTROL STATION"
+		status_timer = 2.0
+		get_viewport().set_input_as_handled()
+		return
+	var bindings := get_node_or_null("/root/InputBindings")
+	if bindings != null and bindings.has_method("rebind") and bool(bindings.call("rebind", control_selection, key)):
+		status_text = "CONTROL ASSIGNED: %s" % OS.get_keycode_string(key).to_upper()
+		status_timer = 2.0
+	control_listening = false
+	get_viewport().set_input_as_handled()
 
 func _update_mission(delta: float) -> void:
 	if player_loss_timer > 0.0:
