@@ -1,0 +1,17 @@
+{
+  "asset_family": "hypersonic_maintenance_bay_front_end_v2",
+  "status": "runtime_v2",
+  "source_backdrop": "res://assets/source/ui/menu/candidates/maintenance_bay_concept_01_raw.png",
+  "source_activity": "res://assets/source/ui/menu/maintenance_bay_activity_sheet.svg",
+  "builder": "res://tools/build_menu_bay_v2.ps1",
+  "runtime": {
+    "backdrop": {"path": "res://assets/runtime/ui/menu/maintenance_bay_v2.png", "size": [640,360]},
+    "activity": {"directory": "res://assets/runtime/ui/menu/maintenance_bay_activity", "frames": 4, "size": [640,360], "fps": 3}
+  },
+  "visual_contract": {
+    "role": "dim physical operations-bay context beneath the front-end console",
+    "era": "1997 military aerospace maintenance facility",
+    "layer_order": ["palette-finished bay", "held practical-light activity", "smoked readability wash", "interface chrome", "title and data"],
+    "avoid": ["full-bright background", "modern glass UI", "continuous smooth animation", "generic spaceship bridge", "text baked into art"]
+  }
+}

@@ -161,13 +161,21 @@ func _test_pixel_ui() -> void:
 		for path in ["rail.png", "node_complete.png", "node_current.png", "node_locked.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/campaign_progress/%s" % path), "campaign progress sprite should exist: %s" % path)
 		_expect(source.contains("VX94_FIGHTER") and source.contains("VX94_BOMBER"), "sortie console should retain form-specific aircraft art")
-		_expect(source.contains("SORTIE_BAY_BACKDROP") and source.contains("sortie_bay_backdrop_v1.png"), "sortie console should use the authored maintenance-bay environment")
-		var backdrop := load("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
+		_expect(source.contains("SORTIE_BAY_BACKDROP") and source.contains("maintenance_bay_v2.png") and source.contains("MAINTENANCE_BAY_ACTIVITY"), "front-end console should use the animated authored maintenance-bay environment")
+		var backdrop := load("res://assets/runtime/ui/menu/maintenance_bay_v2.png")
 		_expect(backdrop is Texture2D and backdrop.get_size() == Vector2(640,360), "sortie-bay backdrop should retain canonical 640x360 geometry")
+		for activity_index in range(4):
+			var activity := load("res://assets/runtime/ui/menu/maintenance_bay_activity/activity_%d.png" % activity_index)
+			_expect(activity is Texture2D and activity.get_size() == Vector2(640,360) and activity.get_image().detect_alpha() != Image.ALPHA_NONE, "maintenance-bay activity frame should retain transparent registered geometry: %d" % activity_index)
+		_expect(source.contains("func _draw_maintenance_bay") and source.contains("_front_end_time * 3.0"), "front-end, sortie and report screens should share held practical-light animation")
+		_expect(FileAccess.file_exists("res://assets/source/ui/menu/maintenance_bay_v2_manifest.json") and FileAccess.file_exists("res://tools/build_menu_bay_v2.ps1"), "maintenance-bay v2 should retain governed source and deterministic builder")
 		_expect(FileAccess.file_exists("res://assets/source/ui/menu/menu_ui_asset_manifest.json"), "sortie-menu art manifest should exist")
 		for menu_path in ["operations_panel_9slice.png", "operations_screen_9slice.png", "operations_button_9slice.png"]:
 			var menu_texture := load("res://assets/runtime/ui/menu/%s" % menu_path)
 			_expect(menu_texture is Texture2D, "missing authored menu interface sprite: %s" % menu_path)
+		var operations_screen_texture := load("res://assets/runtime/ui/menu/operations_screen_9slice.png") as Texture2D
+		var operations_screen_alpha := operations_screen_texture.get_image().get_pixel(16,16).a if operations_screen_texture != null else 1.0
+		_expect(operations_screen_alpha >= 0.45 and operations_screen_alpha <= 0.85, "outer operations console should retain a controlled smoked center rather than flattening the maintenance bay")
 		_expect(source.contains("UiSpriteRenderer.draw_nine_slice") and source.contains("OPERATIONS_PANEL") and source.contains("OPERATIONS_SCREEN") and source.contains("OPERATIONS_BUTTON"), "sortie console should assemble authored sprite frames instead of flat rectangle chrome")
 		var chrome_sizes := {"panel_header_rule":Vector2(16,3), "panel_status_lamp":Vector2(8,8), "report_divider":Vector2(556,5)}
 		for asset_name in chrome_sizes:

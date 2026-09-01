@@ -1,14 +1,15 @@
 {
   "family": "sortie_operations_console",
-  "runtime_master": "res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png",
+  "runtime_master": "res://assets/runtime/ui/menu/maintenance_bay_v2.png",
   "canvas": [640, 360],
   "palette_limit": 20,
   "role": "subdued maintenance-bay environment beneath the mission console UI",
   "art_direction": ["1997 military operations console", "recessed steel service bay", "low practical lighting", "large quiet shapes", "restrained amber and cool-blue indicators"],
-  "layering": "Backdrop is independent of wordmark, console panels, text, VX-94 preview and launch highlight.",
+  "layering": "Palette-finished backdrop and four held practical-light frames are independent of wordmark, console panels, text, VX-94 preview and launch highlight.",
+  "maintenance_bay_v2": "res://assets/source/ui/menu/maintenance_bay_v2_manifest.json",
   "interface_sprites": [
     {"id": "operations_panel", "source": "res://assets/source/ui/menu/operations_panel_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_panel_9slice.png", "size": [24, 24], "border": 6, "role": "sortie cards and collapsed overlay controls"},
-    {"id": "operations_screen", "source": "res://assets/source/ui/menu/operations_screen_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_screen_9slice.png", "size": [32, 32], "border": 8, "role": "outer console, mission report, intelligence and stores overlays"},
+    {"id": "operations_screen", "source": "res://assets/source/ui/menu/operations_screen_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_screen_9slice.png", "size": [32, 32], "border": 8, "role": "outer console with a smoked translucent center over the physical operations bay"},
     {"id": "operations_button", "source": "res://assets/source/ui/menu/operations_button_9slice.svg", "runtime": "res://assets/runtime/ui/menu/operations_button_9slice.png", "size": [24, 16], "border": 6, "role": "launch authorization control"},
     {"id": "panel_header_rule", "source": "res://assets/source/ui/menu/operations_chrome_sheet.svg", "runtime": "res://assets/runtime/ui/menu/panel_header_rule.png", "size": [16, 3], "border": 4, "role": "three-slice console-card header bus"},
     {"id": "panel_status_lamp", "source": "res://assets/source/ui/menu/operations_chrome_sheet.svg", "runtime": "res://assets/runtime/ui/menu/panel_status_lamp.png", "size": [8, 8], "role": "tintable recessed console-card annunciator"},

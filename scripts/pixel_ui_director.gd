@@ -13,7 +13,13 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
-const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
+const SORTIE_BAY_BACKDROP := preload("res://assets/runtime/ui/menu/maintenance_bay_v2.png")
+const MAINTENANCE_BAY_ACTIVITY := [
+	preload("res://assets/runtime/ui/menu/maintenance_bay_activity/activity_0.png"),
+	preload("res://assets/runtime/ui/menu/maintenance_bay_activity/activity_1.png"),
+	preload("res://assets/runtime/ui/menu/maintenance_bay_activity/activity_2.png"),
+	preload("res://assets/runtime/ui/menu/maintenance_bay_activity/activity_3.png"),
+]
 const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
 const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
 const OPERATIONS_BUTTON := preload("res://assets/runtime/ui/menu/operations_button_9slice.png")
@@ -161,6 +167,7 @@ var _surface: Control
 var _last_phase := -1
 var _last_mission_index := -1
 var _ingress_time := 0.0
+var _front_end_time := 0.0
 
 func _ready() -> void:
 	layer = 30
@@ -173,6 +180,7 @@ func _ready() -> void:
 	add_child(_surface)
 
 func _process(delta: float) -> void:
+	_front_end_time += maxf(0.0, delta)
 	var scene := get_tree().current_scene
 	if scene != null and _supports(scene):
 		var phase := int(scene.get("phase"))
@@ -210,9 +218,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	if front_end != "sortie":
 		_draw_front_end(surface, scene, front_end)
 		return
-	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
-	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.78,0.86,0.88,0.88))
-	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.025,0.035,0.42))
+	_draw_maintenance_bay(surface, 0.42, 0.88)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(195, 18, 250, 32), false)
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 53, 1, BLUE, 1)
@@ -276,9 +282,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_centered(surface, _clip(str(scene.get("status_text")), 72), 320, 340, 1, GREEN, 1)
 
 func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void:
-	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
-	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.55,0.64,0.68,0.70))
-	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,0.52))
+	_draw_maintenance_bay(surface, 0.52, 0.76)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(70, 28, 500, 64), false)
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 102, 1, BLUE, 1)
@@ -526,9 +530,7 @@ func _draw_mode_progress(surface: CanvasItem, route_index: int, route_total: int
 		surface.draw_texture(node,node_position)
 
 func _draw_result(surface: CanvasItem, scene: Object) -> void:
-	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
-	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.62,0.70,0.73,0.72))
-	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,0.66))
+	_draw_maintenance_bay(surface, 0.66, 0.74)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	var mission_success := bool(scene.get("mission_success")) if _has_property(scene, "mission_success") else true
 	var mode_active := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
@@ -940,6 +942,13 @@ func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vecto
 	if width <= 0.0:
 		return
 	surface.draw_texture_rect_region(texture, Rect2(position, Vector2(width, texture.get_height())), Rect2(0, 0, width, texture.get_height()))
+
+func _draw_maintenance_bay(surface: CanvasItem, wash_alpha: float, tint_alpha: float) -> void:
+	surface.draw_rect(Rect2(0, 0, 640, 360), BG)
+	surface.draw_texture_rect(SORTIE_BAY_BACKDROP, Rect2(0,0,640,360), false, Color(0.78,0.84,0.86,tint_alpha))
+	var frame_index := posmod(int(floor(_front_end_time * 3.0)), MAINTENANCE_BAY_ACTIVITY.size())
+	surface.draw_texture(MAINTENANCE_BAY_ACTIVITY[frame_index], Vector2.ZERO, Color(1,1,1,0.82))
+	surface.draw_rect(Rect2(0,0,640,360), Color(0.01,0.02,0.03,clampf(wash_alpha,0.0,0.82)))
 
 func _draw_frame(surface: CanvasItem, rect: Rect2) -> void:
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, rect, 8)
