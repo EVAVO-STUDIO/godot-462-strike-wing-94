@@ -1,15 +1,17 @@
 [CmdletBinding()]
 param(
     [string]$GodotBin = $env:GODOT_BIN,
-    [string]$OutputPath = 'build/windows/HYPERSONIC.exe'
+    [string]$OutputPath = 'build/windows/HYPERSONIC.exe',
+    [switch]$SkipPerformance
 )
 
 $ErrorActionPreference = 'Stop'
 $ValidateScript = Join-Path $PSScriptRoot 'validate.ps1'
 $ExportScript = Join-Path $PSScriptRoot 'export_windows.ps1'
 $VerifyScript = Join-Path $PSScriptRoot 'verify_windows_export.ps1'
+$PerformanceScript = Join-Path $PSScriptRoot 'run_performance_profile.ps1'
 
-foreach ($ScriptPath in @($ValidateScript, $ExportScript, $VerifyScript)) {
+foreach ($ScriptPath in @($ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript)) {
     $Tokens = $null
     $Errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($ScriptPath, [ref]$Tokens, [ref]$Errors) | Out-Null
@@ -20,6 +22,13 @@ foreach ($ScriptPath in @($ValidateScript, $ExportScript, $VerifyScript)) {
 
 Write-Host 'Running HYPERSONIC source and engine validation...' -ForegroundColor Cyan
 & $ValidateScript -GodotBin $GodotBin
+
+if (-not $SkipPerformance) {
+    Write-Host 'Running the native 1280x720 production combat stress profile...' -ForegroundColor Cyan
+    & $PerformanceScript -GodotBin $GodotBin -Density stress -Isolate none
+} else {
+    Write-Warning 'Graphical performance profiling was explicitly skipped; this run is not a complete release-performance audit.'
+}
 
 Write-Host 'Building the canonical HYPERSONIC Windows package...' -ForegroundColor Cyan
 & $ExportScript -GodotBin $GodotBin -OutputPath $OutputPath

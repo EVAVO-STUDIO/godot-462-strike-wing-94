@@ -506,7 +506,7 @@ These must remain absent:
 
 ## Validation
 
-`tools/validate.ps1` performs local structural/data/save checks without network or paid CI. `tools/validate_windows_release.ps1` is the stronger shipment gate: it runs that complete suite, builds the embedded-PCK Windows executable, verifies EVAVO/HYPERSONIC metadata, and smoke-launches the packaged runtime.
+`tools/validate.ps1` performs local structural/data/save checks without network or paid CI. `tools/validate_windows_release.ps1` is the stronger shipment gate: it runs that complete suite, proves stable 60 Hz against the native production-combat stress workload, builds the embedded-PCK Windows executable, verifies EVAVO/HYPERSONIC metadata, and smoke-launches the packaged runtime.
 
 With Godot 4.6.2 available it runs focused suites covering runtime rules, rewards, service/energy/airframes, mission flow, save recovery, encounters, tactical/battlefield support, craft/altitude, environment, ordnance, tech progression, boss signatures and combat art, followed by editor smoke parsing.
 
