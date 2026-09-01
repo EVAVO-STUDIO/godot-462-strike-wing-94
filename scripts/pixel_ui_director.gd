@@ -8,6 +8,7 @@ const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
+const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
@@ -281,7 +282,7 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 	elif screen == "options":
 		_draw_front_end_options(surface, scene)
 	elif screen == "dossier":
-		_draw_front_end_dossier(surface)
+		_draw_front_end_dossier(surface,scene)
 	else:
 		_draw_front_end_main(surface, scene)
 	PixelFont.draw_centered(surface, "%s // %s %s" % [_identity_text("developer", "EVAVO STUDIO"), _identity_title(), _identity_text("version", "0.0.0-DEV")], 320, 334, 1, MUTED, 1)
@@ -407,14 +408,42 @@ func _draw_front_end_options(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_centered(surface, _clip(str(profile.get("description", "")), 72), 320, 312, 1, BLUE, 1)
 	PixelFont.draw_centered(surface,"Q / X CATEGORY   LEFT / RIGHT ADJUST   ESC RETURN",320,324,1,MUTED,1)
 
-func _draw_front_end_dossier(surface: CanvasItem) -> void:
-	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))
-	PixelFont.draw_centered(surface, "EVAVO DOSSIER", 320, 139, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, "HYPERSONIC", 320, 169, 2, TEXT, 1)
-	PixelFont.draw_centered(surface, "VX-94 VARIABLE STRIKE FIGHTER", 320, 194, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "DEVELOPED AND PUBLISHED BY", 320, 222, 1, MUTED, 1)
-	PixelFont.draw_centered(surface, _identity_text("developer", "EVAVO STUDIO"), 320, 241, 2, GOLD, 1)
-	PixelFont.draw_centered(surface, "ENTER / ESC RETURN", 320, 281, 1, GREEN, 1)
+func _draw_front_end_dossier(surface: CanvasItem, scene: Object) -> void:
+	var data: Dictionary = ContentCatalog.load_json("res://data/intelligence.json")
+	var entries: Array = data.get("entries", []) if typeof(data) == TYPE_DICTIONARY else []
+	var unlocked_ids: Array = scene.get("intelligence_unlocked_ids") if _has_property(scene,"intelligence_unlocked_ids") else []
+	var unlocked: Array = []
+	for entry in entries:
+		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("id","")) in unlocked_ids:
+			unlocked.append(entry)
+	PixelFont.draw_centered(surface,"EVAVO TACTICAL INTELLIGENCE DATABASE",320,122,1,GOLD,1)
+	_draw_console_panel(surface,Rect2(28,136,214,174),"INDEX %02d / %02d" % [unlocked.size(),entries.size()],BLUE)
+	_draw_console_panel(surface,Rect2(252,136,360,174),"TECHNICAL FILE",BLUE)
+	if unlocked.is_empty():
+		PixelFont.draw_centered(surface,"NO FILES RELEASED",320,216,1,RED,1)
+		return
+	var selection := clampi(int(scene.get("dossier_selection")) if _has_property(scene,"dossier_selection") else 0,0,unlocked.size()-1)
+	var first := clampi(selection-2,0,maxi(0,unlocked.size()-5))
+	for row in range(first,mini(first+5,unlocked.size())):
+		var entry: Dictionary = unlocked[row]
+		var y := 158+(row-first)*27
+		UiSpriteRenderer.draw_nine_slice(surface,OPERATIONS_BUTTON,Rect2(38,y,194,24),6)
+		if row == selection: surface.draw_texture(FRONT_END_CURSOR,Vector2(22,y+6))
+		PixelFont.draw_text(surface,_clip(str(entry.get("name","FILE")),25),Vector2(54,y+8),1,GOLD if row == selection else TEXT,1)
+	var selected: Dictionary = unlocked[selection]
+	var texture: Texture2D = load(str(selected.get("illustration",""))) as Texture2D
+	if texture is Texture2D:
+		var raw_size: Vector2 = texture.get_size()
+		var scale: float = minf(142.0/maxf(1.0,raw_size.x),92.0/maxf(1.0,raw_size.y))
+		var draw_size: Vector2 = (raw_size*scale).round()
+		surface.draw_texture_rect(texture,Rect2((Vector2(330,207)-draw_size*0.5).round(),draw_size),false,Color(0.88,0.93,0.95))
+	PixelFont.draw_text(surface,str(selected.get("category","FILE")),Vector2(412,154),1,GOLD,1)
+	PixelFont.draw_text(surface,_clip(str(selected.get("name","UNKNOWN")),29),Vector2(412,171),1,TEXT,1)
+	PixelFont.draw_text(surface,_clip(str(selected.get("classification","RESTRICTED")),29),Vector2(412,187),1,BLUE,1)
+	var summary_lines := _wrap_text(str(selected.get("summary","")),43)
+	for i in range(mini(3,summary_lines.size())):
+		PixelFont.draw_text(surface,summary_lines[i],Vector2(270,258+i*12),1,MUTED,1)
+	PixelFont.draw_centered(surface,"UP / DOWN FILE   ESC RETURN",432,296,1,GREEN,1)
 
 func _front_end_sector(mission_index: int) -> String:
 	if mission_index >= 20: return "S3 BLACK SKY"

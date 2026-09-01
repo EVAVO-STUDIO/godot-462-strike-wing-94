@@ -82,7 +82,7 @@
     "boss_kill_bonus": 1500
   },
   "save": {
-    "schema_version": 9,
+    "schema_version": 10,
     "autosave_seconds": 1.0,
     "path": "user://strike_wing_94_save.json"
   }

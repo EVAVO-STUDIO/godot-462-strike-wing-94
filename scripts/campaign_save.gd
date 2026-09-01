@@ -1,7 +1,7 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_VERSION := 9
+const SAVE_VERSION := 10
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 const LEGACY_V5_MISSION_IDS := [
@@ -118,6 +118,7 @@ func _snapshot(scene: Object) -> Dictionary:
 		"discovered_secret_ids": _string_array(scene.get("discovered_secret_ids")) if _has_property(scene, "discovered_secret_ids") else [],
 		"mode_records": _mode_records(scene.get("mode_records")) if _has_property(scene, "mode_records") else {},
 		"branch_decisions": _string_dictionary(scene.get("branch_decisions")) if _has_property(scene, "branch_decisions") else {},
+		"intelligence_unlocked_ids": _string_array(scene.get("intelligence_unlocked_ids")) if _has_property(scene, "intelligence_unlocked_ids") else [],
 		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
@@ -269,6 +270,8 @@ func _restore(scene: Object) -> void:
 		scene.set("mode_records", _mode_records(parsed.get("mode_records", {})))
 	if _has_property(scene, "branch_decisions"):
 		scene.set("branch_decisions", _string_dictionary(parsed.get("branch_decisions", {})))
+	if _has_property(scene, "intelligence_unlocked_ids"):
+		scene.set("intelligence_unlocked_ids", _string_array(parsed.get("intelligence_unlocked_ids", [])))
 	var support_director := get_node_or_null("/root/SupportDirector")
 	if support_director != null and support_director.has_method("restore_support_state"):
 		support_director.call("restore_support_state", int(parsed.get("support_selected", 0)), int(parsed.get("support_unlocked", 0)))

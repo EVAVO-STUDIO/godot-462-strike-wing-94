@@ -31,6 +31,7 @@ var option_selection := 0
 var option_category := 0
 var mode_selection := 0
 var branch_selection := 0
+var dossier_selection := 0
 var game_mode := "campaign"
 var mode_name := "CAMPAIGN"
 var mode_rule_summary := "30-SORTIE AUTHORED WAR"
@@ -61,6 +62,7 @@ var discovered_secret_ids: Array = []
 var mode_records: Dictionary = {}
 var branch_decisions: Dictionary = {}
 var current_branch: Dictionary = {}
+var intelligence_unlocked_ids: Array = []
 var weapon_index := 0
 var generator_index := 0
 var temporary_weapon_boost := 0
@@ -283,7 +285,10 @@ func _update_front_end_menu() -> void:
 	if front_end_screen == "options":
 		_update_front_end_options()
 		return
-	if front_end_screen in ["controls", "dossier"]:
+	if front_end_screen == "dossier":
+		_update_dossier()
+		return
+	if front_end_screen == "controls":
 		if Input.is_action_just_pressed("confirm") or Input.is_action_just_pressed("cancel"):
 			front_end_screen = "main_menu"
 		return
@@ -299,6 +304,33 @@ func _update_front_end_menu() -> void:
 			3: front_end_screen = "controls"
 			4: front_end_screen = "dossier"
 			5: get_tree().quit()
+
+func _intelligence_entries() -> Array:
+	var data = ContentCatalog.load_json("res://data/intelligence.json")
+	return data.get("entries", []) if typeof(data) == TYPE_DICTIONARY else []
+
+func _refresh_intelligence_unlocks() -> void:
+	for entry in _intelligence_entries():
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		var unlock_index := int(entry.get("unlock_mission_index", -1))
+		var secret_id := str(entry.get("required_secret_id", ""))
+		var unlocked := unlock_index >= 0 and mission_index >= unlock_index
+		if not secret_id.is_empty() and secret_id in discovered_secret_ids:
+			unlocked = true
+		var entry_id := str(entry.get("id", ""))
+		if unlocked and not entry_id.is_empty() and not entry_id in intelligence_unlocked_ids:
+			intelligence_unlocked_ids.append(entry_id)
+
+func _update_dossier() -> void:
+	_refresh_intelligence_unlocks()
+	var count := maxi(1, intelligence_unlocked_ids.size())
+	if Input.is_action_just_pressed("cancel"):
+		front_end_screen = "main_menu"
+	elif Input.is_action_just_pressed("move_up"):
+		dossier_selection = posmod(dossier_selection - 1, count)
+	elif Input.is_action_just_pressed("move_down"):
+		dossier_selection = posmod(dossier_selection + 1, count)
 
 func _campaign_branches() -> Array:
 	var config := _campaign_config()
@@ -517,6 +549,7 @@ func _prepare_mission(index: int) -> void:
 		current_environment = str(mission.get("environment", "coast"))
 		current_objectives = mission.get("objectives", [])
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
+	_refresh_intelligence_unlocks()
 
 func _active_mission() -> Dictionary:
 	if mission_catalog.is_empty():

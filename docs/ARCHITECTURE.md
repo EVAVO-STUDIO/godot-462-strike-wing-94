@@ -304,7 +304,7 @@ Primary UI stays on the original 3x5 bitmap font and 640x360 logical grid.
 
 ## Persistence
 
-`CampaignSave` is canonical schema **v9**. It persists stable mission IDs so authored campaign reordering and optional branches do not reinterpret progress; v1-v8 saves remain migration-compatible, including the original 12-mission index map.
+`CampaignSave` is canonical schema **v10**. It persists stable mission IDs so authored campaign reordering and optional branches do not reinterpret progress; v1-v9 saves remain migration-compatible, including the original 12-mission index map.
 
 Persistent state:
 
@@ -319,6 +319,7 @@ Persistent state:
 - stable discovered-secret vector IDs;
 - per-mode attempts, clears, best route and best score.
 - stable operational branch decisions.
+- unlocked tactical-intelligence file IDs.
 
 Transient state intentionally omitted:
 
