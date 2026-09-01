@@ -515,7 +515,7 @@ The temporary prototype player/enemy/projectile drawing has been removed from `m
 
 - `CombatArtDirector` is the sole craft/enemy presentation owner.
 - `ProjectileCueDirector` is the sole projectile presentation owner.
-- `main.gd` retains authoritative simulation/collision and the pickup marker until a dedicated pickup-art owner replaces it.
+- `main.gd` retains authoritative simulation and collision only. `CombatArtDirector` owns the four-frame shield, repair, bomb and weapon recovery-pod sprites; no generic pickup marker remains in the simulation scene.
 - Do not reintroduce prototype geometry or add a masking/correction layer.
 
 ## Invariants

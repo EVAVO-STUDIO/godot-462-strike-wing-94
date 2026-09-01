@@ -1620,7 +1620,7 @@ func _draw_neutral_depth_fallback() -> void:
 	# EnvironmentDirector normally covers this layer with the mission's authored
 	# biome stack. Keep a seamless, production-authored depth plate underneath so
 	# scene startup and altitude/profile transitions can never expose a debug grid.
-	var source_y := fposmod(mission_time * 12.0, float(NEUTRAL_DEPTH_TILE.get_height()))
+	var source_y := fposmod(-mission_time * 12.0, float(NEUTRAL_DEPTH_TILE.get_height()))
 	var first_height := minf(PLAYFIELD.size.y, float(NEUTRAL_DEPTH_TILE.get_height()) - source_y)
 	draw_texture_rect_region(
 		NEUTRAL_DEPTH_TILE,

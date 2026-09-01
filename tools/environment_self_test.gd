@@ -75,6 +75,8 @@ func _initialize() -> void:
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
 		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("EARTH_LIMB_V2"), "upper atmosphere and orbital space should use authored sparse stars and a low near-Earth curvature layer")
 		_expect(not source.contains("draw_arc") and not source.contains("var star :=") and not source.contains("draw_rect(Rect2(roundf(x)"), "orbital presentation should not regress to perfect vector arcs or one-pixel stars")
+		var gameplay_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+		_expect(gameplay_file != null and gameplay_file.get_as_text().contains("fposmod(-mission_time * 12.0"), "neutral depth fallback should preserve forward world travel during environment handoff")
 		_expect(source.contains("COAST_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "coastal benchmark should assemble registered authored geography chunks")
 		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble registered authored refinery geography chunks")
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
