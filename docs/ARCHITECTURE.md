@@ -304,7 +304,7 @@ Primary UI stays on the original 3x5 bitmap font and 640x360 logical grid.
 
 ## Persistence
 
-`CampaignSave` is canonical schema **v10**. It persists stable mission IDs so authored campaign reordering and optional branches do not reinterpret progress; v1-v9 saves remain migration-compatible, including the original 12-mission index map.
+`CampaignSave` is canonical schema **v11**. It persists stable mission IDs so authored campaign reordering and optional branches do not reinterpret progress; v1-v10 saves remain migration-compatible, including the original 12-mission index map. Secret-operation clear history is stored independently from the 30-sortie campaign position.
 
 Persistent state:
 

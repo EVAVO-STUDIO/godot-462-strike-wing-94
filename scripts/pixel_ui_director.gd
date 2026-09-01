@@ -212,7 +212,8 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 53, 1, BLUE, 1)
 	var mission_index := clampi(int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0, 0, 29)
 	var mode_active := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
-	var sortie_header := str(scene.get("mode_name")) if mode_active else _sortie_order_header(mission_index)
+	var secret_active := _has_property(scene,"active_secret_mission_id") and not str(scene.get("active_secret_mission_id")).is_empty()
+	var sortie_header := str(scene.get("mode_name")) if mode_active else (_secret_sortie_header(scene) if secret_active else _sortie_order_header(mission_index))
 	_draw_console_panel(surface, Rect2(26, 72, 370, 119), sortie_header, GOLD)
 	PixelFont.draw_text(surface, str(scene.get("current_mission_name")), Vector2(40, 94), 2, GOLD, 2)
 	PixelFont.draw_text(surface, "%s // %s // %s" % [_altitude_name(), _form_name(), _tech_era_name()], Vector2(40, 117), 1, BLUE, 1)
@@ -224,6 +225,8 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "HIGH-SPEED / LOW-LEVEL RELEASE", Vector2(105, 170), 1, GREEN, 1)
 	if mode_active:
 		_draw_mode_progress(surface,int(scene.get("mode_route_index")),int(scene.get("mode_route_total")),Vector2(40,180))
+	elif secret_active:
+		_draw_mode_progress(surface,_secret_sortie_index(scene),maxi(1,scene.get("secret_mission_catalog").size()),Vector2(40,180))
 	else:
 		_draw_campaign_progress(surface, mission_index, Vector2(40, 180))
 
@@ -277,6 +280,8 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 		_draw_front_end_modes(surface,scene)
 	elif screen == "branch":
 		_draw_front_end_branch(surface,scene)
+	elif screen == "secret_sorties":
+		_draw_front_end_secret_sorties(surface,scene)
 	elif screen == "controls":
 		_draw_front_end_controls(surface)
 	elif screen == "options":
@@ -290,10 +295,10 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(30, 128))
 	PixelFont.draw_text(surface, "FLIGHT OPERATIONS", Vector2(48, 137), 1, GOLD, 1)
-	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 5)
-	var labels := ["CONTINUE CAMPAIGN", "ARCADE / CHALLENGE", "SYSTEM OPTIONS", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
+	var selection := clampi(int(scene.get("menu_selection")) if _has_property(scene, "menu_selection") else 0, 0, 6)
+	var labels := ["CONTINUE CAMPAIGN", "ARCADE / CHALLENGE", "SECRET OPERATIONS", "SYSTEM OPTIONS", "FLIGHT CONTROLS", "EVAVO DOSSIER", "EXIT TO SYSTEM"]
 	for index in range(labels.size()):
-		var position := Vector2(50, 145 + index * 25)
+		var position := Vector2(50, 139 + index * 23)
 		surface.draw_texture(FRONT_END_BUTTON_SELECTED if index == selection else FRONT_END_BUTTON_IDLE, position)
 		if index == selection:
 			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
@@ -367,6 +372,36 @@ func _draw_front_end_branch(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_text(surface,_clip(str(choice.get("detail","")),28),Vector2(366,position.y+7),1,BLUE if i == selection else MUTED,1)
 		PixelFont.draw_text(surface,"+%04d CR" % int(choice.get("bonus_credits",0)),Vector2(468,position.y+21),1,GREEN,1)
 	PixelFont.draw_centered(surface,"UP / DOWN SELECT   ENTER COMMIT",320,286,1,GOLD,1)
+
+func _draw_front_end_secret_sorties(surface: CanvasItem, scene: Object) -> void:
+	var unlocked: Array = scene.call("_unlocked_secret_missions") if scene.has_method("_unlocked_secret_missions") else []
+	var all_missions: Array = scene.get("secret_mission_catalog") if _has_property(scene,"secret_mission_catalog") else []
+	var completed: Array = scene.get("completed_secret_mission_ids") if _has_property(scene,"completed_secret_mission_ids") else []
+	PixelFont.draw_centered(surface,"ENCRYPTED OPTIONAL OPERATIONS",320,122,1,GOLD,1)
+	_draw_console_panel(surface,Rect2(28,138,224,168),"VECTORS %02d / %02d" % [unlocked.size(),all_missions.size()],BLUE)
+	_draw_console_panel(surface,Rect2(262,138,350,168),"MISSION FILE",BLUE)
+	if unlocked.is_empty():
+		PixelFont.draw_centered(surface,"NO SECRET VECTORS RECOVERED",320,207,1,RED,1)
+		PixelFont.draw_centered(surface,"MASTERY CONDITIONS REVEAL HIDDEN OPERATIONS",320,228,1,MUTED,1)
+		PixelFont.draw_centered(surface,"ESC RETURN",320,287,1,GOLD,1)
+		return
+	var selection := clampi(int(scene.get("secret_sortie_selection")),0,unlocked.size()-1)
+	for i in range(unlocked.size()):
+		var mission: Dictionary = unlocked[i]
+		var y := 158+i*22
+		UiSpriteRenderer.draw_nine_slice(surface,OPERATIONS_BUTTON,Rect2(38,y,204,20),6)
+		if i == selection: surface.draw_texture(FRONT_END_CURSOR,Vector2(22,y+4))
+		var clear_mark := "C " if str(mission.get("id","")) in completed else "  "
+		PixelFont.draw_text(surface,_clip(clear_mark+str(mission.get("name","VECTOR")).to_upper(),25),Vector2(50,y+6),1,GOLD if i == selection else TEXT,1)
+	var selected: Dictionary = unlocked[selection]
+	PixelFont.draw_text(surface,str(selected.get("sector","CLASSIFIED")),Vector2(280,158),1,BLUE,1)
+	PixelFont.draw_text(surface,str(selected.get("name","SECRET SORTIE")).to_upper(),Vector2(280,177),2,GOLD,1)
+	PixelFont.draw_text(surface,"REWARD +%05d CR" % int(selected.get("reward_credits",0)),Vector2(280,205),1,GREEN,1)
+	PixelFont.draw_text(surface,"STATUS  %s" % ("CLEARED" if str(selected.get("id","")) in completed else "AVAILABLE"),Vector2(280,220),1,TEXT,1)
+	var lines := _wrap_text(str(selected.get("briefing","")),45)
+	for i in range(mini(4,lines.size())):
+		PixelFont.draw_text(surface,lines[i],Vector2(280,240+i*11),1,MUTED,1)
+	PixelFont.draw_centered(surface,"UP / DOWN VECTOR   ENTER OPEN FILE   ESC RETURN",320,316,1,GOLD,1)
 
 func _draw_front_end_controls(surface: CanvasItem) -> void:
 	surface.draw_texture(FRONT_END_FRAME, Vector2(176, 128))
@@ -454,6 +489,19 @@ func _sortie_order_header(mission_index: int) -> String:
 	var sector := clampi(int(mission_index / 10), 0, 2)
 	var sector_names := ["MERCENARY WAR", "MACHINE WAR", "BLACK SKY"]
 	return "MISSION %02d / S%d %s" % [mission_index + 1, sector + 1, sector_names[sector]]
+
+func _secret_sortie_index(scene: Object) -> int:
+	var active_id := str(scene.get("active_secret_mission_id"))
+	var catalogue: Array = scene.get("secret_mission_catalog")
+	for index in range(catalogue.size()):
+		if str(catalogue[index].get("id", "")) == active_id:
+			return index
+	return 0
+
+func _secret_sortie_header(scene: Object) -> String:
+	var catalogue: Array = scene.get("secret_mission_catalog")
+	var active: Dictionary = scene.call("_active_secret_mission") if scene.has_method("_active_secret_mission") else {}
+	return "SECRET %02d / %02d  %s" % [_secret_sortie_index(scene) + 1, catalogue.size(), str(active.get("sector", "CLASSIFIED"))]
 
 func _draw_campaign_progress(surface: CanvasItem, mission_index: int, position: Vector2) -> void:
 	surface.draw_texture(CAMPAIGN_PROGRESS_RAIL, position)

@@ -32,6 +32,7 @@ var option_category := 0
 var mode_selection := 0
 var branch_selection := 0
 var dossier_selection := 0
+var secret_sortie_selection := 0
 var game_mode := "campaign"
 var mode_name := "CAMPAIGN"
 var mode_rule_summary := "30-SORTIE AUTHORED WAR"
@@ -63,6 +64,8 @@ var mode_records: Dictionary = {}
 var branch_decisions: Dictionary = {}
 var current_branch: Dictionary = {}
 var intelligence_unlocked_ids: Array = []
+var completed_secret_mission_ids: Array = []
+var active_secret_mission_id := ""
 var weapon_index := 0
 var generator_index := 0
 var temporary_weapon_boost := 0
@@ -94,6 +97,7 @@ var enemy_catalog: Array = []
 var weapon_catalog: Array = []
 var generator_catalog: Array = []
 var mission_catalog: Array = []
+var secret_mission_catalog: Array = []
 var spawn_profiles: Array = []
 var campaign: Dictionary = {}
 var mission_rng := RandomNumberGenerator.new()
@@ -109,11 +113,13 @@ func _ready() -> void:
 	var capture_front_end := _capture_front_end(OS.get_cmdline_user_args())
 	var capture_game_mode := _capture_game_mode(OS.get_cmdline_user_args())
 	var capture_result := _capture_result_state(OS.get_cmdline_user_args())
+	var capture_secret_mission := _capture_secret_mission(OS.get_cmdline_user_args())
 	if "--capture-campaign-clear" in OS.get_cmdline_user_args() and "--capture-gameplay" in OS.get_cmdline_user_args():
 		campaign_completed = true
 		campaign_completions = 3
 		completed_difficulties = ["cadet", "combat", "veteran"]
-		discovered_secret_ids = ["m01:hidden_ace", "m02:stockpile", "m03:black_wake", "m04:hunter_cell", "m05:armoury", "m06:dead_channel", "m07:fuel_dump", "m08:floodgate", "m09:summit", "m10:machine_hold", "m11:signal", "m12:core_vector"]
+		discovered_secret_ids = ["m01_coastal_intercept:hidden_ace", "m03_black_sea:hidden_intercept", "m05_furnace_line:hidden_armoury", "m07_ghost_sky:hidden_signal", "s2_m06_ghost_convoy:seed_manifest", "s2_m08_swarm_sea:submerged_cradle", "s3_m07_dead_satellite:cold_antenna_route", "m12_machine_ark:hidden_core_vector"]
+		completed_secret_mission_ids = ["sm01_black_wake", "sm02_furnace_vault", "sm03_dead_frequency"]
 		mission_index = maxi(0, mission_catalog.size() - 1)
 		_prepare_mission(mission_index)
 	if "--capture-mode-records" in OS.get_cmdline_user_args() and "--capture-gameplay" in OS.get_cmdline_user_args():
@@ -126,6 +132,9 @@ func _ready() -> void:
 		var branches := _campaign_branches()
 		current_branch = branches[0].duplicate(true) if not branches.is_empty() else {}
 		branch_selection = 0
+	if not capture_secret_mission.is_empty():
+		active_secret_mission_id = capture_secret_mission
+		_prepare_mission(mission_index)
 	if not capture_result.is_empty():
 		_begin_capture_result(capture_result)
 	elif not capture_game_mode.is_empty():
@@ -176,6 +185,17 @@ func _capture_result_state(arguments: PackedStringArray) -> String:
 		if argument.begins_with("--capture-result="):
 			var value := argument.trim_prefix("--capture-result=").to_lower()
 			return value if value in ["success", "failure"] else ""
+	return ""
+
+func _capture_secret_mission(arguments: PackedStringArray) -> String:
+	if not "--capture-gameplay" in arguments:
+		return ""
+	for argument in arguments:
+		if argument.begins_with("--capture-secret-mission="):
+			var requested := argument.trim_prefix("--capture-secret-mission=").to_lower()
+			for mission in secret_mission_catalog:
+				if typeof(mission) == TYPE_DICTIONARY and str(mission.get("id", "")) == requested:
+					return requested
 	return ""
 
 func _capture_time(arguments: PackedStringArray) -> float:
@@ -264,6 +284,8 @@ func _process(delta: float) -> void:
 					return
 				if not mission_success:
 					_start_mission()
+				elif not active_secret_mission_id.is_empty():
+					_return_from_secret_sortie()
 				elif _is_final_campaign_mission():
 					_complete_campaign()
 				elif not _pending_branch().is_empty():
@@ -272,6 +294,7 @@ func _process(delta: float) -> void:
 					_advance_campaign_mission()
 			elif Input.is_action_just_pressed("restart"):
 				if _mode_active(): _advance_mode_result()
+				elif mission_success and not active_secret_mission_id.is_empty(): _return_from_secret_sortie()
 				else: _start_mission()
 	queue_redraw()
 
@@ -288,22 +311,54 @@ func _update_front_end_menu() -> void:
 	if front_end_screen == "dossier":
 		_update_dossier()
 		return
+	if front_end_screen == "secret_sorties":
+		_update_secret_sorties()
+		return
 	if front_end_screen == "controls":
 		if Input.is_action_just_pressed("confirm") or Input.is_action_just_pressed("cancel"):
 			front_end_screen = "main_menu"
 		return
 	if Input.is_action_just_pressed("move_up"):
-		menu_selection = posmod(menu_selection - 1, 6)
+		menu_selection = posmod(menu_selection - 1, 7)
 	elif Input.is_action_just_pressed("move_down"):
-		menu_selection = posmod(menu_selection + 1, 6)
+		menu_selection = posmod(menu_selection + 1, 7)
 	elif Input.is_action_just_pressed("confirm"):
 		match menu_selection:
 			0: front_end_screen = "sortie"
 			1: front_end_screen = "modes"
-			2: front_end_screen = "options"
-			3: front_end_screen = "controls"
-			4: front_end_screen = "dossier"
-			5: get_tree().quit()
+			2: front_end_screen = "secret_sorties"
+			3: front_end_screen = "options"
+			4: front_end_screen = "controls"
+			5: front_end_screen = "dossier"
+			6: get_tree().quit()
+
+func _unlocked_secret_missions() -> Array:
+	var unlocked: Array = []
+	for mission in secret_mission_catalog:
+		if typeof(mission) == TYPE_DICTIONARY and str(mission.get("required_secret_id", "")) in discovered_secret_ids:
+			unlocked.append(mission)
+	return unlocked
+
+func _update_secret_sorties() -> void:
+	var unlocked := _unlocked_secret_missions()
+	if Input.is_action_just_pressed("cancel"):
+		front_end_screen = "main_menu"
+	elif not unlocked.is_empty() and Input.is_action_just_pressed("move_up"):
+		secret_sortie_selection = posmod(secret_sortie_selection - 1, unlocked.size())
+	elif not unlocked.is_empty() and Input.is_action_just_pressed("move_down"):
+		secret_sortie_selection = posmod(secret_sortie_selection + 1, unlocked.size())
+	elif not unlocked.is_empty() and Input.is_action_just_pressed("confirm"):
+		active_secret_mission_id = str(unlocked[clampi(secret_sortie_selection, 0, unlocked.size() - 1)].get("id", ""))
+		_prepare_mission(mission_index)
+		front_end_screen = "sortie"
+
+func _active_secret_mission() -> Dictionary:
+	if active_secret_mission_id.is_empty():
+		return {}
+	for mission in secret_mission_catalog:
+		if typeof(mission) == TYPE_DICTIONARY and str(mission.get("id", "")) == active_secret_mission_id:
+			return mission
+	return {}
 
 func _intelligence_entries() -> Array:
 	var data = ContentCatalog.load_json("res://data/intelligence.json")
@@ -498,6 +553,7 @@ func _load_content() -> void:
 	var weapons_data = ContentCatalog.load_json("res://data/weapons.json")
 	var generators_data = ContentCatalog.load_json("res://data/generators.json")
 	var missions_data = ContentCatalog.load_json("res://data/missions.json")
+	var secret_missions_data = ContentCatalog.load_json("res://data/secret_missions.json")
 	var spawn_data = ContentCatalog.load_json("res://data/spawn_profiles.json")
 	var campaign_data = ContentCatalog.load_json("res://data/campaign.json")
 
@@ -509,6 +565,8 @@ func _load_content() -> void:
 		generator_catalog = generators_data.get("generators", [])
 	if typeof(missions_data) == TYPE_DICTIONARY:
 		mission_catalog = missions_data.get("missions", [])
+	if typeof(secret_missions_data) == TYPE_DICTIONARY:
+		secret_mission_catalog = secret_missions_data.get("missions", [])
 	if typeof(spawn_data) == TYPE_DICTIONARY:
 		spawn_profiles = spawn_data.get("profiles", [])
 	if typeof(campaign_data) == TYPE_DICTIONARY:
@@ -541,7 +599,8 @@ func _prepare_mission(index: int) -> void:
 			{"id":"survive","type":"survive","seconds":150,"required":true}
 		]
 	else:
-		var mission: Dictionary = mission_catalog[clampi(index, 0, mission_catalog.size() - 1)]
+		var secret := _active_secret_mission()
+		var mission: Dictionary = secret if not secret.is_empty() else mission_catalog[clampi(index, 0, mission_catalog.size() - 1)]
 		current_mission_name = str(mission.get("name", "SCRAMBLE")).to_upper()
 		current_briefing = str(mission.get("briefing", ""))
 		mission_duration = float(mission.get("duration_seconds", 150.0))
@@ -552,6 +611,9 @@ func _prepare_mission(index: int) -> void:
 	_refresh_intelligence_unlocks()
 
 func _active_mission() -> Dictionary:
+	var secret := _active_secret_mission()
+	if not secret.is_empty():
+		return secret
 	if mission_catalog.is_empty():
 		return {}
 	var mission = mission_catalog[clampi(mission_index, 0, mission_catalog.size() - 1)]
@@ -622,7 +684,7 @@ func _cinematic_blocks_ending() -> bool:
 	return bool(cinematic.call("intercept_ending", str(_active_mission().get("id", ""))))
 
 func _is_final_campaign_mission() -> bool:
-	return not mission_catalog.is_empty() and mission_index >= mission_catalog.size() - 1
+	return active_secret_mission_id.is_empty() and not mission_catalog.is_empty() and mission_index >= mission_catalog.size() - 1
 
 func _active_difficulty_id() -> String:
 	var director := _difficulty()
@@ -724,14 +786,20 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 			clampi(shots_hit, 0, shots_fired)
 		)
 		var total_reward := _difficulty_reward(base_reward + objective_bonus + int(extras.get("total", 0)))
+		var secret_reward := maxi(0, int(_active_mission().get("reward_credits", 0))) if not active_secret_mission_id.is_empty() else 0
 		mission_reward_earned = total_reward
-		credits += total_reward
+		credits += total_reward + secret_reward
+		if not active_secret_mission_id.is_empty():
+			if not active_secret_mission_id in completed_secret_mission_ids:
+				completed_secret_mission_ids.append(active_secret_mission_id)
 		service_hull = clampi(hull, 1, _max_hull())
 		service_shield = clampi(shield, 0, _max_shield())
 		result_text = "MISSION COMPLETE  +%d" % total_reward
 		var parts: Array[String] = []
 		if objective_bonus > 0:
 			parts.append("BONUS %d" % objective_bonus)
+		if secret_reward > 0:
+			parts.append("SECRET +%d" % secret_reward)
 		if int(extras.get("no_damage", 0)) > 0:
 			parts.append("NO DAMAGE +%d" % int(extras["no_damage"]))
 		if int(extras.get("boss", 0)) > 0:
@@ -753,6 +821,12 @@ func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") ->
 		result_text = "%s  PRESS R TO RETRY" % failure_reason
 	repair_cost = ServiceRules.service_cost(hull, _max_hull(), int(_campaign_config().get("repair_cost_per_hull", 0)))
 	_clear_combat()
+
+func _return_from_secret_sortie() -> void:
+	active_secret_mission_id = ""
+	_prepare_mission(mission_index)
+	phase = GamePhase.TITLE
+	front_end_screen = "secret_sorties"
 
 func _clear_combat() -> void:
 	bullets.clear()
