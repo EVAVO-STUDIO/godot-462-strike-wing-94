@@ -59,9 +59,11 @@ func draw_afterburner(surface: CanvasItem) -> void:
 	var charge_ratio := clampf(float(craft.call("hypersonic_charge_ratio")),0.0,1.0) if craft.has_method("hypersonic_charge_ratio") else 0.0
 	var burning := craft.has_method("afterburner_active") and bool(craft.call("afterburner_active"))
 	var hypersonic := craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
-	_draw_meter(surface, scene, ratio, charge_ratio, burning, hypersonic)
-	if burning and _has_property(scene, "player_position"):
-		_draw_flame(surface, scene.get("player_position"), str(craft.call("current_form")) if craft.has_method("current_form") else "fighter", hypersonic)
+	var speed_ratio := clampf(float(craft.call("hypersonic_speed_ratio")), 0.0, 1.0) if craft.has_method("hypersonic_speed_ratio") else (1.0 if hypersonic else 0.0)
+	var mach_recovery := speed_ratio > 0.02
+	_draw_meter(surface, scene, ratio, charge_ratio, burning, hypersonic or mach_recovery)
+	if (burning or mach_recovery) and _has_property(scene, "player_position"):
+		_draw_flame(surface, scene.get("player_position"), str(craft.call("current_form")) if craft.has_method("current_form") else "fighter", hypersonic or mach_recovery, burning)
 	if _boom_age < 0.42 and _has_property(scene, "player_position"):
 		var t := _boom_age / 0.42
 		var texture := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
@@ -96,13 +98,14 @@ func _draw_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, rati
 	if width > 0.0:
 		surface.draw_texture_rect_region(texture,Rect2(position,Vector2(width,texture.get_height())),Rect2(0,0,width,texture.get_height()))
 
-func _draw_flame(surface: CanvasItem, p: Vector2, form: String, hypersonic: bool) -> void:
+func _draw_flame(surface: CanvasItem, p: Vector2, form: String, hypersonic: bool, burning: bool) -> void:
 	var offset := Vector2(-16, 14 if form == "fighter" else 15)
 	if hypersonic:
 		var contrail := PersistentEffectArtLibrary.frame_for_clock("contrail", 7.0)
 		surface.draw_texture(contrail, (p + offset + Vector2(0,12)).round(), Color(0.84,0.92,0.95,0.82))
-	var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
-	surface.draw_texture(plume, (p + offset).round())
+	if burning:
+		var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
+		surface.draw_texture(plume, (p + offset).round())
 
 func _has_property(object: Object, property_name: String) -> bool:
 	return SceneContractCache.has_property(object, property_name)

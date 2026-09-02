@@ -312,7 +312,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"mountain_radar": _draw_mountain_radar(surface, scene, state, t)
 			"night_harbor": _draw_night_harbor(surface, scene, state, t)
 			"city_outskirts": _draw_city_outskirts(surface, scene, state, t)
-			"machine_furnace": _draw_machine_furnace(surface, state, t)
+			"machine_furnace": _draw_machine_furnace(surface, scene, state, t)
 	else:
 		match motif:
 			"coast": _draw_coast(surface, scene, profile, state, t)
@@ -320,10 +320,10 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"water": _draw_water(surface, scene, profile, state, t)
 			"cloud_top": _draw_cloud_top(surface, scene, profile, state, t)
 			"orbital": _draw_orbital(surface, scene, profile, state, t, 1.0)
-	_draw_high_atmosphere_far(surface, state, t)
+	_draw_high_atmosphere_far(surface, scene, state, t)
 	_draw_landmarks(surface, scene, profile, state, t, variant if variant != "" else motif, orbital_mix)
 	_draw_clouds(surface, scene, profile, state, t)
-	_draw_high_atmosphere_near(surface, state, t)
+	_draw_high_atmosphere_near(surface, scene, state, t)
 
 func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float, family: String, orbital_mix: float) -> void:
 	if not LANDMARKS.has(family):
@@ -348,10 +348,10 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	if family == "city_outskirts":
 		_draw_registered_city_rail_hub(surface, scene, state, t, texture)
 		return
-	var speed := _parallax_speed(profile, state, "mid") * (0.18 if family == "orbital" else 0.28)
+	var speed := _base_parallax_speed(profile, state, "mid") * (0.18 if family == "orbital" else 0.28)
 	var mission_seed := _mission_seed(scene)
 	var cycle := 880.0 + float(mission_seed % 5) * 47.0
-	var y := fposmod(t * speed + float(mission_seed % 719), cycle) - 168.0 + ENVIRONMENT_VIEW.position.y
+	var y := fposmod(_world_distance(scene) * speed + float(mission_seed % 719), cycle) - 168.0 + ENVIRONMENT_VIEW.position.y
 	if y > 360.0:
 		return
 	var scale := 0.78 + _ground_scale(state) * 0.34
@@ -377,7 +377,7 @@ func _draw_registered_river_bridge(surface: CanvasItem, scene: Object, state: Di
 	# The complete span belongs over the matching abutments in the defended-
 	# crossing chunk. Keeping the sprite separate still permits destruction and
 	# animation, while this shared world coordinate prevents seeded dry-land drops.
-	var scroll := t * 27.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var size := texture.get_size() * scale
 	var crossing_world_y := 1594.0
@@ -397,7 +397,7 @@ func _draw_registered_harbor_crane(surface: CanvasItem, scene: Object, state: Di
 	# The crane base stays on the repair-basin quay while its boom reaches over the
 	# authored water channel. It remains a separate target/event layer rather than
 	# being baked into repeating geography or dropped at a random seeded X.
-	var scroll := t * 29.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 29.0 + float(_mission_seed(scene) % 3) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var size := texture.get_size() * scale
 	var crane_world_y := 1500.0
@@ -411,7 +411,7 @@ func _draw_registered_harbor_crane(surface: CanvasItem, scene: Object, state: Di
 func _draw_registered_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	# The foundation is fixed to the empty service-valley pad while the dish is a
 	# separately pivoted tracking layer. This preserves target/damage animation.
-	var scroll := t * 24.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 24.0 + float(_mission_seed(scene) % 3) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var radar_world_y := 1288.0
 	var center := Vector2(320.0, fposmod(radar_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y)
@@ -427,7 +427,7 @@ func _draw_registered_mountain_radar(surface: CanvasItem, scene: Object, state: 
 func _draw_registered_city_rail_hub(surface: CanvasItem, scene: Object, state: Dictionary, t: float, texture: Texture2D) -> void:
 	# This complete switching hub occupies one authored freight-belt coordinate.
 	# It remains separable for destruction and never repeats at screen height.
-	var scroll := t * 38.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 38.0 + float(_mission_seed(scene) % 3) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var size := texture.get_size() * scale
 	var hub_world_y := 540.0
@@ -488,18 +488,6 @@ func _tone(profile: Dictionary, key: String, alpha: float) -> Color:
 	var color := Color(str(profile.get(key, "ffffff")))
 	color.a = alpha
 	return color
-
-func _parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String) -> float:
-	var forward_scale := _world_speed_multiplier()
-	if bool(state.get("transition", false)):
-		return EnvironmentRules.blended_parallax_speed(
-			profile,
-			str(state.get("from", "mid")),
-			str(state.get("to", "mid")),
-			float(state.get("ratio", 1.0)),
-			layer_name
-		) * forward_scale
-	return EnvironmentRules.parallax_speed(profile, str(state.get("current", "mid")), layer_name) * forward_scale
 
 func _base_parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String) -> float:
 	# World distance already integrates the craft speed multiplier. This helper
@@ -588,32 +576,32 @@ func _high_atmosphere_mix(state: Dictionary) -> float:
 		return EnvironmentRules.blended_high_atmosphere_mix(str(state.get("from", "mid")), str(state.get("to", "mid")), float(state.get("ratio", 1.0)))
 	return EnvironmentRules.high_atmosphere_mix(str(state.get("current", "mid")))
 
-func _draw_high_atmosphere_far(surface: CanvasItem, state: Dictionary, t: float) -> void:
+func _draw_high_atmosphere_far(surface: CanvasItem, scene: Object, state: Dictionary, _t: float) -> void:
 	var mix := _high_atmosphere_mix(state)
 	if mix <= 0.08: return
-	var world_scale := _world_speed_multiplier()
+	var travel := _world_distance(scene)
 	for i in range(4):
 		var texture: Texture2D = CIRRUS_FAR[i % CIRRUS_FAR.size()]
 		var x := float((i * 181 + 29) % 760) - 80.0
-		var y := fposmod(float(i) * 91.0 + t * (5.0 + float(i % 2) * 1.4) * world_scale, 330.0) + 82.0
+		var y := fposmod(float(i) * 91.0 + travel * (5.0 + float(i % 2) * 1.4), 330.0) + 82.0
 		var scale := 0.86 + float(i % 3) * 0.14
 		var size := texture.get_size() * scale
 		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.86,0.89,0.10 + mix * 0.14))
 	for i in range(2):
 		var x := float((i * 337 + 73) % 690) - 40.0
-		var y := fposmod(float(i) * 191.0 + t * (8.0 + float(i) * 1.5) * world_scale, 350.0) + 100.0
+		var y := fposmod(float(i) * 191.0 + travel * (8.0 + float(i) * 1.5), 350.0) + 100.0
 		var size := ANVIL_SHADOW.get_size() * (0.86 + float(i) * 0.12)
 		surface.draw_texture_rect(ANVIL_SHADOW, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.58,0.67,0.71,0.08 + mix * 0.14))
 
-func _draw_high_atmosphere_near(surface: CanvasItem, state: Dictionary, t: float) -> void:
+func _draw_high_atmosphere_near(surface: CanvasItem, scene: Object, state: Dictionary, _t: float) -> void:
 	var mix := _high_atmosphere_mix(state)
 	if mix <= 0.20: return
-	var world_scale := _world_speed_multiplier()
+	var travel := _world_distance(scene)
 	var count := maxi(1, int(round(5.0 * mix)))
 	for i in range(count):
 		var texture: Texture2D = CONTRAIL_NEAR[i % CONTRAIL_NEAR.size()]
 		var x := 42.0 + float((i * 139 + 47) % 550)
-		var y := fposmod(float(i) * 107.0 + t * (48.0 + float(i % 3) * 7.0) * world_scale, 410.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(i) * 107.0 + travel * (48.0 + float(i % 3) * 7.0), 410.0) + ENVIRONMENT_VIEW.position.y
 		var alpha := (0.18 + float(i % 2) * 0.05) * mix
 		surface.draw_texture(texture, Vector2(x,y), Color(0.82,0.90,0.92,alpha))
 
@@ -773,13 +761,13 @@ func _draw_vertical_chunk_sequence(surface: CanvasItem, chunks: Array, source_y:
 func _draw_industrial(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state):
 		return
-	var scroll := t * _parallax_speed(profile, state, "mid") * 0.30
+	var scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.30
 	_draw_vertical_chunk_sequence(surface, REFINERY_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
 	_draw_modular_refinery_pass(surface, scene, profile, state, t)
 
 func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var speed := _parallax_speed(profile, state, "mid") * 0.30
-	var world_scroll := t * speed
+	var speed := _base_parallax_speed(profile, state, "mid") * 0.30
+	var world_scroll := _world_distance(scene) * speed
 	var seed := _mission_seed(scene)
 	var cycle := 1800.0
 	var scale := 0.42 + 0.15 * _ground_scale(state)
@@ -807,11 +795,11 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 	_draw_texture_rect_clipped(surface, smoke, Rect2(Vector2(512,smoke_y).round(),Vector2(48,70)),ENVIRONMENT_VIEW,Color(0.68,0.72,0.72,0.34))
 
 func _draw_water(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var speed := _parallax_speed(profile, state, "near")
-	var world_scale := _world_speed_multiplier()
-	var deep_scroll := fposmod(t * speed * 0.17, 512.0)
-	var surface_scroll := fposmod(t * speed * 0.33, 512.0)
-	var foam_scroll := fposmod(t * speed * 0.51, 512.0)
+	var speed := _base_parallax_speed(profile, state, "near")
+	var travel := _world_distance(scene)
+	var deep_scroll := fposmod(travel * speed * 0.17, 512.0)
+	var surface_scroll := fposmod(travel * speed * 0.33, 512.0)
+	var foam_scroll := fposmod(travel * speed * 0.51, 512.0)
 	var deep: Texture2D = SEA_DEEP_ANIMATION[posmod(int(floor(t * 4.0)), SEA_DEEP_ANIMATION.size())]
 	var surface_chop: Texture2D = SEA_SURFACE_ANIMATION[posmod(int(floor(t * 6.0)), SEA_SURFACE_ANIMATION.size())]
 	var foam: Texture2D = SEA_FOAM_ANIMATION[posmod(int(floor(t * 8.0)), SEA_FOAM_ANIMATION.size())]
@@ -823,12 +811,12 @@ func _draw_water(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.01, 0.025, 0.045, 0.12))
 	for i in range(14):
 		var x := float((i * 109 + 31) % 690) - 20.0
-		var y := fposmod(float(i) * 43.0 + t * (42.0 + float(i % 3) * 4.0) * world_scale, 340.0) + 48.0
+		var y := fposmod(float(i) * 43.0 + travel * (42.0 + float(i % 3) * 4.0), 340.0) + 48.0
 		var rain_texture: Texture2D = RAIN_ACCENTS[i % RAIN_ACCENTS.size()]
 		surface.draw_texture(rain_texture, Vector2(x-8,y), Color(1,1,1,0.30))
 
 func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var world_scroll := t * _parallax_speed(profile, state, "mid") * 0.24
+	var world_scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.24
 	var seed := _mission_seed(scene)
 	var cycle := 2380.0
 	var scale := 0.58 + 0.14 * _ground_scale(state)
@@ -855,7 +843,7 @@ func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictio
 
 func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := t * 30.0 * _world_speed_multiplier()
+	var scroll := _world_distance(scene) * 30.0
 	_draw_vertical_chunk_sequence(surface, DESERT_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.075, 0.045, 0.025, 0.18))
 	var gust: Texture2D = DESERT_DUST_GUST[posmod(int(floor(t * 6.0)), DESERT_DUST_GUST.size())]
@@ -867,7 +855,7 @@ func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t
 
 func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := t * 27.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
 	_draw_vertical_chunk_sequence(surface, RIVER_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.035, 0.032, 0.13))
 	var current_slots := [
@@ -882,7 +870,7 @@ func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary,
 
 func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := t * 24.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 24.0 + float(_mission_seed(scene) % 3) * 1024.0
 	_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.025, 0.045, 0.10))
 	var weather_slots := [
@@ -897,7 +885,7 @@ func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary,
 
 func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := t * 29.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 29.0 + float(_mission_seed(scene) % 3) * 1024.0
 	_draw_vertical_chunk_sequence(surface, HARBOR_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.008, 0.018, 0.032, 0.12))
 	var reflection_slots := [
@@ -912,7 +900,7 @@ func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t
 
 func _draw_city_outskirts(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := t * 38.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 38.0 + float(_mission_seed(scene) % 3) * 1024.0
 	_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.018, 0.023, 0.026, 0.12))
 	var activity_slots := [
@@ -925,11 +913,12 @@ func _draw_city_outskirts(surface: CanvasItem, scene: Object, state: Dictionary,
 		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface, activity, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(144,208)), ENVIRONMENT_VIEW, Color(0.84,0.88,0.86,0.30))
 
-func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> void:
+func _draw_machine_furnace(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := fposmod(t * 34.0 * _world_speed_multiplier(), 720.0)
+	var travel := _world_distance(scene)
+	var scroll := fposmod(travel * 34.0, 720.0)
 	_draw_vertical_loop(surface, MACHINE_FURNACE, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.80, 0.78, 0.94))
-	var activity_scroll := fposmod(t * 28.0 * _world_speed_multiplier(), 512.0)
+	var activity_scroll := fposmod(travel * 28.0, 512.0)
 	var activity_pulse := 0.68 + 0.22 * (0.5 + 0.5 * sin(t * 1.7))
 	_draw_vertical_loop(surface, FURNACE_ACTIVITY_TILE, activity_scroll, ENVIRONMENT_VIEW, Color(1,1,1,activity_pulse))
 
@@ -972,11 +961,11 @@ func _draw_orbital(surface: CanvasItem, scene: Object, _profile: Dictionary, _st
 	var mix := clampf(orbital_mix, 0.0, 1.0)
 	if mix <= 0.01:
 		return
-	var speed_scale := _world_speed_multiplier()
-	var star_scroll := t * 2.0 * (0.40 + speed_scale * 0.60)
+	var travel := _world_distance(scene)
+	var star_scroll := travel * 2.0
 	_draw_vertical_loop(surface, ORBITAL_STARFIELD_TILE, star_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.82*mix))
 	surface.draw_texture_rect(EARTH_LIMB_V2, ENVIRONMENT_VIEW, false, Color(1,1,1,0.92*mix))
-	var scroll := t * 12.0 * speed_scale + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := travel * 12.0 + float(_mission_seed(scene) % 3) * 1024.0
 	_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW, Color(0.82,0.86,0.89,0.94*mix))
 	var debris_slots := [
 		{"x":72.0,"y":210.0}, {"x":394.0,"y":690.0}, {"x":248.0,"y":1160.0},

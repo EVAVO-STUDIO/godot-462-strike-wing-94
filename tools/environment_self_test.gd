@@ -468,7 +468,8 @@ func _initialize() -> void:
 		if earth_limb_v2 != null: _expect(earth_limb_v2.get_image().detect_alpha() != Image.ALPHA_NONE, "near-Earth limb must retain transparent black space above the planet")
 		_expect(source.contains("ORBITAL_DEBRIS_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "orbital debris should use held frames registered to forward-moving infrastructure coordinates")
 		_expect(not source.contains("_draw_vertical_loop(surface, ORBITAL_DEBRIS_TILE"), "orbital debris must not regress to a full-screen schematic tile")
-		_expect(source.contains("t * 12.0 * speed_scale") and source.contains("_world_speed_multiplier()"), "orbital infrastructure should accelerate with the shared hypersonic world-speed contract")
+		_expect(source.contains("var scroll := travel * 12.0") and source.contains("var travel := _world_distance(scene)"), "orbital infrastructure should accelerate through integrated world distance without re-phasing at Mach transitions")
+		_expect(not source.contains("func _parallax_speed") and not source.contains("t * 30.0 * _world_speed_multiplier()") and not source.contains("t * 38.0 * _world_speed_multiplier()"), "no authored spatial layer may multiply all elapsed mission time by the current speed state")
 		var orbital_layer_sizes := {"starfield_tile":Vector2(640,512),"high_atmosphere_rim":Vector2(640,208),"orbital_rim":Vector2(640,208),"earth_limb_v2":Vector2(640,324)}
 		for orbital_layer in orbital_layer_sizes:
 			var orbital_texture := load("res://assets/runtime/environments/orbital/%s.png" % orbital_layer)

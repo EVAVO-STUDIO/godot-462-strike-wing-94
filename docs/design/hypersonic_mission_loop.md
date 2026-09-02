@@ -13,6 +13,7 @@ Hypersonic flight is HYPERSONIC's strategic rhythm, not a disposable boost picku
 ## Player contract
 
 - Hold afterburner in fighter geometry to charge the Mach transition; releasing breaks the state.
+- Entry reaches full world velocity over a decisive 0.12-second pressure break. Releasing afterburner begins a bounded 0.62-second Mach-recovery window: forward speed, contrail exposure and steering authority return progressively while every environment layer continues from the same integrated world coordinate. No layer may derive position from `mission_time * current_speed`, because that teleports geography when the speed state changes.
 - High/orbital altitude is efficient and structurally safe. Mid altitude inflicts accumulating stress. Low altitude rapidly damages the airframe and leaves little steering room.
 - Entry creates one unmistakable sonic boom and pressure ring. Sustained flight increases world-scroll speed and reduces local steering authority.
 - Weapons remain available for pursuit encounters, but accuracy and positioning become difficult through the compressed control envelope.

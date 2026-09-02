@@ -18,6 +18,7 @@ var afterburner_fuel := AFTERBURNER_CAPACITY
 var _afterburner_active := false
 var _hypersonic_active := false
 var _hypersonic_charge := 0.0
+var _hypersonic_speed_ratio := 0.0
 var _hypersonic_damage_carry := 0.0
 var _cooldown := 0.0
 var _transform_timer := 0.0
@@ -54,6 +55,7 @@ func _process(delta: float) -> void:
 		_afterburner_active = false
 		_hypersonic_active = false
 		_hypersonic_charge = 0.0
+		_hypersonic_speed_ratio = 0.0
 		return
 	_update_transform_settle(scene, delta)
 	_publish_generator_context(scene)
@@ -66,13 +68,18 @@ func _process(delta: float) -> void:
 		_apply_mission_context(scene)
 		afterburner_fuel = AFTERBURNER_CAPACITY
 	if phase == 1:
+		var was_hypersonic := _hypersonic_active
 		_update_afterburner(delta)
+		if was_hypersonic and not _hypersonic_active:
+			_set_status(scene, "MACH RECOVERY // CONTROL AUTHORITY RETURNING")
 		_apply_due_altitude_transitions(scene)
 		_handle_manual_altitude_input(scene)
 		if Input.is_action_just_pressed("transform_craft"):
 			_try_transform(scene)
 	else:
 		_afterburner_active = false
+		_hypersonic_active = false
+	_update_hypersonic_speed_ratio(delta)
 	_publish_altitude_spawn_profiles(scene)
 	_last_phase = phase
 
@@ -115,6 +122,11 @@ func _apply_hypersonic_airframe_risk(delta: float) -> void:
 		scene.set("status_text", "OVERSPEED - AIRFRAME LOAD")
 		scene.set("status_timer", 0.35)
 
+func _update_hypersonic_speed_ratio(delta: float) -> void:
+	var target := 1.0 if _hypersonic_active else 0.0
+	var seconds := HypersonicRules.ENTRY_ACCEL_SECONDS if _hypersonic_active else HypersonicRules.EXIT_DECEL_SECONDS
+	_hypersonic_speed_ratio = move_toward(_hypersonic_speed_ratio, target, maxf(0.0, delta) / seconds)
+
 func _afterburner_burn_rate() -> float:
 	if form == CraftFormRules.BOMBER and altitude == AltitudeRules.LOW:
 		return 1.35
@@ -149,6 +161,11 @@ func hypersonic_charge_ratio() -> float:
 
 func hypersonic_visual_ratio() -> float:
 	return hypersonic_charge_ratio()
+
+func hypersonic_speed_ratio() -> float:
+	if _capture_hypersonic():
+		return 1.0
+	return clampf(_hypersonic_speed_ratio, 0.0, 1.0)
 
 func _capture_hypersonic() -> bool:
 	if not "--capture-gameplay" in OS.get_cmdline_user_args():
@@ -408,16 +425,18 @@ func movement_multiplier() -> float:
 		CraftFormRules.movement_multiplier(CraftFormRules.FIGHTER),
 		CraftFormRules.movement_multiplier(CraftFormRules.BOMBER)
 	)
-	if not _afterburner_active:
+	var speed_ratio := hypersonic_speed_ratio()
+	if not _afterburner_active and speed_ratio <= 0.0:
 		return base
-	var boost := _blended_form_value(FIGHTER_AFTERBURNER_MULTIPLIER, BOMBER_AFTERBURNER_MULTIPLIER)
+	var full_boost := _blended_form_value(FIGHTER_AFTERBURNER_MULTIPLIER, BOMBER_AFTERBURNER_MULTIPLIER)
+	var boost := full_boost if _afterburner_active else lerpf(1.0, full_boost, speed_ratio)
 	# Forward velocity belongs to world scroll; local arcade steering tightens at Mach transition.
-	return base * boost * (HypersonicRules.TURN_SCALE if _hypersonic_active else 1.0)
+	return base * boost * lerpf(1.0, HypersonicRules.TURN_SCALE, speed_ratio)
 
 func world_speed_multiplier() -> float:
 	# Route through the public state so deterministic visual QA exercises the
 	# same massive world acceleration as a live hypersonic latch.
-	return HypersonicRules.SPEED_MULTIPLIER if hypersonic_active() else 1.0
+	return lerpf(1.0, HypersonicRules.SPEED_MULTIPLIER, hypersonic_speed_ratio())
 
 func collision_radius_sq() -> float:
 	return _blended_form_value(

@@ -4,6 +4,8 @@ extends RefCounted
 const CHARGE_SECONDS := {"low":1.40,"mid":1.15,"high":0.85,"orbital":0.70}
 const SPEED_MULTIPLIER := 3.40
 const TURN_SCALE := 0.38
+const ENTRY_ACCEL_SECONDS := 0.12
+const EXIT_DECEL_SECONDS := 0.62
 const ENEMY_CHARGE_SECONDS := 0.82
 const ENEMY_SPEED_MULTIPLIER := 2.65
 
