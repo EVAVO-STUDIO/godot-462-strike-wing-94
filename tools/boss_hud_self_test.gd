@@ -40,6 +40,9 @@ func _initialize() -> void:
 	_expect(main_source.contains('BossRules.volley_origins("gunship_alpha", origin, 3)') and main_source.contains("boss_origin"), "Gunship Alpha's ordinary command burst should share its registered muzzle stations with phase salvos")
 	var boss_director_source := FileAccess.get_file_as_string("res://scripts/boss_director.gd")
 	_expect(boss_director_source.contains("BossRules.volley_origins(boss_id, origin, count)") and boss_director_source.contains('"position": shot_origin'), "boss phase salvos should originate from reviewed per-boss hardpoints")
+	_expect(boss_director_source.contains('boss["recoil_timer"] = 0.10') and boss_director_source.contains('boss["salvo_station_count"] = station_count'), "boss phase salvos should synchronize their visible recoil and active station count")
+	var combat_art_source := FileAccess.get_file_as_string("res://scripts/combat_art_director.gd")
+	_expect(combat_art_source.contains('BossRules.volley_origins("gunship_alpha", p, station_count)'), "Gunship Alpha muzzle flashes should share the exact hardpoint registration used by its projectiles")
 	if failures.is_empty():
 		print("HYPERSONIC integrated boss HUD self-test passed.")
 		quit(0)

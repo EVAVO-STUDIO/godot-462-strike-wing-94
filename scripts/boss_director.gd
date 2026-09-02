@@ -78,8 +78,10 @@ func _update_bosses(scene: Object, delta: float) -> void:
 
 		if BossRules.phase_salvo_enabled(boss_id, phase) and float(boss["phase_salvo_timer"]) <= 0.0:
 			var bullets_before := bullets.size()
-			_emit_phase_salvo(bullets, boss, target, phase)
+			var station_count := _emit_phase_salvo(bullets, boss, target, phase)
 			_register_new_missiles(scene, bullets, bullets_before)
+			boss["recoil_timer"] = 0.10
+			boss["salvo_station_count"] = station_count
 			boss["phase_salvo_timer"] = BossRules.phase_salvo_interval(boss_id, phase)
 
 		if BossSignatureRules.is_signature_boss(boss_id):
@@ -120,7 +122,7 @@ func _report_signature(scene: Object, boss_id: String) -> void:
 	if _has_property(scene, "status_timer"):
 		scene.set("status_timer", 1.2)
 
-func _emit_phase_salvo(bullets: Array, boss: Dictionary, target: Vector2, phase: int) -> void:
+func _emit_phase_salvo(bullets: Array, boss: Dictionary, target: Vector2, phase: int) -> int:
 	var origin: Vector2 = boss.get("position", Vector2.ZERO)
 	var boss_id := str(boss.get("id", ""))
 	var weapon_id := str(boss.get("weapon", "aimed_burst"))
@@ -142,6 +144,7 @@ func _emit_phase_salvo(bullets: Array, boss: Dictionary, target: Vector2, phase:
 			"turn_rate": 1.6 + float(phase) * 0.45,
 			"life": HOMING_LIFETIME
 		})
+	return count
 
 func _emit_signature_attack(bullets: Array, boss: Dictionary, target: Vector2, phase: int) -> void:
 	var boss_id := str(boss.get("id", ""))

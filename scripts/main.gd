@@ -1389,6 +1389,7 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	var damage := 14 if bool(enemy.get("boss", false)) else 8
 	if bool(enemy.get("boss", false)) and str(enemy.get("id", "")) == "gunship_alpha" and weapon_id == "twin_burst":
 		var boss_origins := BossRules.volley_origins("gunship_alpha", origin, 3)
+		enemy["salvo_station_count"] = boss_origins.size()
 		for index in range(boss_origins.size()):
 			var boss_origin: Vector2 = boss_origins[index]
 			var boss_velocity := ProjectileRules.enemy_shot_velocity(

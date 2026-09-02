@@ -4,6 +4,7 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const CombatArtSurface = preload("res://scripts/combat_art_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
+const BossRules = preload("res://scripts/boss_rules.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
@@ -2071,10 +2072,15 @@ func _draw_mercenary_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: S
 		surface.draw_texture(turret,-turret.get_size()*0.5)
 		var barrel_center := Vector2(0,roundf(turret.get_height()*0.28)-roundf(recoil_ratio*3.0))
 		surface.draw_texture(barrel,barrel_center-barrel.get_size()*0.5)
-		if recoil_ratio > 0.45:
+		if recoil_ratio > 0.45 and enemy_id != "gunship_alpha":
 			var flash := ImpactArtLibrary.frame_for_ratio("muzzle",1.0-recoil_ratio)
 			surface.draw_texture_rect(flash,Rect2(-5,barrel_center.y+barrel.get_height()*0.42,10,10),false)
 		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	if enemy_id == "gunship_alpha" and recoil_ratio > 0.45:
+		var station_count := clampi(int(enemy.get("salvo_station_count", 2)), 1, 3)
+		var flash := ImpactArtLibrary.frame_for_ratio("muzzle",1.0-recoil_ratio)
+		for station in BossRules.volley_origins("gunship_alpha", p, station_count):
+			surface.draw_texture_rect(flash,Rect2((Vector2(station)-Vector2(6,6)).round(),Vector2(12,12)),false)
 
 static func boss_hatch_frame_index(fire_timer: float, recoil_ratio: float) -> int:
 	if recoil_ratio > 0.35:
