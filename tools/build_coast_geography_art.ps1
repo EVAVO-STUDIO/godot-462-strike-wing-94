@@ -20,20 +20,49 @@ for ($Index = 0; $Index -lt $Names.Count; $Index++) {
     if ($LASTEXITCODE -ne 0) { throw "Failed to register coast source section $Index" }
 }
 
-# Every section enters and exits through the same narrow coast corridor. The
-# corridor retains natural detail, but its final scanline is explicitly copied
-# from its first so the runtime sequence has a measurable zero-error join.
-$Connector = Join-Path $Work 'shared_connector.png'
-$ConnectorRow = Join-Path $Work 'connector_row.png'
-& $MagickPath (Join-Path $Work 'raw_0.png') -crop '640x48+0+0' +repage $Connector
-& $MagickPath $Connector -crop '640x1+0+0' +repage $ConnectorRow
-& $MagickPath $Connector $ConnectorRow -gravity south -compose over -composite $Connector
+# Build a local connector for each adjacent pair. Each connector is the mean
+# of the two natural edge rows, so the sequence closes exactly without stamping
+# one dark 48px strip across every chunk. A short masked transition carries the
+# local rock, road and water colour into that shared row.
+$BlendHeight = 24
+$BlendMask = Join-Path $Work 'vertical_blend_mask.png'
+& $MagickPath -size "640x$BlendHeight" 'gradient:black-white' -depth 8 $BlendMask
+if ($LASTEXITCODE -ne 0) { throw 'Failed to build coast edge blend mask.' }
+
+for ($Index = 0; $Index -lt $Names.Count; $Index++) {
+    $NextIndex = ($Index + 1) % $Names.Count
+    $BottomDetail = Join-Path $Work "bottom_detail_$Index.png"
+    $NextTopDetail = Join-Path $Work "top_detail_$NextIndex.png"
+    $BottomRow = Join-Path $Work "bottom_$Index.png"
+    $NextTopRow = Join-Path $Work "top_$NextIndex.png"
+    $BoundaryRow = Join-Path $Work "boundary_row_$Index.png"
+    $Boundary = Join-Path $Work "boundary_$Index.png"
+    & $MagickPath (Join-Path $Work "raw_$Index.png") -crop "640x$BlendHeight+0+$([int](1024 - $BlendHeight))" +repage $BottomDetail
+    & $MagickPath (Join-Path $Work "raw_$NextIndex.png") -crop "640x$BlendHeight+0+0" +repage $NextTopDetail
+    & $MagickPath (Join-Path $Work "raw_$Index.png") -crop '640x1+0+1023' +repage $BottomRow
+    & $MagickPath (Join-Path $Work "raw_$NextIndex.png") -crop '640x1+0+0' +repage $NextTopRow
+    & $MagickPath $BottomRow $NextTopRow -evaluate-sequence mean -depth 8 $BoundaryRow
+    & $MagickPath $BottomDetail $NextTopDetail -evaluate-sequence mean $BoundaryRow -gravity north -compose over -composite $BoundaryRow -gravity south -compose over -composite -depth 8 $Boundary
+    if ($LASTEXITCODE -ne 0) { throw "Failed to derive coast boundary $Index." }
+}
 
 for ($Index = 0; $Index -lt $Names.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
     $Destination = Join-Path $Output "$($Names[$Index]).png"
-    & $MagickPath $Raw $Connector -gravity north -compose over -composite $Connector -gravity south -compose over -composite `
-        -region '640x22+0+38' -blur '0x2.2' +region -region '640x22+0+964' -blur '0x2.2' +region -depth 8 $Destination
+    $PreviousIndex = ($Index + $Names.Count - 1) % $Names.Count
+    $TopNatural = Join-Path $Work "top_natural_$Index.png"
+    $BottomNatural = Join-Path $Work "bottom_natural_$Index.png"
+    $TopBoundaryPlate = Join-Path $Work "top_boundary_plate_$Index.png"
+    $BottomBoundaryPlate = Join-Path $Work "bottom_boundary_plate_$Index.png"
+    $TopTransition = Join-Path $Work "top_transition_$Index.png"
+    $BottomTransition = Join-Path $Work "bottom_transition_$Index.png"
+    & $MagickPath $Raw -crop "640x$BlendHeight+0+0" +repage $TopNatural
+    & $MagickPath $Raw -crop "640x$BlendHeight+0+$([int](1024 - $BlendHeight))" +repage $BottomNatural
+    & $MagickPath (Join-Path $Work "boundary_$PreviousIndex.png") $TopBoundaryPlate
+    & $MagickPath (Join-Path $Work "boundary_$Index.png") $BottomBoundaryPlate
+    & $MagickPath $TopBoundaryPlate $TopNatural $BlendMask -compose over -composite $TopTransition
+    & $MagickPath $BottomNatural $BottomBoundaryPlate $BlendMask -compose over -composite $BottomTransition
+    & $MagickPath $Raw $TopTransition -gravity north -compose over -composite $BottomTransition -gravity south -compose over -composite -depth 8 $Destination
     if ($LASTEXITCODE -ne 0) { throw "Failed to finish coast chunk: $($Names[$Index])" }
 }
 

@@ -393,7 +393,9 @@ func movement_multiplier() -> float:
 	return base * boost * (HypersonicRules.TURN_SCALE if _hypersonic_active else 1.0)
 
 func world_speed_multiplier() -> float:
-	return HypersonicRules.SPEED_MULTIPLIER if _hypersonic_active else 1.0
+	# Route through the public state so deterministic visual QA exercises the
+	# same massive world acceleration as a live hypersonic latch.
+	return HypersonicRules.SPEED_MULTIPLIER if hypersonic_active() else 1.0
 
 func collision_radius_sq() -> float:
 	return CraftFormRules.collision_radius_sq(form)

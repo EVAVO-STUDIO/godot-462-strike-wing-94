@@ -11,14 +11,15 @@
   ],
   "assembly_contract": {
     "loop_axis": "vertical",
-    "shared_connector_height": 48,
+    "pairwise_connector_height": 24,
     "world_cycle_pixels": 3072,
-    "base_order": ["geography_chunk", "sea_surface", "finite_structures", "foam_and_surf", "cloud_shadow", "cloud_body", "mist_and_weather"],
+    "base_order": ["geography_chunk", "sea_surface", "finite_structures", "foam_and_surf", "registered_cloud_undercasts", "cloud_bodies", "weather_accents"],
     "rules": [
       "Recognizable geography never repeats at the former 720-pixel plate interval.",
       "Animated water and atmosphere never bake into the geography chunks.",
       "Finite structures use mission-seeded slots and a different cycle from geography.",
-      "All adjacent chunk boundaries share a zero-error scanline contract."
+      "All adjacent chunk boundaries share a zero-error scanline contract derived from the two local natural edges.",
+      "No broad shared connector or blurred horizontal strip may be stamped across the chunk interiors."
     ]
   }
 }

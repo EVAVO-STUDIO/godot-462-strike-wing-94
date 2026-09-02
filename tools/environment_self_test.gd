@@ -215,11 +215,12 @@ func _initialize() -> void:
 				var layer_image: Image = layer_texture.get_image()
 				for sample_x in range(0,layer_image.get_width(),32):
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
-		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION") and source.contains("CLOUD_SHADOW_TILE") and source.contains("CLOUD_MIST_TILE"), "environment renderer should use independent authored temporal sea and cloud depth layers")
+		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "environment renderer should use independent authored temporal sea depth layers")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
+		_expect(not source.contains("CLOUD_SHADOW_TILE") and not source.contains("CLOUD_MIST_TILE"), "cloud depth should not regress to opaque full-field plates that reveal horizontal bands at hypersonic speed")
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_ANIMATION", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_ANIMATION"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
-		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll") and source.contains("shadow_scroll") and source.contains("mist_scroll"), "environment depth layers should scroll independently")
+		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll"), "environment sea depth layers should scroll independently")
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
 		_expect(source.contains("LANDMARKS") and source.contains("_draw_landmarks") and source.contains("_mission_seed"), "environment renderer should layer sparse deterministic mission landmarks over seamless biome plates")
 		_expect(source.contains("LANDMARK_FX_FRAMES") and source.contains("floor(t * 4.0)"), "mission landmarks should consume deliberate four-fps held sprite animation")
@@ -369,6 +370,8 @@ func _initialize() -> void:
 		_expect(not source.contains("_draw_vertical_loop(surface, HARBOR_REFLECTION_TILE"), "harbor presentation must not regress to full-screen schematic reflection tiling")
 		_expect(source.contains("_draw_registered_harbor_crane") and source.contains("crane_world_y := 1500.0"), "harbor crane should align to the repair-basin quay")
 		_expect(source.contains("fposmod(-source_y") and source.contains("_world_speed_multiplier()"), "positive world speed should move tiled and chunked geography downward past the player")
+		_expect(source.contains("t * 21.0 * world_scale") and source.contains("t * speed * world_scale"), "coastal wakes and discrete cloud banks should accelerate with hypersonic world travel")
+		_expect(not source.contains("density * 8.0) * world_scale") and not source.contains("density * 14.0) * world_scale"), "opaque full-field cloud plates should stay retired instead of accelerating into visible bands")
 		_expect(source.contains("lerpf(1.0, 3.6, hypersonic_ratio)"), "hypersonic environment presentation should stretch authored motion accents without blurring combat readability")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png"), "stratospheric runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")

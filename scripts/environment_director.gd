@@ -78,8 +78,6 @@ const OPEN_WATER_FINITE := [
 	preload("res://assets/runtime/environments/open_water_finite/mooring_field.png"),
 ]
 const COAST_SURFACE_TILE := preload("res://assets/runtime/environments/layers/coast_surface_tile.png")
-const CLOUD_SHADOW_TILE := preload("res://assets/runtime/environments/layers/cloud_shadow_tile.png")
-const CLOUD_MIST_TILE := preload("res://assets/runtime/environments/layers/cloud_mist_tile.png")
 const REFINERY_DETAIL_TILE := preload("res://assets/runtime/environments/layers/refinery_detail_tile.png")
 const REFINERY_FINITE_CHUNKS := [
 	preload("res://assets/runtime/environments/modular_refinery/cracking_tower_a.png"),
@@ -525,27 +523,29 @@ func _high_atmosphere_mix(state: Dictionary) -> float:
 func _draw_high_atmosphere_far(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	var mix := _high_atmosphere_mix(state)
 	if mix <= 0.08: return
+	var world_scale := _world_speed_multiplier()
 	for i in range(4):
 		var texture: Texture2D = CIRRUS_FAR[i % CIRRUS_FAR.size()]
 		var x := float((i * 181 + 29) % 760) - 80.0
-		var y := fposmod(float(i) * 91.0 + t * (5.0 + float(i % 2) * 1.4), 330.0) + 82.0
+		var y := fposmod(float(i) * 91.0 + t * (5.0 + float(i % 2) * 1.4) * world_scale, 330.0) + 82.0
 		var scale := 0.86 + float(i % 3) * 0.14
 		var size := texture.get_size() * scale
 		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.86,0.89,0.10 + mix * 0.14))
 	for i in range(2):
 		var x := float((i * 337 + 73) % 690) - 40.0
-		var y := fposmod(float(i) * 191.0 + t * (8.0 + float(i) * 1.5), 350.0) + 100.0
+		var y := fposmod(float(i) * 191.0 + t * (8.0 + float(i) * 1.5) * world_scale, 350.0) + 100.0
 		var size := ANVIL_SHADOW.get_size() * (0.86 + float(i) * 0.12)
 		surface.draw_texture_rect(ANVIL_SHADOW, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.58,0.67,0.71,0.08 + mix * 0.14))
 
 func _draw_high_atmosphere_near(surface: CanvasItem, state: Dictionary, t: float) -> void:
 	var mix := _high_atmosphere_mix(state)
 	if mix <= 0.20: return
+	var world_scale := _world_speed_multiplier()
 	var count := maxi(1, int(round(5.0 * mix)))
 	for i in range(count):
 		var texture: Texture2D = CONTRAIL_NEAR[i % CONTRAIL_NEAR.size()]
 		var x := 42.0 + float((i * 139 + 47) % 550)
-		var y := fposmod(float(i) * 107.0 + t * (48.0 + float(i % 3) * 7.0), 410.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(i) * 107.0 + t * (48.0 + float(i % 3) * 7.0) * world_scale, 410.0) + ENVIRONMENT_VIEW.position.y
 		var alpha := (0.18 + float(i % 2) * 0.05) * mix
 		surface.draw_texture(texture, Vector2(x,y), Color(0.82,0.90,0.92,alpha))
 
@@ -584,8 +584,9 @@ func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 	# Restrained moving wakes prevent the authored plate from reading as a static
 	# illustration while preserving projectile contrast over the open water.
 	var foam := _tone(profile, "foam", 0.34)
+	var world_scale := _world_speed_multiplier()
 	for i in range(7):
-		var sy := fposmod(float(i) * 53.0 + t * 21.0, 332.0) + ENVIRONMENT_VIEW.position.y
+		var sy := fposmod(float(i) * 53.0 + t * 21.0 * world_scale, 332.0) + ENVIRONMENT_VIEW.position.y
 		var sx := 440.0 + float((i * 73) % 150)
 		var wake_width := 18.0 + float(i % 3) * 7.0
 		surface.draw_texture_rect(COAST_WAKE, Rect2(Vector2(sx,sy-5),Vector2(wake_width,10)), false, foam)
@@ -721,6 +722,7 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 
 func _draw_water(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var speed := _parallax_speed(profile, state, "near")
+	var world_scale := _world_speed_multiplier()
 	var deep_scroll := fposmod(t * speed * 0.17, 512.0)
 	var surface_scroll := fposmod(t * speed * 0.33, 512.0)
 	var foam_scroll := fposmod(t * speed * 0.51, 512.0)
@@ -735,7 +737,7 @@ func _draw_water(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.01, 0.025, 0.045, 0.12))
 	for i in range(14):
 		var x := float((i * 109 + 31) % 690) - 20.0
-		var y := fposmod(float(i) * 43.0 + t * (42.0 + float(i % 3) * 4.0), 340.0) + 48.0
+		var y := fposmod(float(i) * 43.0 + t * (42.0 + float(i % 3) * 4.0) * world_scale, 340.0) + 48.0
 		var rain_texture: Texture2D = RAIN_ACCENTS[i % RAIN_ACCENTS.size()]
 		surface.draw_texture(rain_texture, Vector2(x-8,y), Color(1,1,1,0.30))
 
@@ -847,6 +849,7 @@ func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> 
 
 func _draw_cloud_top(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
+	var world_scale := _world_speed_multiplier()
 	var scroll := t * 20.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
 	_draw_vertical_chunk_sequence(surface, CLOUD_TOP_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.86, 0.92, 0.88))
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.012, 0.026, 0.052, 0.10))
@@ -869,7 +872,7 @@ func _draw_cloud_top(surface: CanvasItem, scene: Object, profile: Dictionary, st
 		var x := float((i * 137 + 43) % 720) - 40.0
 		var scale := 0.72 + float(i % 3) * 0.13
 		var size := Vector2(texture.get_size()) * scale
-		var y := fposmod(float(i) * 71.0 + t * 14.0, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
+		var y := fposmod(float(i) * 71.0 + t * 14.0 * world_scale, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, _profile: Dictionary, glow: float) -> void:
@@ -899,15 +902,13 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 	var density := _cloud_density(state)
 	if density <= 0.08:
 		return
+	var world_scale := _world_speed_multiplier()
 	var band := str(state.get("current", "mid"))
 	var family: Array = CLOUD_LOW if band == "low" else (CLOUD_HIGH if band in ["high", "orbital"] else CLOUD_MID)
 	var count := maxi(2, int(round(6.0 * density)))
 	var alpha := 0.12 + density * 0.18
 	if band == "low": alpha *= 0.72
 	if band == "high": alpha *= 1.18
-	if density >= 0.22:
-		var shadow_scroll := fposmod(t * (7.0 + density * 8.0), 512.0)
-		_draw_vertical_loop(surface,CLOUD_SHADOW_TILE,shadow_scroll,ENVIRONMENT_VIEW,Color(1,1,1,clampf(density*0.52,0.0,0.58)))
 	for i in range(count):
 		var texture: Texture2D = family[i % family.size()]
 		var speed := 10.0 + density * 20.0 + float(i % 3) * 2.0
@@ -915,12 +916,9 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 		var x := fposmod(float(i * 149 + 61) + t * wind, 800.0) - 80.0
 		var scale := 0.72 + float((i * 5) % 4) * 0.12
 		var size := Vector2(texture.get_size()) * scale
-		var y := fposmod(float(i) * 97.0 + t * speed, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
+		var y := fposmod(float(i) * 97.0 + t * speed * world_scale, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
 		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, i)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
-	if density >= 0.32:
-		var mist_scroll := fposmod(t * (18.0 + density * 14.0), 512.0)
-		_draw_vertical_loop(surface,CLOUD_MIST_TILE,mist_scroll,ENVIRONMENT_VIEW,Color(1,1,1,clampf(density*0.34,0.0,0.42)))
 
 func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, index: int) -> void:
 	# The shadow reuses the authored bank alpha so every visible cloud has a
