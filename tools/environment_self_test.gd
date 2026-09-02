@@ -394,9 +394,13 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_top_chunks/cloud_top_geography_manifest.json"), "cloud-top geography/turbulence assembly manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_cloud_top_geography_art.ps1"), "cloud-top geography should retain a reproducible registered builder")
+		var cloud_top_master := load("res://assets/source/environments/cloud_top_chunks/cloud_top_geography_source_v2.png") as Texture2D
+		_expect(cloud_top_master != null and cloud_top_master.get_size() == Vector2(3840,1024), "cloud-top v2 master should retain six native-width 640x1024 atmospheric districts")
+		var cloud_top_builder := FileAccess.get_file_as_string("res://tools/build_cloud_top_geography_art.ps1")
+		_expect(cloud_top_builder.contains("cloud_top_geography_source_v2.png") and cloud_top_builder.contains("640x1024+3200+0") and not cloud_top_builder.contains("-resize '640x1024!'"), "cloud-top builder must crop all six v2 districts at native width without atmospheric enlargement")
 		var cloud_top_manifest = ContentCatalog.load_json("res://assets/source/environments/cloud_top_chunks/cloud_top_geography_manifest.json")
-		_expect(typeof(cloud_top_manifest) == TYPE_DICTIONARY and cloud_top_manifest.get("chunks", []).size() == 3, "cloud-top manifest should register three distinct 1024px atmospheric districts")
-		var cloud_top_names := ["anvil_wells", "silver_breaks", "frontal_boundary"]
+		_expect(typeof(cloud_top_manifest) == TYPE_DICTIONARY and cloud_top_manifest.get("chunks", []).size() == 6 and int(cloud_top_manifest.get("cycle_height", 0)) == 6144, "cloud-top manifest should register six distinct 1024px atmospheric districts")
+		var cloud_top_names := ["anvil_wells", "silver_breaks", "frontal_boundary", "jetstream_corridor", "mammatus_shelf", "cold_front_fracture"]
 		var cloud_top_images: Array[Image] = []
 		for chunk_name in cloud_top_names:
 			var cloud_top_texture := load("res://assets/runtime/environments/cloud_top_chunks/%s.png" % chunk_name) as Texture2D
@@ -410,6 +414,7 @@ func _initialize() -> void:
 			_expect(turbulence_frame != null and turbulence_frame.get_size() == Vector2(256,128), "cloud-top turbulence should retain shared 256x128 registration: %d" % frame_index)
 			if turbulence_frame != null: _expect(turbulence_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "cloud-top turbulence frame must retain genuine alpha: %d" % frame_index)
 		_expect(source.contains("CLOUD_TOP_TURBULENCE_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "cloud-top turbulence should use held frames registered to forward-moving cloud geography coordinates")
+		_expect(source.contains("CLOUD_TOP_CYCLE_HEIGHT := 6144.0") and source.contains("_cloud_top_route_start(scene)") and source.contains("_mission_seed(scene) + mission_index"), "cloud-top route should use six-district collision-resistant seeded sequencing and a 6144px world-registration cycle")
 		_expect(source.contains("t * 20.0 * _world_speed_multiplier()"), "cloud-top geography should accelerate with the shared hypersonic world-speed contract")
 		_expect(source.contains("transition_mix > 0.02") and source.contains("maxf(_horizon_glow(state), transition_mix)"), "planetary curvature should appear during orbital transition rather than cutting across ordinary high-cloud combat")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"), "orbital runtime master should exist")

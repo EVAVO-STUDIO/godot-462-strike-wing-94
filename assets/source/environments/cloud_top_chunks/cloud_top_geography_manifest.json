@@ -1,14 +1,18 @@
 {
   "family": "cloud_top_modular_geography",
-  "status": "runtime_registered_v1",
-  "production_method": "built-in image generation source sheets with deterministic ImageMagick crop, shared-boundary finishing and alpha reconstruction",
+  "status": "runtime_registered_v2_native_width",
+  "source": "cloud_top_geography_source_v2.png",
+  "production_method": "six built-in high-resolution overhead atmospheric district masters, downsampled into a 3840x1024 native-width strip, with deterministic ImageMagick crop, shared-boundary finishing and alpha reconstruction",
   "chunks": [
     {"id":"anvil_wells","role":"towering storm cells and narrow updraft lanes","size":[640,1024]},
     {"id":"silver_breaks","role":"broken illuminated deck and broad recovery corridor","size":[640,1024]},
-    {"id":"frontal_boundary","role":"sheared storm wall and embedded lightning route","size":[640,1024]}
+    {"id":"frontal_boundary","role":"sheared storm wall and embedded lightning route","size":[640,1024]},
+    {"id":"jetstream_corridor","role":"fast directional cirrus corridor with broad combat gaps","size":[640,1024]},
+    {"id":"mammatus_shelf","role":"scalloped storm shelf with offset recovery pockets","size":[640,1024]},
+    {"id":"cold_front_fracture","role":"broken frontal plates and diffuse under-cloud lightning","size":[640,1024]}
   ],
   "animation": {"id":"cloud_top_turbulence","frames":6,"size":[256,128],"fps":6,"registration":"finite held wind-shear events"},
-  "cycle_height": 3072,
+  "cycle_height": 6144,
   "assembly": ["far atmospheric color", "cloud geography chunks", "finite turbulence", "cirrus and anvil shadows", "aircraft and threats", "near cloud banks and contrails", "curvature during orbital transition"],
-  "rules": ["Cloud districts retain readable north-south combat openings.","Adjacent chunks close at zero scanline error.","Turbulence remains sparse and world-registered rather than a full-screen speed-line tile.","Orbital transition layers remain independent from cloud geography."]
+  "rules": ["Cloud districts use strict nadir composition with no horizon, wall-like canyon perspective, or repeated circular cloud towers.","Cloud districts retain readable north-south combat openings.","Every geography input is authored at final 640px runtime width or greater; builders may crop or downsample but never enlarge cloud terrain.","Native captures must preserve threat and projectile contrast after near-cloud and turbulence layers are applied.","Adjacent chunks close at zero scanline error.","Turbulence remains sparse and world-registered rather than a full-screen speed-line tile.","Orbital transition layers remain independent from cloud geography."]
 }

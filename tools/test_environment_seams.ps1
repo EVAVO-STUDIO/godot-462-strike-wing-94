@@ -103,7 +103,10 @@ for ($Index = 0; $Index -lt $MountainChunks.Count; $Index++) {
     Assert-Vertical-Seam $First $Second "mountain_$Index"
 }
 
-$CloudTopChunks = @('anvil_wells.png', 'silver_breaks.png', 'frontal_boundary.png')
+$CloudTopChunks = @(
+    'anvil_wells.png', 'silver_breaks.png', 'frontal_boundary.png',
+    'jetstream_corridor.png', 'mammatus_shelf.png', 'cold_front_fracture.png'
+)
 for ($Index = 0; $Index -lt $CloudTopChunks.Count; $Index++) {
     $First = Join-Path $RepoRoot "assets\runtime\environments\cloud_top_chunks\$($CloudTopChunks[$Index])"
     $Second = Join-Path $RepoRoot "assets\runtime\environments\cloud_top_chunks\$($CloudTopChunks[($Index + 1) % $CloudTopChunks.Count])"

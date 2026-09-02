@@ -38,7 +38,11 @@ const CLOUD_TOP_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/cloud_top_chunks/anvil_wells.png"),
 	preload("res://assets/runtime/environments/cloud_top_chunks/silver_breaks.png"),
 	preload("res://assets/runtime/environments/cloud_top_chunks/frontal_boundary.png"),
+	preload("res://assets/runtime/environments/cloud_top_chunks/jetstream_corridor.png"),
+	preload("res://assets/runtime/environments/cloud_top_chunks/mammatus_shelf.png"),
+	preload("res://assets/runtime/environments/cloud_top_chunks/cold_front_fracture.png"),
 ]
+const CLOUD_TOP_CYCLE_HEIGHT := 6144.0
 const ORBITAL_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/orbital_chunks/dead_lattice.png"),
 	preload("res://assets/runtime/environments/orbital_chunks/kinetic_rail_platform.png"),
@@ -421,6 +425,13 @@ func _mission_variant(scene: Object) -> String:
 		return ""
 	var mission = missions[clampi(int(scene.get("mission_index")), 0, missions.size() - 1)]
 	return str(mission.get("environment_variant", "")) if typeof(mission) == TYPE_DICTIONARY else ""
+
+func _cloud_top_route_start(scene: Object) -> int:
+	var mission_index := int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0
+	# The raw mission hashes collide modulo six for several high-cloud sorties.
+	# Mixing the stable campaign index prevents those missions opening on the
+	# same district while retaining deterministic routes for replays/captures.
+	return posmod(_mission_seed(scene) + mission_index, CLOUD_TOP_GEOGRAPHY_CHUNKS.size())
 
 func _has_property(subject: Object, property_name: String) -> bool:
 	return SceneContractCache.has_property(subject, property_name)
@@ -852,7 +863,7 @@ func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> 
 func _draw_cloud_top(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
 	var world_scale := _world_speed_multiplier()
-	var scroll := t * 20.0 * _world_speed_multiplier() + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := t * 20.0 * _world_speed_multiplier() + float(_cloud_top_route_start(scene)) * 1024.0
 	_draw_vertical_chunk_sequence(surface, CLOUD_TOP_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.86, 0.92, 0.88))
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.012, 0.026, 0.052, 0.10))
 	var turbulence_slots := [
@@ -862,7 +873,7 @@ func _draw_cloud_top(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	for slot_index in range(turbulence_slots.size()):
 		var slot: Dictionary = turbulence_slots[slot_index]
 		var turbulence: Texture2D = CLOUD_TOP_TURBULENCE_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, CLOUD_TOP_TURBULENCE_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(slot["y"]) + scroll, CLOUD_TOP_CYCLE_HEIGHT) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface, turbulence, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(256,128)), ENVIRONMENT_VIEW, Color(0.78,0.86,0.96,0.20 + density * 0.10))
 	var transition_mix := _orbital_mix(state)
 	if transition_mix > 0.02:
