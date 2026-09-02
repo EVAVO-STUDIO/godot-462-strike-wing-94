@@ -137,6 +137,7 @@ func _test_source_integration() -> void:
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)
 	var transition_source := transition_file.get_as_text() if transition_file != null else ""
 	_expect(transition_source.contains('"CLIMB %s"') and transition_source.contains('"DIVE %s"'), "altitude choice HUD should use device-neutral tactical direction labels")
+	_expect(transition_source.contains("LOWER_LEFT_KEEP_OUT") and transition_source.contains("640.0 - width - 16.0"), "altitude selector should move opposite the VX-94 instead of being covered at the lower-left flight limit")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

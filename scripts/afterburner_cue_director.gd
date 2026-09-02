@@ -20,6 +20,9 @@ const HOT := Color("e8894f")
 const CORE := Color("d9e9ff")
 const ALERT := Color("ff6757")
 const CHARGE := Color("86bed2")
+const LOWER_HUD_Y := 315.0
+const LOWER_HUD_MARGIN := 14.0
+const LOWER_LEFT_KEEP_OUT := Rect2(0.0, 252.0, 244.0, 108.0)
 
 var _surface: Control
 var _boom_age := 99.0
@@ -56,7 +59,7 @@ func draw_afterburner(surface: CanvasItem) -> void:
 	var charge_ratio := clampf(float(craft.call("hypersonic_charge_ratio")),0.0,1.0) if craft.has_method("hypersonic_charge_ratio") else 0.0
 	var burning := craft.has_method("afterburner_active") and bool(craft.call("afterburner_active"))
 	var hypersonic := craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
-	_draw_meter(surface, ratio, charge_ratio, burning, hypersonic)
+	_draw_meter(surface, scene, ratio, charge_ratio, burning, hypersonic)
 	if burning and _has_property(scene, "player_position"):
 		_draw_flame(surface, scene.get("player_position"), str(craft.call("current_form")) if craft.has_method("current_form") else "fighter", hypersonic)
 	if _boom_age < 0.42 and _has_property(scene, "player_position"):
@@ -69,9 +72,11 @@ func draw_afterburner(surface: CanvasItem) -> void:
 			var flash_ratio := 1.0 - _boom_age / 0.12
 			surface.draw_circle((p + Vector2(0,15)).round(), lerpf(4.0,22.0,flash_ratio), Color(0.86,0.94,1.0,flash_ratio*0.88))
 
-func _draw_meter(surface: CanvasItem, ratio: float, charge_ratio: float, burning: bool, hypersonic: bool) -> void:
+func _draw_meter(surface: CanvasItem, scene: Object, ratio: float, charge_ratio: float, burning: bool, hypersonic: bool) -> void:
 	var frame: Texture2D = PROPULSION_HYPERSONIC if hypersonic else (PROPULSION_RESERVE_LOW if ratio <= 0.20 else (PROPULSION_BURNING if burning else PROPULSION_NORMAL))
-	var position := Vector2(14,315)
+	var position := Vector2(LOWER_HUD_MARGIN, LOWER_HUD_Y)
+	if _player_blocks_lower_left(scene):
+		position.x = 640.0 - LOWER_HUD_MARGIN - float(frame.get_width())
 	surface.draw_texture(frame, position)
 	PixelFont.draw_text(surface, "AB", position + Vector2(7,3), 1, ALERT if ratio <= 0.20 else FUEL, 1)
 	PixelFont.draw_text(surface, "MACH" if hypersonic else "GEOM", position + Vector2(91,3), 1, CORE if hypersonic else CHARGE, 1)
@@ -80,6 +85,11 @@ func _draw_meter(surface: CanvasItem, ratio: float, charge_ratio: float, burning
 	_draw_fill(surface, PROPULSION_FUEL_FILL, position + Vector2(25,5), ratio)
 	var stepped_charge := float(floori(charge_ratio * 10.0)) / 10.0
 	_draw_fill(surface, PROPULSION_CHARGE_FILL, position + Vector2(141,5), stepped_charge)
+
+func _player_blocks_lower_left(scene: Object) -> bool:
+	if scene == null or not _has_property(scene, "player_position"):
+		return false
+	return LOWER_LEFT_KEEP_OUT.has_point(Vector2(scene.get("player_position")))
 
 func _draw_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
 	var width := floorf(float(texture.get_width()) * clampf(ratio,0.0,1.0))
