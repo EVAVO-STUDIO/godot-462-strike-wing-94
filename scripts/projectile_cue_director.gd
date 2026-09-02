@@ -109,11 +109,15 @@ class ProjectileCueCanvas:
 		var frame_index := int(floor(Time.get_ticks_msec() / 83.0)) % frames.size()
 		var texture: Texture2D = frames[frame_index]
 		draw_set_transform(position.round(), Vector2.UP.angle_to(direction), Vector2.ONE)
+		# Late-DOS shooters keyed tiny ordnance with a one-pixel ink trap so hot
+		# cores survived both pale terrain and near-black water. Keep the original
+		# raster untouched and underprint it at runtime; enhanced contrast remains
+		# a stronger accessibility tint rather than the only readable mode.
+		for offset in [Vector2(-1,0), Vector2(1,0), Vector2(0,-1), Vector2(0,1)]:
+			draw_texture(texture, Vector2(-8, -7) + offset, Color(0.01,0.02,0.03,0.78))
 		var settings := get_node_or_null("/root/SettingsDirector")
 		if settings != null and settings.has_method("enhanced_projectile_contrast") and bool(settings.call("enhanced_projectile_contrast")):
 			var contrast_tint := Color("ffb278") if family in ["enemy_cannon", "homing_missile"] else Color("b8f4ff")
-			for offset in [Vector2(-1,0), Vector2(1,0), Vector2(0,-1), Vector2(0,1)]:
-				draw_texture(texture, Vector2(-8, -7) + offset, Color(0.01,0.02,0.03,0.92))
 			draw_texture(texture, Vector2(-8, -7), contrast_tint)
 			draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 			return

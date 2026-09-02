@@ -926,7 +926,7 @@ func _render_human_air_capture(surface: CanvasItem, scene: Object) -> void:
 	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
 	var fire_timer := fposmod(1.0-time, 1.0)
 	var definitions := [
-		{"id":"scout_falcon", "position":Vector2(100,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":6, "max_hp":6, "age":time, "visual_bank":sin(time*2.4)},
+		{"id":"scout_falcon", "position":Vector2(100,145), "fire_timer":0.0, "recoil_timer":0.10, "hp":6, "max_hp":6, "age":time, "visual_bank":sin(time*2.4)},
 		{"id":"gunship_mk1", "position":Vector2(235,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time, "visual_bank":sin(time*2.0)},
 		{"id":"attack_chopper", "position":Vector2(375,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":16, "max_hp":16, "age":time, "visual_bank":0.0},
 		{"id":"heavy_bomber", "position":Vector2(525,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time, "visual_bank":0.0},
@@ -939,7 +939,7 @@ func _render_machine_air_capture(surface: CanvasItem, scene: Object) -> void:
 	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
 	var fire_timer := fposmod(1.0-time, 1.0)
 	var definitions := [
-		{"id":"drone_scout", "position":Vector2(110,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":4, "max_hp":4, "age":time, "visual_bank":sin(time*2.2)},
+		{"id":"drone_scout", "position":Vector2(110,145), "fire_timer":0.0, "recoil_timer":0.10, "hp":4, "max_hp":4, "age":time, "visual_bank":sin(time*2.2)},
 		{"id":"drone_hunter", "position":Vector2(245,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":8, "max_hp":8, "age":time, "visual_bank":sin(time*1.8)},
 		{"id":"drone_bomber", "position":Vector2(390,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":15, "max_hp":15, "age":time, "visual_bank":sin(time*1.4)},
 		{"id":"drone_missile_node", "position":Vector2(530,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":11, "max_hp":11, "age":time, "visual_bank":sin(time*1.6)},
@@ -954,7 +954,7 @@ func _render_orbital_air_capture(surface: CanvasItem, scene: Object) -> void:
 	var definitions := [
 		{"id":"exo_drone", "position":Vector2(85,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":13, "max_hp":13, "age":time, "visual_bank":sin(time*1.7)},
 		{"id":"orbital_sentry", "position":Vector2(205,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":16, "max_hp":16, "age":time, "visual_bank":sin(time*1.9)},
-		{"id":"phase_interceptor", "position":Vector2(320,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":18, "max_hp":18, "age":time, "visual_bank":sin(time*2.1)},
+		{"id":"phase_interceptor", "position":Vector2(320,145), "fire_timer":0.0, "recoil_timer":0.10, "hp":18, "max_hp":18, "age":time, "visual_bank":sin(time*2.1)},
 		{"id":"beam_sentry", "position":Vector2(445,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":24, "max_hp":24, "age":time, "visual_bank":sin(time*1.5)},
 		{"id":"orbital_lancer", "position":Vector2(570,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time, "visual_bank":sin(time*1.3)},
 	]
@@ -1395,6 +1395,7 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		_render_machine_air_specialist(surface, p, enemy_id, enemy, bank_index)
 	elif ORBITAL_AIR_SPRITES.has(enemy_id):
 		_render_orbital_air_specialist(surface, p, enemy_id, enemy, bank_index)
+	_render_airframe_weapon_discharge(surface, p, enemy_id, enemy, visible_hull)
 
 static func hostile_bank_frame_index(bank: float) -> int:
 	if bank < -0.24:
@@ -1448,6 +1449,26 @@ func _render_air_component(surface: CanvasItem, texture: Texture2D, world_pivot:
 func _render_air_muzzle(surface: CanvasItem, center: Vector2, recoil_ratio: float) -> void:
 	var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0-recoil_ratio)
 	surface.draw_texture_rect(flash, Rect2((center-Vector2(4,4)).round(), Vector2(8,8)), false)
+
+func _render_airframe_weapon_discharge(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
+	# Layered specialists expose their own hardpoint flashes. These lighter
+	# airframes still need an authored firing exposure so a round never appears
+	# disconnected from an inert silhouette.
+	if not enemy_id in ["scout_falcon", "ace_interceptor", "drone_scout", "phase_interceptor"]:
+		return
+	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
+	if recoil_ratio <= 0.01:
+		return
+	var direction := p.direction_to(_player_position())
+	if direction.length_squared() < 0.001:
+		direction = Vector2.DOWN
+	var muzzle_center := p + direction * maxf(9.0, hull.get_height() * 0.30)
+	if enemy_id in ["ace_interceptor", "phase_interceptor"]:
+		var lateral := direction.orthogonal() * 4.0
+		_render_air_muzzle(surface, muzzle_center - lateral, recoil_ratio)
+		_render_air_muzzle(surface, muzzle_center + lateral, recoil_ratio)
+	else:
+		_render_air_muzzle(surface, muzzle_center, recoil_ratio)
 
 static func heavy_bomber_bay_frame_index(fire_timer: float, recoil_ratio: float) -> int:
 	if recoil_ratio > 0.01:
