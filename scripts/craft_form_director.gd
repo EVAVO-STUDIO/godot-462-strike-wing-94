@@ -22,6 +22,7 @@ var _hypersonic_damage_carry := 0.0
 var _cooldown := 0.0
 var _transform_timer := 0.0
 var _transform_ready_serial := 0
+var _transform_from_form := CraftFormRules.FIGHTER
 var _world: Dictionary = {}
 var _base_spawn_profiles: Array = []
 var _last_mission_index := -1
@@ -77,7 +78,7 @@ func _process(delta: float) -> void:
 
 func _update_afterburner(delta: float) -> void:
 	_afterburner_active = Input.is_action_pressed("afterburner") and afterburner_fuel > 0.001
-	var may_charge := HypersonicRules.can_charge(form, altitude_transition_active(), afterburner_fuel)
+	var may_charge := HypersonicRules.can_charge(form, altitude_transition_active() or transform_active(), afterburner_fuel)
 	if _afterburner_active and may_charge:
 		_hypersonic_charge = minf(HypersonicRules.charge_seconds(altitude), _hypersonic_charge + maxf(0.0, delta))
 		_hypersonic_active = _hypersonic_charge >= HypersonicRules.charge_seconds(altitude)
@@ -198,6 +199,7 @@ func _apply_mission_context(scene: Object) -> void:
 		altitude = capture_altitude
 	var recommended := CraftFormRules.sanitize(str(_current_context.get("recommended_form", CraftFormRules.FIGHTER)))
 	form = recommended if AltitudeRules.supports_form(altitude, recommended) else CraftFormRules.FIGHTER
+	_transform_from_form = form
 	ProgressionRules.set_current_tech_era(str(_current_context.get("tech_era", "advanced_conventional")))
 	_cooldown = 0.0
 	_transform_timer = 0.0
@@ -314,6 +316,7 @@ func _begin_altitude_transition(scene: Object, next_altitude: String, label: Str
 	_altitude_transition_timer = AltitudeRules.TRANSITION_SECONDS
 	altitude = safe_next
 	if not AltitudeRules.supports_form(altitude, form):
+		_transform_from_form = form
 		form = CraftFormRules.FIGHTER
 		_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
 		_transform_timer = CraftFormRules.TRANSFORM_VISUAL_SECONDS
@@ -347,6 +350,7 @@ func _try_transform(scene: Object) -> void:
 	if not AltitudeRules.supports_form(altitude, candidate):
 		_set_status(scene, "%s LOCKS %s CONFIG" % [AltitudeRules.display_name(altitude), CraftFormRules.display_name(form)])
 		return
+	_transform_from_form = form
 	form = candidate
 	_cooldown = CraftFormRules.TRANSFORM_COOLDOWN
 	_transform_timer = CraftFormRules.TRANSFORM_VISUAL_SECONDS
@@ -370,6 +374,16 @@ func transform_ratio() -> float:
 func transform_ready_serial() -> int:
 	return _transform_ready_serial
 
+func form_blend_ratio() -> float:
+	var destination := 1.0 if form == CraftFormRules.BOMBER else 0.0
+	if not transform_active():
+		return destination
+	var source := 1.0 if _transform_from_form == CraftFormRules.BOMBER else 0.0
+	return lerpf(source, destination, transform_ratio())
+
+func _blended_form_value(fighter_value: float, bomber_value: float) -> float:
+	return lerpf(fighter_value, bomber_value, form_blend_ratio())
+
 func _apply_weapon_interlock(scene: Object) -> void:
 	if SceneContractCache.has_property(scene, "fire_timer"):
 		scene.set("fire_timer", maxf(float(scene.get("fire_timer")), CraftFormRules.TRANSFORM_WEAPON_INTERLOCK))
@@ -389,10 +403,13 @@ func current_altitude_name() -> String:
 	return AltitudeRules.display_name(altitude)
 
 func movement_multiplier() -> float:
-	var base := CraftFormRules.movement_multiplier(form)
+	var base := _blended_form_value(
+		CraftFormRules.movement_multiplier(CraftFormRules.FIGHTER),
+		CraftFormRules.movement_multiplier(CraftFormRules.BOMBER)
+	)
 	if not _afterburner_active:
 		return base
-	var boost := FIGHTER_AFTERBURNER_MULTIPLIER if form == CraftFormRules.FIGHTER else BOMBER_AFTERBURNER_MULTIPLIER
+	var boost := _blended_form_value(FIGHTER_AFTERBURNER_MULTIPLIER, BOMBER_AFTERBURNER_MULTIPLIER)
 	# Forward velocity belongs to world scroll; local arcade steering tightens at Mach transition.
 	return base * boost * (HypersonicRules.TURN_SCALE if _hypersonic_active else 1.0)
 
@@ -402,19 +419,34 @@ func world_speed_multiplier() -> float:
 	return HypersonicRules.SPEED_MULTIPLIER if hypersonic_active() else 1.0
 
 func collision_radius_sq() -> float:
-	return CraftFormRules.collision_radius_sq(form)
+	return _blended_form_value(
+		CraftFormRules.collision_radius_sq(CraftFormRules.FIGHTER),
+		CraftFormRules.collision_radius_sq(CraftFormRules.BOMBER)
+	)
 
 func projectile_hit_radius_sq() -> float:
-	return CraftFormRules.projectile_hit_radius_sq(form)
+	return _blended_form_value(
+		CraftFormRules.projectile_hit_radius_sq(CraftFormRules.FIGHTER),
+		CraftFormRules.projectile_hit_radius_sq(CraftFormRules.BOMBER)
+	)
 
 func primary_spread_multiplier() -> float:
-	return CraftFormRules.primary_spread_multiplier(form)
+	return _blended_form_value(
+		CraftFormRules.primary_spread_multiplier(CraftFormRules.FIGHTER),
+		CraftFormRules.primary_spread_multiplier(CraftFormRules.BOMBER)
+	)
 
 func primary_damage_multiplier() -> float:
-	return CraftFormRules.primary_damage_multiplier(form)
+	return _blended_form_value(
+		CraftFormRules.primary_damage_multiplier(CraftFormRules.FIGHTER),
+		CraftFormRules.primary_damage_multiplier(CraftFormRules.BOMBER)
+	)
 
 func support_energy_multiplier() -> float:
-	return CraftFormRules.support_energy_multiplier(form)
+	return _blended_form_value(
+		CraftFormRules.support_energy_multiplier(CraftFormRules.FIGHTER),
+		CraftFormRules.support_energy_multiplier(CraftFormRules.BOMBER)
+	)
 
 func _has_property(object: Object, property_name: String) -> bool:
 	return SceneContractCache.has_property(object, property_name)
@@ -444,7 +476,13 @@ func bomber_rotary_deployed(weapon: Dictionary) -> bool:
 	return str(weapon.get("archetype", "")) in ["balanced", "spread", "rapid", "burst", "heavy"]
 
 func target_damage_multiplier(enemy_class: String) -> float:
-	var form_multiplier := CraftFormRules.ground_attack_multiplier(form) if enemy_class in ["ground", "sea"] else CraftFormRules.air_attack_multiplier(form)
+	var form_multiplier := _blended_form_value(
+		CraftFormRules.ground_attack_multiplier(CraftFormRules.FIGHTER),
+		CraftFormRules.ground_attack_multiplier(CraftFormRules.BOMBER)
+	) if enemy_class in ["ground", "sea"] else _blended_form_value(
+		CraftFormRules.air_attack_multiplier(CraftFormRules.FIGHTER),
+		CraftFormRules.air_attack_multiplier(CraftFormRules.BOMBER)
+	)
 	var altitude_multiplier := AltitudeRules.ground_target_multiplier(altitude) if enemy_class in ["ground", "sea"] else AltitudeRules.air_target_multiplier(altitude)
 	return form_multiplier * altitude_multiplier
 
