@@ -69,11 +69,11 @@ func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
 		parts.append("DIVE %s" % _code(lower))
 	if parts.is_empty():
 		return
-	var text := "ALTITUDE LANE  %s" % "  ".join(parts)
+	var text := "ALT SELECT  %s" % "  ".join(parts)
 	var width := float(text.length() * 4 + 14)
-	var x := roundf(320.0 - width * 0.5)
-	UiSpriteRenderer.draw_nine_slice(surface, LANE_PANEL, Rect2(x, 329, width, 18), 6)
-	PixelFont.draw_text(surface, text, Vector2(x+7,335), 1, Color(0.76,0.88,0.92,0.92))
+	var x := 16.0
+	UiSpriteRenderer.draw_nine_slice(surface, LANE_PANEL, Rect2(x, 294, width, 18), 6)
+	PixelFont.draw_text(surface, text, Vector2(x+7,300), 1, Color(0.76,0.88,0.92,0.92))
 
 func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var travel := 160.0 * ratio

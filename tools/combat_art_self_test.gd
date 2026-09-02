@@ -65,6 +65,7 @@ func _test_visual_language() -> void:
 		var bank_frame := load("res://assets/runtime/craft/vx94/gameplay/bank/%s" % bank_path)
 		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(64,72), "VX-94 bank frame should retain reviewed 64x72 geometry: %s" % bank_path)
 	_expect(source.contains("_bank_visual < -0.78") and source.contains("_bank_visual > 0.78"), "VX-94 hard-bank art should engage only during committed lateral input")
+	_expect(source.contains('argument.begins_with("--capture-bank=")') and source.contains('"hard-left": bank_target = -1.0') and source.contains('"hard-right": bank_target = 1.0'), "visual QA should expose deterministic VX-94 bank fixtures")
 	for form in ["fighter", "bomber"]:
 		for frame_index in range(4):
 			var breakup := load("res://assets/runtime/craft/vx94/gameplay/destruction/%s_breakup_%d.png" % [form, frame_index])

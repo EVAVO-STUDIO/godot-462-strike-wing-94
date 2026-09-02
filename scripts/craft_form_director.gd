@@ -266,7 +266,7 @@ func _handle_manual_altitude_input(scene: Object) -> void:
 func _try_manual_altitude(scene: Object, direction: int) -> void:
 	var window := _active_altitude_window(float(scene.get("mission_time")))
 	if window.is_empty() and not _hypersonic_active:
-		_set_status(scene, "ALTITUDE LANE LOCKED")
+		_set_status(scene, "ALTITUDE CHANGE UNAVAILABLE")
 		return
 	# Both sources are runtime Variants loaded from canonical content/rules.
 	# Keep the local container untyped so a valid Array returned by either path
@@ -274,12 +274,16 @@ func _try_manual_altitude(scene: Object, direction: int) -> void:
 	var allowed: Array = AltitudeRules.BANDS.duplicate() if _hypersonic_active else AltitudeRules.allowed_manual_bands(window)
 	var candidate := AltitudeRules.adjacent_band(altitude, direction)
 	if candidate == altitude:
-		_set_status(scene, "ALTITUDE LIMIT - %s" % AltitudeRules.display_name(altitude))
+		_set_status(scene, "%s LIMIT" % ("CLIMB" if direction > 0 else "DESCENT"))
 		return
 	if candidate not in allowed:
-		_set_status(scene, "NO %s ALTITUDE LANE" % ("HIGHER" if direction > 0 else "LOWER"))
+		_set_status(scene, "%s UNAVAILABLE" % ("CLIMB" if direction > 0 else "DESCENT"))
 		return
-	_begin_altitude_transition(scene, candidate, "PILOT SELECTED %s" % AltitudeRules.display_name(candidate))
+	_begin_altitude_transition(
+		scene,
+		candidate,
+		"%s: %s ALTITUDE" % ["CLIMBING" if direction > 0 else "DESCENDING", AltitudeRules.display_name(candidate)]
+	)
 
 func _active_altitude_window(mission_time: float) -> Dictionary:
 	var windows = _current_context.get("altitude_choice_windows", [])

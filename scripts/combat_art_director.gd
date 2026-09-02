@@ -744,7 +744,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
 	_visual_sweep = move_toward(_visual_sweep, target, maxf(0.0, delta) / CraftFormRules.TRANSFORM_VISUAL_SECONDS)
-	_bank_visual = move_toward(_bank_visual, Input.get_axis("move_left", "move_right"), maxf(0.0, delta) * 5.5)
+	var bank_target := Input.get_axis("move_left", "move_right")
+	match _capture_bank_state():
+		"hard-left": bank_target = -1.0
+		"left": bank_target = -0.52
+		"right": bank_target = 0.52
+		"hard-right": bank_target = 1.0
+	_bank_visual = move_toward(_bank_visual, bank_target, maxf(0.0, delta) * 5.5)
 	_redraw_elapsed += maxf(0.0, delta)
 	if _surface != null and _redraw_elapsed >= PRESENTATION_REDRAW_SECONDS:
 		_redraw_elapsed = fposmod(_redraw_elapsed, PRESENTATION_REDRAW_SECONDS)
@@ -1121,6 +1127,13 @@ func _capture_craft_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-craft="):
 			return argument.trim_prefix("--capture-craft=").to_lower()
+	return ""
+
+func _capture_bank_state() -> String:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args(): return ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-bank="):
+			return argument.trim_prefix("--capture-bank=").to_lower()
 	return ""
 
 func _capture_ground_state() -> String:

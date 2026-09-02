@@ -17,7 +17,7 @@ func _initialize() -> void:
 	var director_source := director_file.get_as_text() if director_file != null else ""
 	_expect(director_source.contains('"--capture-flight=hypersonic"') and director_source.contains("_capture_hypersonic"), "hypersonic presentation should expose a deterministic visual QA fixture")
 	_expect(director_source.contains("SPEED_MULTIPLIER if hypersonic_active()"), "visual QA and live hypersonic flight should share the public world-speed latch")
-	_expect(director_source.contains("AltitudeRules.BANDS.duplicate()") and director_source.contains("ALTITUDE LIMIT"), "latched hypersonic flight should permit bounded emergency climb and dive")
+	_expect(director_source.contains("AltitudeRules.BANDS.duplicate()") and director_source.contains('"%s LIMIT"') and director_source.contains('"CLIMB" if direction > 0 else "DESCENT"'), "latched hypersonic flight should permit bounded emergency climb and dive")
 	if failures.is_empty():
 		print("Hypersonic rules self-test passed.")
 		quit(0)
