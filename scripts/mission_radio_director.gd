@@ -4,6 +4,7 @@ const MissionRadioSurface = preload("res://scripts/mission_radio_surface.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const RADIO_STRIP := preload("res://assets/runtime/ui/hud/status_frame.png")
 
 const INTRO_DELAY := 1.62
 const INTRO_SECONDS := 4.8
@@ -51,7 +52,10 @@ func _process(delta: float) -> void:
 		_last_mission = mission
 		_last_status = str(scene.get("status_text"))
 		_last_boss_spawned = bool(scene.get("boss_spawned"))
-		_intro_delay = 0.0 if "--capture-radio" in OS.get_cmdline_user_args() else INTRO_DELAY
+		# A mid-mission visual fixture must not replay the launch briefing merely
+		# because the scene was instantiated for a screenshot. Live sorties still
+		# receive it once, shortly after takeoff.
+		_intro_delay = -1.0 if _capture_time() > INTRO_DELAY + INTRO_SECONDS else (0.0 if "--capture-radio" in OS.get_cmdline_user_args() else INTRO_DELAY)
 		_clear_message()
 	_intro_delay = maxf(0.0, _intro_delay - delta)
 	if _intro_delay > 0.0:
@@ -89,17 +93,21 @@ func draw_radio(surface: CanvasItem) -> void:
 	if _message.is_empty() or not _subtitles_enabled(): return
 	var age := _message_duration - _message_timer
 	var alpha := minf(clampf(age / 0.12, 0.0, 1.0), clampf(_message_timer / 0.22, 0.0, 1.0))
-	surface.draw_rect(Rect2(18, 263, 292, 43), Color(0.015, 0.035, 0.050, 0.94 * alpha))
-	surface.draw_rect(Rect2(18, 263, 292, 43), Color(0.32, 0.55, 0.62, 0.88 * alpha), false, 1.0)
-	surface.draw_rect(Rect2(24, 269, 3, 29), Color(0.90, 0.73, 0.31, alpha))
-	PixelFont.draw_text(surface, "RX // %s" % _speaker, Vector2(34, 269), 1, Color(0.42, 0.73, 0.78, alpha), 1)
-	var lines := _wrap(_message, 38)
-	for i in range(mini(2, lines.size())):
-		PixelFont.draw_text(surface, lines[i], Vector2(34, 281 + i * 9), 1, Color(0.86, 0.89, 0.90, alpha), 1)
+	# Combat radio is instrumentation, not a dialogue window. One full-width
+	# raster strip preserves subtitles while returning the lower playfield and
+	# the player's silhouette to combat. Cinematics retain their own framing.
+	var strip := Rect2(16, 337, 608, 18)
+	surface.draw_texture_rect(RADIO_STRIP, strip, false, Color(1, 1, 1, alpha))
+	surface.draw_rect(Rect2(22, 341, 3, 10), Color(0.90, 0.73, 0.31, alpha))
+	PixelFont.draw_text(surface, "RX // %s" % _speaker, Vector2(31, 343), 1, Color(0.42, 0.73, 0.78, alpha), 1)
+	PixelFont.draw_text(surface, _clip(_message, 102), Vector2(112, 343), 1, Color(0.86, 0.89, 0.90, alpha), 1)
 	var pulse := 0.45 + 0.55 * absf(sin(age * 9.0))
 	for i in range(5):
 		var height := 2.0 + float((i * 3 + int(age * 12.0)) % 5)
-		surface.draw_rect(Rect2(282 + i * 4, 270 + (6.0 - height) * 0.5, 2, height), Color(0.90, 0.73, 0.31, alpha * pulse))
+		surface.draw_rect(Rect2(594 + i * 4, 343 + (6.0 - height) * 0.5, 2, height), Color(0.90, 0.73, 0.31, alpha * pulse))
+
+func _clip(text: String, length: int) -> String:
+	return text if text.length() <= length else text.substr(0, maxi(0, length - 3)) + "..."
 
 func _wrap(text: String, columns: int) -> Array[String]:
 	var lines: Array[String] = []
@@ -121,6 +129,14 @@ func _sector_callsign(mission: int) -> String:
 func _subtitles_enabled() -> bool:
 	var settings := get_node_or_null("/root/SettingsDirector")
 	return settings == null or not settings.has_method("subtitles_enabled") or bool(settings.call("subtitles_enabled"))
+
+func _capture_time() -> float:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args(): return 0.0
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-time="):
+			var value := argument.trim_prefix("--capture-time=")
+			if value.is_valid_float(): return maxf(0.0, value.to_float())
+	return 0.0
 
 func _supports(scene: Object) -> bool:
 	return SceneContractCache.supports(scene, ["phase", "mission_index", "current_briefing", "status_text", "status_timer", "boss_spawned", "current_boss_id"])

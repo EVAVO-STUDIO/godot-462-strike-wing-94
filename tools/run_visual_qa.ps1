@@ -37,7 +37,7 @@ $Cases = @(
     @{ id='front_intelligence'; args=@('--capture-gameplay','--capture-front-end=dossier','--capture-campaign-clear') },
     @{ id='front_secret_operations'; args=@('--capture-gameplay','--capture-front-end=secret_sorties','--capture-campaign-clear') },
     @{ id='front_branch_decision'; args=@('--capture-gameplay','--capture-front-end=branch','--capture-branch') },
-    @{ id='mission_01_coastal'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42') },
+    @{ id='mission_01_coastal'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--visual-capture-delay=2.5') },
 	@{ id='hud_mission_ingress'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=0.8','--capture-hud=ingress') },
     @{ id='hud_objective_compact'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-hud=objective') },
     @{ id='mission_02_bomber'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=68','--capture-altitude=low') },
