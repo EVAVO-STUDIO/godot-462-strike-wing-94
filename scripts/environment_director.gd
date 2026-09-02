@@ -273,7 +273,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 	var t := float(scene.get("mission_time"))
 	var motif := str(profile.get("motif", environment_id))
 	var variant := _mission_variant(scene)
-	_draw_parallax(surface, profile, state, t)
+	_draw_parallax(surface, scene, profile, state)
 
 	# Orbital-profile missions can begin in atmosphere and cross the boundary visibly.
 	var orbital_mix := _orbital_mix(state)
@@ -298,7 +298,7 @@ func _draw_environment_surface(surface: CanvasItem) -> void:
 			"orbital": _draw_orbital(surface, scene, profile, state, t, 1.0)
 	_draw_high_atmosphere_far(surface, state, t)
 	_draw_landmarks(surface, scene, profile, state, t, variant if variant != "" else motif, orbital_mix)
-	_draw_clouds(surface, profile, state, t)
+	_draw_clouds(surface, scene, profile, state, t)
 	_draw_high_atmosphere_near(surface, state, t)
 
 func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float, family: String, orbital_mix: float) -> void:
@@ -593,19 +593,20 @@ func _draw_high_atmosphere_near(surface: CanvasItem, state: Dictionary, t: float
 		var alpha := (0.18 + float(i % 2) * 0.05) * mix
 		surface.draw_texture(texture, Vector2(x,y), Color(0.82,0.90,0.92,alpha))
 
-func _draw_parallax(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
+func _draw_parallax(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary) -> void:
 	var forward_scale := _world_speed_multiplier()
 	var hypersonic_ratio := clampf((forward_scale - 1.0) / 2.4, 0.0, 1.0)
+	var travel := _world_distance(scene)
 	var speeds := [
-		_parallax_speed(profile, state, "far"),
-		_parallax_speed(profile, state, "mid"),
-		_parallax_speed(profile, state, "near")
+		_base_parallax_speed(profile, state, "far"),
+		_base_parallax_speed(profile, state, "mid"),
+		_base_parallax_speed(profile, state, "near")
 	]
 	var tones := [_tone(profile, "far", 0.18), _tone(profile, "mid", 0.20), _tone(profile, "near", 0.22)]
 	var gaps := [47.0, 34.0, 25.0]
 	for layer_index in range(3):
 		for i in range(16):
-			var y := fposmod(float(i) * gaps[layer_index] + t * speeds[layer_index], 340.0) + 54.0
+			var y := fposmod(float(i) * gaps[layer_index] + travel * speeds[layer_index], 340.0) + 54.0
 			var x0 := 18.0 + float((i * (83 + layer_index * 19)) % 520)
 			# At hypersonic speed the authored glints stretch into held raster streaks.
 			# This creates directionally correct speed exposure without a full-screen
@@ -625,15 +626,15 @@ func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 	if route_chunks.is_empty(): route_chunks = COAST_GEOGRAPHY_CHUNKS
 	var scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.32
 	_draw_vertical_chunk_sequence(surface, route_chunks, scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0, ENVIRONMENT_VIEW)
-	var surface_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.41, 512.0)
+	var surface_scroll := fposmod(_world_distance(scene) * _base_parallax_speed(profile, state, "near") * 0.41, 512.0)
 	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,ENVIRONMENT_VIEW.position.y,340,ENVIRONMENT_VIEW.size.y), Color(1,1,1,0.18))
 	_draw_modular_coast_pass(surface, scene, profile, state, t)
 	# Restrained moving wakes prevent the authored plate from reading as a static
 	# illustration while preserving projectile contrast over the open water.
 	var foam := _tone(profile, "foam", 0.34)
-	var world_scale := _world_speed_multiplier()
+	var travel := _world_distance(scene)
 	for i in range(7):
-		var sy := fposmod(float(i) * 53.0 + t * 21.0 * world_scale, 332.0) + ENVIRONMENT_VIEW.position.y
+		var sy := fposmod(float(i) * 53.0 + travel * 21.0, 332.0) + ENVIRONMENT_VIEW.position.y
 		var sx := 440.0 + float((i * 73) % 150)
 		var wake_width := 18.0 + float(i % 3) * 7.0
 		surface.draw_texture_rect(COAST_WAKE, Rect2(Vector2(sx,sy-5),Vector2(wake_width,10)), false, foam)
@@ -951,11 +952,11 @@ func _draw_orbital(surface: CanvasItem, scene: Object, _profile: Dictionary, _st
 		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface, debris, Rect2(Vector2(float(slot["x"]),y).round(),Vector2(144,144)),ENVIRONMENT_VIEW,Color(0.88,0.91,0.94,0.72*mix))
 
-func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t: float) -> void:
+func _draw_clouds(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
 	if density <= 0.08:
 		return
-	var world_scale := _world_speed_multiplier()
+	var travel := _world_distance(scene)
 	var band := str(state.get("current", "mid"))
 	var family: Array = CLOUD_LOW if band == "low" else (CLOUD_HIGH if band in ["high", "orbital"] else CLOUD_MID)
 	var count := maxi(2, int(round(6.0 * density)))
@@ -969,7 +970,7 @@ func _draw_clouds(surface: CanvasItem, profile: Dictionary, state: Dictionary, t
 		var x := fposmod(float(i * 149 + 61) + t * wind, 800.0) - 80.0
 		var scale := 0.72 + float((i * 5) % 4) * 0.12
 		var size := Vector2(texture.get_size()) * scale
-		var y := fposmod(float(i) * 97.0 + t * speed * world_scale, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
+		var y := fposmod(float(i) * 97.0 + travel * speed, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
 		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, i)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
 

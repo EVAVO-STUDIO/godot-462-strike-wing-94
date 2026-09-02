@@ -235,10 +235,19 @@ func _capture_time(arguments: PackedStringArray) -> float:
 				return clampf(value.to_float(), 0.0, 240.0)
 	return 0.0
 
+func _capture_world_distance(arguments: PackedStringArray) -> float:
+	for argument in arguments:
+		if argument.begins_with("--capture-world-distance="):
+			var value := argument.trim_prefix("--capture-world-distance=")
+			if value.is_valid_float():
+				return maxf(0.0, value.to_float())
+	return -1.0
+
 func _begin_capture_gameplay() -> void:
 	_start_mission()
 	mission_time = minf(_capture_time(OS.get_cmdline_user_args()), maxf(0.0, mission_duration - 1.0))
-	environment_world_distance = mission_time * _environment_speed_multiplier()
+	var captured_distance := _capture_world_distance(OS.get_cmdline_user_args())
+	environment_world_distance = captured_distance if captured_distance >= 0.0 else mission_time * _environment_speed_multiplier()
 	queue_redraw()
 
 func _begin_capture_result(state: String) -> void:
