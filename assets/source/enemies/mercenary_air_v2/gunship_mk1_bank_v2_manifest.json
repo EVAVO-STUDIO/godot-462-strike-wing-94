@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "asset_id": "gunship_mk1_bank_v2",
+  "role": "armoured_mercenary_attack_gunship",
+  "source_master": "gunship_mk1_bank_v2_master.png",
+  "source_sha256": "4690E8219D6126568D4D88445206EBCC460D9ED33D882B3A9B6744798665B5B8",
+  "source_mode": "built_in_image_generation_with_true_alpha_then_halo_threshold_and_native_reduction",
+  "runtime_geometry": [42, 38],
+  "center": [21, 19],
+  "muzzle_anchor": [21, 35],
+  "exhaust_anchors": [[16, 4], [26, 4]],
+  "specialist_contract": "The existing articulated belly turret, barrel, recoil and sensor layers remain independently rendered over this hull.",
+  "collision_radius": 14,
+  "collision_contract": "Gameplay collision remains unchanged and smaller than the readable outer silhouette.",
+  "palette": {"maximum_colors_per_frame": 40, "dithering": false},
+  "frames": [
+    {"file": "res://assets/runtime/enemies/bank/gunship_mk1/left.png", "bank": -1.0, "visible_bounds": [34, 34]},
+    {"file": "res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png", "bank": 0.0, "visible_bounds": [34, 34]},
+    {"file": "res://assets/runtime/enemies/bank/gunship_mk1/right.png", "bank": 1.0, "visible_bounds": [34, 34]}
+  ],
+  "acceptance": [
+    "All runtime frames retain the existing 42x38 canvas and anchors.",
+    "The hull occupies at least 34 pixels of visible width and height.",
+    "The separate tracking turret remains aligned and readable in motion.",
+    "Banks use authored foreshortening and lighting rather than runtime rotation.",
+    "Runtime alpha contains no presentation halo."
+  ]
+}

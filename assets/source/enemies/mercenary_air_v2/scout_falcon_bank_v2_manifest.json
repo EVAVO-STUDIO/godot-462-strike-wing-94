@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "asset_id": "scout_falcon_bank_v2",
+  "role": "light_mercenary_interceptor",
+  "source_master": "scout_falcon_bank_v2_master.png",
+  "source_sha256": "06AB096EB06B1EE0534670A77BC4A88381E18ADBF9E3AB59B0A9D444BD4C8B98",
+  "source_mode": "built_in_image_generation_with_true_alpha_then_deterministic_native_reduction",
+  "runtime_geometry": [28, 30],
+  "center": [14, 15],
+  "muzzle_anchor": [14, 26],
+  "exhaust_anchor": [14, 3],
+  "collision_radius": 9,
+  "collision_contract": "Gameplay collision remains unchanged and smaller than the readable outer silhouette.",
+  "palette": {"maximum_colors_per_frame": 32, "dithering": false},
+  "frames": [
+    {"file": "res://assets/runtime/enemies/bank/scout_falcon/left.png", "bank": -1.0, "visible_bounds": [26, 26]},
+    {"file": "res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png", "bank": 0.0, "visible_bounds": [25, 26]},
+    {"file": "res://assets/runtime/enemies/bank/scout_falcon/right.png", "bank": 1.0, "visible_bounds": [25, 26]}
+  ],
+  "acceptance": [
+    "All runtime frames retain the existing 28x30 canvas and anchors.",
+    "Neutral visible width is at least 24 pixels.",
+    "Banks use authored foreshortening and lighting rather than runtime rotation.",
+    "The warm-grey silhouette remains distinct over Coastal Intercept terrain and water.",
+    "Runtime alpha is genuine transparency."
+  ]
+}

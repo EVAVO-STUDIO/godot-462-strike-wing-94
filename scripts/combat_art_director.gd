@@ -878,9 +878,10 @@ func _render_human_air_capture(surface: CanvasItem, scene: Object) -> void:
 	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
 	var fire_timer := fposmod(1.0-time, 1.0)
 	var definitions := [
-		{"id":"gunship_mk1", "position":Vector2(175,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time, "visual_bank":sin(time*2.0)},
-		{"id":"attack_chopper", "position":Vector2(320,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":16, "max_hp":16, "age":time, "visual_bank":0.0},
-		{"id":"heavy_bomber", "position":Vector2(475,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time, "visual_bank":0.0},
+		{"id":"scout_falcon", "position":Vector2(100,145), "fire_timer":0.0, "recoil_timer":0.0, "hp":6, "max_hp":6, "age":time, "visual_bank":sin(time*2.4)},
+		{"id":"gunship_mk1", "position":Vector2(235,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time, "visual_bank":sin(time*2.0)},
+		{"id":"attack_chopper", "position":Vector2(375,145), "fire_timer":0.0, "recoil_timer":recoil, "hp":16, "max_hp":16, "age":time, "visual_bank":0.0},
+		{"id":"heavy_bomber", "position":Vector2(525,145), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time, "visual_bank":0.0},
 	]
 	for enemy in definitions:
 		_draw_hostile_airframe(surface, enemy["position"], enemy["id"], enemy, MERCENARY_AIR_SPRITES[enemy["id"]])

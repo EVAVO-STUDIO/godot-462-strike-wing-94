@@ -1,6 +1,6 @@
 {
   "asset_family": "hostile_air_bank_poses",
-  "status": "runtime_v1",
+  "status": "runtime_v2",
   "method": "approved neutral masters recomposed at native resolution into held left and right roll silhouettes with nearest-neighbour sampling and preserved transparency",
   "visual_contract": {
     "exposure": "three held poses selected from real lateral motion",

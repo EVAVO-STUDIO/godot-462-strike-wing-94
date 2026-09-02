@@ -152,7 +152,7 @@ func _test_visual_language() -> void:
 		var human_air_layer := load("res://assets/runtime/enemies/human_air_layered/%s.png" % human_air_layer_id) as Texture2D
 		_expect(human_air_layer != null and human_air_layer.get_size() == layered_human_air_sizes[human_air_layer_id], "layered human-air component should retain its registered canvas: %s" % human_air_layer_id)
 	_expect(source.contains('"anchor": Vector2(0, 5)') and source.contains('"anchor": Vector2(0, 7)') and source.contains("_render_air_component"), "gunship and helicopter weapons should attach to reviewed independent hardpoints")
-	_expect(source.contains('argument.begins_with("--capture-air=")') and source.contains('_capture_air_state() == "human"') and source.contains("_render_human_air_capture") and source.contains('"visual_bank":sin(time*2.0)'), "visual QA should expose an isolated human-air bank, rotor, tracking, recoil, and bay fixture")
+	_expect(source.contains('argument.begins_with("--capture-air=")') and source.contains('_capture_air_state() == "human"') and source.contains("_render_human_air_capture") and source.contains('{"id":"scout_falcon"') and source.contains('"visual_bank":sin(time*2.0)'), "visual QA should expose an isolated human-air scout, bank, rotor, tracking, recoil, and bay fixture")
 	_expect(source.contains('_capture_air_state() == "hypersonic"') and source.contains("_render_hypersonic_air_capture") and source.contains('"hypersonic_boom_age":boom_age'), "visual QA should expose transforming human, machine, and orbital hypersonic pursuers")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/human_air_layered/human_air_layered_manifest.json"), "layered human-air source/runtime manifest should exist")
 	var machine_specialist_sizes := {

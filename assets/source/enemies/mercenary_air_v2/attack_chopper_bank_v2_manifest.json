@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "asset_id": "attack_chopper_bank_v2",
+  "role": "mercenary_attack_helicopter_hull",
+  "source_master": "attack_chopper_bank_v2_master.png",
+  "source_sha256": "33F541E6CAD5B71F3BFDAE161EC9A4242622254D32E669D143B1770F7A1555DE",
+  "source_mode": "built_in_image_generation_with_true_alpha_then_halo_threshold_and_native_reduction",
+  "runtime_geometry": [42, 38],
+  "center": [21, 19],
+  "rotor_center": [21, 18],
+  "muzzle_anchor": [21, 35],
+  "specialist_contract": "The existing four-frame rotor, hub, articulated chin cannon, recoil barrel and muzzle impulse remain independent runtime layers.",
+  "collision_radius": 13,
+  "collision_contract": "Gameplay collision remains unchanged and smaller than the readable rotor-plus-hull silhouette.",
+  "palette": {"maximum_colors_per_frame": 40, "dithering": false},
+  "frames": [
+    {"file": "res://assets/runtime/enemies/bank/attack_chopper/left.png", "bank": -1.0, "visible_bounds": [30, 34]},
+    {"file": "res://assets/runtime/enemies/mercenary_air/attack_chopper_idle.png", "bank": 0.0, "visible_bounds": [30, 34]},
+    {"file": "res://assets/runtime/enemies/bank/attack_chopper/right.png", "bank": 1.0, "visible_bounds": [30, 34]}
+  ],
+  "acceptance": [
+    "All hull frames retain the existing 42x38 canvas and anchors.",
+    "The hull occupies 30x34 visible pixels before the separate rotor layer.",
+    "Rotor and chin-cannon layers remain aligned in live animation.",
+    "Banks use authored foreshortening and lighting rather than runtime rotation.",
+    "Runtime alpha contains no presentation halo."
+  ]
+}

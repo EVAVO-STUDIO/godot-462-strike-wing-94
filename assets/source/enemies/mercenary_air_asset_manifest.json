@@ -1,6 +1,6 @@
 {
   "asset_family": "mercenary_air",
-  "status": "runtime_motion_v4",
+  "status": "runtime_motion_v5",
   "source": {
     "path": "res://assets/source/enemies/candidates/mercenary_air/mercenary_air_identity_sheet_candidate_01.png",
     "sha256": "307D6A4EA283A37D36D153BD67C4732CA7654004BEB538164E17CDF7EFB3995",
@@ -16,9 +16,9 @@
     "filtering": "nearest at runtime"
   },
   "runtime": [
-    {"id":"scout_falcon","path":"res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png","size":[28,30],"sha256":"D72D8B64D535B54FAE2250F7508819AFE37524AF126F5FBFC2CC6B918ED39A0A","center":[14,15],"muzzle":[14,26],"exhaust":[14,3]},
-    {"id":"gunship_mk1","path":"res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png","size":[42,38],"sha256":"6F41FAED3C8E30D2570444ED6F2AD67A4B11119251E4E0B4377BFB65214B414D","center":[21,19],"muzzle":[21,35],"exhaust":[[16,4],[26,4]]},
-    {"id":"attack_chopper","path":"res://assets/runtime/enemies/mercenary_air/attack_chopper_idle.png","size":[42,38],"sha256":"787C47D1B7347830914B490FFCA56869DB05EFD719219F50FF39CC49AEE2BD4A","center":[21,19],"muzzle":[21,35],"rotor_center":[21,18]},
+    {"id":"scout_falcon","path":"res://assets/runtime/enemies/mercenary_air/scout_falcon_idle.png","size":[28,30],"sha256":"04F2DBB3CB69F3704C7581E9037331480EB06629E6FCC8F630247D8704A5B59F","center":[14,15],"muzzle":[14,26],"exhaust":[14,3],"source_override":"res://assets/source/enemies/mercenary_air_v2/scout_falcon_bank_v2_master.png"},
+    {"id":"gunship_mk1","path":"res://assets/runtime/enemies/mercenary_air/gunship_mk1_idle.png","size":[42,38],"sha256":"795BCF52FCCB44C77C1DF28A54B0938DE0C89A7E407E65E4F7AF03143F548C92","center":[21,19],"muzzle":[21,35],"exhaust":[[16,4],[26,4]],"source_override":"res://assets/source/enemies/mercenary_air_v2/gunship_mk1_bank_v2_master.png"},
+    {"id":"attack_chopper","path":"res://assets/runtime/enemies/mercenary_air/attack_chopper_idle.png","size":[42,38],"sha256":"B666030A66F2D29A22836757ACDD349C8232B4A6E9305D014D480CD7FE7E21D5","center":[21,19],"muzzle":[21,35],"rotor_center":[21,18],"source_override":"res://assets/source/enemies/mercenary_air_v2/attack_chopper_bank_v2_master.png"},
     {"id":"ace_interceptor","path":"res://assets/runtime/enemies/mercenary_air/ace_interceptor_idle.png","size":[32,34],"sha256":"A153B8D5C7713233094D360C653D71772B7AFB145EF75FE2890BDB7EE978E97C","center":[16,17],"muzzle":[[11,30],[21,30]],"exhaust":[[13,3],[19,3]]},
     {"id":"heavy_bomber","path":"res://assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png","size":[50,42],"sha256":"EF74F16CE94B6AA5FBE02857E605EFE5011261C358D19B4F86A16103165933B9","center":[25,21],"muzzle":[[10,34],[40,34]],"exhaust":[[17,4],[33,4]],"bay_center":[25,23]}
   ],
