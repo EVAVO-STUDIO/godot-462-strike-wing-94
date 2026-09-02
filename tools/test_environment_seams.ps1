@@ -54,7 +54,10 @@ foreach ($Frame in $AnimatedWater) {
     Assert-Vertical-Seam $Frame.FullName $Frame.FullName "water_$($Frame.BaseName)"
 }
 
-$Chunks = @('seawall_run.png', 'defended_inlet.png', 'reef_cliffs.png')
+$Chunks = @(
+    'seawall_run.png', 'defended_inlet.png', 'reef_cliffs.png',
+    'stormbreak_causeway.png', 'tidal_radar_marsh.png', 'submarine_pen_headland.png'
+)
 for ($Index = 0; $Index -lt $Chunks.Count; $Index++) {
     $First = Join-Path $RepoRoot "assets\runtime\environments\coast_chunks\$($Chunks[$Index])"
     $Second = Join-Path $RepoRoot "assets\runtime\environments\coast_chunks\$($Chunks[($Index + 1) % $Chunks.Count])"

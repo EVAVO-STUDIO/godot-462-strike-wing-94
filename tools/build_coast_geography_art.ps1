@@ -4,7 +4,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
-$Source = Join-Path $RepoRoot 'assets\source\environments\coast_chunks\coast_geography_source_v2.png'
+$Source = Join-Path $RepoRoot 'assets\source\environments\coast_chunks\coast_geography_source_v3.png'
 $Output = Join-Path $RepoRoot 'assets\runtime\environments\coast_chunks'
 $Work = Join-Path $RepoRoot 'work\coast_geography_build'
 $Review = Join-Path $RepoRoot 'work\coast_geography_review.png'
@@ -13,7 +13,10 @@ if (-not (Test-Path -LiteralPath $MagickPath)) { throw "ImageMagick not found: $
 if (-not (Test-Path -LiteralPath $Source)) { throw "Coast geography source missing: $Source" }
 New-Item -ItemType Directory -Force -Path $Output, $Work | Out-Null
 
-$Names = @('seawall_run', 'defended_inlet', 'reef_cliffs')
+$Names = @(
+    'seawall_run', 'defended_inlet', 'reef_cliffs',
+    'stormbreak_causeway', 'tidal_radar_marsh', 'submarine_pen_headland'
+)
 for ($Index = 0; $Index -lt $Names.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
     # The v2 master registers each panel at its final 640x1024 runtime size.
@@ -70,7 +73,7 @@ for ($Index = 0; $Index -lt $Names.Count; $Index++) {
 }
 
 $Runtime = foreach ($Name in $Names) { Join-Path $Output "$Name.png" }
-& $MagickPath montage $Runtime -thumbnail '320x512' -tile '3x1' -geometry '+8+22' -background '#101820' -fill white -pointsize 12 -set label '%t' $Review
+& $MagickPath montage $Runtime -thumbnail '320x512' -tile '3x2' -geometry '+8+22' -background '#101820' -fill white -pointsize 12 -set label '%t' $Review
 if ($LASTEXITCODE -ne 0) { throw 'Failed to build coast geography review.' }
 
 Write-Host "Built $($Names.Count) registered coast geography chunks."

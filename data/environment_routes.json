@@ -2,6 +2,18 @@
   "schema_version": 1,
   "routes": [
     {
+      "id":"coast_silver_breakwater","environment":"coast","native_width":640,"chunk_height":1024,"world_length":6144,
+      "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"sea_depth","kind":"seamless_animation","ratio":0.82},{"id":"sea_surface","kind":"seamless_animation","ratio":1.08},{"id":"finite_structures","kind":"registered_objects","ratio":1.0},{"id":"weather","kind":"finite_field","ratio":1.18}],
+      "districts":[
+        {"id":"seawall_run","asset":"res://assets/runtime/environments/coast_chunks/seawall_run.png","north":"coast_a","south":"coast_a"},
+        {"id":"defended_inlet","asset":"res://assets/runtime/environments/coast_chunks/defended_inlet.png","north":"coast_a","south":"coast_a"},
+        {"id":"reef_cliffs","asset":"res://assets/runtime/environments/coast_chunks/reef_cliffs.png","north":"coast_a","south":"coast_a"},
+        {"id":"stormbreak_causeway","asset":"res://assets/runtime/environments/coast_chunks/stormbreak_causeway.png","north":"coast_a","south":"coast_a"},
+        {"id":"tidal_radar_marsh","asset":"res://assets/runtime/environments/coast_chunks/tidal_radar_marsh.png","north":"coast_a","south":"coast_a"},
+        {"id":"submarine_pen_headland","asset":"res://assets/runtime/environments/coast_chunks/submarine_pen_headland.png","north":"coast_a","south":"coast_a"}
+      ],"animation_slots":[]
+    },
+    {
       "id": "cloud_top_silver_front",
       "environment": "high_cloud",
       "native_width": 640,

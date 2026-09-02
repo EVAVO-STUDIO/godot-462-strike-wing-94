@@ -477,6 +477,13 @@ func _parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String)
 		) * forward_scale
 	return EnvironmentRules.parallax_speed(profile, str(state.get("current", "mid")), layer_name) * forward_scale
 
+func _base_parallax_speed(profile: Dictionary, state: Dictionary, layer_name: String) -> float:
+	# World distance already integrates the craft speed multiplier. This helper
+	# preserves altitude parallax without applying that multiplier a second time.
+	if bool(state.get("transition", false)):
+		return EnvironmentRules.blended_parallax_speed(profile, str(state.get("from", "mid")), str(state.get("to", "mid")), float(state.get("ratio", 1.0)), layer_name)
+	return EnvironmentRules.parallax_speed(profile, str(state.get("current", "mid")), layer_name)
+
 func _world_speed_multiplier() -> float:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if craft != null and craft.has_method("world_speed_multiplier"):
@@ -613,8 +620,11 @@ func _coast_x(world_y: float, scale: float) -> float:
 func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state):
 		return
-	var scroll := t * _parallax_speed(profile, state, "mid") * 0.32
-	_draw_vertical_chunk_sequence(surface, COAST_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
+	var route := _route("coast_silver_breakwater")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = COAST_GEOGRAPHY_CHUNKS
+	var scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.32
+	_draw_vertical_chunk_sequence(surface, route_chunks, scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0, ENVIRONMENT_VIEW)
 	var surface_scroll := fposmod(t * _parallax_speed(profile, state, "near") * 0.41, 512.0)
 	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,ENVIRONMENT_VIEW.position.y,340,ENVIRONMENT_VIEW.size.y), Color(1,1,1,0.18))
 	_draw_modular_coast_pass(surface, scene, profile, state, t)
@@ -632,8 +642,8 @@ func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dicti
 	# Finite authored modules use a long world-space cycle instead of wallpaper
 	# tiling. Every slot has a deliberate land/shore role: seed-shifting the asset
 	# index previously put radar bunkers and pier slabs over open water.
-	var speed := _parallax_speed(profile, state, "mid") * 0.32
-	var world_scroll := t * speed
+	var speed := _base_parallax_speed(profile, state, "mid") * 0.32
+	var world_scroll := _world_distance(scene) * speed
 	var seed := _mission_seed(scene)
 	var scale := 0.34 + 0.12 * _ground_scale(state)
 	var cycle := 1960.0
