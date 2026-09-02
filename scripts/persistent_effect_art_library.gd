@@ -8,7 +8,8 @@ const FRAMES := {
 	"afterburner": [preload("res://assets/runtime/effects/persistent/afterburner/0.png"), preload("res://assets/runtime/effects/persistent/afterburner/1.png"), preload("res://assets/runtime/effects/persistent/afterburner/2.png"), preload("res://assets/runtime/effects/persistent/afterburner/3.png")],
 	"contrail": [preload("res://assets/runtime/effects/persistent/contrail/0.png"), preload("res://assets/runtime/effects/persistent/contrail/1.png"), preload("res://assets/runtime/effects/persistent/contrail/2.png"), preload("res://assets/runtime/effects/persistent/contrail/3.png")],
 	"debris": [preload("res://assets/runtime/effects/persistent/debris/0.png"), preload("res://assets/runtime/effects/persistent/debris/1.png"), preload("res://assets/runtime/effects/persistent/debris/2.png"), preload("res://assets/runtime/effects/persistent/debris/3.png")],
-	"sonic_boom": [preload("res://assets/runtime/effects/persistent/sonic_boom/0.png"), preload("res://assets/runtime/effects/persistent/sonic_boom/1.png"), preload("res://assets/runtime/effects/persistent/sonic_boom/2.png"), preload("res://assets/runtime/effects/persistent/sonic_boom/3.png")]
+	"sonic_boom": [preload("res://assets/runtime/effects/persistent/sonic_boom/0.png"), preload("res://assets/runtime/effects/persistent/sonic_boom/1.png"), preload("res://assets/runtime/effects/persistent/sonic_boom/2.png"), preload("res://assets/runtime/effects/persistent/sonic_boom/3.png")],
+	"hypersonic_ignition": [preload("res://assets/runtime/effects/persistent/hypersonic_ignition/0.png"), preload("res://assets/runtime/effects/persistent/hypersonic_ignition/1.png"), preload("res://assets/runtime/effects/persistent/hypersonic_ignition/2.png"), preload("res://assets/runtime/effects/persistent/hypersonic_ignition/3.png")]
 }
 
 static func frame_for_clock(family: String, fps: float = 10.0, phase_offset: int = 0) -> Texture2D:

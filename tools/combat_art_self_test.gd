@@ -734,6 +734,8 @@ func _test_persistent_effect_art() -> void:
 	for frame_index in range(4):
 		var boom := load("res://assets/runtime/effects/persistent/sonic_boom/%d.png" % frame_index)
 		_expect(boom is Texture2D and boom.get_size() == Vector2(64,64), "sonic-boom pressure frame should retain registered 64x64 geometry: %d" % frame_index)
+		var ignition := load("res://assets/runtime/effects/persistent/hypersonic_ignition/%d.png" % frame_index)
+		_expect(ignition is Texture2D and ignition.get_size() == Vector2(64,64) and ignition.get_image().detect_alpha() != Image.ALPHA_NONE, "hypersonic ignition frame should retain registered transparent 64x64 geometry: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/effects/persistent/persistent_asset_manifest.json"), "persistent effect source/runtime manifest should exist")
 	var combat_source_file := FileAccess.open("res://scripts/combat_art_director.gd",FileAccess.READ)
 	var combat_source := combat_source_file.get_as_text() if combat_source_file != null else ""
@@ -748,6 +750,7 @@ func _test_persistent_effect_art() -> void:
 		var source := afterburner.get_as_text()
 		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"'), "hypersonic thrust should use authored compression plumes and contrails")
 		_expect(source.contains('frame_for_ratio("sonic_boom"'), "sonic transition should use the authored broken pressure front")
+		_expect(source.contains('frame_for_ratio("hypersonic_ignition"') and not source.contains("draw_circle"), "hypersonic latch should use the registered paired-engine ignition sequence instead of programmer-art circles")
 		_expect(not source.contains("surface.draw_arc(scene.get(\"player_position\")"), "sonic boom should not regress to a perfect vector circle")
 
 func _test_destruction_reward_art() -> void:

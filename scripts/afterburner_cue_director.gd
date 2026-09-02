@@ -68,9 +68,9 @@ func draw_afterburner(surface: CanvasItem) -> void:
 		var draw_size := roundf(lerpf(64.0, 236.0, t))
 		var p: Vector2 = scene.get("player_position")
 		surface.draw_texture_rect(texture, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-t))
-		if _boom_age < 0.12:
-			var flash_ratio := 1.0 - _boom_age / 0.12
-			surface.draw_circle((p + Vector2(0,15)).round(), lerpf(4.0,22.0,flash_ratio), Color(0.86,0.94,1.0,flash_ratio*0.88))
+		if _boom_age < 0.16:
+			var ignition := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_ignition", _boom_age / 0.16)
+			surface.draw_texture(ignition, (p + Vector2(-32,-17)).round())
 
 func _draw_meter(surface: CanvasItem, scene: Object, ratio: float, charge_ratio: float, burning: bool, hypersonic: bool) -> void:
 	var frame: Texture2D = PROPULSION_HYPERSONIC if hypersonic else (PROPULSION_RESERVE_LOW if ratio <= 0.20 else (PROPULSION_BURNING if burning else PROPULSION_NORMAL))

@@ -3,22 +3,26 @@
   "status": "runtime_animation_v1",
   "trail_frame_size": [32, 40],
   "sonic_boom_frame_size": [64, 64],
+  "hypersonic_ignition_frame_size": [64, 64],
   "frames_per_family": 4,
-  "families": ["damage_smoke", "damage_fire", "damage_sparks", "afterburner", "contrail", "debris", "sonic_boom"],
+  "families": ["damage_smoke", "damage_fire", "damage_sparks", "afterburner", "contrail", "debris", "sonic_boom", "hypersonic_ignition"],
   "registration": {
     "trail_attachment": [16, 4],
     "sonic_boom_center": [32, 32],
+    "hypersonic_ignition_center": [32, 32],
     "intended_layer": 14
   },
   "source": {
     "concept": "res://assets/source/effects/persistent/candidates/vx94_persistent_effects_concept_01_raw.png",
     "trail_master": "res://assets/source/effects/persistent/persistent_runtime_master.svg",
     "sonic_boom_master": "res://assets/source/effects/persistent/sonic_boom_runtime_master.svg",
-    "provenance": "OpenAI built-in image generation used for plume and turbulence reference; all runtime pixels reconstructed and registered by hand"
+    "hypersonic_ignition_reference": "res://assets/source/effects/persistent/candidates/hypersonic_ignition_sheet_candidate_01_raw.png",
+    "provenance": "OpenAI built-in image generation used for plume, turbulence and paired-ignition reference; runtime pixels were cropped, palette-constrained, cleaned and registered through the EVAVO finishing pipeline"
   },
   "visual_contract": [
     "narrow physically attached trails preserve the VX-94 silhouette",
     "sonic boom uses broken lateral pressure fronts rather than a perfect circle",
+    "hypersonic latch uses a four-exposure paired-engine ignition sprite rather than a generic runtime circle",
     "held four-frame exposure over smooth 60 Hz movement",
     "no soft smoke circles, vector flame triangles or modern bloom"
   ]
