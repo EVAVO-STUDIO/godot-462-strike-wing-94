@@ -523,7 +523,10 @@ func _test_transform_presentation() -> void:
 	_expect(source.contains("PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0"), "combat sprites should retain an authentic held-pose 30 Hz presentation cadence over 60 Hz simulation")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
 	_expect(source.contains("roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1))"), "variable geometry should advance through quantized authored exposures")
-	_expect(source.contains("_draw_layered_vx94(surface, p, -exposure"), "hypersonic charge should continue beyond fighter geometry into a deeper folded-wing silhouette")
+	_expect(source.contains("_draw_transform_exposure(surface, p, exposure, true)"), "hypersonic charge should use the deeper registered folded-wing sprite family")
+	_expect(source.contains("VX94_BOMBER_TRANSFORM") and source.contains("VX94_HYPERSONIC_TRANSFORM"), "live variable geometry should use two authored ten-exposure raster families")
+	_expect(source.contains("--capture-transform-exposure="), "visual QA should expose every exact registered geometry exposure")
+	_expect(not source.contains("_draw_pivoted_component") and not source.contains("VX94_LAYERED"), "live VX-94 geometry must not rotate aircraft component bitmaps like paper")
 	_expect(source.contains("vx94_transform_01.png") and source.contains("vx94_transform_02.png") and source.contains("vx94_transform_03.png"), "VX-94 transformation should retain all three authored mechanical intermediate keyframes")
 	_expect(not source.contains("func _draw_transforming") and not source.contains("func _draw_rotary_cannon"), "obsolete procedural VX-94 construction should remain removed")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
@@ -648,6 +651,8 @@ func _test_damage_state() -> void:
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/vx94_damage_overlay_manifest.json"), "VX-94 form damage source/runtime manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/layered/vx94_layered_manifest.json"), "VX-94 should retain a governed articulated component and pivot contract")
 	_expect(FileAccess.file_exists("res://tools/build_vx94_layered_art.ps1"), "VX-94 articulated runtime components should remain reproducible")
+	_expect(FileAccess.file_exists("res://tools/build_vx94_transform_art.ps1") and FileAccess.file_exists("res://tools/build_vx94_transform_frames.gd"), "registered transformation sprite families should remain reproducible")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/layered/vx94_transform_frames_manifest.json"), "registered transformation families should retain a source/runtime contract")
 	var vx94_component_raw := load("res://assets/source/craft/vx94/layered/vx94_component_sheet_raw_v1.png") as Texture2D
 	var vx94_component_clean := load("res://assets/source/craft/vx94/layered/vx94_component_sheet_source_v1.png") as Texture2D
 	_expect(vx94_component_raw != null and vx94_component_clean != null and vx94_component_raw.get_size() == Vector2(1536,1024) and vx94_component_clean.get_size() == Vector2(1536,1024), "VX-94 RAW_ART and clean component source should retain identical registration")
@@ -658,8 +663,11 @@ func _test_damage_state() -> void:
 		var component_texture := load("res://assets/runtime/craft/vx94/layered/%s.png" % component_name) as Texture2D
 		_expect(component_texture != null and component_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 articulated component should retain transparency: %s" % component_name)
 	_expect(combat_source.contains('argument.begins_with("--capture-craft=")') and combat_source.contains('"layered-sweep"'), "visual QA should expose a simulation-isolated articulated VX-94 sweep fixture")
-	_expect(combat_source.contains('"hypersonic-sweep"') and combat_source.contains('-sweep if _capture_craft_state() == "hypersonic-sweep"'), "visual QA should expose the deeper ten-exposure hypersonic wing fold")
-	_expect(combat_source.contains("_draw_layered_vx94") and combat_source.contains("_draw_pivoted_component") and combat_source.contains("left_hinge") and combat_source.contains("right_hinge"), "VX-94 layered QA should assemble mirrored components around explicit wing-root pivots")
+	_expect(combat_source.contains('"hypersonic-sweep"') and combat_source.contains("_draw_transform_exposure"), "visual QA should expose both registered ten-exposure geometry families")
+	for family_name in ["bomber", "hypersonic"]:
+		for frame_index in 10:
+			var transform_texture := load("res://assets/runtime/craft/vx94/transform/%s_%02d.png" % [family_name, frame_index]) as Texture2D
+			_expect(transform_texture != null and transform_texture.get_size() == Vector2(64,72) and transform_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 registered transform frame should retain canvas and alpha: %s/%02d" % [family_name, frame_index])
 
 func _test_projectile_art() -> void:
 	var projectile_source := FileAccess.open("res://scripts/projectile_cue_director.gd", FileAccess.READ)

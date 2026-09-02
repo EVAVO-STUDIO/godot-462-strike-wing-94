@@ -59,19 +59,30 @@ const VX94_BOMBER_BREAKUP := [
 	preload("res://assets/runtime/craft/vx94/gameplay/destruction/bomber_breakup_3.png"),
 ]
 const VX94_ESCAPE_CAPSULE := preload("res://assets/runtime/craft/vx94/gameplay/destruction/escape_capsule.png")
-const VX94_LAYERED := {
-	"fuselage": preload("res://assets/runtime/craft/vx94/layered/fuselage.png"),
-	"wing_left": preload("res://assets/runtime/craft/vx94/layered/wing_left.png"),
-	"wing_right": preload("res://assets/runtime/craft/vx94/layered/wing_right.png"),
-	"actuator_left": preload("res://assets/runtime/craft/vx94/layered/actuator_left.png"),
-	"actuator_right": preload("res://assets/runtime/craft/vx94/layered/actuator_right.png"),
-	"tailplane_left": preload("res://assets/runtime/craft/vx94/layered/tailplane_left.png"),
-	"tailplane_right": preload("res://assets/runtime/craft/vx94/layered/tailplane_right.png"),
-	"hardpoint_left": preload("res://assets/runtime/craft/vx94/layered/hardpoint_left.png"),
-	"hardpoint_right": preload("res://assets/runtime/craft/vx94/layered/hardpoint_right.png"),
-	"bay_closed": preload("res://assets/runtime/craft/vx94/layered/bay_closed.png"),
-	"bay_open": preload("res://assets/runtime/craft/vx94/layered/bay_open.png"),
-}
+const VX94_BOMBER_TRANSFORM := [
+	preload("res://assets/runtime/craft/vx94/transform/bomber_00.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_01.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_02.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_03.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_04.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_05.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_06.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_07.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_08.png"),
+	preload("res://assets/runtime/craft/vx94/transform/bomber_09.png"),
+]
+const VX94_HYPERSONIC_TRANSFORM := [
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_00.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_01.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_02.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_03.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_04.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_05.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_06.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_07.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_08.png"),
+	preload("res://assets/runtime/craft/vx94/transform/hypersonic_09.png"),
+]
 const PICKUP_ANIMATION_FRAMES := {
 	"shield": [preload("res://assets/runtime/effects/pickups/shield_0.png"), preload("res://assets/runtime/effects/pickups/shield_1.png"), preload("res://assets/runtime/effects/pickups/shield_2.png"), preload("res://assets/runtime/effects/pickups/shield_3.png")],
 	"repair": [preload("res://assets/runtime/effects/pickups/repair_0.png"), preload("res://assets/runtime/effects/pickups/repair_1.png"), preload("res://assets/runtime/effects/pickups/repair_2.png"), preload("res://assets/runtime/effects/pickups/repair_3.png")],
@@ -1084,13 +1095,13 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(exhaust_frame, origin)
 	if _capture_craft_state() in ["layered-sweep", "hypersonic-sweep"]:
 		var sweep := _capture_sweep_ratio(time)
-		_draw_layered_vx94(surface, p, -sweep if _capture_craft_state() == "hypersonic-sweep" else sweep)
+		_draw_transform_exposure(surface, p, sweep, _capture_craft_state() == "hypersonic-sweep")
 		return
 	var texture: Texture2D
 	var hypersonic_sweep := _hypersonic_visual_ratio()
 	if hypersonic_sweep > 0.01:
 		var exposure := roundf(hypersonic_sweep * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
-		_draw_layered_vx94(surface, p, -exposure)
+		_draw_transform_exposure(surface, p, exposure, true)
 		var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
 		var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
 		_draw_player_damage(surface, origin, damage_ratio)
@@ -1101,7 +1112,7 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 		texture = VX94_BOMBER_BANK[_bank_frame_index()]
 	else:
 		var exposure := roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
-		_draw_layered_vx94(surface, p, exposure)
+		_draw_transform_exposure(surface, p, exposure, false)
 		texture = null
 	if texture != null:
 		surface.draw_texture(texture, origin)
@@ -1123,40 +1134,19 @@ func _draw_evasive_player(surface: CanvasItem, p: Vector2, time: float, progress
 	surface.draw_texture(exhaust, (p - VX94_GAMEPLAY_ANCHOR).round(), Color(1,1,1,VX94_ROLL_EXHAUST_ALPHA[authored_index]))
 	surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round())
 
-func _draw_layered_vx94(surface: CanvasItem, p: Vector2, sweep: float) -> void:
-	var bomber_sweep := clampf(sweep, 0.0, 1.0)
-	var hypersonic_sweep := clampf(-sweep, 0.0, 1.0)
-	var eased := smoothstep(0.0, 1.0, bomber_sweep)
-	var settle := sin(clampf((bomber_sweep - 0.72) / 0.28, 0.0, 1.0) * PI) * 0.055
-	var articulated := clampf(eased + settle, 0.0, 1.06)
-	var left_hinge := p + Vector2(-6,-6)
-	var right_hinge := p + Vector2(6,-6)
-	_draw_pivoted_component(surface, VX94_LAYERED["tailplane_left"], p + Vector2(-5,14), Vector2(0.82,0.50), 0.0)
-	_draw_pivoted_component(surface, VX94_LAYERED["tailplane_right"], p + Vector2(5,14), Vector2(0.18,0.50), 0.0)
-	var left_angle := deg_to_rad(lerpf(lerpf(-18.0, -44.0, hypersonic_sweep), 13.0, articulated))
-	var right_angle := deg_to_rad(lerpf(lerpf(18.0, 44.0, hypersonic_sweep), -13.0, articulated))
-	_draw_pivoted_component(surface, VX94_LAYERED["wing_left"], left_hinge, Vector2(0.88,0.18), left_angle)
-	_draw_pivoted_component(surface, VX94_LAYERED["wing_right"], right_hinge, Vector2(0.12,0.18), right_angle)
-	_draw_pivoted_component(surface, VX94_LAYERED["hardpoint_left"], left_hinge + Vector2(-7,9), Vector2(0.78,0.50), left_angle * 0.55)
-	_draw_pivoted_component(surface, VX94_LAYERED["hardpoint_right"], right_hinge + Vector2(7,9), Vector2(0.22,0.50), right_angle * 0.55)
-	_draw_pivoted_component(surface, VX94_LAYERED["actuator_left"], left_hinge, Vector2(0.55,0.08), left_angle * 0.42)
-	_draw_pivoted_component(surface, VX94_LAYERED["actuator_right"], right_hinge, Vector2(0.45,0.08), right_angle * 0.42)
-	var fuselage: Texture2D = VX94_LAYERED["fuselage"]
-	surface.draw_texture(fuselage, (p - Vector2(fuselage.get_width() * 0.5, 29)).round())
-	var bay: Texture2D = VX94_LAYERED["bay_open"] if articulated > 0.72 else VX94_LAYERED["bay_closed"]
-	_draw_pivoted_component(surface, bay, p + Vector2(0,4), Vector2(0.50,0.50), 0.0, Color(1,1,1,0.72))
+func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hypersonic: bool) -> void:
+	var index := clampi(roundi(clampf(ratio, 0.0, 1.0) * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
+	var frames: Array = VX94_HYPERSONIC_TRANSFORM if hypersonic else VX94_BOMBER_TRANSFORM
+	surface.draw_texture(frames[index], (p - VX94_GAMEPLAY_ANCHOR).round())
 
 func _hypersonic_visual_ratio() -> float:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	return clampf(float(craft.call("hypersonic_visual_ratio")), 0.0, 1.0) if craft != null and craft.has_method("hypersonic_visual_ratio") else 0.0
 
-func _draw_pivoted_component(surface: CanvasItem, texture: Texture2D, world_pivot: Vector2, normalized_pivot: Vector2, angle: float, tint := Color.WHITE) -> void:
-	var local_pivot := texture.get_size() * normalized_pivot
-	surface.draw_set_transform(world_pivot.round(), angle, Vector2.ONE)
-	surface.draw_texture(texture, -local_pivot.round(), tint)
-	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-
 func _capture_sweep_ratio(time: float) -> float:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-transform-exposure="):
+			return clampf(float(argument.trim_prefix("--capture-transform-exposure=")) / float(TRANSFORM_EXPOSURES - 1), 0.0, 1.0)
 	var phase := fposmod(time, 2.4) / 2.4
 	var travel := phase * 2.0 if phase < 0.5 else (1.0 - phase) * 2.0
 	if travel < 0.12:
