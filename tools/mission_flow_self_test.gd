@@ -149,7 +149,8 @@ func _test_pixel_ui() -> void:
 		for front_end_asset in ["frame.png", "button_idle.png", "button_selected.png", "cursor.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/front_end/%s" % front_end_asset), "front-end menu sprite should exist: %s" % front_end_asset)
 		_expect(source.contains("func _draw_support_links"), "support readiness instrumentation should remain available without permanently crowding the combat field")
-		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "acquisition", "warning", "boss"]'), "visual QA should expose deterministic objective, acquisition, warning and boss HUD fixtures without mutating simulation")
+		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "ingress", "acquisition", "warning", "boss"]'), "visual QA should expose deterministic ingress, objective, acquisition, warning and boss HUD fixtures without mutating simulation")
+		_expect(source.contains('_capture_time() > INGRESS_SECONDS') and source.contains('capture_state == "ingress"'), "representative gameplay captures should suppress the launch transient unless ingress is explicitly requested")
 		_expect(source.contains('if _capture_hud_state() == "boss"') and source.contains('if _capture_hud_state() == "warning"'), "critical HUD capture fixtures should provide deterministic boss and missile-lock presentation data")
 		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("elif not _altitude_choice_active(scene)"), "control-critical altitude choice should suppress colliding routine status notices")
 		_expect(FileAccess.file_exists("res://tools/build_hud_threat_art.ps1"), "threat-annunciator sprites should remain reproducible from their governed SVG source")

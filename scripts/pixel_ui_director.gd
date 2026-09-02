@@ -162,7 +162,7 @@ const GOLD := Color("e8ca6a")
 const GREEN := Color("67c3a5")
 const RED := Color("dc6655")
 const BLUE := Color("6aa4c8")
-const INGRESS_SECONDS := 1.35
+const INGRESS_SECONDS := 1.10
 
 var _surface: Control
 var _last_phase := -1
@@ -192,8 +192,12 @@ func _process(delta: float) -> void:
 			_ingress_time = maxf(0.0, _ingress_time - maxf(0.0, delta))
 		else:
 			_ingress_time = 0.0
-		if phase == 1 and _capture_hud_state() == "objective":
-			_ingress_time = 0.0
+		if phase == 1 and "--capture-gameplay" in OS.get_cmdline_user_args():
+			var capture_state := _capture_hud_state()
+			if capture_state == "ingress":
+				_ingress_time = INGRESS_SECONDS * 0.62
+			elif _capture_time() > INGRESS_SECONDS or capture_state == "objective":
+				_ingress_time = 0.0
 		_last_phase = phase
 		_last_mission_index = mission_index
 	if _surface != null:
@@ -1036,8 +1040,16 @@ func _capture_hud_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-hud="):
 			var state := argument.trim_prefix("--capture-hud=").to_lower()
-			return state if state in ["objective", "acquisition", "warning", "boss"] else ""
+			return state if state in ["objective", "ingress", "acquisition", "warning", "boss"] else ""
 	return ""
+
+func _capture_time() -> float:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-time="):
+			var value := argument.trim_prefix("--capture-time=")
+			if value.is_valid_float():
+				return maxf(0.0, value.to_float())
+	return 0.0
 
 func _call_dictionary(scene: Object, method_name: String) -> Dictionary:
 	if scene.has_method(method_name):
