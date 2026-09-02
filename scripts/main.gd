@@ -23,6 +23,11 @@ const NEUTRAL_DEPTH_TILE := preload("res://assets/runtime/environments/layers/se
 
 const PLAYER_SPEED := 220.0
 const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
+# The VX-94 uses a registered 64x72 canvas with anchor (32,38). These center
+# limits preserve the entire airframe, including the four-pixel altitude-pitch
+# excursion, below the top instruments and above the bottom message lane.
+const PLAYER_FLIGHT_MIN := Vector2(34.0, 76.0)
+const PLAYER_FLIGHT_MAX := Vector2(606.0, 298.0)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 
@@ -1124,13 +1129,13 @@ func _update_player(delta: float) -> void:
 	player_position += movement * PLAYER_SPEED * speed_mult * delta
 	player_position.x = clampf(
 		player_position.x,
-		PLAYFIELD.position.x + 12.0,
-		PLAYFIELD.end.x - 12.0
+		PLAYER_FLIGHT_MIN.x,
+		PLAYER_FLIGHT_MAX.x
 	)
 	player_position.y = clampf(
 		player_position.y,
-		PLAYFIELD.position.y + 16.0,
-		PLAYFIELD.end.y - 12.0
+		PLAYER_FLIGHT_MIN.y,
+		PLAYER_FLIGHT_MAX.y
 	)
 
 func _update_weapons() -> void:

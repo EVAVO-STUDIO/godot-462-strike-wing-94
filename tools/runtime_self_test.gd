@@ -143,6 +143,8 @@ func _test_direct_runtime_ownership() -> void:
 		_expect(text.contains('"--capture-invulnerable" in OS.get_cmdline_user_args()'), "long visual QA captures should expose an explicit test-only invulnerability flag")
 		_expect(text.contains('"SHIELDS DOWN // HULL EXPOSED"') and text.contains('"HULL CRITICAL"'), "authoritative damage resolution should publish distinct shield-collapse and critical-hull warnings")
 		_expect(text.contains('front_end_screen := "main_menu"') and text.contains("func _update_front_end_menu()"), "startup should enter a real main menu before the sortie console")
+		_expect(text.contains("PLAYER_FLIGHT_MIN := Vector2(34.0, 76.0)") and text.contains("PLAYER_FLIGHT_MAX := Vector2(606.0, 298.0)"), "player flight envelope should keep the full 64x72 VX-94 clear of top and bottom instrumentation")
+		_expect(text.contains("PLAYER_FLIGHT_MIN.x") and text.contains("PLAYER_FLIGHT_MAX.y"), "live movement should clamp against the craft-aware flight envelope")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable for removed reconciliation checks")
 	if project != null:
