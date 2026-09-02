@@ -109,6 +109,7 @@ func _initialize() -> void:
 		_expect(not source.substr(source.find("func _draw_clouds"), source.length() - source.find("func _draw_clouds")).contains("draw_colored_polygon"), "foreground clouds should not regress to polygon lozenges")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png"), "coastal runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/coast_chunks/coast_geography_manifest.json"), "coast geography source/build/assembly manifest should exist")
+		_expect(FileAccess.file_exists("res://assets/source/environments/coast_chunks/coast_breaker_animation_manifest.json"), "registered coast breaker source/runtime manifest should exist")
 		var coast_master := load("res://assets/source/environments/coast_chunks/coast_geography_source_v3.png") as Texture2D
 		_expect(coast_master != null and coast_master.get_size() == Vector2(3840,1024), "coast v3 master should provide six native 640x1024 districts without runtime enlargement")
 		var coast_builder := FileAccess.get_file_as_string("res://tools/build_coast_geography_art.ps1")
@@ -128,6 +129,16 @@ func _initialize() -> void:
 			var incoming: Image = coast_geography_images[(chunk_index + 1) % coast_geography_images.size()]
 			for sample_x in range(0,640,16):
 				_expect(outgoing.get_pixel(sample_x,1023).is_equal_approx(incoming.get_pixel(sample_x,0)), "adjacent coast chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
+		for breaker_name in coast_geography_names:
+			for frame_index in range(6):
+				var breaker_texture := load("res://assets/runtime/environments/coast_breaker_animation/%s_%d.png" % [breaker_name, frame_index]) as Texture2D
+				_expect(breaker_texture != null and breaker_texture.get_size() == Vector2(640,1024), "coast breaker frame should retain district registration: %s %d" % [breaker_name,frame_index])
+				if breaker_texture != null:
+					var breaker_image := breaker_texture.get_image()
+					_expect(breaker_image.detect_alpha() != Image.ALPHA_NONE, "coast breaker frame must retain genuine alpha: %s %d" % [breaker_name,frame_index])
+					for sample_x in range(0,640,32):
+						_expect(breaker_image.get_pixel(sample_x,0).a == 0.0 and breaker_image.get_pixel(sample_x,1023).a == 0.0, "coast breaker district boundaries must be transparent: %s %d x=%d" % [breaker_name,frame_index,sample_x])
+		_expect(source.contains("COAST_BREAKER_PHASES") and source.contains("COAST_BREAKER_PHASES[breaker_phase], coast_source_y"), "coast breakers should share the geography world coordinate and change only by held temporal phase")
 		_expect(FileAccess.file_exists("res://assets/source/environments/modular_coast/modular_coast_kit_manifest.json"), "modular coast kit should register finite chunks, continuous loops and edge-animation families")
 		var modular_coast_kit = ContentCatalog.load_json("res://assets/source/environments/modular_coast/modular_coast_kit_manifest.json")
 		_expect(typeof(modular_coast_kit) == TYPE_DICTIONARY and str(modular_coast_kit.get("status", "")).contains("runtime_v1_complete"), "modular coast source contract should identify its completed runtime instead of advertising stale pending work")
@@ -158,7 +169,7 @@ func _initialize() -> void:
 		_expect(source.contains('"role": "land"') and source.contains('"role": "shore"') and source.contains('var texture_index := int(slot["chunk"])'), "coastal detail slots should declare deliberate land and shore roles")
 		_expect(not source.contains('int(slot["chunk"]) + seed'), "mission seed must not substitute incompatible coast construction assets into registered slots")
 		_expect(is_zero_approx(EnvironmentRules.high_atmosphere_mix("mid")) and is_equal_approx(EnvironmentRules.high_atmosphere_mix("high"), 1.0), "stratospheric cirrus should enter through the high-altitude transition instead of reading as flat streaks in the mid-altitude combat lane")
-		_expect(source.contains("shore_wash_vertical_v2_0.png") and source.contains("COAST_SHORE_WASH") and source.contains("floor(t * 6.0)"), "coastal renderer should consume held six-fps shoreline wash aligned with the vertical coast")
+		_expect(source.contains("COAST_BREAKER_PHASES") and source.contains("floor(t * 6.0)") and source.contains("coast_source_y"), "coastal renderer should consume held six-fps surf registered to the full six-district coast")
 		_expect(source.contains("COAST_BREAKWATER_IMPACT") and source.contains("floor(t * 8.0)"), "coastal renderer should consume held eight-fps breakwater impact animation")
 		_expect(source.contains("cycle := 1960.0"), "finite coast modules should use a long authored world cycle instead of obvious screen-height wallpaper repetition")
 		_expect(source.contains("_draw_texture_rect_clipped") and source.contains("destination.intersection(clip_rect)"), "finite coast sprites and edge animation must clip cleanly beneath the HUD viewport")

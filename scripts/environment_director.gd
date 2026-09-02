@@ -10,6 +10,32 @@ const COAST_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/coast_chunks/defended_inlet.png"),
 	preload("res://assets/runtime/environments/coast_chunks/reef_cliffs.png"),
 ]
+const COAST_BREAKER_PHASES := [
+	[
+		preload("res://assets/runtime/environments/coast_breaker_animation/seawall_run_0.png"), preload("res://assets/runtime/environments/coast_breaker_animation/defended_inlet_0.png"), preload("res://assets/runtime/environments/coast_breaker_animation/reef_cliffs_0.png"),
+		preload("res://assets/runtime/environments/coast_breaker_animation/stormbreak_causeway_0.png"), preload("res://assets/runtime/environments/coast_breaker_animation/tidal_radar_marsh_0.png"), preload("res://assets/runtime/environments/coast_breaker_animation/submarine_pen_headland_0.png"),
+	],
+	[
+		preload("res://assets/runtime/environments/coast_breaker_animation/seawall_run_1.png"), preload("res://assets/runtime/environments/coast_breaker_animation/defended_inlet_1.png"), preload("res://assets/runtime/environments/coast_breaker_animation/reef_cliffs_1.png"),
+		preload("res://assets/runtime/environments/coast_breaker_animation/stormbreak_causeway_1.png"), preload("res://assets/runtime/environments/coast_breaker_animation/tidal_radar_marsh_1.png"), preload("res://assets/runtime/environments/coast_breaker_animation/submarine_pen_headland_1.png"),
+	],
+	[
+		preload("res://assets/runtime/environments/coast_breaker_animation/seawall_run_2.png"), preload("res://assets/runtime/environments/coast_breaker_animation/defended_inlet_2.png"), preload("res://assets/runtime/environments/coast_breaker_animation/reef_cliffs_2.png"),
+		preload("res://assets/runtime/environments/coast_breaker_animation/stormbreak_causeway_2.png"), preload("res://assets/runtime/environments/coast_breaker_animation/tidal_radar_marsh_2.png"), preload("res://assets/runtime/environments/coast_breaker_animation/submarine_pen_headland_2.png"),
+	],
+	[
+		preload("res://assets/runtime/environments/coast_breaker_animation/seawall_run_3.png"), preload("res://assets/runtime/environments/coast_breaker_animation/defended_inlet_3.png"), preload("res://assets/runtime/environments/coast_breaker_animation/reef_cliffs_3.png"),
+		preload("res://assets/runtime/environments/coast_breaker_animation/stormbreak_causeway_3.png"), preload("res://assets/runtime/environments/coast_breaker_animation/tidal_radar_marsh_3.png"), preload("res://assets/runtime/environments/coast_breaker_animation/submarine_pen_headland_3.png"),
+	],
+	[
+		preload("res://assets/runtime/environments/coast_breaker_animation/seawall_run_4.png"), preload("res://assets/runtime/environments/coast_breaker_animation/defended_inlet_4.png"), preload("res://assets/runtime/environments/coast_breaker_animation/reef_cliffs_4.png"),
+		preload("res://assets/runtime/environments/coast_breaker_animation/stormbreak_causeway_4.png"), preload("res://assets/runtime/environments/coast_breaker_animation/tidal_radar_marsh_4.png"), preload("res://assets/runtime/environments/coast_breaker_animation/submarine_pen_headland_4.png"),
+	],
+	[
+		preload("res://assets/runtime/environments/coast_breaker_animation/seawall_run_5.png"), preload("res://assets/runtime/environments/coast_breaker_animation/defended_inlet_5.png"), preload("res://assets/runtime/environments/coast_breaker_animation/reef_cliffs_5.png"),
+		preload("res://assets/runtime/environments/coast_breaker_animation/stormbreak_causeway_5.png"), preload("res://assets/runtime/environments/coast_breaker_animation/tidal_radar_marsh_5.png"), preload("res://assets/runtime/environments/coast_breaker_animation/submarine_pen_headland_5.png"),
+	],
+]
 const REFINERY_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/refinery_chunks/tank_farm.png"),
 	preload("res://assets/runtime/environments/refinery_chunks/cracking_corridor.png"),
@@ -154,12 +180,6 @@ const PARALLAX_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/parallax_near.png"),
 ]
 const COAST_WAKE := preload("res://assets/runtime/environments/motion/coast_wake.png")
-const COAST_SHORE_WASH := [
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_0.png"),
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_1.png"),
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_2.png"),
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_1.png"),
-]
 const COAST_BREAKWATER_IMPACT := [
 	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_0.png"),
 	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_1.png"),
@@ -625,9 +645,15 @@ func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 	var route_chunks := _textures_for_route(route)
 	if route_chunks.is_empty(): route_chunks = COAST_GEOGRAPHY_CHUNKS
 	var scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.32
-	_draw_vertical_chunk_sequence(surface, route_chunks, scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0, ENVIRONMENT_VIEW)
+	var coast_source_y := scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
+	_draw_vertical_chunk_sequence(surface, route_chunks, coast_source_y, ENVIRONMENT_VIEW)
 	var surface_scroll := fposmod(_world_distance(scene) * _base_parallax_speed(profile, state, "near") * 0.41, 512.0)
 	_draw_vertical_loop(surface, COAST_SURFACE_TILE, surface_scroll, Rect2(300,ENVIRONMENT_VIEW.position.y,340,ENVIRONMENT_VIEW.size.y), Color(1,1,1,0.18))
+	# The surf animation is registered to the same six-district world coordinate
+	# as the geography. Time selects only the held breaker phase, so changing
+	# speed or altitude cannot make the waves slide away from the rocks.
+	var breaker_phase := posmod(int(floor(t * 6.0)), COAST_BREAKER_PHASES.size())
+	_draw_vertical_chunk_sequence(surface, COAST_BREAKER_PHASES[breaker_phase], coast_source_y, ENVIRONMENT_VIEW, Color(0.92,0.98,1.0,0.76))
 	_draw_modular_coast_pass(surface, scene, profile, state, t)
 	# Restrained moving wakes prevent the authored plate from reading as a static
 	# illustration while preserving projectile contrast over the open water.
@@ -667,17 +693,6 @@ func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dicti
 		var x_jitter := float((seed + slot_index * 31) % 9) - 4.0
 		var x := clampf(float(slot["x"]) + x_jitter, 8.0, 632.0 - size.x)
 		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x, y).round(), size), ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.84, 0.76))
-
-	# Shore wash is a temporal loop but not a spatial wallpaper. Two registered
-	# edge events pass through the coast at different phases and never cover the
-	# open-water combat lane together.
-	var wash_frame: Texture2D = COAST_SHORE_WASH[posmod(int(floor(t * 6.0)), COAST_SHORE_WASH.size())]
-	for wash_index in range(2):
-		var wash_y := fposmod(world_scroll + float(wash_index * 706 + seed % 181), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
-		var wash_size := (wash_frame.get_size() * Vector2(0.65, 0.30)).round()
-		if wash_y >= ENVIRONMENT_VIEW.position.y and wash_y + wash_size.y <= ENVIRONMENT_VIEW.end.y:
-			var edge_fade := minf(clampf((wash_y - ENVIRONMENT_VIEW.position.y) / 24.0, 0.0, 1.0), clampf((ENVIRONMENT_VIEW.end.y - wash_y - wash_size.y) / 24.0, 0.0, 1.0))
-			_draw_texture_rect_clipped(surface, wash_frame, Rect2(Vector2(298.0 + wash_index * 12.0, wash_y).round(), wash_size), ENVIRONMENT_VIEW, Color(0.94, 0.98, 1.0, 0.18 * edge_fade))
 
 	var impact_frame: Texture2D = COAST_BREAKWATER_IMPACT[posmod(int(floor(t * 8.0)), COAST_BREAKWATER_IMPACT.size())]
 	var impact_y := fposmod(world_scroll + 360.0 + float(seed % 239), cycle) - 100.0 + ENVIRONMENT_VIEW.position.y

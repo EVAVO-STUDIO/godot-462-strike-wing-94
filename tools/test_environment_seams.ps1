@@ -64,6 +64,17 @@ for ($Index = 0; $Index -lt $Chunks.Count; $Index++) {
     Assert-Vertical-Seam $First $Second "coast_$Index"
 }
 
+$CoastBreakerDirectory = Join-Path $RepoRoot 'assets\runtime\environments\coast_breaker_animation'
+for ($Phase = 0; $Phase -lt 6; $Phase++) {
+    for ($Index = 0; $Index -lt $Chunks.Count; $Index++) {
+        $FirstName = [IO.Path]::GetFileNameWithoutExtension($Chunks[$Index])
+        $SecondName = [IO.Path]::GetFileNameWithoutExtension($Chunks[($Index + 1) % $Chunks.Count])
+        $First = Join-Path $CoastBreakerDirectory "$($FirstName)_$Phase.png"
+        $Second = Join-Path $CoastBreakerDirectory "$($SecondName)_$Phase.png"
+        Assert-Vertical-Seam $First $Second "coast_breaker_p$($Phase)_$Index"
+    }
+}
+
 $RefineryChunks = @('tank_farm.png', 'cracking_corridor.png', 'rail_loading.png')
 for ($Index = 0; $Index -lt $RefineryChunks.Count; $Index++) {
     $First = Join-Path $RepoRoot "assets\runtime\environments\refinery_chunks\$($RefineryChunks[$Index])"
@@ -123,4 +134,4 @@ for ($Index = 0; $Index -lt $OrbitalChunks.Count; $Index++) {
     Assert-Vertical-Seam $First $Second "orbital_$Index"
 }
 
-Write-Host "Environment seam gate passed: $($Layers.Count) loops, $($AnimatedWater.Count) temporal-water frames, $($Chunks.Count) coast joins, $($RefineryChunks.Count) refinery joins, $($DesertChunks.Count) desert joins, $($RiverChunks.Count) river joins, $($HarborChunks.Count) harbor joins, $($CityChunks.Count) city joins, $($MountainChunks.Count) mountain joins, $($CloudTopChunks.Count) cloud-top joins and $($OrbitalChunks.Count) orbital joins."
+Write-Host "Environment seam gate passed: $($Layers.Count) loops, $($AnimatedWater.Count) temporal-water frames, $($Chunks.Count) coast joins, $($Chunks.Count * 6) registered breaker joins, $($RefineryChunks.Count) refinery joins, $($DesertChunks.Count) desert joins, $($RiverChunks.Count) river joins, $($HarborChunks.Count) harbor joins, $($CityChunks.Count) city joins, $($MountainChunks.Count) mountain joins, $($CloudTopChunks.Count) cloud-top joins and $($OrbitalChunks.Count) orbital joins."

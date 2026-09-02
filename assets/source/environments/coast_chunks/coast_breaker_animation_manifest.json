@@ -1,0 +1,23 @@
+{
+  "asset_family": "hypersonic_registered_coast_breakers_v1",
+  "source_directory": "res://assets/runtime/environments/coast_chunks/",
+  "builder": "res://tools/build_coast_breaker_animation.ps1",
+  "runtime_directory": "res://assets/runtime/environments/coast_breaker_animation/",
+  "district_order": ["seawall_run", "defended_inlet", "reef_cliffs", "stormbreak_causeway", "tidal_radar_marsh", "submarine_pen_headland"],
+  "frame_count": 6,
+  "frame_size": [640, 1024],
+  "playback_fps": 6,
+  "source_method": "District-registered water masks derived from the seam-finished native coast plates. A restrained wet contact line, variable breaker crest, and asymmetric advance/retreat cycle preserve the irregular authored shoreline instead of stamping a generic ribbon.",
+  "assembly_contract": {
+    "registration": "Draw the selected phase with the exact coast geography chunk order, world-distance source offset, and 640px playfield width.",
+    "loop_axis": "vertical",
+    "temporal_loop": "held phase 0 through 5, then phase 0",
+    "boundary_taper_pixels": 16,
+    "rules": [
+      "Every frame remains a true-alpha 640x1024 overlay; geography is never baked into the animation.",
+      "Top and bottom scanlines are fully transparent so all district joins close exactly.",
+      "Animation time changes only the held phase; speed changes only integrated world distance and cannot re-phase the coastline.",
+      "Runtime modulation remains restrained because the geography plate already contains the darkest static wet-rock and foam foundation."
+    ]
+  }
+}
