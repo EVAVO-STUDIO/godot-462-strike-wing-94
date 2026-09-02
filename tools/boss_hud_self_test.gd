@@ -14,6 +14,9 @@ func _initialize() -> void:
 	_expect(BossRules.arrival_clears_enemy("gunship_alpha", {"category":"air"}), "Gunship Alpha should take possession of the air lane for a readable command entrance")
 	_expect(not BossRules.arrival_clears_enemy("gunship_alpha", {"category":"ground"}), "ground emplacements should remain active beneath the command entrance")
 	_expect(not BossRules.arrival_clears_enemy("armoured_train", {"category":"air"}), "boss-specific arrival staging should not silently erase escorts in unrelated encounters")
+	_expect(BossRules.phase_salvo_enabled("gunship_alpha", 1) and BossRules.volley_count("twin_burst", 1) == 3, "Gunship Alpha should open with a conventional three-lane command burst rather than ordinary gunship fire alone")
+	_expect(BossRules.volley_spread_radians("twin_burst", 1) >= 0.16 and BossRules.phase_salvo_interval("gunship_alpha", 1) >= 3.0, "opening command burst should be broad, readable, and paced rather than spammed")
+	_expect(not BossRules.phase_salvo_enabled("armoured_train", 1), "unreviewed phase-one bosses should retain their authored opening pressure")
 	for phase_name in ["phase_1", "phase_2", "phase_3"]:
 		var frame := load("res://assets/runtime/ui/hud/boss_phase_bar/%s.png" % phase_name)
 		var fill := load("res://assets/runtime/ui/hud/boss_phase_bar/%s_fill.png" % phase_name)

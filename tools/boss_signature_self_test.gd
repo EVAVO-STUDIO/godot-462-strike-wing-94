@@ -41,6 +41,7 @@ func _test_source_wiring() -> void:
 	if director != null:
 		var source := director.get_as_text()
 		_expect(source.contains("BossSignatureRules.interval"), "boss runtime should schedule signature attacks")
+		_expect(source.contains("BossRules.phase_salvo_enabled") and source.contains("BossRules.phase_salvo_interval"), "conventional boss salvos should use explicit per-boss phase pacing")
 		_expect(source.contains("_emit_signature_attack"), "boss runtime should emit signature attacks")
 		_expect(source.contains("BossSignatureRules.PHASE_ARRAY"), "phase array should receive dedicated tracking behavior")
 		_expect(source.contains("BossSignatureRules.WARDEN"), "station warden should receive dedicated guided behavior")

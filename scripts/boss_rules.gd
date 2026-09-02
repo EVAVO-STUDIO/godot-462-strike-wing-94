@@ -57,9 +57,18 @@ static func phase_drift_multiplier(phase: int) -> float:
 		2: return 1.25
 		_: return 1.0
 
+static func phase_salvo_interval(boss_id: String, phase: int) -> float:
+	var p := clampi(phase, 1, 3)
+	if boss_id == "gunship_alpha":
+		return [3.35, 2.4, 1.55][p - 1]
+	return 999.0 if p <= 1 else (2.4 if p == 2 else 1.55)
+
+static func phase_salvo_enabled(boss_id: String, phase: int) -> bool:
+	return boss_id == "gunship_alpha" or phase >= 2
+
 static func volley_count(weapon_id: String, phase: int) -> int:
 	if phase <= 1:
-		return 1
+		return 3 if weapon_id == "twin_burst" else 1
 	match weapon_id:
 		"missile": return 2 if phase == 2 else 3
 		"twin_burst": return 2 if phase == 2 else 3
@@ -68,7 +77,7 @@ static func volley_count(weapon_id: String, phase: int) -> int:
 
 static func volley_spread_radians(weapon_id: String, phase: int) -> float:
 	if phase <= 1:
-		return 0.0
+		return 0.18 if weapon_id == "twin_burst" else 0.0
 	match weapon_id:
 		"missile": return 0.10 if phase == 2 else 0.16
 		"twin_burst": return 0.13 if phase == 2 else 0.21

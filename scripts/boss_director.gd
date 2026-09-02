@@ -43,7 +43,7 @@ func _update_bosses(scene: Object, delta: float) -> void:
 			boss["max_hp"] = max_hp
 			boss["base_speed"] = float(boss.get("speed", 24.0))
 			boss["base_drift"] = float(boss.get("drift", 28.0))
-			boss["phase_salvo_timer"] = 1.4
+			boss["phase_salvo_timer"] = minf(1.8, BossRules.phase_salvo_interval(boss_id, 1))
 			boss["signature_timer"] = BossSignatureRules.interval(boss_id, 1)
 			boss["signature_warning_timer"] = -1.0
 			boss["last_hp"] = hp
@@ -76,11 +76,11 @@ func _update_bosses(scene: Object, delta: float) -> void:
 			boss["last_reported_phase"] = phase
 			_report_phase(scene, boss, phase)
 
-		if phase >= 2 and float(boss["phase_salvo_timer"]) <= 0.0:
+		if BossRules.phase_salvo_enabled(boss_id, phase) and float(boss["phase_salvo_timer"]) <= 0.0:
 			var bullets_before := bullets.size()
 			_emit_phase_salvo(bullets, boss, target, phase)
 			_register_new_missiles(scene, bullets, bullets_before)
-			boss["phase_salvo_timer"] = 2.4 if phase == 2 else 1.55
+			boss["phase_salvo_timer"] = BossRules.phase_salvo_interval(boss_id, phase)
 
 		if BossSignatureRules.is_signature_boss(boss_id):
 			if warning_timer >= 0.0 and float(boss["signature_warning_timer"]) <= 0.0:
