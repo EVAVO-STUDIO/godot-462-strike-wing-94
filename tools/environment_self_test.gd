@@ -359,6 +359,10 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/harbor_asset_manifest.json"), "harbor source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/harbor_chunks/harbor_geography_manifest.json"), "harbor geography/reflection source and assembly manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_harbor_geography_art.ps1"), "harbor geography should retain a reproducible registered builder")
+		var harbor_master := load("res://assets/source/environments/harbor_chunks/harbor_geography_source_v2.png") as Texture2D
+		_expect(harbor_master != null and harbor_master.get_size() == Vector2(1920,1024), "harbor master should provide three native 640x1024 districts without runtime enlargement")
+		var harbor_builder := FileAccess.get_file_as_string("res://tools/build_harbor_geography_art.ps1")
+		_expect(harbor_builder.contains("harbor_geography_source_v2.png") and harbor_builder.contains("640x1024+1280+0") and not harbor_builder.contains("-resize '640x1024!'"), "harbor build should crop native-width districts instead of stretching undersized plates")
 		_expect(FileAccess.file_exists("res://tools/build_harbor_crane_art.ps1"), "harbor crane should retain a reproducible source finisher")
 		var harbor_manifest = ContentCatalog.load_json("res://assets/source/environments/harbor_chunks/harbor_geography_manifest.json")
 		_expect(typeof(harbor_manifest) == TYPE_DICTIONARY and harbor_manifest.get("chunks", []).size() == 3, "harbor manifest should register three distinct 1024px port districts")

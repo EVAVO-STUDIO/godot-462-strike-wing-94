@@ -1,7 +1,7 @@
 param([string]$MagickPath = 'C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\magick.exe')
 $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
-$Source = Join-Path $RepoRoot 'assets\source\environments\harbor_chunks\harbor_geography_source_v1.png'
+$Source = Join-Path $RepoRoot 'assets\source\environments\harbor_chunks\harbor_geography_source_v2.png'
 $ReflectionSource = Join-Path $RepoRoot 'assets\source\environments\harbor_chunks\harbor_reflection_source_v1.png'
 $Output = Join-Path $RepoRoot 'assets\runtime\environments\harbor_chunks'
 $ReflectionOutput = Join-Path $RepoRoot 'assets\runtime\environments\harbor_reflection_animation'
@@ -12,13 +12,15 @@ foreach ($Required in @($Source,$ReflectionSource)) { if (-not (Test-Path -Liter
 New-Item -ItemType Directory -Force -Path $Output,$ReflectionOutput,$Work | Out-Null
 
 $Sections = @(
-    @{ Name='outer_breakwater'; Crop='522x957+5+7' },
-    @{ Name='repair_basin'; Crop='530x957+540+7' },
-    @{ Name='command_docks'; Crop='530x957+1082+7' }
+    @{ Name='outer_breakwater'; Crop='640x1024+0+0' },
+    @{ Name='repair_basin'; Crop='640x1024+640+0' },
+    @{ Name='command_docks'; Crop='640x1024+1280+0' }
 )
 for ($Index=0; $Index -lt $Sections.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
-    & $MagickPath $Source -crop $Sections[$Index].Crop +repage -resize '640x1024!' -colorspace sRGB -depth 8 $Raw
+    # Dock plating, rails, tetrapods and machinery are authored at runtime width.
+    # The former 522-530px panels were visibly softened and widened by enlargement.
+    & $MagickPath $Source -crop $Sections[$Index].Crop +repage -colorspace sRGB -depth 8 $Raw
     if ($LASTEXITCODE -ne 0) { throw "Failed to register harbor section $Index" }
 }
 
