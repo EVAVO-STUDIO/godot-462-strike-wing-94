@@ -1641,7 +1641,19 @@ func _try_spawn_boss() -> void:
 	var boss := _find_enemy_archetype(current_boss_id)
 	if not boss.is_empty():
 		boss_spawned = true
+		_stage_boss_arrival(current_boss_id)
 		_spawn_enemy(boss)
+
+func _stage_boss_arrival(boss_id: String) -> void:
+	var stationed: Array = []
+	for enemy in enemies:
+		if typeof(enemy) != TYPE_DICTIONARY or not BossRules.arrival_clears_enemy(boss_id, enemy):
+			stationed.append(enemy)
+	enemies = stationed
+	enemy_bullets.clear()
+	enemy_spawn_timer = maxf(enemy_spawn_timer, 4.0)
+	status_text = "COMMAND CONTACT // %s" % boss_id.replace("_", " ").to_upper()
+	status_timer = 2.4
 
 func _boss_alive() -> bool:
 	for enemy in enemies:

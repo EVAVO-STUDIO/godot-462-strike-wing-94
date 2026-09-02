@@ -20,6 +20,15 @@ const PRESENTATION_HEIGHT := {
 static func entry_center_y(boss_id: String) -> float:
 	return HUD_CLEARANCE_Y + float(PRESENTATION_HEIGHT.get(boss_id, 92.0)) * 0.5
 
+static func arrival_clears_enemy(boss_id: String, enemy: Dictionary) -> bool:
+	# Air-command bosses take possession of the combat lane: surviving aircraft
+	# peel away before the command hull enters, while terrain-bound emplacements
+	# remain part of the battlefield. This produces a readable arcade reveal
+	# without erasing grounded mission targets.
+	if boss_id != "gunship_alpha" or bool(enemy.get("boss", false)):
+		return false
+	return str(enemy.get("category", "air")) == "air"
+
 static func phase_for(hp: int, max_hp: int) -> int:
 	if max_hp <= 0:
 		return 1

@@ -11,6 +11,9 @@ func _initialize() -> void:
 	_expect(is_equal_approx(BossRules.entry_center_y("gunship_alpha"), 115.0), "Gunship Alpha should clear the integrated HUD with its full 78-pixel silhouette")
 	_expect(is_equal_approx(BossRules.entry_center_y("missile_cruiser"), 153.0), "tall naval command hulls should derive a deeper entry center from their reviewed canvas")
 	_expect(BossRules.entry_center_y("machine_ark") > BossRules.entry_center_y("gunship_alpha"), "larger late bosses should reserve proportionally more HUD clearance")
+	_expect(BossRules.arrival_clears_enemy("gunship_alpha", {"category":"air"}), "Gunship Alpha should take possession of the air lane for a readable command entrance")
+	_expect(not BossRules.arrival_clears_enemy("gunship_alpha", {"category":"ground"}), "ground emplacements should remain active beneath the command entrance")
+	_expect(not BossRules.arrival_clears_enemy("armoured_train", {"category":"air"}), "boss-specific arrival staging should not silently erase escorts in unrelated encounters")
 	for phase_name in ["phase_1", "phase_2", "phase_3"]:
 		var frame := load("res://assets/runtime/ui/hud/boss_phase_bar/%s.png" % phase_name)
 		var fill := load("res://assets/runtime/ui/hud/boss_phase_bar/%s_fill.png" % phase_name)
@@ -26,6 +29,7 @@ func _initialize() -> void:
 	_expect(main_source.contains('BossRules.entry_center_y(str(archetype.get("id", "")))') and main_source.contains("position.y = minf(position.y, entry_center_y)"), "boss spawning and entry movement should consume the canvas-aware HUD clearance without overshoot")
 	_expect(main_source.contains('enemy["entry_ready"] = position.y >= entry_center_y - 0.01') and main_source.contains('not is_boss or bool(enemy.get("entry_ready", false))'), "bosses should become attack-active only after their complete entrance silhouette is stationed")
 	_expect(source.contains('bool(enemy.get("entry_ready", true))'), "integrated boss HUD should reveal only after the command hull clears its entrance lane")
+	_expect(main_source.contains("_stage_boss_arrival(current_boss_id)") and main_source.contains("enemy_bullets.clear()") and main_source.contains('status_text = "COMMAND CONTACT // %s"'), "boss arrival should clear stale airborne crossfire and announce command contact before the hull enters")
 	if failures.is_empty():
 		print("HYPERSONIC integrated boss HUD self-test passed.")
 		quit(0)

@@ -27,7 +27,12 @@ func _process(_delta: float) -> void:
 	if phase == 1 and _last_phase != 1:
 		_next_beat_index = 0
 	if phase == 1:
-		_apply_due_beats(scene)
+		if scene.has_method("_boss_alive") and bool(scene.call("_boss_alive")):
+			# Once command contact owns the lane, delayed escort beats must not
+			# materialize behind it (including after a fast-forwarded QA start).
+			_next_beat_index = EncounterRules.beats_for_mission(_active_mission(scene)).size()
+		else:
+			_apply_due_beats(scene)
 	_last_phase = phase
 
 func _supports(scene: Object) -> bool:
