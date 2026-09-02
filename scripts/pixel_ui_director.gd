@@ -723,15 +723,15 @@ func _draw_mode_run_state(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_text(surface, "%08d" % run_score, position + Vector2(151, 7), 1, TEXT, 1)
 
 func _draw_secret_discovery(surface: CanvasItem, status: String, remaining: float) -> void:
-	var position := Vector2(120, 108)
-	var age := maxf(0.0, 2.4 - remaining)
+	var position := Vector2(160, 38)
+	var age := maxf(0.0, 1.4 - remaining)
 	var frame_index := posmod(int(floor(age * 5.0)), SECRET_DISCOVERY_FX.size())
 	var reveal_step := clampi(int(floor(age / 0.045)), 0, 4)
-	position.y -= float(4 - reveal_step) * 2.0
+	position.y -= float(4 - reveal_step)
 	surface.draw_texture(SECRET_DISCOVERY_FRAME, position)
 	surface.draw_texture(SECRET_DISCOVERY_FX[frame_index], position)
-	PixelFont.draw_text(surface, "ENCRYPTED VECTOR // ACQUIRED", position + Vector2(46, 8), 1, BLUE, 1)
-	PixelFont.draw_text(surface, _clip(status.trim_prefix("SECRET - "), 45), position + Vector2(46, 25), 2, GOLD, 1)
+	PixelFont.draw_text(surface, "VECTOR ACQUIRED", position + Vector2(36, 7), 1, BLUE, 1)
+	PixelFont.draw_text(surface, _clip(status.trim_prefix("SECRET - "), 43), position + Vector2(36, 17), 1, GOLD, 1)
 
 func _draw_mission_ingress(surface: CanvasItem, scene: Object) -> void:
 	if _ingress_time <= 0.0:

@@ -131,7 +131,7 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	elif intercept_priority:
 		suffix += "  INTERCEPT TARGETS"
 	scene.set("status_text", "%s%s%s" % [prefix, EncounterRules.label(beat), suffix])
-	scene.set("status_timer", 2.4 if EncounterRules.is_secret(beat) else 2.2)
+	scene.set("status_timer", 1.4 if EncounterRules.is_secret(beat) else 1.6)
 
 func _has_property(object: Object, property_name: String) -> bool:
 	return SceneContractCache.has_property(object, property_name)
