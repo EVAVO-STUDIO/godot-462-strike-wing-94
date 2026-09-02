@@ -7,6 +7,11 @@ const CraftFormRules = preload("res://scripts/craft_form_rules.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
+const AIRCRAFT_NAVIGATION_LIGHTS := {
+	"port": preload("res://assets/runtime/effects/aircraft_navigation_lights/port_red.png"),
+	"starboard": preload("res://assets/runtime/effects/aircraft_navigation_lights/starboard_green.png"),
+	"strobe": preload("res://assets/runtime/effects/aircraft_navigation_lights/anti_collision_white.png"),
+}
 const VX94_GAMEPLAY_FORMS := [
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png"),
 	preload("res://assets/runtime/craft/vx94/gameplay/vx94_transform_01.png"),
@@ -1399,7 +1404,7 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 	_render_airframe_weapon_discharge(surface, p, enemy_id, enemy, visible_hull)
 
 func _render_mercenary_position_lights(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
-	if not MERCENARY_AIR_SPRITES.has(enemy_id):
+	if not MERCENARY_AIR_SPRITES.has(enemy_id) and enemy_id != "gunship_alpha":
 		return
 	# Human aircraft retain subdued real-world navigation lamps rather than a
 	# full HUD outline. At native resolution these two-pixel clusters keep the
@@ -1409,16 +1414,16 @@ func _render_mercenary_position_lights(surface: CanvasItem, p: Vector2, enemy_id
 	var lamp_y := p.y + clampf(hull.get_height() * 0.03, 1.0, 2.0)
 	var left := Vector2(roundf(p.x - half_span), roundf(lamp_y))
 	var right := Vector2(roundf(p.x + half_span), roundf(lamp_y))
-	surface.draw_rect(Rect2(left - Vector2.ONE, Vector2(3, 3)), Color(0.74, 0.06, 0.03, 0.20))
-	surface.draw_rect(Rect2(right - Vector2.ONE, Vector2(3, 3)), Color(0.03, 0.46, 0.28, 0.18))
-	surface.draw_rect(Rect2(left, Vector2.ONE), Color(1.0, 0.32, 0.16, 0.94))
-	surface.draw_rect(Rect2(right, Vector2.ONE), Color(0.30, 1.0, 0.64, 0.90))
+	_draw_registered_navigation_light(surface, left, AIRCRAFT_NAVIGATION_LIGHTS["port"])
+	_draw_registered_navigation_light(surface, right, AIRCRAFT_NAVIGATION_LIGHTS["starboard"])
 	var age := float(enemy.get("age", 0.0))
 	var phase := float(enemy.get("phase", 0.0))
 	if fposmod(age + phase * 0.09, 1.18) < 0.09:
 		var strobe := Vector2(roundf(p.x), roundf(p.y - hull.get_height() * 0.22))
-		surface.draw_rect(Rect2(strobe - Vector2.ONE, Vector2(3, 3)), Color(0.76, 0.86, 0.92, 0.18))
-		surface.draw_rect(Rect2(strobe, Vector2.ONE), Color(0.90, 0.97, 1.0, 0.96))
+		_draw_registered_navigation_light(surface, strobe, AIRCRAFT_NAVIGATION_LIGHTS["strobe"])
+
+func _draw_registered_navigation_light(surface: CanvasItem, center: Vector2, texture: Texture2D) -> void:
+	surface.draw_texture(texture, (center - Vector2(2.0, 2.0)).round())
 
 static func hostile_bank_frame_index(bank: float) -> int:
 	if bank < -0.24:
@@ -1806,6 +1811,8 @@ func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, en
 		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % critical_frames.size()
 		_draw_production_sprite(surface, p, critical_frames[frame_index])
 	_draw_mercenary_boss_mechanics(surface, p, enemy_id, enemy)
+	if enemy_id == "gunship_alpha":
+		_render_mercenary_position_lights(surface, p, enemy_id, enemy, texture)
 
 func _draw_machine_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
 	if not MACHINE_BOSS_SPECIALIST_ART.has(enemy_id):

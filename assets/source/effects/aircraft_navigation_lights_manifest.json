@@ -1,0 +1,15 @@
+{
+  "asset_family": "aircraft_navigation_lights_v1",
+  "builder": "res://tools/build_aircraft_navigation_lights.ps1",
+  "runtime_directory": "res://assets/runtime/effects/aircraft_navigation_lights/",
+  "canvas": [5, 5],
+  "registration": [2, 2],
+  "sprites": ["port_red", "starboard_green", "anti_collision_white"],
+  "direction": "restrained late-1990s military position lamps with a one-pixel hot core and bounded asymmetric-color halo",
+  "runtime": {
+    "port_red": "steady wingtip exposure",
+    "starboard_green": "steady wingtip exposure",
+    "anti_collision_white": "held 0.09 second exposure in a 1.18 second deterministic cycle"
+  },
+  "reject": ["vector rectangles", "full-airframe neon outline", "subpixel filtering", "random flicker"]
+}

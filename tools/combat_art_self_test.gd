@@ -444,6 +444,12 @@ func _test_visual_language() -> void:
 		var component := load("res://assets/runtime/enemies/mercenary_boss_layered/%s.png" % component_id)
 		_expect(component is Texture2D and component.get_size()==layered_mercenary_boss_sizes[component_id],"layered mercenary-boss mechanism should retain its registered pivot canvas: %s" % component_id)
 	_expect(source.contains('argument.begins_with("--capture-boss=")') and source.contains('_capture_boss_state() == "mercenary"') and source.contains("_render_mercenary_boss_capture"),"visual QA should expose isolated conventional boss phase, recoil, engine, vent and missile-cell fixtures")
+	_expect(source.contains("AIRCRAFT_NAVIGATION_LIGHTS") and source.contains("_draw_registered_navigation_light") and not source.contains("surface.draw_rect(Rect2(left") and not source.contains("surface.draw_rect(Rect2(strobe"),"human aircraft navigation lamps should use authored registered raster clusters rather than vector programmer marks")
+	_expect(source.contains('enemy_id != "gunship_alpha"') and source.contains('if enemy_id == "gunship_alpha":\n\t\t_render_mercenary_position_lights'),"Gunship Alpha should share the restrained military navigation-light language with the conventional airframe family")
+	for light_id in ["port_red", "starboard_green", "anti_collision_white"]:
+		var light := load("res://assets/runtime/effects/aircraft_navigation_lights/%s.png" % light_id)
+		_expect(light is Texture2D and light.get_size() == Vector2(5,5), "aircraft navigation light should retain its five-pixel registered canvas: %s" % light_id)
+	_expect(FileAccess.file_exists("res://assets/source/effects/aircraft_navigation_lights_manifest.json"),"aircraft navigation light source/runtime manifest should exist")
 	_expect(source.contains('definition["barrel_recoil"]') and source.contains('definition["engines"]') and source.contains('definition["bogies"]') and source.contains('definition["damage"]'),"mercenary bosses should expose independently animated weapon, propulsion and damage mechanisms")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/mercenary_boss_layered/mercenary_boss_layered_manifest.json"),"layered mercenary-boss source/runtime manifest should exist")
 	var machine_boss_sizes := {
