@@ -1,7 +1,8 @@
 {
   "family": "city_outskirts_modular_geography",
-  "status": "runtime_registered_v1",
-  "production_method": "built-in image generation source sheets with deterministic ImageMagick crop, registration, shared-boundary finishing and alpha reconstruction",
+  "status": "runtime_registered_v2_native_width",
+  "source": "res://assets/source/environments/city_chunks/city_geography_source_v2.png",
+  "production_method": "built-in image generation expanded the reviewed city districts into a native-width 1920x1024 master; deterministic ImageMagick registration, shared-boundary finishing and alpha reconstruction export each district without enlargement",
   "chunks": [
     {"id":"freight_belt","role":"abandoned rail and freight approach","size":[640,1024]},
     {"id":"flooded_underpass","role":"evacuated civic transport choke point","size":[640,1024]},
@@ -11,6 +12,6 @@
   "cycle_height": 3072,
   "assembly": {
     "base_order":["geography_chunk","world_registered_utility_activity","finite_rail_hub_and_targets","smoke_and_weather","cloud_shadow","cloud_body"],
-    "rules":["Trains, vehicles and complete rail hubs remain separate layers.","Every chunk preserves a broad north-south attack corridor.","Adjacent chunks close at zero scanline error.","Recognizable junctions do not repeat at the former 720-pixel interval."]
+    "rules":["Trains, vehicles and complete rail hubs remain separate layers.","Every chunk preserves a broad north-south attack corridor.","Adjacent chunks close at zero scanline error.","Recognizable junctions do not repeat at the former 720-pixel interval.","Every city district enters the build at its final 640-pixel runtime width; the builder may not enlarge an undersized plate.","Native low-altitude captures must preserve crisp rails, road paint, concrete joints, pipes and roof machinery without widened proportions."]
   }
 }

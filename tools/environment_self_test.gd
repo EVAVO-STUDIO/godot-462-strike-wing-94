@@ -443,6 +443,10 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/city_asset_manifest.json"), "city source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/city_chunks/city_geography_manifest.json"), "city geography/activity source and assembly manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_city_geography_art.ps1"), "city geography should retain a reproducible registered builder")
+		var city_master := load("res://assets/source/environments/city_chunks/city_geography_source_v2.png") as Texture2D
+		_expect(city_master != null and city_master.get_size() == Vector2(1920,1024), "city master should provide three native 640x1024 districts without runtime enlargement")
+		var city_builder := FileAccess.get_file_as_string("res://tools/build_city_geography_art.ps1")
+		_expect(city_builder.contains("city_geography_source_v2.png") and city_builder.contains("640x1024+1280+0") and not city_builder.contains("-resize '640x1024!'"), "city build should crop native-width districts instead of stretching undersized plates")
 		_expect(FileAccess.file_exists("res://tools/build_city_rail_hub_art.ps1"), "city rail hub should retain a reproducible source finisher")
 		var city_manifest = ContentCatalog.load_json("res://assets/source/environments/city_chunks/city_geography_manifest.json")
 		_expect(typeof(city_manifest) == TYPE_DICTIONARY and city_manifest.get("chunks", []).size() == 3, "city manifest should register three distinct 1024px districts")

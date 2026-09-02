@@ -1,7 +1,7 @@
 param([string]$MagickPath = 'C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\magick.exe')
 $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
-$Source = Join-Path $RepoRoot 'assets\source\environments\city_chunks\city_geography_source_v1.png'
+$Source = Join-Path $RepoRoot 'assets\source\environments\city_chunks\city_geography_source_v2.png'
 $ActivitySource = Join-Path $RepoRoot 'assets\source\environments\city_chunks\city_activity_source_v1.png'
 $Output = Join-Path $RepoRoot 'assets\runtime\environments\city_chunks'
 $ActivityOutput = Join-Path $RepoRoot 'assets\runtime\environments\city_activity_animation'
@@ -12,13 +12,15 @@ foreach ($Required in @($Source,$ActivitySource)) { if (-not (Test-Path -Literal
 New-Item -ItemType Directory -Force -Path $Output,$ActivityOutput,$Work | Out-Null
 
 $Sections = @(
-    @{ Name='freight_belt'; Crop='496x1008+8+8' },
-    @{ Name='flooded_underpass'; Crop='496x1008+520+8' },
-    @{ Name='machine_foundations'; Crop='496x1008+1032+8' }
+    @{ Name='freight_belt'; Crop='640x1024+0+0' },
+    @{ Name='flooded_underpass'; Crop='640x1024+640+0' },
+    @{ Name='machine_foundations'; Crop='640x1024+1280+0' }
 )
 for ($Index=0; $Index -lt $Sections.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
-    & $MagickPath $Source -crop $Sections[$Index].Crop +repage -resize '640x1024!' -colorspace sRGB -depth 8 $Raw
+    # City rail, road and machinery detail is authored at final runtime width.
+    # Enlarging the former 496px panels softened markings and widened structures.
+    & $MagickPath $Source -crop $Sections[$Index].Crop +repage -colorspace sRGB -depth 8 $Raw
     if ($LASTEXITCODE -ne 0) { throw "Failed to register city section $Index" }
 }
 $Connector = Join-Path $Work 'shared_connector.png'
