@@ -28,7 +28,7 @@
   "scroll_contract": {
 	"neutral_fallback": ["sea_deep_tile beneath the mission biome stack; two-piece vertical wrap; no exposed programmer grid"],
     "open_sea": ["deep swell", "surface chop", "sparse foam crest", "rain", "discrete cloud banks with registered undercasts"],
-    "coast": ["authored terrain", "water surface", "discrete cloud banks with registered undercasts"],
+    "coast": ["authored terrain", "sparse transparent moving wavelet clusters without a full-field lattice", "registered six-phase shore breakers", "discrete cloud banks with registered undercasts"],
     "weather": ["discrete cloud banks with registered offset undercasts", "independent wind shear", "no opaque full-field cloud plates"],
     "refinery": ["authored plant", "independent machinery and practical lights"],
     "desert": ["authored terrain", "independent dust and vehicle scars"],

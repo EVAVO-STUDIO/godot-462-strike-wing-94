@@ -5,7 +5,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $InputDirectory = Join-Path $RepoRoot 'assets\runtime\environments\coast_chunks'
-$OutputDirectory = Join-Path $RepoRoot 'assets\runtime\environments\coast_breaker_animation'
+$OutputDirectory = Join-Path $RepoRoot 'assets\runtime\environments\coast_breaker_animation_v2'
 $BuildDirectory = Join-Path $RepoRoot 'work\coast_breaker_build'
 $Review = Join-Path $RepoRoot 'work\coast_breaker_animation_review.png'
 
@@ -45,6 +45,8 @@ foreach ($District in $Districts) {
         $Opacity = [double]$Phase.Opacity
         $Edge = Join-Path $BuildDirectory "$($District)_edge_$PhaseIndex.png"
         $Texture = Join-Path $BuildDirectory "$($District)_texture_$PhaseIndex.png"
+        $RawAlpha = Join-Path $BuildDirectory "$($District)_raw_alpha_$PhaseIndex.png"
+        $CoastalMass = Join-Path $BuildDirectory "$($District)_coastal_mass_$PhaseIndex.png"
         $Alpha = Join-Path $BuildDirectory "$($District)_alpha_$PhaseIndex.png"
         $Destination = Join-Path $OutputDirectory "$($District)_$PhaseIndex.png"
 
@@ -53,7 +55,12 @@ foreach ($District in $Districts) {
         # Blend a dependable contact crest with plate-derived foam variation,
         # then taper only at district boundaries. The exact transparent boundary
         # rows make every adjacent district and final-to-first join AE=0.
-        & $MagickPath $Edge -evaluate multiply '0.58' $Texture -evaluate multiply '0.42' -compose plus -composite -channel R -evaluate multiply $Opacity +channel $Alpha
+        & $MagickPath $Edge -evaluate multiply '0.58' $Texture -evaluate multiply '0.42' -compose plus -composite -channel R -evaluate multiply $Opacity +channel $RawAlpha
+        # Fragmented water-mask pixels used to become conspicuous 15px diamond
+        # islands far offshore. Preserve only the connected coastal foam mass,
+        # then reapply the original soft alpha so the breaker edge stays organic.
+        & $MagickPath $RawAlpha -threshold '2%' -define 'connected-components:area-threshold=400' -define 'connected-components:mean-color=true' -connected-components 8 -threshold '50%' $CoastalMass
+        & $MagickPath $RawAlpha $CoastalMass -compose multiply -composite $Alpha
         & $MagickPath -size '640x1024' canvas:'#b9dfe6' $Alpha -alpha off -compose CopyOpacity -composite -channel A -fx 'a*min(1,j/16)*min(1,(h-1-j)/16)' +channel -depth 8 $Destination
         if ($LASTEXITCODE -ne 0) { throw "Failed to build $District breaker phase $PhaseIndex" }
     }

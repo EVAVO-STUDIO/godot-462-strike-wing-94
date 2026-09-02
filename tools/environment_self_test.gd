@@ -115,6 +115,8 @@ func _initialize() -> void:
 		var coast_builder := FileAccess.get_file_as_string("res://tools/build_coast_geography_art.ps1")
 		_expect(coast_builder.contains("coast_geography_source_v3.png") and coast_builder.contains('640x1024+$($Index * 640)+0') and not coast_builder.contains("-resize '640x1024!'"), "coast build should crop native-width panels instead of stretching undersized plates")
 		_expect(FileAccess.file_exists("res://tools/build_coast_geography_art.ps1") and FileAccess.file_exists("res://tools/test_environment_seams.ps1"), "coast geography should retain reproducible build and seam-gate tooling")
+		var breaker_builder := FileAccess.get_file_as_string("res://tools/build_coast_breaker_animation.ps1")
+		_expect(breaker_builder.contains("coast_breaker_animation_v2") and breaker_builder.contains("connected-components:area-threshold=400") and breaker_builder.contains("connected-components:mean-color=true"), "breaker build should remove disconnected offshore diamond artifacts while retaining the coastal foam mass")
 		var coast_geography_manifest = ContentCatalog.load_json("res://assets/source/environments/coast_chunks/coast_geography_manifest.json")
 		_expect(typeof(coast_geography_manifest) == TYPE_DICTIONARY and coast_geography_manifest.get("chunks", []).size() == 6 and int(coast_geography_manifest.get("cycle_height", 0)) == 6144, "coast geography manifest should register six distinct 1024px districts")
 		var coast_geography_names := ["seawall_run", "defended_inlet", "reef_cliffs", "stormbreak_causeway", "tidal_radar_marsh", "submarine_pen_headland"]
@@ -131,7 +133,7 @@ func _initialize() -> void:
 				_expect(outgoing.get_pixel(sample_x,1023).is_equal_approx(incoming.get_pixel(sample_x,0)), "adjacent coast chunks must close without a hypersonic seam: %d x=%d" % [chunk_index,sample_x])
 		for breaker_name in coast_geography_names:
 			for frame_index in range(6):
-				var breaker_texture := load("res://assets/runtime/environments/coast_breaker_animation/%s_%d.png" % [breaker_name, frame_index]) as Texture2D
+				var breaker_texture := load("res://assets/runtime/environments/coast_breaker_animation_v2/%s_%d.png" % [breaker_name, frame_index]) as Texture2D
 				_expect(breaker_texture != null and breaker_texture.get_size() == Vector2(640,1024), "coast breaker frame should retain district registration: %s %d" % [breaker_name,frame_index])
 				if breaker_texture != null:
 					var breaker_image := breaker_texture.get_image()
@@ -244,6 +246,7 @@ func _initialize() -> void:
 				for sample_x in range(0,layer_image.get_width(),32):
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "environment renderer should use independent authored temporal sea depth layers")
+		_expect(source.contains("COAST_WAVELETS") and source.contains("func _draw_coast_wavelets") and not source.contains("COAST_SURFACE_TILE"), "coastal water motion should use sparse transparent wavelets instead of a repeating full-field lattice")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
 		_expect(not source.contains("CLOUD_SHADOW_TILE") and not source.contains("CLOUD_MIST_TILE"), "cloud depth should not regress to opaque full-field plates that reveal horizontal bands at hypersonic speed")
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_ANIMATION", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_ANIMATION"]:
@@ -434,7 +437,7 @@ func _initialize() -> void:
 			if turbulence_frame != null: _expect(turbulence_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "cloud-top turbulence frame must retain genuine alpha: %d" % frame_index)
 		_expect(source.contains("CLOUD_TOP_TURBULENCE_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('slot.get("world_y", 0.0)') and source.contains("route_height"), "cloud-top turbulence should use held frames registered to data-authored world coordinates")
 		_expect(source.contains('_world_distance(scene) * 20.0') and source.contains('environment_world_distance'), "cloud-top geography should consume integrated world distance instead of multiplying the current speed by all elapsed mission time")
-		_expect(source.contains('var surface_scroll := fposmod(_world_distance(scene)') and source.contains('var travel := _world_distance(scene)') and source.contains('travel * 21.0'), "coast material, wakes, parallax accents and cloud banks should share integrated world travel without speed re-phasing")
+		_expect(source.contains('func _draw_coast_wavelets') and source.contains('var travel := _world_distance(scene)') and source.contains('travel * 21.0'), "coast wavelets, wakes, parallax accents and cloud banks should share integrated world travel without speed re-phasing")
 		var coast_travel_section := source.substr(source.find("func _draw_coast"), source.find("func _draw_texture_rect_clipped") - source.find("func _draw_coast"))
 		_expect(not coast_travel_section.contains("t * _parallax_speed") and not coast_travel_section.contains("t * 21.0"), "coastal spatial layers must not multiply elapsed mission time by the current speed")
 		var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")

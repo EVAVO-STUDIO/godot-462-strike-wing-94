@@ -1,0 +1,28 @@
+{
+  "asset_family": "coast_sparse_wavelets_v1",
+  "status": "runtime",
+  "source_method": "directed raster edit followed by alpha extraction and native in-game inspection",
+  "runtime_directory": "res://assets/runtime/environments/motion/",
+  "assets": {
+    "coast_wavelet_a.png": [144, 48],
+    "coast_wavelet_b.png": [128, 48],
+    "coast_wavelet_c.png": [160, 48]
+  },
+  "registration": {
+    "pivot": "top_left",
+    "render_scale": [0.34, 0.46],
+    "loop_axis": "world_space_vertical",
+    "cycle_pixels": 1380,
+    "placement": "open-water side of authored coastline only"
+  },
+  "visual_contract": {
+    "purpose": "independent small-scale ocean motion above the authored coastal plate",
+    "avoid": [
+      "full-field wallpaper",
+      "diagonal diamond lattice",
+      "moire against base water",
+      "opaque rectangle",
+      "repeated focal motif"
+    ]
+  }
+}

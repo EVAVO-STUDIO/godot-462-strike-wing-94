@@ -64,7 +64,7 @@ for ($Index = 0; $Index -lt $Chunks.Count; $Index++) {
     Assert-Vertical-Seam $First $Second "coast_$Index"
 }
 
-$CoastBreakerDirectory = Join-Path $RepoRoot 'assets\runtime\environments\coast_breaker_animation'
+$CoastBreakerDirectory = Join-Path $RepoRoot 'assets\runtime\environments\coast_breaker_animation_v2'
 for ($Phase = 0; $Phase -lt 6; $Phase++) {
     for ($Index = 0; $Index -lt $Chunks.Count; $Index++) {
         $FirstName = [IO.Path]::GetFileNameWithoutExtension($Chunks[$Index])
