@@ -63,7 +63,8 @@ func _test_visual_language() -> void:
 		_expect(gameplay_form is Texture2D and gameplay_form.get_size() == Vector2(64,72), "VX-94 gameplay form should retain reviewed 64x72 geometry: %s" % frame_path)
 	for bank_path in ["fighter_hard_left.png", "fighter_left.png", "fighter_neutral.png", "fighter_right.png", "fighter_hard_right.png", "bomber_hard_left.png", "bomber_left.png", "bomber_neutral.png", "bomber_right.png", "bomber_hard_right.png"]:
 		var bank_frame := load("res://assets/runtime/craft/vx94/gameplay/bank/%s" % bank_path)
-		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(64,72), "VX-94 bank frame should retain reviewed 64x72 geometry: %s" % bank_path)
+		_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(64,72) and bank_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 bank frame should retain reviewed transparent 64x72 geometry: %s" % bank_path)
+	_expect(FileAccess.file_exists("res://tools/build_vx94_bank_art.ps1") and FileAccess.file_exists("res://assets/source/craft/vx94/vx94_bank_family_v2_manifest.json"), "VX-94 bank poses should retain their canonical-planform builder and source/runtime contract")
 	_expect(source.contains("_bank_visual < -0.78") and source.contains("_bank_visual > 0.78"), "VX-94 hard-bank art should engage only during committed lateral input")
 	_expect(source.contains('argument.begins_with("--capture-bank=")') and source.contains('"hard-left": bank_target = -1.0') and source.contains('"hard-right": bank_target = 1.0'), "visual QA should expose deterministic VX-94 bank fixtures")
 	for form in ["fighter", "bomber"]:

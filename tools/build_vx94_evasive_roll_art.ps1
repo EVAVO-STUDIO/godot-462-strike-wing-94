@@ -59,4 +59,38 @@ foreach ($Pair in $RecoveryPairs) {
     if ($LASTEXITCODE -ne 0) { throw "Failed to reconstruct evasive-roll recovery frame $DestinationIndex." }
 }
 
-Write-Host 'Built 20 registered HYPERSONIC VX-94 evasive-roll frames through EVAVO Sprite Studio.'
+# The edge-on source studies retain a detached guide/matte fleck in the first
+# few rows. Clear only those rows on the affected poses; the nose begins lower
+# in these frames, so aircraft pixels are preserved.
+foreach ($Index in @(5,6,7,8,9,15,16,17)) {
+    $Frame = Join-Path $Runtime ('roll_{0:d2}.png' -f $Index)
+    & $Magick $Frame -channel A -fill black -draw 'rectangle 0,0 63,7' +channel -depth 8 $Frame
+    if ($LASTEXITCODE -ne 0) { throw "Failed to remove detached matte from evasive-roll frame $Index." }
+}
+
+# Direction is authored into runtime art rather than simulated by reversing
+# the temporal order. Both rolls therefore start and recover on the same exact
+# neutral exposures, with every intermediate pose mirrored around the fixed
+# gameplay anchor and no runtime bitmap rotation.
+for ($Index = 0; $Index -lt $PoseCrops.Count; $Index++) {
+    $LeftFrame = Join-Path $Runtime ('roll_{0:d2}.png' -f $Index)
+    $RightFrame = Join-Path $Runtime ('roll_right_{0:d2}.png' -f $Index)
+    & $Magick $LeftFrame -flop -depth 8 $RightFrame
+    if ($LASTEXITCODE -ne 0) { throw "Failed to author right evasive-roll frame $Index." }
+}
+
+# Bomber form keeps the same real volumetric studies but carries a deliberately
+# broader projected wing area. Width contracts at the two edge-on passages and
+# opens again over the darker underside, avoiding a flat constant-width squash.
+$BomberWidths = @(44,43,41,38,34,28,22,18,22,29,43,46,47,46,43,29,18,22,34,44)
+for ($Index = 0; $Index -lt $PoseCrops.Count; $Index++) {
+    foreach ($DirectionTag in @('', '_right')) {
+        $SourceFrame = Join-Path $Runtime ("roll$($DirectionTag)_{0:d2}.png" -f $Index)
+        $DestinationFrame = Join-Path $Runtime ("bomber_roll$($DirectionTag)_{0:d2}.png" -f $Index)
+        $Width = $BomberWidths[$Index]
+        & $Magick $SourceFrame -trim +repage -filter point -resize "$($Width)x64>" -gravity center -background none -extent '64x72' -colors 48 -dither None -depth 8 $DestinationFrame
+        if ($LASTEXITCODE -ne 0) { throw "Failed to author bomber evasive-roll frame $DirectionTag $Index." }
+    }
+}
+
+Write-Host 'Built 80 registered HYPERSONIC VX-94 fighter/bomber left/right evasive-roll frames through EVAVO Sprite Studio.'

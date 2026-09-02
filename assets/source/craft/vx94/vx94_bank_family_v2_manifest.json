@@ -1,9 +1,10 @@
 {
-  "schema_version": 1,
-  "asset_id": "vx94_fighter_bank_family_v2",
-  "role": "player_craft_bank_pose_family",
-  "source_master": "vx94_bank_family_v2_chroma_master.png",
-  "source_mode": "built_in_image_generation_then_deterministic_chroma_cleanup",
+  "schema_version": 2,
+  "asset_id": "vx94_bank_family_v3",
+  "role": "player_craft_fighter_and_bomber_bank_pose_families",
+  "source_master": "res://assets/runtime/craft/vx94/gameplay/vx94_fighter_v1.png and vx94_bomber_v1.png",
+  "source_mode": "canonical planforms split into registered fuselage and outboard structures; deterministic asymmetric foreshortening, vertical displacement and directional material lighting",
+  "builder": "res://tools/build_vx94_bank_art.ps1",
   "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/bank",
   "runtime_geometry": [64, 72],
   "gameplay_anchor": [32, 38],
@@ -13,20 +14,25 @@
   "collision_contract": "Collision remains owned by player gameplay rules and is not derived from the expanded painted silhouette.",
   "pose_selection": "Held authored poses selected by lateral input; sprites are never rotated at runtime.",
   "palette": {
-    "maximum_colors_per_runtime_frame": 56,
+    "maximum_colors_per_runtime_frame": 48,
     "dithering": false,
     "materials": ["cool white composite", "navy recess", "blue canopy", "orange engine", "red warning mark"]
   },
   "frames": [
-    {"file": "fighter_hard_left.png", "bank": -1.0, "visible_bounds": [31, 60]},
-    {"file": "fighter_left.png", "bank": -0.52, "visible_bounds": [30, 60]},
-    {"file": "fighter_neutral.png", "bank": 0.0, "visible_bounds": [33, 60]},
-    {"file": "fighter_right.png", "bank": 0.52, "visible_bounds": [30, 60]},
-    {"file": "fighter_hard_right.png", "bank": 1.0, "visible_bounds": [30, 60]}
+    {"file": "fighter_hard_left.png", "bank": -1.0, "visible_bounds": [23, 60]},
+    {"file": "fighter_left.png", "bank": -0.52, "visible_bounds": [21, 60]},
+    {"file": "fighter_neutral.png", "bank": 0.0, "visible_bounds": [29, 60]},
+    {"file": "fighter_right.png", "bank": 0.52, "visible_bounds": [27, 60]},
+    {"file": "fighter_hard_right.png", "bank": 1.0, "visible_bounds": [23, 60]},
+    {"file": "bomber_hard_left.png", "bank": -1.0, "visible_bounds": [43, 52]},
+    {"file": "bomber_left.png", "bank": -0.52, "visible_bounds": [43, 52]},
+    {"file": "bomber_neutral.png", "bank": 0.0, "visible_bounds": [51, 52]},
+    {"file": "bomber_right.png", "bank": 0.52, "visible_bounds": [49, 52]},
+    {"file": "bomber_hard_right.png", "bank": 1.0, "visible_bounds": [43, 52]}
   ],
   "acceptance": [
     "All frames retain identical 64x72 canvas and gameplay anchor.",
-    "Hard banks retain at least 30 pixels of visible width.",
+    "Fighter hard banks retain at least 23 pixels and bomber hard banks at least 43 pixels of visible width.",
     "Banking reads through foreshortening, volume and lighting rather than bitmap rotation.",
     "Runtime alpha is genuine transparency with no chroma residue.",
     "Native 640x360 Coastal Intercept captures remain readable over land, shore and sea."

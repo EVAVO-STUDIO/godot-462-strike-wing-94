@@ -1,0 +1,24 @@
+{
+  "schema_version": 2,
+  "asset_id": "vx94_evasive_roll_directional_v2",
+  "source": "res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_source_v1.png",
+  "cleanup_contract": "res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_cleanup.sprite.json",
+  "builder": "res://tools/build_vx94_evasive_roll_art.ps1",
+  "runtime_directory": "res://assets/runtime/craft/vx94/evasive_roll/",
+  "frame_size": [64, 72],
+  "gameplay_anchor": [32, 38],
+  "frames_per_form_direction": 20,
+  "families": {
+    "fighter_left": "roll_00.png through roll_19.png",
+    "fighter_right": "roll_right_00.png through roll_right_19.png",
+    "bomber_left": "bomber_roll_00.png through bomber_roll_19.png",
+    "bomber_right": "bomber_roll_right_00.png through bomber_roll_right_19.png"
+  },
+  "rules": [
+    "Every exposure is a volumetric aircraft pose; no runtime sprite rotation is permitted.",
+    "Left and right sequences advance in the same temporal direction and recover through their own final exposure.",
+    "The registered 64x72 canvas and 32,38 gameplay anchor remain fixed across all eighty frames.",
+    "Bomber exposure width expands face-up and underside but contracts at both edge-on passages.",
+    "Detached guide and chroma-matte fragments are removed before runtime export."
+  ]
+}

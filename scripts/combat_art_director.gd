@@ -724,6 +724,43 @@ const VX94_EVASIVE_ROLL := [
 	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_16.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_17.png"),
 	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_18.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_19.png"),
 ]
+const VX94_EVASIVE_ROLL_RIGHT := [
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_00.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_01.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_02.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_03.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_04.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_05.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_06.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_07.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_08.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_09.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_10.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_11.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_12.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_13.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_14.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_15.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_16.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_17.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_18.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_right_19.png"),
+]
+const VX94_BOMBER_EVASIVE_ROLL := [
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_00.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_01.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_02.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_03.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_04.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_05.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_06.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_07.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_08.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_09.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_10.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_11.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_12.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_13.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_14.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_15.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_16.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_17.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_18.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_19.png"),
+]
+const VX94_BOMBER_EVASIVE_ROLL_RIGHT := [
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_00.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_01.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_02.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_03.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_04.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_05.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_06.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_07.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_08.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_09.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_10.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_11.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_12.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_13.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_14.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_15.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_16.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_17.png"),
+	preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_18.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/bomber_roll_right_19.png"),
+]
+const VX94_ROLL_EXHAUST_ALPHA := [1.0,0.82,0.58,0.32,0.12,0.0,0.0,0.0,0.0,0.18,0.58,0.84,1.0,0.84,0.52,0.18,0.0,0.0,0.38,0.82]
 
 var _surface: Control
 var _visual_sweep := 0.0
@@ -1035,7 +1072,7 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 		_draw_player_loss(surface, p, origin, loss_timer)
 		return
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else Time.get_ticks_msec() / 1000.0
-	if _capture_craft_state() == "evasive-roll":
+	if _capture_craft_state() in ["evasive-roll", "evasive-roll-bomber"]:
 		var capture_progress := fposmod(time, 1.2) / 1.2
 		_draw_evasive_player(surface, p, time, capture_progress, -1 if fposmod(time, 2.4) < 1.2 else 1)
 		return
@@ -1075,10 +1112,15 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 func _draw_evasive_player(surface: CanvasItem, p: Vector2, time: float, progress: float, direction: int) -> void:
 	var roll_phase := clampf(progress, 0.0, 1.0)
 	var authored_index := clampi(int(roundf(roll_phase * float(VX94_EVASIVE_ROLL.size() - 1))), 0, VX94_EVASIVE_ROLL.size() - 1)
-	var frame_index := authored_index if direction < 0 else posmod(VX94_EVASIVE_ROLL.size() - authored_index, VX94_EVASIVE_ROLL.size())
-	var texture: Texture2D = VX94_EVASIVE_ROLL[frame_index]
+	var bomber_roll := _craft_form() == "bomber" or _capture_craft_state() == "evasive-roll-bomber"
+	var left_frames: Array = VX94_BOMBER_EVASIVE_ROLL if bomber_roll else VX94_EVASIVE_ROLL
+	var right_frames: Array = VX94_BOMBER_EVASIVE_ROLL_RIGHT if bomber_roll else VX94_EVASIVE_ROLL_RIGHT
+	var texture: Texture2D = left_frames[authored_index] if direction < 0 else right_frames[authored_index]
 	var exhaust: Texture2D = VX94_EXHAUST[int(floor(time * 12.0)) % VX94_EXHAUST.size()]
-	surface.draw_texture(exhaust, (p - VX94_GAMEPLAY_ANCHOR).round())
+	# Normal plan-view plumes must disappear behind the fuselage through each
+	# edge-on passage; leaving them face-on made the rolling craft read as paper
+	# rotating above a detached luminous rectangle.
+	surface.draw_texture(exhaust, (p - VX94_GAMEPLAY_ANCHOR).round(), Color(1,1,1,VX94_ROLL_EXHAUST_ALPHA[authored_index]))
 	surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round())
 
 func _draw_layered_vx94(surface: CanvasItem, p: Vector2, sweep: float) -> void:
