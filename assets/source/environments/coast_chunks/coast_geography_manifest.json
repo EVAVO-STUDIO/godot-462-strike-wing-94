@@ -17,7 +17,7 @@
     "rules": [
       "Recognizable geography never repeats at the former 720-pixel plate interval.",
       "Animated water and atmosphere never bake into the geography chunks.",
-      "Finite structures use mission-seeded slots and a different cycle from geography.",
+      "Finite structures use role-registered land and shore slots with a different cycle from geography; seed variation may jitter position but never substitute an incompatible asset.",
       "All adjacent chunk boundaries share a zero-error scanline contract derived from the two local natural edges.",
       "No broad shared connector or blurred horizontal strip may be stamped across the chunk interiors."
     ]

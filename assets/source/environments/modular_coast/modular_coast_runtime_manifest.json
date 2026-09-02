@@ -13,6 +13,7 @@
   ],
   "shore_wash": {
     "frames": ["shore_wash_0", "shore_wash_1", "shore_wash_2", "shore_wash_1"],
+    "runtime_orientation": "narrow one-sided vertical 16x288 foam-edge frames follow the mission shoreline without enclosing the source breaker's dark trough; horizontal source registrations remain available for other coast orientations",
     "exposure_fps": 6,
     "mode": "advance_hold_withdraw",
     "spatial_loop": false

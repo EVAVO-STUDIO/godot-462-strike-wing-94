@@ -150,10 +150,10 @@ const PARALLAX_ACCENTS := [
 ]
 const COAST_WAKE := preload("res://assets/runtime/environments/motion/coast_wake.png")
 const COAST_SHORE_WASH := [
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_0.png"),
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_1.png"),
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_2.png"),
-	preload("res://assets/runtime/environments/modular_coast/shore_wash_1.png"),
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_0.png"),
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_1.png"),
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_2.png"),
+	preload("res://assets/runtime/environments/modular_coast/shore_wash_vertical_v2_1.png"),
 ]
 const COAST_BREAKWATER_IMPACT := [
 	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_0.png"),
@@ -164,12 +164,12 @@ const COAST_BREAKWATER_IMPACT := [
 	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_1.png"),
 ]
 const COAST_FINITE_CHUNKS := [
-	preload("res://assets/runtime/environments/modular_coast/breakwater_straight.png"),
-	preload("res://assets/runtime/environments/modular_coast/seawall_access.png"),
-	preload("res://assets/runtime/environments/modular_coast/radar_bunker.png"),
+	preload("res://assets/runtime/environments/modular_coast/utility_bunker.png"),
 	preload("res://assets/runtime/environments/modular_coast/weapon_revetment.png"),
 	preload("res://assets/runtime/environments/modular_coast/tetrapod_cluster.png"),
-	preload("res://assets/runtime/environments/modular_coast/utility_bunker.png"),
+	preload("res://assets/runtime/environments/modular_coast/hazard_lamps.png"),
+	preload("res://assets/runtime/environments/modular_coast/debris_cluster.png"),
+	preload("res://assets/runtime/environments/modular_coast/rock_cluster_small.png"),
 ]
 const RAIN_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/rain_a.png"),
@@ -593,30 +593,32 @@ func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 
 func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	# Finite authored modules use a long world-space cycle instead of wallpaper
-	# tiling. The source master remains the continuous terrain bed; these pieces
-	# provide separately registered structures and animated shoreline edges.
+	# tiling. Every slot has a deliberate land/shore role: seed-shifting the asset
+	# index previously put radar bunkers and pier slabs over open water.
 	var speed := _parallax_speed(profile, state, "mid") * 0.32
 	var world_scroll := t * speed
 	var seed := _mission_seed(scene)
-	var scale := 0.46 + 0.18 * _ground_scale(state)
-	var cycle := 1480.0
+	var scale := 0.34 + 0.12 * _ground_scale(state)
+	var cycle := 1960.0
 	var slots := [
-		{"x": 354.0, "y": 112.0, "chunk": 0},
-		{"x": 184.0, "y": 438.0, "chunk": 2},
-		{"x": 72.0, "y": 776.0, "chunk": 3},
-		{"x": 310.0, "y": 1090.0, "chunk": 1},
-		{"x": 404.0, "y": 1262.0, "chunk": 4},
+		{"x": 92.0, "y": 150.0, "chunk": 0, "role": "land"},
+		{"x": 38.0, "y": 520.0, "chunk": 1, "role": "land"},
+		{"x": 286.0, "y": 860.0, "chunk": 2, "role": "shore"},
+		{"x": 232.0, "y": 1190.0, "chunk": 3, "role": "shore"},
+		{"x": 154.0, "y": 1510.0, "chunk": 4, "role": "land"},
+		{"x": 246.0, "y": 1810.0, "chunk": 5, "role": "shore"},
 	]
 	for slot_index in range(slots.size()):
 		var slot: Dictionary = slots[slot_index]
-		var texture_index := posmod(int(slot["chunk"]) + seed, COAST_FINITE_CHUNKS.size())
+		var texture_index := int(slot["chunk"])
 		var texture: Texture2D = COAST_FINITE_CHUNKS[texture_index]
 		var y := fposmod(float(slot["y"]) + world_scroll + float(seed % 97), cycle) - 190.0 + ENVIRONMENT_VIEW.position.y
 		var size := (texture.get_size() * scale).round()
 		if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
 			continue
-		var x := clampf(float(slot["x"]) + float((seed + slot_index * 31) % 29) - 14.0, 8.0, 632.0 - size.x)
-		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x, y).round(), size), ENVIRONMENT_VIEW, Color(0.78, 0.84, 0.84, 0.68))
+		var x_jitter := float((seed + slot_index * 31) % 9) - 4.0
+		var x := clampf(float(slot["x"]) + x_jitter, 8.0, 632.0 - size.x)
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x, y).round(), size), ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.84, 0.76))
 
 	# Shore wash is a temporal loop but not a spatial wallpaper. Two registered
 	# edge events pass through the coast at different phases and never cover the
@@ -624,10 +626,10 @@ func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dicti
 	var wash_frame: Texture2D = COAST_SHORE_WASH[posmod(int(floor(t * 6.0)), COAST_SHORE_WASH.size())]
 	for wash_index in range(2):
 		var wash_y := fposmod(world_scroll + float(wash_index * 706 + seed % 181), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
-		var wash_size := (wash_frame.get_size() * Vector2(0.58, 0.42)).round()
+		var wash_size := (wash_frame.get_size() * Vector2(0.65, 0.30)).round()
 		if wash_y >= ENVIRONMENT_VIEW.position.y and wash_y + wash_size.y <= ENVIRONMENT_VIEW.end.y:
 			var edge_fade := minf(clampf((wash_y - ENVIRONMENT_VIEW.position.y) / 24.0, 0.0, 1.0), clampf((ENVIRONMENT_VIEW.end.y - wash_y - wash_size.y) / 24.0, 0.0, 1.0))
-			_draw_texture_rect_clipped(surface, wash_frame, Rect2(Vector2(316.0 + wash_index * 42.0, wash_y).round(), wash_size), ENVIRONMENT_VIEW, Color(0.86, 0.94, 0.96, 0.34 * edge_fade))
+			_draw_texture_rect_clipped(surface, wash_frame, Rect2(Vector2(298.0 + wash_index * 12.0, wash_y).round(), wash_size), ENVIRONMENT_VIEW, Color(0.94, 0.98, 1.0, 0.18 * edge_fade))
 
 	var impact_frame: Texture2D = COAST_BREAKWATER_IMPACT[posmod(int(floor(t * 8.0)), COAST_BREAKWATER_IMPACT.size())]
 	var impact_y := fposmod(world_scroll + 360.0 + float(seed % 239), cycle) - 100.0 + ENVIRONMENT_VIEW.position.y

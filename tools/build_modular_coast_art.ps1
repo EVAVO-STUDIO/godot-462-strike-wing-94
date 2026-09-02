@@ -54,6 +54,12 @@ for ($Index = 0; $Index -lt $ShoreFrames.Count; $Index++) {
     $Destination = Join-Path $Output "shore_wash_$Index.png"
     & $MagickPath $Source -crop $ShoreFrames[$Index] +repage -trim +repage -resize '280x72>' -gravity center -background none -extent '288x80' -depth 8 $Destination
     if ($LASTEXITCODE -ne 0) { throw "Failed to build shore wash frame: $Index" }
+    $VerticalDestination = Join-Path $Output "shore_wash_vertical_v2_$Index.png"
+    # The horizontal source includes a dark trough appropriate for a breaker
+    # seen broadside. Along the top-down shoreline that trough read as a smoke
+    # column, so derive alpha from only its bright foam and master it pale blue.
+    & $MagickPath $Destination -rotate 90 -channel A -fx 'a*max(0,(r+g+b)/3-0.48)/0.52' +channel -channel RGB -evaluate set '92%' +channel -crop '16x288+64+0' +repage -depth 8 $VerticalDestination
+    if ($LASTEXITCODE -ne 0) { throw "Failed to register vertical shore wash frame: $Index" }
 }
 
 $ImpactFrames = @(

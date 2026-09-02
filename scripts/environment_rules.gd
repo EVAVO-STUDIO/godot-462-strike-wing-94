@@ -52,7 +52,10 @@ static func blended_horizon_glow(from_band: String, to_band: String, ratio: floa
 static func high_atmosphere_mix(band: String) -> float:
 	match AltitudeRules.sanitize(band):
 		AltitudeRules.LOW: return 0.0
-		AltitudeRules.MID: return 0.26
+		# Mid-altitude combat uses registered local cloud banks. Injecting the
+		# stratospheric cirrus silhouettes here reads as flat gray streaks over
+		# terrain; they enter during the authored climb to HIGH instead.
+		AltitudeRules.MID: return 0.0
 		AltitudeRules.HIGH: return 1.0
 		AltitudeRules.ORBITAL: return 0.12
 	return 0.0
