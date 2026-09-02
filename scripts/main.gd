@@ -19,6 +19,7 @@ const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const BossRules = preload("res://scripts/boss_rules.gd")
 const NEUTRAL_DEPTH_TILE := preload("res://assets/runtime/environments/layers/sea_deep_tile.png")
 
 const PLAYER_SPEED := 220.0
@@ -162,14 +163,25 @@ func _ready() -> void:
 	elif "--capture-gameplay" in OS.get_cmdline_user_args():
 		call_deferred("_begin_capture_gameplay")
 	if "--performance-profile" in OS.get_cmdline_user_args():
-		add_child(preload("res://tools/performance_probe.gd").new())
+		_add_development_probe("res://tools/performance_probe.gd")
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--visual-capture="):
-			add_child(preload("res://tools/visual_capture_probe.gd").new())
+			_add_development_probe("res://tools/visual_capture_probe.gd")
 			break
 	if "--playtest-telemetry" in OS.get_cmdline_user_args():
-		add_child(preload("res://tools/playtest_telemetry_probe.gd").new())
+		_add_development_probe("res://tools/playtest_telemetry_probe.gd")
 	queue_redraw()
+
+func _add_development_probe(path: String) -> void:
+	# Tool scripts are intentionally excluded from release packs. Loading by path
+	# keeps those optional probes available in source builds without making every
+	# exported launch depend on editor-only files.
+	if not ResourceLoader.exists(path):
+		push_warning("Development probe is unavailable in this build: %s" % path)
+		return
+	var probe_script := load(path) as Script
+	if probe_script != null:
+		add_child(probe_script.new())
 
 func _capture_front_end(arguments: PackedStringArray) -> String:
 	for argument in arguments:
@@ -1270,8 +1282,11 @@ func _update_enemies(delta: float) -> void:
 		enemy["hypersonic_boom_age"] = float(enemy.get("hypersonic_boom_age", 99.0)) + delta
 
 		if is_boss:
-			if position.y < 105.0:
+			var entry_center_y := float(enemy.get("entry_center_y", BossRules.entry_center_y(str(enemy.get("id", "")))))
+			if position.y < entry_center_y:
 				position.y += float(enemy["speed"]) * delta
+				position.y = minf(position.y, entry_center_y)
+			enemy["entry_ready"] = position.y >= entry_center_y - 0.01
 			position.x += (
 				sin(float(enemy["age"]) * float(enemy["turn_rate"]) + float(enemy["phase"]))
 				* float(enemy["drift"])
@@ -1324,7 +1339,7 @@ func _update_enemies(delta: float) -> void:
 			lock_ratio = move_toward(lock_ratio, 1.0 if in_envelope else 0.0, delta / (0.82 if pursuit_active else 1.20))
 			enemy["missile_lock_ratio"] = lock_ratio
 			missile_lock_ready = lock_ratio >= 0.999
-		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and missile_lock_ready:
+		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
 			_fire_enemy_weapon(enemy)
 			if str(enemy.get("weapon", "")) == "missile": enemy["missile_lock_ratio"] = 0.0
 			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(
@@ -1558,6 +1573,8 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"category": enemy_class,
 		"faction": str(archetype.get("faction", "mercenary")),
 		"position": Vector2(x, PLAYFIELD.position.y - 18),
+		"entry_center_y": BossRules.entry_center_y(str(archetype.get("id", ""))) if is_boss else 0.0,
+		"entry_ready": not is_boss,
 		"speed": _mode_enemy_speed(_difficulty_enemy_speed(float(archetype.get("speed", 72)) + speed_bias + (0.0 if is_boss else float(wave) * 4.0))),
 		"drift": drift,
 		"turn_rate": 0.75 if is_boss else mission_rng.randf_range(1.1, 2.4),

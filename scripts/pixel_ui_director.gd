@@ -1013,7 +1013,7 @@ func _active_boss(scene: Object) -> Dictionary:
 		return {"id":"SKY FORTRESS", "boss":true, "hp":720, "max_hp":1200, "boss_phase":2}
 	var enemies: Array = scene.get("enemies")
 	for enemy in enemies:
-		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and int(enemy.get("hp", 0)) > 0: return enemy
+		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and bool(enemy.get("entry_ready", true)) and int(enemy.get("hp", 0)) > 0: return enemy
 	return {}
 
 func _threat_snapshot(scene: Object) -> Dictionary:

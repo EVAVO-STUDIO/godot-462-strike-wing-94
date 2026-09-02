@@ -23,9 +23,23 @@ if ($Version.ProductName -ne 'HYPERSONIC') { throw "Unexpected product metadata:
 if ($Version.FileDescription -ne 'HYPERSONIC // VX-94 VARIABLE STRIKE FIGHTER') { throw "Unexpected file description: $($Version.FileDescription)" }
 if ($Item.Length -lt 10MB) { throw "Windows export is suspiciously small: $($Item.Length) bytes." }
 
-$Process = Start-Process -FilePath $AbsoluteExecutable -ArgumentList @('--headless','--quit-after','30','--','--capture-gameplay','--capture-front-end=main_menu') -WindowStyle Hidden -Wait -PassThru
-if ($Process.ExitCode -ne 0) {
-    throw "Exported HYPERSONIC smoke test failed with exit code $($Process.ExitCode)."
+$SmokeId = [guid]::NewGuid().ToString('N')
+$SmokeOutLog = Join-Path ([System.IO.Path]::GetTempPath()) ("hypersonic-export-smoke-{0}.out.log" -f $SmokeId)
+$SmokeErrorLog = Join-Path ([System.IO.Path]::GetTempPath()) ("hypersonic-export-smoke-{0}.error.log" -f $SmokeId)
+try {
+    $Process = Start-Process -FilePath $AbsoluteExecutable -ArgumentList @('--headless','--quit-after','30','--','--capture-gameplay','--capture-front-end=main_menu') -WindowStyle Hidden -RedirectStandardOutput $SmokeOutLog -RedirectStandardError $SmokeErrorLog -Wait -PassThru
+    $SmokeOutput = @(
+        Get-Content -LiteralPath $SmokeOutLog -Raw -ErrorAction SilentlyContinue
+        Get-Content -LiteralPath $SmokeErrorLog -Raw -ErrorAction SilentlyContinue
+    ) -join "`n"
+    if ($Process.ExitCode -ne 0) {
+        throw "Exported HYPERSONIC smoke test failed with exit code $($Process.ExitCode).`n$SmokeOutput"
+    }
+    if ($SmokeOutput -match '(?m)^(SCRIPT ERROR:|ERROR:)') {
+        throw "Exported HYPERSONIC smoke test reported engine errors.`n$SmokeOutput"
+    }
+} finally {
+    Remove-Item -LiteralPath $SmokeOutLog,$SmokeErrorLog -Force -ErrorAction SilentlyContinue
 }
 
 Write-Host "HYPERSONIC Windows export verified: $($Item.Length) bytes, $($Version.ProductVersion)." -ForegroundColor Green

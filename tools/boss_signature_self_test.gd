@@ -48,6 +48,7 @@ func _test_source_wiring() -> void:
 		_expect(source.contains('shot["kinetic"] = true'), "late orbital signatures should mark kinetic shots")
 		_expect(source.contains("_report_signature"), "signature attacks should be telegraphed through status HUD")
 		_expect(source.contains("_register_new_missiles") and source.contains('scene.call("_register_enemy_missile_launch", count)'), "boss homing salvos should advance the authoritative missile-launch audio counter")
+		_expect(source.contains('if not bool(boss.get("entry_ready", true))') and source.contains("continue"), "boss phase and signature attacks should remain safed during the entrance reveal")
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition:

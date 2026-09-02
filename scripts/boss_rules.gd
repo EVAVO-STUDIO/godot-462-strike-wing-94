@@ -1,6 +1,25 @@
 class_name BossRules
 extends RefCounted
 
+# Reviewed production canvases. Boss centers are derived from their actual
+# vertical registration so every complete silhouette clears the integrated HUD
+# at y=69 with a seven-pixel breathing lane.
+const HUD_CLEARANCE_Y := 76.0
+const PRESENTATION_HEIGHT := {
+	"gunship_alpha": 78.0,
+	"armoured_train": 150.0,
+	"missile_cruiser": 154.0,
+	"swarm_controller": 88.0,
+	"ai_forge_core": 112.0,
+	"orbital_command_node": 104.0,
+	"phase_control_array": 126.0,
+	"station_warden": 116.0,
+	"machine_ark": 128.0,
+}
+
+static func entry_center_y(boss_id: String) -> float:
+	return HUD_CLEARANCE_Y + float(PRESENTATION_HEIGHT.get(boss_id, 92.0)) * 0.5
+
 static func phase_for(hp: int, max_hp: int) -> int:
 	if max_hp <= 0:
 		return 1

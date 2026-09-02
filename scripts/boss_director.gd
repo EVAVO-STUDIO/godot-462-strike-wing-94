@@ -48,6 +48,9 @@ func _update_bosses(scene: Object, delta: float) -> void:
 			boss["signature_warning_timer"] = -1.0
 			boss["last_hp"] = hp
 			boss["last_reported_phase"] = BossRules.phase_for(hp, max_hp)
+		if not bool(boss.get("entry_ready", true)):
+			enemies[i] = boss
+			continue
 
 		var previous_hp := int(boss.get("last_hp", hp))
 		var phase := BossRules.phase_for(hp, max_hp)
