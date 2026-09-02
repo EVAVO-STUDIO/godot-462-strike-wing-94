@@ -1,7 +1,8 @@
 {
   "family": "mountain_radar_modular_geography",
-  "status": "runtime_registered_v1",
-  "production_method": "built-in image generation source sheets with deterministic ImageMagick crop, shared-boundary finishing, alpha reconstruction and palette mastering",
+  "status": "runtime_registered_v2_native_width",
+  "source": "mountain_geography_source_v2.png",
+  "production_method": "three built-in high-resolution image-generation district masters, downsampled into a 1920x1024 native-width strip, with deterministic ImageMagick crop, shared-boundary finishing, alpha reconstruction and palette mastering",
   "chunks": [
     {"id":"switchback_pass","role":"frozen defended logistics approach","size":[640,1024]},
     {"id":"radar_service_valley","role":"engineered installation pad and service corridor","size":[640,1024]},
@@ -10,5 +11,5 @@
   "animation": {"id":"mountain_weather_shear","frames":6,"size":[224,144],"fps":6,"registration":"world-space finite storm events"},
   "landmark": {"id":"mountain_radar_layered","components":["radar_base","radar_dish"],"dish_pivot":[42,72],"world_y":1288},
   "cycle_height": 3072,
-  "rules": ["Complete radar installations remain separate target layers.","All chunk joins close at zero scanline error.","Weather uses sparse held events rather than an opaque full-screen speed-line tile."]
+  "rules": ["Complete radar installations remain separate target layers.","Every geography input is authored at the final 640px runtime width; builders may crop or downsample but never enlarge terrain.","Native gameplay captures must retain crisp road edges, ice fractures, barriers and rock strata.","All chunk joins close at zero scanline error.","Weather uses sparse held events rather than an opaque full-screen speed-line tile."]
 }

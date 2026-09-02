@@ -1,7 +1,7 @@
 param([string]$MagickPath = 'C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\magick.exe')
 $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
-$Source = Join-Path $RepoRoot 'assets\source\environments\mountain_chunks\mountain_geography_source_v1.png'
+$Source = Join-Path $RepoRoot 'assets\source\environments\mountain_chunks\mountain_geography_source_v2.png'
 $WeatherSource = Join-Path $RepoRoot 'assets\source\environments\mountain_chunks\mountain_weather_source_v1.png'
 $Output = Join-Path $RepoRoot 'assets\runtime\environments\mountain_chunks'
 $WeatherOutput = Join-Path $RepoRoot 'assets\runtime\environments\mountain_weather_animation'
@@ -13,13 +13,15 @@ foreach ($Required in @($Source,$WeatherSource)) { if (-not (Test-Path -LiteralP
 New-Item -ItemType Directory -Force -Path $Output,$WeatherOutput,$Work | Out-Null
 
 $Sections = @(
-    @{ Name='switchback_pass'; Crop='512x1024+0+0' },
-    @{ Name='radar_service_valley'; Crop='512x1024+512+0' },
-    @{ Name='ice_cliff_corridor'; Crop='512x1024+1024+0' }
+    @{ Name='switchback_pass'; Crop='640x1024+0+0' },
+    @{ Name='radar_service_valley'; Crop='640x1024+640+0' },
+    @{ Name='ice_cliff_corridor'; Crop='640x1024+1280+0' }
 )
+# The v2 master is authored at final runtime width. Never enlarge terrain here:
+# zoomed gameplay must receive real rock, road, ice and infrastructure detail.
 for ($Index=0; $Index -lt $Sections.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
-    & $MagickPath $Source -crop $Sections[$Index].Crop +repage -resize '640x1024!' -colorspace sRGB -depth 8 $Raw
+    & $MagickPath $Source -crop $Sections[$Index].Crop +repage -colorspace sRGB -depth 8 $Raw
     if ($LASTEXITCODE -ne 0) { throw "Failed to register mountain section $Index" }
 }
 $Connector = Join-Path $Work 'shared_connector.png'
@@ -56,4 +58,3 @@ $Runtime = foreach ($Section in $Sections) { Join-Path $Output "$($Section.Name)
 if ($LASTEXITCODE -ne 0) { throw 'Failed to build mountain review sheets.' }
 Write-Host 'Built 3 mountain geography chunks and 6 registered weather frames.'
 Write-Host "Review: $Review"
-

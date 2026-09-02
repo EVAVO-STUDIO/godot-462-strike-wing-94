@@ -322,6 +322,10 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_chunks/mountain_geography_manifest.json"), "mountain geography/weather/layered-radar manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_mountain_geography_art.ps1"), "mountain geography should retain a reproducible registered builder")
 		_expect(FileAccess.file_exists("res://tools/build_mountain_radar_art.ps1"), "layered mountain radar should retain a reproducible source finisher")
+		var mountain_master := load("res://assets/source/environments/mountain_chunks/mountain_geography_source_v2.png") as Texture2D
+		_expect(mountain_master != null and mountain_master.get_size() == Vector2(1920,1024), "mountain v2 master should retain three native-width 640x1024 districts")
+		var mountain_builder := FileAccess.get_file_as_string("res://tools/build_mountain_geography_art.ps1")
+		_expect(mountain_builder.contains("mountain_geography_source_v2.png") and mountain_builder.contains("640x1024+1280+0") and not mountain_builder.contains("-resize '640x1024!'"), "mountain builder must crop v2 at native width without terrain enlargement")
 		var mountain_manifest = ContentCatalog.load_json("res://assets/source/environments/mountain_chunks/mountain_geography_manifest.json")
 		_expect(typeof(mountain_manifest) == TYPE_DICTIONARY and mountain_manifest.get("chunks", []).size() == 3, "mountain manifest should register three distinct 1024px pass districts")
 		var mountain_names := ["switchback_pass", "radar_service_valley", "ice_cliff_corridor"]
