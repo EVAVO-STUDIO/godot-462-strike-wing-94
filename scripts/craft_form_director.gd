@@ -108,11 +108,12 @@ func _apply_hypersonic_airframe_risk(delta: float) -> void:
 		return
 	_hypersonic_damage_carry -= float(whole_damage)
 	var scene := get_tree().current_scene
-	if scene != null and _has_property(scene, "hull"):
-		scene.set("hull", maxi(1, int(scene.get("hull")) - whole_damage))
-		if _has_property(scene, "status_text"):
-			scene.set("status_text", "OVERSPEED - AIRFRAME LOAD")
-			scene.set("status_timer", 0.35)
+	if scene == null or not scene.has_method("_apply_structural_damage"):
+		return
+	scene.call("_apply_structural_damage", whole_damage)
+	if _has_property(scene, "status_text") and int(scene.get("hull")) > 0:
+		scene.set("status_text", "OVERSPEED - AIRFRAME LOAD")
+		scene.set("status_timer", 0.35)
 
 func _afterburner_burn_rate() -> float:
 	if form == CraftFormRules.BOMBER and altitude == AltitudeRules.LOW:

@@ -18,6 +18,11 @@ func _initialize() -> void:
 	_expect(director_source.contains('"--capture-flight=hypersonic"') and director_source.contains("_capture_hypersonic"), "hypersonic presentation should expose a deterministic visual QA fixture")
 	_expect(director_source.contains("SPEED_MULTIPLIER if hypersonic_active()"), "visual QA and live hypersonic flight should share the public world-speed latch")
 	_expect(director_source.contains("AltitudeRules.BANDS.duplicate()") and director_source.contains('"%s LIMIT"') and director_source.contains('"CLIMB" if direction > 0 else "DESCENT"'), "latched hypersonic flight should permit bounded emergency climb and dive")
+	_expect(director_source.contains('scene.call("_apply_structural_damage", whole_damage)') and not director_source.contains('maxi(1, int(scene.get("hull"))'), "hypersonic overload must be able to destroy the airframe instead of secretly clamping hull at one")
+	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
+	var main_source := main_file.get_as_text() if main_file != null else ""
+	_expect(main_source.contains("func _apply_structural_damage(amount: int)") and main_source.contains("damage_taken += applied"), "structural overload should use an explicit hull-only damage path with sortie accounting")
+	_expect(main_source.contains('status_text = "AIRFRAME BREAKUP // OVERSPEED"') and main_source.contains("player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS"), "fatal overspeed should enter the authored player-loss sequence")
 	if failures.is_empty():
 		print("Hypersonic rules self-test passed.")
 		quit(0)

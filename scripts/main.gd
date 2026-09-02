@@ -1526,6 +1526,19 @@ func _apply_damage(amount: int) -> void:
 	if hull <= 0:
 		player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS
 
+func _apply_structural_damage(amount: int) -> void:
+	if "--capture-invulnerable" in OS.get_cmdline_user_args():
+		return
+	var applied := mini(maxi(0, amount), maxi(0, hull))
+	if applied <= 0:
+		return
+	hull -= applied
+	damage_taken += applied
+	if hull <= 0 and player_loss_timer <= 0.0:
+		status_text = "AIRFRAME BREAKUP // OVERSPEED"
+		status_timer = PLAYER_LOSS_SEQUENCE_SECONDS
+		player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS
+
 func _find_enemy_archetype(id: String) -> Dictionary:
 	for enemy in enemy_catalog:
 		if str(enemy.get("id", "")) == id:
