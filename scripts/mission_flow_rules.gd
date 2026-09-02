@@ -1,6 +1,13 @@
 class_name MissionFlowRules
 extends RefCounted
 
+const COASTAL_COMMAND_HOLD_SECONDS := 2.55
+
+static func boss_victory_hold_seconds(mission_id: String, boss_id: String) -> float:
+	if mission_id == "m01_coastal_intercept" and boss_id == "gunship_alpha":
+		return COASTAL_COMMAND_HOLD_SECONDS
+	return 0.0
+
 static func required_boss_incomplete(current_boss_id: String, objectives: Array, progress: Dictionary) -> bool:
 	if current_boss_id == "":
 		return false

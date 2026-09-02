@@ -103,6 +103,7 @@ var mission_success := false
 var status_text := ""
 var status_timer := 0.0
 var player_loss_timer := 0.0
+var boss_victory_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
 var enemy_missiles_launched := 0
@@ -603,6 +604,16 @@ func _update_mission(delta: float) -> void:
 		if player_loss_timer <= 0.0:
 			_finish_mission(false)
 		return
+	if boss_victory_timer > 0.0:
+		boss_victory_timer = maxf(0.0, boss_victory_timer - delta)
+		environment_world_distance += delta * _environment_speed_multiplier()
+		bullets.clear()
+		enemy_bullets.clear()
+		enemies.clear()
+		if boss_victory_timer <= 0.0:
+			ObjectiveRules.complete_survival(current_objectives, objective_progress)
+			_finish_mission(true)
+		return
 	mission_time += delta
 	ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)
 	fire_timer = maxf(0.0, fire_timer - delta)
@@ -621,6 +632,8 @@ func _update_mission(delta: float) -> void:
 	_update_pickups(delta)
 	_update_enemies(delta)
 	_resolve_combat()
+	if boss_victory_timer > 0.0:
+		return
 	_try_spawn_boss()
 
 	if ObjectiveRules.required_complete(current_objectives, objective_progress):
@@ -859,6 +872,7 @@ func _start_mission() -> void:
 	enemy_spawn_timer = 0.35
 	player_position = Vector2(320.0, 292.0)
 	player_loss_timer = 0.0
+	boss_victory_timer = 0.0
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_clear_combat()
 
@@ -1416,6 +1430,7 @@ func _resolve_combat() -> void:
 						bool(destroyed.get("boss", false))
 					)
 					enemies.remove_at(enemy_index)
+					_begin_boss_victory_hold(destroyed)
 
 				var pierce_remaining := int(bullet.get("pierce_remaining", 0))
 				if pierce_remaining > 0:
@@ -1456,6 +1471,16 @@ func _register_destroy(enemy: Dictionary) -> void:
 		objective_progress,
 		str(enemy.get("id", ""))
 	)
+
+func _begin_boss_victory_hold(enemy: Dictionary) -> void:
+	if not bool(enemy.get("boss", false)):
+		return
+	var hold := MissionFlowRules.boss_victory_hold_seconds(str(_active_mission().get("id", "")), str(enemy.get("id", "")))
+	if hold <= 0.0:
+		return
+	boss_victory_timer = hold
+	status_text = "COMMAND DESTROYED // AIRSPACE SECURE"
+	status_timer = hold
 
 func _maybe_drop_pickup(position: Vector2, guaranteed := false) -> void:
 	var kind := "weapon" if guaranteed else ProjectileRules.pickup_kind_for_roll(_difficulty_pickup_roll(mission_rng.randf()))

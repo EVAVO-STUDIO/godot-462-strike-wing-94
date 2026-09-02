@@ -29,6 +29,14 @@ static func update_survival(objectives: Array, progress: Dictionary, elapsed_sec
 		if id != "":
 			progress[id] = elapsed_seconds
 
+static func complete_survival(objectives: Array, progress: Dictionary) -> void:
+	for objective in objectives:
+		if str(objective.get("type", "")) != "survive":
+			continue
+		var id := str(objective.get("id", ""))
+		if id != "":
+			progress[id] = maxf(float(progress.get(id, 0.0)), float(objective.get("seconds", 0.0)))
+
 static func is_complete(objective: Dictionary, progress: Dictionary) -> bool:
 	var id := str(objective.get("id", ""))
 	var value := float(progress.get(id, 0.0))

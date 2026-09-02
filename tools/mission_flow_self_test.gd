@@ -2,6 +2,7 @@ extends SceneTree
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const MissionFlowRules = preload("res://scripts/mission_flow_rules.gd")
+const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const MovementPatternRules = preload("res://scripts/movement_pattern_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const PixelUiDirector = preload("res://scripts/pixel_ui_director.gd")
@@ -41,6 +42,12 @@ func _test_overtime() -> void:
 	_expect(MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, incomplete, live_boss), "live required boss should hold mission in overtime")
 	_expect(not MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, complete, live_boss), "completed boss objective must not hold overtime")
 	_expect(not MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, incomplete, dead_boss), "dead boss must not hold overtime")
+	_expect(is_equal_approx(MissionFlowRules.boss_victory_hold_seconds("m01_coastal_intercept", "gunship_alpha"), 2.55), "Coastal Intercept should hold through Gunship Alpha's complete physical breakup")
+	_expect(MissionFlowRules.boss_victory_hold_seconds("m02_refinery_run", "armoured_train") == 0.0, "unreviewed mission endings should retain their authored objective flow")
+	var survival_objectives := [{"id":"survive","type":"survive","seconds":150,"required":true}]
+	var survival_progress := {"survive":112.0}
+	ObjectiveRules.complete_survival(survival_objectives, survival_progress)
+	_expect(ObjectiveRules.required_complete(survival_objectives, survival_progress), "command victory should complete the displayed survival contract before the report")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main.gd should be readable for bounded overtime checks")
 	if main_file != null:
@@ -49,6 +56,7 @@ func _test_overtime() -> void:
 		_expect(source.contains("MissionFlowRules.should_hold_overtime"), "main should evaluate boss overtime directly")
 		_expect(source.contains("BOSS OVERTIME EXPIRED"), "expired overtime should fail explicitly")
 		_expect(source.contains("_capture_mission_index"), "visual QA should be able to launch any authored mission deterministically")
+		_expect(source.contains("boss_victory_timer") and source.contains("_begin_boss_victory_hold(destroyed)") and source.contains("ObjectiveRules.complete_survival"), "Mission 1 command kill should retain the breakup before transitioning to a fully completed report")
 		_expect(source.contains('argument.begins_with("--capture-mission=")'), "mission capture selector should remain command-line isolated")
 		_expect(source.contains('argument.begins_with("--capture-result=")') and source.contains("_begin_capture_result"), "mission report visual QA should expose deterministic success and failure fixtures")
 		_expect(source.contains('argument.begins_with("--capture-time=")') and source.contains("_begin_capture_gameplay"), "representative mission visual QA should support a bounded mid-mission clock")
