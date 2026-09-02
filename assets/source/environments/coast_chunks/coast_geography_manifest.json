@@ -1,9 +1,9 @@
 {
-  "asset_family": "hypersonic_coast_geography_v1",
-  "source": "res://assets/source/environments/coast_chunks/coast_geography_source_v1.png",
+  "asset_family": "hypersonic_coast_geography_v2",
+  "source": "res://assets/source/environments/coast_chunks/coast_geography_source_v2.png",
   "builder": "res://tools/build_coast_geography_art.ps1",
   "runtime_directory": "res://assets/runtime/environments/coast_chunks/",
-  "source_method": "Image generation produced the authored geography source; EVAVO deterministic build performs registration, seam finishing, palette preservation and runtime export.",
+  "source_method": "Built-in image generation expanded the reviewed three-panel geography into a higher-resolution authored master; EVAVO registration removed review gutters and produced three native 640x1024 panels. The deterministic build performs seam finishing, palette preservation and runtime export without enlargement.",
   "chunks": [
     {"id": "seawall_run", "role": "open approach and shore road", "size": [640, 1024]},
     {"id": "defended_inlet", "role": "harbor set-piece and naval approach", "size": [640, 1024]},
@@ -16,6 +16,8 @@
     "base_order": ["geography_chunk", "sea_surface", "finite_structures", "foam_and_surf", "registered_cloud_undercasts", "cloud_bodies", "weather_accents"],
     "rules": [
       "Recognizable geography never repeats at the former 720-pixel plate interval.",
+      "Every coast panel enters the build at its final 640-pixel runtime width; the builder may not upscale an undersized background plate.",
+      "Low-altitude native captures must preserve crisp road markings, concrete joints, rock clusters and wave detail without softness or horizontally stretched structures.",
       "Animated water and atmosphere never bake into the geography chunks.",
       "Finite structures use role-registered land and shore slots with a different cycle from geography; seed variation may jitter position but never substitute an incompatible asset.",
       "All adjacent chunk boundaries share a zero-error scanline contract derived from the two local natural edges.",

@@ -101,6 +101,10 @@ func _initialize() -> void:
 		_expect(not source.substr(source.find("func _draw_clouds"), source.length() - source.find("func _draw_clouds")).contains("draw_colored_polygon"), "foreground clouds should not regress to polygon lozenges")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/coast/coastal_strike_zone_loop_v1.png"), "coastal runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/coast_chunks/coast_geography_manifest.json"), "coast geography source/build/assembly manifest should exist")
+		var coast_master := load("res://assets/source/environments/coast_chunks/coast_geography_source_v2.png") as Texture2D
+		_expect(coast_master != null and coast_master.get_size() == Vector2(1920,1024), "coast master should provide three native 640x1024 panels without runtime enlargement")
+		var coast_builder := FileAccess.get_file_as_string("res://tools/build_coast_geography_art.ps1")
+		_expect(coast_builder.contains("coast_geography_source_v2.png") and coast_builder.contains('640x1024+$($Index * 640)+0') and not coast_builder.contains("-resize '640x1024!'"), "coast build should crop native-width panels instead of stretching undersized plates")
 		_expect(FileAccess.file_exists("res://tools/build_coast_geography_art.ps1") and FileAccess.file_exists("res://tools/test_environment_seams.ps1"), "coast geography should retain reproducible build and seam-gate tooling")
 		var coast_geography_manifest = ContentCatalog.load_json("res://assets/source/environments/coast_chunks/coast_geography_manifest.json")
 		_expect(typeof(coast_geography_manifest) == TYPE_DICTIONARY and coast_geography_manifest.get("chunks", []).size() == 3, "coast geography manifest should register three distinct 1024px sections")

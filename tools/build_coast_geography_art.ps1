@@ -4,7 +4,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
-$Source = Join-Path $RepoRoot 'assets\source\environments\coast_chunks\coast_geography_source_v1.png'
+$Source = Join-Path $RepoRoot 'assets\source\environments\coast_chunks\coast_geography_source_v2.png'
 $Output = Join-Path $RepoRoot 'assets\runtime\environments\coast_chunks'
 $Work = Join-Path $RepoRoot 'work\coast_geography_build'
 $Review = Join-Path $RepoRoot 'work\coast_geography_review.png'
@@ -16,7 +16,10 @@ New-Item -ItemType Directory -Force -Path $Output, $Work | Out-Null
 $Names = @('seawall_run', 'defended_inlet', 'reef_cliffs')
 for ($Index = 0; $Index -lt $Names.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
-    & $MagickPath $Source -crop "512x1024+$($Index * 512)+0" +repage -resize '640x1024!' -colorspace sRGB -depth 8 $Raw
+    # The v2 master registers each panel at its final 640x1024 runtime size.
+    # Never enlarge an undersized plate here: close low-altitude play must retain
+    # the authored road, concrete, rock and wave detail without soft stretching.
+    & $MagickPath $Source -crop "640x1024+$($Index * 640)+0" +repage -colorspace sRGB -depth 8 $Raw
     if ($LASTEXITCODE -ne 0) { throw "Failed to register coast source section $Index" }
 }
 
