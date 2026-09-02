@@ -1387,6 +1387,17 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	var origin: Vector2 = enemy["position"]
 	var weapon_id := str(enemy.get("weapon", "single_burst"))
 	var damage := 14 if bool(enemy.get("boss", false)) else 8
+	if bool(enemy.get("boss", false)) and str(enemy.get("id", "")) == "gunship_alpha" and weapon_id == "twin_burst":
+		var boss_origins := BossRules.volley_origins("gunship_alpha", origin, 3)
+		for index in range(boss_origins.size()):
+			var boss_origin: Vector2 = boss_origins[index]
+			var boss_velocity := ProjectileRules.enemy_shot_velocity(
+				boss_origin,
+				player_position,
+				_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
+			).rotated([-0.16, 0.0, 0.16][index])
+			enemy_bullets.append(_make_enemy_shot(boss_origin, boss_velocity, damage))
+		return
 	var velocity := ProjectileRules.enemy_shot_velocity(
 		origin,
 		player_position,

@@ -83,5 +83,25 @@ static func volley_spread_radians(weapon_id: String, phase: int) -> float:
 		"twin_burst": return 0.13 if phase == 2 else 0.21
 		_: return 0.08 if phase == 2 else 0.14
 
+static func volley_origins(boss_id: String, center: Vector2, count: int) -> Array[Vector2]:
+	var requested := maxi(1, count)
+	if boss_id != "gunship_alpha":
+		var centered: Array[Vector2] = []
+		for _index in range(requested):
+			centered.append(center)
+		return centered
+	# Registered against the reviewed 94x78 command-gunship canvas. The paired
+	# chin stations sit 27 pixels off center and the ventral cannon extends seven
+	# pixels farther aft, so rounds visibly leave metal rather than hull center.
+	if requested == 1:
+		return [center + Vector2(0.0, 34.0)]
+	if requested == 2:
+		return [center + Vector2(-27.0, 27.0), center + Vector2(27.0, 27.0)]
+	var origins: Array[Vector2] = []
+	var stations := [Vector2(-27.0, 27.0), Vector2(0.0, 34.0), Vector2(27.0, 27.0)]
+	for index in range(requested):
+		origins.append(center + stations[index % stations.size()])
+	return origins
+
 static func weak_point_multiplier(phase: int) -> float:
 	return 1.35 if phase >= 3 else 1.0

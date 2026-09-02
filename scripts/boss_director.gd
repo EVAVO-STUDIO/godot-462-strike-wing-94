@@ -122,16 +122,19 @@ func _report_signature(scene: Object, boss_id: String) -> void:
 
 func _emit_phase_salvo(bullets: Array, boss: Dictionary, target: Vector2, phase: int) -> void:
 	var origin: Vector2 = boss.get("position", Vector2.ZERO)
+	var boss_id := str(boss.get("id", ""))
 	var weapon_id := str(boss.get("weapon", "aimed_burst"))
 	var count := BossRules.volley_count(weapon_id, phase)
+	var origins := BossRules.volley_origins(boss_id, origin, count)
 	var spread := BossRules.volley_spread_radians(weapon_id, phase)
 	var speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 	for i in range(count):
 		var t := 0.5 if count <= 1 else float(i) / float(count - 1)
 		var offset := lerpf(-spread, spread, t)
-		var velocity := ProjectileRules.enemy_shot_velocity(origin, target, speed).rotated(offset)
+		var shot_origin: Vector2 = origins[i]
+		var velocity := ProjectileRules.enemy_shot_velocity(shot_origin, target, speed).rotated(offset)
 		bullets.append({
-			"position": origin,
+			"position": shot_origin,
 			"velocity": velocity,
 			"damage": 12 + phase * 2,
 			"homing": weapon_id == "missile" or phase >= 3,

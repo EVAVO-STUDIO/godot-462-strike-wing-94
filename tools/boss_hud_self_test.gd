@@ -16,6 +16,10 @@ func _initialize() -> void:
 	_expect(not BossRules.arrival_clears_enemy("armoured_train", {"category":"air"}), "boss-specific arrival staging should not silently erase escorts in unrelated encounters")
 	_expect(BossRules.phase_salvo_enabled("gunship_alpha", 1) and BossRules.volley_count("twin_burst", 1) == 3, "Gunship Alpha should open with a conventional three-lane command burst rather than ordinary gunship fire alone")
 	_expect(BossRules.volley_spread_radians("twin_burst", 1) >= 0.16 and BossRules.phase_salvo_interval("gunship_alpha", 1) >= 3.0, "opening command burst should be broad, readable, and paced rather than spammed")
+	var gunship_origins := BossRules.volley_origins("gunship_alpha", Vector2(320,115), 3)
+	_expect(gunship_origins == [Vector2(293,142),Vector2(320,149),Vector2(347,142)], "Gunship Alpha salvos should leave its registered port, ventral and starboard weapon stations")
+	_expect(BossRules.volley_origins("gunship_alpha",Vector2(320,115),2) == [Vector2(293,142),Vector2(347,142)], "paired Gunship Alpha salvos should use the two chin stations")
+	_expect(BossRules.volley_origins("machine_ark",Vector2(320,150),3) == [Vector2(320,150),Vector2(320,150),Vector2(320,150)], "bosses without reviewed hardpoints should retain safe centered origins")
 	_expect(not BossRules.phase_salvo_enabled("armoured_train", 1), "unreviewed phase-one bosses should retain their authored opening pressure")
 	for phase_name in ["phase_1", "phase_2", "phase_3"]:
 		var frame := load("res://assets/runtime/ui/hud/boss_phase_bar/%s.png" % phase_name)
@@ -33,6 +37,9 @@ func _initialize() -> void:
 	_expect(main_source.contains('enemy["entry_ready"] = position.y >= entry_center_y - 0.01') and main_source.contains('not is_boss or bool(enemy.get("entry_ready", false))'), "bosses should become attack-active only after their complete entrance silhouette is stationed")
 	_expect(source.contains('bool(enemy.get("entry_ready", true))'), "integrated boss HUD should reveal only after the command hull clears its entrance lane")
 	_expect(main_source.contains("_stage_boss_arrival(current_boss_id)") and main_source.contains("enemy_bullets.clear()") and main_source.contains('status_text = "COMMAND CONTACT // %s"'), "boss arrival should clear stale airborne crossfire and announce command contact before the hull enters")
+	_expect(main_source.contains('BossRules.volley_origins("gunship_alpha", origin, 3)') and main_source.contains("boss_origin"), "Gunship Alpha's ordinary command burst should share its registered muzzle stations with phase salvos")
+	var boss_director_source := FileAccess.get_file_as_string("res://scripts/boss_director.gd")
+	_expect(boss_director_source.contains("BossRules.volley_origins(boss_id, origin, count)") and boss_director_source.contains('"position": shot_origin'), "boss phase salvos should originate from reviewed per-boss hardpoints")
 	if failures.is_empty():
 		print("HYPERSONIC integrated boss HUD self-test passed.")
 		quit(0)
