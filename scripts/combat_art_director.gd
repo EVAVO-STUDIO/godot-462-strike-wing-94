@@ -1389,6 +1389,7 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		_draw_production_sprite(surface, p, visible_hull)
 	else:
 		_draw_animated_unit(surface, p, enemy_id, enemy, hull)
+	_render_mercenary_position_lights(surface, p, enemy_id, enemy, visible_hull)
 	if AIR_SPECIALIST_ART.has(enemy_id):
 		_render_air_specialist(surface, p, enemy_id, enemy)
 	if MACHINE_AIR_SPRITES.has(enemy_id):
@@ -1396,6 +1397,28 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 	elif ORBITAL_AIR_SPRITES.has(enemy_id):
 		_render_orbital_air_specialist(surface, p, enemy_id, enemy, bank_index)
 	_render_airframe_weapon_discharge(surface, p, enemy_id, enemy, visible_hull)
+
+func _render_mercenary_position_lights(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
+	if not MERCENARY_AIR_SPRITES.has(enemy_id):
+		return
+	# Human aircraft retain subdued real-world navigation lamps rather than a
+	# full HUD outline. At native resolution these two-pixel clusters keep the
+	# dark airframes readable over sea and cliff detail while preserving their
+	# military silhouette and the environment's night-adapted palette.
+	var half_span := clampf(hull.get_width() * 0.34, 8.0, 17.0)
+	var lamp_y := p.y + clampf(hull.get_height() * 0.03, 1.0, 2.0)
+	var left := Vector2(roundf(p.x - half_span), roundf(lamp_y))
+	var right := Vector2(roundf(p.x + half_span), roundf(lamp_y))
+	surface.draw_rect(Rect2(left - Vector2.ONE, Vector2(3, 3)), Color(0.74, 0.06, 0.03, 0.20))
+	surface.draw_rect(Rect2(right - Vector2.ONE, Vector2(3, 3)), Color(0.03, 0.46, 0.28, 0.18))
+	surface.draw_rect(Rect2(left, Vector2.ONE), Color(1.0, 0.32, 0.16, 0.94))
+	surface.draw_rect(Rect2(right, Vector2.ONE), Color(0.30, 1.0, 0.64, 0.90))
+	var age := float(enemy.get("age", 0.0))
+	var phase := float(enemy.get("phase", 0.0))
+	if fposmod(age + phase * 0.09, 1.18) < 0.09:
+		var strobe := Vector2(roundf(p.x), roundf(p.y - hull.get_height() * 0.22))
+		surface.draw_rect(Rect2(strobe - Vector2.ONE, Vector2(3, 3)), Color(0.76, 0.86, 0.92, 0.18))
+		surface.draw_rect(Rect2(strobe, Vector2.ONE), Color(0.90, 0.97, 1.0, 0.96))
 
 static func hostile_bank_frame_index(bank: float) -> int:
 	if bank < -0.24:
