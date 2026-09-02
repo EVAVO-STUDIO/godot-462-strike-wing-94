@@ -124,6 +124,8 @@ func _test_visual_language() -> void:
 			_expect(bank_texture is Texture2D and bank_texture.get_size() == bank_sizes[bank_id], "hostile bank pose should preserve registered canvas: %s %s" % [bank_id, direction])
 	_expect(CombatArtDirector.hostile_bank_frame_index(-0.4) == 0 and CombatArtDirector.hostile_bank_frame_index(0.0) == 1 and CombatArtDirector.hostile_bank_frame_index(0.4) == 2, "hostile airframes should hold discrete left, neutral and right bank poses")
 	_expect(source.contains('enemy.get("visual_bank", 0.0)'), "hostile bank art should consume real movement state")
+	_expect(source.contains("func _render_airframe_shadow") and source.contains("visible_hull") and source.contains("CraftFormDirector"), "atmospheric hostile airframes should cast their authored silhouette with altitude-aware separation")
+	_expect(source.contains("ORBITAL_AIR_SPRITES.has(enemy_id)") and source.contains("AltitudeRules.ORBITAL"), "orbital hostiles should not receive an atmospheric contact shadow")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_bank_asset_manifest.json"), "hostile bank source/runtime manifest should exist")
 	var specialist_sizes := {
 		"gunship_turret":Vector2(42,38), "chopper_cannon":Vector2(42,38),

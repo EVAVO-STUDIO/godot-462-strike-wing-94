@@ -1282,16 +1282,50 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 	var destination := Rect2((p - size * 0.5).round(), size.round())
 	surface.draw_texture_rect(texture, destination, false)
 
-func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, fallback: Texture2D, scale: float = 1.0) -> void:
+func _animated_unit_texture(enemy_id: String, enemy: Dictionary, fallback: Texture2D) -> Texture2D:
 	if not UNIT_ANIMATION_FRAMES.has(enemy_id):
-		_draw_production_sprite(surface, p, fallback, scale)
-		return
+		return fallback
 	var animation: Dictionary = UNIT_ANIMATION_FRAMES[enemy_id]
 	var frames: Array = animation["frames"]
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * float(animation["fps"]))) % frames.size()
-	_draw_production_sprite(surface, p, frames[frame_index], scale)
+	return frames[frame_index]
+
+func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, fallback: Texture2D, scale: float = 1.0) -> void:
+	_draw_production_sprite(surface, p, _animated_unit_texture(enemy_id, enemy, fallback), scale)
+
+func _render_airframe_shadow(surface: CanvasItem, p: Vector2, texture: Texture2D, enemy_id: String) -> void:
+	if ORBITAL_AIR_SPRITES.has(enemy_id):
+		return
+	var altitude := AltitudeRules.MID
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director != null and director.has_method("current_altitude"):
+		altitude = AltitudeRules.sanitize(str(director.call("current_altitude")))
+	var offset := Vector2(7.0, 10.0)
+	var squash := Vector2(0.82, 0.30)
+	var opacity := 0.18
+	match altitude:
+		AltitudeRules.LOW:
+			offset = Vector2(4.0, 7.0)
+			squash = Vector2(0.90, 0.40)
+			opacity = 0.24
+		AltitudeRules.HIGH:
+			offset = Vector2(11.0, 15.0)
+			squash = Vector2(0.74, 0.20)
+			opacity = 0.11
+		AltitudeRules.ORBITAL:
+			return
+	var shadow_center := (p + offset).round()
+	surface.draw_set_transform(shadow_center, 0.0, squash)
+	surface.draw_texture(texture, (-texture.get_size() * 0.5).round(), Color(0.025, 0.035, 0.045, opacity))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
+	var bank_index := hostile_bank_frame_index(float(enemy.get("visual_bank", 0.0)))
+	var visible_hull := _animated_unit_texture(enemy_id, enemy, hull)
+	if HOSTILE_BANK_FRAMES.has(enemy_id) and bank_index != 1:
+		var bank_frames: Array = HOSTILE_BANK_FRAMES[enemy_id]
+		visible_hull = bank_frames[bank_index]
+	_render_airframe_shadow(surface, p, visible_hull, enemy_id)
 	if MACHINE_AIR_SPRITES.has(enemy_id):
 		_render_machine_air_propulsion(surface, p, enemy_id, enemy)
 	elif ORBITAL_AIR_SPRITES.has(enemy_id):
@@ -1305,10 +1339,8 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		surface.draw_set_transform(engine_anchor.round(), PI, Vector2(0.58, 0.58))
 		surface.draw_texture(plume, Vector2(-8.0, 0.0), Color(0.84, 0.90, 0.94, 0.82))
 		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	var bank_index := hostile_bank_frame_index(float(enemy.get("visual_bank", 0.0)))
 	if HOSTILE_BANK_FRAMES.has(enemy_id) and bank_index != 1:
-		var bank_frames: Array = HOSTILE_BANK_FRAMES[enemy_id]
-		_draw_production_sprite(surface, p, bank_frames[bank_index])
+		_draw_production_sprite(surface, p, visible_hull)
 	else:
 		_draw_animated_unit(surface, p, enemy_id, enemy, hull)
 	if AIR_SPECIALIST_ART.has(enemy_id):
