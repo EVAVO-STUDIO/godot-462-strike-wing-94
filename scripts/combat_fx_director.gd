@@ -308,25 +308,31 @@ func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float, category: String) 
 	surface.draw_texture(texture, (p - Vector2(12, 12)).round())
 
 func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool, category: String, faction: String, enemy_id: String) -> void:
-	var visual_ratio := ratio
+	# The hot blast keeps its short arcade cadence, while retained hull material
+	# consumes the complete extended event. Previously the accelerated blast
+	# clock was also fed into breakup rendering, collapsing a 2.3-second boss
+	# death into roughly one second followed by an invisible event tail.
+	var event_duration := EXPLOSION_SECONDS
+	var blast_duration := EXPLOSION_SECONDS
 	if boss:
-		var boss_duration := ORBITAL_BOSS_DESTRUCTION_SECONDS if ORBITAL_BOSS_WRECK_HULLS.has(enemy_id) else BOSS_DESTRUCTION_SECONDS
-		visual_ratio = clampf(ratio * (boss_duration / BOSS_EXPLOSION_SECONDS),0.0,0.999)
+		event_duration = ORBITAL_BOSS_DESTRUCTION_SECONDS if ORBITAL_BOSS_WRECK_HULLS.has(enemy_id) else BOSS_DESTRUCTION_SECONDS
+		blast_duration = BOSS_EXPLOSION_SECONDS
 	elif category == "sea":
-		visual_ratio = clampf(ratio * (NAVAL_SINK_SECONDS / EXPLOSION_SECONDS),0.0,0.999)
-	var blast_ratio := clampf(visual_ratio / 0.66, 0.0, 0.999)
+		event_duration = NAVAL_SINK_SECONDS
+	var blast_clock := clampf(ratio * event_duration / blast_duration, 0.0, 0.999)
+	var blast_ratio := clampf(blast_clock / 0.66, 0.0, 0.999)
 	if category == "sea":
-		var water := ImpactArtLibrary.frame_for_ratio("water_impact", clampf(visual_ratio / 0.72, 0.0, 0.999))
-		var water_size := Vector2.ONE * lerpf(20.0, 38.0, visual_ratio)
-		surface.draw_texture_rect(water, Rect2((p - water_size * 0.5).round(), water_size), false, Color(0.66,0.80,0.86,0.72*(1.0-visual_ratio*0.65)))
+		var water := ImpactArtLibrary.frame_for_ratio("water_impact", clampf(blast_clock / 0.72, 0.0, 0.999))
+		var water_size := Vector2.ONE * lerpf(20.0, 38.0, blast_clock)
+		surface.draw_texture_rect(water, Rect2((p - water_size * 0.5).round(), water_size), false, Color(0.66,0.80,0.86,0.72*(1.0-blast_clock*0.65)))
 	var frame_index := clampi(int(floor(blast_ratio * float(EXPLOSION_FRAMES.size()))), 0, EXPLOSION_FRAMES.size() - 1)
 	var frame: Texture2D = EXPLOSION_FRAMES[frame_index]
 	var draw_size := roundf(max_size * (2.35 if boss else 2.20))
-	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,visual_ratio)))
-	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, visual_ratio))
-	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", visual_ratio)
+	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,blast_clock)))
+	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
+	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
 	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))
-	var debris_tint := Color(0.78,0.86,0.90,1.0-visual_ratio) if faction == "autonomous" else Color(0.86,0.78,0.62,1.0-visual_ratio)
+	var debris_tint := Color(0.78,0.86,0.90,1.0-ratio) if faction == "autonomous" else Color(0.86,0.78,0.62,1.0-ratio)
 	surface.draw_texture_rect(debris, Rect2((p - debris_size * 0.5).round(), debris_size), false, debris_tint)
 	_draw_destruction_consequence(surface, p, ratio, category, faction, enemy_id, serial, boss)
 
