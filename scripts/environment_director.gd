@@ -3,6 +3,7 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
+const EnvironmentRouteRules = preload("res://scripts/environment_route_rules.gd")
 const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
 const COAST_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/coast_chunks/seawall_run.png"),
@@ -235,6 +236,8 @@ const LANDMARK_FX_FRAMES := {
 }
 
 var _profiles: Array = []
+var _routes: Array = []
+var _route_textures: Dictionary = {}
 var _surface: Control
 
 func _ready() -> void:
@@ -242,6 +245,9 @@ func _ready() -> void:
 	var data = ContentCatalog.load_json("res://data/environment_profiles.json")
 	if typeof(data) == TYPE_DICTIONARY:
 		_profiles = data.get("profiles", [])
+	var route_data = ContentCatalog.load_json("res://data/environment_routes.json")
+	if typeof(route_data) == TYPE_DICTIONARY:
+		_routes = route_data.get("routes", [])
 	_surface = EnvironmentSurface.new()
 	_surface.director = self
 	_surface.position = Vector2.ZERO
@@ -476,6 +482,26 @@ func _world_speed_multiplier() -> float:
 	if craft != null and craft.has_method("world_speed_multiplier"):
 		return maxf(0.0, float(craft.call("world_speed_multiplier")))
 	return 1.0
+
+func _world_distance(scene: Object) -> float:
+	if _has_property(scene, "environment_world_distance"):
+		return maxf(0.0, float(scene.get("environment_world_distance")))
+	return maxf(0.0, float(scene.get("mission_time"))) * _world_speed_multiplier()
+
+func _route(route_id: String) -> Dictionary:
+	return EnvironmentRouteRules.by_id(_routes, route_id)
+
+func _textures_for_route(route: Dictionary) -> Array:
+	var route_id := str(route.get("id", ""))
+	if _route_textures.has(route_id):
+		return _route_textures[route_id]
+	var textures: Array = []
+	for path in EnvironmentRouteRules.texture_paths(route):
+		var texture = load(path)
+		if texture is Texture2D:
+			textures.append(texture)
+	_route_textures[route_id] = textures
+	return textures
 
 func _ground_scale(state: Dictionary) -> float:
 	if bool(state.get("transition", false)):
@@ -862,30 +888,34 @@ func _draw_machine_furnace(surface: CanvasItem, state: Dictionary, t: float) -> 
 
 func _draw_cloud_top(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var density := _cloud_density(state)
-	var world_scale := _world_speed_multiplier()
-	var scroll := t * 20.0 * _world_speed_multiplier() + float(_cloud_top_route_start(scene)) * 1024.0
-	_draw_vertical_chunk_sequence(surface, CLOUD_TOP_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.86, 0.92, 0.88))
+	var route := _route("cloud_top_silver_front")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty():
+		route_chunks = CLOUD_TOP_GEOGRAPHY_CHUNKS
+	var route_height := float(route.get("world_length", CLOUD_TOP_CYCLE_HEIGHT))
+	var start_offset := float(_cloud_top_route_start(scene)) * float(route.get("chunk_height", 1024))
+	var scroll := _world_distance(scene) * 20.0 + start_offset
+	_draw_vertical_chunk_sequence(surface, route_chunks, scroll, ENVIRONMENT_VIEW, Color(0.80, 0.86, 0.92, 0.88))
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.012, 0.026, 0.052, 0.10))
-	var turbulence_slots := [
-		{"x":38.0,"y":180.0}, {"x":344.0,"y":660.0}, {"x":166.0,"y":1140.0},
-		{"x":330.0,"y":1640.0}, {"x":54.0,"y":2160.0}, {"x":348.0,"y":2670.0},
-	]
+	var turbulence_slots: Array = route.get("animation_slots", [])
 	for slot_index in range(turbulence_slots.size()):
 		var slot: Dictionary = turbulence_slots[slot_index]
-		var turbulence: Texture2D = CLOUD_TOP_TURBULENCE_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, CLOUD_TOP_TURBULENCE_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) + scroll, CLOUD_TOP_CYCLE_HEIGHT) + ENVIRONMENT_VIEW.position.y
+		var phase := int(slot.get("phase", slot_index * 2))
+		var turbulence: Texture2D = CLOUD_TOP_TURBULENCE_ANIMATION[posmod(int(floor(t * 6.0)) + phase, CLOUD_TOP_TURBULENCE_ANIMATION.size())]
+		var y := fposmod(float(slot.get("world_y", 0.0)) + scroll, route_height) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface, turbulence, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(256,128)), ENVIRONMENT_VIEW, Color(0.78,0.86,0.96,0.20 + density * 0.10))
 	var transition_mix := _orbital_mix(state)
 	if transition_mix > 0.02:
 		_draw_high_atmosphere_horizon(surface, profile, maxf(_horizon_glow(state), transition_mix))
 	# Sparse moving banks preserve depth without hiding the authored cloud-deck structure.
 	var count := maxi(4, int(round(8.0 * maxf(0.42, density))))
+	var near_distance := _world_distance(scene) * 14.0
 	for i in range(count):
 		var texture: Texture2D = CLOUD_HIGH[i % CLOUD_HIGH.size()]
 		var x := float((i * 137 + 43) % 720) - 40.0
 		var scale := 0.72 + float(i % 3) * 0.13
 		var size := Vector2(texture.get_size()) * scale
-		var y := fposmod(float(i) * 71.0 + t * 14.0 * world_scale, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
+		var y := fposmod(float(i) * 71.0 + near_distance, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.82, 0.87, 0.90, 0.24 + density * 0.22))
 
 func _draw_high_atmosphere_horizon(surface: CanvasItem, _profile: Dictionary, glow: float) -> void:

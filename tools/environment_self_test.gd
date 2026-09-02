@@ -2,6 +2,7 @@ extends SceneTree
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
+const EnvironmentRouteRules = preload("res://scripts/environment_route_rules.gd")
 
 var failures: Array[String] = []
 
@@ -21,6 +22,13 @@ func _initialize() -> void:
 		_expect(low_speed > high_speed, "low-altitude terrain parallax should move faster than high-altitude terrain")
 		_expect(blended_speed < low_speed and blended_speed > high_speed, "altitude transition parallax should interpolate instead of snapping")
 	_expect(EnvironmentRules.ground_detail_scale("low") > EnvironmentRules.ground_detail_scale("high"), "ground detail should shrink with altitude")
+	var route_data = ContentCatalog.load_json("res://data/environment_routes.json")
+	_expect(typeof(route_data) == TYPE_DICTIONARY, "environment route catalogue should load")
+	if typeof(route_data) == TYPE_DICTIONARY:
+		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
+		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
+		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
+		_expect(cloud_route.get("districts", []).size() == 6 and int(cloud_route.get("world_length", 0)) == 6144, "Cloud Top route should provide six distinct 1024px districts before repeating")
 	var blended_ground := EnvironmentRules.blended_ground_detail_scale("low", "high", 0.5)
 	_expect(blended_ground < EnvironmentRules.ground_detail_scale("low") and blended_ground > EnvironmentRules.ground_detail_scale("high"), "ground-detail scale should interpolate through altitude changes")
 	var blended_clouds := EnvironmentRules.blended_cloud_density("mid", "high", 0.5)
@@ -84,7 +92,7 @@ func _initialize() -> void:
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
 		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS"), "mountain benchmark should use three forward-scrolling authored districts")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
-		_expect(source.contains("CLOUD_TOP_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CLOUD_TOP_GEOGRAPHY_CHUNKS"), "high-altitude benchmark should use three forward-scrolling authored cloud districts")
+		_expect(source.contains('EnvironmentRouteRules.by_id(_routes, route_id)') and source.contains('_route("cloud_top_silver_front")'), "high-altitude benchmark should resolve its authored route from content data")
 		_expect(source.contains("ORBITAL_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS"), "orbital benchmark should use three forward-scrolling authored infrastructure districts")
 		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS"), "city belt should use three forward-scrolling authored districts")
 		_expect(source.contains("MACHINE_FURNACE"), "machine-war reveal should use its authored autonomous-foundry raster master")
@@ -413,9 +421,10 @@ func _initialize() -> void:
 			var turbulence_frame := load("res://assets/runtime/environments/cloud_top_turbulence_animation/shear_%d.png" % frame_index) as Texture2D
 			_expect(turbulence_frame != null and turbulence_frame.get_size() == Vector2(256,128), "cloud-top turbulence should retain shared 256x128 registration: %d" % frame_index)
 			if turbulence_frame != null: _expect(turbulence_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "cloud-top turbulence frame must retain genuine alpha: %d" % frame_index)
-		_expect(source.contains("CLOUD_TOP_TURBULENCE_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "cloud-top turbulence should use held frames registered to forward-moving cloud geography coordinates")
-		_expect(source.contains("CLOUD_TOP_CYCLE_HEIGHT := 6144.0") and source.contains("_cloud_top_route_start(scene)") and source.contains("_mission_seed(scene) + mission_index"), "cloud-top route should use six-district collision-resistant seeded sequencing and a 6144px world-registration cycle")
-		_expect(source.contains("t * 20.0 * _world_speed_multiplier()"), "cloud-top geography should accelerate with the shared hypersonic world-speed contract")
+		_expect(source.contains("CLOUD_TOP_TURBULENCE_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('slot.get("world_y", 0.0)') and source.contains("route_height"), "cloud-top turbulence should use held frames registered to data-authored world coordinates")
+		_expect(source.contains('_world_distance(scene) * 20.0') and source.contains('environment_world_distance'), "cloud-top geography should consume integrated world distance instead of multiplying the current speed by all elapsed mission time")
+		var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
+		_expect(main_source.contains("environment_world_distance += delta * _environment_speed_multiplier()") and main_source.contains("environment_world_distance = 0.0"), "gameplay should integrate and reset one authoritative environment travel distance")
 		_expect(source.contains("transition_mix > 0.02") and source.contains("maxf(_horizon_glow(state), transition_mix)"), "planetary curvature should appear during orbital transition rather than cutting across ordinary high-cloud combat")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"), "orbital runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_asset_manifest.json"), "orbital source manifest should exist")

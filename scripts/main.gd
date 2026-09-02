@@ -51,6 +51,7 @@ var fire_timer := 0.0
 var secondary_timer := 0.0
 var enemy_spawn_timer := 0.5
 var mission_time := 0.0
+var environment_world_distance := 0.0
 var mission_duration := 150.0
 var score := 0
 var hull := 100
@@ -237,6 +238,7 @@ func _capture_time(arguments: PackedStringArray) -> float:
 func _begin_capture_gameplay() -> void:
 	_start_mission()
 	mission_time = minf(_capture_time(OS.get_cmdline_user_args()), maxf(0.0, mission_duration - 1.0))
+	environment_world_distance = mission_time * _environment_speed_multiplier()
 	queue_redraw()
 
 func _begin_capture_result(state: String) -> void:
@@ -583,6 +585,7 @@ func _update_mission(delta: float) -> void:
 	energy = EnergyRules.recharge(energy, _active_generator(), delta)
 	wave = MissionStateRules.live_wave(_active_mission(), mission_time)
 	_update_player(delta)
+	environment_world_distance += delta * _environment_speed_multiplier()
 	var evasive := get_node_or_null("/root/EvasiveRollDirector")
 	if evasive != null and evasive.has_method("update_maneuver"):
 		evasive.call("update_maneuver", self, delta)
@@ -618,6 +621,12 @@ func _update_mission(delta: float) -> void:
 	if enemy_spawn_timer <= 0.0 and not _boss_alive():
 		_spawn_enemy()
 		enemy_spawn_timer = _difficulty_spawn_interval(CombatRules.enemy_spawn_interval(wave))
+
+func _environment_speed_multiplier() -> float:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("world_speed_multiplier"):
+		return maxf(0.0, float(craft.call("world_speed_multiplier")))
+	return 1.0
 
 func _load_content() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
@@ -804,6 +813,7 @@ func _start_mission() -> void:
 	campaign_completion_committed = false
 	phase = GamePhase.PLAYING
 	mission_time = 0.0
+	environment_world_distance = 0.0
 	score = 0
 	shots_fired = 0
 	shots_hit = 0

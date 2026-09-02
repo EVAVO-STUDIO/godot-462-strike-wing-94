@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "id": "cloud_top_silver_front",
+      "environment": "high_cloud",
+      "native_width": 640,
+      "chunk_height": 1024,
+      "world_length": 6144,
+      "planes": [
+        {"id": "far_atmosphere", "kind": "finite_field", "ratio": 0.28},
+        {"id": "geography", "kind": "chunk_route", "ratio": 1.0},
+        {"id": "turbulence", "kind": "registered_animation", "ratio": 1.0},
+        {"id": "near_cloud", "kind": "finite_field", "ratio": 1.18}
+      ],
+      "districts": [
+        {"id": "anvil_wells", "asset": "res://assets/runtime/environments/cloud_top_chunks/anvil_wells.png", "north": "cloud_deck_a", "south": "cloud_deck_a"},
+        {"id": "silver_breaks", "asset": "res://assets/runtime/environments/cloud_top_chunks/silver_breaks.png", "north": "cloud_deck_a", "south": "cloud_deck_a"},
+        {"id": "frontal_boundary", "asset": "res://assets/runtime/environments/cloud_top_chunks/frontal_boundary.png", "north": "cloud_deck_a", "south": "cloud_deck_a"},
+        {"id": "jetstream_corridor", "asset": "res://assets/runtime/environments/cloud_top_chunks/jetstream_corridor.png", "north": "cloud_deck_a", "south": "cloud_deck_a"},
+        {"id": "mammatus_shelf", "asset": "res://assets/runtime/environments/cloud_top_chunks/mammatus_shelf.png", "north": "cloud_deck_a", "south": "cloud_deck_a"},
+        {"id": "cold_front_fracture", "asset": "res://assets/runtime/environments/cloud_top_chunks/cold_front_fracture.png", "north": "cloud_deck_a", "south": "cloud_deck_a"}
+      ],
+      "animation_slots": [
+        {"family": "cloud_top_turbulence", "x": 38, "world_y": 180, "phase": 0},
+        {"family": "cloud_top_turbulence", "x": 344, "world_y": 660, "phase": 2},
+        {"family": "cloud_top_turbulence", "x": 166, "world_y": 1140, "phase": 4},
+        {"family": "cloud_top_turbulence", "x": 330, "world_y": 1640, "phase": 0},
+        {"family": "cloud_top_turbulence", "x": 54, "world_y": 2160, "phase": 2},
+        {"family": "cloud_top_turbulence", "x": 348, "world_y": 2670, "phase": 4}
+      ]
+    }
+  ]
+}
