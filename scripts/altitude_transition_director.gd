@@ -19,8 +19,12 @@ const TRANSITION_CLOUDS := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_b.png"),
 ]
 const LOWER_LEFT_KEEP_OUT := Rect2(0.0, 252.0, 244.0, 108.0)
+const CHOICE_REVEAL_SECONDS := 4.0
+const CHOICE_REMINDER_SECONDS := 2.4
 
 var _surface: Control
+var _choice_was_available := false
+var _choice_reveal_timer := 0.0
 
 func _ready() -> void:
 	layer = 14
@@ -32,9 +36,39 @@ func _ready() -> void:
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_update_choice_visibility(delta)
 	if _surface != null:
 		_surface.queue_redraw()
+
+func _update_choice_visibility(delta: float) -> void:
+	var scene := get_tree().current_scene
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	var available := (
+		scene != null
+		and craft != null
+		and _has_property(scene, "phase")
+		and int(scene.get("phase")) == 1
+		and _has_property(scene, "mission_time")
+		and craft.has_method("altitude_choice_available")
+		and bool(craft.call("altitude_choice_available", float(scene.get("mission_time"))))
+	)
+	if available and not _choice_was_available:
+		_choice_reveal_timer = CHOICE_REVEAL_SECONDS
+	elif available and (Input.is_action_just_pressed("altitude_up") or Input.is_action_just_pressed("altitude_down")):
+		_choice_reveal_timer = CHOICE_REMINDER_SECONDS
+	elif not available:
+		_choice_reveal_timer = 0.0
+	_choice_was_available = available
+	_choice_reveal_timer = maxf(0.0, _choice_reveal_timer - delta)
+
+func choice_prompt_visible() -> bool:
+	return _choice_reveal_timer > 0.0
+
+func occupies_status_lane() -> bool:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	var transition_active := craft != null and craft.has_method("altitude_transition_active") and bool(craft.call("altitude_transition_active"))
+	return choice_prompt_visible() or transition_active
 
 func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 	var craft := get_node_or_null("/root/CraftFormDirector")
@@ -54,6 +88,8 @@ func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 	_draw_choice_prompt(surface, craft)
 
 func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
+	if not choice_prompt_visible():
+		return
 	var scene := get_tree().current_scene
 	if scene == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 1 or not _has_property(scene, "mission_time"):
 		return

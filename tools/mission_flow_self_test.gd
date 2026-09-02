@@ -152,7 +152,8 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "ingress", "acquisition", "warning", "boss"]'), "visual QA should expose deterministic ingress, objective, acquisition, warning and boss HUD fixtures without mutating simulation")
 		_expect(source.contains('_capture_time() > INGRESS_SECONDS') and source.contains('capture_state == "ingress"'), "representative gameplay captures should suppress the launch transient unless ingress is explicitly requested")
 		_expect(source.contains('if _capture_hud_state() == "boss"') and source.contains('if _capture_hud_state() == "warning"'), "critical HUD capture fixtures should provide deterministic boss and missile-lock presentation data")
-		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("elif not _altitude_choice_active(scene)"), "control-critical altitude choice should suppress colliding routine status notices")
+		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("occupies_status_lane") and source.contains("AltitudeTransitionDirector"), "only a visible altitude selector or transition should suppress colliding routine status notices")
+		_expect(source.contains("_radio_occupies_status_lane()") and source.contains("MissionRadioDirector"), "radio subtitles and transient status should arbitrate one shared lower information lane instead of overprinting")
 		_expect(FileAccess.file_exists("res://tools/build_hud_threat_art.ps1"), "threat-annunciator sprites should remain reproducible from their governed SVG source")
 		var threat_lock := load("res://assets/runtime/ui/hud/threat_annunciator/lock.png") as Texture2D
 		_expect(threat_lock != null and threat_lock.get_image().get_pixel(100,10).a > 0.9, "threat annunciator must retain its smoked backing over detailed terrain")

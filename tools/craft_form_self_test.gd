@@ -138,6 +138,8 @@ func _test_source_integration() -> void:
 	var transition_source := transition_file.get_as_text() if transition_file != null else ""
 	_expect(transition_source.contains('"CLIMB %s"') and transition_source.contains('"DIVE %s"'), "altitude choice HUD should use device-neutral tactical direction labels")
 	_expect(transition_source.contains("LOWER_LEFT_KEEP_OUT") and transition_source.contains("640.0 - width - 16.0"), "altitude selector should move opposite the VX-94 instead of being covered at the lower-left flight limit")
+	_expect(transition_source.contains("CHOICE_REVEAL_SECONDS := 4.0") and transition_source.contains("CHOICE_REMINDER_SECONDS := 2.4"), "altitude choice HUD should reveal contextually instead of occupying the playfield for an entire lane window")
+	_expect(transition_source.contains('Input.is_action_just_pressed("altitude_up")') and transition_source.contains("func occupies_status_lane"), "climb/dive input should recall the selector and publish its real status-lane occupancy")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

@@ -106,6 +106,9 @@ func draw_radio(surface: CanvasItem) -> void:
 		var height := 2.0 + float((i * 3 + int(age * 12.0)) % 5)
 		surface.draw_rect(Rect2(594 + i * 4, 343 + (6.0 - height) * 0.5, 2, height), Color(0.90, 0.73, 0.31, alpha * pulse))
 
+func occupies_status_lane() -> bool:
+	return not _message.is_empty() and _subtitles_enabled()
+
 func _clip(text: String, length: int) -> String:
 	return text if text.length() <= length else text.substr(0, maxi(0, length - 3)) + "..."
 
