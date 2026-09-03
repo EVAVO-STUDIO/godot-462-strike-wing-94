@@ -475,6 +475,8 @@ Spatially authored events use route progress: environment layers, terrain-fixed 
 
 ## Authored stage rhythm
 
+Missions may declare `ingress_seconds` to hold back the unscripted spawn cadence while terrain, heading and the initial threat picture are established. This does not delay route-positioned encounter beats. Coastal Intercept uses a seven-route-unit ingress, allowing its authored scout screen to own first contact; that beat then extends random-spawn suppression long enough to be read and fought as one formation.
+
 Every mission requires:
 
 - at least five encounter beats;

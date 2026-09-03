@@ -41,6 +41,7 @@ Implemented now:
 - interactive Atlas tanker hose hookup / rearm / refuel sequence
 - dedicated bomber precision-strike ordnance at low/mid altitude
 - deterministic authored encounter beats, formations, recovery windows and mastery secrets
+- mission-authored ingress separation so Coastal Intercept establishes terrain and heading before its four-ship scout screen, rather than stacking random contacts over the opening seconds
 - 30 core missions across Mercenary War, Machine War and BLACK SKY, plus six discoverable secret sorties
 - arcade assault and authored challenge routes with independent scoring/progression rules
 - 38 canonical enemy identities spanning air, ground, naval and orbital warfare, including nine bosses

@@ -883,7 +883,10 @@ func _start_mission() -> void:
 	temporary_weapon_boost = 0
 	energy = EnergyRules.capacity(_active_generator())
 	boss_spawned = false
-	enemy_spawn_timer = 0.35
+	# Authored ingress lets an operation establish terrain, heading and threat
+	# picture before unscripted contacts begin. Encounter beats can still arrive
+	# at their precise route positions and extend this suppression window.
+	enemy_spawn_timer = maxf(0.35, float(_active_mission().get("ingress_seconds", 0.35)))
 	player_position = Vector2(320.0, 292.0)
 	player_loss_timer = 0.0
 	boss_victory_timer = 0.0

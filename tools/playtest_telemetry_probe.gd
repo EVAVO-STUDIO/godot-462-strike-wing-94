@@ -23,10 +23,12 @@ var _minimum_world_speed := 99.0
 var _maximum_world_speed := 0.0
 var _minimum_throttle := 1.0
 var _maximum_throttle := 0.0
+var _passive_profile := false
 
 func _ready() -> void:
 	process_priority = -100
 	duration = clampf(_argument_float("--playtest-seconds=", DEFAULT_SIMULATION_SECONDS), 12.0, 120.0)
+	_passive_profile = "--playtest-passive" in OS.get_cmdline_user_args()
 	Engine.time_scale = TIME_SCALE
 	call_deferred("_prepare")
 
@@ -41,10 +43,15 @@ func _prepare() -> void:
 	_starting_world_distance = float(scene.get("environment_world_distance")) if _has_property(scene, "environment_world_distance") else 0.0
 	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
 	_last_ordnance = int(strike.get("ordnance")) if strike != null else -1
-	Input.action_press("fire_primary")
+	if not _passive_profile:
+		Input.action_press("fire_primary")
 
 func _process(delta: float) -> void:
-	if scene == null or not is_instance_valid(scene) or int(scene.get("phase")) != 1:
+	if scene == null or not is_instance_valid(scene):
+		return
+	if int(scene.get("phase")) != 1:
+		if elapsed > 0.0:
+			_finish()
 		return
 	elapsed += delta
 	_sample_state(delta)
@@ -52,8 +59,9 @@ func _process(delta: float) -> void:
 	if whole_second != last_second:
 		last_second = whole_second
 		_release_pulses()
-		_drive_movement(whole_second)
-		_drive_commands(whole_second)
+		if not _passive_profile:
+			_drive_movement(whole_second)
+			_drive_commands(whole_second)
 	if elapsed >= duration:
 		_finish()
 
@@ -147,7 +155,7 @@ func _finish() -> void:
 	var ending := _snapshot_counters()
 	var mission: Dictionary = scene.call("_active_mission") if scene.has_method("_active_mission") else {}
 	var report := {
-		"profile":"HYPERSONIC_BOUNDED_AUTOPILOT",
+		"profile":"HYPERSONIC_PASSIVE_EXPOSURE" if _passive_profile else "HYPERSONIC_BOUNDED_AUTOPILOT",
 		"mission_id":str(mission.get("id", "unknown")),
 		"mission_name":str(mission.get("name", "UNKNOWN")),
 		"simulation_seconds":elapsed,

@@ -6,11 +6,12 @@
       "name": "Coastal Intercept",
       "environment": "coast",
       "duration_seconds": 150,
+      "ingress_seconds": 7,
       "starting_wave": 1,
       "boss_id": "gunship_alpha",
       "briefing": "Break the coastal strike group before it reaches the fleet anchorage.",
       "encounter_beats": [
-        {"id":"opening_scouts","at_seconds":7,"label":"SCOUT SCREEN","formation":"wedge","enemies":[{"id":"scout_falcon","count":4}],"suppress_random_seconds":3},
+        {"id":"opening_scouts","at_seconds":7,"label":"SCOUT SCREEN","formation":"wedge","enemies":[{"id":"scout_falcon","count":4}],"suppress_random_seconds":5},
         {"id":"gunship_probe","at_seconds":38,"label":"GUNSHIP PROBE","formation":"split","enemies":[{"id":"gunship_mk1","count":2},{"id":"attack_chopper","count":2}],"suppress_random_seconds":4},
         {"id":"resupply_gap","at_seconds":70,"label":"RESUPPLY WINDOW","formation":"line","enemies":[{"id":"scout_falcon","count":2}],"pickup":"shield","suppress_random_seconds":7},
         {"id":"hidden_ace","at_seconds":82,"label":"ACE CHALLENGE","formation":"wedge","secret":true,"condition":{"type":"accuracy_at_least","value":0.72,"minimum_shots":70},"enemies":[{"id":"ace_interceptor","count":1}],"pickup":"weapon","suppress_random_seconds":5},
