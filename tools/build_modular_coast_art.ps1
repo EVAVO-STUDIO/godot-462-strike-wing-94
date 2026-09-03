@@ -70,7 +70,11 @@ $ImpactFrames = @(
 )
 for ($Index = 0; $Index -lt $ImpactFrames.Count; $Index++) {
     $Destination = Join-Path $Output "breakwater_impact_$Index.png"
-    & $MagickPath $Source -crop $ImpactFrames[$Index] +repage -trim +repage -resize '112x112>' -gravity center -background none -extent '120x120' -depth 8 $Destination
+    # The source cells contain their own dark water plate. Kept opaque, that
+    # plate reads as a square grey island when composited over animated sea.
+    # Retain only high-value foam/spray in alpha so the effect registers cleanly
+    # to any authored shoreline district.
+    & $MagickPath $Source -crop $ImpactFrames[$Index] +repage -trim +repage -resize '112x112>' -gravity center -background none -extent '120x120' -channel A -fx 'a*max(0,(r+g+b)/3-0.34)/0.66' +channel -depth 8 $Destination
     if ($LASTEXITCODE -ne 0) { throw "Failed to build breakwater impact frame: $Index" }
 }
 

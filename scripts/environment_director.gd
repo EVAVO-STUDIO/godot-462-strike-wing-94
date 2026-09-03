@@ -173,6 +173,7 @@ const ORBITAL_DEBRIS_ANIMATION := [
 const ORBITAL_STARFIELD_TILE := preload("res://assets/runtime/environments/orbital/starfield_tile.png")
 const EARTH_LIMB_V2 := preload("res://assets/runtime/environments/orbital/earth_limb_v2.png")
 const ENVIRONMENT_VIEW := Rect2(0, 36, 640, 324)
+const COAST_ROUTE_SCROLL_SCALE := 0.82
 const PARALLAX_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/parallax_far.png"),
 	preload("res://assets/runtime/environments/motion/parallax_mid.png"),
@@ -183,14 +184,6 @@ const COAST_WAVELETS := [
 	preload("res://assets/runtime/environments/motion/coast_wavelet_a.png"),
 	preload("res://assets/runtime/environments/motion/coast_wavelet_b.png"),
 	preload("res://assets/runtime/environments/motion/coast_wavelet_c.png"),
-]
-const COAST_BREAKWATER_IMPACT := [
-	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_0.png"),
-	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_1.png"),
-	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_2.png"),
-	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_3.png"),
-	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_2.png"),
-	preload("res://assets/runtime/environments/modular_coast/breakwater_impact_1.png"),
 ]
 const COAST_FINITE_CHUNKS := [
 	preload("res://assets/runtime/environments/modular_coast/utility_bunker.png"),
@@ -636,7 +629,11 @@ func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 	var route := _route("coast_silver_breakwater")
 	var route_chunks := _textures_for_route(route)
 	if route_chunks.is_empty(): route_chunks = COAST_GEOGRAPHY_CHUNKS
-	var scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.32
+	# The original 0.32 scale exposed barely one 1024px district during the
+	# entire opening sortie, so a six-district route still read like a single
+	# looping wallpaper. Normal flight now crosses roughly three districts;
+	# afterburner and hypersonic travel accelerate the same world coordinate.
+	var scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * COAST_ROUTE_SCROLL_SCALE
 	var coast_source_y := scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
 	_draw_vertical_chunk_sequence(surface, route_chunks, coast_source_y, ENVIRONMENT_VIEW)
 	_draw_coast_wavelets(surface, scene, profile, state, t)
@@ -678,7 +675,7 @@ func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dicti
 	# Finite authored modules use a long world-space cycle instead of wallpaper
 	# tiling. Every slot has a deliberate land/shore role: seed-shifting the asset
 	# index previously put radar bunkers and pier slabs over open water.
-	var speed := _base_parallax_speed(profile, state, "mid") * 0.32
+	var speed := _base_parallax_speed(profile, state, "mid") * COAST_ROUTE_SCROLL_SCALE
 	var world_scroll := _world_distance(scene) * speed
 	var seed := _mission_seed(scene)
 	var scale := 0.34 + 0.12 * _ground_scale(state)
@@ -702,11 +699,6 @@ func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dicti
 		var x_jitter := float((seed + slot_index * 31) % 9) - 4.0
 		var x := clampf(float(slot["x"]) + x_jitter, 8.0, 632.0 - size.x)
 		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x, y).round(), size), ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.84, 0.76))
-
-	var impact_frame: Texture2D = COAST_BREAKWATER_IMPACT[posmod(int(floor(t * 8.0)), COAST_BREAKWATER_IMPACT.size())]
-	var impact_y := fposmod(world_scroll + 360.0 + float(seed % 239), cycle) - 100.0 + ENVIRONMENT_VIEW.position.y
-	if impact_y + 66.0 >= ENVIRONMENT_VIEW.position.y and impact_y <= ENVIRONMENT_VIEW.end.y:
-		_draw_texture_rect_clipped(surface, impact_frame, Rect2(Vector2(374, impact_y).round(), Vector2(66,66)), ENVIRONMENT_VIEW, Color(0.90,0.96,0.98,0.48))
 
 func _draw_texture_rect_clipped(surface: CanvasItem, texture: Texture2D, destination: Rect2, clip_rect: Rect2, modulate := Color.WHITE) -> void:
 	var clipped := destination.intersection(clip_rect)
