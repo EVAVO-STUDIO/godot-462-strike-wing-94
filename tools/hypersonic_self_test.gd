@@ -17,6 +17,9 @@ func _initialize() -> void:
 	var art_source := FileAccess.get_file_as_string("res://scripts/combat_art_director.gd")
 	_expect(art_source.contains("HYPERSONIC_PURSUER_TRANSFORMS") and art_source.contains("pursuit_%02d.png"), "all capable pursuit aircraft should use registered ten-exposure transformation art")
 	_expect(not art_source.contains("hull.get_width() * lerpf(1.0, 0.62, ratio)"), "enemy hypersonic transformation must never squash a flat hull sprite")
+	_expect(art_source.contains('engine_anchor := p+Vector2(0,-hull.get_height()*0.30)') and art_source.contains('draw_set_transform(engine_anchor.round(),PI'), "enemy pursuit exhaust should project aft toward the top of the screen rather than through the aircraft nose")
+	_expect(art_source.contains('frame_for_ratio("hypersonic_ignition",boom_age/0.16)') and art_source.contains('_draw_enemy_damage_attachments(surface,p,enemy,"air"'), "enemy pursuit latch should preserve authored ignition and damage-state continuity")
+	_expect(art_source.contains('["ace_interceptor", "drone_hunter", "phase_interceptor"]'), "all three pursuit families should expose paired forward firing cues while folded")
 	for enemy_id in ["ace_interceptor", "drone_hunter", "phase_interceptor"]:
 		for frame in range(10):
 			var path := "res://assets/runtime/enemies/hypersonic_pursuit/%s/pursuit_%02d.png" % [enemy_id,frame]

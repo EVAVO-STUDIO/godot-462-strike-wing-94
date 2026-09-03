@@ -142,7 +142,7 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(0.1, 0.0) == 2, "heavy bomber bay should reach an open weapon-ready pose")
 	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(1.0, 0.8) == 3, "heavy bomber bay should expose an authored firing pose during recoil")
 	_expect(source.contains('enemy_id == "gunship_mk1"') and source.contains('enemy_id == "attack_chopper"'), "gunship turret and helicopter cannon should receive specialist articulation")
-	_expect(source.contains("func _render_airframe_weapon_discharge") and source.contains('"scout_falcon", "ace_interceptor", "drone_scout", "phase_interceptor"') and source.contains("direction.orthogonal() * 4.0"), "ordinary hostile fighters should expose authored single/twin hardpoint discharge instead of spawning disconnected rounds")
+	_expect(source.contains("func _render_airframe_weapon_discharge") and source.contains('"scout_falcon", "ace_interceptor", "drone_scout", "drone_hunter", "phase_interceptor"') and source.contains("direction.orthogonal() * 4.0"), "ordinary and pursuit-capable hostile fighters should expose authored single/twin hardpoint discharge instead of spawning disconnected rounds")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_specialist/air_specialist_asset_manifest.json"), "air specialist source/runtime manifest should exist")
 	var layered_human_air_sizes := {
 		"gunship_mount":Vector2(15,15), "gunship_turret":Vector2(16,20), "gunship_barrel":Vector2(12,24), "gunship_barrel_recoil":Vector2(12,24), "gunship_sensor":Vector2(8,8),

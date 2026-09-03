@@ -1312,13 +1312,25 @@ func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: Str
 	var hull: Texture2D = load("res://assets/runtime/enemies/hypersonic_pursuit/%s/pursuit_%02d.png" % [enemy_id,frame_index])
 	surface.draw_texture(hull, (p-hull.get_size()*0.5).round())
 	var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
-	surface.draw_texture(plume, (p + Vector2(-plume.get_width() * 0.5, hull.get_height() * 0.30)).round(), Color(0.88,0.94,1.0,ratio))
+	var engine_anchor := p+Vector2(0,-hull.get_height()*0.30)
+	surface.draw_set_transform(engine_anchor.round(),PI,Vector2.ONE)
+	surface.draw_texture(plume,Vector2(-plume.get_width()*0.5,0).round(),Color(0.88,0.94,1.0,ratio))
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 	var boom_age := float(enemy.get("hypersonic_boom_age", 99.0))
 	if boom_age < 0.42:
 		var t := boom_age / 0.42
 		var boom := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
 		var size := roundf(lerpf(36.0, 112.0, t))
 		surface.draw_texture_rect(boom, Rect2((p-Vector2.ONE*size*0.5).round(),Vector2.ONE*size),false,Color(1,1,1,1.0-t))
+		if boom_age < 0.16:
+			var ignition := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_ignition",boom_age/0.16)
+			surface.draw_set_transform(p.round(),PI,Vector2.ONE)
+			surface.draw_texture(ignition,Vector2(-32,-17))
+			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+	if enemy_id == "ace_interceptor":
+		_render_mercenary_position_lights(surface,p,enemy_id,enemy,hull)
+	_render_airframe_weapon_discharge(surface,p,enemy_id,enemy,hull)
+	_draw_enemy_damage_attachments(surface,p,enemy,"air",str(enemy.get("faction","mercenary")),1.0)
 	return true
 
 static func has_production_art(enemy_id: String) -> bool:
@@ -1484,7 +1496,7 @@ func _render_airframe_weapon_discharge(surface: CanvasItem, p: Vector2, enemy_id
 	# Layered specialists expose their own hardpoint flashes. These lighter
 	# airframes still need an authored firing exposure so a round never appears
 	# disconnected from an inert silhouette.
-	if not enemy_id in ["scout_falcon", "ace_interceptor", "drone_scout", "phase_interceptor"]:
+	if not enemy_id in ["scout_falcon", "ace_interceptor", "drone_scout", "drone_hunter", "phase_interceptor"]:
 		return
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
 	if recoil_ratio <= 0.01:
@@ -1493,7 +1505,7 @@ func _render_airframe_weapon_discharge(surface: CanvasItem, p: Vector2, enemy_id
 	if direction.length_squared() < 0.001:
 		direction = Vector2.DOWN
 	var muzzle_center := p + direction * maxf(9.0, hull.get_height() * 0.30)
-	if enemy_id in ["ace_interceptor", "phase_interceptor"]:
+	if enemy_id in ["ace_interceptor", "drone_hunter", "phase_interceptor"]:
 		var lateral := direction.orthogonal() * 4.0
 		_render_air_muzzle(surface, muzzle_center - lateral, recoil_ratio)
 		_render_air_muzzle(surface, muzzle_center + lateral, recoil_ratio)
