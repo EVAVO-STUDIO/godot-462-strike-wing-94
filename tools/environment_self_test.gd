@@ -444,7 +444,7 @@ func _initialize() -> void:
 		var coast_travel_section := source.substr(source.find("func _draw_coast"), source.find("func _draw_texture_rect_clipped") - source.find("func _draw_coast"))
 		_expect(not coast_travel_section.contains("t * _parallax_speed") and not coast_travel_section.contains("t * 21.0"), "coastal spatial layers must not multiply elapsed mission time by the current speed")
 		var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
-		_expect(main_source.contains("environment_world_distance += delta * _environment_speed_multiplier()") and main_source.contains("environment_world_distance = 0.0"), "gameplay should integrate and reset one authoritative environment travel distance")
+		_expect(main_source.contains("RouteProgressRules.advance(environment_world_distance, delta, _environment_speed_multiplier())") and main_source.contains("environment_world_distance = 0.0"), "gameplay should integrate and reset one authoritative environment travel distance")
 		_expect(main_source.contains("--capture-world-distance=") and main_source.contains("captured_distance if captured_distance >= 0.0"), "visual QA should compare flight regimes at one exact authoritative world coordinate")
 		_expect(source.contains("transition_mix > 0.02") and source.contains("maxf(_horizon_glow(state), transition_mix)"), "planetary curvature should appear during orbital transition rather than cutting across ordinary high-cloud combat")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/orbital/black_sky_station_loop_v1.png"), "orbital runtime master should exist")

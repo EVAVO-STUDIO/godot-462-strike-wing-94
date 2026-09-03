@@ -48,7 +48,7 @@ func _update_choice_visibility(delta: float) -> void:
 		and int(scene.get("phase")) == 1
 		and _has_property(scene, "mission_time")
 		and craft.has_method("altitude_choice_available")
-		and bool(craft.call("altitude_choice_available", float(scene.get("mission_time"))))
+		and bool(craft.call("altitude_choice_available", _route_progress(scene)))
 	)
 	if available and not _choice_was_available:
 		_choice_reveal_timer = CHOICE_REVEAL_SECONDS
@@ -74,10 +74,10 @@ func compact_choice_label() -> String:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if scene == null or craft == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 1 or not _has_property(scene, "mission_time"):
 		return ""
-	var mission_time := float(scene.get("mission_time"))
-	if not craft.has_method("altitude_choice_available") or not bool(craft.call("altitude_choice_available", mission_time)):
+	var route_progress := _route_progress(scene)
+	if not craft.has_method("altitude_choice_available") or not bool(craft.call("altitude_choice_available", route_progress)):
 		return ""
-	var bands: Array = craft.call("altitude_choice_bands", mission_time)
+	var bands: Array = craft.call("altitude_choice_bands", route_progress)
 	var current := str(craft.call("current_altitude")) if craft.has_method("current_altitude") else AltitudeRules.MID
 	var higher := AltitudeRules.adjacent_band(current, 1)
 	var lower := AltitudeRules.adjacent_band(current, -1)
@@ -90,6 +90,11 @@ func compact_choice_label() -> String:
 	if lower_available:
 		return "%s<%s" % [_code(lower), _code(current)]
 	return ""
+
+func _route_progress(scene: Object) -> float:
+	if scene.has_method("route_progress_seconds"):
+		return maxf(0.0, float(scene.call("route_progress_seconds")))
+	return maxf(0.0, float(scene.get("mission_time")))
 
 func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 	var craft := get_node_or_null("/root/CraftFormDirector")

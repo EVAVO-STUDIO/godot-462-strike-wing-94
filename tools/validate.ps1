@@ -57,7 +57,7 @@ $Required = @(
     'scripts/strategic_warhead_rules.gd','scripts/strategic_warhead_surface.gd','scripts/strategic_warhead_director.gd',
     'scripts/encounter_rules.gd','scripts/encounter_director.gd','scripts/support_rules.gd','scripts/support_director.gd',
     'scripts/player_mount_rules.gd','scripts/player_mount_director.gd',
-    'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/flight_speed_rules.gd','scripts/craft_form_director.gd',
+    'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/flight_speed_rules.gd','scripts/route_progress_rules.gd','scripts/craft_form_director.gd',
     'scripts/environment_rules.gd','scripts/environment_surface.gd','scripts/environment_director.gd',
     'scripts/campaign_cinematic_surface.gd','scripts/campaign_cinematic_director.gd','scripts/credits_surface.gd','scripts/credits_director.gd','data/credits.json','scripts/game_mode_rules.gd','scripts/game_mode_director.gd','data/game_modes.json',
     'scripts/altitude_transition_surface.gd','scripts/altitude_transition_director.gd',

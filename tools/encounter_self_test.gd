@@ -124,6 +124,7 @@ func _test_route_runtime_wiring() -> void:
 		_expect(source.contains('scene.set("secrets_discovered"') and source.contains("EncounterRules.is_secret(beat)"), "triggered mastery secrets should feed authoritative sortie telemetry")
 		_expect(source.contains("discovered_secret_ids") and source.contains('var stable_id := "%s:%s"'), "triggered mastery secrets should persist stable mission-and-vector identities")
 		_expect(source.contains('scene.has_method("_boss_alive")') and source.contains("_next_beat_index = EncounterRules.beats_for_mission"), "pending lesser encounter beats should retire once command contact owns the lane")
+		_expect(source.contains("_route_progress(scene)") and source.contains('scene.has_method("route_progress_seconds")'), "encounter timestamps should represent travelled route positions rather than elapsed combat time")
 	var cue := FileAccess.open("res://scripts/intercept_route_director.gd", FileAccess.READ)
 	_expect(cue != null, "intercept route director should be readable")
 	if cue != null:

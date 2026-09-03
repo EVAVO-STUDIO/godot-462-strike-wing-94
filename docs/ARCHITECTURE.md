@@ -467,6 +467,12 @@ Late autonomous vocabulary adds Phase Interceptor, Beam Sentry and Orbital Lance
 
 External/alien contact remains a future phase and is intentionally outside the current campaign. The machine war ends first.
 
+## Forward route time versus elapsed time
+
+`main.gd` owns two intentionally different clocks during a sortie. `mission_time` is real elapsed exposure and continues to drive cooldowns, survival objectives, overtime and HUD timing. `environment_world_distance` is cruise-equivalent forward route progress accumulated through `RouteProgressRules.advance()` using the live dry-throttle, afterburner or hypersonic world multiplier.
+
+Spatially authored events use route progress: environment layers, terrain-fixed contact closure, encounter `at_seconds` positions, altitude choice/transition positions and boss arrival. At cruise, one route unit equals one elapsed second, preserving the authored schedules. Throttling back delays geography and contact; military power reaches them sooner; a successful hypersonic dash crosses route distance extremely quickly. This separation prevents faster flight from shortening weapon cooldowns or falsely satisfying a requirement to survive enemy fire for a real duration.
+
 ## Authored stage rhythm
 
 Every mission requires:

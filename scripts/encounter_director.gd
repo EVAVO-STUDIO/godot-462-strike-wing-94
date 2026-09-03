@@ -72,13 +72,18 @@ func _apply_due_beats(scene: Object) -> void:
 	var mission := _active_mission(scene)
 	var beats := EncounterRules.beats_for_mission(mission)
 	while _next_beat_index < beats.size():
-		var beat := EncounterRules.due_beat(beats, _next_beat_index, float(scene.get("mission_time")))
+		var beat := EncounterRules.due_beat(beats, _next_beat_index, _route_progress(scene))
 		if beat.is_empty():
 			return
 		var capture_secret := "--capture-gameplay" in OS.get_cmdline_user_args() and "--capture-secret" in OS.get_cmdline_user_args() and EncounterRules.is_secret(beat)
 		if capture_secret or EncounterRules.condition_met(beat, _condition_state(scene)):
 			_apply_beat(scene, beat)
 		_next_beat_index += 1
+
+func _route_progress(scene: Object) -> float:
+	if scene.has_method("route_progress_seconds"):
+		return maxf(0.0, float(scene.call("route_progress_seconds")))
+	return maxf(0.0, float(scene.get("mission_time")))
 
 func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	var enemy_ids := EncounterRules.expanded_enemy_ids(beat)

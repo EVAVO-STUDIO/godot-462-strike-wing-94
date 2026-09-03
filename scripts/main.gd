@@ -18,6 +18,7 @@ const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 const FlightSpeedRules = preload("res://scripts/flight_speed_rules.gd")
+const RouteProgressRules = preload("res://scripts/route_progress_rules.gd")
 const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
@@ -607,7 +608,7 @@ func _update_mission(delta: float) -> void:
 		return
 	if boss_victory_timer > 0.0:
 		boss_victory_timer = maxf(0.0, boss_victory_timer - delta)
-		environment_world_distance += delta * _environment_speed_multiplier()
+		_advance_route_progress(delta)
 		bullets.clear()
 		enemy_bullets.clear()
 		enemies.clear()
@@ -623,7 +624,7 @@ func _update_mission(delta: float) -> void:
 	energy = EnergyRules.recharge(energy, _active_generator(), delta)
 	wave = MissionStateRules.live_wave(_active_mission(), mission_time)
 	_update_player(delta)
-	environment_world_distance += delta * _environment_speed_multiplier()
+	_advance_route_progress(delta)
 	var evasive := get_node_or_null("/root/EvasiveRollDirector")
 	if evasive != null and evasive.has_method("update_maneuver"):
 		evasive.call("update_maneuver", self, delta)
@@ -673,6 +674,12 @@ func _environment_speed_multiplier() -> float:
 	if craft != null and craft.has_method("world_speed_multiplier"):
 		return maxf(0.0, float(craft.call("world_speed_multiplier")))
 	return 1.0
+
+func _advance_route_progress(delta: float) -> void:
+	environment_world_distance = RouteProgressRules.advance(environment_world_distance, delta, _environment_speed_multiplier())
+
+func route_progress_seconds() -> float:
+	return maxf(0.0, environment_world_distance)
 
 func _load_content() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
@@ -1695,7 +1702,7 @@ func _difficulty_elite_value(base: int) -> int:
 	var director := _difficulty(); return int(director.call("elite_value",base)) if director != null else base
 
 func _try_spawn_boss() -> void:
-	if boss_spawned or current_boss_id == "" or mission_time < mission_duration * 0.72:
+	if boss_spawned or current_boss_id == "" or not RouteProgressRules.reached(route_progress_seconds(), RouteProgressRules.boss_gate(mission_duration)):
 		return
 	var boss := _find_enemy_archetype(current_boss_id)
 	if not boss.is_empty():

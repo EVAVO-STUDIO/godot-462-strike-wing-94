@@ -28,6 +28,7 @@ Implemented now:
 - PageUp/PageDown adjacent-lane choices where the mission allows them
 - animated climb/dive cloud sweep, pitch cue, target-scale interpolation and separate climb/dive SFX
 - finite afterburner reserve with form/altitude efficiency and Atlas tanker refuel
+- pilot-controlled dry throttle where scenery, surface contacts, recovery pods, authored encounter locations, altitude gates and command-contact arrival all use accumulated forward route distance; weapon timing and survival exposure remain real-time
 - visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
 - distinct missile acquisition and launch voices for interceptor and boss homing salvos
 - mechanical purchase/service confirmation and short mission-clear reward stingers
@@ -169,6 +170,7 @@ The playable campaign escalates from the Mercenary War through the autonomous Ma
 - `scripts/main.gd` — core playable simulation/orchestration layer
 - `scripts/craft_form_director.gd` — VX-94 form, altitude lanes, persistent throttle, afterburner and mission context
 - `scripts/flight_speed_rules.gd` — dry-power, afterburner, Mach travel, world-relative closure and dynamic-pressure rules
+- `scripts/route_progress_rules.gd` — cruise-equivalent travelled-distance clock for spatial mission events
 - `scripts/altitude_transition_director.gd` — climb/dive and altitude-lane presentation
 - `scripts/weapon_mount_cue_director.gd` — mount-aware fighter / bomber firing feedback
 - `scripts/retro_sfx_director.gd` — procedural original 90s-style SFX

@@ -311,7 +311,7 @@ func _apply_due_altitude_transitions(scene: Object) -> void:
 			_next_altitude_transition += 1
 			continue
 		var at := maxf(0.0, float(transition.get("at_seconds", 0.0)))
-		if float(scene.get("mission_time")) + 0.0001 < at:
+		if _route_progress(scene) + 0.0001 < at:
 			return
 		var next_altitude := AltitudeRules.sanitize(str(transition.get("altitude", altitude)))
 		_begin_altitude_transition(
@@ -334,7 +334,7 @@ func _handle_manual_altitude_input(scene: Object) -> void:
 	_try_manual_altitude(scene, direction)
 
 func _try_manual_altitude(scene: Object, direction: int) -> void:
-	var window := _active_altitude_window(float(scene.get("mission_time")))
+	var window := _active_altitude_window(_route_progress(scene))
 	if window.is_empty() and not _hypersonic_active:
 		_set_status(scene, "ALTITUDE CHANGE UNAVAILABLE")
 		return
@@ -355,7 +355,7 @@ func _try_manual_altitude(scene: Object, direction: int) -> void:
 		"%s: %s ALTITUDE" % ["CLIMBING" if direction > 0 else "DESCENDING", AltitudeRules.display_name(candidate)]
 	)
 
-func _active_altitude_window(mission_time: float) -> Dictionary:
+func _active_altitude_window(route_progress: float) -> Dictionary:
 	var windows = _current_context.get("altitude_choice_windows", [])
 	if typeof(windows) != TYPE_ARRAY:
 		return {}
@@ -364,15 +364,20 @@ func _active_altitude_window(mission_time: float) -> Dictionary:
 			continue
 		var start := maxf(0.0, float(window.get("start_seconds", 0.0)))
 		var end := maxf(start, float(window.get("end_seconds", start)))
-		if mission_time >= start and mission_time <= end:
+		if route_progress >= start and route_progress <= end:
 			return window
 	return {}
 
-func altitude_choice_available(mission_time: float) -> bool:
-	return not _active_altitude_window(mission_time).is_empty()
+func altitude_choice_available(route_progress: float) -> bool:
+	return not _active_altitude_window(route_progress).is_empty()
 
-func altitude_choice_bands(mission_time: float) -> Array[String]:
-	return AltitudeRules.allowed_manual_bands(_active_altitude_window(mission_time))
+func altitude_choice_bands(route_progress: float) -> Array[String]:
+	return AltitudeRules.allowed_manual_bands(_active_altitude_window(route_progress))
+
+func _route_progress(scene: Object) -> float:
+	if scene.has_method("route_progress_seconds"):
+		return maxf(0.0, float(scene.call("route_progress_seconds")))
+	return maxf(0.0, float(scene.get("mission_time")))
 
 func _begin_altitude_transition(scene: Object, next_altitude: String, label: String) -> void:
 	var safe_next := AltitudeRules.sanitize(next_altitude)

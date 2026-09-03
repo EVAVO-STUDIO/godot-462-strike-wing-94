@@ -2,6 +2,7 @@ extends SceneTree
 
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 const FlightSpeedRules = preload("res://scripts/flight_speed_rules.gd")
+const RouteProgressRules = preload("res://scripts/route_progress_rules.gd")
 var failures: Array[String] = []
 
 func _initialize() -> void:
@@ -17,6 +18,9 @@ func _initialize() -> void:
 	_expect(FlightSpeedRules.target_world_multiplier(0.5, true, 1.0) == HypersonicRules.SPEED_MULTIPLIER, "latched Mach flight should reach the authored extreme world velocity")
 	_expect(FlightSpeedRules.world_closure_multiplier(4.4, "ground") > FlightSpeedRules.world_closure_multiplier(4.4, "air"), "terrain-fixed contacts should close faster than pursuing aircraft")
 	_expect(FlightSpeedRules.dynamic_pressure_damage_per_second("low", 4.4) > 20.0 and FlightSpeedRules.dynamic_pressure_damage_per_second("high", 4.4) == 0.0, "extreme low-altitude speed should impose severe dynamic-pressure damage while the high corridor stays safe")
+	_expect(is_equal_approx(RouteProgressRules.advance(12.0, 2.0, 0.62), 13.24), "minimum dry power should advance authored route distance more slowly than real time")
+	_expect(is_equal_approx(RouteProgressRules.advance(12.0, 2.0, 4.4), 20.8), "hypersonic power should advance authored route distance at extreme velocity")
+	_expect(RouteProgressRules.reached(108.0, RouteProgressRules.boss_gate(150.0)), "boss contact should be gated by travelled route distance")
 	_expect(HypersonicRules.ENTRY_ACCEL_SECONDS < HypersonicRules.EXIT_DECEL_SECONDS and HypersonicRules.EXIT_DECEL_SECONDS < 0.75, "Mach entry should hit decisively while exit recovers smoothly within arcade timing")
 	_expect(HypersonicRules.enemy_pursuit_ratio(HypersonicRules.ENEMY_CHARGE_SECONDS) == 1.0, "enemy pursuit wings should finish sweeping before speed latches")
 	_expect(not HypersonicRules.enemy_can_pursue({"class":"ground","hypersonic_capable":true}), "surface targets cannot join pursuit")
@@ -47,6 +51,10 @@ func _initialize() -> void:
 	_expect(main_source.contains("func _apply_structural_damage(amount: int)") and main_source.contains("damage_taken += applied"), "structural overload should use an explicit hull-only damage path with sortie accounting")
 	_expect(main_source.contains('status_text = "AIRFRAME BREAKUP // OVERSPEED"') and main_source.contains("player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS"), "fatal overspeed should enter the authored player-loss sequence")
 	_expect(main_source.contains("FlightSpeedRules.world_closure_multiplier") and main_source.contains("FlightSpeedRules.recovery_closure_multiplier"), "forward power should accelerate terrain-fixed contacts and recovery pods with the world")
+	_expect(main_source.contains("RouteProgressRules.advance") and main_source.contains("RouteProgressRules.boss_gate") and main_source.contains("func route_progress_seconds()"), "world velocity should own authoritative spatial mission progress and boss arrival")
+	_expect(main_source.contains("ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)"), "survival objectives should remain tied to real exposure time")
+	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
+	_expect(encounter_file != null and encounter_file.get_as_text().contains("_route_progress(scene)"), "authored encounter locations should use travelled route progress")
 	if failures.is_empty():
 		print("Hypersonic rules self-test passed.")
 		quit(0)
