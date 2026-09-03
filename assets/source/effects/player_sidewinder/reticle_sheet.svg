@@ -1,4 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="32" viewBox="0 0 96 32" shape-rendering="crispEdges">
-  <g fill="#73b8d2"><path d="M1 1h10v2H3v8H1zM21 1h10v10h-2V3h-8zM1 21h2v8h8v2H1zM29 21h2v10H21v-2h8zM12 15h8v2h-8z"/><path d="M35 3h8v2h-6v6h-2zM53 3h8v8h-2V5h-6zM35 21h2v6h6v2h-8zM59 21h2v8h-8v-2h6zM47 7h2v4h4v2h2v6h-2v2h-4v4h-2v-4h-4v-2h-2v-6h2v-2h4z"/></g>
-  <g fill="#efcc62"><path d="M65 7h2V3h4V1h4v2h4v4h2v4h-2v10h2v4h-2v4h-4v2h-4v-2h-4v-4h-2v-4h2V11h-2zm4 2v14h2v4h6v-4h2V9h-2V5h-6v4z"/><path d="M78 15h4v2h-4zM64 15h4v2h-4zM72 14h4v4h-4z"/></g>
+  <!-- TRACK: wide, quiet corner gates leave the aircraft completely visible. -->
+  <g fill="#73b8d2">
+    <path d="M2 3h9v2H4v7H2zM21 3h9v9h-2V5h-7zM2 20h2v7h7v2H2zM28 20h2v9h-9v-2h7zM13 28h6v2h-6z"/>
+    <!-- ACQUIRE: gates step inward; four short ticks indicate seeker convergence. -->
+    <path d="M36 5h8v2h-6v6h-2zM52 5h8v8h-2V7h-6zM36 19h2v6h6v2h-8zM58 19h2v8h-8v-2h6zM47 8h2v4h-2zM47 20h2v4h-2zM40 15h4v2h-4zM52 15h4v2h-4z"/>
+  </g>
+  <!-- LOCK: sparse amber boresight brackets, not a generic padlock or loot icon. -->
+  <g fill="#efcc62">
+    <path d="M68 5h7v2h-5v5h-2zM85 5h7v7h-2V7h-5zM68 20h2v5h5v2h-7zM90 20h2v7h-7v-2h5z"/>
+    <path d="M79 2h2v5h-2zM79 25h2v5h-2zM65 15h5v2h-5zM90 15h5v2h-5z"/>
+  </g>
 </svg>

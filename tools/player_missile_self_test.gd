@@ -46,6 +46,12 @@ func _initialize() -> void:
 	for path in ["res://assets/runtime/effects/projectiles/player_sidewinder/0.png", "res://assets/runtime/ui/hud/player_lock/locked.png"]:
 		var texture: Texture2D = load(path)
 		_expect(texture != null and texture.get_width() > 0, "missing authored player missile asset: %s" % path)
+	var lock_texture := load("res://assets/runtime/ui/hud/player_lock/locked.png") as Texture2D
+	if lock_texture != null:
+		var lock_image := lock_texture.get_image()
+		_expect(lock_image.get_pixel(16, 16).a == 0.0, "hard-lock boresight must keep the target center optically clear")
+	var source := FileAccess.open("res://scripts/player_missile_director.gd", FileAccess.READ)
+	_expect(source != null and not source.get_as_text().contains("draw_set_transform(position.round()"), "seeker symbology must remain pixel-registered instead of breathing or scaling over the target")
 	director.queue_free()
 	scene.queue_free()
 	if failures.is_empty():

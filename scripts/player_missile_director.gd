@@ -150,10 +150,9 @@ func draw_targeting(surface: CanvasItem) -> void:
 	if ratio <= 0.02:
 		return
 	var frame := 2 if ratio >= 0.999 else (1 if ratio >= 0.48 else 0)
-	var pulse := Vector2.ONE * (1.0 + (0.04 if frame == 2 and posmod(Time.get_ticks_msec() / 140, 2) == 0 else 0.0))
-	surface.draw_set_transform(position.round(), 0.0, pulse)
-	surface.draw_texture(RETICLES[frame], Vector2(-16, -16))
-	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	# Keep the boresight registered to the airframe. A breathing/scaling lock icon
+	# reads like arcade loot UI and makes the target itself shimmer at native scale.
+	surface.draw_texture(RETICLES[frame], (position - Vector2(16, 16)).round())
 	var label := "LOCK" if frame == 2 else "ACQ %02d" % int(roundf(ratio * 100.0))
 	PixelFont.draw_text(surface, "%s  AIM9 %d" % [label, ammo], position + Vector2(-25, 19), 1, Color("efcc62") if frame == 2 else Color("73b8d2"), 1)
 
