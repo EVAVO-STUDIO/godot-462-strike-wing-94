@@ -25,7 +25,7 @@ func _test_voice_map() -> void:
 	_expect(RetroSfxRules.event_for_weapon("needle_rail") == RetroSfxRules.FIRE_RAIL, "Needle Rail should use kinetic rail voice")
 	_expect(RetroSfxRules.event_for_weapon("storm_cannon") == RetroSfxRules.FIRE_STORM, "Storm Cannon should use directed-energy pulse voice")
 	_expect(RetroSfxRules.event_for_weapon("plasma_lance") == RetroSfxRules.FIRE_PLASMA, "Plasma Lance should use strategic plasma voice")
-	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.TRANSFORM_READY, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.MISSILE_LAUNCH, RetroSfxRules.UI_PURCHASE, RetroSfxRules.UI_SERVICE, RetroSfxRules.REWARD_STINGER, RetroSfxRules.SHIELD_HIT, RetroSfxRules.SHIELD_BREAK, RetroSfxRules.PLAYER_HIT, RetroSfxRules.ALTITUDE_SHIFT]:
+	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.TRANSFORM_READY, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.MISSILE_LAUNCH, RetroSfxRules.COUNTERMEASURE, RetroSfxRules.UI_PURCHASE, RetroSfxRules.UI_SERVICE, RetroSfxRules.REWARD_STINGER, RetroSfxRules.SHIELD_HIT, RetroSfxRules.SHIELD_BREAK, RetroSfxRules.PLAYER_HIT, RetroSfxRules.ALTITUDE_SHIFT]:
 		var voice := RetroSfxRules.voice(event_id)
 		_expect(RetroSfxRules.valid_voice(voice), "%s should define bounded procedural voice" % event_id)
 		_expect(float(voice.get("duration", 9.0)) <= 0.5, "%s should remain a short arcade SFX" % event_id)

@@ -90,9 +90,27 @@ const VX94_HYPERSONIC_TRANSFORM := [
 	preload("res://assets/runtime/craft/vx94/transform/hypersonic_09.png"),
 ]
 const HYPERSONIC_PURSUER_TRANSFORMS := {
-	"ace_interceptor": true,
-	"drone_hunter": true,
-	"phase_interceptor": true,
+	"ace_interceptor": [
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_00.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_01.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_02.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_03.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_04.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_05.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_06.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_07.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_08.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_09.png"),
+	],
+	"drone_hunter": [
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_00.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_01.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_02.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_03.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_04.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_05.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_06.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_07.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_08.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/drone_hunter/pursuit_09.png"),
+	],
+	"phase_interceptor": [
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_00.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_01.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_02.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_03.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_04.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_05.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_06.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_07.png"),
+		preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_08.png"), preload("res://assets/runtime/enemies/hypersonic_pursuit/phase_interceptor/pursuit_09.png"),
+	],
 }
 const PICKUP_ANIMATION_FRAMES := {
 	"shield": [preload("res://assets/runtime/effects/pickups/shield_0.png"), preload("res://assets/runtime/effects/pickups/shield_1.png"), preload("res://assets/runtime/effects/pickups/shield_2.png"), preload("res://assets/runtime/effects/pickups/shield_3.png")],
@@ -1309,7 +1327,8 @@ func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: Str
 	if not HYPERSONIC_PURSUER_TRANSFORMS.has(enemy_id): return false
 	var ratio := clampf(float(enemy.get("hypersonic_ratio", 0.0)), 0.0, 1.0)
 	var frame_index := clampi(roundi(ratio * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
-	var hull: Texture2D = load("res://assets/runtime/enemies/hypersonic_pursuit/%s/pursuit_%02d.png" % [enemy_id,frame_index])
+	var frames: Array = HYPERSONIC_PURSUER_TRANSFORMS[enemy_id]
+	var hull: Texture2D = frames[frame_index]
 	# The pursuit path returns before the ordinary hostile-airframe renderer, so
 	# carry its altitude-aware contact shadow explicitly. This uses the selected
 	# folded exposure rather than the wide cruise hull; orbital pursuers remain

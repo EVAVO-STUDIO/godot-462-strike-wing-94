@@ -626,6 +626,9 @@ func _update_mission(delta: float) -> void:
 	var evasive := get_node_or_null("/root/EvasiveRollDirector")
 	if evasive != null and evasive.has_method("update_maneuver"):
 		evasive.call("update_maneuver", self, delta)
+	var countermeasures := get_node_or_null("/root/CountermeasureDirector")
+	if countermeasures != null and countermeasures.has_method("update_countermeasures"):
+		countermeasures.call("update_countermeasures", self, delta)
 	_update_weapons()
 	_update_bullets(delta)
 	_update_enemy_bullets(delta)
@@ -1730,6 +1733,7 @@ func _configure_input() -> void:
 	_add_key_action("service_hull", KEY_H)
 	_add_key_action("service_shield", KEY_J)
 	_add_key_action("evasive_roll", KEY_C)
+	_add_key_action("deploy_countermeasure", KEY_V)
 
 func _evasive_collision_multiplier() -> float:
 	var evasive := get_node_or_null("/root/EvasiveRollDirector")

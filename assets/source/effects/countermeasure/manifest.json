@@ -1,0 +1,9 @@
+{
+  "asset_family": "vx94_countermeasure_burst",
+  "source": "res://assets/source/effects/countermeasure/flare_sheet.svg",
+  "runtime_geometry": [32, 40],
+  "frames": 4,
+  "timing_seconds": 0.64,
+  "registration": {"pivot": [16, 20], "layer": 15},
+  "visual_contract": "Twin expendable hot bodies with divergent ember trails; compact late-90s raster effect, never a modern particle cloud."
+}

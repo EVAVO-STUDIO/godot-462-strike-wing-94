@@ -15,7 +15,7 @@ func _initialize() -> void:
 	_expect(HypersonicRules.enemy_pursuit_ratio(HypersonicRules.ENEMY_CHARGE_SECONDS) == 1.0, "enemy pursuit wings should finish sweeping before speed latches")
 	_expect(not HypersonicRules.enemy_can_pursue({"class":"ground","hypersonic_capable":true}), "surface targets cannot join pursuit")
 	var art_source := FileAccess.get_file_as_string("res://scripts/combat_art_director.gd")
-	_expect(art_source.contains("HYPERSONIC_PURSUER_TRANSFORMS") and art_source.contains("pursuit_%02d.png"), "all capable pursuit aircraft should use registered ten-exposure transformation art")
+	_expect(art_source.contains("HYPERSONIC_PURSUER_TRANSFORMS") and art_source.contains('preload("res://assets/runtime/enemies/hypersonic_pursuit/ace_interceptor/pursuit_09.png")') and not art_source.contains('load("res://assets/runtime/enemies/hypersonic_pursuit/%s/pursuit_%02d.png"'), "all capable pursuit aircraft should preload their registered ten-exposure transformation art for export")
 	_expect(not art_source.contains("hull.get_width() * lerpf(1.0, 0.62, ratio)"), "enemy hypersonic transformation must never squash a flat hull sprite")
 	_expect(art_source.contains('engine_anchor := p+Vector2(0,-hull.get_height()*0.30)') and art_source.contains('draw_set_transform(engine_anchor.round(),PI'), "enemy pursuit exhaust should project aft toward the top of the screen rather than through the aircraft nose")
 	_expect(art_source.contains('_render_airframe_shadow(surface,p,hull,enemy_id)') and art_source.find('_render_airframe_shadow(surface,p,hull,enemy_id)') < art_source.find('surface.draw_texture(hull, (p-hull.get_size()*0.5).round())'), "folded pursuers should retain their altitude-aware silhouette shadow beneath the selected transform exposure")

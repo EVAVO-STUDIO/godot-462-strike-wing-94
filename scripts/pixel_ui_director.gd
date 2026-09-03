@@ -862,11 +862,13 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var count := int(snapshot.get("count", 0))
 	var distance := float(snapshot.get("distance", INF))
 	var acquiring := float(snapshot.get("acquiring", 0.0))
+	var countermeasures := get_node_or_null("/root/CountermeasureDirector")
+	var cm := int(countermeasures.call("charges_remaining")) if countermeasures != null and countermeasures.has_method("charges_remaining") else 0
 	var text := ThreatWarningRules.warning_text(distance, count)
 	if count > 0:
-		text = "MISSILE X%d  %d O'CLOCK  TTI %.1f" % [count, int(snapshot.get("bearing", 12)), float(snapshot.get("tti", 9.9))]
+		text = "MISSILE X%d  %d O'CLOCK  TTI %.1f  CM%02d" % [count, int(snapshot.get("bearing", 12)), float(snapshot.get("tti", 9.9)), cm]
 	elif acquiring > 0.0:
-		text = "RADAR SPIKE  %02d%%  EVADE" % int(roundf(acquiring * 100.0))
+		text = "RADAR SPIKE  %02d%%  EVADE  CM%02d" % [int(roundf(acquiring * 100.0)), cm]
 	if text == "": return
 	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2) if count > 0 else 1
 	var position := Vector2(180, 42)

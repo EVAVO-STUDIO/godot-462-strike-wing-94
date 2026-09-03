@@ -7,7 +7,7 @@ func _initialize() -> void:
 	bindings.call("_configure_controller")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null and project.get_as_text().contains('InputBindings="*res://scripts/input_bindings.gd"'), "InputBindings should be a project autoload")
-	for action in ["move_left","move_right","move_up","move_down","fire_primary","fire_secondary","fire_support","transform_craft","afterburner","evasive_roll","call_battlefield_support","altitude_up","altitude_down","drop_strike_ordnance","confirm","cancel"]:
+	for action in ["move_left","move_right","move_up","move_down","fire_primary","fire_secondary","fire_support","transform_craft","afterburner","evasive_roll","deploy_countermeasure","call_battlefield_support","altitude_up","altitude_down","drop_strike_ordnance","confirm","cancel"]:
 		_expect(InputMap.has_action(action), "missing input action: %s" % action)
 	_expect(_has_axis("move_left", JOY_AXIS_LEFT_X, -1.0), "left-stick negative X should move left")
 	_expect(_has_axis("move_right", JOY_AXIS_LEFT_X, 1.0), "left-stick positive X should move right")
@@ -20,8 +20,9 @@ func _initialize() -> void:
 	_expect(_has_button("transform_craft", JOY_BUTTON_Y), "north face button should transform the VX-94")
 	_expect(_has_button("afterburner", JOY_BUTTON_LEFT_SHOULDER), "left shoulder should control afterburner")
 	_expect(_has_button("evasive_roll", JOY_BUTTON_LEFT_STICK), "left-stick press should commit an evasive roll in the held lateral direction")
+	_expect(_has_axis("deploy_countermeasure", JOY_AXIS_TRIGGER_RIGHT, 1.0), "right trigger should release the chaff/flare cassette")
 	bindings.call("restore_keyboard_defaults", false)
-	_expect(int(bindings.call("binding_count")) == 14, "flight keyboard station should expose all fourteen combat bindings")
+	_expect(int(bindings.call("binding_count")) == 15, "flight keyboard station should expose all fifteen combat bindings")
 	_expect(str(bindings.call("binding_label", 6)) == "WING GEOMETRY", "binding catalogue should expose player-facing action labels")
 	_expect(str(bindings.call("binding_key_name", 6)) == "Q", "binding catalogue should expose the active physical key")
 	_expect(bool(bindings.call("rebind", 6, KEY_T, false)), "keyboard control should accept a live replacement key")
