@@ -14,6 +14,7 @@ const KEYBOARD_BINDINGS := [
 	{"action":"afterburner", "label":"AFTERBURNER", "default":KEY_SHIFT},
 	{"action":"evasive_roll", "label":"EVASIVE ROLL", "default":KEY_C},
 	{"action":"deploy_countermeasure", "label":"CHAFF / FLARE", "default":KEY_V},
+	{"action":"fire_missile", "label":"AIM-9 MISSILE", "default":KEY_M},
 	{"action":"fire_support", "label":"TACTICAL SYSTEM", "default":KEY_Z},
 	{"action":"call_battlefield_support", "label":"ALLIED SUPPORT", "default":KEY_F},
 	{"action":"altitude_up", "label":"ALTITUDE UP", "default":KEY_PAGEUP},
@@ -51,7 +52,8 @@ func _configure_controller() -> void:
 	_add_axis_action("move_right", JOY_AXIS_LEFT_X, 1.0)
 	_add_axis_action("move_up", JOY_AXIS_LEFT_Y, -1.0)
 	_add_axis_action("move_down", JOY_AXIS_LEFT_Y, 1.0)
-	_add_axis_action("deploy_countermeasure", JOY_AXIS_TRIGGER_RIGHT, 1.0)
+	_add_axis_action("deploy_countermeasure", JOY_AXIS_TRIGGER_LEFT, 1.0)
+	_add_axis_action("fire_missile", JOY_AXIS_TRIGGER_RIGHT, 1.0)
 	for action in BUTTON_BINDINGS:
 		_add_button_action(StringName(action), int(BUTTON_BINDINGS[action]))
 

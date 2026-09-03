@@ -39,6 +39,12 @@ const PROJECTILE_FRAMES := {
 		preload("res://assets/runtime/effects/projectiles/support_rocket/2.png"),
 		preload("res://assets/runtime/effects/projectiles/support_rocket/3.png")
 	],
+	"player_sidewinder": [
+		preload("res://assets/runtime/effects/projectiles/player_sidewinder/0.png"),
+		preload("res://assets/runtime/effects/projectiles/player_sidewinder/1.png"),
+		preload("res://assets/runtime/effects/projectiles/player_sidewinder/2.png"),
+		preload("res://assets/runtime/effects/projectiles/player_sidewinder/3.png")
+	],
 	"strategic_warhead": [
 		preload("res://assets/runtime/effects/projectiles/strategic_warhead/0.png"),
 		preload("res://assets/runtime/effects/projectiles/strategic_warhead/1.png"),
@@ -73,7 +79,9 @@ class ProjectileCueCanvas:
 			var velocity: Vector2 = shot.get("velocity", Vector2.UP * 300.0)
 			var direction := velocity.normalized() if velocity.length_squared() > 0.001 else Vector2.UP
 			var weapon_id := str(shot.get("weapon_id", ""))
-			if bool(shot.get("strategic_support", false)):
+			if bool(shot.get("player_guided_missile", false)):
+				_draw_registered_sprite(position, direction, "player_sidewinder")
+			elif bool(shot.get("strategic_support", false)):
 				_draw_strategic_warhead(position, direction)
 			elif weapon_id == "needle_rail" or bool(shot.get("kinetic", false)):
 				_draw_kinetic(position, direction)

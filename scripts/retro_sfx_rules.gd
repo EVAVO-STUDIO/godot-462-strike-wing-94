@@ -22,6 +22,7 @@ const AFTERBURNER := "afterburner"
 const SONIC_BOOM := "sonic_boom"
 const MISSILE_WARNING := "missile_warning"
 const MISSILE_LAUNCH := "missile_launch"
+const SEEKER_LOCK := "seeker_lock"
 const COUNTERMEASURE := "countermeasure"
 const UI_PURCHASE := "ui_purchase"
 const UI_SERVICE := "ui_service"
@@ -46,6 +47,7 @@ static func event_for_primary(weapon_id: String, bomber_rotary: bool) -> String:
 	return event_for_weapon(weapon_id)
 
 static func event_for_projectile(projectile: Dictionary, fallback_weapon_id: String = "", bomber_rotary: bool = false) -> String:
+	if bool(projectile.get("player_guided_missile", false)): return MISSILE_LAUNCH
 	if bool(projectile.get("strategic_support", false)): return FIRE_STRATEGIC
 	if bool(projectile.get("support", false)): return FIRE_SUPPORT
 	return event_for_primary(str(projectile.get("weapon_id", fallback_weapon_id)), bomber_rotary)
@@ -112,6 +114,7 @@ static func voice(event_id: String) -> Dictionary:
 		MISSILE_WARNING: return {"wave":"square","frequency":760.0,"end_frequency":760.0,"duration":0.10,"gain":0.14}
 		# Igniter snap into a descending rocket-motor rasp; deliberately separate from the cockpit lock tone.
 		MISSILE_LAUNCH: return {"wave":"missile","frequency":286.0,"end_frequency":82.0,"duration":0.24,"gain":0.19}
+		SEEKER_LOCK: return {"wave":"square","frequency":1020.0,"end_frequency":1260.0,"duration":0.13,"gain":0.10}
 		COUNTERMEASURE: return {"wave":"noise","frequency":1180.0,"end_frequency":220.0,"duration":0.16,"gain":0.16}
 		UI_PURCHASE: return {"wave":"mechanical","frequency":186.0,"end_frequency":248.0,"duration":0.16,"gain":0.13}
 		UI_SERVICE: return {"wave":"service","frequency":112.0,"end_frequency":196.0,"duration":0.28,"gain":0.14}

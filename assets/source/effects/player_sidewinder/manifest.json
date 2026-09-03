@@ -1,0 +1,10 @@
+{
+  "asset": "VX-94 AIM-9 seeker and launch cues",
+  "projectile_frames": 4,
+  "projectile_size": [16, 14],
+  "reticle_frames": 3,
+  "reticle_size": [32, 32],
+  "pivot": [8, 7],
+  "reticle_anchor": [16, 16],
+  "palette": ["#071018", "#d9e4e5", "#68899b", "#d95a3f", "#f4cf68", "#73b8d2", "#efcc62"]
+}

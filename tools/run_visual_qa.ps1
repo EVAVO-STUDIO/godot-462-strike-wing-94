@@ -48,6 +48,7 @@ $Cases = @(
     @{ id='secret_dead_frequency'; args=@('--capture-gameplay','--capture-secret-mission=sm03_dead_frequency','--capture-time=52','--capture-secret') },
     @{ id='hud_missile_warning'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-hud=warning') },
     @{ id='hud_countermeasure_break'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high','--capture-hud=warning','--capture-countermeasure','--visual-capture-delay=0.18') },
+    @{ id='hud_player_missile_lock'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=44','--capture-altitude=mid','--capture-hud=objective','--capture-air=human','--capture-player-lock','--visual-capture-delay=0.18') },
     @{ id='pause_command'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=menu') },
     @{ id='pause_options'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=options') },
     @{ id='pause_restart_confirmation'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=confirm_restart') },
