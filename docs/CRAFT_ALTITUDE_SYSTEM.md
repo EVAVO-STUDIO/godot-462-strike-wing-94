@@ -308,6 +308,7 @@ Mission 12 intentionally keeps the VX-94 at HIGH until after its rearm window, t
 ## Controls
 
 - movement: WASD / arrows
+- persistent throttle: T / G (controller right stick vertical)
 - primary: Space
 - emergency screen bomb: X
 - precision bomber ordnance: E

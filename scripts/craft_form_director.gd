@@ -7,6 +7,7 @@ const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
+const FlightSpeedRules = preload("res://scripts/flight_speed_rules.gd")
 
 const AFTERBURNER_CAPACITY := 8.0
 const FIGHTER_AFTERBURNER_MULTIPLIER := 1.35
@@ -20,6 +21,9 @@ var _hypersonic_active := false
 var _hypersonic_charge := 0.0
 var _hypersonic_speed_ratio := 0.0
 var _hypersonic_damage_carry := 0.0
+var _dynamic_pressure_damage_carry := 0.0
+var _throttle_ratio := FlightSpeedRules.DEFAULT_THROTTLE_RATIO
+var _world_speed_multiplier_value := FlightSpeedRules.CRUISE_POWER_MULTIPLIER
 var _cooldown := 0.0
 var _transform_timer := 0.0
 var _transform_ready_serial := 0
@@ -67,7 +71,10 @@ func _process(delta: float) -> void:
 	if phase == 1 and _last_phase != 1:
 		_apply_mission_context(scene)
 		afterburner_fuel = AFTERBURNER_CAPACITY
+		_throttle_ratio = FlightSpeedRules.DEFAULT_THROTTLE_RATIO
+		_world_speed_multiplier_value = FlightSpeedRules.CRUISE_POWER_MULTIPLIER
 	if phase == 1:
+		_update_throttle(delta)
 		var was_hypersonic := _hypersonic_active
 		_update_afterburner(delta)
 		if was_hypersonic and not _hypersonic_active:
@@ -80,6 +87,7 @@ func _process(delta: float) -> void:
 		_afterburner_active = false
 		_hypersonic_active = false
 	_update_hypersonic_speed_ratio(delta)
+	_update_world_speed(delta)
 	_publish_altitude_spawn_profiles(scene)
 	_last_phase = phase
 
@@ -101,6 +109,33 @@ func _update_afterburner(delta: float) -> void:
 		if afterburner_fuel <= 0.001:
 			_afterburner_active = false
 			_hypersonic_active = false
+
+func _update_throttle(delta: float) -> void:
+	var command := Input.get_action_strength("throttle_up") - Input.get_action_strength("throttle_down")
+	_throttle_ratio = clampf(_throttle_ratio + command * FlightSpeedRules.THROTTLE_CHANGE_PER_SECOND * maxf(0.0, delta), 0.0, 1.0)
+
+func _update_world_speed(delta: float) -> void:
+	var target := FlightSpeedRules.target_world_multiplier(throttle_ratio(), _afterburner_active, hypersonic_speed_ratio())
+	_world_speed_multiplier_value = move_toward(_world_speed_multiplier_value, target, FlightSpeedRules.POWER_RESPONSE_PER_SECOND * maxf(0.0, delta))
+	_apply_dynamic_pressure_risk(delta)
+
+func _apply_dynamic_pressure_risk(delta: float) -> void:
+	var damage_rate := FlightSpeedRules.dynamic_pressure_damage_per_second(altitude, _world_speed_multiplier_value)
+	if damage_rate <= 0.0:
+		_dynamic_pressure_damage_carry = 0.0
+		return
+	_dynamic_pressure_damage_carry += damage_rate * maxf(0.0, delta)
+	var whole_damage := floori(_dynamic_pressure_damage_carry)
+	if whole_damage <= 0:
+		return
+	_dynamic_pressure_damage_carry -= float(whole_damage)
+	var scene := get_tree().current_scene
+	if scene == null or not scene.has_method("_apply_structural_damage"):
+		return
+	scene.call("_apply_structural_damage", whole_damage)
+	if _has_property(scene, "status_text") and int(scene.get("hull")) > 0:
+		scene.set("status_text", "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB")
+		scene.set("status_timer", 0.42)
 
 func _apply_hypersonic_airframe_risk(delta: float) -> void:
 	if not _hypersonic_active:
@@ -166,6 +201,21 @@ func hypersonic_speed_ratio() -> float:
 	if _capture_hypersonic():
 		return 1.0
 	return clampf(_hypersonic_speed_ratio, 0.0, 1.0)
+
+func throttle_ratio() -> float:
+	var captured := _capture_throttle_ratio()
+	return captured if captured >= 0.0 else clampf(_throttle_ratio, 0.0, 1.0)
+
+func throttle_percent() -> int:
+	return clampi(int(roundf(throttle_ratio() * 100.0)), 0, 100)
+
+func _capture_throttle_ratio() -> float:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return -1.0
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-throttle="):
+			return clampf(float(argument.trim_prefix("--capture-throttle=")) / 100.0, 0.0, 1.0)
+	return -1.0
 
 func _capture_hypersonic() -> bool:
 	if not "--capture-gameplay" in OS.get_cmdline_user_args():
@@ -434,9 +484,12 @@ func movement_multiplier() -> float:
 	return base * boost * lerpf(1.0, HypersonicRules.TURN_SCALE, speed_ratio)
 
 func world_speed_multiplier() -> float:
-	# Route through the public state so deterministic visual QA exercises the
-	# same massive world acceleration as a live hypersonic latch.
-	return lerpf(1.0, HypersonicRules.SPEED_MULTIPLIER, hypersonic_speed_ratio())
+	if _capture_hypersonic():
+		return FlightSpeedRules.HYPERSONIC_POWER_MULTIPLIER
+	var captured := _capture_throttle_ratio()
+	if captured >= 0.0:
+		return FlightSpeedRules.target_world_multiplier(captured, afterburner_active(), hypersonic_speed_ratio())
+	return maxf(FlightSpeedRules.MINIMUM_POWER_MULTIPLIER, _world_speed_multiplier_value)
 
 func collision_radius_sq() -> float:
 	return _blended_form_value(
@@ -518,6 +571,8 @@ func _ensure_actions() -> void:
 	_add_key_action("afterburner", KEY_SHIFT)
 	_add_key_action("altitude_up", KEY_PAGEUP)
 	_add_key_action("altitude_down", KEY_PAGEDOWN)
+	_add_key_action("throttle_up", KEY_T)
+	_add_key_action("throttle_down", KEY_G)
 
 func _add_key_action(action: StringName, keycode: Key) -> void:
 	if not InputMap.has_action(action):

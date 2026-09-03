@@ -63,6 +63,7 @@ The obsolete player/enemy/projectile polygons have been removed from `main.gd`. 
 ### Flight
 
 - Move: `WASD` or arrow keys
+- Persistent throttle increase/decrease: `T` / `G` (right stick vertical on controller)
 - Primary fire: `Space`
 - Afterburner: `Shift`
 - Transform fighter / bomber: `Q`
@@ -166,7 +167,8 @@ The playable campaign escalates from the Mercenary War through the autonomous Ma
 - `project.godot` — Godot configuration and focused runtime autoloads
 - `scenes/` — game scenes
 - `scripts/main.gd` — core playable simulation/orchestration layer
-- `scripts/craft_form_director.gd` — VX-94 form, altitude lanes, mounts, afterburner and mission context
+- `scripts/craft_form_director.gd` — VX-94 form, altitude lanes, persistent throttle, afterburner and mission context
+- `scripts/flight_speed_rules.gd` — dry-power, afterburner, Mach travel, world-relative closure and dynamic-pressure rules
 - `scripts/altitude_transition_director.gd` — climb/dive and altitude-lane presentation
 - `scripts/weapon_mount_cue_director.gd` — mount-aware fighter / bomber firing feedback
 - `scripts/retro_sfx_director.gd` — procedural original 90s-style SFX

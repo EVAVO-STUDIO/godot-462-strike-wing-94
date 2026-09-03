@@ -1,6 +1,7 @@
 extends SceneTree
 
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
+const FlightSpeedRules = preload("res://scripts/flight_speed_rules.gd")
 var failures: Array[String] = []
 
 func _initialize() -> void:
@@ -10,7 +11,12 @@ func _initialize() -> void:
 	_expect(HypersonicRules.structural_damage_per_second("low") > HypersonicRules.structural_damage_per_second("mid"), "low hypersonic flight should carry severe airframe risk")
 	_expect(HypersonicRules.structural_damage_per_second("high") == 0.0, "high altitude should be the intended hypersonic corridor")
 	_expect(HypersonicRules.enemy_can_pursue({"class":"air","hypersonic_capable":true}), "authored interceptor should be able to pursue")
-	_expect(HypersonicRules.SPEED_MULTIPLIER == 3.40, "latched hypersonic flight should accelerate the layered world massively")
+	_expect(HypersonicRules.SPEED_MULTIPLIER == 4.40, "latched hypersonic flight should accelerate the layered world massively")
+	_expect(FlightSpeedRules.commanded_power(0.0) < 1.0 and FlightSpeedRules.commanded_power(1.0) > 1.0, "persistent throttle should command a useful range below and above cruise")
+	_expect(FlightSpeedRules.target_world_multiplier(0.5, true, 0.0) > FlightSpeedRules.commanded_power(1.0), "afterburner should accelerate world travel before the hypersonic latch")
+	_expect(FlightSpeedRules.target_world_multiplier(0.5, true, 1.0) == HypersonicRules.SPEED_MULTIPLIER, "latched Mach flight should reach the authored extreme world velocity")
+	_expect(FlightSpeedRules.world_closure_multiplier(4.4, "ground") > FlightSpeedRules.world_closure_multiplier(4.4, "air"), "terrain-fixed contacts should close faster than pursuing aircraft")
+	_expect(FlightSpeedRules.dynamic_pressure_damage_per_second("low", 4.4) > 20.0 and FlightSpeedRules.dynamic_pressure_damage_per_second("high", 4.4) == 0.0, "extreme low-altitude speed should impose severe dynamic-pressure damage while the high corridor stays safe")
 	_expect(HypersonicRules.ENTRY_ACCEL_SECONDS < HypersonicRules.EXIT_DECEL_SECONDS and HypersonicRules.EXIT_DECEL_SECONDS < 0.75, "Mach entry should hit decisively while exit recovers smoothly within arcade timing")
 	_expect(HypersonicRules.enemy_pursuit_ratio(HypersonicRules.ENEMY_CHARGE_SECONDS) == 1.0, "enemy pursuit wings should finish sweeping before speed latches")
 	_expect(not HypersonicRules.enemy_can_pursue({"class":"ground","hypersonic_capable":true}), "surface targets cannot join pursuit")
@@ -30,7 +36,8 @@ func _initialize() -> void:
 	var director_file := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
 	var director_source := director_file.get_as_text() if director_file != null else ""
 	_expect(director_source.contains('"--capture-flight=hypersonic"') and director_source.contains("_capture_hypersonic"), "hypersonic presentation should expose a deterministic visual QA fixture")
-	_expect(director_source.contains("lerpf(1.0, HypersonicRules.SPEED_MULTIPLIER, hypersonic_speed_ratio())"), "visual QA and live flight should share progressive Mach entry and recovery speed")
+	_expect(director_source.contains("FlightSpeedRules.target_world_multiplier") and director_source.contains("_update_throttle(delta)"), "visual QA and live flight should share persistent throttle, afterburner and progressive Mach travel")
+	_expect(director_source.contains('"--capture-throttle="') and director_source.contains("func throttle_percent()"), "native visual QA and propulsion instruments should expose deterministic throttle state")
 	_expect(director_source.contains("MACH RECOVERY // CONTROL AUTHORITY RETURNING") and director_source.contains("EXIT_DECEL_SECONDS"), "afterburner release should announce and time a bounded Mach-recovery state")
 	_expect(director_source.contains("lerpf(1.0, full_boost, speed_ratio)") and director_source.contains("TURN_SCALE, speed_ratio"), "Mach recovery should restore propulsion and control authority through the same continuous ratio")
 	_expect(director_source.contains("AltitudeRules.BANDS.duplicate()") and director_source.contains('"%s LIMIT"') and director_source.contains('"CLIMB" if direction > 0 else "DESCENT"'), "latched hypersonic flight should permit bounded emergency climb and dive")
@@ -39,6 +46,7 @@ func _initialize() -> void:
 	var main_source := main_file.get_as_text() if main_file != null else ""
 	_expect(main_source.contains("func _apply_structural_damage(amount: int)") and main_source.contains("damage_taken += applied"), "structural overload should use an explicit hull-only damage path with sortie accounting")
 	_expect(main_source.contains('status_text = "AIRFRAME BREAKUP // OVERSPEED"') and main_source.contains("player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS"), "fatal overspeed should enter the authored player-loss sequence")
+	_expect(main_source.contains("FlightSpeedRules.world_closure_multiplier") and main_source.contains("FlightSpeedRules.recovery_closure_multiplier"), "forward power should accelerate terrain-fixed contacts and recovery pods with the world")
 	if failures.is_empty():
 		print("Hypersonic rules self-test passed.")
 		quit(0)

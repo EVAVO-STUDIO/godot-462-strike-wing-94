@@ -2,7 +2,7 @@ class_name HypersonicRules
 extends RefCounted
 
 const CHARGE_SECONDS := {"low":1.40,"mid":1.15,"high":0.85,"orbital":0.70}
-const SPEED_MULTIPLIER := 3.40
+const SPEED_MULTIPLIER := 4.40
 const TURN_SCALE := 0.38
 const ENTRY_ACCEL_SECONDS := 0.12
 const EXIT_DECEL_SECONDS := 0.62

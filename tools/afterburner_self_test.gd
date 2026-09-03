@@ -70,7 +70,7 @@ func _test_retro_sfx() -> void:
 	if cue_file != null:
 		var cue_source := cue_file.get_as_text()
 		_expect(cue_source.contains("PROPULSION_HYPERSONIC") and cue_source.contains("hypersonic_charge_ratio") and cue_source.contains("PROPULSION_RESERVE_LOW"), "propulsion HUD should expose authored fuel, spool and latched-speed states")
-		_expect(cue_source.contains('"MACH" if hypersonic else "GEOM"') and cue_source.contains("charge_ratio * 10.0"), "compact propulsion HUD should expose ten deliberate geometry stages and a distinct MACH latch")
+		_expect(cue_source.contains('"MACH" if hypersonic') and cue_source.contains('"GEOM" if burning else "THR"') and cue_source.contains("throttle * 100.0"), "compact propulsion HUD should expose throttle, geometry spool and distinct Mach states")
 		_expect(cue_source.contains("LOWER_LEFT_KEEP_OUT") and cue_source.contains("640.0 - LOWER_HUD_MARGIN - float(frame.get_width())"), "propulsion instrument should move to the opposite lower corner before the VX-94 can occlude it")
 		_expect(cue_source.contains('frame_for_ratio("hypersonic_ignition"') and not cue_source.contains("draw_circle"), "hypersonic entry flash should use authored paired-engine raster exposures")
 	for propulsion_asset in ["normal","burning","reserve_low","hypersonic_latched"]:

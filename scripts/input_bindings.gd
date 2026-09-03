@@ -19,7 +19,9 @@ const KEYBOARD_BINDINGS := [
 	{"action":"call_battlefield_support", "label":"ALLIED SUPPORT", "default":KEY_F},
 	{"action":"altitude_up", "label":"ALTITUDE UP", "default":KEY_PAGEUP},
 	{"action":"altitude_down", "label":"ALTITUDE DOWN", "default":KEY_PAGEDOWN},
-	{"action":"drop_strike_ordnance", "label":"STRIKE ORDNANCE", "default":KEY_E}
+	{"action":"drop_strike_ordnance", "label":"STRIKE ORDNANCE", "default":KEY_E},
+	{"action":"throttle_up", "label":"THROTTLE INCREASE", "default":KEY_T},
+	{"action":"throttle_down", "label":"THROTTLE DECREASE", "default":KEY_G}
 ]
 
 const BUTTON_BINDINGS := {
@@ -54,6 +56,8 @@ func _configure_controller() -> void:
 	_add_axis_action("move_down", JOY_AXIS_LEFT_Y, 1.0)
 	_add_axis_action("deploy_countermeasure", JOY_AXIS_TRIGGER_LEFT, 1.0)
 	_add_axis_action("fire_missile", JOY_AXIS_TRIGGER_RIGHT, 1.0)
+	_add_axis_action("throttle_up", JOY_AXIS_RIGHT_Y, -1.0)
+	_add_axis_action("throttle_down", JOY_AXIS_RIGHT_Y, 1.0)
 	for action in BUTTON_BINDINGS:
 		_add_button_action(StringName(action), int(BUTTON_BINDINGS[action]))
 

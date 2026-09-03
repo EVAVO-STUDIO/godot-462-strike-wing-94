@@ -57,7 +57,7 @@ $Required = @(
     'scripts/strategic_warhead_rules.gd','scripts/strategic_warhead_surface.gd','scripts/strategic_warhead_director.gd',
     'scripts/encounter_rules.gd','scripts/encounter_director.gd','scripts/support_rules.gd','scripts/support_director.gd',
     'scripts/player_mount_rules.gd','scripts/player_mount_director.gd',
-    'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/craft_form_director.gd',
+    'scripts/craft_form_rules.gd','scripts/altitude_rules.gd','scripts/flight_speed_rules.gd','scripts/craft_form_director.gd',
     'scripts/environment_rules.gd','scripts/environment_surface.gd','scripts/environment_director.gd',
     'scripts/campaign_cinematic_surface.gd','scripts/campaign_cinematic_director.gd','scripts/credits_surface.gd','scripts/credits_director.gd','data/credits.json','scripts/game_mode_rules.gd','scripts/game_mode_director.gd','data/game_modes.json',
     'scripts/altitude_transition_surface.gd','scripts/altitude_transition_director.gd',
@@ -277,7 +277,7 @@ Assert-Contains $SfxRulesText @('FIRE_ROTARY','ALTITUDE_CLIMB','ALTITUDE_DIVE','
 $SfxDirectorText = Get-Content -Raw (Join-Path $Root 'scripts/retro_sfx_director.gd')
 Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event','"blast"','MAX_VOICES := 8') 'Procedural SFX runtime'
 $HypersonicText = Get-Content -Raw (Join-Path $Root 'scripts/hypersonic_rules.gd')
-Assert-Contains $HypersonicText @('SPEED_MULTIPLIER := 3.40','TURN_SCALE := 0.38','structural_damage_per_second','enemy_can_pursue','ENEMY_CHARGE_SECONDS') 'Hypersonic flight rules'
+Assert-Contains $HypersonicText @('SPEED_MULTIPLIER := 4.40','TURN_SCALE := 0.38','structural_damage_per_second','enemy_can_pursue','ENEMY_CHARGE_SECONDS') 'Hypersonic flight rules'
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
 Assert-Contains $SaveText @('SAVE_VERSION := 12','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','branch_decisions','intelligence_unlocked_ids','completed_secret_mission_ids','career_statistics','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 $ExportText = Get-Content -Raw (Join-Path $Root 'export_presets.cfg')

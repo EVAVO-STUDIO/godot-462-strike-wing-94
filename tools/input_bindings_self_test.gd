@@ -7,7 +7,7 @@ func _initialize() -> void:
 	bindings.call("_configure_controller")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null and project.get_as_text().contains('InputBindings="*res://scripts/input_bindings.gd"'), "InputBindings should be a project autoload")
-	for action in ["move_left","move_right","move_up","move_down","fire_primary","fire_secondary","fire_support","transform_craft","afterburner","evasive_roll","deploy_countermeasure","fire_missile","call_battlefield_support","altitude_up","altitude_down","drop_strike_ordnance","confirm","cancel"]:
+	for action in ["move_left","move_right","move_up","move_down","fire_primary","fire_secondary","fire_support","transform_craft","afterburner","evasive_roll","deploy_countermeasure","fire_missile","call_battlefield_support","altitude_up","altitude_down","drop_strike_ordnance","throttle_up","throttle_down","confirm","cancel"]:
 		_expect(InputMap.has_action(action), "missing input action: %s" % action)
 	_expect(_has_axis("move_left", JOY_AXIS_LEFT_X, -1.0), "left-stick negative X should move left")
 	_expect(_has_axis("move_right", JOY_AXIS_LEFT_X, 1.0), "left-stick positive X should move right")
@@ -22,8 +22,9 @@ func _initialize() -> void:
 	_expect(_has_button("evasive_roll", JOY_BUTTON_LEFT_STICK), "left-stick press should commit an evasive roll in the held lateral direction")
 	_expect(_has_axis("deploy_countermeasure", JOY_AXIS_TRIGGER_LEFT, 1.0), "left trigger should release the chaff/flare cassette")
 	_expect(_has_axis("fire_missile", JOY_AXIS_TRIGGER_RIGHT, 1.0), "right trigger should fire the selected AIM-9")
+	_expect(_has_axis("throttle_up", JOY_AXIS_RIGHT_Y, -1.0) and _has_axis("throttle_down", JOY_AXIS_RIGHT_Y, 1.0), "right-stick Y should command persistent forward throttle")
 	bindings.call("restore_keyboard_defaults", false)
-	_expect(int(bindings.call("binding_count")) == 16, "flight keyboard station should expose all sixteen combat bindings")
+	_expect(int(bindings.call("binding_count")) == 18, "flight keyboard station should expose all eighteen combat and propulsion bindings")
 	_expect(str(bindings.call("binding_label", 6)) == "WING GEOMETRY", "binding catalogue should expose player-facing action labels")
 	_expect(str(bindings.call("binding_key_name", 6)) == "Q", "binding catalogue should expose the active physical key")
 	_expect(bool(bindings.call("rebind", 6, KEY_T, false)), "keyboard control should accept a live replacement key")
@@ -33,6 +34,7 @@ func _initialize() -> void:
 	_expect(_has_key("afterburner", KEY_T) and _has_key("transform_craft", KEY_SHIFT), "a conflict should swap keys so both flight actions remain reachable")
 	bindings.call("restore_keyboard_defaults", false)
 	_expect(_has_key("transform_craft", KEY_Q), "defaults restore should recover the authored keyboard layout")
+	_expect(_has_key("throttle_up", KEY_T) and _has_key("throttle_down", KEY_G), "defaults should expose a dedicated keyboard throttle axis")
 	var main := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main != null and main.get_as_text().contains("control_listening") and main.get_as_text().contains("KEY RESERVED FOR CONTROL STATION"), "front end should own safe live keyboard capture")
 	_expect(main != null and main.get_as_text().contains("--capture-control-selection="), "visual QA should expose the complete scrollable binding catalogue")

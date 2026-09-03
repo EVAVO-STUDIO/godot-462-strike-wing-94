@@ -18,6 +18,11 @@ var starting: Dictionary = {}
 var _support_active := false
 var _battlefield_active := false
 var _last_ordnance := -1
+var _starting_world_distance := 0.0
+var _minimum_world_speed := 99.0
+var _maximum_world_speed := 0.0
+var _minimum_throttle := 1.0
+var _maximum_throttle := 0.0
 
 func _ready() -> void:
 	process_priority = -100
@@ -33,6 +38,7 @@ func _prepare() -> void:
 		_fail("gameplay phase was not available")
 		return
 	starting = _snapshot_counters()
+	_starting_world_distance = float(scene.get("environment_world_distance")) if _has_property(scene, "environment_world_distance") else 0.0
 	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
 	_last_ordnance = int(strike.get("ordnance")) if strike != null else -1
 	Input.action_press("fire_primary")
@@ -55,6 +61,14 @@ func _sample_state(delta: float) -> void:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	var altitude := str(craft.call("current_altitude")) if craft != null and craft.has_method("current_altitude") else "unknown"
 	var form := str(craft.call("current_form")) if craft != null and craft.has_method("current_form") else "unknown"
+	if craft != null and craft.has_method("world_speed_multiplier"):
+		var world_speed := float(craft.call("world_speed_multiplier"))
+		_minimum_world_speed = minf(_minimum_world_speed, world_speed)
+		_maximum_world_speed = maxf(_maximum_world_speed, world_speed)
+	if craft != null and craft.has_method("throttle_ratio"):
+		var throttle := float(craft.call("throttle_ratio"))
+		_minimum_throttle = minf(_minimum_throttle, throttle)
+		_maximum_throttle = maxf(_maximum_throttle, throttle)
 	altitude_seconds[altitude] = float(altitude_seconds.get(altitude, 0.0)) + delta
 	form_seconds[form] = float(form_seconds.get(form, 0.0)) + delta
 	maxima["enemies"] = maxi(int(maxima["enemies"]), _array_size("enemies"))
@@ -89,6 +103,15 @@ func _drive_movement(second: int) -> void:
 		Input.action_press("afterburner")
 	else:
 		Input.action_release("afterburner")
+	if second < 4:
+		Input.action_press("throttle_up")
+		Input.action_release("throttle_down")
+	elif second >= 10 and second < 14:
+		Input.action_release("throttle_up")
+		Input.action_press("throttle_down")
+	else:
+		Input.action_release("throttle_up")
+		Input.action_release("throttle_down")
 
 func _drive_commands(second: int) -> void:
 	if second in [4, 15, 26]: _pulse("transform_craft", "transform")
@@ -139,6 +162,13 @@ func _finish() -> void:
 		"commands":commands,
 		"accepted_system_uses":accepted,
 		"maxima":maxima,
+		"forward_flight":{
+			"world_distance":float(scene.get("environment_world_distance")) - _starting_world_distance if _has_property(scene, "environment_world_distance") else 0.0,
+			"minimum_world_multiplier":_minimum_world_speed,
+			"maximum_world_multiplier":_maximum_world_speed,
+			"minimum_throttle":_minimum_throttle,
+			"maximum_throttle":_maximum_throttle,
+		},
 		"phase_at_end":int(scene.get("phase")),
 	}
 	var report_path := _argument_value("--playtest-report=", "")
@@ -153,6 +183,8 @@ func _finish() -> void:
 func _release_all_input() -> void:
 	Input.action_release("fire_primary")
 	Input.action_release("afterburner")
+	Input.action_release("throttle_up")
+	Input.action_release("throttle_down")
 	_release_pulses()
 	for action in MOVE_ACTIONS:
 		Input.action_release(action)

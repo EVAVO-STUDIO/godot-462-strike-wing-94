@@ -17,6 +17,7 @@ const ServiceRules = preload("res://scripts/service_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
+const FlightSpeedRules = preload("res://scripts/flight_speed_rules.gd")
 const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const BossRules = preload("res://scripts/boss_rules.gd")
@@ -1264,10 +1265,11 @@ func _update_enemy_bullets(delta: float) -> void:
 			enemy_bullets.remove_at(i)
 
 func _update_pickups(delta: float) -> void:
+	var closure := FlightSpeedRules.recovery_closure_multiplier(_environment_speed_multiplier())
 	for i in range(pickups.size() - 1, -1, -1):
 		var pickup: Dictionary = pickups[i]
 		var position: Vector2 = pickup["position"]
-		position.y += 55.0 * delta
+		position.y += 55.0 * closure * delta
 		pickup["position"] = position
 		pickups[i] = pickup
 		if position.distance_squared_to(player_position) <= 260.0:
@@ -1321,7 +1323,8 @@ func _update_enemies(delta: float) -> void:
 			position.y = move_toward(position.y, player_position.y - 92.0, float(enemy["speed"]) * HypersonicRules.ENEMY_SPEED_MULTIPLIER * delta)
 			position.x = move_toward(position.x, player_position.x, float(enemy["speed"]) * 0.72 * delta)
 		else:
-			position.y += float(enemy["speed"]) * delta
+			var closure := FlightSpeedRules.world_closure_multiplier(_environment_speed_multiplier(), str(enemy.get("category", "air")))
+			position.y += float(enemy["speed"]) * closure * delta
 			var pattern := str(enemy.get("pattern", "sine_dive"))
 			var anchor_x := float(enemy.get("pattern_anchor_x", position.x))
 			enemy["pattern_anchor_x"] = anchor_x
