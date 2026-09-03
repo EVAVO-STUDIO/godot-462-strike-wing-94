@@ -14,6 +14,14 @@ func _initialize() -> void:
 	_expect(HypersonicRules.ENTRY_ACCEL_SECONDS < HypersonicRules.EXIT_DECEL_SECONDS and HypersonicRules.EXIT_DECEL_SECONDS < 0.75, "Mach entry should hit decisively while exit recovers smoothly within arcade timing")
 	_expect(HypersonicRules.enemy_pursuit_ratio(HypersonicRules.ENEMY_CHARGE_SECONDS) == 1.0, "enemy pursuit wings should finish sweeping before speed latches")
 	_expect(not HypersonicRules.enemy_can_pursue({"class":"ground","hypersonic_capable":true}), "surface targets cannot join pursuit")
+	var art_source := FileAccess.get_file_as_string("res://scripts/combat_art_director.gd")
+	_expect(art_source.contains("HYPERSONIC_PURSUER_TRANSFORMS") and art_source.contains("pursuit_%02d.png"), "all capable pursuit aircraft should use registered ten-exposure transformation art")
+	_expect(not art_source.contains("hull.get_width() * lerpf(1.0, 0.62, ratio)"), "enemy hypersonic transformation must never squash a flat hull sprite")
+	for enemy_id in ["ace_interceptor", "drone_hunter", "phase_interceptor"]:
+		for frame in range(10):
+			var path := "res://assets/runtime/enemies/hypersonic_pursuit/%s/pursuit_%02d.png" % [enemy_id,frame]
+			var texture := load(path)
+			_expect(texture is Texture2D, "%s pursuit exposure %02d should import as transparent runtime art" % [enemy_id,frame])
 	var director_file := FileAccess.open("res://scripts/craft_form_director.gd", FileAccess.READ)
 	var director_source := director_file.get_as_text() if director_file != null else ""
 	_expect(director_source.contains('"--capture-flight=hypersonic"') and director_source.contains("_capture_hypersonic"), "hypersonic presentation should expose a deterministic visual QA fixture")

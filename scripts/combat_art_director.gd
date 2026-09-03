@@ -89,6 +89,11 @@ const VX94_HYPERSONIC_TRANSFORM := [
 	preload("res://assets/runtime/craft/vx94/transform/hypersonic_08.png"),
 	preload("res://assets/runtime/craft/vx94/transform/hypersonic_09.png"),
 ]
+const HYPERSONIC_PURSUER_TRANSFORMS := {
+	"ace_interceptor": true,
+	"drone_hunter": true,
+	"phase_interceptor": true,
+}
 const PICKUP_ANIMATION_FRAMES := {
 	"shield": [preload("res://assets/runtime/effects/pickups/shield_0.png"), preload("res://assets/runtime/effects/pickups/shield_1.png"), preload("res://assets/runtime/effects/pickups/shield_2.png"), preload("res://assets/runtime/effects/pickups/shield_3.png")],
 	"repair": [preload("res://assets/runtime/effects/pickups/repair_0.png"), preload("res://assets/runtime/effects/pickups/repair_1.png"), preload("res://assets/runtime/effects/pickups/repair_2.png"), preload("res://assets/runtime/effects/pickups/repair_3.png")],
@@ -1301,17 +1306,13 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 		_draw_enemy_damage_attachments(surface, p, enemy, category, faction, scale)
 
 func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> bool:
-	var hull: Texture2D
-	if MERCENARY_AIR_SPRITES.has(enemy_id): hull = MERCENARY_AIR_SPRITES[enemy_id]
-	elif MACHINE_AIR_SPRITES.has(enemy_id): hull = MACHINE_AIR_SPRITES[enemy_id]
-	elif ORBITAL_AIR_SPRITES.has(enemy_id): hull = ORBITAL_AIR_SPRITES[enemy_id]
-	else: return false
-	var ratio := roundf(clampf(float(enemy.get("hypersonic_ratio", 0.0)), 0.0, 1.0) * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
-	var width := hull.get_width() * lerpf(1.0, 0.62, ratio)
-	var height := hull.get_height() * lerpf(1.0, 1.08, ratio)
-	surface.draw_texture_rect(hull, Rect2((p - Vector2(width, height) * 0.5).round(), Vector2(width, height).round()), false)
+	if not HYPERSONIC_PURSUER_TRANSFORMS.has(enemy_id): return false
+	var ratio := clampf(float(enemy.get("hypersonic_ratio", 0.0)), 0.0, 1.0)
+	var frame_index := clampi(roundi(ratio * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
+	var hull: Texture2D = load("res://assets/runtime/enemies/hypersonic_pursuit/%s/pursuit_%02d.png" % [enemy_id,frame_index])
+	surface.draw_texture(hull, (p-hull.get_size()*0.5).round())
 	var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
-	surface.draw_texture(plume, (p + Vector2(-plume.get_width() * 0.5, height * 0.30)).round(), Color(0.88,0.94,1.0,ratio))
+	surface.draw_texture(plume, (p + Vector2(-plume.get_width() * 0.5, hull.get_height() * 0.30)).round(), Color(0.88,0.94,1.0,ratio))
 	var boom_age := float(enemy.get("hypersonic_boom_age", 99.0))
 	if boom_age < 0.42:
 		var t := boom_age / 0.42

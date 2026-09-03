@@ -1,0 +1,13 @@
+{
+  "asset_family": "hypersonic_pursuit_transform_v1",
+  "builder": "res://tools/build_hypersonic_pursuer_art.ps1",
+  "frames_per_aircraft": 10,
+  "aircraft": ["ace_interceptor", "drone_hunter", "phase_interceptor"],
+  "canvas_policy": "preserve each reviewed source canvas and center pivot",
+  "motion": "outer wing and nacelle masses articulate aft and inward around an unchanged dimensional fuselage core",
+  "visual_contract": {
+    "rules": ["transparent game-ready frames", "discrete pixel clusters", "preserved cockpit and engine identity", "connected articulated silhouettes", "no whole-sprite scaling or rotation"],
+    "reject": ["paper rotation", "horizontal squash", "cross-fade morph", "detached glow", "generic neon transformation"]
+  },
+  "timing_contract": "frames map monotonically to the authoritative enemy pursuit charge ratio"
+}
