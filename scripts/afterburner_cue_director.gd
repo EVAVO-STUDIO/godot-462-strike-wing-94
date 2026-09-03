@@ -67,9 +67,12 @@ func draw_afterburner(surface: CanvasItem) -> void:
 	if _boom_age < 0.42 and _has_property(scene, "player_position"):
 		var t := _boom_age / 0.42
 		var texture := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
-		var draw_size := roundf(lerpf(64.0, 236.0, t))
+		# A top-down pressure break expands mostly across the flight path. Keeping
+		# it shallow preserves the VX-94 silhouette and avoids the old square,
+		# U-shaped exposure reading as a second translucent pair of wings.
+		var draw_size := Vector2(roundf(lerpf(76.0, 236.0, t)), roundf(lerpf(38.0, 92.0, t)))
 		var p: Vector2 = scene.get("player_position")
-		surface.draw_texture_rect(texture, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-t))
+		surface.draw_texture_rect(texture, Rect2((p - draw_size * 0.5).round(), draw_size), false, Color(1,1,1,0.88*(1.0-t)))
 		if _boom_age < 0.16:
 			var ignition := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_ignition", _boom_age / 0.16)
 			surface.draw_texture(ignition, (p + Vector2(-32,-17)).round())

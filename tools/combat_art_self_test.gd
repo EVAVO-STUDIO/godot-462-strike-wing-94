@@ -739,10 +739,14 @@ func _test_persistent_effect_art() -> void:
 			_expect(frame is Texture2D and frame.get_size() == Vector2(32,40), "persistent effect should retain registered 32x40 geometry: %s/%d" % [family, frame_index])
 	for frame_index in range(4):
 		var boom := load("res://assets/runtime/effects/persistent/sonic_boom/%d.png" % frame_index)
-		_expect(boom is Texture2D and boom.get_size() == Vector2(64,64), "sonic-boom pressure frame should retain registered 64x64 geometry: %d" % frame_index)
+		_expect(boom is Texture2D and boom.get_size() == Vector2(64,64) and boom.get_image().detect_alpha() != Image.ALPHA_NONE, "sonic-boom pressure frame should retain transparent registered 64x64 geometry: %d" % frame_index)
 		var ignition := load("res://assets/runtime/effects/persistent/hypersonic_ignition/%d.png" % frame_index)
 		_expect(ignition is Texture2D and ignition.get_size() == Vector2(64,64) and ignition.get_image().detect_alpha() != Image.ALPHA_NONE, "hypersonic ignition frame should retain registered transparent 64x64 geometry: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/effects/persistent/persistent_asset_manifest.json"), "persistent effect source/runtime manifest should exist")
+	var fx_builder := FileAccess.get_file_as_string("res://tools/build_combat_fx_v2.ps1")
+	_expect(fx_builder.contains("sonic_boom_runtime_master.svg") and fx_builder.contains("-background none $SonicMaster") and fx_builder.contains("$SonicMasterPreview -crop"), "combat FX build should rasterize and slice the transparent hand-authored lateral pressure master")
+	var sonic_master_preview := load("res://assets/source/effects/persistent/sonic_boom_runtime_master.png")
+	_expect(sonic_master_preview is Texture2D and sonic_master_preview.get_size() == Vector2(256,64) and sonic_master_preview.get_image().detect_alpha() != Image.ALPHA_NONE, "sonic-boom source preview should remain a transparent registered four-frame master")
 	var combat_source_file := FileAccess.open("res://scripts/combat_art_director.gd",FileAccess.READ)
 	var combat_source := combat_source_file.get_as_text() if combat_source_file != null else ""
 	_expect(combat_source.contains('_capture_fx_state() == "combat"') and combat_source.contains("_render_combat_fx_capture"),"visual QA should expose the complete projectile, impact and persistent FX fixture")
@@ -756,6 +760,7 @@ func _test_persistent_effect_art() -> void:
 		var source := afterburner.get_as_text()
 		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"'), "hypersonic thrust should use authored compression plumes and contrails")
 		_expect(source.contains('frame_for_ratio("sonic_boom"'), "sonic transition should use the authored broken pressure front")
+		_expect(source.contains("Vector2(roundf(lerpf(76.0, 236.0, t)), roundf(lerpf(38.0, 92.0, t)))"), "player sonic break should expand as a shallow transverse pressure front instead of a square ghost-wing exposure")
 		_expect(source.contains('frame_for_ratio("hypersonic_ignition"') and not source.contains("draw_circle"), "hypersonic latch should use the registered paired-engine ignition sequence instead of programmer-art circles")
 		_expect(not source.contains("surface.draw_arc(scene.get(\"player_position\")"), "sonic boom should not regress to a perfect vector circle")
 

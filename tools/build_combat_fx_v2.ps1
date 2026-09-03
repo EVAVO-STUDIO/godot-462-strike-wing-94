@@ -55,4 +55,18 @@ for($row=0;$row -lt $PersistentFamilies.Count;$row++) {
     }
 }
 
+# The generative source plate is useful for organic smoke and exhaust, but its
+# U-shaped sonic row reads like translucent wings around a plan-view aircraft.
+# Override that family with the hand-authored, centre-registered lateral
+# pressure fronts used by the final hypersonic presentation.
+$SonicMaster = Join-Path $Root 'assets\source\effects\persistent\sonic_boom_runtime_master.svg'
+$SonicMasterPreview = [System.IO.Path]::ChangeExtension($SonicMaster, '.png')
+& $Magick -background none $SonicMaster -depth 8 $SonicMasterPreview
+if ($LASTEXITCODE -ne 0) { throw 'Failed to rasterize the authored sonic-boom master.' }
+for($frame=0;$frame -lt 4;$frame++) {
+    $Destination = Join-Path $RuntimeRoot "persistent\sonic_boom\$frame.png"
+    & $Magick $SonicMasterPreview -crop "64x64+$($frame*64)+0" +repage -depth 8 $Destination
+    if ($LASTEXITCODE -ne 0) { throw "Failed to build authored sonic-boom frame: $frame" }
+}
+
 Write-Host 'Built HYPERSONIC combat FX v2 library.'

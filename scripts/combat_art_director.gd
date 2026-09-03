@@ -1344,8 +1344,8 @@ func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: Str
 	if boom_age < 0.42:
 		var t := boom_age / 0.42
 		var boom := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
-		var size := roundf(lerpf(36.0, 112.0, t))
-		surface.draw_texture_rect(boom, Rect2((p-Vector2.ONE*size*0.5).round(),Vector2.ONE*size),false,Color(1,1,1,1.0-t))
+		var size := Vector2(roundf(lerpf(42.0, 118.0, t)), roundf(lerpf(22.0, 48.0, t)))
+		surface.draw_texture_rect(boom, Rect2((p-size*0.5).round(),size),false,Color(1,1,1,0.88*(1.0-t)))
 		if boom_age < 0.16:
 			var ignition := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_ignition",boom_age/0.16)
 			surface.draw_set_transform(p.round(),PI,Vector2.ONE)
