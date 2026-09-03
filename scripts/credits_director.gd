@@ -4,7 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const CreditsSurface = preload("res://scripts/credits_surface.gd")
 const FRAME := preload("res://assets/runtime/ui/credits/credits_frame.png")
-const WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v2.png")
+const WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v3.png")
 const VX94 := preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_0.png")
 const PLATES := {
 	"ark": preload("res://assets/runtime/cinematics/plates/end_ark_fall.png"),

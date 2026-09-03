@@ -9,7 +9,7 @@ const CLOUDS := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_c.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
 ]
-const WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v2.png")
+const WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v3.png")
 const VX94_FRAMES := [
 	preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png"),
 	preload("res://assets/runtime/craft/vx94/vx94_transform_03.png"),
@@ -165,7 +165,7 @@ func _draw_boss_engagement(surface: CanvasItem) -> void:
 func _draw_return_card(surface: CanvasItem) -> void:
 	var fade := smoothstep(0.0, 1.0, (elapsed - 13.2) / 0.42)
 	surface.draw_rect(Rect2(0, 0, 640, 360), Color(0.01, 0.02, 0.035, fade * 0.90))
-	surface.draw_texture_rect(WORDMARK, Rect2(70, 94, 500, 64), false, Color(1, 1, 1, fade))
+	surface.draw_texture_rect(WORDMARK, Rect2(70, 84, 500, 80), false, Color(1, 1, 1, fade))
 	PixelFont.draw_centered(surface, "VX-94 VARIABLE STRIKE FIGHTER", 320, 174, 1, Color(0.52, 0.72, 0.82, fade), 1)
 	PixelFont.draw_centered(surface, "PRESS FIRE / PRESS START", 320, 250, 1, Color(0.92, 0.78, 0.38, fade), 1)
 

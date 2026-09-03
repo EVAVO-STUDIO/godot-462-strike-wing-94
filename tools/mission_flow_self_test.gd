@@ -223,6 +223,7 @@ func _test_pixel_ui() -> void:
 		for primary_meter in ["hull_frame", "shield_frame", "energy_frame", "hull_warning_frame", "shield_warning_frame", "energy_warning_frame"]:
 			var meter_texture := load("res://assets/runtime/ui/hud/primary_meter_cluster/%s.png" % primary_meter)
 			_expect(meter_texture is Texture2D and meter_texture.get_size() == Vector2(92,25), "primary meter instrument should retain registered geometry: %s" % primary_meter)
+		_expect(FileAccess.file_exists("res://tools/build_primary_meter_art.ps1"), "primary meter sprites should remain reproducible from their governed SVG source")
 		_expect(source.contains("_draw_primary_meter") and source.contains("HUD_HULL_WARNING_FRAME") and source.contains("HUD_SHIELD_WARNING_FRAME") and source.contains("HUD_ENERGY_WARNING_FRAME"), "hull, shield and generator should use distinct sprite instruments with live warning states")
 		_expect(source.contains("FLIGHT_STATE_FRAME") and source.contains("ALTITUDE_STATES") and source.contains("FORM_STATES") and source.contains("TECH_STATES") and source.contains("func _draw_flight_state"), "flight state should use authored altitude, geometry and technology sprites")
 		var flight_state_sizes := {

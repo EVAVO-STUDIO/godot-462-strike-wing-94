@@ -10,7 +10,7 @@ const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
-const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v2.png")
+const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v3.png")
 const VX94_FIGHTER := preload("res://assets/runtime/craft/vx94/vx94_fighter_v1.png")
 const VX94_BOMBER := preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png")
 const VX94_MENU_PORTRAIT := preload("res://assets/runtime/craft/vx94/vx94_menu_portrait_fighter_v2.png")
@@ -225,8 +225,8 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 		return
 	_draw_maintenance_bay(surface, 0.42, 0.88)
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
-	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(195, 18, 250, 32), false)
-	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 53, 1, BLUE, 1)
+	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(195, 14, 250, 40), false)
+	PixelFont.draw_centered(surface, _identity_subtitle(), 320, 58, 1, BLUE, 1)
 	var mission_index := clampi(int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0, 0, 29)
 	var mode_active := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
 	var secret_active := _has_property(scene,"active_secret_mission_id") and not str(scene.get("active_secret_mission_id")).is_empty()
@@ -292,8 +292,8 @@ func _draw_front_end(surface: CanvasItem, scene: Object, screen: String) -> void
 	# Keep the title authoritative without allowing it to consume half the screen.
 	# Late-90s premium front ends used the logo as a masthead, then gave the hero
 	# machine and the player's next decision room to breathe.
-	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(34, 24, 390, 50), false)
-	PixelFont.draw_text(surface, _identity_subtitle(), Vector2(39, 80), 1, BLUE, 1)
+	surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(34, 18, 390, 62), false)
+	PixelFont.draw_text(surface, _identity_subtitle(), Vector2(39, 84), 1, BLUE, 1)
 	PixelFont.draw_text(surface, "TACTICAL FLIGHT OPERATIONS", Vector2(449, 35), 1, GOLD, 1)
 	PixelFont.draw_text(surface, "SYSTEM  VX94-OPS", Vector2(449, 51), 1, MUTED, 1)
 	surface.draw_rect(Rect2(36, 99, 568, 1), Color("6a8794"))

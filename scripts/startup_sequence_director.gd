@@ -4,7 +4,7 @@ const StartupSequenceSurface = preload("res://scripts/startup_sequence_surface.g
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const EVAVO_SPLASH := preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png")
-const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v2.png")
+const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v3.png")
 const TITLE_SKY := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const TITLE_CLOUDS := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),
@@ -170,8 +170,8 @@ func _draw_hypersonic(surface: CanvasItem) -> void:
 	if title_alpha > 0.0:
 		var identity := get_node_or_null("/root/ProductIdentity")
 		var subtitle := str(identity.call("title_subtitle")) if identity != null else "VX-94 VARIABLE STRIKE FIGHTER"
-		surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(70, 42, 500, 64), false, Color(1,1,1,title_alpha))
-		PixelFont.draw_centered(surface, subtitle, 320, 116, 1, Color(0.52,0.72,0.82,title_alpha), 1)
+		surface.draw_texture_rect(HYPERSONIC_WORDMARK, Rect2(70, 34, 500, 80), false, Color(1,1,1,title_alpha))
+		PixelFont.draw_centered(surface, subtitle, 320, 121, 2, Color(0.52,0.72,0.82,title_alpha), 1)
 	if elapsed >= 6.8:
 		var pulse := 0.48 + 0.52 * absf(sin(elapsed * 3.2))
 		PixelFont.draw_centered(surface, "PRESS FIRE / PRESS START", 320, 316, 1, Color(0.92,0.78,0.38,pulse), 1)

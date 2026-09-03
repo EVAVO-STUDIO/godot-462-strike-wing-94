@@ -1,34 +1,35 @@
 {
   "schema_version": 1,
   "asset_family": "hypersonic_title",
-  "status": "runtime_master_v2_approved",
+  "status": "runtime_master_v3_approved",
   "source": {
-    "path": "assets/source/title/candidates/hypersonic_wordmark_candidate_04.png",
-    "sha256": "66efebeddfbba25d1008a69013d8372485910e4eff182b7e6d22d3889cba6b3c",
+    "path": "assets/source/title/candidates/hypersonic_wordmark_candidate_05.png",
+    "sha256": "3d5f865978f8a84137644dacfc38d5fab6c88fce82d3790a81c386d84d0f0bf8",
     "provenance": "OpenAI built-in image generation candidate; generated 2026-09-03; approved source retained immutably"
   },
   "master": {
-    "path": "assets/runtime/title/hypersonic_wordmark_v2.png",
-    "sha256": "2c6c817d3c2b5219f5842f0c2d1fae1b52f4a878189baa68396c1f9cf8cbd1a3",
-    "canvas": [500, 64],
+    "path": "assets/runtime/title/hypersonic_wordmark_v3.png",
+    "sha256": "73328bae42f9525a293ffe76c1d3af06e55f1c9735ea0a850cd86745cdd5f01f",
+    "canvas": [500, 80],
     "process": [
       "transparent-bound trim",
-      "Lanczos mastering to exact 500x64 runtime geometry",
-      "31-colour no-dither palette reduction"
+      "chroma-field extraction and green-spill cleanup",
+      "Lanczos mastering to exact 500x80 runtime geometry",
+      "32-colour no-dither palette reduction"
     ],
     "acceptance": {
-      "visual_review": "approved in live 640x360 title-sequence capture",
-      "geometry": "500x64 exact",
-      "palette_colors": 31,
+      "visual_review": "approved in live 640x360 title-sequence and main-menu captures",
+      "geometry": "500x80 exact",
+      "palette_colors": 32,
       "alpha": "true 8-bit alpha; transparent exterior preserved",
-      "small_scale_readability": "approved at 500x64 title, 390x50 main-menu, and 250x32 submenu rectangles",
-      "style": "minimal naval flight-test construction, shallow titanium value steps, deep navy edge, one central red Mach wedge",
+      "small_scale_readability": "approved at 500x80 title, 390x62 main-menu, and 250x40 submenu rectangles",
+      "style": "tall late-90s aviation masthead, titanium face, narrow deep-navy side plane, one central red Mach wedge",
       "rejected_traits": ["esports crest", "giant chrome bevel", "crossing trajectory stripe", "rivet noise", "neon cyberpunk", "generic grunge", "generated subtitle text"]
     }
   },
   "runtime_contract": {
     "logical_resolution": [640, 360],
-    "display_rect": [70, 42, 500, 64],
+    "display_rect": [70, 34, 500, 80],
     "texture_filter": "nearest",
     "subtitle_source": "ProductIdentity.title_subtitle rendered with PixelFont",
     "sequence_hierarchy": "wordmark -> VX-94 VARIABLE STRIKE FIGHTER -> PRESS FIRE / PRESS START"

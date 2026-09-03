@@ -5,9 +5,9 @@
   "visual_contract": {
     "purpose": "distinct hull, shield and generator instruments for the permanent combat HUD",
     "era": "1997 military strike-aircraft annunciator hardware",
-    "materials": "recessed smoked glass, blue-black anodized housing, engraved channel glyphs and discrete fault lamps",
+    "materials": "recessed smoked glass, blue-black anodized housing, engraved HL/SH/EN channel codes and discrete fault lamps",
     "behavior": "normal and low-state housings selected from live ratios; segmented fills remain clipped to exact values",
-    "avoid": ["anonymous shared progress bar", "modern rounded meter", "neon hologram", "color-only state recognition"]
+    "avoid": ["anonymous shared progress bar", "ambiguous single-letter channels", "modern rounded meter", "neon hologram", "color-only state recognition"]
   },
   "runtime": {
     "hull_frame": [92, 25], "shield_frame": [92, 25], "energy_frame": [92, 25],

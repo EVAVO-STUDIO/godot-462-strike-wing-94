@@ -3,7 +3,7 @@ extends CanvasLayer
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const CampaignCinematicSurface = preload("res://scripts/campaign_cinematic_surface.gd")
-const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v2.png")
+const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v3.png")
 
 const PLATES := {
 	"s2_dead_refinery": preload("res://assets/runtime/cinematics/plates/s2_dead_refinery.png"),
