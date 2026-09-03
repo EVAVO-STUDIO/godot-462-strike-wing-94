@@ -1,18 +1,19 @@
 {
   "asset_family": "battlefield_recovery_pickups",
-  "status": "runtime_animation_v1",
+  "status": "runtime_animation_v2",
   "source_sheet": "res://assets/source/effects/pickups/pickup_animation_sheet.svg",
   "runtime_directory": "res://assets/runtime/effects/pickups/",
-  "frame_size": [24, 24],
+  "frame_size": [32, 32],
   "frames_per_kind": 4,
   "fps": 8,
   "kinds": {
-    "shield": "armoured field-capacitor pod with blue shield plate",
-    "repair": "maintenance pod with green structural-service cross",
-    "bomb": "ventral ordnance canister with amber bomb silhouette",
-    "weapon": "twin-feed gun package with ammunition stripe"
+    "shield": "broad armoured field-capacitor pod with cyan shield cell",
+    "repair": "maintenance pod with green structural-service cell",
+    "bomb": "ventral ordnance canister with amber bomb cell",
+    "weapon": "twin-feed gun package with red-orange ammunition cell"
   },
-  "animation": "held mechanical pod with a four-position corner acquisition pulse; no smooth rotation or floating jewel treatment",
+  "animation": "held mechanical pod with four beacon exposures; the physical chassis never spins or deforms",
+  "source_reference": "res://assets/source/effects/pickups/recovery_pod_concept_v2.png",
   "ownership": "CombatArtDirector draws pickups; main.gd owns movement, collection and reward simulation only",
   "reject": ["generic outlined square", "fantasy gem", "modern loot rarity glow", "unreadable tiny label", "continuous smooth spin"]
 }

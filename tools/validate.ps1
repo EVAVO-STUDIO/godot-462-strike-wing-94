@@ -61,7 +61,7 @@ $Required = @(
     'scripts/environment_rules.gd','scripts/environment_surface.gd','scripts/environment_director.gd',
     'scripts/campaign_cinematic_surface.gd','scripts/campaign_cinematic_director.gd','scripts/credits_surface.gd','scripts/credits_director.gd','data/credits.json','scripts/game_mode_rules.gd','scripts/game_mode_director.gd','data/game_modes.json',
     'scripts/altitude_transition_surface.gd','scripts/altitude_transition_director.gd',
-    'scripts/combat_art_surface.gd','scripts/combat_art_director.gd','scripts/airframe_cue_surface.gd','scripts/airframe_cue_director.gd',
+    'scripts/combat_art_surface.gd','scripts/combat_art_director.gd','scripts/airframe_cue_surface.gd','scripts/airframe_cue_director.gd','tools/build_pickup_art.ps1',
     'scripts/afterburner_cue_surface.gd','scripts/afterburner_cue_director.gd','scripts/weapon_mount_cue_surface.gd','scripts/weapon_mount_cue_director.gd',
     'scripts/damage_state_surface.gd','scripts/damage_state_director.gd','scripts/combat_fx_surface.gd','scripts/combat_fx_director.gd',
     'scripts/intercept_route_rules.gd','scripts/intercept_route_surface.gd','scripts/intercept_route_director.gd',
