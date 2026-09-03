@@ -4,7 +4,7 @@ const StartupSequenceSurface = preload("res://scripts/startup_sequence_surface.g
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const EVAVO_SPLASH := preload("res://assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png")
-const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
+const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v2.png")
 const TITLE_SKY := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const TITLE_CLOUDS := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),

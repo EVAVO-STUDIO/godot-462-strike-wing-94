@@ -106,7 +106,7 @@ func _run() -> void:
 		for frame_index in range(4):
 			var subject := load("res://assets/runtime/cinematics/subjects/ending/%s_%d.png" % [subject_id,frame_index]) as Texture2D
 			_expect(subject != null and subject.get_size() == Vector2(144,160), "ending VX-94 subject should retain approved identity on its 144x160 cinematic canvas: %s %d" % [subject_id,frame_index], failures)
-	var ending_wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v1.png") as Texture2D
+	var ending_wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v2.png") as Texture2D
 	_expect(ending_wordmark != null and ending_wordmark.get_size() == Vector2(500,64), "ending title should retain the authored 500x64 HYPERSONIC wordmark", failures)
 	for shot_id in ["end_consequence", "end_action", "end_observation", "end_consequence_final", "end_title"]:
 		for frame_index in range(4):

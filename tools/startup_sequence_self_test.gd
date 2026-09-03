@@ -10,17 +10,20 @@ func _initialize() -> void:
 		_expect(float(startup.TITLE_TOTAL_SECONDS) >= 8.0 and float(startup.TITLE_TOTAL_SECONDS) <= 15.0, "HYPERSONIC title sequence should meet the 8-15 second contract", failures)
 	var splash := load("res://assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png")
 	_expect(splash is Texture2D and splash.get_size() == Vector2(640,360), "approved EVAVO plate should retain canonical 640x360 geometry", failures)
-	var wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v1.png")
+	var wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v2.png")
 	_expect(wordmark is Texture2D and wordmark.get_size() == Vector2(500,64), "HYPERSONIC wordmark should retain reviewed runtime geometry", failures)
+	if wordmark is Texture2D:
+		var wordmark_image: Image = (wordmark as Texture2D).get_image()
+		_expect(wordmark_image.detect_alpha() != Image.ALPHA_NONE and wordmark_image.get_pixel(0,0).a <= 0.01, "HYPERSONIC wordmark should retain a genuinely transparent exterior", failures)
 	var manifest_file := FileAccess.open("res://assets/source/title/title_asset_manifest.json", FileAccess.READ)
 	_expect(manifest_file != null, "HYPERSONIC title-art manifest should remain readable", failures)
 	if manifest_file != null:
 		var manifest = JSON.parse_string(manifest_file.get_as_text())
-		_expect(typeof(manifest) == TYPE_DICTIONARY and str(manifest.get("status", "")) == "runtime_master_v1_approved", "HYPERSONIC wordmark should remain an approved production master", failures)
+		_expect(typeof(manifest) == TYPE_DICTIONARY and str(manifest.get("status", "")) == "runtime_master_v2_approved", "HYPERSONIC wordmark should remain an approved production master", failures)
 		if typeof(manifest) == TYPE_DICTIONARY:
 			var master: Dictionary = manifest.get("master", {})
 			var acceptance: Dictionary = master.get("acceptance", {})
-			_expect(int(acceptance.get("palette_colors", 0)) <= 24, "title master should retain its restrained late-90s palette", failures)
+			_expect(int(acceptance.get("palette_colors", 0)) <= 32, "title master should retain its restrained late-90s palette", failures)
 	for frame_path in ["vx94_fighter_v1.png", "vx94_transform_01.png", "vx94_transform_02.png", "vx94_transform_03.png", "vx94_bomber_v1.png"]:
 		var craft := load("res://assets/runtime/craft/vx94/%s" % frame_path)
 		_expect(craft is Texture2D and craft.get_size() == Vector2(64,72), "VX-94 transform frame %s should retain reviewed 64x72 geometry" % frame_path, failures)

@@ -9,7 +9,7 @@ const CLOUDS := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_mid_broken_c.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
 ]
-const WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v1.png")
+const WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v2.png")
 const VX94_FRAMES := [
 	preload("res://assets/runtime/craft/vx94/vx94_bomber_v1.png"),
 	preload("res://assets/runtime/craft/vx94/vx94_transform_03.png"),

@@ -87,7 +87,7 @@ func _test_layered_runtime_manifests() -> void:
 		_expect(str(data.get("status", "")).contains("runtime"), "live layered production art must not remain labelled as a candidate: %s" % manifest_path)
 
 func _test_presentation_coverage() -> void:
-	var title := load("res://assets/runtime/title/hypersonic_wordmark_v1.png")
+	var title := load("res://assets/runtime/title/hypersonic_wordmark_v2.png")
 	var menu := load("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
 	_expect(title is Texture2D and title.get_size() == Vector2(500,64), "reviewed HYPERSONIC title sprite should remain production-ready")
 	_expect(menu is Texture2D and menu.get_size() == Vector2(640,360), "reviewed sortie-bay menu environment should remain production-ready")
