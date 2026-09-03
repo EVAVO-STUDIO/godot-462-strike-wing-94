@@ -5,8 +5,6 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const AltitudeTransitionSurface = preload("res://scripts/altitude_transition_surface.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
-const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
-const LANE_PANEL := preload("res://assets/runtime/ui/hud/altitude_transition/lane_panel.png")
 const CLOUD_SHADOW := preload("res://assets/runtime/ui/hud/altitude_transition/cloud_shadow.png")
 const CLIMB_LEFT := preload("res://assets/runtime/ui/hud/altitude_transition/climb_left.png")
 const CLIMB_RIGHT := preload("res://assets/runtime/ui/hud/altitude_transition/climb_right.png")
@@ -18,9 +16,8 @@ const TRANSITION_CLOUDS := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_high_mass_b.png"),
 ]
-const LOWER_LEFT_KEEP_OUT := Rect2(0.0, 252.0, 244.0, 108.0)
-const CHOICE_REVEAL_SECONDS := 4.0
-const CHOICE_REMINDER_SECONDS := 2.4
+const CHOICE_REVEAL_SECONDS := 2.4
+const CHOICE_REMINDER_SECONDS := 1.4
 
 var _surface: Control
 var _choice_was_available := false
@@ -68,7 +65,31 @@ func choice_prompt_visible() -> bool:
 func occupies_status_lane() -> bool:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	var transition_active := craft != null and craft.has_method("altitude_transition_active") and bool(craft.call("altitude_transition_active"))
-	return choice_prompt_visible() or transition_active
+	return transition_active
+
+func compact_choice_label() -> String:
+	if not choice_prompt_visible():
+		return ""
+	var scene := get_tree().current_scene
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if scene == null or craft == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 1 or not _has_property(scene, "mission_time"):
+		return ""
+	var mission_time := float(scene.get("mission_time"))
+	if not craft.has_method("altitude_choice_available") or not bool(craft.call("altitude_choice_available", mission_time)):
+		return ""
+	var bands: Array = craft.call("altitude_choice_bands", mission_time)
+	var current := str(craft.call("current_altitude")) if craft.has_method("current_altitude") else AltitudeRules.MID
+	var higher := AltitudeRules.adjacent_band(current, 1)
+	var lower := AltitudeRules.adjacent_band(current, -1)
+	var higher_available := higher != current and higher in bands
+	var lower_available := lower != current and lower in bands
+	if higher_available and lower_available:
+		return "%s<%s>%s" % [_code(lower), _code(current), _code(higher)]
+	if higher_available:
+		return "%s>%s" % [_code(current), _code(higher)]
+	if lower_available:
+		return "%s<%s" % [_code(lower), _code(current)]
+	return ""
 
 func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 	var craft := get_node_or_null("/root/CraftFormDirector")
@@ -85,37 +106,6 @@ func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 		var label := "CLIMB" if direction > 0 else "DIVE"
 		PixelFont.draw_text(surface, "%s  %s > %s" % [label, _code(from_band), _code(to_band)], Vector2(272, 68), 1, Color(0.78,0.9,0.94,0.94))
 		return
-	_draw_choice_prompt(surface, craft)
-
-func _draw_choice_prompt(surface: CanvasItem, craft: Node) -> void:
-	if not choice_prompt_visible():
-		return
-	var scene := get_tree().current_scene
-	if scene == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 1 or not _has_property(scene, "mission_time"):
-		return
-	if not craft.has_method("altitude_choice_available") or not bool(craft.call("altitude_choice_available", float(scene.get("mission_time")))):
-		return
-	var bands: Array = craft.call("altitude_choice_bands", float(scene.get("mission_time")))
-	var current := str(craft.call("current_altitude")) if craft.has_method("current_altitude") else AltitudeRules.MID
-	var higher := AltitudeRules.adjacent_band(current, 1)
-	var lower := AltitudeRules.adjacent_band(current, -1)
-	var parts: Array[String] = []
-	if higher != current and higher in bands:
-		parts.append("CLIMB %s" % _code(higher))
-	if lower != current and lower in bands:
-		parts.append("DIVE %s" % _code(lower))
-	if parts.is_empty():
-		return
-	var text := "ALT SELECT  %s" % "  ".join(parts)
-	var width := float(text.length() * 4 + 14)
-	var x := 16.0 if not _player_blocks_lower_left(scene) else 640.0 - width - 16.0
-	UiSpriteRenderer.draw_nine_slice(surface, LANE_PANEL, Rect2(x, 294, width, 18), 6)
-	PixelFont.draw_text(surface, text, Vector2(x+7,300), 1, Color(0.76,0.88,0.92,0.92))
-
-func _player_blocks_lower_left(scene: Object) -> bool:
-	if scene == null or not _has_property(scene, "player_position"):
-		return false
-	return LOWER_LEFT_KEEP_OUT.has_point(Vector2(scene.get("player_position")))
 
 func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var travel := 160.0 * ratio

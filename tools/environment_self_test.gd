@@ -548,7 +548,7 @@ func _initialize() -> void:
 		var transition_source := transition_file.get_as_text()
 		_expect(transition_source.contains("TRANSITION_CLOUDS"), "altitude sweep should use authored cloud sprites")
 		_expect(not transition_source.contains("draw_circle"), "altitude sweep should not regress to circular cloud placeholders")
-		_expect(transition_source.contains("LANE_PANEL") and transition_source.contains("CLOUD_SHADOW") and transition_source.contains("CLIMB_LEFT") and transition_source.contains("DIVE_RIGHT"), "altitude transitions should use authored HUD, cloud-shadow and motion sprites")
+		_expect(transition_source.contains("compact_choice_label") and transition_source.contains("CLOUD_SHADOW") and transition_source.contains("CLIMB_LEFT") and transition_source.contains("DIVE_RIGHT"), "altitude presentation should use the compact fascia cue plus authored cloud-shadow and motion sprites")
 		_expect(not transition_source.contains("draw_rect") and not transition_source.contains("draw_line"), "altitude transition presentation should not regress to vector boxes or speed lines")
 	var transition_sizes := {"lane_panel":Vector2(32,32),"cloud_shadow":Vector2(96,8),"climb_left":Vector2(32,216),"climb_right":Vector2(32,216),"dive_left":Vector2(32,216),"dive_right":Vector2(32,216)}
 	for transition_asset in transition_sizes:

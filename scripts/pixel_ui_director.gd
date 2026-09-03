@@ -681,7 +681,11 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(HUD_ICON_SCORE, Vector2(506, 10))
 	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(522, 13), 1, TEXT, 1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
-	PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _short_form()], Vector2(298, 13), 1, BLUE, 1)
+	var altitude_choice := _compact_altitude_choice()
+	if altitude_choice.is_empty():
+		PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _short_form()], Vector2(298, 13), 1, BLUE, 1)
+	else:
+		PixelFont.draw_centered(surface, altitude_choice, 320, 13, 1, GOLD, 1)
 	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 12), Vector2(448, 13), 1, MUTED, 1)
 	# One shared information lane: urgent combat state always replaces routine mission data.
 	if not _active_boss(scene).is_empty():
@@ -704,6 +708,10 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 func _altitude_choice_active(scene: Object) -> bool:
 	var presentation := get_node_or_null("/root/AltitudeTransitionDirector")
 	return presentation != null and presentation.has_method("occupies_status_lane") and bool(presentation.call("occupies_status_lane"))
+
+func _compact_altitude_choice() -> String:
+	var presentation := get_node_or_null("/root/AltitudeTransitionDirector")
+	return str(presentation.call("compact_choice_label")) if presentation != null and presentation.has_method("compact_choice_label") else ""
 
 func _radio_occupies_status_lane() -> bool:
 	var radio := get_node_or_null("/root/MissionRadioDirector")

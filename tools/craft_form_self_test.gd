@@ -146,10 +146,13 @@ func _test_source_integration() -> void:
 		_expect(not source.contains("_draw_rotary_cannon"), "bomber presentation should not regress to a procedural cannon substitute")
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)
 	var transition_source := transition_file.get_as_text() if transition_file != null else ""
-	_expect(transition_source.contains('"CLIMB %s"') and transition_source.contains('"DIVE %s"'), "altitude choice HUD should use device-neutral tactical direction labels")
-	_expect(transition_source.contains("LOWER_LEFT_KEEP_OUT") and transition_source.contains("640.0 - width - 16.0"), "altitude selector should move opposite the VX-94 instead of being covered at the lower-left flight limit")
-	_expect(transition_source.contains("CHOICE_REVEAL_SECONDS := 4.0") and transition_source.contains("CHOICE_REMINDER_SECONDS := 2.4"), "altitude choice HUD should reveal contextually instead of occupying the playfield for an entire lane window")
-	_expect(transition_source.contains('Input.is_action_just_pressed("altitude_up")') and transition_source.contains("func occupies_status_lane"), "climb/dive input should recall the selector and publish its real status-lane occupancy")
+	_expect(transition_source.contains('return "%s<%s>%s"') and transition_source.contains('return "%s>%s"') and transition_source.contains('return "%s<%s"'), "altitude choice HUD should reduce available routes to a compact top-rail diagram")
+	_expect(not transition_source.contains("LOWER_LEFT_KEEP_OUT") and not transition_source.contains("ALT SELECT") and not transition_source.contains("LANE_PANEL"), "altitude choices should not add a redundant lower-left panel over propulsion instruments")
+	_expect(transition_source.contains("CHOICE_REVEAL_SECONDS := 2.4") and transition_source.contains("CHOICE_REMINDER_SECONDS := 1.4"), "altitude choice HUD should reveal briefly instead of occupying the playfield for an entire lane window")
+	_expect(transition_source.contains('Input.is_action_just_pressed("altitude_up")') and transition_source.contains("func compact_choice_label") and transition_source.contains("return transition_active"), "climb/dive input should recall the compact selector without suppressing unrelated status messages")
+	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
+	var ui_source := ui_file.get_as_text() if ui_file != null else ""
+	_expect(ui_source.contains("_compact_altitude_choice()") and ui_source.contains("PixelFont.draw_centered(surface, altitude_choice, 320, 13"), "the existing flight-state field should own the compact altitude route cue")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
