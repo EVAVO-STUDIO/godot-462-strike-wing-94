@@ -1310,6 +1310,11 @@ func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: Str
 	var ratio := clampf(float(enemy.get("hypersonic_ratio", 0.0)), 0.0, 1.0)
 	var frame_index := clampi(roundi(ratio * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
 	var hull: Texture2D = load("res://assets/runtime/enemies/hypersonic_pursuit/%s/pursuit_%02d.png" % [enemy_id,frame_index])
+	# The pursuit path returns before the ordinary hostile-airframe renderer, so
+	# carry its altitude-aware contact shadow explicitly. This uses the selected
+	# folded exposure rather than the wide cruise hull; orbital pursuers remain
+	# shadowless through the shared renderer's faction rule.
+	_render_airframe_shadow(surface,p,hull,enemy_id)
 	surface.draw_texture(hull, (p-hull.get_size()*0.5).round())
 	var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
 	var engine_anchor := p+Vector2(0,-hull.get_height()*0.30)

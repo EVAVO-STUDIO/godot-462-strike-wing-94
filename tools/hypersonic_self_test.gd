@@ -18,6 +18,7 @@ func _initialize() -> void:
 	_expect(art_source.contains("HYPERSONIC_PURSUER_TRANSFORMS") and art_source.contains("pursuit_%02d.png"), "all capable pursuit aircraft should use registered ten-exposure transformation art")
 	_expect(not art_source.contains("hull.get_width() * lerpf(1.0, 0.62, ratio)"), "enemy hypersonic transformation must never squash a flat hull sprite")
 	_expect(art_source.contains('engine_anchor := p+Vector2(0,-hull.get_height()*0.30)') and art_source.contains('draw_set_transform(engine_anchor.round(),PI'), "enemy pursuit exhaust should project aft toward the top of the screen rather than through the aircraft nose")
+	_expect(art_source.contains('_render_airframe_shadow(surface,p,hull,enemy_id)') and art_source.find('_render_airframe_shadow(surface,p,hull,enemy_id)') < art_source.find('surface.draw_texture(hull, (p-hull.get_size()*0.5).round())'), "folded pursuers should retain their altitude-aware silhouette shadow beneath the selected transform exposure")
 	_expect(art_source.contains('frame_for_ratio("hypersonic_ignition",boom_age/0.16)') and art_source.contains('_draw_enemy_damage_attachments(surface,p,enemy,"air"'), "enemy pursuit latch should preserve authored ignition and damage-state continuity")
 	_expect(art_source.contains('["ace_interceptor", "drone_hunter", "phase_interceptor"]'), "all three pursuit families should expose paired forward firing cues while folded")
 	for enemy_id in ["ace_interceptor", "drone_hunter", "phase_interceptor"]:
