@@ -215,7 +215,7 @@ Environment + active altitude drive parallax, target scale, cloud density, horiz
 
 Owns boss phase behavior, homing steering and autonomous signature attacks.
 
-`BossRules` also owns silhouette-registered elliptical projectile and expanded craft-contact geometry for every command target. The extents follow each reviewed opaque fighting mass: transparent canvas corners, antennae and effect padding remain non-colliding, while rounds and the VX-94 cannot pass through visible wings, hulls or railcars. Boss contact uses a 0.55-second impact-recovery gate, keeping a ram severe without applying damage every render frame while silhouettes separate.
+`BossRules` also owns silhouette-registered elliptical projectile and expanded craft-contact geometry for every command target. The extents follow each reviewed opaque fighting mass: transparent canvas corners, antennae and effect padding remain non-colliding, while rounds and the VX-94 cannot pass through visible wings, hulls or railcars. Boss contact computes the minimum ray-to-ellipse separation plus a four-pixel air gap, clamps the displaced fighter back into its flight envelope, and uses a 0.55-second recovery gate. A ram therefore reads as one severe physical impact rather than damage applied every render frame.
 
 Current bespoke autonomous bosses:
 

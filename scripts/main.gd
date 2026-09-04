@@ -1515,6 +1515,14 @@ func _resolve_combat() -> void:
 			_apply_damage(24 if boss_contact else 18, "boss_contact" if boss_contact else "contact")
 			if boss_contact:
 				contact_damage_cooldown = 0.55
+				player_position += BossRules.craft_separation_offset(
+					str(enemies[enemy_index].get("id", "")),
+					enemies[enemy_index]["position"],
+					player_position,
+					player_contact_radius
+				)
+				player_position.x = clampf(player_position.x, PLAYER_FLIGHT_MIN.x, PLAYER_FLIGHT_MAX.x)
+				player_position.y = clampf(player_position.y, PLAYER_FLIGHT_MIN.y, PLAYER_FLIGHT_MAX.y)
 			if phase != GamePhase.PLAYING:
 				return
 			if not bool(enemies[enemy_index].get("boss", false)):
