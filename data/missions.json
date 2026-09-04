@@ -7,6 +7,8 @@
       "environment": "coast",
       "duration_seconds": 150,
       "ingress_seconds": 7,
+      "random_contact_interval_scale": 1.6,
+      "enemy_fire_interval_scale": 1.2,
       "starting_wave": 1,
       "boss_id": "gunship_alpha",
       "briefing": "Break the coastal strike group before it reaches the fleet anchorage.",

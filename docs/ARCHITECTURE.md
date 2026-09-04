@@ -477,6 +477,10 @@ Spatially authored events use route progress: environment layers, terrain-fixed 
 
 Missions may declare `ingress_seconds` to hold back the unscripted spawn cadence while terrain, heading and the initial threat picture are established. This does not delay route-positioned encounter beats. Coastal Intercept uses a seven-route-unit ingress, allowing its authored scout screen to own first contact; that beat then extends random-spawn suppression long enough to be read and fought as one formation.
 
+`random_contact_interval_scale` provides a bounded mission-level control over unscripted reinforcement cadence. Coastal Intercept uses `1.6`, retaining all authored scout, gunship, recovery and command packets while preventing background contacts from becoming an arcade-like continuous faucet before the player learns threat recognition.
+
+`enemy_fire_interval_scale` separately adjusts the pause between hostile volleys while preserving projectile speed and damage. Coastal Intercept uses `1.2`, giving a novice a readable evade/reposition window without turning enemy weapons into harmless effects or changing later-mission pressure.
+
 Every mission requires:
 
 - at least five encounter beats;

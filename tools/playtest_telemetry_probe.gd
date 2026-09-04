@@ -24,6 +24,10 @@ var _maximum_world_speed := 0.0
 var _minimum_throttle := 1.0
 var _maximum_throttle := 0.0
 var _passive_profile := false
+var _boss_seen := false
+var _boss_spawn_elapsed := -1.0
+var _boss_destroyed_elapsed := -1.0
+var _boss_spawn_integrity := -1
 
 func _ready() -> void:
 	process_priority = -100
@@ -82,7 +86,21 @@ func _sample_state(delta: float) -> void:
 	maxima["enemies"] = maxi(int(maxima["enemies"]), _array_size("enemies"))
 	maxima["player_projectiles"] = maxi(int(maxima["player_projectiles"]), _array_size("bullets"))
 	maxima["hostile_projectiles"] = maxi(int(maxima["hostile_projectiles"]), _array_size("enemy_bullets"))
+	_sample_boss_state()
 	_sample_accepted_systems()
+
+func _sample_boss_state() -> void:
+	var alive := false
+	for enemy in scene.get("enemies"):
+		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and int(enemy.get("hp", 0)) > 0:
+			alive = true
+			break
+	if alive and not _boss_seen:
+		_boss_seen = true
+		_boss_spawn_elapsed = elapsed
+		_boss_spawn_integrity = int(scene.get("hull")) + int(scene.get("shield"))
+	elif _boss_seen and not alive and _boss_destroyed_elapsed < 0.0:
+		_boss_destroyed_elapsed = elapsed
 
 func _sample_accepted_systems() -> void:
 	var support := get_node_or_null("/root/SupportDirector")
@@ -102,11 +120,15 @@ func _sample_accepted_systems() -> void:
 func _drive_movement(second: int) -> void:
 	for action in MOVE_ACTIONS:
 		Input.action_release(action)
-	match posmod(int(second / 3), 4):
-		0: Input.action_press("move_left")
-		1: Input.action_press("move_up")
-		2: Input.action_press("move_right")
-		3: Input.action_press("move_down")
+	var avoidance := _contact_avoidance_direction()
+	if avoidance != 0:
+		Input.action_press("move_left" if avoidance < 0 else "move_right")
+	else:
+		match posmod(int(second / 3), 4):
+			0: Input.action_press("move_left")
+			1: Input.action_press("move_up")
+			2: Input.action_press("move_right")
+			3: Input.action_press("move_down")
 	if second >= 5 and second < 9:
 		Input.action_press("afterburner")
 	else:
@@ -120,6 +142,21 @@ func _drive_movement(second: int) -> void:
 	else:
 		Input.action_release("throttle_up")
 		Input.action_release("throttle_down")
+
+func _contact_avoidance_direction() -> int:
+	var player: Vector2 = scene.get("player_position")
+	var nearest_distance := 140.0
+	var direction := 0
+	for enemy in scene.get("enemies"):
+		if typeof(enemy) != TYPE_DICTIONARY:
+			continue
+		var offset: Vector2 = Vector2(enemy.get("position", Vector2.ZERO)) - player
+		var distance := offset.length()
+		if distance >= nearest_distance:
+			continue
+		nearest_distance = distance
+		direction = -1 if offset.x >= 0.0 else 1
+	return direction
 
 func _drive_commands(second: int) -> void:
 	if second in [4, 15, 26]: _pulse("transform_craft", "transform")
@@ -164,6 +201,7 @@ func _finish() -> void:
 		"shots_hit":int(ending["shots_hit"]) - int(starting["shots_hit"]),
 		"targets_destroyed":int(ending["targets_destroyed"]) - int(starting["targets_destroyed"]),
 		"damage_taken":int(ending["damage_taken"]) - int(starting["damage_taken"]),
+		"damage_sources":scene.get("damage_sources").duplicate(true) if _has_property(scene, "damage_sources") else {},
 		"score_earned":int(ending["score"]) - int(starting["score"]),
 		"altitude_seconds":altitude_seconds,
 		"form_seconds":form_seconds,
@@ -176,6 +214,12 @@ func _finish() -> void:
 			"maximum_world_multiplier":_maximum_world_speed,
 			"minimum_throttle":_minimum_throttle,
 			"maximum_throttle":_maximum_throttle,
+		},
+		"command_contact":{
+			"spawn_elapsed":_boss_spawn_elapsed,
+			"destroyed_elapsed":_boss_destroyed_elapsed,
+			"integrity_at_spawn":_boss_spawn_integrity,
+			"alive_at_end":_boss_seen and _boss_destroyed_elapsed < 0.0,
 		},
 		"phase_at_end":int(scene.get("phase")),
 	}

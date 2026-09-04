@@ -90,6 +90,7 @@ var shots_fired := 0
 var shots_hit := 0
 var targets_destroyed := 0
 var damage_taken := 0
+var damage_sources: Dictionary = {}
 var secrets_discovered := 0
 var mission_reward_earned := 0
 var repair_cost := 0
@@ -667,13 +668,16 @@ func _update_mission(delta: float) -> void:
 
 	if enemy_spawn_timer <= 0.0 and not _boss_alive():
 		_spawn_enemy()
-		enemy_spawn_timer = _difficulty_spawn_interval(CombatRules.enemy_spawn_interval(wave))
+		enemy_spawn_timer = _difficulty_spawn_interval(CombatRules.enemy_spawn_interval(wave)) * _random_contact_interval_scale()
 
 func _environment_speed_multiplier() -> float:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if craft != null and craft.has_method("world_speed_multiplier"):
 		return maxf(0.0, float(craft.call("world_speed_multiplier")))
 	return 1.0
+
+func _random_contact_interval_scale() -> float:
+	return clampf(float(_active_mission().get("random_contact_interval_scale", 1.0)), 0.75, 2.5)
 
 func _advance_route_progress(delta: float) -> void:
 	environment_world_distance = RouteProgressRules.advance(environment_world_distance, delta, _environment_speed_multiplier())
@@ -872,6 +876,7 @@ func _start_mission() -> void:
 	shots_hit = 0
 	targets_destroyed = 0
 	damage_taken = 0
+	damage_sources = {}
 	secrets_discovered = 0
 	mission_reward_earned = 0
 	repair_cost = 0
@@ -1266,7 +1271,7 @@ func _update_enemy_bullets(delta: float) -> void:
 		enemy_bullets[i] = shot
 		var projectile_hit_radius_sq := _craft_float("projectile_hit_radius_sq", 120.0) * _evasive_collision_multiplier()
 		if position.distance_squared_to(player_position) <= projectile_hit_radius_sq:
-			_apply_damage(int(shot.get("damage", 8)))
+			_apply_damage(int(shot.get("damage", 8)), "projectile")
 			if phase != GamePhase.PLAYING:
 				return
 			if i < enemy_bullets.size():
@@ -1378,10 +1383,13 @@ func _update_enemies(delta: float) -> void:
 			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(
 				str(enemy.get("weapon", "single_burst")),
 				wave
-			))
+			)) * _mission_enemy_fire_interval_scale()
 		enemies[i] = enemy
 		if not is_boss and position.y > PLAYFIELD.end.y + 22:
 			enemies.remove_at(i)
+
+func _mission_enemy_fire_interval_scale() -> float:
+	return clampf(float(_active_mission().get("enemy_fire_interval_scale", 1.0)), 0.75, 1.5)
 
 func _make_enemy_shot(
 	origin: Vector2,
@@ -1489,7 +1497,8 @@ func _resolve_combat() -> void:
 			enemies[enemy_index]["position"].distance_squared_to(player_position)
 			<= player_contact_radius_sq
 		):
-			_apply_damage(24 if bool(enemies[enemy_index].get("boss", false)) else 18)
+			var boss_contact := bool(enemies[enemy_index].get("boss", false))
+			_apply_damage(24 if boss_contact else 18, "boss_contact" if boss_contact else "contact")
 			if phase != GamePhase.PLAYING:
 				return
 			if not bool(enemies[enemy_index].get("boss", false)):
@@ -1539,7 +1548,7 @@ func _apply_pickup(kind: String) -> void:
 					temporary_weapon_boost + 1
 				)
 
-func _apply_damage(amount: int) -> void:
+func _apply_damage(amount: int, source: String = "projectile") -> void:
 	if "--capture-invulnerable" in OS.get_cmdline_user_args():
 		return
 	var previous_integrity := hull + shield
@@ -1547,7 +1556,9 @@ func _apply_damage(amount: int) -> void:
 	var state := CombatRules.apply_shielded_damage(hull, shield, amount)
 	hull = int(state["hull"])
 	shield = int(state["shield"])
-	damage_taken += maxi(0, previous_integrity - hull - shield)
+	var applied := maxi(0, previous_integrity - hull - shield)
+	damage_taken += applied
+	damage_sources[source] = int(damage_sources.get(source, 0)) + applied
 	if previous_shield > 0 and shield <= 0:
 		status_text = "SHIELDS DOWN // HULL EXPOSED"
 		status_timer = 1.4
@@ -1565,6 +1576,7 @@ func _apply_structural_damage(amount: int) -> void:
 		return
 	hull -= applied
 	damage_taken += applied
+	damage_sources["structural"] = int(damage_sources.get("structural", 0)) + applied
 	if hull <= 0 and player_loss_timer <= 0.0:
 		status_text = "AIRFRAME BREAKUP // OVERSPEED"
 		status_timer = PLAYER_LOSS_SEQUENCE_SECONDS

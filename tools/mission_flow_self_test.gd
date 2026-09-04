@@ -61,10 +61,14 @@ func _test_overtime() -> void:
 		_expect(source.contains('argument.begins_with("--capture-result=")') and source.contains("_begin_capture_result"), "mission report visual QA should expose deterministic success and failure fixtures")
 		_expect(source.contains('argument.begins_with("--capture-time=")') and source.contains("_begin_capture_gameplay"), "representative mission visual QA should support a bounded mid-mission clock")
 		_expect(source.contains('get("ingress_seconds", 0.35)') and source.contains("enemy_spawn_timer = maxf"), "authored mission ingress should suppress unscripted contact without delaying route-positioned encounter beats")
+		_expect(source.contains("_random_contact_interval_scale()") and source.contains('get("random_contact_interval_scale", 1.0)'), "mission pacing should support bounded unscripted-contact cadence without altering authored encounter packets")
+		_expect(source.contains("_mission_enemy_fire_interval_scale()") and source.contains('get("enemy_fire_interval_scale", 1.0)'), "missions should support bounded hostile volley cadence without weakening authored projectile damage")
 	var missions = ContentCatalog.load_json("res://data/missions.json")
 	if typeof(missions) == TYPE_DICTIONARY and not missions.get("missions", []).is_empty():
 		var first: Dictionary = missions.get("missions", [])[0]
 		_expect(float(first.get("ingress_seconds", 0.0)) >= float(first.get("encounter_beats", [])[0].get("at_seconds", 0.0)), "Coastal Intercept should establish the theatre before random contacts can pre-empt its scout screen")
+		_expect(float(first.get("random_contact_interval_scale", 1.0)) >= 1.5, "Coastal Intercept should privilege authored formations over arcade-like background spawn churn")
+		_expect(float(first.get("enemy_fire_interval_scale", 1.0)) >= 1.15, "Coastal Intercept should leave a readable novice response window between intact enemy volleys")
 	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:
