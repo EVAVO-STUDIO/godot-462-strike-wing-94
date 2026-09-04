@@ -40,6 +40,13 @@ static func projectile_hits(boss_id: String, boss_center: Vector2, projectile_po
 	var normalized := Vector2(offset.x / maxf(1.0, half_extents.x), offset.y / maxf(1.0, half_extents.y))
 	return normalized.length_squared() <= 1.0
 
+static func craft_contacts(boss_id: String, boss_center: Vector2, craft_center: Vector2, craft_radius: float) -> bool:
+	var boss_extents: Vector2 = PROJECTILE_HIT_HALF_EXTENTS.get(boss_id, Vector2(34.0, 34.0))
+	var expanded := boss_extents + Vector2.ONE * maxf(0.0, craft_radius)
+	var offset := craft_center - boss_center
+	var normalized := Vector2(offset.x / maxf(1.0, expanded.x), offset.y / maxf(1.0, expanded.y))
+	return normalized.length_squared() <= 1.0
+
 static func arrival_clears_enemy(boss_id: String, enemy: Dictionary) -> bool:
 	# Air-command bosses take possession of the combat lane: surviving aircraft
 	# peel away before the command hull enters, while terrain-bound emplacements

@@ -106,6 +106,7 @@ var mission_success := false
 var status_text := ""
 var status_timer := 0.0
 var player_loss_timer := 0.0
+var contact_damage_cooldown := 0.0
 var boss_victory_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
@@ -621,6 +622,7 @@ func _update_mission(delta: float) -> void:
 	ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)
 	fire_timer = maxf(0.0, fire_timer - delta)
 	secondary_timer = maxf(0.0, secondary_timer - delta)
+	contact_damage_cooldown = maxf(0.0, contact_damage_cooldown - delta)
 	enemy_spawn_timer -= delta
 	energy = EnergyRules.recharge(energy, _active_generator(), delta)
 	wave = MissionStateRules.live_wave(_active_mission(), mission_time)
@@ -894,6 +896,7 @@ func _start_mission() -> void:
 	enemy_spawn_timer = maxf(0.35, float(_active_mission().get("ingress_seconds", 0.35)))
 	player_position = Vector2(320.0, 292.0)
 	player_loss_timer = 0.0
+	contact_damage_cooldown = 0.0
 	boss_victory_timer = 0.0
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_clear_combat()
@@ -1497,13 +1500,21 @@ func _resolve_combat() -> void:
 			bullets[bullet_index] = bullet
 
 	var player_contact_radius_sq := _craft_float("collision_radius_sq", 420.0) * _evasive_collision_multiplier()
+	var player_contact_radius := sqrt(maxf(0.0, player_contact_radius_sq))
 	for enemy_index in range(enemies.size() - 1, -1, -1):
-		if (
-			enemies[enemy_index]["position"].distance_squared_to(player_position)
-			<= player_contact_radius_sq
-		):
-			var boss_contact := bool(enemies[enemy_index].get("boss", false))
+		var boss_contact := bool(enemies[enemy_index].get("boss", false))
+		var contact: bool = BossRules.craft_contacts(
+			str(enemies[enemy_index].get("id", "")),
+			enemies[enemy_index]["position"],
+			player_position,
+			player_contact_radius
+		) if boss_contact else enemies[enemy_index]["position"].distance_squared_to(player_position) <= player_contact_radius_sq
+		if contact:
+			if boss_contact and contact_damage_cooldown > 0.0:
+				continue
 			_apply_damage(24 if boss_contact else 18, "boss_contact" if boss_contact else "contact")
+			if boss_contact:
+				contact_damage_cooldown = 0.55
 			if phase != GamePhase.PLAYING:
 				return
 			if not bool(enemies[enemy_index].get("boss", false)):
