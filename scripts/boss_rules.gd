@@ -17,8 +17,28 @@ const PRESENTATION_HEIGHT := {
 	"machine_ark": 128.0,
 }
 
+# Collision ellipses are registered to the opaque fighting mass of each
+# reviewed boss canvas, excluding transparent padding, antennae and effects.
+const PROJECTILE_HIT_HALF_EXTENTS := {
+	"gunship_alpha": Vector2(40.0, 30.0),
+	"armoured_train": Vector2(29.0, 64.0),
+	"missile_cruiser": Vector2(36.0, 68.0),
+	"swarm_controller": Vector2(44.0, 34.0),
+	"ai_forge_core": Vector2(45.0, 45.0),
+	"orbital_command_node": Vector2(50.0, 42.0),
+	"phase_control_array": Vector2(50.0, 50.0),
+	"station_warden": Vector2(58.0, 46.0),
+	"machine_ark": Vector2(64.0, 51.0),
+}
+
 static func entry_center_y(boss_id: String) -> float:
 	return HUD_CLEARANCE_Y + float(PRESENTATION_HEIGHT.get(boss_id, 92.0)) * 0.5
+
+static func projectile_hits(boss_id: String, boss_center: Vector2, projectile_position: Vector2) -> bool:
+	var half_extents: Vector2 = PROJECTILE_HIT_HALF_EXTENTS.get(boss_id, Vector2(34.0, 34.0))
+	var offset := projectile_position - boss_center
+	var normalized := Vector2(offset.x / maxf(1.0, half_extents.x), offset.y / maxf(1.0, half_extents.y))
+	return normalized.length_squared() <= 1.0
 
 static func arrival_clears_enemy(boss_id: String, enemy: Dictionary) -> bool:
 	# Air-command bosses take possession of the combat lane: surviving aircraft

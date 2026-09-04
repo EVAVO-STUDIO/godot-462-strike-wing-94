@@ -215,6 +215,8 @@ Environment + active altitude drive parallax, target scale, cloud density, horiz
 
 Owns boss phase behavior, homing steering and autonomous signature attacks.
 
+`BossRules` also owns silhouette-registered elliptical projectile geometry for every command target. The extents follow each reviewed opaque fighting mass: transparent canvas corners, antennae and effect padding remain non-colliding, while rounds crossing visible wings, hulls and railcars no longer pass through a prototype center circle.
+
 Current bespoke autonomous bosses:
 
 1. Swarm Controller

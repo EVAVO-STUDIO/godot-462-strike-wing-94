@@ -1448,8 +1448,13 @@ func _resolve_combat() -> void:
 		var consume_bullet := false
 		var bullet: Dictionary = bullets[bullet_index]
 		for enemy_index in range(enemies.size() - 1, -1, -1):
-			var radius_sq := 420.0 if bool(enemies[enemy_index].get("boss", false)) else 196.0
-			if bullet["position"].distance_squared_to(enemies[enemy_index]["position"]) <= radius_sq:
+			var is_boss_target := bool(enemies[enemy_index].get("boss", false))
+			var hit: bool = BossRules.projectile_hits(
+				str(enemies[enemy_index].get("id", "")),
+				enemies[enemy_index]["position"],
+				bullet["position"]
+			) if is_boss_target else bullet["position"].distance_squared_to(enemies[enemy_index]["position"]) <= 196.0
+			if hit:
 				var enemy_class := str(enemies[enemy_index].get("category", "air"))
 				var applied_damage := maxi(
 					1,

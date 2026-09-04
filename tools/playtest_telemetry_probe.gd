@@ -24,6 +24,7 @@ var _maximum_world_speed := 0.0
 var _minimum_throttle := 1.0
 var _maximum_throttle := 0.0
 var _passive_profile := false
+var _stationary_fire_profile := false
 var _boss_seen := false
 var _boss_spawn_elapsed := -1.0
 var _boss_destroyed_elapsed := -1.0
@@ -33,6 +34,7 @@ func _ready() -> void:
 	process_priority = -100
 	duration = clampf(_argument_float("--playtest-seconds=", DEFAULT_SIMULATION_SECONDS), 12.0, 120.0)
 	_passive_profile = "--playtest-passive" in OS.get_cmdline_user_args()
+	_stationary_fire_profile = "--playtest-stationary-fire" in OS.get_cmdline_user_args()
 	Engine.time_scale = TIME_SCALE
 	call_deferred("_prepare")
 
@@ -63,7 +65,7 @@ func _process(delta: float) -> void:
 	if whole_second != last_second:
 		last_second = whole_second
 		_release_pulses()
-		if not _passive_profile:
+		if not _passive_profile and not _stationary_fire_profile:
 			_drive_movement(whole_second)
 			_drive_commands(whole_second)
 	if elapsed >= duration:
@@ -192,7 +194,7 @@ func _finish() -> void:
 	var ending := _snapshot_counters()
 	var mission: Dictionary = scene.call("_active_mission") if scene.has_method("_active_mission") else {}
 	var report := {
-		"profile":"HYPERSONIC_PASSIVE_EXPOSURE" if _passive_profile else "HYPERSONIC_BOUNDED_AUTOPILOT",
+		"profile":"HYPERSONIC_PASSIVE_EXPOSURE" if _passive_profile else ("HYPERSONIC_STATIONARY_FIRE" if _stationary_fire_profile else "HYPERSONIC_BOUNDED_AUTOPILOT"),
 		"mission_id":str(mission.get("id", "unknown")),
 		"mission_name":str(mission.get("name", "UNKNOWN")),
 		"simulation_seconds":elapsed,
