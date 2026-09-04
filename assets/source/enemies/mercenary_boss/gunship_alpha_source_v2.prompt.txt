@@ -1,0 +1,9 @@
+Use case: stylized-concept
+Asset type: production source art for a top-down 2D arcade shooter boss sprite, later reduced to approximately 120x96 pixels
+Primary request: redesign the referenced mercenary command gunship into a polished, readable late-1990s pre-rendered sprite. Preserve the straight-down viewpoint, centered bilateral silhouette, forward direction toward the bottom, and wide heavy-gunship proportions. Use plausible near-future military construction: armored central fuselage, clear cockpit/sensor spine, broad shoulder masses, four visible engine heat zones, hardpoints, and distinct circular turret mounting sockets for separate rotating layers.
+Style/medium: authentic 1997-1999 PC arcade shooter sprite art, hand-finished pre-rendered realism, disciplined pixel clusters after downsampling, crisp mechanical planes, not modern concept-art painting.
+Lighting/mood: cool moonlit steel from upper left, deep charcoal occlusion, restrained warm orange engine heat and tiny warning lamps.
+Constraints: isolated complete aircraft; genuine transparent background; no text, UI, border, floor, shadow, glow cloud, or watermark; clean symmetric silhouette; physically coherent weapons and appendages.
+Avoid: AI-like micro-detail noise, painterly smearing, steampunk, fantasy, insect anatomy, toy proportions, excessive orange, excessive asymmetry, isometric or perspective view.
+
+Provider output contained a painted two-colour checkerboard. It was preserved outside the project and mastered to gunship_alpha_source_v2.png with EVAVO Art Studio recover_painted_checkerboard.py. Exact recovery evidence is stored beside the source.
