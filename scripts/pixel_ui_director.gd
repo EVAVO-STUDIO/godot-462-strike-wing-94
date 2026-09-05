@@ -690,6 +690,11 @@ func _identity_subtitle() -> String:
 	return str(identity.call("title_subtitle")) if identity != null and identity.has_method("title_subtitle") else "VX-94 VARIABLE STRIKE FIGHTER"
 
 func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
+	# The fascia contains intentional cut-lines and transparent instrument gaps,
+	# but battlefield sprites must never show through those apertures before they
+	# have entered the combat viewport. A single smoked avionics backing keeps the
+	# permanent strip visually solid without extending into the warning lane.
+	surface.draw_rect(Rect2(8, 5, 624, 30), Color(0.018, 0.035, 0.048, 0.97))
 	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 5))
 	var max_hull := _call_int(scene, "_max_hull", 100)
 	var max_shield := _call_int(scene, "_max_shield", 100)
