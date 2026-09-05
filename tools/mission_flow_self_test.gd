@@ -87,6 +87,7 @@ func _test_overtime() -> void:
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_time_remaining")'), "combat chronometer should change from route time to the live extraction window")
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_active")'), "urgent extraction guidance should override stale routine radio occupancy")
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_completion_timer")'), "successful extraction confirmation should override stale routine radio occupancy")
+	_expect(ui_file != null and ui_file.get_as_text().contains("Rect2(412, 82, 80, 90)"), "sortie inspection panel should present the VX-94 at reviewed hero scale")
 	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
 	_expect(encounter_file != null and encounter_file.get_as_text().contains('scene.get("egress_active")'), "delayed encounter beats must not repopulate the cleared extraction corridor")
 	var radio_file := FileAccess.open("res://scripts/mission_radio_director.gd", FileAccess.READ)

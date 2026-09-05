@@ -249,7 +249,10 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 
 	_draw_console_panel(surface, Rect2(408, 72, 206, 119), "VX-94 AIRFRAME", BLUE)
 	var craft := VX94_FIGHTER if _form_name() == "FIGHTER" else VX94_BOMBER
-	surface.draw_texture_rect(craft, Rect2(420, 91, 64, 72), false)
+	# The registered 64x72 source includes safety margins for gameplay effects.
+	# Give the inspection silhouette enough panel weight to read as an airframe,
+	# while leaving the technical legend in its own clean right-hand column.
+	surface.draw_texture_rect(craft, Rect2(412, 82, 80, 90), false)
 	PixelFont.draw_text(surface, _form_name(), Vector2(493, 95), 1, TEXT, 1)
 	PixelFont.draw_text(surface, _altitude_name(), Vector2(493, 109), 1, BLUE, 1)
 	PixelFont.draw_text(surface, "GEOMETRY", Vector2(493, 129), 1, MUTED, 1)
