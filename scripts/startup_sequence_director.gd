@@ -40,7 +40,7 @@ const EVAVO_READABLE_SECONDS := 1.0
 const EVAVO_TOTAL_SECONDS := 2.28
 const BLACK_PAUSE_SECONDS := 0.42
 const TITLE_TOTAL_SECONDS := 9.2
-const TITLE_CRAFT_SCALE := 1.5
+const TITLE_CRAFT_SCALE := 1.75
 
 var stage := Stage.EVAVO
 var elapsed := 0.0
