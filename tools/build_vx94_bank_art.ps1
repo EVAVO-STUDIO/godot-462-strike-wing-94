@@ -6,11 +6,23 @@ $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $Runtime = Join-Path $RepoRoot 'assets\runtime\craft\vx94\gameplay'
 $Output = Join-Path $Runtime 'bank'
-$Work = Join-Path $RepoRoot 'work\vx94_bank_build_v3'
-$Review = Join-Path $RepoRoot 'work\vx94_bank_family_v3_review.png'
+$FighterMaster = Join-Path $RepoRoot 'assets\source\craft\vx94\vx94_bank_family_v4_alpha_master.png'
+$Work = Join-Path $RepoRoot 'work\vx94_bank_build_v4'
+$Review = Join-Path $RepoRoot 'work\vx94_bank_family_v4_review.png'
 
 if (-not (Test-Path -LiteralPath $MagickPath)) { throw "ImageMagick not found: $MagickPath" }
 New-Item -ItemType Directory -Force -Path $Output, $Work | Out-Null
+
+function Build-AuthoredFighterPose {
+    param(
+        [string]$Name,
+        [string]$Crop
+    )
+    if (-not (Test-Path -LiteralPath $FighterMaster)) { throw "Authored fighter bank master missing: $FighterMaster" }
+    $Destination = Join-Path $Output "fighter_$Name.png"
+    & $MagickPath $FighterMaster -crop $Crop +repage -filter box -resize '64x68>' -gravity south -background none -extent '64x72' -colors 48 -dither None -depth 8 $Destination
+    if ($LASTEXITCODE -ne 0) { throw "Failed to build authored VX-94 fighter bank pose: $Name" }
+}
 
 function Build-Pose {
     param(
@@ -53,7 +65,7 @@ function Build-Pose {
     if ($LASTEXITCODE -ne 0) { throw "Failed to build VX-94 bank pose: $DestinationName" }
 }
 
-foreach ($Form in @('fighter','bomber')) {
+foreach ($Form in @('bomber')) {
     $Neutral = Join-Path $Output "$($Form)_neutral.png"
     & $MagickPath (Join-Path $Runtime "vx94_$($Form)_v1.png") -colors 48 -dither None -depth 8 $Neutral
     foreach ($Direction in @('left','right')) {
@@ -62,15 +74,34 @@ foreach ($Form in @('fighter','bomber')) {
     }
 }
 
+# Five separately painted orthographic poses preserve fuselage volume, visible
+# underside, canopy perspective and nozzle displacement. Runtime never rotates
+# or asymmetrically scales the fighter bitmap.
+Build-AuthoredFighterPose -Name 'hard_left' -Crop '214x416+89+272'
+Build-AuthoredFighterPose -Name 'left' -Crop '201x400+403+256'
+Build-AuthoredFighterPose -Name 'neutral' -Crop '230x419+719+245'
+Build-AuthoredFighterPose -Name 'right' -Crop '200x400+1069+256'
+Build-AuthoredFighterPose -Name 'hard_right' -Crop '209x417+1371+270'
+
 $RuntimeFrames = Get-ChildItem -LiteralPath $Output -Filter '*.png' | Sort-Object Name
 foreach ($Frame in $RuntimeFrames) {
+    foreach ($Region in @('64x1+0+0', '64x1+0+71', '1x72+0+0', '1x72+63+0')) {
+        & $MagickPath $Frame.FullName -alpha set -channel A -region $Region -evaluate set 0 +channel -depth 8 $Frame.FullName
+        if ($LASTEXITCODE -ne 0) { throw "Failed to clear bank-frame canvas edge: $($Frame.Name) [$Region]" }
+    }
     $Geometry = & $MagickPath identify -format '%wx%h' $Frame.FullName
     $Channels = & $MagickPath identify -format '%[channels]' $Frame.FullName
     if ($Geometry -ne '64x72') { throw "Bank frame lost registration: $($Frame.Name) [$Geometry]" }
     if ($Channels -notmatch 'a') { throw "Bank frame lost alpha: $($Frame.Name) [$Channels]" }
+    foreach ($Region in @('64x1+0+0', '64x1+0+71', '1x72+0+0', '1x72+63+0')) {
+        $Maximum = & $MagickPath $Frame.FullName -alpha extract -crop $Region +repage -format '%[fx:maxima]' info:
+        if ($LASTEXITCODE -ne 0 -or [double]$Maximum -ne 0.0) {
+            throw "Bank frame has a nontransparent canvas edge: $($Frame.Name) [$Region=$Maximum]"
+        }
+    }
 }
 & $MagickPath montage ($RuntimeFrames.FullName) -filter point -thumbnail '192x216' -tile '5x2' -geometry '+14+24' -background '#101a22' -fill white -pointsize 11 -set label '%t' $Review
 if ($LASTEXITCODE -ne 0) { throw 'Failed to build VX-94 bank review.' }
 
-Write-Host 'Built ten registered VX-94 bank poses from the two canonical planforms.'
+Write-Host 'Built five authored fighter and five registered bomber VX-94 bank poses.'
 Write-Host "Review: $Review"

@@ -1,0 +1,38 @@
+{
+  "schema": "evavo.painted-checkerboard-recovery.v1",
+  "method": "declared-matte-plus-all-matte-regions",
+  "checker_colours": [
+    "#ef0bed"
+  ],
+  "distance_threshold": 34,
+  "fringe_distance_threshold": 105,
+  "fringe_passes": 5,
+  "fringe_removed_pixels": 3353,
+  "minimum_visible_island_pixels": 0,
+  "island_removed_pixels": 0,
+  "remove_all_matte_regions": true,
+  "enclosed_matte_removed_pixels": 26,
+  "despill": "magenta",
+  "despilled_pixels": 10337,
+  "removed_pixels": 1348714,
+  "visible_pixels": 224638,
+  "transparent_fraction": 0.85722330413029,
+  "source_mutated": false,
+  "alpha_validation": {
+    "meaningful_alpha": true,
+    "transparent_pixels": 1348714,
+    "opaque_pixels": 224638,
+    "transparent_fraction": 0.85722330413029,
+    "canvas_edge_fully_transparent": true
+  },
+  "proof_files": [
+    "plate-black.png",
+    "plate-white.png",
+    "plate-grey.png",
+    "plate-green.png",
+    "plate-magenta.png",
+    "alpha-mask.png"
+  ],
+  "source_sha256": "3b01db55bfa158935bfd6cf4f348c5d4afbd63cd5979214e57e8795c0231aed1",
+  "output_sha256": "1d2839898541dc9dd9b41b34410d91cdc518009db88447e4a52106317721d6e4"
+}
