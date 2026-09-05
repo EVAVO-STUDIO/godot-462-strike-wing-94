@@ -44,10 +44,25 @@ func _test_overtime() -> void:
 	_expect(not MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, incomplete, dead_boss), "dead boss must not hold overtime")
 	_expect(is_equal_approx(MissionFlowRules.boss_victory_hold_seconds("m01_coastal_intercept", "gunship_alpha"), 2.55), "Coastal Intercept should hold through Gunship Alpha's complete physical breakup")
 	_expect(MissionFlowRules.boss_victory_hold_seconds("m02_refinery_run", "armoured_train") == 0.0, "unreviewed mission endings should retain their authored objective flow")
+	_expect(MissionFlowRules.requires_hypersonic_egress("m01_coastal_intercept"), "Coastal Intercept should end with the signature hypersonic extraction")
+	_expect(not MissionFlowRules.requires_hypersonic_egress("m02_refinery_run"), "later missions should retain their authored endings until individually reviewed")
+	_expect(MissionFlowRules.egress_altitude_ready("high") and MissionFlowRules.egress_altitude_ready("orbital"), "high and orbital bands should open the safe egress corridor")
+	_expect(not MissionFlowRules.egress_altitude_ready("low") and not MissionFlowRules.egress_altitude_ready("mid"), "low and mid altitude should remain unsafe for command egress")
+	_expect(is_equal_approx(MissionFlowRules.advance_egress_lock(0.4, 0.2, "high", true), 0.6), "stable high-altitude hypersonic flight should build egress lock")
+	_expect(is_equal_approx(MissionFlowRules.advance_egress_lock(0.4, 0.2, "mid", true), 0.1), "dropping below the safe band should rapidly bleed egress lock")
 	var survival_objectives := [{"id":"survive","type":"survive","seconds":150,"required":true}]
 	var survival_progress := {"survive":112.0}
 	ObjectiveRules.complete_survival(survival_objectives, survival_progress)
 	_expect(ObjectiveRules.required_complete(survival_objectives, survival_progress), "command victory should complete the displayed survival contract before the report")
+	ObjectiveRules.update_survival(survival_objectives, survival_progress, 113.0)
+	_expect(ObjectiveRules.required_complete(survival_objectives, survival_progress), "a completed survival contract must remain monotonic during post-command extraction")
+	var egress_objectives := [{"id":"egress","type":"hypersonic_egress","seconds":1.25,"required":true}]
+	var egress_progress := ObjectiveRules.make_progress(egress_objectives)
+	ObjectiveRules.update_hypersonic_egress(egress_objectives, egress_progress, 0.625)
+	_expect(not ObjectiveRules.required_complete(egress_objectives, egress_progress), "partial Mach corridor lock must not complete extraction")
+	_expect(ObjectiveRules.progress_text(egress_objectives[0], egress_progress) == "50%", "egress objective should communicate a compact lock percentage")
+	ObjectiveRules.update_hypersonic_egress(egress_objectives, egress_progress, 1.25)
+	_expect(ObjectiveRules.required_complete(egress_objectives, egress_progress), "full Mach corridor lock should complete extraction")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main.gd should be readable for bounded overtime checks")
 	if main_file != null:
@@ -57,18 +72,27 @@ func _test_overtime() -> void:
 		_expect(source.contains("BOSS OVERTIME EXPIRED"), "expired overtime should fail explicitly")
 		_expect(source.contains("_capture_mission_index"), "visual QA should be able to launch any authored mission deterministically")
 		_expect(source.contains("boss_victory_timer") and source.contains("_begin_boss_victory_hold(destroyed)") and source.contains("ObjectiveRules.complete_survival"), "Mission 1 command kill should retain the breakup before transitioning to a fully completed report")
+		_expect(source.contains("_begin_hypersonic_egress") and source.contains("_update_hypersonic_egress"), "Mission 1 command kill should hand control back for a playable hypersonic extraction")
+		_expect(source.contains('"--capture-egress" in OS.get_cmdline_user_args()'), "visual QA should expose the playable post-command extraction state")
 		_expect(source.contains('argument.begins_with("--capture-mission=")'), "mission capture selector should remain command-line isolated")
 		_expect(source.contains('argument.begins_with("--capture-result=")') and source.contains("_begin_capture_result"), "mission report visual QA should expose deterministic success and failure fixtures")
 		_expect(source.contains('argument.begins_with("--capture-time=")') and source.contains("_begin_capture_gameplay"), "representative mission visual QA should support a bounded mid-mission clock")
 		_expect(source.contains('get("ingress_seconds", 0.35)') and source.contains("enemy_spawn_timer = maxf"), "authored mission ingress should suppress unscripted contact without delaying route-positioned encounter beats")
 		_expect(source.contains("_random_contact_interval_scale()") and source.contains('get("random_contact_interval_scale", 1.0)'), "mission pacing should support bounded unscripted-contact cadence without altering authored encounter packets")
 		_expect(source.contains("_mission_enemy_fire_interval_scale()") and source.contains('get("enemy_fire_interval_scale", 1.0)'), "missions should support bounded hostile volley cadence without weakening authored projectile damage")
+	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
+	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_time_remaining")'), "combat chronometer should change from route time to the live extraction window")
+	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_active")'), "urgent extraction guidance should override stale routine radio occupancy")
+	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
+	_expect(encounter_file != null and encounter_file.get_as_text().contains('scene.get("egress_active")'), "delayed encounter beats must not repopulate the cleared extraction corridor")
 	var missions = ContentCatalog.load_json("res://data/missions.json")
 	if typeof(missions) == TYPE_DICTIONARY and not missions.get("missions", []).is_empty():
 		var first: Dictionary = missions.get("missions", [])[0]
 		_expect(float(first.get("ingress_seconds", 0.0)) >= float(first.get("encounter_beats", [])[0].get("at_seconds", 0.0)), "Coastal Intercept should establish the theatre before random contacts can pre-empt its scout screen")
 		_expect(float(first.get("random_contact_interval_scale", 1.0)) >= 1.5, "Coastal Intercept should privilege authored formations over arcade-like background spawn churn")
 		_expect(float(first.get("enemy_fire_interval_scale", 1.0)) >= 1.15, "Coastal Intercept should leave a readable novice response window between intact enemy volleys")
+		var first_objectives: Array = first.get("objectives", [])
+		_expect(first_objectives.any(func(objective: Dictionary) -> bool: return str(objective.get("type", "")) == "hypersonic_egress" and bool(objective.get("required", false))), "Coastal Intercept should author the extraction as a required HUD-visible objective")
 	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:

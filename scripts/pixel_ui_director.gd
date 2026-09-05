@@ -676,6 +676,8 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(HUD_ICON_BOMB, Vector2(342, 10))
 	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(356, 13), 1, TEXT, 1)
 	var remaining := maxi(0, int(ceil(float(scene.get("mission_duration")) - float(scene.get("mission_time")))))
+	if _has_property(scene, "egress_active") and bool(scene.get("egress_active")) and _has_property(scene, "egress_time_remaining"):
+		remaining = maxi(0, int(ceil(float(scene.get("egress_time_remaining")))))
 	surface.draw_texture(HUD_ICON_TIME, Vector2(390, 10))
 	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(404, 13), 1, TEXT, 1)
 	surface.draw_texture(HUD_ICON_SCORE, Vector2(506, 10))
@@ -701,7 +703,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		var status := str(scene.get("status_text"))
 		if status.begins_with("SECRET - "):
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
-		elif not _altitude_choice_active(scene) and not _radio_occupies_status_lane():
+		elif (_has_property(scene, "egress_active") and bool(scene.get("egress_active"))) or (not _altitude_choice_active(scene) and not _radio_occupies_status_lane()):
 			surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
 			PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
 

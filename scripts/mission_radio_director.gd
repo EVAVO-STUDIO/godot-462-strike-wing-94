@@ -16,6 +16,7 @@ var _last_phase := -1
 var _last_mission := -1
 var _last_status := ""
 var _last_boss_spawned := false
+var _last_egress_active := false
 var _intro_delay := 0.0
 var _message_timer := 0.0
 var _message_duration := 0.0
@@ -45,6 +46,7 @@ func _process(delta: float) -> void:
 		_last_mission = mission
 		_last_status = ""
 		_last_boss_spawned = false
+		_last_egress_active = false
 		_clear_message()
 		return
 	if _last_phase != 1 or _last_mission != mission:
@@ -52,6 +54,7 @@ func _process(delta: float) -> void:
 		_last_mission = mission
 		_last_status = str(scene.get("status_text"))
 		_last_boss_spawned = bool(scene.get("boss_spawned"))
+		_last_egress_active = false
 		# A mid-mission visual fixture must not replay the launch briefing merely
 		# because the scene was instantiated for a screenshot. Live sorties still
 		# receive it once, shortly after takeoff.
@@ -69,6 +72,10 @@ func _process(delta: float) -> void:
 		var boss_name := str(scene.get("current_boss_id")).replace("_", " ").to_upper()
 		_show(_sector_callsign(mission), "HEAVY CONTACT // %s. WEAPONS FREE." % boss_name, BOSS_SECONDS, 3, RetroSfxRules.RADIO_ALERT)
 	_last_boss_spawned = boss_spawned
+	var egress_active := _has_property(scene, "egress_active") and bool(scene.get("egress_active"))
+	if egress_active and not _last_egress_active:
+		_show("COASTWATCH", "COMMAND DOWN. CLIMB HIGH AND BREAK THE MACH GATE.", BOSS_SECONDS, 4, RetroSfxRules.RADIO_ALERT)
+	_last_egress_active = egress_active
 	var status := str(scene.get("status_text"))
 	var status_timer := float(scene.get("status_timer"))
 	if not status.is_empty() and status != _last_status and status_timer >= 1.0 and not status.begins_with("BOMB STRIKE"):
@@ -144,9 +151,13 @@ func _capture_time() -> float:
 func _supports(scene: Object) -> bool:
 	return SceneContractCache.supports(scene, ["phase", "mission_index", "current_briefing", "status_text", "status_timer", "boss_spawned", "current_boss_id"])
 
+func _has_property(object: Object, property_name: String) -> bool:
+	return SceneContractCache.has_property(object, property_name)
+
 func _reset_observation() -> void:
 	_last_phase = -1
 	_last_mission = -1
+	_last_egress_active = false
 	_clear_message()
 
 func _clear_message() -> void:

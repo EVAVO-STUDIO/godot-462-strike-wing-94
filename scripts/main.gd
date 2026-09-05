@@ -108,6 +108,9 @@ var status_timer := 0.0
 var player_loss_timer := 0.0
 var contact_damage_cooldown := 0.0
 var boss_victory_timer := 0.0
+var egress_active := false
+var egress_time_remaining := 0.0
+var egress_lock_progress := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
 var enemy_missiles_launched := 0
@@ -270,6 +273,13 @@ func _begin_capture_gameplay() -> void:
 	mission_time = minf(_capture_time(OS.get_cmdline_user_args()), maxf(0.0, mission_duration - 1.0))
 	var captured_distance := _capture_world_distance(OS.get_cmdline_user_args())
 	environment_world_distance = captured_distance if captured_distance >= 0.0 else mission_time * _environment_speed_multiplier()
+	if "--capture-egress" in OS.get_cmdline_user_args():
+		ObjectiveRules.complete_survival(current_objectives, objective_progress)
+		objective_progress["destroy_boss"] = 1.0
+		_begin_hypersonic_egress()
+		egress_time_remaining = 12.0
+		egress_lock_progress = 0.64
+		ObjectiveRules.update_hypersonic_egress(current_objectives, objective_progress, egress_lock_progress)
 	queue_redraw()
 
 func _begin_capture_result(state: String) -> void:
@@ -616,7 +626,10 @@ func _update_mission(delta: float) -> void:
 		enemies.clear()
 		if boss_victory_timer <= 0.0:
 			ObjectiveRules.complete_survival(current_objectives, objective_progress)
-			_finish_mission(true)
+			if MissionFlowRules.requires_hypersonic_egress(str(_active_mission().get("id", ""))):
+				_begin_hypersonic_egress()
+			else:
+				_finish_mission(true)
 		return
 	mission_time += delta
 	ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)
@@ -644,6 +657,9 @@ func _update_mission(delta: float) -> void:
 	_update_enemies(delta)
 	_resolve_combat()
 	if boss_victory_timer > 0.0:
+		return
+	if egress_active:
+		_update_hypersonic_egress(delta)
 		return
 	_try_spawn_boss()
 
@@ -898,6 +914,9 @@ func _start_mission() -> void:
 	player_loss_timer = 0.0
 	contact_damage_cooldown = 0.0
 	boss_victory_timer = 0.0
+	egress_active = false
+	egress_time_remaining = 0.0
+	egress_lock_progress = 0.0
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_clear_combat()
 
@@ -1545,6 +1564,46 @@ func _begin_boss_victory_hold(enemy: Dictionary) -> void:
 	boss_victory_timer = hold
 	status_text = "COMMAND DESTROYED // AIRSPACE SECURE"
 	status_timer = hold
+
+func _begin_hypersonic_egress() -> void:
+	var mission_id := str(_active_mission().get("id", ""))
+	egress_active = true
+	egress_time_remaining = MissionFlowRules.egress_window_seconds(mission_id)
+	egress_lock_progress = 0.0
+	bullets.clear()
+	enemy_bullets.clear()
+	enemies.clear()
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("refuel_afterburner_full"):
+		craft.call("refuel_afterburner_full")
+	status_text = "EGRESS RESERVE // CLIMB HIGH + HOLD AFTERBURNER"
+	status_timer = 2.8
+
+func _update_hypersonic_egress(delta: float) -> void:
+	var mission_id := str(_active_mission().get("id", ""))
+	egress_time_remaining = maxf(0.0, egress_time_remaining - maxf(0.0, delta))
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	var altitude := str(craft.call("current_altitude")) if craft != null and craft.has_method("current_altitude") else "mid"
+	var at_hypersonic := craft != null and craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
+	egress_lock_progress = MissionFlowRules.advance_egress_lock(egress_lock_progress, delta, altitude, at_hypersonic)
+	ObjectiveRules.update_hypersonic_egress(current_objectives, objective_progress, egress_lock_progress)
+	if egress_lock_progress >= MissionFlowRules.egress_lock_seconds(mission_id):
+		egress_active = false
+		status_text = "MACH CORRIDOR OPEN // STRIKE PACKAGE CLEAR"
+		status_timer = 1.0
+		_finish_mission(true)
+		return
+	if egress_time_remaining <= 0.0:
+		egress_active = false
+		_finish_mission(false, "EGRESS WINDOW MISSED")
+		return
+	if not MissionFlowRules.egress_altitude_ready(altitude):
+		status_text = "EGRESS %02d // CLIMB TO HIGH ALTITUDE" % int(ceil(egress_time_remaining))
+	elif not at_hypersonic:
+		status_text = "EGRESS %02d // HOLD AFTERBURNER FOR MACH GATE" % int(ceil(egress_time_remaining))
+	else:
+		status_text = "MACH GATE %03d%% // HOLD COURSE" % int(roundf(egress_lock_progress / MissionFlowRules.egress_lock_seconds(mission_id) * 100.0))
+	status_timer = 0.3
 
 func _maybe_drop_pickup(position: Vector2, guaranteed := false) -> void:
 	var kind := "weapon" if guaranteed else ProjectileRules.pickup_kind_for_roll(_difficulty_pickup_roll(mission_rng.randf()))

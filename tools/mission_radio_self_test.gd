@@ -5,7 +5,7 @@ func _initialize() -> void:
 	var radio := root.get_node_or_null("MissionRadioDirector")
 	_expect(radio != null, "mission radio presentation should be autoloaded", failures)
 	var source := _source("res://scripts/mission_radio_director.gd")
-	for token in ["current_briefing", "boss_spawned", "status_text", "COASTWATCH", "ORACLE", "SKYWARD", "subtitles_enabled", "RADIO_TX", "RADIO_ALERT", "RX //"]:
+	for token in ["current_briefing", "boss_spawned", "status_text", "egress_active", "BREAK THE MACH GATE", "COASTWATCH", "ORACLE", "SKYWARD", "subtitles_enabled", "RADIO_TX", "RADIO_ALERT", "RX //"]:
 		_expect(source.contains(token), "mission radio missing production contract: %s" % token, failures)
 	_expect(source.contains("RADIO_STRIP") and source.contains("Rect2(16, 337, 608, 18)"), "combat radio should use a compact authored edge strip instead of a lower-playfield dialogue box", failures)
 	_expect(source.contains("func occupies_status_lane") and source.contains("not _message.is_empty() and _subtitles_enabled()"), "visible radio subtitles should publish ownership of the shared lower status lane", failures)

@@ -2,11 +2,30 @@ class_name MissionFlowRules
 extends RefCounted
 
 const COASTAL_COMMAND_HOLD_SECONDS := 2.55
+const COASTAL_EGRESS_WINDOW_SECONDS := 18.0
+const COASTAL_EGRESS_LOCK_SECONDS := 1.25
 
 static func boss_victory_hold_seconds(mission_id: String, boss_id: String) -> float:
 	if mission_id == "m01_coastal_intercept" and boss_id == "gunship_alpha":
 		return COASTAL_COMMAND_HOLD_SECONDS
 	return 0.0
+
+static func requires_hypersonic_egress(mission_id: String) -> bool:
+	return mission_id == "m01_coastal_intercept"
+
+static func egress_window_seconds(mission_id: String) -> float:
+	return COASTAL_EGRESS_WINDOW_SECONDS if requires_hypersonic_egress(mission_id) else 0.0
+
+static func egress_lock_seconds(mission_id: String) -> float:
+	return COASTAL_EGRESS_LOCK_SECONDS if requires_hypersonic_egress(mission_id) else 0.0
+
+static func egress_altitude_ready(altitude: String) -> bool:
+	return altitude in ["high", "orbital"]
+
+static func advance_egress_lock(current: float, delta: float, altitude: String, hypersonic_active: bool) -> float:
+	if not egress_altitude_ready(altitude) or not hypersonic_active:
+		return maxf(0.0, current - maxf(0.0, delta) * 1.5)
+	return current + maxf(0.0, delta)
 
 static func required_boss_incomplete(current_boss_id: String, objectives: Array, progress: Dictionary) -> bool:
 	if current_boss_id == "":

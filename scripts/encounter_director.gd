@@ -27,7 +27,11 @@ func _process(_delta: float) -> void:
 	if phase == 1 and _last_phase != 1:
 		_next_beat_index = 0
 	if phase == 1:
-		if scene.has_method("_boss_alive") and bool(scene.call("_boss_alive")):
+		if _has_property(scene, "egress_active") and bool(scene.get("egress_active")):
+			# The command kill hands the route to the player for a clean, readable
+			# climb and Mach break; delayed authored beats cannot repopulate it.
+			_next_beat_index = EncounterRules.beats_for_mission(_active_mission(scene)).size()
+		elif scene.has_method("_boss_alive") and bool(scene.call("_boss_alive")):
 			# Once command contact owns the lane, delayed escort beats must not
 			# materialize behind it (including after a fast-forwarded QA start).
 			_next_beat_index = EncounterRules.beats_for_mission(_active_mission(scene)).size()

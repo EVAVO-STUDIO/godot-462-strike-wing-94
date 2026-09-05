@@ -20,9 +20,10 @@
         {"id":"boss_lead","at_seconds":96,"label":"COMMAND ESCORT","formation":"line","enemies":[{"id":"coastal_flak","count":2},{"id":"gunship_mk1","count":2}],"suppress_random_seconds":6}
       ],
       "objectives": [
-        {"id":"survive","type":"survive","seconds":150,"required":true},
-        {"id":"destroy_boss","type":"destroy_enemy","enemy_id":"gunship_alpha","count":1,"required":true},
-        {"id":"intercept_force","type":"destroy_count","count":24,"required":false,"bonus_credits":400}
+        {"id":"survive","type":"survive","seconds":150,"label":"CLOSE ON COMMAND FLIGHT","required":true},
+        {"id":"destroy_boss","type":"destroy_enemy","enemy_id":"gunship_alpha","count":1,"label":"DESTROY GUNSHIP ALPHA","required":true},
+        {"id":"egress","type":"hypersonic_egress","seconds":1.25,"label":"CLIMB + BREAK MACH GATE","required":true},
+        {"id":"intercept_force","type":"destroy_count","count":24,"label":"BREAK STRIKE SCREEN","required":false,"bonus_credits":400}
       ]
     },
     {

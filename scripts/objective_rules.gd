@@ -27,7 +27,15 @@ static func update_survival(objectives: Array, progress: Dictionary, elapsed_sec
 			continue
 		var id := str(objective.get("id", ""))
 		if id != "":
-			progress[id] = elapsed_seconds
+			progress[id] = maxf(float(progress.get(id, 0.0)), elapsed_seconds)
+
+static func update_hypersonic_egress(objectives: Array, progress: Dictionary, lock_seconds: float) -> void:
+	for objective in objectives:
+		if str(objective.get("type", "")) != "hypersonic_egress":
+			continue
+		var id := str(objective.get("id", ""))
+		if id != "":
+			progress[id] = maxf(0.0, lock_seconds)
 
 static func complete_survival(objectives: Array, progress: Dictionary) -> void:
 	for objective in objectives:
@@ -43,6 +51,8 @@ static func is_complete(objective: Dictionary, progress: Dictionary) -> bool:
 	match str(objective.get("type", "")):
 		"survive":
 			return value >= float(objective.get("seconds", 0.0))
+		"hypersonic_egress":
+			return value >= float(objective.get("seconds", 1.0))
 		"destroy_count", "destroy_enemy":
 			return value >= float(objective.get("count", 1))
 		_:
@@ -67,6 +77,8 @@ static func progress_text(objective: Dictionary, progress: Dictionary) -> String
 	match str(objective.get("type", "")):
 		"survive":
 			return "%d/%d SEC" % [int(value), int(objective.get("seconds", 0))]
+		"hypersonic_egress":
+			return "%d%%" % int(roundf(clampf(value / maxf(0.01, float(objective.get("seconds", 1.0))), 0.0, 1.0) * 100.0))
 		"destroy_count", "destroy_enemy":
 			return "%d/%d" % [int(value), int(objective.get("count", 1))]
 		_:
