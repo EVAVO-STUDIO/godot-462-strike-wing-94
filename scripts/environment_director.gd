@@ -572,6 +572,11 @@ func _high_atmosphere_mix(state: Dictionary) -> float:
 func _draw_high_atmosphere_far(surface: CanvasItem, scene: Object, state: Dictionary, _t: float) -> void:
 	var mix := _high_atmosphere_mix(state)
 	if mix <= 0.08: return
+	# Terrain plates remain geographically stable while climbing, but their local
+	# contrast must fall away at HIGH or the aircraft appears to skim the ground.
+	# Lay the atmospheric extinction beneath clouds and combat actors so threats
+	# stay crisp while distant terrain loses near-field black levels.
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.18, 0.29, 0.38, 0.16 * mix))
 	var travel := _world_distance(scene)
 	for i in range(4):
 		var texture: Texture2D = CIRRUS_FAR[i % CIRRUS_FAR.size()]
