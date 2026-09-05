@@ -67,6 +67,7 @@ func _test_visual_language() -> void:
 	_expect(FileAccess.file_exists("res://tools/build_vx94_bank_art.ps1") and FileAccess.file_exists("res://assets/source/craft/vx94/vx94_bank_family_v2_manifest.json"), "VX-94 bank poses should retain their canonical-planform builder and source/runtime contract")
 	_expect(source.contains("_bank_visual < -0.78") and source.contains("_bank_visual > 0.78"), "VX-94 hard-bank art should engage only during committed lateral input")
 	_expect(source.contains('argument.begins_with("--capture-bank=")') and source.contains('"hard-left": bank_target = -1.0') and source.contains('"hard-right": bank_target = 1.0'), "visual QA should expose deterministic VX-94 bank fixtures")
+	_expect(source.contains('argument.begins_with("--capture-form=")') and source.contains('captured_form in ["fighter", "bomber"]'), "visual QA should expose deterministic fighter and bomber form fixtures")
 	for form in ["fighter", "bomber"]:
 		for frame_index in range(4):
 			var breakup := load("res://assets/runtime/craft/vx94/gameplay/destruction/%s_breakup_%d.png" % [form, frame_index])

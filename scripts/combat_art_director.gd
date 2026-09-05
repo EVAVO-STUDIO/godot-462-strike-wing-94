@@ -2198,6 +2198,12 @@ func _altitude_pitch_offset() -> Vector2:
 	return Vector2(0, -roundf(sin(ratio * PI) * 4.0 * float(direction)))
 
 func _craft_form() -> String:
+	if "--capture-gameplay" in OS.get_cmdline_user_args():
+		for argument in OS.get_cmdline_user_args():
+			if argument.begins_with("--capture-form="):
+				var captured_form := argument.trim_prefix("--capture-form=").to_lower()
+				if captured_form in ["fighter", "bomber"]:
+					return captured_form
 	var director := get_node_or_null("/root/CraftFormDirector")
 	if director != null and director.has_method("current_form"):
 		return str(director.call("current_form"))

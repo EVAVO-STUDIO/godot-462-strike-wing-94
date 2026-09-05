@@ -40,7 +40,7 @@ $Cases = @(
     @{ id='mission_01_coastal'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--visual-capture-delay=2.5') },
 	@{ id='hud_mission_ingress'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=0.8','--capture-hud=ingress') },
     @{ id='hud_objective_compact'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-hud=objective') },
-    @{ id='mission_02_bomber'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=68','--capture-altitude=low') },
+    @{ id='mission_02_bomber'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=68','--capture-altitude=low','--visual-capture-delay=1.2') },
     @{ id='mission_09_air'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high') },
     @{ id='mission_12_machine_reveal'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=96') },
     @{ id='mission_26_orbital'; args=@('--capture-gameplay','--capture-mission=25','--capture-time=118','--capture-altitude=orbital') },

@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production source sheet for a late-1990s vertical shooter player-aircraft sprite family
+Primary request: Create exactly five separately painted orthographic top-down VX-94 bomber-mode bank poses in one horizontal row: hard bank left, soft bank left, neutral, soft bank right, hard bank right. Preserve one aircraft identity across all five. The bomber mode is the same variable-sweep VX-94 as the supplied planform reference but with broad strike wings, heavier ordnance geometry, twin engines, long pointed nose, dark blue canopy, cool white/light gray armor, navy recesses, tiny red warning marks, and orange-hot nozzles. Hard banks must show convincing airframe volume: offset canopy perspective, visible dark underside on the lowered wing, foreshortened raised wing, displaced twin nozzles, and stable nose-to-tail structure. Soft banks should bridge naturally to neutral. Draw real perspective poses; do not rotate or squash one flat bitmap.
+Input images: the VX-94 bomber-mode gameplay planform is the identity reference; the approved VX-94 fighter bank-family alpha master is the style, rendering, palette, pose-spacing, and quality reference.
+Scene/backdrop: genuinely transparent background with generous clear separation around every pose
+Style/medium: deliberately painted and pixel-clustered late-1990s PC/arcade sprite source art, military-industrial anime engineering realism, crisp late-90s vertical-shooter readability with premium arcade craft, original design
+Composition/framing: five complete aircraft, equal visual scale, aligned by a common gameplay anchor/nozzle baseline, evenly spaced, nothing cropped, no extra objects
+Lighting/mood: restrained cool overcast top light, dark mechanical undersides, readable metallic planes
+Color palette: cool white, gunmetal, navy, deep blue canopy, restrained red safety accents, orange nozzles
+Constraints: exactly five poses; identical aircraft identity and markings; broad bomber wings remain recognizable; true alpha transparency; no text; no labels; no guides; no shadows; no checkerboard; no fake transparency; no watermark
+Avoid: photorealistic render, 3D UI mockup, generic sci-fi spaceship, toy proportions, painterly blur, inconsistent wing count, asymmetrical damage, duplicated parts, whole-aircraft flat rotation, magenta or colored matte
+
+Built-in image generation was used with the two project references named above. The provider returned a painted checkerboard despite the transparency constraint; the immutable raw output therefore requires EVAVO alpha mastering before runtime use.

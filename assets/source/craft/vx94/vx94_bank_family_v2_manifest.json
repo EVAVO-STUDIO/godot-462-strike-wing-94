@@ -2,9 +2,17 @@
   "schema_version": 3,
   "asset_id": "vx94_bank_family_v4",
   "role": "player_craft_fighter_and_bomber_bank_pose_families",
-  "source_master": "res://assets/source/craft/vx94/vx94_bank_family_v4_alpha_master.png",
-  "alpha_mastering_evidence": "res://assets/source/craft/vx94/vx94_bank_family_v4_alpha_master.evidence.json",
-  "source_mode": "five separately painted fighter perspectives plus deterministic bomber outboard foreshortening; no whole-aircraft runtime rotation",
+  "source_masters": [
+    "res://assets/source/craft/vx94/vx94_bank_family_v4_alpha_master.png",
+    "res://assets/source/craft/vx94/vx94_bomber_bank_family_v1_alpha_master.png"
+  ],
+  "bomber_raw_source": "res://assets/source/craft/vx94/vx94_bomber_bank_family_v1_raw.png",
+  "bomber_generation_prompt": "res://assets/source/craft/vx94/vx94_bomber_bank_family_v1.prompt.txt",
+  "alpha_mastering_evidence": [
+    "res://assets/source/craft/vx94/vx94_bank_family_v4_alpha_master.evidence.json",
+    "res://assets/source/craft/vx94/vx94_bomber_bank_family_v1_alpha_master.evidence.json"
+  ],
+  "source_mode": "five separately painted fighter perspectives and five separately painted bomber perspectives; no whole-aircraft runtime rotation or asymmetric bitmap scaling",
   "builder": "res://tools/build_vx94_bank_art.ps1",
   "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/bank",
   "runtime_geometry": [64, 72],
@@ -25,17 +33,17 @@
     {"file": "fighter_neutral.png", "bank": 0.0, "visible_bounds": [37, 67]},
     {"file": "fighter_right.png", "bank": 0.52, "visible_bounds": [34, 67]},
     {"file": "fighter_hard_right.png", "bank": 1.0, "visible_bounds": [34, 67]},
-    {"file": "bomber_hard_left.png", "bank": -1.0, "visible_bounds": [62, 70]},
-    {"file": "bomber_left.png", "bank": -0.52, "visible_bounds": [62, 70]},
-    {"file": "bomber_neutral.png", "bank": 0.0, "visible_bounds": [51, 52]},
-    {"file": "bomber_right.png", "bank": 0.52, "visible_bounds": [62, 70]},
-    {"file": "bomber_hard_right.png", "bank": 1.0, "visible_bounds": [62, 70]}
+    {"file": "bomber_hard_left.png", "bank": -1.0, "visible_bounds": [45, 67]},
+    {"file": "bomber_left.png", "bank": -0.52, "visible_bounds": [46, 67]},
+    {"file": "bomber_neutral.png", "bank": 0.0, "visible_bounds": [52, 67]},
+    {"file": "bomber_right.png", "bank": 0.52, "visible_bounds": [46, 67]},
+    {"file": "bomber_hard_right.png", "bank": 1.0, "visible_bounds": [46, 67]}
   ],
   "acceptance": [
     "All frames retain identical 64x72 canvas and gameplay anchor.",
     "Fighter hard banks retain at least 23 pixels and bomber hard banks at least 43 pixels of visible width.",
     "Fighter banking reads through separately painted perspective, visible underside, canopy volume and nozzle displacement.",
-    "Bomber banking reads through foreshortening, volume and lighting rather than bitmap rotation.",
+    "Bomber banking reads through separately painted perspective, visible underside, canopy volume and nozzle displacement.",
     "Runtime alpha is genuine transparency with no chroma residue.",
     "Native 640x360 Coastal Intercept captures remain readable over land, shore and sea."
   ]
