@@ -4,6 +4,7 @@ extends RefCounted
 const COASTAL_COMMAND_HOLD_SECONDS := 2.55
 const COASTAL_EGRESS_WINDOW_SECONDS := 18.0
 const COASTAL_EGRESS_LOCK_SECONDS := 1.25
+const COASTAL_EGRESS_CLEAR_SECONDS := 1.35
 
 static func boss_victory_hold_seconds(mission_id: String, boss_id: String) -> float:
 	if mission_id == "m01_coastal_intercept" and boss_id == "gunship_alpha":

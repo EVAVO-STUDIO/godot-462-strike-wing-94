@@ -43,6 +43,7 @@ func _test_overtime() -> void:
 	_expect(not MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, complete, live_boss), "completed boss objective must not hold overtime")
 	_expect(not MissionFlowRules.should_hold_overtime("gunship_alpha", objectives, incomplete, dead_boss), "dead boss must not hold overtime")
 	_expect(is_equal_approx(MissionFlowRules.boss_victory_hold_seconds("m01_coastal_intercept", "gunship_alpha"), 2.55), "Coastal Intercept should hold through Gunship Alpha's complete physical breakup")
+	_expect(is_equal_approx(MissionFlowRules.COASTAL_EGRESS_CLEAR_SECONDS, 1.35), "successful extraction should retain a visible breakaway beat before debrief")
 	_expect(MissionFlowRules.boss_victory_hold_seconds("m02_refinery_run", "armoured_train") == 0.0, "unreviewed mission endings should retain their authored objective flow")
 	_expect(MissionFlowRules.requires_hypersonic_egress("m01_coastal_intercept"), "Coastal Intercept should end with the signature hypersonic extraction")
 	_expect(not MissionFlowRules.requires_hypersonic_egress("m02_refinery_run"), "later missions should retain their authored endings until individually reviewed")
@@ -74,6 +75,8 @@ func _test_overtime() -> void:
 		_expect(source.contains("boss_victory_timer") and source.contains("_begin_boss_victory_hold(destroyed)") and source.contains("ObjectiveRules.complete_survival"), "Mission 1 command kill should retain the breakup before transitioning to a fully completed report")
 		_expect(source.contains("_begin_hypersonic_egress") and source.contains("_update_hypersonic_egress"), "Mission 1 command kill should hand control back for a playable hypersonic extraction")
 		_expect(source.contains('"--capture-egress" in OS.get_cmdline_user_args()'), "visual QA should expose the playable post-command extraction state")
+		_expect(source.contains('"--capture-egress-complete" in OS.get_cmdline_user_args()'), "visual QA should expose the successful Mach-corridor breakaway state")
+		_expect(source.contains("egress_completion_timer") and source.contains("player_position.y - delta * 72.0"), "successful extraction should show the VX-94 climbing clear before debrief")
 		_expect(source.contains('argument.begins_with("--capture-mission=")'), "mission capture selector should remain command-line isolated")
 		_expect(source.contains('argument.begins_with("--capture-result=")') and source.contains("_begin_capture_result"), "mission report visual QA should expose deterministic success and failure fixtures")
 		_expect(source.contains('argument.begins_with("--capture-time=")') and source.contains("_begin_capture_gameplay"), "representative mission visual QA should support a bounded mid-mission clock")
@@ -83,8 +86,11 @@ func _test_overtime() -> void:
 	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_time_remaining")'), "combat chronometer should change from route time to the live extraction window")
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_active")'), "urgent extraction guidance should override stale routine radio occupancy")
+	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_completion_timer")'), "successful extraction confirmation should override stale routine radio occupancy")
 	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
 	_expect(encounter_file != null and encounter_file.get_as_text().contains('scene.get("egress_active")'), "delayed encounter beats must not repopulate the cleared extraction corridor")
+	var radio_file := FileAccess.open("res://scripts/mission_radio_director.gd", FileAccess.READ)
+	_expect(radio_file != null and radio_file.get_as_text().contains("MACH CORRIDOR OPEN. STRIKE PACKAGE CLEAR."), "successful extraction should replace stale radio traffic with an explicit clear call")
 	var missions = ContentCatalog.load_json("res://data/missions.json")
 	if typeof(missions) == TYPE_DICTIONARY and not missions.get("missions", []).is_empty():
 		var first: Dictionary = missions.get("missions", [])[0]

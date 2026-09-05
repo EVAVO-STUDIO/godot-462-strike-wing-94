@@ -703,9 +703,11 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		var status := str(scene.get("status_text"))
 		if status.begins_with("SECRET - "):
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
-		elif (_has_property(scene, "egress_active") and bool(scene.get("egress_active"))) or (not _altitude_choice_active(scene) and not _radio_occupies_status_lane()):
-			surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
-			PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
+		else:
+			var egress_priority := (_has_property(scene, "egress_active") and bool(scene.get("egress_active"))) or (_has_property(scene, "egress_completion_timer") and float(scene.get("egress_completion_timer")) > 0.0)
+			if egress_priority or (not _altitude_choice_active(scene) and not _radio_occupies_status_lane()):
+				surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
+				PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
 
 func _altitude_choice_active(scene: Object) -> bool:
 	var presentation := get_node_or_null("/root/AltitudeTransitionDirector")

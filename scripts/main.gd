@@ -111,6 +111,7 @@ var boss_victory_timer := 0.0
 var egress_active := false
 var egress_time_remaining := 0.0
 var egress_lock_progress := 0.0
+var egress_completion_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
 var enemy_missiles_launched := 0
@@ -280,6 +281,13 @@ func _begin_capture_gameplay() -> void:
 		egress_time_remaining = 12.0
 		egress_lock_progress = 0.64
 		ObjectiveRules.update_hypersonic_egress(current_objectives, objective_progress, egress_lock_progress)
+		if "--capture-egress-complete" in OS.get_cmdline_user_args():
+			egress_active = false
+			egress_lock_progress = MissionFlowRules.egress_lock_seconds(str(_active_mission().get("id", "")))
+			ObjectiveRules.update_hypersonic_egress(current_objectives, objective_progress, egress_lock_progress)
+			egress_completion_timer = MissionFlowRules.COASTAL_EGRESS_CLEAR_SECONDS
+			status_text = "MACH CORRIDOR OPEN // STRIKE PACKAGE CLEAR"
+			status_timer = egress_completion_timer
 	queue_redraw()
 
 func _begin_capture_result(state: String) -> void:
@@ -618,6 +626,16 @@ func _update_mission(delta: float) -> void:
 		if player_loss_timer <= 0.0:
 			_finish_mission(false)
 		return
+	if egress_completion_timer > 0.0:
+		egress_completion_timer = maxf(0.0, egress_completion_timer - delta)
+		_advance_route_progress(delta)
+		bullets.clear()
+		enemy_bullets.clear()
+		enemies.clear()
+		player_position.y = maxf(184.0, player_position.y - delta * 72.0)
+		if egress_completion_timer <= 0.0:
+			_finish_mission(true)
+		return
 	if boss_victory_timer > 0.0:
 		boss_victory_timer = maxf(0.0, boss_victory_timer - delta)
 		_advance_route_progress(delta)
@@ -917,6 +935,7 @@ func _start_mission() -> void:
 	egress_active = false
 	egress_time_remaining = 0.0
 	egress_lock_progress = 0.0
+	egress_completion_timer = 0.0
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_clear_combat()
 
@@ -1570,6 +1589,7 @@ func _begin_hypersonic_egress() -> void:
 	egress_active = true
 	egress_time_remaining = MissionFlowRules.egress_window_seconds(mission_id)
 	egress_lock_progress = 0.0
+	egress_completion_timer = 0.0
 	bullets.clear()
 	enemy_bullets.clear()
 	enemies.clear()
@@ -1589,9 +1609,9 @@ func _update_hypersonic_egress(delta: float) -> void:
 	ObjectiveRules.update_hypersonic_egress(current_objectives, objective_progress, egress_lock_progress)
 	if egress_lock_progress >= MissionFlowRules.egress_lock_seconds(mission_id):
 		egress_active = false
+		egress_completion_timer = MissionFlowRules.COASTAL_EGRESS_CLEAR_SECONDS
 		status_text = "MACH CORRIDOR OPEN // STRIKE PACKAGE CLEAR"
-		status_timer = 1.0
-		_finish_mission(true)
+		status_timer = egress_completion_timer
 		return
 	if egress_time_remaining <= 0.0:
 		egress_active = false
