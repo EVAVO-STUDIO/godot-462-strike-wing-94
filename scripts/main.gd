@@ -30,7 +30,8 @@ const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 # limits preserve the entire airframe, including the four-pixel altitude-pitch
 # excursion, below the top instruments and above the bottom message lane.
 const PLAYER_FLIGHT_MIN := Vector2(34.0, 76.0)
-const PLAYER_FLIGHT_MAX := Vector2(606.0, 298.0)
+const PLAYER_FLIGHT_MAX := Vector2(606.0, 288.0)
+const PLAYER_SORTIE_START := Vector2(320.0, 286.0)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 
@@ -54,7 +55,7 @@ var mode_route_index := 0
 var mode_route_total := 0
 var mode_lives := 0
 var mode_total_score := 0
-var player_position := Vector2(320.0, 292.0)
+var player_position := PLAYER_SORTIE_START
 var fire_timer := 0.0
 var secondary_timer := 0.0
 var enemy_spawn_timer := 0.5
@@ -928,7 +929,7 @@ func _start_mission() -> void:
 	# picture before unscripted contacts begin. Encounter beats can still arrive
 	# at their precise route positions and extend this suppression window.
 	enemy_spawn_timer = maxf(0.35, float(_active_mission().get("ingress_seconds", 0.35)))
-	player_position = Vector2(320.0, 292.0)
+	player_position = PLAYER_SORTIE_START
 	player_loss_timer = 0.0
 	contact_damage_cooldown = 0.0
 	boss_victory_timer = 0.0
