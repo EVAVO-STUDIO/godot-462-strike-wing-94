@@ -655,20 +655,21 @@ func _draw_coast(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 
 func _draw_coast_wavelets(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	# Sparse transparent crest clusters replace the retired full-field ocean
-	# overlay. They move independently of the geography without creating lattice
-	# interference against the already detailed authored water plate.
+	# overlay. An irregular long-cycle distribution breaks up the directional
+	# grain in the painted water without creating another visible lattice.
 	var travel := _world_distance(scene) * _base_parallax_speed(profile, state, "near") * 0.41
 	var seed := _mission_seed(scene)
-	var cycle := 1380.0
-	for i in range(11):
+	var cycle := 1280.0
+	for i in range(22):
 		var texture: Texture2D = COAST_WAVELETS[i % COAST_WAVELETS.size()]
-		var y := fposmod(74.0 + float(i) * 127.0 + travel + float(seed % 89), cycle) - 58.0 + ENVIRONMENT_VIEW.position.y
-		if y > ENVIRONMENT_VIEW.end.y or y + 28.0 < ENVIRONMENT_VIEW.position.y:
+		var scatter := float((i * i * 37 + i * 19 + seed * 11) % 57)
+		var y := fposmod(42.0 + float(i) * 59.0 + scatter + travel + float(seed % 113), cycle) - 90.0 + ENVIRONMENT_VIEW.position.y
+		if y > ENVIRONMENT_VIEW.end.y or y + 44.0 < ENVIRONMENT_VIEW.position.y:
 			continue
-		var x := 326.0 + float((i * 97 + seed * 7) % 252)
-		var scale := 0.34 + float(i % 3) * 0.06
+		var x := 306.0 + float((i * 97 + i * i * 23 + seed * 7) % 288)
+		var scale := 0.62 + float((i * 5 + seed) % 4) * 0.06
 		var size := (texture.get_size() * scale).round()
-		var exposure := 0.10 + 0.035 * sin(t * 4.0 + float(i) * 1.7)
+		var exposure := 0.26 + 0.07 * sin(t * 4.0 + float(i) * 1.7)
 		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.76,0.88,0.92,exposure))
 
 func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:

@@ -249,7 +249,7 @@ func _initialize() -> void:
 				for sample_x in range(0,layer_image.get_width(),32):
 					_expect(layer_image.get_pixel(sample_x,0).is_equal_approx(layer_image.get_pixel(sample_x,layer_image.get_height()-1)), "environment tile must close its vertical seam exactly: %s x=%d" % [layer_path,sample_x])
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "environment renderer should use independent authored temporal sea depth layers")
-		_expect(source.contains("COAST_WAVELETS") and source.contains("func _draw_coast_wavelets") and not source.contains("COAST_SURFACE_TILE"), "coastal water motion should use sparse transparent wavelets instead of a repeating full-field lattice")
+		_expect(source.contains("COAST_WAVELETS") and source.contains("func _draw_coast_wavelets") and source.contains("var scatter :=") and not source.contains("COAST_SURFACE_TILE"), "coastal water motion should use irregular sparse wavelets instead of a repeating full-field lattice")
 		_expect(source.contains("_draw_cloud_bank_shadow") and source.contains("t * wind"), "discrete cloud banks should retain registered undercast shadows and independent wind shear")
 		_expect(not source.contains("CLOUD_SHADOW_TILE") and not source.contains("CLOUD_MIST_TILE"), "cloud depth should not regress to opaque full-field plates that reveal horizontal bands at hypersonic speed")
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_ANIMATION", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_ANIMATION"]:
