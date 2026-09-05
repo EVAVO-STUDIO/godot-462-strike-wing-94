@@ -535,6 +535,8 @@ func _test_transform_presentation() -> void:
 	_expect(source.contains("_draw_transform_exposure(surface, p, exposure, true)"), "hypersonic charge should use the deeper registered folded-wing sprite family")
 	_expect(source.contains("VX94_BOMBER_TRANSFORM") and source.contains("VX94_HYPERSONIC_TRANSFORM"), "live variable geometry should use two authored ten-exposure raster families")
 	_expect(source.contains("--capture-transform-exposure="), "visual QA should expose every exact registered geometry exposure")
+	var hud_source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
+	_expect(hud_source.contains("func _compact_form_state") and hud_source.contains('"F>B%d"') and hud_source.contains("transform_ratio"), "HUD should report mechanical form-transition progress instead of claiming the destination form instantly")
 	_expect(not source.contains("_draw_pivoted_component") and not source.contains("VX94_LAYERED"), "live VX-94 geometry must not rotate aircraft component bitmaps like paper")
 	_expect(source.contains("vx94_transform_01.png") and source.contains("vx94_transform_02.png") and source.contains("vx94_transform_03.png"), "VX-94 transformation should retain all three authored mechanical intermediate keyframes")
 	_expect(not source.contains("func _draw_transforming") and not source.contains("func _draw_rotary_cannon"), "obsolete procedural VX-94 construction should remain removed")

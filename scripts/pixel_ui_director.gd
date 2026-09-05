@@ -714,7 +714,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var altitude_choice := _compact_altitude_choice()
 	if altitude_choice.is_empty():
-		PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _short_form()], Vector2(298, 13), 1, BLUE, 1)
+		PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _compact_form_state()], Vector2(298, 13), 1, GOLD if _form_transition_active() else BLUE, 1)
 	else:
 		PixelFont.draw_centered(surface, altitude_choice, 320, 13, 1, GOLD, 1)
 	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 12), Vector2(448, 13), 1, MUTED, 1)
@@ -1004,6 +1004,37 @@ func _short_tech() -> String:
 
 func _short_form() -> String:
 	return "FTR" if _form_name() == "FIGHTER" else "BMB"
+
+func _form_transition_active() -> bool:
+	if _capture_craft_transition_ratio() >= 0.0:
+		return true
+	var director := get_node_or_null("/root/CraftFormDirector")
+	return director != null and director.has_method("transform_active") and bool(director.call("transform_active"))
+
+func _compact_form_state() -> String:
+	var captured_ratio := _capture_craft_transition_ratio()
+	if captured_ratio >= 0.0:
+		return "F>B%d" % clampi(roundi(captured_ratio * 9.0), 0, 9)
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director == null or not director.has_method("transform_active") or not bool(director.call("transform_active")):
+		return _short_form()
+	var ratio := clampf(float(director.call("transform_ratio")), 0.0, 1.0) if director.has_method("transform_ratio") else 0.0
+	var destination := _short_form()
+	var source := "B" if destination == "FTR" else "F"
+	var target := "F" if destination == "FTR" else "B"
+	return "%s>%s%d" % [source, target, clampi(roundi(ratio * 9.0), 0, 9)]
+
+func _capture_craft_transition_ratio() -> float:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return -1.0
+	var transition_fixture := false
+	var exposure := -1
+	for argument in OS.get_cmdline_user_args():
+		if argument == "--capture-craft=layered-sweep":
+			transition_fixture = true
+		elif argument.begins_with("--capture-transform-exposure="):
+			exposure = clampi(int(argument.trim_prefix("--capture-transform-exposure=")), 0, 9)
+	return float(exposure) / 9.0 if transition_fixture and exposure >= 0 else -1.0
 
 func _short_altitude() -> String:
 	var value := _altitude_name()
