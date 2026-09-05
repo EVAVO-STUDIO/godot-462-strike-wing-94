@@ -289,6 +289,9 @@ func _begin_capture_gameplay() -> void:
 			egress_completion_timer = MissionFlowRules.COASTAL_EGRESS_CLEAR_SECONDS
 			status_text = "MACH CORRIDOR OPEN // STRIKE PACKAGE CLEAR"
 			status_timer = egress_completion_timer
+	if "--capture-flight-warning" in OS.get_cmdline_user_args():
+		status_text = "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB"
+		status_timer = 30.0
 	queue_redraw()
 
 func _begin_capture_result(state: String) -> void:

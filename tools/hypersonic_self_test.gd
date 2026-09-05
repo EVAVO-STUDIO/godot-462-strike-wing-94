@@ -50,6 +50,7 @@ func _initialize() -> void:
 	var main_source := main_file.get_as_text() if main_file != null else ""
 	_expect(main_source.contains("func _apply_structural_damage(amount: int)") and main_source.contains("damage_taken += applied"), "structural overload should use an explicit hull-only damage path with sortie accounting")
 	_expect(main_source.contains('status_text = "AIRFRAME BREAKUP // OVERSPEED"') and main_source.contains("player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS"), "fatal overspeed should enter the authored player-loss sequence")
+	_expect(main_source.contains('"--capture-flight-warning" in OS.get_cmdline_user_args()') and main_source.contains('status_text = "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB"'), "visual QA should expose the flight-critical low-altitude hypersonic warning")
 	_expect(main_source.contains("FlightSpeedRules.world_closure_multiplier") and main_source.contains("FlightSpeedRules.recovery_closure_multiplier"), "forward power should accelerate terrain-fixed contacts and recovery pods with the world")
 	_expect(main_source.contains("RouteProgressRules.advance") and main_source.contains("RouteProgressRules.boss_gate") and main_source.contains("func route_progress_seconds()"), "world velocity should own authoritative spatial mission progress and boss arrival")
 	_expect(main_source.contains("ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)"), "survival objectives should remain tied to real exposure time")

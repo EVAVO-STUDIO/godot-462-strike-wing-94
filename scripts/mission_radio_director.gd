@@ -104,7 +104,7 @@ func _show(speaker: String, message: String, duration: float, priority: int, aud
 	if audio != null and audio.has_method("play_event"): audio.call("play_event", audio_event)
 
 func draw_radio(surface: CanvasItem) -> void:
-	if _message.is_empty() or not _subtitles_enabled(): return
+	if _message.is_empty() or not _subtitles_enabled() or _flight_warning_active(): return
 	var age := _message_duration - _message_timer
 	var alpha := minf(clampf(age / 0.12, 0.0, 1.0), clampf(_message_timer / 0.22, 0.0, 1.0))
 	# Combat radio is instrumentation, not a dialogue window. One full-width
@@ -121,7 +121,16 @@ func draw_radio(surface: CanvasItem) -> void:
 		surface.draw_rect(Rect2(594 + i * 4, 343 + (6.0 - height) * 0.5, 2, height), Color(0.90, 0.73, 0.31, alpha * pulse))
 
 func occupies_status_lane() -> bool:
-	return not _message.is_empty() and _subtitles_enabled()
+	return not _message.is_empty() and _subtitles_enabled() and not _flight_warning_active()
+
+func _flight_warning_active() -> bool:
+	if "--capture-flight-warning" in OS.get_cmdline_user_args():
+		return true
+	var scene := get_tree().current_scene
+	if scene == null or not _supports(scene) or float(scene.get("status_timer")) <= 0.0:
+		return false
+	var status := str(scene.get("status_text"))
+	return status.begins_with("LOW ALT OVERSPEED") or status.begins_with("OVERSPEED - AIRFRAME LOAD") or status.begins_with("AIRFRAME BREAKUP") or status.begins_with("SHIELDS DOWN") or status.begins_with("HULL CRITICAL")
 
 func _clip(text: String, length: int) -> String:
 	return text if text.length() <= length else text.substr(0, maxi(0, length - 3)) + "..."

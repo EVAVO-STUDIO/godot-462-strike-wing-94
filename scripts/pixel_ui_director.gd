@@ -704,6 +704,8 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	_draw_mode_run_state(surface, scene)
 	if float(scene.get("status_timer")) > 0.0:
 		var status := str(scene.get("status_text"))
+		if "--capture-flight-warning" in OS.get_cmdline_user_args():
+			status = "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB"
 		if status.begins_with("SECRET - "):
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
 		else:

@@ -42,6 +42,7 @@ $Cases = @(
     @{ id='hud_objective_compact'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-hud=objective') },
     @{ id='mission_01_hypersonic_egress'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=149','--capture-egress','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.18') },
     @{ id='mission_01_egress_clear'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=149','--capture-egress','--capture-egress-complete','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.18') },
+    @{ id='mission_01_low_hypersonic_warning'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=70','--capture-flight=hypersonic','--capture-altitude=low','--capture-flight-warning','--visual-capture-delay=0.18') },
     @{ id='mission_02_bomber'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=68','--capture-altitude=low','--visual-capture-delay=1.2') },
     @{ id='mission_09_air'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high') },
     @{ id='mission_12_machine_reveal'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=96') },
