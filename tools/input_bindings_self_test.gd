@@ -40,6 +40,7 @@ func _initialize() -> void:
 	_expect(main != null and main.get_as_text().contains("--capture-control-selection="), "visual QA should expose the complete scrollable binding catalogue")
 	var ui := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	_expect(ui != null and ui.get_as_text().contains("FLIGHT CONTROL ASSIGNMENT") and ui.get_as_text().contains("PRESS NEW KEY"), "flight-control screen should render the live assignment state")
+	_expect(ui != null and ui.get_as_text().contains("KEYBOARD COMMANDS // %s"), "flight-control page header should use a concise command range instead of an inaccurate controller-active label")
 	_expect(ui != null and ui.get_as_text().contains('"%02d-%02d / %02d"') and ui.get_as_text().contains("UP / DOWN SELECT"), "flight-control station should identify the visible binding range and scrolling navigation")
 	bindings.free()
 	if failures.is_empty():

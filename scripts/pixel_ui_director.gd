@@ -445,7 +445,7 @@ func _draw_front_end_controls(surface: CanvasItem, scene: Object) -> void:
 	var last := mini(first + visible_rows, count)
 	PixelFont.draw_centered(surface, "FLIGHT CONTROL ASSIGNMENT", 320, 119, 1, GOLD, 1)
 	var range_text := "%02d-%02d / %02d" % [first + 1 if count > 0 else 0, last, count]
-	_draw_console_panel(surface, Rect2(88, 133, 464, 174), "KEYBOARD // CONTROLLER ACTIVE // %s" % range_text, BLUE)
+	_draw_console_panel(surface, Rect2(88, 133, 464, 174), "KEYBOARD COMMANDS // %s" % range_text, BLUE)
 	for row in range(first, last):
 		var y := 151 + (row - first) * 20
 		var selected := row == selection
