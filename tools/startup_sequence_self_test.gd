@@ -8,6 +8,7 @@ func _initialize() -> void:
 		_expect(float(startup.EVAVO_READABLE_SECONDS) >= 1.0, "EVAVO identity should remain readable before skip", failures)
 		_expect(float(startup.BLACK_PAUSE_SECONDS) >= 0.3, "publisher and title sequences should have a black pause", failures)
 		_expect(float(startup.TITLE_TOTAL_SECONDS) >= 8.0 and float(startup.TITLE_TOTAL_SECONDS) <= 15.0, "HYPERSONIC title sequence should meet the 8-15 second contract", failures)
+		_expect(float(startup.TITLE_CRAFT_SCALE) >= 1.4, "final title should give the VX-94 hero-scale visual weight", failures)
 	var splash := load("res://assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png")
 	_expect(splash is Texture2D and splash.get_size() == Vector2(640,360), "approved EVAVO plate should retain canonical 640x360 geometry", failures)
 	var wordmark := load("res://assets/runtime/title/hypersonic_wordmark_v3.png")
@@ -31,7 +32,7 @@ func _initialize() -> void:
 	_expect(source_file != null, "startup sequence source should be readable", failures)
 	if source_file != null:
 		var source := source_file.get_as_text()
-		for token in ["EVAVO_SPLASH", "EVAVO_SPARKLE_FRAMES", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "VX94_BOMBER", "VX94_TRANSFORM_FRAMES", "TITLE_SKY", "TITLE_CLOUDS", "PersistentEffectArtLibrary", "BLACK_PAUSE", "PRESS FIRE / PRESS START", "_draw_vx94_forms"]:
+		for token in ["EVAVO_SPLASH", "EVAVO_SPARKLE_FRAMES", "HYPERSONIC_WORDMARK", "VX94_FIGHTER", "VX94_BOMBER", "VX94_TRANSFORM_FRAMES", "TITLE_SKY", "TITLE_CLOUDS", "PersistentEffectArtLibrary", "BLACK_PAUSE", "PRESS FIRE TO ENGAGE", "_draw_vx94_forms"]:
 			_expect(source.contains(token), "startup sequence missing production cue: %s" % token, failures)
 		_expect(source.contains("Rect2(70, 34, 500, 80)"), "approved wordmark should retain its canonical title-screen placement", failures)
 		_expect(source.contains('identity.call("title_subtitle")'), "title subtitle should remain centralized through ProductIdentity", failures)

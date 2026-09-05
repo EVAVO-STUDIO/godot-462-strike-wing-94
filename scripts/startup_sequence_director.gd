@@ -40,6 +40,7 @@ const EVAVO_READABLE_SECONDS := 1.0
 const EVAVO_TOTAL_SECONDS := 2.28
 const BLACK_PAUSE_SECONDS := 0.42
 const TITLE_TOTAL_SECONDS := 9.2
+const TITLE_CRAFT_SCALE := 1.5
 
 var stage := Stage.EVAVO
 var elapsed := 0.0
@@ -158,7 +159,9 @@ func _draw_hypersonic(surface: CanvasItem) -> void:
 	_draw_cloud_field(surface)
 	var craft_t := _range_progress(0.65, 4.25)
 	var craft_y := lerpf(392.0, 190.0, _ease_out(craft_t))
-	var craft_scale := lerpf(0.38, 1.0, craft_t)
+	# End on a hero-sized airframe. The 64x72 gameplay frame contains generous
+	# transparent margins, so 1:1 made the title subject read like a cursor.
+	var craft_scale := lerpf(0.38, TITLE_CRAFT_SCALE, craft_t)
 	var deploy := smoothstep(0.0, 1.0, _range_progress(3.15, 3.68))
 	_draw_vx94_forms(surface, Vector2(320, craft_y), craft_scale, deploy)
 	var flare := sin(clampf(_range_progress(3.72, 4.55), 0.0, 1.0) * PI)
@@ -174,7 +177,7 @@ func _draw_hypersonic(surface: CanvasItem) -> void:
 		PixelFont.draw_centered(surface, subtitle, 320, 121, 2, Color(0.52,0.72,0.82,title_alpha), 1)
 	if elapsed >= 6.8:
 		var pulse := 0.48 + 0.52 * absf(sin(elapsed * 3.2))
-		PixelFont.draw_centered(surface, "PRESS FIRE / PRESS START", 320, 316, 1, Color(0.92,0.78,0.38,pulse), 1)
+		PixelFont.draw_centered(surface, "PRESS FIRE TO ENGAGE", 320, 310, 2, Color(0.92,0.78,0.38,pulse), 1)
 
 func _draw_cloud_field(surface: CanvasItem) -> void:
 	var reveal := _range_progress(0.0, 1.2)
