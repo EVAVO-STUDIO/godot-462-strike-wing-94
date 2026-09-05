@@ -32,8 +32,11 @@ $ConnectorRow = Join-Path $Work 'connector_row.png'
 for ($Index=0; $Index -lt $Sections.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
     $Destination = Join-Path $Output "$($Sections[$Index].Name).png"
+    # Both edges share one authored connector, giving exact scanline closure.
+    # Do not blur the joins: the former 22px Gaussian passes turned each edge
+    # into a conspicuous gray cloud bar during continuous vertical scrolling.
     & $MagickPath $Raw $Connector -gravity north -compose over -composite $Connector -gravity south -compose over -composite `
-        -region '640x22+0+38' -blur '0x2.0' +region -region '640x22+0+964' -blur '0x2.0' +region -colorspace sRGB -depth 8 $Destination
+        -colorspace sRGB -depth 8 $Destination
     if ($LASTEXITCODE -ne 0) { throw "Failed to finish mountain chunk: $($Sections[$Index].Name)" }
 }
 
