@@ -996,7 +996,10 @@ func _draw_clouds(surface: CanvasItem, scene: Object, profile: Dictionary, state
 		var x := fposmod(float(i * 149 + 61) + t * wind, 800.0) - 80.0
 		var scale := 0.72 + float((i * 5) % 4) * 0.12
 		var size := Vector2(texture.get_size()) * scale
-		var y := fposmod(float(i) * 97.0 + travel * speed, ENVIRONMENT_VIEW.size.y) + ENVIRONMENT_VIEW.position.y + size.y * 0.5
+		# Include the bank height in the wrap cycle so clouds cross both viewport
+		# edges continuously instead of popping in fully formed and dwelling below.
+		var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y
+		var y := fposmod(float(i) * 97.0 + travel * speed, cloud_cycle) + ENVIRONMENT_VIEW.position.y - size.y * 0.5
 		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, i)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
 

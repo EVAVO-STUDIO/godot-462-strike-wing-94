@@ -258,6 +258,7 @@ func _initialize() -> void:
 		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
 		_expect(source.contains("vertical travel") and source.contains("Vector2(8.0,streak_height)"), "hypersonic exposure streaks should follow forward screen travel rather than smear sideways")
 		_expect(source.contains("atmospheric extinction") and source.contains("0.16 * mix"), "high-altitude terrain should lose near-field contrast beneath atmospheric haze")
+		_expect(source.contains("var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y") and source.contains("ENVIRONMENT_VIEW.position.y - size.y * 0.5"), "cloud banks should enter and leave continuously through the viewport edges")
 		_expect(source.contains("LANDMARKS") and source.contains("_draw_landmarks") and source.contains("_mission_seed"), "environment renderer should layer sparse deterministic mission landmarks over seamless biome plates")
 		_expect(source.contains("LANDMARK_FX_FRAMES") and source.contains("floor(t * 4.0)"), "mission landmarks should consume deliberate four-fps held sprite animation")
 		var landmark_names := ["coastal_battery", "refinery_stack", "storm_platform", "desert_airstrip", "river_bridge", "mountain_radar", "harbor_cranes", "city_rail_hub", "machine_gantry", "weather_relay", "orbital_truss"]
