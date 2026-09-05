@@ -577,7 +577,7 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	_draw_frame(surface, Rect2(10, 10, 620, 340))
 	var mission_success := bool(scene.get("mission_success")) if _has_property(scene, "mission_success") else true
 	var mode_active := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
-	PixelFont.draw_centered(surface, "MODE REPORT" if mode_active else ("MISSION REPORT" if mission_success else "SORTIE FAILURE"), 320, 35, 3, GOLD if mission_success else RED, 2)
+	PixelFont.draw_centered(surface, "MODE REPORT" if mode_active else ("MISSION COMPLETE" if mission_success else "SORTIE FAILED"), 320, 35, 3, GOLD if mission_success else RED, 2)
 
 	var result_lines := _wrap_text(str(scene.get("result_text")), 66)
 	for i in range(mini(3, result_lines.size())):
