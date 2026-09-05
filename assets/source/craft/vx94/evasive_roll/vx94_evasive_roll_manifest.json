@@ -1,7 +1,8 @@
 {
   "schema_version": 2,
   "asset_id": "vx94_evasive_roll_directional_v2",
-  "source": "res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_source_v1.png",
+  "source": "res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_source_v2.png",
+  "alpha_mastering_evidence": "res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_source_v2.evidence.json",
   "cleanup_contract": "res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_cleanup.sprite.json",
   "builder": "res://tools/build_vx94_evasive_roll_art.ps1",
   "runtime_directory": "res://assets/runtime/craft/vx94/evasive_roll/",

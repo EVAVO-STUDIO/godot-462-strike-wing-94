@@ -7,7 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $PSScriptRoot
 $SourceDir = Join-Path $Root 'assets\source\craft\vx94\evasive_roll'
-$Source = Join-Path $SourceDir 'vx94_evasive_roll_source_v1.png'
+$Source = Join-Path $SourceDir 'vx94_evasive_roll_source_v2.png'
 $Config = Join-Path $SourceDir 'vx94_evasive_roll_cleanup.sprite.json'
 $Review = Join-Path $Root 'work\vx94_evasive_roll_clean'
 $Runtime = Join-Path $Root 'assets\runtime\craft\vx94\evasive_roll'
@@ -26,7 +26,7 @@ try {
 }
 finally { $env:PYTHONPATH = $PreviousPythonPath }
 
-$Clean = Join-Path $Review 'frames\vx94_evasive_roll_source_v1.png'
+$Clean = Join-Path $Review 'frames\vx94_evasive_roll_source_v2.png'
 if (-not (Test-Path -LiteralPath $Clean)) { throw 'Sprite Studio did not produce the cleaned evasive-roll source.' }
 $PoseCrops = @(
     '230x300+45+20', '230x300+310+20', '230x300+545+20', '220x300+775+20', '220x300+1005+20',
@@ -64,7 +64,7 @@ foreach ($Pair in $RecoveryPairs) {
 # in these frames, so aircraft pixels are preserved.
 foreach ($Index in @(5,6,7,8,9,15,16,17)) {
     $Frame = Join-Path $Runtime ('roll_{0:d2}.png' -f $Index)
-    & $Magick $Frame -channel A -fill black -draw 'rectangle 0,0 63,7' +channel -depth 8 $Frame
+    & $Magick $Frame -alpha set -channel A -region '64x8+0+0' -evaluate set 0 +channel -depth 8 $Frame
     if ($LASTEXITCODE -ne 0) { throw "Failed to remove detached matte from evasive-roll frame $Index." }
 }
 
@@ -91,6 +91,25 @@ for ($Index = 0; $Index -lt $PoseCrops.Count; $Index++) {
         & $Magick $SourceFrame -trim +repage -filter point -resize "$($Width)x64>" -gravity center -background none -extent '64x72' -colors 48 -dither None -depth 8 $DestinationFrame
         if ($LASTEXITCODE -ne 0) { throw "Failed to author bomber evasive-roll frame $DirectionTag $Index." }
     }
+}
+
+function Assert-TransparentCanvasEdge {
+    param([string]$Frame)
+    foreach ($Region in @('64x1+0+0', '64x1+0+71', '1x72+0+0', '1x72+63+0')) {
+        $Maximum = & $Magick $Frame -alpha extract -crop $Region +repage -format '%[fx:maxima]' info:
+        if ($LASTEXITCODE -ne 0 -or [double]$Maximum -ne 0.0) {
+            throw "Evasive-roll frame has a nontransparent canvas edge: $Frame [$Region=$Maximum]"
+        }
+    }
+}
+
+Get-ChildItem -LiteralPath $Runtime -Filter '*.png' | ForEach-Object {
+    $Geometry = & $Magick identify -format '%wx%h' $_.FullName
+    $Channels = & $Magick identify -format '%[channels]' $_.FullName
+    if ($Geometry -ne '64x72' -or $Channels -notmatch 'a') {
+        throw "Evasive-roll frame failed geometry/alpha admission: $($_.Name) [$Geometry $Channels]"
+    }
+    Assert-TransparentCanvasEdge -Frame $_.FullName
 }
 
 Write-Host 'Built 80 registered HYPERSONIC VX-94 fighter/bomber left/right evasive-roll frames through EVAVO Sprite Studio.'
