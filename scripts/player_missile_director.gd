@@ -8,6 +8,11 @@ const RETICLES := [
 	preload("res://assets/runtime/ui/hud/player_lock/acquire.png"),
 	preload("res://assets/runtime/ui/hud/player_lock/locked.png"),
 ]
+# The combat view begins below the 34 px status rail and ends above the
+# low-altitude/status furniture. Keep the *displayed* seeker cue in this clear
+# region while its simulation target continues to use the true world position.
+const TARGET_CUE_MIN := Vector2(36, 54)
+const TARGET_CUE_MAX := Vector2(580, 282)
 
 var _surface: Control
 var _target_uid := -1
@@ -149,12 +154,19 @@ func draw_targeting(surface: CanvasItem) -> void:
 		ammo = 3
 	if ratio <= 0.02:
 		return
+	var display_position := target_cue_display_position(position)
 	var frame := 2 if ratio >= 0.999 else (1 if ratio >= 0.48 else 0)
 	# Keep the boresight registered to the airframe. A breathing/scaling lock icon
 	# reads like arcade loot UI and makes the target itself shimmer at native scale.
-	surface.draw_texture(RETICLES[frame], (position - Vector2(16, 16)).round())
+	surface.draw_texture(RETICLES[frame], (display_position - Vector2(16, 16)).round())
 	var label := "LOCK" if frame == 2 else "ACQ %02d" % int(roundf(ratio * 100.0))
-	PixelFont.draw_text(surface, "%s  AIM9 %d" % [label, ammo], position + Vector2(-25, 19), 1, Color("efcc62") if frame == 2 else Color("73b8d2"), 1)
+	PixelFont.draw_text(surface, "%s  AIM9 %d" % [label, ammo], display_position + Vector2(-25, 19), 1, Color("efcc62") if frame == 2 else Color("73b8d2"), 1)
+
+func target_cue_display_position(world_position: Vector2) -> Vector2:
+	return Vector2(
+		clampf(world_position.x, TARGET_CUE_MIN.x, TARGET_CUE_MAX.x),
+		clampf(world_position.y, TARGET_CUE_MIN.y, TARGET_CUE_MAX.y)
+	).round()
 
 func lock_ratio() -> float:
 	return _lock_ratio

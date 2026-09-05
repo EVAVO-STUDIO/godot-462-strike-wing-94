@@ -31,6 +31,9 @@ func _initialize() -> void:
 	scene.enemies = [air.duplicate(true)]
 	var director: Node = load("res://scripts/player_missile_director.gd").new()
 	root.add_child(director)
+	_expect(Vector2(director.call("target_cue_display_position", Vector2(-40, -80))) == Vector2(36, 54), "off-screen seeker cue must stay below and inside the compact HUD")
+	_expect(Vector2(director.call("target_cue_display_position", Vector2(900, 500))) == Vector2(580, 282), "off-screen seeker cue must stay above lower flight furniture")
+	_expect(Vector2(director.call("target_cue_display_position", Vector2(235, 145))) == Vector2(235, 145), "on-screen seeker cue must remain registered to its true target")
 	director.call("update_targeting", scene, Rules.LOCK_SECONDS)
 	_expect(float(director.call("lock_ratio")) >= 0.999, "valid target should acquire after authored lock time")
 	_expect(bool(director.call("launch", scene)), "hard lock with stores should launch")
