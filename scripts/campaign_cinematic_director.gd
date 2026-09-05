@@ -224,12 +224,19 @@ func _capture_sequence_id() -> String:
 			return argument.trim_prefix("--capture-cinematic=").to_lower()
 	return ""
 
+func _capture_shot_index() -> int:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-cinematic-shot="):
+			return maxi(0, int(argument.trim_prefix("--capture-cinematic-shot=")))
+	return 0
+
 func _begin_capture_sequence(sequence_id: String) -> void:
 	for sequence in _sequences:
 		if typeof(sequence) == TYPE_DICTIONARY and str(sequence.get("id", "")).to_lower() == sequence_id:
 			_active = sequence.duplicate(true)
 			_active["seen_key"] = "capture:%s" % sequence_id
-			_shot_index = 0
+			var shots: Array = _active.get("shots", [])
+			_shot_index = mini(_capture_shot_index(), maxi(0, shots.size() - 1))
 			_shot_elapsed = 0.0
 			if _surface != null:
 				_surface.visible = true
