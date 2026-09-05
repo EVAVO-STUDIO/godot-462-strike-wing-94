@@ -79,6 +79,7 @@ func _run() -> void:
 	_expect(main_source.contains("_mode_enemy_hp") and main_source.contains("_mode_enemy_speed") and main_source.contains("_mode_score_value"),"alternate modifiers should hook canonical combat spawn and score paths",failures)
 	_expect(main_source.contains("_advance_mode_result") and main_source.contains("_update_front_end_modes"),"alternate routes should own real result and menu flow",failures)
 	_expect(main_source.contains("--capture-game-mode=") and main_source.contains("--capture-mode-selection="),"mode board and live routes should expose deterministic visual QA capture",failures)
+	_expect(main_source.contains('catalogue[i].get("requires_campaign_clear", false)') and main_source.contains("campaign_completed = true") and main_source.contains("_begin_capture_gameplay()"),"live mode capture should unlock QA-only postgame routes and honor captured mission time",failures)
 	_expect(main_source.contains('"--capture-mode-records"') and main_source.contains('"best_score":284600'),"persistent mode records should expose deterministic front-door visual QA",failures)
 	var save_source := _source("res://scripts/campaign_save.gd")
 	_expect(save_source.contains("_campaign_mode(scene)"),"alternate modes should be isolated from persistent campaign saves",failures)

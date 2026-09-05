@@ -323,9 +323,13 @@ func _begin_capture_game_mode(mode_id: String) -> void:
 	var catalogue: Array = modes.call("modes")
 	for i in range(catalogue.size()):
 		if str(catalogue[i].get("id","")) == mode_id:
+			# Deterministic visual QA must be able to inspect post-campaign modes
+			# without mutating a real save or silently falling back to Campaign.
+			if bool(catalogue[i].get("requires_campaign_clear", false)):
+				campaign_completed = true
 			mode_records[mode_id] = {"attempts":4,"clears":1,"best_route":catalogue[i].get("missions",[]).size(),"route_total":catalogue[i].get("missions",[]).size(),"best_score":284600,"cleared":true}
-			modes.call("start_selected",self,i)
-			_start_mission()
+			if modes.call("start_selected",self,i):
+				_begin_capture_gameplay()
 			return
 
 func _capture_mission_index(arguments: PackedStringArray, fallback: int, mission_count: int) -> int:
