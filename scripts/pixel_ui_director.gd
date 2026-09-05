@@ -333,6 +333,9 @@ func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 		if index == selection:
 			surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-17, 5))
 		PixelFont.draw_text(surface, labels[index], position + Vector2(14, 7), 1, GOLD if index == selection else TEXT, 1)
+	if selection != 0:
+		_draw_front_end_command_context(surface, selection, labels[selection])
+		return
 	_draw_console_panel(surface, Rect2(310, 114, 294, 201), "CAMPAIGN STATUS", BLUE)
 	var mission_index := clampi(int(scene.get("mission_index")) if _has_property(scene, "mission_index") else 0, 0, 29)
 	surface.draw_texture(VX94_MENU_PORTRAIT, Vector2(322, 147))
@@ -349,6 +352,29 @@ func _draw_front_end_main(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_text(surface, "SECRETS %02d" % vector_count, Vector2(451, 296), 1, GREEN, 1)
 	else:
 		PixelFont.draw_text(surface, "ENTER  SELECT", Vector2(451, 288), 1, GOLD, 1)
+
+func _draw_front_end_command_context(surface: CanvasItem, selection: int, label: String) -> void:
+	var briefs := [
+		{},
+		{"code":"OPS 02", "status":"READY", "title":"COMBAT ROUTES", "lines":["AUTHORED SCORE ATTACK", "BOSS AND STRIKE TRIALS", "FIXED-RULE DEPLOYMENTS"], "action":"ENTER  OPEN MODES"},
+		{"code":"OPS 03", "status":"ENCRYPTED", "title":"BLACK OPERATIONS", "lines":["RECOVERED MISSION FILES", "HIDDEN ROUTES AND TARGETS", "CLEARANCE DEPENDENT"], "action":"ENTER  REVIEW FILES"},
+		{"code":"SYS 04", "status":"AVAILABLE", "title":"SYSTEM CONFIG", "lines":["VIDEO AND DISPLAY", "AUDIO AND ACCESSIBILITY", "CONTROLLER RESPONSE"], "action":"ENTER  CONFIGURE"},
+		{"code":"FLT 05", "status":"AVAILABLE", "title":"CONTROL STATION", "lines":["KEYBOARD AND CONTROLLER", "FLIGHT / WEAPON MAPPING", "LIVE INPUT REBINDING"], "action":"ENTER  REVIEW CONTROLS"},
+		{"code":"INT 06", "status":"ARCHIVE", "title":"EVAVO DOSSIER", "lines":["AIRFRAME INTELLIGENCE", "THREAT RECOGNITION", "CAMPAIGN RECORDS"], "action":"ENTER  ACCESS DOSSIER"},
+		{"code":"SYS 07", "status":"STANDBY", "title":"TERMINATE SESSION", "lines":["RETURN TO OPERATING SYSTEM", "CAMPAIGN DATA PRESERVED", "NO SORTIE IN PROGRESS"], "action":"ENTER  EXIT TO SYSTEM"},
+	]
+	var brief: Dictionary = briefs[clampi(selection, 1, briefs.size() - 1)]
+	_draw_console_panel(surface, Rect2(310, 114, 294, 201), label, RED if selection == 6 else BLUE)
+	PixelFont.draw_text(surface, str(brief.get("code", "OPS")), Vector2(326, 151), 1, MUTED, 1)
+	PixelFont.draw_text(surface, str(brief.get("status", "READY")), Vector2(518, 151), 1, RED if selection == 6 else GREEN, 1)
+	surface.draw_rect(Rect2(326, 165, 262, 1), Color("203845"))
+	PixelFont.draw_text(surface, str(brief.get("title", "COMMAND")), Vector2(326, 181), 2, TEXT, 1)
+	var lines: Array = brief.get("lines", [])
+	for index in range(mini(3, lines.size())):
+		PixelFont.draw_text(surface, "// %s" % str(lines[index]), Vector2(326, 218 + index * 16), 1, BLUE if index == 0 else MUTED, 1)
+	surface.draw_rect(Rect2(326, 276, 262, 22), Color("162b36"))
+	surface.draw_rect(Rect2(326, 276, 3, 22), GOLD if selection != 6 else RED)
+	PixelFont.draw_centered(surface, str(brief.get("action", "ENTER  SELECT")), 458, 284, 1, GOLD if selection != 6 else RED, 1)
 
 func _draw_front_end_modes(surface: CanvasItem, scene: Object) -> void:
 	var director := get_node_or_null("/root/GameModeDirector")

@@ -29,6 +29,8 @@ $Cases = @(
     @{ id='startup_vx94_transform'; args=@('--capture-startup=vx94_transform','--visual-capture-delay=0.25') },
     @{ id='startup_title_prompt'; args=@('--capture-startup=title_prompt','--visual-capture-delay=0.25') },
     @{ id='front_main_menu'; args=@('--capture-gameplay','--capture-front-end=main_menu') },
+    @{ id='front_main_menu_modes_selected'; args=@('--capture-gameplay','--capture-front-end=main_menu','--capture-menu-selection=1') },
+    @{ id='front_main_menu_exit_selected'; args=@('--capture-gameplay','--capture-front-end=main_menu','--capture-menu-selection=6') },
     @{ id='front_sortie_bay'; args=@('--capture-gameplay','--capture-front-end=sortie') },
     @{ id='front_modes'; args=@('--capture-gameplay','--capture-front-end=modes','--capture-campaign-clear','--capture-mode-records') },
     @{ id='front_options_access'; args=@('--capture-gameplay','--capture-front-end=options','--capture-option-category=3','--capture-option-selection=1') },

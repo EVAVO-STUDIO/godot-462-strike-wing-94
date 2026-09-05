@@ -136,6 +136,7 @@ func _ready() -> void:
 	mission_index = _capture_mission_index(OS.get_cmdline_user_args(), mission_index, mission_catalog.size())
 	_prepare_mission(mission_index)
 	mode_selection = _capture_mode_selection(OS.get_cmdline_user_args(),mode_selection)
+	menu_selection = _capture_menu_selection(OS.get_cmdline_user_args(), menu_selection)
 	option_selection = _capture_option_selection(OS.get_cmdline_user_args(),option_selection)
 	option_category = _capture_option_category(OS.get_cmdline_user_args(),option_category)
 	control_selection = _capture_control_selection(OS.get_cmdline_user_args(), control_selection)
@@ -204,6 +205,13 @@ func _capture_mode_selection(arguments: PackedStringArray, fallback: int) -> int
 		if argument.begins_with("--capture-mode-selection="):
 			var value := argument.trim_prefix("--capture-mode-selection=")
 			if value.is_valid_int(): return maxi(0,value.to_int())
+	return fallback
+
+func _capture_menu_selection(arguments: PackedStringArray, fallback: int) -> int:
+	for argument in arguments:
+		if argument.begins_with("--capture-menu-selection="):
+			var value := argument.trim_prefix("--capture-menu-selection=")
+			if value.is_valid_int(): return clampi(value.to_int(), 0, 6)
 	return fallback
 
 func _capture_option_selection(arguments: PackedStringArray, fallback: int) -> int:
