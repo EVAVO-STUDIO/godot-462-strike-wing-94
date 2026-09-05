@@ -702,10 +702,13 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	else:
 		_draw_objective_tracker(surface, scene)
 	_draw_mode_run_state(surface, scene)
-	if float(scene.get("status_timer")) > 0.0:
+	var capture_countermeasure := "--capture-countermeasure" in OS.get_cmdline_user_args()
+	if float(scene.get("status_timer")) > 0.0 or capture_countermeasure:
 		var status := str(scene.get("status_text"))
 		if "--capture-flight-warning" in OS.get_cmdline_user_args():
 			status = "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB"
+		elif capture_countermeasure:
+			status = "CM 03 // MISSILE DECOYED"
 		if status.begins_with("SECRET - "):
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
 		else:

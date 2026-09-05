@@ -124,13 +124,13 @@ func occupies_status_lane() -> bool:
 	return not _message.is_empty() and _subtitles_enabled() and not _flight_warning_active()
 
 func _flight_warning_active() -> bool:
-	if "--capture-flight-warning" in OS.get_cmdline_user_args():
+	if "--capture-flight-warning" in OS.get_cmdline_user_args() or "--capture-countermeasure" in OS.get_cmdline_user_args():
 		return true
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene) or float(scene.get("status_timer")) <= 0.0:
 		return false
 	var status := str(scene.get("status_text"))
-	return status.begins_with("LOW ALT OVERSPEED") or status.begins_with("OVERSPEED - AIRFRAME LOAD") or status.begins_with("AIRFRAME BREAKUP") or status.begins_with("SHIELDS DOWN") or status.begins_with("HULL CRITICAL")
+	return status.begins_with("CM ") or status.begins_with("LOW ALT OVERSPEED") or status.begins_with("OVERSPEED - AIRFRAME LOAD") or status.begins_with("AIRFRAME BREAKUP") or status.begins_with("SHIELDS DOWN") or status.begins_with("HULL CRITICAL")
 
 func _clip(text: String, length: int) -> String:
 	return text if text.length() <= length else text.substr(0, maxi(0, length - 3)) + "..."

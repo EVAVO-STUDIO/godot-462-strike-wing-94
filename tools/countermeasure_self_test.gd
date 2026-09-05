@@ -19,6 +19,8 @@ func _initialize() -> void:
 		_expect(frame is Texture2D and frame.get_size() == Vector2(32,40), "countermeasure frame should retain registered geometry: %d" % index)
 	var project := FileAccess.get_file_as_string("res://project.godot")
 	_expect(project.contains('CountermeasureDirector="*res://scripts/countermeasure_director.gd"'), "countermeasure presentation should be a live project system")
+	var ui_source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
+	_expect(ui_source.contains('status = "CM 03 // MISSILE DECOYED"'), "countermeasure visual QA should expose an explicit seeker-break confirmation")
 	_expect(FileAccess.file_exists("res://tools/build_countermeasure_art.ps1"), "countermeasure sprites should remain reproducible from governed vector source")
 	if failures.is_empty():
 		print("HYPERSONIC countermeasure self-test passed.")

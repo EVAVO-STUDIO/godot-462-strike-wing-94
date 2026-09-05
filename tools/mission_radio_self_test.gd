@@ -8,7 +8,7 @@ func _initialize() -> void:
 	for token in ["current_briefing", "boss_spawned", "status_text", "egress_active", "BREAK THE MACH GATE", "COASTWATCH", "ORACLE", "SKYWARD", "subtitles_enabled", "RADIO_TX", "RADIO_ALERT", "RX //"]:
 		_expect(source.contains(token), "mission radio missing production contract: %s" % token, failures)
 	_expect(source.contains("RADIO_STRIP") and source.contains("Rect2(16, 337, 608, 18)"), "combat radio should use a compact authored edge strip instead of a lower-playfield dialogue box", failures)
-	_expect(source.contains("func _flight_warning_active()") and source.contains("LOW ALT OVERSPEED") and source.contains("HULL CRITICAL"), "flight-critical warnings should preempt routine radio traffic in the shared status lane", failures)
+	_expect(source.contains("func _flight_warning_active()") and source.contains('status.begins_with("CM ")') and source.contains("LOW ALT OVERSPEED") and source.contains("HULL CRITICAL"), "defensive confirmations and flight-critical warnings should preempt routine radio traffic in the shared status lane", failures)
 	_expect(source.contains("func occupies_status_lane") and source.contains("not _message.is_empty() and _subtitles_enabled()"), "visible radio subtitles should publish ownership of the shared lower status lane", failures)
 	_expect(source.contains("_capture_time() > INTRO_DELAY + INTRO_SECONDS"), "mid-mission visual QA must not replay the launch briefing", failures)
 	_expect(not source.contains("Rect2(18, 263, 292, 43)"), "obsolete oversized combat radio panel should remain removed", failures)
