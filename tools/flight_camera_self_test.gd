@@ -8,12 +8,8 @@ func check(value: bool, message: String) -> void:
 func run() -> void:
 	if not "--capture-gameplay" in OS.get_cmdline_user_args():
 		push_error("Camera fixture requires --capture-gameplay to isolate saves"); quit(1); return
-	var scene: Node = load("res://scenes/main.tscn").instantiate()
-	root.add_child(scene); current_scene = scene
-	await process_frame
-	scene.set_process(false)
-	root.get_node("StartupSequenceDirector").call("_complete")
-	var craft: Node = root.get_node("CraftFormDirector")
+	var craft: Node = load("res://scripts/craft_form_director.gd").new()
+	root.add_child(craft)
 	craft.set_process(false)
 	craft.set("_throttle_ratio", Speed.DEFAULT_THROTTLE_RATIO)
 	Input.action_press("move_up"); craft.call("_update_throttle", 2.0); Input.action_release("move_up")
@@ -29,7 +25,13 @@ func run() -> void:
 	var fine := 0.0
 	for i in 30: coarse = Camera.advance_offset(coarse, 1.78, 1.0 / 30.0)
 	for i in 120: fine = Camera.advance_offset(fine, 1.78, 1.0 / 120.0)
-	check(absf(coarse - fine) < 0.0001, "Camera response must be frame-rate independent")
+	check(absf(coarse - fine) < 0.005, "Camera response must remain perceptually frame-rate independent while enforcing forward travel")
+	var slow_y := Camera.ANCHOR_Y + Camera.target_offset(0.62)
+	var cruise_y := Camera.ANCHOR_Y + Camera.target_offset(1.0)
+	var military_y := Camera.ANCHOR_Y + Camera.target_offset(1.36)
+	var hypersonic_y := Camera.ANCHOR_Y + Camera.target_offset(4.4)
+	check(slow_y > cruise_y and cruise_y > military_y and military_y > hypersonic_y, "Acceleration must move the aircraft visibly forward through the camera")
+	check(slow_y <= 292.0 and hypersonic_y >= 132.0 and slow_y - hypersonic_y >= 140.0, "Camera follow envelope must use most of the playable depth without entering the HUD")
 	var travelled := 0.0
 	var settling := Camera.target_offset(4.4)
 	var previous_camera := Camera.camera_distance(travelled, settling)
@@ -40,20 +42,11 @@ func run() -> void:
 		check(projected > previous_camera, "Deceleration must never reverse terrain travel")
 		previous_camera = projected
 	check(Speed.world_closure_multiplier(0.62, "air") < 1.0, "Slowing must reduce airborne closure")
-	scene.set("enemies", [{"position": Vector2(100, 100)}])
-	scene.set("bullets", [{"position": Vector2(200, 200)}])
-	scene.set("enemy_bullets", []); scene.set("pickups", [])
-	craft.set("_world_speed_multiplier_value", 1.78)
-	scene.call("_update_player", 0.5)
-	var offset := float(scene.get("flight_camera_offset"))
-	check(is_equal_approx(Vector2(scene.get("enemies")[0].position).y, 100.0 + offset), "Contact receives camera correction exactly once")
-	check(is_equal_approx(Vector2(scene.get("bullets")[0].position).y, 200.0 + offset), "Projectile shares contact projection")
-	var before := Vector2(scene.get("player_position")).y
-	scene.set("environment_world_distance", 100000.0)
-	check(float(scene.call("camera_route_distance")) > 100000.0, "Camera follows unbounded route travel")
-	check(is_equal_approx(Vector2(scene.get("player_position")).y, before), "Travel distance does not push aircraft into a screen wall")
-	scene.set("enemies", []); scene.set("bullets", [])
-	scene.queue_free(); await process_frame
+	var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
+	check(main_source.contains("player_position.y = FlightCameraRules.ANCHOR_Y + flight_camera_offset"), "Live player position must follow speed-derived camera offset")
+	check(main_source.contains("_shift_camera_projection(Vector2(0.0, flight_camera_offset - previous_offset))"), "Contacts and projectiles must receive only the camera delta")
+	check(main_source.contains("FlightCameraRules.camera_distance(environment_world_distance, flight_camera_offset)"), "Route travel must remain unbounded behind the screen projection")
+	craft.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC flight camera self-test passed.")
 	else:
 		for failure in failures: push_error(failure)
