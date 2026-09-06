@@ -32,6 +32,9 @@ func run() -> void:
 	for form in mounts:
 		for pose in mounts[form]: check(pose.size() == 2, "%s bank pose must retain both engine outlets" % form)
 	check(Art.FRAMES["hypersonic_blue_plume"].size() == 4, "Blue exhaust must retain its four-exposure loop")
+	check(Art.FRAMES["hypersonic_engine_ring"].size() == 6, "Engine-origin pressure ring must retain its six authored exposures")
+	for frame in Art.FRAMES["hypersonic_engine_ring"]:
+		check(frame is Texture2D and frame.get_size() == Vector2(128,128) and frame.get_image().detect_alpha() != Image.ALPHA_NONE, "Engine-origin pressure ring must retain registered transparent geometry")
 	cue.free()
 	if failures.is_empty(): print("HYPERSONIC propulsion self-test passed: paired engines, timed expanding burst and blue plume loop.")
 	else:

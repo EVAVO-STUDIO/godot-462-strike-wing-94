@@ -1,7 +1,10 @@
 class_name HypersonicRules
 extends RefCounted
 
-const CHARGE_SECONDS := {"low":1.40,"mid":1.15,"high":0.85,"orbital":0.70}
+# The wing sweep must be readable before velocity latches. Thin air still
+# shortens the cycle, but every lane holds all ten authored exposures long
+# enough to register during play.
+const CHARGE_SECONDS := {"low":1.65,"mid":1.40,"high":1.15,"orbital":0.95}
 const SPEED_MULTIPLIER := 4.40
 const TURN_SCALE := 0.38
 const ENTRY_ACCEL_SECONDS := 0.12

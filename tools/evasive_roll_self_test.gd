@@ -24,6 +24,14 @@ func _init() -> void:
 			var bomber_frame := load("res://assets/runtime/craft/vx94/evasive_roll/%s_%02d.png" % [bomber_prefix,frame_index]) as Texture2D
 			_expect(bomber_frame != null and bomber_frame.get_size() == Vector2(64,72) and bomber_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "%s frame %02d should retain reviewed registered transparent sprite geometry" % [bomber_prefix,frame_index], failures)
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_manifest.json"), "directional evasive-roll manifest should exist", failures)
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/evasive_roll_loadout_v1/manifest.json"), "evasive-roll loadout layers should retain reproducible source evidence", failures)
+	_expect(art.contains("_draw_evasive_loadout") and art.contains("_roll_primary_cache") and art.contains("roll_cosine"), "evasive rolls should retain mounted weapon and damage identity through authored exposures", failures)
+	var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
+	_expect(main_source.contains("--capture-hull-ratio=") and main_source.contains("captured_hull_ratio"), "visual QA should expose deterministic damaged roll states", failures)
+	for form in ["fighter", "bomber"]:
+		for family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
+			var layer := load("res://assets/runtime/craft/vx94/gameplay/roll_loadouts/%s_%s.png" % [family, form]) as Texture2D
+			_expect(layer != null and layer.get_size() == Vector2(64, 72) and layer.get_image().detect_alpha() != Image.ALPHA_NONE, "roll loadout layer should retain transparent registered geometry: %s/%s" % [family, form], failures)
 	_expect(art.contains('_capture_craft_state() in ["evasive-roll", "evasive-roll-bomber"]'), "visual QA should expose deterministic fighter and bomber evasive-roll fixtures", failures)
 	var main := FileAccess.get_file_as_string("res://scripts/main.gd")
 	_expect(main.contains("_evasive_collision_multiplier()"), "projectile and contact collision should use the physical roll profile", failures)

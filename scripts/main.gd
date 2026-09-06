@@ -283,8 +283,21 @@ func _capture_world_distance(arguments: PackedStringArray) -> float:
 				return maxf(0.0, value.to_float())
 	return -1.0
 
+func _capture_hull_ratio(arguments: PackedStringArray) -> float:
+	if not "--capture-gameplay" in arguments:
+		return -1.0
+	for argument in arguments:
+		if argument.begins_with("--capture-hull-ratio="):
+			var value := argument.trim_prefix("--capture-hull-ratio=")
+			if value.is_valid_float():
+				return clampf(value.to_float(), 0.01, 1.0)
+	return -1.0
+
 func _begin_capture_gameplay() -> void:
 	_start_mission()
+	var captured_hull_ratio := _capture_hull_ratio(OS.get_cmdline_user_args())
+	if captured_hull_ratio >= 0.0:
+		hull = maxi(1, roundi(float(_max_hull()) * captured_hull_ratio))
 	mission_time = minf(_capture_time(OS.get_cmdline_user_args()), maxf(0.0, mission_duration - 1.0))
 	var captured_distance := _capture_world_distance(OS.get_cmdline_user_args())
 	environment_world_distance = captured_distance if captured_distance >= 0.0 else mission_time * _environment_speed_multiplier()

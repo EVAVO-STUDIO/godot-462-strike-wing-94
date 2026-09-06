@@ -1,0 +1,46 @@
+{
+  "schema": "hypersonic_engine_ring_v3",
+  "geometry": "128x128",
+  "pivot": [
+    64,
+    64
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
+      "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/0.png",
+      "sha256": "E9AA4EFE5AE1B378D72318DAD8CEF66BE7ABF1566155F23F546DAFF71C09526A"
+    },
+    {
+      "frame": 1,
+      "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
+      "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/1.png",
+      "sha256": "67C7350F89EEBBCBEE7764DB7FE2A29CC9E713E87CB624C8C0F97F12B6F5BFD1"
+    },
+    {
+      "frame": 2,
+      "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
+      "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/2.png",
+      "sha256": "DC85D678E5AB00926BFBD3C5743A6D966DF3AD078DE0357F902D09CA6910D6E0"
+    },
+    {
+      "frame": 3,
+      "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
+      "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/3.png",
+      "sha256": "3F6918B9E4A378A96CA4FC01C78C05D0508B60D74602B0B357DB61F5653EFFC7"
+    },
+    {
+      "frame": 4,
+      "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
+      "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/4.png",
+      "sha256": "C08F104CF075F6432D8C277E6E568386EFF290242DC26DA9276698E14846A945"
+    },
+    {
+      "frame": 5,
+      "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
+      "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/5.png",
+      "sha256": "A81CDC4C228A09E141A72B1DDAFE8D3C88B015427C126C7F50005B71B0E3664F"
+    }
+  ]
+}

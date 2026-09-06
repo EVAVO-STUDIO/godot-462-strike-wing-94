@@ -1,0 +1,129 @@
+{
+  "schema": "hypersonic_vx94_transform_v3",
+  "source_components": "assets/source/craft/vx94/transform_v2/components",
+  "preserved_predecessor": "assets/source/craft/vx94/transform_v3/originals",
+  "wing_angle_degrees": [
+    -22.0,
+    -65.0
+  ],
+  "tail_angle_degrees": [
+    -18.0,
+    -45.0
+  ],
+  "registered_canvas": [
+    64,
+    72
+  ],
+  "frames": [
+    {
+      "exposure": 0,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+      "sha256": "b7c553bbf15c8798133b96b4d806644451232415e7092cd676715baedc20e458",
+      "visible_bounds": [
+        14,
+        4,
+        50,
+        71
+      ]
+    },
+    {
+      "exposure": 1,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+      "sha256": "9ed12f64da1c276721432c451f05d9de52b7388b82046f54fbe86b9d64afbba1",
+      "visible_bounds": [
+        14,
+        4,
+        49,
+        71
+      ]
+    },
+    {
+      "exposure": 2,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_02.png",
+      "sha256": "1451f7b4d5d9a410e1761f83f2b7b47d06b71b74fb6cbbf73a05866f2966a369",
+      "visible_bounds": [
+        15,
+        4,
+        49,
+        71
+      ]
+    },
+    {
+      "exposure": 3,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_03.png",
+      "sha256": "da9201094fa4b064d6f77740bd52a339c01861b23633d9a471368b4a9e32fcda",
+      "visible_bounds": [
+        16,
+        4,
+        48,
+        71
+      ]
+    },
+    {
+      "exposure": 4,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_04.png",
+      "sha256": "5565f793aa769e82428448667c4fedba4c6b535b7522032c7436af8de8349f4f",
+      "visible_bounds": [
+        17,
+        4,
+        46,
+        71
+      ]
+    },
+    {
+      "exposure": 5,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_05.png",
+      "sha256": "e9e3256165e5d0870f1828cf017e70594b349f834709dbd46b8fccb0f62fedd5",
+      "visible_bounds": [
+        18,
+        4,
+        45,
+        71
+      ]
+    },
+    {
+      "exposure": 6,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_06.png",
+      "sha256": "bf06a1c8cb76e4a19bf90313ff8c147e0ef4f7af8f01f63fb6bb66cd11dcfb9c",
+      "visible_bounds": [
+        20,
+        4,
+        44,
+        71
+      ]
+    },
+    {
+      "exposure": 7,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_07.png",
+      "sha256": "611a1aa2b6aa2e791ece733ad86d2fd18f84edda7196d0b7dc37b1087be8abf0",
+      "visible_bounds": [
+        21,
+        4,
+        43,
+        71
+      ]
+    },
+    {
+      "exposure": 8,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_08.png",
+      "sha256": "840a75c719f82682f4f4d8974614897be9eaf87c795bb5ede5179c111c6d0437",
+      "visible_bounds": [
+        21,
+        4,
+        42,
+        71
+      ]
+    },
+    {
+      "exposure": 9,
+      "runtime": "assets/runtime/craft/vx94/transform/hypersonic_09.png",
+      "sha256": "c637c0e41209c3b8add41edbd9d777f2c3d74fca8a9bdff1fc6d85ba24582475",
+      "visible_bounds": [
+        22,
+        4,
+        42,
+        71
+      ]
+    }
+  ]
+}

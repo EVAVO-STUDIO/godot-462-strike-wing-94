@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
     [string]$GodotBin = $env:GODOT_BIN,
-    [string]$OutputDirectory = 'work/visual_qa'
+    [string]$OutputDirectory = 'work/visual_qa',
+    [switch]$Resume
 )
 
 $ErrorActionPreference = 'Stop'
@@ -38,6 +39,10 @@ $Cases = @(
     @{ id='mode_boss_rush'; args=@('--capture-gameplay','--capture-game-mode=boss_rush','--capture-time=48','--capture-hud=boss') },
     @{ id='mode_hypersonic_trial'; args=@('--capture-gameplay','--capture-game-mode=hypersonic_trial','--capture-time=48','--capture-flight=hypersonic','--capture-altitude=high') },
     @{ id='hypersonic_entry_burst'; args=@('--capture-gameplay','--capture-mission=0','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.10') },
+	@{ id='hypersonic_engine_ring'; args=@('--capture-gameplay','--capture-mission=0','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.24') },
+	@{ id='hypersonic_wing_fold_03'; args=@('--capture-gameplay','--capture-mission=0','--capture-craft=hypersonic-sweep','--capture-transform-exposure=3','--visual-capture-delay=0.10') },
+	@{ id='hypersonic_wing_fold_06'; args=@('--capture-gameplay','--capture-mission=0','--capture-craft=hypersonic-sweep','--capture-transform-exposure=6','--visual-capture-delay=0.10') },
+	@{ id='hypersonic_wing_fold_09'; args=@('--capture-gameplay','--capture-mission=0','--capture-craft=hypersonic-sweep','--capture-transform-exposure=9','--visual-capture-delay=0.10') },
     @{ id='hypersonic_entry_reduced'; args=@('--capture-gameplay','--capture-mission=0','--capture-flight=hypersonic','--capture-altitude=high','--capture-reduced-flashes','--visual-capture-delay=0.10') },
     @{ id='mode_strike_mastery'; args=@('--capture-gameplay','--capture-game-mode=strike_mastery','--capture-time=48','--capture-form=bomber','--capture-altitude=low') },
     @{ id='front_options_access'; args=@('--capture-gameplay','--capture-front-end=options','--capture-option-category=3','--capture-option-selection=1') },
@@ -54,6 +59,9 @@ $Cases = @(
 	@{ id='flight_cruise_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=50') },
 	@{ id='flight_military_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=100') },
 	@{ id='flight_hypersonic_forward'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-flight=hypersonic','--capture-altitude=high') },
+	@{ id='vx94_fighter_roll_mounted'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=0.20','--capture-craft=evasive-roll','--capture-weapon=storm_cannon','--visual-capture-delay=0.10') },
+	@{ id='vx94_fighter_roll_damaged'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=0.80','--capture-craft=evasive-roll','--capture-weapon=storm_cannon','--capture-hull-ratio=0.28','--visual-capture-delay=0.10') },
+	@{ id='vx94_bomber_roll_mounted'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=0.20','--capture-craft=evasive-roll-bomber','--capture-weapon=ballistic','--visual-capture-delay=0.10') },
     @{ id='mission_01_coastal'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--visual-capture-delay=2.5') },
 	@{ id='hud_mission_ingress'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=0.8','--capture-hud=ingress') },
     @{ id='hud_radio_receive'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=2.4','--capture-radio') },
@@ -93,6 +101,20 @@ $Results = @()
 foreach ($Case in $Cases) {
     $FileName = "$($Case.id).png"
     $AbsoluteFile = Join-Path $AbsoluteOutput $FileName
+	if ($Resume -and (Test-Path -LiteralPath $AbsoluteFile)) {
+		$Existing = Get-Item -LiteralPath $AbsoluteFile
+		Add-Type -AssemblyName System.Drawing
+		$ExistingImage = [System.Drawing.Image]::FromFile($AbsoluteFile)
+		try {
+			if ($Existing.Length -ge 8KB -and $ExistingImage.Width -eq 640 -and $ExistingImage.Height -eq 360) {
+				$Results += [ordered]@{ id=$Case.id; file=$FileName; bytes=$Existing.Length; sha256=(Get-FileHash -LiteralPath $AbsoluteFile -Algorithm SHA256).Hash; arguments=@($Case.args) }
+				Write-Host "Retaining verified $($Case.id)..." -ForegroundColor DarkGray
+				continue
+			}
+		} finally {
+			$ExistingImage.Dispose()
+		}
+	}
     $Arguments = @('--path', $Root, '--') + @($Case.args) + @('--capture-invulnerable', "--visual-capture=$AbsoluteFile")
     Write-Host "Capturing $($Case.id)..." -ForegroundColor DarkCyan
     $ExitCode = 0

@@ -73,7 +73,7 @@ func _test_retro_sfx() -> void:
 		_expect(cue_source.contains('"MACH" if hypersonic') and cue_source.contains('"GEOM" if burning else "THR"') and cue_source.contains("throttle * 100.0"), "compact propulsion HUD should expose throttle, geometry spool and distinct Mach states")
 		_expect(cue_source.contains("LOWER_LEFT_KEEP_OUT") and cue_source.contains("640.0 - LOWER_HUD_MARGIN - float(frame.get_width())"), "propulsion instrument should move to the opposite lower corner before the VX-94 can occlude it")
 		_expect(cue_source.contains('"hypersonic_blue_plume"') and cue_source.contains("ENGINE_MOUNTS") and cue_source.contains("propulsion_bank_frame_index"), "hypersonic thrust should use paired blue plumes registered to both engine outlets across bank poses")
-		_expect(cue_source.contains('"hypersonic_engine_burst"') and cue_source.contains("ENGINE_BURST_FRAME_ENDS") and not cue_source.contains("draw_circle"), "hypersonic entry should use the authored timed engine pressure burst")
+		_expect(cue_source.contains('"hypersonic_engine_burst"') and cue_source.contains('"hypersonic_engine_ring"') and cue_source.contains("ENGINE_BURST_FRAME_ENDS") and not cue_source.contains("draw_circle"), "hypersonic entry should use authored engine burst and circular pressure-ring sequences")
 		_expect(cue_source.contains("_flash_scale()") and cue_source.contains("reduced_flashes"), "hypersonic pressure cues should honor reduced-flashes accessibility")
 	for index in 4:
 		var plume := load("res://assets/runtime/effects/persistent/hypersonic_blue_plume/%d.png" % index)

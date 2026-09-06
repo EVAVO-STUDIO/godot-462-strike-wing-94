@@ -3,6 +3,9 @@ extends Node
 const LOGICAL_SIZE := Vector2i(640, 360)
 
 func _ready() -> void:
+	# Pause-menu captures freeze the gameplay tree; the development-only probe
+	# must still advance its short render delay and exit deterministically.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	process_priority = 1000
 	call_deferred("_capture")
 

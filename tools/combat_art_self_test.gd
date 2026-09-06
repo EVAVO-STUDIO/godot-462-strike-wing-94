@@ -549,6 +549,10 @@ func _test_transform_presentation() -> void:
 	_expect(source.contains("vx94_transform_01.png") and source.contains("vx94_transform_02.png") and source.contains("vx94_transform_03.png"), "VX-94 transformation should retain all three authored mechanical intermediate keyframes")
 	_expect(not source.contains("func _draw_transforming") and not source.contains("func _draw_rotary_cannon"), "obsolete procedural VX-94 construction should remain removed")
 	_expect(source.contains("_preload_player_transform_loadouts") and source.contains("_draw_transform_external_stores"), "ten-exposure transforms should select mounted primary hardware and retained external-store state")
+	var open_hypersonic := load("res://assets/runtime/craft/vx94/transform/hypersonic_00.png") as Texture2D
+	var tucked_hypersonic := load("res://assets/runtime/craft/vx94/transform/hypersonic_09.png") as Texture2D
+	_expect(open_hypersonic != null and tucked_hypersonic != null and open_hypersonic.get_image().get_used_rect().size.x - tucked_hypersonic.get_image().get_used_rect().size.x >= 14, "hypersonic geometry must produce a clearly readable deep wing tuck at gameplay scale")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_v3/manifest.json"), "deep-sweep hypersonic art should preserve its predecessor and build evidence")
 	for destination in ["bomber", "hypersonic"]:
 		for weapon_family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
 			for exposure in range(10):

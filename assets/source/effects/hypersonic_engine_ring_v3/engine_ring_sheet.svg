@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="128" viewBox="0 0 768 128">
+  <rect width="768" height="128" fill="none"/>
+  <g fill="none" stroke-linecap="round">
+    <g transform="translate(0 0)">
+      <circle cx="58" cy="64" r="5" stroke="#ffffff" stroke-width="3" opacity=".96"/>
+      <circle cx="70" cy="64" r="5" stroke="#8be9ff" stroke-width="3" opacity=".96"/>
+      <circle cx="64" cy="64" r="13" stroke="#dff8ff" stroke-width="2" stroke-dasharray="19 5 9 4" opacity=".88"/>
+    </g>
+    <g transform="translate(128 0)">
+      <circle cx="58" cy="64" r="8" stroke="#ffffff" stroke-width="3" opacity=".86"/>
+      <circle cx="70" cy="64" r="8" stroke="#76dcff" stroke-width="3" opacity=".86"/>
+      <circle cx="64" cy="64" r="23" stroke="#d9f6ff" stroke-width="3" stroke-dasharray="29 7 17 6" opacity=".84"/>
+      <circle cx="64" cy="64" r="18" stroke="#5cc8f0" stroke-width="1" stroke-dasharray="8 7" opacity=".48"/>
+    </g>
+    <g transform="translate(256 0)">
+      <circle cx="64" cy="64" r="34" stroke="#ffffff" stroke-width="3" stroke-dasharray="38 8 23 7" opacity=".78"/>
+      <circle cx="64" cy="64" r="29" stroke="#68d5f4" stroke-width="2" stroke-dasharray="15 8" opacity=".54"/>
+      <path d="M45 64h38M64 45v38" stroke="#dffaff" stroke-width="1" opacity=".34"/>
+    </g>
+    <g transform="translate(384 0)">
+      <circle cx="64" cy="64" r="46" stroke="#e9fbff" stroke-width="3" stroke-dasharray="46 12 31 10" opacity=".65"/>
+      <circle cx="64" cy="64" r="40" stroke="#5ec8ea" stroke-width="2" stroke-dasharray="20 11" opacity=".40"/>
+    </g>
+    <g transform="translate(512 0)">
+      <circle cx="64" cy="64" r="56" stroke="#dff8ff" stroke-width="2" stroke-dasharray="57 17 35 14" opacity=".45"/>
+      <circle cx="64" cy="64" r="50" stroke="#65c8e5" stroke-width="1" stroke-dasharray="22 16" opacity=".28"/>
+    </g>
+    <g transform="translate(640 0)">
+      <circle cx="64" cy="64" r="61" stroke="#c9edf5" stroke-width="2" stroke-dasharray="62 23 38 18" opacity=".24"/>
+      <circle cx="64" cy="64" r="55" stroke="#5aaec5" stroke-width="1" stroke-dasharray="18 22" opacity=".16"/>
+    </g>
+  </g>
+</svg>

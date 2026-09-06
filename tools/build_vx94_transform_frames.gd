@@ -23,7 +23,10 @@ func _init() -> void:
 			quit(1)
 			return
 		var hyper_ratio := smoothstep(0.0, 1.0, float(exposure) / 9.0)
-		frame = compose(lerpf(-22.0, -36.0, hyper_ratio), lerpf(-18.0, -26.0, hyper_ratio))
+		# The former -36 degree endpoint changed the silhouette by only five
+		# pixels and disappeared at gameplay scale. The VX-94 now drives its main
+		# planes down the nacelle rails into a deep, readable high-Mach tuck.
+		frame = compose(lerpf(-22.0, -65.0, hyper_ratio), lerpf(-18.0, -45.0, hyper_ratio))
 		if frame.save_png(OUTPUT + "hypersonic_%02d.png" % exposure) != OK:
 			quit(1)
 			return

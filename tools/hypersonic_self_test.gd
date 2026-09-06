@@ -44,7 +44,7 @@ func _initialize() -> void:
 	_expect(director_source.contains('"--capture-throttle="') and director_source.contains("func throttle_percent()"), "native visual QA and propulsion instruments should expose deterministic throttle state")
 	_expect(director_source.contains("MACH RECOVERY // CONTROL AUTHORITY RETURNING") and director_source.contains("EXIT_DECEL_SECONDS"), "afterburner release should announce and time a bounded Mach-recovery state")
 	_expect(director_source.contains("lerpf(1.0, full_boost, speed_ratio)") and director_source.contains("TURN_SCALE, speed_ratio"), "Mach recovery should restore propulsion and control authority through the same continuous ratio")
-	_expect(director_source.contains("AltitudeRules.BANDS.duplicate()") and director_source.contains('"%s LIMIT"') and director_source.contains('"CLIMB" if direction > 0 else "DESCENT"'), "latched hypersonic flight should permit bounded emergency climb and dive")
+	_expect(director_source.contains("_mission_manual_bands()") and director_source.contains('"%s LIMIT"') and director_source.contains('"CLIMB" if direction > 0 else "DESCENT"'), "hypersonic flight should permit adjacent climb and dive inside mission-authored airspace")
 	_expect(director_source.contains('scene.call("_apply_structural_damage", whole_damage)') and not director_source.contains('maxi(1, int(scene.get("hull"))'), "hypersonic overload must be able to destroy the airframe instead of secretly clamping hull at one")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	var main_source := main_file.get_as_text() if main_file != null else ""

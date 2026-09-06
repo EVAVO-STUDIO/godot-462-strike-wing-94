@@ -1,0 +1,146 @@
+{
+  "schema": "hypersonic_vx94_evasive_roll_loadout_v1",
+  "method": "exact changed-pixel extraction from approved neutral bank and mounted composites",
+  "anchor": [
+    32,
+    36
+  ],
+  "records": [
+    {
+      "id": "ballistic_fighter",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/primary_housings/fighter_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/ballistic_fighter.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        24,
+        25,
+        40,
+        35
+      ],
+      "sha256": "c10800a002ee36d0b4e6a24bf06d74892b58710f4cefe5d340e5bb1bd882ca66"
+    },
+    {
+      "id": "needle_rail_fighter",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/specialist_housings/needle_rail_fighter_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/needle_rail_fighter.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        29,
+        3,
+        35,
+        19
+      ],
+      "sha256": "0cfb92d1a7903be13a0c5698ba3cec4f419b0b6f4366d36f26fdf191f0cbfb7e"
+    },
+    {
+      "id": "storm_cannon_fighter",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/specialist_housings/storm_cannon_fighter_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/storm_cannon_fighter.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        29,
+        3,
+        35,
+        19
+      ],
+      "sha256": "af4fd030b8306f70a59688e44bf29f725cc88a80b49b5c7c158a3fc2501f4167"
+    },
+    {
+      "id": "plasma_lance_fighter",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/specialist_housings/plasma_lance_fighter_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/plasma_lance_fighter.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        28,
+        3,
+        36,
+        19
+      ],
+      "sha256": "807980c9815938e94506a641c129009b9f861b81e088f95226f946cfb2171f49"
+    },
+    {
+      "id": "ballistic_bomber",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/primary_housings/bomber_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/ballistic_bomber.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        28,
+        6,
+        36,
+        21
+      ],
+      "sha256": "a611cefa02f15165457f122eea61f888157f9924d0c21da2f72b583bf97cc85b"
+    },
+    {
+      "id": "needle_rail_bomber",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/specialist_housings/needle_rail_bomber_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/needle_rail_bomber.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        29,
+        3,
+        35,
+        19
+      ],
+      "sha256": "0cfb92d1a7903be13a0c5698ba3cec4f419b0b6f4366d36f26fdf191f0cbfb7e"
+    },
+    {
+      "id": "storm_cannon_bomber",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/specialist_housings/storm_cannon_bomber_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/storm_cannon_bomber.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        29,
+        3,
+        35,
+        19
+      ],
+      "sha256": "af4fd030b8306f70a59688e44bf29f725cc88a80b49b5c7c158a3fc2501f4167"
+    },
+    {
+      "id": "plasma_lance_bomber",
+      "base": "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+      "mounted": "assets/runtime/craft/vx94/gameplay/specialist_housings/plasma_lance_bomber_neutral_2.png",
+      "runtime": "assets/runtime/craft/vx94/gameplay/roll_loadouts/plasma_lance_bomber.png",
+      "geometry": [
+        64,
+        72
+      ],
+      "visible_bounds": [
+        28,
+        3,
+        36,
+        19
+      ],
+      "sha256": "807980c9815938e94506a641c129009b9f861b81e088f95226f946cfb2171f49"
+    }
+  ]
+}

@@ -842,6 +842,7 @@ var _transform_primary_cache: Dictionary = {}
 var _transform_store_cache: Dictionary = {}
 var _transform_module_cache: Dictionary = {}
 var _transform_module_damage_cache: Dictionary = {}
+var _roll_primary_cache: Dictionary = {}
 var _pitch_primary_cache: Dictionary = {}
 
 func _ready() -> void:
@@ -850,6 +851,7 @@ func _ready() -> void:
 	_preload_player_stores_and_modules()
 	_preload_player_transform_loadouts()
 	_preload_player_pitch_loadouts()
+	_preload_player_roll_loadouts()
 	_surface = CombatArtSurface.new()
 	_surface.director = self
 	_surface.position = Vector2.ZERO
@@ -919,6 +921,12 @@ func _preload_player_pitch_loadouts() -> void:
 				for hardware_state in range(4):
 					var key := "%s_%s_%s_%d" % [family, form, pitch_state, hardware_state]
 					_pitch_primary_cache[key] = load("res://assets/runtime/craft/vx94/gameplay/pitch_primary/%s.png" % key) as Texture2D
+
+func _preload_player_roll_loadouts() -> void:
+	for form in ["fighter", "bomber"]:
+		for family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
+			var key := "%s_%s" % [family, form]
+			_roll_primary_cache[key] = load("res://assets/runtime/craft/vx94/gameplay/roll_loadouts/%s.png" % key) as Texture2D
 
 func _process(delta: float) -> void:
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
@@ -1406,6 +1414,32 @@ func _draw_evasive_player(surface: CanvasItem, p: Vector2, time: float, progress
 	# rotating above a detached luminous rectangle.
 	surface.draw_texture(exhaust, (p - VX94_GAMEPLAY_ANCHOR).round(), Color(1,1,1,VX94_ROLL_EXHAUST_ALPHA[authored_index]))
 	surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round())
+	_draw_evasive_loadout(surface, p, roll_phase, bomber_roll)
+
+func _draw_evasive_loadout(surface: CanvasItem, p: Vector2, roll_phase: float, bomber_roll: bool) -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var form := "bomber" if bomber_roll else "fighter"
+	var weapon_id := _player_weapon_id(scene)
+	var family := weapon_id if weapon_id in ["needle_rail", "storm_cannon", "plasma_lance"] else "ballistic"
+	var primary := _roll_primary_cache.get("%s_%s" % [family, form]) as Texture2D
+	var roll_cosine := cos(clampf(roll_phase, 0.0, 1.0) * TAU)
+	var edge_scale := maxf(0.08, absf(roll_cosine))
+	var underside_light := lerpf(0.58, 1.0, maxf(0.0, roll_cosine))
+	if primary != null:
+		surface.draw_set_transform(p.round(), 0.0, Vector2(edge_scale * signf(roll_cosine if not is_zero_approx(roll_cosine) else 1.0), 1.0))
+		surface.draw_texture(primary, -VX94_GAMEPLAY_ANCHOR, Color(underside_light, underside_light, underside_light, 1.0))
+		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
+	var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
+	if damage_ratio < 0.22:
+		return
+	var damage_index := 2 if damage_ratio >= 0.72 else (1 if damage_ratio >= 0.48 else 0)
+	var damage: Texture2D = VX94_DAMAGE[form][damage_index]
+	surface.draw_set_transform(p.round(), 0.0, Vector2(edge_scale * signf(roll_cosine if not is_zero_approx(roll_cosine) else 1.0), 1.0))
+	surface.draw_texture(damage, -VX94_GAMEPLAY_ANCHOR, Color(underside_light, underside_light, underside_light, 0.94))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hypersonic: bool) -> void:
 	var index := clampi(roundi(clampf(ratio, 0.0, 1.0) * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
@@ -1450,7 +1484,9 @@ func _draw_transform_external_stores(surface: CanvasItem, origin: Vector2, desti
 		var key := "%s_%s_%s_%02d_%d" % [destination, kind, state, exposure, layer_index]
 		var store_texture := _transform_store_cache.get(key) as Texture2D
 		if store_texture != null:
-			surface.draw_texture(store_texture, origin)
+			var tuck := roundf(float(exposure) / 3.0) if destination == "hypersonic" else 0.0
+			var store_origin := origin + Vector2(tuck if layer_index == 0 else -tuck, 0)
+			surface.draw_texture(store_texture, store_origin)
 
 func _draw_transform_dorsal_module(surface: CanvasItem, origin: Vector2, destination: String, exposure: int, damage_ratio: float) -> void:
 	var support := get_node_or_null("/root/SupportDirector")

@@ -336,14 +336,10 @@ func _handle_manual_altitude_input(scene: Object) -> void:
 	_try_manual_altitude(scene, direction)
 
 func _try_manual_altitude(scene: Object, direction: int) -> void:
-	var window := _active_altitude_window(_route_progress(scene))
-	if window.is_empty() and not _hypersonic_active:
-		_set_status(scene, "ALTITUDE CHANGE UNAVAILABLE")
-		return
-	# Both sources are runtime Variants loaded from canonical content/rules.
-	# Keep the local container untyped so a valid Array returned by either path
-	# cannot trigger a typed-array assignment error during live altitude input.
-	var allowed: Array = AltitudeRules.BANDS.duplicate() if _hypersonic_active else AltitudeRules.allowed_manual_bands(window)
+	# Mission context defines the available vertical airspace, but the pilot may
+	# move between its adjacent lanes throughout the sortie. Timed windows still
+	# identify tactical opportunities; they no longer disable the flight control.
+	var allowed: Array = _mission_manual_bands()
 	var candidate := AltitudeRules.adjacent_band(altitude, direction)
 	if candidate == altitude:
 		_set_status(scene, "%s LIMIT" % ("CLIMB" if direction > 0 else "DESCENT"))
@@ -371,10 +367,36 @@ func _active_altitude_window(route_progress: float) -> Dictionary:
 	return {}
 
 func altitude_choice_available(route_progress: float) -> bool:
-	return not _active_altitude_window(route_progress).is_empty()
+	return _mission_manual_bands().size() > 1
 
 func altitude_choice_bands(route_progress: float) -> Array[String]:
-	return AltitudeRules.allowed_manual_bands(_active_altitude_window(route_progress))
+	return _mission_manual_bands()
+
+func _mission_manual_bands() -> Array[String]:
+	var result: Array[String] = []
+	for window in _current_context.get("altitude_choice_windows", []):
+		if typeof(window) != TYPE_DICTIONARY:
+			continue
+		for band in AltitudeRules.allowed_manual_bands(window):
+			if band not in result:
+				result.append(band)
+	var authored: Array[String] = [AltitudeRules.sanitize(str(_current_context.get("altitude", altitude)))]
+	for transition in _current_context.get("altitude_transitions", []):
+		if typeof(transition) == TYPE_DICTIONARY:
+			authored.append(AltitudeRules.sanitize(str(transition.get("altitude", altitude))))
+	for band in authored:
+		if band not in result:
+			result.append(band)
+	# A mission with only one authored lane still exposes the neighbouring lane:
+	# terrain sorties gain LOW/MID choice, high-altitude sorties gain MID/HIGH,
+	# and orbital routes retain their deliberate HIGH/ORBITAL boundary.
+	if result.size() == 1:
+		var anchor := result[0]
+		var neighbour := AltitudeRules.adjacent_band(anchor, -1 if anchor in [AltitudeRules.HIGH, AltitudeRules.ORBITAL] else 1)
+		if neighbour not in result:
+			result.append(neighbour)
+	result.sort_custom(func(a: String, b: String) -> bool: return AltitudeRules.index(a) < AltitudeRules.index(b))
+	return result
 
 func _route_progress(scene: Object) -> float:
 	if scene.has_method("route_progress_seconds"):

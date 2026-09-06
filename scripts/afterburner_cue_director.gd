@@ -83,7 +83,13 @@ func draw_afterburner(surface: CanvasItem) -> void:
 		var draw_size := Vector2(roundf(lerpf(76.0, 236.0, t)), roundf(lerpf(38.0, 92.0, t)))
 		var p: Vector2 = scene.get("player_position")
 		var flash_scale := _flash_scale()
-		surface.draw_texture_rect(texture, Rect2((p - draw_size * 0.5).round(), draw_size), false, Color(1,1,1,0.88*(1.0-t)*flash_scale))
+		surface.draw_texture_rect(texture, Rect2((p - draw_size * 0.5).round(), draw_size), false, Color(1,1,1,0.34*(1.0-t)*flash_scale))
+		# The primary Mach cue begins at the paired engine cluster and expands as
+		# an authored annular pressure wave. The older lateral front remains as a
+		# restrained atmospheric compression layer behind it.
+		var engine_ring := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_engine_ring", t)
+		var ring_origin := (p + Vector2(0, 24) - engine_ring.get_size() * 0.5).round()
+		surface.draw_texture(engine_ring, ring_origin, Color(1,1,1,(1.0-smoothstep(0.72,1.0,t))*flash_scale))
 		if _boom_age < ENGINE_BURST_FRAME_ENDS[-1]:
 			var burst: Texture2D = PersistentEffectArtLibrary.FRAMES["hypersonic_engine_burst"][_engine_burst_frame(_boom_age)]
 			surface.draw_texture(burst, (p + Vector2(-48,22)).round(), Color(1,1,1,flash_scale))
