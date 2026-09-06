@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "native_production_mix_ready_for_subjective_listen",
+  "engine": "Godot 4.6.2 stable",
+  "display": "OpenGL 3.3 Compatibility",
+  "audio_driver": "Dummy output with AudioEffectRecord on the production Master bus",
+  "fixture": "res://work/native_gameplay_mix_capture.gd",
+  "mission_index": 5,
+  "capture_time": 24.0,
+  "altitude": "low",
+  "events": ["continuous primary cannon bursts", "counterflare deployment", "support launch", "VX-94 transformation", "afterburner run"],
+  "raw_capture": {
+    "path": "work/audio_mix_final_v1/native_gameplay_mix.wav",
+    "sha256": "42c19786672d5a7fa5bb851f5b3145981cc7af3c51c84d225fc3682e4aaf89ac",
+    "note": "Includes 15.34 seconds of engine preload silence before the production display/audio graph begins."
+  },
+  "audition_master": {
+    "path": "work/audio_mix_final_v1/native_gameplay_mix_trimmed.wav",
+    "sha256": "695931e49c677e286cd87d2a96654e9c5a1dd2dfdea04693826bff97a4ae2d3f",
+    "duration_seconds": 23.202245,
+    "sample_rate": 44100,
+    "channels": 2,
+    "integrated_lufs": -20.6,
+    "loudness_range_lu": 2.0,
+    "true_peak_dbfs": -6.4
+  },
+  "output": {
+    "path": "outputs/HYPERSONIC-native-gameplay-final-mix.ogg",
+    "sha256": "5e8f087c062d623e2bf59a28c80a5cb9274d03586d40e691ed75db5a6ac5e521"
+  },
+  "diagnostics": "native_capture_display.log contains no ERROR, SCRIPT ERROR or WARNING tokens",
+  "remaining_gate": "Subjective listening for tracker phrasing, radio intelligibility, warning priority, weather masking and propulsion/weapon balance."
+}

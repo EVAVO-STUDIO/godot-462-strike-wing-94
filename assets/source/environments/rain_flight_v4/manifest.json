@@ -1,0 +1,102 @@
+{
+  "status": "reviewed_art_motion_candidate_not_production_integration",
+  "source": "Atmosphere Studio verified rain-field 1.1.0",
+  "plans": {
+    "drizzle": {
+      "particles": 42,
+      "bands": {
+        "background": 22,
+        "midground": 13,
+        "foreground": 7
+      },
+      "loopExact": true,
+      "checksum": "ea7cf69d5ca201eec481cb170f229785394de7e8531a875865dca2111e5f7420"
+    },
+    "rain": {
+      "particles": 95,
+      "bands": {
+        "background": 51,
+        "midground": 31,
+        "foreground": 13
+      },
+      "loopExact": true,
+      "checksum": "5bb3315bd1bf2e701818d639c59fd12550e860bb13b901ae43bb187858ec1d18"
+    },
+    "storm": {
+      "particles": 188,
+      "bands": {
+        "background": 101,
+        "midground": 62,
+        "foreground": 25
+      },
+      "loopExact": true,
+      "checksum": "7ac22a969e2d176de5266a27da15919bca2992c0c3db3f6acf9d8d47883a0ef3"
+    }
+  },
+  "native_review": {
+    "steady": {
+      "frames": 120,
+      "speed_range": [
+        0.62,
+        1.78
+      ],
+      "elapsed_mission_seconds": 11.802232333332704,
+      "reviewed_frames": [
+        18,
+        54,
+        84,
+        114
+      ]
+    },
+    "storm": {
+      "frames": 120,
+      "speed_range": [
+        0.62,
+        1.78
+      ],
+      "elapsed_mission_seconds": 11.277193888888497,
+      "reviewed_frames": [
+        18,
+        54,
+        84,
+        114
+      ]
+    },
+    "drizzle": {
+      "status": "native_drizzle_art_review_completed_not_runtime_integration",
+      "native_frames": 120,
+      "reviewed_frames": [
+        18,
+        54,
+        84,
+        114
+      ],
+      "speed_range": [
+        0.62,
+        1.78
+      ],
+      "atmosphere_head_samples": 8064,
+      "maximum_head_error_pixels": 6.103515625e-05,
+      "capture_invulnerable": true,
+      "finding": "Drizzle is sparse and subtle over the dense refinery. Gunfire, lock reticle and radio remain legible in the inspected frames. This does not establish whole-mission readability.",
+      "first_capture": "Preserved in work/rain_flight_v4/native_drizzle. Aircraft died before completion; frame 114 is debrief and cannot establish combat-weather acceptance.",
+      "open": [
+        "altitude blending",
+        "orbital exclusion",
+        "reduced effects",
+        "audio mix",
+        "production adapter",
+        "normal-play validation"
+      ]
+    }
+  },
+  "parity": "18,240 steady and 36,096 storm zero-travel head samples agree within 0.000062 pixels; 0.0001 pixel tolerance accommodates Godot Vector2 precision",
+  "integration_open": [
+    "weather profile selection",
+    "mission-specific storm/rain placement",
+    "altitude blending and orbital exclusion",
+    "sound and environment wetness",
+    "accessibility/reduced weather settings",
+    "full-flight camera and speed integration"
+  ]
+}

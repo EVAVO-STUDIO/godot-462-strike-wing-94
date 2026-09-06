@@ -1,0 +1,12 @@
+{
+  "schema": "hypersonic_vx94_transform_primary_runtime_integration_v1",
+  "status": "reviewed_native_runtime",
+  "runtime_frames": 80,
+  "destinations": ["bomber", "hypersonic"],
+  "weapon_families": ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"],
+  "exposures_per_sequence": 10,
+  "representative_runtime_sha256": ["6B083BFC13F12B31C3E0CB7FBA14925357BBB1AA242BAE2C0E648693475E9E5A", "DB1203309AA23ED00361B1454536F5507916C0F895209F07ACE1B9F7E3ACC189"],
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/transform_primary",
+  "native_evidence": "work/vx94_transform_runtime",
+  "review_movie": "outputs/HYPERSONIC-vx94-storm-transform-runtime.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\missile_warning.wav",
+  "source_sha256": "5668b870431fecb7e10b5ef95c65fc7fc374cc7ce63d26b19d346d7103d9a735",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.2,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.11199951171875,
+    "rms": 0.03543630950465906,
+    "dc": -0.00029871934125212587,
+    "clippedSamples": 0,
+    "crestFactor": 3.160586225855829,
+    "estimatedBpm": 0.0,
+    "pulseStrength": 0.0,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

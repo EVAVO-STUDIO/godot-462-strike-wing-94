@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="56" viewBox="0 0 192 56" shape-rendering="crispEdges">
+  <rect width="192" height="56" fill="none"/>
+  <!-- 0: paired cartridges leave the aft dispensers -->
+  <g transform="translate(0 0)">
+    <path d="M17 8h4v3h-4zM27 8h4v3h-4z" fill="#fffdf2"/>
+    <path d="M15 11h8v4h-8zM25 11h8v4h-8z" fill="#ffe59a"/>
+    <path d="M17 15h4v5h-4zM27 15h4v5h-4z" fill="#f47b36"/>
+    <path d="M12 13h2v2h-2zM34 12h2v2h-2zM22 17h2v2h-2z" fill="#ffd45c"/>
+  </g>
+  <!-- 1: full magnesium ignition, divergent hot bodies -->
+  <g transform="translate(48 0)">
+	<path d="M12 12h10v7H12zM27 11h10v7H27z" fill="#ffb64c"/>
+	<path d="M14 11h7v7H14zM29 10h7v7H29z" fill="#fff0a0"/>
+	<path d="M16 12h4v4h-4zM31 11h4v4h-4z" fill="#ffffff"/>
+	<path d="M15 19h6v9h-6zM30 18h6v11h-6z" fill="#f47b36"/>
+	<path d="M17 28h3v10h-3zM32 29h3v11h-3z" fill="#b9432c"/>
+	<path d="M7 17h3v2H7zM39 16h3v2h-3zM22 23h3v2h-3z" fill="#ffd45c"/>
+  </g>
+  <!-- 2: hot bodies separate while smoke begins to roll -->
+  <g transform="translate(96 0)">
+	<path d="M6 18h8v7H6zM35 16h8v7h-8z" fill="#f39a43"/>
+	<path d="M8 18h5v5H8zM37 16h5v5h-5z" fill="#ffe195"/>
+	<path d="M9 19h3v3H9zM38 17h3v3h-3z" fill="#fffdf2"/>
+	<path d="M8 25h5v9H8zM37 23h5v11h-5z" fill="#d95b32"/>
+    <path d="M10 34h4v8h-4zM39 34h4v9h-4z" fill="#a93b2d" opacity=".86"/>
+    <path d="M15 31h7v5h-7zM19 35h10v6H19zM25 39h10v7H25z" fill="#8e9899" opacity=".48"/>
+    <path d="M18 33h7v5h-7zM24 38h7v6h-7z" fill="#c4c9c2" opacity=".38"/>
+  </g>
+  <!-- 3: cooling embers and an irregular smoke wake -->
+  <g transform="translate(144 0)">
+    <path d="M4 21h4v4H4zM40 18h4v4h-4z" fill="#ffe39b"/>
+    <path d="M5 25h3v8H5zM41 22h3v9h-3z" fill="#db6235" opacity=".86"/>
+    <path d="M10 27h8v6h-8zM14 31h12v8H14zM22 35h13v9H22zM29 41h10v8H29z" fill="#7d898b" opacity=".38"/>
+    <path d="M13 29h8v6h-8zM19 34h11v7H19zM27 40h8v6h-8z" fill="#b8c0ba" opacity=".32"/>
+    <path d="M9 37h3v3h-3zM38 34h2v3h-2zM18 45h2v3h-2z" fill="#8f3a2d" opacity=".58"/>
+  </g>
+</svg>

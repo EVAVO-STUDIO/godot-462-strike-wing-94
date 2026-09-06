@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "manifest": "vx94_transform_stores.manifest.json",
+  "files": [
+    {
+      "path": "aligned/hunter_rack_00.png",
+      "size": 3318,
+      "sha256": "d14199ab756c865ea38c73bfa4515cbf2adaed510f9014c28e1b4a2c93ff9027"
+    },
+    {
+      "path": "aligned/hunter_rack_01.png",
+      "size": 3375,
+      "sha256": "36d2f57fa0d4f20924781533061d56f7e3ca461f28dfa75d7c0066e54f81a052"
+    },
+    {
+      "path": "aligned/hunter_rack_02.png",
+      "size": 3530,
+      "sha256": "2f64dc73d684ab927e6d010f3351d465b87b9d022953989916f90478dd6160c3"
+    },
+    {
+      "path": "aligned/hunter_rack_03.png",
+      "size": 3707,
+      "sha256": "eec058d75248069043e4eda253e041235d0985e16547855c79981b07f4837bb7"
+    },
+    {
+      "path": "aligned/hunter_rack_04.png",
+      "size": 3809,
+      "sha256": "f7a40779d2bf379f070ba60a3e4cbf0996e016903b52e387fb9696539576fd27"
+    },
+    {
+      "path": "aligned/hunter_rack_05.png",
+      "size": 3925,
+      "sha256": "6a0ddb3b884315e174dfde93a6f3602a9d7abc8ccdc2f0c243a6bbd840076ea5"
+    },
+    {
+      "path": "aligned/hunter_rack_06.png",
+      "size": 3947,
+      "sha256": "fa2f3f2904b03e433bfc557b356e033fb3e6b6ae4f6a96e432861313e69077b5"
+    },
+    {
+      "path": "aligned/hunter_rack_07.png",
+      "size": 4014,
+      "sha256": "2c0560e800b8f691209f048b41c3dec07b23b4f9ac767076ce697b489b1064d8"
+    },
+    {
+      "path": "aligned/hunter_rack_08.png",
+      "size": 4173,
+      "sha256": "8b906ad26d49df452de79492af278e1641f11a0139e0e0ab9f03928e7735c6ab"
+    },
+    {
+      "path": "aligned/hunter_rack_09.png",
+      "size": 4014,
+      "sha256": "2c0560e800b8f691209f048b41c3dec07b23b4f9ac767076ce697b489b1064d8"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_00.png",
+      "size": 3325,
+      "sha256": "9d969e4747cad4cd2f1fee9389944368800c6d9d755abaac743b7718155f6bd4"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_01.png",
+      "size": 3392,
+      "sha256": "9ba455da5efeeebf50422c9d831f763efe571d842cf474906c7090ce085589e2"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_02.png",
+      "size": 3532,
+      "sha256": "af811aacd2aa87f335a6279e1b720098ceb2988b8c23d4fabb1734f97497621e"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_03.png",
+      "size": 3701,
+      "sha256": "d9164e22e92062ea6a5a5b6baa9ed495b4d6960724efcd206af2a7e03e80127e"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_04.png",
+      "size": 3818,
+      "sha256": "706c4a7faf423ff80dc138e0f6a39f64bec7267f1cd4ee2f1b7b2a853e9d3628"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_05.png",
+      "size": 3921,
+      "sha256": "c409ba0b201cea3f135e55217f237af558e4a960636704461b4461296af1eda4"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_06.png",
+      "size": 3940,
+      "sha256": "66f247ce9c86d39a67157a7554fb479dedeb46134fbd9794949f2e81493d2293"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_07.png",
+      "size": 4006,
+      "sha256": "94d7dc4c1333f8ea9769f65422ab3aca71284582741c84bf5e9f161fa0a2562f"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_08.png",
+      "size": 4131,
+      "sha256": "320b92b73ba07c7e57f97d07ddec9326c5061237fea2743c2d271c7c2febc315"
+    },
+    {
+      "path": "aligned/twin_rocket_pods_09.png",
+      "size": 4006,
+      "sha256": "94d7dc4c1333f8ea9769f65422ab3aca71284582741c84bf5e9f161fa0a2562f"
+    },
+    {
+      "path": "frames/hunter_rack_00.png",
+      "size": 3202,
+      "sha256": "ccd112b3f0d519852ee0ccf669bf972924334d66b79ff6eb2c5a8043dc063241"
+    },
+    {
+      "path": "frames/hunter_rack_01.png",
+      "size": 3280,
+      "sha256": "7b4e7d4a6e73e5d49dc1fdfd3d176232078639de766d9511ac0013e7a1cb387f"
+    },
+    {
+      "path": "frames/hunter_rack_02.png",
+      "size": 3427,
+      "sha256": "e75938b97eb1f44325fc6b046a3e0f09778fc14d29ffb2600ca8cb29e083fe86"
+    },
+    {
+      "path": "frames/hunter_rack_03.png",
+      "size": 3611,
+      "sha256": "9ddc0337a91ebf1315e9d1fd5b438b602b1545f2349497d19087e9f119926d6b"
+    },
+    {
+      "path": "frames/hunter_rack_04.png",
+      "size": 3734,
+      "sha256": "3ee98a8eac8cdb9c162a303a8e32eb5bbe18eed090bba587387e932607b98162"
+    },
+    {
+      "path": "frames/hunter_rack_05.png",
+      "size": 3843,
+      "sha256": "48053c3057a3ba157e8f9c7ce1c7f18df8a5ba35f394709d1dd83bba0e9b83cc"
+    },
+    {
+      "path": "frames/hunter_rack_06.png",
+      "size": 3881,
+      "sha256": "d1418a8139448043b1dd611ed20ae7752dd8f75542d12853d321a7003778c9db"
+    },
+    {
+      "path": "frames/hunter_rack_07.png",
+      "size": 3988,
+      "sha256": "d24544031b642c529161fbfae50b15b872332dbe2b8139e7dca798cc6d51684c"
+    },
+    {
+      "path": "frames/hunter_rack_08.png",
+      "size": 4106,
+      "sha256": "38b8efe64ad0f834b3bbf8aab0db13c713ba842e9dfd85a13776b81623e3e958"
+    },
+    {
+      "path": "frames/hunter_rack_09.png",
+      "size": 3988,
+      "sha256": "d24544031b642c529161fbfae50b15b872332dbe2b8139e7dca798cc6d51684c"
+    },
+    {
+      "path": "frames/twin_rocket_pods_00.png",
+      "size": 3207,
+      "sha256": "c31fbf91b413de959478271d64cc567ce669d0b2141e9474cffd3baab503b624"
+    },
+    {
+      "path": "frames/twin_rocket_pods_01.png",
+      "size": 3283,
+      "sha256": "549ef95831a241ed70a3462be9389b457c1f86ecc94387c549f727de11e38acf"
+    },
+    {
+      "path": "frames/twin_rocket_pods_02.png",
+      "size": 3429,
+      "sha256": "f47aaa92d2cc43f8613a563087d930f9f8fcc4ea92025ed47f989759163bda6f"
+    },
+    {
+      "path": "frames/twin_rocket_pods_03.png",
+      "size": 3597,
+      "sha256": "f7e67aabb849ae205d2ef26f648254c273ce0b948a4259577d053d1f02e929e3"
+    },
+    {
+      "path": "frames/twin_rocket_pods_04.png",
+      "size": 3746,
+      "sha256": "ab4a2ab292ea31ae31d60a5fb7857394d486479a3c084c27daa08c90680c3b32"
+    },
+    {
+      "path": "frames/twin_rocket_pods_05.png",
+      "size": 3849,
+      "sha256": "1218f3feddfa483a26cc5ec7110dc3008dbbb4f96588b628d23d6bcf13c5be9f"
+    },
+    {
+      "path": "frames/twin_rocket_pods_06.png",
+      "size": 3872,
+      "sha256": "bc74aaf9b0c25dd2702637e1dbd8acff2bd130c6bed7d4cd964b895b49cfa26c"
+    },
+    {
+      "path": "frames/twin_rocket_pods_07.png",
+      "size": 3976,
+      "sha256": "fb9a2de21e466a2f674355d9d5489707bcd32210551b23620a5e24defc7df94b"
+    },
+    {
+      "path": "frames/twin_rocket_pods_08.png",
+      "size": 4108,
+      "sha256": "3a11c7edfe6d9c7e86a4b2147146a2873df4a9dbc3334db57f0ade730602bb6c"
+    },
+    {
+      "path": "frames/twin_rocket_pods_09.png",
+      "size": 3976,
+      "sha256": "fb9a2de21e466a2f674355d9d5489707bcd32210551b23620a5e24defc7df94b"
+    },
+    {
+      "path": "previews/hunter_rack.contact.png",
+      "size": 18160,
+      "sha256": "a3046057854f1f6dfb11a12a948fcbe20684fad2699fa414090f7f122a50ecea"
+    },
+    {
+      "path": "previews/hunter_rack.difference.png",
+      "size": 11069,
+      "sha256": "1cb49bc737c03300a2c2655d83b05c8fe10a3896961d9ccaad633b850e0abf1e"
+    },
+    {
+      "path": "previews/hunter_rack.gif",
+      "size": 21888,
+      "sha256": "53c9e54a842672bb8642ca36b74f57ad81867763b9ca6322f3906da88f760740"
+    },
+    {
+      "path": "previews/hunter_rack.onion.png",
+      "size": 25950,
+      "sha256": "b4de3a2737910bbf43c9e90041a3a4a8e2a473e18b5c5eb9885822f2cf881f56"
+    },
+    {
+      "path": "previews/hunter_rack.pivots.png",
+      "size": 18260,
+      "sha256": "48e659f57055e57421fb1088b92322e4d28a46b467f8be0ea395407d59785fc8"
+    },
+    {
+      "path": "previews/twin_rocket_pods.contact.png",
+      "size": 18238,
+      "sha256": "db4853797a49cca7582bf6b65cecec786b611ca6514486f81d35fce38457bd05"
+    },
+    {
+      "path": "previews/twin_rocket_pods.difference.png",
+      "size": 11547,
+      "sha256": "d317b15311ec4b1621f3480c1d6163836570c143ad8fcab406ed5ad2d314673f"
+    },
+    {
+      "path": "previews/twin_rocket_pods.gif",
+      "size": 21940,
+      "sha256": "b862e0ae15022a741a975904354b32fc76b06c3ee96c1fb1546275794dc41dfc"
+    },
+    {
+      "path": "previews/twin_rocket_pods.onion.png",
+      "size": 26074,
+      "sha256": "f05d645ab7f96f66a649c71cdc97c8da832abd8234943c30135b37fc6517e3a3"
+    },
+    {
+      "path": "previews/twin_rocket_pods.pivots.png",
+      "size": 18344,
+      "sha256": "28db155c9b86e17a8c549de866bbdf21371ce994ed3ef03d0690b6e3d9e36d08"
+    },
+    {
+      "path": "vx94_transform_stores.animated_sprite.tscn",
+      "size": 343,
+      "sha256": "ee5042197586ba36203d330c936d4a7b1cb73ebed400d5b6e30868850e8e19c2"
+    },
+    {
+      "path": "vx94_transform_stores.atlas.0.png",
+      "size": 31691,
+      "sha256": "ce86650921ed7e9e15a2a62547b3c8013bdbfcc5afe47a4a87d33f5380fb1b11"
+    },
+    {
+      "path": "vx94_transform_stores.atlas.json",
+      "size": 16837,
+      "sha256": "4549df8f6b75c2b1a3f9f6ef1009519659055b12bf3b941dfd51ebd352708a55"
+    },
+    {
+      "path": "vx94_transform_stores.build.json",
+      "size": 5689,
+      "sha256": "fc8ca81c2ef587ed8b921935c4db5106daa861008db87066356a88220a2c44d7"
+    },
+    {
+      "path": "vx94_transform_stores.corrections.json",
+      "size": 146,
+      "sha256": "178ef4e42a4a10344eed6816b191b61e73b5122519f8b79e7d1a89356e564681"
+    },
+    {
+      "path": "vx94_transform_stores.events.json",
+      "size": 4385,
+      "sha256": "b554053fa66db9642a1d5ef75dc913e827f65226aa7995e63d744e70ef2246bb"
+    },
+    {
+      "path": "vx94_transform_stores.integration.json",
+      "size": 1279,
+      "sha256": "614d591ff270f5b14f8506595030586425cee0d37f4fcc00297e846f4cf211a2"
+    },
+    {
+      "path": "vx94_transform_stores.manifest.json",
+      "size": 27326,
+      "sha256": "875b932af8606e1fe9629fde8e51eb93c5b151a9730da3e31fa09293f9039a4d"
+    },
+    {
+      "path": "vx94_transform_stores.qa.json",
+      "size": 922,
+      "sha256": "e4cda75e15d7d17653f08b4959bab55c69ccfc05e80858792f29c83f8b7721e7"
+    },
+    {
+      "path": "vx94_transform_stores.review.html",
+      "size": 3877,
+      "sha256": "97b904c4bd468ba7008fd738d0c5a51d0bdd5858705985cfc63f8b4561a7b997"
+    },
+    {
+      "path": "vx94_transform_stores.spriteframes.tres",
+      "size": 4991,
+      "sha256": "0ca7c1f2169f60c769351bd6c8de4c1d142f44eca9125ce538fc4b4da97bec0f"
+    }
+  ]
+}

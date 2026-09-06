@@ -170,6 +170,7 @@ func _test_wiring() -> void:
 		_expect(source.contains("_reset_sortie_state()"), "support owner should expose explicit sortie reset")
 		_expect(source.contains('craft.call("refuel_afterburner_full")'), "Atlas rearm should refill afterburner reserve")
 		_expect(source.contains("func readiness_ratio()") and source.contains("func cooldown_remaining()"), "tactical support should expose HUD-safe readiness state")
+		_expect(source.contains("func strategic_launch_timer()") and source.contains("_strategic_launch_timer = 0.46"), "Micro-Warhead Rack should expose a short physical bay-door launch impulse independent of its rearm cooldown")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

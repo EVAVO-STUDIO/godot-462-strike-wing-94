@@ -1,0 +1,44 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.25,
+      "events": [],
+      "fps": 16.0,
+      "frame_count": 4,
+      "loop": true,
+      "name": "blue_plume"
+    }
+  ],
+  "asset": "blue_plume",
+  "atlas_pages": [
+    {
+      "file": "blue_plume.atlas.0.png",
+      "height": 126,
+      "index": 0,
+      "width": 14
+    }
+  ],
+  "canvas": {
+    "height": 40,
+    "pivot_x": 8.0,
+    "pivot_y": 4.0,
+    "width": 16
+  },
+  "corrected_frames": 0,
+  "correction_audit": "blue_plume.corrections.json",
+  "event_timeline": "blue_plume.events.json",
+  "manifest": "blue_plume.manifest.json",
+  "qa": "blue_plume.qa.json",
+  "receipt": "build.receipt.json",
+  "runtime": {
+    "godot": {
+      "animated_sprite_scene": "blue_plume.animated_sprite.tscn",
+      "atlas_root": "res://",
+      "sprite_frames": "blue_plume.spriteframes.tres"
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

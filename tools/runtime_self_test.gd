@@ -125,7 +125,7 @@ func _test_direct_runtime_ownership() -> void:
 	_expect(main_file != null, "main.gd should be readable for direct runtime ownership checks")
 	if main_file != null:
 		var text := main_file.get_as_text()
-		_expect(text.contains("MissionStateRules.live_wave(_active_mission(), mission_time)"), "main should own authored live wave progression")
+		_expect(text.contains("MissionStateRules.live_wave(_active_mission(), route_progress_seconds())"), "authored wave progression should follow route distance, not punish slower flight")
 		_expect(text.contains("MissionStateRules.starting_wave(_active_mission())"), "main should own authored starting wave")
 		_expect(text.contains("hull = clampi(service_hull") and text.contains("shield = clampi(service_shield"), "main should initialize sortie condition from scene-owned serviced airframe state")
 		_expect(text.contains("BombRules.apply_nonlethal_boss_damage"), "main bomb loop should apply nonlethal boss damage directly")
@@ -144,8 +144,8 @@ func _test_direct_runtime_ownership() -> void:
 		_expect(text.contains('"SHIELDS DOWN // HULL EXPOSED"') and text.contains('"HULL CRITICAL"'), "authoritative damage resolution should publish distinct shield-collapse and critical-hull warnings")
 		_expect(text.contains('front_end_screen := "main_menu"') and text.contains("func _update_front_end_menu()"), "startup should enter a real main menu before the sortie console")
 		_expect(text.contains("PLAYER_FLIGHT_MIN := Vector2(34.0, 76.0)") and text.contains("PLAYER_FLIGHT_MAX := Vector2(606.0, 288.0)"), "player flight envelope should keep the full 64x72 VX-94 and afterburner clear of top and bottom instrumentation")
-		_expect(text.contains("PLAYER_SORTIE_START := Vector2(320.0, 286.0)") and text.contains("player_position = PLAYER_SORTIE_START"), "sorties should begin forward of the lower HUD safety margin")
-		_expect(text.contains("PLAYER_FLIGHT_MIN.x") and text.contains("PLAYER_FLIGHT_MAX.y"), "live movement should clamp against the craft-aware flight envelope")
+		_expect(text.contains("PLAYER_SORTIE_START := Vector2(320.0, FlightCameraRules.ANCHOR_Y)") and text.contains("player_position = PLAYER_SORTIE_START"), "sorties should begin at the camera projection anchor")
+		_expect(text.contains("PLAYER_FLIGHT_MIN.x") and text.contains("FlightCameraRules.advance_offset") and not text.get_slice("func _update_player", 1).get_slice("func _update_weapons", 0).contains("player_position.y = clampf"), "lateral steering should retain bounds while forward flight uses camera projection")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable for removed reconciliation checks")
 	if project != null:

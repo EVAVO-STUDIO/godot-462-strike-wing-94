@@ -1,0 +1,831 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "vx94-transform-stores-board",
+  "projectId": "hypersonic",
+  "purpose": "Ten exposures: Hunter Rack then Twin Rocket Pods",
+  "compiledAt": "2026-09-06T10:50:58.967Z",
+  "runId": "project-art-sandbox:939342cc69b9513b9f63f206",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "826e5318db5097feb43fef6ff3ad4215986554348799124c3d95ffdd3659fcc6",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_0468011e0906e7d8c782cb7fac430f1f",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_01.png",
+      "sha256": "cc5aaeb4f587c1c64be505a79ad9354004ebb3578886ff078a877fc321de57b6",
+      "bytes": 3726,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_08166b392947074a4e6b3a2a5d83926c",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_07.png",
+      "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "bytes": 4684,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_10a4af87df911a73e97bb4ba219315d3",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_03.png",
+      "sha256": "3f35d715fe92f6623de01df6d2f89f7c11497a4cd295386a7ab06e2a6914ef7f",
+      "bytes": 4099,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_11c580dadf3a8d69fcfdbad71ceace42",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_07.png",
+      "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "bytes": 4693,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_55058242288bd08ec5a64edd737982ae",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_08.png",
+      "sha256": "a991ace7bf8494bc7b1608ccac36e15a315011d8733dab770752aab93439bb04",
+      "bytes": 4795,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_57f76a0912592b55a232f9dabfb8a9de",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_09.png",
+      "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "bytes": 4693,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5a26350035b70b42d07967b25c5aa60a",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_08.png",
+      "sha256": "d757f5a99de326adee49dae0fb356d821a1a961eeef25ca5ced4efe9b4910417",
+      "bytes": 4777,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5d3582415a3f4c09bbdee4d7df5cfd8b",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_00.png",
+      "sha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+      "bytes": 3590,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5dc7b98e39679acb2947983c31102819",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_04.png",
+      "sha256": "5175614672c76c298f24fac70f7b25766b51a75fe15963ce703bafc0ae2056a3",
+      "bytes": 4377,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_6dc032f86682b32cc2d652e321f77447",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_02.png",
+      "sha256": "eb6e91e5d81c197959a012ef210d5887709ae412e69a98a98798d90f01dbf05c",
+      "bytes": 3818,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_76691b441f288284b6f87415cad5446b",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_05.png",
+      "sha256": "c805182e328356bf38e7a2fde513f4e6fafd64c96c3d14a289f2c377fa7a8dca",
+      "bytes": 4575,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_8c3d4e5ae88771c30106db0f172334d3",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_04.png",
+      "sha256": "2f379db4dd6228a74428e0b272963863916f4ab32de9946eb38596d7f00003a8",
+      "bytes": 4375,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_93bc2fd2c3613f979af56e1465e3052a",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_00.png",
+      "sha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+      "bytes": 3594,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_96ffa0adf232e2256e3c21f98ef205fc",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_06.png",
+      "sha256": "ef6bf6ed835a731593908bb8df80cf89cc54f7f5163a5c02acfb8904ba407d28",
+      "bytes": 4613,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a5fb45e01be3b4ad1bd39fba2960180f",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_05.png",
+      "sha256": "83120324d6b4f3df20e084405085006b5f21f92f1646c34b72b0c579dec9d85e",
+      "bytes": 4551,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bb6d66c0c981da583b977951ce46cc42",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_06.png",
+      "sha256": "90efd0307b0a46597aa859fbe80cee3f66fbce798e00c3b2c7d4247b5e3b8bbb",
+      "bytes": 4613,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_da75f4db96b0e1723530f2558ad0d342",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_02.png",
+      "sha256": "d2a9d9db3e3a7c448e6b6dee14eddfc378f3c8a22d40e8781b2882b87b659fc4",
+      "bytes": 3858,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_dde9e04daaa399f6838d9a2c8a73cc41",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_01.png",
+      "sha256": "3aa7029f7b3b12304eaaf590fd9745d4ad30ac89d7dade81963a5e30edc40db1",
+      "bytes": 3718,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_de16e786532bbd43950e7c0f09ab0e81",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_03.png",
+      "sha256": "700a9bf2dae51c3ff4b233e16177ad8e0bd6520d83e702d9ba7f4f28603d15d6",
+      "bytes": 4087,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e18de8c303973d6eafd8ee58c6e81f9d",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_09.png",
+      "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "bytes": 4684,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "transform_stores",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_5d3582415a3f4c09bbdee4d7df5cfd8b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_0468011e0906e7d8c782cb7fac430f1f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_6dc032f86682b32cc2d652e321f77447"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_10a4af87df911a73e97bb4ba219315d3"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5dc7b98e39679acb2947983c31102819"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_76691b441f288284b6f87415cad5446b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bb6d66c0c981da583b977951ce46cc42"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_08166b392947074a4e6b3a2a5d83926c"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_55058242288bd08ec5a64edd737982ae"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e18de8c303973d6eafd8ee58c6e81f9d"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_93bc2fd2c3613f979af56e1465e3052a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_dde9e04daaa399f6838d9a2c8a73cc41"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_da75f4db96b0e1723530f2558ad0d342"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_de16e786532bbd43950e7c0f09ab0e81"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_8c3d4e5ae88771c30106db0f172334d3"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a5fb45e01be3b4ad1bd39fba2960180f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_96ffa0adf232e2256e3c21f98ef205fc"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_11c580dadf3a8d69fcfdbad71ceace42"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5a26350035b70b42d07967b25c5aa60a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_57f76a0912592b55a232f9dabfb8a9de"
+        }
+      ],
+      "targetPath": "transform_stores.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 1280,
+        "height": 288,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 16,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 17,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 18,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 19,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 85920,
+    "plannedMaximumOutputFiles": 2
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "cd776467e8579ff419bd2a7491b613ffc9eac870af0df5fd64dd0a9a079d1252"
+}

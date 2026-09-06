@@ -1,0 +1,42 @@
+{
+  "status": "reviewed_art_motion_candidate_not_production_integration",
+  "source": "Original Snow B via actual Particle Studio parseEffectSpec and simulateProjected",
+  "frames": 96,
+  "fps": 24,
+  "cycle_seconds": 4,
+  "loopExact": true,
+  "particles": [
+    111,
+    129
+  ],
+  "travel_pixels_per_world_unit": {
+    "distant": 6,
+    "middle": 20,
+    "near": 52
+  },
+  "layers": {
+    "distant_middle": 8,
+    "aircraft": 12,
+    "near": 18
+  },
+  "native_capture": {
+    "frames": 120,
+    "speed_range": [
+      0.62,
+      4.4
+    ],
+    "inspected": [
+      18,
+      54,
+      84,
+      114
+    ]
+  },
+  "open": [
+    "snow density and mission placement",
+    "full altitude and orbital exclusion",
+    "accessibility settings",
+    "production integration",
+    "blizzard visibility and wind audio"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "hypersonic_combat_radio_runtime_v1",
+  "status": "native_reviewed",
+  "bindings": {
+    "priority_0_to_2": "res://assets/runtime/ui/hud/radio/radio_receive.png",
+    "priority_3_to_5": "res://assets/runtime/ui/hud/radio/radio_priority.png"
+  },
+  "native_captures": {
+    "before": "res://work/radio_presentation_v1/radio_before.png",
+    "receive": "res://work/radio_presentation_v1/radio_receive.png",
+    "priority": "res://work/radio_presentation_v1/radio_priority.png",
+    "contact": "res://work/radio_presentation_v1/contact.png"
+  },
+  "decision": "accepted at native 640x360; routine and priority traffic are distinct and neither obscures the player aircraft",
+  "qa_cases": ["hud_radio_receive", "hud_radio_priority"]
+}

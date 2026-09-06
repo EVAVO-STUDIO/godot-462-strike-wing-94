@@ -1,0 +1,11 @@
+import {mkdir,writeFile} from 'node:fs/promises';
+import {compileRainFieldPlan,verifyRainFieldPlan,evaluateVerifiedRainField} from 'file:///C:/Gitrepos/atmosphere-studio/lib/render/rain-field.ts';
+const storm=process.argv.includes('--storm');
+const out='C:/Gitrepos/godot-462-strike-wing-94/work/weather_art_v3'+(storm?'/storm':'');
+await mkdir(out,{recursive:true});
+const plan=verifyRainFieldPlan(compileRainFieldPlan({schemaVersion:1,seed:9406,width:640,height:304,cycleSeconds:8,intensity:storm?0.75:0.38,windX:0.14,windY:0.35,densityScale:storm?0.9:0.3,shutterAngleDegrees:90,depthBands:['background','midground','foreground']}));
+await writeFile(out+'/rain_plan.json',JSON.stringify(plan,null,2));
+const frames=[];
+for(let i=0;i<48;i++) frames.push(evaluateVerifiedRainField(plan,i/24));
+await writeFile(out+'/rain_states.json',JSON.stringify({version:plan.version,checksum:plan.checksum,fps:24,frames}));
+console.log(JSON.stringify({particles:plan.particles.length,bands:plan.bandCounts,frames:frames.length,checksum:plan.checksum}));

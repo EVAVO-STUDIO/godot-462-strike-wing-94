@@ -23,6 +23,11 @@ const CHARGE := Color("86bed2")
 const LOWER_HUD_Y := 315.0
 const LOWER_HUD_MARGIN := 14.0
 const LOWER_LEFT_KEEP_OUT := Rect2(0.0, 252.0, 244.0, 108.0)
+const ENGINE_BURST_FRAME_ENDS := [0.035, 0.080, 0.135, 0.200, 0.275, 0.360]
+const ENGINE_MOUNTS := {
+	"fighter": [[Vector2(1,27),Vector2(9,25)],[Vector2(-7,30),Vector2(3,30)],[Vector2(-6,30),Vector2(5,30)],[Vector2(-3,30),Vector2(5,30)],[Vector2(-10,25),Vector2(-2,28)]],
+	"bomber": [[Vector2(1,26),Vector2(10,22)],[Vector2(-4,30),Vector2(5,29)],[Vector2(-6,30),Vector2(5,30)],[Vector2(-7,29),Vector2(3,30)],[Vector2(-12,24),Vector2(-3,27)]],
+}
 
 var _surface: Control
 var _boom_age := 99.0
@@ -64,7 +69,11 @@ func draw_afterburner(surface: CanvasItem) -> void:
 	var mach_recovery := speed_ratio > 0.02
 	_draw_meter(surface, scene, ratio, charge_ratio, throttle, burning, hypersonic or mach_recovery, speed_ratio)
 	if (burning or mach_recovery) and _has_property(scene, "player_position"):
-		_draw_flame(surface, scene.get("player_position"), str(craft.call("current_form")) if craft.has_method("current_form") else "fighter", hypersonic or mach_recovery, burning)
+		var visual_position: Vector2 = scene.get("player_position")
+		var combat_art := get_node_or_null("/root/CombatArtDirector")
+		if combat_art != null and combat_art.has_method("propulsion_pitch_offset"):
+			visual_position += Vector2(combat_art.call("propulsion_pitch_offset"))
+		_draw_flame(surface, visual_position, str(craft.call("current_form")) if craft.has_method("current_form") else "fighter", hypersonic or mach_recovery, burning, speed_ratio)
 	if _boom_age < 0.42 and _has_property(scene, "player_position"):
 		var t := _boom_age / 0.42
 		var texture := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
@@ -73,10 +82,11 @@ func draw_afterburner(surface: CanvasItem) -> void:
 		# U-shaped exposure reading as a second translucent pair of wings.
 		var draw_size := Vector2(roundf(lerpf(76.0, 236.0, t)), roundf(lerpf(38.0, 92.0, t)))
 		var p: Vector2 = scene.get("player_position")
-		surface.draw_texture_rect(texture, Rect2((p - draw_size * 0.5).round(), draw_size), false, Color(1,1,1,0.88*(1.0-t)))
-		if _boom_age < 0.16:
-			var ignition := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_ignition", _boom_age / 0.16)
-			surface.draw_texture(ignition, (p + Vector2(-32,-17)).round())
+		var flash_scale := _flash_scale()
+		surface.draw_texture_rect(texture, Rect2((p - draw_size * 0.5).round(), draw_size), false, Color(1,1,1,0.88*(1.0-t)*flash_scale))
+		if _boom_age < ENGINE_BURST_FRAME_ENDS[-1]:
+			var burst: Texture2D = PersistentEffectArtLibrary.FRAMES["hypersonic_engine_burst"][_engine_burst_frame(_boom_age)]
+			surface.draw_texture(burst, (p + Vector2(-48,22)).round(), Color(1,1,1,flash_scale))
 
 func _draw_meter(surface: CanvasItem, scene: Object, ratio: float, charge_ratio: float, throttle: float, burning: bool, hypersonic: bool, speed_ratio: float) -> void:
 	var frame: Texture2D = PROPULSION_HYPERSONIC if hypersonic else (PROPULSION_RESERVE_LOW if ratio <= 0.20 else (PROPULSION_BURNING if burning else PROPULSION_NORMAL))
@@ -104,14 +114,33 @@ func _draw_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, rati
 	if width > 0.0:
 		surface.draw_texture_rect_region(texture,Rect2(position,Vector2(width,texture.get_height())),Rect2(0,0,width,texture.get_height()))
 
-func _draw_flame(surface: CanvasItem, p: Vector2, form: String, hypersonic: bool, burning: bool) -> void:
+func _draw_flame(surface: CanvasItem, p: Vector2, form: String, hypersonic: bool, burning: bool, speed_ratio: float) -> void:
 	var offset := Vector2(-16, 14 if form == "fighter" else 15)
 	if hypersonic:
 		var contrail := PersistentEffectArtLibrary.frame_for_clock("contrail", 7.0)
 		surface.draw_texture(contrail, (p + offset + Vector2(0,12)).round(), Color(0.84,0.92,0.95,0.82))
-	if burning:
+	if hypersonic and speed_ratio > 0.02:
+		var combat_art := get_node_or_null("/root/CombatArtDirector")
+		var bank := int(combat_art.call("propulsion_bank_frame_index")) if combat_art != null and combat_art.has_method("propulsion_bank_frame_index") else 2
+		var mounts: Array = ENGINE_MOUNTS.get(form, ENGINE_MOUNTS["fighter"])[clampi(bank,0,4)]
+		var angle := -0.30 if bank == 0 else (0.30 if bank == 4 else 0.0)
+		var plume := PersistentEffectArtLibrary.frame_for_clock("hypersonic_blue_plume", 16.0)
+		for mount in mounts:
+			surface.draw_set_transform(p + Vector2(mount), angle)
+			surface.draw_texture(plume, Vector2(-8,-4), Color(1,1,1,clampf(0.62 + speed_ratio * 0.38,0,1)))
+			surface.draw_set_transform(Vector2.ZERO)
+	elif burning:
 		var plume := PersistentEffectArtLibrary.frame_for_clock("afterburner", 12.0)
 		surface.draw_texture(plume, (p + offset).round())
+
+func _engine_burst_frame(age: float) -> int:
+	for index in ENGINE_BURST_FRAME_ENDS.size():
+		if age < ENGINE_BURST_FRAME_ENDS[index]: return index
+	return ENGINE_BURST_FRAME_ENDS.size() - 1
+
+func _flash_scale() -> float:
+	var settings := get_node_or_null("/root/SettingsDirector")
+	return 0.48 if settings != null and settings.has_method("reduced_flashes") and bool(settings.call("reduced_flashes")) else 1.0
 
 func _has_property(object: Object, property_name: String) -> bool:
 	return SceneContractCache.has_property(object, property_name)

@@ -1,0 +1,4826 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "vx94-module-damage",
+  "projectId": "hypersonic",
+  "purpose": "Localized hardware scorch and fractured finish; mask retained module silhouette",
+  "compiledAt": "2026-09-06T11:02:46.342Z",
+  "runId": "project-art-sandbox:1b74c00a60489593aee23b16",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "4ea453c98c0f2282b37fe7113886debbd3fdcf762065d20f55886b4218d15347",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_013c88bffa798c54e3ef7ea273acb569",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_hard_right.png",
+      "sha256": "8b981751436e4541f9b50a89f9c9a6882def6deb38a979d30a6a931c3b1abb6b",
+      "bytes": 5083,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_08e015f88eff8401ec736b01c811e92f",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_burnt_right.png",
+      "sha256": "25220892b897debde8c7f776c89964d9f036a8ba948837e24d1e5dec94bd611c",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_196afd9f5ab6a1d0f13360b2c33bc9d6",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_hard_right.png",
+      "sha256": "a46651c79371ff3a0adc97cd2ae8840b37752a3d0381e8e6c000b9ac4aa13ab4",
+      "bytes": 4052,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_1bc994e55ec57659f4bf1f0d00400454",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_burnt_neutral.png",
+      "sha256": "25220892b897debde8c7f776c89964d9f036a8ba948837e24d1e5dec94bd611c",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_1fc19be2cfa5b5de4d146e8a0dc6aa1b",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_neutral.png",
+      "sha256": "09b002755e4ed4805dd747229b2337092bc059add60c55e1608a632ebb3aca99",
+      "bytes": 4603,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_20d95f06b01dc00c6826eb580c5e040b",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_neutral.png",
+      "sha256": "acc8e80f6f92f92ab1c063a259025755ea8babfa5090bcdf51cc85a5a32fd997",
+      "bytes": 4606,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_257e799ee20f8c16cc1cd34dc9522721",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_burnt_neutral.png",
+      "sha256": "12a193048cce7c7aa722eb2e732264c491cd1f5729d6a04805e121bb578d4b2d",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2a3286c617420070a741829d371e7538",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_burnt_right.png",
+      "sha256": "25220892b897debde8c7f776c89964d9f036a8ba948837e24d1e5dec94bd611c",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2cdab449a5f400ae98243928f7021db3",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_burnt_left.png",
+      "sha256": "0a767eb5b4adca627349160448d8ad21335a22582cab29c2348c61fde9f17ce6",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2f892ec2d6b61e4821540bf9dd247c7b",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_burnt_hard_right.png",
+      "sha256": "d222d52616f458caffde82f05b7a3004b7db07809dc06e9b77990af31f0dae52",
+      "bytes": 175,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_30d63b8d1ff372126aa14dbb86ed7832",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_scarred_neutral.png",
+      "sha256": "24602f699337a8bd772c9bd8847eb569e2c3c12f4a01d14c225ef5d015c49717",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_3304f3a9c03ce898eb45ca67935bdd2b",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_scarred_left.png",
+      "sha256": "2e772ffb84b0bc13c5d5049c32929213dbcb4b553c0b59328a27b8701605ac10",
+      "bytes": 165,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_33f621c4cdbe1e122c6e68f70f3a106a",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_scarred_right.png",
+      "sha256": "01942759c647d98efc57c4d724d1e7bb86337e968b646a85bc178abba40bc498",
+      "bytes": 165,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_38ae99b2854fd8605ad12bfb04e2abc5",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_burnt_right.png",
+      "sha256": "e71f97ef918cfe0c8a5ef1f626aaacc8753b9d564a642a31ec367ef4682de21d",
+      "bytes": 188,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_3e60e80a7839ce5a51fc30dd99245ba0",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_burnt_hard_left.png",
+      "sha256": "2a05725cad0785461f3f4bdccf55eeaba1d6f1ba5fcf72c32d3cf5943b258ac3",
+      "bytes": 178,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_3ecc61d44dd382c45f1843b9c7190bdb",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_hard_right.png",
+      "sha256": "4bee17ed87e7e2aa3f6948419959ebdec2c8901d5f490abd4c8b9da2720ec355",
+      "bytes": 5084,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_42230b32fff6a800017d7dbf05c91ee4",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_burnt_hard_right.png",
+      "sha256": "d222d52616f458caffde82f05b7a3004b7db07809dc06e9b77990af31f0dae52",
+      "bytes": 175,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_425ef86904c8f35f92c2e1faf2b49acb",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_scarred_neutral.png",
+      "sha256": "24602f699337a8bd772c9bd8847eb569e2c3c12f4a01d14c225ef5d015c49717",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_435f710f984b746cb29e92618787bca2",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_hard_left.png",
+      "sha256": "8eb714b9bb04563a22b197ea1d521019c84965752c7881544886b55760ccfa26",
+      "bytes": 5340,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_43fa0d967522adc47f524beef98efcd9",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_scarred_right.png",
+      "sha256": "01942759c647d98efc57c4d724d1e7bb86337e968b646a85bc178abba40bc498",
+      "bytes": 165,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_45930a09a9ded2dbd5ceb0649cef9cf5",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_right.png",
+      "sha256": "ba15c0e25ec58f822575c8896d04de550950c3c95b7fb42ded661879f5bb7543",
+      "bytes": 3733,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_4928fa53d5313341b5f316f1eae242ab",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_burnt_left.png",
+      "sha256": "0a767eb5b4adca627349160448d8ad21335a22582cab29c2348c61fde9f17ce6",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_4fe1b3b7842bdf98a33405e0585cdd32",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_burnt_neutral.png",
+      "sha256": "12a193048cce7c7aa722eb2e732264c491cd1f5729d6a04805e121bb578d4b2d",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_502dc5debb723658f97e61c3dad5cabe",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_scarred_hard_left.png",
+      "sha256": "86c1778ea104e4dc25465aeec01d751eb51db3f5789fe320649cd620edb60a78",
+      "bytes": 159,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_508ee9b7da6624a615a1efa624f9c014",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_scarred_right.png",
+      "sha256": "cc4c9b1b16dedbcfe439a723e821da773a40a11fc50f4a9821c3c508d7f14b0f",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_50c48829076e805cedbc7cba44de807c",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_scarred_hard_right.png",
+      "sha256": "a9769a94a268bc78014c65c16a7157588a0e795da71b5619dc65745b029723cd",
+      "bytes": 167,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5346c0bda5cba8444891c66ebc83cd07",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_burnt_hard_right.png",
+      "sha256": "5f0f446987588bfff5f80b890203e98f5b199305291c806d740c3cb9d59ac4a3",
+      "bytes": 188,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_539ad821c0bb3fc79297221a46d509c0",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_neutral.png",
+      "sha256": "fec8d84e49c1b47d11e3751a717ee3d1afe79df7143c906f5e5b7434ad7fb0dc",
+      "bytes": 3486,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_543b9f4704f5e16cafdd878bd3f3ce34",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_scarred_hard_right.png",
+      "sha256": "a9769a94a268bc78014c65c16a7157588a0e795da71b5619dc65745b029723cd",
+      "bytes": 167,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_55a3900e20ee579cbfeb6f801ab6d071",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_hard_left.png",
+      "sha256": "75a3fcda966e0d889f4900974b75822528aaf3efc0e8a2e20c8de9030710ee7b",
+      "bytes": 5374,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_589617d754f14fde001d02acf716341a",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_left.png",
+      "sha256": "c21d032603e29f94e6a446f6caae8c8131fb85a2abff8128bb73cad9ca294a79",
+      "bytes": 3648,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_598e5604601bb00e434540d00af25d67",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_scarred_right.png",
+      "sha256": "cc4c9b1b16dedbcfe439a723e821da773a40a11fc50f4a9821c3c508d7f14b0f",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5cce38a0ae1caaf49abb312a7d5b59bd",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_burnt_left.png",
+      "sha256": "0a767eb5b4adca627349160448d8ad21335a22582cab29c2348c61fde9f17ce6",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_60b0d24b09121d25e06ab2a5819428b1",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_hard_left.png",
+      "sha256": "2c9d9dc78727a67ab8ec32079fc23c2293e18bd86e8ddddeb0898aed5fa6b06d",
+      "bytes": 4216,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_614fabea86572da07d6b0a3edbaa831d",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_neutral.png",
+      "sha256": "d667c74a7867327411f140cfae0c3cf69b080e0734da8b35053755b23bb61eb3",
+      "bytes": 4601,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_619ec88820bddf571fb5631d83642159",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_right.png",
+      "sha256": "1b284e7d87f73ebe25890c537e8367bd0c30bcb31dcfa0ecc81c3b19e2a6bd03",
+      "bytes": 3714,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_692efafe912e5cb77645c51bf45fcf37",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_burnt_right.png",
+      "sha256": "25220892b897debde8c7f776c89964d9f036a8ba948837e24d1e5dec94bd611c",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_6b380c90e42656a1490769ce69c88613",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_scarred_left.png",
+      "sha256": "d8433a44eed7a6717402293aba5d0526a857839402c38ed45100b840dc183943",
+      "bytes": 166,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_6d90bca4d64c928ece845e7e842e4ce6",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_burnt_hard_right.png",
+      "sha256": "5f0f446987588bfff5f80b890203e98f5b199305291c806d740c3cb9d59ac4a3",
+      "bytes": 188,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_71cebe7143f1bd7f9fe777afd202fd5a",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_scarred_right.png",
+      "sha256": "01942759c647d98efc57c4d724d1e7bb86337e968b646a85bc178abba40bc498",
+      "bytes": 165,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_78df44a33e88c265af542964ef1d2a38",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_neutral.png",
+      "sha256": "641bfc7f7836d38f47e6238b7a9e2d2dd01a8881d66dae5bd3dd3dd2bee69151",
+      "bytes": 3448,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_7b6f56bb073fb3167a6b3ee468110be4",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_right.png",
+      "sha256": "4704527ecdbc00e1756ffbf59b36b4e42c27a00530c9f978e552bb86ae394b7e",
+      "bytes": 4529,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_7cb7621d40dd7156a53134c0d8c617eb",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_burnt_left.png",
+      "sha256": "2458222f2aed5625f095c2d2149af1ceb7654a922785f98f32d7bec4b3344b01",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_82bfe8d9482eed88ab7ad5707dd69579",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_scarred_right.png",
+      "sha256": "cc4c9b1b16dedbcfe439a723e821da773a40a11fc50f4a9821c3c508d7f14b0f",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_87ed5afe49c992c0afc15ce2d86c850b",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_left.png",
+      "sha256": "29bb331fa148e245c2b1a67923083eaafd9bfc16ec7c8174e67de780f084e738",
+      "bytes": 4486,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_8e3af7834f5b74dcb17202adc6a60ab2",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_burnt_hard_left.png",
+      "sha256": "2a05725cad0785461f3f4bdccf55eeaba1d6f1ba5fcf72c32d3cf5943b258ac3",
+      "bytes": 178,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9588d9de3ff3c9ecda1a7e6d3c6dd6b7",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_scarred_hard_right.png",
+      "sha256": "a9769a94a268bc78014c65c16a7157588a0e795da71b5619dc65745b029723cd",
+      "bytes": 167,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_963c2aeb975bc434d4fee986b9c6cf01",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_scarred_hard_right.png",
+      "sha256": "1db0db6a9682b300f4a0f25c53dcd0f91fb22d085e78c199f8e7df259c528ac4",
+      "bytes": 162,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9710b5ed3b780fcaa7daba0c11fb2f27",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_burnt_neutral.png",
+      "sha256": "25220892b897debde8c7f776c89964d9f036a8ba948837e24d1e5dec94bd611c",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_977310419f67918829a52e62adc1cedb",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_scarred_hard_right.png",
+      "sha256": "1db0db6a9682b300f4a0f25c53dcd0f91fb22d085e78c199f8e7df259c528ac4",
+      "bytes": 162,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9d65cffafc1dd53ae0329b664664fb61",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_hard_left.png",
+      "sha256": "f2db22ff86a600ce9285d3b1b9f19ca050e02b5c654777309cec945e5805f9a4",
+      "bytes": 5393,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9f6ff788dedd1a6fc9628a227a39bcbf",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_scarred_left.png",
+      "sha256": "2e772ffb84b0bc13c5d5049c32929213dbcb4b553c0b59328a27b8701605ac10",
+      "bytes": 165,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a026ac7542f3ed8ba32dbe5d5085a4d2",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_hard_left.png",
+      "sha256": "534fc408303a894c0c9d456dc824fb0c2da64c2f6737c65a4374e4fa8f10ffe4",
+      "bytes": 4180,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a1ba075ab64715b40f0ff234ea895cea",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_scarred_left.png",
+      "sha256": "2e772ffb84b0bc13c5d5049c32929213dbcb4b553c0b59328a27b8701605ac10",
+      "bytes": 165,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a5414536b6ffc9b226c6ae54e23b2478",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_scarred_hard_right.png",
+      "sha256": "1db0db6a9682b300f4a0f25c53dcd0f91fb22d085e78c199f8e7df259c528ac4",
+      "bytes": 162,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a6dbec91d89e8d91b0c7b08c7abd758b",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_burnt_right.png",
+      "sha256": "e71f97ef918cfe0c8a5ef1f626aaacc8753b9d564a642a31ec367ef4682de21d",
+      "bytes": 188,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ac148a25d2920247e45680077a994ea1",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_scarred_hard_left.png",
+      "sha256": "86c1778ea104e4dc25465aeec01d751eb51db3f5789fe320649cd620edb60a78",
+      "bytes": 159,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ad9fa5d11d0d237d47eaa348e152a33b",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_left.png",
+      "sha256": "30fb0106ed30274fb106f9992ec1569887cec8b827fdc35e3d3cd9ad52521639",
+      "bytes": 3638,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_aee949120ee3098de9bbc1aa9234ecfe",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_scarred_neutral.png",
+      "sha256": "cc4c9b1b16dedbcfe439a723e821da773a40a11fc50f4a9821c3c508d7f14b0f",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b064ef2c5f1a315a65318012ab63378e",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_neutral.png",
+      "sha256": "81e7448cd7f6aeb67f2fb6c7a4008c42bcc4085860a016a492730dfde2919296",
+      "bytes": 3451,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b4f62df9b8e10bf7fec3b1ba49ac8336",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_scarred_neutral.png",
+      "sha256": "cc4c9b1b16dedbcfe439a723e821da773a40a11fc50f4a9821c3c508d7f14b0f",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b6d63ee756009307b22b43affeab2322",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_burnt_right.png",
+      "sha256": "e71f97ef918cfe0c8a5ef1f626aaacc8753b9d564a642a31ec367ef4682de21d",
+      "bytes": 188,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bb04960ad0f0e8dc9467553de18c4194",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_burnt_hard_right.png",
+      "sha256": "d222d52616f458caffde82f05b7a3004b7db07809dc06e9b77990af31f0dae52",
+      "bytes": 175,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bbe8fb93e47a5cdcafe846d1dcbe89ac",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_burnt_neutral.png",
+      "sha256": "25220892b897debde8c7f776c89964d9f036a8ba948837e24d1e5dec94bd611c",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bc5c7bf95a6c477f0f0978e6d8048745",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_scarred_hard_left.png",
+      "sha256": "f9da269f68ff5a401b66853d02bbc040d3f2c92fa67b93b536b234b1e5503267",
+      "bytes": 166,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bda440f2182d8d5c4f40ae094c47a525",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_burnt_left.png",
+      "sha256": "2458222f2aed5625f095c2d2149af1ceb7654a922785f98f32d7bec4b3344b01",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bea82b787262a86b542166f5775e8b96",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_scarred_left.png",
+      "sha256": "d8433a44eed7a6717402293aba5d0526a857839402c38ed45100b840dc183943",
+      "bytes": 166,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bf3b2c434d2ce56ef08be819e675a5d5",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_burnt_neutral.png",
+      "sha256": "12a193048cce7c7aa722eb2e732264c491cd1f5729d6a04805e121bb578d4b2d",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c0c4bfce2eb54f224c507f0e79edbbe6",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_left.png",
+      "sha256": "3a140973350411b20d025e17f8bf042a234d09485802da38433e774568d8e5bb",
+      "bytes": 3703,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c83e79f52819f5c9b10092487c7db615",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_hard_right.png",
+      "sha256": "db8b79c328b81a82b5aaff2dedff8a05dab6ccfe381a1797ddfec3b8c1dfe7d3",
+      "bytes": 4074,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_cac9b35ed4a4c2aaa3a76b4c304ccd0f",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_right.png",
+      "sha256": "660291229e6294c756cfe6416895ed98890f9f36b3bf6464fad63fa27d566c09",
+      "bytes": 3707,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_cb5125e40a84eb62a4f9f63c471052cd",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_scarred_hard_left.png",
+      "sha256": "f9da269f68ff5a401b66853d02bbc040d3f2c92fa67b93b536b234b1e5503267",
+      "bytes": 166,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_cea59127a3ebb2521ba0930ad01431c6",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_burnt_left.png",
+      "sha256": "2458222f2aed5625f095c2d2149af1ceb7654a922785f98f32d7bec4b3344b01",
+      "bytes": 184,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_d01c3eb5996367dfd26f9abcad1bb56a",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_left.png",
+      "sha256": "a6a8a7e3b25df1573b3de5c8b59fb4d3e1a3dacac17cc45395122c8752125167",
+      "bytes": 4464,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_d6a2b0a531b1ac68084134dad970de2a",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_bomber_burnt_hard_left.png",
+      "sha256": "633c515f0cb99c5c2832b96792a9635d47d986b11c7bf8868eacf1acbe7ee6a6",
+      "bytes": 183,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_d803c1a7103ef4f459b74cf153c47d27",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_hard_right.png",
+      "sha256": "290b2ae186ccf5b58c84c83aa1d97afb38091cd3f144f43483ffe39af0b9a178",
+      "bytes": 5026,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_dd5f7c396ba844061cf669c63fdeeca8",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_right.png",
+      "sha256": "4b62e8173ea308166e23b78b5b8c9f2843ab1477613fb26f261b519da2934185",
+      "bytes": 4554,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e0d003696829e9678a5cdf7b1827de5e",
+      "path": "work/vx94_module_damage_v1/layers/point_defence_pod_fighter_scarred_hard_left.png",
+      "sha256": "86c1778ea104e4dc25465aeec01d751eb51db3f5789fe320649cd620edb60a78",
+      "bytes": 159,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e1ee0c3a0f9cb65fb6bc57b2040eaf02",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_fighter_burnt_hard_left.png",
+      "sha256": "2a05725cad0785461f3f4bdccf55eeaba1d6f1ba5fcf72c32d3cf5943b258ac3",
+      "bytes": 178,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e67b5cd8bbf4c07fcaf252092e6a5005",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_left.png",
+      "sha256": "ca0353680ca2a02650a13457a9519978d33e8340b95b02ee1d55a195ccc965f0",
+      "bytes": 4439,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e94c762c49e41775d2ecf7e568bf8a6f",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_right.png",
+      "sha256": "4481f2186a644ed9c20aeb772fe2b97072f962c3042e1fbb39c00099f744f7e0",
+      "bytes": 4586,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e95169814cc7748526f8bee1705972c2",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_burnt_hard_right.png",
+      "sha256": "5f0f446987588bfff5f80b890203e98f5b199305291c806d740c3cb9d59ac4a3",
+      "bytes": 188,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ecb21dc46de017f6af910bd5700de3ae",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_scarred_neutral.png",
+      "sha256": "24602f699337a8bd772c9bd8847eb569e2c3c12f4a01d14c225ef5d015c49717",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ed28028b3ac13f13b8228728d6a9dcf5",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_hard_left.png",
+      "sha256": "be1a32c50cded2c3220e327b2fd9251ca7d3dca916e711550971c315251cffac",
+      "bytes": 4241,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f0184e5d35e443eefcd0bdb6abf0132b",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_hard_right.png",
+      "sha256": "189befc37662a0d95fe34a1fc236c0d999711378b6fc3276d7b0b9f0a3bb3b4a",
+      "bytes": 4061,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f1afb5fdb0b7b2d41343bf6e74212e4e",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_bomber_burnt_hard_left.png",
+      "sha256": "633c515f0cb99c5c2832b96792a9635d47d986b11c7bf8868eacf1acbe7ee6a6",
+      "bytes": 183,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f3aa60ef4a7cf71da9176f5569dc086b",
+      "path": "work/vx94_module_damage_v1/layers/magnetic_screen_fighter_scarred_neutral.png",
+      "sha256": "cc4c9b1b16dedbcfe439a723e821da773a40a11fc50f4a9821c3c508d7f14b0f",
+      "bytes": 161,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f432c7f0a20ade2d2576510200c3fe2d",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_burnt_hard_left.png",
+      "sha256": "633c515f0cb99c5c2832b96792a9635d47d986b11c7bf8868eacf1acbe7ee6a6",
+      "bytes": 183,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f5607f398a2c045b2405342b92bdda20",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_scarred_left.png",
+      "sha256": "d8433a44eed7a6717402293aba5d0526a857839402c38ed45100b840dc183943",
+      "bytes": 166,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_fcc525575971ee3784c25649ab55b839",
+      "path": "work/vx94_module_damage_v1/layers/emp_disruptor_bomber_scarred_hard_left.png",
+      "sha256": "f9da269f68ff5a401b66853d02bbc040d3f2c92fa67b93b536b234b1e5503267",
+      "bytes": 166,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "point_defence_pod_fighter_scarred_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_60b0d24b09121d25e06ab2a5819428b1"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e0d003696829e9678a5cdf7b1827de5e"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_scarred_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_60b0d24b09121d25e06ab2a5819428b1"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_8e3af7834f5b74dcb17202adc6a60ab2"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_burnt_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_589617d754f14fde001d02acf716341a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a1ba075ab64715b40f0ff234ea895cea"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_scarred_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_589617d754f14fde001d02acf716341a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5cce38a0ae1caaf49abb312a7d5b59bd"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_burnt_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_b064ef2c5f1a315a65318012ab63378e"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_aee949120ee3098de9bbc1aa9234ecfe"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_scarred_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_b064ef2c5f1a315a65318012ab63378e"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9710b5ed3b780fcaa7daba0c11fb2f27"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_burnt_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_45930a09a9ded2dbd5ceb0649cef9cf5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_82bfe8d9482eed88ab7ad5707dd69579"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_scarred_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_45930a09a9ded2dbd5ceb0649cef9cf5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2a3286c617420070a741829d371e7538"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_burnt_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_f0184e5d35e443eefcd0bdb6abf0132b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_963c2aeb975bc434d4fee986b9c6cf01"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_scarred_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_f0184e5d35e443eefcd0bdb6abf0132b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bb04960ad0f0e8dc9467553de18c4194"
+        }
+      ],
+      "targetPath": "point_defence_pod_fighter_burnt_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_435f710f984b746cb29e92618787bca2"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bc5c7bf95a6c477f0f0978e6d8048745"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_scarred_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_435f710f984b746cb29e92618787bca2"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_d6a2b0a531b1ac68084134dad970de2a"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_burnt_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_d01c3eb5996367dfd26f9abcad1bb56a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_6b380c90e42656a1490769ce69c88613"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_scarred_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_d01c3eb5996367dfd26f9abcad1bb56a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bda440f2182d8d5c4f40ae094c47a525"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_burnt_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_1fc19be2cfa5b5de4d146e8a0dc6aa1b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_425ef86904c8f35f92c2e1faf2b49acb"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_scarred_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_1fc19be2cfa5b5de4d146e8a0dc6aa1b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bf3b2c434d2ce56ef08be819e675a5d5"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_burnt_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_dd5f7c396ba844061cf669c63fdeeca8"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_43fa0d967522adc47f524beef98efcd9"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_scarred_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_dd5f7c396ba844061cf669c63fdeeca8"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a6dbec91d89e8d91b0c7b08c7abd758b"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_burnt_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_3ecc61d44dd382c45f1843b9c7190bdb"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_543b9f4704f5e16cafdd878bd3f3ce34"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_scarred_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_3ecc61d44dd382c45f1843b9c7190bdb"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_6d90bca4d64c928ece845e7e842e4ce6"
+        }
+      ],
+      "targetPath": "point_defence_pod_bomber_burnt_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_ed28028b3ac13f13b8228728d6a9dcf5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_502dc5debb723658f97e61c3dad5cabe"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_scarred_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_ed28028b3ac13f13b8228728d6a9dcf5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e1ee0c3a0f9cb65fb6bc57b2040eaf02"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_burnt_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_c0c4bfce2eb54f224c507f0e79edbbe6"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_3304f3a9c03ce898eb45ca67935bdd2b"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_scarred_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_c0c4bfce2eb54f224c507f0e79edbbe6"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_4928fa53d5313341b5f316f1eae242ab"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_burnt_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_539ad821c0bb3fc79297221a46d509c0"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_b4f62df9b8e10bf7fec3b1ba49ac8336"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_scarred_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_539ad821c0bb3fc79297221a46d509c0"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bbe8fb93e47a5cdcafe846d1dcbe89ac"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_burnt_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_619ec88820bddf571fb5631d83642159"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_598e5604601bb00e434540d00af25d67"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_scarred_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_619ec88820bddf571fb5631d83642159"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_08e015f88eff8401ec736b01c811e92f"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_burnt_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_c83e79f52819f5c9b10092487c7db615"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_977310419f67918829a52e62adc1cedb"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_scarred_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_c83e79f52819f5c9b10092487c7db615"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2f892ec2d6b61e4821540bf9dd247c7b"
+        }
+      ],
+      "targetPath": "emp_disruptor_fighter_burnt_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_9d65cffafc1dd53ae0329b664664fb61"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_fcc525575971ee3784c25649ab55b839"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_scarred_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_9d65cffafc1dd53ae0329b664664fb61"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f432c7f0a20ade2d2576510200c3fe2d"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_burnt_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_87ed5afe49c992c0afc15ce2d86c850b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f5607f398a2c045b2405342b92bdda20"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_scarred_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_87ed5afe49c992c0afc15ce2d86c850b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_7cb7621d40dd7156a53134c0d8c617eb"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_burnt_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_614fabea86572da07d6b0a3edbaa831d"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_ecb21dc46de017f6af910bd5700de3ae"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_scarred_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_614fabea86572da07d6b0a3edbaa831d"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_4fe1b3b7842bdf98a33405e0585cdd32"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_burnt_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_e94c762c49e41775d2ecf7e568bf8a6f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_71cebe7143f1bd7f9fe777afd202fd5a"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_scarred_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_e94c762c49e41775d2ecf7e568bf8a6f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_38ae99b2854fd8605ad12bfb04e2abc5"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_burnt_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_013c88bffa798c54e3ef7ea273acb569"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9588d9de3ff3c9ecda1a7e6d3c6dd6b7"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_scarred_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_013c88bffa798c54e3ef7ea273acb569"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e95169814cc7748526f8bee1705972c2"
+        }
+      ],
+      "targetPath": "emp_disruptor_bomber_burnt_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_a026ac7542f3ed8ba32dbe5d5085a4d2"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_ac148a25d2920247e45680077a994ea1"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_scarred_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_a026ac7542f3ed8ba32dbe5d5085a4d2"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_3e60e80a7839ce5a51fc30dd99245ba0"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_burnt_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_ad9fa5d11d0d237d47eaa348e152a33b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9f6ff788dedd1a6fc9628a227a39bcbf"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_scarred_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_ad9fa5d11d0d237d47eaa348e152a33b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2cdab449a5f400ae98243928f7021db3"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_burnt_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_78df44a33e88c265af542964ef1d2a38"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f3aa60ef4a7cf71da9176f5569dc086b"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_scarred_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_78df44a33e88c265af542964ef1d2a38"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_1bc994e55ec57659f4bf1f0d00400454"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_burnt_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_cac9b35ed4a4c2aaa3a76b4c304ccd0f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_508ee9b7da6624a615a1efa624f9c014"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_scarred_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_cac9b35ed4a4c2aaa3a76b4c304ccd0f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_692efafe912e5cb77645c51bf45fcf37"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_burnt_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_196afd9f5ab6a1d0f13360b2c33bc9d6"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a5414536b6ffc9b226c6ae54e23b2478"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_scarred_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_196afd9f5ab6a1d0f13360b2c33bc9d6"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_42230b32fff6a800017d7dbf05c91ee4"
+        }
+      ],
+      "targetPath": "magnetic_screen_fighter_burnt_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_55a3900e20ee579cbfeb6f801ab6d071"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_cb5125e40a84eb62a4f9f63c471052cd"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_scarred_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_55a3900e20ee579cbfeb6f801ab6d071"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f1afb5fdb0b7b2d41343bf6e74212e4e"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_burnt_hard_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_e67b5cd8bbf4c07fcaf252092e6a5005"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bea82b787262a86b542166f5775e8b96"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_scarred_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_left",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_e67b5cd8bbf4c07fcaf252092e6a5005"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_cea59127a3ebb2521ba0930ad01431c6"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_burnt_left.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_20d95f06b01dc00c6826eb580c5e040b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_30d63b8d1ff372126aa14dbb86ed7832"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_scarred_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_neutral",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_20d95f06b01dc00c6826eb580c5e040b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_257e799ee20f8c16cc1cd34dc9522721"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_burnt_neutral.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_7b6f56bb073fb3167a6b3ee468110be4"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_33f621c4cdbe1e122c6e68f70f3a106a"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_scarred_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_7b6f56bb073fb3167a6b3ee468110be4"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_b6d63ee756009307b22b43affeab2322"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_burnt_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_d803c1a7103ef4f459b74cf153c47d27"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_50c48829076e805cedbc7cba44de807c"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_scarred_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_d803c1a7103ef4f459b74cf153c47d27"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5346c0bda5cba8444891c66ebc83cd07"
+        }
+      ],
+      "targetPath": "magnetic_screen_bomber_burnt_hard_right.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          }
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 139915,
+    "plannedMaximumOutputFiles": 61
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "a74674360906d837b3bc209b6ebb3ccf9e87adca92330b611e778dbea9cfc939"
+}

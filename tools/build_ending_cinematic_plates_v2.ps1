@@ -48,10 +48,16 @@ $FxSheet = Join-Path $Root 'work\ending_fx_cels_v2.png'
 if($LASTEXITCODE -ne 0) { throw 'Failed to rasterize ending limited FX sheet.' }
 $FxFamilies = @('end_consequence','end_action','end_observation','end_consequence_final','end_title')
 for($row=0;$row -lt 5;$row++) {
+    if($row -in @(1,3)) { continue } # Re-entry and watch use reviewed v3 sources below.
     for($frame=0;$frame -lt 4;$frame++) {
         & $Magick $FxSheet -crop "640x272+$($frame*640)+$($row*272)" +repage -depth 8 (Join-Path $FxRuntime "$($FxFamilies[$row])_$frame.png")
         if($LASTEXITCODE -ne 0) { throw "Failed to build ending FX cel: $($FxFamilies[$row])/$frame" }
     }
 }
+
+& node (Join-Path $Root 'tools/build_reentry_fx_v3.mjs')
+if($LASTEXITCODE -ne 0) { throw 'Failed to build reviewed re-entry FX v3.' }
+& node (Join-Path $Root 'tools/build_watch_fx_v3.mjs')
+if($LASTEXITCODE -ne 0) { throw 'Failed to build reviewed coastal-watch FX v3.' }
 
 Write-Host 'Built HYPERSONIC authored ending plates, identity-correct VX-94 subjects, and restrained held FX v2.'

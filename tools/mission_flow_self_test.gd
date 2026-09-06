@@ -237,11 +237,13 @@ func _test_pixel_ui() -> void:
 		var report_sizes := {
 			"badge_c": Vector2(80,72), "badge_b": Vector2(80,72), "badge_a": Vector2(80,72), "badge_s": Vector2(80,72), "badge_failure": Vector2(80,72),
 			"stat_frame": Vector2(192,52), "accuracy_trough": Vector2(360,14), "accuracy_fill": Vector2(352,6),
+			"flight_recorder_complete": Vector2(556,18), "flight_recorder_lost": Vector2(556,18),
 		}
 		for asset_name in report_sizes:
 			var report_texture := load("res://assets/runtime/ui/menu/mission_report/%s.png" % asset_name)
 			_expect(report_texture is Texture2D and report_texture.get_size() == report_sizes[asset_name], "mission-report sprite should retain registered geometry: %s" % asset_name)
 		_expect(source.contains("REPORT_BADGES") and source.contains("REPORT_FAILURE_BADGE") and source.contains("REPORT_STAT_FRAME") and source.contains("REPORT_ACCURACY_TROUGH") and source.contains("REPORT_ACCURACY_FILL"), "mission report should use authored qualification, failure and instrumentation sprites")
+		_expect(source.contains("REPORT_FLIGHT_RECORDER_COMPLETE") and source.contains("REPORT_FLIGHT_RECORDER_LOST"), "mission report should distinguish completed and interrupted flight-recorder tracks")
 		_expect(source.contains("REPORT_METRIC_CELL") and source.contains("REPORT_METRIC_ICONS") and source.contains("func _draw_report_metric") and source.contains("func _objective_report"), "mission report should expose sprite-backed sortie telemetry and objective completion")
 		var metric_sizes := {"cell":Vector2(128,26), "icon_targets":Vector2(12,12), "icon_damage":Vector2(12,12), "icon_secret":Vector2(12,12), "icon_repair":Vector2(12,12)}
 		for asset_name in metric_sizes:
@@ -346,6 +348,7 @@ func _test_pixel_ui() -> void:
 	var stores_file := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
 	_expect(stores_file != null and stores_file.get_as_text().contains("layer = 32"), "stores schematic should render above the sortie console and mission intelligence")
 	_expect(stores_file != null and stores_file.get_as_text().contains("UiSpriteRenderer.draw_nine_slice"), "stores schematic should use authored operations-console sprites")
+	_expect(stores_file != null and stores_file.get_as_text().contains("--capture-stores-schematic"), "visual QA should be able to capture the opened stores schematic deterministically")
 	_expect(stores_file != null and stores_file.get_as_text().contains("_sortie_front_end(scene)"), "stores hotkey should remain hidden outside sortie operations")
 	_expect(not FileAccess.file_exists("res://scripts/boss_hud_director.gd"), "obsolete boss HUD widget director should remain deleted")
 	_expect(not FileAccess.file_exists("res://scripts/threat_warning_director.gd"), "obsolete threat widget director should remain deleted")

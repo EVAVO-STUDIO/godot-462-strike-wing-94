@@ -1,0 +1,41 @@
+[
+  {
+    "band": "background",
+    "count": 51,
+    "drawn_length_cap": 2,
+    "authored_length_range": [
+      1.0550240153975852,
+      3.410939154509177
+    ],
+    "travel_motion_at_062_to_178": [
+      0.043646451792866456,
+      17.573282468725736
+    ]
+  },
+  {
+    "band": "midground",
+    "count": 31,
+    "drawn_length_cap": 4,
+    "authored_length_range": [
+      4.359796404705588,
+      12.32702124798368
+    ],
+    "travel_motion_at_062_to_178": [
+      6.919177883214691,
+      47.09160686544058
+    ]
+  },
+  {
+    "band": "foreground",
+    "count": 13,
+    "drawn_length_cap": 8,
+    "authored_length_range": [
+      19.051560229513534,
+      36.038830320110684
+    ],
+    "travel_motion_at_062_to_178": [
+      17.77834478671029,
+      71.5745048020983
+    ]
+  }
+]

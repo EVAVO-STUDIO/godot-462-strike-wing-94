@@ -1,0 +1,17 @@
+{
+  "schema": "hypersonic_boss_weak_point_runtime_v1",
+  "status": "reviewed_native_runtime",
+  "bosses": 9,
+  "weak_points_per_boss": 3,
+  "frames": 4,
+  "runtime_root": "assets/runtime/enemies/boss_weak_point",
+  "native_families": [
+    "mercenary",
+    "machine",
+    "orbital"
+  ],
+  "native_evidence": "work/boss_weak_point_v1/native",
+  "native_contact": "work/boss_weak_point_v1/native_contact.png",
+  "native_contact_sha256": "F56423BBC679A4FB147C9F40739DFA5241C85E8B5652F55B9D304C8480113B42",
+  "review_video": "outputs/HYPERSONIC-nine-boss-weak-points-runtime.mp4"
+}

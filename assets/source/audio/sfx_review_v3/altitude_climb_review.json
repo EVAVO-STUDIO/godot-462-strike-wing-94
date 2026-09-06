@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\altitude_climb.wav",
+  "source_sha256": "94f9debe83af64b746dd4531138935606b3a531ffcf96751911e186e0b3846e8",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.44004535147392293,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.1180419921875,
+    "rms": 0.027233587725374857,
+    "dc": -0.0002446092552319515,
+    "clippedSamples": 0,
+    "crestFactor": 4.334426788475619,
+    "estimatedBpm": 184.5703125,
+    "pulseStrength": 0.05223371088504791,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

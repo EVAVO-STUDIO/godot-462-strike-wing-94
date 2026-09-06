@@ -1,0 +1,14 @@
+{
+  "schema": "hypersonic_tracker_arrangements_runtime_v1",
+  "status": "integrated_runtime_render_reviewed_pending_native_mix_listen",
+  "arrangements": 12,
+  "bars_per_arrangement": 32,
+  "runtime_data": "res://data/music_arrangements/",
+  "runtime_engine": "res://scripts/retro_music_director.gd",
+  "delivery": "procedural 22050 Hz tracker synthesis with reviewed 20 Hz DC cleanup and title-only -3 dB high shelf at 6 kHz; no streamed music files",
+  "continuity": "oscillator and noise state remain continuous across bars and the 32-bar cycle",
+  "identity": "original track ids, tempos, roots, chord sequences and pitch vocabulary retained",
+  "runtime_review": "outputs/HYPERSONIC-tracker-runtime-arrangement-review.ogg",
+  "runtime_review_segments": ["title_vector 0-24s", "steel_vector 24-48s", "black_sky 48-72s", "after_action 72-96s"],
+  "remaining_gate": "native listening against radio, propulsion, weapons, warnings and weather"
+}

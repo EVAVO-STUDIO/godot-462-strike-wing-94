@@ -1,0 +1,3670 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "vx94-primary-transform",
+  "projectId": "hypersonic",
+  "purpose": "Retained primary retraction and deployment synchronized with authored wing exposures",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "bomber_ballistic_00",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ],
+      "targetPath": "bomber_ballistic_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_01",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_1.png"
+      ],
+      "targetPath": "bomber_ballistic_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_02",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_02.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_1.png"
+      ],
+      "targetPath": "bomber_ballistic_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_03",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_03.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "bomber_ballistic_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_04",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_04.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_0_0.png"
+      ],
+      "targetPath": "bomber_ballistic_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_05",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_05.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_0_0.png"
+      ],
+      "targetPath": "bomber_ballistic_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_06",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_06.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_1_0.png"
+      ],
+      "targetPath": "bomber_ballistic_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_07",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_2_0.png"
+      ],
+      "targetPath": "bomber_ballistic_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_08",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png"
+      ],
+      "targetPath": "bomber_ballistic_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_ballistic_09",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png"
+      ],
+      "targetPath": "bomber_ballistic_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_00",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_needle_rail_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_01",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_needle_rail_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_02",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_02.png"
+      ],
+      "targetPath": "bomber_needle_rail_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_03",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_03.png"
+      ],
+      "targetPath": "bomber_needle_rail_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_04",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_04.png"
+      ],
+      "targetPath": "bomber_needle_rail_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_05",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_05.png"
+      ],
+      "targetPath": "bomber_needle_rail_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_06.png"
+      ],
+      "targetPath": "bomber_needle_rail_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_07",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_needle_rail_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_08",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_needle_rail_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_09",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_needle_rail_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_00",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_storm_cannon_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_01",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_storm_cannon_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_02",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_02.png"
+      ],
+      "targetPath": "bomber_storm_cannon_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_03",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_03.png"
+      ],
+      "targetPath": "bomber_storm_cannon_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_04",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_04.png"
+      ],
+      "targetPath": "bomber_storm_cannon_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_05",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_05.png"
+      ],
+      "targetPath": "bomber_storm_cannon_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_06.png"
+      ],
+      "targetPath": "bomber_storm_cannon_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_07",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_storm_cannon_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_08",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_storm_cannon_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_09",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_storm_cannon_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_00",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_plasma_lance_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_01",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_plasma_lance_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_02",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_02.png"
+      ],
+      "targetPath": "bomber_plasma_lance_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_03",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_03.png"
+      ],
+      "targetPath": "bomber_plasma_lance_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_04",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_04.png"
+      ],
+      "targetPath": "bomber_plasma_lance_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_05",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_05.png"
+      ],
+      "targetPath": "bomber_plasma_lance_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_06.png"
+      ],
+      "targetPath": "bomber_plasma_lance_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_07",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_plasma_lance_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_08",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_plasma_lance_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_09",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1_aperture.png"
+      ],
+      "targetPath": "bomber_plasma_lance_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_00",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_01",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_02",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_03",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_04",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_05",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_06",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_07",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_08",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_09",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "hypersonic_ballistic_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_00",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_01",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_02",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_03",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_04",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_05",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_07",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_08",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_09",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png"
+      ],
+      "targetPath": "hypersonic_needle_rail_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_00",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_01",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_02",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_03",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_04",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_05",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_07",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_08",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_09",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png"
+      ],
+      "targetPath": "hypersonic_storm_cannon_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_00",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_00.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_01",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_01.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_02",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_02.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_03",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_03.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_04",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_04.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_05",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_05.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_07",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_07.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_08",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_08.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_09",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png"
+      ],
+      "targetPath": "hypersonic_plasma_lance_09.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

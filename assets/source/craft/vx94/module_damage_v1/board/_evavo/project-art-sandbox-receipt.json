@@ -1,0 +1,2368 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "1a768810b2322d730e7f3c70a33d6f33ce76265b66b585c8eada46140b2f0c76",
+  "planBytesSha256": "e6b5bc4864d8cb1537dba1f4c9410a87f7eb35b74907a33480dae1b9cf394bf8",
+  "sandboxId": "vx94-module-damage-board",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:24dc633a7a36a69d99e9eed5",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_013c88bffa798c54e3ef7ea273acb569",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_hard_right.png",
+      "sha256": "8b981751436e4541f9b50a89f9c9a6882def6deb38a979d30a6a931c3b1abb6b",
+      "bytes": 5083
+    },
+    {
+      "sourceId": "source_01ae454f828393f9bc9fa40c02e0814a",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_burnt_left.png",
+      "sha256": "e048ba0acefdcb74e72fab65d622ecd04797794651866c5287e4cb73bdd3ae9f",
+      "bytes": 3660
+    },
+    {
+      "sourceId": "source_0384fdb11e2f7f5984fdc6bc956ea7e8",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_burnt_neutral.png",
+      "sha256": "70ea88c026309751b38858a5c30d7596ee9768301480869edfb0ac9333d992f3",
+      "bytes": 4623
+    },
+    {
+      "sourceId": "source_0b1e149366784b09e134d4625b7efd23",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_burnt_left.png",
+      "sha256": "50285298800e38469340c8680f7a0e1cddf53dc65c370ae7aa3bbdffeb610e94",
+      "bytes": 3649
+    },
+    {
+      "sourceId": "source_0bdb2e2756ef0a5f4324a1a3a142b3f9",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_scarred_neutral.png",
+      "sha256": "13415da8b5a41f6fd26b5315a076ec1c964d1853c03ca2ca565a4b079e5d8e5a",
+      "bytes": 3499
+    },
+    {
+      "sourceId": "source_17e2fabddeb174a61fcea25efa0f73e7",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_scarred_left.png",
+      "sha256": "b64fde4446e93c3e5ec3d9b9eea255b3b2bb6dfda3fc26e23a69ca16d3877553",
+      "bytes": 4511
+    },
+    {
+      "sourceId": "source_18b849a9a45a7f58ca8da92e7c979b9f",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_burnt_neutral.png",
+      "sha256": "17c0e268a37e51b32f0e18afe7f8a1886d1fa6270cea870062f600652e5844de",
+      "bytes": 3476
+    },
+    {
+      "sourceId": "source_196afd9f5ab6a1d0f13360b2c33bc9d6",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_hard_right.png",
+      "sha256": "a46651c79371ff3a0adc97cd2ae8840b37752a3d0381e8e6c000b9ac4aa13ab4",
+      "bytes": 4052
+    },
+    {
+      "sourceId": "source_1a3da5dd4831b6be0849b0242835a4b4",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_burnt_right.png",
+      "sha256": "c8f946410587facba2514873cc64797d284ea973af1653db4055cddb93663f17",
+      "bytes": 4571
+    },
+    {
+      "sourceId": "source_1a9cf6c7c7215cbbe8ffcddff6110a04",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_scarred_left.png",
+      "sha256": "d5d515287d24c1c5636dba5412fc67ada4e63829a958042a1410701f0504501d",
+      "bytes": 3673
+    },
+    {
+      "sourceId": "source_1ae1f79bf93110d56a8f1e6863b77493",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_scarred_neutral.png",
+      "sha256": "3daefc812717267f5280470ce96f8b865d508fb80543159c73c6b7b3f186dbf7",
+      "bytes": 3489
+    },
+    {
+      "sourceId": "source_1cb74b79726751e08b0b7a109d887162",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_burnt_right.png",
+      "sha256": "5acd1a4a506dd613ccb404dcba80a35a570feb03442b6ed90bb3c6ba8a094421",
+      "bytes": 3732
+    },
+    {
+      "sourceId": "source_1fc19be2cfa5b5de4d146e8a0dc6aa1b",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_neutral.png",
+      "sha256": "09b002755e4ed4805dd747229b2337092bc059add60c55e1608a632ebb3aca99",
+      "bytes": 4603
+    },
+    {
+      "sourceId": "source_2076cf28e4ed216ecc6ea54685de18ce",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_scarred_right.png",
+      "sha256": "5b5250e36e997528cd92dcf1de53f120420a3c6d7bef1dadd28d66b9ed80e192",
+      "bytes": 3735
+    },
+    {
+      "sourceId": "source_20d95f06b01dc00c6826eb580c5e040b",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_neutral.png",
+      "sha256": "acc8e80f6f92f92ab1c063a259025755ea8babfa5090bcdf51cc85a5a32fd997",
+      "bytes": 4606
+    },
+    {
+      "sourceId": "source_20e5e9ab2954a1e0e336fc36e6fdd8e1",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_burnt_left.png",
+      "sha256": "b952683e385a06bea8012be35df5e9bc401b44bc5eff7bbe1e47873a81638a13",
+      "bytes": 4465
+    },
+    {
+      "sourceId": "source_21c89d46349533ee0572da8fd4a4569c",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_burnt_hard_left.png",
+      "sha256": "664eb9a648a7a9420782c9f82654d9799c07bbb14d8830324594446aa660d860",
+      "bytes": 4271
+    },
+    {
+      "sourceId": "source_2223a14912bd121fc3e35b44a9e87e87",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_burnt_neutral.png",
+      "sha256": "124bacf31baaef915a71e1a9e6884ea1c6d05130c5712b43ddce93b908eebe04",
+      "bytes": 4615
+    },
+    {
+      "sourceId": "source_23d835b045f067c2de22d5231bf3159a",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_burnt_left.png",
+      "sha256": "401da56a5b0e6e5261989e5d0ea35b9a77c8d0c99a8354bd21a67e5980751555",
+      "bytes": 4487
+    },
+    {
+      "sourceId": "source_2de38ddd2bd2072eaf15c88710870f9f",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_scarred_hard_left.png",
+      "sha256": "d6eef9e7ebafa89e5150090bf4808a14aee8184f6744539c81bf1003e4e0bfcd",
+      "bytes": 4248
+    },
+    {
+      "sourceId": "source_3c3fadb7885d8eb3741f22ea9c82f45e",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_scarred_hard_right.png",
+      "sha256": "4d8b26fa1d950a7eda9746002afe739832a7697167d3e7c38600c684ea9e2e1c",
+      "bytes": 5061
+    },
+    {
+      "sourceId": "source_3d80d0aa7d862a590ba30bb01ef177c4",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_scarred_right.png",
+      "sha256": "7848f3c13adc6edc16c490926fc39b063ff7378ef550ac52a760fa0d262b5a76",
+      "bytes": 3745
+    },
+    {
+      "sourceId": "source_3ecc61d44dd382c45f1843b9c7190bdb",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_hard_right.png",
+      "sha256": "4bee17ed87e7e2aa3f6948419959ebdec2c8901d5f490abd4c8b9da2720ec355",
+      "bytes": 5084
+    },
+    {
+      "sourceId": "source_4210cb4dbc7518926c4cd119891cca1b",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_burnt_hard_right.png",
+      "sha256": "f81807c3e3df0defe9772325567885605737c64179ced9a8a9d48669202f069d",
+      "bytes": 4070
+    },
+    {
+      "sourceId": "source_435f710f984b746cb29e92618787bca2",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_hard_left.png",
+      "sha256": "8eb714b9bb04563a22b197ea1d521019c84965752c7881544886b55760ccfa26",
+      "bytes": 5340
+    },
+    {
+      "sourceId": "source_43e0c0a5411aacecde44a55ddb72f4a4",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_scarred_left.png",
+      "sha256": "bb8f1523c801969d4624635a8bf9bc8eea6da346ee4af77628ee47e331b7ec10",
+      "bytes": 4468
+    },
+    {
+      "sourceId": "source_45930a09a9ded2dbd5ceb0649cef9cf5",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_right.png",
+      "sha256": "ba15c0e25ec58f822575c8896d04de550950c3c95b7fb42ded661879f5bb7543",
+      "bytes": 3733
+    },
+    {
+      "sourceId": "source_484bd67344fe4170743d957431bbf93c",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_burnt_neutral.png",
+      "sha256": "12261468cf525616fe637d14414d21c4b40218f18763690716b284138f9b12f6",
+      "bytes": 3474
+    },
+    {
+      "sourceId": "source_4a12a10c73c697660b25be45f6fcc3fc",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_burnt_hard_left.png",
+      "sha256": "ace351f967c5ca7e743610896d4851d5d70f5fd0b1e4ebb2a253bfdbc2675d35",
+      "bytes": 5338
+    },
+    {
+      "sourceId": "source_4f9665f912f33e101d1f3d8e2b60c94f",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_scarred_neutral.png",
+      "sha256": "873a15ed9032f037e799b721a82b5ec8da639bb6b98dc646676fbda55bcf80d3",
+      "bytes": 4631
+    },
+    {
+      "sourceId": "source_5080ea037d97af198ff95d70c016ca83",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_scarred_hard_right.png",
+      "sha256": "2ab456e6fc15e84abd43e3745e9229bcd9cd59b700e700ac94d1e30183572fe0",
+      "bytes": 4081
+    },
+    {
+      "sourceId": "source_539ad821c0bb3fc79297221a46d509c0",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_neutral.png",
+      "sha256": "fec8d84e49c1b47d11e3751a717ee3d1afe79df7143c906f5e5b7434ad7fb0dc",
+      "bytes": 3486
+    },
+    {
+      "sourceId": "source_55a3900e20ee579cbfeb6f801ab6d071",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_hard_left.png",
+      "sha256": "75a3fcda966e0d889f4900974b75822528aaf3efc0e8a2e20c8de9030710ee7b",
+      "bytes": 5374
+    },
+    {
+      "sourceId": "source_55b4b273258a8c45f0b59658be5ecbf6",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_scarred_left.png",
+      "sha256": "d6a143ffa89106943f040d14eb0be59e745f739aab42f51fab7079ca08718185",
+      "bytes": 4473
+    },
+    {
+      "sourceId": "source_57b91f02a29ab6fa9e6d7eca8395f8d7",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_burnt_hard_right.png",
+      "sha256": "e4f5355c38c7d4f3ef30ff9156bebc57257d416a7faacb63f8d000058fe12654",
+      "bytes": 5081
+    },
+    {
+      "sourceId": "source_5808394a1f485080b7473f62c3f1feb5",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_burnt_hard_left.png",
+      "sha256": "56884d12ec304b35b55558a1ab709296b0f74ee2510760bbc5d589f3385e2b05",
+      "bytes": 4235
+    },
+    {
+      "sourceId": "source_589617d754f14fde001d02acf716341a",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_left.png",
+      "sha256": "c21d032603e29f94e6a446f6caae8c8131fb85a2abff8128bb73cad9ca294a79",
+      "bytes": 3648
+    },
+    {
+      "sourceId": "source_5a2b34099ec7df633f2b5cb5e36d0c94",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_burnt_left.png",
+      "sha256": "25bd60731b9a968bdfd903b1401a6142f9b99170b000826a664be02e05158049",
+      "bytes": 4497
+    },
+    {
+      "sourceId": "source_5e715db43e1941c8c4646e701f4ce09b",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_burnt_hard_right.png",
+      "sha256": "6ee9f90b9e2823973b0ae3fdfa8d859eb0f049c0fec12f53bd61c0bf2630003b",
+      "bytes": 4067
+    },
+    {
+      "sourceId": "source_5fa20fda4b5c76fe5408bcf433e53dcf",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_burnt_neutral.png",
+      "sha256": "b7f188ae2fdc1e79a2d3f9a0dd8f3b4938c13b2a6498c4a2475430aa878b15fd",
+      "bytes": 3494
+    },
+    {
+      "sourceId": "source_5fea0dd0ff2260fc77a83dcecf749409",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_burnt_neutral.png",
+      "sha256": "1ed4b8b279d70abe6e0378423efc30a234d221b4885bff442f4fe24b9d493e1e",
+      "bytes": 4619
+    },
+    {
+      "sourceId": "source_60b0d24b09121d25e06ab2a5819428b1",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_hard_left.png",
+      "sha256": "2c9d9dc78727a67ab8ec32079fc23c2293e18bd86e8ddddeb0898aed5fa6b06d",
+      "bytes": 4216
+    },
+    {
+      "sourceId": "source_614fabea86572da07d6b0a3edbaa831d",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_neutral.png",
+      "sha256": "d667c74a7867327411f140cfae0c3cf69b080e0734da8b35053755b23bb61eb3",
+      "bytes": 4601
+    },
+    {
+      "sourceId": "source_619ec88820bddf571fb5631d83642159",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_right.png",
+      "sha256": "1b284e7d87f73ebe25890c537e8367bd0c30bcb31dcfa0ecc81c3b19e2a6bd03",
+      "bytes": 3714
+    },
+    {
+      "sourceId": "source_6868a7e3e8098d19b28bed8b3c19085f",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_scarred_neutral.png",
+      "sha256": "f531fdbd318b5427909a19fe8781aafeb0ee375c0dccc8670229d14d1ec5c145",
+      "bytes": 4619
+    },
+    {
+      "sourceId": "source_6a80882ce1c679cb78e62a726a9a3de9",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_burnt_hard_right.png",
+      "sha256": "af0b78d8b96d7d0a99d5f7952a8ad0c4fa8832bf6c3d6412e1a1c10535598425",
+      "bytes": 5087
+    },
+    {
+      "sourceId": "source_6d99602f899b8dcc57d4394c3a89c405",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_scarred_hard_left.png",
+      "sha256": "5ba39f84ec613d5cce4f0771d3febcdb1d0469d3827bef7ee1b04d6e1c218de4",
+      "bytes": 5338
+    },
+    {
+      "sourceId": "source_6fd5cb7738884cfac570a3c1f8b1598d",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_scarred_hard_right.png",
+      "sha256": "f16b5f0bfe47d76fcf8ca07f94e1c4f70ea4182cd3a9d7acfbfcb0c1c4263d53",
+      "bytes": 5105
+    },
+    {
+      "sourceId": "source_72bdea2ca3aa01bd089ce9f2cb6c8776",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_scarred_neutral.png",
+      "sha256": "8b697eaffa67365a0e7463d7a41f54d5db5cef28e06515009c0b4f586fc88932",
+      "bytes": 4646
+    },
+    {
+      "sourceId": "source_731cc9d0aac1193c97c14f50a64e2aa2",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_scarred_hard_right.png",
+      "sha256": "6af61669fb90a9f4639b81ce6fc35bea290c4a2c2da45b49e79c5461932deba4",
+      "bytes": 5059
+    },
+    {
+      "sourceId": "source_736401df639084a8fecb7cfd966fe400",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_burnt_right.png",
+      "sha256": "52fae1ed009d5f74dd9753f53f3125d34c60a8f37f7e30074bc9782de35690a6",
+      "bytes": 4570
+    },
+    {
+      "sourceId": "source_7623282e1c12a0b85c5587aeab11dc7d",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_scarred_left.png",
+      "sha256": "0d654ed20fe1e5c4236c2fc6a15753196128ceb1d39a8c355127f271d8ccb6a2",
+      "bytes": 3728
+    },
+    {
+      "sourceId": "source_78df44a33e88c265af542964ef1d2a38",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_neutral.png",
+      "sha256": "641bfc7f7836d38f47e6238b7a9e2d2dd01a8881d66dae5bd3dd3dd2bee69151",
+      "bytes": 3448
+    },
+    {
+      "sourceId": "source_7b6f56bb073fb3167a6b3ee468110be4",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_right.png",
+      "sha256": "4704527ecdbc00e1756ffbf59b36b4e42c27a00530c9f978e552bb86ae394b7e",
+      "bytes": 4529
+    },
+    {
+      "sourceId": "source_7e5add0f057347d26e8db93b5edf6738",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_burnt_right.png",
+      "sha256": "e946582dc5cd9782001450947224247a78b8a834916345d92d49a925535dcc23",
+      "bytes": 3749
+    },
+    {
+      "sourceId": "source_7e8ebb3add001981b4ccbf9678269c0f",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_burnt_hard_right.png",
+      "sha256": "931a704c0934b35457903a75043221daa9ea73be3413be5514393bafafe5a3dc",
+      "bytes": 5091
+    },
+    {
+      "sourceId": "source_82bd05402aac3d8a8f82e38f444fda0e",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_burnt_hard_left.png",
+      "sha256": "7c251fdda6b96850be05cf9eba380006bcc0dd01060352119314af38567efb05",
+      "bytes": 4234
+    },
+    {
+      "sourceId": "source_87ed5afe49c992c0afc15ce2d86c850b",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_left.png",
+      "sha256": "29bb331fa148e245c2b1a67923083eaafd9bfc16ec7c8174e67de780f084e738",
+      "bytes": 4486
+    },
+    {
+      "sourceId": "source_8a6387e5c51ba5dc12c5104e1dd6d643",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_burnt_right.png",
+      "sha256": "8344c9ebcd601edd74b07d02b813074674f682c298fa0ac7b319a21f4a7b34fc",
+      "bytes": 4559
+    },
+    {
+      "sourceId": "source_8b9e27f515cad940be75575fad1b0e02",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_burnt_left.png",
+      "sha256": "e74e24660142b669c8263112667d0eb253735e9cf9db55ad5cb558ee90b4e68f",
+      "bytes": 3669
+    },
+    {
+      "sourceId": "source_9d65cffafc1dd53ae0329b664664fb61",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_hard_left.png",
+      "sha256": "f2db22ff86a600ce9285d3b1b9f19ca050e02b5c654777309cec945e5805f9a4",
+      "bytes": 5393
+    },
+    {
+      "sourceId": "source_9f998e1a22b90c982110e8480a177d5e",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_burnt_hard_left.png",
+      "sha256": "973a982ab4d94e6f2e60b3cd8c691cb7d246acb732973751fbef0e7421b5e565",
+      "bytes": 5338
+    },
+    {
+      "sourceId": "source_a026ac7542f3ed8ba32dbe5d5085a4d2",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_hard_left.png",
+      "sha256": "534fc408303a894c0c9d456dc824fb0c2da64c2f6737c65a4374e4fa8f10ffe4",
+      "bytes": 4180
+    },
+    {
+      "sourceId": "source_aadbb3df69c997c67501ba639868b749",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_scarred_hard_left.png",
+      "sha256": "0a799b213ff915f080154b237fa0f0ef6067174e29398ab80815fd71c00edf1a",
+      "bytes": 4200
+    },
+    {
+      "sourceId": "source_ad9fa5d11d0d237d47eaa348e152a33b",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_left.png",
+      "sha256": "30fb0106ed30274fb106f9992ec1569887cec8b827fdc35e3d3cd9ad52521639",
+      "bytes": 3638
+    },
+    {
+      "sourceId": "source_b064ef2c5f1a315a65318012ab63378e",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_neutral.png",
+      "sha256": "81e7448cd7f6aeb67f2fb6c7a4008c42bcc4085860a016a492730dfde2919296",
+      "bytes": 3451
+    },
+    {
+      "sourceId": "source_b0c0a0b323329460046b9a4886566551",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_scarred_right.png",
+      "sha256": "7153cee879d97377d8c53f30493275df288d5dc5a15426ef473a606f8d777000",
+      "bytes": 4581
+    },
+    {
+      "sourceId": "source_b39242974803256bf6515d50c202a062",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_scarred_left.png",
+      "sha256": "e35e32c319100cb6fd87396af90f5eed62dee8d716a2e752867d3560da4fa6f4",
+      "bytes": 3663
+    },
+    {
+      "sourceId": "source_b8f35c64243880a6340680bce095b060",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_burnt_hard_right.png",
+      "sha256": "e47a788a354a0b21185e25fda39822098b4e23cc5e2f2ec9d203985cab7a5b28",
+      "bytes": 4076
+    },
+    {
+      "sourceId": "source_bc5d887d87e0045b5fce0d309c062734",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_scarred_right.png",
+      "sha256": "9efa86c79c891e26f55e6b5adab550674ee68565edfe45aac8d602f831695ca0",
+      "bytes": 3736
+    },
+    {
+      "sourceId": "source_be025d4715c8c85357dd56b775bdc9d3",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_burnt_right.png",
+      "sha256": "4b5d6e1efd533df49a57f5dd0d265c0a1744d8bb59ec231acbb9c2f86d50524c",
+      "bytes": 3729
+    },
+    {
+      "sourceId": "source_c0c4bfce2eb54f224c507f0e79edbbe6",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_left.png",
+      "sha256": "3a140973350411b20d025e17f8bf042a234d09485802da38433e774568d8e5bb",
+      "bytes": 3703
+    },
+    {
+      "sourceId": "source_c3d8adda57fcf20ec7a68c39f165439e",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_fighter_scarred_hard_right.png",
+      "sha256": "9aa5227563fe56daa2572882b6081ac1af3f083a6913a08907b955a7387a3996",
+      "bytes": 4100
+    },
+    {
+      "sourceId": "source_c83e79f52819f5c9b10092487c7db615",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_hard_right.png",
+      "sha256": "db8b79c328b81a82b5aaff2dedff8a05dab6ccfe381a1797ddfec3b8c1dfe7d3",
+      "bytes": 4074
+    },
+    {
+      "sourceId": "source_cac9b35ed4a4c2aaa3a76b4c304ccd0f",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_fighter_idle_right.png",
+      "sha256": "660291229e6294c756cfe6416895ed98890f9f36b3bf6464fad63fa27d566c09",
+      "bytes": 3707
+    },
+    {
+      "sourceId": "source_cf566b835477056f33a016730bf4efc4",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_fighter_scarred_hard_left.png",
+      "sha256": "5092599f4e2449baa9a9bd496c38debbc55a032c1e4ed254f8760e9340bc7fc7",
+      "bytes": 4229
+    },
+    {
+      "sourceId": "source_d01c3eb5996367dfd26f9abcad1bb56a",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_left.png",
+      "sha256": "a6a8a7e3b25df1573b3de5c8b59fb4d3e1a3dacac17cc45395122c8752125167",
+      "bytes": 4464
+    },
+    {
+      "sourceId": "source_d4cbdf463153663e0707f37e67673c6c",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_scarred_neutral.png",
+      "sha256": "bcfdae2cf13bc133eea79d509b4ab259bda99ff740ac760356d99e1f1c7fddd9",
+      "bytes": 3477
+    },
+    {
+      "sourceId": "source_d803c1a7103ef4f459b74cf153c47d27",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_hard_right.png",
+      "sha256": "290b2ae186ccf5b58c84c83aa1d97afb38091cd3f144f43483ffe39af0b9a178",
+      "bytes": 5026
+    },
+    {
+      "sourceId": "source_d9545e8fced6294b63bfae8485abac8a",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_scarred_right.png",
+      "sha256": "881fe7b102edc13e93169def3fb396957e01421b946301843a45c21efc3736a7",
+      "bytes": 4614
+    },
+    {
+      "sourceId": "source_d9c24f1e3984fbc9ccc34e987bdec137",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_fighter_scarred_hard_right.png",
+      "sha256": "9abc703d4811e87883ae1cb1c50267f6e722d08c27a7d1c42a99a8193c1dd818",
+      "bytes": 4079
+    },
+    {
+      "sourceId": "source_dc254e88983417368e63ae6ec57cc160",
+      "path": "work/vx94_module_damage_v1/composites/point_defence_pod_bomber_scarred_hard_left.png",
+      "sha256": "d2a9b7d2c301202ead81f1961285df97f61937e397202f6844d6f90db1f79e3b",
+      "bytes": 5321
+    },
+    {
+      "sourceId": "source_dd4e17dff194f0086d66b92f9346373e",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_scarred_hard_left.png",
+      "sha256": "ab3fdcbf77d85049412a1a4c97260e20fc0e811f046ac0cbe9f5794260159115",
+      "bytes": 5365
+    },
+    {
+      "sourceId": "source_dd5f7c396ba844061cf669c63fdeeca8",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_bomber_idle_right.png",
+      "sha256": "4b62e8173ea308166e23b78b5b8c9f2843ab1477613fb26f261b519da2934185",
+      "bytes": 4554
+    },
+    {
+      "sourceId": "source_e67b5cd8bbf4c07fcaf252092e6a5005",
+      "path": "work/vx94_dorsal_modules_v1/composites/magnetic_screen_bomber_idle_left.png",
+      "sha256": "ca0353680ca2a02650a13457a9519978d33e8340b95b02ee1d55a195ccc965f0",
+      "bytes": 4439
+    },
+    {
+      "sourceId": "source_e6df2889f22e77f07935c4f24d1ff1c9",
+      "path": "work/vx94_module_damage_v1/composites/emp_disruptor_bomber_burnt_hard_left.png",
+      "sha256": "0a9b20edd16507149e7fcad135167a246f5ea6ce9d346ac0c67059a34a837373",
+      "bytes": 5350
+    },
+    {
+      "sourceId": "source_e94c762c49e41775d2ecf7e568bf8a6f",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_bomber_idle_right.png",
+      "sha256": "4481f2186a644ed9c20aeb772fe2b97072f962c3042e1fbb39c00099f744f7e0",
+      "bytes": 4586
+    },
+    {
+      "sourceId": "source_ed28028b3ac13f13b8228728d6a9dcf5",
+      "path": "work/vx94_dorsal_modules_v1/composites/emp_disruptor_fighter_idle_hard_left.png",
+      "sha256": "be1a32c50cded2c3220e327b2fd9251ca7d3dca916e711550971c315251cffac",
+      "bytes": 4241
+    },
+    {
+      "sourceId": "source_ef90bd4d650fb02381eeaa3c7eb66ef0",
+      "path": "work/vx94_module_damage_v1/composites/magnetic_screen_bomber_scarred_right.png",
+      "sha256": "30cba6b1e2e0312ca0f4186af13c54eee2ec1c2a462149a647b44db163c359dd",
+      "bytes": 4568
+    },
+    {
+      "sourceId": "source_f0184e5d35e443eefcd0bdb6abf0132b",
+      "path": "work/vx94_dorsal_modules_v1/composites/point_defence_pod_fighter_idle_hard_right.png",
+      "sha256": "189befc37662a0d95fe34a1fc236c0d999711378b6fc3276d7b0b9f0a3bb3b4a",
+      "bytes": 4061
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "point_defence_pod",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 30,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 15,
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 16,
+          "sourceIndex": 16,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 17,
+          "sourceIndex": 17,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 18,
+          "sourceIndex": 18,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 19,
+          "sourceIndex": 19,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 20,
+          "sourceIndex": 20,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 21,
+          "sourceIndex": 21,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 22,
+          "sourceIndex": 22,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 23,
+          "sourceIndex": 23,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 24,
+          "sourceIndex": 24,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 25,
+          "sourceIndex": 25,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 26,
+          "sourceIndex": 26,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 27,
+          "sourceIndex": 27,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 28,
+          "sourceIndex": 28,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 29,
+          "sourceIndex": 29,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        }
+      ],
+      "outputs": [
+        {
+          "path": "point_defence_pod.png",
+          "sha256": "854d7cdbb33f28972ff4e89ba654d73012ce69c51abcf35ba0f5fd36c9c86920",
+          "bytes": 136068,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 864
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 552960
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            864
+          ],
+          "pixelSha256": "eca0794d5808ecf7bbae2512fe0d0f495ade00aa64c1f6ea2d30c1d1094502b0"
+        }
+      ]
+    },
+    {
+      "taskId": "emp_disruptor",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 30,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 15,
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 16,
+          "sourceIndex": 16,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 17,
+          "sourceIndex": 17,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 18,
+          "sourceIndex": 18,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 19,
+          "sourceIndex": 19,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 20,
+          "sourceIndex": 20,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 21,
+          "sourceIndex": 21,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 22,
+          "sourceIndex": 22,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 23,
+          "sourceIndex": 23,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 24,
+          "sourceIndex": 24,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 25,
+          "sourceIndex": 25,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 26,
+          "sourceIndex": 26,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 27,
+          "sourceIndex": 27,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 28,
+          "sourceIndex": 28,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 29,
+          "sourceIndex": 29,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        }
+      ],
+      "outputs": [
+        {
+          "path": "emp_disruptor.png",
+          "sha256": "7f2294002d8cd6464efc8670e010838ef782bf1094018bb0defbd826a6e28bcc",
+          "bytes": 136042,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 864
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 552960
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            864
+          ],
+          "pixelSha256": "083a31a02f49921144c1007c147856d881d0b493bafb8a10366c6e3e0dfb757e"
+        }
+      ]
+    },
+    {
+      "taskId": "magnetic_screen",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 30,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 15,
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 16,
+          "sourceIndex": 16,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 17,
+          "sourceIndex": 17,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 18,
+          "sourceIndex": 18,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 19,
+          "sourceIndex": 19,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 20,
+          "sourceIndex": 20,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 21,
+          "sourceIndex": 21,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 22,
+          "sourceIndex": 22,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 23,
+          "sourceIndex": 23,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 24,
+          "sourceIndex": 24,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 576,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 25,
+          "sourceIndex": 25,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 26,
+          "sourceIndex": 26,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 27,
+          "sourceIndex": 27,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 28,
+          "sourceIndex": 28,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 29,
+          "sourceIndex": 29,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 720,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        }
+      ],
+      "outputs": [
+        {
+          "path": "magnetic_screen.png",
+          "sha256": "2d73beb9de925d737e601a8abbd081a53cf18458bfc13d83632964de3e597258",
+          "bytes": 135975,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 864
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 552960
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            864
+          ],
+          "pixelSha256": "9ca474afbb1b9d71449b1e305fc5f1ea5e2aa0e87bd4814209a9167edcf02106"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "emp_disruptor.png",
+      "sha256": "7f2294002d8cd6464efc8670e010838ef782bf1094018bb0defbd826a6e28bcc",
+      "bytes": 136042,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 864
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 552960
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        864
+      ],
+      "pixelSha256": "083a31a02f49921144c1007c147856d881d0b493bafb8a10366c6e3e0dfb757e"
+    },
+    {
+      "path": "magnetic_screen.png",
+      "sha256": "2d73beb9de925d737e601a8abbd081a53cf18458bfc13d83632964de3e597258",
+      "bytes": 135975,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 864
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 552960
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        864
+      ],
+      "pixelSha256": "9ca474afbb1b9d71449b1e305fc5f1ea5e2aa0e87bd4814209a9167edcf02106"
+    },
+    {
+      "path": "point_defence_pod.png",
+      "sha256": "854d7cdbb33f28972ff4e89ba654d73012ce69c51abcf35ba0f5fd36c9c86920",
+      "bytes": 136068,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 864
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 552960
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        864
+      ],
+      "pixelSha256": "eca0794d5808ecf7bbae2512fe0d0f495ade00aa64c1f6ea2d30c1d1094502b0"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 90,
+    "externalSourceBytes": 389438,
+    "plannedMaximumOutputFiles": 4,
+    "taskOutputFiles": 3,
+    "taskOutputBytes": 408085,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "fec00b23894d2a73780306161b6b71ff029be4c112064188488655ea3ca425ad"
+}

@@ -1,0 +1,11 @@
+import json, sys
+from pathlib import Path
+out=Path(__file__).parent/'weather_art_v3'/('snow_b' if '--readable' in sys.argv else 'snow')
+out.mkdir(parents=True,exist_ok=True)
+effect={'schemaVersion':'evavo.particle-effect/v1','id':'hypersonic-snow-depth-study-v1','name':'HYPERSONIC snow depth study','description':'Cold non-emissive snow and spindrift, three restrained depths, no weapon-like trails. Candidate source.','domain':'2d','duration':4,'fps':12,'seed':9407,'loop':{'enabled':True,'mode':'periodic','seamTolerance':0.001,'maxStepRatio':1.5},'background':{'color':'#000000','transparent':True},'style':{'profile':'dos-pixel','pixelScale':1,'palette':['#72848e','#a6b5bd','#dde4e5'],'bloom':0,'motionBlur':0,'textureGrain':0},'camera':{'projection':'orthographic','position':{'x':0,'y':0,'z':3},'fovDegrees':55},'layers':[],'outputs':['png-sequence','sprite-sheet','godot-2d'],'metadata':{'project':'hypersonic','scope':'art candidate; not integrated speed model'}}
+for i,(name,rate,size,speed,opacity,color) in enumerate([('distant',26,.0022,.10,.35,'#72848e'),('middle',16,.0035,.19,.5,'#a6b5bd'),('near',7,.005,.32,.65,'#dde4e5')]):
+ if '--readable' in sys.argv: size*=2.8
+ p={'shape':'disc','blend':'normal','lifetime':{'min':1.5,'max':3.5},'size':{'min':size*.65,'max':size,'overLife':[{'t':0,'value':1},{'t':1,'value':1}]},'opacity':[{'t':0,'value':0},{'t':.12,'value':opacity},{'t':.85,'value':opacity},{'t':1,'value':0}],'colors':[{'t':0,'color':color},{'t':1,'color':color}],'velocity':{'direction':{'x':.22,'y':1,'z':0},'spreadDegrees':18,'speed':{'min':speed*.75,'max':speed}},'acceleration':{'x':.015,'y':0,'z':0},'drag':.06,'rotationDegrees':{'min':0,'max':360},'angularVelocity':{'min':-25,'max':25},'turbulence':{'strength':.025,'scale':1.4,'speed':.55},'trail':{'enabled':False,'length':0,'width':.1},'pixelSnap':True}
+ e={'id':name+'-flakes','name':name,'enabled':True,'start':0,'end':4,'rate':rate,'burst':0,'capacity':128,'origin':{'x':0,'y':-.25,'z':0},'spawn':{'shape':'box','width':2.1,'height':1.25,'depth':0,'radius':0},'particle':p}
+ effect['layers'].append({'id':name,'name':name,'enabled':True,'depth':i,'emitters':[e]})
+(out/'snow.particle.json').write_text(json.dumps(effect,indent=2))

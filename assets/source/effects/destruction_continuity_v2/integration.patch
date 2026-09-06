@@ -1,0 +1,42 @@
+--- a/scripts/combat_fx_director.gd
++++ b/scripts/combat_fx_director.gd
+@@ -312,6 +312,9 @@
+     # consumes the complete extended event. Previously the accelerated blast
+     # clock was also fed into breakup rendering, collapsing a 2.3-second boss
+     # death into roughly one second followed by an invisible event tail.
++    # Preserve retained material under the blast until existing breakup takes over.
++    if ratio <= 0.32:
++        _draw_initial_retained_wreck(surface, p, enemy_id, serial, faction)
+     var event_duration := EXPLOSION_SECONDS
+     var blast_duration := EXPLOSION_SECONDS
+     if boss:
+@@ -664,3 +667,29 @@
+
+ func _supports(scene: Object) -> bool:
+     return SceneContractCache.supports(scene, ["phase", "enemies", "hull", "shield", "player_position"])
++
++func _draw_initial_retained_wreck(surface: CanvasItem, p: Vector2, enemy_id: String, serial: int, faction: String) -> void:
++    if MERCENARY_BOSS_WRECK_HULLS.has(enemy_id):
++        _draw_mercenary_boss_breakup(surface, p, 0.0, enemy_id, serial)
++        return
++    if MACHINE_BOSS_WRECK_HULLS.has(enemy_id):
++        _draw_machine_boss_breakup(surface, p, 0.0, enemy_id, serial)
++        return
++    if ORBITAL_BOSS_WRECK_HULLS.has(enemy_id):
++        _draw_orbital_boss_breakup(surface, p, 0.0, enemy_id, serial)
++        return
++    if NAVAL_WRECK_HULLS.has(enemy_id):
++        _draw_naval_sinking(surface, p, 0.0, enemy_id, serial)
++        return
++    if GROUND_EMPLACEMENT_BREAKUP_FRAMES.has(enemy_id):
++        _draw_ground_emplacement_breakup(surface, p, 0.0, enemy_id, serial)
++        return
++    if GROUND_MECH_WRECK_HULLS.has(enemy_id):
++        _draw_ground_mech_breakup(surface, p, 0.0, enemy_id, serial, faction)
++        return
++    if GROUND_VEHICLE_WRECK_LAYERS.has(enemy_id):
++        _draw_ground_vehicle_breakup(surface, p, 0.0, enemy_id, serial, faction)
++        return
++    if AIRFRAME_WRECK_HULLS.has(enemy_id):
++        _draw_airframe_breakup(surface, p, 0.0, enemy_id, serial, faction)
++        return

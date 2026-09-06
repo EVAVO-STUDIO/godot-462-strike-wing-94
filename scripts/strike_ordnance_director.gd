@@ -81,8 +81,20 @@ func _altitude_transition_active() -> bool:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	return craft != null and craft.has_method("altitude_transition_active") and bool(craft.call("altitude_transition_active"))
 
+func shift_camera_projection(shift: Vector2) -> void:
+	for collection in [_pending, _impact_fx]:
+		for item in collection:
+			item["position"] = Vector2(item.get("position", Vector2.ZERO)) + shift
+			if item.has("release_position"):
+				item["release_position"] = Vector2(item["release_position"]) + shift
+
 func _strike_release_position(scene: Object) -> Vector2:
 	var player: Vector2 = scene.get("player_position")
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft != null and craft.has_method("role_mount_offsets"):
+		var projected = craft.call("role_mount_offsets", "precision_bomb")
+		if typeof(projected) == TYPE_ARRAY and not projected.is_empty() and typeof(projected[0]) == TYPE_VECTOR2:
+			return player + Vector2(projected[0])
 	var mounts := get_node_or_null("/root/PlayerMountDirector")
 	if mounts != null and mounts.has_method("role_offsets"):
 		var offsets = mounts.call("role_offsets", "bomber", "precision_bomb")

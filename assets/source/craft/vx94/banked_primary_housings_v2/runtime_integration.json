@@ -1,0 +1,12 @@
+{
+  "schema": "hypersonic_vx94_primary_housing_runtime_integration_v1",
+  "status": "reviewed_native_runtime",
+  "runtime_frames": 40,
+  "canvas": [64, 72],
+  "forms": ["fighter", "bomber"],
+  "bank_states": ["hard_left", "left", "neutral", "right", "hard_right"],
+  "hardware_states": ["stowed", "deployed", "charged", "discharge"],
+  "representative_runtime_sha256": "1196FC8DA3172C60B545D1922DD13940967605D65BB56334E51ED52E467E4FE8",
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/primary_housings",
+  "native_evidence": "work/storm_pulse_v2/runtime_native"
+}

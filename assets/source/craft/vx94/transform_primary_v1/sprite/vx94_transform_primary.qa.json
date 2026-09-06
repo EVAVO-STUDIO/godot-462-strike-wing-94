@@ -1,0 +1,253 @@
+{
+  "status": "PASS",
+  "issues": [
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_07",
+      "severity": "info",
+      "frame": "bomber_needle_rail_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_02",
+      "severity": "info",
+      "frame": "bomber_plasma_lance_02",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_03",
+      "severity": "info",
+      "frame": "bomber_plasma_lance_03",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_04",
+      "severity": "info",
+      "frame": "bomber_plasma_lance_04",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_05",
+      "severity": "info",
+      "frame": "bomber_plasma_lance_05",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_06",
+      "severity": "info",
+      "frame": "bomber_plasma_lance_06",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_plasma_lance_07",
+      "severity": "info",
+      "frame": "bomber_plasma_lance_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_02",
+      "severity": "info",
+      "frame": "bomber_storm_cannon_02",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_03",
+      "severity": "info",
+      "frame": "bomber_storm_cannon_03",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_04",
+      "severity": "info",
+      "frame": "bomber_storm_cannon_04",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_05",
+      "severity": "info",
+      "frame": "bomber_storm_cannon_05",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_06",
+      "severity": "info",
+      "frame": "bomber_storm_cannon_06",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_storm_cannon_07",
+      "severity": "info",
+      "frame": "bomber_storm_cannon_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_ballistic_00",
+      "severity": "info",
+      "frame": "hypersonic_ballistic_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_needle_rail_00",
+      "severity": "info",
+      "frame": "hypersonic_needle_rail_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_plasma_lance_00",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_02",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_02",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_03",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_03",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_04",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_04",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_05",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_05",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_06",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_06",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_07",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_07",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_08",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_08",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_09",
+      "severity": "info",
+      "frame": "hypersonic_plasma_lance_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_storm_cannon_00",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_02",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_02",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_03",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_03",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_04",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_04",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_05",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_05",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_06",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_06",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_07",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_07",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_08",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_08",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hypersonic_needle_rail_09",
+      "severity": "info",
+      "frame": "hypersonic_storm_cannon_09",
+      "animation": null
+    }
+  ],
+  "metrics": {
+    "frames": 80,
+    "animations": 8,
+    "empty_frames": 0,
+    "duplicate_frames": 33,
+    "event_markers": 0,
+    "warnings": 0,
+    "errors": 0,
+    "max_area_variance": 0.246873,
+    "max_brightness_range": 0.052688,
+    "max_centroid_jump": 0.014598,
+    "max_loop_delta": 0.0,
+    "max_ground_contact_shift": 0.001162,
+    "max_silhouette_delta": 0.076159,
+    "max_palette_distance": 0.431579,
+    "max_palette_colors": 110
+  }
+}

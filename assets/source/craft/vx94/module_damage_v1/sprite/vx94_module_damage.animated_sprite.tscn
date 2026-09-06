@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpriteFrames" path="res://vx94_module_damage.spriteframes.tres" id="1_frames"]
+
+[node name="vx94_module_damage" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_frames")
+centered = false
+offset = Vector2(-32, -38)
+animation = &"emp_disruptor_bomber_burnt_hard_left"
+autoplay = "emp_disruptor_bomber_burnt_hard_left"

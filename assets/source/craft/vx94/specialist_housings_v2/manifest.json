@@ -1,0 +1,1988 @@
+{
+  "status": "reviewed_native_runtime",
+  "weapons": [
+    "needle_rail",
+    "storm_cannon",
+    "plasma_lance"
+  ],
+  "poses": {
+    "fighter": {
+      "x": [
+        15,
+        30,
+        32,
+        34,
+        48
+      ],
+      "angle": [
+        -28,
+        -3,
+        0,
+        3,
+        28
+      ],
+      "width": [
+        0.8,
+        0.95,
+        1,
+        0.95,
+        0.8
+      ]
+    },
+    "bomber": {
+      "x": [
+        10,
+        26,
+        32,
+        40,
+        55
+      ],
+      "angle": [
+        -29,
+        -7,
+        0,
+        8,
+        29
+      ],
+      "width": [
+        0.75,
+        0.9,
+        1,
+        0.9,
+        0.75
+      ]
+    }
+  },
+  "frames": [
+    {
+      "id": "needle_rail_fighter_hard_left_0",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "stowed",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_hard_left_1",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "deployed",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_hard_left_2",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "charged",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_hard_left_3",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "discharge",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_left_0",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "left",
+      "state": "stowed",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_left_1",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "left",
+      "state": "deployed",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_left_2",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "left",
+      "state": "charged",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_left_3",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "left",
+      "state": "discharge",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_neutral_0",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "stowed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_neutral_1",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "deployed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_neutral_2",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "charged",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_neutral_3",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "discharge",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_right_0",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "right",
+      "state": "stowed",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_right_1",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "right",
+      "state": "deployed",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_right_2",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "right",
+      "state": "charged",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_right_3",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "right",
+      "state": "discharge",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_hard_right_0",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "stowed",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_hard_right_1",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "deployed",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_hard_right_2",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "charged",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_fighter_hard_right_3",
+      "weapon": "needle_rail",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "discharge",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_left_0",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "stowed",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_left_1",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "deployed",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_left_2",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "charged",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_left_3",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "discharge",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_left_0",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "left",
+      "state": "stowed",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_left_1",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "left",
+      "state": "deployed",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_left_2",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "left",
+      "state": "charged",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_left_3",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "left",
+      "state": "discharge",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_neutral_0",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "stowed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_neutral_1",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "deployed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_neutral_2",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "charged",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_neutral_3",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "discharge",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_right_0",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "right",
+      "state": "stowed",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_right_1",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "right",
+      "state": "deployed",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_right_2",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "right",
+      "state": "charged",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_right_3",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "right",
+      "state": "discharge",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_right_0",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "stowed",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_right_1",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "deployed",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_right_2",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "charged",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "needle_rail_bomber_hard_right_3",
+      "weapon": "needle_rail",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "discharge",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_left_0",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "stowed",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_left_1",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "deployed",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_left_2",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "charged",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_left_3",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "discharge",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_left_0",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "left",
+      "state": "stowed",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_left_1",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "left",
+      "state": "deployed",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_left_2",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "left",
+      "state": "charged",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_left_3",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "left",
+      "state": "discharge",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_neutral_0",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "stowed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_neutral_1",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "deployed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_neutral_2",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "charged",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_neutral_3",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "discharge",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_right_0",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "right",
+      "state": "stowed",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_right_1",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "right",
+      "state": "deployed",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_right_2",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "right",
+      "state": "charged",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_right_3",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "right",
+      "state": "discharge",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_right_0",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "stowed",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_right_1",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "deployed",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_right_2",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "charged",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_fighter_hard_right_3",
+      "weapon": "storm_cannon",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "discharge",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_left_0",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "stowed",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_left_1",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "deployed",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_left_2",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "charged",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_left_3",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "discharge",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_left_0",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "left",
+      "state": "stowed",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_left_1",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "left",
+      "state": "deployed",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_left_2",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "left",
+      "state": "charged",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_left_3",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "left",
+      "state": "discharge",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_neutral_0",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "stowed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_neutral_1",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "deployed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_neutral_2",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "charged",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_neutral_3",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "discharge",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_right_0",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "right",
+      "state": "stowed",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_right_1",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "right",
+      "state": "deployed",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_right_2",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "right",
+      "state": "charged",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_right_3",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "right",
+      "state": "discharge",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_right_0",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "stowed",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_right_1",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "deployed",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_right_2",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "charged",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "storm_cannon_bomber_hard_right_3",
+      "weapon": "storm_cannon",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "discharge",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_left_0",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "stowed",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_left_1",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "deployed",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_left_2",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "charged",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_left_3",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_left",
+      "state": "discharge",
+      "muzzle": [
+        15,
+        3
+      ],
+      "angle": -28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_left_0",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "left",
+      "state": "stowed",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_left_1",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "left",
+      "state": "deployed",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_left_2",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "left",
+      "state": "charged",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_left_3",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "left",
+      "state": "discharge",
+      "muzzle": [
+        30,
+        3
+      ],
+      "angle": -3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_neutral_0",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "stowed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_neutral_1",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "deployed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_neutral_2",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "charged",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_neutral_3",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "neutral",
+      "state": "discharge",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_right_0",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "right",
+      "state": "stowed",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_right_1",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "right",
+      "state": "deployed",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_right_2",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "right",
+      "state": "charged",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_right_3",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "right",
+      "state": "discharge",
+      "muzzle": [
+        34,
+        3
+      ],
+      "angle": 3,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_right_0",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "stowed",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_right_1",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "deployed",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_right_2",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "charged",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_fighter_hard_right_3",
+      "weapon": "plasma_lance",
+      "form": "fighter",
+      "bank": "hard_right",
+      "state": "discharge",
+      "muzzle": [
+        48,
+        3
+      ],
+      "angle": 28,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_left_0",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "stowed",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_left_1",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "deployed",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_left_2",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "charged",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_left_3",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_left",
+      "state": "discharge",
+      "muzzle": [
+        10,
+        3
+      ],
+      "angle": -29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_left_0",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "left",
+      "state": "stowed",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_left_1",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "left",
+      "state": "deployed",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_left_2",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "left",
+      "state": "charged",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_left_3",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "left",
+      "state": "discharge",
+      "muzzle": [
+        26,
+        3
+      ],
+      "angle": -7,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_neutral_0",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "stowed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_neutral_1",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "deployed",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_neutral_2",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "charged",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_neutral_3",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "neutral",
+      "state": "discharge",
+      "muzzle": [
+        32,
+        3
+      ],
+      "angle": 0,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_right_0",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "right",
+      "state": "stowed",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_right_1",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "right",
+      "state": "deployed",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_right_2",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "right",
+      "state": "charged",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_right_3",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "right",
+      "state": "discharge",
+      "muzzle": [
+        40,
+        3
+      ],
+      "angle": 8,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_right_0",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "stowed",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_right_1",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "deployed",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_right_2",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "charged",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "plasma_lance_bomber_hard_right_3",
+      "weapon": "plasma_lance",
+      "form": "bomber",
+      "bank": "hard_right",
+      "state": "discharge",
+      "muzzle": [
+        55,
+        3
+      ],
+      "angle": 29,
+      "pivot": [
+        32,
+        38
+      ]
+    }
+  ],
+  "state_model": "Four named static states per weapon/form/bank; not a four-frame deployment animation",
+  "qa": "120 named states pass Sprite Studio default strict QA and source-matte alpha checks; representative six-background proofs inspected",
+  "native_review": "48 pinned Godot 4.6.2 art-fixture frames; ten selected native exposures inspected. Not gameplay or firing integration evidence.",
+  "charge_visibility": "All 30 combinations change at least 3 visible pixels for deployed-to-charged and charged-to-discharge",
+  "open": [
+    "muzzle and projectile registration",
+    "transform and pitch handling",
+    "state transition timing",
+    "live specialist firing review"
+  ]
+}

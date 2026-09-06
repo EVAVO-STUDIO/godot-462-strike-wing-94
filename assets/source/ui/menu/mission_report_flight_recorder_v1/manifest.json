@@ -1,0 +1,24 @@
+{
+  "asset_family": "mission_report_flight_recorder",
+  "status": "runtime_v1_reviewed",
+  "source_directory": "res://assets/source/ui/menu/mission_report_flight_recorder_v1/originals/",
+  "finished_directory": "res://assets/source/ui/menu/mission_report_flight_recorder_v1/finished/",
+  "runtime_directory": "res://assets/runtime/ui/menu/mission_report/",
+  "visual_contract": {
+    "purpose": "fill the debrief transition band with a concise sortie flight-recorder trace",
+    "success": "continuous cyan track with amber ingress, midpoint and egress registration",
+    "failure": "interrupted track with red loss marker and decaying telemetry return",
+    "era": "late-1990s military avionics printout",
+    "avoid": ["modern analytics chart", "neon glow", "decorative fake numbers", "large empty award card"]
+  },
+  "assets": {
+    "flight_recorder_complete.png": [556, 18],
+    "flight_recorder_lost.png": [556, 18]
+  },
+  "finishing": {
+    "studio": "EVAVO Art Studio finish_raster_asset.mjs",
+    "preset": "web-hero with exact PNG override",
+    "immutable_sources": true,
+    "output_size_verified": true
+  }
+}

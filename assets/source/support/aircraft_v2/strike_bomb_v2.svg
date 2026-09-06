@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="32" viewBox="0 0 16 32" shape-rendering="crispEdges">
+  <!-- Original steel-cased conventional strike store, nose downward. -->
+  <path fill="#172026" d="M4 5h2v3h4V5h2v7l-2 2v10l-2 4-2-4V14l-2-2z"/>
+  <path fill="#52615f" d="M5 6h1v7l-1-2zM10 6h1v5l-1 2z"/>
+  <path fill="#74807a" d="M6 9h4v14l-2 3-2-3z"/>
+  <path fill="#a6aba0" d="M6 10h1v12H6z"/>
+  <path fill="#3e4e50" d="M9 10h1v13l-2 3v-3h1z"/>
+  <path fill="#b7a15e" d="M6 12h4v2H6z"/>
+  <path fill="#243337" d="M6 18h4v1H6zM7 7h2v2H7z"/>
+</svg>

@@ -1,0 +1,2161 @@
+{
+  "schema_version": 1,
+  "manifest": "vx94_module_damage.manifest.json",
+  "files": [
+    {
+      "path": "aligned/emp_disruptor_bomber_burnt_hard_left_00.png",
+      "size": 4246,
+      "sha256": "900301afdf229ee925df1a6cefd45d7c2425d879f25d5b00ec5193cbe6514c79"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_burnt_hard_right_00.png",
+      "size": 4262,
+      "sha256": "d84de4f3d9c98b2e658b6a40801db452f93568bec7899d7b00c0140394dbd119"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_burnt_left_00.png",
+      "size": 3731,
+      "sha256": "cbe1594a4b599f573aa31f8ed65a61e5703aeba3b46163d6feb0498e8bd2598d"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_burnt_neutral_00.png",
+      "size": 3925,
+      "sha256": "faa24da01198cef94ba27254789a3df9c87ea2f82b3c406266026be0877abff4"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_burnt_right_00.png",
+      "size": 3868,
+      "sha256": "4ddc8993675a25443c5c37016ea85a663f68dcc71e3554c055a673283342a5fb"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_scarred_hard_left_00.png",
+      "size": 4235,
+      "sha256": "657b32a3d00e7e3790ecb61d0ad0a2c2760aa0683dc63e3e1a4a69b3a735df63"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_scarred_hard_right_00.png",
+      "size": 4265,
+      "sha256": "8787e72f08eec3cb596f3dd948c90694b742d3f6ce9882d9ad4019af4da86b18"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_scarred_left_00.png",
+      "size": 3735,
+      "sha256": "65fe862fe926d9bb4b81bd4efd1e29fd26e95c2a0810218b5782cecb65d05436"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_scarred_neutral_00.png",
+      "size": 3969,
+      "sha256": "ce7ac2da2928ff2398a4fa846cdc14e286fabe378e411677f2c22c23a1db5502"
+    },
+    {
+      "path": "aligned/emp_disruptor_bomber_scarred_right_00.png",
+      "size": 3906,
+      "sha256": "5bec14af650643a9fd7768563b7764647554a1ea6dceec265431409aa65d1514"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_burnt_hard_left_00.png",
+      "size": 3540,
+      "sha256": "aa0816fd551a81b53a1776807176642cc640604375e580b56741b7dfdf98dabf"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_burnt_hard_right_00.png",
+      "size": 3511,
+      "sha256": "9286244760f905444f4f5afc9f32116ead489cb6505bee5cac78d13a545f36f9"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_burnt_left_00.png",
+      "size": 3270,
+      "sha256": "638b7044fd7e3f4123fd112e4d0f83e8cf6267febf9d9f0afa37c5bf9d1f4cce"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_burnt_neutral_00.png",
+      "size": 3231,
+      "sha256": "4b239f6a51da5a272aa116d46860b8dcb0e11545799fb19b816d17ed3f0bdcb7"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_burnt_right_00.png",
+      "size": 3354,
+      "sha256": "e194ee1a625a30b60de0083c0860b395ee737d4b26031a9858f2e50ea2dbadf9"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_scarred_hard_left_00.png",
+      "size": 3555,
+      "sha256": "1e27e01bbb8798b6f06cdf322f156f6449177db7a31088a00d6a961fca77f910"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_scarred_hard_right_00.png",
+      "size": 3545,
+      "sha256": "af7d8594abe166b1f6e3268c85baa94b675b8ca1f52e88b713f49fce910f0a93"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_scarred_left_00.png",
+      "size": 3295,
+      "sha256": "503f8ad958c7c5467f4a94f97366358dc73eee1ddc9a7464c83315856433a9a6"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_scarred_neutral_00.png",
+      "size": 3258,
+      "sha256": "dace625788cb9ad97c8c159550b282061c5eaee9eaf378e087e70b1951f229c1"
+    },
+    {
+      "path": "aligned/emp_disruptor_fighter_scarred_right_00.png",
+      "size": 3369,
+      "sha256": "6b75ff7f93971f44e8cfc42de071de88851ed7e299639c6e5360d8fb85538840"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_burnt_hard_left_00.png",
+      "size": 4291,
+      "sha256": "542467395557666cf92dc823dfb62be0186356e06d1f42c6f5c673d33e392435"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_burnt_hard_right_00.png",
+      "size": 4263,
+      "sha256": "08464e881e1f5c41b5624022e60162b7766263cd1efb99108f061ef2ceed37ed"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_burnt_left_00.png",
+      "size": 3725,
+      "sha256": "f4ffc99ac011812ef5842ee8481c277fa19bf75a3c0ee1da8bb07f86ba3d572a"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_burnt_neutral_00.png",
+      "size": 3932,
+      "sha256": "68e2a50ee7f21c9f1341178e0121c76ca6d4cad4ef29a2955fd66cafa4e71966"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_burnt_right_00.png",
+      "size": 3892,
+      "sha256": "5430f0b4e79b5923ff09f59631521a89bc80681f7fc9f0c727936aa859400327"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_scarred_hard_left_00.png",
+      "size": 4272,
+      "sha256": "4eaf0e566dc3b1faf0f552242f31a685b1efff587ff4436097302aa365a1f330"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_scarred_hard_right_00.png",
+      "size": 4273,
+      "sha256": "380bbebb019085e0065881142063e8d2ad9682a43a3f8061804d52dc3829133a"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_scarred_left_00.png",
+      "size": 3729,
+      "sha256": "19798cabbcea9cbe3a271a3f16b51b0f0c2cba850320bbbc3c80884cb934632e"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_scarred_neutral_00.png",
+      "size": 3939,
+      "sha256": "60140dba8af42e033b9f27eeb7b51f0a19bf72c01f39b05bbeea2a5d9cfa9f19"
+    },
+    {
+      "path": "aligned/magnetic_screen_bomber_scarred_right_00.png",
+      "size": 3884,
+      "sha256": "92ff90db34239f3854b97093e713a27d7f9485bd40e0922fba0a7db63f7ddbac"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_burnt_hard_left_00.png",
+      "size": 3558,
+      "sha256": "cb39704557c5b39c42c6ae4078a8cdebc4870f7121e6071c80dff2e4ada83ebf"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_burnt_hard_right_00.png",
+      "size": 3518,
+      "sha256": "06fb88cc0c3c960a964dc9684e4fe91cf131ccdcf56dd2375981aadbdcdbe145"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_burnt_left_00.png",
+      "size": 3266,
+      "sha256": "8371aa8a525b24d8f99b6c7a9d3b9be55ab7bd4de6ec711d2577486a490a42d9"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_burnt_neutral_00.png",
+      "size": 3233,
+      "sha256": "60cc5558ab6375e1bfc0850ff11fca2eb92c925a21f11b9a876a54f3989ddd83"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_burnt_right_00.png",
+      "size": 3353,
+      "sha256": "a26638801eb384fb495705db8c8a54e1f4020331c5fe70aec9ad9f774f65c6d6"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_scarred_hard_left_00.png",
+      "size": 3534,
+      "sha256": "b270fbdfdc066234c416cdfcbd2952fe8e32a71b9998193ac4248afbd71b866e"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_scarred_hard_right_00.png",
+      "size": 3517,
+      "sha256": "f25d0959a518e32daed8a6ad3842b46cb91d1663be9b9a677736f3fc3db34098"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_scarred_left_00.png",
+      "size": 3261,
+      "sha256": "755918b6b53692ae280dfb9784cc9f674c27b67be523614d1ee8dcdbc71b4dbf"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_scarred_neutral_00.png",
+      "size": 3239,
+      "sha256": "183f46712987f6a497f9d5107f90ed4fceb111d851f7cbc50ffdfe8607eaaa1a"
+    },
+    {
+      "path": "aligned/magnetic_screen_fighter_scarred_right_00.png",
+      "size": 3346,
+      "sha256": "b7f6a481d0bc50ee85069f4107cb03ca5cfa7b5265153cd3fb976ad47a9692f9"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_burnt_hard_left_00.png",
+      "size": 4261,
+      "sha256": "2fa1e0d1aea295b30a87bb49bf34e6b89dbf4a951d445bd7f51a9db3062dcb35"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_burnt_hard_right_00.png",
+      "size": 4271,
+      "sha256": "8b650a7818d9dac0b842079ef2d062798e69960cab1440922426725e19111ebf"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_burnt_left_00.png",
+      "size": 3762,
+      "sha256": "fb17658bcb631fc09088dc2a373f99f929b0d23dd5ae4b317bd61b3d292514eb"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_burnt_neutral_00.png",
+      "size": 3932,
+      "sha256": "4dd147a9eba7637bd17e7b4254b7de72f7d12260946f473f9ac957ff53a34568"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_burnt_right_00.png",
+      "size": 3883,
+      "sha256": "dffff10f4ce4003e6f42986f0e5c0d930a45018da3fbd6b14f89a068f66c213d"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_scarred_hard_left_00.png",
+      "size": 4257,
+      "sha256": "1bf41bb9700c033d655e07b455c45cfaa22b004cbc8c4221ffca14268dda85d6"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_scarred_hard_right_00.png",
+      "size": 4280,
+      "sha256": "d1f55acb4f677586cbbc68d13981c915faf792562af9ad57e4a622b4ddfe29c6"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_scarred_left_00.png",
+      "size": 3728,
+      "sha256": "cfccae9f64a700376e6a8ce989ba2b145532303386669969b94283383c8d73e1"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_scarred_neutral_00.png",
+      "size": 3937,
+      "sha256": "f29458be2da71eded6802e71ba9bb41add1f692fe5c01765d49a514552b6edca"
+    },
+    {
+      "path": "aligned/point_defence_pod_bomber_scarred_right_00.png",
+      "size": 3880,
+      "sha256": "543fe60ae98dab030739404be649f3d74fcc8f8fad13a7ff96f098d0e84cb840"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_burnt_hard_left_00.png",
+      "size": 3546,
+      "sha256": "5fe8e1d8e656c23cf5640ef422fc050d9fa30e690334e6032c48bde1bd2d6c8f"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_burnt_hard_right_00.png",
+      "size": 3511,
+      "sha256": "bf5e16eced7277f927c6e765afd6a78b1687f4000801149cee4915e187cad8fa"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_burnt_left_00.png",
+      "size": 3276,
+      "sha256": "0e9cc42a02b94bb777788ce84933b00e4a851a4d8144796391f3909cb466bca5"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_burnt_neutral_00.png",
+      "size": 3252,
+      "sha256": "4e07e3a4152613a6a51ca1f0c88da85d6998c9e9373629ad5ca48c4fabb03cf8"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_burnt_right_00.png",
+      "size": 3373,
+      "sha256": "a8d03b167e654fe89782441f02669da48c92deb90c4d388e7f88d565f7d4468a"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_scarred_hard_left_00.png",
+      "size": 3552,
+      "sha256": "b809e12e2c905c9ace1495d91e557756240dd23c6d2f1b057dce7486555f643e"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_scarred_hard_right_00.png",
+      "size": 3526,
+      "sha256": "a57cc3b27250fb5547b1333c17c33e345e2b7fd1acf23573b647427d79b86ca2"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_scarred_left_00.png",
+      "size": 3267,
+      "sha256": "1d5c7765ceb4ecd2612076c6b0cdd940b4c75440f58e22dba3d88f4e1832b2f3"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_scarred_neutral_00.png",
+      "size": 3249,
+      "sha256": "cae119611ad00d1422e4a6b80d26e8550a944434a80c7374388745c160e08f52"
+    },
+    {
+      "path": "aligned/point_defence_pod_fighter_scarred_right_00.png",
+      "size": 3356,
+      "sha256": "f242da01134152f0f8c464fbb34656b98448811cf2eee4c665c21428caedbfcb"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_burnt_hard_left_00.png",
+      "size": 4163,
+      "sha256": "21f7a2562f1eefeed6a6ce0d1acdb986eadfe7c4173543bf1e1d561a32b4985a"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_burnt_hard_right_00.png",
+      "size": 4172,
+      "sha256": "b3f917fe239b304b454079c20f64a2208cf489dd008bede237e48d9d8ba76032"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_burnt_left_00.png",
+      "size": 3648,
+      "sha256": "e63f5a59248ae540cb1993e63214cd4c3b097359e933c40cae5d3a5931d260d1"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_burnt_neutral_00.png",
+      "size": 3896,
+      "sha256": "9ef18b600e46784e43325829b4a972de3aa57f34f31abe2f7db8e9b043fde282"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_burnt_right_00.png",
+      "size": 3782,
+      "sha256": "604facbb54a09925a28e7d7c9b9c402803268fe86c4e2a3c395e7335e0d8f2b2"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_scarred_hard_left_00.png",
+      "size": 4143,
+      "sha256": "71528922deec593c3e33697fcae9670969c9d67df25f7260dfa58334834d530d"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_scarred_hard_right_00.png",
+      "size": 4176,
+      "sha256": "fb781f5fcf0ae35a0051df8af3a75d5d175dd53fa408963c44281fe4817dbf64"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_scarred_left_00.png",
+      "size": 3652,
+      "sha256": "943f54fb82e4880817e34730a6265781ca372189f6ad5f0383dda778291a5fb3"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_scarred_neutral_00.png",
+      "size": 3935,
+      "sha256": "a44e9e8f1393a8592acabebcea28b0d37a6184d7e4847b097c7847f8424bfe4f"
+    },
+    {
+      "path": "frames/emp_disruptor_bomber_scarred_right_00.png",
+      "size": 3814,
+      "sha256": "ab2e6ef4256df4e5432fbfb210860d06a6cb417e5beec88f0cc95ef23d7d06c4"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_burnt_hard_left_00.png",
+      "size": 3410,
+      "sha256": "d872b0c4401747f44fed22afbb820ad511b4d46f778825fbda217da383dd97d5"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_burnt_hard_right_00.png",
+      "size": 3378,
+      "sha256": "124fca2144b37b547e56c13071ac347b159a01484bd2145a0b2e8c46d51c6f03"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_burnt_left_00.png",
+      "size": 3131,
+      "sha256": "88b410d6f42a866a856b78e0c8ffd189e4116899f1021fc9b059e9067ddfe2d0"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_burnt_neutral_00.png",
+      "size": 3122,
+      "sha256": "05699942c762824cf72d447f7ec651033f7cf54c93da61aceab913dd9aca7e1f"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_burnt_right_00.png",
+      "size": 3222,
+      "sha256": "ab94c3cd0c65289ab344e3cd3f9fff8e80b6885bb9d6c3d6bfa96bc0c8c2bbd9"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_scarred_hard_left_00.png",
+      "size": 3424,
+      "sha256": "7361d35259e92ea4551b60cfaa2d5b2962e91f1265666ce4b15bbce149acd9bd"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_scarred_hard_right_00.png",
+      "size": 3408,
+      "sha256": "d0ff7164d393672210737a34b179d54685d6fead6dd60af02fc3cb0ab58f328f"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_scarred_left_00.png",
+      "size": 3156,
+      "sha256": "807f2cebe6d7c3787e14ccfc955b5c0f0f155b24e4a5fbbb157af168e14b8dd0"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_scarred_neutral_00.png",
+      "size": 3152,
+      "sha256": "f3c631a68a0e684fafa0a2314c0e7a12cc76fa939107fe480c2b4a9e7c75ecbb"
+    },
+    {
+      "path": "frames/emp_disruptor_fighter_scarred_right_00.png",
+      "size": 3238,
+      "sha256": "26d2b123eeb316bb4d5fac734d82460d166326b90aec87e4b442af9d78c2f62c"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_burnt_hard_left_00.png",
+      "size": 4198,
+      "sha256": "e4e23da19767c0b054f85413cf79dc7f19b2beda7c6447a602a239bf6c288606"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_burnt_hard_right_00.png",
+      "size": 4172,
+      "sha256": "7f4b3ecabd2d33f0af6b1db752703e16761952b095b709117128d30328fb97e5"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_burnt_left_00.png",
+      "size": 3642,
+      "sha256": "a070173e45261f229b35847eca624db7e92fc9b0535c17446f3d0b3fe33fcdea"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_burnt_neutral_00.png",
+      "size": 3900,
+      "sha256": "4f54888a147020727b2adeca76d68eca09295dea263bc6ca881a6063b7adf6d5"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_burnt_right_00.png",
+      "size": 3804,
+      "sha256": "90afdc79e3e78b3b0d2f01f1080402c3195e1bcffb42d888b6f96529540c4b01"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_scarred_hard_left_00.png",
+      "size": 4178,
+      "sha256": "670fc8c26304bb8e6cbd294d873cbb4b9a5090b7aabe21315f278a108ddc2816"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_scarred_hard_right_00.png",
+      "size": 4182,
+      "sha256": "33556cec835f563c3334add571f672335f23c7bc702ce6b09c356d7336aab505"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_scarred_left_00.png",
+      "size": 3646,
+      "sha256": "b2b5baac03864458f1b35066776f444733bb253d5d81557c05e34f8bbc161edc"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_scarred_neutral_00.png",
+      "size": 3910,
+      "sha256": "48501a2da3808e490a182a4e02f72ab6d39844b181cff25469c89ac0be9671de"
+    },
+    {
+      "path": "frames/magnetic_screen_bomber_scarred_right_00.png",
+      "size": 3803,
+      "sha256": "38a2bed0bccc8d8cef082a3b43a5a59570d1c4719d28dc9cf1874cbda2a1af3e"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_burnt_hard_left_00.png",
+      "size": 3429,
+      "sha256": "f1fa2deefe1773a8433ee81c81411be8d72875be7f8088eeb66f9943e7d7031f"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_burnt_hard_right_00.png",
+      "size": 3382,
+      "sha256": "c1de1c7cfeb882141b26ae55899ecd72d3d282ca0d8865fb1bb8af99721c843c"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_burnt_left_00.png",
+      "size": 3128,
+      "sha256": "5046eafc772d368b9e076c68a5e84065955203d0a57d0fe7bb1c726f5e6d87c9"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_burnt_neutral_00.png",
+      "size": 3125,
+      "sha256": "d2a0107b579fa9f6b87a7ceaabdbf4a00018c1d742ad4c0aa8ad6cdefdd827e4"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_burnt_right_00.png",
+      "size": 3218,
+      "sha256": "4a1ddf0647e702ed3f6c5f83a87a303b87b7313ed1d26f9bab2009ab1577279e"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_scarred_hard_left_00.png",
+      "size": 3403,
+      "sha256": "f7d6224a0f574515b01e68ca5cffe69235c6e366d9337ae6896d3cef440fd464"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_scarred_hard_right_00.png",
+      "size": 3384,
+      "sha256": "2393d390eb1a18679d92db41cd545a97841aa84d32265033c9f2b759bc6cebf7"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_scarred_left_00.png",
+      "size": 3122,
+      "sha256": "05647fad4a8011d2f79ad8fbb93c6db9864ad10e1004324c24944f603114fd98"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_scarred_neutral_00.png",
+      "size": 3131,
+      "sha256": "1073d06ebf73cf33c862abfa101335b77f08f2d04861e84c878914b25d2ea059"
+    },
+    {
+      "path": "frames/magnetic_screen_fighter_scarred_right_00.png",
+      "size": 3221,
+      "sha256": "01a9923d54c596a21d1580b468e21376773d3756e7609a67251e945caa0ae5a4"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_burnt_hard_left_00.png",
+      "size": 4165,
+      "sha256": "3f1407249c12345275ea67a0fd261b5907799d08a6d1e7f4047186895f6fd7bb"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_burnt_hard_right_00.png",
+      "size": 4179,
+      "sha256": "9fd420cd23e17634561ec93e9456407dd082ca0545005f7922dde329b05d9158"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_burnt_left_00.png",
+      "size": 3674,
+      "sha256": "d56f460bbf38cc600e69283c954ff52d031182beaad987652308ad95ee030839"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_burnt_neutral_00.png",
+      "size": 3900,
+      "sha256": "0774396be7013fe773a7e24d2f86e6cac7e89f6e255e2e2605667c48d4ca32f2"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_burnt_right_00.png",
+      "size": 3795,
+      "sha256": "cea075648b7df4a1a383eb6f13111f7191ca9ac7e5894f4f11754c0b33632817"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_scarred_hard_left_00.png",
+      "size": 4157,
+      "sha256": "9736917115cd2f685582f108675cd02c34e1be9ae762db7b54cc77a98de4c3c5"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_scarred_hard_right_00.png",
+      "size": 4196,
+      "sha256": "b6fde8b23e807ddbe6d29388d76cd5d35918d66d5efb44dc1ade486d2be19c6d"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_scarred_left_00.png",
+      "size": 3646,
+      "sha256": "3c239485e3e272b84e77a59be3d56e870f87cf5283370689e33771fe6ac626b2"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_scarred_neutral_00.png",
+      "size": 3903,
+      "sha256": "6e0482e9db68057fa94ead57f35ddf7af72950208327bf73277d2a6c4acd16be"
+    },
+    {
+      "path": "frames/point_defence_pod_bomber_scarred_right_00.png",
+      "size": 3799,
+      "sha256": "2dea8dbcbd9a942efbf18cccb7254a588d26b9a455499504cfee8e11d3988741"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_burnt_hard_left_00.png",
+      "size": 3417,
+      "sha256": "2c14245c0e461be0dc0364803de5a208056f092e204e7093cce5a83cc9792770"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_burnt_hard_right_00.png",
+      "size": 3379,
+      "sha256": "276d4444b5c17c3de8a978d7a122bcc5fde423fe41997df31e25a3254926d29c"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_burnt_left_00.png",
+      "size": 3138,
+      "sha256": "9f2633f49b61c4a4feba2355f0657c131e5d42eb0171f3da45a840706130bdb1"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_burnt_neutral_00.png",
+      "size": 3145,
+      "sha256": "9368e2ca86a91716dd238e28ace357ab05e055e8842ef69118f33f74dddcd7c1"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_burnt_right_00.png",
+      "size": 3237,
+      "sha256": "50284c76b0bab3b0898636d7f2a4aa9ef70aa524d1b4acb6be3ec2da69b4b7b3"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_scarred_hard_left_00.png",
+      "size": 3422,
+      "sha256": "db9dd0c7ffa387518892e6003a101807746e860487a534250d567b7218a1c1ae"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_scarred_hard_right_00.png",
+      "size": 3396,
+      "sha256": "fe1e19a8fbb1942a6144df33e552792229004c27066fb78ef73ea5d221f88be3"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_scarred_left_00.png",
+      "size": 3125,
+      "sha256": "06115aa990f0f4d24a4b6b78ce033171343301db63e75bd18c82fb4470ac4dd3"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_scarred_neutral_00.png",
+      "size": 3143,
+      "sha256": "8016960a7c7bf35f375999387f7eafe57f4f6e016d7b0386fb0b46d7420951df"
+    },
+    {
+      "path": "frames/point_defence_pod_fighter_scarred_right_00.png",
+      "size": 3226,
+      "sha256": "b32f2da4e1c9b74408b7d9284f402487b616f101b06dd350892d4be1c1f00494"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_left.contact.png",
+      "size": 5101,
+      "sha256": "eb341cbd1a19a8bf485eb4ee2ef94e3cfc0aa2e2e2d66111d66fda95228c9734"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_left.difference.png",
+      "size": 2477,
+      "sha256": "26e4029c821af0615065c3406855e452709e0c001a21cb74ed0708f174d27755"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_left.gif",
+      "size": 2174,
+      "sha256": "58cccb3dfc56d362a47d3e37d4d9623a393d9980c942d0c9f7eda0b580d78921"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_left.onion.png",
+      "size": 5101,
+      "sha256": "eb341cbd1a19a8bf485eb4ee2ef94e3cfc0aa2e2e2d66111d66fda95228c9734"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_left.pivots.png",
+      "size": 5120,
+      "sha256": "61175c4ae3ca9713e1b42782574902d8d1b267c4efa82544e2bf0cc8e0e8703f"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_right.contact.png",
+      "size": 5014,
+      "sha256": "e580741cfddb8bc6a156e81ca01ebc2b73bd94f3da627a1d615b993bae0f84cd"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_right.difference.png",
+      "size": 2264,
+      "sha256": "b4b4c877f147b5edc0254edebd137115234674ff83174736ecea1a6b46e96be8"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_right.gif",
+      "size": 2154,
+      "sha256": "ece49b84996d4295a65002bf30e1a075e46bc3ab40af516eb93a3066bd8261d0"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_right.onion.png",
+      "size": 5014,
+      "sha256": "e580741cfddb8bc6a156e81ca01ebc2b73bd94f3da627a1d615b993bae0f84cd"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_hard_right.pivots.png",
+      "size": 5052,
+      "sha256": "a78de9ff011c8c9d3923e1dc44b19824b54b44fbe75822bd7002ae0683f31c9f"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_left.contact.png",
+      "size": 4650,
+      "sha256": "0d5082b7a2a50f30bd72ef09d25ccff4c840930723cc017e0bcef5164874996e"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_left.difference.png",
+      "size": 2034,
+      "sha256": "e796b75cdfeed3479682960e164216e3757fd7bb2be33cb7202fc1c1a1d71498"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_left.gif",
+      "size": 2133,
+      "sha256": "05fa6f8580a28fae489afc88e8b3402cef807a3441de3ece9f05257bc26d1f61"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_left.onion.png",
+      "size": 4650,
+      "sha256": "0d5082b7a2a50f30bd72ef09d25ccff4c840930723cc017e0bcef5164874996e"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_left.pivots.png",
+      "size": 4641,
+      "sha256": "b7c3e84229ee0f7b572209228ec2b006762ae66cbefbf78def68fef2bf3824f0"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_neutral.contact.png",
+      "size": 4842,
+      "sha256": "992db35263dd1790835b9d4fec3be9d03a47ee73e04e2714a5fd188073a71c77"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_neutral.difference.png",
+      "size": 2221,
+      "sha256": "0cf2238155ed349ba71032d6331239145929795db958225976e4ff1be5199d55"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_neutral.gif",
+      "size": 2226,
+      "sha256": "4feb8cd1bebad04106f9b0676becf5645e3bd5ecd6b0ad1519757404a9a5b8f7"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_neutral.onion.png",
+      "size": 4842,
+      "sha256": "992db35263dd1790835b9d4fec3be9d03a47ee73e04e2714a5fd188073a71c77"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_neutral.pivots.png",
+      "size": 4758,
+      "sha256": "bb852e00a94f6013bdd43049cafb675b5d127351c4a3549dde2bfd97c9b927f9"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_right.contact.png",
+      "size": 4717,
+      "sha256": "044091599e7dc3c356bc77e17478b81296fe84f5bbff603849e860b9ba152c77"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_right.difference.png",
+      "size": 2215,
+      "sha256": "4fb9629ed3d3531bca8c4f634a1a69e8e26e6f6fdef07c3c135d7bae9989f2d0"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_right.gif",
+      "size": 2180,
+      "sha256": "6cb1a3ae37251fd3c7fd61be1af2b0b62bb93da23e97407a49b91225dc883a52"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_right.onion.png",
+      "size": 4717,
+      "sha256": "044091599e7dc3c356bc77e17478b81296fe84f5bbff603849e860b9ba152c77"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_burnt_right.pivots.png",
+      "size": 4667,
+      "sha256": "ad12efa07074a6ba3c698e6e09f6c077466c59d733d461ec45206fd99e97dd4d"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_left.contact.png",
+      "size": 5121,
+      "sha256": "7864129605e32f319c61b6a531cf111bec2f12a4015516bd77bd5673d3742ac1"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_left.difference.png",
+      "size": 2477,
+      "sha256": "26e4029c821af0615065c3406855e452709e0c001a21cb74ed0708f174d27755"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_left.gif",
+      "size": 2173,
+      "sha256": "8517e941fe7a3850fb2ba78391d3937c32e8146712b1612187a66cd40080ad00"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_left.onion.png",
+      "size": 5121,
+      "sha256": "7864129605e32f319c61b6a531cf111bec2f12a4015516bd77bd5673d3742ac1"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_left.pivots.png",
+      "size": 5135,
+      "sha256": "ac05af4021f01c8bff4a4a7068d64230f12ca7c3308f867c60fbec759eb37f6e"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_right.contact.png",
+      "size": 5014,
+      "sha256": "981ffd0dc660273ab936bdeef836c5771924a30aa19904a4d0665b97c4d600c9"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_right.difference.png",
+      "size": 2264,
+      "sha256": "b4b4c877f147b5edc0254edebd137115234674ff83174736ecea1a6b46e96be8"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_right.gif",
+      "size": 2156,
+      "sha256": "d2aa7f7410f9c941dd2977243937de8b64788a41871f26c7dae4e22ce5adfd8d"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_right.onion.png",
+      "size": 5014,
+      "sha256": "981ffd0dc660273ab936bdeef836c5771924a30aa19904a4d0665b97c4d600c9"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_hard_right.pivots.png",
+      "size": 5060,
+      "sha256": "85072f70c4740069f16f013cab2c87eb98819aee5d879b5c2db0333df7ea25d0"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_left.contact.png",
+      "size": 4662,
+      "sha256": "7ac4af1c247bda4114ab695fe229f8205bded97455d164a0d309e1d833965153"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_left.difference.png",
+      "size": 2034,
+      "sha256": "e796b75cdfeed3479682960e164216e3757fd7bb2be33cb7202fc1c1a1d71498"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_left.gif",
+      "size": 2134,
+      "sha256": "26ca9860bb4790af8b5cc5c306793cb372230424efb992d9acd3555d23363fb8"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_left.onion.png",
+      "size": 4662,
+      "sha256": "7ac4af1c247bda4114ab695fe229f8205bded97455d164a0d309e1d833965153"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_left.pivots.png",
+      "size": 4663,
+      "sha256": "a657b2bc7c6baea1583bd856e8cfa94fb7e5773fc90c355c38272b45548d9638"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_neutral.contact.png",
+      "size": 4830,
+      "sha256": "e04706e1b4f198367f28518c2e1df1cede305065df2553821751a004a8cad3eb"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_neutral.difference.png",
+      "size": 2221,
+      "sha256": "0cf2238155ed349ba71032d6331239145929795db958225976e4ff1be5199d55"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_neutral.gif",
+      "size": 2228,
+      "sha256": "0bfe2871048d0a0aae36c9d0a1dcd9ebb65b95700391ee11249790dd863c665d"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_neutral.onion.png",
+      "size": 4830,
+      "sha256": "e04706e1b4f198367f28518c2e1df1cede305065df2553821751a004a8cad3eb"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_neutral.pivots.png",
+      "size": 4748,
+      "sha256": "430622c4cd0084a9b69889a23d6f655138115eb62799476ff90b0684712cb316"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_right.contact.png",
+      "size": 4745,
+      "sha256": "1cf3713683d28d69e593d83885b77a90e8dbbab947c8650f151d9fe9ebb5222a"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_right.difference.png",
+      "size": 2215,
+      "sha256": "4fb9629ed3d3531bca8c4f634a1a69e8e26e6f6fdef07c3c135d7bae9989f2d0"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_right.gif",
+      "size": 2180,
+      "sha256": "cb1db10d49aecffece384f63aab61a626821195c442aa966c28004e3d2a2d889"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_right.onion.png",
+      "size": 4745,
+      "sha256": "1cf3713683d28d69e593d83885b77a90e8dbbab947c8650f151d9fe9ebb5222a"
+    },
+    {
+      "path": "previews/emp_disruptor_bomber_scarred_right.pivots.png",
+      "size": 4697,
+      "sha256": "504665498e970d9af9752c96a3da7e0be6abdd69598ece64e5d86fac733209a4"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_left.contact.png",
+      "size": 4387,
+      "sha256": "502751b371dcc80b138c8d6f7e0eacaeda87e5f0aadf3d68ce83c703af846b5b"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_left.difference.png",
+      "size": 2001,
+      "sha256": "30f25d4a53165b7234fdaafcaf05b812afa4c9de8e163fd66558a7b83086fba2"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_left.gif",
+      "size": 2005,
+      "sha256": "dac1da609f2abdbb30f4c8e9bd838ca0f9aa11fe5f6334f05ca7baa40feabbf7"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_left.onion.png",
+      "size": 4387,
+      "sha256": "502751b371dcc80b138c8d6f7e0eacaeda87e5f0aadf3d68ce83c703af846b5b"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_left.pivots.png",
+      "size": 4397,
+      "sha256": "d49f098b1a4479fefd3948b9d263279ad3f0b48efd79c6784a0ac5c06effcc71"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_right.contact.png",
+      "size": 4345,
+      "sha256": "092b6be9dc81c5078977ac8e529423806eab5d0a05bad648aeb89a12c94f7c70"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_right.difference.png",
+      "size": 1942,
+      "sha256": "07a8fd93240636a3d0570cb351f3460ffceb063cf5361f67b05363d1b5f070e9"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_right.gif",
+      "size": 1991,
+      "sha256": "a7cfd7869820c91d0440080a6fce1c7fcd4e05274ba65ec8c867d59984e4caec"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_right.onion.png",
+      "size": 4345,
+      "sha256": "092b6be9dc81c5078977ac8e529423806eab5d0a05bad648aeb89a12c94f7c70"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_hard_right.pivots.png",
+      "size": 4376,
+      "sha256": "5b7ff9957dd87463c313e0adc7b73a1bc7a646893c8d5dd3848f795f83f8faac"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_left.contact.png",
+      "size": 4136,
+      "sha256": "d7ff35d444f983590d1aa2ca804f6bf62b72f65151b3c9c62cb258bd0e444fc4"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_left.difference.png",
+      "size": 2171,
+      "sha256": "1855f19978adf176ad0febac5b28c16b90a707c98475134506f32f995e51e933"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_left.gif",
+      "size": 2024,
+      "sha256": "e26505897913a9be1d150593265983f37687bc38cf4bed6d40c1cf357beaf285"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_left.onion.png",
+      "size": 4136,
+      "sha256": "d7ff35d444f983590d1aa2ca804f6bf62b72f65151b3c9c62cb258bd0e444fc4"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_left.pivots.png",
+      "size": 4063,
+      "sha256": "d4370eb88266526fe305572ea40e5a958d7b63802c856ad29d733b3038816040"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_neutral.contact.png",
+      "size": 3913,
+      "sha256": "9a2f1b58165859dc9b6b182f8d20b1dfd80e181fd1cde755dad98bd15234f84e"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_neutral.difference.png",
+      "size": 1798,
+      "sha256": "2c73ac0f5b2ad24b841c03ce686db2ca2d65d43da4a4d67fb5678c0825d2f511"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_neutral.gif",
+      "size": 2001,
+      "sha256": "2de374be27fae9df820c021321d176b1183d1405e355012314c80cd66549971a"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_neutral.onion.png",
+      "size": 3913,
+      "sha256": "9a2f1b58165859dc9b6b182f8d20b1dfd80e181fd1cde755dad98bd15234f84e"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_neutral.pivots.png",
+      "size": 3886,
+      "sha256": "a935f5fc23a6d043758e0fb029d78a633bf209a3b8e88f060ff5ac728bc76d6d"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_right.contact.png",
+      "size": 4143,
+      "sha256": "8968ceea7484332609ebe040b8d3c5c6b25e2ef8e07e8ac6e952ae740d0ff2ab"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_right.difference.png",
+      "size": 2069,
+      "sha256": "35c0ef37464c0ea49e631248e74b428b052553078f0981a4b1b54eb471583fd3"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_right.gif",
+      "size": 2026,
+      "sha256": "3250676dc35c70736362213e9f286dd88e82f92dae627271a8e0a87efe8a5a26"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_right.onion.png",
+      "size": 4143,
+      "sha256": "8968ceea7484332609ebe040b8d3c5c6b25e2ef8e07e8ac6e952ae740d0ff2ab"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_burnt_right.pivots.png",
+      "size": 4059,
+      "sha256": "4dd1ec8cb60a7e6c1078e34fd96ccb70bf49f83efafe26f12ed7fa78f4edef70"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_left.contact.png",
+      "size": 4391,
+      "sha256": "e19a8adb531751076c5a264e2a15a091b23185dc2faea0f5ad7b6eb896117579"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_left.difference.png",
+      "size": 2001,
+      "sha256": "30f25d4a53165b7234fdaafcaf05b812afa4c9de8e163fd66558a7b83086fba2"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_left.gif",
+      "size": 2011,
+      "sha256": "d679a2d136f82de475c0094f4a6e8577ce2b7cb3d8fc21a1454ec083a8051cc0"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_left.onion.png",
+      "size": 4391,
+      "sha256": "e19a8adb531751076c5a264e2a15a091b23185dc2faea0f5ad7b6eb896117579"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_left.pivots.png",
+      "size": 4392,
+      "sha256": "13bce1b8ceae735d1266b518539c7b3ff4f1a1b869436d06c58ae0c649b2ff42"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_right.contact.png",
+      "size": 4367,
+      "sha256": "7ee06a2f9b3fb02a68aa2351fdf99e51416d0d32022e4f916e61a94a7dc8572f"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_right.difference.png",
+      "size": 1942,
+      "sha256": "07a8fd93240636a3d0570cb351f3460ffceb063cf5361f67b05363d1b5f070e9"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_right.gif",
+      "size": 1993,
+      "sha256": "ec4eba5b4c5392eaa0fb73711c62fc80ac088ea817ad4bacd41549806ceea0a2"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_right.onion.png",
+      "size": 4367,
+      "sha256": "7ee06a2f9b3fb02a68aa2351fdf99e51416d0d32022e4f916e61a94a7dc8572f"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_hard_right.pivots.png",
+      "size": 4397,
+      "sha256": "010bca6dc08898da248291b5bc454ccf52d8cf7c5b0403f990d417ab5f3693d6"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_left.contact.png",
+      "size": 4149,
+      "sha256": "7ddd792783531e02e788278a233e3bae287830ee95898092510b05dc0736e515"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_left.difference.png",
+      "size": 2171,
+      "sha256": "1855f19978adf176ad0febac5b28c16b90a707c98475134506f32f995e51e933"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_left.gif",
+      "size": 2022,
+      "sha256": "c874bbc70735f6c13dd07d661bcf269c89acc620cb5390d07b24f696caf77aa5"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_left.onion.png",
+      "size": 4149,
+      "sha256": "7ddd792783531e02e788278a233e3bae287830ee95898092510b05dc0736e515"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_left.pivots.png",
+      "size": 4073,
+      "sha256": "9aa4451d241f50a495f1ca94cff168cafe6f0366ddc6dc34c24d8180b79eefb6"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_neutral.contact.png",
+      "size": 3930,
+      "sha256": "30438dfd3eaf0242b293bf6010c58175628a45be339227b6d70efa32680c3c7b"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_neutral.difference.png",
+      "size": 1798,
+      "sha256": "2c73ac0f5b2ad24b841c03ce686db2ca2d65d43da4a4d67fb5678c0825d2f511"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_neutral.gif",
+      "size": 1998,
+      "sha256": "5307503f40080755da723d54e33ee04a2778b773997def96d3970fe46e7765a3"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_neutral.onion.png",
+      "size": 3930,
+      "sha256": "30438dfd3eaf0242b293bf6010c58175628a45be339227b6d70efa32680c3c7b"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_neutral.pivots.png",
+      "size": 3899,
+      "sha256": "d7a2905e7c403a27fc4fa20d5efe07912d18ab4be570b0ffa4ac0fbc35589ff3"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_right.contact.png",
+      "size": 4150,
+      "sha256": "1b1db5c1188cabbdd26c2563f8fae2a42a8dbbde95456175fdbbd85a57d9fd06"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_right.difference.png",
+      "size": 2069,
+      "sha256": "35c0ef37464c0ea49e631248e74b428b052553078f0981a4b1b54eb471583fd3"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_right.gif",
+      "size": 2023,
+      "sha256": "b39c82be66292203266c395dffd368a3554c95bfaa40a54652d6fffa5d3038ff"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_right.onion.png",
+      "size": 4150,
+      "sha256": "1b1db5c1188cabbdd26c2563f8fae2a42a8dbbde95456175fdbbd85a57d9fd06"
+    },
+    {
+      "path": "previews/emp_disruptor_fighter_scarred_right.pivots.png",
+      "size": 4061,
+      "sha256": "2f3218a26cf00426b9faf9fe4c27871dcb1c29d9d9acf6191bee8b47acfd656a"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_left.contact.png",
+      "size": 5129,
+      "sha256": "ba93613123500ad7bf3b3799701ab07f3c4761d9c00b87550d3c5989d726ecbf"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_left.difference.png",
+      "size": 2520,
+      "sha256": "ceaf606b37cbdc4104d6d3b6f1822fc1e1cee389479a81d2e11bf1ae7d71de91"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_left.gif",
+      "size": 2173,
+      "sha256": "c97b7f6f9add2c0f24af869f76760d43dd1ba7dbf7194aa31d73e87b4564a2e0"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_left.onion.png",
+      "size": 5129,
+      "sha256": "ba93613123500ad7bf3b3799701ab07f3c4761d9c00b87550d3c5989d726ecbf"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_left.pivots.png",
+      "size": 5162,
+      "sha256": "508a3ec64a640ca42a18769f7469bb381a9082752c20ab7058cd1d393ab457ab"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_right.contact.png",
+      "size": 5034,
+      "sha256": "0c8a5031e3db8593af03e8b6c9c00c8b47227bd3c1e880ef2dc296dac9c9020c"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_right.difference.png",
+      "size": 2309,
+      "sha256": "58a4b6ab24692fab3c67aebc244723e9a08143c432dc4b184acc00e6ffb20140"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_right.gif",
+      "size": 2151,
+      "sha256": "4f7c1f67c452699c448cc8ba96bb2c8162e135031205d1732fb6d8529dea587c"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_right.onion.png",
+      "size": 5034,
+      "sha256": "0c8a5031e3db8593af03e8b6c9c00c8b47227bd3c1e880ef2dc296dac9c9020c"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_hard_right.pivots.png",
+      "size": 5073,
+      "sha256": "60a37fcb83f7f23835709dc5f93a3bf622f55ece1858264b59506cf5462e0dd2"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_left.contact.png",
+      "size": 4678,
+      "sha256": "d90901f4402ff7d9ec7ff41840b6b943bd31ff5d822defd04e3b8723221b9808"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_left.difference.png",
+      "size": 2076,
+      "sha256": "ae332928285511a1b7f4d9156e2d8f50d9fdf2ca1626873f4661650188805faa"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_left.gif",
+      "size": 2132,
+      "sha256": "c405bf71dd6c90aa10dff417b89cab228124a211c407021febd40fa07aade644"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_left.onion.png",
+      "size": 4678,
+      "sha256": "d90901f4402ff7d9ec7ff41840b6b943bd31ff5d822defd04e3b8723221b9808"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_left.pivots.png",
+      "size": 4676,
+      "sha256": "1686879068dfd42d25f42bf8a91e740f64ce7f17e5d2fadc8f356cdf0041edcb"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_neutral.contact.png",
+      "size": 4869,
+      "sha256": "319565d9ce94d56e8d59945f2dc68d01e4d574d8eb94590fe28e59d4d6539564"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_neutral.difference.png",
+      "size": 2261,
+      "sha256": "2c0f07cb51f325b090ab8a61533b1c2b120b762f1114b52240f7d2b9ef234d6c"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_neutral.gif",
+      "size": 2226,
+      "sha256": "e27c5a44f9755b0e9ec3fc2a21e6e3b5f4442f645ce9d94b7a44e0f5a937edd1"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_neutral.onion.png",
+      "size": 4869,
+      "sha256": "319565d9ce94d56e8d59945f2dc68d01e4d574d8eb94590fe28e59d4d6539564"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_neutral.pivots.png",
+      "size": 4787,
+      "sha256": "b5abc08ce0f046e6fc085a9a5e935569235cdacfa7474a3aaa191238d75b58a9"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_right.contact.png",
+      "size": 4763,
+      "sha256": "b049fba49536664a3614c562ea7bf9c17fe844797fc638a2ec37a644580b739d"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_right.difference.png",
+      "size": 2258,
+      "sha256": "9d0843a2dc27e32165a1377002a9e7aa51b1b8e9c0fb806bd60d1825f0b69b4d"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_right.gif",
+      "size": 2178,
+      "sha256": "a0a3927ff61af1b431db30fb25ed92e297b2eb13509652e14d0ebbc8476fc214"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_right.onion.png",
+      "size": 4763,
+      "sha256": "b049fba49536664a3614c562ea7bf9c17fe844797fc638a2ec37a644580b739d"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_burnt_right.pivots.png",
+      "size": 4706,
+      "sha256": "9c4f0cd53163236fdc9c3a5604f642b597e04dcbbd1e836d04b978515ffabc49"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_left.contact.png",
+      "size": 5142,
+      "sha256": "8faa775c954b39fe01ccd0e3ff11a698a3bda835eb345d1e8270a1708d5f1e22"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_left.difference.png",
+      "size": 2520,
+      "sha256": "ceaf606b37cbdc4104d6d3b6f1822fc1e1cee389479a81d2e11bf1ae7d71de91"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_left.gif",
+      "size": 2167,
+      "sha256": "9ace0d93e415b120aa01c52425a4cf0d00f026ccf9b34522823e720a6a4b4887"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_left.onion.png",
+      "size": 5142,
+      "sha256": "8faa775c954b39fe01ccd0e3ff11a698a3bda835eb345d1e8270a1708d5f1e22"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_left.pivots.png",
+      "size": 5167,
+      "sha256": "01c917315a8665da5f02b57055423ff3406299968fb86f5cc86b7cb00ad96813"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_right.contact.png",
+      "size": 5049,
+      "sha256": "9bcbc002a791de99e5762ad8446c34bb75495572b98a4c72c42141158abe624a"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_right.difference.png",
+      "size": 2309,
+      "sha256": "58a4b6ab24692fab3c67aebc244723e9a08143c432dc4b184acc00e6ffb20140"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_right.gif",
+      "size": 2152,
+      "sha256": "003321fd8b8376d3caee8ce318a13582ca830e703cf0d550444a8dc4cad2ce2b"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_right.onion.png",
+      "size": 5049,
+      "sha256": "9bcbc002a791de99e5762ad8446c34bb75495572b98a4c72c42141158abe624a"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_hard_right.pivots.png",
+      "size": 5085,
+      "sha256": "8b6c90a107276fb2a2f82f508438091bcc1a4af29ed96a850e8931699dc2309e"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_left.contact.png",
+      "size": 4688,
+      "sha256": "f9296dd8c4cadc2ef093ebafa3fe8518b3d16e2109dd4abc49cdab975c8e9038"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_left.difference.png",
+      "size": 2076,
+      "sha256": "ae332928285511a1b7f4d9156e2d8f50d9fdf2ca1626873f4661650188805faa"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_left.gif",
+      "size": 2132,
+      "sha256": "fc81b2070fbc5af4c0143b5ec793678877edd31889353f6ec6fd274d2b1d61ab"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_left.onion.png",
+      "size": 4688,
+      "sha256": "f9296dd8c4cadc2ef093ebafa3fe8518b3d16e2109dd4abc49cdab975c8e9038"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_left.pivots.png",
+      "size": 4685,
+      "sha256": "8e10decc04c6bda91bd5827457bf279e3239438d295dbd9fdbaac69e05aa71ec"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_neutral.contact.png",
+      "size": 4860,
+      "sha256": "1a961cb8ccdd5e3cbc0468a75233cdad0ac7e079db78be6ffc2c29d7198138bd"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_neutral.difference.png",
+      "size": 2261,
+      "sha256": "2c0f07cb51f325b090ab8a61533b1c2b120b762f1114b52240f7d2b9ef234d6c"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_neutral.gif",
+      "size": 2223,
+      "sha256": "a93e443ec179c12db67cb3b0fe00766134c72e70db59537889143ea3fdf5ea52"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_neutral.onion.png",
+      "size": 4860,
+      "sha256": "1a961cb8ccdd5e3cbc0468a75233cdad0ac7e079db78be6ffc2c29d7198138bd"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_neutral.pivots.png",
+      "size": 4789,
+      "sha256": "13d4d8f6d1387d7a08f02deb3d95003bf024a06bb02e82ef09d795e702f95ada"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_right.contact.png",
+      "size": 4769,
+      "sha256": "139ae4f079f3a498f9ac09cd406a4b8dc44533177bc8724571356000622c7f8e"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_right.difference.png",
+      "size": 2258,
+      "sha256": "9d0843a2dc27e32165a1377002a9e7aa51b1b8e9c0fb806bd60d1825f0b69b4d"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_right.gif",
+      "size": 2173,
+      "sha256": "9345638b4b660283e023c56e3419755f41055472092ad129d5d8691d6aa22175"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_right.onion.png",
+      "size": 4769,
+      "sha256": "139ae4f079f3a498f9ac09cd406a4b8dc44533177bc8724571356000622c7f8e"
+    },
+    {
+      "path": "previews/magnetic_screen_bomber_scarred_right.pivots.png",
+      "size": 4714,
+      "sha256": "30a0da8382a03d7a0968d66f70e1c31c99a65b589a131ac7361b2bbd565c57ba"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_left.contact.png",
+      "size": 4418,
+      "sha256": "b44d1576a7c717bd2e216ae9e47fc89180420c3576b5d408cadfbd1d7d95f336"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_left.difference.png",
+      "size": 2043,
+      "sha256": "d0ada416f67bf0df2f05bce9fe0784f438b06f4d7c6f3586f11b76b2c21d9796"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_left.gif",
+      "size": 2009,
+      "sha256": "1e1228cb79864cf9b3c64464216b30934740eb323d07a87d29506534f5997166"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_left.onion.png",
+      "size": 4418,
+      "sha256": "b44d1576a7c717bd2e216ae9e47fc89180420c3576b5d408cadfbd1d7d95f336"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_left.pivots.png",
+      "size": 4441,
+      "sha256": "b8b8b712a2f3ec497084c7a4ce1cbb2df48c17fbf9b3a186959dd2b57586aacd"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_right.contact.png",
+      "size": 4375,
+      "sha256": "697d4782ef7078361a6304064d3b392e12cf9345ef6ef8cd0e8fbdd6f69220d4"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_right.difference.png",
+      "size": 1986,
+      "sha256": "12e55e2d6e5f5f52723853f045b3e1bd30c6f77b9560a20a9b52097e9b83e270"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_right.gif",
+      "size": 1987,
+      "sha256": "7c130e35edd51ed0ed44ff986542f23a782205ccae86f9190d417d020003a8a1"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_right.onion.png",
+      "size": 4375,
+      "sha256": "697d4782ef7078361a6304064d3b392e12cf9345ef6ef8cd0e8fbdd6f69220d4"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_hard_right.pivots.png",
+      "size": 4398,
+      "sha256": "6f61fdd2778d54e6ee91559c7dea9e4ff22c871cb712afc81765294ebcd16053"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_left.contact.png",
+      "size": 4177,
+      "sha256": "870601e677cea701305439a4c91ee967021943135741620f1f55460f6cd421ce"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_left.difference.png",
+      "size": 2199,
+      "sha256": "a31b557f416a2ec5ce583e2a9f77112d371638a4ab243812d3000e9fe80fd16c"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_left.gif",
+      "size": 2023,
+      "sha256": "2099b029a6b0de6df07360b2b6074f8304e6c2ec525cf9a848c179bd9a2b3f57"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_left.onion.png",
+      "size": 4177,
+      "sha256": "870601e677cea701305439a4c91ee967021943135741620f1f55460f6cd421ce"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_left.pivots.png",
+      "size": 4097,
+      "sha256": "49f220135f8f455eb547a374f6c8cb98c3651d46c52225a43df63fb0574a5a49"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_neutral.contact.png",
+      "size": 3953,
+      "sha256": "6252d2a00f433384fb4c9037a0b8feff659e58791f26617620acb901b7f8e831"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_neutral.difference.png",
+      "size": 1832,
+      "sha256": "9ffd4165186544f9629c0ebe86a25e04d5ab5db04ce32ad3798814c28606e8a0"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_neutral.gif",
+      "size": 2000,
+      "sha256": "85d628f76a1eb8ad09dc9c7c25ad6f5ebee7edb741ccd7b35e0a377f55bb8a9e"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_neutral.onion.png",
+      "size": 3953,
+      "sha256": "6252d2a00f433384fb4c9037a0b8feff659e58791f26617620acb901b7f8e831"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_neutral.pivots.png",
+      "size": 3919,
+      "sha256": "69e95b47efaf67da669983d591914dea58610179a096687ad63d799f6aad5bf6"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_right.contact.png",
+      "size": 4163,
+      "sha256": "7462dc444189d8670669a1806fcfb58d0c30babd5024be17f4f87b1d18fb4197"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_right.difference.png",
+      "size": 2105,
+      "sha256": "511ebc67476b8b279ce86aeb63e64014bbfa0364b0130c9e34357f8910f91100"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_right.gif",
+      "size": 2024,
+      "sha256": "46f0838ca7e8de32a909e5e9e68fae648cef1c296c5b4ca3154a91870b85e3f1"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_right.onion.png",
+      "size": 4163,
+      "sha256": "7462dc444189d8670669a1806fcfb58d0c30babd5024be17f4f87b1d18fb4197"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_burnt_right.pivots.png",
+      "size": 4079,
+      "sha256": "1b3b43ca694fadcbae86864a24c356c826f7b4f0fec270d121f2abcc76465c64"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_left.contact.png",
+      "size": 4412,
+      "sha256": "88ac7aedd86a9f89de5bf7a04a1c0466013f2dd8d27dbee75389eedf9da3034e"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_left.difference.png",
+      "size": 2043,
+      "sha256": "d0ada416f67bf0df2f05bce9fe0784f438b06f4d7c6f3586f11b76b2c21d9796"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_left.gif",
+      "size": 2002,
+      "sha256": "143193382eadeda472ebe58e4ea1b165e46352bf8115fead3f15af2278f1bbd5"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_left.onion.png",
+      "size": 4412,
+      "sha256": "88ac7aedd86a9f89de5bf7a04a1c0466013f2dd8d27dbee75389eedf9da3034e"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_left.pivots.png",
+      "size": 4435,
+      "sha256": "7801e519af5b9f3c2b52b3e4c6b1794e1bbfa4faf0701614dc1898ffc6eac9c4"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_right.contact.png",
+      "size": 4380,
+      "sha256": "1f55b6b804fa552dc6b9e4c8160a09d45ee7e7caccf9e5bb18f115bfa09111c6"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_right.difference.png",
+      "size": 1986,
+      "sha256": "12e55e2d6e5f5f52723853f045b3e1bd30c6f77b9560a20a9b52097e9b83e270"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_right.gif",
+      "size": 1990,
+      "sha256": "dee8eef65cd3ad66658d687802a12408d18811c3e1cde4e9616a00d6332211ab"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_right.onion.png",
+      "size": 4380,
+      "sha256": "1f55b6b804fa552dc6b9e4c8160a09d45ee7e7caccf9e5bb18f115bfa09111c6"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_hard_right.pivots.png",
+      "size": 4406,
+      "sha256": "90e130e9f022f647c03c886b978de208ef318f01696f57771e17c18b7fb2443f"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_left.contact.png",
+      "size": 4173,
+      "sha256": "20f3109255d682f6dd02eb8efba923004787638e1d6841be06f149303278e198"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_left.difference.png",
+      "size": 2199,
+      "sha256": "a31b557f416a2ec5ce583e2a9f77112d371638a4ab243812d3000e9fe80fd16c"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_left.gif",
+      "size": 2019,
+      "sha256": "c38383e7b99de9da733275884ad402965d950bec00468102651730e59ed64109"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_left.onion.png",
+      "size": 4173,
+      "sha256": "20f3109255d682f6dd02eb8efba923004787638e1d6841be06f149303278e198"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_left.pivots.png",
+      "size": 4093,
+      "sha256": "1a97cdb9c03717c69f3fde1f90acd1fdaacfd34f78cf0fe7c4849b8fcc20e425"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_neutral.contact.png",
+      "size": 3954,
+      "sha256": "707f5a9b1cd580b754d47212cdb6c0ca304c43d08f2ca7cba48d0a689099e093"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_neutral.difference.png",
+      "size": 1832,
+      "sha256": "9ffd4165186544f9629c0ebe86a25e04d5ab5db04ce32ad3798814c28606e8a0"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_neutral.gif",
+      "size": 1997,
+      "sha256": "0ba01f249cb80b87073a8692c4c0eb290de4fecf49879f9d74c2d1c0c9a4d457"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_neutral.onion.png",
+      "size": 3954,
+      "sha256": "707f5a9b1cd580b754d47212cdb6c0ca304c43d08f2ca7cba48d0a689099e093"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_neutral.pivots.png",
+      "size": 3913,
+      "sha256": "8f013d01f907abcccea9845aabb7d35c3672cc3e23036e536bd13a2df2f98149"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_right.contact.png",
+      "size": 4164,
+      "sha256": "b4c166b43194b80701933b1c006c7ceb5c218325627b52d212148225828a3e18"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_right.difference.png",
+      "size": 2105,
+      "sha256": "511ebc67476b8b279ce86aeb63e64014bbfa0364b0130c9e34357f8910f91100"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_right.gif",
+      "size": 2022,
+      "sha256": "fbba82babcdd5cf49b4f62f6205cfcd4a08de0a24c3fe6189e08189fa943e004"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_right.onion.png",
+      "size": 4164,
+      "sha256": "b4c166b43194b80701933b1c006c7ceb5c218325627b52d212148225828a3e18"
+    },
+    {
+      "path": "previews/magnetic_screen_fighter_scarred_right.pivots.png",
+      "size": 4067,
+      "sha256": "08a9f1da0a53da41367e9564c6359070d81df373b9e7edfca2461aa23d786dd5"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_left.contact.png",
+      "size": 5096,
+      "sha256": "d4a5d944ed53d165dc3587104c8063530cd7f23044fb5d0c9807961a122b1314"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_left.difference.png",
+      "size": 2456,
+      "sha256": "d1b6632a1a4ab234ee74c25514f978fc5a3e168820560bed3d762fd40b92c301"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_left.gif",
+      "size": 2177,
+      "sha256": "2fced49a182731d86e7e27391285320eda01122de9b514c0cbe978c262ecdbfa"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_left.onion.png",
+      "size": 5096,
+      "sha256": "d4a5d944ed53d165dc3587104c8063530cd7f23044fb5d0c9807961a122b1314"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_left.pivots.png",
+      "size": 5123,
+      "sha256": "9fcd6066847534c4f832ec03eebef6551df8abe8b153805c790e40ad73da8861"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_right.contact.png",
+      "size": 5000,
+      "sha256": "37e4e40a09887224a6f3a7c8c25303b4ad409374f196478751b9a7610a52ce42"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_right.difference.png",
+      "size": 2255,
+      "sha256": "a1efdbf38d26dcd9b95b4ea9bbed87fcb5d18b3a4ad72bffc60b3fa66d7e5c5e"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_right.gif",
+      "size": 2155,
+      "sha256": "104de1336425baf4156ff1a3ddc2a4f1e8d7a41aff6301167268fa720ba46e12"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_right.onion.png",
+      "size": 5000,
+      "sha256": "37e4e40a09887224a6f3a7c8c25303b4ad409374f196478751b9a7610a52ce42"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_hard_right.pivots.png",
+      "size": 5039,
+      "sha256": "c5bdea10e77742bd47abbaf52d3c6b11d3217fa0fd205643861aa5871b7db230"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_left.contact.png",
+      "size": 4657,
+      "sha256": "9d5f0842ea1bc2f444833fd088b35cc651228b4be02140706bd6033ffd1f57df"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_left.difference.png",
+      "size": 2023,
+      "sha256": "fb73bd2a7cb2310f223dad6b5ac7ef46d5a273739a6ca129330cfcd0f6a16200"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_left.gif",
+      "size": 2140,
+      "sha256": "2e5ac19578d80d9e3a3bfb434dec80cf303fe371475c1cb0157e25208fc57e70"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_left.onion.png",
+      "size": 4657,
+      "sha256": "9d5f0842ea1bc2f444833fd088b35cc651228b4be02140706bd6033ffd1f57df"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_left.pivots.png",
+      "size": 4649,
+      "sha256": "87ed2e8a9c01e0473963c0ac8b48f21822e79b7be177a36e1b95c66194117d98"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_neutral.contact.png",
+      "size": 4849,
+      "sha256": "193f6f6996b066ed74db19213a1a2fd056ed7ebf494e86609f790900e1af57bc"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_neutral.difference.png",
+      "size": 2214,
+      "sha256": "1be0c55daa5227f28e4e54485415a5e5d3d8685fcb7353a60af1971e3d9d2537"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_neutral.gif",
+      "size": 2233,
+      "sha256": "cae381b7616a81896a696440eaefb468ad64fa868ee06672b807f4f6a57f71ef"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_neutral.onion.png",
+      "size": 4849,
+      "sha256": "193f6f6996b066ed74db19213a1a2fd056ed7ebf494e86609f790900e1af57bc"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_neutral.pivots.png",
+      "size": 4765,
+      "sha256": "a79f4126c30fb96a1a1a36e5e7ac62e2a068abce401d21058f226b62fd3bf163"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_right.contact.png",
+      "size": 4722,
+      "sha256": "91b5d493c508e1d758e28dfaaf5b6530b257e34efeb406b8bd620061b825bc41"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_right.difference.png",
+      "size": 2218,
+      "sha256": "e5cdf86a9cb3110d459458ed99cf16259f971998f7ac2930a6ff02cd53ac736b"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_right.gif",
+      "size": 2184,
+      "sha256": "0b66fc4d8014509f135feb663c5784f7f2696ae139155fc18f512d849b4bc4a6"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_right.onion.png",
+      "size": 4722,
+      "sha256": "91b5d493c508e1d758e28dfaaf5b6530b257e34efeb406b8bd620061b825bc41"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_burnt_right.pivots.png",
+      "size": 4670,
+      "sha256": "9d33516dac0400109917b6f6c27aa6e89d55e7378ddb0d610ee08c08f5865cc8"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_left.contact.png",
+      "size": 5106,
+      "sha256": "b28bd7226b77033caedb53c98515cb6027e11cced9ba159d1ddadce7c2ecd180"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_left.difference.png",
+      "size": 2456,
+      "sha256": "d1b6632a1a4ab234ee74c25514f978fc5a3e168820560bed3d762fd40b92c301"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_left.gif",
+      "size": 2177,
+      "sha256": "355acabd02f48133e92348b7aa5bc6679f522e559d4cd0c0838cbab0946a96aa"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_left.onion.png",
+      "size": 5106,
+      "sha256": "b28bd7226b77033caedb53c98515cb6027e11cced9ba159d1ddadce7c2ecd180"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_left.pivots.png",
+      "size": 5128,
+      "sha256": "06037291637c5fc0514951993e2d88f8b0915ae3e2ffdeb626d1788cdfec2314"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_right.contact.png",
+      "size": 5008,
+      "sha256": "1f564a1faa30917932c7e380b8030ffec75d004f9e5d549bf6c4f467c7468bf3"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_right.difference.png",
+      "size": 2255,
+      "sha256": "a1efdbf38d26dcd9b95b4ea9bbed87fcb5d18b3a4ad72bffc60b3fa66d7e5c5e"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_right.gif",
+      "size": 2156,
+      "sha256": "9fa0f90b520fefac226da1ec39272fbb2357caf47a5c5b92bc5f26a1e11229b5"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_right.onion.png",
+      "size": 5008,
+      "sha256": "1f564a1faa30917932c7e380b8030ffec75d004f9e5d549bf6c4f467c7468bf3"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_hard_right.pivots.png",
+      "size": 5057,
+      "sha256": "6af45aae1a743cac9673c63500591f65453eda2043b443a3681731803fd78999"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_left.contact.png",
+      "size": 4647,
+      "sha256": "b93bc2f7fb798a2578db84605840b451054b8795d78490fa8933e5d915077442"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_left.difference.png",
+      "size": 2023,
+      "sha256": "fb73bd2a7cb2310f223dad6b5ac7ef46d5a273739a6ca129330cfcd0f6a16200"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_left.gif",
+      "size": 2140,
+      "sha256": "dcf5cde95912310ad7e54ed0b27d41e0d5cf3506d4359b782b71806e84f226b6"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_left.onion.png",
+      "size": 4647,
+      "sha256": "b93bc2f7fb798a2578db84605840b451054b8795d78490fa8933e5d915077442"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_left.pivots.png",
+      "size": 4646,
+      "sha256": "57a20ab8a3655a27f585a8313d2e9030eddaa4c42099c44457a98a5c516edefb"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_neutral.contact.png",
+      "size": 4829,
+      "sha256": "94ff4e6afdb326c5064916046acf25edd1270d7e187a36127f30f6f8b452ce54"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_neutral.difference.png",
+      "size": 2214,
+      "sha256": "1be0c55daa5227f28e4e54485415a5e5d3d8685fcb7353a60af1971e3d9d2537"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_neutral.gif",
+      "size": 2230,
+      "sha256": "b4d955b99f452bfe22b0892255cb56970eba8117ff694c730f344489fd91f139"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_neutral.onion.png",
+      "size": 4829,
+      "sha256": "94ff4e6afdb326c5064916046acf25edd1270d7e187a36127f30f6f8b452ce54"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_neutral.pivots.png",
+      "size": 4751,
+      "sha256": "421129c4155f37af279e15c24f86a3e16634426f4040508a177b3a81ce46f056"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_right.contact.png",
+      "size": 4736,
+      "sha256": "e433c5f6e5d55149cc573991e11aab253cc6358a3a4768ac59df661a123ec38c"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_right.difference.png",
+      "size": 2218,
+      "sha256": "e5cdf86a9cb3110d459458ed99cf16259f971998f7ac2930a6ff02cd53ac736b"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_right.gif",
+      "size": 2178,
+      "sha256": "baebe01728f55c3879e7e5dfd26abb064dd80ba800dc9368e261cd905ff4ee03"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_right.onion.png",
+      "size": 4736,
+      "sha256": "e433c5f6e5d55149cc573991e11aab253cc6358a3a4768ac59df661a123ec38c"
+    },
+    {
+      "path": "previews/point_defence_pod_bomber_scarred_right.pivots.png",
+      "size": 4692,
+      "sha256": "23752733f0b276c2a86688dd73724fe36f27affee105bcb1fc02203924416cc2"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_left.contact.png",
+      "size": 4372,
+      "sha256": "d883692b1dca9284ea697c79952a70b07925c2ce26913a64cf794e90dae62fe9"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_left.difference.png",
+      "size": 1989,
+      "sha256": "ff6706d6d78ea6236cfa2946ca8df594953bb848fa784234109c4db1da911317"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_left.gif",
+      "size": 2015,
+      "sha256": "bae1528b58aedfdb0f2700611f51941574094e7de2741084d4238d4673123797"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_left.onion.png",
+      "size": 4372,
+      "sha256": "d883692b1dca9284ea697c79952a70b07925c2ce26913a64cf794e90dae62fe9"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_left.pivots.png",
+      "size": 4399,
+      "sha256": "88656a9ab949bf2200f9a9dcaef084156e18f6f0e69e1a6af514e73cfd44877e"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_right.contact.png",
+      "size": 4350,
+      "sha256": "5bf6700a055d1a05a8481a3b5444491fc67d4e9ab114842662cff257658347a7"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_right.difference.png",
+      "size": 1929,
+      "sha256": "ce9f55ebedd18fea97717ab546bc4ffcea18bdb0aaf70d059039aba2fb838bde"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_right.gif",
+      "size": 1996,
+      "sha256": "cc40627d914e9b5f87a1cf1d7bf5c1d726a0a05c356d7ecd09cda7b71a5f527f"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_right.onion.png",
+      "size": 4350,
+      "sha256": "5bf6700a055d1a05a8481a3b5444491fc67d4e9ab114842662cff257658347a7"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_hard_right.pivots.png",
+      "size": 4364,
+      "sha256": "f514f767f14a45be9644debc1b23decade5a78cd55b190fc6bcbc79eeb0e6c57"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_left.contact.png",
+      "size": 4148,
+      "sha256": "5b97220b780b7c511faf78c56c272e234ff1bf28944edc832f2f5ab1115ce775"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_left.difference.png",
+      "size": 2145,
+      "sha256": "e87c74ebdaaddc14d6bd494ff3bc865ecc4398ff9f220e7fd3f64a844f077eb0"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_left.gif",
+      "size": 2031,
+      "sha256": "fcac5235686212e50a5b6e70479e60e85883359cfed3af608e61e52cce1773d9"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_left.onion.png",
+      "size": 4148,
+      "sha256": "5b97220b780b7c511faf78c56c272e234ff1bf28944edc832f2f5ab1115ce775"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_left.pivots.png",
+      "size": 4069,
+      "sha256": "a292fe48f738c462083becea649b8b623fac6658daa544c7a68751cee09b780b"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_neutral.contact.png",
+      "size": 3930,
+      "sha256": "b365e92a0a896e34fe2d872e5b39d387b455f3e0aae6b90f02eefe9ee1074a3a"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_neutral.difference.png",
+      "size": 1786,
+      "sha256": "c89996b283e0d81d39eb1a71c43ec6106aad5c3b326607f028841bc576f00148"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_neutral.gif",
+      "size": 2004,
+      "sha256": "ea807f54f601908e12c8446aafe64a81b2c40a51eb2c37dcc0dc05d59c413669"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_neutral.onion.png",
+      "size": 3930,
+      "sha256": "b365e92a0a896e34fe2d872e5b39d387b455f3e0aae6b90f02eefe9ee1074a3a"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_neutral.pivots.png",
+      "size": 3893,
+      "sha256": "9f381d24f75c98da2179c4acfb43d96a7bdeb6818dc674929d5df5a01c7e8a32"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_right.contact.png",
+      "size": 4136,
+      "sha256": "009ebdb340585302c0980b705bfa29c44be405470e0d699fd77a3035f0643264"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_right.difference.png",
+      "size": 2049,
+      "sha256": "5b8df36155daae5d2ad6b3cf8732e4e5d61ab1f6bfdccdca637b1bd768b058ba"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_right.gif",
+      "size": 2031,
+      "sha256": "603b18b5dbd6d9b231df62ba43d9e575b7828513f265a81f61a1f8411b718fef"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_right.onion.png",
+      "size": 4136,
+      "sha256": "009ebdb340585302c0980b705bfa29c44be405470e0d699fd77a3035f0643264"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_burnt_right.pivots.png",
+      "size": 4047,
+      "sha256": "9f7cdc9ae6e8bdd14bf589925ed3dcb49ef42f1fbee0d3030bc2a906b8dbf691"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_left.contact.png",
+      "size": 4374,
+      "sha256": "6e82cc233d33dcf9509ccc79c73f52b4934339a51da364ca68c8db95ba667e2a"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_left.difference.png",
+      "size": 1989,
+      "sha256": "ff6706d6d78ea6236cfa2946ca8df594953bb848fa784234109c4db1da911317"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_left.gif",
+      "size": 2013,
+      "sha256": "30e124a50358254ce875f748b029b74357ee8b380f79bcd0865ddadd8205d821"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_left.onion.png",
+      "size": 4374,
+      "sha256": "6e82cc233d33dcf9509ccc79c73f52b4934339a51da364ca68c8db95ba667e2a"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_left.pivots.png",
+      "size": 4387,
+      "sha256": "a59d9c8cab457be505ee68ce5a7a58f3246109060c00f41cca551d56ef85126f"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_right.contact.png",
+      "size": 4349,
+      "sha256": "7beb94b85840b1367c7e9aa9010498ecc2a8c3520bcc93b8dfc89cd2a0fd35ae"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_right.difference.png",
+      "size": 1929,
+      "sha256": "ce9f55ebedd18fea97717ab546bc4ffcea18bdb0aaf70d059039aba2fb838bde"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_right.gif",
+      "size": 1998,
+      "sha256": "5515a9b430eeee4440f15ff6583f80ab15edb9941cbe6b23677186e37060534c"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_right.onion.png",
+      "size": 4349,
+      "sha256": "7beb94b85840b1367c7e9aa9010498ecc2a8c3520bcc93b8dfc89cd2a0fd35ae"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_hard_right.pivots.png",
+      "size": 4370,
+      "sha256": "6b6686651066b2bf6f492066b733ffc9d47c86aa518f73526c5460c040552f7d"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_left.contact.png",
+      "size": 4143,
+      "sha256": "88b8e4825d9588a37ecda936387abda047c926a081a96d8e0463a79684e49154"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_left.difference.png",
+      "size": 2145,
+      "sha256": "e87c74ebdaaddc14d6bd494ff3bc865ecc4398ff9f220e7fd3f64a844f077eb0"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_left.gif",
+      "size": 2029,
+      "sha256": "8c23ae33c8a1d3582852476ff3cdd252a026b1a9066a3383f6fa2dc54a3e3ca8"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_left.onion.png",
+      "size": 4143,
+      "sha256": "88b8e4825d9588a37ecda936387abda047c926a081a96d8e0463a79684e49154"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_left.pivots.png",
+      "size": 4063,
+      "sha256": "bf03655f39833c94e3fbe611e75337166a9caa34d1f5b70311eed5ed0f7eff9d"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_neutral.contact.png",
+      "size": 3928,
+      "sha256": "f687e26b6afc1115e3e1ae7605e372cce68b7d165c0c5f967312f86fa1aedbc8"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_neutral.difference.png",
+      "size": 1786,
+      "sha256": "c89996b283e0d81d39eb1a71c43ec6106aad5c3b326607f028841bc576f00148"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_neutral.gif",
+      "size": 2001,
+      "sha256": "e1cbed1a115fc75bb518f72d741fa53a973906014780e24ea0c347dd5576ab3b"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_neutral.onion.png",
+      "size": 3928,
+      "sha256": "f687e26b6afc1115e3e1ae7605e372cce68b7d165c0c5f967312f86fa1aedbc8"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_neutral.pivots.png",
+      "size": 3886,
+      "sha256": "9ad99e7147a07a9d211c529471bd2dc00e5b2289850ecf8ef3fdfa1f6621c74c"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_right.contact.png",
+      "size": 4127,
+      "sha256": "66c4476e19bd7f846c485e8826c15caa203225ae64e7b348d33ffd830dfd1955"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_right.difference.png",
+      "size": 2049,
+      "sha256": "5b8df36155daae5d2ad6b3cf8732e4e5d61ab1f6bfdccdca637b1bd768b058ba"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_right.gif",
+      "size": 2027,
+      "sha256": "55a93fb2db2420e8b7b7b7f7d4e62ae1d459585ca2bd2a1ee0692428e6903252"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_right.onion.png",
+      "size": 4127,
+      "sha256": "66c4476e19bd7f846c485e8826c15caa203225ae64e7b348d33ffd830dfd1955"
+    },
+    {
+      "path": "previews/point_defence_pod_fighter_scarred_right.pivots.png",
+      "size": 4038,
+      "sha256": "531173f20a94fe71261f142d390144d07a9a02c5beda0e4417df9bfd4ab333c1"
+    },
+    {
+      "path": "vx94_module_damage.animated_sprite.tscn",
+      "size": 387,
+      "sha256": "5ee000d8e88786efdad6a815194af83f66f5d9d55a43d3235c2f66024f641e47"
+    },
+    {
+      "path": "vx94_module_damage.atlas.0.png",
+      "size": 197952,
+      "sha256": "dbb22baab20c5b234bd2db1c70105c892d10a9ac2e83e3577b8e37db6b983b96"
+    },
+    {
+      "path": "vx94_module_damage.atlas.json",
+      "size": 55702,
+      "sha256": "7b03be9c7b06608591534a7dd80e374c138ccc707797cfbd832f7c38c7a93377"
+    },
+    {
+      "path": "vx94_module_damage.build.json",
+      "size": 22414,
+      "sha256": "7b82f14bd4322ed15dd99b6de25f5ff2ed31c81998bbd78c49a12dc0f93aa5ae"
+    },
+    {
+      "path": "vx94_module_damage.corrections.json",
+      "size": 143,
+      "sha256": "6c0db3530a46d19a6bcd13087c7763bc3cac3d1aa0489f136dcec9820c0cb964"
+    },
+    {
+      "path": "vx94_module_damage.events.json",
+      "size": 23909,
+      "sha256": "5ac650e600ca317e22647d6d89cfb6974276cb609a3d8f138222e4b59b6b5235"
+    },
+    {
+      "path": "vx94_module_damage.integration.json",
+      "size": 12275,
+      "sha256": "f76013a244da034bef852de5fa7f6fe61af5530a8a864466eed5e0e37c91540b"
+    },
+    {
+      "path": "vx94_module_damage.manifest.json",
+      "size": 96087,
+      "sha256": "9ad2176582488b5c7e50d57c185c2a2155a5b448c98b80217431a549e48042a4"
+    },
+    {
+      "path": "vx94_module_damage.qa.json",
+      "size": 482,
+      "sha256": "61c91ec4f3180d6278b4f2b0422ba60d217518d1380aea41b6d14806beaec0cb"
+    },
+    {
+      "path": "vx94_module_damage.review.html",
+      "size": 66288,
+      "sha256": "658a1772b52c38a6f6cdbe2103a4b0d3d12ffd60b2d2ac67480bf3c2dff6034a"
+    },
+    {
+      "path": "vx94_module_damage.spriteframes.tres",
+      "size": 19777,
+      "sha256": "777648994c34e29017ebc78e74ab1110e3f2733dfc8c2d5b7fceea521cb01727"
+    }
+  ]
+}

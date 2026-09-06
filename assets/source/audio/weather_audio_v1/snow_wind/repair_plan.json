@@ -1,0 +1,7 @@
+{
+  "schema": "evavo_audio_repair_plan_v1",
+  "sourceSha256": "ce8da952f554eae2224aba4f42503aa1893171cf8fa85d86c947b3ee9eba552a",
+  "sourceStatus": "pass",
+  "actions": [],
+  "selectionPolicy": "preserve source unless a candidate passes all blockers and improves the targeted issue without spill"
+}

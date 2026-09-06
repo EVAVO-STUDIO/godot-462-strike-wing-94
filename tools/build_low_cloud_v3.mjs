@@ -1,0 +1,11 @@
+import {readFile,copyFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const dir=path.join(root,'assets/source/environments/low_cloud_v3');
+const m=JSON.parse(await readFile(path.join(dir,'manifest.json'),'utf8'));
+const source=path.join(dir,m.master);
+if(createHash('sha256').update(await readFile(source)).digest('hex')!==m.sha256)throw Error('Low-cloud finished master hash mismatch');
+await copyFile(source,path.join(root,m.runtime));
+console.log('Delivered verified 192x64 low-cloud A master; original generation is not deterministic.');

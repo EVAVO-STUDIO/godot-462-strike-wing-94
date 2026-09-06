@@ -1,0 +1,71 @@
+{
+  "name": "missile_cruiser_critical",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 92,
+    "canvas_height": 154,
+    "pivot_x": 46,
+    "pivot_y": 77,
+    "padding": 0,
+    "manual_anchors": {
+      "critical_0": [
+        12.0,
+        27.0
+      ],
+      "critical_1": [
+        12.0,
+        27.0
+      ],
+      "critical_2": [
+        12.0,
+        27.0
+      ],
+      "critical_3": [
+        12.0,
+        27.0
+      ]
+    }
+  },
+  "qa": {
+    "strict": true,
+    "contracts": {
+      "required_animations": [
+        "critical"
+      ],
+      "frame_count_rules": [
+        {
+          "pattern": "critical",
+          "exact": 4
+        }
+      ]
+    }
+  },
+  "animations": {
+    "critical": {
+      "fps": 8,
+      "loop": true
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "animated_scene": true,
+    "event_timeline": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "gif": true,
+    "contact_sheet": true,
+    "onion_skin": true
+  }
+}

@@ -6,8 +6,8 @@ const SETTINGS_PATH := "user://hypersonic_options.cfg"
 const KEYBOARD_BINDINGS := [
 	{"action":"move_left", "label":"MANEUVER LEFT", "default":KEY_A},
 	{"action":"move_right", "label":"MANEUVER RIGHT", "default":KEY_D},
-	{"action":"move_up", "label":"MANEUVER UP", "default":KEY_W},
-	{"action":"move_down", "label":"MANEUVER DOWN", "default":KEY_S},
+	{"action":"move_up", "label":"ACCELERATE", "default":KEY_W},
+	{"action":"move_down", "label":"DECELERATE", "default":KEY_S},
 	{"action":"fire_primary", "label":"PRIMARY FIRE", "default":KEY_SPACE},
 	{"action":"fire_secondary", "label":"SCREEN BOMB", "default":KEY_X},
 	{"action":"transform_craft", "label":"WING GEOMETRY", "default":KEY_Q},

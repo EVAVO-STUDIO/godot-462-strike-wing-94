@@ -1,0 +1,52 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.875,
+      "events": [],
+      "fps": 8.0,
+      "frame_count": 7,
+      "loop": false,
+      "name": "bomber"
+    },
+    {
+      "duration_seconds": 0.875,
+      "events": [],
+      "fps": 8.0,
+      "frame_count": 7,
+      "loop": false,
+      "name": "fighter"
+    }
+  ],
+  "asset": "vx94_pitch_relief",
+  "atlas_pages": [
+    {
+      "file": "vx94_pitch_relief.atlas.0.png",
+      "height": 494,
+      "index": 0,
+      "width": 140
+    }
+  ],
+  "canvas": {
+    "height": 72,
+    "pivot_x": 32.0,
+    "pivot_y": 38.0,
+    "width": 64
+  },
+  "corrected_frames": 0,
+  "correction_audit": "vx94_pitch_relief.corrections.json",
+  "event_timeline": "vx94_pitch_relief.events.json",
+  "manifest": "vx94_pitch_relief.manifest.json",
+  "qa": "vx94_pitch_relief.qa.json",
+  "receipt": "build.receipt.json",
+  "runtime": {
+    "godot": {
+      "animated_sprite_scene": "vx94_pitch_relief.animated_sprite.tscn",
+      "atlas_root": "res://",
+      "sprite_frames": "vx94_pitch_relief.spriteframes.tres"
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

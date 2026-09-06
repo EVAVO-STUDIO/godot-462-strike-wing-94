@@ -1,0 +1,55 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "operations-modal-opacity",
+  "projectId": "hypersonic",
+  "purpose": "Opaque inner modal surface behind retained bezel, preserving outer edge",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "screen",
+      "kind": "image-composite",
+      "sources": [
+        "work/mission_intel_icons_v2/screen_backing.png",
+        "work/mission_intel_icons_v2/originals/operations_screen_9slice.png"
+      ],
+      "targetPath": "operations_screen_9slice.png",
+      "canvas": {
+        "width": 32,
+        "height": 32,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

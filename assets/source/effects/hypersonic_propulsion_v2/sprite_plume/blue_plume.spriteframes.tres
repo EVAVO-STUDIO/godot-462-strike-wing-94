@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://blue_plume.atlas.0.png" id="Texture_1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 66, 6, 26)
+margin = Rect2(5, 3, 10, 14)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 3, 6, 28)
+margin = Rect2(5, 3, 10, 12)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 35, 6, 27)
+margin = Rect2(5, 3, 10, 13)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 96, 6, 25)
+margin = Rect2(5, 3, 10, 15)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_1")}, {"duration": 1, "texture": SubResource("AtlasTexture_2")}, {"duration": 1, "texture": SubResource("AtlasTexture_3")}, {"duration": 1, "texture": SubResource("AtlasTexture_4")}], "loop": true, "name": &"blue_plume", "speed": 16}]

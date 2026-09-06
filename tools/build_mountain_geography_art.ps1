@@ -24,21 +24,9 @@ for ($Index=0; $Index -lt $Sections.Count; $Index++) {
     & $MagickPath $Source -crop $Sections[$Index].Crop +repage -colorspace sRGB -depth 8 $Raw
     if ($LASTEXITCODE -ne 0) { throw "Failed to register mountain section $Index" }
 }
-$Connector = Join-Path $Work 'shared_connector.png'
-$ConnectorRow = Join-Path $Work 'connector_row.png'
-& $MagickPath (Join-Path $Work 'raw_0.png') -crop '640x48+0+0' +repage $Connector
-& $MagickPath $Connector -crop '640x1+0+0' +repage $ConnectorRow
-& $MagickPath $Connector $ConnectorRow -gravity south -compose over -composite $Connector
-for ($Index=0; $Index -lt $Sections.Count; $Index++) {
-    $Raw = Join-Path $Work "raw_$Index.png"
-    $Destination = Join-Path $Output "$($Sections[$Index].Name).png"
-    # Both edges share one authored connector, giving exact scanline closure.
-    # Do not blur the joins: the former 22px Gaussian passes turned each edge
-    # into a conspicuous gray cloud bar during continuous vertical scrolling.
-    & $MagickPath $Raw $Connector -gravity north -compose over -composite $Connector -gravity south -compose over -composite `
-        -colorspace sRGB -depth 8 $Destination
-    if ($LASTEXITCODE -ne 0) { throw "Failed to finish mountain chunk: $($Sections[$Index].Name)" }
-}
+# Retained interiors and registered road terminations replace the pasted strip.
+& node (Join-Path $RepoRoot 'tools/build_mountain_repair_v3.mjs')
+if ($LASTEXITCODE -ne 0) { throw 'Failed to build retained mountain terrain v3.' }
 
 $EdgeMask = Join-Path $Work 'weather_edge_mask.png'
 & $MagickPath -size '224x144' xc:white -fx 'min(1,min(min(i/12,(w-1-i)/12),min(j/10,(h-1-j)/10)))' -alpha copy $EdgeMask

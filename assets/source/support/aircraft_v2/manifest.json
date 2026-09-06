@@ -1,0 +1,257 @@
+{
+  "version": 2,
+  "scope": "Reviewed Rapier/Hammer/Atlas aircraft and conventional strike bomb. Gunship remains separate pending emitter integration.",
+  "provenance": "Original authored Blender geometry, Blender 5.2.1 LTS renders, EVAVO Art Studio finishing, strict Sprite Studio QA, pinned Godot 4.6.2 native coast fixtures.",
+  "files": [
+    {
+      "source": "rapier_fighter/render_0.png",
+      "sourceSha256": "d0289033c8c57a021815e3d3eff63d3d2f782ed30baf3f703290a47fb658f9b0",
+      "target": "assets/runtime/support/battlefield/rapier_fighter/0.png",
+      "sha256": "341b5379bc3f7ba7c005738f9fc1cd8813f9ec13109a51ea6338fb3e22e9c6ec",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 48,
+          "height": 28
+        }
+      }
+    },
+    {
+      "source": "rapier_fighter/render_1.png",
+      "sourceSha256": "e7d2e855fca68b491e7122718286d95f2e8fc39d52e566bcef44d3715b0c604b",
+      "target": "assets/runtime/support/battlefield/rapier_fighter/1.png",
+      "sha256": "fda224631d077e43596d2423a41e0bd9727bafe653260d868dfcc8864c6372d2",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 48,
+          "height": 28
+        }
+      }
+    },
+    {
+      "source": "rapier_fighter/render_2.png",
+      "sourceSha256": "d2d2b394cf70daca8267330cee6d7934f74c55a802840f4bad9a652ae2c1e4f9",
+      "target": "assets/runtime/support/battlefield/rapier_fighter/2.png",
+      "sha256": "0d834262aa581a50975b1b9d324fff3df6e629c7827d3303381b282c07f6ad48",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 48,
+          "height": 28
+        }
+      }
+    },
+    {
+      "source": "rapier_fighter/render_3.png",
+      "sourceSha256": "a32772f4e487979624dd0932b57ddc24ce32837d92727ebb276c746a29aa6d80",
+      "target": "assets/runtime/support/battlefield/rapier_fighter/3.png",
+      "sha256": "0ef4ae41581f836cfd1f4c8d216ef66d86ada3c3a0762b430867ae86360ef933",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 48,
+          "height": 28
+        }
+      }
+    },
+    {
+      "source": "hammer_bomber/render_0.png",
+      "sourceSha256": "dea710a557b69bcf9d0d411e63c81e2c29b9ee511052512ab5993f13b14cae4e",
+      "target": "assets/runtime/support/battlefield/hammer_bomber/0.png",
+      "sha256": "e1a95cb9672026ea301bd021eb8e1c37815323daa0d08f1d06137af993c7b827",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 64,
+          "height": 36
+        }
+      }
+    },
+    {
+      "source": "hammer_bomber/render_1.png",
+      "sourceSha256": "ed2bc78b6d31fd7f2335b04ddac8d2ff041cb273ca080278488b425dcb8b8e90",
+      "target": "assets/runtime/support/battlefield/hammer_bomber/1.png",
+      "sha256": "1c210e38f0a3e1f16ceef83a715721b8ab9a600eb9a8538a7b54ce2f67238ba4",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 64,
+          "height": 36
+        }
+      }
+    },
+    {
+      "source": "hammer_bomber/render_2.png",
+      "sourceSha256": "7ee0c0ff9d0965e20a766d114b31373bfef2e43f59196a1ba640419c5a3af9cf",
+      "target": "assets/runtime/support/battlefield/hammer_bomber/2.png",
+      "sha256": "0008923f7dd2f850fe28203eaf67e196f9523bc18371891aa39975908e8c7873",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 64,
+          "height": 36
+        }
+      }
+    },
+    {
+      "source": "hammer_bomber/render_3.png",
+      "sourceSha256": "5ca651d8134e2ed7b44c6cd58b09cf9b30096ef45446fd7f7026aa6253029f70",
+      "target": "assets/runtime/support/battlefield/hammer_bomber/3.png",
+      "sha256": "2673cf435ddde87aeec8bb540f4242be2c3ab06fa6db25a739f96892c5dcf684",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 64,
+          "height": 36
+        }
+      }
+    },
+    {
+      "source": "strike_bomb_v2.svg",
+      "sourceSha256": "0af4cca41575d8ed6990309f6f5712ead9ded226ef46d8fea2ed2f590a5a1f23",
+      "target": "assets/runtime/support/battlefield/effects/strike_bomb.png",
+      "sha256": "52e09e70b9076fb0b0e1606448d8026b0fe826afe229f98bf23d4d637110a296",
+      "spec": {
+        "ensureAlpha": true,
+        "format": "png"
+      }
+    },
+    {
+      "source": "atlas_tanker/render_0.png",
+      "sourceSha256": "7db2e8579fefc27a2be3adc6977beb79d7747ff1aff6c1ff7c03262d49e4b954",
+      "target": "assets/runtime/support/battlefield/atlas_tanker/0.png",
+      "sha256": "5bda3a22f1bd622c5aa2cf379544c9a108cd1272895f9dd909663423feeb152a",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 112,
+          "height": 64
+        }
+      }
+    },
+    {
+      "source": "atlas_tanker/render_1.png",
+      "sourceSha256": "4fcbd0ab057ae64740c228509f376691321fed7132745821b2a2ef30fa3afde2",
+      "target": "assets/runtime/support/battlefield/atlas_tanker/1.png",
+      "sha256": "35c35bcc963098250ad726b448a490c3b84637fa5e8e570b1f2903d1966f5916",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 112,
+          "height": 64
+        }
+      }
+    },
+    {
+      "source": "atlas_tanker/render_2.png",
+      "sourceSha256": "d97d6b62bc3322e7c5ff142a5072f30eedbbfc9c773c2ca3435c8cad63270907",
+      "target": "assets/runtime/support/battlefield/atlas_tanker/2.png",
+      "sha256": "4742fd665901da79fdaa7af3fa83a9cf7bf6269c7b1b7b9d9cd1ee7cafdf221f",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 112,
+          "height": 64
+        }
+      }
+    },
+    {
+      "source": "atlas_tanker/render_3.png",
+      "sourceSha256": "7d3d9bdebe6e0f33ec64e181859885495f67232fafb3babad3fb2676e7b7f9c5",
+      "target": "assets/runtime/support/battlefield/atlas_tanker/3.png",
+      "sha256": "9bc3d7c75145311ea7fa57edaddc626d0e8f050f79825e22ae94ba0315501bdb",
+      "spec": {
+        "ensureAlpha": true,
+        "sharpen": {
+          "sigma": 0.5
+        },
+        "format": "png",
+        "normalize": false,
+        "resize": {
+          "withoutEnlargement": true,
+          "fit": "inside",
+          "width": 112,
+          "height": 64
+        }
+      }
+    }
+  ]
+}

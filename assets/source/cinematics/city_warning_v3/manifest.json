@@ -1,0 +1,94 @@
+{
+  "status": "reviewed_runtime_art",
+  "canvas": [
+    640,
+    272
+  ],
+  "subjectPosition": [
+    320,
+    110
+  ],
+  "fxCenter": [
+    320,
+    86
+  ],
+  "files": [
+    {
+      "source": "s2_consequence_0.svg",
+      "target": "s2_consequence_0.png",
+      "sourceSha256": "40efd691dd627cfec30e06c5b6fbee2c8294241a2ae25f1ead8860fa76ce9fd4",
+      "sha256": "1eb3ff7b827b24a11e53e49c003a60978431c8ab35dd57f007361f03ec3ac158",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "source": "s2_consequence_1.svg",
+      "target": "s2_consequence_1.png",
+      "sourceSha256": "b1444542f63036ca209b624dd84697fcd9b4e09e5d0a7c3fea772eddf260a76c",
+      "sha256": "eea1b63962c3fdf3f4b017af5039f6fc2d0b43bb98fde480070879ab2731afc5",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "source": "s2_consequence_2.svg",
+      "target": "s2_consequence_2.png",
+      "sourceSha256": "aeb2909a4b037f1750c86118db40bd416bf25ad7b4830f3a9082a85d8b423ce9",
+      "sha256": "a798fda7d4459f47d8c3513d11e45c09afe1898a8bb2cbc73624c098ad6df017",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "source": "s2_consequence_3.svg",
+      "target": "s2_consequence_3.png",
+      "sourceSha256": "b1444542f63036ca209b624dd84697fcd9b4e09e5d0a7c3fea772eddf260a76c",
+      "sha256": "eea1b63962c3fdf3f4b017af5039f6fc2d0b43bb98fde480070879ab2731afc5",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    }
+  ],
+  "builder": "tools/build_city_warning_v3.mjs"
+}

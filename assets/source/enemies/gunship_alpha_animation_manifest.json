@@ -1,24 +1,40 @@
 {
   "asset_family": "gunship_alpha_phase_animation",
-  "status": "runtime_phase_overlays_reviewed",
-  "canvas": [94, 78],
+  "status": "runtime_v2_native_and_sprite_reviewed",
+  "canvas": [
+    94,
+    78
+  ],
   "registration": "all overlays share the idle sprite canvas and centre pivot",
   "state_mapping": {
-    "phase_1": ["mercenary_boss/gunship_alpha_idle.png"],
-    "phase_2": ["phase_2_damage.png"],
-    "phase_3": ["phase_2_damage.png", "phase_3_damage.png", "critical_0.png", "critical_1.png", "critical_2.png", "critical_3.png"]
+    "phase_1": [
+      "mercenary_boss/gunship_alpha_idle.png"
+    ],
+    "phase_2": [
+      "phase_2_damage.png"
+    ],
+    "phase_3": [
+      "phase_2_damage.png",
+      "phase_3_damage.png",
+      "critical_0.png",
+      "critical_1.png",
+      "critical_2.png",
+      "critical_3.png"
+    ]
   },
   "animation": {
     "critical_fps": 8,
     "loop": true,
-    "intent": "contained irregular electrical and thermal failure inside the physically exposed command aperture"
+    "intent": "Localized engine-bus thermal failure; detailed engine and turret phase mechanics remain independent."
   },
   "sha256": {
-    "critical_0.png": "FE353EA744BC14E85B38D677DBCF179B607FFC5F5A70EA4CB4CDD92F64CDADF6",
-    "critical_1.png": "9BEBD9016669D35A18AE9AAF67EBCDBB5DB4AD46383AB18D96BE48F4BD7DAFA6",
-    "critical_2.png": "5CB02251AAE5E28BDA5DD3CA20CC8B62D7DA88DC67A28C88954D01BE3DBC1014",
-    "critical_3.png": "68659644E8323DFD369D80A58EA56D47BE895565A52A9153BD634812BB29CB7B",
-    "phase_2_damage.png": "F9C6247AEE8311B7093778C040E347ADB2E8BBCA4755A544097D6912CC900BBC",
-    "phase_3_damage.png": "792CEDB9C1E9A6B17E2218B4AB37DB0FF53F66DE8AEF84B9B9C46B0BBE670417"
-  }
+    "critical_0.png": "6487F0BEADEA8BAE6052F9C60CBC8AA32C3DAFF2C07F41D6427F10F3DABC47F2",
+    "critical_1.png": "454F9B0EC0E1648498B8918F7640DC641813A19B9BA72E2BB1D7B10CDBA9DC2B",
+    "critical_2.png": "619116E9596297DF0608E14542E3BF50DE4D9064456031E2DE5748FAE2D9DB2B",
+    "critical_3.png": "C75056CEE90EE3210ACA9BC8688EF001A7DFB36EE98FD5ACD3E4C96090C8D64B",
+    "phase_2_damage.png": "FFD8E194C35807D2B0F5BCB43269DC96F7E86FA242D3386431C7589FF4D0E057",
+    "phase_3_damage.png": "3C92FADE5475710366F97587BF3047751A9213ACE28B973C21A274283B68E69E"
+  },
+  "source_recipe": "res://assets/source/enemies/mercenary_machine_phase_v2/art_studio_request.json",
+  "builder": "res://tools/build_mercenary_machine_boss_phase_art.ps1"
 }

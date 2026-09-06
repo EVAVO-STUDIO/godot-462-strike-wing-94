@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "issues": [
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_03",
+      "severity": "info",
+      "frame": "bomber_04",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to fighter_03",
+      "severity": "info",
+      "frame": "fighter_04",
+      "animation": null
+    }
+  ],
+  "metrics": {
+    "frames": 14,
+    "animations": 2,
+    "empty_frames": 0,
+    "duplicate_frames": 2,
+    "event_markers": 0,
+    "warnings": 0,
+    "errors": 0,
+    "max_area_variance": 0.046531,
+    "max_brightness_range": 0.003223,
+    "max_centroid_jump": 0.00895,
+    "max_loop_delta": 0.0,
+    "max_ground_contact_shift": 0.014817,
+    "max_silhouette_delta": 0.04551,
+    "max_palette_distance": 0.263158,
+    "max_palette_colors": 88
+  }
+}

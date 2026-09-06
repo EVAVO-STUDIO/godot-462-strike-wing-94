@@ -4,7 +4,7 @@
   "native_frame_size": [16, 24],
   "frames_per_family": 4,
   "families": [
-    "ballistic", "enemy_cannon", "homing_missile", "needle_rail",
+    "ballistic", "enemy_cannon", "homing_missile", "needle_rail", "storm_pulse",
     "plasma_lance", "support_rocket", "strategic_warhead", "precision_bomb"
   ],
   "registration": {

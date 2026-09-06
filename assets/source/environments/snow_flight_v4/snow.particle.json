@@ -1,0 +1,403 @@
+{
+  "schemaVersion": "evavo.particle-effect/v1",
+  "id": "hypersonic-snow-flight-art-v4",
+  "name": "HYPERSONIC snow depth study",
+  "description": "Cold non-emissive snow and spindrift, three restrained depths, no weapon-like trails. Candidate source.",
+  "domain": "2d",
+  "duration": 4,
+  "fps": 24,
+  "seed": 9407,
+  "loop": {
+    "enabled": true,
+    "mode": "periodic",
+    "seamTolerance": 0.001,
+    "maxStepRatio": 1.5
+  },
+  "background": {
+    "color": "#000000",
+    "transparent": true
+  },
+  "style": {
+    "profile": "dos-pixel",
+    "pixelScale": 1,
+    "palette": [
+      "#72848e",
+      "#a6b5bd",
+      "#dde4e5"
+    ],
+    "bloom": 0,
+    "motionBlur": 0,
+    "textureGrain": 0
+  },
+  "camera": {
+    "projection": "orthographic",
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 3
+    },
+    "fovDegrees": 55
+  },
+  "layers": [
+    {
+      "id": "distant",
+      "name": "distant",
+      "enabled": true,
+      "depth": 0,
+      "emitters": [
+        {
+          "id": "distant-flakes",
+          "name": "distant",
+          "enabled": true,
+          "start": 0,
+          "end": 4,
+          "rate": 26,
+          "burst": 0,
+          "capacity": 128,
+          "origin": {
+            "x": 0,
+            "y": -0.25,
+            "z": 0
+          },
+          "spawn": {
+            "shape": "box",
+            "width": 2.1,
+            "height": 1.25,
+            "depth": 0,
+            "radius": 0
+          },
+          "particle": {
+            "shape": "disc",
+            "blend": "normal",
+            "lifetime": {
+              "min": 1.5,
+              "max": 3.5
+            },
+            "size": {
+              "min": 0.004004,
+              "max": 0.00616,
+              "overLife": [
+                {
+                  "t": 0,
+                  "value": 1
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            "opacity": [
+              {
+                "t": 0,
+                "value": 0
+              },
+              {
+                "t": 0.12,
+                "value": 0.35
+              },
+              {
+                "t": 0.85,
+                "value": 0.35
+              },
+              {
+                "t": 1,
+                "value": 0
+              }
+            ],
+            "colors": [
+              {
+                "t": 0,
+                "color": "#72848e"
+              },
+              {
+                "t": 1,
+                "color": "#72848e"
+              }
+            ],
+            "velocity": {
+              "direction": {
+                "x": 0.22,
+                "y": 1,
+                "z": 0
+              },
+              "spreadDegrees": 18,
+              "speed": {
+                "min": 0.07500000000000001,
+                "max": 0.1
+              }
+            },
+            "acceleration": {
+              "x": 0.015,
+              "y": 0,
+              "z": 0
+            },
+            "drag": 0.06,
+            "rotationDegrees": {
+              "min": 0,
+              "max": 360
+            },
+            "angularVelocity": {
+              "min": -25,
+              "max": 25
+            },
+            "turbulence": {
+              "strength": 0.025,
+              "scale": 1.4,
+              "speed": 0.55
+            },
+            "trail": {
+              "enabled": false,
+              "length": 0,
+              "width": 0.1
+            },
+            "pixelSnap": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "middle",
+      "name": "middle",
+      "enabled": true,
+      "depth": 1,
+      "emitters": [
+        {
+          "id": "middle-flakes",
+          "name": "middle",
+          "enabled": true,
+          "start": 0,
+          "end": 4,
+          "rate": 16,
+          "burst": 0,
+          "capacity": 128,
+          "origin": {
+            "x": 0,
+            "y": -0.25,
+            "z": 0
+          },
+          "spawn": {
+            "shape": "box",
+            "width": 2.1,
+            "height": 1.25,
+            "depth": 0,
+            "radius": 0
+          },
+          "particle": {
+            "shape": "disc",
+            "blend": "normal",
+            "lifetime": {
+              "min": 1.5,
+              "max": 3.5
+            },
+            "size": {
+              "min": 0.00637,
+              "max": 0.0098,
+              "overLife": [
+                {
+                  "t": 0,
+                  "value": 1
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            "opacity": [
+              {
+                "t": 0,
+                "value": 0
+              },
+              {
+                "t": 0.12,
+                "value": 0.5
+              },
+              {
+                "t": 0.85,
+                "value": 0.5
+              },
+              {
+                "t": 1,
+                "value": 0
+              }
+            ],
+            "colors": [
+              {
+                "t": 0,
+                "color": "#a6b5bd"
+              },
+              {
+                "t": 1,
+                "color": "#a6b5bd"
+              }
+            ],
+            "velocity": {
+              "direction": {
+                "x": 0.22,
+                "y": 1,
+                "z": 0
+              },
+              "spreadDegrees": 18,
+              "speed": {
+                "min": 0.14250000000000002,
+                "max": 0.19
+              }
+            },
+            "acceleration": {
+              "x": 0.015,
+              "y": 0,
+              "z": 0
+            },
+            "drag": 0.06,
+            "rotationDegrees": {
+              "min": 0,
+              "max": 360
+            },
+            "angularVelocity": {
+              "min": -25,
+              "max": 25
+            },
+            "turbulence": {
+              "strength": 0.025,
+              "scale": 1.4,
+              "speed": 0.55
+            },
+            "trail": {
+              "enabled": false,
+              "length": 0,
+              "width": 0.1
+            },
+            "pixelSnap": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "near",
+      "name": "near",
+      "enabled": true,
+      "depth": 2,
+      "emitters": [
+        {
+          "id": "near-flakes",
+          "name": "near",
+          "enabled": true,
+          "start": 0,
+          "end": 4,
+          "rate": 7,
+          "burst": 0,
+          "capacity": 128,
+          "origin": {
+            "x": 0,
+            "y": -0.25,
+            "z": 0
+          },
+          "spawn": {
+            "shape": "box",
+            "width": 2.1,
+            "height": 1.25,
+            "depth": 0,
+            "radius": 0
+          },
+          "particle": {
+            "shape": "disc",
+            "blend": "normal",
+            "lifetime": {
+              "min": 1.5,
+              "max": 3.5
+            },
+            "size": {
+              "min": 0.009099999999999999,
+              "max": 0.013999999999999999,
+              "overLife": [
+                {
+                  "t": 0,
+                  "value": 1
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            "opacity": [
+              {
+                "t": 0,
+                "value": 0
+              },
+              {
+                "t": 0.12,
+                "value": 0.65
+              },
+              {
+                "t": 0.85,
+                "value": 0.65
+              },
+              {
+                "t": 1,
+                "value": 0
+              }
+            ],
+            "colors": [
+              {
+                "t": 0,
+                "color": "#dde4e5"
+              },
+              {
+                "t": 1,
+                "color": "#dde4e5"
+              }
+            ],
+            "velocity": {
+              "direction": {
+                "x": 0.22,
+                "y": 1,
+                "z": 0
+              },
+              "spreadDegrees": 18,
+              "speed": {
+                "min": 0.24,
+                "max": 0.32
+              }
+            },
+            "acceleration": {
+              "x": 0.015,
+              "y": 0,
+              "z": 0
+            },
+            "drag": 0.06,
+            "rotationDegrees": {
+              "min": 0,
+              "max": 360
+            },
+            "angularVelocity": {
+              "min": -25,
+              "max": 25
+            },
+            "turbulence": {
+              "strength": 0.025,
+              "scale": 1.4,
+              "speed": 0.55
+            },
+            "trail": {
+              "enabled": false,
+              "length": 0,
+              "width": 0.1
+            },
+            "pixelSnap": true
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "png-sequence",
+    "sprite-sheet",
+    "godot-2d"
+  ],
+  "metadata": {
+    "project": "hypersonic",
+    "scope": "Art fixture: separate depth particles with actual travel displacement, not production weather"
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "blue_plume.manifest.json",
+  "files": [
+    {
+      "path": "aligned/blue_plume_0.png",
+      "size": 260,
+      "sha256": "9a31835f481ade0ba0ce011e16311f9c622c44242f6910e4885643b8d00b3549"
+    },
+    {
+      "path": "aligned/blue_plume_1.png",
+      "size": 267,
+      "sha256": "af29a60003d6a4c1a9db6946990804003556ec99f09a5fc764123a57dfdad7b8"
+    },
+    {
+      "path": "aligned/blue_plume_2.png",
+      "size": 267,
+      "sha256": "37de3d420bd01c558a923d71bdec654ee113044508b19a420abb1ab66f5f83c9"
+    },
+    {
+      "path": "aligned/blue_plume_3.png",
+      "size": 258,
+      "sha256": "3e5c6fcb4341cb44994506eeddb0c9b91f4dcdd56be833a05497ddc6533ee3c0"
+    },
+    {
+      "path": "blue_plume.animated_sprite.tscn",
+      "size": 317,
+      "sha256": "a80d3a18dcb74944e99833eef5b80e08354ec6efb43cf41523ea6f2bac9678ce"
+    },
+    {
+      "path": "blue_plume.atlas.0.png",
+      "size": 422,
+      "sha256": "be3890d7912509c919036cef184a3bd0d745fc1d334fd408d2683afc83f84f69"
+    },
+    {
+      "path": "blue_plume.atlas.json",
+      "size": 3551,
+      "sha256": "32ba988abfef40be40e6c0ecac100df861a93835c29d1d9463ad2f3a2390f914"
+    },
+    {
+      "path": "blue_plume.build.json",
+      "size": 4327,
+      "sha256": "0d3ab34857fae80cba3125619b62ba8fe59b9c37eddbfcefde57d295ad26a7d5"
+    },
+    {
+      "path": "blue_plume.corrections.json",
+      "size": 135,
+      "sha256": "1ff7ea51e2af6feeda1a321a20b39e4b8606baebb3604367fdaa40682d05e672"
+    },
+    {
+      "path": "blue_plume.events.json",
+      "size": 1027,
+      "sha256": "157818cce06b41cbba8be4d11d0de992fec4cb35e816766fd71caf5df856b59d"
+    },
+    {
+      "path": "blue_plume.integration.json",
+      "size": 1000,
+      "sha256": "302430da3b8b869e0d25e73db74c5f75403810e576abb21284666ff97b05067d"
+    },
+    {
+      "path": "blue_plume.manifest.json",
+      "size": 5662,
+      "sha256": "b230b3cf172a0ffb62a293f016a36a3be7923e0ffb20c74076d1491a3fe5a9f4"
+    },
+    {
+      "path": "blue_plume.qa.json",
+      "size": 510,
+      "sha256": "b97c2b93e773509eebb05f9a45cb065678c311cecad784410d607dab86a46fa3"
+    },
+    {
+      "path": "blue_plume.review.html",
+      "size": 2779,
+      "sha256": "313072bc0b5d8a65fe2c2d02077952356c3cd86ab55274a8710c6587b4b635b3"
+    },
+    {
+      "path": "blue_plume.spriteframes.tres",
+      "size": 1159,
+      "sha256": "0b77d15249ac933b512855e3d8f98fcd802f3e02e1a2d1e883c82350dfefeec5"
+    },
+    {
+      "path": "frames/blue_plume_0.png",
+      "size": 231,
+      "sha256": "1be380b0a1b444707a988747d53879fb830da6220ef6d340d3202ddc2b697f1d"
+    },
+    {
+      "path": "frames/blue_plume_1.png",
+      "size": 248,
+      "sha256": "1a30ec3a6a7350b2caf322e5f0b4c3e0156c9546a201568987b4f650d7fbcdb9"
+    },
+    {
+      "path": "frames/blue_plume_2.png",
+      "size": 239,
+      "sha256": "b3084aa1a4290cd67dbf6de1fbb53432e867003dcb6946695b960f4b099c487f"
+    },
+    {
+      "path": "frames/blue_plume_3.png",
+      "size": 239,
+      "sha256": "addd95d2a8a4d159218afaa96b7a17fd8038cae867ff42062974b90835e2a482"
+    },
+    {
+      "path": "previews/blue_plume.contact.png",
+      "size": 651,
+      "sha256": "60917fb5fc0115fa20763c88f38183b112b7dd097badd3f83a0a7361ffda391b"
+    },
+    {
+      "path": "previews/blue_plume.difference.png",
+      "size": 841,
+      "sha256": "9bc741f49e86b713fc817212ca313c49c8d9f248a84360cee7364b45ef16614d"
+    },
+    {
+      "path": "previews/blue_plume.gif",
+      "size": 1293,
+      "sha256": "4339eca006b536ed050b3526b5bb77a413cb306a6b5bb569bc7e304685b2de6e"
+    },
+    {
+      "path": "previews/blue_plume.onion.png",
+      "size": 1189,
+      "sha256": "158dc35733f6e1af5a8f5b50a9e72e676ade08537c13508210416c241b38ae76"
+    },
+    {
+      "path": "previews/blue_plume.pivots.png",
+      "size": 680,
+      "sha256": "6f63663c954b7a55df056289d4cb12bc0c0ec17ac83fa129bcb19726317f149f"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+import {readFile,writeFile,mkdir,copyFile} from 'node:fs/promises';
+import {finishRasterAsset} from 'file:///C:/Gitrepos/evavo-art-studio/packages/media/dist/index.js';
+const base='C:/Gitrepos/godot-462-strike-wing-94/work/low_cloud_v3/';
+await mkdir(base,{recursive:true});
+await copyFile('C:/Users/User/.codex/generated_images/01a071b8-a586-7ed1-9626-51d73f4d1ddf/exec-4622b64c-f7c6-4551-a067-5c394f040b8c.png',base+'source.png');
+const r=await finishRasterAsset(await readFile(base+'source.png'),{ensureAlpha:true,trim:{threshold:0,padding:4},resize:{width:184,height:56,fit:'inside',withoutEnlargement:true},format:'png'});
+const w=r.evidence.outputWidth,h=r.evidence.outputHeight;
+const final=await finishRasterAsset(r.buffer,{ensureAlpha:true,padding:{top:Math.floor((64-h)/2),bottom:Math.ceil((64-h)/2),left:Math.floor((192-w)/2),right:Math.ceil((192-w)/2),background:'#00000000'},format:'png'});
+await writeFile(base+'candidate.png',final.buffer);
+await writeFile(base+'finish.json',JSON.stringify({resize:r.evidence,padding:final.evidence},null,2));

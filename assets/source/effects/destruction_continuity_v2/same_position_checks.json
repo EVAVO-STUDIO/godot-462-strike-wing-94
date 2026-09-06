@@ -1,0 +1,46 @@
+{
+	"checks": [
+		{
+			"group": 0,
+			"late_exact_frames_per_case": [
+				55,
+				55,
+				55
+			]
+		},
+		{
+			"group": 1,
+			"late_exact_frames_per_case": [
+				55,
+				55,
+				49
+			]
+		},
+		{
+			"group": 2,
+			"late_exact_frames_per_case": [
+				49,
+				49,
+				49
+			]
+		},
+		{
+			"group": 3,
+			"late_exact_frames_per_case": [
+				65,
+				62,
+				65
+			]
+		},
+		{
+			"group": 4,
+			"late_exact_frames_per_case": [
+				64,
+				67,
+				65
+			]
+		}
+	],
+	"scope": "Sequential native renders at identical screen coordinates; central art regions exclude annotations.",
+	"status": "exact_late_art_pixels_pass"
+}

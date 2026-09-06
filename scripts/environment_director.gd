@@ -5,6 +5,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EnvironmentRules = preload("res://scripts/environment_rules.gd")
 const EnvironmentRouteRules = preload("res://scripts/environment_route_rules.gd")
 const EnvironmentSurface = preload("res://scripts/environment_surface.gd")
+const WeatherRenderer = preload("res://scripts/weather_renderer.gd")
 const COAST_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/coast_chunks/seawall_run.png"),
 	preload("res://assets/runtime/environments/coast_chunks/defended_inlet.png"),
@@ -193,10 +194,6 @@ const COAST_FINITE_CHUNKS := [
 	preload("res://assets/runtime/environments/modular_coast/debris_cluster.png"),
 	preload("res://assets/runtime/environments/modular_coast/rock_cluster_small.png"),
 ]
-const RAIN_ACCENTS := [
-	preload("res://assets/runtime/environments/motion/rain_a.png"),
-	preload("res://assets/runtime/environments/motion/rain_b.png"),
-]
 const CLOUD_LOW := [
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png"),
 	preload("res://assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png"),
@@ -272,6 +269,9 @@ func _ready() -> void:
 	_surface.custom_minimum_size = Vector2(640, 360)
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
+	var weather := WeatherRenderer.new()
+	weather.name = "WeatherRenderer"
+	add_child(weather)
 
 func _process(_delta: float) -> void:
 	if _surface != null:
@@ -432,10 +432,7 @@ func _draw_registered_city_rail_hub(surface: CanvasItem, scene: Object, state: D
 	_draw_texture_rect_clipped(surface, texture, rect, ENVIRONMENT_VIEW, Color(0.84, 0.87, 0.86, 0.96))
 
 func _mission_seed(scene: Object) -> int:
-	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []
-	if typeof(missions) != TYPE_ARRAY or missions.is_empty() or not _has_property(scene, "mission_index"):
-		return 17
-	var mission = missions[clampi(int(scene.get("mission_index")), 0, missions.size() - 1)]
+	var mission: Dictionary = scene.call("_active_mission") if scene.has_method("_active_mission") else {}
 	var mission_id := str(mission.get("id", "environment")) if typeof(mission) == TYPE_DICTIONARY else "environment"
 	var seed := 0
 	for index in range(mission_id.length()):
@@ -443,10 +440,7 @@ func _mission_seed(scene: Object) -> int:
 	return seed
 
 func _mission_variant(scene: Object) -> String:
-	var missions = scene.get("mission_catalog") if _has_property(scene, "mission_catalog") else []
-	if typeof(missions) != TYPE_ARRAY or missions.is_empty() or not _has_property(scene, "mission_index"):
-		return ""
-	var mission = missions[clampi(int(scene.get("mission_index")), 0, missions.size() - 1)]
+	var mission: Dictionary = scene.call("_active_mission") if scene.has_method("_active_mission") else {}
 	return str(mission.get("environment_variant", "")) if typeof(mission) == TYPE_DICTIONARY else ""
 
 func _cloud_top_route_start(scene: Object) -> int:
@@ -496,6 +490,8 @@ func _world_speed_multiplier() -> float:
 	return 1.0
 
 func _world_distance(scene: Object) -> float:
+	if scene.has_method("camera_route_distance"):
+		return float(scene.call("camera_route_distance"))
 	if _has_property(scene, "environment_world_distance"):
 		return maxf(0.0, float(scene.get("environment_world_distance")))
 	return maxf(0.0, float(scene.get("mission_time"))) * _world_speed_multiplier()
@@ -810,11 +806,6 @@ func _draw_water(surface: CanvasItem, scene: Object, profile: Dictionary, state:
 	_draw_open_water_finite(surface, scene, profile, state, t)
 	_draw_vertical_loop(surface, foam, foam_scroll, ENVIRONMENT_VIEW, Color(0.72,0.84,0.86,0.40))
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.01, 0.025, 0.045, 0.12))
-	for i in range(14):
-		var x := float((i * 109 + 31) % 690) - 20.0
-		var y := fposmod(float(i) * 43.0 + travel * (42.0 + float(i % 3) * 4.0), 340.0) + 48.0
-		var rain_texture: Texture2D = RAIN_ACCENTS[i % RAIN_ACCENTS.size()]
-		surface.draw_texture(rain_texture, Vector2(x-8,y), Color(1,1,1,0.30))
 
 func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
 	var world_scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.24
@@ -979,14 +970,27 @@ func _draw_orbital(surface: CanvasItem, scene: Object, _profile: Dictionary, _st
 		_draw_texture_rect_clipped(surface, debris, Rect2(Vector2(float(slot["x"]),y).round(),Vector2(144,144)),ENVIRONMENT_VIEW,Color(0.88,0.91,0.94,0.72*mix))
 
 func _draw_clouds(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:
-	var density := _cloud_density(state)
-	if density <= 0.08:
-		return
 	var travel := _world_distance(scene)
+	if bool(state.get("transition", false)):
+		var from_band := str(state.get("from", "mid"))
+		var to_band := str(state.get("to", "mid"))
+		var blend := smoothstep(0.0, 1.0, clampf(float(state.get("ratio", 1.0)), 0.0, 1.0))
+		_draw_cloud_family(surface, _cloud_family(from_band), from_band, EnvironmentRules.cloud_density(from_band), travel, t, 1.0 - blend)
+		_draw_cloud_family(surface, _cloud_family(to_band), to_band, EnvironmentRules.cloud_density(to_band), travel, t, blend)
+		return
 	var band := str(state.get("current", "mid"))
-	var family: Array = CLOUD_LOW if band == "low" else (CLOUD_HIGH if band in ["high", "orbital"] else CLOUD_MID)
+	_draw_cloud_family(surface, _cloud_family(band), band, _cloud_density(state), travel, t, 1.0)
+
+func _cloud_family(band: String) -> Array:
+	if band == "low": return CLOUD_LOW
+	if band in ["high", "orbital"]: return CLOUD_HIGH
+	return CLOUD_MID
+
+func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, density: float, travel: float, t: float, blend: float) -> void:
+	if density <= 0.08 or blend <= 0.01:
+		return
 	var count := maxi(2, int(round(6.0 * density)))
-	var alpha := 0.12 + density * 0.18
+	var alpha := (0.12 + density * 0.18) * blend
 	if band == "low": alpha *= 0.72
 	if band == "high": alpha *= 1.18
 	for i in range(count):
@@ -1000,10 +1004,10 @@ func _draw_clouds(surface: CanvasItem, scene: Object, profile: Dictionary, state
 		# edges continuously instead of popping in fully formed and dwelling below.
 		var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y
 		var y := fposmod(float(i) * 97.0 + travel * speed, cloud_cycle) + ENVIRONMENT_VIEW.position.y - size.y * 0.5
-		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, i)
+		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, blend, i)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
 
-func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, index: int) -> void:
+func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, visibility: float, index: int) -> void:
 	# The shadow reuses the authored bank alpha so every visible cloud has a
 	# registered undercast shape. A small deterministic offset implies the low
 	# late-day light used throughout the campaign without adding soft filtering.
@@ -1012,6 +1016,7 @@ func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Ve
 	var shadow_alpha := clampf(0.055 + density * 0.12, 0.06, 0.18)
 	if band == "high" or band == "orbital":
 		shadow_alpha *= 0.68
+	shadow_alpha *= visibility
 	var shadow_size := size * Vector2(1.04, 0.94)
 	surface.draw_texture_rect(
 		texture,

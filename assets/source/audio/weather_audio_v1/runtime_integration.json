@@ -1,0 +1,36 @@
+{
+  "schema": "hypersonic_weather_audio_runtime_v1",
+  "status": "runtime_candidate_pending_final_listen",
+  "rain_source_sha256": "7a10dcab28a24c401f2816ca0a833f3ead6c6d515936503c2e1493e50d4839c3",
+  "storm_source_sha256": "694cf8d072a67417180596b1bf7c69041c54fbe407169c7656aabaea4900f819",
+  "snow_wind_source_sha256": "ce8da952f554eae2224aba4f42503aa1893171cf8fa85d86c947b3ee9eba552a",
+  "runtime_files_are_byte_identical": true,
+  "runtime_bindings": {
+    "drizzle_and_rain": "res://assets/runtime/audio/weather/rain_loop.wav",
+    "storm": "res://assets/runtime/audio/weather/storm_loop.wav",
+    "snow": "res://assets/runtime/audio/weather/snow_wind_loop.wav"
+  },
+  "base_linear_gain": {
+    "drizzle": 0.040,
+    "rain": 0.070,
+    "storm": 0.100,
+    "snow": 0.062
+  },
+  "mix_contract": [
+    "Visual and audio altitude weights are identical.",
+    "World speed changes gain by at most plus or minus twelve percent and pitch from 0.96 to 1.04.",
+    "Rain, storm and snow loops remain clocked and crossfade without restarting.",
+    "Master and SFX user levels apply after authored weather gain.",
+    "Radio and missile warning tones retain their independent foreground mix."
+  ],
+  "technical_review": {
+    "sample_rate": 22050,
+    "channels": 2,
+    "duration_seconds": 16.0,
+    "loop_seam_delta": 0.0,
+    "clipped_samples": 0
+  },
+  "listening_candidate": "outputs/HYPERSONIC-weather-three-bed-runtime-gain-audition.ogg",
+  "audition_order": ["rain 8 seconds", "storm 8 seconds", "snow wind 8 seconds"],
+  "audition_gain_context": "default master 100 and SFX 60; low-altitude base gains without other gameplay buses"
+}

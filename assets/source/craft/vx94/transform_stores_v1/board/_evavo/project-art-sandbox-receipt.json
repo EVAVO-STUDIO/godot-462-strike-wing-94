@@ -1,0 +1,580 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "cd776467e8579ff419bd2a7491b613ffc9eac870af0df5fd64dd0a9a079d1252",
+  "planBytesSha256": "7fc4ef0355eb9d4fc37ca3dece37c1eb29fb696d92df103c82e80297e0a4fe4e",
+  "sandboxId": "vx94-transform-stores-board",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:939342cc69b9513b9f63f206",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0468011e0906e7d8c782cb7fac430f1f",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_01.png",
+      "sha256": "cc5aaeb4f587c1c64be505a79ad9354004ebb3578886ff078a877fc321de57b6",
+      "bytes": 3726
+    },
+    {
+      "sourceId": "source_08166b392947074a4e6b3a2a5d83926c",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_07.png",
+      "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "bytes": 4684
+    },
+    {
+      "sourceId": "source_10a4af87df911a73e97bb4ba219315d3",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_03.png",
+      "sha256": "3f35d715fe92f6623de01df6d2f89f7c11497a4cd295386a7ab06e2a6914ef7f",
+      "bytes": 4099
+    },
+    {
+      "sourceId": "source_11c580dadf3a8d69fcfdbad71ceace42",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_07.png",
+      "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "bytes": 4693
+    },
+    {
+      "sourceId": "source_55058242288bd08ec5a64edd737982ae",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_08.png",
+      "sha256": "a991ace7bf8494bc7b1608ccac36e15a315011d8733dab770752aab93439bb04",
+      "bytes": 4795
+    },
+    {
+      "sourceId": "source_57f76a0912592b55a232f9dabfb8a9de",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_09.png",
+      "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "bytes": 4693
+    },
+    {
+      "sourceId": "source_5a26350035b70b42d07967b25c5aa60a",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_08.png",
+      "sha256": "d757f5a99de326adee49dae0fb356d821a1a961eeef25ca5ced4efe9b4910417",
+      "bytes": 4777
+    },
+    {
+      "sourceId": "source_5d3582415a3f4c09bbdee4d7df5cfd8b",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_00.png",
+      "sha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+      "bytes": 3590
+    },
+    {
+      "sourceId": "source_5dc7b98e39679acb2947983c31102819",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_04.png",
+      "sha256": "5175614672c76c298f24fac70f7b25766b51a75fe15963ce703bafc0ae2056a3",
+      "bytes": 4377
+    },
+    {
+      "sourceId": "source_6dc032f86682b32cc2d652e321f77447",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_02.png",
+      "sha256": "eb6e91e5d81c197959a012ef210d5887709ae412e69a98a98798d90f01dbf05c",
+      "bytes": 3818
+    },
+    {
+      "sourceId": "source_76691b441f288284b6f87415cad5446b",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_05.png",
+      "sha256": "c805182e328356bf38e7a2fde513f4e6fafd64c96c3d14a289f2c377fa7a8dca",
+      "bytes": 4575
+    },
+    {
+      "sourceId": "source_8c3d4e5ae88771c30106db0f172334d3",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_04.png",
+      "sha256": "2f379db4dd6228a74428e0b272963863916f4ab32de9946eb38596d7f00003a8",
+      "bytes": 4375
+    },
+    {
+      "sourceId": "source_93bc2fd2c3613f979af56e1465e3052a",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_00.png",
+      "sha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+      "bytes": 3594
+    },
+    {
+      "sourceId": "source_96ffa0adf232e2256e3c21f98ef205fc",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_06.png",
+      "sha256": "ef6bf6ed835a731593908bb8df80cf89cc54f7f5163a5c02acfb8904ba407d28",
+      "bytes": 4613
+    },
+    {
+      "sourceId": "source_a5fb45e01be3b4ad1bd39fba2960180f",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_05.png",
+      "sha256": "83120324d6b4f3df20e084405085006b5f21f92f1646c34b72b0c579dec9d85e",
+      "bytes": 4551
+    },
+    {
+      "sourceId": "source_bb6d66c0c981da583b977951ce46cc42",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_06.png",
+      "sha256": "90efd0307b0a46597aa859fbe80cee3f66fbce798e00c3b2c7d4247b5e3b8bbb",
+      "bytes": 4613
+    },
+    {
+      "sourceId": "source_da75f4db96b0e1723530f2558ad0d342",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_02.png",
+      "sha256": "d2a9d9db3e3a7c448e6b6dee14eddfc378f3c8a22d40e8781b2882b87b659fc4",
+      "bytes": 3858
+    },
+    {
+      "sourceId": "source_dde9e04daaa399f6838d9a2c8a73cc41",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_01.png",
+      "sha256": "3aa7029f7b3b12304eaaf590fd9745d4ad30ac89d7dade81963a5e30edc40db1",
+      "bytes": 3718
+    },
+    {
+      "sourceId": "source_de16e786532bbd43950e7c0f09ab0e81",
+      "path": "work/vx94_transform_stores_v1/composites/twin_rocket_pods_03.png",
+      "sha256": "700a9bf2dae51c3ff4b233e16177ad8e0bd6520d83e702d9ba7f4f28603d15d6",
+      "bytes": 4087
+    },
+    {
+      "sourceId": "source_e18de8c303973d6eafd8ee58c6e81f9d",
+      "path": "work/vx94_transform_stores_v1/composites/hunter_rack_09.png",
+      "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "bytes": 4684
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "transform_stores",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 20,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 15,
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 16,
+          "sourceIndex": 16,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 17,
+          "sourceIndex": 17,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 18,
+          "sourceIndex": 18,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 19,
+          "sourceIndex": 19,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        }
+      ],
+      "outputs": [
+        {
+          "path": "transform_stores.png",
+          "sha256": "4dc3662e501b9057f35b028af095f94aab16b3ab2c878b830b4f8a7472e3e09b",
+          "bytes": 31702,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1280,
+            "height": 288
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 368640
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1280,
+            288
+          ],
+          "pixelSha256": "a103d6fe10322da1eb8c1c18a4061e0a5764c283ec729a190875b6ca8c2623b8"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "transform_stores.png",
+      "sha256": "4dc3662e501b9057f35b028af095f94aab16b3ab2c878b830b4f8a7472e3e09b",
+      "bytes": 31702,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1280,
+        "height": 288
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 368640
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1280,
+        288
+      ],
+      "pixelSha256": "a103d6fe10322da1eb8c1c18a4061e0a5764c283ec729a190875b6ca8c2623b8"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 20,
+    "externalSourceBytes": 85920,
+    "plannedMaximumOutputFiles": 2,
+    "taskOutputFiles": 1,
+    "taskOutputBytes": 31702,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "c19650a7a985a59598b09611e03a2479a2086750829cf2f96e3766e0f8059086"
+}

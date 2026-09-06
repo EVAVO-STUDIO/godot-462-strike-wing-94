@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "issues": [
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_hunter_rack_empty_00",
+      "severity": "info",
+      "frame": "bomber_precision_bomb_empty_00",
+      "animation": null
+    }
+  ],
+  "metrics": {
+    "frames": 15,
+    "animations": 15,
+    "empty_frames": 0,
+    "duplicate_frames": 1,
+    "event_markers": 0,
+    "warnings": 0,
+    "errors": 0,
+    "max_area_variance": 0.0,
+    "max_brightness_range": 0.0,
+    "max_centroid_jump": 0.0,
+    "max_loop_delta": 0.0,
+    "max_ground_contact_shift": 0.0,
+    "max_silhouette_delta": 0.0,
+    "max_palette_distance": 0.0,
+    "max_palette_colors": 94
+  }
+}

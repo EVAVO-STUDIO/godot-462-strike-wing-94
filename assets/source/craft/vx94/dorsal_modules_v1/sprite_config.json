@@ -1,0 +1,516 @@
+{
+  "name": "vx94_dorsal_modules",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 64,
+    "canvas_height": 72,
+    "pivot_x": 32,
+    "pivot_y": 38,
+    "padding": 0,
+    "manual_anchors": {
+      "point_defence_pod_fighter_idle_hard_left_00": [
+        18,
+        34
+      ],
+      "point_defence_pod_fighter_idle_left_00": [
+        17,
+        34
+      ],
+      "point_defence_pod_fighter_idle_neutral_00": [
+        18,
+        34
+      ],
+      "point_defence_pod_fighter_idle_right_00": [
+        17,
+        34
+      ],
+      "point_defence_pod_fighter_idle_hard_right_00": [
+        17,
+        34
+      ],
+      "point_defence_pod_fighter_active_hard_left_00": [
+        18,
+        34
+      ],
+      "point_defence_pod_fighter_active_left_00": [
+        17,
+        34
+      ],
+      "point_defence_pod_fighter_active_neutral_00": [
+        18,
+        34
+      ],
+      "point_defence_pod_fighter_active_right_00": [
+        17,
+        34
+      ],
+      "point_defence_pod_fighter_active_hard_right_00": [
+        17,
+        34
+      ],
+      "point_defence_pod_bomber_idle_hard_left_00": [
+        23,
+        34
+      ],
+      "point_defence_pod_bomber_idle_left_00": [
+        23,
+        34
+      ],
+      "point_defence_pod_bomber_idle_neutral_00": [
+        26,
+        34
+      ],
+      "point_defence_pod_bomber_idle_right_00": [
+        23,
+        34
+      ],
+      "point_defence_pod_bomber_idle_hard_right_00": [
+        23,
+        34
+      ],
+      "point_defence_pod_bomber_active_hard_left_00": [
+        23,
+        34
+      ],
+      "point_defence_pod_bomber_active_left_00": [
+        23,
+        34
+      ],
+      "point_defence_pod_bomber_active_neutral_00": [
+        26,
+        34
+      ],
+      "point_defence_pod_bomber_active_right_00": [
+        23,
+        34
+      ],
+      "point_defence_pod_bomber_active_hard_right_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_fighter_idle_hard_left_00": [
+        18,
+        34
+      ],
+      "emp_disruptor_fighter_idle_left_00": [
+        17,
+        34
+      ],
+      "emp_disruptor_fighter_idle_neutral_00": [
+        18,
+        34
+      ],
+      "emp_disruptor_fighter_idle_right_00": [
+        17,
+        34
+      ],
+      "emp_disruptor_fighter_idle_hard_right_00": [
+        17,
+        34
+      ],
+      "emp_disruptor_fighter_active_hard_left_00": [
+        18,
+        34
+      ],
+      "emp_disruptor_fighter_active_left_00": [
+        17,
+        34
+      ],
+      "emp_disruptor_fighter_active_neutral_00": [
+        18,
+        34
+      ],
+      "emp_disruptor_fighter_active_right_00": [
+        17,
+        34
+      ],
+      "emp_disruptor_fighter_active_hard_right_00": [
+        17,
+        34
+      ],
+      "emp_disruptor_bomber_idle_hard_left_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_bomber_idle_left_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_bomber_idle_neutral_00": [
+        26,
+        34
+      ],
+      "emp_disruptor_bomber_idle_right_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_bomber_idle_hard_right_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_bomber_active_hard_left_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_bomber_active_left_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_bomber_active_neutral_00": [
+        26,
+        34
+      ],
+      "emp_disruptor_bomber_active_right_00": [
+        23,
+        34
+      ],
+      "emp_disruptor_bomber_active_hard_right_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_fighter_idle_hard_left_00": [
+        18,
+        34
+      ],
+      "magnetic_screen_fighter_idle_left_00": [
+        17,
+        34
+      ],
+      "magnetic_screen_fighter_idle_neutral_00": [
+        18,
+        34
+      ],
+      "magnetic_screen_fighter_idle_right_00": [
+        17,
+        34
+      ],
+      "magnetic_screen_fighter_idle_hard_right_00": [
+        17,
+        34
+      ],
+      "magnetic_screen_fighter_active_hard_left_00": [
+        18,
+        34
+      ],
+      "magnetic_screen_fighter_active_left_00": [
+        17,
+        34
+      ],
+      "magnetic_screen_fighter_active_neutral_00": [
+        18,
+        34
+      ],
+      "magnetic_screen_fighter_active_right_00": [
+        17,
+        34
+      ],
+      "magnetic_screen_fighter_active_hard_right_00": [
+        17,
+        34
+      ],
+      "magnetic_screen_bomber_idle_hard_left_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_bomber_idle_left_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_bomber_idle_neutral_00": [
+        26,
+        34
+      ],
+      "magnetic_screen_bomber_idle_right_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_bomber_idle_hard_right_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_bomber_active_hard_left_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_bomber_active_left_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_bomber_active_neutral_00": [
+        26,
+        34
+      ],
+      "magnetic_screen_bomber_active_right_00": [
+        23,
+        34
+      ],
+      "magnetic_screen_bomber_active_hard_right_00": [
+        23,
+        34
+      ]
+    }
+  },
+  "qa": {
+    "strict": true
+  },
+  "animations": {
+    "point_defence_pod_fighter_idle_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_idle_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_idle_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_idle_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_idle_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_active_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_active_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_active_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_active_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_fighter_active_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_idle_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_idle_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_idle_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_idle_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_idle_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_active_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_active_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_active_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_active_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "point_defence_pod_bomber_active_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_idle_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_idle_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_idle_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_idle_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_idle_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_active_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_active_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_active_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_active_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_fighter_active_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_idle_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_idle_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_idle_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_idle_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_idle_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_active_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_active_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_active_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_active_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "emp_disruptor_bomber_active_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_idle_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_idle_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_idle_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_idle_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_idle_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_active_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_active_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_active_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_active_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_fighter_active_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_idle_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_idle_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_idle_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_idle_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_idle_hard_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_active_hard_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_active_left": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_active_neutral": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_active_right": {
+      "fps": 1,
+      "loop": false
+    },
+    "magnetic_screen_bomber_active_hard_right": {
+      "fps": 1,
+      "loop": false
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "contact_sheet": true
+  }
+}

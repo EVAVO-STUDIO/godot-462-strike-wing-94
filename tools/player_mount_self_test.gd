@@ -2,6 +2,7 @@ extends SceneTree
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const PlayerMountRules = preload("res://scripts/player_mount_rules.gd")
+const CraftFormDirector = preload("res://scripts/craft_form_director.gd")
 
 var failures: Array[String] = []
 
@@ -17,6 +18,7 @@ func _initialize() -> void:
 		_test_support_mounts(mounts)
 		_test_role_isolation(mounts)
 	_test_wiring()
+	_test_pose_projection()
 	if failures.is_empty():
 		print("Strike Wing player mount self-test passed.")
 		quit(0)
@@ -92,7 +94,17 @@ func _test_wiring() -> void:
 		_expect(source.contains('res://data/player_mounts.json'), "stores schematic should use same authored mount catalogue")
 		_expect(source.contains("ACTIVE_MOUNT"), "stores schematic should visually distinguish installed stations")
 		_expect(source.contains("_mount_active"), "stores schematic should map installed hardware to physical station roles")
-		_expect(source.contains("GOLD = INSTALLED / ACTIVE STATION"), "stores schematic should explain active mount highlight")
+		_expect(source.contains("GOLD = COMPATIBLE LOADOUT STATION"), "stores schematic should explain compatible loadout stations")
+
+func _test_pose_projection() -> void:
+	var craft := CraftFormDirector.new()
+	craft.set("_mount_bank_visual", 1.0)
+	var projected: Vector2 = craft.call("_project_mount_offset", Vector2(13,-12))
+	_expect(projected == Vector2(16,-7), "hard-right bank should rotate the wing-root muzzle through the shared presentation projection")
+	craft.set("_mount_bank_visual", -1.0)
+	var mirrored: Vector2 = craft.call("_project_mount_offset", Vector2(-13,-12))
+	_expect(mirrored == Vector2(-16,-7), "hard-left bank should mirror the wing-root muzzle projection")
+	craft.free()
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition: failures.append(message)

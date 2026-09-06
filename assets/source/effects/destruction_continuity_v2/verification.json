@@ -1,0 +1,172 @@
+{
+  "scope": "365 native addressed comparison frames plus 730 sequential same-position renders: all nine bosses and six smaller representatives. Pixel comparisons cover central art areas, excluding labels. Not natural kills or frame-time profiling.",
+  "same_position": {
+    "checks": [
+      {
+        "group": 0,
+        "late_exact_frames_per_case": [
+          55,
+          55,
+          55
+        ]
+      },
+      {
+        "group": 1,
+        "late_exact_frames_per_case": [
+          55,
+          55,
+          49
+        ]
+      },
+      {
+        "group": 2,
+        "late_exact_frames_per_case": [
+          49,
+          49,
+          49
+        ]
+      },
+      {
+        "group": 3,
+        "late_exact_frames_per_case": [
+          65,
+          62,
+          65
+        ]
+      },
+      {
+        "group": 4,
+        "late_exact_frames_per_case": [
+          64,
+          67,
+          65
+        ]
+      }
+    ],
+    "scope": "Sequential native renders at identical screen coordinates; central art regions exclude annotations.",
+    "status": "exact_late_art_pixels_pass"
+  },
+  "translated_panel_checks": [
+    {
+      "group": 0,
+      "frames": 73,
+      "late_compared_frames_per_case": [
+        55,
+        55,
+        55
+      ],
+      "translated_panel_pixel_differences": [
+        {
+          "frame": 26,
+          "case": 2,
+          "pixels": 1
+        },
+        {
+          "frame": 45,
+          "case": 0,
+          "pixels": 1
+        }
+      ],
+      "early_boss_changed_pixels_at_0_708_seconds": [
+        3797,
+        3339,
+        5109
+      ]
+    },
+    {
+      "group": 1,
+      "frames": 73,
+      "late_compared_frames_per_case": [
+        55,
+        55,
+        49
+      ],
+      "translated_panel_pixel_differences": [
+        {
+          "frame": 40,
+          "case": 1,
+          "pixels": 1
+        }
+      ],
+      "early_boss_changed_pixels_at_0_708_seconds": [
+        5158,
+        8095,
+        6696
+      ]
+    },
+    {
+      "group": 2,
+      "frames": 73,
+      "late_compared_frames_per_case": [
+        49,
+        49,
+        49
+      ],
+      "translated_panel_pixel_differences": [
+        {
+          "frame": 32,
+          "case": 1,
+          "pixels": 2
+        },
+        {
+          "frame": 37,
+          "case": 0,
+          "pixels": 1
+        },
+        {
+          "frame": 53,
+          "case": 0,
+          "pixels": 1
+        },
+        {
+          "frame": 53,
+          "case": 1,
+          "pixels": 2
+        },
+        {
+          "frame": 57,
+          "case": 0,
+          "pixels": 3
+        },
+        {
+          "frame": 59,
+          "case": 2,
+          "pixels": 1
+        }
+      ],
+      "early_boss_changed_pixels_at_0_708_seconds": [
+        9793,
+        6817,
+        7332
+      ]
+    },
+    {
+      "group": 3,
+      "frames": 73,
+      "late_compared_frames_per_case": [
+        65,
+        62,
+        65
+      ],
+      "translated_panel_pixel_differences": [],
+      "early_boss_changed_pixels_at_0_708_seconds": []
+    },
+    {
+      "group": 4,
+      "frames": 73,
+      "late_compared_frames_per_case": [
+        64,
+        67,
+        65
+      ],
+      "translated_panel_pixel_differences": [
+        {
+          "frame": 9,
+          "case": 2,
+          "pixels": 2
+        }
+      ],
+      "early_boss_changed_pixels_at_0_708_seconds": []
+    }
+  ]
+}

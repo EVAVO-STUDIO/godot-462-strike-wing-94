@@ -1,0 +1,41 @@
+{
+  "status": "integrated_native_reviewed",
+  "provider": "built-in image generation",
+  "geometry": [
+    256,
+    112
+  ],
+  "frames": [
+    {
+      "id": "a",
+      "runtime": "assets/runtime/environments/clouds/cloud_bank_mid_broken_a.png",
+      "master": "masters/a.png",
+      "sha256": "5c4b345b7ca475ac5d659a14e18301352a27aea3d8157b6feca07a723ad1aebc"
+    },
+    {
+      "id": "b",
+      "runtime": "assets/runtime/environments/clouds/cloud_bank_mid_broken_b.png",
+      "master": "masters/b.png",
+      "sha256": "4c2be1b680d292b3d7e1a8a7dfce639e972ee33da42bc5317cc6d39433e796ae"
+    },
+    {
+      "id": "c",
+      "runtime": "assets/runtime/environments/clouds/cloud_bank_mid_broken_c.png",
+      "master": "masters/c.png",
+      "sha256": "7d0a5aa49514d064a793cd174d3f0eac246b9241e8db018f7f86693552672348"
+    },
+    {
+      "id": "d",
+      "runtime": "assets/runtime/environments/clouds/cloud_bank_mid_broken_d.png",
+      "master": "masters/d.png",
+      "sha256": "bc1ba8999d0f169f4e0d800a41249018222b8c309337a76aaee21edd490adca3"
+    }
+  ],
+  "qa": "Four PASS. Native alpha retained; white cloud material excluded from contamination probes. Black, magenta, green, cyan and blue remain at maximumHaloFraction 0.015. All six-background proofs visually reviewed.",
+  "native_frames": 72,
+  "speed_range": [
+    0.62,
+    4.4
+  ],
+  "native_scope": "Actual production renderer and firing/throttle/afterburner input. Loaded texture geometry asserted. Mid coast / low mountain. Routine selection does not expose all variants. Not full weather or altitude acceptance."
+}

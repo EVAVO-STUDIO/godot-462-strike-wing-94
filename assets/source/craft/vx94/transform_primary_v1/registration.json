@@ -1,0 +1,16 @@
+{
+  "exact_endpoints": [
+    "bomber_ballistic_00",
+    "bomber_ballistic_09",
+    "bomber_needle_rail_00",
+    "bomber_needle_rail_09",
+    "bomber_storm_cannon_00",
+    "bomber_storm_cannon_09",
+    "bomber_plasma_lance_00",
+    "bomber_plasma_lance_09",
+    "hypersonic_ballistic_00",
+    "hypersonic_needle_rail_00",
+    "hypersonic_storm_cannon_00",
+    "hypersonic_plasma_lance_00"
+  ]
+}

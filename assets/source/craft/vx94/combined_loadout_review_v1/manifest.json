@@ -1,0 +1,887 @@
+{
+  "status": "combined_art_review_not_gameplay",
+  "loadouts": [
+    [
+      "ballistic",
+      "twin_rocket_pods"
+    ],
+    [
+      "needle_rail",
+      "hunter_rack"
+    ],
+    [
+      "plasma_lance",
+      "magnetic_screen"
+    ],
+    [
+      "storm_cannon",
+      "emp_disruptor"
+    ],
+    [
+      "ballistic",
+      "point_defence_pod"
+    ]
+  ],
+  "entries": [
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_hard_left",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "fighter",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_left_1.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_0.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_left",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "fighter",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_left_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_neutral",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "fighter",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_neutral_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_right",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "fighter",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_right_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_hard_right",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "fighter",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_right_1.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_hard_left",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "bomber",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_left_1.png",
+        "work/vx94_banked_housings/layers/bomber_hard_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_left",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "bomber",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_left_1.png",
+        "work/vx94_banked_housings/layers/bomber_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_neutral",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "bomber",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_neutral_1.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_right",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "bomber",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_right_1.png",
+        "work/vx94_banked_housings/layers/bomber_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png"
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_hard_right",
+      "weapon": "ballistic",
+      "support": "twin_rocket_pods",
+      "form": "bomber",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_right_1.png",
+        "work/vx94_banked_housings/layers/bomber_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_hard_left",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "fighter",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_left",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "fighter",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_neutral",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "fighter",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_neutral_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_right",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "fighter",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_hard_right",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "fighter",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_hard_left",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "bomber",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_left",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "bomber",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_neutral",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "bomber",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_neutral_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_right",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "bomber",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_hard_right",
+      "weapon": "needle_rail",
+      "support": "hunter_rack",
+      "form": "bomber",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_hard_left",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "fighter",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_left",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "fighter",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_neutral",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "fighter",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_right",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "fighter",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_hard_right",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "fighter",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_hard_left",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "bomber",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_left",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "bomber",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_neutral",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "bomber",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_right",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "bomber",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_hard_right",
+      "weapon": "plasma_lance",
+      "support": "magnetic_screen",
+      "form": "bomber",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_hard_left",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "fighter",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_left",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "fighter",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_neutral",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "fighter",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_right",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "fighter",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_hard_right",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "fighter",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_hard_left",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "bomber",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_left",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "bomber",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_left_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_neutral",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "bomber",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_right",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "bomber",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_hard_right",
+      "weapon": "storm_cannon",
+      "support": "emp_disruptor",
+      "form": "bomber",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_right_2_aperture.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_hard_left",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "fighter",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_0.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_left",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "fighter",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_neutral",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "fighter",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_right",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "fighter",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_hard_right",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "fighter",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_1.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_hard_left",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "bomber",
+      "bank": "hard_left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_housings/layers/bomber_hard_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_hard_left.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_left",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "bomber",
+      "bank": "left",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_housings/layers/bomber_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_left.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_neutral",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "bomber",
+      "bank": "neutral",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_neutral.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_right",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "bomber",
+      "bank": "right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_housings/layers/bomber_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_right.png"
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_hard_right",
+      "weapon": "ballistic",
+      "support": "point_defence_pod",
+      "form": "bomber",
+      "bank": "hard_right",
+      "pivot": [
+        32,
+        38
+      ],
+      "draw_order": [
+        "work/vx94_banked_housings/layers/bomber_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_hard_right.png"
+      ]
+    }
+  ]
+}

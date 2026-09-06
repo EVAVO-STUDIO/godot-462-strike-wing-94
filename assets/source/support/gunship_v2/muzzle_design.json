@@ -1,0 +1,42 @@
+{
+  "scope": "Projected authored muzzles for later necessary integration; current game emitter remains unchanged.",
+  "canvas": [
+    96,
+    56
+  ],
+  "muzzles": [
+    {
+      "object": "Side cannon",
+      "canvasPosition": [
+        28.36,
+        41.05
+      ],
+      "offsetFromCentre": [
+        -19.64,
+        13.05
+      ]
+    },
+    {
+      "object": "Side cannon.001",
+      "canvasPosition": [
+        32.63,
+        41.05
+      ],
+      "offsetFromCentre": [
+        -15.37,
+        13.05
+      ]
+    },
+    {
+      "object": "Side cannon.002",
+      "canvasPosition": [
+        36.9,
+        41.05
+      ],
+      "offsetFromCentre": [
+        -11.1,
+        13.05
+      ]
+    }
+  ]
+}

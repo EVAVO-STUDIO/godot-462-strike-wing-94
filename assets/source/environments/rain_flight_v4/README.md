@@ -1,0 +1,11 @@
+# Rain flight art revision 4
+
+Prepared verified Atmosphere Studio plans for drizzle (42 particles), steady rain (95) and storm rain (188), each across three depth bands with exact eight-second plan closure. Streaks are short slate-grey marks capped at 2/4/8 pixels by depth, with a dimmer tail. Density and opacity distinguish stronger rain while keeping long bright combat tracers visually separate.
+
+The scratch Godot art adapter incorporates actual integrated aircraft travel into each drop's phase, including depth-scaled relative motion. Wind and natural rain time continue independently. This keeps particle wrapping outside the viewport; the earlier attempt to shift sampled screen positions was rejected and retained. The candidate clips precipitation to the 640x304 combat region, excluding the HUD lanes.
+
+Two actual refinery combat captures completed at pinned Godot 4.6.2: 120 frames each for steady and storm rain, with firing, throttle and afterburner input. Frames 18/54/84/114 from each were inspected. Steady rain is restrained on the busy refinery background; the denser version reads more clearly while orange projectiles remain distinct. The adapter reproduces 18,240 steady and 36,096 storm drop-head samples at zero travel within 0.000062 pixels of Atmosphere Studio. An initial 0.00001-pixel assertion was too strict for Godot Vector2 precision; the measured comparison uses 0.0001 pixels and exits on failure. Neither completed capture logged an engine warning or error.
+
+This is an art/motion candidate, not production rain integration or a completed flight model. Profile selection, mission placement, altitude transitions, orbital exclusion, sound, wet surfaces and accessibility controls remain open. Drizzle subsequently received a separate 120-frame native capture; see `drizzle/review.json`. Its first vulnerable capture reached aircraft destruction, so the completed art inspection uses invulnerability and does not establish survival balance. Full 120-frame sequences and deterministically reproducible sampled states remain under work; selected captures and plans are retained in the source package.
+
+Existing campaign, flight controls and damage rules were unchanged. No commit or push yet; the full production goal remains active.

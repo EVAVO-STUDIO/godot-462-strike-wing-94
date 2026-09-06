@@ -1,0 +1,1506 @@
+[
+  {
+    "path": ".gdignore",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "alpha.log",
+    "sha256": "1136a9e50ade514d9a884c8a7168603d125f6b6cada2135b970a41fa8cb52c19"
+  },
+  {
+    "path": "board/_evavo/project-art-sandbox-receipt.json",
+    "sha256": "7136d43bd0ce77b38458411d50ad929f29c5d04d1a55bfe6bedcaf649c1f69b9"
+  },
+  {
+    "path": "board/ballistic_point_defence_pod.png",
+    "sha256": "16f063d62f5e032b6757e91a67a4f5cacee20f995f0a826a0bfca1fc488318da"
+  },
+  {
+    "path": "board/ballistic_twin_rocket_pods.png",
+    "sha256": "c7042a60d06e396f516dc864aafa868e82f0a31e2bf0e1775d04ed7e18edd7c9"
+  },
+  {
+    "path": "board/needle_rail_hunter_rack.png",
+    "sha256": "e7c0425290a777171399f5c762ca24af010a37de42ca7cc2a7b990fb4c9e49c7"
+  },
+  {
+    "path": "board/plasma_lance_magnetic_screen.png",
+    "sha256": "f42663f8c672834d5e3e223e9c82c123b0d5211aa4182ffd4730484974012d75"
+  },
+  {
+    "path": "board/storm_cannon_emp_disruptor.png",
+    "sha256": "d632727de5d06a95affdbf7a712958f7d77e11a32ac5fb383527fda95b323a8b"
+  },
+  {
+    "path": "board_plan.json",
+    "sha256": "70accd5a717f0f83d38874692acad23f97407631fb802477cc2d01f52d757545"
+  },
+  {
+    "path": "board_request.json",
+    "sha256": "61a2cd720f4f6517c85208f705de3a6a626c2c1f53cdb43c320ff59c1238d706"
+  },
+  {
+    "path": "build_vx94_combined_loadouts_v1.mjs",
+    "sha256": "0898aa915fef2a9d7ea1ea0e61dbdca51e122dd3e019f7187b872ab844dbfbe9"
+  },
+  {
+    "path": "combined_visibility.json",
+    "sha256": "e7b362f7d7dc7fdeb9c827bde6d044139bf21363b1d5d935488187af0228e260"
+  },
+  {
+    "path": "composites/_evavo/project-art-sandbox-receipt.json",
+    "sha256": "06c4812f912d3476d6af1a89fc7168dbfc560dd602f8cfa00d443092b020076a"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_bomber_hard_left.png",
+    "sha256": "77fb3448942abda7f4b3bfe7a44f037e3d704f3767c6a8a494a1dbf43339babb"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_bomber_hard_right.png",
+    "sha256": "6e2c5140fcf51af7d6308d60b8f9ef7cff218cbd8b13b3ff7160b7fb947ab5e4"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_bomber_left.png",
+    "sha256": "613d6cf0264737970c01d89e316f6a643ff9eaf3c5543b31dbfc4db879deb29d"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_bomber_neutral.png",
+    "sha256": "8bdd2396a937bfeaba669cb2c386b9cbaa5e269cfc79d678464cd2c1647a809c"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_bomber_right.png",
+    "sha256": "ddb9eb4a612f1dbf44b1376675a42b4dc85280299a032055737f3717a0c1bdae"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_fighter_hard_left.png",
+    "sha256": "cc37e627dd30481c88afd613a62e0ffeef6ab9fe5eae22a5eade9d27b9704134"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_fighter_hard_right.png",
+    "sha256": "5969fdede6e6d7e54763f382541ce8cfa7c72dcfef2627490ae4968ee967c12a"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_fighter_left.png",
+    "sha256": "28e65bed20627fb3d5af881ae20c270883b65b1f8130040b66264939554141c6"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_fighter_neutral.png",
+    "sha256": "191f7d09f41d0f3e4d03c977b20933d169f2fa9e9767a1da147a08863ff3920d"
+  },
+  {
+    "path": "composites/ballistic_point_defence_pod_fighter_right.png",
+    "sha256": "ee26428dacc387c76e528f432bcc20a2144ec514042813f5f84c33fb2f4d1428"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_bomber_hard_left.png",
+    "sha256": "6363331f8519673db595581fe941c0a040c1013455ac3ce4028f7affe0ff4d24"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_bomber_hard_right.png",
+    "sha256": "1fe77f470a5a6f93f6ddf3a83b3c1efb19d396e3b98c848c2a02f5f3911a8cb9"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_bomber_left.png",
+    "sha256": "245c055a4508752382884400a3e7770ea16ec2e9aef62a2f70a9e7f02e9df1aa"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_bomber_neutral.png",
+    "sha256": "16479669a3d07166c188e67c3e5c21448ad08c0ffc5c44b87781f7df78dfd84f"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_bomber_right.png",
+    "sha256": "fa4af8425d2de2174bb616a5c6171123d8d09e6d6df3ca1de711a3aeb0f6c14a"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_fighter_hard_left.png",
+    "sha256": "ec282f9b8f48c08d6aa36f83324742265e2372bb15688e0fd3c59912019e4620"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_fighter_hard_right.png",
+    "sha256": "72808060824177111fe35213feb287f6bb004718d2c0f7d7873d8fa83a36caf7"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_fighter_left.png",
+    "sha256": "94ce5977cafa2429f8cb6e6d31182aa28e06803ec7e3d419072ba247f12fd96f"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_fighter_neutral.png",
+    "sha256": "33ad68fe575f0dab787bf07e387d7bafec92530897efcddf5af6ad64c7d1b558"
+  },
+  {
+    "path": "composites/ballistic_twin_rocket_pods_fighter_right.png",
+    "sha256": "24c41b9661729c0653dee999584cbc780e8cb8392bf98185148863a4cb7d91df"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_bomber_hard_left.png",
+    "sha256": "d420449b4ec1907e1f1cdeabb5b7bb59b148d9392d8b73eaf06132c0c8ae5108"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_bomber_hard_right.png",
+    "sha256": "ce518396a15527988e4daf4dce9cc4c5391b77c017e48648df6ccc4f7ea7ff2b"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_bomber_left.png",
+    "sha256": "5576f4410bc16c6bb0a4a5e5e7cc0e32075bac2ba339f09577110dfb549714be"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_bomber_neutral.png",
+    "sha256": "b3f250f6ba7560a8cd441eda282e68a0f21b0f92780b80d153c4ef1a1a3f73e6"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_bomber_right.png",
+    "sha256": "bc61f646675bc60429a504b75be7d9e818e0d1884c24fb0aff300c7210564f27"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_fighter_hard_left.png",
+    "sha256": "3329ee99c8448d545f661783610dd9bf3b459f0f56cb849f737a93725fc33b07"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_fighter_hard_right.png",
+    "sha256": "8b23d6a15587edc50307280c4e6fe794000e1b581d5a93547c953d6bc09a7cbe"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_fighter_left.png",
+    "sha256": "55a1c385bb9f11a378af8c1e16f2005af6e32f41cf7511fb16947d4ec25b3af6"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_fighter_neutral.png",
+    "sha256": "fb96fd9e5552608f6b1423de826882e9c60cd3c55e83efd644186ab09716ac7a"
+  },
+  {
+    "path": "composites/needle_rail_hunter_rack_fighter_right.png",
+    "sha256": "1653aa5dd7216d0d32beb02ab7634a0a866122ad297a93dd39f329d194a75435"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_bomber_hard_left.png",
+    "sha256": "0d0d6118eb27a0425f2a32403b178610ac549aff81ec5c4d26447e1c9ba7c026"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_bomber_hard_right.png",
+    "sha256": "63c9574d490da53f1d6c1e537ffc10636be6f892707ca3679f57086c2125bde2"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_bomber_left.png",
+    "sha256": "5af3bad6f4cc62e22190c0f486a73bce6ffc85fb59adb1bd197851e3e7923c74"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_bomber_neutral.png",
+    "sha256": "03c6143c348e3d1d57614bb8963b9b30918eb56b607a8fe1643f624dea3ac8f5"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_bomber_right.png",
+    "sha256": "bcbc839578dcbf611b39a18107e578726ecf54f823867354a0fa277be9e3ead6"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_fighter_hard_left.png",
+    "sha256": "83c787c058784d8cf0b166ef31b85cb2840437856a7f91a7cc9a1e3788d487e7"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_fighter_hard_right.png",
+    "sha256": "5a8a89c7f600245a0d7ad4b93d7a9c82ccd70ee0f297f4cabcfe8268112e0f22"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_fighter_left.png",
+    "sha256": "b8934b78cba07f0d1dff9b3b7f671fdbd21dd088dab55ad1d0314d6da36b8735"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_fighter_neutral.png",
+    "sha256": "170d6c110c5a8a7b75c4f896b90b5211c9a6d30642befb2bf90195e02b3d6b8f"
+  },
+  {
+    "path": "composites/plasma_lance_magnetic_screen_fighter_right.png",
+    "sha256": "ade52f980ff6495a862b1697870ba0f56b6d84d75f25c19a4d794cf6332dad20"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_bomber_hard_left.png",
+    "sha256": "67d7fc500fe797c36cc1c7c1ef88ddac6103b7cc30a011dbfeb2eb8bd88f9c6a"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_bomber_hard_right.png",
+    "sha256": "68f70df5a3a9daff1f5ed75a7e74de8e8ce0188aaed5e5fd5f0404826b9f627f"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_bomber_left.png",
+    "sha256": "f4731b4aebdab9113163ab62912a158004b03e1803ef0ce2871f43b85d47468b"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_bomber_neutral.png",
+    "sha256": "5b86ad92cacc8a26ddf89cf5e96f209ca8ec94dda1c1cfbe1fc0ee792aa42c87"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_bomber_right.png",
+    "sha256": "d02421ae40c111fb37a0a016ed21b4054ef9e8b1b4945bd0447d125e711099f9"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_fighter_hard_left.png",
+    "sha256": "543b3caf73084e71d52869d7fd39fb8835d0894f746225c3e80f33dc20cd91ff"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_fighter_hard_right.png",
+    "sha256": "cc64728673324e0b44c5b214a359d999c7b4e68becb87e97bd5f1f8356c8d34f"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_fighter_left.png",
+    "sha256": "4eb2dca0fd9970ba4a0842e465cfa1b4a6108a53d4549ec20aec29ca75421605"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_fighter_neutral.png",
+    "sha256": "4b7ed7fed7c1f17b31d6153bb401ee21b2ec8b80d4e1880db2dac4a92ea3b012"
+  },
+  {
+    "path": "composites/storm_cannon_emp_disruptor_fighter_right.png",
+    "sha256": "5e7e77ff392395e46dfe78779fd2b08bc33219f445453cec962c5b9edea164bc"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_bomber_hard_left.png.json",
+    "sha256": "5e56b0c73a34c82aa928d7c1a8d456a4c02d84bdab8c4d4f199cab4888c4da63"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_bomber_hard_right.png.json",
+    "sha256": "f7c3d242f1e069473e503b34b7bb1b762e3adf0bff7e1e0aea46cdbc7e16d30d"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_bomber_left.png.json",
+    "sha256": "7bf84d41318c7dbada260b60929f801bd89ec987eb454acdd6b155edd23569e0"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_bomber_neutral.png.json",
+    "sha256": "27bcdaefb668d6573ecff7fe1fbecb78d575ff7936f4641b229044597ad24482"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_bomber_right.png.json",
+    "sha256": "9c3e20007bcbb6817d71ee1ff721c42f48f8269845727aa3ad481fa20c85baaa"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_fighter_hard_left.png.json",
+    "sha256": "3023b5aab7d22d3f6271bf19727154e7996073642e2a26bda57a536e0ac95e91"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_fighter_hard_right.png.json",
+    "sha256": "bdbfc52bac2a579b8c6cc99d61b4de1d88e6df989dcb41ba2c3037eeea4ff55e"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_fighter_left.png.json",
+    "sha256": "f96a2251eba7395f5b6aabdb978a90407870e86af51af618e0a3fd4fd2b01eb3"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_fighter_neutral.png.json",
+    "sha256": "aa10b03b57b97acf95dd35ee29896173a56cef82921eabf00e112dd1f6f1cdc4"
+  },
+  {
+    "path": "evidence/ballistic_point_defence_pod_fighter_right.png.json",
+    "sha256": "fd358befaa41ee8ffe6bc7780f61877a9f4f373092d62a6fcbc92da20e562b6b"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_bomber_hard_left.png.json",
+    "sha256": "7e7bf9432667f4e35c6af864079e264e96355be958082db38f240decc861845a"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_bomber_hard_right.png.json",
+    "sha256": "2aeec11b27e4bccd9089b78ec39aa89221fdd775474374f26cdfaa61abf30a85"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_bomber_left.png.json",
+    "sha256": "5ea57d3d54a41e49f973d43c0264b3ae01b3b67c555ef74c53773e5cc85b1647"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_bomber_neutral.png.json",
+    "sha256": "e81124ef779924b0c8fd0815078465e746334b7bd0817be0764c2608a3d706ff"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_bomber_right.png.json",
+    "sha256": "2752464978799ff798063bc6a640c6c3ed0d8560d5d82f450927e4b4b601a294"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_fighter_hard_left.png.json",
+    "sha256": "3b1e093c725b6b6fe9ff070947f302af532f2e1b5f2bc8684110f2fee9f8f824"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_fighter_hard_right.png.json",
+    "sha256": "8912fa1e4a858927318196b50ab08dc69d59499cc7c58de68cc5a128b794e4c9"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_fighter_left.png.json",
+    "sha256": "e68b8fa87b488e169ce6089a4dd46ae92294cc8761f8e864552283f50d1c3229"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_fighter_neutral.png.json",
+    "sha256": "f844d1468c32ec5433ad93823d8ef5c42496b2388082c71e8dc96bdb6bcbe523"
+  },
+  {
+    "path": "evidence/ballistic_twin_rocket_pods_fighter_right.png.json",
+    "sha256": "97adc925c1aece9f053f34b9ccba4f5c544ba57dd14fe8a6c2b2330872bc9bec"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_bomber_hard_left.png.json",
+    "sha256": "a29d2d22fb9e7f79194f6b3d8ad121c179e4a34fc8f067319657687c586b23a8"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_bomber_hard_right.png.json",
+    "sha256": "d8c1d8f7b6b9b51e4460f7b8441c172ef2a067bee565011afaef95e0901220de"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_bomber_left.png.json",
+    "sha256": "86ec38414541d2b919a0b856375e9e35df03e4c4cd80231d4a47f7764de234f3"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_bomber_neutral.png.json",
+    "sha256": "3d4f616986eed7734f3c65f9f085e2ab8f93692ec55db9f923ccad663661f503"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_bomber_right.png.json",
+    "sha256": "2ebf198fb95e6fe5dc0c600dc356fc7ab3431b6cdad22cb6f57ac06e05a7fb02"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_fighter_hard_left.png.json",
+    "sha256": "14dedb1990a31bfd03a5cab1c258f4144a995548979197c7e36a56cc59d608cb"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_fighter_hard_right.png.json",
+    "sha256": "f9fd093b065619596af4369397efc9fd568bb32588f9afeefdce9b16458b2dfc"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_fighter_left.png.json",
+    "sha256": "6f4faeda62e0ac0bc18c56d1d89e4a1a827c14a72ecd42d63404ea1033f2b657"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_fighter_neutral.png.json",
+    "sha256": "259df9ea39d219e4993b692aaa601648e4b4a215af122f757580b9d478282aae"
+  },
+  {
+    "path": "evidence/needle_rail_hunter_rack_fighter_right.png.json",
+    "sha256": "63d3e1ead0eecea7f177394380ca56b7fa3ca2c0aa47a6d5ed3957c5bb86c852"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_bomber_hard_left.png.json",
+    "sha256": "ce62009a6163abde87df9086ea64dac762abd79716d72c630d7ed85590cb5c73"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_bomber_hard_right.png.json",
+    "sha256": "67f5ee602d011bf78be5244afd0a7499cb10798b62b9e3d706ee8deadef961fa"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_bomber_left.png.json",
+    "sha256": "54e9574c59159611c310ca2fafbece687d01975b3056f93a7f3e90e68a165ee6"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_bomber_neutral.png.json",
+    "sha256": "43270c53b3f90a8686ea49cd225d60f688c8532020979de2f3319a475d8cd75d"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_bomber_right.png.json",
+    "sha256": "e2a674069af3d5d072374da3e8f94cd1ab5ec4cd06b38630c685823f68cde3ae"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_fighter_hard_left.png.json",
+    "sha256": "842a8b280531d7832d1cf52c1754c788927ca2893beecbec41e58340f53d73e0"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_fighter_hard_right.png.json",
+    "sha256": "ef42698b23b493e152011406097d449723dfcf2834b2419a34ff95176892396c"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_fighter_left.png.json",
+    "sha256": "242a602b6ecc1e9f2127eae00796c2a70f930a8e3ae81a82f8cccff11e727284"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_fighter_neutral.png.json",
+    "sha256": "c737c8f8d66582329bc49159cdb349b3217c3dbae50e64b742c61c039f788e1f"
+  },
+  {
+    "path": "evidence/plasma_lance_magnetic_screen_fighter_right.png.json",
+    "sha256": "26d303c15d68e84953ad659e365a4c1f79dee36a79aeceffb0e7bb3a1e4f24f1"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_bomber_hard_left.png.json",
+    "sha256": "eed6c25e903873fca43cae9ffab5bf6a504dbe26b27e32f3ce0b0a6cf14f7874"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_bomber_hard_right.png.json",
+    "sha256": "ddc727aad9566d7db136b05812f168186e74cb31ff555e38ad78d92326b33a6c"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_bomber_left.png.json",
+    "sha256": "edcb1de78ff6724d16cf8774e1006030f6bdf29385f47a46bdfac646a46d7f22"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_bomber_neutral.png.json",
+    "sha256": "017be3d32505bc1f2274d51709af2ec7ee03dd1c7c36683eec5e2b9e55c203db"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_bomber_right.png.json",
+    "sha256": "b2568caeef8f3a70b2beb4fbd0a77ac9a106e22fe15a68904e084fd025e11619"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_fighter_hard_left.png.json",
+    "sha256": "613b28afe290f87b82b61d7412ab7705facb76f0e78a84fa1fcb90981929a6d1"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_fighter_hard_right.png.json",
+    "sha256": "1dc744b4932cc08322fd8428d08338f9b16736e2984fef5cce9c002afbab9e5c"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_fighter_left.png.json",
+    "sha256": "0faeab6534e4287cfb0820f2a9eeb300231a09404f428fc482665f23f19cd770"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_fighter_neutral.png.json",
+    "sha256": "3179ad57542a23cd2165c3e45d1477549bdb958091bc86f32cc2961a523dd6dc"
+  },
+  {
+    "path": "evidence/storm_cannon_emp_disruptor_fighter_right.png.json",
+    "sha256": "f5798ada02e465614b9943b1a407da01a44dfab590ef625d7b8fcd608ae79a94"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+    "sha256": "e90c58ec1db9d0c053045050a4a51de24274d3e1e7fff615bd935dd5967df4ed"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+    "sha256": "ca3573a48e414023849cc9b1ab579ab6d08d3e6b2b1c46c7662bb7fbe75d1782"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+    "sha256": "67b2c1c79429840c8b7af84f204ffe65842e57e229fa543db5180ee60c4c7f17"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+    "sha256": "4487099d01e06d34a46f917df0c30d7b0f47e41bec8ba1101dcc885efd77bfcb"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+    "sha256": "c8d99a987ca71d1e259c7cf905ec67211fd37796ccf48a2503d087fd03f42444"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+    "sha256": "35c6810b5d5ca04d185c999a49097396983dfa02f082cd6be07c839c0d82a772"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+    "sha256": "3f3d3ef167e0b06a60d661cfa0a2b0437ddbaad8ac623e1ac4bcfadc3ead23dd"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+    "sha256": "1f25e54292cf6a604a5483f4a240bc76400bef52f852836e7cec70fa9efe9af0"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+    "sha256": "b7c553bbf15c8798133b96b4d806644451232415e7092cd676715baedc20e458"
+  },
+  {
+    "path": "input_snapshot/assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+    "sha256": "dba610de1696c2cc85bf6f9287419a83da04f739e6935071dee041a9845c3320"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/bomber_hard_left_3_0.png",
+    "sha256": "94b821d84e27284294bdb512b0f9716e487e29c16f0df43430a071cf518c5ec9"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/bomber_hard_right_3_0.png",
+    "sha256": "a3582366073b688185608c04bec239e0bc2340f4e75fe8a18e2a44d680631003"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/bomber_left_3_0.png",
+    "sha256": "e9993d508020300baa549a010a5b8b0bf26412dc74dbe513fe755e629691bcea"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/bomber_neutral_3_0.png",
+    "sha256": "38762e1372c22ef87e7dfdc7344c3db1e0563341f59ca70eceba7c2f8fa45275"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/bomber_right_3_0.png",
+    "sha256": "e42b089c27053344697b14539461fc16b9ff5e37c17d56fa7cfd1b8b1c7c0f1c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_hard_left_3_0.png",
+    "sha256": "7fa124776f77cfdf4c6af49556ffb8ad757c9b0e67ae442a8ea6a1b9ed2daa37"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_hard_left_3_1.png",
+    "sha256": "396c1d5c189c5963393d854ba43fd2929362071689aebf47905c5607c438f3d4"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_hard_right_3_0.png",
+    "sha256": "ac43449362d927bcd923de2217ccd7c41207bdf4fecfc91b3b4084d9f3d28259"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_hard_right_3_1.png",
+    "sha256": "74ef362503e2fed26425a329c07a3994da84f7d34c2b9eb9cc2f2d281a8898be"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_left_3_0.png",
+    "sha256": "af8e0625129a28a7b9b8228a2403a76b1fde070ce2d0335b9a53fd9b27b806f0"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_left_3_1.png",
+    "sha256": "358362d0c4e814c3cd866abeddc7e6d1f23976dc1e11ae858f4a14121c36171c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+    "sha256": "347f3769ab980bca57aa639b1ed54b475d2fb9033662d6d6873e3cad1e5a1b9a"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_neutral_3_1.png",
+    "sha256": "39d951c2e923ed9b2dc39e73b59b6b5f0870b6aa9965b2e82051d70595a1a626"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_right_3_0.png",
+    "sha256": "f0bc7cc15d70ab21cabccf8e41f437ac50057651242522d5754b2622468dbd76"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_housings/layers/fighter_right_3_1.png",
+    "sha256": "f12e02b6a148984aa06f0af43ffd69706fb147046eba3ee4b8e424de3fe05a7e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_left_0.png",
+    "sha256": "59b5894c747d5298d34bf58999198c1e6cd74721bf61ff60e1485ce0116525fa"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_left_1.png",
+    "sha256": "d4e2391fdf4fd2bc76b6bc45fd891e8cffceeec965f025213e2d069fff9a188a"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_right_0.png",
+    "sha256": "090b71273434f003517600a76805597f6092af0f5bd9e2b520b12ebb6ecc340d"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_right_1.png",
+    "sha256": "2f03d838cf087e41630b500f74ab9e4c7308977ddecf559288d96796fd10731e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_left_0.png",
+    "sha256": "1731daef5896c166a488bf81b275fc70d8b4d95c1b87346e4c356738a78c8950"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_left_1.png",
+    "sha256": "3989e2ac37d9ed0a390e646b38a4ea962e9b467d97771c2d2fa44654c9a679a5"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_neutral_0.png",
+    "sha256": "794360bba42d1bdfb444dd56114cd790a15e475b48b585e5d4a7a0553f63e776"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_neutral_1.png",
+    "sha256": "f6c59c3e47efa116e6ef56cffd939a6112609733c41d6800de000bbd5b1a2dfc"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_right_0.png",
+    "sha256": "47354ca7459d005a1a038b8484180c1b7d2a0f943e10541d1496c91fe3297e2e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_right_1.png",
+    "sha256": "fd74eb1b7aa1647ecc505b17fe816db9678fb26437aa3c9052f3952ffeb2d82c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_left_0.png",
+    "sha256": "92ceb9b9303b87b0791b008ea2ba05e2923fa1837d4966b24761be9b27bb6d88"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_left_1.png",
+    "sha256": "3ad79c93294fdbae1f29ab899bf6a914ce2f477ae05a82ad904e0f04dd5c235d"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_right_0.png",
+    "sha256": "b69720133dcc3e0408dbdcba7f3a454e847985b5147be6e9159551471fc2fd73"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_right_1.png",
+    "sha256": "77713936ef0224db545809852ccce533c100272a4a061e4b1bf4c530e5fbe847"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_left_0.png",
+    "sha256": "eee95de0da07e194b6be91a05d53d2e42f8ea0568baf0c85a4afb8db10ffd76d"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_left_1.png",
+    "sha256": "16f3fe069ccb532a86e0c69c725c6db5fc2609f3fecb2e815117ff60ea355207"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_neutral_0.png",
+    "sha256": "e8bbc4aa4539be372dd078b9c0520c1056772f40b8ad2b877510e48ec2c0083b"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_neutral_1.png",
+    "sha256": "1ac4f7e2309fa60a114dfa81a28fd532e504a4375d5130644748e8523ac9ba23"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_right_0.png",
+    "sha256": "a479d0913a81ede5e5758455f97b2b6c40bc4a441382c4caaaec735b1c7b7e88"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_right_1.png",
+    "sha256": "b8d3cffdcff3ccfeddb8d473b99df3743ac1cb6669830181803d78aaba5a00db"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_left_0.png",
+    "sha256": "c92c24c4aa70420e444b0ba64c0dcb72cc4adb08686bf057025f04631ae6bc45"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_left_1.png",
+    "sha256": "e45f6f2e05d031b7c310ffc7fdeb659dedb90311a6a878672a8c286ac1132c2c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_right_0.png",
+    "sha256": "fbd9b95f3c20917dac9c0524cca992b0da33098ec52cefb3cdfdfa7235ed9b2c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_right_1.png",
+    "sha256": "2b53b8f69032e3ed14c531ce127e76da359fee3e4b0abf2d2088423705ce24ec"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_left_0.png",
+    "sha256": "a6ea984689beb928c061118dbe11029b8963fc3adc20ca78017684dde6f61f79"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_left_1.png",
+    "sha256": "15568c9cc831cc2999990e398e597eb11816a2cde2d8eed1c646322a0f3ae29e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_neutral_0.png",
+    "sha256": "c890320fc774fed14fdc6335a680ebc21de881bd01a9c4e6ccf59a5c6ce934f9"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_neutral_1.png",
+    "sha256": "2405d3de14fbcb0b4b82e55f8e405561f17cfdaa986d0ef4e5319702c59759e5"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_right_0.png",
+    "sha256": "4f6f41f20ffc4925adb6e46e0eb45bd743b0b1510c844cf3ec8bb8a0fe924226"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_right_1.png",
+    "sha256": "7bb06e17dbb007f3544a8bb9491fd2479cce771466f650537e8cfaaee7af7744"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_left_0.png",
+    "sha256": "94e400b33d8ae03d96b5aa6560afd04f3157a0f0d406c5aa8d014684b41f9e73"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_left_1.png",
+    "sha256": "2b8920f70d518101a8cd54879d65c8b82b146b8e92dc584aa15eb962fe032565"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_right_0.png",
+    "sha256": "2944968d381bcaa424c8f4b9bdb53f59be627de1dd0c9897a71b7f117a5b45af"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_right_1.png",
+    "sha256": "f822b956e4271bd7bea0010f66326f839b1c1e909f78960e511c1ae79000e1a7"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_left_0.png",
+    "sha256": "ac79acae42ad607e6b6b2ec52967030e4cc740d50436179e842c01037b64c256"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_left_1.png",
+    "sha256": "3b432d2ee470e2cb4deb8eee987ed73836c1ca0c77033975d9461ffeccff155c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_neutral_0.png",
+    "sha256": "fc5a0d4149b964aec73dbe1070873989b7f85ceb490c93fa14d492d4e5054932"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_neutral_1.png",
+    "sha256": "2386edebd9d24c56c3cddf7253be0da9dc283076207b4b94336eca2fc8fe4ef7"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_right_0.png",
+    "sha256": "9cf75490aee08481ce5bfe30d0d3ac8d0d89e52fbef55596b517b11ddbf0468a"
+  },
+  {
+    "path": "input_snapshot/work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_right_1.png",
+    "sha256": "5b1afc4f776b34a7a30c19988abbce19f3a47f1e8098507467629cf0ade380b1"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_hard_left.png",
+    "sha256": "2ffa7fde96b347db532d21ef6dba27a9aac1051bf741d721cb4136e4dde8dc9e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_hard_right.png",
+    "sha256": "728ff38080254a8c5bf91204a4d68fd0e54b8b5d13dff43cbea5e514052f7ae8"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_left.png",
+    "sha256": "4baefd8dd756035c573c1e73e52d8bc1eb12e2a3daf8561370dfb7dc809a09cc"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_neutral.png",
+    "sha256": "ea3ce65d3cab394d91f21e5c8440d503345e05e9a1c174a4bb14a7c9476d3751"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_right.png",
+    "sha256": "609e9e9f316be67a29e9dc820909ed35eacb48c623a2925f6290beeca357e39c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_hard_left.png",
+    "sha256": "743a870685a7efc73e32fa382a884af4cb5cc39b7effa2389d78c218a5fbf5cf"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_hard_right.png",
+    "sha256": "92628d860a96500b5f604a8e318762e74e73433fcb854b2339a0bc3df5f76cf2"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_left.png",
+    "sha256": "23f889157fb75e4a69c29b2531f1fb61ebdf3c92cd0917e296ccb768a17447b9"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_neutral.png",
+    "sha256": "9db959e389797f5f4213d4e75ffb6b124ad423cf7c91659e16006855f9032802"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_right.png",
+    "sha256": "41e3e4849351ea9ce429b3aa28a1f1c0c9e7267acfa8af708c3edfbaf9af6399"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_hard_left.png",
+    "sha256": "6a426a7b4c10a777282514ee0b617967cdf3666aca57c5264588bf842630ee09"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_hard_right.png",
+    "sha256": "855dd473d5bbe7c94457d9a53626834f3c26c5bcf7f24b604329e4dd47cbc52e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_left.png",
+    "sha256": "ea666caec0e3b1c8e12d5ff89566cf69d63a5c02c0d63277d85f6e678f2004fd"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_neutral.png",
+    "sha256": "361a91f504367b8a42087f653f91196bc6299d2df4770812c8afd221b95d2dd3"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_right.png",
+    "sha256": "9884becfcd810d34d80185f4a4eefb120838cffad326bfa3f13af39cfdcb05ff"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_hard_left.png",
+    "sha256": "f749bb39e4733d960ebd736757ea5959b9db2c8ffe34e4ef4c2afc520ae6d120"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_hard_right.png",
+    "sha256": "27d391ae65dcfade3a058c07b4b3cea5df4852c6afc8f392d43503edb1548f2b"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_left.png",
+    "sha256": "50dcf72d12aae22a5daa73d4bfb37e72df1be926ec78e2b5790018aa62dabd86"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_neutral.png",
+    "sha256": "4949e2c0c7c1ce84d48a03dae0cd19e8a2be2128e038b2f8299a33b23ce6148a"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_right.png",
+    "sha256": "ffe2e84118e96fa2961fdbba25e0a28ebf01be6a38a1b4d97a82def35ec90b98"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_hard_left.png",
+    "sha256": "bb323d2d0127bd02e2631747272c9a0d51d94ffe8c9e1527bbb26b2828c2567c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_hard_right.png",
+    "sha256": "2e6aed41d1683e232345b429103791f65ff829de691237c81b909c7da11956bb"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_left.png",
+    "sha256": "d2795ab9c10d997e6eb21570fb22ec98e33d76aec3166862c9d2a01f0fc35e18"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_neutral.png",
+    "sha256": "1852627ae68de40d6e9400cf3f8238e3c4e8002db4973e7d73e42aee0b2a3412"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_right.png",
+    "sha256": "f308dd4f0b4d5c64ab43d1583d547158dba46132c1c12b0d986bb08425193de5"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_hard_left.png",
+    "sha256": "26dfb2cb4fd014f1369930926f9990458b1352a3f678ea690df01e0ddea637bb"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_hard_right.png",
+    "sha256": "76a2549d461f70e2c582d7644cbf985d65c29a176a4ef55d380b5c5c45b21d9b"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_left.png",
+    "sha256": "77b4400fe870898f22a71ed626bfa05a50ec57ee8846bf97b9eb040ef4e3f561"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_neutral.png",
+    "sha256": "d6f0abca9cfbbc7c1cc76180f98c87cb1aefccd39eb1b82bd0d66a36ab9dcbce"
+  },
+  {
+    "path": "input_snapshot/work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_right.png",
+    "sha256": "0ccc05280a9543020b4d028982314fbbcff08e57788f806278c8bab8892669fb"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_left_2.png",
+    "sha256": "8643fda4cc747df2dc956bbce2bd1b3a0d5e9abf2cf62e37a32ca35ccab6651c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_left_2_aperture.png",
+    "sha256": "61290710bc18979a8877ffa2369fc34a9097717b82891ba29bd131baa1e8edc7"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_right_2.png",
+    "sha256": "97320da79a605c3f73edfb8221df3076d6e0801df5d56085c05e88777df8e198"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_right_2_aperture.png",
+    "sha256": "1e335392aa5acff49812da53d8041201f6e3d230181229a1a9219a0ca6bd1dba"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_left_2.png",
+    "sha256": "63db2bb3f34f0da1dad43fc8027ab26def96bd09a7d46591f65a149863a81da2"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_left_2_aperture.png",
+    "sha256": "356a6de5c17335954663f258b46640fa8406b879aaacdb448c9b68a369d06e02"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_2.png",
+    "sha256": "c0763d0bd3fb0abba29fed45a5cbdb2db95077fe25cd23ae19df6bb2f9a87467"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_2_aperture.png",
+    "sha256": "96f222f3c88c9a7854f8d0c0ad3c8ffb402f6209c6b40d13cb5a62a8066d1541"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_right_2.png",
+    "sha256": "c6ab25491ed6eebfdcbcf9500f85f72851bb027d57ab5a92aa58abf2f971141f"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_bomber_right_2_aperture.png",
+    "sha256": "f36fa3a4f2268e3bcd1d4d5a39e717f2e11c3998072e1e36c438b75fbcc608a7"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_left_2.png",
+    "sha256": "2075631847e6d99b6593f8b66dfbff22e637436bcb7dca691ae122b7ddc07e49"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_left_2_aperture.png",
+    "sha256": "938141d6369a968abd2cb40898436180e2084e26ec53691ffbcb6d55089b38c4"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_right_2.png",
+    "sha256": "0fffe2d734d4da56711d39686fe376fc928552b9562863dfc917bcd72aaa2c9a"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_right_2_aperture.png",
+    "sha256": "3b31e737ef03154f9489e866aac78e07fd1197bb64ebf12b94e5e51c32166b02"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_left_2.png",
+    "sha256": "9f371fb663be49e53671dcfddae48aa2883f296a43a1ffcfa4f2aa73ebcf5616"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_left_2_aperture.png",
+    "sha256": "96fe1e776dafbbd6e0e89b3c4d340ef65c2635b51c9bd28bc920b853af068715"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_2.png",
+    "sha256": "c0763d0bd3fb0abba29fed45a5cbdb2db95077fe25cd23ae19df6bb2f9a87467"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_2_aperture.png",
+    "sha256": "96f222f3c88c9a7854f8d0c0ad3c8ffb402f6209c6b40d13cb5a62a8066d1541"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_right_2.png",
+    "sha256": "d6138a6e62deeecba05da174662c898a93bd9e7e8f201796130deb94a91d926e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/needle_rail_fighter_right_2_aperture.png",
+    "sha256": "2ef3d5146bbcdf9b232309383b92e9b6c7a71b4e293f98742b3fba42d9031c15"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_left_2.png",
+    "sha256": "c2c1a19faec06456d6da427afd75c5ccb2396e6938f15a0aaf51c9d124caa46f"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_left_2_aperture.png",
+    "sha256": "242b7b59dfb71af0a640540728360092f7fb5251e9cbf225143e55a8e2517ad3"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_right_2.png",
+    "sha256": "c0dcc8a5a88395d523258d0c8a01e33e10f56a927239abb45cbc64520d15a505"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_right_2_aperture.png",
+    "sha256": "02c17b66f984f7ac70b172ec769f6ad46c076b64d9f4fcec13fa2338350b9916"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_left_2.png",
+    "sha256": "e1582474e0e27aa6fc0d87765111d59be03ed693663f02d89ea7bd99264b882c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_left_2_aperture.png",
+    "sha256": "c27521239c64cb0e9f49a202cdcd78e0faf738372e06a501e27aa6cc9d540d73"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_2.png",
+    "sha256": "ab242c130d96ec522b14a993d3e7e8758c8d39729db9c35becbe79468c5e1849"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_2_aperture.png",
+    "sha256": "4d944a952654e4133fdb57bd7a4bfd7ad81ad823a786bb8bc8dd8bf2c1d7054e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_right_2.png",
+    "sha256": "0686797185375f69b71e95baf77f15097326a81d39f227860124cb79faca22c6"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_right_2_aperture.png",
+    "sha256": "4e136758a7711fdb2897f40891a0acb27dc010ddfe0c355fe5ee3e7c74b35b0d"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_left_2.png",
+    "sha256": "4dfdf74313b7615f27e7b941f866c2b5baa4c0c082cc43ce803e85a91e7353f9"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_left_2_aperture.png",
+    "sha256": "3e6cc5f60cddbb293e61cb9c5f98433baec43f3d76a7af247e8a1a709dce442a"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_right_2.png",
+    "sha256": "4597fa922a9c36385a9100a0b9f5c3b00378d4bea3a917ae6387f157744b88a6"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_right_2_aperture.png",
+    "sha256": "4f32ce7dc60d954e3794a34ba0664df1e661b04eaf6dad5ac97e96e8ea7f6115"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_left_2.png",
+    "sha256": "0727e5a4aa70188dbf792a552130b8149776f6f281124a1860a09e6742c290c1"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_left_2_aperture.png",
+    "sha256": "79e18c17eb0ab15d3107566916dc7e818e6f6eec79482c402465b965bfc68817"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_2.png",
+    "sha256": "ab242c130d96ec522b14a993d3e7e8758c8d39729db9c35becbe79468c5e1849"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_2_aperture.png",
+    "sha256": "4d944a952654e4133fdb57bd7a4bfd7ad81ad823a786bb8bc8dd8bf2c1d7054e"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_right_2.png",
+    "sha256": "10f866303ecfbbf69747c4982c0e0f1ccb42f28c517c64c96ab379e35417f6fc"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_right_2_aperture.png",
+    "sha256": "dafcbaceddc0319dd3558b5c9b870aa0a5da370dde56bafc330a5db36681ee3c"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_left_2.png",
+    "sha256": "fb64e1c120d9623b9f41966fd20ecf65777aff6401715d6553e98ec6c66be851"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_left_2_aperture.png",
+    "sha256": "fc125a437e565c876d11e1e2c7135ae674aa11f864cb000c578e49042f5f5209"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_right_2.png",
+    "sha256": "a0735ff29cc017fb5e2d5edaff5458ab8fae39528b7bfa642ae74ac1a104ed1d"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_right_2_aperture.png",
+    "sha256": "6385ffdacbd203ea7896a70570caa34892dd5d41bce188628bb5715a0f6d0def"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_left_2.png",
+    "sha256": "7c0a5c6cae3212e9aeb8500aedab19d53b03a77fbbfca180db771f6492c472c0"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_left_2_aperture.png",
+    "sha256": "4d534dbb96e93ab48226e896742b712cbe2e8c0274f2f77f05b16e7ee99eb1d6"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_2.png",
+    "sha256": "3548e8b67f37a0dd32c38f156dff42ef54f0202bd48e78b07bfb56cd3d6602f9"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_2_aperture.png",
+    "sha256": "b33b1cfdd976f4390c7b265a0f19dbdf2cd12cecd65e330ed0f7f0cb9255d5af"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_right_2.png",
+    "sha256": "fa60d9fbda77ebaefe4aa7a2bbe5e88bb2821a8c34219c604845adb83c926049"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_right_2_aperture.png",
+    "sha256": "bfce044c08f595b30caec4c17b9452519b45fd21425bdb775c151a9ffea61f59"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_left_2.png",
+    "sha256": "f01f346071d0b03927fd0f03f2551f3e040d35fbfa33c55a3920639dabbbf0a3"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_left_2_aperture.png",
+    "sha256": "b3010cc148dd118fcbc8e64dae37b36ae1df99e060df349d097b826cc098cc5a"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_right_2.png",
+    "sha256": "da2abf1006fce70b7512c87f9810fa9ed2ebf6408fc6c6377532f4daf7910088"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_right_2_aperture.png",
+    "sha256": "0c93c23927cfe401f08f72aa2dff19a591fcac975b64853e839acba28b903821"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_left_2.png",
+    "sha256": "6f117d8d34bc62e599f76d9fe72988530079479c17eb03a1d736837a87732cee"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_left_2_aperture.png",
+    "sha256": "700546d16da5ddfc0238a90d12b62708303dc4d4ed25e017f2bb3809c9d73b2b"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_2.png",
+    "sha256": "3548e8b67f37a0dd32c38f156dff42ef54f0202bd48e78b07bfb56cd3d6602f9"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_2_aperture.png",
+    "sha256": "b33b1cfdd976f4390c7b265a0f19dbdf2cd12cecd65e330ed0f7f0cb9255d5af"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_right_2.png",
+    "sha256": "f4a36ae16e9d96031a6b576ca9829e842837b3904b4b932a7310639447db1ff1"
+  },
+  {
+    "path": "input_snapshot/work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_right_2_aperture.png",
+    "sha256": "b571d74a89fc91d2826c3703ac9f6ca2f221dda4776b80e5d3ff2833bd869c40"
+  },
+  {
+    "path": "manifest.json",
+    "sha256": "b6651f230225e5ff1ff603214be485c9c2f6010eb771dce4f04eafd5494e0258"
+  },
+  {
+    "path": "native/frame_000.png",
+    "sha256": "69d5f0885aa46fd5e6923414f5fcde6f2e3a1e2713b9c50f5d3bf24b2573dd9a"
+  },
+  {
+    "path": "native/frame_001.png",
+    "sha256": "878116a95f7a74f1e4a3f6fca0995e54197e4d51d175455e97c3f06bd903d31d"
+  },
+  {
+    "path": "native/frame_002.png",
+    "sha256": "f028b0db59d71c41d71dd7ffef53550b313aafd0572bad0cbee8b6db0eb478cb"
+  },
+  {
+    "path": "native/frame_003.png",
+    "sha256": "b714bf3a2f6f6b3961b71b98dfd2349efc70dc3a0e2134badd751ece141a2778"
+  },
+  {
+    "path": "native/frame_004.png",
+    "sha256": "5e5b5f1230450b7dfa32ba2570d4b8fc5a62662e1e8b1d1d24fdce2aa6507246"
+  },
+  {
+    "path": "native/frame_005.png",
+    "sha256": "074a30318d73042bf8d82488bb211bcd5f2287c05277da01314a22850873228d"
+  },
+  {
+    "path": "native/frame_006.png",
+    "sha256": "8d0d694eed97c5a910309ef45a9e74be38b49fc07bf25bf83417edb3d4ec38cb"
+  },
+  {
+    "path": "native/frame_007.png",
+    "sha256": "b8a1640f7ba1de9e65d15fa6c2502861e9ba81eeca8a485c7cf2cc1f8e26031c"
+  },
+  {
+    "path": "native/frame_008.png",
+    "sha256": "42f2995cd2706ca12e5dd5ad7df61fd3e4a8e344b0fb63fb7926e2951a6020db"
+  },
+  {
+    "path": "native/frame_009.png",
+    "sha256": "ced9cbb5969da7aeacd1548b0e6fca53244b54c21030720162a760479fec2e02"
+  },
+  {
+    "path": "native/frame_010.png",
+    "sha256": "c2d427611c59e50480bcb556b3c21e4976ecc0a9802953edeac881b48698e544"
+  },
+  {
+    "path": "native/frame_011.png",
+    "sha256": "7eaff3c66681bdfa16edf8a53c947fe73fae599ab96fbbbe5072290cf234c057"
+  },
+  {
+    "path": "native/frame_012.png",
+    "sha256": "f75c433ee21639ff70dc2ffd2bd343e5c72f7d5033d3c1297ea3a336209f3f15"
+  },
+  {
+    "path": "native/frame_013.png",
+    "sha256": "ac21984dd1d5a1e5080965e0ca87b0ca0dcbf78d1ecba52d5e5da85ae619cc8a"
+  },
+  {
+    "path": "native/frame_014.png",
+    "sha256": "cf12d4c55b13a0b465b7fafb84fa0104a02309c392588443584e31e9cc2b7619"
+  },
+  {
+    "path": "native/frame_015.png",
+    "sha256": "a81ec1169521a6a9429bf0b82860a6b35a0c87bb0a4264f061eb77a88250cdb6"
+  },
+  {
+    "path": "native/frame_016.png",
+    "sha256": "5aa795e223a2347611c95522d9be0e0ea6e69fb008aa2b04a17bcc7070fe53be"
+  },
+  {
+    "path": "native/frame_017.png",
+    "sha256": "300394191061d61f87c225af9934fb82b19b19aec51c9169a9de914535bdd2e9"
+  },
+  {
+    "path": "native/frame_018.png",
+    "sha256": "5977681e2b4edceb13529193b66ecd70815878e74c8dc82b93390ed8dc264c17"
+  },
+  {
+    "path": "native/frame_019.png",
+    "sha256": "95da112f97f7b94d7725a496e55de3fcfdaf36c1d563fff27c8f4be383d6b0af"
+  },
+  {
+    "path": "native/frame_020.png",
+    "sha256": "7ae46ce2d556ed073cec862b90f9ad91432e01b27c850636efaf08c222426d47"
+  },
+  {
+    "path": "native/frame_021.png",
+    "sha256": "5e2f31d6daadf1ae1e84a35cf2dc0da0250641d3737019ac1763b65c7ba45e5f"
+  },
+  {
+    "path": "native/frame_022.png",
+    "sha256": "b67a52c8e16891e0deefd7725d80a227142ba686ce753449a921501f4288ffeb"
+  },
+  {
+    "path": "native/frame_023.png",
+    "sha256": "5a50f70262939ac8845b2b70df481f81576ccd95093336b671a68d09af4978ee"
+  },
+  {
+    "path": "native/frame_024.png",
+    "sha256": "9f0926cab334bd4474853ad792a3e608ffbd6a1685a26d7caa27884fbc2bc427"
+  },
+  {
+    "path": "native/frame_025.png",
+    "sha256": "4110f9ce63f787a6b02b6fcdf791e7a3a4e24c4c725c7ca9baef9efe7e3c62b8"
+  },
+  {
+    "path": "native/frame_026.png",
+    "sha256": "8a0893da94c70afc1d045c8e58a3ff8d77f920b23cd49298ee3904fdf335970e"
+  },
+  {
+    "path": "native/frame_027.png",
+    "sha256": "01f769a385e112dbc166c3443762503d1e1c526847aea41257a6b98a3e7ac5f5"
+  },
+  {
+    "path": "native/frame_028.png",
+    "sha256": "275f8820dc7cc9a301f23447a4509b34d33a49d6775b211e5332c4ad77078a75"
+  },
+  {
+    "path": "native/frame_029.png",
+    "sha256": "26ae1315a863d8437b944cc83a8176969eb51b9562fd56bf593af9d3cb4b6e3f"
+  },
+  {
+    "path": "native/frame_030.png",
+    "sha256": "0bb5181a4528dd1787346194df4bb69e8e9cdf8627bf0ad16f342efe51c63340"
+  },
+  {
+    "path": "native/frame_031.png",
+    "sha256": "70d5e51253daee43fa48ad4de323c078cb8f58e2bb4a2b89752b5818568bfde1"
+  },
+  {
+    "path": "native/frame_032.png",
+    "sha256": "35b88d892399a7fa011255db89cd1351ec91d939eeb11cbcef23dfac1b6ff773"
+  },
+  {
+    "path": "native/frame_033.png",
+    "sha256": "1f68cf8c775b0d2e52dec36d9c2c5b6a0465f6571b1d27728ea3ef552bce0d2b"
+  },
+  {
+    "path": "native/frame_034.png",
+    "sha256": "72b37e116afeba5300f9617cbce71be26edd2581f3191112e1c63ce308f821d2"
+  },
+  {
+    "path": "native/frame_035.png",
+    "sha256": "0866cd1361c603e5dcf3176b7f80788ec5ca1a691c6b7662126311319945066f"
+  },
+  {
+    "path": "native/frame_036.png",
+    "sha256": "47b87542df57e9b95b187fa7dfd12b933c07aa4ba4326e6d2e317df18eaebe15"
+  },
+  {
+    "path": "native/frame_037.png",
+    "sha256": "79e353571dc3d901af2a75a19384438eba27511af0c4dca5efb53d8bf996f656"
+  },
+  {
+    "path": "native/frame_038.png",
+    "sha256": "ba7d41a740c96409c03d546fc6668cf228445e86625ea2640d53b047105b855c"
+  },
+  {
+    "path": "native/frame_039.png",
+    "sha256": "fe9b5676cb39133abe20bec5f019f4fd9cc7bd0a6c443d9f45d86bd70199d9ea"
+  },
+  {
+    "path": "native/frame_040.png",
+    "sha256": "5f0d91d4f9109eae61803101f8b2c05971fc42145cd22737ba7389bc084e9c3b"
+  },
+  {
+    "path": "native/frame_041.png",
+    "sha256": "12b976f3445c40222e4d0b5736fb27471980bb6bd60d1f53053b40fe67f7cefa"
+  },
+  {
+    "path": "native/frame_042.png",
+    "sha256": "4a6ae926d0ab191a774d55ec2e6e180c90e4adca84deb1bf85aaa89dce22a49f"
+  },
+  {
+    "path": "native/frame_043.png",
+    "sha256": "d775724a3f7eba19445e06615165f65750b6f9d5bb952026286d4c74d704963e"
+  },
+  {
+    "path": "native/frame_044.png",
+    "sha256": "4ce57bbca3f99d94fa72810319c9c84968effedb8917a4c51b7a36ba356cba47"
+  },
+  {
+    "path": "native/frame_045.png",
+    "sha256": "5edab376fc0ff373fbe1b36778fbcf1dc05d3c7dcd0945674ff889293f1c7e87"
+  },
+  {
+    "path": "native/frame_046.png",
+    "sha256": "1b7f5f4038439ef5c145f9b734cd2dc76c31540483323f306a23c730cea40dbf"
+  },
+  {
+    "path": "native/frame_047.png",
+    "sha256": "f484f6d04769580c332594d83e68eaf142119951646b6a5b81edc537195221a2"
+  },
+  {
+    "path": "native/frame_048.png",
+    "sha256": "735b036ec75c7ae110287f4e854b6525a5dbe23ca3751bbd14e2ffac0faf2422"
+  },
+  {
+    "path": "native/frame_049.png",
+    "sha256": "cbfc669128f772e98b98603122e3c54a487ce36db4788792b9a7c676da13fd5e"
+  },
+  {
+    "path": "native.log",
+    "sha256": "030f0a3788af79246d081ac3c7879943fc7c7235d7d03b2408e4d3e9e40c69e4"
+  },
+  {
+    "path": "package.py",
+    "sha256": "726b71a2a4487d4c97c5710e23c254dc67a2f5b87ddf3f73801089911ef6070e"
+  },
+  {
+    "path": "plan.json",
+    "sha256": "e9de69535608dd7eb7a4041162a7fffd9643bf95330956b137ce67bd2475e2eb"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_bomber_hard_left.png",
+    "sha256": "6c5d6f05273b1db68d9d967afd9421397e6b50ded794de6b28423cb4618c7f5a"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_bomber_hard_right.png",
+    "sha256": "36484505dd2151889d86e45fd829d665bf8920761a56966a1be093acf0fd7928"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_bomber_left.png",
+    "sha256": "6378f829a87bab37148526301272aaa6de1a784cc18a51b2bdfc946289a7e7c0"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_bomber_neutral.png",
+    "sha256": "896afecc5d81ba88f5dc9a785f36ab8c2f22c1c46e279fd62e5f6dba0ee3bc6b"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_bomber_right.png",
+    "sha256": "93e9f0f5c29c1db29441146cc294ce46e5b82af8920619ea40ba5c683a5d44b8"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_fighter_hard_left.png",
+    "sha256": "0618aed8de2ac8e6825ac4678d3013d8bb6708439d367bfb3eb8851c0249d438"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_fighter_hard_right.png",
+    "sha256": "9f457d3dbc37a1a0881bc1b66cfe29f0173ced44dc2942b223f5c2ba0e706522"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_fighter_left.png",
+    "sha256": "0d98b3c5f4133b1d2ac0dc102ba55e312ee6ac6984bf8b9d3cf15175607bb540"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_fighter_neutral.png",
+    "sha256": "7261be45261837a647cf8c97c7b2e5f6fac7a56fa21274d44a85f75e8e619528"
+  },
+  {
+    "path": "proofs/ballistic_point_defence_pod_fighter_right.png",
+    "sha256": "e866fc7ba6994ff7516c4bd4ac9951202170d60442b163147b660aab0b05376e"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_bomber_hard_left.png",
+    "sha256": "1869a1cf29ed8f14958ce8889ebf13afecc6c53a328057145995bade271915eb"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_bomber_hard_right.png",
+    "sha256": "6842d443a6c6c67e30955b43cda8d8c70ad2d2f45d0d49bd17d115031aee14a0"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_bomber_left.png",
+    "sha256": "43938f98a882c8d44e53d9fa3fb7df8a338f34e460113965a8d1a0bfc586f2f9"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_bomber_neutral.png",
+    "sha256": "3203241d19f20b170cd53115d92c76fb2855260042c1e1d8bc2f9482c8d01842"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_bomber_right.png",
+    "sha256": "42f0993800e7ee048e3ad9b48806ce524dc9f6f569211719692d69f5990e73cc"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_fighter_hard_left.png",
+    "sha256": "459b86bc8f81fbb71c486b4e4b03c218b15118f13781f5536a71757e02a0efc9"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_fighter_hard_right.png",
+    "sha256": "abf2a800ed6460979df2d69f8f4a1fa33d712b67dd49214a03ec2a307d776801"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_fighter_left.png",
+    "sha256": "42f600945b89be8f9cee05f5000636cf8804e2f4f00aca89c670b6ce827662c9"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_fighter_neutral.png",
+    "sha256": "5432240fe87ab1d183518a662ef00027c247ef27fc75dbd64ff8e846cf01ef1d"
+  },
+  {
+    "path": "proofs/ballistic_twin_rocket_pods_fighter_right.png",
+    "sha256": "d0de72ce33ea47f3b7fcda7325138a47b716da5d496314762148d6bbfc6dca3a"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_bomber_hard_left.png",
+    "sha256": "65b7e5ead5542e73c9daa7ee86f0f521eab33a026187d964232a0d040d1bc3db"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_bomber_hard_right.png",
+    "sha256": "e021d8be738fccff8fd91761e18e012f0027b8334868a4958ec7649bc20db157"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_bomber_left.png",
+    "sha256": "3889b3b889acd05e098a87dd71befb25f0e06fad246986ce4b1e8390f75c636d"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_bomber_neutral.png",
+    "sha256": "33a06517c203e42bd122880020f7f03728513c3d6b58f75c35e8c504ace11359"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_bomber_right.png",
+    "sha256": "c31bf6fab5623a4fd6c7bf43ed094f52dc09072be586b7a78a24462900199e13"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_fighter_hard_left.png",
+    "sha256": "b6903bd7af28920312085865a4ce544d2764f62aac5c43121b763448ca93c501"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_fighter_hard_right.png",
+    "sha256": "d43d6efaafb15f5176aecf47e9b6ee1aab75a97585184e8406672cf7eda90aa9"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_fighter_left.png",
+    "sha256": "65743da6c3594964844db200ebcff3d244c5cfc7551cdc448d62377b02bc42b0"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_fighter_neutral.png",
+    "sha256": "9724e72fd5c9b0393142df7d2a7780b3e5dccfa859fcadecfba254f91dca7a8e"
+  },
+  {
+    "path": "proofs/needle_rail_hunter_rack_fighter_right.png",
+    "sha256": "af356900383c111dfc78738f962b00e8dee66758d331dfa6e98f94c296417ae1"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_bomber_hard_left.png",
+    "sha256": "6b9afc1620f312a644ee909392391916d506adb37bfdc391b1e4153abaccd7b9"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_bomber_hard_right.png",
+    "sha256": "82fe29555afd91f11388745132010835d8b7b191e9f0c07941e73c2b0c1b7f7f"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_bomber_left.png",
+    "sha256": "77e988ee9bb17bf958561950f399024528143279aad6269063cd156e0fe25a64"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_bomber_neutral.png",
+    "sha256": "e0b2829bca907fab0662d11b58c79531ecd0ecbae0fee0a9c8e5d6b83623ebde"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_bomber_right.png",
+    "sha256": "a4e416c2db1da29171fa450b102534ec836252991df9449b445babaad316dd9e"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_fighter_hard_left.png",
+    "sha256": "1c7ae191afb59bb335cda58fd3827e43c1966af2cff1533e0b551842d2457a1b"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_fighter_hard_right.png",
+    "sha256": "e9c8fe0e018544d30fce8592db3cf1a1c22d8b790ea63adce76dddd781f59709"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_fighter_left.png",
+    "sha256": "74f15a3f947c78b6ea207c094f7589a803b692957517b6326acdc0484329ddf3"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_fighter_neutral.png",
+    "sha256": "20c42d6af6efe085953f481b79a5e5c8cf59da4d9684452d04cfeb97da65bd27"
+  },
+  {
+    "path": "proofs/plasma_lance_magnetic_screen_fighter_right.png",
+    "sha256": "97ff6053ff1008099c09fb5df8b8ca958b2d184d96546039e07d82ab1338e12d"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_bomber_hard_left.png",
+    "sha256": "08bb3df4fc955e37b4a96c8b2fcd2e0edf9cf292a4a459db0f4e76e417afb1bf"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_bomber_hard_right.png",
+    "sha256": "ca5cff1cfd6c51d3bfea77dd15402a09e5868061e5d072070e86bfe05382a334"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_bomber_left.png",
+    "sha256": "d49ec4cdd9ab7a3ae23dea99182112f96017cfdc86f1a323df97caa536210fcb"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_bomber_neutral.png",
+    "sha256": "bc63d6b649aad5e9e27747fc26292ed55c5b3f0c7596fdc7ffaf5c13c475080c"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_bomber_right.png",
+    "sha256": "e1a8a735d7dbc394d769e6805131e14c561efa12eb4e889c901a1182e6d75e6a"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_fighter_hard_left.png",
+    "sha256": "4a2088e1010ebfcb7106e4cc7d434c16919d2603575a71333f6d3edcd6e5fde2"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_fighter_hard_right.png",
+    "sha256": "fbba6fb2be34335cdaef82b26f35e5ce49e5ae0852df5ab6493b39ffc73bc18c"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_fighter_left.png",
+    "sha256": "6791f17ff3b083b2dbf83e7acbd571dad0033fbf0e3676dddf42966672536c98"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_fighter_neutral.png",
+    "sha256": "220e5536a1c58c2176c6fae2b5ca0f8cc33b58c6fe7899f47cd73fcb83943a22"
+  },
+  {
+    "path": "proofs/storm_cannon_emp_disruptor_fighter_right.png",
+    "sha256": "10a833469ef4660f19ccf34207989c294ecec2ce86398484bca01fef5402b875"
+  },
+  {
+    "path": "request.json",
+    "sha256": "1a71611d5f7ad7c7c7aed223aabdb76a27aedc0daa7f7c9dbe1620f0b6d61ff2"
+  },
+  {
+    "path": "review/project.godot",
+    "sha256": "05f62286211cb24b4e5a857ccc374b43c88afef24c55f0d208e49e03203da8a5"
+  },
+  {
+    "path": "review/review.gd",
+    "sha256": "cdab2b6a4eff174d24a50deda2fd6393662cb6f6a316bd05edcd0c464efe2a24"
+  },
+  {
+    "path": "verify.py",
+    "sha256": "efb434bab0016bdac9ef74e95b395f3e87124e5573889564ad5d82b8a6957a6b"
+  }
+]

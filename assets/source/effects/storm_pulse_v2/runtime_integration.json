@@ -1,0 +1,17 @@
+{
+  "schema": "hypersonic_storm_pulse_runtime_integration_v1",
+  "revision": "v2",
+  "status": "reviewed_native_runtime",
+  "canvas": [16, 24],
+  "frames": 4,
+  "runtime_sha256": [
+    "0666A1E0E1D4EDE9F151B7F4F4F5D4225A174B938D0770934E21CCBE84D622AE",
+    "9402586C1046EC8135B845C2AF131374484D90784BB0B0347B71769CA525311F",
+    "4A7BFE06A5DE8145DE92AB7D90740258826088E928BCD4E373959492145C07D6",
+    "6DDEFCC6EB5E8D0C94DC114FE929E5ED8E12A1BAF7AFBAE33FD9B54F0BFE21E4"
+  ],
+  "visual_contract": "Broad white-cream pulse core with blue-grey containment and bipolar discharge tabs.",
+  "gameplay_contract": "Three-shot Storm Cannon spread at the established 510 px/s velocity, damage and energy cost.",
+  "native_evidence": "work/storm_pulse_v2/runtime_native",
+  "review_movie": "outputs/HYPERSONIC-storm-cannon-runtime.mp4"
+}

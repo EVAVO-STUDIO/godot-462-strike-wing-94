@@ -1,0 +1,124 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.875,
+      "events": [],
+      "fps": 8.0,
+      "frames": [
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "bomber_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "bomber_01",
+          "index": 1,
+          "start_seconds": 0.125
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "bomber_02",
+          "index": 2,
+          "start_seconds": 0.25
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "bomber_03",
+          "index": 3,
+          "start_seconds": 0.375
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "bomber_04",
+          "index": 4,
+          "start_seconds": 0.5
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "bomber_05",
+          "index": 5,
+          "start_seconds": 0.625
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "bomber_06",
+          "index": 6,
+          "start_seconds": 0.75
+        }
+      ],
+      "loop": false,
+      "name": "bomber"
+    },
+    {
+      "duration_seconds": 0.875,
+      "events": [],
+      "fps": 8.0,
+      "frames": [
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "fighter_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "fighter_01",
+          "index": 1,
+          "start_seconds": 0.125
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "fighter_02",
+          "index": 2,
+          "start_seconds": 0.25
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "fighter_03",
+          "index": 3,
+          "start_seconds": 0.375
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "fighter_04",
+          "index": 4,
+          "start_seconds": 0.5
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "fighter_05",
+          "index": 5,
+          "start_seconds": 0.625
+        },
+        {
+          "duration_seconds": 0.125,
+          "events": [],
+          "frame": "fighter_06",
+          "index": 6,
+          "start_seconds": 0.75
+        }
+      ],
+      "loop": false,
+      "name": "fighter"
+    }
+  ],
+  "asset": "vx94_pitch_relief",
+  "schema_version": 1,
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

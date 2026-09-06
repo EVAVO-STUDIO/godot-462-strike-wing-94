@@ -1,0 +1,12 @@
+{
+  "frames": 72,
+  "minimum_speed": 0.62,
+  "maximum_speed": 4.4,
+  "sampled_duration": 6.866708999999595,
+  "reviewed_frames": [
+    12,
+    36,
+    60,
+    71
+  ]
+}

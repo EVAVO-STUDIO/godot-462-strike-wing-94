@@ -1,0 +1,186 @@
+{
+  "status": "candidate_visual_anchors_not_gameplay_offsets",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "poses": {
+    "fighter": {
+      "hard_left": {
+        "angle": -28,
+        "muzzles": [
+          [
+            18,
+            25
+          ],
+          [
+            30,
+            23
+          ]
+        ],
+        "widths": [
+          1,
+          0.65
+        ],
+        "under": [
+          1
+        ]
+      },
+      "left": {
+        "angle": -3,
+        "muzzles": [
+          [
+            25,
+            23
+          ],
+          [
+            37,
+            24
+          ]
+        ],
+        "widths": [
+          1,
+          0.85
+        ],
+        "under": []
+      },
+      "neutral": {
+        "angle": 0,
+        "muzzles": [
+          [
+            26,
+            23
+          ],
+          [
+            38,
+            23
+          ]
+        ],
+        "widths": [
+          1,
+          1
+        ],
+        "under": []
+      },
+      "right": {
+        "angle": 3,
+        "muzzles": [
+          [
+            27,
+            24
+          ],
+          [
+            40,
+            23
+          ]
+        ],
+        "widths": [
+          0.85,
+          1
+        ],
+        "under": []
+      },
+      "hard_right": {
+        "angle": 28,
+        "muzzles": [
+          [
+            34,
+            23
+          ],
+          [
+            46,
+            25
+          ]
+        ],
+        "widths": [
+          0.65,
+          1
+        ],
+        "under": [
+          0
+        ]
+      }
+    },
+    "bomber": {
+      "hard_left": {
+        "angle": -29,
+        "muzzles": [
+          [
+            10,
+            3
+          ]
+        ],
+        "widths": [
+          0.75
+        ],
+        "under": [
+          0
+        ]
+      },
+      "left": {
+        "angle": -7,
+        "muzzles": [
+          [
+            26,
+            3
+          ]
+        ],
+        "widths": [
+          0.9
+        ],
+        "under": [
+          0
+        ]
+      },
+      "neutral": {
+        "angle": 0,
+        "muzzles": [
+          [
+            32,
+            3
+          ]
+        ],
+        "widths": [
+          1
+        ],
+        "under": [
+          0
+        ]
+      },
+      "right": {
+        "angle": 8,
+        "muzzles": [
+          [
+            39,
+            3
+          ]
+        ],
+        "widths": [
+          0.9
+        ],
+        "under": [
+          0
+        ]
+      },
+      "hard_right": {
+        "angle": 29,
+        "muzzles": [
+          [
+            55,
+            3
+          ]
+        ],
+        "widths": [
+          0.75
+        ],
+        "under": [
+          0
+        ]
+      }
+    }
+  }
+}

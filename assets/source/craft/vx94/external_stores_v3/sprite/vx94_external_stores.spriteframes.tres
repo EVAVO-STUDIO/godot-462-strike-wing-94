@@ -1,0 +1,96 @@
+[gd_resource type="SpriteFrames" load_steps=17 format=3]
+
+[ext_resource type="Texture2D" path="res://vx94_external_stores.atlas.0.png" id="Texture_1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 3, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 74, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 145, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 3, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 216, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 287, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 358, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 429, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_9"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 500, 52, 67)
+margin = Rect2(6, 4, 12, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 571, 36, 67)
+margin = Rect2(14, 4, 28, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 642, 36, 67)
+margin = Rect2(14, 4, 28, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 713, 36, 67)
+margin = Rect2(14, 4, 28, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 784, 36, 67)
+margin = Rect2(14, 4, 28, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 855, 36, 67)
+margin = Rect2(14, 4, 28, 5)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15"]
+atlas = ExtResource("Texture_1")
+region = Rect2(3, 926, 36, 67)
+margin = Rect2(14, 4, 28, 5)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_1")}], "loop": false, "name": &"bomber_hunter_rack_empty", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_2")}], "loop": false, "name": &"bomber_hunter_rack_left_released", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_3")}], "loop": false, "name": &"bomber_hunter_rack_loaded", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_4")}], "loop": false, "name": &"bomber_precision_bomb_empty", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_5")}], "loop": false, "name": &"bomber_precision_bomb_left_released", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_6")}], "loop": false, "name": &"bomber_precision_bomb_loaded", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_7")}], "loop": false, "name": &"bomber_twin_rocket_pods_empty", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_8")}], "loop": false, "name": &"bomber_twin_rocket_pods_left_expended", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_9")}], "loop": false, "name": &"bomber_twin_rocket_pods_loaded", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_10")}], "loop": false, "name": &"fighter_hunter_rack_empty", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_11")}], "loop": false, "name": &"fighter_hunter_rack_left_released", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_12")}], "loop": false, "name": &"fighter_hunter_rack_loaded", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_13")}], "loop": false, "name": &"fighter_twin_rocket_pods_empty", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_14")}], "loop": false, "name": &"fighter_twin_rocket_pods_left_expended", "speed": 1}, {"frames": [{"duration": 1, "texture": SubResource("AtlasTexture_15")}], "loop": false, "name": &"fighter_twin_rocket_pods_loaded", "speed": 1}]

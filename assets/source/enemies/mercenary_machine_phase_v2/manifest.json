@@ -1,0 +1,129 @@
+{
+  "runtime_directory": "assets/runtime/enemies/boss_animation",
+  "schema_version": 2,
+  "review": "50 native phase/cycle fixtures, critical cycle contact sheet, six-background transparency proofs inspected. Five Sprite Studio strict packages pass; all 20 aligned critical frames match source pixels and registration.",
+  "asset_family": "mercenary_machine_boss_phases_v2",
+  "frames": [
+    {
+      "file": "ai_forge_core/critical_0.png",
+      "sha256": "b5b2fccebaae6c6ecb3418555ecb2e9c85e095769cec2c5a527146f57d483c1a"
+    },
+    {
+      "file": "ai_forge_core/critical_1.png",
+      "sha256": "a5c3b3241064160f22fd288bb7e134970fb26998f182789ebca4479c333f819b"
+    },
+    {
+      "file": "ai_forge_core/critical_2.png",
+      "sha256": "50c9b3efe06db17c40889c85a17e15cb96ead5ba5c040c80f6471f82349d08e7"
+    },
+    {
+      "file": "ai_forge_core/critical_3.png",
+      "sha256": "915be7cdae5b6ce0e0c39d95dafd44e5c2cc9ff51e39461285d8784c3e3aae39"
+    },
+    {
+      "file": "ai_forge_core/phase_2_damage.png",
+      "sha256": "6bd5b4faba0ea4a52e438d0369640ddb2fc232e55d3b9902b027861740090956"
+    },
+    {
+      "file": "ai_forge_core/phase_3_damage.png",
+      "sha256": "7084157861f1b0c218897107fd7e73f5a80635d70a57bd0883dff70958781dcd"
+    },
+    {
+      "file": "armoured_train/critical_0.png",
+      "sha256": "65cbbb4a64bb67048ef0a58c8abdfcd8e18fdce0c6f0ec1ae1d98fade9d2f7d2"
+    },
+    {
+      "file": "armoured_train/critical_1.png",
+      "sha256": "100dcd2ea597290208e1659d103ac1f2d1bd03a287ad6ba76c61a5811750af7b"
+    },
+    {
+      "file": "armoured_train/critical_2.png",
+      "sha256": "5459195e976628301208385ea90259acb57d0f8a857c35cbddc1ee99391a8c02"
+    },
+    {
+      "file": "armoured_train/critical_3.png",
+      "sha256": "0864341b7539a423976991ff3369f235da92ca70049558f82311d2fde990057c"
+    },
+    {
+      "file": "armoured_train/phase_2_damage.png",
+      "sha256": "79e4144f11bfbfd748fecb1d14c948a84965bf231823e32550cf4cca2e895cc1"
+    },
+    {
+      "file": "armoured_train/phase_3_damage.png",
+      "sha256": "354f238403627e5999bcc06ea4bbd7721bb68bcfd1885b2564d637ffa9d24f6b"
+    },
+    {
+      "file": "gunship_alpha/critical_0.png",
+      "sha256": "6487f0beadea8bae6052f9c60cbc8aa32c3daff2c07f41d6427f10f3dabc47f2"
+    },
+    {
+      "file": "gunship_alpha/critical_1.png",
+      "sha256": "454f9b0ec0e1648498b8918f7640dc641813a19b9ba72e2bb1d7b10cdba9dc2b"
+    },
+    {
+      "file": "gunship_alpha/critical_2.png",
+      "sha256": "619116e9596297df0608e14542e3bf50de4d9064456031e2de5748fae2d9db2b"
+    },
+    {
+      "file": "gunship_alpha/critical_3.png",
+      "sha256": "c75056cee90ee3210aca9bc8688ef001a7dfb36ee98fd5acd3e4c96090c8d64b"
+    },
+    {
+      "file": "gunship_alpha/phase_2_damage.png",
+      "sha256": "ffd8e194c35807d2b0f5bcb43269dc96f7e86fa242d3386431c7589ff4d0e057"
+    },
+    {
+      "file": "gunship_alpha/phase_3_damage.png",
+      "sha256": "3c92fade5475710366f97587bf3047751a9213ace28b973c21a274283b68e69e"
+    },
+    {
+      "file": "missile_cruiser/critical_0.png",
+      "sha256": "102fdeb0f0354831af5c21bee66b7ca22f93c812aeef76f3b0946df445bf82ef"
+    },
+    {
+      "file": "missile_cruiser/critical_1.png",
+      "sha256": "6e6de8a4e7aa7f3ee40e2cb187fcc2db61f9cfa7c8ce91305c93c23eb98afc6c"
+    },
+    {
+      "file": "missile_cruiser/critical_2.png",
+      "sha256": "259a007bac8cb4b239fc96cf479967f84a2cd41857b83a457735ba3fa5f53044"
+    },
+    {
+      "file": "missile_cruiser/critical_3.png",
+      "sha256": "6e6de8a4e7aa7f3ee40e2cb187fcc2db61f9cfa7c8ce91305c93c23eb98afc6c"
+    },
+    {
+      "file": "missile_cruiser/phase_2_damage.png",
+      "sha256": "9fd16a23167c4ce56f4bb45b277a18a5b8a39f4df708b48ded474323248ddc85"
+    },
+    {
+      "file": "missile_cruiser/phase_3_damage.png",
+      "sha256": "183e21980b152ba4581117737a39d22d21866ecec1822e54cd83f8f2245761a5"
+    },
+    {
+      "file": "swarm_controller/critical_0.png",
+      "sha256": "fbcc7922b0b175271c4cc36ddf8ff0ad8652f440fb04ecf8762ebf86da30e943"
+    },
+    {
+      "file": "swarm_controller/critical_1.png",
+      "sha256": "14990faf1f04ecd28ef5cb7d2a9d0ba84ce05458af631810d4e375a16da53060"
+    },
+    {
+      "file": "swarm_controller/critical_2.png",
+      "sha256": "87bc4848d716edfc701c2ca2ba4c614c879c9aa7541bc8c0e0ec36ce29ea295e"
+    },
+    {
+      "file": "swarm_controller/critical_3.png",
+      "sha256": "f3599aee29242cdc289fb92cc0d872c8bce59b297bf27e6d19af472b034aee41"
+    },
+    {
+      "file": "swarm_controller/phase_2_damage.png",
+      "sha256": "8782b5e65b6c026b0cd1bd7b919403f6edbfaa74e9c86e869b741be85509dfe1"
+    },
+    {
+      "file": "swarm_controller/phase_3_damage.png",
+      "sha256": "e7e8ed26c8c4de6b82772cbe0bdc19d6e57c20abcd05df1508fb6bf04467bcda"
+    }
+  ],
+  "registration": "Original canvases and center pivots retained. Four critical exposures at 8 FPS."
+}

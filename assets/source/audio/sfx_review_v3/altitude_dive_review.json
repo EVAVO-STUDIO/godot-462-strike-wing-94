@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\altitude_dive.wav",
+  "source_sha256": "685d692dd7bdf2c9a002afaa633c733cddb39b786ff0d69442dc1eb7ed15580d",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.44004535147392293,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.11651611328125,
+    "rms": 0.02723089389278992,
+    "dc": -0.00012453298009475162,
+    "clippedSamples": 0,
+    "crestFactor": 4.278820729708833,
+    "estimatedBpm": 184.5703125,
+    "pulseStrength": 0.04460779204964638,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

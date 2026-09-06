@@ -1,0 +1,13 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const source=path.join(root,'assets/source/environments/cloud_volume_v3');
+const manifest=JSON.parse(await readFile(path.join(source,'manifest.json'),'utf8'));
+const master=manifest.files.find(f=>f.file==='cloud_320.png');
+if(!master)throw Error('Reviewed cloud master missing from manifest');
+const bytes=await readFile(path.join(source,master.file));
+if(createHash('sha256').update(bytes).digest('hex')!==master.sha256)throw Error('Reviewed cloud master changed');
+await writeFile(path.join(root,'assets/runtime/environments/clouds/cloud_bank_high_mass_a.png'),bytes);
+console.log('Installed the reviewed 320x160 high-altitude cloud master with exact hash.');

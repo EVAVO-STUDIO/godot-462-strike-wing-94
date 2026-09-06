@@ -1,0 +1,27 @@
+[
+  {
+    "loadout": "fighter_hunter_rack",
+    "left_change_pixels": 53,
+    "right_change_pixels": 47
+  },
+  {
+    "loadout": "fighter_twin_rocket_pods",
+    "left_change_pixels": 3,
+    "right_change_pixels": 3
+  },
+  {
+    "loadout": "bomber_hunter_rack",
+    "left_change_pixels": 54,
+    "right_change_pixels": 51
+  },
+  {
+    "loadout": "bomber_twin_rocket_pods",
+    "left_change_pixels": 3,
+    "right_change_pixels": 3
+  },
+  {
+    "loadout": "bomber_precision_bomb",
+    "left_change_pixels": 50,
+    "right_change_pixels": 47
+  }
+]

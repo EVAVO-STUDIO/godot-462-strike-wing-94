@@ -1,0 +1,12 @@
+{
+  "schema": "hypersonic_vx94_module_damage_runtime_integration_v1",
+  "status": "reviewed_native_runtime",
+  "runtime_layers": 60,
+  "canvas": [64, 72],
+  "damage_states": ["scarred", "burnt"],
+  "representative_runtime_sha256": "25220892B897DEBDE8C7F776C89964D9F036A8BA948837E24D1E5DEC94BD611C",
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/module_damage",
+  "draw_order": "above intact module and underlying hull damage",
+  "native_evidence": "work/vx94_modules_runtime/native",
+  "review_movie": "outputs/HYPERSONIC-vx94-dorsal-module-runtime.mp4"
+}

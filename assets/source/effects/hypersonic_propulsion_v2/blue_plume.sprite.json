@@ -1,0 +1,59 @@
+{
+  "name": "blue_plume",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true,
+    "alpha_threshold": 1
+  },
+  "extraction": {
+    "mode": "frames",
+    "alpha_threshold": 1
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 16,
+    "canvas_height": 40,
+    "pivot_x": 8,
+    "pivot_y": 4,
+    "manual_anchors": {
+      "blue_plume_0": [
+        3,
+        1
+      ],
+      "blue_plume_1": [
+        3,
+        1
+      ],
+      "blue_plume_2": [
+        3,
+        1
+      ],
+      "blue_plume_3": [
+        3,
+        1
+      ]
+    }
+  },
+  "animations": {
+    "blue_plume": {
+      "fps": 16,
+      "loop": true
+    }
+  },
+  "qa": {
+    "strict": true,
+    "contracts": {
+      "required_animations": [
+        "blue_plume"
+      ],
+      "frame_count_rules": [
+        {
+          "pattern": "blue_plume",
+          "exact": 4
+        }
+      ]
+    }
+  }
+}

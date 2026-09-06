@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\fire_rail.wav",
+  "source_sha256": "baa31716796e3eb5e7e0c6186a07a65ddfdc6b015e5a7b489eb06be900c16f84",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.18503401360544217,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.142486572265625,
+    "rms": 0.04322051291967911,
+    "dc": 0.0004848779416551777,
+    "clippedSamples": 0,
+    "crestFactor": 3.296734875107219,
+    "estimatedBpm": 0.0,
+    "pulseStrength": 0.0,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

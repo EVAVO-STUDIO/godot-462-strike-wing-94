@@ -1,0 +1,27 @@
+{
+  "schema": "hypersonic_weather_presentation_runtime_v2",
+  "status": "reviewed_native_runtime",
+  "profiles": [
+    "drizzle",
+    "rain",
+    "storm",
+    "snow"
+  ],
+  "presentation_changes": [
+    "profile-specific rain visibility",
+    "foreground rain width separation",
+    "snow contrast underside",
+    "near/far precipitation depth separation"
+  ],
+  "hud_safe_clip": [
+    0,
+    34,
+    640,
+    304
+  ],
+  "native_before": "work/weather_review_v5/native",
+  "native_refined": "work/weather_review_v5/native_refined",
+  "comparison": "work/weather_review_v5/comparison.png",
+  "comparison_sha256": "CA41CC150C154F3669B9A65F4BD3F5625CD1413E072235C0365128006BA7FEB0",
+  "review_video": "outputs/HYPERSONIC-weather-visibility-runtime.mp4"
+}

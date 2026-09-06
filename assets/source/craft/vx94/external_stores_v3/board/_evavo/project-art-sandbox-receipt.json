@@ -1,0 +1,460 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "537472fdaf7d4ddc384dbf23be9e7689cc1d2483b0d43b64c644e9fa4137efc6",
+  "planBytesSha256": "abbfc8f705e10dfae5ef48f4988d745780d659e50bf5e47b5f38c459c1c57db9",
+  "sandboxId": "vx94-external-stores-review",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:91465a0d8bfbba7785f76dc4",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_17a1127015965acdd45e19358a7d0133",
+      "path": "work/vx94_external_stores_v3/composites/bomber_hunter_rack_left_released.png",
+      "sha256": "5a4257ae1e6563f29c7bae05797e9a10ca6403f6088250e5fa07045509ef8a1e",
+      "bytes": 4659
+    },
+    {
+      "sourceId": "source_264dec71dac1cd195dbfccdf13ab8014",
+      "path": "work/vx94_external_stores_v3/composites/bomber_precision_bomb_left_released.png",
+      "sha256": "57e308796b4bd73f367f3c431264398cebd78bffccae8ca369d4f84691e8b6da",
+      "bytes": 4628
+    },
+    {
+      "sourceId": "source_368542d72ec4145905261da736718489",
+      "path": "work/vx94_external_stores_v3/composites/bomber_precision_bomb_loaded.png",
+      "sha256": "b34b50218bdbc02d28306d2411610e9a4d9225f9183efea86929835a47f38408",
+      "bytes": 4657
+    },
+    {
+      "sourceId": "source_3c51f7983fd016e4edf8c42aee78a2c2",
+      "path": "work/vx94_external_stores_v3/composites/fighter_twin_rocket_pods_loaded.png",
+      "sha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+      "bytes": 3594
+    },
+    {
+      "sourceId": "source_3fba33aec5fc97d7e31e728dc10ea929",
+      "path": "work/vx94_external_stores_v3/composites/fighter_twin_rocket_pods_left_expended.png",
+      "sha256": "320923c49f97a1045fb701545ac85d4d7ecc2b5fa8c3e9d5ff03a0dfeb5367ad",
+      "bytes": 3597
+    },
+    {
+      "sourceId": "source_515a65c9244abe3e4465982104ce90e4",
+      "path": "work/vx94_external_stores_v3/composites/fighter_hunter_rack_empty.png",
+      "sha256": "c43a6530c1f684eb206dfb706bb0063a775e74288f79283a30cae25798f52a18",
+      "bytes": 3502
+    },
+    {
+      "sourceId": "source_615974311faf54bd550a950544f7f04f",
+      "path": "work/vx94_external_stores_v3/composites/bomber_twin_rocket_pods_loaded.png",
+      "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "bytes": 4693
+    },
+    {
+      "sourceId": "source_67a255bbd3aa1fcb1eedbf8ff2e414e5",
+      "path": "work/vx94_external_stores_v3/composites/fighter_hunter_rack_left_released.png",
+      "sha256": "16dd64b66464cb6a2c792b9e944be479c10f50a39b5883c4a07967f58856e7ee",
+      "bytes": 3559
+    },
+    {
+      "sourceId": "source_8f1ba2701aabdf03b771693006e3c0ef",
+      "path": "work/vx94_external_stores_v3/composites/bomber_twin_rocket_pods_left_expended.png",
+      "sha256": "20009e5f788a901d8b19664d82e697e3bbd71f8400336e22e68827569d1220ae",
+      "bytes": 4705
+    },
+    {
+      "sourceId": "source_bf7e015d215378ccf87772cdeb9e5e41",
+      "path": "work/vx94_external_stores_v3/composites/fighter_twin_rocket_pods_empty.png",
+      "sha256": "1159a456ab460dd6a3941baff6a0107856e09bd61dfe84dde0958c870636efe2",
+      "bytes": 3569
+    },
+    {
+      "sourceId": "source_ca781b29a690ee7bd250c32e4bfcdf93",
+      "path": "work/vx94_external_stores_v3/composites/bomber_twin_rocket_pods_empty.png",
+      "sha256": "895d3e40e67cd87566e1bc8202359c4fc6ba0a0bfca065b613a0e6631d2a6136",
+      "bytes": 4673
+    },
+    {
+      "sourceId": "source_ce5cdc88c05cee96c497df152b5cc639",
+      "path": "work/vx94_external_stores_v3/composites/fighter_hunter_rack_loaded.png",
+      "sha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+      "bytes": 3590
+    },
+    {
+      "sourceId": "source_d343fdccb84111d719403dda7a5a2261",
+      "path": "work/vx94_external_stores_v3/composites/bomber_hunter_rack_empty.png",
+      "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "bytes": 4589
+    },
+    {
+      "sourceId": "source_e109d18e76ae9f0cadd6d011bde3e990",
+      "path": "work/vx94_external_stores_v3/composites/bomber_precision_bomb_empty.png",
+      "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "bytes": 4589
+    },
+    {
+      "sourceId": "source_e262c5834e58aedd9613a6af790f6fcc",
+      "path": "work/vx94_external_stores_v3/composites/bomber_hunter_rack_loaded.png",
+      "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "bytes": 4684
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "stores",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 15,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 192,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 216,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 192,
+          "y": 216,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 216,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 192,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 648,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 192,
+          "y": 648,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 648,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 864,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 192,
+          "y": 864,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 864,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 192,
+          "height": 216
+        }
+      ],
+      "outputs": [
+        {
+          "path": "stores.png",
+          "sha256": "c7c7c6694dc03b3002f09a5824db6a2b71aaac9d20167849fe6f1aa27c4d8d8a",
+          "bytes": 32857,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 576,
+            "height": 1080
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 622080
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            576,
+            1080
+          ],
+          "pixelSha256": "8dda06cb29c56527b0c76c36a5073f7d1c6e2fdde98ed96ba9bd3c6afde2b08a"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "stores.png",
+      "sha256": "c7c7c6694dc03b3002f09a5824db6a2b71aaac9d20167849fe6f1aa27c4d8d8a",
+      "bytes": 32857,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 576,
+        "height": 1080
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 622080
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        576,
+        1080
+      ],
+      "pixelSha256": "8dda06cb29c56527b0c76c36a5073f7d1c6e2fdde98ed96ba9bd3c6afde2b08a"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 15,
+    "externalSourceBytes": 63288,
+    "plannedMaximumOutputFiles": 2,
+    "taskOutputFiles": 1,
+    "taskOutputBytes": 32857,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "146c6e32415ade7ab9c1bbd7cdb8b81d751a08b4fb0860700635183b75dd2732"
+}

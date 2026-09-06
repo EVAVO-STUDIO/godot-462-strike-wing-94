@@ -13,6 +13,7 @@ var selected_index := 0
 var unlocked_index := 0
 var _cooldown := 0.0
 var _magnetic_timer := 0.0
+var _strategic_launch_timer := 0.0
 var _magnetic_support: Dictionary = {}
 var _last_phase := -1
 var _hardpoint_flip := false
@@ -24,6 +25,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
+	_strategic_launch_timer = maxf(0.0, _strategic_launch_timer - delta)
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		return
@@ -40,11 +42,13 @@ func _process(delta: float) -> void:
 			_activate(scene)
 	else:
 		_magnetic_timer = 0.0
+		_strategic_launch_timer = 0.0
 	_last_phase = phase
 
 func _reset_sortie_state() -> void:
 	_cooldown = 0.0
 	_magnetic_timer = 0.0
+	_strategic_launch_timer = 0.0
 	_magnetic_support.clear()
 	_hardpoint_flip = false
 
@@ -91,6 +95,7 @@ func restore_support_state(saved_selected: int, saved_unlocked: int) -> void:
 func rearm_support() -> void:
 	_cooldown = 0.0
 	_magnetic_timer = 0.0
+	_strategic_launch_timer = 0.0
 	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
 	if strike != null and strike.has_method("rearm_full"):
 		strike.call("rearm_full")
@@ -100,6 +105,9 @@ func rearm_support() -> void:
 
 func magnetic_active() -> bool:
 	return _magnetic_timer > 0.0
+
+func strategic_launch_timer() -> float:
+	return _strategic_launch_timer
 
 func _handle_title(scene: Object) -> void:
 	if Input.is_action_just_pressed("cycle_support"):
@@ -152,17 +160,17 @@ func _craft_form() -> String:
 	return "fighter"
 
 func _support_mount_offsets(support: Dictionary, count: int) -> Array[Vector2]:
+	var craft := get_node_or_null("/root/CraftFormDirector")
 	var mounts := get_node_or_null("/root/PlayerMountDirector")
-	if mounts != null and mounts.has_method("support_offsets"):
-		var value = mounts.call("support_offsets", _craft_form(), support, count, _hardpoint_flip)
+	var value = craft.call("support_mount_offsets", support, count, _hardpoint_flip) if craft != null and craft.has_method("support_mount_offsets") else (mounts.call("support_offsets", _craft_form(), support, count, _hardpoint_flip) if mounts != null and mounts.has_method("support_offsets") else [])
+	if typeof(value) == TYPE_ARRAY:
 		_hardpoint_flip = not _hardpoint_flip
-		if typeof(value) == TYPE_ARRAY and not value.is_empty():
+		if not value.is_empty():
 			var result: Array[Vector2] = []
 			for offset in value:
 				if typeof(offset) == TYPE_VECTOR2:
 					result.append(offset)
-			if not result.is_empty():
-				return result
+			if not result.is_empty(): return result
 	var fallback: Array[Vector2] = []
 	for _i in range(maxi(1, count)):
 		fallback.append(Vector2(0, -10))
@@ -218,6 +226,8 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 	var mounts := _support_mount_offsets(support, angles.size())
 	var support_id := str(support.get("id", "support"))
 	var strategic := bool(support.get("strategic", false)) or support_id == STRATEGIC_SUPPORT_ID
+	if strategic:
+		_strategic_launch_timer = 0.46
 	for i in range(angles.size()):
 		var bullet := {
 			"position": player_position + mounts[mini(i, mounts.size() - 1)],

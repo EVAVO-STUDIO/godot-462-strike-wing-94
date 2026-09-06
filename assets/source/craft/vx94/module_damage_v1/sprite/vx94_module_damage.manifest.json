@@ -1,0 +1,3140 @@
+{
+  "schema_version": 3,
+  "tool_version": "0.5.0",
+  "name": "vx94_module_damage",
+  "pixel_art": true,
+  "frames": [
+    {
+      "name": "emp_disruptor_bomber_burnt_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_burnt_hard_left_00.png",
+      "source_sha256": "0a9b20edd16507149e7fcad135167a246f5ea6ce9d346ac0c67059a34a837373",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 45,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_burnt_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "be8e086be6ebffdc37ee2569a9a1e639b32afceec73bf5e8ec7d4e61d58cda26",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_burnt_hard_right_00.png",
+      "source_sha256": "af0b78d8b96d7d0a99d5f7952a8ad0c4fa8832bf6c3d6412e1a1c10535598425",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_burnt_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "2c19d239f5d5d0898ab669bb3f3e3d1b06564f0c1612e4134678e3be1380e3d5",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_burnt_left_00.png",
+      "source_sha256": "b952683e385a06bea8012be35df5e9bc401b44bc5eff7bbe1e47873a81638a13",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_burnt_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "b16735a2ac16d3994fc385b435124718756d47c70d9fdb2f39a9ca9996a1983f",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_burnt_neutral_00.png",
+      "source_sha256": "124bacf31baaef915a71e1a9e6884ea1c6d05130c5712b43ddce93b908eebe04",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_burnt_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "5dfec1861ef0c772a7c45cc54044e82d03f455a4c4f7e9a61a2ed69197a576e9",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_burnt_right_00.png",
+      "source_sha256": "8344c9ebcd601edd74b07d02b813074674f682c298fa0ac7b319a21f4a7b34fc",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_burnt_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "661d5a2c344145b6ed051f9746d54b7af2872f5b6914c7cfc417d0284c2420e9",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_scarred_hard_left_00.png",
+      "source_sha256": "5ba39f84ec613d5cce4f0771d3febcdb1d0469d3827bef7ee1b04d6e1c218de4",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 45,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_scarred_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "52518cf2905239335018208f023d81c2430c8f71d4f91f54a2369aef30771c6a",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_scarred_hard_right_00.png",
+      "source_sha256": "4d8b26fa1d950a7eda9746002afe739832a7697167d3e7c38600c684ea9e2e1c",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_scarred_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "45a3b8d926ec915b5d828f3db648e4235cc6a9453b55fedf2dcada5a3065cdd3",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_scarred_left_00.png",
+      "source_sha256": "b64fde4446e93c3e5ec3d9b9eea255b3b2bb6dfda3fc26e23a69ca16d3877553",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_scarred_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "9f218f08d2a3158c08d778e9712783576b3b1a362456e38d725ebeecccbee1a4",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_scarred_neutral_00.png",
+      "source_sha256": "8b697eaffa67365a0e7463d7a41f54d5db5cef28e06515009c0b4f586fc88932",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_scarred_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "acbc2684346184d3a85a653ee0d9a2c2ceb475d297bf78e4b1b9bb98eb738485",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_bomber_scarred_right_00.png",
+      "source_sha256": "881fe7b102edc13e93169def3fb396957e01421b946301843a45c21efc3736a7",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_bomber_scarred_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "0a413b08fd96750db0859d565bcd05ccb7f646e574741d8c41edead219baa0c5",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_burnt_hard_left_00.png",
+      "source_sha256": "56884d12ec304b35b55558a1ab709296b0f74ee2510760bbc5d589f3385e2b05",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 35,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_burnt_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "f378fc165341f0d4079bfd992bba6b8a9626e8e50747f3979457aa80b73881c4",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_burnt_hard_right_00.png",
+      "source_sha256": "6ee9f90b9e2823973b0ae3fdfa8d859eb0f049c0fec12f53bd61c0bf2630003b",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_burnt_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "59dfed368f4da5f87f1641695cbe0698d0d438f89e43dddd8feb0b828f444221",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_burnt_left_00.png",
+      "source_sha256": "50285298800e38469340c8680f7a0e1cddf53dc65c370ae7aa3bbdffeb610e94",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_burnt_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "0d8880382ab24643e0269982b565cf93945932450129d07f030659ea31f64dce",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_burnt_neutral_00.png",
+      "source_sha256": "12261468cf525616fe637d14414d21c4b40218f18763690716b284138f9b12f6",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_burnt_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "b6e5cf7a662f842aed45e85decdceb965644ad1095568d82024fad5e45a15ded",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_burnt_right_00.png",
+      "source_sha256": "4b5d6e1efd533df49a57f5dd0d265c0a1744d8bb59ec231acbb9c2f86d50524c",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_burnt_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "766d611609afe5d788415a99f242939b2d989b437d12b1e7bf0c30ee0cf02561",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_scarred_hard_left_00.png",
+      "source_sha256": "d6eef9e7ebafa89e5150090bf4808a14aee8184f6744539c81bf1003e4e0bfcd",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 35,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_scarred_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "f33feb8e1cc5a2d1d578716938a3a2edbc0b9d1e11eb439b2ed3d3c78fe38f0e",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_scarred_hard_right_00.png",
+      "source_sha256": "9aa5227563fe56daa2572882b6081ac1af3f083a6913a08907b955a7387a3996",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_scarred_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "b524a85ad5c37c197bf57e22ce4f1579dcc6dffea879fedf0ca13882b6ee4384",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_scarred_left_00.png",
+      "source_sha256": "0d654ed20fe1e5c4236c2fc6a15753196128ceb1d39a8c355127f271d8ccb6a2",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_scarred_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "3dc10e5068609a04c72d9879e5d79043539e8f1d8db9b628cc738230bd2a2556",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_scarred_neutral_00.png",
+      "source_sha256": "13415da8b5a41f6fd26b5315a076ec1c964d1853c03ca2ca565a4b079e5d8e5a",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_scarred_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "ca2ca9ffc2621d82d632705d9193df2a88bd27ee8d894d141a3abf8685b4d24f",
+      "alias_of": null
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\emp_disruptor_fighter_scarred_right_00.png",
+      "source_sha256": "7848f3c13adc6edc16c490926fc39b063ff7378ef550ac52a760fa0d262b5a76",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "emp_disruptor_fighter_scarred_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "73ff9258149e79eb3a389b85ab09061b39923ba62354b0255a7b200eba87f0f2",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_burnt_hard_left_00.png",
+      "source_sha256": "973a982ab4d94e6f2e60b3cd8c691cb7d246acb732973751fbef0e7421b5e565",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 45,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_burnt_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "c49e2bdc094024558a708bc2cb6d3ec8677c74a918abb65d87551690ec8ae414",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_burnt_hard_right_00.png",
+      "source_sha256": "e4f5355c38c7d4f3ef30ff9156bebc57257d416a7faacb63f8d000058fe12654",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_burnt_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "bc95a4dcbcd0bb7a6a9c1d872431ac62d0cebf7b3e800a2443199f8b882b97d1",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_burnt_left_00.png",
+      "source_sha256": "401da56a5b0e6e5261989e5d0ea35b9a77c8d0c99a8354bd21a67e5980751555",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_burnt_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "1bc2cbcd3bf04adab15cfc746cbd3626f907b55ef2e364a88c01b2ee64262c9b",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_burnt_neutral_00.png",
+      "source_sha256": "1ed4b8b279d70abe6e0378423efc30a234d221b4885bff442f4fe24b9d493e1e",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_burnt_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "163c5050aaccdb699890bf6c6931db0dae4cbf16d44551c870190ca9648370a8",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_burnt_right_00.png",
+      "source_sha256": "52fae1ed009d5f74dd9753f53f3125d34c60a8f37f7e30074bc9782de35690a6",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_burnt_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "fdfba593174b1499fbc162b86d980532fc116429abc79d16a40339111dc87a5e",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_scarred_hard_left_00.png",
+      "source_sha256": "ab3fdcbf77d85049412a1a4c97260e20fc0e811f046ac0cbe9f5794260159115",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 45,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_scarred_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "7d5cd98c5db58623a30a350fc75f5876c8f777c54c5d931048e80dedabfb41ae",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_scarred_hard_right_00.png",
+      "source_sha256": "6af61669fb90a9f4639b81ce6fc35bea290c4a2c2da45b49e79c5461932deba4",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_scarred_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "f570cfe16b64d8bf773e5dcae281f2718797440d9b29ab1e4cae1ff60755ab74",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_scarred_left_00.png",
+      "source_sha256": "bb8f1523c801969d4624635a8bf9bc8eea6da346ee4af77628ee47e331b7ec10",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_scarred_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "4aecf4bf9376233894e6fd5e0f1d82e021990e6fe6faf237ced0015ba1f90411",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_scarred_neutral_00.png",
+      "source_sha256": "873a15ed9032f037e799b721a82b5ec8da639bb6b98dc646676fbda55bcf80d3",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_scarred_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "742fcaf9b89953ec4fd66b7e091e3c0036291de7f2206c64f5d4882058486c05",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_bomber_scarred_right_00.png",
+      "source_sha256": "30cba6b1e2e0312ca0f4186af13c54eee2ec1c2a462149a647b44db163c359dd",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_bomber_scarred_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "0340f91315850cfd0fe4b6367cee50c05b123556c34de66ee4221b905e2e5b70",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_burnt_hard_left_00.png",
+      "source_sha256": "664eb9a648a7a9420782c9f82654d9799c07bbb14d8830324594446aa660d860",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 35,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_burnt_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "a6ce0db6c2aa921aaba4deed06fe8acbb48ed2f79140c9fc392a6c041e8f6055",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_burnt_hard_right_00.png",
+      "source_sha256": "f81807c3e3df0defe9772325567885605737c64179ced9a8a9d48669202f069d",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_burnt_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "c61ce2400784738963fe188ff4c6324039378e6b057fe37212afc9a890cf6c3c",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_burnt_left_00.png",
+      "source_sha256": "e74e24660142b669c8263112667d0eb253735e9cf9db55ad5cb558ee90b4e68f",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_burnt_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "26291a256763d3c467a664f8673e1185ec00a48b92f221962cd59283a178f9cc",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_burnt_neutral_00.png",
+      "source_sha256": "17c0e268a37e51b32f0e18afe7f8a1886d1fa6270cea870062f600652e5844de",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_burnt_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "a4f07a0f04bbd5b9f7817ab2620e69b934da25cd788d8f311765b9891d40ffff",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_burnt_right_00.png",
+      "source_sha256": "5acd1a4a506dd613ccb404dcba80a35a570feb03442b6ed90bb3c6ba8a094421",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_burnt_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "0ac7def2071460cf6c6e608b379be936651064125b31c7b8ff81f6382a8475d4",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_scarred_hard_left_00.png",
+      "source_sha256": "0a799b213ff915f080154b237fa0f0ef6067174e29398ab80815fd71c00edf1a",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 35,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_scarred_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "9c0a6825739fed4a9e0f34a6f0790470b40bab16f5116a0c9d01ea02b7d33c88",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_scarred_hard_right_00.png",
+      "source_sha256": "9abc703d4811e87883ae1cb1c50267f6e722d08c27a7d1c42a99a8193c1dd818",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_scarred_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "c63c197c817b67c3df73b1452f47948601bfdd8457029dae4d5aed8185462d5a",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_scarred_left_00.png",
+      "source_sha256": "e35e32c319100cb6fd87396af90f5eed62dee8d716a2e752867d3560da4fa6f4",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_scarred_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "c17e191243202b7dc1025555ae3296100c129aa439d307ae23cae32c2f6438b7",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_scarred_neutral_00.png",
+      "source_sha256": "bcfdae2cf13bc133eea79d509b4ab259bda99ff740ac760356d99e1f1c7fddd9",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_scarred_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "3584324511793da1bf16bac5e59f0866a137ea612e6412c83d3b9c20be2b1186",
+      "alias_of": null
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\magnetic_screen_fighter_scarred_right_00.png",
+      "source_sha256": "9efa86c79c891e26f55e6b5adab550674ee68565edfe45aac8d602f831695ca0",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "magnetic_screen_fighter_scarred_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "7dcc62ac1fae6eed2118bf65390b673680aab3cb9a77c24a14b9e59380132177",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_burnt_hard_left_00.png",
+      "source_sha256": "ace351f967c5ca7e743610896d4851d5d70f5fd0b1e4ebb2a253bfdbc2675d35",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 45,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_burnt_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "6e05034f48ac11188e4cc5092795f34ccd948668a3e001683932c01ed5dbe724",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_burnt_hard_right_00.png",
+      "source_sha256": "931a704c0934b35457903a75043221daa9ea73be3413be5514393bafafe5a3dc",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_burnt_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "5dc23e71e895dcb1263e4e930f769247f1a71e2e29bca3b1adb46ed749c7d8a0",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_burnt_left_00.png",
+      "source_sha256": "25bd60731b9a968bdfd903b1401a6142f9b99170b000826a664be02e05158049",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_burnt_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "1890608b4ffc77acbff05a4f7a0ad4f6462887c7f028f2ad6b217de888358904",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_burnt_neutral_00.png",
+      "source_sha256": "70ea88c026309751b38858a5c30d7596ee9768301480869edfb0ac9333d992f3",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_burnt_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "431f708a8bfe4565c2bb23c979d4112d2d7a3556a3970ee8314063b5ee28192a",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_burnt_right_00.png",
+      "source_sha256": "c8f946410587facba2514873cc64797d284ea973af1653db4055cddb93663f17",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_burnt_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "86ec845de0eaebfbb65ae42a6f380a29755e56526de34770b146392e00931a29",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_scarred_hard_left_00.png",
+      "source_sha256": "d2a9b7d2c301202ead81f1961285df97f61937e397202f6844d6f90db1f79e3b",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 45,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_scarred_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "6c4df945125f054a55c701b4c3b487a7a0d46673eafc3e3a2eed39a7d3dfcea2",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_scarred_hard_right_00.png",
+      "source_sha256": "f16b5f0bfe47d76fcf8ca07f94e1c4f70ea4182cd3a9d7acfbfcb0c1c4263d53",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_scarred_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "d40009fe655e3346f5b62c7e3b1747b043a34a64b475219eb353e8567972cf0d",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_scarred_left_00.png",
+      "source_sha256": "d6a143ffa89106943f040d14eb0be59e745f739aab42f51fab7079ca08718185",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_scarred_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "18deb8440706d053223c1190adfcd23f7f6eb235c935c5cef51c5b0329677695",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_scarred_neutral_00.png",
+      "source_sha256": "f531fdbd318b5427909a19fe8781aafeb0ee375c0dccc8670229d14d1ec5c145",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_scarred_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "6c980c5cc058d24132428926e510522ff493e76e44b8db5b2660046829d89e4f",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_bomber_scarred_right_00.png",
+      "source_sha256": "7153cee879d97377d8c53f30493275df288d5dc5a15426ef473a606f8d777000",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 46,
+      "height": 67,
+      "trim_x": 9,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 9,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_bomber_scarred_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "0f01dc0f416f0daefd0eb01708ea43171018fe2568a08d6648b8b7b6b1e0731b",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_burnt_hard_left_00.png",
+      "source_sha256": "7c251fdda6b96850be05cf9eba380006bcc0dd01060352119314af38567efb05",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 35,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_burnt_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "85371f35491bd6fde4e8945fc145f524de33560f5fd53e821cab37f70be7916d",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_burnt_hard_right_00.png",
+      "source_sha256": "e47a788a354a0b21185e25fda39822098b4e23cc5e2f2ec9d203985cab7a5b28",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_burnt_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "bce07ad6cbc1443e19da4b3e4c18f8aaebdc0877be198f6fc8da12d0cc64f0bb",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_burnt_left_00.png",
+      "source_sha256": "e048ba0acefdcb74e72fab65d622ecd04797794651866c5287e4cb73bdd3ae9f",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_burnt_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "e8b348e8835b9f11be81bb8ab120c60915afc98f81b424c2053f1ff42df470ee",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_burnt_neutral_00.png",
+      "source_sha256": "b7f188ae2fdc1e79a2d3f9a0dd8f3b4938c13b2a6498c4a2475430aa878b15fd",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_burnt_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "09342437baa20c5665f00503e72440da61c7d6b38077be8ab70599f3a18517ed",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_burnt_right_00.png",
+      "source_sha256": "e946582dc5cd9782001450947224247a78b8a834916345d92d49a925535dcc23",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_burnt_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "135aa359973a5aabbabbd5657984cd07688e0e4e81e3dc733c4920a0c99b81e0",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_hard_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_scarred_hard_left_00.png",
+      "source_sha256": "5092599f4e2449baa9a9bd496c38debbc55a032c1e4ed254f8760e9340bc7fc7",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 35,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_scarred_hard_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "e87cde2dddb6893b134b4852542c3ed6c48c93c20a9c5ae9d08391f905761078",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_hard_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_scarred_hard_right_00.png",
+      "source_sha256": "2ab456e6fc15e84abd43e3745e9229bcd9cd59b700e700ac94d1e30183572fe0",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_scarred_hard_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "62d9d5eaee5f17ec73ce067911a96b608353212407f7a9139a8bd3563c64d59a",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_left_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_scarred_left_00.png",
+      "source_sha256": "d5d515287d24c1c5636dba5412fc67ada4e63829a958042a1410701f0504501d",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_scarred_left",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "1086335d0ece98d8a3d211f0348abc3a4e9d77d5d91acf0b34bdb9ccfdc65473",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_neutral_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_scarred_neutral_00.png",
+      "source_sha256": "3daefc812717267f5280470ce96f8b865d508fb80543159c73c6b7b3f186dbf7",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_scarred_neutral",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "e3108548be876ec560d164b26ec57d440c55c2b9681cb58e5464f61636369bd0",
+      "alias_of": null
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_right_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_module_damage_v1\\sprite_input\\point_defence_pod_fighter_scarred_right_00.png",
+      "source_sha256": "5b5250e36e997528cd92dcf1de53f120420a3c6d7bef1dadd28d66b9ed80e192",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 34,
+      "height": 67,
+      "trim_x": 15,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 15,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "point_defence_pod_fighter_scarred_right",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "4cca61c4de85153d68a20c3db028d37a83efd2c64880c18e7220fe1ba702706d",
+      "alias_of": null
+    }
+  ],
+  "animations": [
+    {
+      "name": "emp_disruptor_bomber_burnt_hard_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_burnt_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_hard_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_burnt_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_burnt_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_neutral",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_burnt_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_burnt_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_hard_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_scarred_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_hard_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_scarred_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_scarred_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_neutral",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_scarred_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_bomber_scarred_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_hard_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_burnt_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_hard_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_burnt_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_burnt_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_neutral",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_burnt_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_burnt_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_hard_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_scarred_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_hard_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_scarred_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_left",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_scarred_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_neutral",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_scarred_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_right",
+      "frames": [
+        {
+          "frame": "emp_disruptor_fighter_scarred_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_hard_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_burnt_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_hard_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_burnt_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_burnt_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_neutral",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_burnt_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_burnt_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_hard_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_scarred_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_hard_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_scarred_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_scarred_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_neutral",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_scarred_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_bomber_scarred_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_hard_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_burnt_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_hard_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_burnt_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_burnt_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_neutral",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_burnt_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_burnt_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_hard_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_scarred_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_hard_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_scarred_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_left",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_scarred_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_neutral",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_scarred_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_right",
+      "frames": [
+        {
+          "frame": "magnetic_screen_fighter_scarred_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_hard_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_burnt_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_hard_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_burnt_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_burnt_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_neutral",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_burnt_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_burnt_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_hard_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_scarred_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_hard_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_scarred_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_scarred_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_neutral",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_scarred_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_bomber_scarred_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_hard_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_burnt_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_hard_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_burnt_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_burnt_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_neutral",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_burnt_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_burnt_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_hard_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_scarred_hard_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_hard_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_scarred_hard_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_left",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_scarred_left_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_neutral",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_scarred_neutral_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_right",
+      "frames": [
+        {
+          "frame": "point_defence_pod_fighter_scarred_right_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    }
+  ],
+  "atlas_pages": [
+    {
+      "index": 0,
+      "file": "vx94_module_damage.atlas.0.png",
+      "width": 133,
+      "height": 1992
+    }
+  ],
+  "atlas_frames": [
+    {
+      "name": "emp_disruptor_bomber_burnt_hard_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 1707,
+      "width": 45,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_hard_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 429,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 500,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_neutral_00",
+      "page": 0,
+      "x": 3,
+      "y": 3,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_burnt_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 571,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_hard_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 1778,
+      "width": 45,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_hard_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 642,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 713,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_neutral_00",
+      "page": 0,
+      "x": 3,
+      "y": 74,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_bomber_scarred_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 784,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_hard_left_00",
+      "page": 0,
+      "x": 59,
+      "y": 74,
+      "width": 35,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_hard_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 571,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_left_00",
+      "page": 0,
+      "x": 53,
+      "y": 642,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_neutral_00",
+      "page": 0,
+      "x": 52,
+      "y": 1849,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_burnt_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 713,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_hard_left_00",
+      "page": 0,
+      "x": 59,
+      "y": 145,
+      "width": 35,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_hard_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 784,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_left_00",
+      "page": 0,
+      "x": 53,
+      "y": 855,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_neutral_00",
+      "page": 0,
+      "x": 52,
+      "y": 1920,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "emp_disruptor_fighter_scarred_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 926,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_hard_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 1849,
+      "width": 45,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_hard_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 855,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 926,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_neutral_00",
+      "page": 0,
+      "x": 3,
+      "y": 145,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_burnt_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 997,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_hard_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 1920,
+      "width": 45,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_hard_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 1068,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 1139,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_neutral_00",
+      "page": 0,
+      "x": 3,
+      "y": 216,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_bomber_scarred_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 1210,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_hard_left_00",
+      "page": 0,
+      "x": 59,
+      "y": 216,
+      "width": 35,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_hard_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 997,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_left_00",
+      "page": 0,
+      "x": 53,
+      "y": 1068,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_neutral_00",
+      "page": 0,
+      "x": 92,
+      "y": 1849,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_burnt_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 1139,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_hard_left_00",
+      "page": 0,
+      "x": 59,
+      "y": 287,
+      "width": 35,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_hard_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 1210,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_left_00",
+      "page": 0,
+      "x": 53,
+      "y": 1281,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_neutral_00",
+      "page": 0,
+      "x": 92,
+      "y": 1920,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "magnetic_screen_fighter_scarred_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 1352,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_hard_left_00",
+      "page": 0,
+      "x": 52,
+      "y": 1707,
+      "width": 45,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_hard_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 1281,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 1352,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_neutral_00",
+      "page": 0,
+      "x": 3,
+      "y": 287,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_burnt_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 1423,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_hard_left_00",
+      "page": 0,
+      "x": 52,
+      "y": 1778,
+      "width": 45,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_hard_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 1494,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_left_00",
+      "page": 0,
+      "x": 3,
+      "y": 1565,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_neutral_00",
+      "page": 0,
+      "x": 3,
+      "y": 358,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_bomber_scarred_right_00",
+      "page": 0,
+      "x": 3,
+      "y": 1636,
+      "width": 46,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_hard_left_00",
+      "page": 0,
+      "x": 59,
+      "y": 358,
+      "width": 35,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_hard_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 1423,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_left_00",
+      "page": 0,
+      "x": 53,
+      "y": 1494,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_neutral_00",
+      "page": 0,
+      "x": 53,
+      "y": 429,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_burnt_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 1565,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_hard_left_00",
+      "page": 0,
+      "x": 53,
+      "y": 500,
+      "width": 35,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_hard_right_00",
+      "page": 0,
+      "x": 53,
+      "y": 1636,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_left_00",
+      "page": 0,
+      "x": 91,
+      "y": 571,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_neutral_00",
+      "page": 0,
+      "x": 59,
+      "y": 3,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "point_defence_pod_fighter_scarred_right_00",
+      "page": 0,
+      "x": 92,
+      "y": 500,
+      "width": 34,
+      "height": 67,
+      "extrude": 1
+    }
+  ]
+}

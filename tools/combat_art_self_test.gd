@@ -421,6 +421,14 @@ func _test_visual_language() -> void:
 			var overlay := load("res://assets/runtime/enemies/boss_animation/%s/%s.png" % [boss_id, overlay_name])
 			_expect(overlay is Texture2D and overlay.get_size() == mercenary_boss_sizes[boss_id], "mercenary boss phase overlay should retain its registered canvas: %s/%s" % [boss_id, overlay_name])
 	_expect(source.contains("BOSS_PHASE_OVERLAYS") and source.contains('enemy.get("boss_phase", 1)') and source.contains('enemy.get("age", 0.0)') and source.contains("* 8.0"), "production bosses should use canonical boss phase and age-driven critical animation")
+	for frame_index in range(4):
+		var weak_point_cue := load("res://assets/runtime/enemies/boss_weak_point/cue_%d.png" % frame_index) as Texture2D
+		_expect(weak_point_cue != null and weak_point_cue.get_size() == Vector2(18,18), "boss weak-point cue should retain reviewed 18x18 registration: %d" % frame_index)
+	_expect(CombatArtDirector.BOSS_WEAK_POINTS.size() == 9, "all nine bosses should register their three authored physical weak points")
+	for boss_id in CombatArtDirector.BOSS_WEAK_POINTS:
+		_expect(CombatArtDirector.BOSS_WEAK_POINTS[boss_id].size() == 3, "boss should retain three documented weak-point stations: %s" % boss_id)
+	_expect(source.contains("_draw_boss_weak_points") and source.contains("boss_phase >= 3"), "phase-three bosses should reveal the authored on-hull weak-point cue")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/boss_weak_point_v1/runtime_integration.json"), "boss weak-point presentation should retain native runtime evidence")
 	var mercenary_boss_specialist_sizes := {
 		"gunship_turret":Vector2(18,24), "train_turret":Vector2(20,28), "cruiser_turret":Vector2(22,30),
 		"gunship_mount":Vector2(16,24), "train_mount":Vector2(18,28), "cruiser_mount":Vector2(20,32),
@@ -540,6 +548,38 @@ func _test_transform_presentation() -> void:
 	_expect(not source.contains("_draw_pivoted_component") and not source.contains("VX94_LAYERED"), "live VX-94 geometry must not rotate aircraft component bitmaps like paper")
 	_expect(source.contains("vx94_transform_01.png") and source.contains("vx94_transform_02.png") and source.contains("vx94_transform_03.png"), "VX-94 transformation should retain all three authored mechanical intermediate keyframes")
 	_expect(not source.contains("func _draw_transforming") and not source.contains("func _draw_rotary_cannon"), "obsolete procedural VX-94 construction should remain removed")
+	_expect(source.contains("_preload_player_transform_loadouts") and source.contains("_draw_transform_external_stores"), "ten-exposure transforms should select mounted primary hardware and retained external-store state")
+	for destination in ["bomber", "hypersonic"]:
+		for weapon_family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
+			for exposure in range(10):
+				var primary_transform := load("res://assets/runtime/craft/vx94/gameplay/transform_primary/%s_%s_%02d.png" % [destination, weapon_family, exposure]) as Texture2D
+				_expect(primary_transform != null and primary_transform.get_size() == Vector2(64,72), "mounted primary transform should retain registered exposure: %s %s %02d" % [destination, weapon_family, exposure])
+		for store_kind in ["hunter_rack", "twin_rocket_pods"]:
+			for store_state in ["loaded", "left_expended", "empty"]:
+				for exposure in range(10):
+					for layer_index in range(2):
+						var transform_store := load("res://assets/runtime/craft/vx94/gameplay/transform_stores/%s_%s_%s_%02d_%d.png" % [destination, store_kind, store_state, exposure, layer_index]) as Texture2D
+						_expect(transform_store != null and transform_store.get_size() == Vector2(64,72), "transforming store layer should retain registered exposure: %s %s %s %02d %d" % [destination, store_kind, store_state, exposure, layer_index])
+	for store_state in ["loaded", "left_released", "empty"]:
+		for exposure in range(10):
+			for layer_index in range(2):
+				var bomb_transform := load("res://assets/runtime/craft/vx94/gameplay/transform_stores/bomber_precision_bomb_%s_%02d_%d.png" % [store_state, exposure, layer_index]) as Texture2D
+				_expect(bomb_transform != null and bomb_transform.get_size() == Vector2(64,72), "transforming precision-bomb layer should retain registered exposure: %s %02d %d" % [store_state, exposure, layer_index])
+	for destination in ["bomber", "hypersonic"]:
+		for module_id in ["point_defence_pod", "emp_disruptor", "magnetic_screen"]:
+			for module_state in ["idle", "active"]:
+				for exposure in range(10):
+					var transform_module := load("res://assets/runtime/craft/vx94/gameplay/transform_modules/%s_%s_%s_%02d.png" % [destination, module_id, module_state, exposure]) as Texture2D
+					_expect(transform_module != null and transform_module.get_size() == Vector2(64,72), "transforming dorsal module should retain registered exposure: %s %s %s %02d" % [destination, module_id, module_state, exposure])
+			for damage_state in ["scarred", "burnt"]:
+				for exposure in range(10):
+					var transform_module_damage := load("res://assets/runtime/craft/vx94/gameplay/transform_module_damage/%s_%s_%s_%02d.png" % [destination, module_id, damage_state, exposure]) as Texture2D
+					_expect(transform_module_damage != null and transform_module_damage.get_size() == Vector2(64,72), "transforming module damage should retain registered exposure: %s %s %s %02d" % [destination, module_id, damage_state, exposure])
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_primary_v1/runtime_integration.json"), "primary transform runtime receipt should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_stores_v2/runtime_integration.json"), "transform store runtime receipt should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_precision_bombs_v1/runtime_integration.json"), "precision-bomb transform runtime receipt should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_dorsal_modules_v1/runtime_integration.json"), "dorsal-module transform runtime receipt should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_module_damage_v1/runtime_integration.json"), "transforming module-damage runtime receipt should exist")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	_expect(main_file != null, "main gameplay source should be readable for production-art cutover")
 	if main_file != null:
@@ -558,6 +598,14 @@ func _test_altitude_presentation() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("AltitudeRules.transition_ground_scale"), "surface targets should interpolate scale during altitude changes")
 	_expect(source.contains("_altitude_pitch_offset"), "VX-94 should receive a climb/dive pitch cue during lane changes")
+	_expect(source.contains("_altitude_pitch_state") and source.contains("_pitch_primary_cache"), "VX-94 altitude changes should select authored pitch silhouettes with the installed primary weapon")
+	for form in ["fighter", "bomber"]:
+		for pitch_state in ["dive_18", "dive_12", "dive_06", "neutral", "climb_06", "climb_12", "climb_18"]:
+			for family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
+				for hardware_state in range(4):
+					var pitch_texture := load("res://assets/runtime/craft/vx94/gameplay/pitch_primary/%s_%s_%s_%d.png" % [family, form, pitch_state, hardware_state]) as Texture2D
+					_expect(pitch_texture != null and pitch_texture.get_size() == Vector2(64,72), "weapon-mounted pitch exposure should retain registered canvas: %s %s %s %d" % [family, form, pitch_state, hardware_state])
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/pitch_relief_v3/runtime_loadout_integration.json"), "weapon-mounted pitch family should retain a source/runtime receipt")
 	_expect(source.contains('category in ["ground", "sea"]'), "ground/sea targets should be identified for altitude treatment")
 	_expect(source.contains("scale < 0.25"), "ordinary surface silhouettes should disappear when the player is effectively too high to engage them visually")
 
@@ -590,6 +638,42 @@ func _test_airframe_cues() -> void:
 				var animation_texture := load("res://assets/runtime/craft/vx94/gameplay/airframe/%s_%s_%d.png" % [form,animated_layer,frame_index])
 				_expect(animation_texture is Texture2D and animation_texture.get_size()==Vector2(64,72), "airframe animated attachment must retain reviewed VX-94 canvas: %s %s %d" % [form,animated_layer,frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/airframe_attachment_manifest.json"), "VX-94 layered airframe attachment manifest should exist")
+	var combat_source := FileAccess.get_file_as_string("res://scripts/combat_art_director.gd")
+	_expect(combat_source.contains("_preload_player_housings") and combat_source.contains("_player_housing_texture"), "live VX-94 rendering should select weapon hardware before drawing the banked aircraft")
+	for form in ["fighter", "bomber"]:
+		for bank in ["hard_left", "left", "neutral", "right", "hard_right"]:
+			for state in range(4):
+				var primary_housing := load("res://assets/runtime/craft/vx94/gameplay/primary_housings/%s_%s_%d.png" % [form, bank, state]) as Texture2D
+				_expect(primary_housing != null and primary_housing.get_size() == Vector2(64,72), "conventional primary housing should retain registered canvas: %s %s %d" % [form, bank, state])
+				for weapon_id in ["needle_rail", "storm_cannon", "plasma_lance"]:
+					var specialist_housing := load("res://assets/runtime/craft/vx94/gameplay/specialist_housings/%s_%s_%s_%d.png" % [weapon_id, form, bank, state]) as Texture2D
+					_expect(specialist_housing != null and specialist_housing.get_size() == Vector2(64,72), "specialist primary housing should retain registered canvas: %s %s %s %d" % [weapon_id, form, bank, state])
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/banked_primary_housings_v2/runtime_integration.json"), "conventional primary housing runtime receipt should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/specialist_housings_v2/runtime_integration.json"), "specialist primary housing runtime receipt should exist")
+	_expect(combat_source.contains("_draw_player_external_stores") and combat_source.contains("_draw_player_dorsal_module"), "live VX-94 rendering should bind external stores and defensive modules to gameplay state")
+	for form in ["fighter", "bomber"]:
+		for bank in ["hard_left", "left", "neutral", "right", "hard_right"]:
+			for kind in ["hunter_rack", "twin_rocket_pods"]:
+				var partial_state := "left_released" if kind == "hunter_rack" else "left_expended"
+				for state in ["loaded", partial_state, "empty"]:
+					for layer_index in range(2):
+						var store := load("res://assets/runtime/craft/vx94/gameplay/external_stores/%s_%s_%s_%s_%d.png" % [form, kind, state, bank, layer_index]) as Texture2D
+						_expect(store != null and store.get_size() == Vector2(64,72), "banked external store layer should retain registered canvas: %s %s %s %s %d" % [form, kind, state, bank, layer_index])
+			for module_id in ["point_defence_pod", "emp_disruptor", "magnetic_screen"]:
+				for active_state in ["idle", "active"]:
+					var module := load("res://assets/runtime/craft/vx94/gameplay/dorsal_modules/%s_%s_%s_%s.png" % [module_id, form, active_state, bank]) as Texture2D
+					_expect(module != null and module.get_size() == Vector2(64,72), "dorsal support module should retain registered canvas: %s %s %s %s" % [module_id, form, active_state, bank])
+				for damage_state in ["scarred", "burnt"]:
+					var module_damage := load("res://assets/runtime/craft/vx94/gameplay/module_damage/%s_%s_%s_%s.png" % [module_id, form, damage_state, bank]) as Texture2D
+					_expect(module_damage != null and module_damage.get_size() == Vector2(64,72), "localized module damage should retain registered canvas: %s %s %s %s" % [module_id, form, damage_state, bank])
+	for bank in ["hard_left", "left", "neutral", "right", "hard_right"]:
+		for state in ["loaded", "left_released", "empty"]:
+			for layer_index in range(2):
+				var bomb_store := load("res://assets/runtime/craft/vx94/gameplay/external_stores/bomber_precision_bomb_%s_%s_%d.png" % [state, bank, layer_index]) as Texture2D
+				_expect(bomb_store != null and bomb_store.get_size() == Vector2(64,72), "precision-bomb store layer should retain registered canvas: %s %s %d" % [state, bank, layer_index])
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/banked_external_stores_v2/runtime_integration.json"), "external store runtime receipt should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/dorsal_modules_v1/runtime_integration.json"), "dorsal module runtime receipt should exist")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/module_damage_v1/runtime_integration.json"), "module damage runtime receipt should exist")
 
 func _test_combat_fx() -> void:
 	var file := FileAccess.open("res://scripts/combat_fx_director.gd", FileAccess.READ)
@@ -689,12 +773,13 @@ func _test_projectile_art() -> void:
 		_expect(source.contains("Vector2(-1,0)") and source.contains("Color(0.01,0.02,0.03,0.78)"), "authentic projectile mode should retain a one-pixel ink trap over light and dark terrain")
 		_expect(source.contains('Color("ffb278")') and source.contains('Color("b8f4ff")'), "enhanced projectile mode should remain a stronger ownership tint")
 		_expect(not source.contains("draw_circle(position") and not source.contains("draw_arc(position"), "live projectile bodies should not retain generic vector circles")
-	var families := ["ballistic", "enemy_cannon", "homing_missile", "needle_rail", "plasma_lance", "support_rocket", "strategic_warhead", "precision_bomb"]
+	var families := ["ballistic", "enemy_cannon", "homing_missile", "needle_rail", "storm_pulse", "plasma_lance", "support_rocket", "strategic_warhead", "precision_bomb"]
 	for family in families:
 		for frame_index in range(4):
 			var frame := load("res://assets/runtime/effects/projectiles/%s/%d.png" % [family, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == Vector2(16,24), "projectile frame should retain registered 16x24 geometry: %s/%d" % [family, frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/effects/projectiles/projectile_asset_manifest.json"), "projectile source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/effects/storm_pulse_v2/runtime_integration.json"), "Storm pulse should retain its reviewed runtime integration receipt")
 	_expect(FileAccess.file_exists("res://assets/source/effects/combat_fx_v2/combat_fx_v2_manifest.json"), "combat FX v2 source/runtime contract should exist")
 	var strike_source := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)
 	_expect(strike_source != null, "strike ordnance director should be readable for bomb-art checks")
@@ -761,10 +846,10 @@ func _test_persistent_effect_art() -> void:
 	var afterburner := FileAccess.open("res://scripts/afterburner_cue_director.gd", FileAccess.READ)
 	if afterburner != null:
 		var source := afterburner.get_as_text()
-		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"'), "hypersonic thrust should use authored compression plumes and contrails")
+		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"') and source.contains('frame_for_clock("hypersonic_blue_plume"'), "propulsion should separate ordinary afterburner, hypersonic blue plumes and contrails")
 		_expect(source.contains('frame_for_ratio("sonic_boom"'), "sonic transition should use the authored broken pressure front")
 		_expect(source.contains("Vector2(roundf(lerpf(76.0, 236.0, t)), roundf(lerpf(38.0, 92.0, t)))"), "player sonic break should expand as a shallow transverse pressure front instead of a square ghost-wing exposure")
-		_expect(source.contains('frame_for_ratio("hypersonic_ignition"') and not source.contains("draw_circle"), "hypersonic latch should use the registered paired-engine ignition sequence instead of programmer-art circles")
+		_expect(source.contains('"hypersonic_engine_burst"') and source.contains("ENGINE_BURST_FRAME_ENDS") and not source.contains("draw_circle"), "hypersonic latch should use the registered timed engine burst instead of programmer-art circles")
 		_expect(not source.contains("surface.draw_arc(scene.get(\"player_position\")"), "sonic boom should not regress to a perfect vector circle")
 
 func _test_destruction_reward_art() -> void:
@@ -802,6 +887,16 @@ func _test_mount_map() -> void:
 	_expect(by_id.has("wing_root_left") and "fighter" in by_id["wing_root_left"].get("forms", []), "wing-root cannon should be fighter mount")
 	_expect(by_id.has("centerline_emitter") and "rail" in by_id["centerline_emitter"].get("roles", []), "specialist rail/energy systems should retain centreline emitter")
 	_expect(by_id.has("ventral_strike_bay") and "precision_bomb" in by_id["ventral_strike_bay"].get("roles", []), "precision bombing should use ventral strike bay")
+	for bay_state in ["bay_closed", "bay_opening", "bay_open"]:
+		var bay_texture := load("res://assets/runtime/craft/vx94/gameplay/ventral_bay/%s.png" % bay_state) as Texture2D
+		_expect(bay_texture != null and bay_texture.get_size() == Vector2(64,72), "VX-94 ventral bay state should retain full gameplay registration: %s" % bay_state)
+	var player_art_source := FileAccess.get_file_as_string("res://scripts/combat_art_director.gd")
+	_expect(player_art_source.contains("_draw_player_ventral_bay") and player_art_source.contains("--capture-ventral-bay="), "VX-94 precision ordnance should expose authored ventral-bay runtime states")
+	_expect(not player_art_source.contains('kind = "precision_bomb"'), "precision bombs should no longer be rendered as exposed external stores")
+	for strategic_state in ["strategic_closed", "strategic_opening", "strategic_open"]:
+		var strategic_texture := load("res://assets/runtime/craft/vx94/gameplay/strategic_bay/%s.png" % strategic_state) as Texture2D
+		_expect(strategic_texture != null and strategic_texture.get_size() == Vector2(64,72), "VX-94 strategic bay state should retain full gameplay registration: %s" % strategic_state)
+	_expect(player_art_source.contains("_draw_player_strategic_bay") and player_art_source.contains("--capture-strategic-bay="), "Micro-Warhead Rack should expose authored strategic-bay runtime states")
 	_expect(by_id.has("dorsal_module") and "emp" in by_id["dorsal_module"].get("roles", []), "electronic systems should have dorsal module location")
 	var schematic := FileAccess.open("res://scripts/loadout_schematic_director.gd", FileAccess.READ)
 	_expect(schematic != null, "loadout schematic should be readable")
@@ -811,7 +906,7 @@ func _test_mount_map() -> void:
 		_expect(source.contains("player_mounts.json"), "schematic should consume the authored physical mount map")
 		_expect(source.contains("FIGHTER") and source.contains("BOMBER / ATTACK"), "schematic should compare both variable-geometry planforms")
 		_expect(source.contains("VX94_PLANFORMS") and source.contains("vx94_fighter_v1.png") and source.contains("vx94_bomber_v1.png"), "stores schematic should use the reviewed VX-94 planform masters")
-		_expect(source.contains("texture.get_size() * 2.25"), "schematic planforms should align with the 2.25x physical mount-coordinate map")
+		_expect(source.contains("texture.get_size() * 1.5") and source.contains("float(raw[0]) * 1.5"), "schematic planforms and physical mount coordinates should share the reviewed 1.5x scale")
 		_expect(not source.contains("draw_colored_polygon"), "stores schematic should not retain prototype vector aircraft")
 		_expect(source.contains("MOUNT_SOCKET") and source.contains("MOUNT_SOCKET_ACTIVE") and source.contains("HARNESS_ACTIVE"), "stores schematic should use authored station sockets and wiring harness sprites")
 		_expect(not source.contains("draw_rect") and not source.contains("draw_line"), "stores schematic should not regress to vector station boxes or leader lines")

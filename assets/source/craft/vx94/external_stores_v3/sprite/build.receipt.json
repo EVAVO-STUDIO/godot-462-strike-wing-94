@@ -1,0 +1,586 @@
+{
+  "schema_version": 1,
+  "manifest": "vx94_external_stores.manifest.json",
+  "files": [
+    {
+      "path": "aligned/bomber_hunter_rack_empty_00.png",
+      "size": 3887,
+      "sha256": "aa0f9ed703e353b6d9bbd9ec64a6e8cb359ee50a86ae4e5e280ecec39ca72132"
+    },
+    {
+      "path": "aligned/bomber_hunter_rack_left_released_00.png",
+      "size": 3976,
+      "sha256": "8fa1c8b8b09a323f52124e3cb15be7ce2a72c10d5ab42b739edc2b8ff613e7bb"
+    },
+    {
+      "path": "aligned/bomber_hunter_rack_loaded_00.png",
+      "size": 4014,
+      "sha256": "2c0560e800b8f691209f048b41c3dec07b23b4f9ac767076ce697b489b1064d8"
+    },
+    {
+      "path": "aligned/bomber_precision_bomb_empty_00.png",
+      "size": 3887,
+      "sha256": "aa0f9ed703e353b6d9bbd9ec64a6e8cb359ee50a86ae4e5e280ecec39ca72132"
+    },
+    {
+      "path": "aligned/bomber_precision_bomb_left_released_00.png",
+      "size": 3925,
+      "sha256": "ffdc11b414ce2f16144fc9866c47402cd5a688a2abdcb6b1b854bad515505334"
+    },
+    {
+      "path": "aligned/bomber_precision_bomb_loaded_00.png",
+      "size": 3986,
+      "sha256": "3ae05848be321a2de4333c4c5ad8f6b10d3d46ad49e88871097e6058fbc93c10"
+    },
+    {
+      "path": "aligned/bomber_twin_rocket_pods_empty_00.png",
+      "size": 3992,
+      "sha256": "632f4dbd08b9e3db16c5cab593c07df2288d839b243797dc0f6bd545cf519ffc"
+    },
+    {
+      "path": "aligned/bomber_twin_rocket_pods_left_expended_00.png",
+      "size": 4028,
+      "sha256": "9c4e4119ea17bb7ce4437639ad16f1ca38228b22aafd1d7c778206e4bca1c9c8"
+    },
+    {
+      "path": "aligned/bomber_twin_rocket_pods_loaded_00.png",
+      "size": 4006,
+      "sha256": "94d7dc4c1333f8ea9769f65422ab3aca71284582741c84bf5e9f161fa0a2562f"
+    },
+    {
+      "path": "aligned/fighter_hunter_rack_empty_00.png",
+      "size": 3238,
+      "sha256": "85724b512ac1aa07a03ee472bf8c52495881e11e07677c9c43749dab706f5a78"
+    },
+    {
+      "path": "aligned/fighter_hunter_rack_left_released_00.png",
+      "size": 3298,
+      "sha256": "6e4d3b60ec8e2914b92ea56cabdc70480c2ca79b92da96b61d4a61561dfdd8bb"
+    },
+    {
+      "path": "aligned/fighter_hunter_rack_loaded_00.png",
+      "size": 3318,
+      "sha256": "d14199ab756c865ea38c73bfa4515cbf2adaed510f9014c28e1b4a2c93ff9027"
+    },
+    {
+      "path": "aligned/fighter_twin_rocket_pods_empty_00.png",
+      "size": 3313,
+      "sha256": "ea0d74b02f2e28b840aa7df3a0e5182609f2205a774ab4cf0672f0ce0eca0ae6"
+    },
+    {
+      "path": "aligned/fighter_twin_rocket_pods_left_expended_00.png",
+      "size": 3339,
+      "sha256": "503c5249807d2e3716dd5c777504fcbdacfc537f42f2b95475f751841502f57d"
+    },
+    {
+      "path": "aligned/fighter_twin_rocket_pods_loaded_00.png",
+      "size": 3325,
+      "sha256": "9d969e4747cad4cd2f1fee9389944368800c6d9d755abaac743b7718155f6bd4"
+    },
+    {
+      "path": "frames/bomber_hunter_rack_empty_00.png",
+      "size": 3865,
+      "sha256": "962709db654674c327af3755df0e334d0b4e4998c8ffaa3c33566f0ab3593730"
+    },
+    {
+      "path": "frames/bomber_hunter_rack_left_released_00.png",
+      "size": 3947,
+      "sha256": "17a9aae9b34464b0d761066df9ac447016baa06f7dcb3603cbeb10b57d778ca7"
+    },
+    {
+      "path": "frames/bomber_hunter_rack_loaded_00.png",
+      "size": 3988,
+      "sha256": "d24544031b642c529161fbfae50b15b872332dbe2b8139e7dca798cc6d51684c"
+    },
+    {
+      "path": "frames/bomber_precision_bomb_empty_00.png",
+      "size": 3865,
+      "sha256": "962709db654674c327af3755df0e334d0b4e4998c8ffaa3c33566f0ab3593730"
+    },
+    {
+      "path": "frames/bomber_precision_bomb_left_released_00.png",
+      "size": 3902,
+      "sha256": "cecbc272752d78d08da222278681df1521fc596691c0c827331f192181706854"
+    },
+    {
+      "path": "frames/bomber_precision_bomb_loaded_00.png",
+      "size": 3950,
+      "sha256": "520edf4ae9de0942949533644cf78c29a0fbad86a80fd36be908710325be4388"
+    },
+    {
+      "path": "frames/bomber_twin_rocket_pods_empty_00.png",
+      "size": 3957,
+      "sha256": "e433c7837041a737f680a1b9762f183342a799edaf4592310fc9c14ebaf920c3"
+    },
+    {
+      "path": "frames/bomber_twin_rocket_pods_left_expended_00.png",
+      "size": 3994,
+      "sha256": "873850ad1be048dc6ebe9cfb84d4d24e66f314ce5300bfe89528b3a151472829"
+    },
+    {
+      "path": "frames/bomber_twin_rocket_pods_loaded_00.png",
+      "size": 3976,
+      "sha256": "fb9a2de21e466a2f674355d9d5489707bcd32210551b23620a5e24defc7df94b"
+    },
+    {
+      "path": "frames/fighter_hunter_rack_empty_00.png",
+      "size": 3126,
+      "sha256": "86cb29e582fc809516d507cb0a290df0f2d988e2f54dd4e293caf222d914b33f"
+    },
+    {
+      "path": "frames/fighter_hunter_rack_left_released_00.png",
+      "size": 3190,
+      "sha256": "8804128d971788c17d44227dddc276bfc85a69881c7aae18981887234ab99232"
+    },
+    {
+      "path": "frames/fighter_hunter_rack_loaded_00.png",
+      "size": 3202,
+      "sha256": "ccd112b3f0d519852ee0ccf669bf972924334d66b79ff6eb2c5a8043dc063241"
+    },
+    {
+      "path": "frames/fighter_twin_rocket_pods_empty_00.png",
+      "size": 3188,
+      "sha256": "c2b33cef79e09df93689f5791c077ea23d74d08ce0797d24e6ad348631f600ce"
+    },
+    {
+      "path": "frames/fighter_twin_rocket_pods_left_expended_00.png",
+      "size": 3222,
+      "sha256": "1b389a1059df75e2cb80c51cae9d2bb6f5b662d75739c2bb4a3510272ee0dd49"
+    },
+    {
+      "path": "frames/fighter_twin_rocket_pods_loaded_00.png",
+      "size": 3207,
+      "sha256": "c31fbf91b413de959478271d64cc567ce669d0b2141e9474cffd3baab503b624"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_empty.contact.png",
+      "size": 4763,
+      "sha256": "2954796b234d2fe3d25973e07e25e91b0494cfa538325f77afa87ca2767effdf"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_empty.difference.png",
+      "size": 2134,
+      "sha256": "6ce214d695623ee8de50465d22dc037eee6d81dba09d1edf8e74a92ffe014502"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_empty.gif",
+      "size": 2239,
+      "sha256": "89d4a1a79a798424fedfb0aa40cdd1d99be5974af591b369d7dad34f9c1e9d6f"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_empty.onion.png",
+      "size": 4763,
+      "sha256": "2954796b234d2fe3d25973e07e25e91b0494cfa538325f77afa87ca2767effdf"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_empty.pivots.png",
+      "size": 4685,
+      "sha256": "53de3bd5f5cb71c51cac46109bfe9a864961dc75f6069401051fadc84d6cd77c"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_left_released.contact.png",
+      "size": 4816,
+      "sha256": "6a9e9fac3aee0368b46814684e41f52437420e2ac50046dc9c1f9ad2b36c9fb0"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_left_released.difference.png",
+      "size": 2128,
+      "sha256": "48c3d945e79e15782b7144d59dbd5719d444c5fed14ddd5167828f1576333c9d"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_left_released.gif",
+      "size": 2276,
+      "sha256": "7029608a1bace1620e6dee1fb0ff528b54c3ad3fc13f9d65e3d7717db1c48503"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_left_released.onion.png",
+      "size": 4816,
+      "sha256": "6a9e9fac3aee0368b46814684e41f52437420e2ac50046dc9c1f9ad2b36c9fb0"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_left_released.pivots.png",
+      "size": 4745,
+      "sha256": "d7fe43fa80cde2166bee9e27ad6b22db5c7be82afb6a0678338dbc7f1d970993"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_loaded.contact.png",
+      "size": 4847,
+      "sha256": "8558503fde1f35da11d401950d7f25c726c68fafce72bfbbe41846b8c8f41d3e"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_loaded.difference.png",
+      "size": 2116,
+      "sha256": "751a5ec0e936aa83d2862cb3049cb8fe822eac32d5987c21e5569bc8fe12c650"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_loaded.gif",
+      "size": 2302,
+      "sha256": "6245a62ffaa0b4a395697cbd12b4acbcd97beac1c07b3fdea08f915220bcbddd"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_loaded.onion.png",
+      "size": 4847,
+      "sha256": "8558503fde1f35da11d401950d7f25c726c68fafce72bfbbe41846b8c8f41d3e"
+    },
+    {
+      "path": "previews/bomber_hunter_rack_loaded.pivots.png",
+      "size": 4784,
+      "sha256": "da6b6a995e89e8313bea51589ed207706665d52ddd8168ad70296871a77f29b2"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_empty.contact.png",
+      "size": 4747,
+      "sha256": "a107d98202a835ce753a9e28e722157b49ba0e218fcd1daf3fc4f27b29d85bde"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_empty.difference.png",
+      "size": 2115,
+      "sha256": "a2ae9c5bb8dbc9fd2519181e7e51adf12b5f7b4bc16a76e1f18513ac7d7512b5"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_empty.gif",
+      "size": 2239,
+      "sha256": "89d4a1a79a798424fedfb0aa40cdd1d99be5974af591b369d7dad34f9c1e9d6f"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_empty.onion.png",
+      "size": 4747,
+      "sha256": "a107d98202a835ce753a9e28e722157b49ba0e218fcd1daf3fc4f27b29d85bde"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_empty.pivots.png",
+      "size": 4669,
+      "sha256": "f7aa692501493c1565b9417fe88991be6e3edaa0ba607bf6d8faa3c150166699"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_left_released.contact.png",
+      "size": 4784,
+      "sha256": "07a1cce5156cf31455a804d6a723ae3a411cdd1a7346e3ca14c6b44728b1739b"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_left_released.difference.png",
+      "size": 2098,
+      "sha256": "6226f9311a4957b38f2e99be0bb9928ce4095395ebb04b577629b0688cf68a52"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_left_released.gif",
+      "size": 2266,
+      "sha256": "c95912eed117a5e85c87df5dfa3b2a8ce20c1ed56123995c2bb8d07f3832389d"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_left_released.onion.png",
+      "size": 4784,
+      "sha256": "07a1cce5156cf31455a804d6a723ae3a411cdd1a7346e3ca14c6b44728b1739b"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_left_released.pivots.png",
+      "size": 4711,
+      "sha256": "c3b9690a455be2117f4f1f4cfeba908c0b77e89a7517f33d832b048dc84475f3"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_loaded.contact.png",
+      "size": 4797,
+      "sha256": "d8aeca8be0a61ed6fa4880772766b61cb6162ad75988a4ff094e13a66fa8950b"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_loaded.difference.png",
+      "size": 2080,
+      "sha256": "f6d6a12c04810510fa510161110ff5e04f240fefcc8025ad40fab23db349a010"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_loaded.gif",
+      "size": 2287,
+      "sha256": "7af576594f1b747cef82043ea33ac3e28b79d33f7813bce3b8d49857c53f57bc"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_loaded.onion.png",
+      "size": 4797,
+      "sha256": "d8aeca8be0a61ed6fa4880772766b61cb6162ad75988a4ff094e13a66fa8950b"
+    },
+    {
+      "path": "previews/bomber_precision_bomb_loaded.pivots.png",
+      "size": 4723,
+      "sha256": "8795d5d55187b19abad47d402f8fd2298d6693316079aab5480d1ebf3f6745f4"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_empty.contact.png",
+      "size": 4809,
+      "sha256": "d75cd82447a636eb16aaf769d1bf6b1d973df8f3cc6353bcc4f99c322877ac66"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_empty.difference.png",
+      "size": 2104,
+      "sha256": "b5601954c0e6bc7f1c17fdd38fd405e968d0ffc5a6be7560e4bb42f0ca675377"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_empty.gif",
+      "size": 2300,
+      "sha256": "c4b8bdb4248a83406383fbc935944fc13ad16189ac920e74e03001207e965ba9"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_empty.onion.png",
+      "size": 4809,
+      "sha256": "d75cd82447a636eb16aaf769d1bf6b1d973df8f3cc6353bcc4f99c322877ac66"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_empty.pivots.png",
+      "size": 4737,
+      "sha256": "8dc112a956b9ce3119475377789dde6a5f1bca0b54b3b1be3b1c99edb20121cc"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_left_expended.contact.png",
+      "size": 4839,
+      "sha256": "80ca04e9c8e7794d9ba0faa3baa72e6a81a0e65e62e2a3d8a66260c0a2a8126b"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_left_expended.difference.png",
+      "size": 2104,
+      "sha256": "b5601954c0e6bc7f1c17fdd38fd405e968d0ffc5a6be7560e4bb42f0ca675377"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_left_expended.gif",
+      "size": 2306,
+      "sha256": "46b7c9376df833a95b2885fb0550331136dc8994c81dbed133952f08da7ff3ea"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_left_expended.onion.png",
+      "size": 4839,
+      "sha256": "80ca04e9c8e7794d9ba0faa3baa72e6a81a0e65e62e2a3d8a66260c0a2a8126b"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_left_expended.pivots.png",
+      "size": 4764,
+      "sha256": "95a6a7ac2f2c42b8149498875251f953f43325700ced1075d75a650484ac3f5a"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_loaded.contact.png",
+      "size": 4833,
+      "sha256": "222fcc1f390c6a476b011f865b2570691ea32d0e2120a3d65cbb62874764002e"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_loaded.difference.png",
+      "size": 2104,
+      "sha256": "b5601954c0e6bc7f1c17fdd38fd405e968d0ffc5a6be7560e4bb42f0ca675377"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_loaded.gif",
+      "size": 2306,
+      "sha256": "ccfa165df458e827ea863e6b8042793c2e5fb8b1c4aac7333e08e583b3e25319"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_loaded.onion.png",
+      "size": 4833,
+      "sha256": "222fcc1f390c6a476b011f865b2570691ea32d0e2120a3d65cbb62874764002e"
+    },
+    {
+      "path": "previews/bomber_twin_rocket_pods_loaded.pivots.png",
+      "size": 4761,
+      "sha256": "cc59fe78978bd0ea86d1bb5054b21753324c477e048b4d43cb18546b874d253d"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_empty.contact.png",
+      "size": 3843,
+      "sha256": "172da63dcff4d1d1a5fec51c0dbf07d160e50c3136115075ea85340f0b2166c9"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_empty.difference.png",
+      "size": 1663,
+      "sha256": "1e9e340ffa2156aa2b279cc07d534af16414e275ff2addb8b95ab6cc3244d22a"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_empty.gif",
+      "size": 1997,
+      "sha256": "33d2f9e9e60e38ef2938e3acc40c237b782cd910a06e6caf6441b918dcfc40b1"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_empty.onion.png",
+      "size": 3843,
+      "sha256": "172da63dcff4d1d1a5fec51c0dbf07d160e50c3136115075ea85340f0b2166c9"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_empty.pivots.png",
+      "size": 3819,
+      "sha256": "4de99323faca3e9f8c37a3f6a6ab3fcf0105bea677f1ed3323e38707681167f3"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_left_released.contact.png",
+      "size": 3897,
+      "sha256": "3b76c34f622332a5cfb49652df7ad4dd51cbd860d180b6149fcb1b3ecb650d1f"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_left_released.difference.png",
+      "size": 1656,
+      "sha256": "5f3bda06d9aa9623cd8a56e3277aa9ea16ebf7c883389fce8d1a23b8bd91bf4f"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_left_released.gif",
+      "size": 2030,
+      "sha256": "7c4782c85f2cffec0e77eb51e7b8e343d2fdeab7a862adc699930dae4faafbc4"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_left_released.onion.png",
+      "size": 3897,
+      "sha256": "3b76c34f622332a5cfb49652df7ad4dd51cbd860d180b6149fcb1b3ecb650d1f"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_left_released.pivots.png",
+      "size": 3864,
+      "sha256": "c6fa74ff860e3dfe745f757a8948805416f1878d954d8f53dcf4f3f0cc2a4c88"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_loaded.contact.png",
+      "size": 3946,
+      "sha256": "b4362b1f4e740b9b58755e17f28c79e7b905931c625e104c93f87257e4c3f14f"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_loaded.difference.png",
+      "size": 1648,
+      "sha256": "63895a7fb4ba1e9b1b07c857d0be81b8c961f64ae02a68c071962f6f9dde5858"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_loaded.gif",
+      "size": 2052,
+      "sha256": "39ab0385572fb7db8788f71719f39a3f2f9a4cd9eab64ff34b6a7ec955875fe5"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_loaded.onion.png",
+      "size": 3946,
+      "sha256": "b4362b1f4e740b9b58755e17f28c79e7b905931c625e104c93f87257e4c3f14f"
+    },
+    {
+      "path": "previews/fighter_hunter_rack_loaded.pivots.png",
+      "size": 3913,
+      "sha256": "b08a30119873638c8911fb14670d216a1e2cd03df1e244b7e00f02d8c6be4321"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_empty.contact.png",
+      "size": 4038,
+      "sha256": "f893dd9ee680584304b97f1052bdae143ac53672d2741c1e14d10bb12c6da577"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_empty.difference.png",
+      "size": 1754,
+      "sha256": "53365c5d55359e310ee3b39dbe4d73f8125b2f39c674813596656dca72aefefa"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_empty.gif",
+      "size": 2063,
+      "sha256": "28ac1319a745becfb912a2b8e6804dd2c9133e22e66d4a7791a5103b25219851"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_empty.onion.png",
+      "size": 4038,
+      "sha256": "f893dd9ee680584304b97f1052bdae143ac53672d2741c1e14d10bb12c6da577"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_empty.pivots.png",
+      "size": 4002,
+      "sha256": "8c2b7465e932f026d67194a7c4f1b39d5a4bf8a0cddb5689c65d9995dca0dc2a"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_left_expended.contact.png",
+      "size": 4048,
+      "sha256": "cce492ed3b86e8790ec398272dbb55a79c506c00565b2f3eeca41e8a7cca8d2b"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_left_expended.difference.png",
+      "size": 1754,
+      "sha256": "53365c5d55359e310ee3b39dbe4d73f8125b2f39c674813596656dca72aefefa"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_left_expended.gif",
+      "size": 2068,
+      "sha256": "f9c87e7a91953cec42b4c5ae105e72804cd52f0c74fa079785cad8e88708dbf1"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_left_expended.onion.png",
+      "size": 4048,
+      "sha256": "cce492ed3b86e8790ec398272dbb55a79c506c00565b2f3eeca41e8a7cca8d2b"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_left_expended.pivots.png",
+      "size": 4011,
+      "sha256": "fd8452fe5a5d9c05f41738fecc232d377dd0be35915a5beb0e1464961e13a33a"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_loaded.contact.png",
+      "size": 4041,
+      "sha256": "4c4e91115181983ba980f78ba4cdbfd2b1f0f82155d3b70307a44a2eadf3490a"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_loaded.difference.png",
+      "size": 1754,
+      "sha256": "53365c5d55359e310ee3b39dbe4d73f8125b2f39c674813596656dca72aefefa"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_loaded.gif",
+      "size": 2068,
+      "sha256": "d3484adffa09ccbd082ed02c018d707ecec42c70845501fcb86d943ce141aa15"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_loaded.onion.png",
+      "size": 4041,
+      "sha256": "4c4e91115181983ba980f78ba4cdbfd2b1f0f82155d3b70307a44a2eadf3490a"
+    },
+    {
+      "path": "previews/fighter_twin_rocket_pods_loaded.pivots.png",
+      "size": 4001,
+      "sha256": "11f82cf2c31ba9ebff618f407c93a8b9d107181e7b1d2a1d162ff69587d5415c"
+    },
+    {
+      "path": "vx94_external_stores.animated_sprite.tscn",
+      "size": 367,
+      "sha256": "03146babe550fe3debd98ae28f9a06d40c94e60d6b2a93ee4a9e8657f9f4f8af"
+    },
+    {
+      "path": "vx94_external_stores.atlas.0.png",
+      "size": 15336,
+      "sha256": "0ac50cff4bb0481c8eab8beceb6db28f7ed046183f3c6908481eae7a1f1500fb"
+    },
+    {
+      "path": "vx94_external_stores.atlas.json",
+      "size": 13890,
+      "sha256": "5e7912ca61024fcf2f673ee5a2d9b5659d4e04589a6cf11eb5f37a33a533b39d"
+    },
+    {
+      "path": "vx94_external_stores.build.json",
+      "size": 8214,
+      "sha256": "54d6f3255aa116f9544e25b66bf55dce97edbcb46eb60ce5d563a0c3b5a0f894"
+    },
+    {
+      "path": "vx94_external_stores.corrections.json",
+      "size": 145,
+      "sha256": "cf46ea56412a0383facb67462062358d3aa8dfb5600e52bcd6477d486f6885d0"
+    },
+    {
+      "path": "vx94_external_stores.events.json",
+      "size": 5866,
+      "sha256": "055787dadef54deee7c0c14a220d04af53d878948c479bd4ee2468d57a6a24de"
+    },
+    {
+      "path": "vx94_external_stores.integration.json",
+      "size": 3649,
+      "sha256": "b996fbdb38c092ed39eba05cd0fb3c4513dcb903456daed4684a099289faceb5"
+    },
+    {
+      "path": "vx94_external_stores.manifest.json",
+      "size": 23632,
+      "sha256": "30e36df8080ec4e8d747bc2ae3cb86592e2e4ec99add3ec52cf6e07140b02519"
+    },
+    {
+      "path": "vx94_external_stores.qa.json",
+      "size": 713,
+      "sha256": "f5a5e409407fe7edf3e30fd6df87058f83c4598f241b7070cd2c2f03c331e61d"
+    },
+    {
+      "path": "vx94_external_stores.review.html",
+      "size": 16952,
+      "sha256": "a3bd324e040f6e7363ee4d9c386c0a5d8f3d6cffbf72b18d87e7356b1c0cb306"
+    },
+    {
+      "path": "vx94_external_stores.spriteframes.tres",
+      "size": 4936,
+      "sha256": "f73666c079f1c8c64a3be2f636bc21a6d4f244ee78f9e9c565e493c757aa3622"
+    }
+  ]
+}

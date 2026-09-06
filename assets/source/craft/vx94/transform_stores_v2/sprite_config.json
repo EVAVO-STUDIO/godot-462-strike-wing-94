@@ -1,0 +1,566 @@
+{
+  "name": "vx94_transform_stores_family",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 64,
+    "canvas_height": 72,
+    "pivot_x": 32,
+    "pivot_y": 38,
+    "padding": 0,
+    "manual_anchors": {
+      "bomber_hunter_rack_loaded_00": [
+        18,
+        34
+      ],
+      "bomber_hunter_rack_loaded_01": [
+        18,
+        34
+      ],
+      "bomber_hunter_rack_loaded_02": [
+        20,
+        34
+      ],
+      "bomber_hunter_rack_loaded_03": [
+        21,
+        34
+      ],
+      "bomber_hunter_rack_loaded_04": [
+        23,
+        34
+      ],
+      "bomber_hunter_rack_loaded_05": [
+        24,
+        34
+      ],
+      "bomber_hunter_rack_loaded_06": [
+        25,
+        34
+      ],
+      "bomber_hunter_rack_loaded_07": [
+        26,
+        34
+      ],
+      "bomber_hunter_rack_loaded_08": [
+        27,
+        34
+      ],
+      "bomber_hunter_rack_loaded_09": [
+        26,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_00": [
+        18,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_01": [
+        18,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_02": [
+        20,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_03": [
+        21,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_04": [
+        23,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_05": [
+        24,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_06": [
+        25,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_07": [
+        26,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_08": [
+        27,
+        34
+      ],
+      "bomber_hunter_rack_left_expended_09": [
+        26,
+        34
+      ],
+      "bomber_hunter_rack_empty_00": [
+        18,
+        34
+      ],
+      "bomber_hunter_rack_empty_01": [
+        18,
+        34
+      ],
+      "bomber_hunter_rack_empty_02": [
+        20,
+        34
+      ],
+      "bomber_hunter_rack_empty_03": [
+        21,
+        34
+      ],
+      "bomber_hunter_rack_empty_04": [
+        23,
+        34
+      ],
+      "bomber_hunter_rack_empty_05": [
+        24,
+        34
+      ],
+      "bomber_hunter_rack_empty_06": [
+        25,
+        34
+      ],
+      "bomber_hunter_rack_empty_07": [
+        26,
+        34
+      ],
+      "bomber_hunter_rack_empty_08": [
+        27,
+        34
+      ],
+      "bomber_hunter_rack_empty_09": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_00": [
+        18,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_01": [
+        18,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_02": [
+        20,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_03": [
+        21,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_04": [
+        23,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_05": [
+        24,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_06": [
+        25,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_07": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_08": [
+        27,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_09": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_00": [
+        18,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_01": [
+        18,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_02": [
+        20,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_03": [
+        21,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_04": [
+        23,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_05": [
+        24,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_06": [
+        25,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_07": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_08": [
+        27,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_09": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_00": [
+        18,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_01": [
+        18,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_02": [
+        20,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_03": [
+        21,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_04": [
+        23,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_05": [
+        24,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_06": [
+        25,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_07": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_08": [
+        27,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_09": [
+        26,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_00": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_01": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_02": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_03": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_04": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_05": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_06": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_07": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_08": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_loaded_09": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_00": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_01": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_02": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_03": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_04": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_05": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_06": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_07": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_08": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_left_expended_09": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_00": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_01": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_02": [
+        18,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_03": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_04": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_05": [
+        17,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_06": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_07": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_08": [
+        16,
+        34
+      ],
+      "hypersonic_hunter_rack_empty_09": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_00": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_01": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_02": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_03": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_04": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_05": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_06": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_07": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_08": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_loaded_09": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_00": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_01": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_02": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_03": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_04": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_05": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_06": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_07": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_08": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_left_expended_09": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_00": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_01": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_02": [
+        18,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_03": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_04": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_05": [
+        17,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_06": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_07": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_08": [
+        16,
+        34
+      ],
+      "hypersonic_twin_rocket_pods_empty_09": [
+        16,
+        34
+      ]
+    }
+  },
+  "qa": {
+    "strict": true
+  },
+  "animations": {
+    "bomber_hunter_rack_loaded": {
+      "fps": 18,
+      "loop": false
+    },
+    "bomber_hunter_rack_left_expended": {
+      "fps": 18,
+      "loop": false
+    },
+    "bomber_hunter_rack_empty": {
+      "fps": 18,
+      "loop": false
+    },
+    "bomber_twin_rocket_pods_loaded": {
+      "fps": 18,
+      "loop": false
+    },
+    "bomber_twin_rocket_pods_left_expended": {
+      "fps": 18,
+      "loop": false
+    },
+    "bomber_twin_rocket_pods_empty": {
+      "fps": 18,
+      "loop": false
+    },
+    "hypersonic_hunter_rack_loaded": {
+      "fps": 18,
+      "loop": false
+    },
+    "hypersonic_hunter_rack_left_expended": {
+      "fps": 18,
+      "loop": false
+    },
+    "hypersonic_hunter_rack_empty": {
+      "fps": 18,
+      "loop": false
+    },
+    "hypersonic_twin_rocket_pods_loaded": {
+      "fps": 18,
+      "loop": false
+    },
+    "hypersonic_twin_rocket_pods_left_expended": {
+      "fps": 18,
+      "loop": false
+    },
+    "hypersonic_twin_rocket_pods_empty": {
+      "fps": 18,
+      "loop": false
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "gif": true,
+    "contact_sheet": true,
+    "onion_skin": true
+  }
+}

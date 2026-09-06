@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "issues": [],
+  "metrics": {
+    "frames": 4,
+    "animations": 1,
+    "empty_frames": 0,
+    "duplicate_frames": 0,
+    "event_markers": 0,
+    "warnings": 0,
+    "errors": 0,
+    "max_area_variance": 0.0,
+    "max_brightness_range": 0.001162,
+    "max_centroid_jump": 0.0,
+    "max_loop_delta": 0.000575,
+    "max_ground_contact_shift": 0.0,
+    "max_silhouette_delta": 0.0,
+    "max_palette_distance": 0.608833,
+    "max_palette_colors": 446
+  }
+}

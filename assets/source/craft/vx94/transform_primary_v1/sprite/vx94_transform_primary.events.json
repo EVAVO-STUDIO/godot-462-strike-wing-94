@@ -1,0 +1,640 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_ballistic_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_ballistic"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_needle_rail_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_needle_rail"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_plasma_lance_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_plasma_lance"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_storm_cannon_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_storm_cannon"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_ballistic_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_ballistic"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_needle_rail_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_needle_rail"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_plasma_lance_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_plasma_lance"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_storm_cannon_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_storm_cannon"
+    }
+  ],
+  "asset": "vx94_transform_primary",
+  "schema_version": 1,
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

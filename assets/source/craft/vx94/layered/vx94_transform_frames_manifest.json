@@ -1,16 +1,22 @@
 {
-  "schema_version": 1,
-  "asset_family": "vx94_registered_transform_exposures_v1",
+  "schema_version": 2,
+  "asset_family": "vx94_registered_transform_exposures_v2",
   "builder": "res://tools/build_vx94_transform_art.ps1",
   "raster_builder": "res://tools/build_vx94_transform_frames.gd",
-  "component_source": "res://assets/runtime/craft/vx94/layered/",
+  "component_source": "res://assets/source/craft/vx94/transform_v2/components/",
   "runtime_directory": "res://assets/runtime/craft/vx94/transform/",
-  "canvas": [64, 72],
-  "anchor": [32, 38],
+  "canvas": [
+    64,
+    72
+  ],
+  "anchor": [
+    32,
+    38
+  ],
   "duration_seconds": 0.92,
   "exposures_per_family": 10,
   "families": {
-    "bomber": "fighter to broad strike geometry with mechanical settle and bay deployment",
+    "bomber": "current fighter to bomber geometry with fixed fuselage and mechanical overshoot/settle",
     "hypersonic": "fighter to deep folded-wing dart geometry"
   },
   "render_contract": [
@@ -19,5 +25,6 @@
     "component motion baked around explicit mechanical pivots",
     "no whole-aircraft or wing bitmap rotation at runtime",
     "exhaust, damage and shockwave remain separate overlays"
-  ]
+  ],
+  "source_contract": "res://assets/source/craft/vx94/transform_v2/manifest.json"
 }

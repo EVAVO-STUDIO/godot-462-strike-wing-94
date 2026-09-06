@@ -1,0 +1,11 @@
+{
+  "schema": "hypersonic_vx94_mount_projection_runtime_v1",
+  "status": "reviewed_native_runtime",
+  "scope": "Shared bank and altitude projection for primary muzzle cues, primary projectiles, support stores, and precision ordnance.",
+  "input_driven_bank_states": ["hard_left", "hard_right"],
+  "firing_samples": 4,
+  "all_cue_projectile_mounts_matched": true,
+  "representative_runtime_sha256": "B22F2E444F140446D3E332BCF5E57CF65CF0FE38F2324211079D9BFC5DD0A08F",
+  "native_evidence": "work/vx94_mount_projection_runtime/native",
+  "review_video": "outputs/HYPERSONIC-vx94-banked-fire-runtime.mp4"
+}

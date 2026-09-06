@@ -1,0 +1,111 @@
+{
+  "fighter": {
+    "hard_left": [
+      [
+        1,
+        27
+      ],
+      [
+        9,
+        25
+      ]
+    ],
+    "left": [
+      [
+        -7,
+        30
+      ],
+      [
+        3,
+        30
+      ]
+    ],
+    "neutral": [
+      [
+        -6,
+        30
+      ],
+      [
+        5,
+        30
+      ]
+    ],
+    "right": [
+      [
+        -3,
+        30
+      ],
+      [
+        5,
+        30
+      ]
+    ],
+    "hard_right": [
+      [
+        -10,
+        25
+      ],
+      [
+        -2,
+        28
+      ]
+    ]
+  },
+  "bomber": {
+    "hard_left": [
+      [
+        1,
+        26
+      ],
+      [
+        10,
+        22
+      ]
+    ],
+    "left": [
+      [
+        -4,
+        30
+      ],
+      [
+        5,
+        29
+      ]
+    ],
+    "neutral": [
+      [
+        -6,
+        30
+      ],
+      [
+        5,
+        30
+      ]
+    ],
+    "right": [
+      [
+        -7,
+        29
+      ],
+      [
+        3,
+        30
+      ]
+    ],
+    "hard_right": [
+      [
+        -12,
+        24
+      ],
+      [
+        -3,
+        27
+      ]
+    ]
+  },
+  "hard_bank_exhaust_rotation_radians": {
+    "left": -0.3,
+    "right": 0.3
+  },
+  "basis": "Original orange outlet pixels and native visual registration across ten current bank sprites; altitude pitch offset must also be applied during integration."
+}

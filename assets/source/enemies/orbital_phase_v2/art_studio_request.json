@@ -1,0 +1,535 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "hypersonic-orbital-phase-production-v2c",
+  "projectId": "hypersonic",
+  "purpose": "Rebuild four reviewed orbital boss phase families from immutable detailed mechanical components.",
+  "tasks": [
+    {
+      "id": "damage-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_cracked_plate.png"
+      ],
+      "targetPath": "machine_ark/phase_2_damage.png",
+      "canvas": {
+        "width": 160,
+        "height": 128,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 39,
+          "y": 49,
+          "width": 27,
+          "height": 24,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "damage-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_cracked_plate.png"
+      ],
+      "targetPath": "machine_ark/phase_3_damage.png",
+      "canvas": {
+        "width": 160,
+        "height": 128,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 101,
+          "y": 57,
+          "width": 22,
+          "height": 20,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "critical-0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_aperture_open.png"
+      ],
+      "targetPath": "machine_ark/critical_0.png",
+      "canvas": {
+        "width": 160,
+        "height": 128,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 44,
+          "opacity": 0.45
+        }
+      ]
+    },
+    {
+      "id": "critical-1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_aperture_open.png"
+      ],
+      "targetPath": "machine_ark/critical_1.png",
+      "canvas": {
+        "width": 160,
+        "height": 128,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 44,
+          "opacity": 0.7
+        }
+      ]
+    },
+    {
+      "id": "critical-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_aperture_open.png"
+      ],
+      "targetPath": "machine_ark/critical_2.png",
+      "canvas": {
+        "width": 160,
+        "height": 128,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 44,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "id": "critical-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_aperture_open.png"
+      ],
+      "targetPath": "machine_ark/critical_3.png",
+      "canvas": {
+        "width": 160,
+        "height": 128,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 44,
+          "opacity": 0.65
+        }
+      ]
+    },
+    {
+      "id": "orbital_command_node-phase-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_cracked_plate.png"
+      ],
+      "targetPath": "orbital_command_node/phase_2_damage.png",
+      "canvas": {
+        "width": 124,
+        "height": 104,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 35,
+          "y": 48,
+          "width": 22,
+          "height": 20,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "orbital_command_node-phase-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_cracked_plate.png"
+      ],
+      "targetPath": "orbital_command_node/phase_3_damage.png",
+      "canvas": {
+        "width": 124,
+        "height": 104,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 72,
+          "y": 65,
+          "width": 20,
+          "height": 18,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "orbital_command_node-critical-0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/command_core_ruptured.png"
+      ],
+      "targetPath": "orbital_command_node/critical_0.png",
+      "canvas": {
+        "width": 124,
+        "height": 104,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 53,
+          "y": 38,
+          "opacity": 0.45
+        }
+      ]
+    },
+    {
+      "id": "orbital_command_node-critical-1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/command_core_ruptured.png"
+      ],
+      "targetPath": "orbital_command_node/critical_1.png",
+      "canvas": {
+        "width": 124,
+        "height": 104,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 53,
+          "y": 38,
+          "opacity": 0.7
+        }
+      ]
+    },
+    {
+      "id": "orbital_command_node-critical-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/command_core_ruptured.png"
+      ],
+      "targetPath": "orbital_command_node/critical_2.png",
+      "canvas": {
+        "width": 124,
+        "height": 104,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 53,
+          "y": 38,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "id": "orbital_command_node-critical-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/command_core_ruptured.png"
+      ],
+      "targetPath": "orbital_command_node/critical_3.png",
+      "canvas": {
+        "width": 124,
+        "height": 104,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 53,
+          "y": 38,
+          "opacity": 0.65
+        }
+      ]
+    },
+    {
+      "id": "phase_control_array-phase-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_cracked_plate.png"
+      ],
+      "targetPath": "phase_control_array/phase_2_damage.png",
+      "canvas": {
+        "width": 126,
+        "height": 126,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 29,
+          "y": 44,
+          "width": 20,
+          "height": 18,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "phase_control_array-phase-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/ark_cracked_plate.png"
+      ],
+      "targetPath": "phase_control_array/phase_3_damage.png",
+      "canvas": {
+        "width": 126,
+        "height": 126,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 78,
+          "y": 76,
+          "width": 20,
+          "height": 18,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "phase_control_array-critical-0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/phase_lens_unstable.png"
+      ],
+      "targetPath": "phase_control_array/critical_0.png",
+      "canvas": {
+        "width": 126,
+        "height": 126,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 41,
+          "y": 42,
+          "opacity": 0.45
+        }
+      ]
+    },
+    {
+      "id": "phase_control_array-critical-1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/phase_lens_unstable.png"
+      ],
+      "targetPath": "phase_control_array/critical_1.png",
+      "canvas": {
+        "width": 126,
+        "height": 126,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 41,
+          "y": 42,
+          "opacity": 0.7
+        }
+      ]
+    },
+    {
+      "id": "phase_control_array-critical-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/phase_lens_unstable.png"
+      ],
+      "targetPath": "phase_control_array/critical_2.png",
+      "canvas": {
+        "width": 126,
+        "height": 126,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 41,
+          "y": 42,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "id": "phase_control_array-critical-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/phase_lens_unstable.png"
+      ],
+      "targetPath": "phase_control_array/critical_3.png",
+      "canvas": {
+        "width": 126,
+        "height": 126,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 41,
+          "y": 42,
+          "opacity": 0.65
+        }
+      ]
+    },
+    {
+      "id": "station_warden-phase-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/warden_rail_scorched.png"
+      ],
+      "targetPath": "station_warden/phase_2_damage.png",
+      "canvas": {
+        "width": 146,
+        "height": 116,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 37,
+          "y": 51,
+          "width": 25,
+          "height": 24,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "station_warden-phase-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/warden_rail_scorched.png"
+      ],
+      "targetPath": "station_warden/phase_3_damage.png",
+      "canvas": {
+        "width": 146,
+        "height": 116,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 88,
+          "y": 61,
+          "width": 25,
+          "height": 24,
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "station_warden-critical-0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/warden_vent_hot.png"
+      ],
+      "targetPath": "station_warden/critical_0.png",
+      "canvas": {
+        "width": 146,
+        "height": 116,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 45,
+          "opacity": 0.45
+        }
+      ]
+    },
+    {
+      "id": "station_warden-critical-1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/warden_vent_hot.png"
+      ],
+      "targetPath": "station_warden/critical_1.png",
+      "canvas": {
+        "width": 146,
+        "height": 116,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 45,
+          "opacity": 0.7
+        }
+      ]
+    },
+    {
+      "id": "station_warden-critical-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/warden_vent_hot.png"
+      ],
+      "targetPath": "station_warden/critical_2.png",
+      "canvas": {
+        "width": 146,
+        "height": 116,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 45,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "id": "station_warden-critical-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/source/enemies/orbital_phase_v2/inputs/warden_vent_hot.png"
+      ],
+      "targetPath": "station_warden/critical_3.png",
+      "canvas": {
+        "width": 146,
+        "height": 116,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 59,
+          "y": 45,
+          "opacity": 0.65
+        }
+      ]
+    }
+  ],
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  }
+}

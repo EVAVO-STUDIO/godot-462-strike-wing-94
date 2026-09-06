@@ -1,0 +1,320 @@
+{
+  "status": "candidate",
+  "entries": [
+    {
+      "id": "fighter_hunter_rack_loaded",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "store_noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_left_released",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "store_noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_empty",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "store_noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "store_noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "store_noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "store_noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_loaded",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "store_noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_left_released",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "store_noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_empty",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "store_noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "store_noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "store_noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "store_noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_loaded",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "loaded",
+      "store_noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_left_released",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "left_released",
+      "store_noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_empty",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "empty",
+      "store_noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Neutral art anchors, not gameplay release offsets"
+    }
+  ]
+}

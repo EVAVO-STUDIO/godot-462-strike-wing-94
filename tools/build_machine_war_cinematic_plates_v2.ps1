@@ -39,10 +39,14 @@ $FxSheet = Join-Path $Root 'work\machine_war_fx_cels_v2.png'
 if($LASTEXITCODE -ne 0) { throw 'Failed to rasterize machine-war limited FX sheet.' }
 $FxFamilies = @('s2_observation','s2_anticipation','s2_consequence')
 for($row=0;$row -lt 3;$row++) {
+    if($row -eq 2) { continue } # Reviewed window-registered city acquisition cels.
     for($frame=0;$frame -lt 4;$frame++) {
         & $Magick $FxSheet -crop "640x272+$($frame*640)+$($row*272)" +repage -depth 8 (Join-Path $FxRuntimeRoot "$($FxFamilies[$row])_$frame.png")
         if($LASTEXITCODE -ne 0) { throw "Failed to build machine-war FX cel: $($FxFamilies[$row])/$frame" }
     }
 }
+
+& node (Join-Path $Root 'tools\build_city_warning_v3.mjs')
+if($LASTEXITCODE -ne 0) { throw 'Failed to rebuild reviewed city-warning FX.' }
 
 Write-Host 'Built HYPERSONIC Sector II machine-war plates, subjects, and limited FX cels v2.'

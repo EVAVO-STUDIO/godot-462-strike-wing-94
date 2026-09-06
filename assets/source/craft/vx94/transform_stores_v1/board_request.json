@@ -1,0 +1,329 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "vx94-transform-stores-board",
+  "projectId": "hypersonic",
+  "purpose": "Ten exposures: Hunter Rack then Twin Rocket Pods",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "transform_stores",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_transform_stores_v1/composites/hunter_rack_00.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_01.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_02.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_03.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_04.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_05.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_06.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_07.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_08.png",
+        "work/vx94_transform_stores_v1/composites/hunter_rack_09.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_00.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_01.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_02.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_03.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_04.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_05.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_06.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_07.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_08.png",
+        "work/vx94_transform_stores_v1/composites/twin_rocket_pods_09.png"
+      ],
+      "targetPath": "transform_stores.png",
+      "canvas": {
+        "width": 1280,
+        "height": 288,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 128,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 256,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 384,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 512,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 5,
+          "x": 640,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 6,
+          "x": 768,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 7,
+          "x": 896,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 8,
+          "x": 1024,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 9,
+          "x": 1152,
+          "y": 0,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 10,
+          "x": 0,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 11,
+          "x": 128,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 12,
+          "x": 256,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 13,
+          "x": 384,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 14,
+          "x": 512,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 15,
+          "x": 640,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 16,
+          "x": 768,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 17,
+          "x": 896,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 18,
+          "x": 1024,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 19,
+          "x": 1152,
+          "y": 144,
+          "width": 128,
+          "height": 144,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

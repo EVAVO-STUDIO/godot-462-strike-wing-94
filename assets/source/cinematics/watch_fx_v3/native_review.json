@@ -1,0 +1,37 @@
+{
+	"frames": [
+		{
+			"duration": 3.2,
+			"elapsed": 0.64,
+			"exposure": 0,
+			"file": "end_consequence_final_0.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		},
+		{
+			"duration": 3.2,
+			"elapsed": 1.28,
+			"exposure": 1,
+			"file": "end_consequence_final_1.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		},
+		{
+			"duration": 3.2,
+			"elapsed": 1.92,
+			"exposure": 2,
+			"file": "end_consequence_final_2.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		},
+		{
+			"duration": 3.2,
+			"elapsed": 2.56,
+			"exposure": 3,
+			"file": "end_consequence_final_3.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		}
+	],
+	"scope": "4 addressed native coastal-watch exposures; not audio or natural campaign trigger verification"
+}

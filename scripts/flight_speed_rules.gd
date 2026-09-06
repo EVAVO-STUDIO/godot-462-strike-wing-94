@@ -23,7 +23,7 @@ static func target_world_multiplier(throttle_ratio: float, afterburner: bool, hy
 static func world_closure_multiplier(world_multiplier: float, category: String) -> float:
 	# Surface contacts are fixed to geography. Aircraft retain more of their own
 	# velocity, but still close materially faster when the VX-94 advances.
-	var excess := maxf(0.0, world_multiplier - CRUISE_POWER_MULTIPLIER)
+	var excess := world_multiplier - CRUISE_POWER_MULTIPLIER
 	if category in ["ground", "sea"]:
 		return maxf(0.48, world_multiplier)
 	return maxf(0.70, 1.0 + excess * 0.46)

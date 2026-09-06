@@ -1,0 +1,148 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "9c5055d35fa927489164edde24a98e32d9f793f58b3568c84ee478e0c3fa0047",
+  "planBytesSha256": "66742797f9f6f0cdbd80a29fcca2ff7e8db525179063d8020c5b6a32dc25750f",
+  "sandboxId": "operations-modal-opacity",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:2d04d78262d0831f730d82bd",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_ad7034b9352f6e397a20e7d1c84976e4",
+      "path": "work/mission_intel_icons_v2/screen_backing.png",
+      "sha256": "fa6b0a37643155f1885894b1dd0e26499f86a5bbdc9e9f7d76766d427970edb1",
+      "bytes": 129
+    },
+    {
+      "sourceId": "source_ebdd15e83f0d1059b9b91007e9d9a9ac",
+      "path": "work/mission_intel_icons_v2/originals/operations_screen_9slice.png",
+      "sha256": "78a183109d4db53e4141e3ce8749de4b3990c5e772593d04d755282b3cda36c1",
+      "bytes": 449
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "screen",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+          },
+          "maskSourceRect": null,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+          },
+          "maskSourceRect": null,
+          "width": 32,
+          "height": 32
+        }
+      ],
+      "outputs": [
+        {
+          "path": "operations_screen_9slice.png",
+          "sha256": "73bf3e28bf9d939a18fa237e2898e30a8a84c7085f1483b33e5a70d432a76d47",
+          "bytes": 353,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 32,
+            "height": 32
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 208,
+            "opaquePixels": 816
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "pixelSha256": "3058b4eae6305bc2db14654f66c5a178597aae54657ab536707a941df98f1e36"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "operations_screen_9slice.png",
+      "sha256": "73bf3e28bf9d939a18fa237e2898e30a8a84c7085f1483b33e5a70d432a76d47",
+      "bytes": 353,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 208,
+        "opaquePixels": 816
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "pixelSha256": "3058b4eae6305bc2db14654f66c5a178597aae54657ab536707a941df98f1e36"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 2,
+    "externalSourceBytes": 578,
+    "plannedMaximumOutputFiles": 2,
+    "taskOutputFiles": 1,
+    "taskOutputBytes": 353,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "c085e48799de28db99e0468c9be9a7e1595cc9a983894011328f7e2b5c0221d4"
+}

@@ -1,0 +1,205 @@
+{
+  "four_endpoint_composites_rgba_exact": true,
+  "layers": [
+    {
+      "id": "hunter_rack_00",
+      "side": 0,
+      "attachment_overlap": 48
+    },
+    {
+      "id": "hunter_rack_00",
+      "side": 1,
+      "attachment_overlap": 59
+    },
+    {
+      "id": "hunter_rack_01",
+      "side": 0,
+      "attachment_overlap": 42
+    },
+    {
+      "id": "hunter_rack_01",
+      "side": 1,
+      "attachment_overlap": 48
+    },
+    {
+      "id": "hunter_rack_02",
+      "side": 0,
+      "attachment_overlap": 45
+    },
+    {
+      "id": "hunter_rack_02",
+      "side": 1,
+      "attachment_overlap": 51
+    },
+    {
+      "id": "hunter_rack_03",
+      "side": 0,
+      "attachment_overlap": 44
+    },
+    {
+      "id": "hunter_rack_03",
+      "side": 1,
+      "attachment_overlap": 47
+    },
+    {
+      "id": "hunter_rack_04",
+      "side": 0,
+      "attachment_overlap": 50
+    },
+    {
+      "id": "hunter_rack_04",
+      "side": 1,
+      "attachment_overlap": 55
+    },
+    {
+      "id": "hunter_rack_05",
+      "side": 0,
+      "attachment_overlap": 46
+    },
+    {
+      "id": "hunter_rack_05",
+      "side": 1,
+      "attachment_overlap": 51
+    },
+    {
+      "id": "hunter_rack_06",
+      "side": 0,
+      "attachment_overlap": 59
+    },
+    {
+      "id": "hunter_rack_06",
+      "side": 1,
+      "attachment_overlap": 63
+    },
+    {
+      "id": "hunter_rack_07",
+      "side": 0,
+      "attachment_overlap": 53
+    },
+    {
+      "id": "hunter_rack_07",
+      "side": 1,
+      "attachment_overlap": 57
+    },
+    {
+      "id": "hunter_rack_08",
+      "side": 0,
+      "attachment_overlap": 46
+    },
+    {
+      "id": "hunter_rack_08",
+      "side": 1,
+      "attachment_overlap": 48
+    },
+    {
+      "id": "hunter_rack_09",
+      "side": 0,
+      "attachment_overlap": 53
+    },
+    {
+      "id": "hunter_rack_09",
+      "side": 1,
+      "attachment_overlap": 57
+    },
+    {
+      "id": "twin_rocket_pods_00",
+      "side": 0,
+      "attachment_overlap": 34
+    },
+    {
+      "id": "twin_rocket_pods_00",
+      "side": 1,
+      "attachment_overlap": 42
+    },
+    {
+      "id": "twin_rocket_pods_01",
+      "side": 0,
+      "attachment_overlap": 26
+    },
+    {
+      "id": "twin_rocket_pods_01",
+      "side": 1,
+      "attachment_overlap": 33
+    },
+    {
+      "id": "twin_rocket_pods_02",
+      "side": 0,
+      "attachment_overlap": 25
+    },
+    {
+      "id": "twin_rocket_pods_02",
+      "side": 1,
+      "attachment_overlap": 32
+    },
+    {
+      "id": "twin_rocket_pods_03",
+      "side": 0,
+      "attachment_overlap": 23
+    },
+    {
+      "id": "twin_rocket_pods_03",
+      "side": 1,
+      "attachment_overlap": 28
+    },
+    {
+      "id": "twin_rocket_pods_04",
+      "side": 0,
+      "attachment_overlap": 25
+    },
+    {
+      "id": "twin_rocket_pods_04",
+      "side": 1,
+      "attachment_overlap": 31
+    },
+    {
+      "id": "twin_rocket_pods_05",
+      "side": 0,
+      "attachment_overlap": 26
+    },
+    {
+      "id": "twin_rocket_pods_05",
+      "side": 1,
+      "attachment_overlap": 32
+    },
+    {
+      "id": "twin_rocket_pods_06",
+      "side": 0,
+      "attachment_overlap": 36
+    },
+    {
+      "id": "twin_rocket_pods_06",
+      "side": 1,
+      "attachment_overlap": 41
+    },
+    {
+      "id": "twin_rocket_pods_07",
+      "side": 0,
+      "attachment_overlap": 31
+    },
+    {
+      "id": "twin_rocket_pods_07",
+      "side": 1,
+      "attachment_overlap": 35
+    },
+    {
+      "id": "twin_rocket_pods_08",
+      "side": 0,
+      "attachment_overlap": 31
+    },
+    {
+      "id": "twin_rocket_pods_08",
+      "side": 1,
+      "attachment_overlap": 34
+    },
+    {
+      "id": "twin_rocket_pods_09",
+      "side": 0,
+      "attachment_overlap": 31
+    },
+    {
+      "id": "twin_rocket_pods_09",
+      "side": 1,
+      "attachment_overlap": 35
+    }
+  ]
+}

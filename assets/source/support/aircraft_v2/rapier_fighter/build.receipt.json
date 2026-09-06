@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "rapier_fighter_flight.manifest.json",
+  "files": [
+    {
+      "path": "aligned/flight_0.png",
+      "size": 1659,
+      "sha256": "cdbdf5b5392bb1c72571fbce7d06f3527d7c0dcf04ea7ad38997f72dd78fc602"
+    },
+    {
+      "path": "aligned/flight_1.png",
+      "size": 1638,
+      "sha256": "9a94dd4944948fefd3aa9281dd19289feaee9e3acd219615497680852df16c20"
+    },
+    {
+      "path": "aligned/flight_2.png",
+      "size": 1666,
+      "sha256": "dbdd53069debfbda2d9e134067df946b8d042961f35d60aeba44975f8fe62f52"
+    },
+    {
+      "path": "aligned/flight_3.png",
+      "size": 1672,
+      "sha256": "71020d7d938a25314f802cb38097d9c886aefc82ccb4b6a2260322e9115310ce"
+    },
+    {
+      "path": "frames/flight_0.png",
+      "size": 1633,
+      "sha256": "03af884274d3b84fe8671038aeaa2c4b862c5f5059cf76cd2219646cc4655556"
+    },
+    {
+      "path": "frames/flight_1.png",
+      "size": 1616,
+      "sha256": "d3baee539d354243a3eaba07d96a26967f83eec6ab11206c3e0565a2465ea707"
+    },
+    {
+      "path": "frames/flight_2.png",
+      "size": 1641,
+      "sha256": "7409fa862592f2b756240ed2dd722ef366dd0fe0535647c88d21866a55e501e9"
+    },
+    {
+      "path": "frames/flight_3.png",
+      "size": 1648,
+      "sha256": "860cd1e36a26cfef93338ee2ddea30290d51358bc238f6ff4b9a19518795d155"
+    },
+    {
+      "path": "previews/flight.contact.png",
+      "size": 3602,
+      "sha256": "3884775118854a80685d2b1415a19291f5d4d1a07515d1d41b5e231c92d706be"
+    },
+    {
+      "path": "previews/flight.difference.png",
+      "size": 2567,
+      "sha256": "918a23ab9c5819097b51511067378d6f5155f3f6a60349368f349c064a82bb39"
+    },
+    {
+      "path": "previews/flight.gif",
+      "size": 5682,
+      "sha256": "be9d104a0a4f19b87e4361c063b7c635251514e877f1361bc2bc65ff631a07a5"
+    },
+    {
+      "path": "previews/flight.onion.png",
+      "size": 4485,
+      "sha256": "9e7eea4c1d7f70171d483f6085cf88de459e535942fc185a565cb17df6b275dc"
+    },
+    {
+      "path": "previews/flight.pivots.png",
+      "size": 3661,
+      "sha256": "50348066918bd44c72ca20e7d57d8e58ada568945cc362ec28c0d9ae66085fd1"
+    },
+    {
+      "path": "rapier_fighter_flight.animated_sprite.tscn",
+      "size": 333,
+      "sha256": "bcbee276065f6688df5205c3db36196fb0fc4fdf38305f81d7e8083ddfe6470a"
+    },
+    {
+      "path": "rapier_fighter_flight.atlas.0.png",
+      "size": 3348,
+      "sha256": "64ab9d04202488aaa9a6806a0692714e7e413ee46b591725cd20dcc5c2d964d5"
+    },
+    {
+      "path": "rapier_fighter_flight.atlas.json",
+      "size": 3557,
+      "sha256": "91c5327cc2996378df14fbb0999e2c1e236934c5f5562c143a7bfb2554f00b04"
+    },
+    {
+      "path": "rapier_fighter_flight.build.json",
+      "size": 4418,
+      "sha256": "15cb9de14c370a2126530c3c35de108dbbcb935411bb1e36f35d068f82dead69"
+    },
+    {
+      "path": "rapier_fighter_flight.corrections.json",
+      "size": 146,
+      "sha256": "bfc43a0df6688615dccf95cf7e4669a8d9c55e7d84293c2ff8f65f2723f871c1"
+    },
+    {
+      "path": "rapier_fighter_flight.events.json",
+      "size": 1009,
+      "sha256": "616feba5bfcd6e2a6adf52a9beefa9481f9d498fd63cb29918b2ce6a8283d74b"
+    },
+    {
+      "path": "rapier_fighter_flight.integration.json",
+      "size": 1084,
+      "sha256": "7601948651f9d7dd3c900c1d415989a9f8ccb9e82f2805df8379500dadbed5ab"
+    },
+    {
+      "path": "rapier_fighter_flight.manifest.json",
+      "size": 5632,
+      "sha256": "9a518263dd9f8fc0de4f4f9e0f30b79d80b6f83353af678fd45ce9de16c88313"
+    },
+    {
+      "path": "rapier_fighter_flight.qa.json",
+      "size": 496,
+      "sha256": "efa0c0daf284780e88053fdc84a86e12502aff66fc26b4a5224a762003dd1fa2"
+    },
+    {
+      "path": "rapier_fighter_flight.review.html",
+      "size": 2742,
+      "sha256": "7edc6bba634fcfe35b2b4608f2a2ad90795a44afa93fb3b45fd0273a2d3356e8"
+    },
+    {
+      "path": "rapier_fighter_flight.spriteframes.tres",
+      "size": 1166,
+      "sha256": "c2b96b87ae04f07e78ee230ebe6dcf1091225c67171934ecee2dca2a7f9bfb35"
+    }
+  ]
+}

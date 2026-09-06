@@ -1,0 +1,10 @@
+{
+  "schema": "hypersonic_stores_schematic_capture_v3",
+  "status": "native_reviewed",
+  "engine": "4.6.2.stable.official.71f334935",
+  "logical_size": [640, 360],
+  "capture": "res://work/stores_interface_v1/stores_open.png",
+  "arguments": ["--capture-gameplay", "--capture-front-end=sortie", "--capture-stores-schematic"],
+  "visible_station_counts": {"fighter": 7, "bomber": 9},
+  "decision": "accepted; full station legends and installed equipment fit the authored modal surface"
+}

@@ -1,4 +1,6 @@
-# Strike Wing '94 — Game Design Foundation
+# HYPERSONIC — historical design foundation
+
+This foundation predates the current campaign and describes several completed systems as future work. The current production direction is [PRODUCTION_DESIGN.md](PRODUCTION_DESIGN.md), including camera-followed travel, vulnerable-airframe combat and the preserved 30+6 campaign. Retain this document as historical context rather than an implementation checklist.
 
 ## North star
 

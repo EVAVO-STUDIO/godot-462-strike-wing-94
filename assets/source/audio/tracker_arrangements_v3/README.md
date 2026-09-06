@@ -1,0 +1,9 @@
+# Tracker arrangement screening candidates
+
+Eleven 32-bar arrangements extend the existing HYPERSONIC themes. Steel Vector is retained separately in `../steel_vector_arrangement_v2`. Each plan preserves its original tempo, root, chord sequence, bass line and lead pitch vocabulary. Intro, answer, drive, break and outro sections vary the existing material without replacing the soundtrack identity.
+
+`composition_checks.json` records structural checks. `render.gd` rendered the actual runtime synthesizer at 22,050 Hz using pinned Godot 4.6.2 stable 71f334935. `synthesizer_snapshot.gd.txt` and `original_tracks.json` retain the source used. The renderer currently loads the production script; use this snapshot if reproducing after that script changes. Render logs retain the existing ObjectDB shutdown warning.
+
+Audio Studio reviewed the PCM WAVs after a 20 Hz high-pass. Ten cues reported no detected issues. The initial title cue reported a high-frequency noise/harshness candidate; both its report and unmodified arrangement are preserved. A separate title version adds a -3 dB high shelf at 6 kHz and passes the same unchanged review criteria. `delivery_manifest.json` identifies all selected WAV hashes and results: eleven selected versions, zero clipped samples, no detected issues, negligible DC offset.
+
+The twelve 32-bar plans are now consumed by the live 22,050 Hz procedural tracker. Runtime advances through each authored bar while retaining continuous oscillator and noise state, then cycles the complete 32-bar form. The reviewed 20 Hz DC cleanup is applied at the live output stage. Audition OGG exports use gain 0.52 and remain under the task outputs directory. Final subjective listening for phrasing, brightness, full-cycle transitions and the combined gameplay/radio mix remains open; numeric analysis alone does not establish those qualities.

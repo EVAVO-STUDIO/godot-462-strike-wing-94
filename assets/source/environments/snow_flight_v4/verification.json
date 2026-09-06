@@ -1,0 +1,21 @@
+{
+  "loopExact": true,
+  "frames": 96,
+  "particleCount": [
+    111,
+    129
+  ],
+  "travelPixelsPerWorldUnit": {
+    "distant": 6,
+    "middle": 20,
+    "near": 52
+  },
+  "viewport": [
+    0,
+    34,
+    640,
+    304
+  ],
+  "wrapMargin": 8,
+  "source": "Particle Studio simulateProjected; original Snow B shape/material/motion retained"
+}

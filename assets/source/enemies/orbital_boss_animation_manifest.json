@@ -1,37 +1,91 @@
 {
   "asset_family": "orbital_boss_phase_animation",
-  "status": "all_runtime_phase_overlays_reviewed",
+  "status": "runtime_v2_native_phase_reviewed",
   "registration": "all overlays share the corresponding approved orbital idle sprite canvas and centre pivot",
   "state_mapping": {
-    "phase_1": ["idle"],
-    "phase_2": ["idle", "phase_2_damage"],
-    "phase_3": ["idle", "phase_2_damage", "phase_3_damage", "critical_0..3"]
+    "phase_1": [
+      "idle"
+    ],
+    "phase_2": [
+      "idle",
+      "phase_2_damage"
+    ],
+    "phase_3": [
+      "idle",
+      "phase_2_damage",
+      "phase_3_damage",
+      "critical_0..3"
+    ]
   },
-  "animation": {"critical_fps": 8, "loop": true, "frame_count": 4, "vacuum_rule": "localized thermal/electrical instability only; no atmospheric fire"},
+  "animation": {
+    "critical_fps": 8,
+    "loop": true,
+    "frame_count": 4,
+    "vacuum_rule": "localized thermal/electrical instability only; no atmospheric fire"
+  },
   "bosses": {
     "orbital_command_node": {
-      "canvas": [124, 104], "damage_logic": "communications radiator loss followed by service radiator and command-vault failure",
+      "canvas": [
+        124,
+        104
+      ],
+      "damage_logic": "communications radiator loss followed by service radiator and command-vault failure",
       "sha256": {
-        "critical_0.png":"DC2B599DA52F181C9BD3E7C6C49C5A82B951EFD4862F8C1F605746A6B66B657C","critical_1.png":"38F8D00B16A2A9A4133A21152AC6C206A83C146738C8529B6018088A62CE7C72","critical_2.png":"A4BC0067C4A373D773AB4ACDBAC6DA45E33EE0DC3F87BBC44BD6E8462A728970","critical_3.png":"C17A614F5FD0DAD08630BDE7117CA1F438DB7219050E119499714A2798288698","phase_2_damage.png":"2809C02172403D579EA62A4C7FAF0B2DABE01C0AB3F7C997ECE3F0BA3AA291A8","phase_3_damage.png":"21F81BC146A8CAF187366FBE983B7586BAF3F481AB6C13682B2866E7CFD73617"
+        "critical_0.png": "0438038CD7723D144C38B5651525DFD75225C62766D2315CE9A3925AAE60AB33",
+        "critical_1.png": "1C3DE9227CE461C76D842B2318D8EED797E0E32606A4289CC919B6A496DB89AC",
+        "critical_2.png": "195A0D2DEC9D2015ED1E268B1792D82F6AA6ACA5F539E368E8264CAB25316EAA",
+        "critical_3.png": "75D08290200D942DFE6FFF22462233B9BB45D66D1593AEF10E90534DC56B5DB0",
+        "phase_2_damage.png": "BC21A1842403AF484170EF047AEEC94DCBF27953EFB256391B9ED9980A50189D",
+        "phase_3_damage.png": "F6979A94AAA8BB906D7ACB2470284229EDCF9082C6CABA9A70D1F16E7D2B3A33"
       }
     },
     "phase_control_array": {
-      "canvas": [126, 126], "damage_logic": "projector truss failure followed by opposing interferometer and control-bus loss",
+      "canvas": [
+        126,
+        126
+      ],
+      "damage_logic": "projector truss failure followed by opposing interferometer and control-bus loss",
       "sha256": {
-        "critical_0.png":"7CCFEEFB5DC65410F3E034312C397DEEC4A6C38B112A94DCC24900C0BB9F60AC","critical_1.png":"8C3C83450231F8856633C83EDA40400D87B51D6CF09019D202DD9F11BC08CB9F","critical_2.png":"FCA3E87BD666D6FB86A47E418A209C8A66A87196DAA243AA863226C454CD42E6","critical_3.png":"DABC6537E06D24A939AD9E0B16300D0CD4C2FBAD88FC2D680EB68491D082D6BF","phase_2_damage.png":"829DA7A5504905F475AB293095037B488AE0A77DE1A5DF4EB0646DAA93BB4D09","phase_3_damage.png":"8F916A37B6939BCF27FC21088565E7B67F445AC0EC8FAEF9F519D51A209A3D9F"
+        "critical_0.png": "B1A4C82BD4DCC68CA37ABF186D923C315EF304D75CA4BCF49AB744E88545133C",
+        "critical_1.png": "8FD50E9659DAC7401725673B49269E38FCD0FB81776916B20962D63DCD44381F",
+        "critical_2.png": "86F34723759AFD361F9E7A3D642474B5B499B12A3577E9CA42A769D9AA3B1C17",
+        "critical_3.png": "512794C89456A4735448C92DAC7ADC4DA5D94229B652505758183F4ED0368D85",
+        "phase_2_damage.png": "030C961B6820F411FDCC49ED9AD27850A6DACA4064DFA3F24E3953C1B802E6B9",
+        "phase_3_damage.png": "202A1BDC2C9383448008C9B8946C92942102F2C036783E63F2EF8C204AC59E75"
       }
     },
     "station_warden": {
-      "canvas": [146, 116], "damage_logic": "mass-driver service section loss followed by missile-coffin and command-cylinder failure",
+      "canvas": [
+        146,
+        116
+      ],
+      "damage_logic": "mass-driver service section loss followed by missile-coffin and command-cylinder failure",
       "sha256": {
-        "critical_0.png":"EFDD4ED56A26FCBA7E81A3CE216AE09D9CAC5FA13FD4399FB698F51BE8FB3C4C","critical_1.png":"F0744C9FF5621C1C5D0236142B78281E0153DB0DF1C035AB8067D0DE4B5EEE1E","critical_2.png":"D43E62CA8A618EBCE167A441C77664C4EC9CD07C19DE42BED352137ABC350003","critical_3.png":"241A21F22CF3EE9249C2C7DB4D8A36E41393D09F75F8D1CF64F988BDEAFC71F6","phase_2_damage.png":"567F7752D08BC04521CE6514F1036B1A509ABBB5672252D4625592DAE8575912","phase_3_damage.png":"FC88AFDDB250910712F1DD1867EEFAC1A0F635830AECFFC3D2B92371583BB0FB"
+        "critical_0.png": "E6137815D9125712FB52099AEE6E0C546A9C5DDE7B6F5834E2C4D2C7A87D8B18",
+        "critical_1.png": "19B34D09DB25BF546B2B70A7915A3D65A75D1506CAE4B6110E1B18E9DED71CDE",
+        "critical_2.png": "0D34FA0064B989ECAEF7EFD05644E64BCA9F5A2E417D910C1252767D0645CD25",
+        "critical_3.png": "46B46751E2881CADC501220EEE1B555FE248714704BC893F6DF44FC2B3C10627",
+        "phase_2_damage.png": "5AA950CC369855A86B3F8586EA7F0951367A1A203707F9F61FC2E06BAE3724CE",
+        "phase_3_damage.png": "82519647561E32A0A0DB1D508409494B948A05A7F9DB0546E54D24582A090D78"
       }
     },
     "machine_ark": {
-      "canvas": [160, 128], "damage_logic": "construction-slip breach followed by foundry-radiator and accelerator-control failure",
+      "canvas": [
+        160,
+        128
+      ],
+      "damage_logic": "construction-slip breach followed by foundry-radiator and accelerator-control failure",
       "sha256": {
-        "critical_0.png":"CDB180555CB2076BF398D8F070227758B8736B1F2ADC66D6BC1E4DC2A8CB439F","critical_1.png":"E68FC2ABDA9DEC076737BF723AFBA45648A718278CD0D1EF856E43A1F30A2203","critical_2.png":"53E65A42709B82F8C7C3AE5BDBEFFA8E5ABC5B0F304CCF2ADF29E14B9EA1B2D1","critical_3.png":"35077E0D942188A3847017AC8469E5BF0731634110989283AD4C6727F1BD4601","phase_2_damage.png":"15222D644C92F3C301C4BFFADD8F608240ABE02BA5F9673D37D2C112B0F7C2B8","phase_3_damage.png":"358163A481F07732E98DFE075A67FBDB53D70985CC215CB18844DB2F9ED1B383"
+        "critical_0.png": "00D244FCA4C068726F057E00A329346A6E8948DB531304EECC5FA29C9930F53C",
+        "critical_1.png": "375A48BF317771BE926FE3D8D403F033962E38E09A3679F7062210F1B93CF9D5",
+        "critical_2.png": "B68C1A47F75089B3D0A1E22C0B0F3EFF08947BB7C1BEB43DB63A79EFB4F99B74",
+        "critical_3.png": "3B1DC3F03392306D7A685715F995495544A43B560F4A69565F7AE6701F6421C3",
+        "phase_2_damage.png": "0FEE1D4E6EF60ACD92DB5DBE219982ED4DDEBC6EF162E637F1F9C9DCBD17239C",
+        "phase_3_damage.png": "124DED0012E2E8E3B411A332E5E4E25D4F9AD7A11DED6B2B4C7F301ACE7B52E9"
       }
     }
-  }
+  },
+  "source_recipe": "res://assets/source/enemies/orbital_phase_v2/art_studio_request.json",
+  "builder": "res://tools/build_orbital_boss_phase_art.ps1",
+  "evidence_scope": "Four boss native phase and cycle fixtures; Machine Ark actual route-gated mission probe reaches phases 1-3. Full campaign encounter and release acceptance remain separate."
 }

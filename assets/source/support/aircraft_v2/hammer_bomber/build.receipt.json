@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "hammer_bomber_flight.manifest.json",
+  "files": [
+    {
+      "path": "aligned/flight_0.png",
+      "size": 2368,
+      "sha256": "086224c2998f4b09aeb69ccfacdfbfcf4a60dd97ee9e4a56fb34582041b973eb"
+    },
+    {
+      "path": "aligned/flight_1.png",
+      "size": 2359,
+      "sha256": "83c35e854e4aaf8b41a0238b8eac38860a027c39d686fdb014795a8fbacc9700"
+    },
+    {
+      "path": "aligned/flight_2.png",
+      "size": 2369,
+      "sha256": "b72a779ce13877c20a44c865683bb48d16dd80b64560781222934a35d74592b1"
+    },
+    {
+      "path": "aligned/flight_3.png",
+      "size": 2369,
+      "sha256": "dd551f68c39e94e222ac56267669d4c13b7ec6c1c1f9430facece87c52a891aa"
+    },
+    {
+      "path": "frames/flight_0.png",
+      "size": 2325,
+      "sha256": "84be2dc9b66a52e73c05b589be07e04ac060fbbaaa7ffb6341bfd47bd704ad00"
+    },
+    {
+      "path": "frames/flight_1.png",
+      "size": 2314,
+      "sha256": "b19d1f3db2358b90d02074cd65669a2bfee9c4ddc4005826d0bfe7394a16ebce"
+    },
+    {
+      "path": "frames/flight_2.png",
+      "size": 2327,
+      "sha256": "a9f606c5c039949c6ce68d65efcc6ebc8d0dbd6b940d9dd4bcdbee9602f58c18"
+    },
+    {
+      "path": "frames/flight_3.png",
+      "size": 2327,
+      "sha256": "20b7b60c2bc469b1ed184dc72ce6a91a608a1ec6de601836f2b7ad95fd991cb4"
+    },
+    {
+      "path": "hammer_bomber_flight.animated_sprite.tscn",
+      "size": 331,
+      "sha256": "10e02039a25e5901a55cd72ea70f155406577bee02ef5809e6adfe375ff7cd4c"
+    },
+    {
+      "path": "hammer_bomber_flight.atlas.0.png",
+      "size": 4988,
+      "sha256": "9795b802f11daa0e44e4fc793f1d4404a98fe14962af1a02c644cb5136a246a6"
+    },
+    {
+      "path": "hammer_bomber_flight.atlas.json",
+      "size": 3558,
+      "sha256": "5f7cb3331a5fdf2583b780b5d090d8ebbc999438787f1ea5cd9dc6fb91d14696"
+    },
+    {
+      "path": "hammer_bomber_flight.build.json",
+      "size": 4408,
+      "sha256": "89ccfa577d7fe73f8f5e70fbcc46d98e0422c07d02b2609191bfafc956786797"
+    },
+    {
+      "path": "hammer_bomber_flight.corrections.json",
+      "size": 145,
+      "sha256": "54fc58b1ab973cdfef3ee0723883214e149805b30cd58143f7bd22a7839a40ee"
+    },
+    {
+      "path": "hammer_bomber_flight.events.json",
+      "size": 1008,
+      "sha256": "5c3a4eb3edf726cf41aced56d1d441d534643e07f5f91e2fd95a622804c98f26"
+    },
+    {
+      "path": "hammer_bomber_flight.integration.json",
+      "size": 1076,
+      "sha256": "5954098d0592b8ab94cd6e1f1700a34f2e23d7df07fda0a5bbe7e329b6bf7f37"
+    },
+    {
+      "path": "hammer_bomber_flight.manifest.json",
+      "size": 5634,
+      "sha256": "d74c1779c247c853f1ad044ad227ccf372574e9add1e0a871f6bf56f26e36b50"
+    },
+    {
+      "path": "hammer_bomber_flight.qa.json",
+      "size": 496,
+      "sha256": "aba7b67d969da31c827ee11a6b7254a91ffa000f8802d446ad9ef343f5ec13f6"
+    },
+    {
+      "path": "hammer_bomber_flight.review.html",
+      "size": 2740,
+      "sha256": "39c602c55481b529c1962983042e9f8ebb9309380cfe73c6a6335c471197e8af"
+    },
+    {
+      "path": "hammer_bomber_flight.spriteframes.tres",
+      "size": 1169,
+      "sha256": "a2da150da34d6bd6c9c14ecb861d11063ca020a3782dd49772faf977b5791d32"
+    },
+    {
+      "path": "previews/flight.contact.png",
+      "size": 5042,
+      "sha256": "f8694bc9f33edc4adde41ea0f1dc56697b391778ee44ce91c5284db8cf166fa0"
+    },
+    {
+      "path": "previews/flight.difference.png",
+      "size": 3763,
+      "sha256": "09c5025f90fdaaa2e02d5e932330ebe01c34ac7ccc4cd78ed6f3c9cf5f930c2d"
+    },
+    {
+      "path": "previews/flight.gif",
+      "size": 7146,
+      "sha256": "cd80170b04e28b4051f9094029f32376a9f345edeb89af808a973bf41afe10ad"
+    },
+    {
+      "path": "previews/flight.onion.png",
+      "size": 5944,
+      "sha256": "0d493bee718ef8dced5eface94e11f213195a7922b733e89020c8a76a746626f"
+    },
+    {
+      "path": "previews/flight.pivots.png",
+      "size": 5167,
+      "sha256": "e0cd117bbd21fc784a10ece1b79a5be41819cd2748367a87507ef829acf0c528"
+    }
+  ]
+}

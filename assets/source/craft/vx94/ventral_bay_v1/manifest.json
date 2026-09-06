@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "reviewed_native_runtime",
+  "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/ventral_bay/",
+  "method": "Authored SVG masters rasterized at exact native size and passed through EVAVO Art Studio Project Art compositing",
+  "states": {
+    "closed": {
+      "file": "bay_closed.png",
+      "sha256": "367db6c4303753f8859c07183a4313c4ce6cffe87809237dc982b75ce67e37eb"
+    },
+    "opening": {
+      "file": "bay_opening.png",
+      "sha256": "b9d7eb3a263f7ad151dc0ccda84b7ac1f6ffcc04e076d9bcdd4eaa7e72fb8f55"
+    },
+    "open": {
+      "file": "bay_open.png",
+      "sha256": "ea26f23183fb656af13a0ef5572f95e36a33d6a06f6ddf2aefc062db102e9972"
+    }
+  },
+  "mount": "ventral_strike_bay",
+  "roles": [
+    "precision_bomb",
+    "guided_bomb"
+  ],
+  "visual_contract": "Precision ordnance is internal; missiles and rockets remain visible on wing pylons.",
+  "native_captures": [
+    {
+      "state": "closed",
+      "path": "work/vx94_ventral_bay_v1/native/closed.png",
+      "sha256": "c728a12fcfa19a473c442a241485503e0d50d94ee1cd744072085e754fcb2f48"
+    },
+    {
+      "state": "opening",
+      "path": "work/vx94_ventral_bay_v1/native/opening.png",
+      "sha256": "7e574a70013aa83425b11bb26a0314162e83b749bc758739f7ac613cb58f4379"
+    },
+    {
+      "state": "open",
+      "path": "work/vx94_ventral_bay_v1/native/open.png",
+      "sha256": "d4b19352f62c5585958b87193ca14b5dddc6e7cffc0aed58cd988cd72b45836f"
+    }
+  ],
+  "review_contact": "work/vx94_ventral_bay_v1/native_contact.png"
+}

@@ -22,6 +22,8 @@ static func divert_missiles(bullets: Array, player_position: Vector2, decoy: Vec
 		var shot: Dictionary = bullets[index]
 		if not bool(shot.get("homing", false)):
 			continue
+		if str(shot.get("guidance_class", "heat_seeking")) != "heat_seeking":
+			continue
 		var position: Vector2 = shot.get("position", Vector2.ZERO)
 		if position.distance_to(player_position) > DECOY_RADIUS:
 			continue

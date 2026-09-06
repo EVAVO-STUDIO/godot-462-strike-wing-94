@@ -1,0 +1,113 @@
+{
+  "status": "reviewed_runtime_integration_with_recorded_generic_burst_qa_failure",
+  "source": "Original authored cels finished with EVAVO Art Studio",
+  "plumeAnchor": [
+    8,
+    4
+  ],
+  "burstAnchor": [
+    48,
+    8
+  ],
+  "engineOffsets": [
+    [
+      -6,
+      30
+    ],
+    [
+      5,
+      30
+    ]
+  ],
+  "plumeFps": 16,
+  "burstDurationsMs": [
+    35,
+    45,
+    55,
+    65,
+    75,
+    85
+  ],
+  "files": [
+    {
+      "source": "blue_plume_0.svg",
+      "sourceSha256": "4ed83784024670baf342b36eef8f8839ad6dde7cf94b19d6643d9e6ad6b1727a",
+      "target": "blue_plume_0.png",
+      "sha256": "3d35202696125c1420fae86ddd6b32236b01cf8a4b47517b69b6a0d85b9c1b7c",
+      "width": 16,
+      "height": 40
+    },
+    {
+      "source": "blue_plume_1.svg",
+      "sourceSha256": "530f753392aa26c4319314bf955c5f697b59e0d958474a97f18f0185b63c29dd",
+      "target": "blue_plume_1.png",
+      "sha256": "63fdc1bb7ea87f2a96bcf810fd7679f7a62e34e490d013563b7358c0dfe4c7ed",
+      "width": 16,
+      "height": 40
+    },
+    {
+      "source": "blue_plume_2.svg",
+      "sourceSha256": "92dae9e3b8233084d99f836389c59e1b9ee4f5e568e87f75a707aeace8b2f6c5",
+      "target": "blue_plume_2.png",
+      "sha256": "fcecf513ea08b4b22bb81d0fbc4016c6798f4209b3f9a3e97993f1af51185481",
+      "width": 16,
+      "height": 40
+    },
+    {
+      "source": "blue_plume_3.svg",
+      "sourceSha256": "0a24c90cb345013418ee99d4ba29f31814188ecf6024bcb5b3d6e847b27ee69c",
+      "target": "blue_plume_3.png",
+      "sha256": "94d6c42d803d16b7a100d6c95dbb38bdbc02294fa7d8750c0f260f4d2e8ceeff",
+      "width": 16,
+      "height": 40
+    },
+    {
+      "source": "engine_burst_0.svg",
+      "sourceSha256": "ca98ba2f9e3a0a3a87b302068b607e32ee2ea5c0e35d4560cd549df464171b67",
+      "target": "engine_burst_0.png",
+      "sha256": "e53ff29d7ae9160ec7e09cee2aafb974e01b428e83d18b0d1ab855f6ed00923e",
+      "width": 112,
+      "height": 40
+    },
+    {
+      "source": "engine_burst_1.svg",
+      "sourceSha256": "a5e5bb9eda3ac4a3ea78eda404e5935a8525b4c442705c7f131221e81517bd7c",
+      "target": "engine_burst_1.png",
+      "sha256": "09316bbc606a359884760e8955068334ca305c7b082ae0e44a3eeb31a4fb8ef7",
+      "width": 112,
+      "height": 40
+    },
+    {
+      "source": "engine_burst_2.svg",
+      "sourceSha256": "9254b59ab555aa16edb47e6191e7d54bf6290892c324f3bf1c4f9871e7a393cd",
+      "target": "engine_burst_2.png",
+      "sha256": "3c5392431caed73ca5b7a2ed93c7456076df30cdea6422fa06c5a014fe45bafd",
+      "width": 112,
+      "height": 40
+    },
+    {
+      "source": "engine_burst_3.svg",
+      "sourceSha256": "725bf287c56e7a0658f455a272f0f521039d1fd68b12d93a7cdb49af1fc90d2a",
+      "target": "engine_burst_3.png",
+      "sha256": "d92d6a92eb97c633931d59da30610ec721cb6c56f90146d4a68df2ea9cb30087",
+      "width": 112,
+      "height": 40
+    },
+    {
+      "source": "engine_burst_4.svg",
+      "sourceSha256": "d7e3a63411bd351321e8421b5aa007e3e5090e59ac23887d9c752e2b889de9eb",
+      "target": "engine_burst_4.png",
+      "sha256": "fcd8bcd7818444cd43fafdeebc150e786e92b9203ab353d5e57d428004bb7042",
+      "width": 112,
+      "height": 40
+    },
+    {
+      "source": "engine_burst_5.svg",
+      "sourceSha256": "878fd9efadb6d2c87f1c2fb161b6ff1740363228a1b1ce11e1b82dfaff33651f",
+      "target": "engine_burst_5.png",
+      "sha256": "4c3d65e906d7a8be1ba6afeae7dfd4fcb0ee0b6e4abfca2c17c6a0dc8aa0c7aa",
+      "width": 112,
+      "height": 40
+    }
+  ]
+}

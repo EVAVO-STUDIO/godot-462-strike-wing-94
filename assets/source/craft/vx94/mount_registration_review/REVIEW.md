@@ -1,0 +1,9 @@
+# Hero pitch and mounted-state audit
+
+Main revalidated at 34379f3. Ten bank-pose diagnostic overlays were authored through EVAVO Art Studio using actual data/player_mounts.json offsets and the gameplay anchor (32,38); all ten were visually inspected. No production art, mount data or gameplay code was changed.
+
+The fighter's neutral ballistic points sit 6.32 and 7.28 pixels from the nearest visible airframe pixel (alpha >=32); the opposite hard-bank point can be 10–10.63 pixels away. The bomber rotary point is on its neutral nose but 12.04 pixels from its hard-bank silhouette. These are diagnostics, not automatically corrected points: muzzle tips may legitimately extend outside the hull, and attaching them to the nearest opaque pixel would not establish a plausible barrel or firing direction.
+
+Actual runtime evidence in source: CombatArtDirector._draw_player selects authored bank or transform textures. _altitude_pitch_offset translates the sprite by up to four pixels during altitude transitions; no authored pitch pose is selected. WeaponMountCueDirector draws muzzle flashes from raw player_position plus fixed offsets. It does not use that visual pitch translation or bank-specific anchors, and draws no persistent deployed housing. Existing muzzle media and projectile behavior remain intact.
+
+Next art work must specify physical housings and per-pose anchor registration together: fighter wing-root guns, bomber nose rotary, centreline specialist emitter, pylons, bays and dorsal module. The renderer's actor pose must also register flashes consistently during bank, altitude change and transformation. Author candidate neutral/deployed/retracted media first; integrate only the necessary shared pose-anchor support after the design pass. Preserve the existing weapon economy and projectile gameplay; do not silently change balance while fixing visual alignment. Full hero pitch, mount and evasive-state review remains open.

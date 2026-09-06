@@ -1,0 +1,436 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "e01756eb7626a3c2cb2b1ecf061abfb2e1cd5ba3a446c64adfd70da38ed99c11",
+  "planBytesSha256": "f3d7950274c1cc65e56f179ed99e1902730617230a7d66049cbd93d71e9c4f76",
+  "sandboxId": "pitch-proof-board",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:f9195de756498d3712494c1d",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_1898f523fcac78dbc56e0b7637c9cf8c",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_12.png",
+      "sha256": "48fd55708cdf544edd6b6aa425ea23527f561399702c744f940b618e4df34a41",
+      "bytes": 10832
+    },
+    {
+      "sourceId": "source_3c537128a8b7857fc2bccbdf5ace0267",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_06.png",
+      "sha256": "c669a748c30f17d5aa01649d912d52448af73dd10e5d461c864ab29ff9052441",
+      "bytes": 9305
+    },
+    {
+      "sourceId": "source_3fd86c7935a060321b3edf766156408e",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_06.png",
+      "sha256": "dd9a277c9955048a0aeccbb67646510905fe2d65af563c510c34083711cbc5f9",
+      "bytes": 10937
+    },
+    {
+      "sourceId": "source_5954e1e01d9ccf9433329f56b96f27f3",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_12.png",
+      "sha256": "6f7b6d81446bdbca1c7c4afcb691492b4ff72d97e7d6ee25683ab84f658c726a",
+      "bytes": 9196
+    },
+    {
+      "sourceId": "source_815aaa8c63f1c17d0207905417467eea",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_18.png",
+      "sha256": "226814646e702af30cee1b831bd3783c9300b562d2bd7cc055a3e84be94bd861",
+      "bytes": 10673
+    },
+    {
+      "sourceId": "source_85e4ac1d1752ea5dcb3fbbf6653548fd",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_12.png",
+      "sha256": "40b9664937e0732de8db64f723e29a92d17a778dc746affef9d4c16410b94909",
+      "bytes": 9292
+    },
+    {
+      "sourceId": "source_8cf02c70cbd522b5ee446cf14c0581b8",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_12.png",
+      "sha256": "8068d4439145be53a2564182c6d13c6873980af76cda406d09e0a502f9251667",
+      "bytes": 10797
+    },
+    {
+      "sourceId": "source_95213ba2c3d0d6db19c1448851ae958a",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_18.png",
+      "sha256": "a608d9ed2800d72a2b6b799ff04813331108761d585b93b7ccd9e91690790c33",
+      "bytes": 9065
+    },
+    {
+      "sourceId": "source_9cc70c8895dc8ea3f431f74cb3d92097",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_06.png",
+      "sha256": "1bc67710a7a1e66b777b6ee365056f41a464ac82b26a9d229a9819fe2d0d31c7",
+      "bytes": 9318
+    },
+    {
+      "sourceId": "source_a9def49dbc8fee3d9666d860c7fe6c5e",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_neutral.png",
+      "sha256": "c669a748c30f17d5aa01649d912d52448af73dd10e5d461c864ab29ff9052441",
+      "bytes": 9305
+    },
+    {
+      "sourceId": "source_bcae6cfe46271f3eb08ffa4ad72547c8",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_18.png",
+      "sha256": "fc1f701a3b26b0943d73230be5dab54a2d6e1bde92384e3a63eba63cf90a17c1",
+      "bytes": 9052
+    },
+    {
+      "sourceId": "source_cbf8c3687229a22eb2f21722ace0ffd6",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_06.png",
+      "sha256": "5b9ade612534bb7abe6deb9f2fc1643e5c4dfee1cbcdae2bee8d828e1acb05cc",
+      "bytes": 10931
+    },
+    {
+      "sourceId": "source_d7381f0c1aed5495a0e591ff78d42fb0",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_18.png",
+      "sha256": "a96cc3adf6b535cb658a049b30e9f8c552892ca0c6b41f0365e503c1c948f090",
+      "bytes": 10689
+    },
+    {
+      "sourceId": "source_db10b47401d4fdc1a421f60d7e920eb0",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_neutral.png",
+      "sha256": "5b9ade612534bb7abe6deb9f2fc1643e5c4dfee1cbcdae2bee8d828e1acb05cc",
+      "bytes": 10931
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "pitch_family",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 14,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 352,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 352,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 352,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 352,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 528,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 528,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "proof_board.png",
+          "sha256": "d106e0ce0e03305ded1607aff8da570cb3462de5d55441fc1116af92238906b0",
+          "bytes": 120789,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 960,
+            "height": 704
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 675840
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            960,
+            704
+          ],
+          "pixelSha256": "930b74bfcf6137f2ae01a1fbb73cc9d4d9011e97e41b74eea74d0651b01fb5ba"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "proof_board.png",
+      "sha256": "d106e0ce0e03305ded1607aff8da570cb3462de5d55441fc1116af92238906b0",
+      "bytes": 120789,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 960,
+        "height": 704
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 675840
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        960,
+        704
+      ],
+      "pixelSha256": "930b74bfcf6137f2ae01a1fbb73cc9d4d9011e97e41b74eea74d0651b01fb5ba"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 14,
+    "externalSourceBytes": 140323,
+    "plannedMaximumOutputFiles": 2,
+    "taskOutputFiles": 1,
+    "taskOutputBytes": 120789,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "befdeb02c1a7cd49304942ddd05ef348f480b2b409f1f7119a26c81b59b1f284"
+}

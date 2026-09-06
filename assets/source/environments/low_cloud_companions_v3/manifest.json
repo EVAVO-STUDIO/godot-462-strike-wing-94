@@ -1,0 +1,35 @@
+{
+  "status": "integrated_native_reviewed",
+  "provider": "built-in image generation",
+  "geometry": [
+    192,
+    64
+  ],
+  "frames": [
+    {
+      "id": "b",
+      "runtime": "assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png",
+      "master": "final/b.png",
+      "sha256": "af0beb2573c3316fb6652140ffd5ae8ec909353cd468f2edc6bb4bc49c2adffa"
+    },
+    {
+      "id": "c",
+      "runtime": "assets/runtime/environments/clouds/cloud_bank_low_wisp_c.png",
+      "master": "final/c.png",
+      "sha256": "48df33e0a7c1c8a60539325b0cf757689fb43f15d98679cbc8d926397afc1be4"
+    },
+    {
+      "id": "d",
+      "runtime": "assets/runtime/environments/clouds/cloud_bank_low_wisp_d.png",
+      "master": "final/d.png",
+      "sha256": "2fd01bee3f48ca4c00cf95dc81bc89f3a0998137aa3080288d9d30184d161bf0"
+    }
+  ],
+  "qa": "Three PASS after removal of measured alpha 1-4 resampling noise. Native alpha retained; white cloud material excluded from contamination probes. Black, magenta, green, cyan and blue remain at maximumHaloFraction 0.015. All six-background proofs visually reviewed.",
+  "native_frames": 72,
+  "speed_range": [
+    0.62,
+    4.01666666666666
+  ],
+  "native_scope": "Actual production renderer and firing/throttle/afterburner input. Loaded texture geometry asserted. Mid coast / low mountain. Routine selection does not expose all variants. Not full weather or altitude acceptance."
+}

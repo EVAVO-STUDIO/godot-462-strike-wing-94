@@ -95,6 +95,7 @@ func subtitles_enabled()->bool:return _subtitles
 func difficulty_id()->String:return _difficulty_id
 
 func _apply_capture_override(arguments:PackedStringArray)->void:
+	if "--capture-reduced-flashes" in arguments:_reduced_flashes=true
 	for argument in arguments:
 		if argument.begins_with("--capture-difficulty="):
 			var requested:=argument.trim_prefix("--capture-difficulty=").to_lower()

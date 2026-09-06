@@ -1,23 +1,69 @@
 {
   "asset_family": "mission_intelligence_dossier",
-  "status": "runtime_v1",
+  "status": "runtime_v2",
   "visual_contract": {
     "purpose": "make every mission threat, flight-envelope, route, boss and support fact scannable as an authored tactical dossier",
-    "icon_order": ["threat", "envelope", "profile", "lanes", "routes", "boss", "allied", "advice"],
-    "avoid": ["floating text list", "modern rounded cards", "generic app icons", "decorative radar clutter"]
+    "icon_order": [
+      "threat",
+      "envelope",
+      "profile",
+      "lanes",
+      "routes",
+      "boss",
+      "allied",
+      "advice"
+    ],
+    "avoid": [
+      "floating text list",
+      "modern rounded cards",
+      "generic app icons",
+      "decorative radar clutter"
+    ]
   },
   "source": "res://assets/source/ui/menu/mission_intel_sheet.svg",
   "runtime_directory": "res://assets/runtime/ui/menu/mission_intel/",
   "assets": {
-    "icon_threat.png": [16,16],
-    "icon_envelope.png": [16,16],
-    "icon_profile.png": [16,16],
-    "icon_lanes.png": [16,16],
-    "icon_routes.png": [16,16],
-    "icon_boss.png": [16,16],
-    "icon_allied.png": [16,16],
-    "icon_advice.png": [16,16],
-    "row_frame.png": [480,20],
-    "ready_lamp.png": [12,12]
-  }
+    "icon_threat.png": [
+      16,
+      16
+    ],
+    "icon_envelope.png": [
+      16,
+      16
+    ],
+    "icon_profile.png": [
+      16,
+      16
+    ],
+    "icon_lanes.png": [
+      16,
+      16
+    ],
+    "icon_routes.png": [
+      16,
+      16
+    ],
+    "icon_boss.png": [
+      16,
+      16
+    ],
+    "icon_allied.png": [
+      16,
+      16
+    ],
+    "icon_advice.png": [
+      16,
+      16
+    ],
+    "row_frame.png": [
+      480,
+      20
+    ],
+    "ready_lamp.png": [
+      12,
+      12
+    ]
+  },
+  "refinement_source": "res://assets/source/ui/menu/mission_intel_v2/runtime_manifest.json",
+  "refinement_builder": "tools/build_mission_intel_v2.mjs"
 }

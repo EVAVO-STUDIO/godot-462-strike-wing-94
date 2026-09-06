@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "gunship_alpha_critical.manifest.json",
+  "files": [
+    {
+      "path": "aligned/critical_0.png",
+      "size": 443,
+      "sha256": "1a83ee2f20201336964b006e9093d98335470951fdd197855087b140301b842d"
+    },
+    {
+      "path": "aligned/critical_1.png",
+      "size": 444,
+      "sha256": "51515c9e4f4ee40819cb4ad804a825fe5ed28d7ced02c49660ba4035c2e11b98"
+    },
+    {
+      "path": "aligned/critical_2.png",
+      "size": 449,
+      "sha256": "a3257123a0aa5afc142e348c69e1620085d430295c1786a157ef26a810080c3e"
+    },
+    {
+      "path": "aligned/critical_3.png",
+      "size": 445,
+      "sha256": "3856b8ac55f6c06fef1d35c1a35709a5466afdd312581da1af2296b8aaf839d8"
+    },
+    {
+      "path": "frames/critical_0.png",
+      "size": 330,
+      "sha256": "61195379d304eac901b03306fb1a8083f3d49ae7503967a3c8e1c31f71f85c9e"
+    },
+    {
+      "path": "frames/critical_1.png",
+      "size": 333,
+      "sha256": "f7d91b483ebc87faad28c7bdee024c6690e1b9ba1c6a23a8f3c8fea49c735966"
+    },
+    {
+      "path": "frames/critical_2.png",
+      "size": 337,
+      "sha256": "16f2c8fe108b7dca73d782069ff6ba75ad8d546abedef557bb7c69cf19498db2"
+    },
+    {
+      "path": "frames/critical_3.png",
+      "size": 333,
+      "sha256": "8de0c3faa4c04f668ca66039e2eb2f46eff9ea992dee5e6be04f79dd0144596e"
+    },
+    {
+      "path": "gunship_alpha_critical.animated_sprite.tscn",
+      "size": 339,
+      "sha256": "e0f308d9151638e0078603579f047e5f422ba0bf48027755baf91746f0246968"
+    },
+    {
+      "path": "gunship_alpha_critical.atlas.0.png",
+      "size": 635,
+      "sha256": "c7364db37d9259bc02942d6be09cb51219616b98492d8b903857650264d1538a"
+    },
+    {
+      "path": "gunship_alpha_critical.atlas.json",
+      "size": 3577,
+      "sha256": "0dd2e27bf37b6d137e3a40836ac7fc47fdff4d7a36aaf905db9f3450aa6b5619"
+    },
+    {
+      "path": "gunship_alpha_critical.build.json",
+      "size": 4438,
+      "sha256": "df32a5277d8bd2036e17d8a90e38a1a1454a695490fe6974a497c574970c8fbf"
+    },
+    {
+      "path": "gunship_alpha_critical.corrections.json",
+      "size": 147,
+      "sha256": "a2b4f8edfd255ec9615c128df829513d52cdf56fd2900251645f44d55ec26cf8"
+    },
+    {
+      "path": "gunship_alpha_critical.events.json",
+      "size": 1020,
+      "sha256": "0d9047ea90a86aa1774026b2e236455770051cd0415b207f007466185715bfe7"
+    },
+    {
+      "path": "gunship_alpha_critical.integration.json",
+      "size": 1093,
+      "sha256": "4cd053b581c270d3e7c682fdb8c33776601ba0452144ed9b681e27bebbd3c02d"
+    },
+    {
+      "path": "gunship_alpha_critical.manifest.json",
+      "size": 5694,
+      "sha256": "9a49e3a8e3a798e745c166b9a4d2077b177fd4713e6fc5ddfc79a0335084e55c"
+    },
+    {
+      "path": "gunship_alpha_critical.qa.json",
+      "size": 490,
+      "sha256": "4559be12144274388addab889a1df6722c06e5f1be56713d7c5e8ad2be696d8d"
+    },
+    {
+      "path": "gunship_alpha_critical.review.html",
+      "size": 2759,
+      "sha256": "9520c2977aaa6d29e394d156b9180e3598ef21b06b170ca3c92a56f2c2682614"
+    },
+    {
+      "path": "gunship_alpha_critical.spriteframes.tres",
+      "size": 1176,
+      "sha256": "3204540c6fab6f209407d1ea605b41cc76da6c615172c78f4a69440251235d4f"
+    },
+    {
+      "path": "previews/critical.contact.png",
+      "size": 2511,
+      "sha256": "2fb800fb545e3b4fb413e5869e799649af5e5edcdb71a7baa219ca9005b50b92"
+    },
+    {
+      "path": "previews/critical.difference.png",
+      "size": 1854,
+      "sha256": "99ce1f99b10188e81b580c55357fe6b4355bb13376759a8d957a44feb137bf01"
+    },
+    {
+      "path": "previews/critical.gif",
+      "size": 3347,
+      "sha256": "ff3e248ad924122c191051c377f23a520be9d739e8e36866913e0ebaab3808c6"
+    },
+    {
+      "path": "previews/critical.onion.png",
+      "size": 2505,
+      "sha256": "6d79456cdbb568cb5835dd40e9165fbdfd2deaca8cbf9b78909e96a6f5f9093e"
+    },
+    {
+      "path": "previews/critical.pivots.png",
+      "size": 2264,
+      "sha256": "49e1975245618a5b1118e4d0f8de1cb95ed810109b03d3319eff0c1bcf9aa15d"
+    }
+  ]
+}

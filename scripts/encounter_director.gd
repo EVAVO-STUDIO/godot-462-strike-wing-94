@@ -43,6 +43,10 @@ func _supports(scene: Object) -> bool:
 	return scene.has_method("_spawn_enemy") and SceneContractCache.supports(scene, ["phase", "mission_time", "mission_index", "mission_catalog", "enemy_catalog", "enemies", "enemy_spawn_timer", "pickups", "status_text", "status_timer", "shots_fired", "shots_hit", "score", "bombs"])
 
 func _active_mission(scene: Object) -> Dictionary:
+	if scene.has_method("_active_mission"):
+		var active = scene.call("_active_mission")
+		if typeof(active) == TYPE_DICTIONARY and not active.is_empty():
+			return active
 	var missions: Array = scene.get("mission_catalog")
 	if missions.is_empty():
 		return {}

@@ -1,0 +1,11 @@
+# Cloud family refinement
+
+Seven refined cloud assets are integrated: four 256x112 mid-altitude banks and three 192x64 low wisps. Together with the previously refined low A and four high clouds, all twelve runtime cloud textures now have revised art. The shapes progress from thin wind-torn vapour through broken middle banks to dense high formations. The previous files and immutable generated sources are retained, with prompts, EVAVO Art Studio finishing evidence, alpha proofs and hash-checked delivery builders.
+
+Every new sprite passed alpha QA using black and chromatic contamination probes; white is cloud material in these native-alpha sources, not a source matte. All six-background proofs and the complete twelve-texture board were visually inspected. Low B/D initially failed due to isolated alpha 1-4 resampling noise. Art Studio's threshold-4 cleanup actually removed alpha 1-3 pixels and retained at least 99.78% of alpha mass. All pixels above alpha 4 are byte-identical; full-strength silhouettes and stronger feathered vapour are preserved. Original failures and measured cleanup evidence remain. The threshold was selected from the observed resampling defect, and the halo QA limit remains 0.015.
+
+Pinned Godot 4.6.2 imports completed without logged errors or warnings. Two 72-frame captures confirmed the new texture sizes and ran actual firing/throttle/afterburner input: mid-altitude coast and low-altitude mountains. Coast frames 12/36/60 and mountain frames 12/36/60/71 were inspected. The environment self-test passed with the known ObjectDB exit-leak warning on this run. These are short art/gameplay captures, not whole missions or the release gate.
+
+The renderer currently uses round(6*density) with a minimum of two and fixed index selection. At settled low density 0.12 it uses A/B only; at settled mid density 0.45 it uses A/B/C. Low C/D and mid D therefore still require selection/transition review. The new images alone do not prove every identity appears during ordinary flight. Rain/snow integration, precipitation visibility, complete altitude transitions, speed-following flight and airframe lethality remain open for the ordered design/code phases.
+
+No commit or push yet. The production goal remains active.

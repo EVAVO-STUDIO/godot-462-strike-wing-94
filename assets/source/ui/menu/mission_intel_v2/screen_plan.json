@@ -1,0 +1,143 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "operations-modal-opacity",
+  "projectId": "hypersonic",
+  "purpose": "Opaque inner modal surface behind retained bezel, preserving outer edge",
+  "compiledAt": "2026-09-06T11:11:47.932Z",
+  "runId": "project-art-sandbox:2d04d78262d0831f730d82bd",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "41dbf580d27dbd80c9878ccce75826e60cc9024ae4384d9f138ac1683c9c904c",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_ad7034b9352f6e397a20e7d1c84976e4",
+      "path": "work/mission_intel_icons_v2/screen_backing.png",
+      "sha256": "fa6b0a37643155f1885894b1dd0e26499f86a5bbdc9e9f7d76766d427970edb1",
+      "bytes": 129,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 32,
+        "height": 32,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ebdd15e83f0d1059b9b91007e9d9a9ac",
+      "path": "work/mission_intel_icons_v2/originals/operations_screen_9slice.png",
+      "sha256": "78a183109d4db53e4141e3ce8749de4b3990c5e772593d04d755282b3cda36c1",
+      "bytes": 449,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 32,
+        "height": 32,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "screen",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_ad7034b9352f6e397a20e7d1c84976e4"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_ebdd15e83f0d1059b9b91007e9d9a9ac"
+        }
+      ],
+      "targetPath": "operations_screen_9slice.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 32,
+        "height": 32,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 32
+          }
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 578,
+    "plannedMaximumOutputFiles": 2
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "9c5055d35fa927489164edde24a98e32d9f793f58b3568c84ee478e0c3fa0047"
+}

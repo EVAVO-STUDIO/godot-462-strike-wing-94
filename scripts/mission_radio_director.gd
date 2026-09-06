@@ -4,7 +4,8 @@ const MissionRadioSurface = preload("res://scripts/mission_radio_surface.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
-const RADIO_STRIP := preload("res://assets/runtime/ui/hud/status_frame.png")
+const RADIO_RECEIVE_STRIP := preload("res://assets/runtime/ui/hud/radio/radio_receive.png")
+const RADIO_PRIORITY_STRIP := preload("res://assets/runtime/ui/hud/radio/radio_priority.png")
 
 const INTRO_DELAY := 1.62
 const INTRO_SECONDS := 4.8
@@ -68,12 +69,15 @@ func _process(delta: float) -> void:
 		_redraw()
 		return
 	if _intro_delay == 0.0 and _message.is_empty():
-		_show(_sector_callsign(mission), str(scene.get("current_briefing")), INTRO_SECONDS, 1, RetroSfxRules.RADIO_TX)
+		if "--capture-radio-alert" in OS.get_cmdline_user_args():
+			_show("SKYWARD", "PRIORITY // HEAVY CONTACT. WEAPONS FREE.", INTRO_SECONDS, 3, RetroSfxRules.RADIO_ALERT)
+		else:
+			_show(_sector_callsign(scene), str(scene.get("current_briefing")), INTRO_SECONDS, 1, RetroSfxRules.RADIO_TX)
 		_intro_delay = -1.0
 	var boss_spawned := bool(scene.get("boss_spawned"))
 	if boss_spawned and not _last_boss_spawned:
 		var boss_name := str(scene.get("current_boss_id")).replace("_", " ").to_upper()
-		_show(_sector_callsign(mission), "HEAVY CONTACT // %s. WEAPONS FREE." % boss_name, BOSS_SECONDS, 3, RetroSfxRules.RADIO_ALERT)
+		_show(_sector_callsign(scene), "HEAVY CONTACT // %s. WEAPONS FREE." % boss_name, BOSS_SECONDS, 3, RetroSfxRules.RADIO_ALERT)
 	_last_boss_spawned = boss_spawned
 	var egress_active := _has_property(scene, "egress_active") and bool(scene.get("egress_active"))
 	if egress_active and not _last_egress_active:
@@ -111,14 +115,10 @@ func draw_radio(surface: CanvasItem) -> void:
 	# raster strip preserves subtitles while returning the lower playfield and
 	# the player's silhouette to combat. Cinematics retain their own framing.
 	var strip := Rect2(16, 337, 608, 18)
-	surface.draw_texture_rect(RADIO_STRIP, strip, false, Color(1, 1, 1, alpha))
-	surface.draw_rect(Rect2(22, 341, 3, 10), Color(0.90, 0.73, 0.31, alpha))
-	PixelFont.draw_text(surface, "RX // %s" % _speaker, Vector2(31, 343), 1, Color(0.42, 0.73, 0.78, alpha), 1)
+	var priority_alert := _priority >= 3
+	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1, 1, 1, alpha))
+	PixelFont.draw_text(surface, ("PR // %s" if priority_alert else "RX // %s") % _speaker, Vector2(31, 343), 1, Color(0.90, 0.38, 0.30, alpha) if priority_alert else Color(0.42, 0.73, 0.78, alpha), 1)
 	PixelFont.draw_text(surface, _clip(_message, 102), Vector2(112, 343), 1, Color(0.86, 0.89, 0.90, alpha), 1)
-	var pulse := 0.45 + 0.55 * absf(sin(age * 9.0))
-	for i in range(5):
-		var height := 2.0 + float((i * 3 + int(age * 12.0)) % 5)
-		surface.draw_rect(Rect2(594 + i * 4, 343 + (6.0 - height) * 0.5, 2, height), Color(0.90, 0.73, 0.31, alpha * pulse))
 
 func occupies_status_lane() -> bool:
 	return not _message.is_empty() and _subtitles_enabled() and not _flight_warning_active()
@@ -147,7 +147,15 @@ func _wrap(text: String, columns: int) -> Array[String]:
 	if not current.is_empty(): lines.append(current)
 	return lines
 
-func _sector_callsign(mission: int) -> String:
+func _sector_callsign(scene: Object) -> String:
+	if scene.has_method("_active_mission"):
+		var active = scene.call("_active_mission")
+		if typeof(active) == TYPE_DICTIONARY:
+			var sector := str(active.get("sector", ""))
+			if sector.begins_with("S1"): return "COASTWATCH"
+			if sector.begins_with("S2"): return "ORACLE"
+			if sector.begins_with("S3"): return "SKYWARD"
+	var mission := int(scene.get("mission_index"))
 	if mission < 10: return "COASTWATCH"
 	if mission < 20: return "ORACLE"
 	return "SKYWARD"

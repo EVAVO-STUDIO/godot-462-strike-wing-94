@@ -10,6 +10,15 @@ const FLARE_FRAMES := [
 	preload("res://assets/runtime/effects/countermeasure/flare_2.png"),
 	preload("res://assets/runtime/effects/countermeasure/flare_3.png"),
 ]
+const FLARE_PIVOT := Vector2(24, 10)
+const SALVO_CARTRIDGE_SCALE := Vector2(0.72, 0.72)
+const SALVO_DELAYS := [0.0, 0.055, 0.11]
+const SALVO_LATERAL_OFFSETS := [-3.0, 0.0, 3.0]
+const SALVO_ANGLE_OFFSETS := [-0.16, 0.0, 0.16]
+const DISPENSER_OFFSETS := {
+	"fighter": [Vector2(-5,14),Vector2(-3,15),Vector2(0,16),Vector2(3,15),Vector2(5,14)],
+	"bomber": [Vector2(-6,16),Vector2(-3,17),Vector2(0,18),Vector2(3,17),Vector2(6,16)],
+}
 
 var _charges := CountermeasureRules.MAX_CHARGES
 var _cooldown := 0.0
@@ -57,11 +66,26 @@ func deploy(scene: Object) -> int:
 	var decoy := CountermeasureRules.decoy_point(player, _serial)
 	var bullets: Array = scene.get("enemy_bullets")
 	var diverted := CountermeasureRules.divert_missiles(bullets, player, decoy)
+	if diverted > 0 and _has_property(scene, "countermeasures_decoyed"):
+		scene.set("countermeasures_decoyed", int(scene.get("countermeasures_decoyed")) + diverted)
 	scene.set("enemy_bullets", bullets)
 	_charges -= 1
 	_cooldown = CountermeasureRules.COOLDOWN_SECONDS
 	_serial += 1
-	_events.append({"position":player + Vector2(0, 16), "age":0.0, "serial":_serial})
+	var combat_art := get_node_or_null("/root/CombatArtDirector")
+	var bank := int(combat_art.call("propulsion_bank_frame_index")) if combat_art != null and combat_art.has_method("propulsion_bank_frame_index") else 2
+	var craft := get_node_or_null("/root/CraftStateDirector")
+	var form := str(craft.call("current_form")) if craft != null and craft.has_method("current_form") else "fighter"
+	var registrations: Array = DISPENSER_OFFSETS.get(form, DISPENSER_OFFSETS["fighter"])
+	var bank_angle := -0.22 if bank == 0 else (0.22 if bank == 4 else 0.0)
+	var dispenser: Vector2 = registrations[clampi(bank,0,4)]
+	for salvo_index in range(SALVO_DELAYS.size()):
+		_events.append({
+			"position": player + dispenser + Vector2(SALVO_LATERAL_OFFSETS[salvo_index], float(salvo_index)),
+			"angle": bank_angle + SALVO_ANGLE_OFFSETS[salvo_index],
+			"age": -SALVO_DELAYS[salvo_index],
+			"serial": _serial * SALVO_DELAYS.size() + salvo_index,
+		})
 	var sfx := get_node_or_null("/root/RetroSfxDirector")
 	if sfx != null and sfx.has_method("play_event"):
 		sfx.call("play_event", RetroSfxRules.COUNTERMEASURE)
@@ -74,13 +98,17 @@ func deploy(scene: Object) -> int:
 func draw_countermeasures(surface: CanvasItem) -> void:
 	for event in _events:
 		var age := float(event.get("age", 0.0))
+		if age < 0.0:
+			continue
 		var ratio := clampf(age / CountermeasureRules.EFFECT_SECONDS, 0.0, 0.999)
 		var frame_index := clampi(int(floor(ratio * float(FLARE_FRAMES.size()))), 0, FLARE_FRAMES.size() - 1)
 		var texture: Texture2D = FLARE_FRAMES[frame_index]
 		var position: Vector2 = event.get("position", Vector2.ZERO)
 		position.y += ratio * CountermeasureRules.DECOY_TRAIL_DISTANCE
 		position.x += sin(ratio * PI) * (-18.0 if posmod(int(event.get("serial", 0)), 2) == 0 else 18.0)
-		surface.draw_texture(texture, (position - texture.get_size() * 0.5).round(), Color(1,1,1,1.0-smoothstep(0.72,1.0,ratio)))
+		surface.draw_set_transform(position.round(), float(event.get("angle",0.0)), SALVO_CARTRIDGE_SCALE)
+		surface.draw_texture(texture, -FLARE_PIVOT, Color(1,1,1,1.0-smoothstep(0.72,1.0,ratio)))
+		surface.draw_set_transform(Vector2.ZERO)
 
 func charges_remaining() -> int:
 	return _charges

@@ -1,0 +1,484 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "45cd408a4f3220169974db166081f00c4a8cdc770e041794a61454c8a6847f3f",
+  "planBytesSha256": "1608b2fe667889f2e3ec42ac94f86d6430222a231c880349345c04b4b72534c7",
+  "sandboxId": "intel-icons-review",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:d27646dd6f366eec578e0ba6",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0813574f6c3a8855dcb248a1c8a4156a",
+      "path": "work/mission_intel_icons_v2/icons/icon_allied.png",
+      "sha256": "9bc1cfa2697d396a04f9fe017ea0ea1b6e541f8353f454e5cecf3dd8f1953fb7",
+      "bytes": 126
+    },
+    {
+      "sourceId": "source_0afae718974c4d1dad9b4ec3ba0bbcb8",
+      "path": "work/mission_intel_icons_v2/icons/icon_lanes.png",
+      "sha256": "f85a3bd3d6c8d28e53980eaba491a532d5e54dda41978a76acd129c5de15f7ec",
+      "bytes": 142
+    },
+    {
+      "sourceId": "source_172387ad4908504a845c3607057bc693",
+      "path": "work/mission_intel_icons_v2/icons/icon_advice.png",
+      "sha256": "3d3f4ebe04e5df4e1bfedbaeddbce6588086f8706d412247990d0f5f99938306",
+      "bytes": 146
+    },
+    {
+      "sourceId": "source_1dd17c2a729b2bb81df9a1f0908e6d6a",
+      "path": "work/mission_intel_icons_v2/originals/icon_threat.png",
+      "sha256": "3257de975de32add4af2e39d38f73866bdc9befc1f086559752bc7aacb1c6564",
+      "bytes": 410
+    },
+    {
+      "sourceId": "source_20f8338bdb7419fab695dfa7e3a03abc",
+      "path": "work/mission_intel_icons_v2/originals/icon_lanes.png",
+      "sha256": "b8497c9c29a18d0b7b1e82c53575e7fa82c0113867c8e17864d486377adab9c7",
+      "bytes": 375
+    },
+    {
+      "sourceId": "source_2115402f2fa48f24e53c2219e5b01ecd",
+      "path": "work/mission_intel_icons_v2/icons/icon_routes.png",
+      "sha256": "a6cca989655d6cedaa92ff462d728581afbbf28a59bbfffc26d23e01c6f0430a",
+      "bytes": 142
+    },
+    {
+      "sourceId": "source_22334d0ef33f05466d2e7ca7a618a71f",
+      "path": "work/mission_intel_icons_v2/originals/icon_allied.png",
+      "sha256": "0fed38864a7cbb832885c33d48e515eee29fd2f19c88733d1b9a79cbb67d044c",
+      "bytes": 396
+    },
+    {
+      "sourceId": "source_2b416d7baa7987f4bb029fe75e0935e9",
+      "path": "work/mission_intel_icons_v2/originals/icon_envelope.png",
+      "sha256": "1f93473f035fe9e8e550f62c44ce7c81b6c446f983098e298085c8652e62fdb8",
+      "bytes": 376
+    },
+    {
+      "sourceId": "source_4f3cadc736702cf76109665ab76a0da9",
+      "path": "work/mission_intel_icons_v2/icons/icon_threat.png",
+      "sha256": "fa027223ba969940ce95fd3dcf931e5c7fff12e80b0aa87b5b1b4e91bc626e82",
+      "bytes": 148
+    },
+    {
+      "sourceId": "source_6a635a97525ddb82fab22977cf2a53d8",
+      "path": "work/mission_intel_icons_v2/originals/icon_boss.png",
+      "sha256": "b0aaa165b8fc586201533868d031d450fb27dd6ce2e914fd959f706d8aee6b9e",
+      "bytes": 403
+    },
+    {
+      "sourceId": "source_8944d7e7f09cb89a47118d126566a017",
+      "path": "work/mission_intel_icons_v2/icons/icon_profile.png",
+      "sha256": "ed0ba76914fd3217ddf7f51401597eaf0344b4526c0dac9a5e82e72ee9e178b4",
+      "bytes": 140
+    },
+    {
+      "sourceId": "source_89d64f6541c3577a4178a9cfbc124ac5",
+      "path": "work/mission_intel_icons_v2/originals/icon_profile.png",
+      "sha256": "363f26c1b4a78eca5ecc51bd98eaf7904e5a652251e217d3b898f04d60e5962e",
+      "bytes": 386
+    },
+    {
+      "sourceId": "source_8be213bec42c4b4d155a25945e4ce9d2",
+      "path": "work/mission_intel_icons_v2/icons/icon_envelope.png",
+      "sha256": "d7bd6e76f6bd554d2159ea12181ba3e406919132f7badc3d5e03949d15a4c099",
+      "bytes": 138
+    },
+    {
+      "sourceId": "source_a2119bbcd3598f7cd66ecb3c78a0b601",
+      "path": "work/mission_intel_icons_v2/originals/icon_advice.png",
+      "sha256": "3091126d5dcfb35c9e0f9d082a84ef0688daef3e9de514a2cc03dc22d29dc1ba",
+      "bytes": 394
+    },
+    {
+      "sourceId": "source_b118ccf4aa684c288ef6bb78543b3010",
+      "path": "work/mission_intel_icons_v2/icons/icon_boss.png",
+      "sha256": "797b10bb84467c1815304b843d6fbe3574045a7329dc030011fbd853748ed21a",
+      "bytes": 139
+    },
+    {
+      "sourceId": "source_c37224145d5b23d4d2124d6703dd8422",
+      "path": "work/mission_intel_icons_v2/originals/icon_routes.png",
+      "sha256": "64486373e12e49351424f5bae669e5b331706309914ed1f84b639b35067a3e9d",
+      "bytes": 394
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "icons",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 16,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 64,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 192,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 320,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 448,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 64,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 192,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 320,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "index": 15,
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 448,
+          "y": 64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 64
+        }
+      ],
+      "outputs": [
+        {
+          "path": "icons.png",
+          "sha256": "1ff04a7fbde96498657b5ae9ee8990b906fff8edf7dad74cca6ac89193e7e79b",
+          "bytes": 1798,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 512,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 65536
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            512,
+            128
+          ],
+          "pixelSha256": "24bb8882a9bccca18e8a794bd67f8f12b08002c6378a5cab25bd74cf932601d8"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "icons.png",
+      "sha256": "1ff04a7fbde96498657b5ae9ee8990b906fff8edf7dad74cca6ac89193e7e79b",
+      "bytes": 1798,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 512,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 65536
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        512,
+        128
+      ],
+      "pixelSha256": "24bb8882a9bccca18e8a794bd67f8f12b08002c6378a5cab25bd74cf932601d8"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 16,
+    "externalSourceBytes": 4255,
+    "plannedMaximumOutputFiles": 2,
+    "taskOutputFiles": 1,
+    "taskOutputBytes": 1798,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "6855e264e5faa311e2f397f33358bb873f849862b098ea2c1dbaa8ce2faeb8cb"
+}

@@ -1,0 +1,9 @@
+# Hypersonic propulsion art v2
+
+Four blue exhaust cels use a white-blue core, blue shock-diamond accents and a restrained tail. EVAVO Art Studio finished original authored SVG cels; all existing propulsion art is preserved under originals. Sprite Studio passes the four-frame, 16 fps loop with registered (8,4) attachment on a 16x40 canvas.
+
+A six-cel engine pressure burst uses 35/45/55/65/75/85 ms exposures. Nine cels passed native-alpha mastering. The faint final burst cel was rejected by the alpha classifier; decoded original alpha has transparent edges and its six-background proof was inspected without changing opacity or thresholds. Burst strict Sprite Studio QA fails generic area/brightness/silhouette/palette limits as it expands and fades. This is recorded as a generic sprite-QA failure. The effect-specific runtime test instead verifies the intended monotonic expansion, final dissipation, exact exposure schedule and paired engine registration.
+
+Forty-eight native art frames show both forms and five banks. Initial hard-bank registration omitted a second raised outlet; the second capture corrects both outlets and tail direction. The engine_registration file records the ten poses. The burst is previewed only on neutral geometry, matching the existing hypersonic transform presentation. Actual altitude-pitch and evasive-roll integration remain open.
+
+Selected art frames 0, 9 and 25 and proof backgrounds were visually inspected. The reviewed cels are now integrated: ordinary charge retains the orange afterburner, actual hypersonic speed draws paired blue plumes, and the latch triggers one pressure burst alongside the existing sonic front. Mounts consume the live visual bank and altitude pitch. Full and Reduced Flashes native entry captures were inspected; the latter scales pressure cues to 48% while preserving blue engine state. Audio synchronization and full gameplay/release validation remain outstanding.

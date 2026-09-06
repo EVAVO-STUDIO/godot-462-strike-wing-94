@@ -1,0 +1,389 @@
+{
+	"frames": [
+		{
+			"duration": 2.4,
+			"elapsed": 0.48,
+			"exposure": 0,
+			"file": "s2_observation_0.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_observation"
+		},
+		{
+			"duration": 2.4,
+			"elapsed": 0.96,
+			"exposure": 1,
+			"file": "s2_observation_1.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_observation"
+		},
+		{
+			"duration": 2.4,
+			"elapsed": 1.44,
+			"exposure": 2,
+			"file": "s2_observation_2.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_observation"
+		},
+		{
+			"duration": 2.4,
+			"elapsed": 1.92,
+			"exposure": 3,
+			"file": "s2_observation_3.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_observation"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 0.44,
+			"exposure": 0,
+			"file": "s2_anticipation_0.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_anticipation"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 0.88,
+			"exposure": 1,
+			"file": "s2_anticipation_1.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_anticipation"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 1.32,
+			"exposure": 2,
+			"file": "s2_anticipation_2.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_anticipation"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 1.76,
+			"exposure": 3,
+			"file": "s2_anticipation_3.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_anticipation"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 0.56,
+			"exposure": 0,
+			"file": "s2_consequence_0.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_consequence"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 1.12,
+			"exposure": 1,
+			"file": "s2_consequence_1.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_consequence"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 1.68,
+			"exposure": 2,
+			"file": "s2_consequence_2.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_consequence"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 2.24,
+			"exposure": 3,
+			"file": "s2_consequence_3.png",
+			"sequence": "sector_ii_machine_war",
+			"shot": "s2_consequence"
+		},
+		{
+			"duration": 2.5,
+			"elapsed": 0.5,
+			"exposure": 0,
+			"file": "s3_observation_0.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_observation"
+		},
+		{
+			"duration": 2.5,
+			"elapsed": 1.0,
+			"exposure": 1,
+			"file": "s3_observation_1.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_observation"
+		},
+		{
+			"duration": 2.5,
+			"elapsed": 1.5,
+			"exposure": 2,
+			"file": "s3_observation_2.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_observation"
+		},
+		{
+			"duration": 2.5,
+			"elapsed": 2.0,
+			"exposure": 3,
+			"file": "s3_observation_3.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_observation"
+		},
+		{
+			"duration": 2.3,
+			"elapsed": 0.46,
+			"exposure": 0,
+			"file": "s3_anticipation_0.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_anticipation"
+		},
+		{
+			"duration": 2.3,
+			"elapsed": 0.92,
+			"exposure": 1,
+			"file": "s3_anticipation_1.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_anticipation"
+		},
+		{
+			"duration": 2.3,
+			"elapsed": 1.38,
+			"exposure": 2,
+			"file": "s3_anticipation_2.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_anticipation"
+		},
+		{
+			"duration": 2.3,
+			"elapsed": 1.84,
+			"exposure": 3,
+			"file": "s3_anticipation_3.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_anticipation"
+		},
+		{
+			"duration": 2.0,
+			"elapsed": 0.4,
+			"exposure": 0,
+			"file": "s3_action_0.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_action"
+		},
+		{
+			"duration": 2.0,
+			"elapsed": 0.8,
+			"exposure": 1,
+			"file": "s3_action_1.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_action"
+		},
+		{
+			"duration": 2.0,
+			"elapsed": 1.2,
+			"exposure": 2,
+			"file": "s3_action_2.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_action"
+		},
+		{
+			"duration": 2.0,
+			"elapsed": 1.6,
+			"exposure": 3,
+			"file": "s3_action_3.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_action"
+		},
+		{
+			"duration": 1.6,
+			"elapsed": 0.32,
+			"exposure": 0,
+			"file": "s3_consequence_0.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_consequence"
+		},
+		{
+			"duration": 1.6,
+			"elapsed": 0.64,
+			"exposure": 1,
+			"file": "s3_consequence_1.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_consequence"
+		},
+		{
+			"duration": 1.6,
+			"elapsed": 0.96,
+			"exposure": 2,
+			"file": "s3_consequence_2.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_consequence"
+		},
+		{
+			"duration": 1.6,
+			"elapsed": 1.28,
+			"exposure": 3,
+			"file": "s3_consequence_3.png",
+			"sequence": "sector_iii_black_sky",
+			"shot": "s3_consequence"
+		},
+		{
+			"duration": 2.6,
+			"elapsed": 0.52,
+			"exposure": 0,
+			"file": "end_consequence_0.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence"
+		},
+		{
+			"duration": 2.6,
+			"elapsed": 1.04,
+			"exposure": 1,
+			"file": "end_consequence_1.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence"
+		},
+		{
+			"duration": 2.6,
+			"elapsed": 1.56,
+			"exposure": 2,
+			"file": "end_consequence_2.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence"
+		},
+		{
+			"duration": 2.6,
+			"elapsed": 2.08,
+			"exposure": 3,
+			"file": "end_consequence_3.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 0.44,
+			"exposure": 0,
+			"file": "end_action_0.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_action"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 0.88,
+			"exposure": 1,
+			"file": "end_action_1.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_action"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 1.32,
+			"exposure": 2,
+			"file": "end_action_2.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_action"
+		},
+		{
+			"duration": 2.2,
+			"elapsed": 1.76,
+			"exposure": 3,
+			"file": "end_action_3.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_action"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 0.56,
+			"exposure": 0,
+			"file": "end_observation_0.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_observation"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 1.12,
+			"exposure": 1,
+			"file": "end_observation_1.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_observation"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 1.68,
+			"exposure": 2,
+			"file": "end_observation_2.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_observation"
+		},
+		{
+			"duration": 2.8,
+			"elapsed": 2.24,
+			"exposure": 3,
+			"file": "end_observation_3.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_observation"
+		},
+		{
+			"duration": 3.2,
+			"elapsed": 0.64,
+			"exposure": 0,
+			"file": "end_consequence_final_0.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		},
+		{
+			"duration": 3.2,
+			"elapsed": 1.28,
+			"exposure": 1,
+			"file": "end_consequence_final_1.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		},
+		{
+			"duration": 3.2,
+			"elapsed": 1.92,
+			"exposure": 2,
+			"file": "end_consequence_final_2.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		},
+		{
+			"duration": 3.2,
+			"elapsed": 2.56,
+			"exposure": 3,
+			"file": "end_consequence_final_3.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_consequence_final"
+		},
+		{
+			"duration": 3.0,
+			"elapsed": 0.6,
+			"exposure": 0,
+			"file": "end_title_0.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_title"
+		},
+		{
+			"duration": 3.0,
+			"elapsed": 1.2,
+			"exposure": 1,
+			"file": "end_title_1.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_title"
+		},
+		{
+			"duration": 3.0,
+			"elapsed": 1.8,
+			"exposure": 2,
+			"file": "end_title_2.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_title"
+		},
+		{
+			"duration": 3.0,
+			"elapsed": 2.4,
+			"exposure": 3,
+			"file": "end_title_3.png",
+			"sequence": "ending_after_machine_ark",
+			"shot": "end_title"
+		}
+	],
+	"scope": "48 addressed native production cinematic exposures; not audio or natural campaign trigger verification"
+}

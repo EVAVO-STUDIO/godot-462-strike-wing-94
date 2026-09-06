@@ -1,0 +1,52 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hunter_rack"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "twin_rocket_pods"
+    }
+  ],
+  "asset": "vx94_transform_stores",
+  "atlas_pages": [
+    {
+      "file": "vx94_transform_stores.atlas.0.png",
+      "height": 1282,
+      "index": 0,
+      "width": 62
+    }
+  ],
+  "canvas": {
+    "height": 72,
+    "pivot_x": 32.0,
+    "pivot_y": 38.0,
+    "width": 64
+  },
+  "corrected_frames": 0,
+  "correction_audit": "vx94_transform_stores.corrections.json",
+  "event_timeline": "vx94_transform_stores.events.json",
+  "manifest": "vx94_transform_stores.manifest.json",
+  "qa": "vx94_transform_stores.qa.json",
+  "receipt": "build.receipt.json",
+  "runtime": {
+    "godot": {
+      "animated_sprite_scene": "vx94_transform_stores.animated_sprite.tscn",
+      "atlas_root": "res://",
+      "sprite_frames": "vx94_transform_stores.spriteframes.tres"
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

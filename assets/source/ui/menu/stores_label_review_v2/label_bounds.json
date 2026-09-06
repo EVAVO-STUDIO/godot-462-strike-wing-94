@@ -1,0 +1,118 @@
+{
+  "fighter": [
+    {
+      "number": 1,
+      "id": "wing_root_left",
+      "label": "1  LEFT WING-ROOT CANNON",
+      "width": 95,
+      "y": 190
+    },
+    {
+      "number": 2,
+      "id": "wing_root_right",
+      "label": "2  RIGHT WING-ROOT CANNON",
+      "width": 99,
+      "y": 198
+    },
+    {
+      "number": 3,
+      "id": "centerline_emitter",
+      "label": "3  CENTRELINE SPECIALIST EMITTER",
+      "width": 127,
+      "y": 206
+    },
+    {
+      "number": 4,
+      "id": "inner_pylon_left",
+      "label": "4  LEFT INNER PYLON",
+      "width": 75,
+      "y": 214
+    },
+    {
+      "number": 5,
+      "id": "inner_pylon_right",
+      "label": "5  RIGHT INNER PYLON",
+      "width": 79,
+      "y": 222
+    },
+    {
+      "number": 6,
+      "id": "ventral_strategic_bay",
+      "label": "6  STRATEGIC PENETRATOR BAY",
+      "width": 107,
+      "y": 230
+    },
+    {
+      "number": 7,
+      "id": "dorsal_module",
+      "label": "7  DORSAL MISSION MODULE",
+      "width": 95,
+      "y": 238
+    }
+  ],
+  "bomber": [
+    {
+      "number": 1,
+      "id": "nose_rotary",
+      "label": "1  NOSE ROTARY BAY",
+      "width": 71,
+      "y": 190
+    },
+    {
+      "number": 2,
+      "id": "centerline_emitter",
+      "label": "2  CENTRELINE SPECIALIST EMITTER",
+      "width": 127,
+      "y": 198
+    },
+    {
+      "number": 3,
+      "id": "inner_pylon_left",
+      "label": "3  LEFT INNER PYLON",
+      "width": 75,
+      "y": 206
+    },
+    {
+      "number": 4,
+      "id": "inner_pylon_right",
+      "label": "4  RIGHT INNER PYLON",
+      "width": 79,
+      "y": 214
+    },
+    {
+      "number": 5,
+      "id": "outer_pylon_left",
+      "label": "5  LEFT OUTER PYLON",
+      "width": 75,
+      "y": 222
+    },
+    {
+      "number": 6,
+      "id": "outer_pylon_right",
+      "label": "6  RIGHT OUTER PYLON",
+      "width": 79,
+      "y": 230
+    },
+    {
+      "number": 7,
+      "id": "ventral_strike_bay",
+      "label": "7  VENTRAL STRIKE BAY",
+      "width": 83,
+      "y": 238
+    },
+    {
+      "number": 8,
+      "id": "ventral_strategic_bay",
+      "label": "8  STRATEGIC PENETRATOR BAY",
+      "width": 107,
+      "y": 246
+    },
+    {
+      "number": 9,
+      "id": "dorsal_module",
+      "label": "9  DORSAL MISSION MODULE",
+      "width": 95,
+      "y": 254
+    }
+  ]
+}

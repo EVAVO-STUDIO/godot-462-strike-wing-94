@@ -1,0 +1,202 @@
+[
+  {
+    "id": "ballistic_twin_rocket_pods_fighter_hard_left",
+    "visible_support_difference_pixels": 71
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_fighter_left",
+    "visible_support_difference_pixels": 112
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_fighter_neutral",
+    "visible_support_difference_pixels": 132
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_fighter_right",
+    "visible_support_difference_pixels": 111
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_fighter_hard_right",
+    "visible_support_difference_pixels": 82
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_bomber_hard_left",
+    "visible_support_difference_pixels": 121
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_bomber_left",
+    "visible_support_difference_pixels": 174
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_bomber_neutral",
+    "visible_support_difference_pixels": 134
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_bomber_right",
+    "visible_support_difference_pixels": 180
+  },
+  {
+    "id": "ballistic_twin_rocket_pods_bomber_hard_right",
+    "visible_support_difference_pixels": 121
+  },
+  {
+    "id": "needle_rail_hunter_rack_fighter_hard_left",
+    "visible_support_difference_pixels": 65
+  },
+  {
+    "id": "needle_rail_hunter_rack_fighter_left",
+    "visible_support_difference_pixels": 70
+  },
+  {
+    "id": "needle_rail_hunter_rack_fighter_neutral",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "needle_rail_hunter_rack_fighter_right",
+    "visible_support_difference_pixels": 84
+  },
+  {
+    "id": "needle_rail_hunter_rack_fighter_hard_right",
+    "visible_support_difference_pixels": 67
+  },
+  {
+    "id": "needle_rail_hunter_rack_bomber_hard_left",
+    "visible_support_difference_pixels": 109
+  },
+  {
+    "id": "needle_rail_hunter_rack_bomber_left",
+    "visible_support_difference_pixels": 148
+  },
+  {
+    "id": "needle_rail_hunter_rack_bomber_neutral",
+    "visible_support_difference_pixels": 113
+  },
+  {
+    "id": "needle_rail_hunter_rack_bomber_right",
+    "visible_support_difference_pixels": 169
+  },
+  {
+    "id": "needle_rail_hunter_rack_bomber_hard_right",
+    "visible_support_difference_pixels": 104
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_fighter_hard_left",
+    "visible_support_difference_pixels": 80
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_fighter_left",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_fighter_neutral",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_fighter_right",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_fighter_hard_right",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_bomber_hard_left",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_bomber_left",
+    "visible_support_difference_pixels": 99
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_bomber_neutral",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_bomber_right",
+    "visible_support_difference_pixels": 98
+  },
+  {
+    "id": "plasma_lance_magnetic_screen_bomber_hard_right",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_fighter_hard_left",
+    "visible_support_difference_pixels": 80
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_fighter_left",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_fighter_neutral",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_fighter_right",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_fighter_hard_right",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_bomber_hard_left",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_bomber_left",
+    "visible_support_difference_pixels": 99
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_bomber_neutral",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_bomber_right",
+    "visible_support_difference_pixels": 98
+  },
+  {
+    "id": "storm_cannon_emp_disruptor_bomber_hard_right",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "ballistic_point_defence_pod_fighter_hard_left",
+    "visible_support_difference_pixels": 80
+  },
+  {
+    "id": "ballistic_point_defence_pod_fighter_left",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "ballistic_point_defence_pod_fighter_neutral",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "ballistic_point_defence_pod_fighter_right",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "ballistic_point_defence_pod_fighter_hard_right",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "ballistic_point_defence_pod_bomber_hard_left",
+    "visible_support_difference_pixels": 81
+  },
+  {
+    "id": "ballistic_point_defence_pod_bomber_left",
+    "visible_support_difference_pixels": 99
+  },
+  {
+    "id": "ballistic_point_defence_pod_bomber_neutral",
+    "visible_support_difference_pixels": 100
+  },
+  {
+    "id": "ballistic_point_defence_pod_bomber_right",
+    "visible_support_difference_pixels": 98
+  },
+  {
+    "id": "ballistic_point_defence_pod_bomber_hard_right",
+    "visible_support_difference_pixels": 81
+  }
+]

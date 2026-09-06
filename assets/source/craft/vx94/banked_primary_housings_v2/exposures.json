@@ -1,0 +1,838 @@
+[
+  {
+    "id": "fighter_hard_left_0",
+    "form": "fighter",
+    "bank": "hard_left",
+    "frame": 0,
+    "angle": -28,
+    "muzzles": [
+      [
+        18,
+        25
+      ],
+      [
+        30,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      0.65
+    ],
+    "under": [
+      1
+    ]
+  },
+  {
+    "id": "fighter_hard_left_1",
+    "form": "fighter",
+    "bank": "hard_left",
+    "frame": 1,
+    "angle": -28,
+    "muzzles": [
+      [
+        18,
+        25
+      ],
+      [
+        30,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      0.65
+    ],
+    "under": [
+      1
+    ]
+  },
+  {
+    "id": "fighter_hard_left_2",
+    "form": "fighter",
+    "bank": "hard_left",
+    "frame": 2,
+    "angle": -28,
+    "muzzles": [
+      [
+        18,
+        25
+      ],
+      [
+        30,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      0.65
+    ],
+    "under": [
+      1
+    ]
+  },
+  {
+    "id": "fighter_hard_left_3",
+    "form": "fighter",
+    "bank": "hard_left",
+    "frame": 3,
+    "angle": -28,
+    "muzzles": [
+      [
+        18,
+        25
+      ],
+      [
+        30,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      0.65
+    ],
+    "under": [
+      1
+    ]
+  },
+  {
+    "id": "fighter_left_0",
+    "form": "fighter",
+    "bank": "left",
+    "frame": 0,
+    "angle": -3,
+    "muzzles": [
+      [
+        25,
+        23
+      ],
+      [
+        37,
+        24
+      ]
+    ],
+    "widths": [
+      1,
+      0.85
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_left_1",
+    "form": "fighter",
+    "bank": "left",
+    "frame": 1,
+    "angle": -3,
+    "muzzles": [
+      [
+        25,
+        23
+      ],
+      [
+        37,
+        24
+      ]
+    ],
+    "widths": [
+      1,
+      0.85
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_left_2",
+    "form": "fighter",
+    "bank": "left",
+    "frame": 2,
+    "angle": -3,
+    "muzzles": [
+      [
+        25,
+        23
+      ],
+      [
+        37,
+        24
+      ]
+    ],
+    "widths": [
+      1,
+      0.85
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_left_3",
+    "form": "fighter",
+    "bank": "left",
+    "frame": 3,
+    "angle": -3,
+    "muzzles": [
+      [
+        25,
+        23
+      ],
+      [
+        37,
+        24
+      ]
+    ],
+    "widths": [
+      1,
+      0.85
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_neutral_0",
+    "form": "fighter",
+    "bank": "neutral",
+    "frame": 0,
+    "angle": 0,
+    "muzzles": [
+      [
+        26,
+        23
+      ],
+      [
+        38,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_neutral_1",
+    "form": "fighter",
+    "bank": "neutral",
+    "frame": 1,
+    "angle": 0,
+    "muzzles": [
+      [
+        26,
+        23
+      ],
+      [
+        38,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_neutral_2",
+    "form": "fighter",
+    "bank": "neutral",
+    "frame": 2,
+    "angle": 0,
+    "muzzles": [
+      [
+        26,
+        23
+      ],
+      [
+        38,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_neutral_3",
+    "form": "fighter",
+    "bank": "neutral",
+    "frame": 3,
+    "angle": 0,
+    "muzzles": [
+      [
+        26,
+        23
+      ],
+      [
+        38,
+        23
+      ]
+    ],
+    "widths": [
+      1,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_right_0",
+    "form": "fighter",
+    "bank": "right",
+    "frame": 0,
+    "angle": 3,
+    "muzzles": [
+      [
+        27,
+        24
+      ],
+      [
+        40,
+        23
+      ]
+    ],
+    "widths": [
+      0.85,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_right_1",
+    "form": "fighter",
+    "bank": "right",
+    "frame": 1,
+    "angle": 3,
+    "muzzles": [
+      [
+        27,
+        24
+      ],
+      [
+        40,
+        23
+      ]
+    ],
+    "widths": [
+      0.85,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_right_2",
+    "form": "fighter",
+    "bank": "right",
+    "frame": 2,
+    "angle": 3,
+    "muzzles": [
+      [
+        27,
+        24
+      ],
+      [
+        40,
+        23
+      ]
+    ],
+    "widths": [
+      0.85,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_right_3",
+    "form": "fighter",
+    "bank": "right",
+    "frame": 3,
+    "angle": 3,
+    "muzzles": [
+      [
+        27,
+        24
+      ],
+      [
+        40,
+        23
+      ]
+    ],
+    "widths": [
+      0.85,
+      1
+    ],
+    "under": []
+  },
+  {
+    "id": "fighter_hard_right_0",
+    "form": "fighter",
+    "bank": "hard_right",
+    "frame": 0,
+    "angle": 28,
+    "muzzles": [
+      [
+        34,
+        23
+      ],
+      [
+        46,
+        25
+      ]
+    ],
+    "widths": [
+      0.65,
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "fighter_hard_right_1",
+    "form": "fighter",
+    "bank": "hard_right",
+    "frame": 1,
+    "angle": 28,
+    "muzzles": [
+      [
+        34,
+        23
+      ],
+      [
+        46,
+        25
+      ]
+    ],
+    "widths": [
+      0.65,
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "fighter_hard_right_2",
+    "form": "fighter",
+    "bank": "hard_right",
+    "frame": 2,
+    "angle": 28,
+    "muzzles": [
+      [
+        34,
+        23
+      ],
+      [
+        46,
+        25
+      ]
+    ],
+    "widths": [
+      0.65,
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "fighter_hard_right_3",
+    "form": "fighter",
+    "bank": "hard_right",
+    "frame": 3,
+    "angle": 28,
+    "muzzles": [
+      [
+        34,
+        23
+      ],
+      [
+        46,
+        25
+      ]
+    ],
+    "widths": [
+      0.65,
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_left_0",
+    "form": "bomber",
+    "bank": "hard_left",
+    "frame": 0,
+    "angle": -29,
+    "muzzles": [
+      [
+        10,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_left_1",
+    "form": "bomber",
+    "bank": "hard_left",
+    "frame": 1,
+    "angle": -29,
+    "muzzles": [
+      [
+        10,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_left_2",
+    "form": "bomber",
+    "bank": "hard_left",
+    "frame": 2,
+    "angle": -29,
+    "muzzles": [
+      [
+        10,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_left_3",
+    "form": "bomber",
+    "bank": "hard_left",
+    "frame": 3,
+    "angle": -29,
+    "muzzles": [
+      [
+        10,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_left_0",
+    "form": "bomber",
+    "bank": "left",
+    "frame": 0,
+    "angle": -7,
+    "muzzles": [
+      [
+        26,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_left_1",
+    "form": "bomber",
+    "bank": "left",
+    "frame": 1,
+    "angle": -7,
+    "muzzles": [
+      [
+        26,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_left_2",
+    "form": "bomber",
+    "bank": "left",
+    "frame": 2,
+    "angle": -7,
+    "muzzles": [
+      [
+        26,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_left_3",
+    "form": "bomber",
+    "bank": "left",
+    "frame": 3,
+    "angle": -7,
+    "muzzles": [
+      [
+        26,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_neutral_0",
+    "form": "bomber",
+    "bank": "neutral",
+    "frame": 0,
+    "angle": 0,
+    "muzzles": [
+      [
+        32,
+        3
+      ]
+    ],
+    "widths": [
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_neutral_1",
+    "form": "bomber",
+    "bank": "neutral",
+    "frame": 1,
+    "angle": 0,
+    "muzzles": [
+      [
+        32,
+        3
+      ]
+    ],
+    "widths": [
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_neutral_2",
+    "form": "bomber",
+    "bank": "neutral",
+    "frame": 2,
+    "angle": 0,
+    "muzzles": [
+      [
+        32,
+        3
+      ]
+    ],
+    "widths": [
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_neutral_3",
+    "form": "bomber",
+    "bank": "neutral",
+    "frame": 3,
+    "angle": 0,
+    "muzzles": [
+      [
+        32,
+        3
+      ]
+    ],
+    "widths": [
+      1
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_right_0",
+    "form": "bomber",
+    "bank": "right",
+    "frame": 0,
+    "angle": 8,
+    "muzzles": [
+      [
+        39,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_right_1",
+    "form": "bomber",
+    "bank": "right",
+    "frame": 1,
+    "angle": 8,
+    "muzzles": [
+      [
+        39,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_right_2",
+    "form": "bomber",
+    "bank": "right",
+    "frame": 2,
+    "angle": 8,
+    "muzzles": [
+      [
+        39,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_right_3",
+    "form": "bomber",
+    "bank": "right",
+    "frame": 3,
+    "angle": 8,
+    "muzzles": [
+      [
+        39,
+        3
+      ]
+    ],
+    "widths": [
+      0.9
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_right_0",
+    "form": "bomber",
+    "bank": "hard_right",
+    "frame": 0,
+    "angle": 29,
+    "muzzles": [
+      [
+        55,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_right_1",
+    "form": "bomber",
+    "bank": "hard_right",
+    "frame": 1,
+    "angle": 29,
+    "muzzles": [
+      [
+        55,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_right_2",
+    "form": "bomber",
+    "bank": "hard_right",
+    "frame": 2,
+    "angle": 29,
+    "muzzles": [
+      [
+        55,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  },
+  {
+    "id": "bomber_hard_right_3",
+    "form": "bomber",
+    "bank": "hard_right",
+    "frame": 3,
+    "angle": 29,
+    "muzzles": [
+      [
+        55,
+        3
+      ]
+    ],
+    "widths": [
+      0.75
+    ],
+    "under": [
+      0
+    ]
+  }
+]

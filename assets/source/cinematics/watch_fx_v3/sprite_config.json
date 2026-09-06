@@ -1,0 +1,70 @@
+{
+  "name": "hypersonic_watch_wake_v3",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 640,
+    "canvas_height": 272,
+    "pivot_x": 320,
+    "pivot_y": 136,
+    "padding": 0,
+    "manual_anchors": {
+      "watch_00": [
+        -59,
+        -62
+      ],
+      "watch_01": [
+        -58,
+        -62
+      ],
+      "watch_02": [
+        -57,
+        -62
+      ],
+      "watch_03": [
+        -58,
+        -62
+      ]
+    }
+  },
+  "qa": {
+    "strict": true,
+    "contracts": {
+      "required_animations": [
+        "watch"
+      ],
+      "frame_count_rules": [
+        {
+          "pattern": "watch",
+          "exact": 4
+        }
+      ]
+    }
+  },
+  "animations": {
+    "watch": {
+      "fps": 3,
+      "loop": true
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "animated_scene": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "gif": true,
+    "contact_sheet": true,
+    "onion_skin": true
+  }
+}

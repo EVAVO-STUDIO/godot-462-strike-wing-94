@@ -17,6 +17,9 @@ var _weapon_id := ""
 var _phase := 0.0
 
 func _ready() -> void:
+	# Observe the scene after its weapon update so a newly emitted projectile and
+	# its flash share the same banked hardpoint on the first firing frame.
+	process_priority = 10
 	layer = 15
 	_surface = WeaponMountCueSurface.new()
 	_surface.director = self
@@ -48,11 +51,18 @@ func _observe_fire() -> void:
 	var weapon := _active_weapon(scene)
 	var count := maxi(1, int(weapon.get("projectiles", 1)))
 	var form := _current_form()
+	var craft := get_node_or_null("/root/CraftFormDirector")
 	var mounts := get_node_or_null("/root/PlayerMountDirector")
 	_mounts.clear()
 	_rotary = false
 	_weapon_id = str(weapon.get("id", ""))
-	if mounts != null:
+	if craft != null and craft.has_method("primary_mount_offsets"):
+		var offsets = craft.call("primary_mount_offsets", weapon, count)
+		if typeof(offsets) == TYPE_ARRAY:
+			for offset in offsets:
+				if typeof(offset) == TYPE_VECTOR2:
+					_mounts.append(offset)
+	elif mounts != null:
 		if mounts.has_method("primary_offsets"):
 			var offsets = mounts.call("primary_offsets", form, weapon, count)
 			if typeof(offsets) == TYPE_ARRAY:

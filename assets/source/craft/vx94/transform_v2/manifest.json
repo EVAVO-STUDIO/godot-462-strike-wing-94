@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "asset_family": "vx94_registered_transform_exposures_v2",
+  "source_mode": "EVAVO Art Studio source-bound masked component extraction; nearest sampled mechanical articulation baked in Godot 4.6.2",
+  "source_image": "bomber_neutral_source.png",
+  "source_origin": "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png at 3c77897ae67c3444b7ccce2211effc95d0d27fd1",
+  "canvas": [
+    64,
+    72
+  ],
+  "anchor": [
+    32,
+    38
+  ],
+  "visible_height": 67,
+  "wing_pivots": [
+    [
+      25,
+      35
+    ],
+    [
+      38,
+      35
+    ]
+  ],
+  "tail_pivots": [
+    [
+      24,
+      48
+    ],
+    [
+      39,
+      48
+    ]
+  ],
+  "wing_degrees": [
+    -22,
+    -20,
+    -17,
+    -13,
+    -9,
+    -5,
+    -2,
+    0,
+    2.5,
+    0
+  ],
+  "tail_degrees": [
+    -18,
+    -16.5,
+    -14,
+    -11,
+    -7.5,
+    -4,
+    -1.5,
+    0,
+    1.5,
+    0
+  ],
+  "tail_forward_travel_per_degree": 0.15,
+  "builder": "tools/build_vx94_transform_frames.gd",
+  "bank_builder": "tools/build_vx94_bank_art.ps1",
+  "registration": [
+    "bomber_00 and hypersonic_00 equal fighter neutral pixels",
+    "bomber_09 equals existing bomber neutral pixels",
+    "all 20 frames keep the nose, canopy and engine geometry fixed"
+  ],
+  "review": {
+    "engine": "4.6.2.stable.official.71f334935",
+    "native_frames": 227,
+    "native_capture": "work/vx94_transform_v2/runtime_review/work/hero_motion_v3",
+    "sequence": "provenance/sequence-review.json",
+    "scope": "Transformation and endpoint handoff; remaining damage, pitch, mounted stores and roll family review is outstanding"
+  },
+  "files": [
+    {
+      "sha256": "4487099d01e06d34a46f917df0c30d7b0f47e41bec8ba1101dcc885efd77bfcb",
+      "path": "assets/source/craft/vx94/transform_v2/bomber_neutral_source.png"
+    },
+    {
+      "sha256": "b7c553bbf15c8798133b96b4d806644451232415e7092cd676715baedc20e458",
+      "path": "assets/source/craft/vx94/transform_v2/fighter_neutral.png"
+    },
+    {
+      "sha256": "12cbbed3e792019827655853120b9054f1c4f758487176018d634c2d09a19764",
+      "path": "assets/source/craft/vx94/transform_v2/components/fuselage.png"
+    },
+    {
+      "sha256": "2258a30bf54b2e8403c1fef20e59660a1cf35c5588fbfdbae7901cd1ebdadc6c",
+      "path": "assets/source/craft/vx94/transform_v2/components/tail_left.png"
+    },
+    {
+      "sha256": "b36a48e75c32af033cc0b4a2d86ffd1c8d8dacb16b3e1f8f1e2ed480acf9edde",
+      "path": "assets/source/craft/vx94/transform_v2/components/tail_right.png"
+    },
+    {
+      "sha256": "231ea7000ef05594515fa368072aa43525549496db3ee6f0d261a99670f248e8",
+      "path": "assets/source/craft/vx94/transform_v2/components/wing_left.png"
+    },
+    {
+      "sha256": "9bd43e23cc021a12459d45689d268bf492dc5b29b5d57b9fb4abcc3231d3f71f",
+      "path": "assets/source/craft/vx94/transform_v2/components/wing_right.png"
+    },
+    {
+      "sha256": "9b7820df80dddca78f4b058bf157f4c61fcaeeeb3a96902ff157e21eb0f61ea7",
+      "path": "assets/source/craft/vx94/transform_v2/masks/fuselage.png"
+    },
+    {
+      "sha256": "6415a669d7b270c483f19b47a1ac3465e70a49f01c49ed5c2d85e7cb0a3c504c",
+      "path": "assets/source/craft/vx94/transform_v2/masks/tail_left.png"
+    },
+    {
+      "sha256": "0386d6bdbf22e7ebf504db2506e6c50b4a4650abe735b72bda51ef905c8c6d29",
+      "path": "assets/source/craft/vx94/transform_v2/masks/tail_right.png"
+    },
+    {
+      "sha256": "52d92f219016810ae79542149e2a324fae096911e1eefefdc3bab8bb435a9afe",
+      "path": "assets/source/craft/vx94/transform_v2/masks/wing_left.png"
+    },
+    {
+      "sha256": "e9f8eeade039e4d19a4b0609dcb9c8cf29d612ef249aab9525ed83c49c32ed77",
+      "path": "assets/source/craft/vx94/transform_v2/masks/wing_right.png"
+    }
+  ]
+}

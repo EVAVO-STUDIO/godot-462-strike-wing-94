@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0",
+  "inputSha256": "4c3d65e906d7a8be1ba6afeae7dfd4fcb0ee0b6e4abfca2c17c6a0dc8aa0c7aa",
+  "outputSha256": "dc11dbafba23caf6383fc95ad8929d9bc5830fc3cd3e59917a9f9db009c54ef8",
+  "backgrounds": [
+    "#000000",
+    "#ffffff",
+    "#808080",
+    "#00ff00",
+    "#ff00ff"
+  ],
+  "includesAlphaMask": true,
+  "checkerboardUsed": false,
+  "columns": 3,
+  "rows": 2,
+  "previewWidth": 112,
+  "previewHeight": 40,
+  "cellWidth": 128,
+  "cellHeight": 56
+}

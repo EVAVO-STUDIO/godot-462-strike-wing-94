@@ -1,0 +1,105 @@
+{
+  "review": "Native phase/cycle fixtures and four-frame cycle contact sheets inspected. Machine Ark spawned through mission 30 route gate and reached phases 1, 2 and 3 through real weapon hits in a 35-second invulnerable art probe. Critical source placement uses Godot-equivalent half-pixel rounding.",
+  "registration": "Original canvas and boss-center pivots retained; detailed cracked plating and boss-specific critical components.",
+  "asset_family": "orbital_boss_phases_v2",
+  "frames": [
+    {
+      "file": "machine_ark/critical_0.png",
+      "sha256": "00d244fca4c068726f057e00a329346a6e8948db531304eecc5fa29c9930f53c"
+    },
+    {
+      "file": "machine_ark/critical_1.png",
+      "sha256": "375a48bf317771be926fe3d8d403f033962e38e09a3679f7062210f1b93cf9d5"
+    },
+    {
+      "file": "machine_ark/critical_2.png",
+      "sha256": "b68c1a47f75089b3d0a1e22c0b0f3eff08947bb7c1beb43db63a79efb4f99b74"
+    },
+    {
+      "file": "machine_ark/critical_3.png",
+      "sha256": "3b1dc3f03392306d7a685715f995495544a43b560f4a69565f7ae6701f6421c3"
+    },
+    {
+      "file": "machine_ark/phase_2_damage.png",
+      "sha256": "0fee1d4e6ef60acd92db5dbe219982ed4ddebc6ef162e637f1f9c9dcbd17239c"
+    },
+    {
+      "file": "machine_ark/phase_3_damage.png",
+      "sha256": "124ded0012e2e8e3b411a332e5e4e25d4f9ad7a11ded6b2b4c7f301ace7b52e9"
+    },
+    {
+      "file": "orbital_command_node/critical_0.png",
+      "sha256": "0438038cd7723d144c38b5651525dfd75225c62766d2315ce9a3925aae60ab33"
+    },
+    {
+      "file": "orbital_command_node/critical_1.png",
+      "sha256": "1c3de9227ce461c76d842b2318d8eed797e0e32606a4289cc919b6a496db89ac"
+    },
+    {
+      "file": "orbital_command_node/critical_2.png",
+      "sha256": "195a0d2dec9d2015ed1e268b1792d82f6aa6aca5f539e368e8264cab25316eaa"
+    },
+    {
+      "file": "orbital_command_node/critical_3.png",
+      "sha256": "75d08290200d942dfe6fff22462233b9bb45d66d1593aef10e90534dc56b5db0"
+    },
+    {
+      "file": "orbital_command_node/phase_2_damage.png",
+      "sha256": "bc21a1842403af484170ef047aeec94dcbf27953efb256391b9ed9980a50189d"
+    },
+    {
+      "file": "orbital_command_node/phase_3_damage.png",
+      "sha256": "f6979a94aaa8bb906d7acb2470284229edcf9082c6caba9a70d1f16e7d2b3a33"
+    },
+    {
+      "file": "phase_control_array/critical_0.png",
+      "sha256": "b1a4c82bd4dcc68ca37abf186d923c315ef304d75ca4bcf49ab744e88545133c"
+    },
+    {
+      "file": "phase_control_array/critical_1.png",
+      "sha256": "8fd50e9659dac7401725673b49269e38fcd0fb81776916b20962d63dcd44381f"
+    },
+    {
+      "file": "phase_control_array/critical_2.png",
+      "sha256": "86f34723759afd361f9e7a3d642474b5b499b12a3577e9ca42a769d9aa3b1c17"
+    },
+    {
+      "file": "phase_control_array/critical_3.png",
+      "sha256": "512794c89456a4735448c92dac7adc4da5d94229b652505758183f4ed0368d85"
+    },
+    {
+      "file": "phase_control_array/phase_2_damage.png",
+      "sha256": "030c961b6820f411fdcc49ed9ad27850a6daca4064dfa3f24e3953c1b802e6b9"
+    },
+    {
+      "file": "phase_control_array/phase_3_damage.png",
+      "sha256": "202a1bdc2c9383448008c9b8946c92942102f2c036783e63f2ef8c204ac59e75"
+    },
+    {
+      "file": "station_warden/critical_0.png",
+      "sha256": "e6137815d9125712fb52099aee6e0c546a9c5dde7b6f5834e2c4d2c7a87d8b18"
+    },
+    {
+      "file": "station_warden/critical_1.png",
+      "sha256": "19b34d09db25bf546b2b70a7915a3d65a75d1506cae4b6110e1b18e9ded71cde"
+    },
+    {
+      "file": "station_warden/critical_2.png",
+      "sha256": "0d34fa0064b989ecaef7efd05644e64bca9f5a2e417d910c1252767d0645cd25"
+    },
+    {
+      "file": "station_warden/critical_3.png",
+      "sha256": "46b46751e2881cadc501220eee1b555fe248714704bc893f6df44fc2b3c10627"
+    },
+    {
+      "file": "station_warden/phase_2_damage.png",
+      "sha256": "5aa950cc369855a86b3f8586ea7f0951367a1a203707f9f61fc2e06bae3724ce"
+    },
+    {
+      "file": "station_warden/phase_3_damage.png",
+      "sha256": "82519647561e32a0a0db1d508409494b948a05a7f9db0546e54d24582a090d78"
+    }
+  ],
+  "schema_version": 2,
+  "runtime_directory": "assets/runtime/enemies/boss_animation"
+}

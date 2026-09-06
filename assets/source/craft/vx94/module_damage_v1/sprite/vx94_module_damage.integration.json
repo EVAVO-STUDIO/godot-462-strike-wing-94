@@ -1,0 +1,516 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_burnt_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_burnt_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_burnt_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_burnt_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_burnt_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_scarred_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_scarred_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_scarred_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_scarred_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_scarred_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_burnt_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_burnt_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_burnt_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_burnt_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_burnt_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_scarred_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_scarred_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_scarred_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_scarred_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_scarred_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_burnt_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_burnt_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_burnt_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_burnt_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_burnt_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_scarred_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_scarred_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_scarred_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_scarred_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_scarred_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_burnt_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_burnt_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_burnt_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_burnt_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_burnt_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_scarred_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_scarred_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_scarred_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_scarred_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_scarred_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_burnt_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_burnt_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_burnt_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_burnt_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_burnt_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_scarred_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_scarred_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_scarred_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_scarred_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_scarred_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_burnt_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_burnt_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_burnt_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_burnt_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_burnt_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_scarred_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_scarred_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_scarred_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_scarred_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_scarred_right"
+    }
+  ],
+  "asset": "vx94_module_damage",
+  "atlas_pages": [
+    {
+      "file": "vx94_module_damage.atlas.0.png",
+      "height": 1992,
+      "index": 0,
+      "width": 133
+    }
+  ],
+  "canvas": {
+    "height": 72,
+    "pivot_x": 32.0,
+    "pivot_y": 38.0,
+    "width": 64
+  },
+  "corrected_frames": 0,
+  "correction_audit": "vx94_module_damage.corrections.json",
+  "event_timeline": "vx94_module_damage.events.json",
+  "manifest": "vx94_module_damage.manifest.json",
+  "qa": "vx94_module_damage.qa.json",
+  "receipt": "build.receipt.json",
+  "runtime": {
+    "godot": {
+      "animated_sprite_scene": "vx94_module_damage.animated_sprite.tscn",
+      "atlas_root": "res://",
+      "sprite_frames": "vx94_module_damage.spriteframes.tres"
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

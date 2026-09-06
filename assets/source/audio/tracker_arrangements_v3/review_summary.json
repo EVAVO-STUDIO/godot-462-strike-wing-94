@@ -1,0 +1,202 @@
+[
+  {
+    "id": "hangar_signal",
+    "duration_seconds": 71.11111111111111,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 8.28798154702801,
+      "dc": -3.011664565728635e-07,
+      "estimatedBpm": 107.666015625,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.730621337890625,
+      "pulseStrength": 0.8971269726753235,
+      "rms": 0.08815431522580196,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "title_vector",
+    "duration_seconds": 66.20689342403628,
+    "issues": [
+      {
+        "code": "high_frequency_ai_fizz",
+        "confidence": 0.5752149224281311,
+        "end_seconds": 15.990952491760254,
+        "evidence": {
+          "flatness": 0.68973308801651,
+          "highBandRatio": 0.14380373060703278
+        },
+        "repair": "prefer local regeneration; otherwise use dynamic high-shelf reduction and re-review transients",
+        "severity": "major",
+        "start_seconds": 3.068049907684326
+      }
+    ],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 7.714764147606654,
+      "dc": -4.6313757283864847e-07,
+      "estimatedBpm": 117.45383522727272,
+      "issueCount": 1,
+      "loopSeamDelta": 0.0,
+      "peak": 0.715301513671875,
+      "pulseStrength": 0.7247069478034973,
+      "rms": 0.09271851996746625,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "salt_wake",
+    "duration_seconds": 61.93546485260771,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 6.8790908971290845,
+      "dc": 1.5788872478631478e-06,
+      "estimatedBpm": 61.5234375,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.729461669921875,
+      "pulseStrength": 0.7527216076850891,
+      "rms": 0.10604041737832377,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "furnace_alarm",
+    "duration_seconds": 51.8918820861678,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 7.0164450829155305,
+      "dc": 9.050861145726637e-07,
+      "estimatedBpm": 73.828125,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.775421142578125,
+      "pulseStrength": 0.8207461833953857,
+      "rms": 0.11051481674946698,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "machine_pressure",
+    "duration_seconds": 53.333333333333336,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 6.962660563216851,
+      "dc": -1.3861364247847578e-06,
+      "estimatedBpm": 71.77734375,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.73272705078125,
+      "pulseStrength": 0.7345348000526428,
+      "rms": 0.10523664684233246,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "dead_factory",
+    "duration_seconds": 65.0847619047619,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 8.30967854299772,
+      "dc": -1.1286739943799957e-06,
+      "estimatedBpm": 58.72691761363636,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.729400634765625,
+      "pulseStrength": 0.8184442520141602,
+      "rms": 0.08777723843143802,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "ghost_signal",
+    "duration_seconds": 49.23074829931973,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 6.869366086247258,
+      "dc": 1.0912850104337665e-06,
+      "estimatedBpm": 78.30255681818181,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.768798828125,
+      "pulseStrength": 0.8577645421028137,
+      "rms": 0.11191699764805027,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "black_sky",
+    "duration_seconds": 60.95238095238095,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 7.939526390632739,
+      "dc": -1.0343960353306363e-06,
+      "estimatedBpm": 63.02400914634146,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.72174072265625,
+      "pulseStrength": 0.8531923294067383,
+      "rms": 0.09090475768174774,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "thin_blue",
+    "duration_seconds": 55.652154195011335,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 7.146881716379624,
+      "dc": 4.104888190584942e-07,
+      "estimatedBpm": 135.99917763157896,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.735565185546875,
+      "pulseStrength": 0.7521227598190308,
+      "rms": 0.10292113606048896,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "ark_descent",
+    "duration_seconds": 46.829251700680274,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 6.7273657281937105,
+      "dc": -1.0720615047732149e-06,
+      "estimatedBpm": 161.4990234375,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.749725341796875,
+      "pulseStrength": 0.7748361825942993,
+      "rms": 0.11144411825985978,
+      "stereoCorrelation": 1.0
+    }
+  },
+  {
+    "id": "after_action",
+    "duration_seconds": 83.47827664399092,
+    "issues": [],
+    "metrics": {
+      "clippedSamples": 0,
+      "crestFactor": 7.863158825710825,
+      "dc": 5.663015055259668e-07,
+      "estimatedBpm": 92.28515625,
+      "issueCount": 0,
+      "loopSeamDelta": 0.0,
+      "peak": 0.594696044921875,
+      "pulseStrength": 0.7932953834533691,
+      "rms": 0.07563067948843721,
+      "stereoCorrelation": 1.0
+    }
+  }
+]

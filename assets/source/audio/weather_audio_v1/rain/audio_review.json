@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\weather_audio_v1\\rain\\generated_sfx.wav",
+  "source_sha256": "7a10dcab28a24c401f2816ca0a833f3ead6c6d515936503c2e1493e50d4839c3",
+  "sample_rate": 22050,
+  "channels": 2,
+  "duration_seconds": 16.0,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.8199462890625,
+    "rms": 0.15620373216916397,
+    "dc": -1.8407428075396827e-07,
+    "clippedSamples": 0,
+    "crestFactor": 5.249210615334552,
+    "estimatedBpm": 198.76802884615384,
+    "pulseStrength": 0.4480806589126587,
+    "stereoCorrelation": 0.6737889725347936,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

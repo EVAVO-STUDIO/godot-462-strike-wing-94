@@ -1,0 +1,653 @@
+{
+	"frames": [
+		{
+			"active": false,
+			"boom_age": 99.4605753968254,
+			"charge": 0.06734360410831,
+			"frame": 0,
+			"player_y": 253.244522094727,
+			"speed": 1.48593253968254,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 99.6,
+			"charge": 0.231372549019608,
+			"frame": 1,
+			"player_y": 257.022399902344,
+			"speed": 1.78,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 99.730829,
+			"charge": 0.385289019607845,
+			"frame": 2,
+			"player_y": 259.549591064453,
+			"speed": 1.78,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 99.8559406666667,
+			"charge": 0.532479215686276,
+			"frame": 3,
+			"player_y": 261.303955078125,
+			"speed": 1.78,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 99.9833333333333,
+			"charge": 0.682352941176471,
+			"frame": 4,
+			"player_y": 262.607025146484,
+			"speed": 1.78,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 100.122222222222,
+			"charge": 0.845751633986928,
+			"frame": 5,
+			"player_y": 263.626251220703,
+			"speed": 1.78,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.0,
+			"charge": 1.0,
+			"frame": 6,
+			"player_y": 265.334106445313,
+			"speed": 2.09500797777778,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.122197,
+			"charge": 1.0,
+			"frame": 7,
+			"player_y": 266.918365478516,
+			"speed": 2.36384137777778,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.267925666666665,
+			"charge": 1.0,
+			"frame": 8,
+			"player_y": 268.828948974609,
+			"speed": 2.68444444444444,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.387846666666667,
+			"charge": 1.0,
+			"frame": 9,
+			"player_y": 270.244720458984,
+			"speed": 2.94827064444445,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.532291111111111,
+			"charge": 1.0,
+			"frame": 10,
+			"player_y": 271.777954101563,
+			"speed": 3.26604842222223,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.652301666666667,
+			"charge": 1.0,
+			"frame": 11,
+			"player_y": 272.853912353516,
+			"speed": 3.53007164444445,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.786638,
+			"charge": 1.0,
+			"frame": 12,
+			"player_y": 273.882293701172,
+			"speed": 3.82561157777778,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 0.930757,
+			"charge": 1.0,
+			"frame": 13,
+			"player_y": 274.788482666016,
+			"speed": 4.14267337777778,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.065585,
+			"charge": 1.0,
+			"frame": 14,
+			"player_y": 275.459136962891,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.190585,
+			"charge": 1.0,
+			"frame": 15,
+			"player_y": 275.908203125,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.33225166666667,
+			"charge": 1.0,
+			"frame": 16,
+			"player_y": 276.273254394531,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.459589,
+			"charge": 1.0,
+			"frame": 17,
+			"player_y": 276.507476806641,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.60125566666667,
+			"charge": 1.0,
+			"frame": 18,
+			"player_y": 276.693817138672,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.73429933333333,
+			"charge": 1.0,
+			"frame": 19,
+			"player_y": 276.817901611328,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.86792566666667,
+			"charge": 1.0,
+			"frame": 20,
+			"player_y": 276.907165527344,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 1.99890866666667,
+			"charge": 1.0,
+			"frame": 21,
+			"player_y": 276.970031738281,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 2.13459233333333,
+			"charge": 1.0,
+			"frame": 22,
+			"player_y": 277.016723632813,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 2.26147533333333,
+			"charge": 1.0,
+			"frame": 23,
+			"player_y": 277.048126220703,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 2.397199,
+			"charge": 1.0,
+			"frame": 24,
+			"player_y": 277.072357177734,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 2.52308,
+			"charge": 1.0,
+			"frame": 25,
+			"player_y": 277.088531494141,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 2.65129066666667,
+			"charge": 1.0,
+			"frame": 26,
+			"player_y": 277.100524902344,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 2.800728,
+			"charge": 1.0,
+			"frame": 27,
+			"player_y": 277.110443115234,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 2.91792566666666,
+			"charge": 1.0,
+			"frame": 28,
+			"player_y": 277.115997314453,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 3.056711,
+			"charge": 1.0,
+			"frame": 29,
+			"player_y": 277.120758056641,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 3.19021866666667,
+			"charge": 1.0,
+			"frame": 30,
+			"player_y": 277.124053955078,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 3.33459233333333,
+			"charge": 1.0,
+			"frame": 31,
+			"player_y": 277.126525878906,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 3.461871,
+			"charge": 1.0,
+			"frame": 32,
+			"player_y": 277.128112792969,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 3.59853766666667,
+			"charge": 1.0,
+			"frame": 33,
+			"player_y": 277.129333496094,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 3.731871,
+			"charge": 1.0,
+			"frame": 34,
+			"player_y": 277.130157470703,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 3.86758528571428,
+			"charge": 1.0,
+			"frame": 35,
+			"player_y": 277.130767822266,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 4.001259,
+			"charge": 1.0,
+			"frame": 36,
+			"player_y": 277.131195068359,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 4.12953566666667,
+			"charge": 1.0,
+			"frame": 37,
+			"player_y": 277.131500244141,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 4.25817766666667,
+			"charge": 1.0,
+			"frame": 38,
+			"player_y": 277.131713867188,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 4.39984433333333,
+			"charge": 1.0,
+			"frame": 39,
+			"player_y": 277.131896972656,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 4.52515533333333,
+			"charge": 1.0,
+			"frame": 40,
+			"player_y": 277.131988525391,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 4.666822,
+			"charge": 1.0,
+			"frame": 41,
+			"player_y": 277.132080078125,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": true,
+			"boom_age": 4.791822,
+			"charge": 1.0,
+			"frame": 42,
+			"player_y": 277.132141113281,
+			"speed": 4.4,
+			"speed_ratio": 1.0
+		},
+		{
+			"active": false,
+			"boom_age": 4.93348866666667,
+			"charge": 1.0,
+			"frame": 43,
+			"player_y": 277.037536621094,
+			"speed": 4.08833333333333,
+			"speed_ratio": 0.771505376344086
+		},
+		{
+			"active": false,
+			"boom_age": 5.06792566666666,
+			"charge": 0.604597058823533,
+			"frame": 44,
+			"player_y": 276.857604980469,
+			"speed": 3.79257193333334,
+			"speed_ratio": 0.554671505376346
+		},
+		{
+			"active": false,
+			"boom_age": 5.201259,
+			"charge": 0.212440196078435,
+			"frame": 45,
+			"player_y": 276.575988769531,
+			"speed": 3.4992386,
+			"speed_ratio": 0.339617741935486
+		},
+		{
+			"active": false,
+			"boom_age": 5.33459233333333,
+			"charge": 0.0,
+			"frame": 46,
+			"player_y": 276.167816162109,
+			"speed": 3.20590526666667,
+			"speed_ratio": 0.124563978494626
+		},
+		{
+			"active": false,
+			"boom_age": 5.45998366666667,
+			"charge": 0.0,
+			"frame": 47,
+			"player_y": 275.645355224609,
+			"speed": 2.93004433333333,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 5.59282966666667,
+			"charge": 0.0,
+			"frame": 48,
+			"player_y": 274.882354736328,
+			"speed": 2.63778313333333,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 5.73229133333333,
+			"charge": 0.0,
+			"frame": 49,
+			"player_y": 273.777862548828,
+			"speed": 2.33096746666667,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 5.85157233333333,
+			"charge": 0.0,
+			"frame": 50,
+			"player_y": 272.563659667969,
+			"speed": 2.06854926666667,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 5.98459233333333,
+			"charge": 0.0,
+			"frame": 51,
+			"player_y": 270.715942382813,
+			"speed": 1.77590526666667,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 6.127758,
+			"charge": 0.0,
+			"frame": 52,
+			"player_y": 267.973876953125,
+			"speed": 1.4609408,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 6.25415733333333,
+			"charge": 0.0,
+			"frame": 53,
+			"player_y": 265.775634765625,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 6.387043,
+			"charge": 0.0,
+			"frame": 54,
+			"player_y": 264.103607177734,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 6.52453066666667,
+			"charge": 0.0,
+			"frame": 55,
+			"player_y": 262.869384765625,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 6.65231066666667,
+			"charge": 0.0,
+			"frame": 56,
+			"player_y": 262.046569824219,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 6.78459233333333,
+			"charge": 0.0,
+			"frame": 57,
+			"player_y": 261.430999755859,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 6.91792566666667,
+			"charge": 0.0,
+			"frame": 58,
+			"player_y": 260.985778808594,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.057899,
+			"charge": 0.0,
+			"frame": 59,
+			"player_y": 260.653503417969,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.191354,
+			"charge": 0.0,
+			"frame": 60,
+			"player_y": 260.428497314453,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.324019,
+			"charge": 0.0,
+			"frame": 61,
+			"player_y": 260.268157958984,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.461519,
+			"charge": 0.0,
+			"frame": 62,
+			"player_y": 260.149536132813,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.58459233333333,
+			"charge": 0.0,
+			"frame": 63,
+			"player_y": 260.072967529297,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.723583,
+			"charge": 0.0,
+			"frame": 64,
+			"player_y": 260.010589599609,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.86516266666667,
+			"charge": 0.0,
+			"frame": 65,
+			"player_y": 259.9658203125,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 7.998496,
+			"charge": 0.0,
+			"frame": 66,
+			"player_y": 259.935943603516,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 8.123251,
+			"charge": 0.0,
+			"frame": 67,
+			"player_y": 259.915710449219,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 8.255269,
+			"charge": 0.0,
+			"frame": 68,
+			"player_y": 259.900146484375,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 8.39224533333334,
+			"charge": 0.0,
+			"frame": 69,
+			"player_y": 259.888641357422,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 8.52557866666667,
+			"charge": 0.0,
+			"frame": 70,
+			"player_y": 259.880645751953,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		},
+		{
+			"active": false,
+			"boom_age": 8.658912,
+			"charge": 0.0,
+			"frame": 71,
+			"player_y": 259.874908447266,
+			"speed": 1.36,
+			"speed_ratio": 0.0
+		}
+	],
+	"scope": "Native actual high-altitude charge, one entry burst and acceleration. Invulnerable presentation evidence, not survival balance."
+}

@@ -1,0 +1,48 @@
+{
+  "asset_family": "vx94_countermeasure_burst_v2",
+  "source": "flare_burst_v2.svg",
+  "immutable_predecessor": "originals/flare_sheet_v1.svg",
+  "runtime_geometry": [
+    48,
+    56
+  ],
+  "frames": 4,
+  "timing_seconds": 0.64,
+  "registration": {
+    "pivot": [
+      24,
+      10
+    ],
+    "layer": 15
+  },
+  "visual_contract": "Paired aft-dispenser cartridges become magnesium-white hot bodies, divergent orange envelopes and a separate cool-grey smoke wake in a believable late-1990s military raster style.",
+  "source_sha256": "F675B57354FA38DAC447392F2D6FCAD789720B48136A01B415C1FE7B31D38C68",
+  "runtime_sha256": [
+    "A8063C1ECAD4629E12FD7869AD187F9221C3039DBA433A783B2CE45462433BCE",
+    "D9983D6E0AF3A5F60448A4BD09E48E41D7A46451C7AD2322D18016263873330F",
+    "4F00DC2F72ED06383B67ACBDF48968C9F95462456AA0D066B41B50CEDCB52C34",
+    "7E2E1AC2F332FF07C44B940CA91A33F6978883E7F3A0F12C2824D4674EB3052D"
+  ],
+  "review_status": "reviewed_native_runtime",
+  "review_evidence": [
+    "work/countermeasure_v2/proof_dark.png",
+    "work/countermeasure_v2/proof_white.png",
+    "work/countermeasure_v2/proof_grey.png",
+    "work/countermeasure_v2/proof_green.png",
+    "work/countermeasure_v2/proof_magenta.png",
+    "work/countermeasure_v2/proof_alpha.png",
+    "work/countermeasure_v2/registrations",
+    "work/combat_impact_v1/native_flare_break_v2"
+  ],
+  "deployment_presentation": "three staggered paired-cartridge releases per charge",
+  "salvo_timing_seconds": [
+    0.0,
+    0.055,
+    0.11
+  ],
+  "runtime_scale": 0.72,
+  "native_salvo_evidence": "work/countermeasure_salvo_v3/native",
+  "native_salvo_contact": "work/countermeasure_salvo_v3/contact.png",
+  "native_salvo_contact_sha256": "388BB837C3017B799A4BA935667DEC1BBBB540633455130B415AB4477AFABE43",
+  "review_video": "outputs/HYPERSONIC-counterflare-salvo-runtime.mp4"
+}

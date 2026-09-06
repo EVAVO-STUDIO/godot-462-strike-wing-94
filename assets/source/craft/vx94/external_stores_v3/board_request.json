@@ -1,0 +1,254 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "vx94-external-stores-review",
+  "projectId": "hypersonic",
+  "purpose": "Five loadouts by loaded, left released, empty; 3x native inspection",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "stores",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/composites/fighter_hunter_rack_loaded.png",
+        "work/vx94_external_stores_v3/composites/fighter_hunter_rack_left_released.png",
+        "work/vx94_external_stores_v3/composites/fighter_hunter_rack_empty.png",
+        "work/vx94_external_stores_v3/composites/fighter_twin_rocket_pods_loaded.png",
+        "work/vx94_external_stores_v3/composites/fighter_twin_rocket_pods_left_expended.png",
+        "work/vx94_external_stores_v3/composites/fighter_twin_rocket_pods_empty.png",
+        "work/vx94_external_stores_v3/composites/bomber_hunter_rack_loaded.png",
+        "work/vx94_external_stores_v3/composites/bomber_hunter_rack_left_released.png",
+        "work/vx94_external_stores_v3/composites/bomber_hunter_rack_empty.png",
+        "work/vx94_external_stores_v3/composites/bomber_twin_rocket_pods_loaded.png",
+        "work/vx94_external_stores_v3/composites/bomber_twin_rocket_pods_left_expended.png",
+        "work/vx94_external_stores_v3/composites/bomber_twin_rocket_pods_empty.png",
+        "work/vx94_external_stores_v3/composites/bomber_precision_bomb_loaded.png",
+        "work/vx94_external_stores_v3/composites/bomber_precision_bomb_left_released.png",
+        "work/vx94_external_stores_v3/composites/bomber_precision_bomb_empty.png"
+      ],
+      "targetPath": "stores.png",
+      "canvas": {
+        "width": 576,
+        "height": 1080,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 192,
+          "y": 0,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 384,
+          "y": 0,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 216,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 192,
+          "y": 216,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 5,
+          "x": 384,
+          "y": 216,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 6,
+          "x": 0,
+          "y": 432,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 7,
+          "x": 192,
+          "y": 432,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 8,
+          "x": 384,
+          "y": 432,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 9,
+          "x": 0,
+          "y": 648,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 10,
+          "x": 192,
+          "y": 648,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 11,
+          "x": 384,
+          "y": 648,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 12,
+          "x": 0,
+          "y": 864,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 13,
+          "x": 192,
+          "y": 864,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 14,
+          "x": 384,
+          "y": 864,
+          "width": 192,
+          "height": 216,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

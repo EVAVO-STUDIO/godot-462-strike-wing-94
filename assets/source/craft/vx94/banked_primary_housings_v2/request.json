@@ -1,0 +1,1875 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "hypersonic-banked-primary-housings",
+  "projectId": "hypersonic",
+  "purpose": "Forty primary deployment states with authored pose anchors and far-side occlusion",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "fighter_hard_left_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_0_1.png"
+      ],
+      "targetPath": "fighter_hard_left_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hard_left_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_1_1.png"
+      ],
+      "targetPath": "fighter_hard_left_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hard_left_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_2_1.png"
+      ],
+      "targetPath": "fighter_hard_left_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hard_left_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_1.png"
+      ],
+      "targetPath": "fighter_hard_left_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_left_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_0_1.png"
+      ],
+      "targetPath": "fighter_left_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_left_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_1_1.png"
+      ],
+      "targetPath": "fighter_left_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_left_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_2_1.png"
+      ],
+      "targetPath": "fighter_left_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_left_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_1.png"
+      ],
+      "targetPath": "fighter_left_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_neutral_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ],
+      "targetPath": "fighter_neutral_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_neutral_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_1.png"
+      ],
+      "targetPath": "fighter_neutral_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_neutral_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_1.png"
+      ],
+      "targetPath": "fighter_neutral_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_neutral_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ],
+      "targetPath": "fighter_neutral_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_right_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_0_1.png"
+      ],
+      "targetPath": "fighter_right_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_right_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_1_1.png"
+      ],
+      "targetPath": "fighter_right_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_right_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_2_1.png"
+      ],
+      "targetPath": "fighter_right_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_right_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_1.png"
+      ],
+      "targetPath": "fighter_right_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hard_right_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_0_1.png"
+      ],
+      "targetPath": "fighter_hard_right_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hard_right_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_1_1.png"
+      ],
+      "targetPath": "fighter_hard_right_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hard_right_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_2_1.png"
+      ],
+      "targetPath": "fighter_hard_right_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hard_right_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_1.png"
+      ],
+      "targetPath": "fighter_hard_right_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_left_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_banked_housings/layers/bomber_hard_left_0_0.png"
+      ],
+      "targetPath": "bomber_hard_left_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_left_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_banked_housings/layers/bomber_hard_left_1_0.png"
+      ],
+      "targetPath": "bomber_hard_left_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_left_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_banked_housings/layers/bomber_hard_left_2_0.png"
+      ],
+      "targetPath": "bomber_hard_left_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_left_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_banked_housings/layers/bomber_hard_left_3_0.png"
+      ],
+      "targetPath": "bomber_hard_left_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_left_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_banked_housings/layers/bomber_left_0_0.png"
+      ],
+      "targetPath": "bomber_left_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_left_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_banked_housings/layers/bomber_left_1_0.png"
+      ],
+      "targetPath": "bomber_left_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_left_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_banked_housings/layers/bomber_left_2_0.png"
+      ],
+      "targetPath": "bomber_left_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_left_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_banked_housings/layers/bomber_left_3_0.png"
+      ],
+      "targetPath": "bomber_left_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_neutral_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_0_0.png"
+      ],
+      "targetPath": "bomber_neutral_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_neutral_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_1_0.png"
+      ],
+      "targetPath": "bomber_neutral_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_neutral_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_2_0.png"
+      ],
+      "targetPath": "bomber_neutral_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_neutral_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png"
+      ],
+      "targetPath": "bomber_neutral_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_right_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_banked_housings/layers/bomber_right_0_0.png"
+      ],
+      "targetPath": "bomber_right_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_right_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_banked_housings/layers/bomber_right_1_0.png"
+      ],
+      "targetPath": "bomber_right_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_right_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_banked_housings/layers/bomber_right_2_0.png"
+      ],
+      "targetPath": "bomber_right_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_right_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_banked_housings/layers/bomber_right_3_0.png"
+      ],
+      "targetPath": "bomber_right_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_right_0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_banked_housings/layers/bomber_hard_right_0_0.png"
+      ],
+      "targetPath": "bomber_hard_right_0.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_right_1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_banked_housings/layers/bomber_hard_right_1_0.png"
+      ],
+      "targetPath": "bomber_hard_right_1.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_right_2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_banked_housings/layers/bomber_hard_right_2_0.png"
+      ],
+      "targetPath": "bomber_hard_right_2.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hard_right_3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_banked_housings/layers/bomber_hard_right_3_0.png"
+      ],
+      "targetPath": "bomber_hard_right_3.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

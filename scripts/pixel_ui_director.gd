@@ -58,6 +58,8 @@ const REPORT_FAILURE_BADGE := preload("res://assets/runtime/ui/menu/mission_repo
 const REPORT_STAT_FRAME := preload("res://assets/runtime/ui/menu/mission_report/stat_frame.png")
 const REPORT_ACCURACY_TROUGH := preload("res://assets/runtime/ui/menu/mission_report/accuracy_trough.png")
 const REPORT_ACCURACY_FILL := preload("res://assets/runtime/ui/menu/mission_report/accuracy_fill.png")
+const REPORT_FLIGHT_RECORDER_COMPLETE := preload("res://assets/runtime/ui/menu/mission_report/flight_recorder_complete.png")
+const REPORT_FLIGHT_RECORDER_LOST := preload("res://assets/runtime/ui/menu/mission_report/flight_recorder_lost.png")
 const REPORT_METRIC_CELL := preload("res://assets/runtime/ui/menu/mission_report/metrics/cell.png")
 const REPORT_METRIC_ICONS := {
 	"targets": preload("res://assets/runtime/ui/menu/mission_report/metrics/icon_targets.png"),
@@ -606,8 +608,9 @@ func _draw_result(surface: CanvasItem, scene: Object) -> void:
 	PixelFont.draw_centered(surface, "MODE REPORT" if mode_active else ("MISSION COMPLETE" if mission_success else "SORTIE FAILED"), 320, 35, 3, GOLD if mission_success else RED, 2)
 
 	var result_lines := _wrap_text(str(scene.get("result_text")), 66)
-	for i in range(mini(3, result_lines.size())):
-		PixelFont.draw_centered(surface, result_lines[i], 320, 73 + i * 11, 1, TEXT, 1)
+	for i in range(mini(2, result_lines.size())):
+		PixelFont.draw_centered(surface, result_lines[i], 320, 70 + i * 11, 1, TEXT, 1)
+	surface.draw_texture(REPORT_FLIGHT_RECORDER_COMPLETE if mission_success else REPORT_FLIGHT_RECORDER_LOST, Vector2(42, 96))
 	_draw_divider(surface, 118)
 
 	var fired := int(scene.get("shots_fired")) if _has_property(scene, "shots_fired") else 0
@@ -710,9 +713,17 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(HUD_ICON_BOMB, Vector2(342, 10))
 	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(356, 13), 1, TEXT, 1)
 	var remaining := maxi(0, int(ceil(float(scene.get("mission_duration")) - float(scene.get("mission_time")))))
+	if scene.has_method("mission_remaining_seconds"):
+		remaining = maxi(0, int(ceil(float(scene.call("mission_remaining_seconds")))))
+	var route_eta := true
 	if _has_property(scene, "egress_active") and bool(scene.get("egress_active")) and _has_property(scene, "egress_time_remaining"):
 		remaining = maxi(0, int(ceil(float(scene.get("egress_time_remaining")))))
-	surface.draw_texture(HUD_ICON_TIME, Vector2(390, 10))
+		route_eta = false
+	if route_eta:
+		var label := "OT" if _has_property(scene, "route_overtime_elapsed") and float(scene.get("route_overtime_elapsed")) > 0.0 else "ETA"
+		PixelFont.draw_text(surface, label, Vector2(390,13), 1, TEXT, 1)
+	else:
+		surface.draw_texture(HUD_ICON_TIME, Vector2(390, 10))
 	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(404, 13), 1, TEXT, 1)
 	surface.draw_texture(HUD_ICON_SCORE, Vector2(506, 10))
 	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(522, 13), 1, TEXT, 1)

@@ -1,0 +1,152 @@
+[
+  {
+    "pose": "needle_rail_bomber_hard_left",
+    "deployed_to_charged_pixels": 3,
+    "charged_to_discharge_pixels": 3
+  },
+  {
+    "pose": "needle_rail_bomber_hard_right",
+    "deployed_to_charged_pixels": 3,
+    "charged_to_discharge_pixels": 3
+  },
+  {
+    "pose": "needle_rail_bomber_left",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "needle_rail_bomber_neutral",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "needle_rail_bomber_right",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "needle_rail_fighter_hard_left",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "needle_rail_fighter_hard_right",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "needle_rail_fighter_left",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "needle_rail_fighter_neutral",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "needle_rail_fighter_right",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_bomber_hard_left",
+    "deployed_to_charged_pixels": 3,
+    "charged_to_discharge_pixels": 3
+  },
+  {
+    "pose": "plasma_lance_bomber_hard_right",
+    "deployed_to_charged_pixels": 3,
+    "charged_to_discharge_pixels": 3
+  },
+  {
+    "pose": "plasma_lance_bomber_left",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_bomber_neutral",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_bomber_right",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_fighter_hard_left",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_fighter_hard_right",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_fighter_left",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_fighter_neutral",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "plasma_lance_fighter_right",
+    "deployed_to_charged_pixels": 4,
+    "charged_to_discharge_pixels": 4
+  },
+  {
+    "pose": "storm_cannon_bomber_hard_left",
+    "deployed_to_charged_pixels": 7,
+    "charged_to_discharge_pixels": 7
+  },
+  {
+    "pose": "storm_cannon_bomber_hard_right",
+    "deployed_to_charged_pixels": 7,
+    "charged_to_discharge_pixels": 7
+  },
+  {
+    "pose": "storm_cannon_bomber_left",
+    "deployed_to_charged_pixels": 8,
+    "charged_to_discharge_pixels": 8
+  },
+  {
+    "pose": "storm_cannon_bomber_neutral",
+    "deployed_to_charged_pixels": 8,
+    "charged_to_discharge_pixels": 8
+  },
+  {
+    "pose": "storm_cannon_bomber_right",
+    "deployed_to_charged_pixels": 7,
+    "charged_to_discharge_pixels": 7
+  },
+  {
+    "pose": "storm_cannon_fighter_hard_left",
+    "deployed_to_charged_pixels": 7,
+    "charged_to_discharge_pixels": 7
+  },
+  {
+    "pose": "storm_cannon_fighter_hard_right",
+    "deployed_to_charged_pixels": 7,
+    "charged_to_discharge_pixels": 7
+  },
+  {
+    "pose": "storm_cannon_fighter_left",
+    "deployed_to_charged_pixels": 8,
+    "charged_to_discharge_pixels": 8
+  },
+  {
+    "pose": "storm_cannon_fighter_neutral",
+    "deployed_to_charged_pixels": 8,
+    "charged_to_discharge_pixels": 8
+  },
+  {
+    "pose": "storm_cannon_fighter_right",
+    "deployed_to_charged_pixels": 8,
+    "charged_to_discharge_pixels": 8
+  }
+]

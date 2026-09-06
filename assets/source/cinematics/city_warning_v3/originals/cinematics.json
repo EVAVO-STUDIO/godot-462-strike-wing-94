@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "sequences": [
+    {
+      "id": "sector_ii_machine_war",
+      "trigger": "launch",
+      "mission_id": "m07_ghost_sky",
+      "title": "SECTOR II // MACHINE WAR",
+      "shots": [
+        {"id":"s2_observation","role":"observation","duration":2.4,"camera":"locked","plate":"s2_dead_refinery","fx_fps":3.0,"caption":"THE WAR DID NOT END.","sound_bridge":"environmental"},
+        {"id":"s2_anticipation","role":"anticipation","duration":2.2,"camera":"pan","plate":"s2_factory_awakens","sprite":"salvage_mech","sprite_position":[346,207],"sprite_scale":1.0,"animation_fps":3.0,"fx_fps":3.0,"caption":"THE FACTORIES KEPT BUILDING.","sound_bridge":"prelap"},
+        {"id":"s2_consequence","role":"consequence","duration":2.8,"camera":"locked","plate":"s2_city_warning","sprite":"drone_hunter","sprite_position":[320,174],"sprite_scale":1.0,"animation_fps":4.0,"fx_fps":3.0,"caption":"NOW BOTH ARMIES HAVE THE SAME ENEMY.","sound_bridge":"hard silence"}
+      ]
+    },
+    {
+      "id": "sector_iii_black_sky",
+      "trigger": "launch",
+      "mission_id": "m09_black_horizon",
+      "title": "SECTOR III // BLACK SKY",
+      "shots": [
+        {"id":"s3_observation","role":"observation","duration":2.5,"camera":"locked","plate":"s3_weather_ceiling","sprite":"vx94_fighter","sprite_position":[320,210],"sprite_scale":0.8,"animation_fps":6.0,"fx_fps":3.0,"caption":"THE NETWORK RETREATED ABOVE THE WEATHER.","sound_bridge":"environmental"},
+        {"id":"s3_anticipation","role":"anticipation","duration":2.3,"camera":"pan","plate":"s3_phase_protocol","sprite":"phase_array","sprite_position":[320,172],"sprite_scale":0.8,"animation_fps":4.0,"fx_fps":3.0,"caption":"BLACK SKY PROTOCOL IS ACTIVE.","sound_bridge":"prelap"},
+        {"id":"s3_action","role":"action","duration":2.0,"camera":"track","plate":"s3_ark_reveal","sprite":"machine_ark","sprite_position":[336,164],"sprite_scale":0.72,"animation_fps":6.0,"fx_fps":3.0,"caption":"VX-94: CLIMB UNTIL THE SKY ENDS.","sound_bridge":"carry"},
+        {"id":"s3_consequence","role":"consequence","duration":1.6,"camera":"locked","plate":"s3_authorized","fx_fps":3.0,"caption":"OPERATION BLACK SKY // AUTHORIZED","sound_bridge":"hard silence"}
+      ]
+    },
+    {
+      "id": "ending_after_machine_ark",
+      "trigger": "ending",
+      "mission_id": "m12_machine_ark",
+      "title": "EPILOGUE // AFTER BLACK SKY",
+      "shots": [
+        {"id":"end_consequence","role":"consequence","duration":2.6,"camera":"track","plate":"end_ark_fall","fx_fps":3.0,"caption":"THE ARK FELL WITHOUT A SIGNAL.","sound_bridge":"hard silence"},
+        {"id":"end_action","role":"action","duration":2.2,"camera":"pan","plate":"end_reentry","sprite":"vx94_bomber","sprite_position":[320,174],"sprite_scale":0.88,"animation_fps":6.0,"fx_fps":3.0,"caption":"VX-94: RE-ENTRY CONFIGURATION.","sound_bridge":"carry"},
+        {"id":"end_observation","role":"observation","duration":2.8,"camera":"locked","plate":"end_city_silence","fx_fps":3.0,"caption":"FOR THE FIRST TIME, THE CITIES HEARD ONLY WEATHER.","sound_bridge":"environmental"},
+        {"id":"end_consequence_final","role":"consequence","duration":3.2,"camera":"locked","plate":"end_watch","sprite":"vx94_fighter","sprite_position":[390,164],"sprite_scale":0.82,"animation_fps":5.0,"fx_fps":3.0,"caption":"BLACK SKY ENDED. THE WATCH CONTINUES.","sound_bridge":"prelap"},
+        {"id":"end_title","role":"consequence","duration":3.0,"camera":"locked","plate":"end_title_sky","fx_fps":3.0,"caption":"HYPERSONIC // MISSION COMPLETE","sound_bridge":"hard silence"}
+      ]
+    }
+  ]
+}

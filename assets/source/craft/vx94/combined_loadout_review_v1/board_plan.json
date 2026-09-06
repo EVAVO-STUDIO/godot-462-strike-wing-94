@@ -1,0 +1,2031 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "vx94-combined-board",
+  "projectId": "hypersonic",
+  "purpose": "Five valid one-primary/one-support loadouts, both forms, five banks",
+  "compiledAt": "2026-09-06T10:47:17.166Z",
+  "runId": "project-art-sandbox:87849bacf8e9780d162c57c8",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "61a2cd720f4f6517c85208f705de3a6a626c2c1f53cdb43c320ff59c1238d706",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_00a0702acc11be8e52805c96db1964e9",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_bomber_hard_right.png",
+      "sha256": "68f70df5a3a9daff1f5ed75a7e74de8e8ce0188aaed5e5fd5f0404826b9f627f",
+      "bytes": 5111,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_0581e4491f220a5f20aa7d0d55482bba",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_fighter_left.png",
+      "sha256": "94ce5977cafa2429f8cb6e6d31182aa28e06803ec7e3d419072ba247f12fd96f",
+      "bytes": 3745,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_0feaa263a50b53fd67c2b98df7329010",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_bomber_right.png",
+      "sha256": "fa4af8425d2de2174bb616a5c6171123d8d09e6d6df3ca1de711a3aeb0f6c14a",
+      "bytes": 4867,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_19261ca1e87a2c3fb8597df8e72a936d",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_fighter_right.png",
+      "sha256": "1653aa5dd7216d0d32beb02ab7634a0a866122ad297a93dd39f329d194a75435",
+      "bytes": 3878,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_1b17cf972b511d06a05383f85b73c733",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_fighter_neutral.png",
+      "sha256": "170d6c110c5a8a7b75c4f896b90b5211c9a6d30642befb2bf90195e02b3d6b8f",
+      "bytes": 3485,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_20bba68031c75526605404e42a422808",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_bomber_right.png",
+      "sha256": "d02421ae40c111fb37a0a016ed21b4054ef9e8b1b4945bd0447d125e711099f9",
+      "bytes": 4598,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2177f767de05489a426f7fe6378ade74",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_bomber_right.png",
+      "sha256": "bc61f646675bc60429a504b75be7d9e818e0d1884c24fb0aff300c7210564f27",
+      "bytes": 4809,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_23b4df4a2c3a97e3a9d50f32d2550c09",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_bomber_neutral.png",
+      "sha256": "5b86ad92cacc8a26ddf89cf5e96f209ca8ec94dda1c1cfbe1fc0ee792aa42c87",
+      "bytes": 4619,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_244cce114a23e6f3c6b3614dcb014713",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_bomber_hard_left.png",
+      "sha256": "6363331f8519673db595581fe941c0a040c1013455ac3ce4028f7affe0ff4d24",
+      "bytes": 5578,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2788f562f1df09472046988768eab9bf",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_bomber_left.png",
+      "sha256": "613d6cf0264737970c01d89e316f6a643ff9eaf3c5543b31dbfc4db879deb29d",
+      "bytes": 4546,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2f592dd8a820ce846e3189cb26fc1f21",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_fighter_neutral.png",
+      "sha256": "191f7d09f41d0f3e4d03c977b20933d169f2fa9e9767a1da147a08863ff3920d",
+      "bytes": 3367,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_302eb0c60e4f813c7a4dde956f24ac31",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_bomber_hard_right.png",
+      "sha256": "6e2c5140fcf51af7d6308d60b8f9ef7cff218cbd8b13b3ff7160b7fb947ab5e4",
+      "bytes": 5128,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_34eab9067d2018b197006fda1da37eb3",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_bomber_left.png",
+      "sha256": "245c055a4508752382884400a3e7770ea16ec2e9aef62a2f70a9e7f02e9df1aa",
+      "bytes": 4721,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_3c7b8244a2c285abb8373c918d108ed2",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_bomber_neutral.png",
+      "sha256": "03c6143c348e3d1d57614bb8963b9b30918eb56b607a8fe1643f624dea3ac8f5",
+      "bytes": 4631,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_46ca18a1e9058b1ca0812b4ac38148bd",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_fighter_hard_right.png",
+      "sha256": "72808060824177111fe35213feb287f6bb004718d2c0f7d7873d8fa83a36caf7",
+      "bytes": 4309,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_54fb489ba1871923a010fa7b8e4492e5",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_fighter_hard_right.png",
+      "sha256": "cc64728673324e0b44c5b214a359d999c7b4e68becb87e97bd5f1f8356c8d34f",
+      "bytes": 4136,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_54fe43726e3c8a6178b011a7a9927b93",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_fighter_right.png",
+      "sha256": "ee26428dacc387c76e528f432bcc20a2144ec514042813f5f84c33fb2f4d1428",
+      "bytes": 3703,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5955447254bf45cf6663b8d29e0ab1dd",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_bomber_right.png",
+      "sha256": "bcbc839578dcbf611b39a18107e578726ecf54f823867354a0fa277be9e3ead6",
+      "bytes": 4576,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5a169ce256eb11f9d1bf5e347b2448a2",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_fighter_hard_left.png",
+      "sha256": "543b3caf73084e71d52869d7fd39fb8835d0894f746225c3e80f33dc20cd91ff",
+      "bytes": 4275,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5e223738079750a102d936b022901321",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_bomber_neutral.png",
+      "sha256": "b3f250f6ba7560a8cd441eda282e68a0f21b0f92780b80d153c4ef1a1a3f73e6",
+      "bytes": 4709,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_602d35137ecf41c8305262b46b83d87c",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_fighter_neutral.png",
+      "sha256": "33ad68fe575f0dab787bf07e387d7bafec92530897efcddf5af6ad64c7d1b558",
+      "bytes": 3522,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_62f6f5f9158c6214184db19d3b88b803",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_fighter_hard_left.png",
+      "sha256": "83c787c058784d8cf0b166ef31b85cb2840437856a7f91a7cc9a1e3788d487e7",
+      "bytes": 4242,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_72308885d9b722beae4a025a083a8d6f",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_fighter_right.png",
+      "sha256": "5e7e77ff392395e46dfe78779fd2b08bc33219f445453cec962c5b9edea164bc",
+      "bytes": 3747,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_7e4dfddadd3c12e5ab0512c9cec336be",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_bomber_neutral.png",
+      "sha256": "8bdd2396a937bfeaba669cb2c386b9cbaa5e269cfc79d678464cd2c1647a809c",
+      "bytes": 4651,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_8365ffb16ca1570ac3165b59b687ad3a",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_bomber_right.png",
+      "sha256": "ddb9eb4a612f1dbf44b1376675a42b4dc85280299a032055737f3717a0c1bdae",
+      "bytes": 4635,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_918ddd0d811bfe462e26483a7fe21b12",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_bomber_hard_left.png",
+      "sha256": "d420449b4ec1907e1f1cdeabb5b7bb59b148d9392d8b73eaf06132c0c8ae5108",
+      "bytes": 5538,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a005610a53853fa0ab25b482127e86e6",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_fighter_left.png",
+      "sha256": "4eb2dca0fd9970ba4a0842e465cfa1b4a6108a53d4549ec20aec29ca75421605",
+      "bytes": 3741,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a1fccebbd8b95fc926f826d939e494ca",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_fighter_neutral.png",
+      "sha256": "fb96fd9e5552608f6b1423de826882e9c60cd3c55e83efd644186ab09716ac7a",
+      "bytes": 3597,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a3ce9facbea18253d233dace4d0d1905",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_fighter_hard_left.png",
+      "sha256": "ec282f9b8f48c08d6aa36f83324742265e2372bb15688e0fd3c59912019e4620",
+      "bytes": 4301,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a4f3fce3a52f255c8b584f2bd15c92ea",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_fighter_neutral.png",
+      "sha256": "4b7ed7fed7c1f17b31d6153bb401ee21b2ec8b80d4e1880db2dac4a92ea3b012",
+      "bytes": 3521,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_acff896d813da36a54e397c412ce45fa",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_bomber_left.png",
+      "sha256": "5af3bad6f4cc62e22190c0f486a73bce6ffc85fb59adb1bd197851e3e7923c74",
+      "bytes": 4501,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b281ff574868bce971e2252d5fea7c43",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_fighter_hard_left.png",
+      "sha256": "cc37e627dd30481c88afd613a62e0ffeef6ab9fe5eae22a5eade9d27b9704134",
+      "bytes": 4172,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bf4af5be3705a240b7453c9d3622661d",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_fighter_left.png",
+      "sha256": "28e65bed20627fb3d5af881ae20c270883b65b1f8130040b66264939554141c6",
+      "bytes": 3626,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c62d3caab7bc7ef1657270aaddbb5a7e",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_bomber_left.png",
+      "sha256": "f4731b4aebdab9113163ab62912a158004b03e1803ef0ce2871f43b85d47468b",
+      "bytes": 4517,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c9071d6c8d0abd95136776d3675b6aa1",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_fighter_right.png",
+      "sha256": "ade52f980ff6495a862b1697870ba0f56b6d84d75f25c19a4d794cf6332dad20",
+      "bytes": 3760,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c953c523aae8029553723f695c2edd72",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_bomber_hard_left.png",
+      "sha256": "0d0d6118eb27a0425f2a32403b178610ac549aff81ec5c4d26447e1c9ba7c026",
+      "bytes": 5401,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_cd14924eb569e68756529441f2a7b116",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_fighter_right.png",
+      "sha256": "24c41b9661729c0653dee999584cbc780e8cb8392bf98185148863a4cb7d91df",
+      "bytes": 3813,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e3572cd7ccdd16a868efb2716160fe02",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_bomber_hard_right.png",
+      "sha256": "63c9574d490da53f1d6c1e537ffc10636be6f892707ca3679f57086c2125bde2",
+      "bytes": 5071,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e7a29865043a1eef593ca3fa729aeb61",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_bomber_hard_right.png",
+      "sha256": "1fe77f470a5a6f93f6ddf3a83b3c1efb19d396e3b98c848c2a02f5f3911a8cb9",
+      "bytes": 5251,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e8fdce334108441cd01ee2caf4beb2d5",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_twin_rocket_pods_bomber_neutral.png",
+      "sha256": "16479669a3d07166c188e67c3e5c21448ad08c0ffc5c44b87781f7df78dfd84f",
+      "bytes": 4772,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e91075bd3c57fc2a0c1e624f02eed6f2",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_fighter_left.png",
+      "sha256": "b8934b78cba07f0d1dff9b3b7f671fdbd21dd088dab55ad1d0314d6da36b8735",
+      "bytes": 3710,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f40c7718321e2b5712341d23a2f802fe",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_fighter_hard_right.png",
+      "sha256": "8b23d6a15587edc50307280c4e6fe794000e1b581d5a93547c953d6bc09a7cbe",
+      "bytes": 4296,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f458611ace8e40d31f5e76ff2b30bd3e",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_fighter_hard_left.png",
+      "sha256": "3329ee99c8448d545f661783610dd9bf3b459f0f56cb849f737a93725fc33b07",
+      "bytes": 4343,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f4faa6d9c1ea6c2bd580158c3acc44bd",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_bomber_left.png",
+      "sha256": "5576f4410bc16c6bb0a4a5e5e7cc0e32075bac2ba339f09577110dfb549714be",
+      "bytes": 4679,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f5800ac4643b1236b747c8b731d2c9f6",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_bomber_hard_left.png",
+      "sha256": "77fb3448942abda7f4b3bfe7a44f037e3d704f3767c6a8a494a1dbf43339babb",
+      "bytes": 5357,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f76f439cc7ab3d3aae46fc8db3bf91cf",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_fighter_left.png",
+      "sha256": "55a1c385bb9f11a378af8c1e16f2005af6e32f41cf7511fb16947d4ec25b3af6",
+      "bytes": 3801,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f838f126ed32053388c05d17b75058a0",
+      "path": "work/vx94_combined_loadouts_v1/composites/plasma_lance_magnetic_screen_fighter_hard_right.png",
+      "sha256": "5a8a89c7f600245a0d7ad4b93d7a9c82ccd70ee0f297f4cabcfe8268112e0f22",
+      "bytes": 4121,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f989c817346b046b0e2752a9528db23d",
+      "path": "work/vx94_combined_loadouts_v1/composites/needle_rail_hunter_rack_bomber_hard_right.png",
+      "sha256": "ce518396a15527988e4daf4dce9cc4c5391b77c017e48648df6ccc4f7ea7ff2b",
+      "bytes": 5203,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_fa2c9883444ec33a40438dfbb8fd86cf",
+      "path": "work/vx94_combined_loadouts_v1/composites/storm_cannon_emp_disruptor_bomber_hard_left.png",
+      "sha256": "67d7fc500fe797c36cc1c7c1ef88ddac6103b7cc30a011dbfeb2eb8bd88f9c6a",
+      "bytes": 5410,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_fe66418ee350b6c47c7c514d977e78a1",
+      "path": "work/vx94_combined_loadouts_v1/composites/ballistic_point_defence_pod_fighter_hard_right.png",
+      "sha256": "5969fdede6e6d7e54763f382541ce8cfa7c72dcfef2627490ae4968ee967c12a",
+      "bytes": 4099,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "ballistic_twin_rocket_pods",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_a3ce9facbea18253d233dace4d0d1905"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_0581e4491f220a5f20aa7d0d55482bba"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_602d35137ecf41c8305262b46b83d87c"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_cd14924eb569e68756529441f2a7b116"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_46ca18a1e9058b1ca0812b4ac38148bd"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_244cce114a23e6f3c6b3614dcb014713"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_34eab9067d2018b197006fda1da37eb3"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e8fdce334108441cd01ee2caf4beb2d5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_0feaa263a50b53fd67c2b98df7329010"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e7a29865043a1eef593ca3fa729aeb61"
+        }
+      ],
+      "targetPath": "ballistic_twin_rocket_pods.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 288,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_f458611ace8e40d31f5e76ff2b30bd3e"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f76f439cc7ab3d3aae46fc8db3bf91cf"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a1fccebbd8b95fc926f826d939e494ca"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_19261ca1e87a2c3fb8597df8e72a936d"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f40c7718321e2b5712341d23a2f802fe"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_918ddd0d811bfe462e26483a7fe21b12"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f4faa6d9c1ea6c2bd580158c3acc44bd"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5e223738079750a102d936b022901321"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2177f767de05489a426f7fe6378ade74"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f989c817346b046b0e2752a9528db23d"
+        }
+      ],
+      "targetPath": "needle_rail_hunter_rack.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 288,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_62f6f5f9158c6214184db19d3b88b803"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e91075bd3c57fc2a0c1e624f02eed6f2"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_1b17cf972b511d06a05383f85b73c733"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c9071d6c8d0abd95136776d3675b6aa1"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f838f126ed32053388c05d17b75058a0"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c953c523aae8029553723f695c2edd72"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_acff896d813da36a54e397c412ce45fa"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_3c7b8244a2c285abb8373c918d108ed2"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5955447254bf45cf6663b8d29e0ab1dd"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e3572cd7ccdd16a868efb2716160fe02"
+        }
+      ],
+      "targetPath": "plasma_lance_magnetic_screen.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 288,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_5a169ce256eb11f9d1bf5e347b2448a2"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a005610a53853fa0ab25b482127e86e6"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a4f3fce3a52f255c8b584f2bd15c92ea"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_72308885d9b722beae4a025a083a8d6f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_54fb489ba1871923a010fa7b8e4492e5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_fa2c9883444ec33a40438dfbb8fd86cf"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c62d3caab7bc7ef1657270aaddbb5a7e"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_23b4df4a2c3a97e3a9d50f32d2550c09"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_20bba68031c75526605404e42a422808"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_00a0702acc11be8e52805c96db1964e9"
+        }
+      ],
+      "targetPath": "storm_cannon_emp_disruptor.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 288,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_b281ff574868bce971e2252d5fea7c43"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bf4af5be3705a240b7453c9d3622661d"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2f592dd8a820ce846e3189cb26fc1f21"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_54fe43726e3c8a6178b011a7a9927b93"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_fe66418ee350b6c47c7c514d977e78a1"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f5800ac4643b1236b747c8b731d2c9f6"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2788f562f1df09472046988768eab9bf"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_7e4dfddadd3c12e5ab0512c9cec336be"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_8365ffb16ca1570ac3165b59b687ad3a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_302eb0c60e4f813c7a4dde956f24ac31"
+        }
+      ],
+      "targetPath": "ballistic_point_defence_pod.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 288,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 220189,
+    "plannedMaximumOutputFiles": 6
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "04e97e93b13d5aa4d6bcdff53b5c5a28362d9ca59dfbedcb1885a9f9cf298b45"
+}

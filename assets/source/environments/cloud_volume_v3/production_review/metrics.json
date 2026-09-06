@@ -1,0 +1,13 @@
+{
+  "head": "34379f3e6654ca480b824b62c0deba3d966337c4",
+  "frames": 72,
+  "minimum_speed": 0.62,
+  "maximum_speed": 4.4,
+  "sampled_duration": 6.816699666666395,
+  "renderer": "production _draw_clouds, not scratch overlay",
+  "reviewed_coastal_frames": [
+    12,
+    36,
+    60
+  ]
+}

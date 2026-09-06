@@ -1,0 +1,37 @@
+{
+  "resize": {
+    "sourceWidth": 1983,
+    "sourceHeight": 793,
+    "sourceHasAlpha": true,
+    "cleanupWidth": 1875,
+    "cleanupHeight": 493,
+    "retainedAreaRatio": 0.587830735272515,
+    "aspectRatioDrift": 1.520914589425942,
+    "outputWidth": 192,
+    "outputHeight": 56,
+    "outputHasAlpha": true,
+    "format": "png",
+    "operations": [
+      "ensure-alpha",
+      "trim:0",
+      "cleanup-geometry-verified",
+      "resize",
+      "pad",
+      "encode:png"
+    ]
+  },
+  "padding": {
+    "sourceWidth": 192,
+    "sourceHeight": 56,
+    "sourceHasAlpha": true,
+    "outputWidth": 192,
+    "outputHeight": 64,
+    "outputHasAlpha": true,
+    "format": "png",
+    "operations": [
+      "ensure-alpha",
+      "pad",
+      "encode:png"
+    ]
+  }
+}

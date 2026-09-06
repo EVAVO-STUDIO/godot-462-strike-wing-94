@@ -1,0 +1,13 @@
+{
+  "status": "native_reviewed",
+  "screen": "campaign and mode debrief",
+  "success_binding": "REPORT_FLIGHT_RECORDER_COMPLETE",
+  "failure_binding": "REPORT_FLIGHT_RECORDER_LOST",
+  "position": [42, 96],
+  "review": {
+    "success_capture": "res://work/mission_interface_v5/native/debrief_success.png",
+    "failure_capture": "res://work/mission_interface_v5/native/debrief_failure.png",
+    "contact_sheet": "res://work/mission_interface_v5/contact.png",
+    "decision": "accepted: both traces remain legible at native 640x360 and preserve the report hierarchy"
+  }
+}

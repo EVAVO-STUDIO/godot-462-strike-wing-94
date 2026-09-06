@@ -1,0 +1,45 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.25,
+      "events": [],
+      "fps": 16.0,
+      "frames": [
+        {
+          "duration_seconds": 0.0625,
+          "events": [],
+          "frame": "blue_plume_0",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.0625,
+          "events": [],
+          "frame": "blue_plume_1",
+          "index": 1,
+          "start_seconds": 0.0625
+        },
+        {
+          "duration_seconds": 0.0625,
+          "events": [],
+          "frame": "blue_plume_2",
+          "index": 2,
+          "start_seconds": 0.125
+        },
+        {
+          "duration_seconds": 0.0625,
+          "events": [],
+          "frame": "blue_plume_3",
+          "index": 3,
+          "start_seconds": 0.1875
+        }
+      ],
+      "loop": true,
+      "name": "blue_plume"
+    }
+  ],
+  "asset": "blue_plume",
+  "schema_version": 1,
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

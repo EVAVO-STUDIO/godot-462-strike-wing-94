@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\shield_break.wav",
+  "source_sha256": "e13013223c8c6006121cb79ec426de667af26d6d93c00cde3f335f3bb7553d66",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.4,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.1708984375,
+    "rms": 0.03219037083621857,
+    "dc": 4.245472603103741e-06,
+    "clippedSamples": 0,
+    "crestFactor": 5.308992504752598,
+    "estimatedBpm": 198.76802884615384,
+    "pulseStrength": 0.03961104527115822,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "hypersonic_vx94_transform_module_damage_runtime_v1",
+  "status": "reviewed_native_runtime",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "runtime_layers": 120,
+  "routes": [
+    "bomber",
+    "hypersonic"
+  ],
+  "modules": [
+    "point_defence_pod",
+    "emp_disruptor",
+    "magnetic_screen"
+  ],
+  "damage_states": [
+    "scarred",
+    "burnt"
+  ],
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/transform_module_damage",
+  "native_evidence": "work/vx94_transform_module_damage_v1/native",
+  "review_video": "outputs/HYPERSONIC-vx94-transform-module-damage-runtime.mp4",
+  "representative_runtime_sha256": "0B9605636EBA4306B1D203DE6CA91E94D482A7DADB316C72B743E634B968D164"
+}

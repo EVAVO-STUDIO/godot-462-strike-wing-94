@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\fire_strategic.wav",
+  "source_sha256": "00a0cdf653ac5c9737ed29187a63951413466c6b802aad2be8595dba8f95fbe7",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.34,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.106170654296875,
+    "rms": 0.02898685293056355,
+    "dc": -7.654836022950847e-05,
+    "clippedSamples": 0,
+    "crestFactor": 3.6627175274093533,
+    "estimatedBpm": 0.0,
+    "pulseStrength": 0.0,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

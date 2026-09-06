@@ -1,0 +1,24 @@
+{
+  "endpoint_rgba_exact": [
+    "bomber_hunter_rack_loaded_00",
+    "bomber_hunter_rack_loaded_09",
+    "bomber_hunter_rack_left_expended_00",
+    "bomber_hunter_rack_left_expended_09",
+    "bomber_hunter_rack_empty_00",
+    "bomber_hunter_rack_empty_09",
+    "bomber_twin_rocket_pods_loaded_00",
+    "bomber_twin_rocket_pods_loaded_09",
+    "bomber_twin_rocket_pods_left_expended_00",
+    "bomber_twin_rocket_pods_left_expended_09",
+    "bomber_twin_rocket_pods_empty_00",
+    "bomber_twin_rocket_pods_empty_09",
+    "hypersonic_hunter_rack_loaded_00",
+    "hypersonic_hunter_rack_left_expended_00",
+    "hypersonic_hunter_rack_empty_00",
+    "hypersonic_twin_rocket_pods_loaded_00",
+    "hypersonic_twin_rocket_pods_left_expended_00",
+    "hypersonic_twin_rocket_pods_empty_00"
+  ],
+  "previous_20_loaded_bomber_frames_exact": true,
+  "all_240_hardware_layers_overlap": true
+}

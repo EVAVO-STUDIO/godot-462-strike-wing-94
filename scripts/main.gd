@@ -2,6 +2,7 @@ extends Node2D
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
+const CombatImpactRules = preload("res://scripts/combat_impact_rules.gd")
 const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
@@ -18,6 +19,7 @@ const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 const FlightSpeedRules = preload("res://scripts/flight_speed_rules.gd")
+const FlightCameraRules = preload("res://scripts/flight_camera_rules.gd")
 const RouteProgressRules = preload("res://scripts/route_progress_rules.gd")
 const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
@@ -31,7 +33,7 @@ const PLAYFIELD := Rect2(18.0, 52.0, 604.0, 296.0)
 # excursion, below the top instruments and above the bottom message lane.
 const PLAYER_FLIGHT_MIN := Vector2(34.0, 76.0)
 const PLAYER_FLIGHT_MAX := Vector2(606.0, 288.0)
-const PLAYER_SORTIE_START := Vector2(320.0, 286.0)
+const PLAYER_SORTIE_START := Vector2(320.0, FlightCameraRules.ANCHOR_Y)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 
@@ -61,6 +63,8 @@ var secondary_timer := 0.0
 var enemy_spawn_timer := 0.5
 var mission_time := 0.0
 var environment_world_distance := 0.0
+var flight_camera_offset := 0.0
+var route_overtime_elapsed := 0.0
 var mission_duration := 150.0
 var score := 0
 var hull := 100
@@ -116,6 +120,7 @@ var egress_completion_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
 var enemy_missiles_launched := 0
+var countermeasures_decoyed := 0
 var enemies: Array = []
 var pickups: Array = []
 var enemy_catalog: Array = []
@@ -305,6 +310,16 @@ func _begin_capture_gameplay() -> void:
 func _begin_capture_result(state: String) -> void:
 	phase = GamePhase.RESULT
 	mission_success = state == "success"
+	# Keep deterministic report fixtures consistent with their displayed outcome.
+	objective_progress = ObjectiveRules.make_progress(current_objectives)
+	if mission_success:
+		for objective in current_objectives:
+			var id := str(objective.get("id", ""))
+			match str(objective.get("type", "")):
+				"survive", "hypersonic_egress":
+					objective_progress[id] = float(objective.get("seconds", 1.0))
+				"destroy_count", "destroy_enemy":
+					objective_progress[id] = float(objective.get("count", 1))
 	score = 184260 if mission_success else 42780
 	credits = 28640
 	shots_fired = 164
@@ -672,9 +687,9 @@ func _update_mission(delta: float) -> void:
 	contact_damage_cooldown = maxf(0.0, contact_damage_cooldown - delta)
 	enemy_spawn_timer -= delta
 	energy = EnergyRules.recharge(energy, _active_generator(), delta)
-	wave = MissionStateRules.live_wave(_active_mission(), mission_time)
 	_update_player(delta)
 	_advance_route_progress(delta)
+	wave = MissionStateRules.live_wave(_active_mission(), route_progress_seconds())
 	var evasive := get_node_or_null("/root/EvasiveRollDirector")
 	if evasive != null and evasive.has_method("update_maneuver"):
 		evasive.call("update_maneuver", self, delta)
@@ -701,14 +716,15 @@ func _update_mission(delta: float) -> void:
 		_finish_mission(true)
 		return
 
-	if mission_time >= mission_duration:
+	if RouteProgressRules.reached(route_progress_seconds(), RouteProgressRules.route_length(_active_mission())):
 		var hold_overtime := MissionFlowRules.should_hold_overtime(
 			current_boss_id,
 			current_objectives,
 			objective_progress,
 			enemies
 		)
-		if hold_overtime and mission_time < mission_duration + BOSS_OVERTIME_LIMIT_SECONDS:
+		route_overtime_elapsed += maxf(0.0, delta)
+		if hold_overtime and route_overtime_elapsed < BOSS_OVERTIME_LIMIT_SECONDS:
 			status_text = "OVERTIME - DESTROY THE BOSS"
 			status_timer = 0.3
 		elif hold_overtime:
@@ -736,6 +752,11 @@ func _advance_route_progress(delta: float) -> void:
 
 func route_progress_seconds() -> float:
 	return maxf(0.0, environment_world_distance)
+
+func mission_remaining_seconds() -> float:
+	if route_overtime_elapsed > 0.0:
+		return maxf(0.0, BOSS_OVERTIME_LIMIT_SECONDS - route_overtime_elapsed)
+	return RouteProgressRules.remaining_travel_seconds(route_progress_seconds(), RouteProgressRules.route_length(_active_mission()), _environment_speed_multiplier())
 
 func _load_content() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
@@ -923,12 +944,16 @@ func _start_mission() -> void:
 	phase = GamePhase.PLAYING
 	mission_time = 0.0
 	environment_world_distance = 0.0
+	flight_camera_offset = 0.0
+	route_overtime_elapsed = 0.0
 	score = 0
 	shots_fired = 0
 	shots_hit = 0
 	targets_destroyed = 0
 	damage_taken = 0
 	damage_sources = {}
+	enemy_missiles_launched = 0
+	countermeasures_decoyed = 0
 	secrets_discovered = 0
 	mission_reward_earned = 0
 	repair_cost = 0
@@ -1229,19 +1254,32 @@ func _service_status() -> String:
 	]
 
 func _update_player(delta: float) -> void:
-	var movement := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var lateral := Input.get_axis("move_left", "move_right")
 	var speed_mult := _craft_float("movement_multiplier", 1.0)
-	player_position += movement * PLAYER_SPEED * speed_mult * delta
+	player_position.x += lateral * PLAYER_SPEED * speed_mult * delta
 	player_position.x = clampf(
 		player_position.x,
 		PLAYER_FLIGHT_MIN.x,
 		PLAYER_FLIGHT_MAX.x
 	)
-	player_position.y = clampf(
-		player_position.y,
-		PLAYER_FLIGHT_MIN.y,
-		PLAYER_FLIGHT_MAX.y
-	)
+	var previous_offset := flight_camera_offset
+	flight_camera_offset = FlightCameraRules.advance_offset(previous_offset, _environment_speed_multiplier(), delta)
+	player_position.y = FlightCameraRules.ANCHOR_Y + flight_camera_offset
+	_shift_camera_projection(Vector2(0.0, flight_camera_offset - previous_offset))
+
+func camera_route_distance() -> float:
+	return FlightCameraRules.camera_distance(environment_world_distance, flight_camera_offset)
+
+func _shift_camera_projection(shift: Vector2) -> void:
+	# Contacts already include route-speed closure. Apply only the change in
+	# camera look-ahead here, never the full travelled distance a second time.
+	for collection in [enemies, bullets, enemy_bullets, pickups]:
+		for item in collection:
+			item["position"] = Vector2(item.get("position", Vector2.ZERO)) + shift
+	for director_name in ["CombatFxDirector", "StrikeOrdnanceDirector"]:
+		var director := get_node_or_null("/root/" + director_name)
+		if director != null and director.has_method("shift_camera_projection"):
+			director.call("shift_camera_projection", shift)
 
 func _update_weapons() -> void:
 	var weapon := _active_weapon()
@@ -1322,18 +1360,17 @@ func _update_bullets(delta: float) -> void:
 func _update_enemy_bullets(delta: float) -> void:
 	for i in range(enemy_bullets.size() - 1, -1, -1):
 		var shot: Dictionary = enemy_bullets[i]
+		shot = ProjectileRules.advance_enemy_shot(shot, player_position, delta)
 		var position: Vector2 = shot["position"]
-		position += shot["velocity"] * delta
-		shot["position"] = position
 		enemy_bullets[i] = shot
 		var projectile_hit_radius_sq := _craft_float("projectile_hit_radius_sq", 120.0) * _evasive_collision_multiplier()
 		if position.distance_squared_to(player_position) <= projectile_hit_radius_sq:
-			_apply_damage(int(shot.get("damage", 8)), "projectile")
+			_apply_projectile_impact(shot)
 			if phase != GamePhase.PLAYING:
 				return
 			if i < enemy_bullets.size():
 				enemy_bullets.remove_at(i)
-		elif not PLAYFIELD.grow(32).has_point(position):
+		elif (shot.has("life") and float(shot.life) <= 0.0) or not PLAYFIELD.grow(32).has_point(position):
 			enemy_bullets.remove_at(i)
 
 func _update_pickups(delta: float) -> void:
@@ -1428,12 +1465,13 @@ func _update_enemies(delta: float) -> void:
 			bank_target = signf(lateral_delta)
 		enemy["visual_bank"] = move_toward(float(enemy.get("visual_bank", 0.0)), bank_target, delta * 5.0)
 		var missile_lock_ready := true
-		if str(enemy.get("weapon", "")) == "missile" and not is_boss:
-			var in_envelope := position.distance_to(player_position) <= 430.0
+		if str(enemy.get("weapon", "")) == "missile":
+			var in_envelope := ProjectileRules.missile_in_acquisition_envelope(position, player_position)
 			var lock_ratio := float(enemy.get("missile_lock_ratio", 0.0))
 			lock_ratio = move_toward(lock_ratio, 1.0 if in_envelope else 0.0, delta / (0.82 if pursuit_active else 1.20))
 			enemy["missile_lock_ratio"] = lock_ratio
-			missile_lock_ready = lock_ratio >= 0.999
+			var missile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed("missile"))
+			missile_lock_ready = lock_ratio >= 0.999 and ProjectileRules.missile_launch_has_warning_time(position, player_position, missile_speed)
 		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
 			_fire_enemy_weapon(enemy)
 			if str(enemy.get("weapon", "")) == "missile": enemy["missile_lock_ratio"] = 0.0
@@ -1452,12 +1490,16 @@ func _make_enemy_shot(
 	origin: Vector2,
 	velocity: Vector2,
 	damage: int,
-	homing := false
+	homing := false,
+	weapon_id := "single_burst"
 ) -> Dictionary:
 	var shot := {
 		"position": origin,
 		"velocity": velocity,
-		"damage": damage
+		"damage": damage,
+		"weapon_id": weapon_id,
+		"impact_class": CombatImpactRules.projectile_class(weapon_id),
+		"guidance_class": CombatImpactRules.guidance_class(weapon_id)
 	}
 	if homing:
 		shot["homing"] = true
@@ -1481,7 +1523,7 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 				player_position,
 				_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 			).rotated([-0.16, 0.0, 0.16][index])
-			enemy_bullets.append(_make_enemy_shot(boss_origin, boss_velocity, damage))
+			enemy_bullets.append(_make_enemy_shot(boss_origin, boss_velocity, damage, false, weapon_id))
 		return
 	var velocity := ProjectileRules.enemy_shot_velocity(
 		origin,
@@ -1489,12 +1531,12 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 		_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 	)
 	var is_missile := weapon_id == "missile"
-	enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, is_missile))
+	enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, is_missile, weapon_id))
 	if weapon_id == "twin_burst":
-		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.16), damage))
-		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(-0.16), damage))
+		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.16), damage, false, weapon_id))
+		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(-0.16), damage, false, weapon_id))
 	elif is_missile:
-		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true))
+		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true, weapon_id))
 		_register_enemy_missile_launch(2)
 
 func _register_enemy_missile_launch(count: int = 1) -> void:
@@ -1687,6 +1729,24 @@ func _apply_damage(amount: int, source: String = "projectile") -> void:
 	if hull <= 0:
 		player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS
 
+func _apply_projectile_impact(shot: Dictionary) -> void:
+	if "--capture-invulnerable" in OS.get_cmdline_user_args(): return
+	var impact_class := str(shot.get("impact_class", CombatImpactRules.AUTOCANNON))
+	var previous_integrity := hull + shield
+	var previous_shield := shield
+	var state := CombatImpactRules.apply(hull, shield, int(shot.get("damage",8)), impact_class, CombatRules.incoming_damage_multiplier())
+	hull = int(state.hull); shield = int(state.shield)
+	var applied := maxi(0, previous_integrity - hull - shield)
+	damage_taken += applied
+	damage_sources[impact_class] = int(damage_sources.get(impact_class,0)) + applied
+	if bool(state.catastrophic):
+		status_text = "DIRECT WARHEAD IMPACT // AIRFRAME LOST"; status_timer = PLAYER_LOSS_SEQUENCE_SECONDS
+	elif previous_shield > 0 and shield <= 0:
+		status_text = "SHIELDS DOWN // HULL EXPOSED"; status_timer = 1.4
+	elif hull > 0 and hull <= maxi(1,int(round(float(_max_hull())*0.25))):
+		status_text = "HULL CRITICAL"; status_timer = 1.0
+	if hull <= 0: player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS
+
 func _apply_structural_damage(amount: int) -> void:
 	if "--capture-invulnerable" in OS.get_cmdline_user_args():
 		return
@@ -1836,7 +1896,7 @@ func _difficulty_elite_value(base: int) -> int:
 	var director := _difficulty(); return int(director.call("elite_value",base)) if director != null else base
 
 func _try_spawn_boss() -> void:
-	if boss_spawned or current_boss_id == "" or not RouteProgressRules.reached(route_progress_seconds(), RouteProgressRules.boss_gate(mission_duration)):
+	if boss_spawned or current_boss_id == "" or not RouteProgressRules.reached(route_progress_seconds(), RouteProgressRules.boss_gate_for_mission(_active_mission())):
 		return
 	var boss := _find_enemy_archetype(current_boss_id)
 	if not boss.is_empty():

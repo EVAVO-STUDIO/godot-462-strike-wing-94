@@ -1,0 +1,1320 @@
+{
+  "status": "reviewed_native_runtime",
+  "entries": [
+    {
+      "id": "bomber_ballistic_00",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 3,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_01",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 2,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_1.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_02",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_02.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_1.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_03",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_03.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_04",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 4,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_04.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_0_0.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_05",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 5,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_05.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_0_0.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_06",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 6,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_06.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_1_0.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_07",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 7,
+      "hardware_form": "bomber",
+      "hardware_exposure": 2,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_2_0.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_08",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 8,
+      "hardware_form": "bomber",
+      "hardware_exposure": 3,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png"
+      ]
+    },
+    {
+      "id": "bomber_ballistic_09",
+      "route": "bomber",
+      "weapon": "ballistic",
+      "exposure": 9,
+      "hardware_form": "bomber",
+      "hardware_exposure": 3,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_00",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_01",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_02",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_02.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_03",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_03.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_04",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 4,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_04.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_05",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 5,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_05.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_06",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 6,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_06.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_07",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 7,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_08",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 8,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_needle_rail_09",
+      "route": "bomber",
+      "weapon": "needle_rail",
+      "exposure": 9,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_00",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_01",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_02",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_02.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_03",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_03.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_04",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 4,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_04.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_05",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 5,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_05.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_06",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 6,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_06.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_07",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 7,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_08",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 8,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_storm_cannon_09",
+      "route": "bomber",
+      "weapon": "storm_cannon",
+      "exposure": 9,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_00",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_00.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_01",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_01.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_02",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_02.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_03",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_03.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_04",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 4,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_04.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_05",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 5,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_05.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_06",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 6,
+      "hardware_form": "bomber",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/bomber_06.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_07",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 7,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_07.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_08",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 8,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_08.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "bomber_plasma_lance_09",
+      "route": "bomber",
+      "weapon": "plasma_lance",
+      "exposure": 9,
+      "hardware_form": "bomber",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/bomber_09.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_00",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 3,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_01",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 2,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_2_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_02",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_1_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_03",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_04",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 4,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_05",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 5,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_06",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 6,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_07",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 7,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_08",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 8,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_ballistic_09",
+      "route": "hypersonic",
+      "weapon": "ballistic",
+      "exposure": 9,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_0_1.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_00",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_01",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_02",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_03",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_04",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 4,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_05",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 5,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_06",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 6,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_07",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 7,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_08",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 8,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png"
+      ]
+    },
+    {
+      "id": "hypersonic_needle_rail_09",
+      "route": "hypersonic",
+      "weapon": "needle_rail",
+      "exposure": 9,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_00",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_01",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_02",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_03",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_04",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 4,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_05",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 5,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_06",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 6,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_07",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 7,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_08",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 8,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png"
+      ]
+    },
+    {
+      "id": "hypersonic_storm_cannon_09",
+      "route": "hypersonic",
+      "weapon": "storm_cannon",
+      "exposure": 9,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_00",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 0,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_00.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_01",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 1,
+      "hardware_form": "fighter",
+      "hardware_exposure": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_01.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_1_aperture.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_02",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 2,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_02.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_03",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 3,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_03.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_04",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 4,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_04.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_05",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 5,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_05.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_06",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 6,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_06.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_07",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 7,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_07.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_08",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 8,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_08.png"
+      ]
+    },
+    {
+      "id": "hypersonic_plasma_lance_09",
+      "route": "hypersonic",
+      "weapon": "plasma_lance",
+      "exposure": 9,
+      "hardware_form": "fighter",
+      "hardware_exposure": 0,
+      "pivot": [
+        32,
+        38
+      ],
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_0.png",
+        "assets/runtime/craft/vx94/transform/hypersonic_09.png"
+      ]
+    }
+  ]
+}

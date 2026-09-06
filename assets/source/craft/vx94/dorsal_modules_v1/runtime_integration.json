@@ -1,0 +1,11 @@
+{
+  "schema": "hypersonic_vx94_dorsal_modules_runtime_integration_v1",
+  "status": "reviewed_native_runtime",
+  "runtime_layers": 60,
+  "canvas": [64, 72],
+  "modules": ["point_defence_pod", "emp_disruptor", "magnetic_screen"],
+  "representative_runtime_sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B",
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/dorsal_modules",
+  "native_evidence": "work/vx94_modules_runtime/native",
+  "review_movie": "outputs/HYPERSONIC-vx94-dorsal-module-runtime.mp4"
+}

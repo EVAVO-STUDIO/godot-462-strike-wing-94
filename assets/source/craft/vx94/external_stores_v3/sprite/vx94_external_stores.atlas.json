@@ -1,0 +1,543 @@
+{
+  "animations": {
+    "bomber_hunter_rack_empty": [
+      "bomber_hunter_rack_empty_00"
+    ],
+    "bomber_hunter_rack_left_released": [
+      "bomber_hunter_rack_left_released_00"
+    ],
+    "bomber_hunter_rack_loaded": [
+      "bomber_hunter_rack_loaded_00"
+    ],
+    "bomber_precision_bomb_empty": [
+      "bomber_precision_bomb_empty_00"
+    ],
+    "bomber_precision_bomb_left_released": [
+      "bomber_precision_bomb_left_released_00"
+    ],
+    "bomber_precision_bomb_loaded": [
+      "bomber_precision_bomb_loaded_00"
+    ],
+    "bomber_twin_rocket_pods_empty": [
+      "bomber_twin_rocket_pods_empty_00"
+    ],
+    "bomber_twin_rocket_pods_left_expended": [
+      "bomber_twin_rocket_pods_left_expended_00"
+    ],
+    "bomber_twin_rocket_pods_loaded": [
+      "bomber_twin_rocket_pods_loaded_00"
+    ],
+    "fighter_hunter_rack_empty": [
+      "fighter_hunter_rack_empty_00"
+    ],
+    "fighter_hunter_rack_left_released": [
+      "fighter_hunter_rack_left_released_00"
+    ],
+    "fighter_hunter_rack_loaded": [
+      "fighter_hunter_rack_loaded_00"
+    ],
+    "fighter_twin_rocket_pods_empty": [
+      "fighter_twin_rocket_pods_empty_00"
+    ],
+    "fighter_twin_rocket_pods_left_expended": [
+      "fighter_twin_rocket_pods_left_expended_00"
+    ],
+    "fighter_twin_rocket_pods_loaded": [
+      "fighter_twin_rocket_pods_loaded_00"
+    ]
+  },
+  "frames": {
+    "bomber_hunter_rack_empty_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 3
+      },
+      "imageSha256": "5520884ca44f8895749e6ed7b903be2773aae6ec890d3abfc113f208ba59c6a5",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_hunter_rack_left_released_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 74
+      },
+      "imageSha256": "d4d1c711da6da7b31f9565fd3c1d7872c4a92f0fd23e964866f53c86e334e6cb",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "5a4257ae1e6563f29c7bae05797e9a10ca6403f6088250e5fa07045509ef8a1e",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_hunter_rack_loaded_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 145
+      },
+      "imageSha256": "d2265551b6461594cb66f6165c5550afa2723562d3ae72a9ae87b7c1cf3a5591",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_precision_bomb_empty_00": {
+      "aliasOf": "bomber_hunter_rack_empty_00",
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 3
+      },
+      "imageSha256": "5520884ca44f8895749e6ed7b903be2773aae6ec890d3abfc113f208ba59c6a5",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_precision_bomb_left_released_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 216
+      },
+      "imageSha256": "bc2475cc4aa918228466f33be1ba84092c3153ab4388679bf920431c45232390",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "57e308796b4bd73f367f3c431264398cebd78bffccae8ca369d4f84691e8b6da",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_precision_bomb_loaded_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 287
+      },
+      "imageSha256": "7951eedef59d8a2be53909ac24cccdcb65558800762cab815ac00477e810f3db",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "b34b50218bdbc02d28306d2411610e9a4d9225f9183efea86929835a47f38408",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_twin_rocket_pods_empty_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 358
+      },
+      "imageSha256": "d97050f6b0a6026da428240c89b9326300a3b3172d7545ec316bb711fcd00595",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "895d3e40e67cd87566e1bc8202359c4fc6ba0a0bfca065b613a0e6631d2a6136",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_twin_rocket_pods_left_expended_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 429
+      },
+      "imageSha256": "99636a2a22cb7238f2e591c31083b51ad738bb9f78fe5634ff774bf7f0ac0ba4",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "20009e5f788a901d8b19664d82e697e3bbd71f8400336e22e68827569d1220ae",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "bomber_twin_rocket_pods_loaded_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 52,
+        "x": 3,
+        "y": 500
+      },
+      "imageSha256": "d6677e570ced5dff51929e3fcb7470b9e8b0bf0f566abc0fd963386a224473c5",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 52,
+        "x": 6,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "fighter_hunter_rack_empty_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 36,
+        "x": 3,
+        "y": 571
+      },
+      "imageSha256": "3f80e75ed54fed6e9565c9ce7659f9fa30dbafc43a22c0b86cbb8dd30240c63d",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "c43a6530c1f684eb206dfb706bb0063a775e74288f79283a30cae25798f52a18",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 36,
+        "x": 14,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "fighter_hunter_rack_left_released_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 36,
+        "x": 3,
+        "y": 642
+      },
+      "imageSha256": "40928ccf9aecc19713fc701e6fedb5adc9b9d490342b48cca057c237e573fe8e",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "16dd64b66464cb6a2c792b9e944be479c10f50a39b5883c4a07967f58856e7ee",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 36,
+        "x": 14,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "fighter_hunter_rack_loaded_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 36,
+        "x": 3,
+        "y": 713
+      },
+      "imageSha256": "0573f0b57c1a8d4877d119f4943c8328375b5e967a1e583b5bee8146b1555fbf",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 36,
+        "x": 14,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "fighter_twin_rocket_pods_empty_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 36,
+        "x": 3,
+        "y": 784
+      },
+      "imageSha256": "e92cafa10239f9613e864fda472a354b3f06964cd47602098abf3bf2d59bcbef",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "1159a456ab460dd6a3941baff6a0107856e09bd61dfe84dde0958c870636efe2",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 36,
+        "x": 14,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "fighter_twin_rocket_pods_left_expended_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 36,
+        "x": 3,
+        "y": 855
+      },
+      "imageSha256": "dc3f67bdc82d1789def7b5b9da7151d5c88287add65f67eae7b062aab7f0859e",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "320923c49f97a1045fb701545ac85d4d7ecc2b5fa8c3e9d5ff03a0dfeb5367ad",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 36,
+        "x": 14,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "fighter_twin_rocket_pods_loaded_00": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 67,
+        "w": 36,
+        "x": 3,
+        "y": 926
+      },
+      "imageSha256": "9ad05276a6b1011fc52728399384973855c7471ca6fc40e152747008a6eda0b8",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5277777777777778
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+      "sourceSize": {
+        "h": 72,
+        "w": 64
+      },
+      "spriteSourceSize": {
+        "h": 67,
+        "w": 36,
+        "x": 14,
+        "y": 4
+      },
+      "tags": [],
+      "trimmed": true
+    }
+  },
+  "meta": {
+    "app": "evavo-sprite-studio",
+    "canonicalManifest": "vx94_external_stores.manifest.json",
+    "correctionAudit": "vx94_external_stores.corrections.json",
+    "format": "RGBA8888",
+    "images": [
+      "vx94_external_stores.atlas.0.png"
+    ],
+    "scale": "1",
+    "schemaVersion": 1,
+    "version": "0.5.0"
+  }
+}

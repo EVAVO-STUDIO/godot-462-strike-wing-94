@@ -1,0 +1,72 @@
+[
+  {
+    "frame": "deep_0.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "deep_1.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "deep_2.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "deep_3.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "surface_0.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "surface_1.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "surface_2.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "surface_3.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "foam_0.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "foam_1.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "foam_2.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "foam_3.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "foam_4.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  },
+  {
+    "frame": "foam_5.png",
+    "visibleSourcePixelsExact": true,
+    "seamRowsEqual": true
+  }
+]

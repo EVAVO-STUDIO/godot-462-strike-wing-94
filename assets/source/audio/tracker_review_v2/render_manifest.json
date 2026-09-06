@@ -1,0 +1,89 @@
+{
+  "cues": [
+    {
+      "bpm": 108.0,
+      "id": "hangar_signal",
+      "samples": 98000,
+      "seconds": 4.44444444444444,
+      "synth_ceiling_samples": 0
+    },
+    {
+      "bpm": 116.0,
+      "id": "title_vector",
+      "samples": 91242,
+      "seconds": 4.13795918367347,
+      "synth_ceiling_samples": 1
+    },
+    {
+      "bpm": 132.0,
+      "id": "steel_vector",
+      "samples": 80182,
+      "seconds": 3.63637188208617,
+      "synth_ceiling_samples": 1
+    },
+    {
+      "bpm": 124.0,
+      "id": "salt_wake",
+      "samples": 85355,
+      "seconds": 3.87097505668934,
+      "synth_ceiling_samples": 0
+    },
+    {
+      "bpm": 148.0,
+      "id": "furnace_alarm",
+      "samples": 71514,
+      "seconds": 3.24326530612245,
+      "synth_ceiling_samples": 0
+    },
+    {
+      "bpm": 144.0,
+      "id": "machine_pressure",
+      "samples": 73500,
+      "seconds": 3.33333333333333,
+      "synth_ceiling_samples": 1
+    },
+    {
+      "bpm": 118.0,
+      "id": "dead_factory",
+      "samples": 89695,
+      "seconds": 4.06780045351474,
+      "synth_ceiling_samples": 0
+    },
+    {
+      "bpm": 156.0,
+      "id": "ghost_signal",
+      "samples": 67847,
+      "seconds": 3.07696145124717,
+      "synth_ceiling_samples": 1
+    },
+    {
+      "bpm": 126.0,
+      "id": "black_sky",
+      "samples": 84000,
+      "seconds": 3.80952380952381,
+      "synth_ceiling_samples": 0
+    },
+    {
+      "bpm": 138.0,
+      "id": "thin_blue",
+      "samples": 76696,
+      "seconds": 3.47827664399093,
+      "synth_ceiling_samples": 1
+    },
+    {
+      "bpm": 164.0,
+      "id": "ark_descent",
+      "samples": 64537,
+      "seconds": 2.92684807256236,
+      "synth_ceiling_samples": 1
+    },
+    {
+      "bpm": 92.0,
+      "id": "after_action",
+      "samples": 115044,
+      "seconds": 5.21741496598639,
+      "synth_ceiling_samples": 0
+    }
+  ],
+  "scope": "Actual runtime synthesis, two repetitions of the 16-step pattern, before saved mixer gain; mono equals each channel of runtime dual mono. No loop/export/listening approval."
+}

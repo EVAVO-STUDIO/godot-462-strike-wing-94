@@ -1,0 +1,21 @@
+import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const source='assets/source/environments/mountain_repair_v3';
+const studio=process.env.EVAVO_ART_STUDIO || 'C:/Gitrepos/evavo-art-studio';
+const manifest=JSON.parse(await readFile(path.join(root,source,'manifest.json'),'utf8'));
+const hash=b=>createHash('sha256').update(b).digest('hex');
+for(const item of manifest.inputs)if(hash(await readFile(path.join(root,item.path)))!==item.sha256)throw Error('Mountain source changed: '+item.path);
+await mkdir(path.join(root,'work'),{recursive:true});
+const work=await mkdtemp(path.join(root,'work/mountain-rebuild-v3-'));
+const relative=p=>path.relative(root,p).replaceAll('\\','/');
+const plan=path.join(work,'plan.json'),output=path.join(work,'render');
+execFileSync(process.execPath,[path.join(studio,'scripts/compile-project-art-sandbox.mjs'),'--workspace-root',root,'--request',source+'/request.json','--output',relative(plan)],{cwd:root,stdio:'inherit',windowsHide:true});
+execFileSync(process.env.PYTHON || 'python',[path.join(studio,'tools/run_project_art_sandbox.py'),'--workspace-root',root,'--plan',relative(plan),'--output-root',relative(output)],{cwd:root,stdio:'inherit',windowsHide:true});
+const pending=[];
+for(const item of manifest.outputs){const bytes=await readFile(path.join(output,item.name));if(hash(bytes)!==item.sha256)throw Error('Mountain output changed: '+item.name);pending.push({name:item.name,bytes});}
+for(const item of pending)await writeFile(path.join(root,'assets/runtime/environments/mountain_chunks',item.name),item.bytes);
+console.log('Three mountain chunks rebuilt; every source and output hash verified before runtime writes.');

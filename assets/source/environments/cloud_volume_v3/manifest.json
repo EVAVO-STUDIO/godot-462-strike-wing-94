@@ -1,0 +1,33 @@
+{
+  "status": "integrated high_mass_a; remaining cloud family and weather work open",
+  "files": [
+    {
+      "file": "source.png",
+      "sha256": "31bd03596c459e052e156447be0bd1ebae858de61be4f709cd9d59b0f1bcd08e"
+    },
+    {
+      "file": "cloud_320.png",
+      "sha256": "3b2049530773f12620fec77208e99ebdce0a8ed11f1b142a21dfc74fe00a215c"
+    },
+    {
+      "file": "alpha_proof.png",
+      "sha256": "de516abc5a39eeacb59d31b6670c917316a4b3f8528e6c65ce527688a4aebeb0"
+    },
+    {
+      "file": "alpha_evidence.json",
+      "sha256": "1cd98bdf7e3168c24fb28840d8c53f89817f03fdeb78622045808596cef7157f"
+    },
+    {
+      "file": "source_expectations.json",
+      "sha256": "ba686f3fb176c9f9c416a12d470a1f1c9532fc870482f78c6f29b4a876199797"
+    },
+    {
+      "file": "native_motion_manifest.json",
+      "sha256": "dca788245bb4e6657f9d677ce163a6e425807b413e68ba1c1150565da4f92de1"
+    },
+    {
+      "file": "native_frame_048.png",
+      "sha256": "05ddf60b7a7b44cd163f3591afb5115d1cc0c049c192712b7e8c4078a8ce04c5"
+    }
+  ]
+}

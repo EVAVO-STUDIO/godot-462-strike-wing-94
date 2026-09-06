@@ -1,0 +1,71 @@
+{
+  "name": "armoured_train_critical",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 78,
+    "canvas_height": 150,
+    "pivot_x": 39,
+    "pivot_y": 75,
+    "padding": 0,
+    "manual_anchors": {
+      "critical_0": [
+        6.0,
+        27.0
+      ],
+      "critical_1": [
+        6.0,
+        27.0
+      ],
+      "critical_2": [
+        6.0,
+        27.0
+      ],
+      "critical_3": [
+        6.0,
+        27.0
+      ]
+    }
+  },
+  "qa": {
+    "strict": true,
+    "contracts": {
+      "required_animations": [
+        "critical"
+      ],
+      "frame_count_rules": [
+        {
+          "pattern": "critical",
+          "exact": 4
+        }
+      ]
+    }
+  },
+  "animations": {
+    "critical": {
+      "fps": 8,
+      "loop": true
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "animated_scene": true,
+    "event_timeline": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "gif": true,
+    "contact_sheet": true,
+    "onion_skin": true
+  }
+}

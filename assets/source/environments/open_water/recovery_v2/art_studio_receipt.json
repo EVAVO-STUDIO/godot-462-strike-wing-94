@@ -1,0 +1,2062 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "5fbc538184d07c748c2d9119addf5cca43b8aa5e3add778c4096ce0bdd8e2f19",
+  "planBytesSha256": "e1b66e083ac3f7ac59bf9c8d28bb3e18cc32638f09005cca38ab806754866b0d",
+  "sandboxId": "hypersonic-water-detail-recovery-v2",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:9d856fc3b7cec4ebc52dc4f4",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_06b8103e35e7e9e17d1764e19d358358",
+      "path": "assets/runtime/environments/layers/sea_surface_tile.png",
+      "sha256": "45679d48caf64da27877e4e4f89b47ff5981a72e76b057c5afc4b35b0bb700ba",
+      "bytes": 105461
+    },
+    {
+      "sourceId": "source_79c1d8885f09b4b276ccec753897ff23",
+      "path": "assets/runtime/environments/layers/sea_foam_tile.png",
+      "sha256": "a3d0f569d4988fe9b2ba2f1d3577ebd8a2aa10ff6d535a00fdc86e943a815b94",
+      "bytes": 5542
+    },
+    {
+      "sourceId": "source_b240f1343436f3b2d95c33ba74ced555",
+      "path": "assets/runtime/environments/layers/sea_deep_tile.png",
+      "sha256": "4624ab75581838cc2c82748a41f782bd849040b0277807e86ec406692975f4b2",
+      "bytes": 100133
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "deep-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 511
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 511
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "deep_0.png",
+          "sha256": "c05f68a2d614fb5d9b0e6a47864b20e73082fa5e2a9202bcead67266b5fe3bd2",
+          "bytes": 95707,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 327680
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "48f84d23beef26688c458610a100e24266c5090a4307de0cda74e6b371219ad0"
+        }
+      ]
+    },
+    {
+      "taskId": "deep-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 639,
+            "y": 509,
+            "width": 1,
+            "height": 3
+          },
+          "maskSourceRect": null,
+          "width": 1,
+          "height": 3
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 3,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 639,
+            "y": 0,
+            "width": 1,
+            "height": 508
+          },
+          "maskSourceRect": null,
+          "width": 1,
+          "height": 508
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 639,
+            "y": 509,
+            "width": 1,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 1,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 1,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 639,
+            "height": 3
+          },
+          "maskSourceRect": null,
+          "width": 639,
+          "height": 3
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 1,
+          "y": 3,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 639,
+            "height": 508
+          },
+          "maskSourceRect": null,
+          "width": 639,
+          "height": 508
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 1,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 639,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 639,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "deep_1.png",
+          "sha256": "433b28639f21692e20cacdf6894034df009aa9e54ee4c983181c1933a0781563",
+          "bytes": 94995,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 327680
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "c1d13ef6326abe923ba86002007be424d42c83f8a22729603b10addd9e8f139c"
+        }
+      ]
+    },
+    {
+      "taskId": "deep-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 506,
+            "width": 640,
+            "height": 6
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 6
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 6,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 505
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 505
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 506,
+            "width": 640,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "deep_2.png",
+          "sha256": "689b220d7adbfb603b8f6c5ec50373e54afe26fa9d61023fddbedd1e67a8953e",
+          "bytes": 95612,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 327680
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "0819c45dceee30c0ca04f3acc9992b8999f8e5d7dbc79f5938f8d58a6476c754"
+        }
+      ]
+    },
+    {
+      "taskId": "deep-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 1,
+            "y": 509,
+            "width": 639,
+            "height": 3
+          },
+          "maskSourceRect": null,
+          "width": 639,
+          "height": 3
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 3,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 1,
+            "y": 0,
+            "width": 639,
+            "height": 508
+          },
+          "maskSourceRect": null,
+          "width": 639,
+          "height": 508
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 1,
+            "y": 509,
+            "width": 639,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 639,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 639,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 1,
+            "height": 3
+          },
+          "maskSourceRect": null,
+          "width": 1,
+          "height": 3
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 639,
+          "y": 3,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 508
+          },
+          "maskSourceRect": null,
+          "width": 1,
+          "height": 508
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 639,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 1,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 1,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "deep_3.png",
+          "sha256": "4db376634cfed21a70051dbb37d9769dc42ab79e8376e69129f7ccaceeecc9a2",
+          "bytes": 95014,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 327680
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "f90276e58f5ee0e8d0cdc8bed2af69c76d546c8dbef11f089e8eb4798a89f457"
+        }
+      ]
+    },
+    {
+      "taskId": "surface-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 511
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 511
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "surface_0.png",
+          "sha256": "2b78c6c1978823304c582a532c4570ddc1c017b588bd8d0733685e5a42caae22",
+          "bytes": 101572,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 327680,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "007113e08d6f0af606b3ce7a340643ccf7896f19f770006f72320b3d0fd8437a"
+        }
+      ]
+    },
+    {
+      "taskId": "surface-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 5
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 5
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 5,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 506
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 506
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 5
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 5
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 5,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 506
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 506
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "surface_1.png",
+          "sha256": "aaf86ab0ad1093205732daa2e19041e50737f6cce0992404dd9d23794be57fe7",
+          "bytes": 101452,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 327680,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "c61c21efaef21070b6049c729e212b545dd2902df4ea3fb1c5681d55a436a696"
+        }
+      ]
+    },
+    {
+      "taskId": "surface-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 502,
+            "width": 4,
+            "height": 10
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 10
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 10,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 0,
+            "width": 4,
+            "height": 501
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 501
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 502,
+            "width": 4,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 502,
+            "width": 636,
+            "height": 10
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 10
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 10,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 636,
+            "height": 501
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 501
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 502,
+            "width": 636,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "surface_2.png",
+          "sha256": "71cb8bb841c3042768738a2aeaf183a8aa26505d0160a4c8723bc50ed5efdf39",
+          "bytes": 101554,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 327680,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "26c8bc9962d1d40ed3eed624a676962c754cd76da46bdbe8d92ffb6e59f522f5"
+        }
+      ]
+    },
+    {
+      "taskId": "surface-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 5
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 5
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 5,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 506
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 506
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 5
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 5
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 5,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 506
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 506
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "surface_3.png",
+          "sha256": "aaf86ab0ad1093205732daa2e19041e50737f6cce0992404dd9d23794be57fe7",
+          "bytes": 101452,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 327680,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            640,
+            512
+          ],
+          "pixelSha256": "c61c21efaef21070b6049c729e212b545dd2902df4ea3fb1c5681d55a436a696"
+        }
+      ]
+    },
+    {
+      "taskId": "foam-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 511
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 511
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 640,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "foam_0.png",
+          "sha256": "1184c1448ee21564dba3cd76f6d21773468bf32c03be24fcbfcfe08b11f5da53",
+          "bytes": 3085,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 325234,
+            "partialPixels": 2446,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            15,
+            13,
+            623,
+            478
+          ],
+          "pixelSha256": "bbb16da8e76f3716ee8cc9baff598bbcb7d445ba758c2e83448a1345a246f431"
+        }
+      ]
+    },
+    {
+      "taskId": "foam-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 4
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 4
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 4,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 507
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 507
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 4
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 4
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 4,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 507
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 507
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "foam_1.png",
+          "sha256": "4d8f50edc536f09ddb12e1ac0c46544020538a355042dcd19c0a39de6567ce9f",
+          "bytes": 3079,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 325234,
+            "partialPixels": 2446,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            17,
+            17,
+            625,
+            482
+          ],
+          "pixelSha256": "ff57d3d4d7ee4a2fd577c2f345f1f9d309688d11b7b1cee2e9541aa9f10e250e"
+        }
+      ]
+    },
+    {
+      "taskId": "foam-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 8
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 8
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 8,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 0,
+            "width": 4,
+            "height": 503
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 503
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 8
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 8
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 8,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 636,
+            "height": 503
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 503
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "foam_2.png",
+          "sha256": "573a822d1173a1388c98a1b67fab5777e4a6c6ddf258e5539e153440e1009f1e",
+          "bytes": 3086,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 325234,
+            "partialPixels": 2446,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            19,
+            21,
+            627,
+            486
+          ],
+          "pixelSha256": "938da788c21495136ccd1f867d60e3bec22f715a23216e98b196db075accec40"
+        }
+      ]
+    },
+    {
+      "taskId": "foam-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 634,
+            "y": 500,
+            "width": 6,
+            "height": 12
+          },
+          "maskSourceRect": null,
+          "width": 6,
+          "height": 12
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 12,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 634,
+            "y": 0,
+            "width": 6,
+            "height": 499
+          },
+          "maskSourceRect": null,
+          "width": 6,
+          "height": 499
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 634,
+            "y": 500,
+            "width": 6,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 6,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 6,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 500,
+            "width": 634,
+            "height": 12
+          },
+          "maskSourceRect": null,
+          "width": 634,
+          "height": 12
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 6,
+          "y": 12,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 634,
+            "height": 499
+          },
+          "maskSourceRect": null,
+          "width": 634,
+          "height": 499
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 6,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 500,
+            "width": 634,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 634,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "foam_3.png",
+          "sha256": "c73f02751a120bc8da841fe16ba4fbc6580e813759d9dbdf88fd623dbdbd4c9d",
+          "bytes": 3078,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 325234,
+            "partialPixels": 2446,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            21,
+            25,
+            629,
+            490
+          ],
+          "pixelSha256": "710539503ebf36d3aed77880da6a1b88497627c4705af3978dee4d43b80004f8"
+        }
+      ]
+    },
+    {
+      "taskId": "foam-4",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 8
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 8
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 8,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 0,
+            "width": 4,
+            "height": 503
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 503
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 4,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 8
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 8
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 8,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 636,
+            "height": 503
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 503
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 4,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 636,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "foam_4.png",
+          "sha256": "573a822d1173a1388c98a1b67fab5777e4a6c6ddf258e5539e153440e1009f1e",
+          "bytes": 3086,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 325234,
+            "partialPixels": 2446,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            19,
+            21,
+            627,
+            486
+          ],
+          "pixelSha256": "938da788c21495136ccd1f867d60e3bec22f715a23216e98b196db075accec40"
+        }
+      ]
+    },
+    {
+      "taskId": "foam-5",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 6,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 4
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 4
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 4,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 507
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 507
+        },
+        {
+          "index": 2,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 2,
+          "height": 1
+        },
+        {
+          "index": 3,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 4
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 4
+        },
+        {
+          "index": 4,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 4,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 507
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 507
+        },
+        {
+          "index": 5,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 2,
+          "y": 511,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 1
+          },
+          "maskSourceRect": null,
+          "width": 638,
+          "height": 1
+        }
+      ],
+      "outputs": [
+        {
+          "path": "foam_5.png",
+          "sha256": "4d8f50edc536f09ddb12e1ac0c46544020538a355042dcd19c0a39de6567ce9f",
+          "bytes": 3079,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 640,
+            "height": 512
+          },
+          "alpha": {
+            "transparentPixels": 325234,
+            "partialPixels": 2446,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            17,
+            17,
+            625,
+            482
+          ],
+          "pixelSha256": "ff57d3d4d7ee4a2fd577c2f345f1f9d309688d11b7b1cee2e9541aa9f10e250e"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "deep_0.png",
+      "sha256": "c05f68a2d614fb5d9b0e6a47864b20e73082fa5e2a9202bcead67266b5fe3bd2",
+      "bytes": 95707,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 327680
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "48f84d23beef26688c458610a100e24266c5090a4307de0cda74e6b371219ad0"
+    },
+    {
+      "path": "deep_1.png",
+      "sha256": "433b28639f21692e20cacdf6894034df009aa9e54ee4c983181c1933a0781563",
+      "bytes": 94995,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 327680
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "c1d13ef6326abe923ba86002007be424d42c83f8a22729603b10addd9e8f139c"
+    },
+    {
+      "path": "deep_2.png",
+      "sha256": "689b220d7adbfb603b8f6c5ec50373e54afe26fa9d61023fddbedd1e67a8953e",
+      "bytes": 95612,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 327680
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "0819c45dceee30c0ca04f3acc9992b8999f8e5d7dbc79f5938f8d58a6476c754"
+    },
+    {
+      "path": "deep_3.png",
+      "sha256": "4db376634cfed21a70051dbb37d9769dc42ab79e8376e69129f7ccaceeecc9a2",
+      "bytes": 95014,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 327680
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "f90276e58f5ee0e8d0cdc8bed2af69c76d546c8dbef11f089e8eb4798a89f457"
+    },
+    {
+      "path": "foam_0.png",
+      "sha256": "1184c1448ee21564dba3cd76f6d21773468bf32c03be24fcbfcfe08b11f5da53",
+      "bytes": 3085,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 325234,
+        "partialPixels": 2446,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        15,
+        13,
+        623,
+        478
+      ],
+      "pixelSha256": "bbb16da8e76f3716ee8cc9baff598bbcb7d445ba758c2e83448a1345a246f431"
+    },
+    {
+      "path": "foam_1.png",
+      "sha256": "4d8f50edc536f09ddb12e1ac0c46544020538a355042dcd19c0a39de6567ce9f",
+      "bytes": 3079,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 325234,
+        "partialPixels": 2446,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        17,
+        17,
+        625,
+        482
+      ],
+      "pixelSha256": "ff57d3d4d7ee4a2fd577c2f345f1f9d309688d11b7b1cee2e9541aa9f10e250e"
+    },
+    {
+      "path": "foam_2.png",
+      "sha256": "573a822d1173a1388c98a1b67fab5777e4a6c6ddf258e5539e153440e1009f1e",
+      "bytes": 3086,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 325234,
+        "partialPixels": 2446,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        19,
+        21,
+        627,
+        486
+      ],
+      "pixelSha256": "938da788c21495136ccd1f867d60e3bec22f715a23216e98b196db075accec40"
+    },
+    {
+      "path": "foam_3.png",
+      "sha256": "c73f02751a120bc8da841fe16ba4fbc6580e813759d9dbdf88fd623dbdbd4c9d",
+      "bytes": 3078,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 325234,
+        "partialPixels": 2446,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        21,
+        25,
+        629,
+        490
+      ],
+      "pixelSha256": "710539503ebf36d3aed77880da6a1b88497627c4705af3978dee4d43b80004f8"
+    },
+    {
+      "path": "foam_4.png",
+      "sha256": "573a822d1173a1388c98a1b67fab5777e4a6c6ddf258e5539e153440e1009f1e",
+      "bytes": 3086,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 325234,
+        "partialPixels": 2446,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        19,
+        21,
+        627,
+        486
+      ],
+      "pixelSha256": "938da788c21495136ccd1f867d60e3bec22f715a23216e98b196db075accec40"
+    },
+    {
+      "path": "foam_5.png",
+      "sha256": "4d8f50edc536f09ddb12e1ac0c46544020538a355042dcd19c0a39de6567ce9f",
+      "bytes": 3079,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 325234,
+        "partialPixels": 2446,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        17,
+        17,
+        625,
+        482
+      ],
+      "pixelSha256": "ff57d3d4d7ee4a2fd577c2f345f1f9d309688d11b7b1cee2e9541aa9f10e250e"
+    },
+    {
+      "path": "surface_0.png",
+      "sha256": "2b78c6c1978823304c582a532c4570ddc1c017b588bd8d0733685e5a42caae22",
+      "bytes": 101572,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 327680,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "007113e08d6f0af606b3ce7a340643ccf7896f19f770006f72320b3d0fd8437a"
+    },
+    {
+      "path": "surface_1.png",
+      "sha256": "aaf86ab0ad1093205732daa2e19041e50737f6cce0992404dd9d23794be57fe7",
+      "bytes": 101452,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 327680,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "c61c21efaef21070b6049c729e212b545dd2902df4ea3fb1c5681d55a436a696"
+    },
+    {
+      "path": "surface_2.png",
+      "sha256": "71cb8bb841c3042768738a2aeaf183a8aa26505d0160a4c8723bc50ed5efdf39",
+      "bytes": 101554,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 327680,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "26c8bc9962d1d40ed3eed624a676962c754cd76da46bdbe8d92ffb6e59f522f5"
+    },
+    {
+      "path": "surface_3.png",
+      "sha256": "aaf86ab0ad1093205732daa2e19041e50737f6cce0992404dd9d23794be57fe7",
+      "bytes": 101452,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 640,
+        "height": 512
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 327680,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        640,
+        512
+      ],
+      "pixelSha256": "c61c21efaef21070b6049c729e212b545dd2902df4ea3fb1c5681d55a436a696"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 3,
+    "externalSourceBytes": 211136,
+    "plannedMaximumOutputFiles": 15,
+    "taskOutputFiles": 14,
+    "taskOutputBytes": 805851,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "db5ff4cc8da49e4c6ab57fe27744cb36d4f9ea75083c70ac0c5df9805b49bc90"
+}

@@ -1,0 +1,1278 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "a691ef9d7cf30d4c0b04ce61c7c2fc395bc2ba560579e34d006d761f2eba944e",
+  "planBytesSha256": "76eafc8f06b91c8e50f14820b4075d84e74e73b1ccc8c7786b49c81532655934",
+  "sandboxId": "hypersonic-pitch-hidden-rgb-clean",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:e7d863b0a76300715807f24b",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0404bd6dcd1cf2bf3bf8fd78acdd5d4f",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_18.png",
+      "sha256": "efe14807ebd89d651042e153663fa9c12444db2231952c2d6cf4eca10bbf20db",
+      "bytes": 4574
+    },
+    {
+      "sourceId": "source_194cb70e9e6467351caa0a6cce580af1",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_06.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550
+    },
+    {
+      "sourceId": "source_4c82715acc5f3de404b10c9f9860dca7",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_18.png",
+      "sha256": "eae2148ba47211d571c2ec1e68f3ee425d8c5d4510fdc4ebd9d68574a6aefed0",
+      "bytes": 4487
+    },
+    {
+      "sourceId": "source_5ba0c0cd2c52394277d4bd94d2bc1d66",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_12.png",
+      "sha256": "979755fb54fc557fe8ccb7900b63c926381d5c031272287f178613e6fb8d23f5",
+      "bytes": 3437
+    },
+    {
+      "sourceId": "source_6088e2105b166d4ad7b24ed2b01b79da",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_06.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473
+    },
+    {
+      "sourceId": "source_7951a8073a93b946efc7fa6e9be4b51f",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_06.png",
+      "sha256": "5c264c0dc0728350e2e40171d475c3e8908f3b1d8cbfb02f9740a8b72f86461f",
+      "bytes": 4561
+    },
+    {
+      "sourceId": "source_9625b7128a95fff71931f66128eeaeb4",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_18.png",
+      "sha256": "01429a24a7f1405b32eccfefbe195fb979b3c1a2a2535e425956b1f583f0f78c",
+      "bytes": 3389
+    },
+    {
+      "sourceId": "source_9a81edcccb6cd86d8df8a1569e942567",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_18.png",
+      "sha256": "2de5cad02ba58d65b00199f197fe0f8f7c47ba746b0c3aac6f4979503e358e1e",
+      "bytes": 3423
+    },
+    {
+      "sourceId": "source_a11a91c3dca6e2728a47eb8e8c9e3cdf",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_12.png",
+      "sha256": "4180d992c7e714ba9ef6d60188e711299baf2bf87ad7faa23f9c83f308728d5b",
+      "bytes": 4575
+    },
+    {
+      "sourceId": "source_a22bcb4709c6a6865a605c3153751bdf",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_neutral.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473
+    },
+    {
+      "sourceId": "source_a55fd54606986db89ee4db7b25c97734",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_12.png",
+      "sha256": "28cd766b569ab5b2a4d391564ad0d4bf8041318f742658d025b469c192d4d059",
+      "bytes": 4564
+    },
+    {
+      "sourceId": "source_d393fa2a7cab13ab9dd95424610fab2d",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_06.png",
+      "sha256": "1e0eeb75c6aeb21000fd306141fa7868b0b61b2c44fbb39eeebdf7b95772de51",
+      "bytes": 3438
+    },
+    {
+      "sourceId": "source_fc5a4308c4e21ece470434cf950beec7",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_12.png",
+      "sha256": "845a5cf6c4b12437d08694834b340695c16c5be48d5221050084c29cfe16d741",
+      "bytes": 3442
+    },
+    {
+      "sourceId": "source_fdbf4b07ef2c5e9035b28a34149e9881",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_neutral.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "fighter_dive_18",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\fighter_dive_18.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3412,
+          "partialPixels": 453,
+          "opaquePixels": 743
+        },
+        "alphaBoundingBox": [
+          14,
+          5,
+          50,
+          69
+        ],
+        "pixelSha256": "220d87c8f23780af8888bac2a762577d15a7b1ea80e0458120469af5c08835a4"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "220d87c8f23780af8888bac2a762577d15a7b1ea80e0458120469af5c08835a4",
+          "afterPixelSha256": "220d87c8f23780af8888bac2a762577d15a7b1ea80e0458120469af5c08835a4",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "fighter_dive_18.png",
+          "sha256": "01429a24a7f1405b32eccfefbe195fb979b3c1a2a2535e425956b1f583f0f78c",
+          "bytes": 3389,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3412,
+            "partialPixels": 453,
+            "opaquePixels": 743
+          },
+          "alphaBoundingBox": [
+            14,
+            5,
+            50,
+            69
+          ],
+          "pixelSha256": "220d87c8f23780af8888bac2a762577d15a7b1ea80e0458120469af5c08835a4"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_dive_12",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\fighter_dive_12.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3383,
+          "partialPixels": 481,
+          "opaquePixels": 744
+        },
+        "alphaBoundingBox": [
+          14,
+          4,
+          50,
+          70
+        ],
+        "pixelSha256": "07b14d9c2c99e1d73a4a9c45ace8cfb44c58a054fc745d2cbfd110c415667456"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "07b14d9c2c99e1d73a4a9c45ace8cfb44c58a054fc745d2cbfd110c415667456",
+          "afterPixelSha256": "07b14d9c2c99e1d73a4a9c45ace8cfb44c58a054fc745d2cbfd110c415667456",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "fighter_dive_12.png",
+          "sha256": "845a5cf6c4b12437d08694834b340695c16c5be48d5221050084c29cfe16d741",
+          "bytes": 3442,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3383,
+            "partialPixels": 481,
+            "opaquePixels": 744
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            70
+          ],
+          "pixelSha256": "07b14d9c2c99e1d73a4a9c45ace8cfb44c58a054fc745d2cbfd110c415667456"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_dive_06",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\fighter_dive_06.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3355,
+          "partialPixels": 498,
+          "opaquePixels": 755
+        },
+        "alphaBoundingBox": [
+          14,
+          4,
+          50,
+          71
+        ],
+        "pixelSha256": "ecf2d872550fa44c53ccb33adfb9535901333c9745ec4e047ac760f0cc99af26"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "ecf2d872550fa44c53ccb33adfb9535901333c9745ec4e047ac760f0cc99af26",
+          "afterPixelSha256": "ecf2d872550fa44c53ccb33adfb9535901333c9745ec4e047ac760f0cc99af26",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "fighter_dive_06.png",
+          "sha256": "1e0eeb75c6aeb21000fd306141fa7868b0b61b2c44fbb39eeebdf7b95772de51",
+          "bytes": 3438,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3355,
+            "partialPixels": 498,
+            "opaquePixels": 755
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "ecf2d872550fa44c53ccb33adfb9535901333c9745ec4e047ac760f0cc99af26"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_neutral",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\fighter_neutral.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3355,
+          "partialPixels": 497,
+          "opaquePixels": 756
+        },
+        "alphaBoundingBox": [
+          14,
+          4,
+          50,
+          71
+        ],
+        "pixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656",
+          "afterPixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "fighter_neutral.png",
+          "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+          "bytes": 3473,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3355,
+            "partialPixels": 497,
+            "opaquePixels": 756
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_climb_06",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\fighter_climb_06.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3355,
+          "partialPixels": 497,
+          "opaquePixels": 756
+        },
+        "alphaBoundingBox": [
+          14,
+          4,
+          50,
+          71
+        ],
+        "pixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656",
+          "afterPixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "fighter_climb_06.png",
+          "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+          "bytes": 3473,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3355,
+            "partialPixels": 497,
+            "opaquePixels": 756
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_climb_12",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\fighter_climb_12.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3385,
+          "partialPixels": 472,
+          "opaquePixels": 751
+        },
+        "alphaBoundingBox": [
+          14,
+          4,
+          50,
+          70
+        ],
+        "pixelSha256": "d1e5b1bb57f71f2daca93f40cb6091e098045fd69ecc3d5bf47f8a3aadf5e82f"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "d1e5b1bb57f71f2daca93f40cb6091e098045fd69ecc3d5bf47f8a3aadf5e82f",
+          "afterPixelSha256": "d1e5b1bb57f71f2daca93f40cb6091e098045fd69ecc3d5bf47f8a3aadf5e82f",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "fighter_climb_12.png",
+          "sha256": "979755fb54fc557fe8ccb7900b63c926381d5c031272287f178613e6fb8d23f5",
+          "bytes": 3437,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3385,
+            "partialPixels": 472,
+            "opaquePixels": 751
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            70
+          ],
+          "pixelSha256": "d1e5b1bb57f71f2daca93f40cb6091e098045fd69ecc3d5bf47f8a3aadf5e82f"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_climb_18",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\fighter_climb_18.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3406,
+          "partialPixels": 447,
+          "opaquePixels": 755
+        },
+        "alphaBoundingBox": [
+          14,
+          5,
+          50,
+          70
+        ],
+        "pixelSha256": "3a475eb037399cfffb960aee7e12e7b523c2f76360b1798003a2eae92ec4ba4a"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "3a475eb037399cfffb960aee7e12e7b523c2f76360b1798003a2eae92ec4ba4a",
+          "afterPixelSha256": "3a475eb037399cfffb960aee7e12e7b523c2f76360b1798003a2eae92ec4ba4a",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "fighter_climb_18.png",
+          "sha256": "2de5cad02ba58d65b00199f197fe0f8f7c47ba746b0c3aac6f4979503e358e1e",
+          "bytes": 3423,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3406,
+            "partialPixels": 447,
+            "opaquePixels": 755
+          },
+          "alphaBoundingBox": [
+            14,
+            5,
+            50,
+            70
+          ],
+          "pixelSha256": "3a475eb037399cfffb960aee7e12e7b523c2f76360b1798003a2eae92ec4ba4a"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_dive_18",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\bomber_dive_18.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3050,
+          "partialPixels": 687,
+          "opaquePixels": 871
+        },
+        "alphaBoundingBox": [
+          6,
+          5,
+          58,
+          69
+        ],
+        "pixelSha256": "a93dc6738498df15ba39b6a364ec682c3be18cc7c4c808eb5e583bca3df8029e"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "a93dc6738498df15ba39b6a364ec682c3be18cc7c4c808eb5e583bca3df8029e",
+          "afterPixelSha256": "a93dc6738498df15ba39b6a364ec682c3be18cc7c4c808eb5e583bca3df8029e",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "bomber_dive_18.png",
+          "sha256": "eae2148ba47211d571c2ec1e68f3ee425d8c5d4510fdc4ebd9d68574a6aefed0",
+          "bytes": 4487,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3050,
+            "partialPixels": 687,
+            "opaquePixels": 871
+          },
+          "alphaBoundingBox": [
+            6,
+            5,
+            58,
+            69
+          ],
+          "pixelSha256": "a93dc6738498df15ba39b6a364ec682c3be18cc7c4c808eb5e583bca3df8029e"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_dive_12",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\bomber_dive_12.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3015,
+          "partialPixels": 704,
+          "opaquePixels": 889
+        },
+        "alphaBoundingBox": [
+          6,
+          4,
+          58,
+          70
+        ],
+        "pixelSha256": "b348f24d29e9517f4b90647043bcb2f80d7122b6390851a89568b205a289e11a"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "b348f24d29e9517f4b90647043bcb2f80d7122b6390851a89568b205a289e11a",
+          "afterPixelSha256": "b348f24d29e9517f4b90647043bcb2f80d7122b6390851a89568b205a289e11a",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "bomber_dive_12.png",
+          "sha256": "4180d992c7e714ba9ef6d60188e711299baf2bf87ad7faa23f9c83f308728d5b",
+          "bytes": 4575,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3015,
+            "partialPixels": 704,
+            "opaquePixels": 889
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            70
+          ],
+          "pixelSha256": "b348f24d29e9517f4b90647043bcb2f80d7122b6390851a89568b205a289e11a"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_dive_06",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\bomber_dive_06.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 2980,
+          "partialPixels": 752,
+          "opaquePixels": 876
+        },
+        "alphaBoundingBox": [
+          6,
+          4,
+          58,
+          71
+        ],
+        "pixelSha256": "f8f855053deac29cc3df7a9cf20c3e57d9f1862427662ba9e21d8da238459826"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "f8f855053deac29cc3df7a9cf20c3e57d9f1862427662ba9e21d8da238459826",
+          "afterPixelSha256": "f8f855053deac29cc3df7a9cf20c3e57d9f1862427662ba9e21d8da238459826",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "bomber_dive_06.png",
+          "sha256": "5c264c0dc0728350e2e40171d475c3e8908f3b1d8cbfb02f9740a8b72f86461f",
+          "bytes": 4561,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2980,
+            "partialPixels": 752,
+            "opaquePixels": 876
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "f8f855053deac29cc3df7a9cf20c3e57d9f1862427662ba9e21d8da238459826"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_neutral",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\bomber_neutral.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 2980,
+          "partialPixels": 751,
+          "opaquePixels": 877
+        },
+        "alphaBoundingBox": [
+          6,
+          4,
+          58,
+          71
+        ],
+        "pixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9",
+          "afterPixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "bomber_neutral.png",
+          "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+          "bytes": 4550,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2980,
+            "partialPixels": 751,
+            "opaquePixels": 877
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_climb_06",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\bomber_climb_06.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 2980,
+          "partialPixels": 751,
+          "opaquePixels": 877
+        },
+        "alphaBoundingBox": [
+          6,
+          4,
+          58,
+          71
+        ],
+        "pixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9",
+          "afterPixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "bomber_climb_06.png",
+          "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+          "bytes": 4550,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2980,
+            "partialPixels": 751,
+            "opaquePixels": 877
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_climb_12",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\bomber_climb_12.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3018,
+          "partialPixels": 680,
+          "opaquePixels": 910
+        },
+        "alphaBoundingBox": [
+          6,
+          4,
+          58,
+          70
+        ],
+        "pixelSha256": "cff7ccefa137b34110c2f1fabfddffef88dd50812d7695a2f0e8db3dcf7a7947"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "cff7ccefa137b34110c2f1fabfddffef88dd50812d7695a2f0e8db3dcf7a7947",
+          "afterPixelSha256": "cff7ccefa137b34110c2f1fabfddffef88dd50812d7695a2f0e8db3dcf7a7947",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "bomber_climb_12.png",
+          "sha256": "28cd766b569ab5b2a4d391564ad0d4bf8041318f742658d025b469c192d4d059",
+          "bytes": 4564,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3018,
+            "partialPixels": 680,
+            "opaquePixels": 910
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            70
+          ],
+          "pixelSha256": "cff7ccefa137b34110c2f1fabfddffef88dd50812d7695a2f0e8db3dcf7a7947"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_climb_18",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\native\\bomber_climb_18.png",
+      "before": {
+        "dimensions": {
+          "width": 64,
+          "height": 72
+        },
+        "alpha": {
+          "transparentPixels": 3044,
+          "partialPixels": 686,
+          "opaquePixels": 878
+        },
+        "alphaBoundingBox": [
+          6,
+          5,
+          58,
+          70
+        ],
+        "pixelSha256": "aeb81c79be9157cc74a6b11807a77ae91e4639ba5ecc4de12683c7786ea5dc6c"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "aeb81c79be9157cc74a6b11807a77ae91e4639ba5ecc4de12683c7786ea5dc6c",
+          "afterPixelSha256": "aeb81c79be9157cc74a6b11807a77ae91e4639ba5ecc4de12683c7786ea5dc6c",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "bomber_climb_18.png",
+          "sha256": "efe14807ebd89d651042e153663fa9c12444db2231952c2d6cf4eca10bbf20db",
+          "bytes": 4574,
+          "role": "image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3044,
+            "partialPixels": 686,
+            "opaquePixels": 878
+          },
+          "alphaBoundingBox": [
+            6,
+            5,
+            58,
+            70
+          ],
+          "pixelSha256": "aeb81c79be9157cc74a6b11807a77ae91e4639ba5ecc4de12683c7786ea5dc6c"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "bomber_climb_06.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2980,
+        "partialPixels": 751,
+        "opaquePixels": 877
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9"
+    },
+    {
+      "path": "bomber_climb_12.png",
+      "sha256": "28cd766b569ab5b2a4d391564ad0d4bf8041318f742658d025b469c192d4d059",
+      "bytes": 4564,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3018,
+        "partialPixels": 680,
+        "opaquePixels": 910
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        70
+      ],
+      "pixelSha256": "cff7ccefa137b34110c2f1fabfddffef88dd50812d7695a2f0e8db3dcf7a7947"
+    },
+    {
+      "path": "bomber_climb_18.png",
+      "sha256": "efe14807ebd89d651042e153663fa9c12444db2231952c2d6cf4eca10bbf20db",
+      "bytes": 4574,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3044,
+        "partialPixels": 686,
+        "opaquePixels": 878
+      },
+      "alphaBoundingBox": [
+        6,
+        5,
+        58,
+        70
+      ],
+      "pixelSha256": "aeb81c79be9157cc74a6b11807a77ae91e4639ba5ecc4de12683c7786ea5dc6c"
+    },
+    {
+      "path": "bomber_dive_06.png",
+      "sha256": "5c264c0dc0728350e2e40171d475c3e8908f3b1d8cbfb02f9740a8b72f86461f",
+      "bytes": 4561,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2980,
+        "partialPixels": 752,
+        "opaquePixels": 876
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "f8f855053deac29cc3df7a9cf20c3e57d9f1862427662ba9e21d8da238459826"
+    },
+    {
+      "path": "bomber_dive_12.png",
+      "sha256": "4180d992c7e714ba9ef6d60188e711299baf2bf87ad7faa23f9c83f308728d5b",
+      "bytes": 4575,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3015,
+        "partialPixels": 704,
+        "opaquePixels": 889
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        70
+      ],
+      "pixelSha256": "b348f24d29e9517f4b90647043bcb2f80d7122b6390851a89568b205a289e11a"
+    },
+    {
+      "path": "bomber_dive_18.png",
+      "sha256": "eae2148ba47211d571c2ec1e68f3ee425d8c5d4510fdc4ebd9d68574a6aefed0",
+      "bytes": 4487,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3050,
+        "partialPixels": 687,
+        "opaquePixels": 871
+      },
+      "alphaBoundingBox": [
+        6,
+        5,
+        58,
+        69
+      ],
+      "pixelSha256": "a93dc6738498df15ba39b6a364ec682c3be18cc7c4c808eb5e583bca3df8029e"
+    },
+    {
+      "path": "bomber_neutral.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2980,
+        "partialPixels": 751,
+        "opaquePixels": 877
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "6d36e95a0a4136c73aee9809d2238d4e65db1683f3930be95780bb03c7c003d9"
+    },
+    {
+      "path": "fighter_climb_06.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3355,
+        "partialPixels": 497,
+        "opaquePixels": 756
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656"
+    },
+    {
+      "path": "fighter_climb_12.png",
+      "sha256": "979755fb54fc557fe8ccb7900b63c926381d5c031272287f178613e6fb8d23f5",
+      "bytes": 3437,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3385,
+        "partialPixels": 472,
+        "opaquePixels": 751
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        70
+      ],
+      "pixelSha256": "d1e5b1bb57f71f2daca93f40cb6091e098045fd69ecc3d5bf47f8a3aadf5e82f"
+    },
+    {
+      "path": "fighter_climb_18.png",
+      "sha256": "2de5cad02ba58d65b00199f197fe0f8f7c47ba746b0c3aac6f4979503e358e1e",
+      "bytes": 3423,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3406,
+        "partialPixels": 447,
+        "opaquePixels": 755
+      },
+      "alphaBoundingBox": [
+        14,
+        5,
+        50,
+        70
+      ],
+      "pixelSha256": "3a475eb037399cfffb960aee7e12e7b523c2f76360b1798003a2eae92ec4ba4a"
+    },
+    {
+      "path": "fighter_dive_06.png",
+      "sha256": "1e0eeb75c6aeb21000fd306141fa7868b0b61b2c44fbb39eeebdf7b95772de51",
+      "bytes": 3438,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3355,
+        "partialPixels": 498,
+        "opaquePixels": 755
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "ecf2d872550fa44c53ccb33adfb9535901333c9745ec4e047ac760f0cc99af26"
+    },
+    {
+      "path": "fighter_dive_12.png",
+      "sha256": "845a5cf6c4b12437d08694834b340695c16c5be48d5221050084c29cfe16d741",
+      "bytes": 3442,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3383,
+        "partialPixels": 481,
+        "opaquePixels": 744
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        70
+      ],
+      "pixelSha256": "07b14d9c2c99e1d73a4a9c45ace8cfb44c58a054fc745d2cbfd110c415667456"
+    },
+    {
+      "path": "fighter_dive_18.png",
+      "sha256": "01429a24a7f1405b32eccfefbe195fb979b3c1a2a2535e425956b1f583f0f78c",
+      "bytes": 3389,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3412,
+        "partialPixels": 453,
+        "opaquePixels": 743
+      },
+      "alphaBoundingBox": [
+        14,
+        5,
+        50,
+        69
+      ],
+      "pixelSha256": "220d87c8f23780af8888bac2a762577d15a7b1ea80e0458120469af5c08835a4"
+    },
+    {
+      "path": "fighter_neutral.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473,
+      "role": "image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3355,
+        "partialPixels": 497,
+        "opaquePixels": 756
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "93ebe82c81c7b232791614ad5263f0eb6fc46aa4bf7268f20bc8d8a8b4118656"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 14,
+    "externalSourceBytes": 55936,
+    "plannedMaximumOutputFiles": 15,
+    "taskOutputFiles": 14,
+    "taskOutputBytes": 55936,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "ec458e9e01d30ff8bf0f54fd2e03fd49d742f1b1138c4dc7eda697ffcce2274d"
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "hypersonic_vx94_transform_dorsal_modules_runtime_v1",
+  "status": "reviewed_native_runtime",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "runtime_layers": 120,
+  "routes": [
+    "bomber",
+    "hypersonic"
+  ],
+  "modules": [
+    "point_defence_pod",
+    "emp_disruptor",
+    "magnetic_screen"
+  ],
+  "states": [
+    "idle",
+    "active"
+  ],
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/transform_modules",
+  "native_evidence": "work/vx94_transform_dorsal_modules_v1/native",
+  "review_video": "outputs/HYPERSONIC-vx94-dorsal-transform-runtime.mp4",
+  "representative_runtime_sha256": "516A6B6E82780F549C02420B270715137E89DA4A042844CC686390AC67FDEB45"
+}

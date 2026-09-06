@@ -1,0 +1,63 @@
+{
+  "status": "integrated_native_fixture_review_not_release_acceptance",
+  "captures": [
+    {
+      "profile": "drizzle",
+      "frames": 84,
+      "speed_min": 0.62,
+      "speed_max": 1.78,
+      "start_weight": 1.0,
+      "end_weight": 0.0,
+      "reduced_from_frame": 54,
+      "inspected_frames": [
+        30
+      ]
+    },
+    {
+      "profile": "rain",
+      "frames": 84,
+      "speed_min": 0.62,
+      "speed_max": 1.78,
+      "start_weight": 1.0,
+      "end_weight": 0.0,
+      "reduced_from_frame": 54,
+      "inspected_frames": [
+        30
+      ]
+    },
+    {
+      "profile": "storm",
+      "frames": 84,
+      "speed_min": 0.62,
+      "speed_max": 4.07956833333333,
+      "start_weight": 1.0,
+      "end_weight": 0.0,
+      "reduced_from_frame": 54,
+      "inspected_frames": [
+        30,
+        50
+      ]
+    },
+    {
+      "profile": "snow",
+      "frames": 84,
+      "speed_min": 0.62,
+      "speed_max": 4.1389126,
+      "start_weight": 1.0,
+      "end_weight": 0.0,
+      "reduced_from_frame": 54,
+      "inspected_frames": [
+        30,
+        50,
+        64,
+        83
+      ]
+    }
+  ],
+  "source_hashes": {
+    "scripts/weather_rules.gd": "654b50a05950e5eca267765dbff00bbb80d691720ab5a3188510f7d3ecad94ed",
+    "scripts/weather_renderer.gd": "db25f923c340803f11bcd83f7f2fe25cb3bf63d322bb63ae25dfc524c2a79833",
+    "scripts/environment_director.gd": "dba820cf4cc411db4aae57348fdc2ac65a7c0b9ac9fa001d48a493b0e8dda237"
+  },
+  "note": "After capture, altitude-weight lookup was wired to identical delivered configuration values; motion and draw algorithms unchanged."
+}

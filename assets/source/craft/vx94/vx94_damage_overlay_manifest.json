@@ -1,15 +1,36 @@
 {
   "asset_family": "vx94_form_registered_damage",
-  "status": "runtime_v1",
+  "status": "runtime_v2",
   "source": "res://assets/source/craft/vx94/vx94_damage_overlay_sheet.svg",
-  "canvas": [64, 72],
-  "registration": [32, 38],
-  "forms": ["fighter", "bomber"],
-  "stages": ["light", "damaged", "critical"],
+  "canvas": [
+    64,
+    72
+  ],
+  "registration": [
+    32,
+    38
+  ],
+  "forms": [
+    "fighter",
+    "bomber"
+  ],
+  "stages": [
+    "light",
+    "damaged",
+    "critical"
+  ],
   "visual_contract": {
     "damage": "localized chipped composite, torn panels, scorched service buses and restrained exposed wiring",
-    "composition": "form-specific overlays crossfade with the physical wing sweep while smoke, fire and sparks remain independent attachments",
-    "avoid": ["generic floating rectangles", "whole-aircraft tint", "procedural scratch lines", "full silhouette replacement", "neon damage glow"]
+    "composition": "Panel-localized source scars registered to the current fixed fuselage and wing roots; fighter/bomber overlays crossfade during sweep, while smoke, fire and sparks remain independent attachments.",
+    "avoid": [
+      "generic floating rectangles",
+      "whole-aircraft tint",
+      "procedural scratch lines",
+      "full silhouette replacement",
+      "neon damage glow"
+    ]
   },
-  "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/damage/"
+  "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/damage/",
+  "registration_recipe": "res://assets/source/craft/vx94/damage_v2/art_studio_request.json",
+  "builder": "res://tools/build_vx94_damage_art.ps1"
 }

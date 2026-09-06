@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "issues": [
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to hunter_rack_07",
+      "severity": "info",
+      "frame": "hunter_rack_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to twin_rocket_pods_07",
+      "severity": "info",
+      "frame": "twin_rocket_pods_09",
+      "animation": null
+    }
+  ],
+  "metrics": {
+    "frames": 20,
+    "animations": 2,
+    "empty_frames": 0,
+    "duplicate_frames": 2,
+    "event_markers": 0,
+    "warnings": 0,
+    "errors": 0,
+    "max_area_variance": 0.235885,
+    "max_brightness_range": 0.055609,
+    "max_centroid_jump": 0.004464,
+    "max_loop_delta": 0.0,
+    "max_ground_contact_shift": 0.001162,
+    "max_silhouette_delta": 0.091018,
+    "max_palette_distance": 0.314815,
+    "max_palette_colors": 94
+  }
+}

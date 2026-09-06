@@ -1,0 +1,460 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "270ea922cb66280267012c0ce7b969bb4a8236cf2a1681cf57672a6ebf9e3c42",
+  "planBytesSha256": "b5b93c42eb7bfcc7bcc86de1b94285f6abc55e329294440f08db981e6bb3883b",
+  "sandboxId": "hypersonic-machine-ark-phase-art-v2a",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:f9ed65e81c86d094b23ca238",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_3f44c371461d81f5dcf14481daef8449",
+      "path": "assets/runtime/enemies/orbital_boss_layered/ark_aperture_open.png",
+      "sha256": "6bda37c18df1f5c6e9a6b188e278165bb9833fef31ae83ccbdd04981b996aa0a",
+      "bytes": 1250
+    },
+    {
+      "sourceId": "source_8eaa8ba73e878894bbdc17edaf78354d",
+      "path": "assets/runtime/enemies/orbital_boss_layered/ark_cracked_plate.png",
+      "sha256": "b8639b97402f7bd6f26a27a00b62266823534ff7325498b6f579f9d63a179fda",
+      "bytes": 756
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "damage-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 39,
+          "y": 49,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 27,
+          "height": 24
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/phase_2_damage.png",
+          "sha256": "0fee1d4e6ef60acd92db5dbe219982ed4ddebc6ef162e637f1f9c9dcbd17239c",
+          "bytes": 1019,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 20301,
+            "partialPixels": 178,
+            "opaquePixels": 1
+          },
+          "alphaBoundingBox": [
+            44,
+            54,
+            60,
+            71
+          ],
+          "pixelSha256": "408a551e331a1eefb3d555b2e878dacff6da423e542a8912a3585ef09127a97e"
+        }
+      ]
+    },
+    {
+      "taskId": "damage-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 101,
+          "y": 57,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 22,
+          "height": 20
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/phase_3_damage.png",
+          "sha256": "124ded0012e2e8e3b411a332e5e4e25d4f9ad7a11ded6b2b4c7f301ace7b52e9",
+          "bytes": 794,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 20359,
+            "partialPixels": 121,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            105,
+            61,
+            118,
+            76
+          ],
+          "pixelSha256": "9446354233a6402f8420cf7d53951435e1b62171ec3bf7a46712b230c6be6bcb"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 58,
+          "y": 43,
+          "opacity": 0.45,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_0.png",
+          "sha256": "76c855d829ed380abbf366cee8257b18e57e74fea3908754120a695db523be8e",
+          "bytes": 2911,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            63,
+            45,
+            96,
+            82
+          ],
+          "pixelSha256": "2b2936aa2ef2b9ff668339beb289d3439c6ad7123f44a423ebf7900bb1f0f246"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 58,
+          "y": 43,
+          "opacity": 0.7,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_1.png",
+          "sha256": "568025db33c08dda99d9ba561496f405c4180545450b7d7574d173149f040ebc",
+          "bytes": 2917,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            63,
+            45,
+            96,
+            82
+          ],
+          "pixelSha256": "fd1efbcdbe1c73a3b547c3f3efea3fd3d9659172e1653c2450e722135aec8525"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 58,
+          "y": 43,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_2.png",
+          "sha256": "aa133cfcd6de3d596ff5887fbc0ab9ecc32301f61ea4fdde4b44fc87fb1a5df6",
+          "bytes": 2947,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            63,
+            45,
+            96,
+            82
+          ],
+          "pixelSha256": "baf746273a0eb21f661285398ffd0ef6609f6fc06f9a53897adb7d9ad4b5c626"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 58,
+          "y": 43,
+          "opacity": 0.65,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_3.png",
+          "sha256": "d8650d54ead2c72251baef327102cbd14700bd21e43d1b15651bc69f52ca7b11",
+          "bytes": 2941,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            63,
+            45,
+            96,
+            82
+          ],
+          "pixelSha256": "656236669dbf613c9beecd0935a4bd3fd9fa68d4c936811e05ea30fdda6efd37"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "machine_ark/critical_0.png",
+      "sha256": "76c855d829ed380abbf366cee8257b18e57e74fea3908754120a695db523be8e",
+      "bytes": 2911,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        63,
+        45,
+        96,
+        82
+      ],
+      "pixelSha256": "2b2936aa2ef2b9ff668339beb289d3439c6ad7123f44a423ebf7900bb1f0f246"
+    },
+    {
+      "path": "machine_ark/critical_1.png",
+      "sha256": "568025db33c08dda99d9ba561496f405c4180545450b7d7574d173149f040ebc",
+      "bytes": 2917,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        63,
+        45,
+        96,
+        82
+      ],
+      "pixelSha256": "fd1efbcdbe1c73a3b547c3f3efea3fd3d9659172e1653c2450e722135aec8525"
+    },
+    {
+      "path": "machine_ark/critical_2.png",
+      "sha256": "aa133cfcd6de3d596ff5887fbc0ab9ecc32301f61ea4fdde4b44fc87fb1a5df6",
+      "bytes": 2947,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        63,
+        45,
+        96,
+        82
+      ],
+      "pixelSha256": "baf746273a0eb21f661285398ffd0ef6609f6fc06f9a53897adb7d9ad4b5c626"
+    },
+    {
+      "path": "machine_ark/critical_3.png",
+      "sha256": "d8650d54ead2c72251baef327102cbd14700bd21e43d1b15651bc69f52ca7b11",
+      "bytes": 2941,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        63,
+        45,
+        96,
+        82
+      ],
+      "pixelSha256": "656236669dbf613c9beecd0935a4bd3fd9fa68d4c936811e05ea30fdda6efd37"
+    },
+    {
+      "path": "machine_ark/phase_2_damage.png",
+      "sha256": "0fee1d4e6ef60acd92db5dbe219982ed4ddebc6ef162e637f1f9c9dcbd17239c",
+      "bytes": 1019,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 20301,
+        "partialPixels": 178,
+        "opaquePixels": 1
+      },
+      "alphaBoundingBox": [
+        44,
+        54,
+        60,
+        71
+      ],
+      "pixelSha256": "408a551e331a1eefb3d555b2e878dacff6da423e542a8912a3585ef09127a97e"
+    },
+    {
+      "path": "machine_ark/phase_3_damage.png",
+      "sha256": "124ded0012e2e8e3b411a332e5e4e25d4f9ad7a11ded6b2b4c7f301ace7b52e9",
+      "bytes": 794,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 20359,
+        "partialPixels": 121,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        105,
+        61,
+        118,
+        76
+      ],
+      "pixelSha256": "9446354233a6402f8420cf7d53951435e1b62171ec3bf7a46712b230c6be6bcb"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 2,
+    "externalSourceBytes": 2006,
+    "plannedMaximumOutputFiles": 7,
+    "taskOutputFiles": 6,
+    "taskOutputBytes": 13529,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "4f5a56a14096d96074296f6b34c955735f9681f03ebc2e5140f54aa3b0874759"
+}

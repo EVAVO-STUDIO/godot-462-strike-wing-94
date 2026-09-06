@@ -72,7 +72,15 @@ func _test_retro_sfx() -> void:
 		_expect(cue_source.contains("PROPULSION_HYPERSONIC") and cue_source.contains("hypersonic_charge_ratio") and cue_source.contains("PROPULSION_RESERVE_LOW"), "propulsion HUD should expose authored fuel, spool and latched-speed states")
 		_expect(cue_source.contains('"MACH" if hypersonic') and cue_source.contains('"GEOM" if burning else "THR"') and cue_source.contains("throttle * 100.0"), "compact propulsion HUD should expose throttle, geometry spool and distinct Mach states")
 		_expect(cue_source.contains("LOWER_LEFT_KEEP_OUT") and cue_source.contains("640.0 - LOWER_HUD_MARGIN - float(frame.get_width())"), "propulsion instrument should move to the opposite lower corner before the VX-94 can occlude it")
-		_expect(cue_source.contains('frame_for_ratio("hypersonic_ignition"') and not cue_source.contains("draw_circle"), "hypersonic entry flash should use authored paired-engine raster exposures")
+		_expect(cue_source.contains('"hypersonic_blue_plume"') and cue_source.contains("ENGINE_MOUNTS") and cue_source.contains("propulsion_bank_frame_index"), "hypersonic thrust should use paired blue plumes registered to both engine outlets across bank poses")
+		_expect(cue_source.contains('"hypersonic_engine_burst"') and cue_source.contains("ENGINE_BURST_FRAME_ENDS") and not cue_source.contains("draw_circle"), "hypersonic entry should use the authored timed engine pressure burst")
+		_expect(cue_source.contains("_flash_scale()") and cue_source.contains("reduced_flashes"), "hypersonic pressure cues should honor reduced-flashes accessibility")
+	for index in 4:
+		var plume := load("res://assets/runtime/effects/persistent/hypersonic_blue_plume/%d.png" % index)
+		_expect(plume is Texture2D and plume.get_size() == Vector2(16,40), "blue plume should retain registered 16x40 canvas: %d" % index)
+	for index in 6:
+		var burst := load("res://assets/runtime/effects/persistent/hypersonic_engine_burst/%d.png" % index)
+		_expect(burst is Texture2D and burst.get_size() == Vector2(112,40), "engine burst should retain registered 112x40 canvas: %d" % index)
 	for propulsion_asset in ["normal","burning","reserve_low","hypersonic_latched"]:
 		var propulsion_frame := load("res://assets/runtime/ui/hud/propulsion_instrument/%s.png" % propulsion_asset)
 		_expect(propulsion_frame is Texture2D and propulsion_frame.get_size() == Vector2(196,13), "propulsion instrument state should retain registered geometry: %s" % propulsion_asset)

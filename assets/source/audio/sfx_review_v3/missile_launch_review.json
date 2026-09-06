@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\missile_launch.wav",
+  "source_sha256": "e4cb272dd3d92182f3cf198ec5e31d48efff3df8115bc4bfc5882a40cd30b90f",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.34,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.176055908203125,
+    "rms": 0.026751718821354905,
+    "dc": -0.0002875499157996532,
+    "clippedSamples": 0,
+    "crestFactor": 6.58110640935733,
+    "estimatedBpm": 0.0,
+    "pulseStrength": 0.0,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

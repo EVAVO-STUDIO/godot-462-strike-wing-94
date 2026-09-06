@@ -1,0 +1,90 @@
+{
+  "status": "reviewed_runtime_art",
+  "canvas": [
+    640,
+    272
+  ],
+  "fps": 3,
+  "files": [
+    {
+      "frame": 0,
+      "source": "end_action_0.svg",
+      "sourceSha256": "442b8bb277b582b400b0a5ec479d1eda5c1ed6fc5472579b756584e701f78fd1",
+      "target": "end_action_0.png",
+      "sha256": "20fa84b8a669e458aa9eacbfd4d6e8bbb6d5b3fd4946508dcbb60260c99132f0",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "frame": 1,
+      "source": "end_action_1.svg",
+      "sourceSha256": "4e5514dd3831d208dd3159de1fd42a691b2d494f0b4fa1f19f0cf55dcebc25c6",
+      "target": "end_action_1.png",
+      "sha256": "a87bec3667cfb1f24979aa566ca82ce4befb9d8bdfe9339492cebc1e5dd6f5f0",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "frame": 2,
+      "source": "end_action_2.svg",
+      "sourceSha256": "bb9a86f3e6c885d247f763cf7e8d1f5ca79640d23f406d31f84473cfb38835fc",
+      "target": "end_action_2.png",
+      "sha256": "01a4b82ad4a5d815c83742338a139a7334d1148d3850e4cac1a7893ee45a714f",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "frame": 3,
+      "source": "end_action_3.svg",
+      "sourceSha256": "1bd6789966805443d312f1023a45c0af0e33c14d5782516a42031e5c736f672d",
+      "target": "end_action_3.png",
+      "sha256": "06514a23f81f1e1bbb2e53177df10e6728f10debab191679b5ff0dcaa544211d",
+      "finishing": {
+        "sourceWidth": 640,
+        "sourceHeight": 272,
+        "sourceHasAlpha": true,
+        "outputWidth": 640,
+        "outputHeight": 272,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    }
+  ]
+}

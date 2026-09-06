@@ -1,0 +1,421 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "hypersonic-pitch-relief-native",
+  "projectId": "hypersonic",
+  "purpose": "Native nearest-sampled export of fourteen source-textured 3D pitch views",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "fighter_dive_18",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/fighter/dive_18_4x.png"
+      ],
+      "targetPath": "fighter_dive_18.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_dive_12",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/fighter/dive_12_4x.png"
+      ],
+      "targetPath": "fighter_dive_12.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_dive_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/fighter/dive_06_4x.png"
+      ],
+      "targetPath": "fighter_dive_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/fighter/neutral_4x.png"
+      ],
+      "targetPath": "fighter_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_climb_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/fighter/climb_06_4x.png"
+      ],
+      "targetPath": "fighter_climb_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_climb_12",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/fighter/climb_12_4x.png"
+      ],
+      "targetPath": "fighter_climb_12.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_climb_18",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/fighter/climb_18_4x.png"
+      ],
+      "targetPath": "fighter_climb_18.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_dive_18",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/bomber/dive_18_4x.png"
+      ],
+      "targetPath": "bomber_dive_18.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_dive_12",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/bomber/dive_12_4x.png"
+      ],
+      "targetPath": "bomber_dive_12.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_dive_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/bomber/dive_06_4x.png"
+      ],
+      "targetPath": "bomber_dive_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/bomber/neutral_4x.png"
+      ],
+      "targetPath": "bomber_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_climb_06",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/bomber/climb_06_4x.png"
+      ],
+      "targetPath": "bomber_climb_06.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_climb_12",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/bomber/climb_12_4x.png"
+      ],
+      "targetPath": "bomber_climb_12.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_climb_18",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/bomber/climb_18_4x.png"
+      ],
+      "targetPath": "bomber_climb_18.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 72,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 288
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

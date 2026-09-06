@@ -1,0 +1,810 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "vx94-external-stores",
+  "projectId": "hypersonic",
+  "purpose": "Existing missile/rocket/bomb roles as physical under-wing equipment; original authored layers",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "fighter_hunter_rack_loaded",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/fighter_hunter_rack_loaded_0.png",
+        "work/vx94_external_stores_v3/layers/fighter_hunter_rack_loaded_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"
+      ],
+      "targetPath": "fighter_hunter_rack_loaded.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hunter_rack_left_released",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/fighter_hunter_rack_left_released_0.png",
+        "work/vx94_external_stores_v3/layers/fighter_hunter_rack_left_released_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"
+      ],
+      "targetPath": "fighter_hunter_rack_left_released.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_hunter_rack_empty",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/fighter_hunter_rack_empty_0.png",
+        "work/vx94_external_stores_v3/layers/fighter_hunter_rack_empty_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"
+      ],
+      "targetPath": "fighter_hunter_rack_empty.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_loaded_0.png",
+        "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_loaded_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"
+      ],
+      "targetPath": "fighter_twin_rocket_pods_loaded.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_left_expended_0.png",
+        "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_left_expended_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"
+      ],
+      "targetPath": "fighter_twin_rocket_pods_left_expended.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_empty_0.png",
+        "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_empty_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png"
+      ],
+      "targetPath": "fighter_twin_rocket_pods_empty.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_hunter_rack_loaded_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_hunter_rack_loaded_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_hunter_rack_loaded.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_released",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_hunter_rack_left_released_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_hunter_rack_left_released_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_hunter_rack_left_released.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_hunter_rack_empty_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_hunter_rack_empty_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_hunter_rack_empty.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_loaded_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_loaded_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_twin_rocket_pods_loaded.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_left_expended_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_left_expended_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_twin_rocket_pods_left_expended.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_empty_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_empty_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_twin_rocket_pods_empty.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_precision_bomb_loaded",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_precision_bomb_loaded_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_precision_bomb_loaded_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_precision_bomb_loaded.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_precision_bomb_left_released",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_precision_bomb_left_released_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_precision_bomb_left_released_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_precision_bomb_left_released.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "bomber_precision_bomb_empty",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_external_stores_v3/layers/bomber_precision_bomb_empty_0.png",
+        "work/vx94_external_stores_v3/layers/bomber_precision_bomb_empty_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "bomber_precision_bomb_empty.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

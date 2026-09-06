@@ -1,0 +1,132 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_hunter_rack_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_hunter_rack_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_hunter_rack_loaded"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_loaded"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_hunter_rack_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_hunter_rack_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_hunter_rack_loaded"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_twin_rocket_pods_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_twin_rocket_pods_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_twin_rocket_pods_loaded"
+    }
+  ],
+  "asset": "vx94_transform_stores_family",
+  "atlas_pages": [
+    {
+      "file": "vx94_transform_stores_family.atlas.0.png",
+      "height": 1992,
+      "index": 0,
+      "width": 250
+    }
+  ],
+  "canvas": {
+    "height": 72,
+    "pivot_x": 32.0,
+    "pivot_y": 38.0,
+    "width": 64
+  },
+  "corrected_frames": 0,
+  "correction_audit": "vx94_transform_stores_family.corrections.json",
+  "event_timeline": "vx94_transform_stores_family.events.json",
+  "manifest": "vx94_transform_stores_family.manifest.json",
+  "qa": "vx94_transform_stores_family.qa.json",
+  "receipt": "build.receipt.json",
+  "runtime": {
+    "godot": {
+      "animated_sprite_scene": "vx94_transform_stores_family.animated_sprite.tscn",
+      "atlas_root": "res://",
+      "sprite_frames": "vx94_transform_stores_family.spriteframes.tres"
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

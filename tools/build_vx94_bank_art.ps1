@@ -42,11 +42,17 @@ Build-AuthoredPose -Form bomber -Master $BomberMaster -Name 'neutral' -Crop '311
 Build-AuthoredPose -Form bomber -Master $BomberMaster -Name 'right' -Crop '264x391+1031+277'
 Build-AuthoredPose -Form bomber -Master $BomberMaster -Name 'hard_right' -Crop '271x399+1348+290'
 
+# The neutral fighter is the registered start of the articulated sweep. Preserve
+# the separately painted bank perspectives while keeping the handoff pixel exact.
+Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/source/craft/vx94/transform_v2/fighter_neutral.png') -Destination (Join-Path $Output 'fighter_neutral.png')
+
 $RuntimeFrames = Get-ChildItem -LiteralPath $Output -Filter '*.png' | Sort-Object Name
 foreach ($Frame in $RuntimeFrames) {
-    foreach ($Region in @('64x1+0+0', '64x1+0+71', '1x72+0+0', '1x72+63+0')) {
-        & $MagickPath $Frame.FullName -alpha set -channel A -region $Region -evaluate set 0 +channel -depth 8 $Frame.FullName
-        if ($LASTEXITCODE -ne 0) { throw "Failed to clear bank-frame canvas edge: $($Frame.Name) [$Region]" }
+    if ($Frame.Name -ne 'fighter_neutral.png') {
+        foreach ($Region in @('64x1+0+0', '64x1+0+71', '1x72+0+0', '1x72+63+0')) {
+            & $MagickPath $Frame.FullName -alpha set -channel A -region $Region -evaluate set 0 +channel -depth 8 $Frame.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Failed to clear bank-frame canvas edge: $($Frame.Name) [$Region]" }
+        }
     }
     $Geometry = & $MagickPath identify -format '%wx%h' $Frame.FullName
     $Channels = & $MagickPath identify -format '%[channels]' $Frame.FullName

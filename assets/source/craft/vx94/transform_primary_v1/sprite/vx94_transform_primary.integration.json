@@ -1,0 +1,100 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_ballistic"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_needle_rail"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_plasma_lance"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "bomber_storm_cannon"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_ballistic"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_needle_rail"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_plasma_lance"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frame_count": 10,
+      "loop": false,
+      "name": "hypersonic_storm_cannon"
+    }
+  ],
+  "asset": "vx94_transform_primary",
+  "atlas_pages": [
+    {
+      "file": "vx94_transform_primary.atlas.0.png",
+      "height": 1654,
+      "index": 0,
+      "width": 191
+    }
+  ],
+  "canvas": {
+    "height": 72,
+    "pivot_x": 32.0,
+    "pivot_y": 38.0,
+    "width": 64
+  },
+  "corrected_frames": 0,
+  "correction_audit": "vx94_transform_primary.corrections.json",
+  "event_timeline": "vx94_transform_primary.events.json",
+  "manifest": "vx94_transform_primary.manifest.json",
+  "qa": "vx94_transform_primary.qa.json",
+  "receipt": "build.receipt.json",
+  "runtime": {
+    "godot": {
+      "animated_sprite_scene": "vx94_transform_primary.animated_sprite.tscn",
+      "atlas_root": "res://",
+      "sprite_frames": "vx94_transform_primary.spriteframes.tres"
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

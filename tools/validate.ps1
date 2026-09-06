@@ -75,7 +75,7 @@ $Required = @(
     'scripts/projectile_cue_rules.gd','scripts/projectile_cue_director.gd','scripts/threat_warning_rules.gd',
     'tools/product_identity_self_test.gd','tools/input_bindings_self_test.gd','tools/settings_self_test.gd','tools/music_self_test.gd','tools/presentation_feedback_self_test.gd','tools/difficulty_self_test.gd','tools/startup_sequence_self_test.gd','tools/attract_mode_self_test.gd','tools/mission_radio_self_test.gd','tools/campaign_cinematic_self_test.gd','tools/campaign_branch_self_test.gd','tools/campaign_journey_self_test.gd','tools/intelligence_database_self_test.gd','tools/secret_missions_self_test.gd','tools/credits_self_test.gd','tools/game_modes_self_test.gd','tools/art_production_coverage_self_test.gd','tools/runtime_self_test.gd','tools/reward_self_test.gd','tools/service_self_test.gd','tools/mission_flow_self_test.gd','tools/pause_self_test.gd','tools/save_recovery_self_test.gd',
     'tools/encounter_self_test.gd','tools/movement_pattern_self_test.gd','tools/support_self_test.gd','tools/craft_form_self_test.gd','tools/evasive_roll_self_test.gd','tools/battlefield_support_self_test.gd','tools/environment_self_test.gd',
-    'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_hud_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/retro_sfx_self_test.gd','tools/afterburner_self_test.gd','tools/hypersonic_self_test.gd','tools/countermeasure_self_test.gd','tools/player_missile_self_test.gd','tools/player_mount_self_test.gd',
+    'tools/strike_ordnance_self_test.gd','tools/tech_progression_self_test.gd','tools/boss_hud_self_test.gd','tools/boss_signature_self_test.gd','tools/combat_art_self_test.gd','tools/retro_sfx_self_test.gd','tools/weather_audio_self_test.gd','tools/afterburner_self_test.gd','tools/hypersonic_self_test.gd','tools/countermeasure_self_test.gd','tools/player_missile_self_test.gd','tools/player_mount_self_test.gd',
     'data/weapons.json','data/generators.json','data/airframes.json','data/support_systems.json','data/battlefield_support.json',
     'data/enemies.json','data/missions.json','data/secret_missions.json','data/spawn_profiles.json','data/environment_profiles.json','data/cinematics.json','data/campaign.json','data/campaign_world.json','data/player_craft.json','data/player_mounts.json',
     'docs/90S_SHOOTER_BIBLE.md','docs/CAMPAIGN_CANON.md','docs/CRAFT_ALTITUDE_SYSTEM.md','docs/VX94_COMBAT_ART_DIRECTION.md','docs/STRATEGIC_ORBITAL_ENDGAME.md','docs/ARCHITECTURE.md'
@@ -308,7 +308,7 @@ $VisualQaErrors = $null
 [System.Management.Automation.Language.Parser]::ParseFile($VisualQaScriptPath, [ref]$VisualQaTokens, [ref]$VisualQaErrors) | Out-Null
 if ($VisualQaErrors.Count -gt 0) { throw "Visual QA script has PowerShell parser errors: $($VisualQaErrors[0].Message)" }
 $VisualQaText = Get-Content -Raw $VisualQaScriptPath
-Assert-Contains $VisualQaText @('startup_evavo_ident','startup_vx94_transform','startup_title_prompt','front_main_menu','front_sortie_bay','front_modes','front_options_access','front_flight_controls','front_flight_controls_advanced','front_intelligence','front_secret_operations','front_branch_decision','pause_command','pause_options','pause_restart_confirmation','campaign_credits','mission_30_final_boss','hud_objective_compact','hud_missile_warning','debrief_success') 'Visual QA representative matrix'
+Assert-Contains $VisualQaText @('startup_evavo_ident','startup_vx94_transform','startup_title_prompt','front_main_menu','front_sortie_bay','front_stores_schematic','front_modes','front_options_access','front_flight_controls','front_flight_controls_advanced','front_intelligence','front_secret_operations','front_branch_decision','pause_command','pause_options','pause_restart_confirmation','campaign_credits','mission_30_final_boss','hud_mission_ingress','hud_radio_receive','hud_radio_priority','hud_objective_compact','hud_missile_warning','vx94_bomber_bay_closed','vx94_bomber_bay_opening','vx94_bomber_bay_open','vx94_fighter_strategic_bay_open','vx94_bomber_strategic_bay_open','debrief_success') 'Visual QA representative matrix'
 $PlaytestTelemetryScriptPath = Join-Path $Root 'tools/run_playtest_telemetry.ps1'
 $PlaytestTelemetryTokens = $null
 $PlaytestTelemetryErrors = $null
@@ -333,9 +333,12 @@ Write-Host 'Running Godot editor import/smoke test...' -ForegroundColor DarkCyan
 if ($LASTEXITCODE -ne 0) { throw "Godot headless validation failed with exit code $LASTEXITCODE" }
 
 $Tests = @(
+    'route_timing_self_test.gd',
+    'flight_camera_self_test.gd',
+    'weather_self_test.gd',
     'product_identity_self_test.gd','input_bindings_self_test.gd','settings_self_test.gd','music_self_test.gd','presentation_feedback_self_test.gd','difficulty_self_test.gd','startup_sequence_self_test.gd','attract_mode_self_test.gd','mission_radio_self_test.gd','campaign_cinematic_self_test.gd','campaign_branch_self_test.gd','campaign_journey_self_test.gd','intelligence_database_self_test.gd','secret_missions_self_test.gd','credits_self_test.gd','game_modes_self_test.gd','art_production_coverage_self_test.gd','runtime_self_test.gd','reward_self_test.gd','service_self_test.gd','mission_flow_self_test.gd','pause_self_test.gd','save_recovery_self_test.gd',
     'encounter_self_test.gd','movement_pattern_self_test.gd','support_self_test.gd','craft_form_self_test.gd','evasive_roll_self_test.gd','battlefield_support_self_test.gd','environment_self_test.gd',
-    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_hud_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','retro_sfx_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','countermeasure_self_test.gd','player_missile_self_test.gd','player_mount_self_test.gd'
+    'strike_ordnance_self_test.gd','tech_progression_self_test.gd','boss_hud_self_test.gd','boss_signature_self_test.gd','combat_art_self_test.gd','combat_impact_self_test.gd','combat_impact_runtime_test.gd','retro_sfx_self_test.gd','weather_audio_self_test.gd','afterburner_self_test.gd','hypersonic_self_test.gd','hypersonic_propulsion_self_test.gd','countermeasure_self_test.gd','player_missile_self_test.gd','player_mount_self_test.gd'
 )
 foreach ($Test in $Tests) {
     Write-Host "Running $Test..." -ForegroundColor DarkCyan
@@ -343,6 +346,13 @@ foreach ($Test in $Tests) {
     for ($Attempt = 1; $Attempt -le 5; $Attempt++) {
         if ($Test -eq 'campaign_journey_self_test.gd') {
             & $Godot --headless --path $Root --script "res://tools/$Test" -- --campaign-journey
+        } elseif ($Test -eq 'combat_impact_runtime_test.gd') {
+            # This test must exercise the live lethality path. Passing the
+            # visual-capture invulnerability switch made every collision a
+            # no-op and caused the release gate to report a false failure.
+            & $Godot --headless --path $Root --script "res://tools/$Test" -- --capture-gameplay
+        } elseif ($Test -in @('route_timing_self_test.gd', 'flight_camera_self_test.gd', 'weather_self_test.gd')) {
+            & $Godot --headless --path $Root --script "res://tools/$Test" -- --capture-gameplay --capture-invulnerable
         } else {
             & $Godot --headless --path $Root --script "res://tools/$Test"
         }

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "b",
+    "removed_pixels": 459,
+    "maximum_removed_alpha": 3,
+    "retained_alpha_mass_fraction": 0.9988326471382862,
+    "all_pixels_alpha_above_4_exact": true
+  },
+  {
+    "id": "c",
+    "removed_pixels": 421,
+    "maximum_removed_alpha": 3,
+    "retained_alpha_mass_fraction": 0.9978841166832239,
+    "all_pixels_alpha_above_4_exact": true
+  },
+  {
+    "id": "d",
+    "removed_pixels": 384,
+    "maximum_removed_alpha": 3,
+    "retained_alpha_mass_fraction": 0.9981549533698066,
+    "all_pixels_alpha_above_4_exact": true
+  }
+]

@@ -1,0 +1,245 @@
+{
+  "rows": [
+    {
+      "decal_alpha_mass": 13.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_left",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 35.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_left",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 51.0705885887146,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_left",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 13.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "left",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 35.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "left",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 51.0705885887146,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "left",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 13.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "neutral",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 35.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "neutral",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 51.0705885887146,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "neutral",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 13.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "right",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 35.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "right",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 51.0705885887146,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "right",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 13.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_right",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 35.0,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_right",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 51.0705885887146,
+      "form": "fighter",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_right",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 22.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_left",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 61.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_left",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 61.7764711380005,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_left",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 22.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "left",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 61.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "left",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 61.7764711380005,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "left",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 22.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "neutral",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 61.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "neutral",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 61.7764711380005,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "neutral",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 22.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "right",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 61.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "right",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 61.7764711380005,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "right",
+      "stage": "critical"
+    },
+    {
+      "decal_alpha_mass": 22.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_right",
+      "stage": "light"
+    },
+    {
+      "decal_alpha_mass": 61.0,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_right",
+      "stage": "damaged"
+    },
+    {
+      "decal_alpha_mass": 61.7764711380005,
+      "form": "bomber",
+      "outside_fraction": 0.0,
+      "outside_hull_alpha_mass": 0.0,
+      "pose": "hard_right",
+      "stage": "critical"
+    }
+  ],
+  "scope": "Static authored scar overlay vs current bank hull; excludes separate smoke/fire effects. Diagnostic, not an acceptance threshold."
+}

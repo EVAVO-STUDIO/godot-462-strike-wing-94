@@ -1,0 +1,48 @@
+{
+  "schema_version": 2,
+  "anchor": [
+    32,
+    38
+  ],
+  "asset_family": "vx94_damage_registered_v2",
+  "frames": [
+    {
+      "file": "bomber_critical.png",
+      "sha256": "ec379425e0f24b82842e07798e10ada3930fdf6919b03c4427b8e1bc4767fd6f"
+    },
+    {
+      "file": "bomber_damaged.png",
+      "sha256": "10bc6c3e20fbda49aa438a907f29b9ed5410cfe7f9a23a32ddf95234b0c62c35"
+    },
+    {
+      "file": "bomber_light.png",
+      "sha256": "f3d6af4f9e7c22bd506f0ca651490647db1e40e7e8a9bb761960f39ba611501a"
+    },
+    {
+      "file": "fighter_critical.png",
+      "sha256": "ac7e9136f90afd41d183ffb62e99cf3cf422b9d66155fd4ea23a052ecffc4e14"
+    },
+    {
+      "file": "fighter_damaged.png",
+      "sha256": "033ca64ab3313d02948f5e74b648f4673ffed8e494d24e169f1fa46bf6655c26"
+    },
+    {
+      "file": "fighter_light.png",
+      "sha256": "f2a8a1b552ce18364a5be791e8ecd7a115b9604e16203fad223f91a47955ad13"
+    }
+  ],
+  "review": {
+    "status": "Native critical-damage fighter, bomber, hard bank and hypersonic stills inspected; 315 recorded native frames retained.",
+    "transform_stage_combinations": 60,
+    "bank_stage_combinations": 30,
+    "outside_hull_alpha_mass": 0,
+    "native_capture": "work/vx94_transform_v2/runtime_review/work/damage_motion_v2"
+  },
+  "source": "Preserved authored v1 material scars, repositioned and nearest sampled with EVAVO Art Studio",
+  "canvas": [
+    64,
+    72
+  ],
+  "runtime_directory": "assets/runtime/craft/vx94/gameplay/damage",
+  "request": "assets/source/craft/vx94/damage_v2/art_studio_request.json"
+}

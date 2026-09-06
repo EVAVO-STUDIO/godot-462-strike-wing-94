@@ -1,0 +1,422 @@
+[
+  {
+    "id": "point_defence_pod_fighter_scarred_hard_left",
+    "changed_module_pixels": 10,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_burnt_hard_left",
+    "changed_module_pixels": 27,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_scarred_left",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_burnt_left",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_scarred_neutral",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_burnt_neutral",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_scarred_right",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_burnt_right",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_scarred_hard_right",
+    "changed_module_pixels": 12,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_burnt_hard_right",
+    "changed_module_pixels": 28,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_scarred_hard_left",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_burnt_hard_left",
+    "changed_module_pixels": 30,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_scarred_left",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_burnt_left",
+    "changed_module_pixels": 36,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_scarred_neutral",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_burnt_neutral",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_scarred_right",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_burnt_right",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_scarred_hard_right",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_burnt_hard_right",
+    "changed_module_pixels": 30,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_scarred_hard_left",
+    "changed_module_pixels": 10,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_burnt_hard_left",
+    "changed_module_pixels": 27,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_scarred_left",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_burnt_left",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_scarred_neutral",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_burnt_neutral",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_scarred_right",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_burnt_right",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_scarred_hard_right",
+    "changed_module_pixels": 12,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_burnt_hard_right",
+    "changed_module_pixels": 28,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_scarred_hard_left",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_burnt_hard_left",
+    "changed_module_pixels": 30,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_scarred_left",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_burnt_left",
+    "changed_module_pixels": 36,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_scarred_neutral",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_burnt_neutral",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_scarred_right",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_burnt_right",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_scarred_hard_right",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_burnt_hard_right",
+    "changed_module_pixels": 30,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_scarred_hard_left",
+    "changed_module_pixels": 10,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_burnt_hard_left",
+    "changed_module_pixels": 27,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_scarred_left",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_burnt_left",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_scarred_neutral",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_burnt_neutral",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_scarred_right",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_burnt_right",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_scarred_hard_right",
+    "changed_module_pixels": 12,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_burnt_hard_right",
+    "changed_module_pixels": 28,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_scarred_hard_left",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_burnt_hard_left",
+    "changed_module_pixels": 30,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_scarred_left",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_burnt_left",
+    "changed_module_pixels": 36,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_scarred_neutral",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_burnt_neutral",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_scarred_right",
+    "changed_module_pixels": 15,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_burnt_right",
+    "changed_module_pixels": 35,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_scarred_hard_right",
+    "changed_module_pixels": 13,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_burnt_hard_right",
+    "changed_module_pixels": 30,
+    "damage_outside_module": 0,
+    "airframe_visible_exterior_unchanged": true,
+    "alpha_unchanged": true
+  }
+]

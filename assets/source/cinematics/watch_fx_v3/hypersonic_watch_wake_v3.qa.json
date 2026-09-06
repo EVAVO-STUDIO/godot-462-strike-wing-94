@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "issues": [
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to watch_01",
+      "severity": "info",
+      "frame": "watch_03",
+      "animation": null
+    }
+  ],
+  "metrics": {
+    "frames": 4,
+    "animations": 1,
+    "empty_frames": 0,
+    "duplicate_frames": 1,
+    "event_markers": 0,
+    "warnings": 0,
+    "errors": 0,
+    "max_area_variance": 0.020772,
+    "max_brightness_range": 0.023172,
+    "max_centroid_jump": 0.000063,
+    "max_loop_delta": 0.000391,
+    "max_ground_contact_shift": 0.001216,
+    "max_silhouette_delta": 0.293367,
+    "max_palette_distance": 0.566667,
+    "max_palette_colors": 155
+  }
+}

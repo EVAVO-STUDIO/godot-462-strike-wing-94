@@ -1,0 +1,310 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "e8ec59fe3e1ff88df4c19f92b57cf12c73f37ba7db92b383f349e236c7c2b692",
+  "planBytesSha256": "15bfc3991f991c03339d106c29c818a2ff9251356b0b3d68f432c55483a7f52c",
+  "sandboxId": "hypersonic-low-wisp-resampling-cleanup",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:aeb285ebaed1e9fb29610b6f",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_350c0a87b2840b0e9e7b222be5926e3d",
+      "path": "work/low_cloud_companions_v3/native/c.png",
+      "sha256": "2260d51dd930e3e0ba5a9dbf8a1162db38b95661f970ed58f3842c3b5ae53869",
+      "bytes": 7502
+    },
+    {
+      "sourceId": "source_978882ae20715c2bf68d2f0314d69029",
+      "path": "work/low_cloud_companions_v3/native/b.png",
+      "sha256": "0048e1ba29996736c2b5871b779c2daa7c41a56b7ef2cbd77a5f9ce4baaafd87",
+      "bytes": 12025
+    },
+    {
+      "sourceId": "source_fbd932eec97e2c3bf34239306f041b11",
+      "path": "work/low_cloud_companions_v3/native/d.png",
+      "sha256": "4e8aa05ffc0443609be823606d6b73fcd4169beadadd280ccc396802b0a5b334",
+      "bytes": 6604
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "b",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\low_cloud_companions_v3\\native\\b.png",
+      "before": {
+        "dimensions": {
+          "width": 192,
+          "height": 64
+        },
+        "alpha": {
+          "transparentPixels": 8461,
+          "partialPixels": 3791,
+          "opaquePixels": 36
+        },
+        "alphaBoundingBox": [
+          10,
+          4,
+          181,
+          60
+        ],
+        "pixelSha256": "103da052602864b3c2ad5e50eb9fb175f64c4619964f8a25a25f89290c7f21b8"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "103da052602864b3c2ad5e50eb9fb175f64c4619964f8a25a25f89290c7f21b8",
+          "afterPixelSha256": "266ebf4bd4905271cd804c1d82b57ea164b0be05f9be2298c40bd84d08d1abb6",
+          "dimensions": {
+            "width": 192,
+            "height": 64
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "b.png",
+          "sha256": "5ddafe5cd9325bc93654a206039b340668e01c0258a4953aaf99548b0bb0c98a",
+          "bytes": 11271,
+          "role": "image",
+          "dimensions": {
+            "width": 192,
+            "height": 64
+          },
+          "alpha": {
+            "transparentPixels": 8920,
+            "partialPixels": 3332,
+            "opaquePixels": 36
+          },
+          "alphaBoundingBox": [
+            11,
+            6,
+            181,
+            59
+          ],
+          "pixelSha256": "266ebf4bd4905271cd804c1d82b57ea164b0be05f9be2298c40bd84d08d1abb6"
+        }
+      ]
+    },
+    {
+      "taskId": "c",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\low_cloud_companions_v3\\native\\c.png",
+      "before": {
+        "dimensions": {
+          "width": 192,
+          "height": 64
+        },
+        "alpha": {
+          "transparentPixels": 9900,
+          "partialPixels": 2369,
+          "opaquePixels": 19
+        },
+        "alphaBoundingBox": [
+          5,
+          13,
+          187,
+          51
+        ],
+        "pixelSha256": "0ddd6caa4cfe9f5542c82c7924495183c66e21e67f7a3fef9c258898ed04588a"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "0ddd6caa4cfe9f5542c82c7924495183c66e21e67f7a3fef9c258898ed04588a",
+          "afterPixelSha256": "444ba3d3b433a7b615b3b03ddcb0fd577d014ee51b77a085334ca03b5b8b1509",
+          "dimensions": {
+            "width": 192,
+            "height": 64
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "c.png",
+          "sha256": "28e2c498b9e2c377174344a84e870284632e1b4e3f5e366f707a839713b27ecc",
+          "bytes": 6782,
+          "role": "image",
+          "dimensions": {
+            "width": 192,
+            "height": 64
+          },
+          "alpha": {
+            "transparentPixels": 10321,
+            "partialPixels": 1948,
+            "opaquePixels": 19
+          },
+          "alphaBoundingBox": [
+            6,
+            15,
+            185,
+            50
+          ],
+          "pixelSha256": "444ba3d3b433a7b615b3b03ddcb0fd577d014ee51b77a085334ca03b5b8b1509"
+        }
+      ]
+    },
+    {
+      "taskId": "d",
+      "kind": "image",
+      "status": "passed",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\low_cloud_companions_v3\\native\\d.png",
+      "before": {
+        "dimensions": {
+          "width": 192,
+          "height": 64
+        },
+        "alpha": {
+          "transparentPixels": 10218,
+          "partialPixels": 1937,
+          "opaquePixels": 133
+        },
+        "alphaBoundingBox": [
+          5,
+          20,
+          188,
+          47
+        ],
+        "pixelSha256": "2dd75cb00647ed38300fb5e5f1e80bbb9b519e0fbafa6dfc22a25bdba4eaac99"
+      },
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "beforePixelSha256": "2dd75cb00647ed38300fb5e5f1e80bbb9b519e0fbafa6dfc22a25bdba4eaac99",
+          "afterPixelSha256": "9197d8f7c01cb61fc375dae3bc8d7cfcbd0975c91df9aaac4c88dbb3149aeb05",
+          "dimensions": {
+            "width": 192,
+            "height": 64
+          }
+        }
+      ],
+      "transparencyAdmission": null,
+      "outputs": [
+        {
+          "path": "d.png",
+          "sha256": "fc79e3ed618fc75e563b63d29759111a0bf2b8d2c5742aedd2a8ad5d90d2c57c",
+          "bytes": 5851,
+          "role": "image",
+          "dimensions": {
+            "width": 192,
+            "height": 64
+          },
+          "alpha": {
+            "transparentPixels": 10602,
+            "partialPixels": 1553,
+            "opaquePixels": 133
+          },
+          "alphaBoundingBox": [
+            5,
+            22,
+            187,
+            46
+          ],
+          "pixelSha256": "9197d8f7c01cb61fc375dae3bc8d7cfcbd0975c91df9aaac4c88dbb3149aeb05"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "b.png",
+      "sha256": "5ddafe5cd9325bc93654a206039b340668e01c0258a4953aaf99548b0bb0c98a",
+      "bytes": 11271,
+      "role": "image",
+      "dimensions": {
+        "width": 192,
+        "height": 64
+      },
+      "alpha": {
+        "transparentPixels": 8920,
+        "partialPixels": 3332,
+        "opaquePixels": 36
+      },
+      "alphaBoundingBox": [
+        11,
+        6,
+        181,
+        59
+      ],
+      "pixelSha256": "266ebf4bd4905271cd804c1d82b57ea164b0be05f9be2298c40bd84d08d1abb6"
+    },
+    {
+      "path": "c.png",
+      "sha256": "28e2c498b9e2c377174344a84e870284632e1b4e3f5e366f707a839713b27ecc",
+      "bytes": 6782,
+      "role": "image",
+      "dimensions": {
+        "width": 192,
+        "height": 64
+      },
+      "alpha": {
+        "transparentPixels": 10321,
+        "partialPixels": 1948,
+        "opaquePixels": 19
+      },
+      "alphaBoundingBox": [
+        6,
+        15,
+        185,
+        50
+      ],
+      "pixelSha256": "444ba3d3b433a7b615b3b03ddcb0fd577d014ee51b77a085334ca03b5b8b1509"
+    },
+    {
+      "path": "d.png",
+      "sha256": "fc79e3ed618fc75e563b63d29759111a0bf2b8d2c5742aedd2a8ad5d90d2c57c",
+      "bytes": 5851,
+      "role": "image",
+      "dimensions": {
+        "width": 192,
+        "height": 64
+      },
+      "alpha": {
+        "transparentPixels": 10602,
+        "partialPixels": 1553,
+        "opaquePixels": 133
+      },
+      "alphaBoundingBox": [
+        5,
+        22,
+        187,
+        46
+      ],
+      "pixelSha256": "9197d8f7c01cb61fc375dae3bc8d7cfcbd0975c91df9aaac4c88dbb3149aeb05"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 3,
+    "externalSourceBytes": 26131,
+    "plannedMaximumOutputFiles": 4,
+    "taskOutputFiles": 3,
+    "taskOutputBytes": 23904,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "e7cad8b9dcddce02734b40b7ff957fc455c7485f7d0db6b38b58e29d8d27a18b"
+}

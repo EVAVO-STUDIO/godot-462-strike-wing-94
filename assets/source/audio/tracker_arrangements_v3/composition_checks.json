@@ -1,0 +1,456 @@
+[
+  {
+    "id": "hangar_signal",
+    "bars": 32,
+    "seconds_expected": 71.11111111111111,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 5,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 5,
+        "bars": 8
+      },
+      {
+        "name": "answer",
+        "start_bar": 13,
+        "bars": 4
+      },
+      {
+        "name": "break",
+        "start_bar": 17,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 21,
+        "bars": 8
+      },
+      {
+        "name": "outro",
+        "start_bar": 29,
+        "bars": 4
+      }
+    ]
+  },
+  {
+    "id": "title_vector",
+    "bars": 32,
+    "seconds_expected": 66.20689655172414,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 7,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 2
+      },
+      {
+        "name": "theme",
+        "start_bar": 3,
+        "bars": 6
+      },
+      {
+        "name": "answer",
+        "start_bar": 9,
+        "bars": 4
+      },
+      {
+        "name": "drive",
+        "start_bar": 13,
+        "bars": 8
+      },
+      {
+        "name": "break",
+        "start_bar": 21,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 25,
+        "bars": 6
+      },
+      {
+        "name": "outro",
+        "start_bar": 31,
+        "bars": 2
+      }
+    ]
+  },
+  {
+    "id": "salt_wake",
+    "bars": 32,
+    "seconds_expected": 61.935483870967744,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 8,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 5,
+        "bars": 8
+      },
+      {
+        "name": "answer",
+        "start_bar": 13,
+        "bars": 4
+      },
+      {
+        "name": "break",
+        "start_bar": 17,
+        "bars": 4
+      },
+      {
+        "name": "drive",
+        "start_bar": 21,
+        "bars": 8
+      },
+      {
+        "name": "outro",
+        "start_bar": 29,
+        "bars": 4
+      }
+    ]
+  },
+  {
+    "id": "furnace_alarm",
+    "bars": 32,
+    "seconds_expected": 51.891891891891895,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 8,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 2
+      },
+      {
+        "name": "drive",
+        "start_bar": 3,
+        "bars": 6
+      },
+      {
+        "name": "answer",
+        "start_bar": 9,
+        "bars": 4
+      },
+      {
+        "name": "drive",
+        "start_bar": 13,
+        "bars": 8
+      },
+      {
+        "name": "break",
+        "start_bar": 21,
+        "bars": 2
+      },
+      {
+        "name": "theme",
+        "start_bar": 23,
+        "bars": 6
+      },
+      {
+        "name": "outro",
+        "start_bar": 29,
+        "bars": 4
+      }
+    ]
+  },
+  {
+    "id": "machine_pressure",
+    "bars": 32,
+    "seconds_expected": 53.333333333333336,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 7,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 5,
+        "bars": 4
+      },
+      {
+        "name": "answer",
+        "start_bar": 9,
+        "bars": 4
+      },
+      {
+        "name": "drive",
+        "start_bar": 13,
+        "bars": 8
+      },
+      {
+        "name": "break",
+        "start_bar": 21,
+        "bars": 4
+      },
+      {
+        "name": "drive",
+        "start_bar": 25,
+        "bars": 6
+      },
+      {
+        "name": "outro",
+        "start_bar": 31,
+        "bars": 2
+      }
+    ]
+  },
+  {
+    "id": "dead_factory",
+    "bars": 32,
+    "seconds_expected": 65.08474576271186,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 6,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 8
+      },
+      {
+        "name": "theme",
+        "start_bar": 9,
+        "bars": 4
+      },
+      {
+        "name": "answer",
+        "start_bar": 13,
+        "bars": 4
+      },
+      {
+        "name": "break",
+        "start_bar": 17,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 21,
+        "bars": 8
+      },
+      {
+        "name": "outro",
+        "start_bar": 29,
+        "bars": 4
+      }
+    ]
+  },
+  {
+    "id": "ghost_signal",
+    "bars": 32,
+    "seconds_expected": 49.23076923076923,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 6,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 2
+      },
+      {
+        "name": "theme",
+        "start_bar": 3,
+        "bars": 6
+      },
+      {
+        "name": "break",
+        "start_bar": 9,
+        "bars": 2
+      },
+      {
+        "name": "answer",
+        "start_bar": 11,
+        "bars": 6
+      },
+      {
+        "name": "drive",
+        "start_bar": 17,
+        "bars": 8
+      },
+      {
+        "name": "theme",
+        "start_bar": 25,
+        "bars": 6
+      },
+      {
+        "name": "outro",
+        "start_bar": 31,
+        "bars": 2
+      }
+    ]
+  },
+  {
+    "id": "black_sky",
+    "bars": 32,
+    "seconds_expected": 60.95238095238095,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 6,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 8
+      },
+      {
+        "name": "theme",
+        "start_bar": 9,
+        "bars": 8
+      },
+      {
+        "name": "break",
+        "start_bar": 17,
+        "bars": 4
+      },
+      {
+        "name": "answer",
+        "start_bar": 21,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 25,
+        "bars": 4
+      },
+      {
+        "name": "outro",
+        "start_bar": 29,
+        "bars": 4
+      }
+    ]
+  },
+  {
+    "id": "thin_blue",
+    "bars": 32,
+    "seconds_expected": 55.65217391304348,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 8,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 5,
+        "bars": 8
+      },
+      {
+        "name": "answer",
+        "start_bar": 13,
+        "bars": 4
+      },
+      {
+        "name": "break",
+        "start_bar": 17,
+        "bars": 4
+      },
+      {
+        "name": "drive",
+        "start_bar": 21,
+        "bars": 8
+      },
+      {
+        "name": "outro",
+        "start_bar": 29,
+        "bars": 4
+      }
+    ]
+  },
+  {
+    "id": "ark_descent",
+    "bars": 32,
+    "seconds_expected": 46.829268292682926,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 7,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 2
+      },
+      {
+        "name": "drive",
+        "start_bar": 3,
+        "bars": 6
+      },
+      {
+        "name": "answer",
+        "start_bar": 9,
+        "bars": 4
+      },
+      {
+        "name": "drive",
+        "start_bar": 13,
+        "bars": 8
+      },
+      {
+        "name": "break",
+        "start_bar": 21,
+        "bars": 2
+      },
+      {
+        "name": "drive",
+        "start_bar": 23,
+        "bars": 8
+      },
+      {
+        "name": "outro",
+        "start_bar": 31,
+        "bars": 2
+      }
+    ]
+  },
+  {
+    "id": "after_action",
+    "bars": 32,
+    "seconds_expected": 83.47826086956522,
+    "retained_tempo_harmony_bass_pitch_vocabulary": true,
+    "unique_bar_patterns": 4,
+    "sections": [
+      {
+        "name": "intro",
+        "start_bar": 1,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 5,
+        "bars": 8
+      },
+      {
+        "name": "answer",
+        "start_bar": 13,
+        "bars": 4
+      },
+      {
+        "name": "break",
+        "start_bar": 17,
+        "bars": 4
+      },
+      {
+        "name": "theme",
+        "start_bar": 21,
+        "bars": 4
+      },
+      {
+        "name": "outro",
+        "start_bar": 25,
+        "bars": 8
+      }
+    ]
+  }
+]

@@ -1,0 +1,992 @@
+{
+  "schema": "hypersonic_vx94_pitch_loadout_runtime_v1",
+  "status": "reviewed_native_runtime",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "forms": [
+    "fighter",
+    "bomber"
+  ],
+  "pitch_states": [
+    "dive_18",
+    "dive_12",
+    "dive_06",
+    "neutral",
+    "climb_06",
+    "climb_12",
+    "climb_18"
+  ],
+  "weapon_families": [
+    "ballistic",
+    "needle_rail",
+    "storm_cannon",
+    "plasma_lance"
+  ],
+  "hardware_states": 4,
+  "pitch_frames": 14,
+  "weapon_pitch_composites": 224,
+  "source_policy": "Immutable reviewed pitch airframes plus retained separated weapon layers.",
+  "files": [
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/fighter_dive_18.png",
+      "sha256": "01429A24A7F1405B32ECCFEFBE195FB979B3C1A2A2535E425956B1F583F0F78C"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_18_0.png",
+      "sha256": "C6A8DA19628C839EBC7F9019AD3306E34C1C7BE1172DC7B85B2FF439D76AE65E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_18_1.png",
+      "sha256": "5A77563C7194F97897DB4F252105DAAB1A2105AB4350152CB6F3E4009B2887DC"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_18_2.png",
+      "sha256": "B5FC4D9F89F3933E2D1F63AC1AC9B277678ADE2B28E871DB18D8CBEBC63C1C5E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_18_3.png",
+      "sha256": "BFFD212191107140AA689F4795654D0D23D31AE7FAF7E9B7DF6F8A5115490966"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_18_0.png",
+      "sha256": "96AAF9866D530C6583F89E7DB654FB992BB5CFF4497A3C1BFDDBBA375F0C64B5"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_18_1.png",
+      "sha256": "AD3BADFA8C91C0BFD1A02BFB3B6128B027BD5E0E0C1277E6C97C298290D236AA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_18_2.png",
+      "sha256": "250F203C0A97323542472C71060CA12AEBA98E90BCBD62F601C4E48EB5BB185B"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_18_3.png",
+      "sha256": "CD11EF91B8891A1CA85F768D79219833D3EBAE49E2034C1D6BD89DEDA3954215"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_18_0.png",
+      "sha256": "96AAF9866D530C6583F89E7DB654FB992BB5CFF4497A3C1BFDDBBA375F0C64B5"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_18_1.png",
+      "sha256": "6D6FE6CB7A0267338D97A26538351081D67C5B31430E9E2375D5FB17DE15C5C5"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_18_2.png",
+      "sha256": "3C37F6172BBEC727FDDF1C1E58FE33F5D2171AFB4ECA55A35CCDF6BF1D62A376"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_18_3.png",
+      "sha256": "B07D6AA6586DE381C3DAA9D40732FDC414F591034A60A105227470806B5D2438"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_18_0.png",
+      "sha256": "96AAF9866D530C6583F89E7DB654FB992BB5CFF4497A3C1BFDDBBA375F0C64B5"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_18_1.png",
+      "sha256": "7D1C858413AB5AC2BE33C909FB26E13C2A3F7BFB7020316854C3E18BA4F3DD87"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_18_2.png",
+      "sha256": "66FCCCC1A7EDB192937C3A2696483DB45495958B68FDBD55BFFDC2932184982A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_18_3.png",
+      "sha256": "E7C77AC78A3B6C451C7F19A7E1222E4BF9FDA9C209B3FD614DEA52AFE21767B6"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/fighter_dive_12.png",
+      "sha256": "845A5CF6C4B12437D08694834B340695C16C5BE48D5221050084C29CFE16D741"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_12_0.png",
+      "sha256": "1A1DEF995D64D35DDE2B77D362C04B6CED9F6505BDB263A900D3475D776E9C05"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_12_1.png",
+      "sha256": "5C41730038445BF947D0A3B24679338EC70C545671F77D95F9C69A563ED0F36D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_12_2.png",
+      "sha256": "BD826CC103CC9DA4D853660217E9E62F49E763FD95FF475A1BF70649B074871D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_12_3.png",
+      "sha256": "08CA0C2ADDF3A3716966FE4B4EAEBE49FC0A8DB7294CC041F478F6FD9EA372CB"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_12_0.png",
+      "sha256": "6499FDB3059DCFDF6CF3A44447CE9E6774BAA91302B276EFB75394076515ED73"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_12_1.png",
+      "sha256": "975512B3B81691F131DF7DC7DAF62D5B05AA014A768A7DA3F8A7957384F489E3"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_12_2.png",
+      "sha256": "E281D8DD8063E510415E8CC70A9F9208DEFD9F2710C2E2E13895D24C1394ADEE"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_12_3.png",
+      "sha256": "9D0D63BBEA04AFB01CFC4B2145748A2BADA917CEC7A9413A7ACFFEAB4721E19F"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_12_0.png",
+      "sha256": "6499FDB3059DCFDF6CF3A44447CE9E6774BAA91302B276EFB75394076515ED73"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_12_1.png",
+      "sha256": "99CA953321B0B69A5C3D46BEEC277C9FADEF8474D72E429F7E33604869361199"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_12_2.png",
+      "sha256": "56635D31C9AF7A53EF3643E9EAFF9742DE97B30B83566BC8FE6E7A6C438D0AE5"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_12_3.png",
+      "sha256": "D7322A7EFE71CC14E4D0ED7CB2EC742B47C8532F0156D50577C39E0BEB391A8E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_12_0.png",
+      "sha256": "6499FDB3059DCFDF6CF3A44447CE9E6774BAA91302B276EFB75394076515ED73"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_12_1.png",
+      "sha256": "7A6228F914F569AB2C4F9EA2E859E164CDA096883A863BB391CE6E596AAB9FAE"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_12_2.png",
+      "sha256": "A1F671080CB6B5B696F8E36875D704088804D1A77BC1A45DC4A10DC88552EE04"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_12_3.png",
+      "sha256": "468365F7064BAB69D82DCA0DF68CAAC1330C8D5BB301CAE4C7194BE21E8C6962"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/fighter_dive_06.png",
+      "sha256": "1E0EEB75C6AEB21000FD306141FA7868B0B61B2C44FBB39EEEBDF7B95772DE51"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_06_0.png",
+      "sha256": "7DDBB419F121DBDE1704A01C6C7B642870827423CCE9EDB13C78C2A300E35517"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_06_1.png",
+      "sha256": "EF998661A2478EC1602D498D79016CC9C17A9248A6DE9FA51062497132185F7F"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_06_2.png",
+      "sha256": "EEB55DC6F47BE00D6AE725CB30CED13A12840E5D4EC803E0168173AEE71FC963"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_dive_06_3.png",
+      "sha256": "A367613892FD3DF23BC5A5161DCA1E56305E59101FA18EEC9A7A5606342E9446"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_06_0.png",
+      "sha256": "CBCC070A058E5EBCE186ADF615849763C31238565BC9566234488AB8D4911048"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_06_1.png",
+      "sha256": "897E8AD5A30EC1AD0E401E2521FB9ECF4452ECB20F324093E6E20B368903EB02"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_06_2.png",
+      "sha256": "8287AC5AE5EE34B7AA15DBAEA8567D6419C9B396FC52243394CA3E1E87E38179"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_dive_06_3.png",
+      "sha256": "833101BBA1C449F7FDECB924E86B677F569B6CB786C2418B2F2E89CF46931BED"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_06_0.png",
+      "sha256": "CBCC070A058E5EBCE186ADF615849763C31238565BC9566234488AB8D4911048"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_06_1.png",
+      "sha256": "6BCB8086C29A715D60831E7DA2A9597F782E39901212B4A3CD33AD00B505B437"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_06_2.png",
+      "sha256": "FA9953CA229BFA78ED0E628E08949AAEC8F1D644674D5E3D59B9DC6621350322"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_dive_06_3.png",
+      "sha256": "D01D4AAB2F6BEF728C6884CE691F6AB0A096A27EDC547752ACC6112FD6A68798"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_06_0.png",
+      "sha256": "CBCC070A058E5EBCE186ADF615849763C31238565BC9566234488AB8D4911048"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_06_1.png",
+      "sha256": "2270DCBCF8CC593AF58AA8A319D4F64E938CB9FBA853A5EECBE4AB7101F4D103"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_06_2.png",
+      "sha256": "9A3AA1CE301F188B6557114DF7F5125746683111176AB83692ED1671BD6B4829"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_dive_06_3.png",
+      "sha256": "DD75EB3B2522D40A8CC1DCD503F15F571B8BC8F22EF606A0A054C9719E6F6F47"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/fighter_neutral.png",
+      "sha256": "487A7FC198D3FC015A3AB86C253BA0A713C26336817D2F596C6F3DA362A30592"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_neutral_0.png",
+      "sha256": "017A746A6BD6C82E576074E6C66549A0F978467A1A66FE202027011E750802EB"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_neutral_1.png",
+      "sha256": "4964ED03DF6473A06DEA56FCB490917D325AFADD43B9E12E3C0A8588E178E19A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_neutral_2.png",
+      "sha256": "B530CFD5BDE4D4D7204368B533FBC31DF310265AADA7290DF0271DE53EDB5BCF"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_neutral_3.png",
+      "sha256": "FCAD09FA10EA217EA133E712A6DAF6511D00147C58918EAD31BF117D22310297"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_neutral_0.png",
+      "sha256": "010F5D45914A458D5B7E0A5A615650427966364D36C544E7F7ECDD493711CF9A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_neutral_1.png",
+      "sha256": "CF9AC06882DBE2FC11555C4A176FC9C57E95241639A4030AEEBD08CA3FAE0A76"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_neutral_2.png",
+      "sha256": "24304D6ECDF154E87ED7FF30F310A3A9784A77741EAC873DEB2031E75785442D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_neutral_3.png",
+      "sha256": "6EB5C5A31B4259FFEAB41A87DC69BD2F001C5462F392777D0F3325F5FE43710E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_neutral_0.png",
+      "sha256": "010F5D45914A458D5B7E0A5A615650427966364D36C544E7F7ECDD493711CF9A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_neutral_1.png",
+      "sha256": "0FA7E6A543EDB784D38A96EFE2E814DC846ADA839F9B8E6CAA1EB73071190B7D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_neutral_2.png",
+      "sha256": "3125124DC1EBE8F6C028BB02A443A031668B6D2CEAC0B79CE8EDEAF2AAFAE3DD"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_neutral_3.png",
+      "sha256": "D3B30F0F0D948D5ACE071A8743B8F80CA9C5DD8B85973D7A2F56B6D8E757D937"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_neutral_0.png",
+      "sha256": "010F5D45914A458D5B7E0A5A615650427966364D36C544E7F7ECDD493711CF9A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_neutral_1.png",
+      "sha256": "B65262C2CA654E34D994A583054EFDAD5284916BEFEA278D728EE0124DABDD8C"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_neutral_2.png",
+      "sha256": "C2AA597853112B69F8FF91C46554CC5D1798C442943FFE92317C8DA0A8901498"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_neutral_3.png",
+      "sha256": "5B00F3437D780DBD013B97F713FE65B7DB8CE45ABFF40671FB8FC0911251062D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/fighter_climb_06.png",
+      "sha256": "487A7FC198D3FC015A3AB86C253BA0A713C26336817D2F596C6F3DA362A30592"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_06_0.png",
+      "sha256": "017A746A6BD6C82E576074E6C66549A0F978467A1A66FE202027011E750802EB"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_06_1.png",
+      "sha256": "4964ED03DF6473A06DEA56FCB490917D325AFADD43B9E12E3C0A8588E178E19A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_06_2.png",
+      "sha256": "B530CFD5BDE4D4D7204368B533FBC31DF310265AADA7290DF0271DE53EDB5BCF"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_06_3.png",
+      "sha256": "FCAD09FA10EA217EA133E712A6DAF6511D00147C58918EAD31BF117D22310297"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_06_0.png",
+      "sha256": "010F5D45914A458D5B7E0A5A615650427966364D36C544E7F7ECDD493711CF9A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_06_1.png",
+      "sha256": "CF9AC06882DBE2FC11555C4A176FC9C57E95241639A4030AEEBD08CA3FAE0A76"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_06_2.png",
+      "sha256": "24304D6ECDF154E87ED7FF30F310A3A9784A77741EAC873DEB2031E75785442D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_06_3.png",
+      "sha256": "6EB5C5A31B4259FFEAB41A87DC69BD2F001C5462F392777D0F3325F5FE43710E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_06_0.png",
+      "sha256": "010F5D45914A458D5B7E0A5A615650427966364D36C544E7F7ECDD493711CF9A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_06_1.png",
+      "sha256": "0FA7E6A543EDB784D38A96EFE2E814DC846ADA839F9B8E6CAA1EB73071190B7D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_06_2.png",
+      "sha256": "3125124DC1EBE8F6C028BB02A443A031668B6D2CEAC0B79CE8EDEAF2AAFAE3DD"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_06_3.png",
+      "sha256": "D3B30F0F0D948D5ACE071A8743B8F80CA9C5DD8B85973D7A2F56B6D8E757D937"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_06_0.png",
+      "sha256": "010F5D45914A458D5B7E0A5A615650427966364D36C544E7F7ECDD493711CF9A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_06_1.png",
+      "sha256": "B65262C2CA654E34D994A583054EFDAD5284916BEFEA278D728EE0124DABDD8C"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_06_2.png",
+      "sha256": "C2AA597853112B69F8FF91C46554CC5D1798C442943FFE92317C8DA0A8901498"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_06_3.png",
+      "sha256": "5B00F3437D780DBD013B97F713FE65B7DB8CE45ABFF40671FB8FC0911251062D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/fighter_climb_12.png",
+      "sha256": "979755FB54FC557FE8CCB7900B63C926381D5C031272287F178613E6FB8D23F5"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_12_0.png",
+      "sha256": "4D9BC392E61E77D20D3BD2D8860BE7D67F7F710474B4C17BD10F07C08EB675EF"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_12_1.png",
+      "sha256": "EE672A378766BCBD4E4231F739FA39B3C5DD38F9814AA58C989F151944FEF036"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_12_2.png",
+      "sha256": "8F7948BD82926E2684FEA153FA0A67B93E3A9F73DC4255FF588A7663598E9DC4"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_12_3.png",
+      "sha256": "6935B561BBE1082C8AE7D43D4B306388EE0AAEE85BC29E57DE1DA82A6534E822"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_12_0.png",
+      "sha256": "3E2DCCFEECDC18E838D80E699020F44B257AC85A842FD557263837995B589A33"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_12_1.png",
+      "sha256": "01329DD9A127E85CD2106891AD8FA40AC65455570994BE314F620C6A39DE0F56"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_12_2.png",
+      "sha256": "20B3B565422B798E98262BB082CE26A59F54235CDF5C7CFF1E6D2A314E346C97"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_12_3.png",
+      "sha256": "4E20B3E0DCA03968567FB4DC830C909764E66320AB13426E6EA5BB7C51F75125"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_12_0.png",
+      "sha256": "3E2DCCFEECDC18E838D80E699020F44B257AC85A842FD557263837995B589A33"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_12_1.png",
+      "sha256": "BFFE124BE19C4E08931BF8B076E9786680BD9286D411DA591C986C670C4724BC"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_12_2.png",
+      "sha256": "D4688B729BADEAF2FD2A884B561064BEB217D5AA1602AE944D0EDA2F4CB72B7D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_12_3.png",
+      "sha256": "34FA7B534D31032E1D76729D88836B826C15D54AD26A84E7B74B3370A5267FC8"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_12_0.png",
+      "sha256": "3E2DCCFEECDC18E838D80E699020F44B257AC85A842FD557263837995B589A33"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_12_1.png",
+      "sha256": "7DF9508A2BF5617DFD6540DC551F39C08029DAE1D6521714F545519A2E4E5579"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_12_2.png",
+      "sha256": "1C70C3C32107EB1DE30F3F687CBD9F00A53C0E782F6A106A17BD2D781017A192"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_12_3.png",
+      "sha256": "6FDBA48A182F1E10AAFF27AE6976B14F1B0860F4A4536A1371F2BEC870D31974"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/fighter_climb_18.png",
+      "sha256": "2DE5CAD02BA58D65B00199F197FE0F8F7C47BA746B0C3AAC6F4979503E358E1E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_18_0.png",
+      "sha256": "CEAFCFD13B4530C8C8F97E7A67E759106913FFE2E893EED221CBB99DB3F1A0C6"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_18_1.png",
+      "sha256": "4AC67563DC962EB395F8AB298D05FD8F4A04FE9B9911188747225A27415A5D38"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_18_2.png",
+      "sha256": "A173BB61F0479FC2DD1F5E95D5C0A4AB9D6B8C87CA9E3B9EFE626F92C3714F0C"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_fighter_climb_18_3.png",
+      "sha256": "2AAE0EC1C493D7C24C92DA115C159C95BCFB56F03483F281500CF32CC4A1DD7B"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_18_0.png",
+      "sha256": "144CA433A70CB92B6AA0D69F4E42C5B36347808BAD25B82572366B4BDECF8979"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_18_1.png",
+      "sha256": "60E669D160BA8D1F33F2D1132CAC8E414207479525FCFF8003A4F6299E1CE2EB"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_18_2.png",
+      "sha256": "3B189A0CD19BE567A64FC704E03BEFDB582295CD069EE65592C1963DCF85B64E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_fighter_climb_18_3.png",
+      "sha256": "B457607F9AEE633F0C13530BA1FE3CA1B39AD3117E4EACE95D1FDEF6ACC0EE70"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_18_0.png",
+      "sha256": "144CA433A70CB92B6AA0D69F4E42C5B36347808BAD25B82572366B4BDECF8979"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_18_1.png",
+      "sha256": "106105C5C272FEA99DD3E79ED04AD1A10B94A5E2155148541DE81A61B61448CA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_18_2.png",
+      "sha256": "874F62B2503FC0E6958EF88FDDADDD8CEC8F45FC8BC2680FE16C052A6D5D4BE6"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_fighter_climb_18_3.png",
+      "sha256": "7687F3CAF94E1B5CFADB5A335D488175E6C643F87C51C3F742A6494EA5A7A49D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_18_0.png",
+      "sha256": "144CA433A70CB92B6AA0D69F4E42C5B36347808BAD25B82572366B4BDECF8979"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_18_1.png",
+      "sha256": "A542D5FBBFF116FB68DC928CF869D5728B99756A969DA407B82ABB9C847DEFFC"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_18_2.png",
+      "sha256": "7E529BC1E45E62FA6CF29F945E676D0FB512D0AA751DD5AFAC0215BDC50AFFD9"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_fighter_climb_18_3.png",
+      "sha256": "45731A08D004153C7B326A7639A080135BED57ADC27549A4BADD98919C1500D9"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/bomber_dive_18.png",
+      "sha256": "EAE2148BA47211D571C2EC1E68F3EE425D8C5D4510FDC4EBD9D68574A6AEFED0"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_18_0.png",
+      "sha256": "DD4B64651612DFAD35195F868555A1AB58D7D4BEBDF77E63EF120E171CAEB1B2"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_18_1.png",
+      "sha256": "D71C320D96D174E2A04E2FAE5B4AF7CFA5177EBE135888078491ECEDE121802A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_18_2.png",
+      "sha256": "6D98B2391FE786DD53393A60DF3FD65EE203815B47CDECD03AB56F1ACAECFE2C"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_18_3.png",
+      "sha256": "FBA95DEEEAEB1C3C987B01E46734CF8870768C4404A5CDACFBA72566D488CB6A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_18_0.png",
+      "sha256": "272C6ED888F75E8997517FA27B039DB1C3FFCCEAEC350E81EAB419BDCC6918AA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_18_1.png",
+      "sha256": "9B063AC7A4CFFC4994F8D0D6C3C2DD45B228388DED17644FAE880ACE96B85A00"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_18_2.png",
+      "sha256": "633544CEC755B73E8FC481C3F25595398C5E8EF0396877C1022D6A204F2A421F"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_18_3.png",
+      "sha256": "20D8309F87DD1EF753D8F16F64FC10DB951B43A89891FD6CB932BED3880F4B80"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_18_0.png",
+      "sha256": "272C6ED888F75E8997517FA27B039DB1C3FFCCEAEC350E81EAB419BDCC6918AA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_18_1.png",
+      "sha256": "4F2FE154AEFDB2448FEF8DF6B3AAD50B717E55C2B5557B3F90EEDF18071A2163"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_18_2.png",
+      "sha256": "09A6F5BFB0EC4D889693A45B0AF74E770AE6E97258361BFB7D6950BD7900C279"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_18_3.png",
+      "sha256": "5DC17EC3B2E5126913F413EBA46E8B910675E38F83624C22AEAD43D559865BA1"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_18_0.png",
+      "sha256": "272C6ED888F75E8997517FA27B039DB1C3FFCCEAEC350E81EAB419BDCC6918AA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_18_1.png",
+      "sha256": "5D599948484155238574FF6A295E7FD302B65457F89D63C98F4C60904935D5A4"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_18_2.png",
+      "sha256": "9EF37A07F7BE67AAD88A99FC3B105D82C85DFF1A79F053C3F2119FB232A31DB7"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_18_3.png",
+      "sha256": "AB6201A747567BED0792B9821F061452E8B263D702119DE72BB4676B3520B138"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/bomber_dive_12.png",
+      "sha256": "4180D992C7E714BA9EF6D60188E711299BAF2BF87AD7FAA23F9C83F308728D5B"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_12_0.png",
+      "sha256": "FFC525BAF0FE29F9BB0443C175FDF094EF3D61B3866D33EBD25D4D152F4BE466"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_12_1.png",
+      "sha256": "E2BA9B59C227432FCDB69CC2DA741769FA65001AD0DBDBBC86689DDF1A5032BA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_12_2.png",
+      "sha256": "3625B2FC28D515A2652C634EE537AA3E3CCC5F15BF2ABB97619EC8C335683C2D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_12_3.png",
+      "sha256": "B6387C5F4E0476B364A90443B218A83847F60BFACC661578E21E7C483012B789"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_12_0.png",
+      "sha256": "E065D8B63FBA31EC5E5A036B2004656D2491A879B0DDD425FF2D8F15410CFB27"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_12_1.png",
+      "sha256": "75AC59288E6774D38C906124ED7895F2137F04BDF4A7854B1546C00D6350C4B7"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_12_2.png",
+      "sha256": "B403E427FD5F0AFF459778B2BB17B6E3C1EAC584FE40889BCE09B75698EB7B3A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_12_3.png",
+      "sha256": "9020276644E3FEC99C6DE68701FE5A4E5C149DB30E40B16D0741E93EA6721715"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_12_0.png",
+      "sha256": "E065D8B63FBA31EC5E5A036B2004656D2491A879B0DDD425FF2D8F15410CFB27"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_12_1.png",
+      "sha256": "81716EC7F69C5C9E69C06F9AFBC072F9AD9F3975AA3404C9CC3B667C66DE98E6"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_12_2.png",
+      "sha256": "9F34458FA24A02176DA9BF4830264DF91F40E21A9FC3C5F7504FF3FCE889E799"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_12_3.png",
+      "sha256": "5B110B215772865B34602241A5ACB8F9F3A9D864067FCEC3475A633B882539C8"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_12_0.png",
+      "sha256": "E065D8B63FBA31EC5E5A036B2004656D2491A879B0DDD425FF2D8F15410CFB27"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_12_1.png",
+      "sha256": "9855DFE0B741BCB9F99489E00A2705051532BA27303AAC3019631854031ACB42"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_12_2.png",
+      "sha256": "D2DF00AAA3D75B38370028F66E931BFF213369BA15902E42EE1D4FBB6D4A74A5"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_12_3.png",
+      "sha256": "FB80F1C54C548184A6A81C3B75DDBCCA42DC49406A18D58F6E896835A027A6ED"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/bomber_dive_06.png",
+      "sha256": "5C264C0DC0728350E2E40171D475C3E8908F3B1D8CBFB02F9740A8B72F86461F"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_06_0.png",
+      "sha256": "9EFD9331827435164FAF473D75F9C127ED41C66400734B0709CB2009C8F012DE"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_06_1.png",
+      "sha256": "77FEDCEB06643F402185782B3D0176F9023429EFFCFDF64A559365E920D3CC4B"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_06_2.png",
+      "sha256": "9AFDE004DCD35865B11BCE4105B10D3F9D3894FCE26C9071215738BBE845111D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_dive_06_3.png",
+      "sha256": "F7512180DAE20D60BCA6DA0D9A0AC2C9EDC87BBFEECA1E9D2CC3174DC7E2B885"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_06_0.png",
+      "sha256": "79829340FA5ED1040BC1F60E7F07DE7265BF603B8BD598D2A916C7CD730F6471"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_06_1.png",
+      "sha256": "C4FE2E88581FEB99E1FE1B1B7685748E53FDC73447DD9A2EE57BBE7B29457CCF"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_06_2.png",
+      "sha256": "7E7BC373174924FA5EBAC8FAD3A83F16A2A07AA3A8CB329FA9C2BCEEE819BCD3"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_dive_06_3.png",
+      "sha256": "781620A2E58BD68859066ABA2C847E9EF49532B1B7C86B01EA10011CD4ED15CB"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_06_0.png",
+      "sha256": "79829340FA5ED1040BC1F60E7F07DE7265BF603B8BD598D2A916C7CD730F6471"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_06_1.png",
+      "sha256": "29D93C15D325604DE1DC37A9E731C1BA2FE46E4B280DF27B440C17C59633CE77"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_06_2.png",
+      "sha256": "8394CF897BD22C0E058C05E52174261DAD6DC0074EBE24A53E3398EA1979ED21"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_dive_06_3.png",
+      "sha256": "27C0011B91AF644CEA63D54485A7C3F62296D0A88A972DA34E2AB337FF276F52"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_06_0.png",
+      "sha256": "79829340FA5ED1040BC1F60E7F07DE7265BF603B8BD598D2A916C7CD730F6471"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_06_1.png",
+      "sha256": "A6AA6A62545C1B80ACC35760CED82CF397DAF4008B9964E116D9D7EE488480BA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_06_2.png",
+      "sha256": "4592349B60F2FFDE3366BC45D60148302C7F4BCBF595348173EF3D0F85D15C5D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_dive_06_3.png",
+      "sha256": "9CAC12FB126FD7BA5266BBC58E0C1BB253A3A6CDCA178365C1DD210D53DA64EA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/bomber_neutral.png",
+      "sha256": "A590B1CFB69A7176BB2E1DFFDB4C51CB93B8BAE18BADB560B85E659521E8F899"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_neutral_0.png",
+      "sha256": "9DCBE0B87768F89CF3775A5FA27083530BA6C007D388A4398C80AEBD8F1F771D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_neutral_1.png",
+      "sha256": "CC922018147159BBF5B9841582EB6B02486E4EBC855BA4B0E148065529454E77"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_neutral_2.png",
+      "sha256": "5A182C0455C444AEFFDA12C0C00EBEC1553F15570420A82929D709AA3EB83999"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_neutral_3.png",
+      "sha256": "D8FB2D23A1A668E971CDDEB8F7C6A109B15264C8B708780745C5C0A15F98BA67"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_neutral_0.png",
+      "sha256": "8B2A2BA7AA2107BC91E425CEEBB486C4B385FFE2F7DF98F6CF208DC8C8FF5559"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_neutral_1.png",
+      "sha256": "8F699CE6FC916B2C0233DB9C5307E76F94EC4AAC461B3852EBE6E0EAD99DDB55"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_neutral_2.png",
+      "sha256": "18B4A40A141FD6B477AC36DA66B04B638BABE356B79E536836F506A347EFC529"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_neutral_3.png",
+      "sha256": "6D3AB0357FDC5AB16A6DC1CD6DA891A147CAAA3FFBF06FDFF628CD842CBBDF22"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_neutral_0.png",
+      "sha256": "8B2A2BA7AA2107BC91E425CEEBB486C4B385FFE2F7DF98F6CF208DC8C8FF5559"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_neutral_1.png",
+      "sha256": "570A93CB4C07246EA5A350A5DE87CBA006F16F17B03EAF3940C316D8A4F6B50A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_neutral_2.png",
+      "sha256": "F48F567E454C62DC1BE5E06C7293475C908686DA9E9B4FE6EAC4768456DC0E36"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_neutral_3.png",
+      "sha256": "B0A0F55CFC7462322C5F9347A664E16CB99C5BA512C89A9E76A4A0EF0207794D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_neutral_0.png",
+      "sha256": "8B2A2BA7AA2107BC91E425CEEBB486C4B385FFE2F7DF98F6CF208DC8C8FF5559"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_neutral_1.png",
+      "sha256": "1D0B9E3136A0A32F2722BD9DB70404C0F24E4044EB5B6E0A36760A03C19F7A9F"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_neutral_2.png",
+      "sha256": "D6CED2685234F48346580003205A7AFD8C81C9180CBD027773FE11D50342DEBA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_neutral_3.png",
+      "sha256": "7C1C1975C9F32827F407DAE567FDD5BA33AA208CAE5EFD3A32AE11754C7B0205"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/bomber_climb_06.png",
+      "sha256": "A590B1CFB69A7176BB2E1DFFDB4C51CB93B8BAE18BADB560B85E659521E8F899"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_06_0.png",
+      "sha256": "9DCBE0B87768F89CF3775A5FA27083530BA6C007D388A4398C80AEBD8F1F771D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_06_1.png",
+      "sha256": "CC922018147159BBF5B9841582EB6B02486E4EBC855BA4B0E148065529454E77"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_06_2.png",
+      "sha256": "5A182C0455C444AEFFDA12C0C00EBEC1553F15570420A82929D709AA3EB83999"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_06_3.png",
+      "sha256": "D8FB2D23A1A668E971CDDEB8F7C6A109B15264C8B708780745C5C0A15F98BA67"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_06_0.png",
+      "sha256": "8B2A2BA7AA2107BC91E425CEEBB486C4B385FFE2F7DF98F6CF208DC8C8FF5559"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_06_1.png",
+      "sha256": "8F699CE6FC916B2C0233DB9C5307E76F94EC4AAC461B3852EBE6E0EAD99DDB55"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_06_2.png",
+      "sha256": "18B4A40A141FD6B477AC36DA66B04B638BABE356B79E536836F506A347EFC529"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_06_3.png",
+      "sha256": "6D3AB0357FDC5AB16A6DC1CD6DA891A147CAAA3FFBF06FDFF628CD842CBBDF22"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_06_0.png",
+      "sha256": "8B2A2BA7AA2107BC91E425CEEBB486C4B385FFE2F7DF98F6CF208DC8C8FF5559"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_06_1.png",
+      "sha256": "570A93CB4C07246EA5A350A5DE87CBA006F16F17B03EAF3940C316D8A4F6B50A"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_06_2.png",
+      "sha256": "F48F567E454C62DC1BE5E06C7293475C908686DA9E9B4FE6EAC4768456DC0E36"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_06_3.png",
+      "sha256": "B0A0F55CFC7462322C5F9347A664E16CB99C5BA512C89A9E76A4A0EF0207794D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_06_0.png",
+      "sha256": "8B2A2BA7AA2107BC91E425CEEBB486C4B385FFE2F7DF98F6CF208DC8C8FF5559"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_06_1.png",
+      "sha256": "1D0B9E3136A0A32F2722BD9DB70404C0F24E4044EB5B6E0A36760A03C19F7A9F"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_06_2.png",
+      "sha256": "D6CED2685234F48346580003205A7AFD8C81C9180CBD027773FE11D50342DEBA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_06_3.png",
+      "sha256": "7C1C1975C9F32827F407DAE567FDD5BA33AA208CAE5EFD3A32AE11754C7B0205"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/bomber_climb_12.png",
+      "sha256": "28CD766B569AB5B2A4D391564AD0D4BF8041318F742658D025B469C192D4D059"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_12_0.png",
+      "sha256": "18220C55854253E1E2A8796811BDDFF0961C72761AA9353EDA8B372A265C4EBA"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_12_1.png",
+      "sha256": "9AA5D4F960528DAB30133BD4FE709794CE9BCB9DE8011EA0A34EE8B826F1ED87"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_12_2.png",
+      "sha256": "DFF34944B88799C9017ED285BA8025B03F272223CE9C904D86DFD78BB09FA4B6"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_12_3.png",
+      "sha256": "0EF51C6FFBDBA222E3ED7163F07CF7F4E34118EEFE8D3DC48901837E68DE2FE6"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_12_0.png",
+      "sha256": "C54062442A8D677231D030C2D6A1579CC27252FA1C3C19805F8ABCD5758ACDC7"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_12_1.png",
+      "sha256": "0932531AD6E06D44FF1C552F4204C58F338F5224A798D88673B46DDF08D4A4E8"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_12_2.png",
+      "sha256": "C5A4E2B37CEB04C6724B00F88955EC8F94DD137AF5D13D6CB59FE35E142AB994"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_12_3.png",
+      "sha256": "1254E387390E03D8299E28B7BF09531F2261C8CB86BDC2721D345FF5932AFA24"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_12_0.png",
+      "sha256": "C54062442A8D677231D030C2D6A1579CC27252FA1C3C19805F8ABCD5758ACDC7"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_12_1.png",
+      "sha256": "71ACE7F5AD1EA1DE811EBB9C1F984F8D0692292AE1C29A21516A509A1EB01B76"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_12_2.png",
+      "sha256": "2775D5106EF79200BD21E4234CDC6A1B0359EB5119301DA21266BD3C053D97D7"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_12_3.png",
+      "sha256": "E676FC751E1338357068E0A096415AEAA163375537F3CEF4A733A4CEDA9C9076"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_12_0.png",
+      "sha256": "C54062442A8D677231D030C2D6A1579CC27252FA1C3C19805F8ABCD5758ACDC7"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_12_1.png",
+      "sha256": "73EF578D8E4019CCE3BDAD4D32B18DBDA0D29FD64127F78B5981FAE0D96DC049"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_12_2.png",
+      "sha256": "AFFEB235494DCC53F7C106430047793850001A0DE2A8DFB2CF0C6E1A8516B376"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_12_3.png",
+      "sha256": "5651716DC4CE798BBF82660ADADC6B2EE293C8A8F367A6A1E74498514C3FD8CC"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch/bomber_climb_18.png",
+      "sha256": "EFE14807EBD89D651042E153663FA9C12444DB2231952C2D6CF4ECA10BBF20DB"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_18_0.png",
+      "sha256": "EDA1F9A0B4BCBB4A22E5588B16D2A03F99914E4F7357F6FA7F6692D352322CDD"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_18_1.png",
+      "sha256": "858CDBDB621D6141208CCD719DBC6C135A92454C91D55F5425976AAD0D890944"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_18_2.png",
+      "sha256": "45ADD2B4A64F1ADAECDBFEA2264E0D68FA8FEC7CBD3EFA0C4860AA23872D428B"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/ballistic_bomber_climb_18_3.png",
+      "sha256": "F6B3997CA4FC7CD3E1C337A03D35D3B8070B11A5CFFE2EB9FB84D5220B8B4D47"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_18_0.png",
+      "sha256": "1133040D0DB854D2FFB47A1B6680D70E6E223F10D928195A07BB0BD91BABCC7D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_18_1.png",
+      "sha256": "FC52196055DBBF9EAF98DC0B8EB2536E76EDA620C5F330A80BD7AE22FC1F3D9E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_18_2.png",
+      "sha256": "ED0987501016F2C82D8068F6C8D85588B32BB7C6248DCE889A01C640CCB74AAD"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/needle_rail_bomber_climb_18_3.png",
+      "sha256": "7CCB6DAFBF824AD73BAA0226C532FE3BB89166217C626BA65B3BE24E569F9D4F"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_18_0.png",
+      "sha256": "1133040D0DB854D2FFB47A1B6680D70E6E223F10D928195A07BB0BD91BABCC7D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_18_1.png",
+      "sha256": "5BFAF86A90D20DB3949C1702ABC9C645419D3EAAA7883D41E5FBFB855F15F36C"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_18_2.png",
+      "sha256": "D75608668C69F920421A1F3A7BD3F99F1C84F15E0ED31828682493F051EE5C3E"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/storm_cannon_bomber_climb_18_3.png",
+      "sha256": "76888948D7CE280D7EC7018F2C43E4FD6253306873E397434FC05321FDC2A6B1"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_18_0.png",
+      "sha256": "1133040D0DB854D2FFB47A1B6680D70E6E223F10D928195A07BB0BD91BABCC7D"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_18_1.png",
+      "sha256": "168829E160F63476389A91BE9849CD70A4183E39050C3B333346FDC26E70FDD6"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_18_2.png",
+      "sha256": "B98002FDCE8868107C5756190DBCFBB96601B2237B2436D3923374AF08A92DF9"
+    },
+    {
+      "path": "assets/runtime/craft/vx94/gameplay/pitch_primary/plasma_lance_bomber_climb_18_3.png",
+      "sha256": "AB011DCE1D62A40D11CB976877D2D868FA6B1499B6DA7463AB7FF0F08CEAC821"
+    }
+  ],
+  "native_evidence": "work/vx94_pitch_runtime/native",
+  "review_video": "outputs/HYPERSONIC-vx94-pitch-loadout-runtime.mp4",
+  "representative_runtime_sha256": "E22419938B2CB7191A4F4867DBB845C7881C558F3C7F8687691D117DF536A672"
+}

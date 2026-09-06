@@ -1,0 +1,43 @@
+{
+  "valid": true,
+  "score": 93,
+  "estimatedPeakParticles": 172,
+  "seam": {
+    "requested": true,
+    "exactPeriodicModel": true,
+    "frameCount": 96,
+    "startCount": 115,
+    "endCount": 115,
+    "canonicalDifference": 0,
+    "canonicalTolerance": 0.001,
+    "lastAddressedFrameTime": 3.95833333,
+    "addressedStepDifference": 0.00929868,
+    "interiorP95StepDifference": 0.01445325,
+    "normalizedStepRatio": 0.643362,
+    "maxStepRatio": 1.5,
+    "normalizedDifference": 0,
+    "tolerance": 0.001,
+    "rasterProbeSize": 64,
+    "rasterAddressedStepDifference": 0,
+    "rasterInteriorP95StepDifference": 0,
+    "rasterNormalizedStepRatio": 0,
+    "rasterAlphaAddressedStepDifference": 0,
+    "rasterAlphaInteriorP95StepDifference": 0,
+    "rasterAlphaNormalizedStepRatio": 0,
+    "rasterAlphaPasses": true,
+    "rasterPasses": true,
+    "passes": true
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "code": "PIXEL_SCALE_LOW",
+      "message": "DOS pixel effects normally need pixelScale 2 or greater to preserve authored chunking."
+    },
+    {
+      "severity": "info",
+      "code": "GODOT_TURBULENCE_APPROXIMATION",
+      "message": "Reference-renderer turbulence is retained in source but requires a Godot particle shader for exact visual parity."
+    }
+  ]
+}

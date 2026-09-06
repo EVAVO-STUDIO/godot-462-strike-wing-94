@@ -1,37 +1,59 @@
 {
   "asset_family": "remaining_mercenary_boss_phase_animation",
-  "status": "runtime_phase_overlays_reviewed",
+  "status": "runtime_v2_native_and_sprite_reviewed",
   "registration": "all overlays share the corresponding idle sprite canvas and centre pivot",
   "state_mapping": {
-    "phase_1": ["idle"],
-    "phase_2": ["idle", "phase_2_damage"],
-    "phase_3": ["idle", "phase_2_damage", "phase_3_damage", "critical_0..3"]
+    "phase_1": [
+      "idle"
+    ],
+    "phase_2": [
+      "idle",
+      "phase_2_damage"
+    ],
+    "phase_3": [
+      "idle",
+      "phase_2_damage",
+      "phase_3_damage",
+      "critical_0..3"
+    ]
   },
-  "animation": {"critical_fps": 8, "loop": true, "frame_count": 4},
+  "animation": {
+    "critical_fps": 8,
+    "loop": true,
+    "frame_count": 4
+  },
   "bosses": {
     "armoured_train": {
-      "canvas": [78, 150],
+      "canvas": [
+        78,
+        150
+      ],
       "damage_logic": "progressive breaches along separate articulated train sections and a contained command-compartment failure",
       "sha256": {
-        "critical_0.png": "3FDB6B583B92E14F156903FBB5949F64F49195D05A433CDEF54062BB0B3C3AE0",
-        "critical_1.png": "893ED6834877C6549E1AFF250E717FC5133DCE9E47D3A2DC5CCEC2DD4E636D30",
-        "critical_2.png": "A7588EB3A545826A3549D02B8D05E5C8CA9C44E128433FC735818B7697E92995",
-        "critical_3.png": "4321A29B33A7E5A66491FFF30FA6AFA079DDAAACA96D96A61CF0ACBD2FFFC5F9",
-        "phase_2_damage.png": "F81592A2FC309BAA7D584A00CD1E4142509BB142424228D7CAAB7AC40A7F072A",
-        "phase_3_damage.png": "661E0D0492F323E2462EA7DBC3E9AFA1BBD2DEDB6EDBDC78840EC045042287F9"
+        "critical_0.png": "65CBBB4A64BB67048EF0A58C8ABDFCD8E18FDCE0C6F0EC1AE1D98FADE9D2F7D2",
+        "critical_1.png": "100DCD2EA597290208E1659D103AC1F2D1BD03A287AD6BA76C61A5811750AF7B",
+        "critical_2.png": "5459195E976628301208385EA90259ACB57D0F8A857C35CBDDC1EE99391A8C02",
+        "critical_3.png": "0864341B7539A423976991FF3369F235DA92CA70049558F82311D2FDE990057C",
+        "phase_2_damage.png": "79E4144F11BFBFD748FECB1D14C948A84965BF231823E32550CF4CCA2E895CC1",
+        "phase_3_damage.png": "354F238403627E5999BCC06EA4BBD7721BB68BCFD1885B2564D637FFA9D24F6B"
       }
     },
     "missile_cruiser": {
-      "canvas": [92, 154],
+      "canvas": [
+        92,
+        154
+      ],
       "damage_logic": "progressive port missile-deck and starboard machinery loss with a contained magazine-control failure",
       "sha256": {
-        "critical_0.png": "6F15641030D7A206D6527A19F5BDAEC90D698E386F0C96D5880B52AD48394866",
-        "critical_1.png": "7545AD53F578EDF0AABC88B7C3BA25873CEC9CCB9C96ABAC588F683F47DEB04D",
-        "critical_2.png": "250C080A232D291B6EAA07B77966569C6631EBD7015471FB361FE49383176A0A",
-        "critical_3.png": "CCEB255401AC6DF426A7F1333E1BAC4D8C50B988F4731553EC8CC513A54D6CD1",
-        "phase_2_damage.png": "E08A5BC7E8954D7EF02D8AB3FBF88DA45D7509697D4E06AE15C7ECD6C56BD6F9",
-        "phase_3_damage.png": "AAD661FE62178BA9EF17713A9135305239E1670ED894BDAE7E701E9D338F27AB"
+        "critical_0.png": "102FDEB0F0354831AF5C21BEE66B7CA22F93C812AEEF76F3B0946DF445BF82EF",
+        "critical_1.png": "6E6DE8A4E7AA7F3EE40E2CB187FCC2DB61F9CFA7C8CE91305C93C23EB98AFC6C",
+        "critical_2.png": "259A007BAC8CB4B239FC96CF479967F84A2CD41857B83A457735BA3FA5F53044",
+        "critical_3.png": "6E6DE8A4E7AA7F3EE40E2CB187FCC2DB61F9CFA7C8CE91305C93C23EB98AFC6C",
+        "phase_2_damage.png": "9FD16A23167C4CE56F4BB45B277A18A5B8A39F4DF708B48DED474323248DDC85",
+        "phase_3_damage.png": "183E21980B152BA4581117737A39D22D21866ECEC1822E54CD83F8F2245761A5"
       }
     }
-  }
+  },
+  "source_recipe": "res://assets/source/enemies/mercenary_machine_phase_v2/art_studio_request.json",
+  "builder": "res://tools/build_mercenary_machine_boss_phase_art.ps1"
 }

@@ -1,0 +1,280 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "f07a13e2ed18eb7292a62416d1a0450a69e4bcea38dc8051b49a142e86f4966b",
+  "planBytesSha256": "1523976aaf103217be8aa7175316e7f3dba4d8c8ae51b7913989b4c4ca5defd1",
+  "sandboxId": "hypersonic-vx94-ventral-bay-v1",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:4497027f3299e1b3c04e2ee3",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0f9f25307ced1eb313a066d36c297652",
+      "path": "assets/source/craft/vx94/ventral_bay_v1/inputs/bay_opening.png",
+      "sha256": "f415fd9a511d16df5b35d167ef1be8f676a8b449583f70eee4b839dbce1618b0",
+      "bytes": 406
+    },
+    {
+      "sourceId": "source_ce8b5a896be955dca15b9089489c7baa",
+      "path": "assets/source/craft/vx94/ventral_bay_v1/inputs/bay_open.png",
+      "sha256": "ee576a9f0ca6531c300d8113e33913f321bcfc0497f3e85145954eede4ef7ad3",
+      "bytes": 415
+    },
+    {
+      "sourceId": "source_d0e20f29faba2dd29be29f353641fd01",
+      "path": "assets/source/craft/vx94/ventral_bay_v1/inputs/bay_closed.png",
+      "sha256": "8e49845aee6416f8c8fd5177ff7f0babb3be16ecf04545324b1b1cb08b52ae3d",
+      "bytes": 394
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "bay_closed",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bay_closed.png",
+          "sha256": "367db6c4303753f8859c07183a4313c4ce6cffe87809237dc982b75ce67e37eb",
+          "bytes": 196,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 4553,
+            "partialPixels": 0,
+            "opaquePixels": 55
+          },
+          "alphaBoundingBox": [
+            29,
+            41,
+            34,
+            52
+          ],
+          "pixelSha256": "f746db59ca24ec08fd1ca9e0159f054f105059126bbb82c626a81f4069357ce0"
+        }
+      ]
+    },
+    {
+      "taskId": "bay_opening",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bay_opening.png",
+          "sha256": "b9d7eb3a263f7ad151dc0ccda84b7ac1f6ffcc04e076d9bcdd4eaa7e72fb8f55",
+          "bytes": 204,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 4517,
+            "partialPixels": 0,
+            "opaquePixels": 91
+          },
+          "alphaBoundingBox": [
+            27,
+            41,
+            36,
+            53
+          ],
+          "pixelSha256": "ba78dfeadfebe181740447c927e15223d1db69649449ba949671dea9d45b6c1f"
+        }
+      ]
+    },
+    {
+      "taskId": "bay_open",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bay_open.png",
+          "sha256": "ea26f23183fb656af13a0ef5572f95e36a33d6a06f6ddf2aefc062db102e9972",
+          "bytes": 236,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 4493,
+            "partialPixels": 0,
+            "opaquePixels": 115
+          },
+          "alphaBoundingBox": [
+            26,
+            41,
+            37,
+            54
+          ],
+          "pixelSha256": "6ad457a8c25625d5ddd808ba8738b9b6eb9903e74812a0aa8fbc2e4522644e54"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "bay_closed.png",
+      "sha256": "367db6c4303753f8859c07183a4313c4ce6cffe87809237dc982b75ce67e37eb",
+      "bytes": 196,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 4553,
+        "partialPixels": 0,
+        "opaquePixels": 55
+      },
+      "alphaBoundingBox": [
+        29,
+        41,
+        34,
+        52
+      ],
+      "pixelSha256": "f746db59ca24ec08fd1ca9e0159f054f105059126bbb82c626a81f4069357ce0"
+    },
+    {
+      "path": "bay_open.png",
+      "sha256": "ea26f23183fb656af13a0ef5572f95e36a33d6a06f6ddf2aefc062db102e9972",
+      "bytes": 236,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 4493,
+        "partialPixels": 0,
+        "opaquePixels": 115
+      },
+      "alphaBoundingBox": [
+        26,
+        41,
+        37,
+        54
+      ],
+      "pixelSha256": "6ad457a8c25625d5ddd808ba8738b9b6eb9903e74812a0aa8fbc2e4522644e54"
+    },
+    {
+      "path": "bay_opening.png",
+      "sha256": "b9d7eb3a263f7ad151dc0ccda84b7ac1f6ffcc04e076d9bcdd4eaa7e72fb8f55",
+      "bytes": 204,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 4517,
+        "partialPixels": 0,
+        "opaquePixels": 91
+      },
+      "alphaBoundingBox": [
+        27,
+        41,
+        36,
+        53
+      ],
+      "pixelSha256": "ba78dfeadfebe181740447c927e15223d1db69649449ba949671dea9d45b6c1f"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 3,
+    "externalSourceBytes": 1215,
+    "plannedMaximumOutputFiles": 4,
+    "taskOutputFiles": 3,
+    "taskOutputBytes": 636,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "fa96499f345945b134cee96d74467bee58e048614da3ebc0b9837c949921553f"
+}

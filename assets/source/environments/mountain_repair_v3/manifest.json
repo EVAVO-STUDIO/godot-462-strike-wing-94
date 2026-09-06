@@ -1,0 +1,62 @@
+{
+  "status": "reviewed_native_runtime_final",
+  "inputs": [
+    {
+      "path": "assets/source/environments/mountain_repair_v3/inputs/00_raw_0.png",
+      "sha256": "e8d0470f9a046dfca85c8958857f8571c1427ebcc3b2134874d1cb769a5b1a5f",
+      "origin": "work/mountain_geography_build/raw_0.png"
+    },
+    {
+      "path": "assets/source/environments/mountain_repair_v3/inputs/01_raw_2.png",
+      "sha256": "4997d7f292b6a81503f43e4b2d0468114eb62e4755df70dd49d0e53b9c6db9df",
+      "origin": "work/mountain_geography_build/raw_2.png"
+    },
+    {
+      "path": "assets/source/environments/mountain_repair_v3/inputs/02_registered_rock.png",
+      "sha256": "303be0aaf714c285ba72a4ae0720c3332dde981d0d5876d4e8ffa3240168b51c",
+      "origin": "work/mountain_candidate_e/registered_rock.png"
+    },
+    {
+      "path": "assets/source/environments/mountain_repair_v3/inputs/03_radar_north_d.png",
+      "sha256": "b0615e88dbb7788481b2d25b7aa1a1173dd430ebf78f8edd2cfee521433599d6",
+      "origin": "work/mountain_candidate_c/north_assembled/radar_north_d.png"
+    },
+    {
+      "path": "assets/source/environments/mountain_repair_v3/inputs/04_gallery.png",
+      "sha256": "e21bc2cba73edd220d4c696cdeac75d114b4c851667bde5a8516350f8e9273e9",
+      "origin": "work/mountain_candidate_e/gallery.png"
+    },
+    {
+      "path": "assets/source/environments/mountain_repair_v3/inputs/05_radar_valley_e.png",
+      "sha256": "08ba3c4216de96b976ddd6d94cbb44bd8ac35ebbd591821c6905e5014b3c5101",
+      "origin": "work/mountain_candidate_e/textured/radar_valley_e.png"
+    },
+    {
+      "path": "assets/source/environments/mountain_repair_v3/inputs/06_portal_masked.png",
+      "sha256": "176a1be8c195aa08461b552836017027c0a09fc5f599fb3fed5fe57e53f0d697",
+      "origin": "work/mountain_candidate_e/portal_masked.png"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "switchback_pass.png",
+      "sha256": "079223d757a2aefb8acac2e3cc7a20ecaf956dad22709d3e5e6bbb04b1fcf24b",
+      "exact_original_central_pixels": 524800
+    },
+    {
+      "name": "radar_service_valley.png",
+      "sha256": "e44fc220bc248bfaef7ff5eef5f645b4839eab9a9a4c015b99c2b6c20c30ae52",
+      "exact_original_central_pixels": 524800
+    },
+    {
+      "name": "ice_cliff_corridor.png",
+      "sha256": "4c32c0b02016760f715db032bb45e75907f8595e5075d139b4901a1bb2ec6180",
+      "exact_original_central_pixels": 524800
+    }
+  ],
+  "canvas": [
+    640,
+    1024
+  ],
+  "method": "EVAVO Art Studio exact retained-layer assembly; single repeated natural scanline at boundary; no terrain upscaling"
+}

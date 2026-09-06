@@ -38,6 +38,7 @@ var _altitude_transition_timer := 0.0
 var _altitude_transition_from := AltitudeRules.MID
 var _altitude_transition_to := AltitudeRules.MID
 var _altitude_transition_direction := 0
+var _mount_bank_visual := 0.0
 
 func _ready() -> void:
 	# Altitude/form context must publish before EncounterDirector (-20) and SupportDirector (-5).
@@ -54,6 +55,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
 	_altitude_transition_timer = maxf(0.0, _altitude_transition_timer - delta)
+	_mount_bank_visual = move_toward(_mount_bank_visual, Input.get_axis("move_left", "move_right"), maxf(0.0, delta) * 5.5)
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		_afterburner_active = false
@@ -111,7 +113,7 @@ func _update_afterburner(delta: float) -> void:
 			_hypersonic_active = false
 
 func _update_throttle(delta: float) -> void:
-	var command := Input.get_action_strength("throttle_up") - Input.get_action_strength("throttle_down")
+	var command := clampf(Input.get_action_strength("throttle_up") - Input.get_action_strength("throttle_down") + Input.get_action_strength("move_up") - Input.get_action_strength("move_down"), -1.0, 1.0)
 	_throttle_ratio = clampf(_throttle_ratio + command * FlightSpeedRules.THROTTLE_CHANGE_PER_SECOND * maxf(0.0, delta), 0.0, 1.0)
 
 func _update_world_speed(delta: float) -> void:
@@ -537,13 +539,52 @@ func primary_mount_offsets(weapon: Dictionary, projectile_count: int) -> Array[V
 			var result: Array[Vector2] = []
 			for offset in value:
 				if typeof(offset) == TYPE_VECTOR2:
-					result.append(offset)
+					result.append(_project_mount_offset(offset))
 			if result.size() == maxi(1, projectile_count):
 				return result
 	var fallback: Array[Vector2] = []
 	for _i in range(maxi(1, projectile_count)):
-		fallback.append(Vector2(0.0, -18.0))
+		fallback.append(_project_mount_offset(Vector2(0.0, -18.0)))
 	return fallback
+
+func support_mount_offsets(support: Dictionary, projectile_count: int, alternating_side: bool = false) -> Array[Vector2]:
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
+	if mounts != null and mounts.has_method("support_offsets"):
+		var value = mounts.call("support_offsets", form, support, projectile_count, alternating_side)
+		if typeof(value) == TYPE_ARRAY and not value.is_empty():
+			var result: Array[Vector2] = []
+			for offset in value:
+				if typeof(offset) == TYPE_VECTOR2:
+					result.append(_project_mount_offset(offset))
+			if not result.is_empty():
+				return result
+	var fallback: Array[Vector2] = []
+	for _i in range(maxi(1, projectile_count)):
+		fallback.append(_project_mount_offset(Vector2(0.0, -10.0)))
+	return fallback
+
+func role_mount_offsets(role: String) -> Array[Vector2]:
+	var mounts := get_node_or_null("/root/PlayerMountDirector")
+	var result: Array[Vector2] = []
+	if mounts != null and mounts.has_method("role_offsets"):
+		var value = mounts.call("role_offsets", form, role)
+		if typeof(value) == TYPE_ARRAY:
+			for offset in value:
+				if typeof(offset) == TYPE_VECTOR2:
+					result.append(_project_mount_offset(offset))
+	return result
+
+func _project_mount_offset(offset: Vector2) -> Vector2:
+	var bank_angle := deg_to_rad(_mount_bank_visual * 18.0)
+	return offset.rotated(bank_angle).round() + presentation_pitch_offset()
+
+func presentation_pitch_offset() -> Vector2:
+	if not altitude_transition_active():
+		return Vector2.ZERO
+	return Vector2(0, -roundf(sin(altitude_transition_ratio() * PI) * 4.0 * float(altitude_transition_direction())))
+
+func mount_bank_visual() -> float:
+	return _mount_bank_visual
 
 func bomber_rotary_deployed(weapon: Dictionary) -> bool:
 	var mounts := get_node_or_null("/root/PlayerMountDirector")

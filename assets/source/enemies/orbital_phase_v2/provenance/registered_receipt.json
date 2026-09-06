@@ -1,0 +1,1690 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "83603b50ae109a9d8f780c02b5ab7562c8f04b09acbd112b24c3aab8132ff35f",
+  "planBytesSha256": "3683aef463f2c0532019f7766d1be790d6d1606b05581c6e385bffc092d22926",
+  "sandboxId": "hypersonic-orbital-phase-production-v2c",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:aa23195903a3a0434b0aa182",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_1fd45b0f0a29d7943f2465e367d93452",
+      "path": "assets/source/enemies/orbital_phase_v2/inputs/phase_lens_unstable.png",
+      "sha256": "f36014b8e8756c912de85c1ccb7f7cd567d9dd3727c7611b20d78ddbdc360da8",
+      "bytes": 1361
+    },
+    {
+      "sourceId": "source_3ab6858e0b3e1bdd26e4cea2bce90ce2",
+      "path": "assets/source/enemies/orbital_phase_v2/inputs/ark_aperture_open.png",
+      "sha256": "6bda37c18df1f5c6e9a6b188e278165bb9833fef31ae83ccbdd04981b996aa0a",
+      "bytes": 1250
+    },
+    {
+      "sourceId": "source_7f4ad38e29706673ec3a80b7beb0fa07",
+      "path": "assets/source/enemies/orbital_phase_v2/inputs/ark_cracked_plate.png",
+      "sha256": "b8639b97402f7bd6f26a27a00b62266823534ff7325498b6f579f9d63a179fda",
+      "bytes": 756
+    },
+    {
+      "sourceId": "source_a6df4ca54cdc33f2c06834d75e095126",
+      "path": "assets/source/enemies/orbital_phase_v2/inputs/warden_rail_scorched.png",
+      "sha256": "623a8da1635d62599f057eef156e2574a58d114fb3833915854a09ff424fd665",
+      "bytes": 813
+    },
+    {
+      "sourceId": "source_c46a7894f9180a82b4b798d297842004",
+      "path": "assets/source/enemies/orbital_phase_v2/inputs/command_core_ruptured.png",
+      "sha256": "f8d42341ac2b0235f543c7f39d4f6c0f2df68f48900da31c9e43890cc2380ff1",
+      "bytes": 699
+    },
+    {
+      "sourceId": "source_f31511003b2037943b344df889a56674",
+      "path": "assets/source/enemies/orbital_phase_v2/inputs/warden_vent_hot.png",
+      "sha256": "a89f7460f6f3d5e01b56701dfa1a05e7bfbae16c9670808aa7177c4010a637d1",
+      "bytes": 824
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "damage-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 39,
+          "y": 49,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 27,
+          "height": 24
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/phase_2_damage.png",
+          "sha256": "0fee1d4e6ef60acd92db5dbe219982ed4ddebc6ef162e637f1f9c9dcbd17239c",
+          "bytes": 1019,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 20301,
+            "partialPixels": 178,
+            "opaquePixels": 1
+          },
+          "alphaBoundingBox": [
+            44,
+            54,
+            60,
+            71
+          ],
+          "pixelSha256": "408a551e331a1eefb3d555b2e878dacff6da423e542a8912a3585ef09127a97e"
+        }
+      ]
+    },
+    {
+      "taskId": "damage-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 101,
+          "y": 57,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 22,
+          "height": 20
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/phase_3_damage.png",
+          "sha256": "124ded0012e2e8e3b411a332e5e4e25d4f9ad7a11ded6b2b4c7f301ace7b52e9",
+          "bytes": 794,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 20359,
+            "partialPixels": 121,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            105,
+            61,
+            118,
+            76
+          ],
+          "pixelSha256": "9446354233a6402f8420cf7d53951435e1b62171ec3bf7a46712b230c6be6bcb"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 44,
+          "opacity": 0.45,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_0.png",
+          "sha256": "00d244fca4c068726f057e00a329346a6e8948db531304eecc5fa29c9930f53c",
+          "bytes": 2898,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            64,
+            46,
+            97,
+            83
+          ],
+          "pixelSha256": "e034811be6a3730f0e91719a406b69308f16b35b2a9e1689a46416519d3829a7"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 44,
+          "opacity": 0.7,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_1.png",
+          "sha256": "375a48bf317771be926fe3d8d403f033962e38e09a3679f7062210f1b93cf9d5",
+          "bytes": 2904,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            64,
+            46,
+            97,
+            83
+          ],
+          "pixelSha256": "610ff1cd7486a8adc4881033f191256f886995ccdc292d8e4da318a6c889c2b9"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 44,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_2.png",
+          "sha256": "b68c1a47f75089b3d0a1e22c0b0f3eff08947bb7c1beb43db63a79efb4f99b74",
+          "bytes": 2941,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            64,
+            46,
+            97,
+            83
+          ],
+          "pixelSha256": "0b313a133ad71e98f341e60e05d98c6d4d1e199063bda45df4bfb5bb2c6110ce"
+        }
+      ]
+    },
+    {
+      "taskId": "critical-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 44,
+          "opacity": 0.65,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 43,
+          "height": 41
+        }
+      ],
+      "outputs": [
+        {
+          "path": "machine_ark/critical_3.png",
+          "sha256": "3b1dc3f03392306d7a685715f995495544a43b560f4a69565f7ae6701f6421c3",
+          "bytes": 2931,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 160,
+            "height": 128
+          },
+          "alpha": {
+            "transparentPixels": 19710,
+            "partialPixels": 770,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            64,
+            46,
+            97,
+            83
+          ],
+          "pixelSha256": "4508b741a0c0ffa636b19542b2cb7294ce285c9ca99cbb0718328a690000b803"
+        }
+      ]
+    },
+    {
+      "taskId": "orbital_command_node-phase-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 35,
+          "y": 48,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 22,
+          "height": 20
+        }
+      ],
+      "outputs": [
+        {
+          "path": "orbital_command_node/phase_2_damage.png",
+          "sha256": "bc21a1842403af484170ef047aeec94dcbf27953efb256391b9ed9980a50189d",
+          "bytes": 750,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 124,
+            "height": 104
+          },
+          "alpha": {
+            "transparentPixels": 12775,
+            "partialPixels": 121,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            39,
+            52,
+            52,
+            67
+          ],
+          "pixelSha256": "35618f0fb38e6a9dbde097d13f835db7e770fd9aaa3de9e2bcae7fe78474909d"
+        }
+      ]
+    },
+    {
+      "taskId": "orbital_command_node-phase-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 72,
+          "y": 65,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 20,
+          "height": 18
+        }
+      ],
+      "outputs": [
+        {
+          "path": "orbital_command_node/phase_3_damage.png",
+          "sha256": "f6979a94aaa8bb906d7acb2470284229edcf9082c6caba9a70d1f16e7d2b3a33",
+          "bytes": 633,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 124,
+            "height": 104
+          },
+          "alpha": {
+            "transparentPixels": 12801,
+            "partialPixels": 95,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            76,
+            69,
+            87,
+            82
+          ],
+          "pixelSha256": "3b09026563d31c21b50e7cbbe494235cac306c540fc80675fa0da8c83d82c87b"
+        }
+      ]
+    },
+    {
+      "taskId": "orbital_command_node-critical-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 53,
+          "y": 38,
+          "opacity": 0.45,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 18,
+          "height": 29
+        }
+      ],
+      "outputs": [
+        {
+          "path": "orbital_command_node/critical_0.png",
+          "sha256": "0438038cd7723d144c38b5651525dfd75225c62766d2315ce9a3925aae60ab33",
+          "bytes": 910,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 124,
+            "height": 104
+          },
+          "alpha": {
+            "transparentPixels": 12706,
+            "partialPixels": 190,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            55,
+            42,
+            69,
+            63
+          ],
+          "pixelSha256": "28ad14cf2e04d7aaf5627815f688279b41ac059c5fdd24a112df1e1fd3c780e2"
+        }
+      ]
+    },
+    {
+      "taskId": "orbital_command_node-critical-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 53,
+          "y": 38,
+          "opacity": 0.7,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 18,
+          "height": 29
+        }
+      ],
+      "outputs": [
+        {
+          "path": "orbital_command_node/critical_1.png",
+          "sha256": "1c3de9227ce461c76d842b2318d8eed797e0e32606a4289cc919b6a496db89ac",
+          "bytes": 931,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 124,
+            "height": 104
+          },
+          "alpha": {
+            "transparentPixels": 12706,
+            "partialPixels": 190,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            55,
+            42,
+            69,
+            63
+          ],
+          "pixelSha256": "b7e19916c4839c5c6c5373187d83a527207c5fe66aec812cec1b113149d48b4b"
+        }
+      ]
+    },
+    {
+      "taskId": "orbital_command_node-critical-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 53,
+          "y": 38,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 18,
+          "height": 29
+        }
+      ],
+      "outputs": [
+        {
+          "path": "orbital_command_node/critical_2.png",
+          "sha256": "195a0d2dec9d2015ed1e268b1792d82f6aa6aca5f539e368e8264cab25316eaa",
+          "bytes": 949,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 124,
+            "height": 104
+          },
+          "alpha": {
+            "transparentPixels": 12706,
+            "partialPixels": 190,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            55,
+            42,
+            69,
+            63
+          ],
+          "pixelSha256": "e2a1c9a1df020faf028fcba50d02b6a714cd00a5355c9c8a2b932595e6c396f4"
+        }
+      ]
+    },
+    {
+      "taskId": "orbital_command_node-critical-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 53,
+          "y": 38,
+          "opacity": 0.65,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 18,
+          "height": 29
+        }
+      ],
+      "outputs": [
+        {
+          "path": "orbital_command_node/critical_3.png",
+          "sha256": "75d08290200d942dfe6fff22462233b9bb45d66d1593aef10e90534dc56b5db0",
+          "bytes": 943,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 124,
+            "height": 104
+          },
+          "alpha": {
+            "transparentPixels": 12706,
+            "partialPixels": 190,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            55,
+            42,
+            69,
+            63
+          ],
+          "pixelSha256": "a0f81e055126626557628e31c70652b97a6408b28cd762b18adb95591f0f4047"
+        }
+      ]
+    },
+    {
+      "taskId": "phase_control_array-phase-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 29,
+          "y": 44,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 20,
+          "height": 18
+        }
+      ],
+      "outputs": [
+        {
+          "path": "phase_control_array/phase_2_damage.png",
+          "sha256": "030c961b6820f411fdcc49ed9ad27850a6daca4064dfa3f24e3953c1b802e6b9",
+          "bytes": 657,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 126,
+            "height": 126
+          },
+          "alpha": {
+            "transparentPixels": 15781,
+            "partialPixels": 95,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            33,
+            48,
+            44,
+            61
+          ],
+          "pixelSha256": "2f6f103ae98e986635e8098c2697efd738361c1f0897f2fc088b2f019bac8b74"
+        }
+      ]
+    },
+    {
+      "taskId": "phase_control_array-phase-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 78,
+          "y": 76,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 20,
+          "height": 18
+        }
+      ],
+      "outputs": [
+        {
+          "path": "phase_control_array/phase_3_damage.png",
+          "sha256": "202a1bdc2c9383448008c9b8946c92942102f2c036783e63f2ef8c204ac59e75",
+          "bytes": 653,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 126,
+            "height": 126
+          },
+          "alpha": {
+            "transparentPixels": 15781,
+            "partialPixels": 95,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            82,
+            80,
+            93,
+            93
+          ],
+          "pixelSha256": "8ad08c46466ddc9b21be234cdd5148cc8fe536bf1f769679245318b3a0a790f1"
+        }
+      ]
+    },
+    {
+      "taskId": "phase_control_array-critical-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 41,
+          "y": 42,
+          "opacity": 0.45,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 45,
+          "height": 44
+        }
+      ],
+      "outputs": [
+        {
+          "path": "phase_control_array/critical_0.png",
+          "sha256": "b1a4c82bd4dcc68ca37abf186d923c315ef304d75ca4bcf49ab744e88545133c",
+          "bytes": 3333,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 126,
+            "height": 126
+          },
+          "alpha": {
+            "transparentPixels": 14965,
+            "partialPixels": 911,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            45,
+            45,
+            81,
+            82
+          ],
+          "pixelSha256": "21e3bd4cac45de6240dfbaacbdc5028265fea31f336773aa6d71bd725def63c6"
+        }
+      ]
+    },
+    {
+      "taskId": "phase_control_array-critical-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 41,
+          "y": 42,
+          "opacity": 0.7,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 45,
+          "height": 44
+        }
+      ],
+      "outputs": [
+        {
+          "path": "phase_control_array/critical_1.png",
+          "sha256": "8fd50e9659dac7401725673b49269e38fcd0fb81776916b20962d63dcd44381f",
+          "bytes": 3370,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 126,
+            "height": 126
+          },
+          "alpha": {
+            "transparentPixels": 13896,
+            "partialPixels": 1980,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            41,
+            42,
+            86,
+            86
+          ],
+          "pixelSha256": "9dc872b481888216784081e2565ee655b4c0d9f155e9b17f1c8741d301f7e324"
+        }
+      ]
+    },
+    {
+      "taskId": "phase_control_array-critical-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 41,
+          "y": 42,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 45,
+          "height": 44
+        }
+      ],
+      "outputs": [
+        {
+          "path": "phase_control_array/critical_2.png",
+          "sha256": "86f34723759afd361f9e7a3d642474b5b499b12a3577e9ca42a769d9aa3b1c17",
+          "bytes": 3424,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 126,
+            "height": 126
+          },
+          "alpha": {
+            "transparentPixels": 13896,
+            "partialPixels": 1979,
+            "opaquePixels": 1
+          },
+          "alphaBoundingBox": [
+            41,
+            42,
+            86,
+            86
+          ],
+          "pixelSha256": "b8b00a9b022823613d20ac55af8943545e9ca8c79e44584ecb45952f173742d3"
+        }
+      ]
+    },
+    {
+      "taskId": "phase_control_array-critical-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 41,
+          "y": 42,
+          "opacity": 0.65,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 45,
+          "height": 44
+        }
+      ],
+      "outputs": [
+        {
+          "path": "phase_control_array/critical_3.png",
+          "sha256": "512794c89456a4735448c92dac7adc4da5d94229b652505758183f4ed0368d85",
+          "bytes": 3411,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 126,
+            "height": 126
+          },
+          "alpha": {
+            "transparentPixels": 13896,
+            "partialPixels": 1980,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            41,
+            42,
+            86,
+            86
+          ],
+          "pixelSha256": "1a07f7118c3897ca999d27facd9a71207f5424149a9bab2b62acaa9f990c344d"
+        }
+      ]
+    },
+    {
+      "taskId": "station_warden-phase-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 37,
+          "y": 51,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 25,
+          "height": 24
+        }
+      ],
+      "outputs": [
+        {
+          "path": "station_warden/phase_2_damage.png",
+          "sha256": "5aa950cc369855a86b3f8586ea7f0951367a1a203707f9f61fc2e06bae3724ce",
+          "bytes": 901,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 146,
+            "height": 116
+          },
+          "alpha": {
+            "transparentPixels": 16793,
+            "partialPixels": 141,
+            "opaquePixels": 2
+          },
+          "alphaBoundingBox": [
+            40,
+            53,
+            59,
+            72
+          ],
+          "pixelSha256": "844aa32885b6d75d672cb565d323cd57b9ff900c819fe2d4bf25db6278139635"
+        }
+      ]
+    },
+    {
+      "taskId": "station_warden-phase-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 88,
+          "y": 61,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 25,
+          "height": 24
+        }
+      ],
+      "outputs": [
+        {
+          "path": "station_warden/phase_3_damage.png",
+          "sha256": "82519647561e32a0a0db1d508409494b948a05a7f9db0546e54d24582a090d78",
+          "bytes": 892,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 146,
+            "height": 116
+          },
+          "alpha": {
+            "transparentPixels": 16793,
+            "partialPixels": 141,
+            "opaquePixels": 2
+          },
+          "alphaBoundingBox": [
+            91,
+            63,
+            110,
+            82
+          ],
+          "pixelSha256": "d841d88e9e5aa5646b8563ae1824949ca1bc31e091c2726ca85da7d63f90f32c"
+        }
+      ]
+    },
+    {
+      "taskId": "station_warden-critical-0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 45,
+          "opacity": 0.45,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 29,
+          "height": 27
+        }
+      ],
+      "outputs": [
+        {
+          "path": "station_warden/critical_0.png",
+          "sha256": "e6137815d9125712fb52099aee6e0c546a9c5dde7b6f5834e2c4d2c7a87d8b18",
+          "bytes": 1379,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 146,
+            "height": 116
+          },
+          "alpha": {
+            "transparentPixels": 16642,
+            "partialPixels": 294,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            61,
+            47,
+            85,
+            69
+          ],
+          "pixelSha256": "2d0d8799859ad77d5a5b3b1ea9db37aeff09db4d244e178d9d7a1e1ff93a0d7f"
+        }
+      ]
+    },
+    {
+      "taskId": "station_warden-critical-1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 45,
+          "opacity": 0.7,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 29,
+          "height": 27
+        }
+      ],
+      "outputs": [
+        {
+          "path": "station_warden/critical_1.png",
+          "sha256": "19b34d09db25bf546b2b70a7915a3d65a75d1506cae4b6110e1b18e9ded71cde",
+          "bytes": 1388,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 146,
+            "height": 116
+          },
+          "alpha": {
+            "transparentPixels": 16642,
+            "partialPixels": 294,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            61,
+            47,
+            85,
+            69
+          ],
+          "pixelSha256": "09c5d7bd4189c227ee739eb72551aeda90b3f7faf426f3b1681248eae57b88b0"
+        }
+      ]
+    },
+    {
+      "taskId": "station_warden-critical-2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 45,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 29,
+          "height": 27
+        }
+      ],
+      "outputs": [
+        {
+          "path": "station_warden/critical_2.png",
+          "sha256": "0d34fa0064b989ecaef7efd05644e64bca9f5a2e417d910c1252767d0645cd25",
+          "bytes": 1387,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 146,
+            "height": 116
+          },
+          "alpha": {
+            "transparentPixels": 16642,
+            "partialPixels": 284,
+            "opaquePixels": 10
+          },
+          "alphaBoundingBox": [
+            61,
+            47,
+            85,
+            69
+          ],
+          "pixelSha256": "eafd8ab68b7cf6560c626c138d7db409bcade4be5c648bace7d1bcf18887a070"
+        }
+      ]
+    },
+    {
+      "taskId": "station_warden-critical-3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 1,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 59,
+          "y": 45,
+          "opacity": 0.65,
+          "blendMode": "normal",
+          "sourceRect": null,
+          "maskSourceRect": null,
+          "width": 29,
+          "height": 27
+        }
+      ],
+      "outputs": [
+        {
+          "path": "station_warden/critical_3.png",
+          "sha256": "46b46751e2881cadc501220eee1b555fe248714704bc893f6df44fc2b3c10627",
+          "bytes": 1393,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 146,
+            "height": 116
+          },
+          "alpha": {
+            "transparentPixels": 16642,
+            "partialPixels": 294,
+            "opaquePixels": 0
+          },
+          "alphaBoundingBox": [
+            61,
+            47,
+            85,
+            69
+          ],
+          "pixelSha256": "96d7840200a7f25a5edb28d535e88f28198d2b2593ea50f3c5d6e14ecd513063"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "machine_ark/critical_0.png",
+      "sha256": "00d244fca4c068726f057e00a329346a6e8948db531304eecc5fa29c9930f53c",
+      "bytes": 2898,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        64,
+        46,
+        97,
+        83
+      ],
+      "pixelSha256": "e034811be6a3730f0e91719a406b69308f16b35b2a9e1689a46416519d3829a7"
+    },
+    {
+      "path": "machine_ark/critical_1.png",
+      "sha256": "375a48bf317771be926fe3d8d403f033962e38e09a3679f7062210f1b93cf9d5",
+      "bytes": 2904,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        64,
+        46,
+        97,
+        83
+      ],
+      "pixelSha256": "610ff1cd7486a8adc4881033f191256f886995ccdc292d8e4da318a6c889c2b9"
+    },
+    {
+      "path": "machine_ark/critical_2.png",
+      "sha256": "b68c1a47f75089b3d0a1e22c0b0f3eff08947bb7c1beb43db63a79efb4f99b74",
+      "bytes": 2941,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        64,
+        46,
+        97,
+        83
+      ],
+      "pixelSha256": "0b313a133ad71e98f341e60e05d98c6d4d1e199063bda45df4bfb5bb2c6110ce"
+    },
+    {
+      "path": "machine_ark/critical_3.png",
+      "sha256": "3b1dc3f03392306d7a685715f995495544a43b560f4a69565f7ae6701f6421c3",
+      "bytes": 2931,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 19710,
+        "partialPixels": 770,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        64,
+        46,
+        97,
+        83
+      ],
+      "pixelSha256": "4508b741a0c0ffa636b19542b2cb7294ce285c9ca99cbb0718328a690000b803"
+    },
+    {
+      "path": "machine_ark/phase_2_damage.png",
+      "sha256": "0fee1d4e6ef60acd92db5dbe219982ed4ddebc6ef162e637f1f9c9dcbd17239c",
+      "bytes": 1019,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 20301,
+        "partialPixels": 178,
+        "opaquePixels": 1
+      },
+      "alphaBoundingBox": [
+        44,
+        54,
+        60,
+        71
+      ],
+      "pixelSha256": "408a551e331a1eefb3d555b2e878dacff6da423e542a8912a3585ef09127a97e"
+    },
+    {
+      "path": "machine_ark/phase_3_damage.png",
+      "sha256": "124ded0012e2e8e3b411a332e5e4e25d4f9ad7a11ded6b2b4c7f301ace7b52e9",
+      "bytes": 794,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 160,
+        "height": 128
+      },
+      "alpha": {
+        "transparentPixels": 20359,
+        "partialPixels": 121,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        105,
+        61,
+        118,
+        76
+      ],
+      "pixelSha256": "9446354233a6402f8420cf7d53951435e1b62171ec3bf7a46712b230c6be6bcb"
+    },
+    {
+      "path": "orbital_command_node/critical_0.png",
+      "sha256": "0438038cd7723d144c38b5651525dfd75225c62766d2315ce9a3925aae60ab33",
+      "bytes": 910,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 124,
+        "height": 104
+      },
+      "alpha": {
+        "transparentPixels": 12706,
+        "partialPixels": 190,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        55,
+        42,
+        69,
+        63
+      ],
+      "pixelSha256": "28ad14cf2e04d7aaf5627815f688279b41ac059c5fdd24a112df1e1fd3c780e2"
+    },
+    {
+      "path": "orbital_command_node/critical_1.png",
+      "sha256": "1c3de9227ce461c76d842b2318d8eed797e0e32606a4289cc919b6a496db89ac",
+      "bytes": 931,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 124,
+        "height": 104
+      },
+      "alpha": {
+        "transparentPixels": 12706,
+        "partialPixels": 190,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        55,
+        42,
+        69,
+        63
+      ],
+      "pixelSha256": "b7e19916c4839c5c6c5373187d83a527207c5fe66aec812cec1b113149d48b4b"
+    },
+    {
+      "path": "orbital_command_node/critical_2.png",
+      "sha256": "195a0d2dec9d2015ed1e268b1792d82f6aa6aca5f539e368e8264cab25316eaa",
+      "bytes": 949,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 124,
+        "height": 104
+      },
+      "alpha": {
+        "transparentPixels": 12706,
+        "partialPixels": 190,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        55,
+        42,
+        69,
+        63
+      ],
+      "pixelSha256": "e2a1c9a1df020faf028fcba50d02b6a714cd00a5355c9c8a2b932595e6c396f4"
+    },
+    {
+      "path": "orbital_command_node/critical_3.png",
+      "sha256": "75d08290200d942dfe6fff22462233b9bb45d66d1593aef10e90534dc56b5db0",
+      "bytes": 943,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 124,
+        "height": 104
+      },
+      "alpha": {
+        "transparentPixels": 12706,
+        "partialPixels": 190,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        55,
+        42,
+        69,
+        63
+      ],
+      "pixelSha256": "a0f81e055126626557628e31c70652b97a6408b28cd762b18adb95591f0f4047"
+    },
+    {
+      "path": "orbital_command_node/phase_2_damage.png",
+      "sha256": "bc21a1842403af484170ef047aeec94dcbf27953efb256391b9ed9980a50189d",
+      "bytes": 750,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 124,
+        "height": 104
+      },
+      "alpha": {
+        "transparentPixels": 12775,
+        "partialPixels": 121,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        39,
+        52,
+        52,
+        67
+      ],
+      "pixelSha256": "35618f0fb38e6a9dbde097d13f835db7e770fd9aaa3de9e2bcae7fe78474909d"
+    },
+    {
+      "path": "orbital_command_node/phase_3_damage.png",
+      "sha256": "f6979a94aaa8bb906d7acb2470284229edcf9082c6caba9a70d1f16e7d2b3a33",
+      "bytes": 633,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 124,
+        "height": 104
+      },
+      "alpha": {
+        "transparentPixels": 12801,
+        "partialPixels": 95,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        76,
+        69,
+        87,
+        82
+      ],
+      "pixelSha256": "3b09026563d31c21b50e7cbbe494235cac306c540fc80675fa0da8c83d82c87b"
+    },
+    {
+      "path": "phase_control_array/critical_0.png",
+      "sha256": "b1a4c82bd4dcc68ca37abf186d923c315ef304d75ca4bcf49ab744e88545133c",
+      "bytes": 3333,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 126,
+        "height": 126
+      },
+      "alpha": {
+        "transparentPixels": 14965,
+        "partialPixels": 911,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        45,
+        45,
+        81,
+        82
+      ],
+      "pixelSha256": "21e3bd4cac45de6240dfbaacbdc5028265fea31f336773aa6d71bd725def63c6"
+    },
+    {
+      "path": "phase_control_array/critical_1.png",
+      "sha256": "8fd50e9659dac7401725673b49269e38fcd0fb81776916b20962d63dcd44381f",
+      "bytes": 3370,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 126,
+        "height": 126
+      },
+      "alpha": {
+        "transparentPixels": 13896,
+        "partialPixels": 1980,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        41,
+        42,
+        86,
+        86
+      ],
+      "pixelSha256": "9dc872b481888216784081e2565ee655b4c0d9f155e9b17f1c8741d301f7e324"
+    },
+    {
+      "path": "phase_control_array/critical_2.png",
+      "sha256": "86f34723759afd361f9e7a3d642474b5b499b12a3577e9ca42a769d9aa3b1c17",
+      "bytes": 3424,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 126,
+        "height": 126
+      },
+      "alpha": {
+        "transparentPixels": 13896,
+        "partialPixels": 1979,
+        "opaquePixels": 1
+      },
+      "alphaBoundingBox": [
+        41,
+        42,
+        86,
+        86
+      ],
+      "pixelSha256": "b8b00a9b022823613d20ac55af8943545e9ca8c79e44584ecb45952f173742d3"
+    },
+    {
+      "path": "phase_control_array/critical_3.png",
+      "sha256": "512794c89456a4735448c92dac7adc4da5d94229b652505758183f4ed0368d85",
+      "bytes": 3411,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 126,
+        "height": 126
+      },
+      "alpha": {
+        "transparentPixels": 13896,
+        "partialPixels": 1980,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        41,
+        42,
+        86,
+        86
+      ],
+      "pixelSha256": "1a07f7118c3897ca999d27facd9a71207f5424149a9bab2b62acaa9f990c344d"
+    },
+    {
+      "path": "phase_control_array/phase_2_damage.png",
+      "sha256": "030c961b6820f411fdcc49ed9ad27850a6daca4064dfa3f24e3953c1b802e6b9",
+      "bytes": 657,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 126,
+        "height": 126
+      },
+      "alpha": {
+        "transparentPixels": 15781,
+        "partialPixels": 95,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        33,
+        48,
+        44,
+        61
+      ],
+      "pixelSha256": "2f6f103ae98e986635e8098c2697efd738361c1f0897f2fc088b2f019bac8b74"
+    },
+    {
+      "path": "phase_control_array/phase_3_damage.png",
+      "sha256": "202a1bdc2c9383448008c9b8946c92942102f2c036783e63f2ef8c204ac59e75",
+      "bytes": 653,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 126,
+        "height": 126
+      },
+      "alpha": {
+        "transparentPixels": 15781,
+        "partialPixels": 95,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        82,
+        80,
+        93,
+        93
+      ],
+      "pixelSha256": "8ad08c46466ddc9b21be234cdd5148cc8fe536bf1f769679245318b3a0a790f1"
+    },
+    {
+      "path": "station_warden/critical_0.png",
+      "sha256": "e6137815d9125712fb52099aee6e0c546a9c5dde7b6f5834e2c4d2c7a87d8b18",
+      "bytes": 1379,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 146,
+        "height": 116
+      },
+      "alpha": {
+        "transparentPixels": 16642,
+        "partialPixels": 294,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        61,
+        47,
+        85,
+        69
+      ],
+      "pixelSha256": "2d0d8799859ad77d5a5b3b1ea9db37aeff09db4d244e178d9d7a1e1ff93a0d7f"
+    },
+    {
+      "path": "station_warden/critical_1.png",
+      "sha256": "19b34d09db25bf546b2b70a7915a3d65a75d1506cae4b6110e1b18e9ded71cde",
+      "bytes": 1388,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 146,
+        "height": 116
+      },
+      "alpha": {
+        "transparentPixels": 16642,
+        "partialPixels": 294,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        61,
+        47,
+        85,
+        69
+      ],
+      "pixelSha256": "09c5d7bd4189c227ee739eb72551aeda90b3f7faf426f3b1681248eae57b88b0"
+    },
+    {
+      "path": "station_warden/critical_2.png",
+      "sha256": "0d34fa0064b989ecaef7efd05644e64bca9f5a2e417d910c1252767d0645cd25",
+      "bytes": 1387,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 146,
+        "height": 116
+      },
+      "alpha": {
+        "transparentPixels": 16642,
+        "partialPixels": 284,
+        "opaquePixels": 10
+      },
+      "alphaBoundingBox": [
+        61,
+        47,
+        85,
+        69
+      ],
+      "pixelSha256": "eafd8ab68b7cf6560c626c138d7db409bcade4be5c648bace7d1bcf18887a070"
+    },
+    {
+      "path": "station_warden/critical_3.png",
+      "sha256": "46b46751e2881cadc501220eee1b555fe248714704bc893f6df44fc2b3c10627",
+      "bytes": 1393,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 146,
+        "height": 116
+      },
+      "alpha": {
+        "transparentPixels": 16642,
+        "partialPixels": 294,
+        "opaquePixels": 0
+      },
+      "alphaBoundingBox": [
+        61,
+        47,
+        85,
+        69
+      ],
+      "pixelSha256": "96d7840200a7f25a5edb28d535e88f28198d2b2593ea50f3c5d6e14ecd513063"
+    },
+    {
+      "path": "station_warden/phase_2_damage.png",
+      "sha256": "5aa950cc369855a86b3f8586ea7f0951367a1a203707f9f61fc2e06bae3724ce",
+      "bytes": 901,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 146,
+        "height": 116
+      },
+      "alpha": {
+        "transparentPixels": 16793,
+        "partialPixels": 141,
+        "opaquePixels": 2
+      },
+      "alphaBoundingBox": [
+        40,
+        53,
+        59,
+        72
+      ],
+      "pixelSha256": "844aa32885b6d75d672cb565d323cd57b9ff900c819fe2d4bf25db6278139635"
+    },
+    {
+      "path": "station_warden/phase_3_damage.png",
+      "sha256": "82519647561e32a0a0db1d508409494b948a05a7f9db0546e54d24582a090d78",
+      "bytes": 892,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 146,
+        "height": 116
+      },
+      "alpha": {
+        "transparentPixels": 16793,
+        "partialPixels": 141,
+        "opaquePixels": 2
+      },
+      "alphaBoundingBox": [
+        91,
+        63,
+        110,
+        82
+      ],
+      "pixelSha256": "d841d88e9e5aa5646b8563ae1824949ca1bc31e091c2726ca85da7d63f90f32c"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 6,
+    "externalSourceBytes": 5703,
+    "plannedMaximumOutputFiles": 25,
+    "taskOutputFiles": 24,
+    "taskOutputBytes": 40791,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "0579e73137110750cbecb08dcb33710af400a69ee11c0312d171ca736bad5011"
+}

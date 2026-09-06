@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "reviewed_native_runtime_final",
+  "engine": "Godot 4.6.2 stable",
+  "renderer": "OpenGL 3.3 Compatibility",
+  "mission_index": 8,
+  "captures": [
+    {
+      "path": "work/mountain_final_review_v1/snow_low_24.png",
+      "mission_time": 24.0,
+      "altitude": "low",
+      "sha256": "af968eae7660e6881319f0ed6d825d0fafa807b240a629d19f0ec6be8abb35c3",
+      "review": "Switchback road, retaining walls, snow particles, and low-altitude target silhouettes remain distinct."
+    },
+    {
+      "path": "work/mountain_final_review_v1/snow_mid_74.png",
+      "mission_time": 74.0,
+      "altitude": "mid",
+      "sha256": "e34bf6549897a085d78d6a5cc746a95e4b36bcbac678ca76a1f4e30ac2d2487c",
+      "review": "Ice-cliff corridor and central road remain continuous beneath the mid-altitude weather treatment."
+    },
+    {
+      "path": "work/mountain_final_review_v1/snow_high_118.png",
+      "mission_time": 118.0,
+      "altitude": "high",
+      "sha256": "1c81a6b7d43b4885ce44fc132ee3bf06d821cb6909037b2088b7f6655f131fc8",
+      "review": "Radar installation, service roads, cloud depth, and airborne targets remain readable at high altitude."
+    }
+  ],
+  "conclusion": "The retained mountain terrain is approved with the production snow and cloud stack. No obsolete connector band or unresolved ice-cliff transition is visible in the reviewed runtime states."
+}

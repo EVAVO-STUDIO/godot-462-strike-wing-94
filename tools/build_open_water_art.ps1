@@ -20,7 +20,9 @@ function Build-SeamlessPhase([string]$SourcePath, [string]$Output, [int]$X, [int
     $Row = Join-Path $Work 'row.png'
     & $MagickPath $SourcePath -roll "+$X+$Y" -depth 8 $Rolled
     & $MagickPath $Rolled -crop '640x1+0+0' +repage $Row
-    & $MagickPath $Rolled $Row -gravity south -compose src -composite -depth 8 $Output
+    # Replace the seam row only. Src with the default outside-overlay behavior
+    # overwrites the complete sea plate with the row's virtual pixels.
+    & $MagickPath $Rolled $Row -gravity south -define compose:outside-overlay=false -compose src -composite -depth 8 $Output
     if ($LASTEXITCODE -ne 0) { throw "Failed to build seamless water phase: $Output" }
 }
 

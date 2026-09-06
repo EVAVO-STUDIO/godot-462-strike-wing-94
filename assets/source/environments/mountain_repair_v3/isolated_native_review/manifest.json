@@ -1,0 +1,59 @@
+{
+	"frames": [
+		{
+			"chunk": 0,
+			"file": "chunk_0_offset_0000.png",
+			"offset": 0,
+			"world_distance": 170.666666666667
+		},
+		{
+			"chunk": 0,
+			"file": "chunk_0_offset_0820.png",
+			"offset": 820,
+			"world_distance": 136.5
+		},
+		{
+			"chunk": 0,
+			"file": "chunk_0_offset_0950.png",
+			"offset": 950,
+			"world_distance": 131.083333333333
+		},
+		{
+			"chunk": 1,
+			"file": "chunk_1_offset_0000.png",
+			"offset": 0,
+			"world_distance": 128.0
+		},
+		{
+			"chunk": 1,
+			"file": "chunk_1_offset_0820.png",
+			"offset": 820,
+			"world_distance": 221.833333333333
+		},
+		{
+			"chunk": 1,
+			"file": "chunk_1_offset_0950.png",
+			"offset": 950,
+			"world_distance": 216.416666666667
+		},
+		{
+			"chunk": 2,
+			"file": "chunk_2_offset_0000.png",
+			"offset": 0,
+			"world_distance": 213.333333333333
+		},
+		{
+			"chunk": 2,
+			"file": "chunk_2_offset_0820.png",
+			"offset": 820,
+			"world_distance": 179.166666666667
+		},
+		{
+			"chunk": 2,
+			"file": "chunk_2_offset_0950.png",
+			"offset": 950,
+			"world_distance": 173.75
+		}
+	],
+	"scope": "Nine addressed terrain views, isolated art checkout, not campaign balance evidence"
+}

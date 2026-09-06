@@ -1,0 +1,152 @@
+[
+  {
+    "id": "point_defence_pod_fighter_active_hard_left",
+    "status_pixels": 1,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_active_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_active_neutral",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_active_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_fighter_active_hard_right",
+    "status_pixels": 1,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_active_hard_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_active_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_active_neutral",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_active_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "point_defence_pod_bomber_active_hard_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_active_hard_left",
+    "status_pixels": 1,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_active_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_active_neutral",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_active_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_fighter_active_hard_right",
+    "status_pixels": 1,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_active_hard_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_active_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_active_neutral",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_active_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "emp_disruptor_bomber_active_hard_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_active_hard_left",
+    "status_pixels": 1,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_active_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_active_neutral",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_active_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_fighter_active_hard_right",
+    "status_pixels": 1,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_active_hard_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_active_left",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_active_neutral",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_active_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  },
+  {
+    "id": "magnetic_screen_bomber_active_hard_right",
+    "status_pixels": 2,
+    "visible_exterior_and_alpha_unchanged": true
+  }
+]

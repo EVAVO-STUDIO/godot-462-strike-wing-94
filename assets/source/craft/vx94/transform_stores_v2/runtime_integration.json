@@ -1,0 +1,13 @@
+{
+  "schema": "hypersonic_vx94_transform_stores_runtime_integration_v1",
+  "status": "reviewed_native_runtime",
+  "runtime_layers": 240,
+  "destinations": ["bomber", "hypersonic"],
+  "store_families": ["hunter_rack", "twin_rocket_pods"],
+  "store_states": ["loaded", "left_expended", "empty"],
+  "exposures_per_sequence": 10,
+  "representative_runtime_sha256": "9E724507E42125EB2F07050B8BA108B9AA1FAC47D38B1A909294A7687BCBADD4",
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/transform_stores",
+  "native_evidence": "work/vx94_transform_runtime",
+  "review_movie": "outputs/HYPERSONIC-vx94-storm-transform-runtime.mp4"
+}

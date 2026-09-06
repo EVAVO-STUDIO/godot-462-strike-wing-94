@@ -1,0 +1,948 @@
+{
+  "schema": "evavo.project-art-sequence-review.v1",
+  "taskId": "mechanical-transform-e",
+  "status": "passed",
+  "consistencyProfile": "identity-locked",
+  "thresholds": {
+    "minimumChangedFraction": 0.0001,
+    "maximumChangedFraction": 1.0,
+    "maximumCentroidShiftPixels": 1.5,
+    "maximumAlphaBoundsWidthChangeFraction": 0.15,
+    "maximumAlphaBoundsHeightChangeFraction": 0.0,
+    "maximumVisibleMeanColourDistance": 12.0,
+    "maximumAlphaMassChangeFraction": 0.15,
+    "minimumCentroidAlignedAlphaIoU": 0.7
+  },
+  "frames": [
+    {
+      "frameIndex": 0,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_00.png",
+      "pixelSha256": "d381e76ad5582972ac4e2f9daf79d88ec532ed16a6e84cdedacc0e4fee3cb9bc",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3355,
+        "partialPixels": 497,
+        "opaquePixels": 756
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 3355,
+          "partialPixels": 497,
+          "opaquePixels": 756,
+          "transparentFraction": 0.728082,
+          "partialFraction": 0.107856,
+          "opaqueFraction": 0.164062,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.119397,
+          "opaqueBorderBandFraction": 0.090517,
+          "lowChromaBorderBandFraction": 0.898917,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.314079,
+          "matchingBorderBandFraction": 0.0375,
+          "visibleBorderBandFraction": 0.119397,
+          "rmse": 17.79,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 36,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.540826916085535,
+        "y": 47.32041841557326
+      },
+      "alphaMassFraction": 0.2574976171023965,
+      "visibleMeanRgb": {
+        "red": 111.18237432660212,
+        "green": 114.09745513434908,
+        "blue": 117.08312126119576
+      }
+    },
+    {
+      "frameIndex": 1,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_01.png",
+      "pixelSha256": "87424280dd8884425642560dfd9ad68f035e771927e8922e91e3bb03e306ac86",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3325,
+        "partialPixels": 523,
+        "opaquePixels": 760
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 3325,
+          "partialPixels": 523,
+          "opaquePixels": 760,
+          "transparentFraction": 0.721571,
+          "partialFraction": 0.113498,
+          "opaqueFraction": 0.164931,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.123276,
+          "opaqueBorderBandFraction": 0.091379,
+          "lowChromaBorderBandFraction": 0.902098,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.328671,
+          "matchingBorderBandFraction": 0.040517,
+          "visibleBorderBandFraction": 0.123276,
+          "rmse": 17.4206,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 36,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.527986026358782,
+        "y": 47.52241981622466
+      },
+      "alphaMassFraction": 0.26358762254901963,
+      "visibleMeanRgb": {
+        "red": 111.68918980001679,
+        "green": 114.81953403976418,
+        "blue": 117.84525677534337
+      }
+    },
+    {
+      "frameIndex": 2,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_02.png",
+      "pixelSha256": "37d085075720c872c8c64dd6716bdbf4f332973c440119477ef29848bc351ac9",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3267,
+        "partialPixels": 554,
+        "opaquePixels": 787
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 3267,
+          "partialPixels": 554,
+          "opaquePixels": 787,
+          "transparentFraction": 0.708984,
+          "partialFraction": 0.120226,
+          "opaqueFraction": 0.17079,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.127155,
+          "opaqueBorderBandFraction": 0.093103,
+          "lowChromaBorderBandFraction": 0.905085,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.338983,
+          "matchingBorderBandFraction": 0.043103,
+          "visibleBorderBandFraction": 0.127155,
+          "rmse": 18.4981,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        12,
+        4,
+        52,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 40,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.54099385223711,
+        "y": 47.71904383259026
+      },
+      "alphaMassFraction": 0.2750604234749455,
+      "visibleMeanRgb": {
+        "red": 112.10125399511767,
+        "green": 115.29829799478352,
+        "blue": 118.33080657287745
+      }
+    },
+    {
+      "frameIndex": 3,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_03.png",
+      "pixelSha256": "ebc10f82da5dddc0fd2cc58c1c2b50c2fabd858dd549a7def0460f2ee5e157e7",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3197,
+        "partialPixels": 595,
+        "opaquePixels": 816
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 3197,
+          "partialPixels": 595,
+          "opaquePixels": 816,
+          "transparentFraction": 0.693793,
+          "partialFraction": 0.129123,
+          "opaqueFraction": 0.177083,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.131897,
+          "opaqueBorderBandFraction": 0.096552,
+          "lowChromaBorderBandFraction": 0.908497,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.339869,
+          "matchingBorderBandFraction": 0.044828,
+          "visibleBorderBandFraction": 0.131897,
+          "rmse": 18.5472,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        11,
+        4,
+        53,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 42,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.538426446436667,
+        "y": 47.96557925160258
+      },
+      "alphaMassFraction": 0.28915270969498913,
+      "visibleMeanRgb": {
+        "red": 110.67937639434199,
+        "green": 113.99839889806513,
+        "blue": 117.11215365869451
+      }
+    },
+    {
+      "frameIndex": 4,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_04.png",
+      "pixelSha256": "110b749b326e7540b73dad1535c18beb8659f99addbd4fb6af27b1cbfe4e95c8",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3129,
+        "partialPixels": 643,
+        "opaquePixels": 836
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 3129,
+          "partialPixels": 643,
+          "opaquePixels": 836,
+          "transparentFraction": 0.679036,
+          "partialFraction": 0.13954,
+          "opaqueFraction": 0.181424,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.136638,
+          "opaqueBorderBandFraction": 0.103017,
+          "lowChromaBorderBandFraction": 0.911672,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.315457,
+          "matchingBorderBandFraction": 0.043103,
+          "visibleBorderBandFraction": 0.136638,
+          "rmse": 18.0311,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 46,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.534504630928993,
+        "y": 48.180404153802975
+      },
+      "alphaMassFraction": 0.303223720043573,
+      "visibleMeanRgb": {
+        "red": 108.39446533819815,
+        "green": 112.01698007297222,
+        "blue": 115.35689587426326
+      }
+    },
+    {
+      "frameIndex": 5,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_05.png",
+      "pixelSha256": "9d0b1095ba3b8ac2ea175088925bfb70480c10414c002ee994c2c6fb36a68653",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3057,
+        "partialPixels": 697,
+        "opaquePixels": 854
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 3057,
+          "partialPixels": 697,
+          "opaquePixels": 854,
+          "transparentFraction": 0.663411,
+          "partialFraction": 0.151259,
+          "opaqueFraction": 0.18533,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.152155,
+          "opaqueBorderBandFraction": 0.112069,
+          "lowChromaBorderBandFraction": 0.92068,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.325779,
+          "matchingBorderBandFraction": 0.049569,
+          "visibleBorderBandFraction": 0.152155,
+          "rmse": 18.9952,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        8,
+        4,
+        56,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 48,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.53825555937151,
+        "y": 48.32840538336052
+      },
+      "alphaMassFraction": 0.31718409586056645,
+      "visibleMeanRgb": {
+        "red": 106.21348308577316,
+        "green": 109.89153054434618,
+        "blue": 113.38756493088349
+      }
+    },
+    {
+      "frameIndex": 6,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_06.png",
+      "pixelSha256": "05c43eaf53dda78a6d9b83f47debf579ac3da99e26c9428b028cdbf049960022",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2994,
+        "partialPixels": 739,
+        "opaquePixels": 875
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 2994,
+          "partialPixels": 739,
+          "opaquePixels": 875,
+          "transparentFraction": 0.64974,
+          "partialFraction": 0.160373,
+          "opaqueFraction": 0.189887,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.1625,
+          "opaqueBorderBandFraction": 0.119397,
+          "lowChromaBorderBandFraction": 0.920424,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.320955,
+          "matchingBorderBandFraction": 0.052155,
+          "visibleBorderBandFraction": 0.1625,
+          "rmse": 18.8947,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        7,
+        4,
+        57,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 50,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.52986779279976,
+        "y": 48.42410718889542
+      },
+      "alphaMassFraction": 0.33009599673202616,
+      "visibleMeanRgb": {
+        "red": 104.77661933195145,
+        "green": 108.57733657148161,
+        "blue": 112.20194082644969
+      }
+    },
+    {
+      "frameIndex": 7,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_07.png",
+      "pixelSha256": "f818c9c85715e470a140e0de3ead069539c04bb5de8d3d2baeef112779a54014",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2980,
+        "partialPixels": 751,
+        "opaquePixels": 877
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 2980,
+          "partialPixels": 751,
+          "opaquePixels": 877,
+          "transparentFraction": 0.646701,
+          "partialFraction": 0.162977,
+          "opaqueFraction": 0.190321,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.169397,
+          "opaqueBorderBandFraction": 0.123707,
+          "lowChromaBorderBandFraction": 0.923664,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.251908,
+          "matchingBorderBandFraction": 0.042672,
+          "visibleBorderBandFraction": 0.169397,
+          "rmse": 21.2963,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 52,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.534727552296047,
+        "y": 48.38612951501819
+      },
+      "alphaMassFraction": 0.3315299904684096,
+      "visibleMeanRgb": {
+        "red": 104.36677182777537,
+        "green": 108.17844958812613,
+        "blue": 111.82851466137524
+      }
+    },
+    {
+      "frameIndex": 8,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_08.png",
+      "pixelSha256": "c6ecd2b22ec10720506e746c94e5c291a1f6fd4995e08aa530d9b81395ccf386",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2984,
+        "partialPixels": 749,
+        "opaquePixels": 875
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 2984,
+          "partialPixels": 749,
+          "opaquePixels": 875,
+          "transparentFraction": 0.647569,
+          "partialFraction": 0.162543,
+          "opaqueFraction": 0.189887,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.174138,
+          "opaqueBorderBandFraction": 0.128017,
+          "lowChromaBorderBandFraction": 0.925743,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.247525,
+          "matchingBorderBandFraction": 0.043103,
+          "visibleBorderBandFraction": 0.174138,
+          "rmse": 21.0588,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        5,
+        4,
+        59,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 54,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.53497038937775,
+        "y": 48.238763791909776
+      },
+      "alphaMassFraction": 0.3306636369825708,
+      "visibleMeanRgb": {
+        "red": 104.35691287708181,
+        "green": 108.16547718013193,
+        "blue": 111.81595344659407
+      }
+    },
+    {
+      "frameIndex": 9,
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_v2\\candidate_e\\bomber_09.png",
+      "pixelSha256": "f818c9c85715e470a140e0de3ead069539c04bb5de8d3d2baeef112779a54014",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2980,
+        "partialPixels": 751,
+        "opaquePixels": 877
+      },
+      "transparencyAdmission": {
+        "schema": "evavo.transparency-admission.v1",
+        "policy": "required",
+        "passed": true,
+        "hasAlphaChannel": true,
+        "alpha": {
+          "transparentPixels": 2980,
+          "partialPixels": 751,
+          "opaquePixels": 877,
+          "transparentFraction": 0.646701,
+          "partialFraction": 0.162977,
+          "opaqueFraction": 0.190321,
+          "transparentBorderFraction": 1.0
+        },
+        "checkerboard": {
+          "detected": false,
+          "confidence": 0.0,
+          "sampledBorderBandPixels": 2320,
+          "visibleBorderBandFraction": 0.169397,
+          "opaqueBorderBandFraction": 0.123707,
+          "lowChromaBorderBandFraction": 0.923664,
+          "tileSize": null,
+          "phaseX": null,
+          "phaseY": null,
+          "colours": [],
+          "colourSeparation": null,
+          "fitFraction": null,
+          "coverageFraction": null,
+          "rmse": null
+        },
+        "flatMatte": {
+          "detected": false,
+          "confidence": 0.0,
+          "colour": null,
+          "matchingVisibleFraction": 0.251908,
+          "matchingBorderBandFraction": 0.042672,
+          "visibleBorderBandFraction": 0.169397,
+          "rmse": 21.2963,
+          "highChroma": false
+        },
+        "blockers": [],
+        "guarantees": {
+          "decodedPixelsInspected": true,
+          "paintedGridNeverAcceptedAsAlpha": true,
+          "sourcePixelsChanged": false
+        }
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "alphaBoundsSize": {
+        "width": 52,
+        "height": 67
+      },
+      "alphaCentroid": {
+        "x": 31.534727552296047,
+        "y": 48.38612951501819
+      },
+      "alphaMassFraction": 0.3315299904684096,
+      "visibleMeanRgb": {
+        "red": 104.36677182777537,
+        "green": 108.17844958812613,
+        "blue": 111.82851466137524
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "fromFrameIndex": 0,
+      "toFrameIndex": 1,
+      "changedPixelFraction": 0.05360243055555555,
+      "alphaCentroidShiftPixels": 0.20240912606427586,
+      "alphaBoundsWidthChangeFraction": 0.0,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.023650725451961698,
+      "visibleMeanColourDistance": 1.1658089087252101,
+      "centroidAlignedAlphaIoU": 0.9720062208398134
+    },
+    {
+      "fromFrameIndex": 1,
+      "toFrameIndex": 2,
+      "changedPixelFraction": 0.078125,
+      "alphaCentroidShiftPixels": 0.19705381839949057,
+      "alphaBoundsWidthChangeFraction": 0.1111111111111111,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.04352556775989089,
+      "visibleMeanColourDistance": 0.7967248153504993,
+      "centroidAlignedAlphaIoU": 0.9480326651818857
+    },
+    {
+      "fromFrameIndex": 2,
+      "toFrameIndex": 3,
+      "changedPixelFraction": 0.095703125,
+      "alphaCentroidShiftPixels": 0.24654878705871444,
+      "alphaBoundsWidthChangeFraction": 0.05,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.051233420068253585,
+      "visibleMeanColourDistance": 2.279602706280962,
+      "centroidAlignedAlphaIoU": 0.9366643209007741
+    },
+    {
+      "fromFrameIndex": 3,
+      "toFrameIndex": 4,
+      "changedPixelFraction": 0.10546875,
+      "alphaCentroidShiftPixels": 0.2148606972954496,
+      "alphaBoundsWidthChangeFraction": 0.09523809523809523,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.04866290329226585,
+      "visibleMeanColourDistance": 3.4968226984975175,
+      "centroidAlignedAlphaIoU": 0.9331103678929766
+    },
+    {
+      "fromFrameIndex": 4,
+      "toFrameIndex": 5,
+      "changedPixelFraction": 0.11762152777777778,
+      "alphaCentroidShiftPixels": 0.1480487535061527,
+      "alphaBoundsWidthChangeFraction": 0.043478260869565216,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.046039854055571074,
+      "visibleMeanColourDistance": 3.6266353068212487,
+      "centroidAlignedAlphaIoU": 0.9238095238095239
+    },
+    {
+      "fromFrameIndex": 5,
+      "toFrameIndex": 6,
+      "changedPixelFraction": 0.11588541666666667,
+      "alphaCentroidShiftPixels": 0.09606867445063556,
+      "alphaBoundsWidthChangeFraction": 0.041666666666666664,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.04070790761569509,
+      "visibleMeanColourDistance": 2.279778007257425,
+      "centroidAlignedAlphaIoU": 0.9488916256157636
+    },
+    {
+      "fromFrameIndex": 6,
+      "toFrameIndex": 7,
+      "changedPixelFraction": 0.038628472222222224,
+      "alphaCentroidShiftPixels": 0.03828734745953215,
+      "alphaBoundsWidthChangeFraction": 0.04,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.004344171848735098,
+      "visibleMeanColourDistance": 0.6830321390183711,
+      "centroidAlignedAlphaIoU": 0.9660400242571255
+    },
+    {
+      "fromFrameIndex": 7,
+      "toFrameIndex": 8,
+      "changedPixelFraction": 0.07139756944444445,
+      "alphaCentroidShiftPixels": 0.14736592318821265,
+      "alphaBoundsWidthChangeFraction": 0.038461538461538464,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.0026131979330580412,
+      "visibleMeanColourDistance": 0.020573439059248858,
+      "centroidAlignedAlphaIoU": 0.9276822762299941
+    },
+    {
+      "fromFrameIndex": 8,
+      "toFrameIndex": 9,
+      "changedPixelFraction": 0.07139756944444445,
+      "alphaCentroidShiftPixels": 0.14736592318821265,
+      "alphaBoundsWidthChangeFraction": 0.037037037037037035,
+      "alphaBoundsHeightChangeFraction": 0.0,
+      "alphaMassChangeFraction": 0.0026200446282651432,
+      "visibleMeanColourDistance": 0.020573439059248858,
+      "centroidAlignedAlphaIoU": 0.9276822762299941
+    }
+  ],
+  "animationPreview": {
+    "enabled": true,
+    "sourceFrameCount": 10,
+    "renderedFrameCount": 10,
+    "interpolation": "none",
+    "interpolationApplied": false,
+    "easing": "smoothstep",
+    "loopTransition": false,
+    "presentationFps": 30.0,
+    "samplesPerTransition": 1,
+    "sourceFrameDurationMs": 92,
+    "outputFrameDurationMs": 92,
+    "dimensionsMatch": true,
+    "reviewOnly": true,
+    "sourceMastersModified": false
+  },
+  "issues": [],
+  "creativeApprovalPerformed": false,
+  "runtimeApprovalPerformed": false
+}

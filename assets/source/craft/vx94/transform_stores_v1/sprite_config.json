@@ -1,0 +1,126 @@
+{
+  "name": "vx94_transform_stores",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 64,
+    "canvas_height": 72,
+    "pivot_x": 32,
+    "pivot_y": 38,
+    "padding": 0,
+    "manual_anchors": {
+      "hunter_rack_00": [
+        18,
+        34
+      ],
+      "hunter_rack_01": [
+        18,
+        34
+      ],
+      "hunter_rack_02": [
+        20,
+        34
+      ],
+      "hunter_rack_03": [
+        21,
+        34
+      ],
+      "hunter_rack_04": [
+        23,
+        34
+      ],
+      "hunter_rack_05": [
+        24,
+        34
+      ],
+      "hunter_rack_06": [
+        25,
+        34
+      ],
+      "hunter_rack_07": [
+        26,
+        34
+      ],
+      "hunter_rack_08": [
+        27,
+        34
+      ],
+      "hunter_rack_09": [
+        26,
+        34
+      ],
+      "twin_rocket_pods_00": [
+        18,
+        34
+      ],
+      "twin_rocket_pods_01": [
+        18,
+        34
+      ],
+      "twin_rocket_pods_02": [
+        20,
+        34
+      ],
+      "twin_rocket_pods_03": [
+        21,
+        34
+      ],
+      "twin_rocket_pods_04": [
+        23,
+        34
+      ],
+      "twin_rocket_pods_05": [
+        24,
+        34
+      ],
+      "twin_rocket_pods_06": [
+        25,
+        34
+      ],
+      "twin_rocket_pods_07": [
+        26,
+        34
+      ],
+      "twin_rocket_pods_08": [
+        27,
+        34
+      ],
+      "twin_rocket_pods_09": [
+        26,
+        34
+      ]
+    }
+  },
+  "qa": {
+    "strict": true
+  },
+  "animations": {
+    "hunter_rack": {
+      "fps": 18,
+      "loop": false
+    },
+    "twin_rocket_pods": {
+      "fps": 18,
+      "loop": false
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "gif": true,
+    "contact_sheet": true,
+    "onion_skin": true
+  }
+}

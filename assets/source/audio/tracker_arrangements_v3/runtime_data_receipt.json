@@ -1,0 +1,86 @@
+{
+  "schema": "hypersonic_tracker_runtime_data_receipt_v1",
+  "status": "verified",
+  "arrangements": [
+    {
+      "id": "hangar_signal",
+      "source_sha256": "306F4DED05055217532BCE089046F52D6535EADC30CCFF2D0AE2C7796808E0C4",
+      "runtime_sha256": "306F4DED05055217532BCE089046F52D6535EADC30CCFF2D0AE2C7796808E0C4",
+      "byte_identical": true
+    },
+    {
+      "id": "title_vector",
+      "source_sha256": "B39CB7F05DA7F0D503E29471FD42B653EE067F3166336BA58B19398D8FDDF382",
+      "runtime_sha256": "B39CB7F05DA7F0D503E29471FD42B653EE067F3166336BA58B19398D8FDDF382",
+      "byte_identical": true
+    },
+    {
+      "id": "salt_wake",
+      "source_sha256": "CE5CF0A7C8D30AB70B11D2838CD1B55F87C219AAEE5B6820CBD7184249431E2D",
+      "runtime_sha256": "CE5CF0A7C8D30AB70B11D2838CD1B55F87C219AAEE5B6820CBD7184249431E2D",
+      "byte_identical": true
+    },
+    {
+      "id": "furnace_alarm",
+      "source_sha256": "13F1FF33234B10D2CEF3053C2FE10E8747440FA76CF8DCCE1E3EE01BC86CC1E4",
+      "runtime_sha256": "13F1FF33234B10D2CEF3053C2FE10E8747440FA76CF8DCCE1E3EE01BC86CC1E4",
+      "byte_identical": true
+    },
+    {
+      "id": "machine_pressure",
+      "source_sha256": "2CC35152DC1C16111796A4549E21693927B845F35DA291EFA7C98581E1E40753",
+      "runtime_sha256": "2CC35152DC1C16111796A4549E21693927B845F35DA291EFA7C98581E1E40753",
+      "byte_identical": true
+    },
+    {
+      "id": "dead_factory",
+      "source_sha256": "D27BF62DC09AD81BB7DF5721CC84703808A5F6BA04EEAE9BDD2CE34D3CFE860E",
+      "runtime_sha256": "D27BF62DC09AD81BB7DF5721CC84703808A5F6BA04EEAE9BDD2CE34D3CFE860E",
+      "byte_identical": true
+    },
+    {
+      "id": "ghost_signal",
+      "source_sha256": "3426703325EE1AA9ACF39C8360D7CCE17F15A86FE1B54F4D6468C21412AC102C",
+      "runtime_sha256": "3426703325EE1AA9ACF39C8360D7CCE17F15A86FE1B54F4D6468C21412AC102C",
+      "byte_identical": true
+    },
+    {
+      "id": "black_sky",
+      "source_sha256": "8DD59501D86122AF122631013E7F4126A03A629F6D1861630FF6838F4A7ABEFB",
+      "runtime_sha256": "8DD59501D86122AF122631013E7F4126A03A629F6D1861630FF6838F4A7ABEFB",
+      "byte_identical": true
+    },
+    {
+      "id": "thin_blue",
+      "source_sha256": "937191A55E7C7F7B850A42D87609BDACAE5140A64895C5EF6A98927512965BF5",
+      "runtime_sha256": "937191A55E7C7F7B850A42D87609BDACAE5140A64895C5EF6A98927512965BF5",
+      "byte_identical": true
+    },
+    {
+      "id": "ark_descent",
+      "source_sha256": "ADDD38EF070817069AEB4EF76DC1C50BD5BE408AD441A33CB4EC371554810EF4",
+      "runtime_sha256": "ADDD38EF070817069AEB4EF76DC1C50BD5BE408AD441A33CB4EC371554810EF4",
+      "byte_identical": true
+    },
+    {
+      "id": "after_action",
+      "source_sha256": "FFCB2CD45162EF90BEE860D49B9CF63056505B289E2EFE4D9C5B1CE829157FE8",
+      "runtime_sha256": "FFCB2CD45162EF90BEE860D49B9CF63056505B289E2EFE4D9C5B1CE829157FE8",
+      "byte_identical": true
+    },
+    {
+      "id": "steel_vector",
+      "source_sha256": "53338D3F8248D28CD38BA69C6F7E8E4C1970961A23926440F090746555C0E161",
+      "runtime_sha256": "53338D3F8248D28CD38BA69C6F7E8E4C1970961A23926440F090746555C0E161",
+      "byte_identical": true
+    }
+  ],
+  "all_byte_identical": true,
+  "runtime_render": "outputs/HYPERSONIC-tracker-runtime-arrangement-review.ogg",
+  "runtime_render_segments": [
+    "title_vector 0-24s",
+    "steel_vector 24-48s",
+    "black_sky 48-72s",
+    "after_action 72-96s"
+  ]
+}

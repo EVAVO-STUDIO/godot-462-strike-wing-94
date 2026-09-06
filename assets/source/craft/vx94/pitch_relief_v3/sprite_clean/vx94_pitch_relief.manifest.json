@@ -1,0 +1,664 @@
+{
+  "schema_version": 3,
+  "tool_version": "0.5.0",
+  "name": "vx94_pitch_relief",
+  "pixel_art": true,
+  "frames": [
+    {
+      "name": "bomber_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\bomber_00.png",
+      "source_sha256": "eae2148ba47211d571c2ec1e68f3ee425d8c5d4510fdc4ebd9d68574a6aefed0",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 64,
+      "trim_x": 6,
+      "trim_y": 5,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 5,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "679ac08841b49a82b4165c52152e192f01ebb0615a2e4d152593e8564b53b35f",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_01",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\bomber_01.png",
+      "source_sha256": "4180d992c7e714ba9ef6d60188e711299baf2bf87ad7faa23f9c83f308728d5b",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 66,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "e939a82acbc06b0729fc0980c143033d796f481c924ca4fd953260015218e995",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_02",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\bomber_02.png",
+      "source_sha256": "5c264c0dc0728350e2e40171d475c3e8908f3b1d8cbfb02f9740a8b72f86461f",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "f0405960b27ccbdb6c3ff88f85aeeca0699852579fb7ca202d9ff0689cd3e385",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_03",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\bomber_03.png",
+      "source_sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "456ea6c353b49666dd84a8c0fc2d668b92ce675a70f56fa985bf2ea6ee57868f",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_04",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\bomber_04.png",
+      "source_sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "456ea6c353b49666dd84a8c0fc2d668b92ce675a70f56fa985bf2ea6ee57868f",
+      "alias_of": "bomber_03"
+    },
+    {
+      "name": "bomber_05",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\bomber_05.png",
+      "source_sha256": "28cd766b569ab5b2a4d391564ad0d4bf8041318f742658d025b469c192d4d059",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 66,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "8865ddac2f6a1fe1d86f2fefa83efb24e85130cac8389a1965571d38d213e7a8",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_06",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\bomber_06.png",
+      "source_sha256": "efe14807ebd89d651042e153663fa9c12444db2231952c2d6cf4eca10bbf20db",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 65,
+      "trim_x": 6,
+      "trim_y": 5,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 5,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "20cd0efb3f72e51448dd06c2b28bc23552fc03a171a85136a0a198fd21810d7b",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\fighter_00.png",
+      "source_sha256": "01429a24a7f1405b32eccfefbe195fb979b3c1a2a2535e425956b1f583f0f78c",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 64,
+      "trim_x": 14,
+      "trim_y": 5,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 5,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "dc25b41320b1a498d29ee09d2c2738233771d57c4a0d3d969ef014bfd678521f",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_01",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\fighter_01.png",
+      "source_sha256": "845a5cf6c4b12437d08694834b340695c16c5be48d5221050084c29cfe16d741",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 66,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "5b09862a7d0087253ec441d506f2eb3e5bca4b9ac27052a5ff6885cc330ce16b",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_02",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\fighter_02.png",
+      "source_sha256": "1e0eeb75c6aeb21000fd306141fa7868b0b61b2c44fbb39eeebdf7b95772de51",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "b943aa1da6bf8b3ef367c11ca27b24d571d1f29da3f5184a2b59efae066cefbd",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_03",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\fighter_03.png",
+      "source_sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "bf195b42bc0de45ffa97f8f704ff59a3f1fa1ffd167d478dca5b6e99bbc7dc28",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_04",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\fighter_04.png",
+      "source_sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "bf195b42bc0de45ffa97f8f704ff59a3f1fa1ffd167d478dca5b6e99bbc7dc28",
+      "alias_of": "fighter_03"
+    },
+    {
+      "name": "fighter_05",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\fighter_05.png",
+      "source_sha256": "979755fb54fc557fe8ccb7900b63c926381d5c031272287f178613e6fb8d23f5",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 66,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "b0473f874874dd08857de916646fa62a269cf2b34b7c4a2169941c384252c508",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_06",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_pitch_relief_v3\\sprite_input\\fighter_06.png",
+      "source_sha256": "2de5cad02ba58d65b00199f197fe0f8f7c47ba746b0c3aac6f4979503e358e1e",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 65,
+      "trim_x": 14,
+      "trim_y": 5,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 5,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "0253928017fe6f201b0ba6324e959be8f7bc072b8a588f4c9f7d153a1993846a",
+      "alias_of": null
+    }
+  ],
+  "animations": [
+    {
+      "name": "bomber",
+      "frames": [
+        {
+          "frame": "bomber_00",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "bomber_01",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "bomber_02",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "bomber_03",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "bomber_04",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "bomber_05",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "bomber_06",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 8.0,
+      "loop": false
+    },
+    {
+      "name": "fighter",
+      "frames": [
+        {
+          "frame": "fighter_00",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "fighter_01",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "fighter_02",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "fighter_03",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "fighter_04",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "fighter_05",
+          "duration": 1.0,
+          "events": []
+        },
+        {
+          "frame": "fighter_06",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 8.0,
+      "loop": false
+    }
+  ],
+  "atlas_pages": [
+    {
+      "index": 0,
+      "file": "vx94_pitch_relief.atlas.0.png",
+      "width": 140,
+      "height": 494
+    }
+  ],
+  "atlas_frames": [
+    {
+      "name": "bomber_00",
+      "page": 0,
+      "x": 3,
+      "y": 357,
+      "width": 52,
+      "height": 64,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_01",
+      "page": 0,
+      "x": 3,
+      "y": 287,
+      "width": 52,
+      "height": 66,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_02",
+      "page": 0,
+      "x": 3,
+      "y": 3,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_03",
+      "page": 0,
+      "x": 3,
+      "y": 74,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_04",
+      "page": 0,
+      "x": 3,
+      "y": 74,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_05",
+      "page": 0,
+      "x": 43,
+      "y": 145,
+      "width": 52,
+      "height": 66,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_06",
+      "page": 0,
+      "x": 59,
+      "y": 73,
+      "width": 52,
+      "height": 65,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_00",
+      "page": 0,
+      "x": 3,
+      "y": 425,
+      "width": 36,
+      "height": 64,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_01",
+      "page": 0,
+      "x": 43,
+      "y": 215,
+      "width": 36,
+      "height": 66,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_02",
+      "page": 0,
+      "x": 3,
+      "y": 145,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_03",
+      "page": 0,
+      "x": 3,
+      "y": 216,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_04",
+      "page": 0,
+      "x": 3,
+      "y": 216,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_05",
+      "page": 0,
+      "x": 59,
+      "y": 3,
+      "width": 36,
+      "height": 66,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_06",
+      "page": 0,
+      "x": 99,
+      "y": 3,
+      "width": 36,
+      "height": 65,
+      "extrude": 1
+    }
+  ]
+}

@@ -1,0 +1,362 @@
+[
+  {
+    "exposure": 0,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 0,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 0,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 1,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 1,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 1,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 2,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 2,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 2,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 3,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 3,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 3,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 4,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 4,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 4,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 5,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 5,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 5,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 6,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 6,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 6,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 7,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 7,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 7,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 8,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 8,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 8,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 9,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 9,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 9,
+    "family": "bomber",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 0,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 0,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 0,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 1,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 1,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 1,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 2,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 2,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 2,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 3,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 3,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 3,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 4,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 4,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 4,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 5,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 5,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 5,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 6,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 6,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 6,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 7,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 7,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 7,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 8,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 8,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 8,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  },
+  {
+    "exposure": 9,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "light"
+  },
+  {
+    "exposure": 9,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "damaged"
+  },
+  {
+    "exposure": 9,
+    "family": "hypersonic",
+    "outside_fraction": 0.0,
+    "stage": "critical"
+  }
+]

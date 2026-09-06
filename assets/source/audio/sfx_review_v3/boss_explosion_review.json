@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\boss_explosion.wav",
+  "source_sha256": "35ce44e1286ee4d6c7053dffd031d6f935623d988b6f2df69013c2a6691978d3",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.52,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.27984619140625,
+    "rms": 0.05138863028673519,
+    "dc": 0.0004994598500457875,
+    "clippedSamples": 0,
+    "crestFactor": 5.4456830205307165,
+    "estimatedBpm": 143.5546875,
+    "pulseStrength": 0.03353448957204819,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

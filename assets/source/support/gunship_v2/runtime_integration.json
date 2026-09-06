@@ -1,0 +1,19 @@
+{
+  "schema": "hypersonic_spectre_runtime_integration_v1",
+  "revision": "F",
+  "status": "reviewed_native_runtime",
+  "canvas": [96, 56],
+  "frames": 4,
+  "runtime_sha256": [
+    "E602D7BD6B2ADE8AE2BBD9551DD640FAA0B0FA4D6B9B9F9C3F614AD73D3C1107",
+    "7296DE09DF9308286B8999990C4643069F25B82826EED9DA7B3CEA810EAAB142",
+    "244015C45A043DFA72355B43DED6F7A4EAA7CF6F5D529ADF49453C2A360E77B0",
+    "C9783592E6643747019CD194254501FC13CA5F30DEB25850BA736C5A2FB75D66"
+  ],
+  "muzzle_offsets": [[-19.64,13.05],[-15.37,13.05],[-11.10,13.05]],
+  "firing_presentation": "Three-station staggered tracer and ground-impact cadence.",
+  "finishing_receipts": "work/support_art_v2/native_f/spectre_gunship",
+  "sprite_qa": "assets/source/support/gunship_v2/sprite_qa.json",
+  "native_evidence": "work/support_art_v2/spectre_runtime_f",
+  "review_movie": "outputs/HYPERSONIC-spectre-gunship-runtime-f.mp4"
+}

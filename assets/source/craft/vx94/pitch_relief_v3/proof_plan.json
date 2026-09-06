@@ -1,0 +1,575 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "pitch-proof-board",
+  "projectId": "hypersonic",
+  "purpose": "Diving 18/12/6, neutral, climbing 6/12/18 degrees; fighter then bomber",
+  "compiledAt": "2026-09-06T10:29:14.669Z",
+  "runId": "project-art-sandbox:d6650ec817b0607feb0c33bd",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "978e35851c5780972f82284a563aefdee4daeeed10d419bf4578ecc60580a6c0",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_1898f523fcac78dbc56e0b7637c9cf8c",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_12.png",
+      "sha256": "48fd55708cdf544edd6b6aa425ea23527f561399702c744f940b618e4df34a41",
+      "bytes": 10832,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_3c537128a8b7857fc2bccbdf5ace0267",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_06.png",
+      "sha256": "c669a748c30f17d5aa01649d912d52448af73dd10e5d461c864ab29ff9052441",
+      "bytes": 9305,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_3fd86c7935a060321b3edf766156408e",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_06.png",
+      "sha256": "dd9a277c9955048a0aeccbb67646510905fe2d65af563c510c34083711cbc5f9",
+      "bytes": 10937,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5954e1e01d9ccf9433329f56b96f27f3",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_12.png",
+      "sha256": "6f7b6d81446bdbca1c7c4afcb691492b4ff72d97e7d6ee25683ab84f658c726a",
+      "bytes": 9196,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_815aaa8c63f1c17d0207905417467eea",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_18.png",
+      "sha256": "226814646e702af30cee1b831bd3783c9300b562d2bd7cc055a3e84be94bd861",
+      "bytes": 10673,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_85e4ac1d1752ea5dcb3fbbf6653548fd",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_12.png",
+      "sha256": "40b9664937e0732de8db64f723e29a92d17a778dc746affef9d4c16410b94909",
+      "bytes": 9292,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_8cf02c70cbd522b5ee446cf14c0581b8",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_12.png",
+      "sha256": "8068d4439145be53a2564182c6d13c6873980af76cda406d09e0a502f9251667",
+      "bytes": 10797,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_95213ba2c3d0d6db19c1448851ae958a",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_18.png",
+      "sha256": "a608d9ed2800d72a2b6b799ff04813331108761d585b93b7ccd9e91690790c33",
+      "bytes": 9065,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9cc70c8895dc8ea3f431f74cb3d92097",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_06.png",
+      "sha256": "1bc67710a7a1e66b777b6ee365056f41a464ac82b26a9d229a9819fe2d0d31c7",
+      "bytes": 9318,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a9def49dbc8fee3d9666d860c7fe6c5e",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_neutral.png",
+      "sha256": "c669a748c30f17d5aa01649d912d52448af73dd10e5d461c864ab29ff9052441",
+      "bytes": 9305,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bcae6cfe46271f3eb08ffa4ad72547c8",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_18.png",
+      "sha256": "fc1f701a3b26b0943d73230be5dab54a2d6e1bde92384e3a63eba63cf90a17c1",
+      "bytes": 9052,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_cbf8c3687229a22eb2f21722ace0ffd6",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_06.png",
+      "sha256": "5b9ade612534bb7abe6deb9f2fc1643e5c4dfee1cbcdae2bee8d828e1acb05cc",
+      "bytes": 10931,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_d7381f0c1aed5495a0e591ff78d42fb0",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_18.png",
+      "sha256": "a96cc3adf6b535cb658a049b30e9f8c552892ca0c6b41f0365e503c1c948f090",
+      "bytes": 10689,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_db10b47401d4fdc1a421f60d7e920eb0",
+      "path": "work/vx94_pitch_relief_v3/clean_proofs/bomber_neutral.png",
+      "sha256": "5b9ade612534bb7abe6deb9f2fc1643e5c4dfee1cbcdae2bee8d828e1acb05cc",
+      "bytes": 10931,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 240,
+        "height": 176,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "pitch_family",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_bcae6cfe46271f3eb08ffa4ad72547c8"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5954e1e01d9ccf9433329f56b96f27f3"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9cc70c8895dc8ea3f431f74cb3d92097"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a9def49dbc8fee3d9666d860c7fe6c5e"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_3c537128a8b7857fc2bccbdf5ace0267"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_85e4ac1d1752ea5dcb3fbbf6653548fd"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_95213ba2c3d0d6db19c1448851ae958a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_815aaa8c63f1c17d0207905417467eea"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_1898f523fcac78dbc56e0b7637c9cf8c"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_3fd86c7935a060321b3edf766156408e"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_db10b47401d4fdc1a421f60d7e920eb0"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_cbf8c3687229a22eb2f21722ace0ffd6"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_8cf02c70cbd522b5ee446cf14c0581b8"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_d7381f0c1aed5495a0e591ff78d42fb0"
+        }
+      ],
+      "targetPath": "proof_board.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 960,
+        "height": 576,
+        "background": "#17212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        },
+        {
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 144
+          }
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 140323,
+    "plannedMaximumOutputFiles": 2
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "5e9e9807a3c1540a023f113de984d2f68083265686cbaf40a1018a206d0f7ec0"
+}

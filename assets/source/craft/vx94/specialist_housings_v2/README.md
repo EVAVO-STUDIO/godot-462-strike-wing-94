@@ -1,0 +1,9 @@
+# VX-94 specialist hardware candidates
+
+Created centreline hardware for the existing Needle Rail, Storm Cannon and Plasma Lance. Each has stowed, deployed, charged and discharge states across two forms and five bank poses: 120 named static states. Rail channels, pulse apertures and thermal shrouds use restrained military metal and tiny charge cues. Original SVG components are finished and assembled in EVAVO Art Studio; the aircraft painting is retained.
+
+The first candidate hid charge cues beneath the painted nose. Revision 2 separates the under-airframe housing from a tiny aperture above the nose tip, leaving the canopy unobscured. All 30 weapon/form/bank combinations now change at least three visible pixels between deployed/charged and charged/discharge. This is subtle hardware detail, not a replacement for weapon-specific muzzle effects.
+
+An initial Sprite Studio run incorrectly treated the four states as evenly spaced animation frames and failed the change-ratio gate. The corrected package exports named single-frame states at fixed 64x72 geometry and pivot (32,38), passing default strict checks. No QA threshold was relaxed. All 120 assembled alpha checks pass with the documented airframe source mattes; representative six-background proofs were inspected. Pinned Godot 4.6.2 rendered 48 native-size art-fixture frames, with ten representative exposures inspected. Neither the source checks nor this fixture proves live weapon integration.
+
+These are now integrated production runtime assets. The selected primary weapon, fighter/bomber form, five live bank poses and weapon recovery timer choose the matching stowed, deployed, charged or discharge composite. The existing projectile mount offsets, firing cadence, transformation timing and damage rules are unchanged. Native Storm Cannon evidence verifies the live centerline hardware with the weapon-specific three-pulse volley.

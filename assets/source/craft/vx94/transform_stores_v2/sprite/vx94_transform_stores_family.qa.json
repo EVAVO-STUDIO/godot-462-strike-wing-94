@@ -1,0 +1,106 @@
+{
+  "status": "PASS",
+  "issues": [
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_hunter_rack_empty_07",
+      "severity": "info",
+      "frame": "bomber_hunter_rack_empty_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_hunter_rack_left_expended_07",
+      "severity": "info",
+      "frame": "bomber_hunter_rack_left_expended_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_hunter_rack_loaded_07",
+      "severity": "info",
+      "frame": "bomber_hunter_rack_loaded_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_twin_rocket_pods_empty_07",
+      "severity": "info",
+      "frame": "bomber_twin_rocket_pods_empty_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_twin_rocket_pods_left_expended_07",
+      "severity": "info",
+      "frame": "bomber_twin_rocket_pods_left_expended_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_twin_rocket_pods_loaded_07",
+      "severity": "info",
+      "frame": "bomber_twin_rocket_pods_loaded_09",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_hunter_rack_empty_00",
+      "severity": "info",
+      "frame": "hypersonic_hunter_rack_empty_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_hunter_rack_left_expended_00",
+      "severity": "info",
+      "frame": "hypersonic_hunter_rack_left_expended_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_hunter_rack_loaded_00",
+      "severity": "info",
+      "frame": "hypersonic_hunter_rack_loaded_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_twin_rocket_pods_empty_00",
+      "severity": "info",
+      "frame": "hypersonic_twin_rocket_pods_empty_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_twin_rocket_pods_left_expended_00",
+      "severity": "info",
+      "frame": "hypersonic_twin_rocket_pods_left_expended_00",
+      "animation": null
+    },
+    {
+      "code": "duplicate_frame",
+      "message": "Frame is pixel-identical to bomber_twin_rocket_pods_loaded_00",
+      "severity": "info",
+      "frame": "hypersonic_twin_rocket_pods_loaded_00",
+      "animation": null
+    }
+  ],
+  "metrics": {
+    "frames": 120,
+    "animations": 12,
+    "empty_frames": 0,
+    "duplicate_frames": 12,
+    "event_markers": 0,
+    "warnings": 0,
+    "errors": 0,
+    "max_area_variance": 0.245671,
+    "max_brightness_range": 0.055609,
+    "max_centroid_jump": 0.004464,
+    "max_loop_delta": 0.0,
+    "max_ground_contact_shift": 0.001162,
+    "max_silhouette_delta": 0.091018,
+    "max_palette_distance": 0.396825,
+    "max_palette_colors": 111
+  }
+}

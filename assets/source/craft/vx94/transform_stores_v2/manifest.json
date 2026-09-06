@@ -1,0 +1,2525 @@
+{
+  "status": "reviewed_native_runtime",
+  "entries": [
+    {
+      "id": "bomber_hunter_rack_loaded_00",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_01",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 1,
+      "noses": [
+        [
+          20.363636363636363,
+          32.27272727272727
+        ],
+        [
+          43.63636363636364,
+          32.27272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_02",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 2,
+      "noses": [
+        [
+          19.40909090909091,
+          32.68181818181818
+        ],
+        [
+          44.59090909090909,
+          32.68181818181818
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_03",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 3,
+      "noses": [
+        [
+          18.136363636363637,
+          33.22727272727273
+        ],
+        [
+          45.86363636363636,
+          33.22727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_04",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 4,
+      "noses": [
+        [
+          16.863636363636363,
+          33.77272727272727
+        ],
+        [
+          47.13636363636364,
+          33.77272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_05",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 5,
+      "noses": [
+        [
+          15.59090909090909,
+          34.31818181818182
+        ],
+        [
+          48.40909090909091,
+          34.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_06",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 6,
+      "noses": [
+        [
+          14.636363636363637,
+          34.72727272727273
+        ],
+        [
+          49.36363636363636,
+          34.72727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_07",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 7,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_08",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 8,
+      "noses": [
+        [
+          13.204545454545455,
+          35.34090909090909
+        ],
+        [
+          50.79545454545455,
+          35.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_09",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 9,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_00",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_01",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 1,
+      "noses": [
+        [
+          20.363636363636363,
+          32.27272727272727
+        ],
+        [
+          43.63636363636364,
+          32.27272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_02",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 2,
+      "noses": [
+        [
+          19.40909090909091,
+          32.68181818181818
+        ],
+        [
+          44.59090909090909,
+          32.68181818181818
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_03",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 3,
+      "noses": [
+        [
+          18.136363636363637,
+          33.22727272727273
+        ],
+        [
+          45.86363636363636,
+          33.22727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_04",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 4,
+      "noses": [
+        [
+          16.863636363636363,
+          33.77272727272727
+        ],
+        [
+          47.13636363636364,
+          33.77272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_05",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 5,
+      "noses": [
+        [
+          15.59090909090909,
+          34.31818181818182
+        ],
+        [
+          48.40909090909091,
+          34.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_06",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 6,
+      "noses": [
+        [
+          14.636363636363637,
+          34.72727272727273
+        ],
+        [
+          49.36363636363636,
+          34.72727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_07",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 7,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_08",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 8,
+      "noses": [
+        [
+          13.204545454545455,
+          35.34090909090909
+        ],
+        [
+          50.79545454545455,
+          35.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_left_expended_09",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 9,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_00",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_01",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 1,
+      "noses": [
+        [
+          20.363636363636363,
+          32.27272727272727
+        ],
+        [
+          43.63636363636364,
+          32.27272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_02",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 2,
+      "noses": [
+        [
+          19.40909090909091,
+          32.68181818181818
+        ],
+        [
+          44.59090909090909,
+          32.68181818181818
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_03",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 3,
+      "noses": [
+        [
+          18.136363636363637,
+          33.22727272727273
+        ],
+        [
+          45.86363636363636,
+          33.22727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_04",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 4,
+      "noses": [
+        [
+          16.863636363636363,
+          33.77272727272727
+        ],
+        [
+          47.13636363636364,
+          33.77272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_05",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 5,
+      "noses": [
+        [
+          15.59090909090909,
+          34.31818181818182
+        ],
+        [
+          48.40909090909091,
+          34.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_06",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 6,
+      "noses": [
+        [
+          14.636363636363637,
+          34.72727272727273
+        ],
+        [
+          49.36363636363636,
+          34.72727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_07",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 7,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_08",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 8,
+      "noses": [
+        [
+          13.204545454545455,
+          35.34090909090909
+        ],
+        [
+          50.79545454545455,
+          35.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack_empty_09",
+      "route": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 9,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_00",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_01",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 1,
+      "noses": [
+        [
+          20.363636363636363,
+          28.272727272727273
+        ],
+        [
+          43.63636363636364,
+          28.272727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_02",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 2,
+      "noses": [
+        [
+          19.40909090909091,
+          28.681818181818183
+        ],
+        [
+          44.59090909090909,
+          28.681818181818183
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_03",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 3,
+      "noses": [
+        [
+          18.136363636363637,
+          29.227272727272727
+        ],
+        [
+          45.86363636363636,
+          29.227272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_04",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 4,
+      "noses": [
+        [
+          16.863636363636363,
+          29.772727272727273
+        ],
+        [
+          47.13636363636364,
+          29.772727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_05",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 5,
+      "noses": [
+        [
+          15.59090909090909,
+          30.31818181818182
+        ],
+        [
+          48.40909090909091,
+          30.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_06",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 6,
+      "noses": [
+        [
+          14.636363636363637,
+          30.727272727272727
+        ],
+        [
+          49.36363636363636,
+          30.727272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_07",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 7,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_08",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 8,
+      "noses": [
+        [
+          13.204545454545455,
+          31.34090909090909
+        ],
+        [
+          50.79545454545455,
+          31.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_09",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 9,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_00",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_01",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 1,
+      "noses": [
+        [
+          20.363636363636363,
+          28.272727272727273
+        ],
+        [
+          43.63636363636364,
+          28.272727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_02",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 2,
+      "noses": [
+        [
+          19.40909090909091,
+          28.681818181818183
+        ],
+        [
+          44.59090909090909,
+          28.681818181818183
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_03",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 3,
+      "noses": [
+        [
+          18.136363636363637,
+          29.227272727272727
+        ],
+        [
+          45.86363636363636,
+          29.227272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_04",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 4,
+      "noses": [
+        [
+          16.863636363636363,
+          29.772727272727273
+        ],
+        [
+          47.13636363636364,
+          29.772727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_05",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 5,
+      "noses": [
+        [
+          15.59090909090909,
+          30.31818181818182
+        ],
+        [
+          48.40909090909091,
+          30.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_06",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 6,
+      "noses": [
+        [
+          14.636363636363637,
+          30.727272727272727
+        ],
+        [
+          49.36363636363636,
+          30.727272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_07",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 7,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_08",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 8,
+      "noses": [
+        [
+          13.204545454545455,
+          31.34090909090909
+        ],
+        [
+          50.79545454545455,
+          31.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_09",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 9,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_00",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_01",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 1,
+      "noses": [
+        [
+          20.363636363636363,
+          28.272727272727273
+        ],
+        [
+          43.63636363636364,
+          28.272727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_02",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 2,
+      "noses": [
+        [
+          19.40909090909091,
+          28.681818181818183
+        ],
+        [
+          44.59090909090909,
+          28.681818181818183
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_03",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 3,
+      "noses": [
+        [
+          18.136363636363637,
+          29.227272727272727
+        ],
+        [
+          45.86363636363636,
+          29.227272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_04",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 4,
+      "noses": [
+        [
+          16.863636363636363,
+          29.772727272727273
+        ],
+        [
+          47.13636363636364,
+          29.772727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_05",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 5,
+      "noses": [
+        [
+          15.59090909090909,
+          30.31818181818182
+        ],
+        [
+          48.40909090909091,
+          30.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_06",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 6,
+      "noses": [
+        [
+          14.636363636363637,
+          30.727272727272727
+        ],
+        [
+          49.36363636363636,
+          30.727272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_07",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 7,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_08",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 8,
+      "noses": [
+        [
+          13.204545454545455,
+          31.34090909090909
+        ],
+        [
+          50.79545454545455,
+          31.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_09",
+      "route": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 9,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_00",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_01",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 1,
+      "noses": [
+        [
+          21.102880658436213,
+          32.137174211248286
+        ],
+        [
+          42.89711934156379,
+          32.137174211248286
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_02",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 2,
+      "noses": [
+        [
+          21.378600823045268,
+          32.50480109739369
+        ],
+        [
+          42.62139917695473,
+          32.50480109739369
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_03",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 3,
+      "noses": [
+        [
+          21.77777777777778,
+          33.03703703703704
+        ],
+        [
+          42.22222222222222,
+          33.03703703703704
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_04",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 4,
+      "noses": [
+        [
+          22.25102880658436,
+          33.66803840877915
+        ],
+        [
+          41.74897119341564,
+          33.66803840877915
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_05",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 5,
+      "noses": [
+        [
+          22.74897119341564,
+          34.33196159122085
+        ],
+        [
+          41.25102880658436,
+          34.33196159122085
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_06",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 6,
+      "noses": [
+        [
+          23.22222222222222,
+          34.96296296296296
+        ],
+        [
+          40.77777777777778,
+          34.96296296296296
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_07",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 7,
+      "noses": [
+        [
+          23.621399176954732,
+          35.49519890260631
+        ],
+        [
+          40.37860082304527,
+          35.49519890260631
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_08",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 8,
+      "noses": [
+        [
+          23.897119341563787,
+          35.862825788751714
+        ],
+        [
+          40.10288065843621,
+          35.862825788751714
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_loaded_09",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "exposure": 9,
+      "noses": [
+        [
+          24,
+          36
+        ],
+        [
+          40,
+          36
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_00",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_01",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 1,
+      "noses": [
+        [
+          21.102880658436213,
+          32.137174211248286
+        ],
+        [
+          42.89711934156379,
+          32.137174211248286
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_02",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 2,
+      "noses": [
+        [
+          21.378600823045268,
+          32.50480109739369
+        ],
+        [
+          42.62139917695473,
+          32.50480109739369
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_03",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 3,
+      "noses": [
+        [
+          21.77777777777778,
+          33.03703703703704
+        ],
+        [
+          42.22222222222222,
+          33.03703703703704
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_04",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 4,
+      "noses": [
+        [
+          22.25102880658436,
+          33.66803840877915
+        ],
+        [
+          41.74897119341564,
+          33.66803840877915
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_05",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 5,
+      "noses": [
+        [
+          22.74897119341564,
+          34.33196159122085
+        ],
+        [
+          41.25102880658436,
+          34.33196159122085
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_06",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 6,
+      "noses": [
+        [
+          23.22222222222222,
+          34.96296296296296
+        ],
+        [
+          40.77777777777778,
+          34.96296296296296
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_07",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 7,
+      "noses": [
+        [
+          23.621399176954732,
+          35.49519890260631
+        ],
+        [
+          40.37860082304527,
+          35.49519890260631
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_08",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 8,
+      "noses": [
+        [
+          23.897119341563787,
+          35.862825788751714
+        ],
+        [
+          40.10288065843621,
+          35.862825788751714
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_left_expended_09",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "left_expended",
+      "exposure": 9,
+      "noses": [
+        [
+          24,
+          36
+        ],
+        [
+          40,
+          36
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_00",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_01",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 1,
+      "noses": [
+        [
+          21.102880658436213,
+          32.137174211248286
+        ],
+        [
+          42.89711934156379,
+          32.137174211248286
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_02",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 2,
+      "noses": [
+        [
+          21.378600823045268,
+          32.50480109739369
+        ],
+        [
+          42.62139917695473,
+          32.50480109739369
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_03",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 3,
+      "noses": [
+        [
+          21.77777777777778,
+          33.03703703703704
+        ],
+        [
+          42.22222222222222,
+          33.03703703703704
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_04",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 4,
+      "noses": [
+        [
+          22.25102880658436,
+          33.66803840877915
+        ],
+        [
+          41.74897119341564,
+          33.66803840877915
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_05",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 5,
+      "noses": [
+        [
+          22.74897119341564,
+          34.33196159122085
+        ],
+        [
+          41.25102880658436,
+          34.33196159122085
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_06",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 6,
+      "noses": [
+        [
+          23.22222222222222,
+          34.96296296296296
+        ],
+        [
+          40.77777777777778,
+          34.96296296296296
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_07",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 7,
+      "noses": [
+        [
+          23.621399176954732,
+          35.49519890260631
+        ],
+        [
+          40.37860082304527,
+          35.49519890260631
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_08",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 8,
+      "noses": [
+        [
+          23.897119341563787,
+          35.862825788751714
+        ],
+        [
+          40.10288065843621,
+          35.862825788751714
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_hunter_rack_empty_09",
+      "route": "hypersonic",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "exposure": 9,
+      "noses": [
+        [
+          24,
+          36
+        ],
+        [
+          40,
+          36
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_00",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_01",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 1,
+      "noses": [
+        [
+          21.102880658436213,
+          28.137174211248286
+        ],
+        [
+          42.89711934156379,
+          28.137174211248286
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_02",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 2,
+      "noses": [
+        [
+          21.378600823045268,
+          28.50480109739369
+        ],
+        [
+          42.62139917695473,
+          28.50480109739369
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_03",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 3,
+      "noses": [
+        [
+          21.77777777777778,
+          29.037037037037038
+        ],
+        [
+          42.22222222222222,
+          29.037037037037038
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_04",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 4,
+      "noses": [
+        [
+          22.25102880658436,
+          29.66803840877915
+        ],
+        [
+          41.74897119341564,
+          29.66803840877915
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_05",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 5,
+      "noses": [
+        [
+          22.74897119341564,
+          30.33196159122085
+        ],
+        [
+          41.25102880658436,
+          30.33196159122085
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_06",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 6,
+      "noses": [
+        [
+          23.22222222222222,
+          30.962962962962962
+        ],
+        [
+          40.77777777777778,
+          30.962962962962962
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_07",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 7,
+      "noses": [
+        [
+          23.621399176954732,
+          31.49519890260631
+        ],
+        [
+          40.37860082304527,
+          31.49519890260631
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_08",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 8,
+      "noses": [
+        [
+          23.897119341563787,
+          31.862825788751714
+        ],
+        [
+          40.10288065843621,
+          31.862825788751714
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_loaded_09",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "exposure": 9,
+      "noses": [
+        [
+          24,
+          32
+        ],
+        [
+          40,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_00",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_01",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 1,
+      "noses": [
+        [
+          21.102880658436213,
+          28.137174211248286
+        ],
+        [
+          42.89711934156379,
+          28.137174211248286
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_02",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 2,
+      "noses": [
+        [
+          21.378600823045268,
+          28.50480109739369
+        ],
+        [
+          42.62139917695473,
+          28.50480109739369
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_03",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 3,
+      "noses": [
+        [
+          21.77777777777778,
+          29.037037037037038
+        ],
+        [
+          42.22222222222222,
+          29.037037037037038
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_04",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 4,
+      "noses": [
+        [
+          22.25102880658436,
+          29.66803840877915
+        ],
+        [
+          41.74897119341564,
+          29.66803840877915
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_05",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 5,
+      "noses": [
+        [
+          22.74897119341564,
+          30.33196159122085
+        ],
+        [
+          41.25102880658436,
+          30.33196159122085
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_06",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 6,
+      "noses": [
+        [
+          23.22222222222222,
+          30.962962962962962
+        ],
+        [
+          40.77777777777778,
+          30.962962962962962
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_07",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 7,
+      "noses": [
+        [
+          23.621399176954732,
+          31.49519890260631
+        ],
+        [
+          40.37860082304527,
+          31.49519890260631
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_08",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 8,
+      "noses": [
+        [
+          23.897119341563787,
+          31.862825788751714
+        ],
+        [
+          40.10288065843621,
+          31.862825788751714
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_left_expended_09",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "exposure": 9,
+      "noses": [
+        [
+          24,
+          32
+        ],
+        [
+          40,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_00",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 0,
+      "noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_01",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 1,
+      "noses": [
+        [
+          21.102880658436213,
+          28.137174211248286
+        ],
+        [
+          42.89711934156379,
+          28.137174211248286
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_02",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 2,
+      "noses": [
+        [
+          21.378600823045268,
+          28.50480109739369
+        ],
+        [
+          42.62139917695473,
+          28.50480109739369
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_03",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 3,
+      "noses": [
+        [
+          21.77777777777778,
+          29.037037037037038
+        ],
+        [
+          42.22222222222222,
+          29.037037037037038
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_04",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 4,
+      "noses": [
+        [
+          22.25102880658436,
+          29.66803840877915
+        ],
+        [
+          41.74897119341564,
+          29.66803840877915
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_05",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 5,
+      "noses": [
+        [
+          22.74897119341564,
+          30.33196159122085
+        ],
+        [
+          41.25102880658436,
+          30.33196159122085
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_06",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 6,
+      "noses": [
+        [
+          23.22222222222222,
+          30.962962962962962
+        ],
+        [
+          40.77777777777778,
+          30.962962962962962
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_07",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 7,
+      "noses": [
+        [
+          23.621399176954732,
+          31.49519890260631
+        ],
+        [
+          40.37860082304527,
+          31.49519890260631
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_08",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 8,
+      "noses": [
+        [
+          23.897119341563787,
+          31.862825788751714
+        ],
+        [
+          40.10288065843621,
+          31.862825788751714
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "hypersonic_twin_rocket_pods_empty_09",
+      "route": "hypersonic",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "exposure": 9,
+      "noses": [
+        [
+          24,
+          32
+        ],
+        [
+          40,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "head": "34379f3e6654ca480b824b62c0deba3d966337c4",
+  "frames": 120,
+  "minimum_speed_multiplier": 0.62,
+  "maximum_speed_multiplier": 1.36,
+  "duration_sampled": 11.586814999999397,
+  "world_distance_delta": 12.023061909441495,
+  "scope": "Snow B art over running mountain gameplay. Snow playback is time based; terrain uses actual travel. No production weather or flight change.",
+  "reviewed_frames": [
+    24,
+    60,
+    96
+  ]
+}

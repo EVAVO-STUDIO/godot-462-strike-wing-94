@@ -1,0 +1,425 @@
+{
+  "status": "transform_art_candidate",
+  "entries": [
+    {
+      "id": "hunter_rack_00",
+      "kind": "hunter_rack",
+      "exposure": 0,
+      "wing_angle": -22,
+      "noses": [
+        [
+          21,
+          32
+        ],
+        [
+          43,
+          32
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_01",
+      "kind": "hunter_rack",
+      "exposure": 1,
+      "wing_angle": -20,
+      "noses": [
+        [
+          20.363636363636363,
+          32.27272727272727
+        ],
+        [
+          43.63636363636364,
+          32.27272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_02",
+      "kind": "hunter_rack",
+      "exposure": 2,
+      "wing_angle": -17,
+      "noses": [
+        [
+          19.40909090909091,
+          32.68181818181818
+        ],
+        [
+          44.59090909090909,
+          32.68181818181818
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_03",
+      "kind": "hunter_rack",
+      "exposure": 3,
+      "wing_angle": -13,
+      "noses": [
+        [
+          18.136363636363637,
+          33.22727272727273
+        ],
+        [
+          45.86363636363636,
+          33.22727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_04",
+      "kind": "hunter_rack",
+      "exposure": 4,
+      "wing_angle": -9,
+      "noses": [
+        [
+          16.863636363636363,
+          33.77272727272727
+        ],
+        [
+          47.13636363636364,
+          33.77272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_05",
+      "kind": "hunter_rack",
+      "exposure": 5,
+      "wing_angle": -5,
+      "noses": [
+        [
+          15.59090909090909,
+          34.31818181818182
+        ],
+        [
+          48.40909090909091,
+          34.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_06",
+      "kind": "hunter_rack",
+      "exposure": 6,
+      "wing_angle": -2,
+      "noses": [
+        [
+          14.636363636363637,
+          34.72727272727273
+        ],
+        [
+          49.36363636363636,
+          34.72727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_07",
+      "kind": "hunter_rack",
+      "exposure": 7,
+      "wing_angle": 0,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_08",
+      "kind": "hunter_rack",
+      "exposure": 8,
+      "wing_angle": 2.5,
+      "noses": [
+        [
+          13.204545454545455,
+          35.34090909090909
+        ],
+        [
+          50.79545454545455,
+          35.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "hunter_rack_09",
+      "kind": "hunter_rack",
+      "exposure": 9,
+      "wing_angle": 0,
+      "noses": [
+        [
+          14,
+          35
+        ],
+        [
+          50,
+          35
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_00",
+      "kind": "twin_rocket_pods",
+      "exposure": 0,
+      "wing_angle": -22,
+      "noses": [
+        [
+          21,
+          28
+        ],
+        [
+          43,
+          28
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_01",
+      "kind": "twin_rocket_pods",
+      "exposure": 1,
+      "wing_angle": -20,
+      "noses": [
+        [
+          20.363636363636363,
+          28.272727272727273
+        ],
+        [
+          43.63636363636364,
+          28.272727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_02",
+      "kind": "twin_rocket_pods",
+      "exposure": 2,
+      "wing_angle": -17,
+      "noses": [
+        [
+          19.40909090909091,
+          28.681818181818183
+        ],
+        [
+          44.59090909090909,
+          28.681818181818183
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_03",
+      "kind": "twin_rocket_pods",
+      "exposure": 3,
+      "wing_angle": -13,
+      "noses": [
+        [
+          18.136363636363637,
+          29.227272727272727
+        ],
+        [
+          45.86363636363636,
+          29.227272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_04",
+      "kind": "twin_rocket_pods",
+      "exposure": 4,
+      "wing_angle": -9,
+      "noses": [
+        [
+          16.863636363636363,
+          29.772727272727273
+        ],
+        [
+          47.13636363636364,
+          29.772727272727273
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_05",
+      "kind": "twin_rocket_pods",
+      "exposure": 5,
+      "wing_angle": -5,
+      "noses": [
+        [
+          15.59090909090909,
+          30.31818181818182
+        ],
+        [
+          48.40909090909091,
+          30.31818181818182
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_06",
+      "kind": "twin_rocket_pods",
+      "exposure": 6,
+      "wing_angle": -2,
+      "noses": [
+        [
+          14.636363636363637,
+          30.727272727272727
+        ],
+        [
+          49.36363636363636,
+          30.727272727272727
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_07",
+      "kind": "twin_rocket_pods",
+      "exposure": 7,
+      "wing_angle": 0,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_08",
+      "kind": "twin_rocket_pods",
+      "exposure": 8,
+      "wing_angle": 2.5,
+      "noses": [
+        [
+          13.204545454545455,
+          31.34090909090909
+        ],
+        [
+          50.79545454545455,
+          31.34090909090909
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    },
+    {
+      "id": "twin_rocket_pods_09",
+      "kind": "twin_rocket_pods",
+      "exposure": 9,
+      "wing_angle": 0,
+      "noses": [
+        [
+          14,
+          31
+        ],
+        [
+          50,
+          31
+        ]
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "note": "Forward-aligned swivel rails, includes wing overshoot at exposure 8"
+    }
+  ]
+}

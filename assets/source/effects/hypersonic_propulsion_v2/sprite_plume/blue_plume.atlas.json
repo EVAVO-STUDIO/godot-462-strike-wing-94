@@ -1,0 +1,152 @@
+{
+  "animations": {
+    "blue_plume": [
+      "blue_plume_0",
+      "blue_plume_1",
+      "blue_plume_2",
+      "blue_plume_3"
+    ]
+  },
+  "frames": {
+    "blue_plume_0": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 26,
+        "w": 6,
+        "x": 3,
+        "y": 66
+      },
+      "imageSha256": "5963e8390146ba7beaba3d62088ae75ca8a029e5b83bf42e2ee6b433a6985512",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.1
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "3d35202696125c1420fae86ddd6b32236b01cf8a4b47517b69b6a0d85b9c1b7c",
+      "sourceSize": {
+        "h": 40,
+        "w": 16
+      },
+      "spriteSourceSize": {
+        "h": 26,
+        "w": 6,
+        "x": 5,
+        "y": 3
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "blue_plume_1": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 28,
+        "w": 6,
+        "x": 3,
+        "y": 3
+      },
+      "imageSha256": "5ba6d5b603751f0e9b79349b6048a48dc15c6838374170d2b5274b15f1d9f6d5",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.1
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "63fdc1bb7ea87f2a96bcf810fd7679f7a62e34e490d013563b7358c0dfe4c7ed",
+      "sourceSize": {
+        "h": 40,
+        "w": 16
+      },
+      "spriteSourceSize": {
+        "h": 28,
+        "w": 6,
+        "x": 5,
+        "y": 3
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "blue_plume_2": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 27,
+        "w": 6,
+        "x": 3,
+        "y": 35
+      },
+      "imageSha256": "9dfaf366220dde0b7adf79396bd68234c16771275f8aba9e1b413a2bc6e8b414",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.1
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "fcecf513ea08b4b22bb81d0fbc4016c6798f4209b3f9a3e97993f1af51185481",
+      "sourceSize": {
+        "h": 40,
+        "w": 16
+      },
+      "spriteSourceSize": {
+        "h": 27,
+        "w": 6,
+        "x": 5,
+        "y": 3
+      },
+      "tags": [],
+      "trimmed": true
+    },
+    "blue_plume_3": {
+      "aliasOf": null,
+      "corrections": [],
+      "frame": {
+        "h": 25,
+        "w": 6,
+        "x": 3,
+        "y": 96
+      },
+      "imageSha256": "598e8c9f9029bb15ecaf4320527bb530df1d317b089a4513badf81e6bcb19b68",
+      "page": 0,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.1
+      },
+      "postCorrectionImageSha256": null,
+      "preCorrectionImageSha256": null,
+      "rotated": false,
+      "sourceSha256": "94d6c42d803d16b7a100d6c95dbb38bdbc02294fa7d8750c0f260f4d2e8ceeff",
+      "sourceSize": {
+        "h": 40,
+        "w": 16
+      },
+      "spriteSourceSize": {
+        "h": 25,
+        "w": 6,
+        "x": 5,
+        "y": 3
+      },
+      "tags": [],
+      "trimmed": true
+    }
+  },
+  "meta": {
+    "app": "evavo-sprite-studio",
+    "canonicalManifest": "blue_plume.manifest.json",
+    "correctionAudit": "blue_plume.corrections.json",
+    "format": "RGBA8888",
+    "images": [
+      "blue_plume.atlas.0.png"
+    ],
+    "scale": "1",
+    "schemaVersion": 1,
+    "version": "0.5.0"
+  }
+}

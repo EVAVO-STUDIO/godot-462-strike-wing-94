@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "reviewed_native_art_matrix",
+  "engine": "Godot 4.6.2 stable",
+  "renderer": "OpenGL 3.3 Compatibility",
+  "capture_count": 58,
+  "logical_size": "640x360",
+  "manifest": {
+    "path": "work/visual_qa_art_final_v1/manifest.json",
+    "sha256": "274030997b03cd55316d269d49dd4a849018f17621880ae88cd981027bdd528b"
+  },
+  "contact_sheets": [
+    {
+      "path": "work/visual_qa_art_final_v1/contact_1.png",
+      "sha256": "aa4d13d4642bf68664c48a8b06a31b5f459635a38aa88f3c2d85eaa3013ab18a"
+    },
+    {
+      "path": "work/visual_qa_art_final_v1/contact_2.png",
+      "sha256": "cc3b2eb2d8b54c2aab67eb7a95aa820bda2f220377d5f3f9e2c864b4b9011b38"
+    },
+    {
+      "path": "work/visual_qa_art_final_v1/contact_3.png",
+      "sha256": "9fe1d623755b34288d0bc0d4c8f5323941aa30fdbdfcbf64d696544883d80790"
+    },
+    {
+      "path": "work/visual_qa_art_final_v1/contact_4.png",
+      "sha256": "064cf7553734aeec0fd7d6ea9e03e9859bf1f2fa9f4f496537da5cc36c02b12d"
+    }
+  ],
+  "reviewed_groups": [
+    "startup and title",
+    "front end and loadout",
+    "accessibility and controls",
+    "weather and altitude",
+    "hypersonic entry and egress",
+    "combat HUD and countermeasures",
+    "campaign and challenge modes",
+    "orbital and final boss",
+    "ending cinematic",
+    "debrief and credits",
+    "VX-94 precision and strategic bays"
+  ],
+  "findings": [
+    "All 58 capture hashes are unique.",
+    "Every capture is 640x360.",
+    "No retired mountain connector band is visible.",
+    "Precision bombs no longer appear as exposed wing stores.",
+    "Internal bay states remain registered to the VX-94 silhouettes.",
+    "Threat, radio and objective instrumentation remain readable over terrain and weather.",
+    "The presentation retains the established late-1990s military palette."
+  ],
+  "scope": "Visual presentation evidence; vulnerable balance, long-run performance and subjective audio listening remain separate gates."
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "frame": 0,
+    "boss": "gunship_alpha",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 1,
+    "boss": "gunship_alpha",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 2,
+    "boss": "gunship_alpha",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 3,
+    "boss": "gunship_alpha",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 0,
+    "boss": "armoured_train",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 1,
+    "boss": "armoured_train",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 2,
+    "boss": "armoured_train",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 3,
+    "boss": "armoured_train",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 0,
+    "boss": "missile_cruiser",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 1,
+    "boss": "missile_cruiser",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 2,
+    "boss": "missile_cruiser",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 3,
+    "boss": "missile_cruiser",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 0,
+    "boss": "swarm_controller",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 1,
+    "boss": "swarm_controller",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 2,
+    "boss": "swarm_controller",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 3,
+    "boss": "swarm_controller",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 0,
+    "boss": "ai_forge_core",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 1,
+    "boss": "ai_forge_core",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 2,
+    "boss": "ai_forge_core",
+    "pixel_difference": "0 (0)"
+  },
+  {
+    "frame": 3,
+    "boss": "ai_forge_core",
+    "pixel_difference": "0 (0)"
+  }
+]

@@ -27,6 +27,12 @@ const PROJECTILE_FRAMES := {
 		preload("res://assets/runtime/effects/projectiles/needle_rail/2.png"),
 		preload("res://assets/runtime/effects/projectiles/needle_rail/3.png")
 	],
+	"storm_pulse": [
+		preload("res://assets/runtime/effects/projectiles/storm_pulse/0.png"),
+		preload("res://assets/runtime/effects/projectiles/storm_pulse/1.png"),
+		preload("res://assets/runtime/effects/projectiles/storm_pulse/2.png"),
+		preload("res://assets/runtime/effects/projectiles/storm_pulse/3.png")
+	],
 	"plasma_lance": [
 		preload("res://assets/runtime/effects/projectiles/plasma_lance/0.png"),
 		preload("res://assets/runtime/effects/projectiles/plasma_lance/1.png"),
@@ -101,7 +107,7 @@ class ProjectileCueCanvas:
 		_draw_registered_sprite(position, direction, "needle_rail")
 
 	func _draw_energy_pulse(position: Vector2, direction: Vector2) -> void:
-		_draw_registered_sprite(position, direction, "needle_rail")
+		_draw_registered_sprite(position, direction, "storm_pulse")
 
 	func _draw_plasma_lance(position: Vector2, direction: Vector2) -> void:
 		_draw_registered_sprite(position, direction, "plasma_lance")

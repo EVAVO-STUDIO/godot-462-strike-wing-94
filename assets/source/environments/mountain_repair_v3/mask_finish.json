@@ -1,0 +1,42 @@
+{
+  "portal": {
+    "sourceWidth": 70,
+    "sourceHeight": 55,
+    "sourceHasAlpha": true,
+    "cleanupWidth": 70,
+    "cleanupHeight": 55,
+    "retainedAreaRatio": 1,
+    "aspectRatioDrift": 1,
+    "outputWidth": 70,
+    "outputHeight": 55,
+    "outputHasAlpha": true,
+    "format": "png",
+    "operations": [
+      "ensure-alpha",
+      "apply-alpha-mask",
+      "materialize-masked-source",
+      "cleanup-geometry-verified",
+      "encode:png"
+    ]
+  },
+  "ridge": {
+    "sourceWidth": 640,
+    "sourceHeight": 64,
+    "sourceHasAlpha": true,
+    "cleanupWidth": 640,
+    "cleanupHeight": 64,
+    "retainedAreaRatio": 1,
+    "aspectRatioDrift": 1,
+    "outputWidth": 640,
+    "outputHeight": 64,
+    "outputHasAlpha": true,
+    "format": "png",
+    "operations": [
+      "ensure-alpha",
+      "apply-alpha-mask",
+      "materialize-masked-source",
+      "cleanup-geometry-verified",
+      "encode:png"
+    ]
+  }
+}

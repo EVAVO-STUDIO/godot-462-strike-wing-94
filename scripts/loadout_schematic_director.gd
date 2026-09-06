@@ -8,7 +8,7 @@ const PixelFont = preload("res://scripts/pixel_font.gd")
 const LoadoutSchematicSurface = preload("res://scripts/loadout_schematic_surface.gd")
 const UiSpriteRenderer = preload("res://scripts/ui_sprite_renderer.gd")
 const OPERATIONS_PANEL := preload("res://assets/runtime/ui/menu/operations_panel_9slice.png")
-const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_screen_9slice.png")
+const OPERATIONS_SCREEN := preload("res://assets/runtime/ui/menu/operations_modal_screen_9slice.png")
 const MOUNT_SOCKET := preload("res://assets/runtime/ui/menu/loadout_schematic/mount_socket.png")
 const MOUNT_SOCKET_ACTIVE := preload("res://assets/runtime/ui/menu/loadout_schematic/mount_socket_active.png")
 const HARNESS := preload("res://assets/runtime/ui/menu/loadout_schematic/harness.png")
@@ -34,6 +34,7 @@ var _mounts: Array = []
 
 func _ready() -> void:
 	layer = 32
+	_open = "--capture-stores-schematic" in OS.get_cmdline_user_args()
 	var data = ContentCatalog.load_json("res://data/player_mounts.json")
 	if typeof(data) == TYPE_DICTIONARY:
 		_mounts = data.get("mounts", [])
@@ -67,21 +68,21 @@ func draw_schematic(surface: CanvasItem) -> void:
 
 	UiSpriteRenderer.draw_nine_slice(surface, OPERATIONS_SCREEN, Rect2(38, 54, 564, 266), 8)
 	PixelFont.draw_centered(surface, "VX-94 STORES / VARIABLE GEOMETRY", 320, 68, 2, GOLD, 1)
-	_draw_planform(surface, Vector2(176, 176), "fighter")
-	_draw_planform(surface, Vector2(464, 176), "bomber")
-	PixelFont.draw_centered(surface, "FIGHTER", 176, 100, 1, BLUE, 1)
-	PixelFont.draw_centered(surface, "BOMBER / ATTACK", 464, 100, 1, BLUE, 1)
-	_draw_mounts(surface, Vector2(176, 176), "fighter")
-	_draw_mounts(surface, Vector2(464, 176), "bomber")
+	_draw_planform(surface, Vector2(176, 140), "fighter")
+	_draw_planform(surface, Vector2(464, 140), "bomber")
+	PixelFont.draw_centered(surface, "FIGHTER", 176, 88, 1, BLUE, 1)
+	PixelFont.draw_centered(surface, "BOMBER / ATTACK", 464, 88, 1, BLUE, 1)
+	_draw_mounts(surface, Vector2(176, 140), "fighter")
+	_draw_mounts(surface, Vector2(464, 140), "bomber")
 	_draw_installed(surface)
-	PixelFont.draw_centered(surface, "GOLD = INSTALLED / ACTIVE STATION", 320, 293, 1, GOLD, 1)
+	PixelFont.draw_centered(surface, "GOLD = COMPATIBLE LOADOUT STATION", 320, 293, 1, GOLD, 1)
 	PixelFont.draw_centered(surface, "L CLOSE   Q CHANGES COMBAT GEOMETRY IN SORTIE", 320, 306, 1, MUTED, 1)
 
 func _draw_planform(surface: CanvasItem, p: Vector2, form: String) -> void:
 	var texture: Texture2D = VX94_PLANFORMS.get(form)
 	if texture == null:
 		return
-	var size := texture.get_size() * 2.25
+	var size := texture.get_size() * 1.5
 	surface.draw_texture_rect(texture, Rect2((p - size * 0.5).round(), size.round()), false, Color(0.78,0.86,0.88,0.82))
 
 func _draw_mounts(surface: CanvasItem, p: Vector2, form: String) -> void:
@@ -96,21 +97,20 @@ func _draw_mounts(surface: CanvasItem, p: Vector2, form: String) -> void:
 		var raw = mount.get(key, [0,0])
 		if typeof(raw) != TYPE_ARRAY or raw.size() < 2:
 			continue
-		var local := Vector2(float(raw[0]) * 2.25, float(raw[1]) * 2.25)
+		var local := Vector2(float(raw[0]) * 1.5, float(raw[1]) * 1.5)
 		var point := p + local
 		var active := _mount_active(mount, form)
-		if shown < 7:
-			var name := str(mount.get("name", mount.get("id", "MOUNT"))).to_upper()
-			var side := -1.0 if point.x < p.x else 1.0
-			if absf(point.x-p.x) < 6.0:
-				side = 1.0
-			var label_x := p.x - 128.0 if side < 0 else p.x + 72.0
-			var label_y := p.y - 62.0 + shown * 15.0
-			var label_color := ACTIVE_MOUNT if active else MUTED
-			var endpoint := Vector2(label_x + (58 if side < 0 else 0),label_y+3)
-			_draw_harness(surface, HARNESS_ACTIVE if active else HARNESS, point, endpoint, 4.0, 0.72 if active else 0.48)
-			PixelFont.draw_text(surface,_clip(name,18),Vector2(label_x,label_y),1,label_color,1)
-			shown += 1
+		var name := str(mount.get("name", mount.get("id", "MOUNT"))).to_upper()
+		var side := -1.0 if point.x < p.x else 1.0
+		var label_x := p.x + side * 68.0
+		var label_y := p.y - 42.0 + shown * 10.0
+		var label_color := ACTIVE_MOUNT if active else MUTED
+		var endpoint := Vector2(label_x,label_y+3)
+		_draw_harness(surface, HARNESS_ACTIVE if active else HARNESS, point, endpoint, 3.0, 0.72 if active else 0.48)
+		PixelFont.draw_centered(surface, str(shown + 1), label_x, label_y, 1, label_color, 1)
+		var legend_x := 52.0 if form == "fighter" else 340.0
+		PixelFont.draw_text(surface, "%d  %s" % [shown + 1, name], Vector2(legend_x,190 + shown * 8),1,label_color,1)
+		shown += 1
 		var socket: Texture2D = MOUNT_SOCKET_ACTIVE if active else MOUNT_SOCKET
 		surface.draw_texture(socket, (point - socket.get_size() * 0.5).round())
 

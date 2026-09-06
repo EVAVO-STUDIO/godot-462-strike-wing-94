@@ -1,0 +1,132 @@
+{
+  "status": "runtime_integrated_with_effect_specific_burst_acceptance",
+  "original_sha256": {
+    "afterburner_0.png": "2f8291c220e19771c8c8bedabf629aaeb4c9cfe4de769918829391d1a78c4994",
+    "afterburner_1.png": "9ae5ba04ffd2b33653189cdd1cb9f1ab09f4030b0e75af0d27fff7952e5f3f1f",
+    "afterburner_2.png": "30ab618a1fc012572a359cc5e144a0cc97158460d14e5695fc3db376d0ae4829",
+    "afterburner_3.png": "b1689f28d07b447c671c115561afe2fd8240c7a6f5f2bf1f126d59166a99a586",
+    "hypersonic_ignition_0.png": "8ab1e28f5d42b66027a0d20e1c42e430a91c20f68ec72f5b93cb5e5096c63ceb",
+    "hypersonic_ignition_1.png": "a6e8ed71c83e34393fdb7c08fe0d660b75df10a141226bbca5805a175bc09774",
+    "hypersonic_ignition_2.png": "54d56c9feda4c45c527f633a0669c35d8ce92e332e5d9a9b46d365bc54cc3d65",
+    "hypersonic_ignition_3.png": "6c3f79860229cf2b9f6e8e9e2ac411c00c60e1fabca06924abf65ef2763f95f5",
+    "sonic_boom_0.png": "fd045fc0e9eb78c7d2f3dba705c2d13c2818e8d6e32438eb1530282d0288633c",
+    "sonic_boom_1.png": "fbab964034d3a8341937b8ca92162c8fb9b01d769a0e046397c4302e91a0e5a9",
+    "sonic_boom_2.png": "5a44e33f2e1ad789ae2cc3495a3b06c999be8011e7836e45795cc4feca6c5328",
+    "sonic_boom_3.png": "64b05eae10a389f4cd1be5c600d36a661a0ccebcedb758f2588e80f4787ba986"
+  },
+  "decoded_alpha_checks": [
+    {
+      "file": "blue_plume_0.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "nonzero_alpha_pixels": 121
+    },
+    {
+      "file": "blue_plume_1.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "nonzero_alpha_pixels": 129
+    },
+    {
+      "file": "blue_plume_2.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "nonzero_alpha_pixels": 125
+    },
+    {
+      "file": "blue_plume_3.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "nonzero_alpha_pixels": 117
+    },
+    {
+      "file": "engine_burst_0.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "nonzero_alpha_pixels": 100
+    },
+    {
+      "file": "engine_burst_1.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        253
+      ],
+      "nonzero_alpha_pixels": 109
+    },
+    {
+      "file": "engine_burst_2.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        228
+      ],
+      "nonzero_alpha_pixels": 39
+    },
+    {
+      "file": "engine_burst_3.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        168
+      ],
+      "nonzero_alpha_pixels": 42
+    },
+    {
+      "file": "engine_burst_4.png",
+      "transparent_edges": true,
+      "alpha_range": [
+        0,
+        115
+      ],
+      "nonzero_alpha_pixels": 42
+    },
+    {
+      "file": "engine_burst_5.png",
+      "transparent_edges": false,
+      "alpha_range": [
+        0,
+        56
+      ],
+      "nonzero_alpha_pixels": 38
+    }
+  ],
+  "alpha_mastering": "9 accepted; faint engine_burst_5 classification rejected. Original native alpha retained and six-background proof including alpha mask inspected independently. No thresholds changed.",
+  "sprite_studio": {
+    "plume": "PASS four-frame loop",
+    "burst": "STRICT FAIL: intended expansion/fade violates generic area, brightness, silhouette and palette consistency; candidate retained, no passed package claimed."
+  },
+  "native": {
+    "frames": 48,
+    "poses": 10,
+    "inspected": [
+      0,
+      9,
+      25
+    ],
+    "corrected": "Second version registers both hard-bank outlets and rotates exhaust along tail direction. Burst preview restricted to neutral entry geometry."
+  },
+  "open": [
+    "burst effect-specific temporal review",
+    "native combat integration",
+    "actual acceleration trigger",
+    "reduced flashes",
+    "sound synchronization",
+    "release gates"
+  ]
+}

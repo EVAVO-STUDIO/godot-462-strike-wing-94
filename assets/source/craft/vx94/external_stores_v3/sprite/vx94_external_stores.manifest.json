@@ -1,0 +1,800 @@
+{
+  "schema_version": 3,
+  "tool_version": "0.5.0",
+  "name": "vx94_external_stores",
+  "pixel_art": true,
+  "frames": [
+    {
+      "name": "bomber_hunter_rack_empty_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_hunter_rack_empty_00.png",
+      "source_sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_hunter_rack_empty",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "5520884ca44f8895749e6ed7b903be2773aae6ec890d3abfc113f208ba59c6a5",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_hunter_rack_left_released_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_hunter_rack_left_released_00.png",
+      "source_sha256": "5a4257ae1e6563f29c7bae05797e9a10ca6403f6088250e5fa07045509ef8a1e",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_hunter_rack_left_released",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "d4d1c711da6da7b31f9565fd3c1d7872c4a92f0fd23e964866f53c86e334e6cb",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_hunter_rack_loaded_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_hunter_rack_loaded_00.png",
+      "source_sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_hunter_rack_loaded",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "d2265551b6461594cb66f6165c5550afa2723562d3ae72a9ae87b7c1cf3a5591",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_precision_bomb_empty_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_precision_bomb_empty_00.png",
+      "source_sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_precision_bomb_empty",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "5520884ca44f8895749e6ed7b903be2773aae6ec890d3abfc113f208ba59c6a5",
+      "alias_of": "bomber_hunter_rack_empty_00"
+    },
+    {
+      "name": "bomber_precision_bomb_left_released_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_precision_bomb_left_released_00.png",
+      "source_sha256": "57e308796b4bd73f367f3c431264398cebd78bffccae8ca369d4f84691e8b6da",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_precision_bomb_left_released",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "bc2475cc4aa918228466f33be1ba84092c3153ab4388679bf920431c45232390",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_precision_bomb_loaded_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_precision_bomb_loaded_00.png",
+      "source_sha256": "b34b50218bdbc02d28306d2411610e9a4d9225f9183efea86929835a47f38408",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_precision_bomb_loaded",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "7951eedef59d8a2be53909ac24cccdcb65558800762cab815ac00477e810f3db",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_twin_rocket_pods_empty_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_twin_rocket_pods_empty_00.png",
+      "source_sha256": "895d3e40e67cd87566e1bc8202359c4fc6ba0a0bfca065b613a0e6631d2a6136",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_twin_rocket_pods_empty",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "d97050f6b0a6026da428240c89b9326300a3b3172d7545ec316bb711fcd00595",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_twin_rocket_pods_left_expended_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_twin_rocket_pods_left_expended_00.png",
+      "source_sha256": "20009e5f788a901d8b19664d82e697e3bbd71f8400336e22e68827569d1220ae",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_twin_rocket_pods_left_expended",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "99636a2a22cb7238f2e591c31083b51ad738bb9f78fe5634ff774bf7f0ac0ba4",
+      "alias_of": null
+    },
+    {
+      "name": "bomber_twin_rocket_pods_loaded_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\bomber_twin_rocket_pods_loaded_00.png",
+      "source_sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 52,
+      "height": 67,
+      "trim_x": 6,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 6,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "bomber_twin_rocket_pods_loaded",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "d6677e570ced5dff51929e3fcb7470b9e8b0bf0f566abc0fd963386a224473c5",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_hunter_rack_empty_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\fighter_hunter_rack_empty_00.png",
+      "source_sha256": "c43a6530c1f684eb206dfb706bb0063a775e74288f79283a30cae25798f52a18",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter_hunter_rack_empty",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "3f80e75ed54fed6e9565c9ce7659f9fa30dbafc43a22c0b86cbb8dd30240c63d",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_hunter_rack_left_released_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\fighter_hunter_rack_left_released_00.png",
+      "source_sha256": "16dd64b66464cb6a2c792b9e944be479c10f50a39b5883c4a07967f58856e7ee",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter_hunter_rack_left_released",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "40928ccf9aecc19713fc701e6fedb5adc9b9d490342b48cca057c237e573fe8e",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_hunter_rack_loaded_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\fighter_hunter_rack_loaded_00.png",
+      "source_sha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter_hunter_rack_loaded",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "0573f0b57c1a8d4877d119f4943c8328375b5e967a1e583b5bee8146b1555fbf",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_twin_rocket_pods_empty_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\fighter_twin_rocket_pods_empty_00.png",
+      "source_sha256": "1159a456ab460dd6a3941baff6a0107856e09bd61dfe84dde0958c870636efe2",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter_twin_rocket_pods_empty",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "e92cafa10239f9613e864fda472a354b3f06964cd47602098abf3bf2d59bcbef",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_twin_rocket_pods_left_expended_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\fighter_twin_rocket_pods_left_expended_00.png",
+      "source_sha256": "320923c49f97a1045fb701545ac85d4d7ecc2b5fa8c3e9d5ff03a0dfeb5367ad",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter_twin_rocket_pods_left_expended",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "dc3f67bdc82d1789def7b5b9da7151d5c88287add65f67eae7b062aab7f0859e",
+      "alias_of": null
+    },
+    {
+      "name": "fighter_twin_rocket_pods_loaded_00",
+      "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_external_stores_v3\\sprite_input\\fighter_twin_rocket_pods_loaded_00.png",
+      "source_sha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+      "source_frame": 0,
+      "original_width": 64,
+      "original_height": 72,
+      "width": 36,
+      "height": 67,
+      "trim_x": 14,
+      "trim_y": 4,
+      "canvas_width": 64,
+      "canvas_height": 72,
+      "content_x": 14,
+      "content_y": 4,
+      "pivot_x": 32.0,
+      "pivot_y": 38.0,
+      "animation_hint": "fighter_twin_rocket_pods_loaded",
+      "tags": [],
+      "cleanup": {
+        "background_pixels_removed": 0,
+        "speck_pixels_removed": 0,
+        "hidden_rgb_pixels_cleared": 0,
+        "matte_pixels_adjusted": 0
+      },
+      "pre_correction_image_sha256": null,
+      "post_correction_image_sha256": null,
+      "corrections": [],
+      "image_sha256": "9ad05276a6b1011fc52728399384973855c7471ca6fc40e152747008a6eda0b8",
+      "alias_of": null
+    }
+  ],
+  "animations": [
+    {
+      "name": "bomber_hunter_rack_empty",
+      "frames": [
+        {
+          "frame": "bomber_hunter_rack_empty_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_hunter_rack_left_released",
+      "frames": [
+        {
+          "frame": "bomber_hunter_rack_left_released_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_hunter_rack_loaded",
+      "frames": [
+        {
+          "frame": "bomber_hunter_rack_loaded_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_precision_bomb_empty",
+      "frames": [
+        {
+          "frame": "bomber_precision_bomb_empty_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_precision_bomb_left_released",
+      "frames": [
+        {
+          "frame": "bomber_precision_bomb_left_released_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_precision_bomb_loaded",
+      "frames": [
+        {
+          "frame": "bomber_precision_bomb_loaded_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_twin_rocket_pods_empty",
+      "frames": [
+        {
+          "frame": "bomber_twin_rocket_pods_empty_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_twin_rocket_pods_left_expended",
+      "frames": [
+        {
+          "frame": "bomber_twin_rocket_pods_left_expended_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "bomber_twin_rocket_pods_loaded",
+      "frames": [
+        {
+          "frame": "bomber_twin_rocket_pods_loaded_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "fighter_hunter_rack_empty",
+      "frames": [
+        {
+          "frame": "fighter_hunter_rack_empty_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "fighter_hunter_rack_left_released",
+      "frames": [
+        {
+          "frame": "fighter_hunter_rack_left_released_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "fighter_hunter_rack_loaded",
+      "frames": [
+        {
+          "frame": "fighter_hunter_rack_loaded_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "fighter_twin_rocket_pods_empty",
+      "frames": [
+        {
+          "frame": "fighter_twin_rocket_pods_empty_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "fighter_twin_rocket_pods_left_expended",
+      "frames": [
+        {
+          "frame": "fighter_twin_rocket_pods_left_expended_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    },
+    {
+      "name": "fighter_twin_rocket_pods_loaded",
+      "frames": [
+        {
+          "frame": "fighter_twin_rocket_pods_loaded_00",
+          "duration": 1.0,
+          "events": []
+        }
+      ],
+      "fps": 1.0,
+      "loop": false
+    }
+  ],
+  "atlas_pages": [
+    {
+      "index": 0,
+      "file": "vx94_external_stores.atlas.0.png",
+      "width": 60,
+      "height": 998
+    }
+  ],
+  "atlas_frames": [
+    {
+      "name": "bomber_hunter_rack_empty_00",
+      "page": 0,
+      "x": 3,
+      "y": 3,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_hunter_rack_left_released_00",
+      "page": 0,
+      "x": 3,
+      "y": 74,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_hunter_rack_loaded_00",
+      "page": 0,
+      "x": 3,
+      "y": 145,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_precision_bomb_empty_00",
+      "page": 0,
+      "x": 3,
+      "y": 3,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_precision_bomb_left_released_00",
+      "page": 0,
+      "x": 3,
+      "y": 216,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_precision_bomb_loaded_00",
+      "page": 0,
+      "x": 3,
+      "y": 287,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_twin_rocket_pods_empty_00",
+      "page": 0,
+      "x": 3,
+      "y": 358,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_twin_rocket_pods_left_expended_00",
+      "page": 0,
+      "x": 3,
+      "y": 429,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "bomber_twin_rocket_pods_loaded_00",
+      "page": 0,
+      "x": 3,
+      "y": 500,
+      "width": 52,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_hunter_rack_empty_00",
+      "page": 0,
+      "x": 3,
+      "y": 571,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_hunter_rack_left_released_00",
+      "page": 0,
+      "x": 3,
+      "y": 642,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_hunter_rack_loaded_00",
+      "page": 0,
+      "x": 3,
+      "y": 713,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_twin_rocket_pods_empty_00",
+      "page": 0,
+      "x": 3,
+      "y": 784,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_twin_rocket_pods_left_expended_00",
+      "page": 0,
+      "x": 3,
+      "y": 855,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    },
+    {
+      "name": "fighter_twin_rocket_pods_loaded_00",
+      "page": 0,
+      "x": 3,
+      "y": 926,
+      "width": 36,
+      "height": 67,
+      "extrude": 1
+    }
+  ]
+}

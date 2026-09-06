@@ -1,0 +1,263 @@
+{
+  "schema": "hypersonic_vx94_transform_precision_bombs_v1",
+  "status": "reviewed_art_candidate",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "sequences": 3,
+  "exposures_per_sequence": 10,
+  "layers": 60,
+  "states": [
+    "loaded",
+    "left_released",
+    "empty"
+  ],
+  "files": [
+    {
+      "path": "bomber_precision_bomb_empty_00_0.png",
+      "sha256": "866C3C1EA3AEE43591D5B222ADC58181FA05798BB5F863B228637B36EDCD9F44"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_00_1.png",
+      "sha256": "EC745B88D9A9473A969D3B0B64199F60F021FC5EE91336AAE12A1F3B1077A951"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_01_0.png",
+      "sha256": "0ED149D8E7C3697E3FF4A5A35DBEFA03BEA99C87B1006A7CBE07347539EDFE38"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_01_1.png",
+      "sha256": "1DF91768C07A95FC0FC921D48D54C04F3820F13A0334B417F38DB55AC6209BAD"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_02_0.png",
+      "sha256": "1FB1B3214121DF34E4E62B0EE4BE0E63A43D7EE8F82A4A789CC370F35FD20860"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_02_1.png",
+      "sha256": "AB8DD6CA34B6C5488F86BFE207CCCF936F00116318E07F2A5145C61C541D2471"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_03_0.png",
+      "sha256": "C229EF961B19A7F2310E8F8999A057F471E611A95DA0B08DEB9E5194B6D3D3A4"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_03_1.png",
+      "sha256": "1077C7D59CEC1E6DDAD841446A6804B0545ED1151E190DC7EAB55FE05A041F89"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_04_0.png",
+      "sha256": "954ACB8A6821514B8CFD79C23C49B5BE57385CC5B20CD7617FA070F0E4B232C1"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_04_1.png",
+      "sha256": "B3A187EA277A76011810D9E4C219173233E4868C4593EA531A1B48D82F982A1A"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_05_0.png",
+      "sha256": "4FD6F3F57F0E55679410556105D4E3501960E22D87525E079B92B40EA43E2099"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_05_1.png",
+      "sha256": "B6540F14C2401339E374EDDF5E1030A0868DC2D51969D0EDF3E783FDE4C495E8"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_06_0.png",
+      "sha256": "82C488A3B5CF3CC21D3FA75169231A67030FEE937FC1350B4CCE237FB492BD8F"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_06_1.png",
+      "sha256": "4A5EB4552EFE008948D107ED175033C1E8748787D2D8D9145F0899B415749933"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_07_0.png",
+      "sha256": "5CF937C3385FBB014C440DA1B745409EE463B3075AAE68A5F2665431849BE9FF"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_07_1.png",
+      "sha256": "0A6AB27063EF99FFACA0BBD11E9B24B9FA38E623A03C9D257DE1385B4DD5FC1B"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_08_0.png",
+      "sha256": "A7018DCA026485CD399D4743F5D46C040BB92CBFA88186BB17628732CA88C450"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_08_1.png",
+      "sha256": "A8C6152BBC82EAFEC0448D17B29DE30B3F711BA40C98244031F652FF93B3F03B"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_09_0.png",
+      "sha256": "5CF937C3385FBB014C440DA1B745409EE463B3075AAE68A5F2665431849BE9FF"
+    },
+    {
+      "path": "bomber_precision_bomb_empty_09_1.png",
+      "sha256": "0A6AB27063EF99FFACA0BBD11E9B24B9FA38E623A03C9D257DE1385B4DD5FC1B"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_00_0.png",
+      "sha256": "866C3C1EA3AEE43591D5B222ADC58181FA05798BB5F863B228637B36EDCD9F44"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_00_1.png",
+      "sha256": "3BC867E6BEFA83DE700F3F4C5827054948308DFDB5D5605F5E560234F24B5383"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_01_0.png",
+      "sha256": "0ED149D8E7C3697E3FF4A5A35DBEFA03BEA99C87B1006A7CBE07347539EDFE38"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_01_1.png",
+      "sha256": "26933F302CF4B6079FE95C8C2064BCE83E24504755040EDE2E32C84395EFB471"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_02_0.png",
+      "sha256": "1FB1B3214121DF34E4E62B0EE4BE0E63A43D7EE8F82A4A789CC370F35FD20860"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_02_1.png",
+      "sha256": "5A8D8E93CEB3D41F16C42BC368DAB960ECCD406FE017D4CD0BD56DA0D89E45D1"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_03_0.png",
+      "sha256": "C229EF961B19A7F2310E8F8999A057F471E611A95DA0B08DEB9E5194B6D3D3A4"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_03_1.png",
+      "sha256": "B33061AF78F4B63B9239F3403D97E5933EF43DD19E85F5CB3310CAD69FB89990"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_04_0.png",
+      "sha256": "954ACB8A6821514B8CFD79C23C49B5BE57385CC5B20CD7617FA070F0E4B232C1"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_04_1.png",
+      "sha256": "072280A327D589CBD976A198BB22AB87D64EDBC73969AC5AE5E2CDF9B14882B0"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_05_0.png",
+      "sha256": "4FD6F3F57F0E55679410556105D4E3501960E22D87525E079B92B40EA43E2099"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_05_1.png",
+      "sha256": "8B83A1BBA8798CD82C76620031E04569EF8F1E0B194DC787D1085C8A4C58C54B"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_06_0.png",
+      "sha256": "82C488A3B5CF3CC21D3FA75169231A67030FEE937FC1350B4CCE237FB492BD8F"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_06_1.png",
+      "sha256": "26F2D6CAEC8BB2D808390DCB6E7475AF707893D033FB3849424CEB67E1C7A197"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_07_0.png",
+      "sha256": "5CF937C3385FBB014C440DA1B745409EE463B3075AAE68A5F2665431849BE9FF"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_07_1.png",
+      "sha256": "3CF633D17C08C34BC514A8B9A7E505429192121578C4AFE950AADA30B32394F4"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_08_0.png",
+      "sha256": "A7018DCA026485CD399D4743F5D46C040BB92CBFA88186BB17628732CA88C450"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_08_1.png",
+      "sha256": "C0A008AD2D99B38B9B992780563E7179A0B2A83C68A53447EC0C3AA2B25B25C3"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_09_0.png",
+      "sha256": "5CF937C3385FBB014C440DA1B745409EE463B3075AAE68A5F2665431849BE9FF"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released_09_1.png",
+      "sha256": "3CF633D17C08C34BC514A8B9A7E505429192121578C4AFE950AADA30B32394F4"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_00_0.png",
+      "sha256": "F6BBB01CFE7A2751EA39A51F37B6B05C93DC42DCCF113196568352D04F48AE30"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_00_1.png",
+      "sha256": "3BC867E6BEFA83DE700F3F4C5827054948308DFDB5D5605F5E560234F24B5383"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_01_0.png",
+      "sha256": "06A313898C2F42690D7EA1277408C0F3A81193AEEC9408568EA857390E478010"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_01_1.png",
+      "sha256": "26933F302CF4B6079FE95C8C2064BCE83E24504755040EDE2E32C84395EFB471"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_02_0.png",
+      "sha256": "513527C101565DC326BEAB321DB3C50A26C990DCD651FD1F432A9F11BBF5995B"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_02_1.png",
+      "sha256": "5A8D8E93CEB3D41F16C42BC368DAB960ECCD406FE017D4CD0BD56DA0D89E45D1"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_03_0.png",
+      "sha256": "B3B4F42AB1C4BB490E7E4900F338B68DB32B5595EB63C7D96E8EBB2125AA361E"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_03_1.png",
+      "sha256": "B33061AF78F4B63B9239F3403D97E5933EF43DD19E85F5CB3310CAD69FB89990"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_04_0.png",
+      "sha256": "1F74B77F438933B6249D3A547655C6F4A39D1F9064E91099C21B9B3636D0466C"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_04_1.png",
+      "sha256": "072280A327D589CBD976A198BB22AB87D64EDBC73969AC5AE5E2CDF9B14882B0"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_05_0.png",
+      "sha256": "B8B0C630DFE9080866734757C2695ABFEA3BFF952D3087CCB8DDF20173365E1A"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_05_1.png",
+      "sha256": "8B83A1BBA8798CD82C76620031E04569EF8F1E0B194DC787D1085C8A4C58C54B"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_06_0.png",
+      "sha256": "82E64CA473BCBD326A4225B51CFF98180246F4ADDBC6310E691BF25AE02208CA"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_06_1.png",
+      "sha256": "26F2D6CAEC8BB2D808390DCB6E7475AF707893D033FB3849424CEB67E1C7A197"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_07_0.png",
+      "sha256": "E1756EFB62B3F840E97FE040541572A21883C7AACA6348CAAE2013A7622B8753"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_07_1.png",
+      "sha256": "3CF633D17C08C34BC514A8B9A7E505429192121578C4AFE950AADA30B32394F4"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_08_0.png",
+      "sha256": "CDAFB74A2B5CADC2389E38878842DC9DB5C92946081161DDCD038F2C5835EFE9"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_08_1.png",
+      "sha256": "C0A008AD2D99B38B9B992780563E7179A0B2A83C68A53447EC0C3AA2B25B25C3"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_09_0.png",
+      "sha256": "E1756EFB62B3F840E97FE040541572A21883C7AACA6348CAAE2013A7622B8753"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded_09_1.png",
+      "sha256": "3CF633D17C08C34BC514A8B9A7E505429192121578C4AFE950AADA30B32394F4"
+    }
+  ],
+  "review_board": "work/vx94_transform_precision_bombs_v1/review.png"
+}

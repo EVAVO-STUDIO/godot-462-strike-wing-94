@@ -1,0 +1,16 @@
+{
+  "plans": [
+    "hangar_signal.json",
+    "title_vector.json",
+    "salt_wake.json",
+    "furnace_alarm.json",
+    "machine_pressure.json",
+    "dead_factory.json",
+    "ghost_signal.json",
+    "black_sky.json",
+    "thin_blue.json",
+    "ark_descent.json",
+    "after_action.json"
+  ],
+  "retained_separate": "assets/source/audio/steel_vector_arrangement_v2"
+}

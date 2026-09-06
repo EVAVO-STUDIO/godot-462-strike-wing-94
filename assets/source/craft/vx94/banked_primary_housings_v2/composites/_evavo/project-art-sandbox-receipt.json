@@ -1,0 +1,4426 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "955ffe19b2ace2c1ba7b3bc7e5b019c61285efc8b5699f73c7aa1586018f0f35",
+  "planBytesSha256": "ea8af3e160a52a5b0f961779b4a177054d78be4830c64e2cecd66332e2386521",
+  "sandboxId": "hypersonic-banked-primary-housings",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:7b8e537b7dcb8678b7d52b38",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0487d36bcfbcdf3bc64dad25a5670d7f",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_left_1_0.png",
+      "sha256": "cbf51720b814b7e90b2dc00bf3ca1487ac9f04d7a0aa28a5a8c28f95ac08ee09",
+      "bytes": 242
+    },
+    {
+      "sourceId": "source_10a0435eee955aab1ba69cfdd65df089",
+      "path": "work/vx94_banked_housings/layers/fighter_right_3_1.png",
+      "sha256": "f12e02b6a148984aa06f0af43ffd69706fb147046eba3ee4b8e424de3fe05a7e",
+      "bytes": 200
+    },
+    {
+      "sourceId": "source_1f686bd5629fbdaa4dba717c9441d11e",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_0_0.png",
+      "sha256": "e491d299bd18bc22fc273f1dced391c04fb602b658c28c6163966d33c4a1db68",
+      "bytes": 173
+    },
+    {
+      "sourceId": "source_222ce97e833d97f259cd3f42e65dbae4",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+      "sha256": "dba610de1696c2cc85bf6f9287419a83da04f739e6935071dee041a9845c3320",
+      "bytes": 1482
+    },
+    {
+      "sourceId": "source_29098160266842ced26b1f4fea1c2dd3",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_left_2_0.png",
+      "sha256": "d3d158e6a42801193c785b62a2f41999a5445ded90491de6ceba53081117e9ea",
+      "bytes": 254
+    },
+    {
+      "sourceId": "source_2ab4d7567427e47e69059ba69e85f84e",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_3_1.png",
+      "sha256": "396c1d5c189c5963393d854ba43fd2929362071689aebf47905c5607c438f3d4",
+      "bytes": 186
+    },
+    {
+      "sourceId": "source_2ae05b1314e3ee252e6e7cee03a47e98",
+      "path": "work/vx94_banked_housings/layers/bomber_neutral_1_0.png",
+      "sha256": "1009fdac3b109931c68c7222d08fe20c7ce7a729e186c8d099891acda1bafb76",
+      "bytes": 222
+    },
+    {
+      "sourceId": "source_346e67816882f3933d173b6cf4c7d75a",
+      "path": "work/vx94_banked_housings/layers/bomber_left_2_0.png",
+      "sha256": "ccf5028e396ebbe6d5e993cf3207b5f664cdb16d1bc7490377138eae6e36b134",
+      "bytes": 240
+    },
+    {
+      "sourceId": "source_351cf845346cfe3cd6e5c7f486fd9cc9",
+      "path": "work/vx94_banked_housings/layers/fighter_left_1_0.png",
+      "sha256": "75fc15ab5a7099d2f070e14d3e6d051a5aedc39e74b2073e1a8b1fb01e258c08",
+      "bytes": 197
+    },
+    {
+      "sourceId": "source_3ae540951805c0e568bba0ded53c63fa",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_0_1.png",
+      "sha256": "44749be7e4b93e1905a3f3e8f3f939ba3ed91f85ae8b6416e420cd4e874464a5",
+      "bytes": 174
+    },
+    {
+      "sourceId": "source_3c370869f224ab999441eb792b856841",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_0_1.png",
+      "sha256": "93634b8ea3d2db0944446337c931afe978e71dec1f09433f62ed0db87086ce74",
+      "bytes": 179
+    },
+    {
+      "sourceId": "source_3e4820f349e7618f55647533d439d80a",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_right_3_0.png",
+      "sha256": "a3582366073b688185608c04bec239e0bc2340f4e75fe8a18e2a44d680631003",
+      "bytes": 253
+    },
+    {
+      "sourceId": "source_3f04ee57277c2982910157f69a61cbbc",
+      "path": "work/vx94_banked_housings/layers/fighter_right_1_0.png",
+      "sha256": "d9d7557aec378b036d889a4590fe1ea8cb57d3eb26720f034071188f729bb6f9",
+      "bytes": 187
+    },
+    {
+      "sourceId": "source_44dcc2380ce2e4765dace6914250e620",
+      "path": "work/vx94_banked_housings/layers/fighter_right_3_0.png",
+      "sha256": "f0bc7cc15d70ab21cabccf8e41f437ac50057651242522d5754b2622468dbd76",
+      "bytes": 191
+    },
+    {
+      "sourceId": "source_48bfee733e6cfe533c65e10d37763200",
+      "path": "work/vx94_banked_housings/layers/bomber_neutral_3_0.png",
+      "sha256": "38762e1372c22ef87e7dfdc7344c3db1e0563341f59ca70eceba7c2f8fa45275",
+      "bytes": 229
+    },
+    {
+      "sourceId": "source_499c54cd299bb0f743970bc6daab5cf8",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_1_1.png",
+      "sha256": "1d3119df72dc1b28a108c466b817ed42f9a5b33c37be0304d66a48838ef66baf",
+      "bytes": 197
+    },
+    {
+      "sourceId": "source_4bd6c4b907e010bed6e15eaf07a8aef1",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_2_0.png",
+      "sha256": "e945d9371307b644acd42ba64edbc9a3060a5afe68d8e60e099d5ba4eee8572d",
+      "bytes": 194
+    },
+    {
+      "sourceId": "source_4c42f3ff3194087671b1e484be769a6e",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_2_1.png",
+      "sha256": "65e785311243c2947853bdc336361ca3276f996278ddd7e91a1d7321c76eac24",
+      "bytes": 195
+    },
+    {
+      "sourceId": "source_535d9789b96c031c4db843ccc546be8d",
+      "path": "work/vx94_banked_housings/layers/fighter_left_2_1.png",
+      "sha256": "717d5a93e61f1a3f346d29352fdc51b5c21d16d41c5c1673195eee743f72738b",
+      "bytes": 187
+    },
+    {
+      "sourceId": "source_53c616d6ac6cc61377f07531fa2e9985",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_2_1.png",
+      "sha256": "2e695029bab7f1db1e20bda2c9c00d78bfe5c0670dc73bb875cd576a06d21947",
+      "bytes": 202
+    },
+    {
+      "sourceId": "source_5674193c8b0712df9a0984051008dc87",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_2_0.png",
+      "sha256": "d426d18b59c435aee11ec64ea9200ebbcff6d577be3fb23e9b19f2ad9b6b766f",
+      "bytes": 185
+    },
+    {
+      "sourceId": "source_5d821e214de74254dcb6686ab90a2446",
+      "path": "work/vx94_banked_housings/layers/bomber_neutral_0_0.png",
+      "sha256": "46728cceb88c65fdb2429bd21ceb16ee6af08f34165802e161920a81452d49ae",
+      "bytes": 185
+    },
+    {
+      "sourceId": "source_621bbda29895badfbd810aa64a75a157",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_left_3_0.png",
+      "sha256": "94b821d84e27284294bdb512b0f9716e487e29c16f0df43430a071cf518c5ec9",
+      "bytes": 261
+    },
+    {
+      "sourceId": "source_63ef01656bc03fcc8673b7ec0776fbe0",
+      "path": "work/vx94_banked_housings/layers/bomber_left_3_0.png",
+      "sha256": "e9993d508020300baa549a010a5b8b0bf26412dc74dbe513fe755e629691bcea",
+      "bytes": 244
+    },
+    {
+      "sourceId": "source_6718b3960705125172ad8536b3bf317d",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_3_1.png",
+      "sha256": "74ef362503e2fed26425a329c07a3994da84f7d34c2b9eb9cc2f2d281a8898be",
+      "bytes": 205
+    },
+    {
+      "sourceId": "source_69625367b89a0d6d19a02855da03aa60",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_right_0_0.png",
+      "sha256": "d8ae35e5bd47d8287bb58a020292f36b3926cb93232644e804784698bea54b98",
+      "bytes": 196
+    },
+    {
+      "sourceId": "source_6bda16128d3ed65f618099332b08db7a",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+      "sha256": "67b2c1c79429840c8b7af84f204ffe65842e57e229fa543db5180ee60c4c7f17",
+      "bytes": 1581
+    },
+    {
+      "sourceId": "source_6da8e35e7511f0b3ea6bd04df4dadcb4",
+      "path": "work/vx94_banked_housings/layers/bomber_right_2_0.png",
+      "sha256": "170d3cfac2c58620892b8d7379ab15ebca46c73e6c19b532f4c24749542a0650",
+      "bytes": 237
+    },
+    {
+      "sourceId": "source_703f1ad3e4515fa96e415a89acf528fa",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_right_2_0.png",
+      "sha256": "2c6b24bb215df74c654fbf5e1e54af90c40c9eebe7348f3609e3785f7bc896e3",
+      "bytes": 249
+    },
+    {
+      "sourceId": "source_70530f2a3334e312bdfd12976e9f41d3",
+      "path": "work/vx94_banked_housings/layers/fighter_left_3_0.png",
+      "sha256": "af8e0625129a28a7b9b8228a2403a76b1fde070ce2d0335b9a53fd9b27b806f0",
+      "bytes": 201
+    },
+    {
+      "sourceId": "source_76ccc0ddd9a6300d17524d0681884b16",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_3_0.png",
+      "sha256": "ac43449362d927bcd923de2217ccd7c41207bdf4fecfc91b3b4084d9f3d28259",
+      "bytes": 186
+    },
+    {
+      "sourceId": "source_825e5d078131ecb7ebd1385d51725dbc",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+      "sha256": "b7c553bbf15c8798133b96b4d806644451232415e7092cd676715baedc20e458",
+      "bytes": 3681
+    },
+    {
+      "sourceId": "source_833fb4148a67f4e5a845802bbbd32001",
+      "path": "work/vx94_banked_housings/layers/bomber_right_0_0.png",
+      "sha256": "3bd82e1ef3d0b0e5f159de88f519323df2f4fdce7e615211d9a4f15e2d1d8592",
+      "bytes": 183
+    },
+    {
+      "sourceId": "source_8d7a4cc3760e9c3d49639198a1dfeba8",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_0_1.png",
+      "sha256": "880ddd5f06248a0ab9949f5760433f1f55422a347d254a7339010cb08eb5ffca",
+      "bytes": 173
+    },
+    {
+      "sourceId": "source_9047b235d1584913138d841ea91b42dc",
+      "path": "work/vx94_banked_housings/layers/fighter_left_0_1.png",
+      "sha256": "cf09990c4515df7ff89a447a4baf3a1c5fb35eac48a5c98eef320b5539c045c7",
+      "bytes": 173
+    },
+    {
+      "sourceId": "source_9082f593ebc603981de1be9ca251e23b",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_3_1.png",
+      "sha256": "39d951c2e923ed9b2dc39e73b59b6b5f0870b6aa9965b2e82051d70595a1a626",
+      "bytes": 197
+    },
+    {
+      "sourceId": "source_945b31b1117807e0f129c6e5843b288c",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+      "sha256": "e90c58ec1db9d0c053045050a4a51de24274d3e1e7fff615bd935dd5967df4ed",
+      "bytes": 1624
+    },
+    {
+      "sourceId": "source_952f341b5def43d4d4ddbb6bc46a34de",
+      "path": "work/vx94_banked_housings/layers/fighter_right_0_0.png",
+      "sha256": "bb055f6369382f594cb2cd15a45aa889e882c6ec050e70ea4dc944a296a20cc3",
+      "bytes": 172
+    },
+    {
+      "sourceId": "source_9a0403c572ff696818168bd84e882321",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_2_0.png",
+      "sha256": "4bf1c73b7082f68ad0d893d9c1205197fb0dc7f1f5784633d0a91878778cfea9",
+      "bytes": 202
+    },
+    {
+      "sourceId": "source_9d8620466c229e8c9a5fd06902f4e408",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_3_0.png",
+      "sha256": "7fa124776f77cfdf4c6af49556ffb8ad757c9b0e67ae442a8ea6a1b9ed2daa37",
+      "bytes": 203
+    },
+    {
+      "sourceId": "source_9f1514d7f878698554832443e3535719",
+      "path": "work/vx94_banked_housings/layers/fighter_right_2_0.png",
+      "sha256": "f76719177eecec2a54b4729352f39494c3e125860e983dd9b8f3930b871908e1",
+      "bytes": 189
+    },
+    {
+      "sourceId": "source_a07092c999af9e036eb3f0440e7daad0",
+      "path": "work/vx94_banked_housings/layers/bomber_neutral_2_0.png",
+      "sha256": "92c91eaade4a46fc2cc93054c7abe1a91412154587eeccb5ec86a5879c497e31",
+      "bytes": 226
+    },
+    {
+      "sourceId": "source_a27e02bbb1b81798a85a21fc93a07917",
+      "path": "work/vx94_banked_housings/layers/fighter_left_3_1.png",
+      "sha256": "358362d0c4e814c3cd866abeddc7e6d1f23976dc1e11ae858f4a14121c36171c",
+      "bytes": 188
+    },
+    {
+      "sourceId": "source_a7efb9fef295594d7feea73c68fb904b",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+      "sha256": "c8d99a987ca71d1e259c7cf905ec67211fd37796ccf48a2503d087fd03f42444",
+      "bytes": 1614
+    },
+    {
+      "sourceId": "source_ae7d77cf82cb0adcffcd2e0cc5e112f8",
+      "path": "work/vx94_banked_housings/layers/fighter_left_0_0.png",
+      "sha256": "0664de4b4f34b89b71623c1fbea99e472ffe3b2852adbb98da31b5e5184ab71d",
+      "bytes": 180
+    },
+    {
+      "sourceId": "source_b0b47edf98cae0ae98bf6aef7597fb39",
+      "path": "work/vx94_banked_housings/layers/fighter_right_0_1.png",
+      "sha256": "f0c4e0c4c8d503a53ef112690ec7c0c057ff91b956d30d2360d0b596726762ab",
+      "bytes": 182
+    },
+    {
+      "sourceId": "source_b25d017149e1971753981179c8b578b0",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_left_0_0.png",
+      "sha256": "08a4cf9a8a0db161c418f2a4dec7d36c82c68e5128db2e474e1f58d9f11092f2",
+      "bytes": 201
+    },
+    {
+      "sourceId": "source_b4a83c350cee0a7d92fc8400d48d8ab1",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_1_0.png",
+      "sha256": "269b16d156930376049fc11a84b6305913f247c1d6af9a10f6a885f91d8cd766",
+      "bytes": 192
+    },
+    {
+      "sourceId": "source_b94fcda69a7fb8c864efdc8590ebf474",
+      "path": "work/vx94_banked_housings/layers/fighter_left_2_0.png",
+      "sha256": "5d3c40893a6d65f62d956769096a25e8169f5b2310ec200f045588f8ab8288de",
+      "bytes": 199
+    },
+    {
+      "sourceId": "source_ba89e3701edf80c6ed27b2abaa90fa79",
+      "path": "work/vx94_banked_housings/layers/fighter_right_2_1.png",
+      "sha256": "18a286b98971ea4dc924c82f3eb1b9380b3da081622f6249e9f39dc2c47ad5de",
+      "bytes": 197
+    },
+    {
+      "sourceId": "source_bf2d27f67f4897c6c6ddf20dff535608",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_0_0.png",
+      "sha256": "e3efa2b0744343c57081bb3901adb88fe577a050c2f126f70024eb2584fe5f6f",
+      "bytes": 180
+    },
+    {
+      "sourceId": "source_c51e80dfbbca402a8756b6fb8420ac6b",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_1_1.png",
+      "sha256": "3c8d5b59581888a33f7dd9cba1945ae75b0a58644055e04b315975db448271fb",
+      "bytes": 181
+    },
+    {
+      "sourceId": "source_c6d032767aef01da0c27a41ac061f983",
+      "path": "work/vx94_banked_housings/layers/bomber_hard_right_1_0.png",
+      "sha256": "6c8a140dc51d9e200c0abfbcef13cf731384f1e3daf15986a17daafee7e41456",
+      "bytes": 239
+    },
+    {
+      "sourceId": "source_cc01fb33f8f960c7634768a472058ea3",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_1_0.png",
+      "sha256": "8a2df01caaf15a133d9f2d5d2665870d814057fd1fa66c1761d480d919af9034",
+      "bytes": 191
+    },
+    {
+      "sourceId": "source_cf9cfc51f2fdf308482e6f26e399e6eb",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_1_0.png",
+      "sha256": "088deb185fcada970afa28ec9a35ca52c4606576f365c81214b37a00d4f7c900",
+      "bytes": 184
+    },
+    {
+      "sourceId": "source_d04b8a9a19d45e7c203377ecb76a442c",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+      "sha256": "3f3d3ef167e0b06a60d661cfa0a2b0437ddbaad8ac623e1ac4bcfadc3ead23dd",
+      "bytes": 1486
+    },
+    {
+      "sourceId": "source_d79f6ec1a4f0b46258e86b2c005584fd",
+      "path": "work/vx94_banked_housings/layers/bomber_left_0_0.png",
+      "sha256": "3d49bd7b387bea03711e14b134c9f381faa8c6fdb0c529937be05b7af1deedac",
+      "bytes": 184
+    },
+    {
+      "sourceId": "source_d83f9cc060d00fabf133085873149c1a",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+      "sha256": "ca3573a48e414023849cc9b1ab579ab6d08d3e6b2b1c46c7662bb7fbe75d1782",
+      "bytes": 1626
+    },
+    {
+      "sourceId": "source_dc6c5ec3aa57d96379597d4317dff551",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_right_0_0.png",
+      "sha256": "af8b95875e8c3808c08c74d2ee5be1da3128e725f651c454aebfa9e7b73d2725",
+      "bytes": 174
+    },
+    {
+      "sourceId": "source_e5c7696834591482c97aafb434ae325b",
+      "path": "work/vx94_banked_housings/layers/bomber_left_1_0.png",
+      "sha256": "29f01065ea6f423f37d5c1608eb0148ae41fd7d114497e09372ad5bddf757eb4",
+      "bytes": 227
+    },
+    {
+      "sourceId": "source_e848d31219629b91b28ba2787e3b05a5",
+      "path": "work/vx94_banked_housings/layers/bomber_right_3_0.png",
+      "sha256": "e42b089c27053344697b14539461fc16b9ff5e37c17d56fa7cfd1b8b1c7c0f1c",
+      "bytes": 243
+    },
+    {
+      "sourceId": "source_e8d554ed47a9e30deefed7edef705573",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+      "sha256": "1f25e54292cf6a604a5483f4a240bc76400bef52f852836e7cec70fa9efe9af0",
+      "bytes": 1480
+    },
+    {
+      "sourceId": "source_e9f11ed867b78305ad78c38a5dce2908",
+      "path": "work/vx94_banked_housings/layers/fighter_right_1_1.png",
+      "sha256": "56ae7e5b9d34d208179de2aa686d060483111ad185df1ed038e82389ad243aaf",
+      "bytes": 195
+    },
+    {
+      "sourceId": "source_ea021b8c1d34bcb41311c5d54b0acb30",
+      "path": "work/vx94_banked_housings/layers/fighter_hard_left_2_1.png",
+      "sha256": "304e9770485f5edcecfbfb9f0cb7e8573d5ca8e6b24f6dd8737be5ff686f31cd",
+      "bytes": 184
+    },
+    {
+      "sourceId": "source_eabd653a33f3db03aac55e37a095a938",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+      "sha256": "4487099d01e06d34a46f917df0c30d7b0f47e41bec8ba1101dcc885efd77bfcb",
+      "bytes": 1666
+    },
+    {
+      "sourceId": "source_ebb21ea2c6ced645f2fd2669d064f2ff",
+      "path": "work/vx94_banked_housings/layers/bomber_right_1_0.png",
+      "sha256": "4303d24b12e6335445a89d587e57bb7c1e532bb1c39ffbf651754939be563ca6",
+      "bytes": 231
+    },
+    {
+      "sourceId": "source_f28619e62b818dbe426cd689594135af",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+      "sha256": "35c6810b5d5ca04d185c999a49097396983dfa02f082cd6be07c839c0d82a772",
+      "bytes": 1503
+    },
+    {
+      "sourceId": "source_f5990c56a5080c83ec6239bf3880b298",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_1_1.png",
+      "sha256": "922eae3c009c3a15563a92796e9f11d4e97a3552b50f48be9cac1929316093fc",
+      "bytes": 193
+    },
+    {
+      "sourceId": "source_f6e7c3edce1497e3f7b34938c0b3dd3c",
+      "path": "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+      "sha256": "347f3769ab980bca57aa639b1ed54b475d2fb9033662d6d6873e3cad1e5a1b9a",
+      "bytes": 197
+    },
+    {
+      "sourceId": "source_f75cbd593dfae8878ca2b0b80ccb3b9d",
+      "path": "work/vx94_banked_housings/layers/fighter_left_1_1.png",
+      "sha256": "e637d8c4ee58e20b6f01e0c61d04c81fb56902a53bd0dd427d34da246daa7df7",
+      "bytes": 186
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "fighter_hard_left_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_left_0.png",
+          "sha256": "e9555e3c466356b56eaa0ba9584cd71f7e5e000db7195f07bb2ee30cad3b759a",
+          "bytes": 4201,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3286,
+            "partialPixels": 499,
+            "opaquePixels": 823
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "d46fe17786a36801379172cc181c5aeb319b38a8005e08e4585850b58b01bd0a"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hard_left_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_left_1.png",
+          "sha256": "aa9716b331ed099070593bbad38e4e587b701fbbedceda9081a06b9c6665532a",
+          "bytes": 4223,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3284,
+            "partialPixels": 497,
+            "opaquePixels": 827
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "8eed54ccfdae3258c3d20c439138d5be7fe18a05258bfb8cc6c92a82eed06a7e"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hard_left_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_left_2.png",
+          "sha256": "2916c9b3411d5af3bdebea55f0207994d55a35c45d0afc2722296aecfa982b4e",
+          "bytes": 4219,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3281,
+            "partialPixels": 496,
+            "opaquePixels": 831
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "650bd0b4cb28de4c992566d81951639026c9d0224142063f41ddc527b64fe7fd"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hard_left_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_left_3.png",
+          "sha256": "0c9fbd78134c6493fee90553efb14df9331df49a6e50937442d59a77567ba548",
+          "bytes": 4197,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3279,
+            "partialPixels": 495,
+            "opaquePixels": 834
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "ddad862aec3f9bdd769b6324cedc186aa39716b35243ba1a2143d7142d2a7d76"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_left_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_left_0.png",
+          "sha256": "cc5bbcb5a49df840d7167834e242b05bd763203678edfc5d33d46652d2fdd275",
+          "bytes": 3657,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3311,
+            "partialPixels": 363,
+            "opaquePixels": 934
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "ea185493f694929f154e1842a1f61a09f2d0e6faa408273e93adf4d7f6ccff60"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_left_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_left_1.png",
+          "sha256": "37090097745b3dc0a2c1ef51fefe3c3b14bbab47bdf0e7f0662a960a3d1696db",
+          "bytes": 3666,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3310,
+            "partialPixels": 359,
+            "opaquePixels": 939
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "14e0ee42638171c4a31684fe0016c7757ca85463ad6c46c04fcbf9dec56c89b7"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_left_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_left_2.png",
+          "sha256": "ec095fd1c0aeaa19f6a6fa36dbd45adb859eab3a1a1e99376b9711845d910281",
+          "bytes": 3645,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3308,
+            "partialPixels": 355,
+            "opaquePixels": 945
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "bba72ff407ce367fb0f9549202ece4a60fe3fbc898be558853c73b0684d594fa"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_left_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_left_3.png",
+          "sha256": "8573e7c7ed90b775954b46ea62ec4858ca756a5f83ee74659c9e9805898ded3c",
+          "bytes": 3638,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3304,
+            "partialPixels": 353,
+            "opaquePixels": 951
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "5d28ed4b20930a2fedf316c0de0cb128be82b47f276bbfc5ed9118440cf910b4"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_neutral_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_neutral_0.png",
+          "sha256": "19bc3d8a93fe503b1ad2fc25f688d73f83b10e258d6d1d99a012dbd3f62720b9",
+          "bytes": 3402,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3348,
+            "partialPixels": 465,
+            "opaquePixels": 795
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "72187941c93dae877783b845e66ceb25c676ca3d06632f5128cfa5727276e462"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_neutral_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_neutral_1.png",
+          "sha256": "31d417d71f208439ac3ee1e886d001e8485d56ccc06c256007db97d858b40a65",
+          "bytes": 3416,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3346,
+            "partialPixels": 460,
+            "opaquePixels": 802
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "a04a8bfb1e6f1fe139c2eb3b0834ae79b60e81a19b4e8b289d69e765205b3c7f"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_neutral_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_neutral_2.png",
+          "sha256": "1196fc8da3172c60b545d1922dd13940967605d65bb56334e51ed52e467e4fe8",
+          "bytes": 3391,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3341,
+            "partialPixels": 457,
+            "opaquePixels": 810
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "6c26500b0eb858785046119b9c72af6d610bc369c9bd38ef76f9d4ded8a7b48e"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_neutral_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_neutral_3.png",
+          "sha256": "a489382a640bfd161af9192981292196ff94a348350ac41f533e3f7ac6efae8b",
+          "bytes": 3391,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3334,
+            "partialPixels": 456,
+            "opaquePixels": 818
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "0aa656319b25138d1cd499ef21c16f28bb445a7fd7008e10e6e02a3e60abaf7c"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_right_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_right_0.png",
+          "sha256": "03053327bdec02daa4bc738c4f7ec92e2e47fb2662d25381c2f75026cf453362",
+          "bytes": 3741,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3290,
+            "partialPixels": 533,
+            "opaquePixels": 785
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "c53d7e633a67b6aa36f0e748692860e9a0be8e5941283fc46f5775bb5f756c70"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_right_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_right_1.png",
+          "sha256": "d1873e0ac3aca7d0b030214009ad800177fb6cd25ada1406ecdc473c7e364046",
+          "bytes": 3738,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3290,
+            "partialPixels": 528,
+            "opaquePixels": 790
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "087ee64960eabae7c3e76b100c30c30044dd57c613cc5128ff2ee1d72ec3c658"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_right_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_right_2.png",
+          "sha256": "16664080ee21a34d531aae07c172bd9fb34168d76eff0c691ab6a257871619fd",
+          "bytes": 3711,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3286,
+            "partialPixels": 524,
+            "opaquePixels": 798
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "a3d0c79d328410473e583a7fc8cda59b241c1fb68ab69791783f0afc71a03c9b"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_right_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_right_3.png",
+          "sha256": "f9854f36cfe16f7e0eaf94f9199e4f56eddb5c07e8a9130ae5f425cd6e1a514c",
+          "bytes": 3706,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3282,
+            "partialPixels": 522,
+            "opaquePixels": 804
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "96aa3df6515cee09262edcc8bec0c1f4853d01b1e76b35649651ce6dcea126a9"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hard_right_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_right_0.png",
+          "sha256": "deabf27b0534023f710879a7c62b98852ef2e6c94f0541ffc01829bbe720cd4f",
+          "bytes": 4144,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3316,
+            "partialPixels": 444,
+            "opaquePixels": 848
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "41cfd157d81fe872c790119335eadb69e6f0cf1f02bbbda5575be5479ea3230f"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hard_right_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_right_1.png",
+          "sha256": "16c8d3c3a8ff4717737185417e25057560e3fc533f37876478490a956846c854",
+          "bytes": 4154,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3314,
+            "partialPixels": 443,
+            "opaquePixels": 851
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "f451377d644e238df4ab36222a64531225955e95c2fb7e1dab15dd85f31a7441"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hard_right_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_right_2.png",
+          "sha256": "67c19fbf0552fc5d6051f82b42402130bc4497fde4655ca759c09fe1c0b63fd0",
+          "bytes": 4156,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3312,
+            "partialPixels": 441,
+            "opaquePixels": 855
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "27154af2707ea9aabccd838f388458af5c74f47aa09b773f211d590fa198075e"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hard_right_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hard_right_3.png",
+          "sha256": "71fa2703e8fe0e4c5414d669ba2ebb58c3945d3f7bf40066a3c30de6a1a87ae2",
+          "bytes": 4163,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3310,
+            "partialPixels": 440,
+            "opaquePixels": 858
+          },
+          "alphaBoundingBox": [
+            15,
+            4,
+            49,
+            71
+          ],
+          "pixelSha256": "c264b0605e6b9e26e34a3d55ecfd3c2aa0149e29a48f5a89cf3a659320079e14"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_left_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_left_0.png",
+          "sha256": "b6a1c0732053547725ed62c22585a16accdc7ba3b4e6da0bcfa3a5e7c7aa9aa9",
+          "bytes": 5405,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3066,
+            "partialPixels": 739,
+            "opaquePixels": 803
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            54,
+            71
+          ],
+          "pixelSha256": "1e7d5c95664caac6c817b20e9cce1d0362d5757c87cb06158779f425db97c8ff"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_left_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_left_1.png",
+          "sha256": "9ff02b2cc117ae40ea7f47f88b0097abebcb232f6ded5313ce4c2a1952d1c2d4",
+          "bytes": 5389,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3066,
+            "partialPixels": 735,
+            "opaquePixels": 807
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            54,
+            71
+          ],
+          "pixelSha256": "265f1b1a243f0c5d5960d97a1ff37df1edef17648404519e87f72e0f36f114a3"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_left_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_left_2.png",
+          "sha256": "c1b78947d7b611a99d50c6d81f57f14077e4921ffa34e890197d2b0935ac522d",
+          "bytes": 5398,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3064,
+            "partialPixels": 733,
+            "opaquePixels": 811
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            54,
+            71
+          ],
+          "pixelSha256": "d25b8a0d3355289691feb49ef117e73c5cc4e9bb0841fa5f1a61f5b1f4a6b8c8"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_left_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_left_3.png",
+          "sha256": "5cd627f1ed07731d912d12230343f5ce7147d80ca48cc0671ce583c99bb476a6",
+          "bytes": 5417,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3060,
+            "partialPixels": 732,
+            "opaquePixels": 816
+          },
+          "alphaBoundingBox": [
+            9,
+            2,
+            54,
+            71
+          ],
+          "pixelSha256": "0d115e66c32ed3775e3b51da253738243eb483ac3fa8844e53dacd48f92a3f75"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_left_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_left_0.png",
+          "sha256": "a2ac670c8d001980b31b17c955b043b7933224ea5ce9c85116d44aef6015df81",
+          "bytes": 4455,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3107,
+            "partialPixels": 547,
+            "opaquePixels": 954
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "c428c7dbc2424afa46ec0210130f7e344816a8eeed95aa27a9c5a813f6b0f140"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_left_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_left_1.png",
+          "sha256": "6717a11e1c47fa1552c9a2b424ac50139232851dc507a840eab2ebb3319e6765",
+          "bytes": 4465,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3105,
+            "partialPixels": 544,
+            "opaquePixels": 959
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "3dc1f3063c368695c791f6ef86ff64d98d5618db91bd641079bd69dae15c1b91"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_left_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_left_2.png",
+          "sha256": "5c01f051e66357fe936a4d983029e946b919b9186b2d2f67d519fe3902b8ee6d",
+          "bytes": 4469,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3104,
+            "partialPixels": 540,
+            "opaquePixels": 964
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "ba849acf6580526b56d45a070a939b18c3f06fbd24f54337f17373878c42bce6"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_left_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_left_3.png",
+          "sha256": "9f7de6f8b9744b0fbd2a541289b775a345081b3e0a079026f1f34f9c25c88d8a",
+          "bytes": 4485,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3098,
+            "partialPixels": 538,
+            "opaquePixels": 972
+          },
+          "alphaBoundingBox": [
+            9,
+            3,
+            55,
+            71
+          ],
+          "pixelSha256": "511179ea34b033259612754e90472f22296b02d433dc6b6834d0e151a749ac7b"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_neutral_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_neutral_0.png",
+          "sha256": "62469444afabc86a55066be8704286d302372de8435309c588ad691fc767fc62",
+          "bytes": 4612,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2970,
+            "partialPixels": 720,
+            "opaquePixels": 918
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "f5a669f5d24c8d99bd4d143668c70b400b7eadae9faaed67286cffc4e51aa317"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_neutral_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_neutral_1.png",
+          "sha256": "dcbcac00fa34304afb7e53adb23397caeb9be6b39525dcc8139a65acca05fee6",
+          "bytes": 4618,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2969,
+            "partialPixels": 717,
+            "opaquePixels": 922
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "82e08172c0fec39e72b1559e1f756784f58f0d9a1ac73bb4883849a141ff34d6"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_neutral_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_neutral_2.png",
+          "sha256": "fc3ff3461f7a4720ebd06f3ab2ab897b50b9f8ae91a7896bd2af48c1ae04c209",
+          "bytes": 4637,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2966,
+            "partialPixels": 713,
+            "opaquePixels": 929
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "c244c54ac817ae9bf22b2bc0e80d75d767e3f71303367fdfd4cb2e7de7a44847"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_neutral_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_neutral_3.png",
+          "sha256": "dd1fd204184e3acb48f2951ca0de60b21cd98e9f7fb5a2197c1ea44b7e29f2a3",
+          "bytes": 4651,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2960,
+            "partialPixels": 710,
+            "opaquePixels": 938
+          },
+          "alphaBoundingBox": [
+            6,
+            3,
+            58,
+            71
+          ],
+          "pixelSha256": "d77ce9fde49f9dd772d4b994711d6e419830f53b032a4d05b46ff257608f31f3"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_right_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_right_0.png",
+          "sha256": "789d173e764f875c8e0574394cac28793a4a8e56ec5ea9c3b1f49efa4c90c4b6",
+          "bytes": 4598,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3100,
+            "partialPixels": 876,
+            "opaquePixels": 632
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "bad2ca4c289d04f3ca89f45f85529e8c8b965b55ebeb488892cda40d959321bf"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_right_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_right_1.png",
+          "sha256": "f26601a52893251d4717b0cadc4fe763904a03baa8d13b673fddc884b1e86cc4",
+          "bytes": 4611,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3097,
+            "partialPixels": 873,
+            "opaquePixels": 638
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "19aeea0fa5f89b750ae29f5a682b75265ea01a805e12894c6646ab348403deac"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_right_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_right_2.png",
+          "sha256": "38d4f8250caad71494207fbd4fd3da4c6558364abcaf47ddc1cc509a65fdea7f",
+          "bytes": 4631,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3095,
+            "partialPixels": 868,
+            "opaquePixels": 645
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "4e4f14286530b959af2788bdd3999e4645a6be198e9733af60ccfd5c522c075a"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_right_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_right_3.png",
+          "sha256": "4e5ae5980d7c8c40bc189e7af8550b2a33c33860772ec006e22624fd02bbfdbf",
+          "bytes": 4635,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3090,
+            "partialPixels": 863,
+            "opaquePixels": 655
+          },
+          "alphaBoundingBox": [
+            9,
+            3,
+            55,
+            71
+          ],
+          "pixelSha256": "f11e54d600bf35df6dd573761338368a79cec1a88ea3bb7a6dcae212a9704b2c"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_right_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_right_0.png",
+          "sha256": "72dd86b44eddc94d6a2b9d0b125561cbb305651b49280313d629a7a4151bc4f6",
+          "bytes": 5064,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3073,
+            "partialPixels": 739,
+            "opaquePixels": 796
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "44700261aee2d2bbd9d0dbc3a9c7540085c91aa20b053cfaf98779a86f0353d4"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_right_1",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_right_1.png",
+          "sha256": "630e1e88142deb8c00166b57731a432d3b52eaa583e8a071426de0eedb7f2de2",
+          "bytes": 5069,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3073,
+            "partialPixels": 736,
+            "opaquePixels": 799
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "e71a23179c87dc8c962364fb3811d85c8cfeb02e69a494082a4cbb05080dec36"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_right_2",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_right_2.png",
+          "sha256": "af201e8cc3a4345e9d2af58eb2e5d4fb43a8574ad321f098a4c56a43590edcec",
+          "bytes": 5072,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3073,
+            "partialPixels": 732,
+            "opaquePixels": 803
+          },
+          "alphaBoundingBox": [
+            9,
+            4,
+            55,
+            71
+          ],
+          "pixelSha256": "bb811ef760c5c27f6efa81e4a4091237673a57ba507d42b7af7c8d274e1f1215"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hard_right_3",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 2,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hard_right_3.png",
+          "sha256": "77fb8d5753eca285918f244f32962e8209945f9516065d794628a73d16b6de63",
+          "bytes": 5099,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3067,
+            "partialPixels": 731,
+            "opaquePixels": 810
+          },
+          "alphaBoundingBox": [
+            9,
+            3,
+            57,
+            71
+          ],
+          "pixelSha256": "51f8aed0733f16094c8aeaa38ffff183aa3f5b21a6c8bb43615cea46433f28f7"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "bomber_hard_left_0.png",
+      "sha256": "b6a1c0732053547725ed62c22585a16accdc7ba3b4e6da0bcfa3a5e7c7aa9aa9",
+      "bytes": 5405,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3066,
+        "partialPixels": 739,
+        "opaquePixels": 803
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        54,
+        71
+      ],
+      "pixelSha256": "1e7d5c95664caac6c817b20e9cce1d0362d5757c87cb06158779f425db97c8ff"
+    },
+    {
+      "path": "bomber_hard_left_1.png",
+      "sha256": "9ff02b2cc117ae40ea7f47f88b0097abebcb232f6ded5313ce4c2a1952d1c2d4",
+      "bytes": 5389,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3066,
+        "partialPixels": 735,
+        "opaquePixels": 807
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        54,
+        71
+      ],
+      "pixelSha256": "265f1b1a243f0c5d5960d97a1ff37df1edef17648404519e87f72e0f36f114a3"
+    },
+    {
+      "path": "bomber_hard_left_2.png",
+      "sha256": "c1b78947d7b611a99d50c6d81f57f14077e4921ffa34e890197d2b0935ac522d",
+      "bytes": 5398,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3064,
+        "partialPixels": 733,
+        "opaquePixels": 811
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        54,
+        71
+      ],
+      "pixelSha256": "d25b8a0d3355289691feb49ef117e73c5cc4e9bb0841fa5f1a61f5b1f4a6b8c8"
+    },
+    {
+      "path": "bomber_hard_left_3.png",
+      "sha256": "5cd627f1ed07731d912d12230343f5ce7147d80ca48cc0671ce583c99bb476a6",
+      "bytes": 5417,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3060,
+        "partialPixels": 732,
+        "opaquePixels": 816
+      },
+      "alphaBoundingBox": [
+        9,
+        2,
+        54,
+        71
+      ],
+      "pixelSha256": "0d115e66c32ed3775e3b51da253738243eb483ac3fa8844e53dacd48f92a3f75"
+    },
+    {
+      "path": "bomber_hard_right_0.png",
+      "sha256": "72dd86b44eddc94d6a2b9d0b125561cbb305651b49280313d629a7a4151bc4f6",
+      "bytes": 5064,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3073,
+        "partialPixels": 739,
+        "opaquePixels": 796
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "44700261aee2d2bbd9d0dbc3a9c7540085c91aa20b053cfaf98779a86f0353d4"
+    },
+    {
+      "path": "bomber_hard_right_1.png",
+      "sha256": "630e1e88142deb8c00166b57731a432d3b52eaa583e8a071426de0eedb7f2de2",
+      "bytes": 5069,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3073,
+        "partialPixels": 736,
+        "opaquePixels": 799
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "e71a23179c87dc8c962364fb3811d85c8cfeb02e69a494082a4cbb05080dec36"
+    },
+    {
+      "path": "bomber_hard_right_2.png",
+      "sha256": "af201e8cc3a4345e9d2af58eb2e5d4fb43a8574ad321f098a4c56a43590edcec",
+      "bytes": 5072,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3073,
+        "partialPixels": 732,
+        "opaquePixels": 803
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "bb811ef760c5c27f6efa81e4a4091237673a57ba507d42b7af7c8d274e1f1215"
+    },
+    {
+      "path": "bomber_hard_right_3.png",
+      "sha256": "77fb8d5753eca285918f244f32962e8209945f9516065d794628a73d16b6de63",
+      "bytes": 5099,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3067,
+        "partialPixels": 731,
+        "opaquePixels": 810
+      },
+      "alphaBoundingBox": [
+        9,
+        3,
+        57,
+        71
+      ],
+      "pixelSha256": "51f8aed0733f16094c8aeaa38ffff183aa3f5b21a6c8bb43615cea46433f28f7"
+    },
+    {
+      "path": "bomber_left_0.png",
+      "sha256": "a2ac670c8d001980b31b17c955b043b7933224ea5ce9c85116d44aef6015df81",
+      "bytes": 4455,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3107,
+        "partialPixels": 547,
+        "opaquePixels": 954
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "c428c7dbc2424afa46ec0210130f7e344816a8eeed95aa27a9c5a813f6b0f140"
+    },
+    {
+      "path": "bomber_left_1.png",
+      "sha256": "6717a11e1c47fa1552c9a2b424ac50139232851dc507a840eab2ebb3319e6765",
+      "bytes": 4465,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3105,
+        "partialPixels": 544,
+        "opaquePixels": 959
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "3dc1f3063c368695c791f6ef86ff64d98d5618db91bd641079bd69dae15c1b91"
+    },
+    {
+      "path": "bomber_left_2.png",
+      "sha256": "5c01f051e66357fe936a4d983029e946b919b9186b2d2f67d519fe3902b8ee6d",
+      "bytes": 4469,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3104,
+        "partialPixels": 540,
+        "opaquePixels": 964
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "ba849acf6580526b56d45a070a939b18c3f06fbd24f54337f17373878c42bce6"
+    },
+    {
+      "path": "bomber_left_3.png",
+      "sha256": "9f7de6f8b9744b0fbd2a541289b775a345081b3e0a079026f1f34f9c25c88d8a",
+      "bytes": 4485,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3098,
+        "partialPixels": 538,
+        "opaquePixels": 972
+      },
+      "alphaBoundingBox": [
+        9,
+        3,
+        55,
+        71
+      ],
+      "pixelSha256": "511179ea34b033259612754e90472f22296b02d433dc6b6834d0e151a749ac7b"
+    },
+    {
+      "path": "bomber_neutral_0.png",
+      "sha256": "62469444afabc86a55066be8704286d302372de8435309c588ad691fc767fc62",
+      "bytes": 4612,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2970,
+        "partialPixels": 720,
+        "opaquePixels": 918
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "f5a669f5d24c8d99bd4d143668c70b400b7eadae9faaed67286cffc4e51aa317"
+    },
+    {
+      "path": "bomber_neutral_1.png",
+      "sha256": "dcbcac00fa34304afb7e53adb23397caeb9be6b39525dcc8139a65acca05fee6",
+      "bytes": 4618,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2969,
+        "partialPixels": 717,
+        "opaquePixels": 922
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "82e08172c0fec39e72b1559e1f756784f58f0d9a1ac73bb4883849a141ff34d6"
+    },
+    {
+      "path": "bomber_neutral_2.png",
+      "sha256": "fc3ff3461f7a4720ebd06f3ab2ab897b50b9f8ae91a7896bd2af48c1ae04c209",
+      "bytes": 4637,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2966,
+        "partialPixels": 713,
+        "opaquePixels": 929
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "c244c54ac817ae9bf22b2bc0e80d75d767e3f71303367fdfd4cb2e7de7a44847"
+    },
+    {
+      "path": "bomber_neutral_3.png",
+      "sha256": "dd1fd204184e3acb48f2951ca0de60b21cd98e9f7fb5a2197c1ea44b7e29f2a3",
+      "bytes": 4651,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2960,
+        "partialPixels": 710,
+        "opaquePixels": 938
+      },
+      "alphaBoundingBox": [
+        6,
+        3,
+        58,
+        71
+      ],
+      "pixelSha256": "d77ce9fde49f9dd772d4b994711d6e419830f53b032a4d05b46ff257608f31f3"
+    },
+    {
+      "path": "bomber_right_0.png",
+      "sha256": "789d173e764f875c8e0574394cac28793a4a8e56ec5ea9c3b1f49efa4c90c4b6",
+      "bytes": 4598,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3100,
+        "partialPixels": 876,
+        "opaquePixels": 632
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "bad2ca4c289d04f3ca89f45f85529e8c8b965b55ebeb488892cda40d959321bf"
+    },
+    {
+      "path": "bomber_right_1.png",
+      "sha256": "f26601a52893251d4717b0cadc4fe763904a03baa8d13b673fddc884b1e86cc4",
+      "bytes": 4611,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3097,
+        "partialPixels": 873,
+        "opaquePixels": 638
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "19aeea0fa5f89b750ae29f5a682b75265ea01a805e12894c6646ab348403deac"
+    },
+    {
+      "path": "bomber_right_2.png",
+      "sha256": "38d4f8250caad71494207fbd4fd3da4c6558364abcaf47ddc1cc509a65fdea7f",
+      "bytes": 4631,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3095,
+        "partialPixels": 868,
+        "opaquePixels": 645
+      },
+      "alphaBoundingBox": [
+        9,
+        4,
+        55,
+        71
+      ],
+      "pixelSha256": "4e4f14286530b959af2788bdd3999e4645a6be198e9733af60ccfd5c522c075a"
+    },
+    {
+      "path": "bomber_right_3.png",
+      "sha256": "4e5ae5980d7c8c40bc189e7af8550b2a33c33860772ec006e22624fd02bbfdbf",
+      "bytes": 4635,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3090,
+        "partialPixels": 863,
+        "opaquePixels": 655
+      },
+      "alphaBoundingBox": [
+        9,
+        3,
+        55,
+        71
+      ],
+      "pixelSha256": "f11e54d600bf35df6dd573761338368a79cec1a88ea3bb7a6dcae212a9704b2c"
+    },
+    {
+      "path": "fighter_hard_left_0.png",
+      "sha256": "e9555e3c466356b56eaa0ba9584cd71f7e5e000db7195f07bb2ee30cad3b759a",
+      "bytes": 4201,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3286,
+        "partialPixels": 499,
+        "opaquePixels": 823
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "d46fe17786a36801379172cc181c5aeb319b38a8005e08e4585850b58b01bd0a"
+    },
+    {
+      "path": "fighter_hard_left_1.png",
+      "sha256": "aa9716b331ed099070593bbad38e4e587b701fbbedceda9081a06b9c6665532a",
+      "bytes": 4223,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3284,
+        "partialPixels": 497,
+        "opaquePixels": 827
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "8eed54ccfdae3258c3d20c439138d5be7fe18a05258bfb8cc6c92a82eed06a7e"
+    },
+    {
+      "path": "fighter_hard_left_2.png",
+      "sha256": "2916c9b3411d5af3bdebea55f0207994d55a35c45d0afc2722296aecfa982b4e",
+      "bytes": 4219,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3281,
+        "partialPixels": 496,
+        "opaquePixels": 831
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "650bd0b4cb28de4c992566d81951639026c9d0224142063f41ddc527b64fe7fd"
+    },
+    {
+      "path": "fighter_hard_left_3.png",
+      "sha256": "0c9fbd78134c6493fee90553efb14df9331df49a6e50937442d59a77567ba548",
+      "bytes": 4197,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3279,
+        "partialPixels": 495,
+        "opaquePixels": 834
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "ddad862aec3f9bdd769b6324cedc186aa39716b35243ba1a2143d7142d2a7d76"
+    },
+    {
+      "path": "fighter_hard_right_0.png",
+      "sha256": "deabf27b0534023f710879a7c62b98852ef2e6c94f0541ffc01829bbe720cd4f",
+      "bytes": 4144,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3316,
+        "partialPixels": 444,
+        "opaquePixels": 848
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "41cfd157d81fe872c790119335eadb69e6f0cf1f02bbbda5575be5479ea3230f"
+    },
+    {
+      "path": "fighter_hard_right_1.png",
+      "sha256": "16c8d3c3a8ff4717737185417e25057560e3fc533f37876478490a956846c854",
+      "bytes": 4154,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3314,
+        "partialPixels": 443,
+        "opaquePixels": 851
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "f451377d644e238df4ab36222a64531225955e95c2fb7e1dab15dd85f31a7441"
+    },
+    {
+      "path": "fighter_hard_right_2.png",
+      "sha256": "67c19fbf0552fc5d6051f82b42402130bc4497fde4655ca759c09fe1c0b63fd0",
+      "bytes": 4156,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3312,
+        "partialPixels": 441,
+        "opaquePixels": 855
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "27154af2707ea9aabccd838f388458af5c74f47aa09b773f211d590fa198075e"
+    },
+    {
+      "path": "fighter_hard_right_3.png",
+      "sha256": "71fa2703e8fe0e4c5414d669ba2ebb58c3945d3f7bf40066a3c30de6a1a87ae2",
+      "bytes": 4163,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3310,
+        "partialPixels": 440,
+        "opaquePixels": 858
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "c264b0605e6b9e26e34a3d55ecfd3c2aa0149e29a48f5a89cf3a659320079e14"
+    },
+    {
+      "path": "fighter_left_0.png",
+      "sha256": "cc5bbcb5a49df840d7167834e242b05bd763203678edfc5d33d46652d2fdd275",
+      "bytes": 3657,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3311,
+        "partialPixels": 363,
+        "opaquePixels": 934
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "ea185493f694929f154e1842a1f61a09f2d0e6faa408273e93adf4d7f6ccff60"
+    },
+    {
+      "path": "fighter_left_1.png",
+      "sha256": "37090097745b3dc0a2c1ef51fefe3c3b14bbab47bdf0e7f0662a960a3d1696db",
+      "bytes": 3666,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3310,
+        "partialPixels": 359,
+        "opaquePixels": 939
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "14e0ee42638171c4a31684fe0016c7757ca85463ad6c46c04fcbf9dec56c89b7"
+    },
+    {
+      "path": "fighter_left_2.png",
+      "sha256": "ec095fd1c0aeaa19f6a6fa36dbd45adb859eab3a1a1e99376b9711845d910281",
+      "bytes": 3645,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3308,
+        "partialPixels": 355,
+        "opaquePixels": 945
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "bba72ff407ce367fb0f9549202ece4a60fe3fbc898be558853c73b0684d594fa"
+    },
+    {
+      "path": "fighter_left_3.png",
+      "sha256": "8573e7c7ed90b775954b46ea62ec4858ca756a5f83ee74659c9e9805898ded3c",
+      "bytes": 3638,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3304,
+        "partialPixels": 353,
+        "opaquePixels": 951
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "5d28ed4b20930a2fedf316c0de0cb128be82b47f276bbfc5ed9118440cf910b4"
+    },
+    {
+      "path": "fighter_neutral_0.png",
+      "sha256": "19bc3d8a93fe503b1ad2fc25f688d73f83b10e258d6d1d99a012dbd3f62720b9",
+      "bytes": 3402,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3348,
+        "partialPixels": 465,
+        "opaquePixels": 795
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "72187941c93dae877783b845e66ceb25c676ca3d06632f5128cfa5727276e462"
+    },
+    {
+      "path": "fighter_neutral_1.png",
+      "sha256": "31d417d71f208439ac3ee1e886d001e8485d56ccc06c256007db97d858b40a65",
+      "bytes": 3416,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3346,
+        "partialPixels": 460,
+        "opaquePixels": 802
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "a04a8bfb1e6f1fe139c2eb3b0834ae79b60e81a19b4e8b289d69e765205b3c7f"
+    },
+    {
+      "path": "fighter_neutral_2.png",
+      "sha256": "1196fc8da3172c60b545d1922dd13940967605d65bb56334e51ed52e467e4fe8",
+      "bytes": 3391,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3341,
+        "partialPixels": 457,
+        "opaquePixels": 810
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "6c26500b0eb858785046119b9c72af6d610bc369c9bd38ef76f9d4ded8a7b48e"
+    },
+    {
+      "path": "fighter_neutral_3.png",
+      "sha256": "a489382a640bfd161af9192981292196ff94a348350ac41f533e3f7ac6efae8b",
+      "bytes": 3391,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3334,
+        "partialPixels": 456,
+        "opaquePixels": 818
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "0aa656319b25138d1cd499ef21c16f28bb445a7fd7008e10e6e02a3e60abaf7c"
+    },
+    {
+      "path": "fighter_right_0.png",
+      "sha256": "03053327bdec02daa4bc738c4f7ec92e2e47fb2662d25381c2f75026cf453362",
+      "bytes": 3741,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3290,
+        "partialPixels": 533,
+        "opaquePixels": 785
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "c53d7e633a67b6aa36f0e748692860e9a0be8e5941283fc46f5775bb5f756c70"
+    },
+    {
+      "path": "fighter_right_1.png",
+      "sha256": "d1873e0ac3aca7d0b030214009ad800177fb6cd25ada1406ecdc473c7e364046",
+      "bytes": 3738,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3290,
+        "partialPixels": 528,
+        "opaquePixels": 790
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "087ee64960eabae7c3e76b100c30c30044dd57c613cc5128ff2ee1d72ec3c658"
+    },
+    {
+      "path": "fighter_right_2.png",
+      "sha256": "16664080ee21a34d531aae07c172bd9fb34168d76eff0c691ab6a257871619fd",
+      "bytes": 3711,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3286,
+        "partialPixels": 524,
+        "opaquePixels": 798
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "a3d0c79d328410473e583a7fc8cda59b241c1fb68ab69791783f0afc71a03c9b"
+    },
+    {
+      "path": "fighter_right_3.png",
+      "sha256": "f9854f36cfe16f7e0eaf94f9199e4f56eddb5c07e8a9130ae5f425cd6e1a514c",
+      "bytes": 3706,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3282,
+        "partialPixels": 522,
+        "opaquePixels": 804
+      },
+      "alphaBoundingBox": [
+        15,
+        4,
+        49,
+        71
+      ],
+      "pixelSha256": "96aa3df6515cee09262edcc8bec0c1f4853d01b1e76b35649651ce6dcea126a9"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 70,
+    "externalSourceBytes": 29840,
+    "plannedMaximumOutputFiles": 41,
+    "taskOutputFiles": 40,
+    "taskOutputBytes": 173339,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "2f7e640c44d1b98bbc6444bc84518634a3a0abf7b617774f30a3483f68dcfcb9"
+}

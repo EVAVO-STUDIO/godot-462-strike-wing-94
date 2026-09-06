@@ -1,0 +1,2153 @@
+{
+  "status": "reviewed_native_runtime",
+  "poses": {
+    "fighter": {
+      "noseX": [
+        15,
+        30,
+        32,
+        34,
+        48
+      ],
+      "noseY": [
+        3,
+        4,
+        4,
+        4,
+        3
+      ],
+      "angles": [
+        -28,
+        -3,
+        0,
+        3,
+        28
+      ]
+    },
+    "bomber": {
+      "noseX": [
+        10,
+        26,
+        32,
+        40,
+        55
+      ],
+      "noseY": [
+        3,
+        4,
+        4,
+        4,
+        3
+      ],
+      "angles": [
+        -29,
+        -7,
+        0,
+        8,
+        29
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "fighter_hunter_rack_loaded_hard_left",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14.459516068691574,
+          "y": 34.99934182323126,
+          "angle": -28,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 33.00141551872905,
+          "y": 25.140439004727558,
+          "angle": -28,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_left",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 20.480481892502116,
+          "y": 32.537322491800445,
+          "angle": -3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 42.45033165710274,
+          "y": 31.385931454455683,
+          "angle": -3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_neutral",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21,
+          "y": 32,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43,
+          "y": 32,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_right",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21.54966834289726,
+          "y": 31.385931454455683,
+          "angle": 3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43.51951810749789,
+          "y": 32.537322491800445,
+          "angle": 3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_hard_right",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 29.998584481270957,
+          "y": 25.140439004727558,
+          "angle": 28,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 48.54048393130843,
+          "y": 34.99934182323126,
+          "angle": 28,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_hard_left",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14.459516068691574,
+          "y": 34.99934182323126,
+          "angle": -28,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 33.00141551872905,
+          "y": 25.140439004727558,
+          "angle": -28,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_left",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 20.480481892502116,
+          "y": 32.537322491800445,
+          "angle": -3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 42.45033165710274,
+          "y": 31.385931454455683,
+          "angle": -3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_neutral",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21,
+          "y": 32,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43,
+          "y": 32,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_right",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21.54966834289726,
+          "y": 31.385931454455683,
+          "angle": 3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43.51951810749789,
+          "y": 32.537322491800445,
+          "angle": 3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_hard_right",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 29.998584481270957,
+          "y": 25.140439004727558,
+          "angle": 28,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 48.54048393130843,
+          "y": 34.99934182323126,
+          "angle": 28,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_empty_hard_left",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14.459516068691574,
+          "y": 34.99934182323126,
+          "angle": -28,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 33.00141551872905,
+          "y": 25.140439004727558,
+          "angle": -28,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_empty_left",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 20.480481892502116,
+          "y": 32.537322491800445,
+          "angle": -3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 42.45033165710274,
+          "y": 31.385931454455683,
+          "angle": -3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_empty_neutral",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21,
+          "y": 32,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43,
+          "y": 32,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_empty_right",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21.54966834289726,
+          "y": 31.385931454455683,
+          "angle": 3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43.51951810749789,
+          "y": 32.537322491800445,
+          "angle": 3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_hunter_rack_empty_hard_right",
+      "form": "fighter",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 29.998584481270957,
+          "y": 25.140439004727558,
+          "angle": 28,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 48.54048393130843,
+          "y": 34.99934182323126,
+          "angle": 28,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_hard_left",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 12.581629817548011,
+          "y": 31.467551451795554,
+          "angle": -28,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 31.123529267585482,
+          "y": 21.60864863329185,
+          "angle": -28,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_left",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 20.27113806753034,
+          "y": 28.542804352782156,
+          "angle": -3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 42.24098783213096,
+          "y": 27.39141331543739,
+          "angle": -3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_neutral",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21,
+          "y": 28,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43,
+          "y": 28,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_right",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21.759012167869034,
+          "y": 27.39141331543739,
+          "angle": 3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43.72886193246966,
+          "y": 28.542804352782156,
+          "angle": 3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_hard_right",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 31.876470732414518,
+          "y": 21.60864863329185,
+          "angle": 28,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 50.41837018245199,
+          "y": 31.467551451795554,
+          "angle": 28,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_hard_left",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 12.581629817548011,
+          "y": 31.467551451795554,
+          "angle": -28,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 31.123529267585482,
+          "y": 21.60864863329185,
+          "angle": -28,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_left",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 20.27113806753034,
+          "y": 28.542804352782156,
+          "angle": -3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 42.24098783213096,
+          "y": 27.39141331543739,
+          "angle": -3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_neutral",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21,
+          "y": 28,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43,
+          "y": 28,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_right",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21.759012167869034,
+          "y": 27.39141331543739,
+          "angle": 3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43.72886193246966,
+          "y": 28.542804352782156,
+          "angle": 3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_hard_right",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 31.876470732414518,
+          "y": 21.60864863329185,
+          "angle": 28,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 50.41837018245199,
+          "y": 31.467551451795554,
+          "angle": 28,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_hard_left",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 12.581629817548011,
+          "y": 31.467551451795554,
+          "angle": -28,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 31.123529267585482,
+          "y": 21.60864863329185,
+          "angle": -28,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_left",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 20.27113806753034,
+          "y": 28.542804352782156,
+          "angle": -3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 42.24098783213096,
+          "y": 27.39141331543739,
+          "angle": -3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_neutral",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21,
+          "y": 28,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43,
+          "y": 28,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_right",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 21.759012167869034,
+          "y": 27.39141331543739,
+          "angle": 3,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 43.72886193246966,
+          "y": 28.542804352782156,
+          "angle": 3,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_hard_right",
+      "form": "fighter",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 31.876470732414518,
+          "y": 21.60864863329185,
+          "angle": 28,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 50.41837018245199,
+          "y": 31.467551451795554,
+          "angle": 28,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_hard_left",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 5.350154817000046,
+          "y": 41.021427376863855,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 32.900675591891016,
+          "y": 25.749924339104236,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_left",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.912118916015777,
+          "y": 36.96257888217364,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.64378037510337,
+          "y": 32.57528251958833,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_neutral",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_right",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 17.860808632889704,
+          "y": 32.1931943137075,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 53.510459107586236,
+          "y": 37.20342594826986,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_hard_right",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "loaded",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 32.099324408108984,
+          "y": 25.749924339104236,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 59.649845182999954,
+          "y": 41.021427376863855,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_hard_left",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 5.350154817000046,
+          "y": 41.021427376863855,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 32.900675591891016,
+          "y": 25.749924339104236,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_left",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.912118916015777,
+          "y": 36.96257888217364,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.64378037510337,
+          "y": 32.57528251958833,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_neutral",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_right",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 17.860808632889704,
+          "y": 32.1931943137075,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 53.510459107586236,
+          "y": 37.20342594826986,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_hard_right",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "left_released",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 32.099324408108984,
+          "y": 25.749924339104236,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 59.649845182999954,
+          "y": 41.021427376863855,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_empty_hard_left",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 5.350154817000046,
+          "y": 41.021427376863855,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 32.900675591891016,
+          "y": 25.749924339104236,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_empty_left",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.912118916015777,
+          "y": 36.96257888217364,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.64378037510337,
+          "y": 32.57528251958833,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_empty_neutral",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_empty_right",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 17.860808632889704,
+          "y": 32.1931943137075,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 53.510459107586236,
+          "y": 37.20342594826986,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_hunter_rack_empty_hard_right",
+      "form": "bomber",
+      "kind": "hunter_rack",
+      "state": "empty",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 32.099324408108984,
+          "y": 25.749924339104236,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 59.649845182999954,
+          "y": 41.021427376863855,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_hard_left",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 3.4109163360146972,
+          "y": 37.52294854830627,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 30.961437110905663,
+          "y": 22.251445510546652,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_left",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.424641542395186,
+          "y": 32.99239427560835,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.156303001482776,
+          "y": 28.605097913023037,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_neutral",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 31,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 31,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_right",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 18.417501036729966,
+          "y": 28.232122038741224,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 54.067151511426495,
+          "y": 33.242353673303576,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_hard_right",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "loaded",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 34.03856288909434,
+          "y": 22.251445510546652,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 61.589083663985306,
+          "y": 37.52294854830627,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_hard_left",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 3.4109163360146972,
+          "y": 37.52294854830627,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 30.961437110905663,
+          "y": 22.251445510546652,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_left",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.424641542395186,
+          "y": 32.99239427560835,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.156303001482776,
+          "y": 28.605097913023037,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_neutral",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 31,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 31,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_right",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 18.417501036729966,
+          "y": 28.232122038741224,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 54.067151511426495,
+          "y": 33.242353673303576,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_hard_right",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "left_expended",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 34.03856288909434,
+          "y": 22.251445510546652,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 61.589083663985306,
+          "y": 37.52294854830627,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_hard_left",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 3.4109163360146972,
+          "y": 37.52294854830627,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 30.961437110905663,
+          "y": 22.251445510546652,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_left",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.424641542395186,
+          "y": 32.99239427560835,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.156303001482776,
+          "y": 28.605097913023037,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_neutral",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 31,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 31,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_right",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 18.417501036729966,
+          "y": 28.232122038741224,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 54.067151511426495,
+          "y": 33.242353673303576,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_hard_right",
+      "form": "bomber",
+      "kind": "twin_rocket_pods",
+      "state": "empty",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 34.03856288909434,
+          "y": 22.251445510546652,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 61.589083663985306,
+          "y": 37.52294854830627,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_hard_left",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "loaded",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 5.350154817000046,
+          "y": 41.021427376863855,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 32.900675591891016,
+          "y": 25.749924339104236,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_left",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "loaded",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.912118916015777,
+          "y": 36.96257888217364,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.64378037510337,
+          "y": 32.57528251958833,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_neutral",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "loaded",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_right",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "loaded",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 17.860808632889704,
+          "y": 32.1931943137075,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 53.510459107586236,
+          "y": 37.20342594826986,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_hard_right",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "loaded",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 32.099324408108984,
+          "y": 25.749924339104236,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 59.649845182999954,
+          "y": 41.021427376863855,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_hard_left",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "left_released",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 5.350154817000046,
+          "y": 41.021427376863855,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 32.900675591891016,
+          "y": 25.749924339104236,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_left",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "left_released",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.912118916015777,
+          "y": 36.96257888217364,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.64378037510337,
+          "y": 32.57528251958833,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_neutral",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "left_released",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_right",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "left_released",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 17.860808632889704,
+          "y": 32.1931943137075,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 53.510459107586236,
+          "y": 37.20342594826986,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_hard_right",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "left_released",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 32.099324408108984,
+          "y": 25.749924339104236,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 59.649845182999954,
+          "y": 41.021427376863855,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_empty_hard_left",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "empty",
+      "bank": "hard_left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 5.350154817000046,
+          "y": 41.021427376863855,
+          "angle": -29,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 32.900675591891016,
+          "y": 25.749924339104236,
+          "angle": -29,
+          "width": 0.65
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_empty_left",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "empty",
+      "bank": "left",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 11.912118916015777,
+          "y": 36.96257888217364,
+          "angle": -7,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 47.64378037510337,
+          "y": 32.57528251958833,
+          "angle": -7,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_empty_neutral",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "empty",
+      "bank": "neutral",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 14,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 50,
+          "y": 35,
+          "angle": 0,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_empty_right",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "empty",
+      "bank": "right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 17.860808632889704,
+          "y": 32.1931943137075,
+          "angle": 8,
+          "width": 1
+        },
+        {
+          "side": 1,
+          "x": 53.510459107586236,
+          "y": 37.20342594826986,
+          "angle": 8,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    },
+    {
+      "id": "bomber_precision_bomb_empty_hard_right",
+      "form": "bomber",
+      "kind": "precision_bomb",
+      "state": "empty",
+      "bank": "hard_right",
+      "store_noses": [
+        {
+          "side": 0,
+          "x": 32.099324408108984,
+          "y": 25.749924339104236,
+          "angle": 29,
+          "width": 0.65
+        },
+        {
+          "side": 1,
+          "x": 59.649845182999954,
+          "y": 41.021427376863855,
+          "angle": 29,
+          "width": 1
+        }
+      ],
+      "pivot": [
+        32,
+        38
+      ],
+      "scope": "Art registration candidate, not gameplay release offsets"
+    }
+  ]
+}

@@ -1,0 +1,862 @@
+{
+  "config": {
+    "alignment": {
+      "anchor": "manual",
+      "canvas_height": 72,
+      "canvas_width": 64,
+      "feet_band": 2,
+      "manual_anchors": {
+        "emp_disruptor_bomber_active_hard_left_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_active_hard_right_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_active_left_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_active_neutral_00": [
+          26.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_active_right_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_idle_hard_left_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_idle_hard_right_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_idle_left_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_idle_neutral_00": [
+          26.0,
+          34.0
+        ],
+        "emp_disruptor_bomber_idle_right_00": [
+          23.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_active_hard_left_00": [
+          18.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_active_hard_right_00": [
+          17.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_active_left_00": [
+          17.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_active_neutral_00": [
+          18.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_active_right_00": [
+          17.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_idle_hard_left_00": [
+          18.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_idle_hard_right_00": [
+          17.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_idle_left_00": [
+          17.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_idle_neutral_00": [
+          18.0,
+          34.0
+        ],
+        "emp_disruptor_fighter_idle_right_00": [
+          17.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_active_hard_left_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_active_hard_right_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_active_left_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_active_neutral_00": [
+          26.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_active_right_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_idle_hard_left_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_idle_hard_right_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_idle_left_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_idle_neutral_00": [
+          26.0,
+          34.0
+        ],
+        "magnetic_screen_bomber_idle_right_00": [
+          23.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_active_hard_left_00": [
+          18.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_active_hard_right_00": [
+          17.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_active_left_00": [
+          17.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_active_neutral_00": [
+          18.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_active_right_00": [
+          17.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_idle_hard_left_00": [
+          18.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_idle_hard_right_00": [
+          17.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_idle_left_00": [
+          17.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_idle_neutral_00": [
+          18.0,
+          34.0
+        ],
+        "magnetic_screen_fighter_idle_right_00": [
+          17.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_active_hard_left_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_active_hard_right_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_active_left_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_active_neutral_00": [
+          26.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_active_right_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_idle_hard_left_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_idle_hard_right_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_idle_left_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_idle_neutral_00": [
+          26.0,
+          34.0
+        ],
+        "point_defence_pod_bomber_idle_right_00": [
+          23.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_active_hard_left_00": [
+          18.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_active_hard_right_00": [
+          17.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_active_left_00": [
+          17.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_active_neutral_00": [
+          18.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_active_right_00": [
+          17.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_idle_hard_left_00": [
+          18.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_idle_hard_right_00": [
+          17.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_idle_left_00": [
+          17.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_idle_neutral_00": [
+          18.0,
+          34.0
+        ],
+        "point_defence_pod_fighter_idle_right_00": [
+          17.0,
+          34.0
+        ]
+      },
+      "padding": 0,
+      "pivot_x": 32,
+      "pivot_y": 38
+    },
+    "animations": {
+      "emp_disruptor_bomber_active_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_active_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_active_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_active_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_active_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_idle_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_idle_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_idle_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_idle_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_bomber_idle_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_active_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_active_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_active_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_active_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_active_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_idle_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_idle_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_idle_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_idle_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "emp_disruptor_fighter_idle_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_active_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_active_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_active_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_active_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_active_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_idle_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_idle_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_idle_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_idle_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_bomber_idle_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_active_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_active_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_active_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_active_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_active_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_idle_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_idle_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_idle_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_idle_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "magnetic_screen_fighter_idle_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_active_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_active_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_active_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_active_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_active_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_idle_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_idle_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_idle_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_idle_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_bomber_idle_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_active_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_active_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_active_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_active_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_active_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_idle_hard_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_idle_hard_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_idle_left": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_idle_neutral": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      },
+      "point_defence_pod_fighter_idle_right": {
+        "duration_multipliers": {},
+        "events": {},
+        "fps": 1.0,
+        "frames": null,
+        "loop": false,
+        "tags": {}
+      }
+    },
+    "cleanup": {
+      "alpha_threshold": 1,
+      "background": "none",
+      "clear_hidden_rgb": true,
+      "color_tolerance": 18,
+      "despeckle_min_area": 0,
+      "key_color": null,
+      "key_colors": [],
+      "matte_decontaminate": true,
+      "matte_seed_points": []
+    },
+    "corrections": {
+      "allow_mirroring": false,
+      "enabled": true,
+      "frames": {},
+      "strict_unknown_frames": true
+    },
+    "export": {
+      "animated_scene": true,
+      "autoplay": null,
+      "event_timeline": true,
+      "generic_json": true,
+      "godot": true,
+      "godot_atlas_path_prefix": "res://",
+      "integration_contract": true
+    },
+    "extraction": {
+      "alpha_threshold": 1,
+      "cell_height": null,
+      "cell_width": null,
+      "connectivity": 8,
+      "include_empty": false,
+      "margin_x": 0,
+      "margin_y": 0,
+      "merge_distance": 0,
+      "minimum_area": 1,
+      "mode": "frames",
+      "spacing_x": 0,
+      "spacing_y": 0
+    },
+    "limits": {
+      "max_components": 20000,
+      "max_frames_per_image": 2048,
+      "max_height": 16384,
+      "max_images": 10000,
+      "max_output_frames": 100000,
+      "max_pixels_per_frame": 134217728,
+      "max_total_pixels": 1073741824,
+      "max_width": 16384
+    },
+    "name": "vx94_dorsal_modules",
+    "packing": {
+      "border_padding": 2,
+      "deduplicate": true,
+      "extrude": 1,
+      "max_height": 2048,
+      "max_pages": 64,
+      "max_width": 2048,
+      "method": "maxrects",
+      "padding": 2,
+      "power_of_two": false
+    },
+    "pixel_art": true,
+    "previews": {
+      "columns": 6,
+      "contact_sheet": true,
+      "difference_sheet": true,
+      "enabled": true,
+      "gif": true,
+      "html_review": true,
+      "onion_skin": true,
+      "pivot_overlay": true,
+      "scale": 1
+    },
+    "qa": {
+      "allow_empty_frames": [],
+      "contracts": {
+        "directional_actions": [],
+        "frame_count_rules": [],
+        "require_direction_frame_count_match": true,
+        "required_animations": [],
+        "required_directions": [
+          "north",
+          "east",
+          "south",
+          "west"
+        ]
+      },
+      "ground_contact_band": 3,
+      "max_area_variance": 0.35,
+      "max_brightness_range": 0.35,
+      "max_centroid_jump": 0.22,
+      "max_ground_contact_shift": 0.18,
+      "max_loop_delta": 0.55,
+      "max_palette_colors": null,
+      "max_palette_distance": 0.9,
+      "max_silhouette_delta": 0.82,
+      "max_step_outlier_ratio": 3.5,
+      "minimum_ground_contact_pixels": 2,
+      "required_direction_sets": {},
+      "strict": true
+    },
+    "source_filter": {
+      "animation_grouping": "auto",
+      "exclude": [],
+      "include": [
+        "*"
+      ]
+    }
+  },
+  "outputs": {
+    "atlas": "vx94_dorsal_modules.atlas.json",
+    "atlas_pages": [
+      "vx94_dorsal_modules.atlas.0.png"
+    ],
+    "corrections": "vx94_dorsal_modules.corrections.json",
+    "events": "vx94_dorsal_modules.events.json",
+    "godot_scene": "vx94_dorsal_modules.animated_sprite.tscn",
+    "godot_sprite_frames": "vx94_dorsal_modules.spriteframes.tres",
+    "integration": "vx94_dorsal_modules.integration.json",
+    "manifest": "vx94_dorsal_modules.manifest.json",
+    "qa": "vx94_dorsal_modules.qa.json"
+  },
+  "schema_version": 2,
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

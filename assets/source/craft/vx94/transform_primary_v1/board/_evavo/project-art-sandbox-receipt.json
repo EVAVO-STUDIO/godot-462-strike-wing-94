@@ -1,0 +1,2074 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "ef5609d5a9a5f2f029437051de9d7f7b49eebc8df604b0274ff276fdb7f62677",
+  "planBytesSha256": "8f0fbeccbf800d5ad462ff61c198723d43bb63197e45d09fc0f4704024952b96",
+  "sandboxId": "vx94-primary-transform-board",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:ffb7e73486932706ad9ddfa3",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0379a236703386a9c4313cf81cd8b318",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_09.png",
+      "sha256": "d9b0d3131f0e17218fb2238bebd4f91b9311ffc4f440a9411dc9a940d2e77e6d",
+      "bytes": 4597
+    },
+    {
+      "sourceId": "source_0c5c2c17d231b0cc57a9a1a0e5e8bb78",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_06.png",
+      "sha256": "04da3b19226e21d3b7f9e3c253752ccd7b58722a13fde627f7d60bf203c46680",
+      "bytes": 3264
+    },
+    {
+      "sourceId": "source_0d1742e87d187e7679538d03faf06600",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_01.png",
+      "sha256": "d101b6b2d51741c5a8b58feceb3a8f19650ca0cd13bc6917dbbb2ded0213632a",
+      "bytes": 3648
+    },
+    {
+      "sourceId": "source_0e28fa8cb1398545b1f9e1e76237842e",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_00.png",
+      "sha256": "0b6392dabc7a858dd86ce2c9b7d09e14d5f43db78f81fa6f6a5e8bccc0583521",
+      "bytes": 3505
+    },
+    {
+      "sourceId": "source_1126afa6ccdc9de316904ce7d4c7b829",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_00.png",
+      "sha256": "ca19234c0a338d007ab566ec9b28523f6b1f07a728821e5bbf0a50a033c1453f",
+      "bytes": 3494
+    },
+    {
+      "sourceId": "source_155bafed6f9be73bbdd379dbd3ba32fa",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_00.png",
+      "sha256": "0b6392dabc7a858dd86ce2c9b7d09e14d5f43db78f81fa6f6a5e8bccc0583521",
+      "bytes": 3505
+    },
+    {
+      "sourceId": "source_178d7dfd780dd28867ece01978ff25d5",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_02.png",
+      "sha256": "a91eba9f4d79427b92b42729bdf6abbcc40ea3205cb1dda7c9562ca7369e6b38",
+      "bytes": 3702
+    },
+    {
+      "sourceId": "source_1da01bdc09ae5dc05d8e6ff2f35a5441",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_02.png",
+      "sha256": "1b85306d3cf3335d1285896dfb8a39749efed304c093addcf64c0f812a3bf94d",
+      "bytes": 3750
+    },
+    {
+      "sourceId": "source_1e72b6a3d2d5dc2f5681415e77b09b9b",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_01.png",
+      "sha256": "e8df0c1bc0020aed946fa809a21f9b93b589fa0f5d1bfff5bff905e0ae065284",
+      "bytes": 3624
+    },
+    {
+      "sourceId": "source_1e7a50c610303ea29aae456de3eccf47",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_04.png",
+      "sha256": "36a80d0ff21f6f6b2a6640595d4b7bf274b3d39980d29c756fe7164605be544c",
+      "bytes": 3366
+    },
+    {
+      "sourceId": "source_1f5c6f74a31ccddabf9ca2f99b999183",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_07.png",
+      "sha256": "7c996b41240ca0cf351a62d87cf7153094584c2af67a20178a63304bf104946f",
+      "bytes": 3283
+    },
+    {
+      "sourceId": "source_24a6ce3e3c057ffbddeef40bb0150f48",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_09.png",
+      "sha256": "0e3ddd8bbe1aba9a4d1f8fa9e6a1a0494abac65983ac272846b31993689e8676",
+      "bytes": 3164
+    },
+    {
+      "sourceId": "source_2a7ddb7b2c06510a64a3bbc6c3c471d6",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_01.png",
+      "sha256": "880cedf105bf01a517954eff9fe0f991eb8f951f2998e38dce53015571549261",
+      "bytes": 3536
+    },
+    {
+      "sourceId": "source_2d9436b1304d09726ed0165650b64585",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_03.png",
+      "sha256": "a46220b1d55482af0fbe565564512a72bdef3bfd2c5919c8f704d6609f418911",
+      "bytes": 4000
+    },
+    {
+      "sourceId": "source_3be1b17cfacbf20af73e5f9509a1043d",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_03.png",
+      "sha256": "63cead954d8352aa02bf7398f019652a77fa09957d51b0632b42e11dd6c9706c",
+      "bytes": 3948
+    },
+    {
+      "sourceId": "source_416609bf1eba536cb729b321b42ad136",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_05.png",
+      "sha256": "30fd8be65ea4cbee819f2f0f7fcceb3f744e9e22b64c20678acb9d6ab4dd6e94",
+      "bytes": 3282
+    },
+    {
+      "sourceId": "source_48b75172ce272f2b4a57d67a3b3fc643",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_09.png",
+      "sha256": "db1203309aa23ed00361b1454536f5507916c0f895209f07ace1b9f7e3acc189",
+      "bytes": 3235
+    },
+    {
+      "sourceId": "source_490768757ffa46392c2335eee1c81734",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_09.png",
+      "sha256": "db1203309aa23ed00361b1454536f5507916c0f895209f07ace1b9f7e3acc189",
+      "bytes": 3235
+    },
+    {
+      "sourceId": "source_49147c51e4d93a182bbe02ed6e8ca5db",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_03.png",
+      "sha256": "a46220b1d55482af0fbe565564512a72bdef3bfd2c5919c8f704d6609f418911",
+      "bytes": 4000
+    },
+    {
+      "sourceId": "source_498befb5fd26e9e98c5e1d1c5e3e4daf",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_00.png",
+      "sha256": "c1f0febf7b90394b372b46e6cb3e2ba9dff35c44ae2414300abcbd879ed48263",
+      "bytes": 3482
+    },
+    {
+      "sourceId": "source_4afd8f1f2e6083bf64fa16d17efc1002",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_07.png",
+      "sha256": "af70e38b5ed54707e5ed615c7410073b2509881e6d69b3d2753ad47666754ee1",
+      "bytes": 3204
+    },
+    {
+      "sourceId": "source_4d97cb84d6f0d6caf6c29f9af5d80e42",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_05.png",
+      "sha256": "ca70886fe589997d2ff255657ae81230b8d37148c510ca20fd19905e4044b8d0",
+      "bytes": 3356
+    },
+    {
+      "sourceId": "source_4dd705fc02a4f58491d953c313c98c5e",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_02.png",
+      "sha256": "f297374377c80d96a9ef9dac0feee87253425bc108bbab9fd83d18d3ac2324b8",
+      "bytes": 3548
+    },
+    {
+      "sourceId": "source_501a36f7c5b8e0c1865306fae61eaa36",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_07.png",
+      "sha256": "fc3ff3461f7a4720ebd06f3ab2ab897b50b9f8ae91a7896bd2af48c1ae04c209",
+      "bytes": 4637
+    },
+    {
+      "sourceId": "source_51dc00aca06d3bd41e93044460bf0828",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_00.png",
+      "sha256": "a489382a640bfd161af9192981292196ff94a348350ac41f533e3f7ac6efae8b",
+      "bytes": 3391
+    },
+    {
+      "sourceId": "source_55caf3d1942cc216c935106b4d1cbdef",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_08.png",
+      "sha256": "84cb8f51b4fb67a15d96a9eea9c5eb4d87b6695159a4b1d3099f0746d99cfa79",
+      "bytes": 3257
+    },
+    {
+      "sourceId": "source_5701b45db41fc3f3e3a4a2aba1586300",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_09.png",
+      "sha256": "dd1fd204184e3acb48f2951ca0de60b21cd98e9f7fb5a2197c1ea44b7e29f2a3",
+      "bytes": 4651
+    },
+    {
+      "sourceId": "source_5b8ee63338931447f9f389ae2c071623",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_07.png",
+      "sha256": "7f0ef8192e92a3e909d4c9d94a2863f2de02b9d82d0f79d06604747a36431fc8",
+      "bytes": 4619
+    },
+    {
+      "sourceId": "source_6016f2b708162e18e21259bb6fddcb9f",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_02.png",
+      "sha256": "f297374377c80d96a9ef9dac0feee87253425bc108bbab9fd83d18d3ac2324b8",
+      "bytes": 3548
+    },
+    {
+      "sourceId": "source_62dd859d8640383eda11ef5b4e7569a6",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_00.png",
+      "sha256": "a489382a640bfd161af9192981292196ff94a348350ac41f533e3f7ac6efae8b",
+      "bytes": 3391
+    },
+    {
+      "sourceId": "source_63d3dff651b93113a77c32c9b0f93a76",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_06.png",
+      "sha256": "284f23f56c1a7490f72533ec83f4c7e5e2e674284d7069d7338eb8a8713275c8",
+      "bytes": 4527
+    },
+    {
+      "sourceId": "source_76c3da8e34a5bea32bfe8b7f82551650",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_05.png",
+      "sha256": "7a3d4b7f022e05a40f989db20b3bbe280f693e2142a49980ad69bb61c9bfec2a",
+      "bytes": 4487
+    },
+    {
+      "sourceId": "source_78aa627e8ab4008547a2420539eefa41",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_05.png",
+      "sha256": "7a3d4b7f022e05a40f989db20b3bbe280f693e2142a49980ad69bb61c9bfec2a",
+      "bytes": 4487
+    },
+    {
+      "sourceId": "source_78f1bb2724503433ae30c80b0e865388",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_04.png",
+      "sha256": "9aed77a23ca4e22e8892a2a31ea8a5970788796d4ba124d7fbf3e4f54e43e479",
+      "bytes": 3430
+    },
+    {
+      "sourceId": "source_79d48dc53436d6d1308017194563c6ba",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_08.png",
+      "sha256": "c657b9ae9fa9ddfa1fde216b20918af6ff1e645f30baa217f42f67b46f2ea9af",
+      "bytes": 4694
+    },
+    {
+      "sourceId": "source_7b9d11635e6afafab54cb8aaa9ab8e27",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_06.png",
+      "sha256": "d96afe66f693893f6eb4f45238b027e7ee6fc528e9243655a84ca9c27f5889c4",
+      "bytes": 3340
+    },
+    {
+      "sourceId": "source_87a6a91fc4459ef7b8acddcf0a16bfdd",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_07.png",
+      "sha256": "d9b0d3131f0e17218fb2238bebd4f91b9311ffc4f440a9411dc9a940d2e77e6d",
+      "bytes": 4597
+    },
+    {
+      "sourceId": "source_8a2731bf9e1380c0f323105e245333b0",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_03.png",
+      "sha256": "8d3252b0dbdfde81982400987113d16f9446bacc8ce0a767dc85be6da718ef04",
+      "bytes": 3464
+    },
+    {
+      "sourceId": "source_8e2e578c3c7043a34fe75072003f05f9",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_07.png",
+      "sha256": "7fba827340efa112ef2e0d972a39d9de12c30e96cae26b82a0a7501a5a858358",
+      "bytes": 4604
+    },
+    {
+      "sourceId": "source_8e52bc0892e03f4c9f6af434836ba52e",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_03.png",
+      "sha256": "9864317ff74d5bb204bdf920e8f881cc3f41ed95535b265edff33c93cbda38cf",
+      "bytes": 3397
+    },
+    {
+      "sourceId": "source_8fe121276d3f7bc02d217ffd543b3837",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_09.png",
+      "sha256": "7fba827340efa112ef2e0d972a39d9de12c30e96cae26b82a0a7501a5a858358",
+      "bytes": 4604
+    },
+    {
+      "sourceId": "source_9017c75a53bd4fb950164dbd889674a9",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_05.png",
+      "sha256": "7a3d4b7f022e05a40f989db20b3bbe280f693e2142a49980ad69bb61c9bfec2a",
+      "bytes": 4487
+    },
+    {
+      "sourceId": "source_931b9495052a97c38e8426cbdfa5f094",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_06.png",
+      "sha256": "284f23f56c1a7490f72533ec83f4c7e5e2e674284d7069d7338eb8a8713275c8",
+      "bytes": 4527
+    },
+    {
+      "sourceId": "source_9402dfd1bcfb2c2a5dd038938eaf2a4c",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_09.png",
+      "sha256": "db1203309aa23ed00361b1454536f5507916c0f895209f07ace1b9f7e3acc189",
+      "bytes": 3235
+    },
+    {
+      "sourceId": "source_9524378d251c7e33b8df9259c9f8dd63",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_08.png",
+      "sha256": "7234a6eede6bd058cea73394dac9e9ef72bc5934d9a97473d17b3a04aad7c0fc",
+      "bytes": 3185
+    },
+    {
+      "sourceId": "source_9d78b78b48fb60ea91b457519211fe6c",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_08.png",
+      "sha256": "2a57327a9f4ef8b49223e205f64ef307e55dc57575d0d5c0ccc9124f1c4f02f1",
+      "bytes": 4671
+    },
+    {
+      "sourceId": "source_a1d9983b942bfa5e21abec6ed98d1de3",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_02.png",
+      "sha256": "1b85306d3cf3335d1285896dfb8a39749efed304c093addcf64c0f812a3bf94d",
+      "bytes": 3750
+    },
+    {
+      "sourceId": "source_a2f1899c7bd5f34c35804efd6c187a3b",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_02.png",
+      "sha256": "871c7e74cfd722058e9a974ecc4fa010b42867d5826666c24f0165a8af6ccf9e",
+      "bytes": 3487
+    },
+    {
+      "sourceId": "source_a339f1b0388618ca920c9433f2b9cf31",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_03.png",
+      "sha256": "8d3252b0dbdfde81982400987113d16f9446bacc8ce0a767dc85be6da718ef04",
+      "bytes": 3464
+    },
+    {
+      "sourceId": "source_a59975559888e3fcff6fed5e81ace7e2",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_09.png",
+      "sha256": "7f0ef8192e92a3e909d4c9d94a2863f2de02b9d82d0f79d06604747a36431fc8",
+      "bytes": 4619
+    },
+    {
+      "sourceId": "source_a5fd1ee055ee3e0ed54b69801473a11d",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_02.png",
+      "sha256": "1b85306d3cf3335d1285896dfb8a39749efed304c093addcf64c0f812a3bf94d",
+      "bytes": 3750
+    },
+    {
+      "sourceId": "source_a69a34c7bac166f50d82cb9165ce6743",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_ballistic_01.png",
+      "sha256": "1c8b57e291965afd82f131f826258456b0fcf564f58d8ecd0a13f619814e616f",
+      "bytes": 3457
+    },
+    {
+      "sourceId": "source_a96b04bd34525d80e14d2196fec90120",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_03.png",
+      "sha256": "8d3252b0dbdfde81982400987113d16f9446bacc8ce0a767dc85be6da718ef04",
+      "bytes": 3464
+    },
+    {
+      "sourceId": "source_aad034eda839f5f4c46413750bf4124f",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_06.png",
+      "sha256": "d96afe66f693893f6eb4f45238b027e7ee6fc528e9243655a84ca9c27f5889c4",
+      "bytes": 3340
+    },
+    {
+      "sourceId": "source_ac857ad335bf2e9b370c7cd1b612dfda",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_07.png",
+      "sha256": "7c996b41240ca0cf351a62d87cf7153094584c2af67a20178a63304bf104946f",
+      "bytes": 3283
+    },
+    {
+      "sourceId": "source_ad5776b2256a0529531cb8528d565b38",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_04.png",
+      "sha256": "6b083bfc13f12b31c3e0cb7fba14925357bbb1aa242bae2c0e648693475e9e5a",
+      "bytes": 4276
+    },
+    {
+      "sourceId": "source_ae54a72b02555a2d498ced65e1a15807",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_04.png",
+      "sha256": "9aed77a23ca4e22e8892a2a31ea8a5970788796d4ba124d7fbf3e4f54e43e479",
+      "bytes": 3430
+    },
+    {
+      "sourceId": "source_b4acb5feea9a262499de441827737626",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_02.png",
+      "sha256": "f297374377c80d96a9ef9dac0feee87253425bc108bbab9fd83d18d3ac2324b8",
+      "bytes": 3548
+    },
+    {
+      "sourceId": "source_b4fcdb2d80171feae50db1736a836907",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_01.png",
+      "sha256": "83244cb5f32c5dcd7626f8842c27dabdd40ed40c1227c36ef62e1e73aa5418a9",
+      "bytes": 3573
+    },
+    {
+      "sourceId": "source_b9308111bb1d212cfc836a7ae4f1b8eb",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_01.png",
+      "sha256": "29371fb8357226cdf059fa0b242a43e53121016edd36cd6d78f204670e76eefa",
+      "bytes": 3637
+    },
+    {
+      "sourceId": "source_bbe958a00be1064577279b74f00d97d1",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_08.png",
+      "sha256": "84cb8f51b4fb67a15d96a9eea9c5eb4d87b6695159a4b1d3099f0746d99cfa79",
+      "bytes": 3257
+    },
+    {
+      "sourceId": "source_be602b190baee57ffaf81eee9bda0a1f",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_04.png",
+      "sha256": "6b083bfc13f12b31c3e0cb7fba14925357bbb1aa242bae2c0e648693475e9e5a",
+      "bytes": 4276
+    },
+    {
+      "sourceId": "source_c0bdc3e5369df67b74d1568d1a4d3573",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_04.png",
+      "sha256": "3327c15447949fb908f85a70bc00eb5fcd6e2c540f4070c76d7b0ca51dac1e2a",
+      "bytes": 4297
+    },
+    {
+      "sourceId": "source_d4e0446f1571e8a77aa30058e3082e28",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_01.png",
+      "sha256": "94b2573001bf29c28464c0764aae4f1b000980080ce987efac740d673f370b5b",
+      "bytes": 3562
+    },
+    {
+      "sourceId": "source_d7de4d94ab52b038e242115b54ce8b43",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_04.png",
+      "sha256": "9aed77a23ca4e22e8892a2a31ea8a5970788796d4ba124d7fbf3e4f54e43e479",
+      "bytes": 3430
+    },
+    {
+      "sourceId": "source_dcedcc367ce3b8058e7a150a0cca6ae4",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_08.png",
+      "sha256": "84cb8f51b4fb67a15d96a9eea9c5eb4d87b6695159a4b1d3099f0746d99cfa79",
+      "bytes": 3257
+    },
+    {
+      "sourceId": "source_dd94e412a7000cd635d58ad371e2e724",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_08.png",
+      "sha256": "8b28733063fb85064243571b19ac90d49cdb3ed871583e1dfe1dd34a0a503038",
+      "bytes": 4728
+    },
+    {
+      "sourceId": "source_e178119b0f3c1a73eeb5bf593cc61531",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_plasma_lance_03.png",
+      "sha256": "a46220b1d55482af0fbe565564512a72bdef3bfd2c5919c8f704d6609f418911",
+      "bytes": 4000
+    },
+    {
+      "sourceId": "source_e2f837df92f631a33ee891967b02a9d0",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_01.png",
+      "sha256": "77b319d9d89b20ff35fab210c283ec779441c8e52b3208bfcfa9bb29fef4bd1d",
+      "bytes": 3550
+    },
+    {
+      "sourceId": "source_e376087322a958a5d1bf7d18f3b9cd09",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_06.png",
+      "sha256": "d96afe66f693893f6eb4f45238b027e7ee6fc528e9243655a84ca9c27f5889c4",
+      "bytes": 3340
+    },
+    {
+      "sourceId": "source_e392b9d6c1f9dfb583ffd40d190116ff",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_04.png",
+      "sha256": "6b083bfc13f12b31c3e0cb7fba14925357bbb1aa242bae2c0e648693475e9e5a",
+      "bytes": 4276
+    },
+    {
+      "sourceId": "source_e7b5d8e4b509eba6205b52d15d6c59dc",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_05.png",
+      "sha256": "ca70886fe589997d2ff255657ae81230b8d37148c510ca20fd19905e4044b8d0",
+      "bytes": 3356
+    },
+    {
+      "sourceId": "source_e813f046fb30b241122212334ac7574c",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_06.png",
+      "sha256": "eab743d4df59d42ac43cfeb9f041d8458958a1d81b107a4bc11cf40511ef64e3",
+      "bytes": 4547
+    },
+    {
+      "sourceId": "source_f1dc4ced03193098f4a7f665e27a1591",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_05.png",
+      "sha256": "ca70886fe589997d2ff255657ae81230b8d37148c510ca20fd19905e4044b8d0",
+      "bytes": 3356
+    },
+    {
+      "sourceId": "source_f37214d344fe7cfd80b2e475ce595550",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_needle_rail_00.png",
+      "sha256": "c1f0febf7b90394b372b46e6cb3e2ba9dff35c44ae2414300abcbd879ed48263",
+      "bytes": 3482
+    },
+    {
+      "sourceId": "source_f442fabdf9ef70226985410063c07c74",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_needle_rail_06.png",
+      "sha256": "284f23f56c1a7490f72533ec83f4c7e5e2e674284d7069d7338eb8a8713275c8",
+      "bytes": 4527
+    },
+    {
+      "sourceId": "source_f52b10f61bf2390c3e415eca7967dfb6",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_storm_cannon_00.png",
+      "sha256": "ca19234c0a338d007ab566ec9b28523f6b1f07a728821e5bbf0a50a033c1453f",
+      "bytes": 3494
+    },
+    {
+      "sourceId": "source_f6c062a6d18b5c3f4940194ae3d5630e",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_storm_cannon_08.png",
+      "sha256": "c9745ac90163c8b065d42f7743470542b88fbaab4c11aa507a27d323eb19ec7b",
+      "bytes": 4682
+    },
+    {
+      "sourceId": "source_f94e4feeeccbd5a5514c0d957220bd63",
+      "path": "work/vx94_transform_primary_v1/composites/hypersonic_plasma_lance_07.png",
+      "sha256": "7c996b41240ca0cf351a62d87cf7153094584c2af67a20178a63304bf104946f",
+      "bytes": 3283
+    },
+    {
+      "sourceId": "source_fcb48e7ae0caf15d323adaacf5749446",
+      "path": "work/vx94_transform_primary_v1/composites/bomber_ballistic_05.png",
+      "sha256": "1a4d0ee57056e2727082f410248a2b8a57b199fd2cd7065764d70a2d9ecef703",
+      "bytes": 4509
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "bomber",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 40,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 15,
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 16,
+          "sourceIndex": 16,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 17,
+          "sourceIndex": 17,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 18,
+          "sourceIndex": 18,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 19,
+          "sourceIndex": 19,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 20,
+          "sourceIndex": 20,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 21,
+          "sourceIndex": 21,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 22,
+          "sourceIndex": 22,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 23,
+          "sourceIndex": 23,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 24,
+          "sourceIndex": 24,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 25,
+          "sourceIndex": 25,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 26,
+          "sourceIndex": 26,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 27,
+          "sourceIndex": 27,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 28,
+          "sourceIndex": 28,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 29,
+          "sourceIndex": 29,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 30,
+          "sourceIndex": 30,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 31,
+          "sourceIndex": 31,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 32,
+          "sourceIndex": 32,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 33,
+          "sourceIndex": 33,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 34,
+          "sourceIndex": 34,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 35,
+          "sourceIndex": 35,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 36,
+          "sourceIndex": 36,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 37,
+          "sourceIndex": 37,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 38,
+          "sourceIndex": 38,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 39,
+          "sourceIndex": 39,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber.png",
+          "sha256": "e4415f25bab15a372d04531ca15e0acd79a7ffe90f1b48ae39928402d33e9901",
+          "bytes": 59321,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1280,
+            "height": 576
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 737280
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1280,
+            576
+          ],
+          "pixelSha256": "e1563c0b454045c99186530a51b5d44d1c278e90af17aabcd3607f6609c6cd8b"
+        }
+      ]
+    },
+    {
+      "taskId": "hypersonic",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 40,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 14,
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 15,
+          "sourceIndex": 15,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 16,
+          "sourceIndex": 16,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 17,
+          "sourceIndex": 17,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 18,
+          "sourceIndex": 18,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 19,
+          "sourceIndex": 19,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 20,
+          "sourceIndex": 20,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 21,
+          "sourceIndex": 21,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 22,
+          "sourceIndex": 22,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 23,
+          "sourceIndex": 23,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 24,
+          "sourceIndex": 24,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 25,
+          "sourceIndex": 25,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 26,
+          "sourceIndex": 26,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 27,
+          "sourceIndex": 27,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 28,
+          "sourceIndex": 28,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 29,
+          "sourceIndex": 29,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 30,
+          "sourceIndex": 30,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 31,
+          "sourceIndex": 31,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 32,
+          "sourceIndex": 32,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 33,
+          "sourceIndex": 33,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 34,
+          "sourceIndex": 34,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 35,
+          "sourceIndex": 35,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 36,
+          "sourceIndex": 36,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 37,
+          "sourceIndex": 37,
+          "maskSourceIndex": null,
+          "x": 896,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 38,
+          "sourceIndex": 38,
+          "maskSourceIndex": null,
+          "x": 1024,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 39,
+          "sourceIndex": 39,
+          "maskSourceIndex": null,
+          "x": 1152,
+          "y": 432,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        }
+      ],
+      "outputs": [
+        {
+          "path": "hypersonic.png",
+          "sha256": "776084932ab5a85f0207e0d3c687fb2d032eb1ad770a3bf3bef17902b8927f82",
+          "bytes": 56086,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1280,
+            "height": 576
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 737280
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1280,
+            576
+          ],
+          "pixelSha256": "7657103f4caf5deaf5e9998b6041e1e5ce5c57a9ba547fe2fa897f69368d2530"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "bomber.png",
+      "sha256": "e4415f25bab15a372d04531ca15e0acd79a7ffe90f1b48ae39928402d33e9901",
+      "bytes": 59321,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1280,
+        "height": 576
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 737280
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1280,
+        576
+      ],
+      "pixelSha256": "e1563c0b454045c99186530a51b5d44d1c278e90af17aabcd3607f6609c6cd8b"
+    },
+    {
+      "path": "hypersonic.png",
+      "sha256": "776084932ab5a85f0207e0d3c687fb2d032eb1ad770a3bf3bef17902b8927f82",
+      "bytes": 56086,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1280,
+        "height": 576
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 737280
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1280,
+        576
+      ],
+      "pixelSha256": "7657103f4caf5deaf5e9998b6041e1e5ce5c57a9ba547fe2fa897f69368d2530"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 80,
+    "externalSourceBytes": 303245,
+    "plannedMaximumOutputFiles": 3,
+    "taskOutputFiles": 2,
+    "taskOutputBytes": 115407,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "30f0c20794759a47a26287239c567862521aa3d16bfada898c4901bb70e701ff"
+}

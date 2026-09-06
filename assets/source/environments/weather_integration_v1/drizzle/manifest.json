@@ -1,0 +1,677 @@
+{
+	"frames": [
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.107473,
+			"travel": 0.026502568,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.254875666666667,
+			"travel": 0.0447804986666667,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.388209,
+			"travel": 0.061313832,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.504875666666667,
+			"travel": 0.0856035947780471,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.638209,
+			"travel": 0.128055947062864,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.771542333333333,
+			"travel": 0.181907798341678,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.904875666666667,
+			"travel": 0.243927747574545,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.038209,
+			"travel": 0.311800394739324,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.18350166666667,
+			"travel": 0.390492205968654,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.31507,
+			"travel": 0.464775204778857,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.44840333333333,
+			"travel": 0.542136407736455,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.588209,
+			"travel": 0.624860156036514,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.71598677777778,
+			"travel": 0.701496933847322,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.85011433333333,
+			"travel": 0.78269895179354,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.988209,
+			"travel": 0.866883458658191,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.11308866666667,
+			"travel": 0.94337609666292,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.250046,
+			"travel": 1.02755161104,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.38221233333333,
+			"travel": 1.10898614900424,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.51372466666667,
+			"travel": 1.19015983861363,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.64289133333333,
+			"travel": 1.26998515349423,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.78622466666667,
+			"travel": 1.35864795091488,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.913308,
+			"travel": 1.43731085297745,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 3.05272666666667,
+			"travel": 1.52364909947104,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 3.18454,
+			"travel": 1.60530515004162,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.670875,
+			"time": 3.30954,
+			"travel": 1.70259201575445,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.725165137,
+			"time": 3.442931,
+			"travel": 1.82489479158929,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.781110271666667,
+			"time": 3.58038833333333,
+			"travel": 1.96710875808479,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.835434868,
+			"time": 3.713864,
+			"travel": 2.11793769508478,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.887948721333333,
+			"time": 3.84289066666667,
+			"travel": 2.27416281624351,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.942979462666667,
+			"time": 3.97810133333333,
+			"travel": 2.44862701073138,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 0.994576616333333,
+			"time": 4.10487566666667,
+			"travel": 2.62026237504025,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.049577511,
+			"time": 4.240013,
+			"travel": 2.80616242396896,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.10965790133333,
+			"time": 4.38763066666667,
+			"travel": 3.01307608465547,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.163924568,
+			"time": 4.520964,
+			"travel": 3.20291140245282,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.21308134966667,
+			"time": 4.64174233333333,
+			"travel": 3.37799689162232,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.268704683,
+			"time": 4.778409,
+			"travel": 3.58169963763318,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.57368921633333,
+			"time": 4.91703833333333,
+			"travel": 3.8535350146266,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.05487566666667,
+			"travel": 4.15324286900676,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.174614,
+			"travel": 4.40055686833037,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.31244333333333,
+			"travel": 4.67444125626526,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.438528,
+			"travel": 4.91763393786536,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.57644,
+			"travel": 5.17788304600888,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.706077,
+			"travel": 5.41856551998788,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.85206066666667,
+			"travel": 5.68634779094835,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.985394,
+			"travel": 5.92878558855355,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.10699733333333,
+			"travel": 6.1486219010616,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.24033066666667,
+			"travel": 6.38865394427763,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.38595733333333,
+			"travel": 6.64995105730399,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.51336133333333,
+			"travel": 6.87802308601289,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.638209,
+			"travel": 7.10117610516539,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.77582466666667,
+			"travel": 7.34686639718934,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.909158,
+			"travel": 7.58470670506159,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 7.04456166666667,
+			"travel": 7.82609323518548,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 7.179519,
+			"travel": 8.06657888625253,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.48666666666667,
+			"time": 7.31285233333334,
+			"travel": 8.24099197072435,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 7.44618566666667,
+			"travel": 8.39252035032649,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 7.579519,
+			"travel": 8.55249750110121,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 7.71285233333334,
+			"travel": 8.71852846095698,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 7.854123,
+			"travel": 8.89914738901358,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 7.978672,
+			"travel": 9.06126417356028,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.10742966666667,
+			"travel": 9.23089729567287,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.25146466666667,
+			"travel": 9.42242333602005,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.384798,
+			"travel": 9.60090431774742,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.51868666666667,
+			"travel": 9.78094193779648,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.65487566666667,
+			"travel": 9.96467026683394,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.77154233333334,
+			"travel": 10.1224084150993,
+			"weight": 1.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.90487566666667,
+			"travel": 10.3029645428571,
+			"weight": 0.884057971014493
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.05017366666667,
+			"travel": 10.4999714484375,
+			"weight": 0.757711884057971
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.18593566666667,
+			"travel": 10.6842145710704,
+			"weight": 0.639657971014493
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.31903533333334,
+			"travel": 10.8649547125499,
+			"weight": 0.523919130434783
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.438209,
+			"travel": 11.0268511662952,
+			"weight": 0.420289855072464
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.57154233333334,
+			"travel": 11.208037704457,
+			"weight": 0.304347826086957
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.71665266666667,
+			"travel": 11.4052748605531,
+			"weight": 0.178164927536232
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.85197633333334,
+			"travel": 11.58924094857,
+			"weight": 0.0604921739130435
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.988209,
+			"travel": 11.7744642468793,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.1105703333333,
+			"travel": 11.9408411536326,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.2454456666667,
+			"travel": 12.1242440070279,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.3717613333333,
+			"travel": 12.2960146761743,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.5106502222222,
+			"travel": 12.484888841811,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.643493,
+			"travel": 12.6655449971299,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.7715423333333,
+			"travel": 12.8396851203077,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.9053086666667,
+			"travel": 13.0216020825496,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 11.0469753333333,
+			"travel": 13.2142648056217,
+			"weight": 0.0
+		},
+		{
+			"profile": "drizzle",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 11.175267,
+			"travel": 13.3887389262575,
+			"weight": 0.0
+		}
+	],
+	"scope": "Native integrated weather: staged speed, reduced flashes, low-to-high altitude fade. Invulnerable; not survival evidence."
+}

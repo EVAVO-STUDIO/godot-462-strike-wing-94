@@ -1,0 +1,13 @@
+{
+  "schema": "hypersonic_vx94_specialist_housing_runtime_integration_v1",
+  "status": "reviewed_native_runtime",
+  "runtime_frames": 120,
+  "canvas": [64, 72],
+  "weapons": ["needle_rail", "storm_cannon", "plasma_lance"],
+  "bank_states": ["hard_left", "left", "neutral", "right", "hard_right"],
+  "hardware_states": ["stowed", "deployed", "charged", "discharge"],
+  "representative_runtime_sha256": "4EFDF5F3474FD0BC6A2074C54D1C97FBA5CC77D49C00AFD23C22D55C53306F22",
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/specialist_housings",
+  "native_evidence": "work/storm_pulse_v2/runtime_native",
+  "review_movie": "outputs/HYPERSONIC-storm-cannon-runtime.mp4"
+}

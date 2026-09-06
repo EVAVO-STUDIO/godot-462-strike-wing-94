@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "atlas_tanker_flight.manifest.json",
+  "files": [
+    {
+      "path": "aligned/flight_0.png",
+      "size": 6049,
+      "sha256": "68831484e375856acc088b171b8ee77e571ceeced980dfece927e8bbd104870e"
+    },
+    {
+      "path": "aligned/flight_1.png",
+      "size": 6084,
+      "sha256": "f564669e07a0e19e39489d2e3d124c2b91fac331196e9dae6e686ad37f28bb4d"
+    },
+    {
+      "path": "aligned/flight_2.png",
+      "size": 6083,
+      "sha256": "fa92c6de496f1604ccedcdf549d60665ab6fb0be3e925f50e8dd30f955f34d29"
+    },
+    {
+      "path": "aligned/flight_3.png",
+      "size": 6100,
+      "sha256": "d62963bf29668805ee0d8524c1f4368068fde4bd78d10071b7aaabe06391a9ac"
+    },
+    {
+      "path": "atlas_tanker_flight.animated_sprite.tscn",
+      "size": 329,
+      "sha256": "a3c6f99f1ea9ec07b314ad3d6986c4dd50fe27b8e9b0e967bf29b7d5e1009b38"
+    },
+    {
+      "path": "atlas_tanker_flight.atlas.0.png",
+      "size": 14017,
+      "sha256": "46c7a3178700905bd648e57dd4dc14301c0336393626b1a96625b844478b8d95"
+    },
+    {
+      "path": "atlas_tanker_flight.atlas.json",
+      "size": 3560,
+      "sha256": "876046e75b6f9cec6d0b2fa997084843606874108a60db8ed45ba8ca7e075b84"
+    },
+    {
+      "path": "atlas_tanker_flight.build.json",
+      "size": 4399,
+      "sha256": "793413320f14054bf950145c1da5cabf468e8c8c4f7d51fa5e4c93c50e7ec525"
+    },
+    {
+      "path": "atlas_tanker_flight.corrections.json",
+      "size": 144,
+      "sha256": "61853ca11e18672b69f801d11a5f487c0b67e10d7edfb526b61380674aa138a2"
+    },
+    {
+      "path": "atlas_tanker_flight.events.json",
+      "size": 1007,
+      "sha256": "7563d0662ce64bb81782b073ca2f39caff6c62405b0b420d3a18fbfa19cc33df"
+    },
+    {
+      "path": "atlas_tanker_flight.integration.json",
+      "size": 1069,
+      "sha256": "46c7e2e274598d09f30fb02d166a33c1d4190967b205759845ad35f8290108a3"
+    },
+    {
+      "path": "atlas_tanker_flight.manifest.json",
+      "size": 5637,
+      "sha256": "7753e207ac2e3116806640d0a335fe2173d61733c445a40746a54e0ec9931c35"
+    },
+    {
+      "path": "atlas_tanker_flight.qa.json",
+      "size": 497,
+      "sha256": "36868da1629dbf3de75b81c9f5d868748392cfff8132bcd3f8c722ab0be7d2b0"
+    },
+    {
+      "path": "atlas_tanker_flight.review.html",
+      "size": 2739,
+      "sha256": "c4636c40537045a8503b9798930f7089b446b6e1a0ac1b87335bd17b0385cc3c"
+    },
+    {
+      "path": "atlas_tanker_flight.spriteframes.tres",
+      "size": 1169,
+      "sha256": "f69aeb97c01b3f15a796a8804f8d4a2d190596f0fc799e75aa1a09d0b407bc09"
+    },
+    {
+      "path": "frames/flight_0.png",
+      "size": 6000,
+      "sha256": "40971a36ab3656d96ba862d27c73755d79c972f9c89473337503d35d60106c28"
+    },
+    {
+      "path": "frames/flight_1.png",
+      "size": 6021,
+      "sha256": "6b4b68b518d8f4d5b7c901c8f9f451d4c11c440a68c1f44402b6173f97e8ca70"
+    },
+    {
+      "path": "frames/flight_2.png",
+      "size": 6025,
+      "sha256": "57bd93c7a4002697bb7752f900df4a4f5551e683b12aa3b7a60aaddcc26c50a0"
+    },
+    {
+      "path": "frames/flight_3.png",
+      "size": 6040,
+      "sha256": "d581f345493148cb9205f3eb50bc3ffec64ba2e5778d6ef1413aac8bcaaa218f"
+    },
+    {
+      "path": "previews/flight.contact.png",
+      "size": 12878,
+      "sha256": "f58b1f0d5ebdf44e00acd5f4b3c6b6a48182154452505d3d5ac7e4a9f590bda7"
+    },
+    {
+      "path": "previews/flight.difference.png",
+      "size": 8359,
+      "sha256": "e5839b1c9d616fda0df7eff74ec4e19dae56a4d29e1a1630de3d2852caa8e364"
+    },
+    {
+      "path": "previews/flight.gif",
+      "size": 15007,
+      "sha256": "40cebf1cbd922f345f2f475be24471553ce947d957f8434ed8061f1d0d8c2e85"
+    },
+    {
+      "path": "previews/flight.onion.png",
+      "size": 15291,
+      "sha256": "17a8b4986dda498b3ec69b5858c008bc3434216ac76fd25c9cc512d164932283"
+    },
+    {
+      "path": "previews/flight.pivots.png",
+      "size": 13032,
+      "sha256": "90818042f798250a2793984e6308001fefe9e5fa06a16cad5c3786cbda90ce2a"
+    }
+  ]
+}

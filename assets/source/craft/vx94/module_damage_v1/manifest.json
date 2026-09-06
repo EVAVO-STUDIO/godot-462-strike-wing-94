@@ -1,0 +1,1145 @@
+{
+  "status": "reviewed_native_runtime",
+  "entries": [
+    {
+      "id": "point_defence_pod_fighter_scarred_hard_left",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        31.431504697506178,
+        33.90316575006244
+      ],
+      "angle": -28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_fighter_idle_hard_left"
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_hard_left",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        31.431504697506178,
+        33.90316575006244
+      ],
+      "angle": -28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_fighter_idle_hard_left"
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_left",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        31.831758468503033,
+        38.952033716410085
+      ],
+      "angle": -3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_fighter_idle_left"
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_left",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        31.831758468503033,
+        38.952033716410085
+      ],
+      "angle": -3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_fighter_idle_left"
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_neutral",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        39
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_fighter_idle_neutral"
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_neutral",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        39
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_fighter_idle_neutral"
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_right",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        32.16824153149697,
+        38.952033716410085
+      ],
+      "angle": 3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_fighter_idle_right"
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_right",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        32.16824153149697,
+        38.952033716410085
+      ],
+      "angle": 3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_fighter_idle_right"
+    },
+    {
+      "id": "point_defence_pod_fighter_scarred_hard_right",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        31.568495302493822,
+        33.90316575006244
+      ],
+      "angle": 28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_fighter_idle_hard_right"
+    },
+    {
+      "id": "point_defence_pod_fighter_burnt_hard_right",
+      "kind": "point_defence_pod",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        31.568495302493822,
+        33.90316575006244
+      ],
+      "angle": 28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_fighter_idle_hard_right"
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_hard_left",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        27.453146328868133,
+        34.48630945701825
+      ],
+      "angle": -29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_bomber_idle_hard_left"
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_hard_left",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        27.453146328868133,
+        34.48630945701825
+      ],
+      "angle": -29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_bomber_idle_hard_left"
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_left",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        30.38729636258531,
+        39.73166145908759
+      ],
+      "angle": -7,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_bomber_idle_left"
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_left",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        30.38729636258531,
+        39.73166145908759
+      ],
+      "angle": -7,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_bomber_idle_left"
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_neutral",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        40
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_bomber_idle_neutral"
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_neutral",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        40
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_bomber_idle_neutral"
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_right",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        34.98976836543764,
+        39.649650474696536
+      ],
+      "angle": 8,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_bomber_idle_right"
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_right",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        34.98976836543764,
+        39.649650474696536
+      ],
+      "angle": 8,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_bomber_idle_right"
+    },
+    {
+      "id": "point_defence_pod_bomber_scarred_hard_right",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        37.54685367113187,
+        34.48630945701825
+      ],
+      "angle": 29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "point_defence_pod_bomber_idle_hard_right"
+    },
+    {
+      "id": "point_defence_pod_bomber_burnt_hard_right",
+      "kind": "point_defence_pod",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        37.54685367113187,
+        34.48630945701825
+      ],
+      "angle": 29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "point_defence_pod_bomber_idle_hard_right"
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_hard_left",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        31.431504697506178,
+        33.90316575006244
+      ],
+      "angle": -28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_fighter_idle_hard_left"
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_hard_left",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        31.431504697506178,
+        33.90316575006244
+      ],
+      "angle": -28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_fighter_idle_hard_left"
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_left",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        31.831758468503033,
+        38.952033716410085
+      ],
+      "angle": -3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_fighter_idle_left"
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_left",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        31.831758468503033,
+        38.952033716410085
+      ],
+      "angle": -3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_fighter_idle_left"
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_neutral",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        39
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_fighter_idle_neutral"
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_neutral",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        39
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_fighter_idle_neutral"
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_right",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        32.16824153149697,
+        38.952033716410085
+      ],
+      "angle": 3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_fighter_idle_right"
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_right",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        32.16824153149697,
+        38.952033716410085
+      ],
+      "angle": 3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_fighter_idle_right"
+    },
+    {
+      "id": "emp_disruptor_fighter_scarred_hard_right",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        31.568495302493822,
+        33.90316575006244
+      ],
+      "angle": 28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_fighter_idle_hard_right"
+    },
+    {
+      "id": "emp_disruptor_fighter_burnt_hard_right",
+      "kind": "emp_disruptor",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        31.568495302493822,
+        33.90316575006244
+      ],
+      "angle": 28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_fighter_idle_hard_right"
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_hard_left",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        27.453146328868133,
+        34.48630945701825
+      ],
+      "angle": -29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_bomber_idle_hard_left"
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_hard_left",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        27.453146328868133,
+        34.48630945701825
+      ],
+      "angle": -29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_bomber_idle_hard_left"
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_left",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        30.38729636258531,
+        39.73166145908759
+      ],
+      "angle": -7,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_bomber_idle_left"
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_left",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        30.38729636258531,
+        39.73166145908759
+      ],
+      "angle": -7,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_bomber_idle_left"
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_neutral",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        40
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_bomber_idle_neutral"
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_neutral",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        40
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_bomber_idle_neutral"
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_right",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        34.98976836543764,
+        39.649650474696536
+      ],
+      "angle": 8,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_bomber_idle_right"
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_right",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        34.98976836543764,
+        39.649650474696536
+      ],
+      "angle": 8,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_bomber_idle_right"
+    },
+    {
+      "id": "emp_disruptor_bomber_scarred_hard_right",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        37.54685367113187,
+        34.48630945701825
+      ],
+      "angle": 29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "emp_disruptor_bomber_idle_hard_right"
+    },
+    {
+      "id": "emp_disruptor_bomber_burnt_hard_right",
+      "kind": "emp_disruptor",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        37.54685367113187,
+        34.48630945701825
+      ],
+      "angle": 29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "emp_disruptor_bomber_idle_hard_right"
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_hard_left",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        31.431504697506178,
+        33.90316575006244
+      ],
+      "angle": -28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_fighter_idle_hard_left"
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_hard_left",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        31.431504697506178,
+        33.90316575006244
+      ],
+      "angle": -28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_fighter_idle_hard_left"
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_left",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        31.831758468503033,
+        38.952033716410085
+      ],
+      "angle": -3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_fighter_idle_left"
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_left",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        31.831758468503033,
+        38.952033716410085
+      ],
+      "angle": -3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_fighter_idle_left"
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_neutral",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        39
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_fighter_idle_neutral"
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_neutral",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        39
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_fighter_idle_neutral"
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_right",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        32.16824153149697,
+        38.952033716410085
+      ],
+      "angle": 3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_fighter_idle_right"
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_right",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        32.16824153149697,
+        38.952033716410085
+      ],
+      "angle": 3,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_fighter_idle_right"
+    },
+    {
+      "id": "magnetic_screen_fighter_scarred_hard_right",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        31.568495302493822,
+        33.90316575006244
+      ],
+      "angle": 28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_fighter_idle_hard_right"
+    },
+    {
+      "id": "magnetic_screen_fighter_burnt_hard_right",
+      "kind": "magnetic_screen",
+      "form": "fighter",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        31.568495302493822,
+        33.90316575006244
+      ],
+      "angle": 28,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_fighter_idle_hard_right"
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_hard_left",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        27.453146328868133,
+        34.48630945701825
+      ],
+      "angle": -29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_bomber_idle_hard_left"
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_hard_left",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_left",
+      "anchor": [
+        27.453146328868133,
+        34.48630945701825
+      ],
+      "angle": -29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_bomber_idle_hard_left"
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_left",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        30.38729636258531,
+        39.73166145908759
+      ],
+      "angle": -7,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_bomber_idle_left"
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_left",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "left",
+      "anchor": [
+        30.38729636258531,
+        39.73166145908759
+      ],
+      "angle": -7,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_bomber_idle_left"
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_neutral",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        40
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_bomber_idle_neutral"
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_neutral",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "neutral",
+      "anchor": [
+        32,
+        40
+      ],
+      "angle": 0,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_bomber_idle_neutral"
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_right",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        34.98976836543764,
+        39.649650474696536
+      ],
+      "angle": 8,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_bomber_idle_right"
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_right",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "right",
+      "anchor": [
+        34.98976836543764,
+        39.649650474696536
+      ],
+      "angle": 8,
+      "width": 1,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_bomber_idle_right"
+    },
+    {
+      "id": "magnetic_screen_bomber_scarred_hard_right",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        37.54685367113187,
+        34.48630945701825
+      ],
+      "angle": 29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "scarred",
+      "base_id": "magnetic_screen_bomber_idle_hard_right"
+    },
+    {
+      "id": "magnetic_screen_bomber_burnt_hard_right",
+      "kind": "magnetic_screen",
+      "form": "bomber",
+      "state": "idle",
+      "bank": "hard_right",
+      "anchor": [
+        37.54685367113187,
+        34.48630945701825
+      ],
+      "angle": 29,
+      "width": 0.8,
+      "pivot": [
+        32,
+        38
+      ],
+      "severity": "burnt",
+      "base_id": "magnetic_screen_bomber_idle_hard_right"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "hypersonic-low-wisp-resampling-cleanup",
+  "projectId": "hypersonic",
+  "purpose": "Remove only alpha 1-4 resampling noise; measured bad pixels have no stronger alpha. Keep all stronger partial vapour.",
+  "compiledAt": "2026-09-06T09:33:30.070Z",
+  "runId": "project-art-sandbox:aeb285ebaed1e9fb29610b6f",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "3e288bd394182c18ad04dc8022f3c32f926d2335011fcf330c6df5ac664833a0",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_350c0a87b2840b0e9e7b222be5926e3d",
+      "path": "work/low_cloud_companions_v3/native/c.png",
+      "sha256": "2260d51dd930e3e0ba5a9dbf8a1162db38b95661f970ed58f3842c3b5ae53869",
+      "bytes": 7502,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 192,
+        "height": 64,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_978882ae20715c2bf68d2f0314d69029",
+      "path": "work/low_cloud_companions_v3/native/b.png",
+      "sha256": "0048e1ba29996736c2b5871b779c2daa7c41a56b7ef2cbd77a5f9ce4baaafd87",
+      "bytes": 12025,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 192,
+        "height": 64,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_fbd932eec97e2c3bf34239306f041b11",
+      "path": "work/low_cloud_companions_v3/native/d.png",
+      "sha256": "4e8aa05ffc0443609be823606d6b73fcd4169beadadd280ccc396802b0a5b334",
+      "bytes": 6604,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 192,
+        "height": 64,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "b",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_978882ae20715c2bf68d2f0314d69029"
+      },
+      "targetPath": "b.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 4,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_350c0a87b2840b0e9e7b222be5926e3d"
+      },
+      "targetPath": "c.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 4,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "d",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_fbd932eec97e2c3bf34239306f041b11"
+      },
+      "targetPath": "d.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 4,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 26131,
+    "plannedMaximumOutputFiles": 4
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "e8ec59fe3e1ff88df4c19f92b57cf12c73f37ba7db92b383f349e236c7c2b692"
+}

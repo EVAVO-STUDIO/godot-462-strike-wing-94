@@ -1,0 +1,389 @@
+{
+	"events": [
+		{
+			"filename": "fire_ballistic.wav",
+			"id": "fire_ballistic",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.055,
+				"end_frequency": 112.0,
+				"frequency": 176.0,
+				"gain": 0.16,
+				"wave": "square"
+			}
+		},
+		{
+			"filename": "fire_rotary.wav",
+			"id": "fire_rotary",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.12,
+				"end_frequency": 74.0,
+				"frequency": 92.0,
+				"gain": 0.23,
+				"wave": "rotary"
+			}
+		},
+		{
+			"filename": "fire_rail.wav",
+			"id": "fire_rail",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.085,
+				"end_frequency": 210.0,
+				"frequency": 920.0,
+				"gain": 0.19,
+				"wave": "square"
+			}
+		},
+		{
+			"filename": "fire_storm.wav",
+			"id": "fire_storm",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.11,
+				"end_frequency": 260.0,
+				"frequency": 510.0,
+				"gain": 0.18,
+				"wave": "sine"
+			}
+		},
+		{
+			"filename": "fire_plasma.wav",
+			"id": "fire_plasma",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.19,
+				"end_frequency": 95.0,
+				"frequency": 250.0,
+				"gain": 0.2,
+				"wave": "saw"
+			}
+		},
+		{
+			"filename": "fire_support.wav",
+			"id": "fire_support",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.09,
+				"end_frequency": 130.0,
+				"frequency": 210.0,
+				"gain": 0.17,
+				"wave": "square"
+			}
+		},
+		{
+			"filename": "fire_strategic.wav",
+			"id": "fire_strategic",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.24,
+				"end_frequency": 58.0,
+				"frequency": 96.0,
+				"gain": 0.22,
+				"wave": "noise"
+			}
+		},
+		{
+			"filename": "hit.wav",
+			"id": "hit",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.045,
+				"end_frequency": 180.0,
+				"frequency": 420.0,
+				"gain": 0.1,
+				"wave": "noise"
+			}
+		},
+		{
+			"filename": "explosion.wav",
+			"id": "explosion",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.22,
+				"end_frequency": 54.0,
+				"frequency": 118.0,
+				"gain": 0.21,
+				"wave": "blast"
+			}
+		},
+		{
+			"filename": "boss_explosion.wav",
+			"id": "boss_explosion",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.42,
+				"end_frequency": 38.0,
+				"frequency": 92.0,
+				"gain": 0.26,
+				"wave": "blast"
+			}
+		},
+		{
+			"filename": "shield_hit.wav",
+			"id": "shield_hit",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.1,
+				"end_frequency": 310.0,
+				"frequency": 680.0,
+				"gain": 0.13,
+				"wave": "sine"
+			}
+		},
+		{
+			"filename": "shield_break.wav",
+			"id": "shield_break",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.3,
+				"end_frequency": 92.0,
+				"frequency": 920.0,
+				"gain": 0.2,
+				"wave": "shield_break"
+			}
+		},
+		{
+			"filename": "player_hit.wav",
+			"id": "player_hit",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.12,
+				"end_frequency": 82.0,
+				"frequency": 250.0,
+				"gain": 0.17,
+				"wave": "mechanical"
+			}
+		},
+		{
+			"filename": "strike_release.wav",
+			"id": "strike_release",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.13,
+				"end_frequency": 62.0,
+				"frequency": 132.0,
+				"gain": 0.17,
+				"wave": "mechanical"
+			}
+		},
+		{
+			"filename": "strike_impact.wav",
+			"id": "strike_impact",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.3,
+				"end_frequency": 32.0,
+				"frequency": 74.0,
+				"gain": 0.24,
+				"wave": "blast"
+			}
+		},
+		{
+			"filename": "transform.wav",
+			"id": "transform",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.32,
+				"end_frequency": 138.0,
+				"frequency": 84.0,
+				"gain": 0.18,
+				"wave": "mechanical"
+			}
+		},
+		{
+			"filename": "transform_ready.wav",
+			"id": "transform_ready",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.12,
+				"end_frequency": 242.0,
+				"frequency": 174.0,
+				"gain": 0.13,
+				"wave": "mechanical"
+			}
+		},
+		{
+			"filename": "afterburner.wav",
+			"id": "afterburner",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.16,
+				"end_frequency": 118.0,
+				"frequency": 72.0,
+				"gain": 0.15,
+				"wave": "noise"
+			}
+		},
+		{
+			"filename": "sonic_boom.wav",
+			"id": "sonic_boom",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.48,
+				"end_frequency": 31.0,
+				"frequency": 82.0,
+				"gain": 0.28,
+				"wave": "blast"
+			}
+		},
+		{
+			"filename": "missile_warning.wav",
+			"id": "missile_warning",
+			"mix_gain": 0.8,
+			"spec": {
+				"duration": 0.1,
+				"end_frequency": 760.0,
+				"frequency": 760.0,
+				"gain": 0.14,
+				"wave": "square"
+			}
+		},
+		{
+			"filename": "missile_launch.wav",
+			"id": "missile_launch",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.24,
+				"end_frequency": 82.0,
+				"frequency": 286.0,
+				"gain": 0.19,
+				"wave": "missile"
+			}
+		},
+		{
+			"filename": "seeker_lock.wav",
+			"id": "seeker_lock",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.13,
+				"end_frequency": 1260.0,
+				"frequency": 1020.0,
+				"gain": 0.1,
+				"wave": "square"
+			}
+		},
+		{
+			"filename": "countermeasure.wav",
+			"id": "countermeasure",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.16,
+				"end_frequency": 220.0,
+				"frequency": 1180.0,
+				"gain": 0.16,
+				"wave": "noise"
+			}
+		},
+		{
+			"filename": "ui_purchase.wav",
+			"id": "ui_purchase",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.16,
+				"end_frequency": 248.0,
+				"frequency": 186.0,
+				"gain": 0.13,
+				"wave": "mechanical"
+			}
+		},
+		{
+			"filename": "ui_service.wav",
+			"id": "ui_service",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.28,
+				"end_frequency": 196.0,
+				"frequency": 112.0,
+				"gain": 0.14,
+				"wave": "service"
+			}
+		},
+		{
+			"filename": "reward_stinger.wav",
+			"id": "reward_stinger",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.42,
+				"end_frequency": 784.0,
+				"frequency": 392.0,
+				"gain": 0.16,
+				"wave": "reward"
+			}
+		},
+		{
+			"filename": "altitude_shift.wav",
+			"id": "altitude_shift",
+			"mix_gain": 0.8,
+			"spec": {
+				"duration": 0.2,
+				"end_frequency": 660.0,
+				"frequency": 330.0,
+				"gain": 0.15,
+				"wave": "sine"
+			}
+		},
+		{
+			"filename": "altitude_climb.wav",
+			"id": "altitude_climb",
+			"mix_gain": 0.8,
+			"spec": {
+				"duration": 0.34,
+				"end_frequency": 520.0,
+				"frequency": 180.0,
+				"gain": 0.15,
+				"wave": "saw"
+			}
+		},
+		{
+			"filename": "altitude_dive.wav",
+			"id": "altitude_dive",
+			"mix_gain": 0.8,
+			"spec": {
+				"duration": 0.34,
+				"end_frequency": 150.0,
+				"frequency": 520.0,
+				"gain": 0.15,
+				"wave": "saw"
+			}
+		},
+		{
+			"filename": "radio_tx.wav",
+			"id": "radio_tx",
+			"mix_gain": 0.8,
+			"spec": {
+				"duration": 0.16,
+				"end_frequency": 1840.0,
+				"frequency": 1240.0,
+				"gain": 0.13,
+				"wave": "radio"
+			}
+		},
+		{
+			"filename": "radio_alert.wav",
+			"id": "radio_alert",
+			"mix_gain": 0.8,
+			"spec": {
+				"duration": 0.24,
+				"end_frequency": 410.0,
+				"frequency": 820.0,
+				"gain": 0.17,
+				"wave": "radio"
+			}
+		},
+		{
+			"filename": "title_radar.wav",
+			"id": "title_radar",
+			"mix_gain": 0.75,
+			"spec": {
+				"duration": 0.12,
+				"end_frequency": 940.0,
+				"frequency": 1180.0,
+				"gain": 0.08,
+				"wave": "sine"
+			}
+		}
+	],
+	"scope": "Isolated runtime SFX voices at configured 75% SFX/80% radio gain, before master gain; no propulsion bed, polyphony or music."
+}

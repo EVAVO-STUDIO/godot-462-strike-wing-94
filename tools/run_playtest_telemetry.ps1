@@ -44,7 +44,7 @@ foreach ($Case in $Cases) {
     if ([int]$Report.shots_fired -le 0 -or [int]$Report.maxima.enemies -le 0) { throw "Playtest did not reach active combat: $($Case.id)" }
     if (@($Report.altitude_seconds.PSObject.Properties).Count -lt 1 -or @($Report.form_seconds.PSObject.Properties).Count -lt 1) { throw "Playtest occupancy telemetry is missing: $($Case.id)" }
     if ($SimulationSeconds -ge 32.0) {
-        foreach ($Command in @{ transform=3; altitude=3; roll=3; tactical_support=2; battlefield_support=2; ordnance=2; screen_bomb=1 }.GetEnumerator()) {
+        foreach ($Command in @{ transform=3; altitude=3; roll=3; countermeasure=3; tactical_support=2; battlefield_support=2; ordnance=2; screen_bomb=1 }.GetEnumerator()) {
             if ([int]$Report.commands.($Command.Key) -lt [int]$Command.Value) { throw "Scheduled $($Command.Key) coverage is missing: $($Case.id)" }
         }
     }
@@ -55,9 +55,13 @@ $TotalKills = [int](($Summaries | Measure-Object -Property targets_destroyed -Su
 $AcceptedTactical = [int](($Summaries | ForEach-Object { $_.accepted_system_uses.tactical_support } | Measure-Object -Sum).Sum)
 $AcceptedBattlefield = [int](($Summaries | ForEach-Object { $_.accepted_system_uses.battlefield_support } | Measure-Object -Sum).Sum)
 $AcceptedOrdnance = [int](($Summaries | ForEach-Object { $_.accepted_system_uses.ordnance } | Measure-Object -Sum).Sum)
+$CountermeasureChargesSpent = [int](($Summaries | Measure-Object -Property countermeasure_charges_spent -Sum).Sum)
 if ($TotalHits -le 0 -or $TotalKills -le 0) { throw 'Representative playtests did not produce confirmed hits and destruction.' }
 if ($SimulationSeconds -ge 32.0 -and ($AcceptedTactical -le 0 -or $AcceptedBattlefield -le 0 -or $AcceptedOrdnance -le 0)) {
     throw 'Representative playtests did not confirm accepted tactical, battlefield and strike-ordnance usage.'
+}
+if ($SimulationSeconds -ge 32.0 -and $CountermeasureChargesSpent -lt $Summaries.Count) {
+    throw 'Representative playtests did not confirm a live countermeasure cassette release in every sortie.'
 }
 [ordered]@{ schema_version=1; scope='bounded deterministic automation; not a substitute for human feel review'; runs=$Summaries } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $AbsoluteOutput 'summary.json') -Encoding UTF8
 Write-Host "HYPERSONIC bounded playtest telemetry passed: $($Summaries.Count) representative sorties." -ForegroundColor Green

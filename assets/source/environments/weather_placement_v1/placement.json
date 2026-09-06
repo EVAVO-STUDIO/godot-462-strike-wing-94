@@ -1,0 +1,351 @@
+{
+  "status": "art_direction_delivery_not_runtime_configuration",
+  "source_catalogue_sha256": {
+    "missions.json": "b2e8c04be39411a80316440e7689df539c9faf82f64d2b20bae59b76b2e28bee",
+    "secret_missions.json": "c03e93d2dc8d5d7563f35cf6d18c12eb90ee08abcdb71de03503abc5f3df166d"
+  },
+  "profiles": {
+    "clear": null,
+    "drizzle": "../rain_flight_v4/drizzle_plan.json",
+    "rain": "../rain_flight_v4/rain_plan.json",
+    "storm": "../rain_flight_v4/storm_plan.json",
+    "snow": "../snow_flight_v4"
+  },
+  "altitude_precipitation_weights": {
+    "low": 1.0,
+    "mid": 0.6,
+    "high": 0.0,
+    "orbital": 0.0
+  },
+  "altitude_note": "High is treated as above the active precipitation deck. Cloud immersion is separate; never infer altitude from environment name alone.",
+  "motion": "Use integrated world distance per depth band plus independent wind/time. Never reset particle phase on throttle or altitude change.",
+  "transition": "Blend existing particle opacity with the actual altitude-transition ratio; keep identities and positions continuous.",
+  "presentation": "Clip to combat viewport. Keep HUD, lock warnings and radio text clear. No full-screen lightning flashes.",
+  "accessibility": "Existing reduced-effects preference must reduce weather density/opacity without changing threat visibility or weapon behavior.",
+  "missions": [
+    {
+      "mission_id": "m01_coastal_intercept",
+      "campaign": "campaign",
+      "environment": "coast",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m02_refinery_run",
+      "campaign": "campaign",
+      "environment": "industrial",
+      "environment_variant": null,
+      "precipitation": "drizzle",
+      "reason": "Light wet haze; preserve machinery and gunfire contrast.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m03_black_sea",
+      "campaign": "campaign",
+      "environment": "open_water",
+      "environment_variant": null,
+      "precipitation": "rain",
+      "reason": "Sea squall beneath the cloud deck.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m04_breakwater",
+      "campaign": "campaign",
+      "environment": "coast",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m05_furnace_line",
+      "campaign": "campaign",
+      "environment": "industrial",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m06_black_flag",
+      "campaign": "campaign",
+      "environment": "open_water",
+      "environment_variant": null,
+      "precipitation": "storm",
+      "reason": "Heavier maritime front for the returning fleet strike.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s1_m07_desert_lance",
+      "campaign": "campaign",
+      "environment": "industrial",
+      "environment_variant": "desert_front",
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s1_m08_river_hammer",
+      "campaign": "campaign",
+      "environment": "open_water",
+      "environment_variant": "river_corridor",
+      "precipitation": "rain",
+      "reason": "Rain over the flooded valley; bridge openings remain legible.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s1_m09_mountain_eye",
+      "campaign": "campaign",
+      "environment": "high_cloud",
+      "environment_variant": "mountain_radar",
+      "precipitation": "snow",
+      "reason": "Snow and spindrift at the established mountain storm wall.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s1_m10_night_harbor",
+      "campaign": "campaign",
+      "environment": "coast",
+      "environment_variant": "night_harbor",
+      "precipitation": "drizzle",
+      "reason": "Restrained rain in the blackout harbor; no bright white streak field.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m07_ghost_sky",
+      "campaign": "campaign",
+      "environment": "high_cloud",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m08_machine_furnace",
+      "campaign": "campaign",
+      "environment": "industrial",
+      "environment_variant": "machine_furnace",
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m03_broken_truce",
+      "campaign": "campaign",
+      "environment": "coast",
+      "environment_variant": null,
+      "precipitation": "rain",
+      "reason": "Coastal rain with crisp allied markings and warnings.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m04_dead_factory",
+      "campaign": "campaign",
+      "environment": "industrial",
+      "environment_variant": "machine_furnace",
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m05_iron_rain",
+      "campaign": "campaign",
+      "environment": "high_cloud",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m06_ghost_convoy",
+      "campaign": "campaign",
+      "environment": "industrial",
+      "environment_variant": "city_outskirts",
+      "precipitation": "drizzle",
+      "reason": "Light rain over the abandoned city belt.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m07_red_circuit",
+      "campaign": "campaign",
+      "environment": "coast",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m08_swarm_sea",
+      "campaign": "campaign",
+      "environment": "open_water",
+      "environment_variant": null,
+      "precipitation": "rain",
+      "reason": "Maritime rain with clear missile/drone silhouettes.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m09_silent_city",
+      "campaign": "campaign",
+      "environment": "industrial",
+      "environment_variant": "city_outskirts",
+      "precipitation": "drizzle",
+      "reason": "Restrained city rain; retain factory and tunnel contrast.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s2_m10_machine_crown",
+      "campaign": "campaign",
+      "environment": "high_cloud",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m09_black_horizon",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "m10_blue_fire",
+      "campaign": "campaign",
+      "environment": "high_cloud",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "m11_cold_station",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "s3_m02_thin_blue_line",
+      "campaign": "campaign",
+      "environment": "high_cloud",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "s3_m04_kinetic_dawn",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "s3_m05_orbitfall",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "s3_m07_dead_satellite",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "s3_m08_black_sky",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "s3_m09_last_horizon",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "m12_machine_ark",
+      "campaign": "campaign",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    },
+    {
+      "mission_id": "sm01_black_wake",
+      "campaign": "secret",
+      "environment": "open_water",
+      "environment_variant": null,
+      "precipitation": "drizzle",
+      "reason": "A thinning maritime front beyond the fleet screen.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "sm02_furnace_vault",
+      "campaign": "secret",
+      "environment": "industrial",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Retain existing clear atmosphere and authored cloud/terrain layers.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "sm03_dead_frequency",
+      "campaign": "secret",
+      "environment": "high_cloud",
+      "environment_variant": null,
+      "precipitation": "storm",
+      "reason": "The briefing explicitly locates the relay inside a storm wall.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "sm04_seed_manifest",
+      "campaign": "secret",
+      "environment": "industrial",
+      "environment_variant": "city_outskirts",
+      "precipitation": "drizzle",
+      "reason": "Match the parent city convoy setting after its selector is corrected.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "sm05_submerged_cradle",
+      "campaign": "secret",
+      "environment": "open_water",
+      "environment_variant": null,
+      "precipitation": "rain",
+      "reason": "Match the parent Swarm Sea weather over the littoral approach.",
+      "orbital_exclusion": false
+    },
+    {
+      "mission_id": "sm06_dead_satellite",
+      "campaign": "secret",
+      "environment": "orbital",
+      "environment_variant": null,
+      "precipitation": "clear",
+      "reason": "Orbital vacuum: no precipitation or local cloud banks; retain distant Earth atmosphere.",
+      "orbital_exclusion": true
+    }
+  ]
+}

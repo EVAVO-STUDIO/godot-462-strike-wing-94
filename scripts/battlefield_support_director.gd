@@ -6,6 +6,7 @@ const BattlefieldSupportRules = preload("res://scripts/battlefield_support_rules
 const BattlefieldSupportSurface = preload("res://scripts/battlefield_support_surface.gd")
 const BattlefieldSupportArtLibrary = preload("res://scripts/battlefield_support_art_library.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
+const SPECTRE_MUZZLE_OFFSETS := [Vector2(-19.64,13.05),Vector2(-15.37,13.05),Vector2(-11.10,13.05)]
 
 var _catalog: Array = []
 var _allowed_ids: Array[String] = []
@@ -385,8 +386,15 @@ func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
 func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 	var p := Vector2(552, 118 + sin(progress * PI) * 8.0)
 	_draw_support_craft(surface, p, "spectre_gunship", 6.0)
-	for offset in [-12.0, 0.0, 12.0]:
-		_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), p+Vector2(-31,18+offset*0.2), _visual_target+Vector2(offset,0), 4.0)
+	for index in SPECTRE_MUZZLE_OFFSETS.size():
+		var target_offset := Vector2(float(index-1)*12.0,0)
+		var target := _visual_target + target_offset
+		var burst_phase := fposmod(progress * 4.0 - float(index) * 0.13, 1.0)
+		if burst_phase < 0.22:
+			_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), p+SPECTRE_MUZZLE_OFFSETS[index], target, 3.0)
+		elif burst_phase < 0.48:
+			var impact := BattlefieldSupportArtLibrary.staged_effect("impact", (burst_phase-0.22)/0.26)
+			surface.draw_texture(impact, (target-impact.get_size()*0.5).round(), Color(1,1,1,1.0-(burst_phase-0.22)/0.26))
 
 func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float) -> void:
 	var texture := BattlefieldSupportArtLibrary.frame_for_clock(family, _animation_clock, fps)

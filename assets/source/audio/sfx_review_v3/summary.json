@@ -1,0 +1,322 @@
+[
+  {
+    "id": "fire_ballistic",
+    "wave": "square",
+    "mean_active": 0.003192999101530297,
+    "peak": 0.1199951171875,
+    "first_sample": 0.1199951171875,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "fire_rotary",
+    "wave": "rotary",
+    "mean_active": -0.0003948485589982521,
+    "peak": 0.155975341796875,
+    "first_sample": 0.09722900390625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "fire_rail",
+    "wave": "square",
+    "mean_active": 0.0010556574183314435,
+    "peak": 0.142486572265625,
+    "first_sample": 0.142486572265625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "fire_storm",
+    "wave": "sine",
+    "mean_active": 0.00038238802137005357,
+    "peak": 0.13385009765625,
+    "first_sample": 0.019561767578125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "fire_plasma",
+    "wave": "saw",
+    "mean_active": -0.0005939929752759546,
+    "peak": 0.1466064453125,
+    "first_sample": -0.1466064453125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "fire_support",
+    "wave": "square",
+    "mean_active": 0.001563964351530998,
+    "peak": 0.12750244140625,
+    "first_sample": 0.12750244140625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "fire_strategic",
+    "wave": "noise",
+    "mean_active": -0.000108443510325137,
+    "peak": 0.106170654296875,
+    "first_sample": -0.015899658203125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "hit",
+    "wave": "noise",
+    "mean_active": -0.0003887607205298639,
+    "peak": 0.048065185546875,
+    "first_sample": -0.007232666015625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "explosion",
+    "wave": "blast",
+    "mean_active": 0.0006333514111136879,
+    "peak": 0.215545654296875,
+    "first_sample": -0.0125732421875,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "boss_explosion",
+    "wave": "blast",
+    "mean_active": 0.0006183788619614513,
+    "peak": 0.27984619140625,
+    "first_sample": -0.0167236328125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "shield_hit",
+    "wave": "sine",
+    "mean_active": 0.00022751857904620182,
+    "peak": 0.09686279296875,
+    "first_sample": 0.018768310546875,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "shield_break",
+    "wave": "shield_break",
+    "mean_active": 5.660630137471655e-06,
+    "peak": 0.1708984375,
+    "first_sample": 0.015533447265625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "player_hit",
+    "wave": "mechanical",
+    "mean_active": 0.0003093278326955782,
+    "peak": 0.12579345703125,
+    "first_sample": 0.083587646484375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "strike_release",
+    "wave": "mechanical",
+    "mean_active": 0.0005340895616168004,
+    "peak": 0.12591552734375,
+    "first_sample": 0.083587646484375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "strike_impact",
+    "wave": "blast",
+    "mean_active": 0.0009472444034037226,
+    "peak": 0.250640869140625,
+    "first_sample": -0.01617431640625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "transform",
+    "wave": "mechanical",
+    "mean_active": 0.00012874387018804918,
+    "peak": 0.13409423828125,
+    "first_sample": 0.0885009765625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "transform_ready",
+    "wave": "mechanical",
+    "mean_active": 0.0003295575500165344,
+    "peak": 0.09619140625,
+    "first_sample": 0.06390380859375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "afterburner",
+    "wave": "noise",
+    "mean_active": -0.00013190548436171345,
+    "peak": 0.072357177734375,
+    "first_sample": -0.010833740234375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "sonic_boom",
+    "wave": "blast",
+    "mean_active": 0.0006741864701067059,
+    "peak": 0.296051025390625,
+    "first_sample": -0.01849365234375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "missile_warning",
+    "wave": "square",
+    "mean_active": -0.0005974386825042517,
+    "peak": 0.11199951171875,
+    "first_sample": 0.11199951171875,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "missile_launch",
+    "wave": "missile",
+    "mean_active": -0.00040736238071617536,
+    "peak": 0.176055908203125,
+    "first_sample": -0.10809326171875,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "seeker_lock",
+    "wave": "square",
+    "mean_active": 4.0654610356332866e-05,
+    "peak": 0.07501220703125,
+    "first_sample": 0.07501220703125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "countermeasure",
+    "wave": "noise",
+    "mean_active": -0.0001406507427189626,
+    "peak": 0.077178955078125,
+    "first_sample": -0.011566162109375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "ui_purchase",
+    "wave": "mechanical",
+    "mean_active": 2.6936433753188777e-05,
+    "peak": 0.096466064453125,
+    "first_sample": 0.06390380859375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "ui_service",
+    "wave": "service",
+    "mean_active": 0.000535807410296708,
+    "peak": 0.09381103515625,
+    "first_sample": 0.072784423828125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "reward_stinger",
+    "wave": "reward",
+    "mean_active": 6.721050895556636e-05,
+    "peak": 0.09808349609375,
+    "first_sample": 0.010955810546875,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "altitude_shift",
+    "wave": "sine",
+    "mean_active": 0.0002893080246421485,
+    "peak": 0.11907958984375,
+    "first_sample": 0.011260986328125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "altitude_climb",
+    "wave": "saw",
+    "mean_active": -0.00031658578144799586,
+    "peak": 0.1180419921875,
+    "first_sample": -0.1180419921875,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "altitude_dive",
+    "wave": "saw",
+    "mean_active": -0.00016117693822320596,
+    "peak": 0.11651611328125,
+    "first_sample": -0.114349365234375,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "radio_tx",
+    "wave": "radio",
+    "mean_active": -0.002387879386780754,
+    "peak": 0.101104736328125,
+    "first_sample": 0.070556640625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "radio_alert",
+    "wave": "radio",
+    "mean_active": -0.0030685332536877596,
+    "peak": 0.129547119140625,
+    "first_sample": 0.09228515625,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  },
+  {
+    "id": "title_radar",
+    "wave": "sine",
+    "mean_active": 6.704409736985071e-05,
+    "peak": 0.0594482421875,
+    "first_sample": 0.019805908203125,
+    "last_active_sample": 0.0,
+    "issues": [],
+    "clipped_samples": 0
+  }
+]

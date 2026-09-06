@@ -1,0 +1,24 @@
+{
+  "canvas": [
+    320,
+    160
+  ],
+  "status": "integrated_high_cloud_companions_b_c_d",
+  "files": [
+    {
+      "target": "cloud_bank_high_mass_b.png",
+      "sha256": "71f1954e09298d434eb01f4d6fb7a955c1eb3a04e7e4c00d85feafafeef06559",
+      "source": "anvil.png"
+    },
+    {
+      "target": "cloud_bank_high_mass_c.png",
+      "sha256": "c232ab02cb3c7ad72eeebef8afc9b6e0036e2730c84ecdaa19143592d9e8fdf9",
+      "source": "broken.png"
+    },
+    {
+      "target": "cloud_bank_high_mass_d.png",
+      "sha256": "d2796ef4c798be09b49ecce9ae7ae6109ee86166dd61f13e96c8a53c664d9caa",
+      "source": "front.png"
+    }
+  ]
+}

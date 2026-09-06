@@ -1,11 +1,37 @@
 class_name ProjectileRules
 extends RefCounted
 
+const MISSILE_ACQUISITION_RANGE := 430.0
+const MISSILE_MIN_POST_LAUNCH_TTI := 0.90
+
 static func enemy_shot_velocity(origin: Vector2, target: Vector2, speed: float) -> Vector2:
 	var direction := origin.direction_to(target)
 	if direction.length_squared() < 0.001:
 		direction = Vector2.DOWN
 	return direction * speed
+
+static func missile_in_acquisition_envelope(origin: Vector2, target: Vector2) -> bool:
+	return origin.distance_to(target) <= MISSILE_ACQUISITION_RANGE
+
+static func missile_launch_has_warning_time(origin: Vector2, target: Vector2, speed: float) -> bool:
+	return origin.distance_to(target) / maxf(1.0, speed) >= MISSILE_MIN_POST_LAUNCH_TTI
+
+static func advance_enemy_shot(shot: Dictionary, target: Vector2, delta: float) -> Dictionary:
+	var next := shot.duplicate(true)
+	var position: Vector2 = next.get("position", Vector2.ZERO)
+	var velocity: Vector2 = next.get("velocity", Vector2.DOWN * 150.0)
+	if bool(next.get("homing", false)):
+		var speed := maxf(1.0, float(next.get("homing_speed", velocity.length())))
+		var desired := position.direction_to(target)
+		if desired.length_squared() > 0.001:
+			var difference := angle_difference(velocity.angle(), desired.angle())
+			var turn := clampf(difference, -float(next.get("turn_rate",1.8))*maxf(0.0,delta), float(next.get("turn_rate",1.8))*maxf(0.0,delta))
+			velocity = velocity.rotated(turn).normalized() * speed
+	position += velocity * maxf(0.0,delta)
+	next["position"] = position
+	next["velocity"] = velocity
+	if next.has("life"): next["life"] = maxf(0.0, float(next.life) - maxf(0.0,delta))
+	return next
 
 static func pickup_kind_for_roll(roll: float) -> String:
 	if roll < 0.09:

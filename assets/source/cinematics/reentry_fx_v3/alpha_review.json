@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0",
+  "command": "master-alpha-folder",
+  "inputRoot": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\sprite_input",
+  "outputRoot": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_checked",
+  "evidenceRoot": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_evidence",
+  "proofRoot": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_proofs",
+  "processed": 4,
+  "failed": 0,
+  "approvalState": "unapproved",
+  "promotionEligible": true,
+  "results": [
+    {
+      "relativeInput": "reentry_00.png",
+      "relativeOutput": "reentry_00.png",
+      "result": {
+        "handled": true,
+        "value": {
+          "schemaVersion": "2.0",
+          "outputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_checked\\reentry_00.png",
+          "evidencePath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_evidence\\reentry_00.png.json",
+          "outputSha256": "35dd8cacae456246e1eccbf31501f810c0ec1e8900187b0d152700905b20eabf",
+          "recoveryStrategy": "native-alpha-preserved",
+          "chromaSpillSuppressed": false,
+          "artistGuidanceApplied": false,
+          "proofPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_proofs\\reentry_00.png",
+          "qualityPassed": true,
+          "promotionEligible": true,
+          "approvalState": "unapproved"
+        }
+      }
+    },
+    {
+      "relativeInput": "reentry_01.png",
+      "relativeOutput": "reentry_01.png",
+      "result": {
+        "handled": true,
+        "value": {
+          "schemaVersion": "2.0",
+          "outputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_checked\\reentry_01.png",
+          "evidencePath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_evidence\\reentry_01.png.json",
+          "outputSha256": "20f37227f28e71c1441a88b7a0b334055940419e0c642189c723156d0e8e3f84",
+          "recoveryStrategy": "native-alpha-preserved",
+          "chromaSpillSuppressed": false,
+          "artistGuidanceApplied": false,
+          "proofPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_proofs\\reentry_01.png",
+          "qualityPassed": true,
+          "promotionEligible": true,
+          "approvalState": "unapproved"
+        }
+      }
+    },
+    {
+      "relativeInput": "reentry_02.png",
+      "relativeOutput": "reentry_02.png",
+      "result": {
+        "handled": true,
+        "value": {
+          "schemaVersion": "2.0",
+          "outputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_checked\\reentry_02.png",
+          "evidencePath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_evidence\\reentry_02.png.json",
+          "outputSha256": "a1a91d86c4d4992b0d4a83dc1b98d8db18ce426879c957ff8e48b16d32849123",
+          "recoveryStrategy": "native-alpha-preserved",
+          "chromaSpillSuppressed": false,
+          "artistGuidanceApplied": false,
+          "proofPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_proofs\\reentry_02.png",
+          "qualityPassed": true,
+          "promotionEligible": true,
+          "approvalState": "unapproved"
+        }
+      }
+    },
+    {
+      "relativeInput": "reentry_03.png",
+      "relativeOutput": "reentry_03.png",
+      "result": {
+        "handled": true,
+        "value": {
+          "schemaVersion": "2.0",
+          "outputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_checked\\reentry_03.png",
+          "evidencePath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_evidence\\reentry_03.png.json",
+          "outputSha256": "9dca1d55424a1e600d6e5a3f213e27998bc2acf8bd992d59c27df2f8cc9ed256",
+          "recoveryStrategy": "native-alpha-preserved",
+          "chromaSpillSuppressed": false,
+          "artistGuidanceApplied": false,
+          "proofPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\reentry_fx_v3\\alpha_proofs\\reentry_03.png",
+          "qualityPassed": true,
+          "promotionEligible": true,
+          "approvalState": "unapproved"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "ai_forge_core_critical.manifest.json",
+  "files": [
+    {
+      "path": "ai_forge_core_critical.animated_sprite.tscn",
+      "size": 339,
+      "sha256": "0164562e9382c379f747b493edf8e6ae368c71147f6a14d331dcf09a0c5c6283"
+    },
+    {
+      "path": "ai_forge_core_critical.atlas.0.png",
+      "size": 4683,
+      "sha256": "b74717e97d215a6598a04752f92432ddad1aa4af1930d1a3a2e6ab26aeba4973"
+    },
+    {
+      "path": "ai_forge_core_critical.atlas.json",
+      "size": 3594,
+      "sha256": "afcbdc0802753c97e99dcc10a97619d474d45809af09b5f72be550be67f6fc6a"
+    },
+    {
+      "path": "ai_forge_core_critical.build.json",
+      "size": 4452,
+      "sha256": "2970618496b4138ff73c5a2efda74cb87992334e8a2af161d39f7e9a9cf8480e"
+    },
+    {
+      "path": "ai_forge_core_critical.corrections.json",
+      "size": 147,
+      "sha256": "2258d771c05dc1a71f676c08bfbeeb8024017c4b93ce0c903bf5602e5a201b54"
+    },
+    {
+      "path": "ai_forge_core_critical.events.json",
+      "size": 1020,
+      "sha256": "3d066993d6dc5db316e7edce3813488c86b777516ef557446290f8b8c1644892"
+    },
+    {
+      "path": "ai_forge_core_critical.integration.json",
+      "size": 1096,
+      "sha256": "95adff371c1efa6a7d6768f5ae3fa4326056f479bdf47fd41491417fff893962"
+    },
+    {
+      "path": "ai_forge_core_critical.manifest.json",
+      "size": 5720,
+      "sha256": "51ec7a428b38d94e95fe1be6ccee29cdd006a6b34432e5028c63f5fc188046b4"
+    },
+    {
+      "path": "ai_forge_core_critical.qa.json",
+      "size": 494,
+      "sha256": "9b7e76d50ca825eececba4395e9dc72b4f18e20c6af366d5845a791209b03bac"
+    },
+    {
+      "path": "ai_forge_core_critical.review.html",
+      "size": 2761,
+      "sha256": "76d59433e010d7dde51c4887e1048b6e37a1d615b8b4c9e87eaecf8b2894f1dc"
+    },
+    {
+      "path": "ai_forge_core_critical.spriteframes.tres",
+      "size": 1181,
+      "sha256": "3fa1dc60f3a3eb510a1ffc307eb1f266001e5a7a48364cc99734910eef602ff4"
+    },
+    {
+      "path": "aligned/critical_0.png",
+      "size": 2107,
+      "sha256": "9ff45de7046b5cf6dfa169c698b36ca3a3e1e1534296180b796801e8c27e9716"
+    },
+    {
+      "path": "aligned/critical_1.png",
+      "size": 2124,
+      "sha256": "08ef4d063f4a57accd541edf3f7c771a9cc6669d2db14f36ee766023f6f3424a"
+    },
+    {
+      "path": "aligned/critical_2.png",
+      "size": 2104,
+      "sha256": "b5fb6f382579ed6ea1aa2d737d6b04544253c45f661b893cf7776455e1a72286"
+    },
+    {
+      "path": "aligned/critical_3.png",
+      "size": 2116,
+      "sha256": "99e9ca9294beb41a04029e3746a429521d00888b0b9d5b175576feb56e36c10c"
+    },
+    {
+      "path": "frames/critical_0.png",
+      "size": 1885,
+      "sha256": "88b219a8c580f91cee4e0c64f9f8617a8518d0f51cc72d9a5bff6219e4644b0a"
+    },
+    {
+      "path": "frames/critical_1.png",
+      "size": 1900,
+      "sha256": "1cb54b43dc320fc38f096d1de6751b41a74f1e3a69536314bf635b04ace16387"
+    },
+    {
+      "path": "frames/critical_2.png",
+      "size": 1895,
+      "sha256": "623ba15e586d2a1b9633dac5063441e367341286645c335aa588ed3e67777111"
+    },
+    {
+      "path": "frames/critical_3.png",
+      "size": 1894,
+      "sha256": "e18c90bff276aac1615bcc24c1b9e1dac6ffa5c68054def859fdf0b9d71e8f9a"
+    },
+    {
+      "path": "previews/critical.contact.png",
+      "size": 8376,
+      "sha256": "7bc556ef2695faee597447ef5b023ab0c83f27f140e70efd40ddb8c16721ae02"
+    },
+    {
+      "path": "previews/critical.difference.png",
+      "size": 4029,
+      "sha256": "7416089d1a0372b3cafe40b048f7beed441edb4b9368a131b48019723d93b372"
+    },
+    {
+      "path": "previews/critical.gif",
+      "size": 7379,
+      "sha256": "9b87efb3f3a802ee9dac42d69ec15200eee7f583b580f270f48e284e9de201ca"
+    },
+    {
+      "path": "previews/critical.onion.png",
+      "size": 8460,
+      "sha256": "97058ff6b3e0d119ab54df817ffe544f04947a176498bed8e85b3f9285abe69d"
+    },
+    {
+      "path": "previews/critical.pivots.png",
+      "size": 7881,
+      "sha256": "6a58fed6899f1d91a5f08429f9e241fa20e95eccc333a597300880c92c71d5c7"
+    }
+  ]
+}

@@ -1,0 +1,300 @@
+{
+  "schemaVersion": "2.0",
+  "command": "master-alpha",
+  "inputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\mission_intel_icons_v2\\icons\\icon_boss.png",
+  "outputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\mission_intel_icons_v2\\alpha\\icon_boss.png",
+  "evidencePath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\mission_intel_icons_v2\\evidence\\icon_boss.png.json",
+  "approvalState": "unapproved",
+  "promotionEligible": true,
+  "extraction": {
+    "schemaVersion": "2.0",
+    "strategy": "native-alpha-preserved",
+    "inputSha256": "797b10bb84467c1815304b843d6fbe3574045a7329dc030011fbd853748ed21a",
+    "outputSha256": "8df31becd8e9805e2e945ef9e5bb57532c44df831c82bd05d056b5975058e07a",
+    "source": {
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "pages": 1,
+      "hasAlpha": true,
+      "sizeBytes": 139
+    },
+    "classification": {
+      "sourceTransparentPixels": 204,
+      "sourcePartialPixels": 0,
+      "sourceOpaquePixels": 52,
+      "transparentBorderFraction": 1,
+      "nativeAlphaMeaningful": true,
+      "checkerboard": {
+        "detected": false,
+        "confidence": 0,
+        "sampledBorderPixels": 256,
+        "visibleBorderFraction": 0.203125,
+        "opaqueBorderFraction": 0.203125,
+        "lowChromaBorderFraction": 0,
+        "tileSize": 2,
+        "phaseX": 0,
+        "phaseY": 0,
+        "colours": [
+          {
+            "r": 220,
+            "g": 102,
+            "b": 85
+          },
+          {
+            "r": 220,
+            "g": 102,
+            "b": 85
+          }
+        ],
+        "colourSeparation": 0,
+        "fitFraction": 1,
+        "coverageFraction": 1,
+        "rmse": 0
+      },
+      "inferredMatte": null
+    },
+    "output": {
+      "transparentPixels": 204,
+      "partialPixels": 0,
+      "opaquePixels": 52,
+      "decontaminatedPixels": 0,
+      "transparentBleedPixels": 0
+    },
+    "guarantees": {
+      "realAlpha": true,
+      "fakeCheckerboardAcceptedAsTransparency": false,
+      "transparentCanvasEdge": true,
+      "edgeConnectedBackgroundOnly": false,
+      "partialEdgeDecontamination": false,
+      "recompositionVerified": false
+    }
+  },
+  "guidance": null,
+  "spillSuppression": null,
+  "transparencyProof": {
+    "path": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\mission_intel_icons_v2\\proofs\\icon_boss.png",
+    "evidence": {
+      "schemaVersion": "1.0",
+      "inputSha256": "8df31becd8e9805e2e945ef9e5bb57532c44df831c82bd05d056b5975058e07a",
+      "outputSha256": "c696d4e0a3c6b5e3df8432a1f15497a71261b251b10457d324a197bc77d8d899",
+      "backgrounds": [
+        "#000000",
+        "#ffffff",
+        "#808080",
+        "#00ff00",
+        "#ff00ff"
+      ],
+      "includesAlphaMask": true,
+      "checkerboardUsed": false,
+      "columns": 3,
+      "rows": 2,
+      "previewWidth": 16,
+      "previewHeight": 16,
+      "cellWidth": 32,
+      "cellHeight": 32
+    }
+  },
+  "quality": {
+    "schemaVersion": "1.0",
+    "frameId": "icon_boss.png",
+    "passed": true,
+    "rawRgbaSha256": "f3acb72f9da8b177ad4d183847980c7714d6553fc10a5943d6c2bcb44181082a",
+    "source": {
+      "format": "png",
+      "hasAlpha": true,
+      "pages": 1,
+      "width": 16,
+      "height": 16,
+      "channels": 4
+    },
+    "alpha": {
+      "transparentPixels": 204,
+      "partialPixels": 0,
+      "opaquePixels": 52,
+      "transparentFraction": 0.796875,
+      "partialFraction": 0,
+      "opaqueFraction": 0.203125,
+      "minimumAlpha": 0,
+      "maximumAlpha": 255
+    },
+    "visibleBounds": {
+      "visiblePixels": 52,
+      "visibleFraction": 0.203125,
+      "minX": 1,
+      "minY": 1,
+      "maxX": 13,
+      "maxY": 13,
+      "width": 13,
+      "height": 13,
+      "clearance": {
+        "left": 1,
+        "top": 1,
+        "right": 2,
+        "bottom": 2
+      },
+      "centroid": {
+        "x": 7.1538,
+        "y": 7.5769
+      },
+      "touchingSides": []
+    },
+    "fakeTransparency": {
+      "flatMatteDetected": false,
+      "flatMatteConfidence": 1,
+      "dominantBorderColour": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "dominantBorderFraction": 1,
+      "nearestKnownMatteDistance": 0,
+      "checkerboardDetected": false,
+      "checkerboardConfidence": 0,
+      "checkerboardTileSize": null,
+      "checkerboardColours": [],
+      "checkerboardFitFraction": null,
+      "checkerboardCoverageFraction": null,
+      "checkerboardRmse": null
+    },
+    "halo": {
+      "partialPixelsInspected": 0,
+      "haloPixels": 0,
+      "haloFraction": 0
+    },
+    "transparentRgb": {
+      "transparentPixelsInspected": 204,
+      "nonZeroTransparentPixels": 0,
+      "intentionalBleedPixels": 0,
+      "unexpectedPixels": 0,
+      "unexpectedFraction": 0
+    },
+    "gates": [
+      {
+        "id": "dimensions",
+        "status": "pass",
+        "blocking": true,
+        "message": "Decoded dimensions match the declared frame contract.",
+        "value": "16x16",
+        "threshold": "16x16",
+        "evidence": {
+          "width": 16,
+          "height": 16
+        }
+      },
+      {
+        "id": "file-format",
+        "status": "pass",
+        "blocking": true,
+        "message": "Decoded source format matches the declared output profile.",
+        "value": "png",
+        "threshold": "png",
+        "evidence": {
+          "sourceFormat": "png"
+        }
+      },
+      {
+        "id": "alpha-channel",
+        "status": "pass",
+        "blocking": true,
+        "message": "The decoded source contains usable alpha for the declared transparency policy.",
+        "value": true,
+        "threshold": "alpha-required",
+        "evidence": {
+          "sourceHasAlpha": true,
+          "transparentPixels": 204,
+          "partialPixels": 0,
+          "opaquePixels": 52,
+          "transparentFraction": 0.796875,
+          "partialFraction": 0,
+          "opaqueFraction": 0.203125,
+          "minimumAlpha": 0,
+          "maximumAlpha": 255
+        }
+      },
+      {
+        "id": "fake-transparency",
+        "status": "pass",
+        "blocking": true,
+        "message": "No baked matte or checkerboard transparency imitation was detected.",
+        "value": 1,
+        "threshold": 0.86,
+        "evidence": {
+          "flatMatteDetected": false,
+          "flatMatteConfidence": 1,
+          "dominantBorderColour": {
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "dominantBorderFraction": 1,
+          "nearestKnownMatteDistance": 0,
+          "checkerboardDetected": false,
+          "checkerboardConfidence": 0,
+          "checkerboardTileSize": null,
+          "checkerboardColours": [],
+          "checkerboardFitFraction": null,
+          "checkerboardCoverageFraction": null,
+          "checkerboardRmse": null
+        }
+      },
+      {
+        "id": "frame-crop",
+        "status": "pass",
+        "blocking": true,
+        "message": "Visible subject bounds retain the declared transparent safety margin.",
+        "value": 1,
+        "threshold": 1,
+        "evidence": {
+          "visiblePixels": 52,
+          "visibleFraction": 0.203125,
+          "minX": 1,
+          "minY": 1,
+          "maxX": 13,
+          "maxY": 13,
+          "width": 13,
+          "height": 13,
+          "clearance": {
+            "left": 1,
+            "top": 1,
+            "right": 2,
+            "bottom": 2
+          },
+          "centroid": {
+            "x": 7.1538,
+            "y": 7.5769
+          },
+          "touchingSides": []
+        }
+      },
+      {
+        "id": "edge-halo",
+        "status": "pass",
+        "blocking": true,
+        "message": "Partially transparent edges remain consistent with neighbouring subject colour.",
+        "value": 0,
+        "threshold": 0.015,
+        "evidence": {
+          "partialPixelsInspected": 0,
+          "haloPixels": 0,
+          "haloFraction": 0
+        }
+      },
+      {
+        "id": "transparent-pixel-colour",
+        "status": "pass",
+        "blocking": true,
+        "message": "Transparent RGB is clean or agrees with nearby subject edge bleed.",
+        "value": 0,
+        "threshold": 0.02,
+        "evidence": {
+          "transparentPixelsInspected": 204,
+          "nonZeroTransparentPixels": 0,
+          "intentionalBleedPixels": 0,
+          "unexpectedPixels": 0,
+          "unexpectedFraction": 0
+        }
+      }
+    ]
+  }
+}

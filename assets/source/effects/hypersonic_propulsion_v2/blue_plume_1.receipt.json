@@ -1,0 +1,13 @@
+{
+  "sourceWidth": 16,
+  "sourceHeight": 40,
+  "sourceHasAlpha": true,
+  "outputWidth": 16,
+  "outputHeight": 40,
+  "outputHasAlpha": true,
+  "format": "png",
+  "operations": [
+    "ensure-alpha",
+    "encode:png"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\weather_audio_v1\\snow_wind\\generated_sfx.wav",
+  "source_sha256": "ce8da952f554eae2224aba4f42503aa1893171cf8fa85d86c947b3ee9eba552a",
+  "sample_rate": 22050,
+  "channels": 2,
+  "duration_seconds": 16.0,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.8199462890625,
+    "rms": 0.13049160049411695,
+    "dc": 3.28185066344246e-07,
+    "clippedSamples": 0,
+    "crestFactor": 6.283517758625258,
+    "estimatedBpm": 215.33203125,
+    "pulseStrength": 0.6296291351318359,
+    "stereoCorrelation": 0.7989937760659699,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

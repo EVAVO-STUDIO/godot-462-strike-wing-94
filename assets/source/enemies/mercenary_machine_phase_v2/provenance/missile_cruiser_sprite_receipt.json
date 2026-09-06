@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "missile_cruiser_critical.manifest.json",
+  "files": [
+    {
+      "path": "aligned/critical_0.png",
+      "size": 1264,
+      "sha256": "91e0973e0d07fd9d59fe60a4e806c14118dedefb08c59c61a74dfdbf7a2d71db"
+    },
+    {
+      "path": "aligned/critical_1.png",
+      "size": 1253,
+      "sha256": "99872c6797460b834d31b9a0fd21cc64a705c54afcc6bde3f1cba81660b814ae"
+    },
+    {
+      "path": "aligned/critical_2.png",
+      "size": 1268,
+      "sha256": "81e0498bae4434e5528d639115c5326af4bce22e2aa3b0ab70e96247104d09a0"
+    },
+    {
+      "path": "aligned/critical_3.png",
+      "size": 1253,
+      "sha256": "99872c6797460b834d31b9a0fd21cc64a705c54afcc6bde3f1cba81660b814ae"
+    },
+    {
+      "path": "frames/critical_0.png",
+      "size": 1037,
+      "sha256": "720faaa8cfbce45a92bacff76409132a16f4c939c9e50c5317c756f06c58c4b7"
+    },
+    {
+      "path": "frames/critical_1.png",
+      "size": 1041,
+      "sha256": "c9f1075bb6986ac408ea675b6e1ac5fab3283df0c9cc8a815d8f23719f255a21"
+    },
+    {
+      "path": "frames/critical_2.png",
+      "size": 1038,
+      "sha256": "8a8f2648e13aa2ee5a657b89ef2172fdfd8dd3ae7bdacfad229ff6dbb20b084f"
+    },
+    {
+      "path": "frames/critical_3.png",
+      "size": 1041,
+      "sha256": "c9f1075bb6986ac408ea675b6e1ac5fab3283df0c9cc8a815d8f23719f255a21"
+    },
+    {
+      "path": "missile_cruiser_critical.animated_sprite.tscn",
+      "size": 343,
+      "sha256": "ea5f0ee3b173f0dbd57c9b1a09a7341f32e03b2f5ebe5714a406abfaa2c61ac2"
+    },
+    {
+      "path": "missile_cruiser_critical.atlas.0.png",
+      "size": 1855,
+      "sha256": "1956670114a16c8ee6cde85b05298067474f2ca6dc1bc7091f6b78b5ca343d23"
+    },
+    {
+      "path": "missile_cruiser_critical.atlas.json",
+      "size": 3603,
+      "sha256": "a8b7b09271e880492ad3876654af1ddf53a0b148e8b4da9dccd1f5f7b4ccce56"
+    },
+    {
+      "path": "missile_cruiser_critical.build.json",
+      "size": 4463,
+      "sha256": "e6629a32196eee5fe538379feb4ef305ec407c2f730992f56697e86f25f04459"
+    },
+    {
+      "path": "missile_cruiser_critical.corrections.json",
+      "size": 149,
+      "sha256": "4462b5a9be28f0f6f7191cb65d31a71b5262d5dec67dba8606c07979a710f037"
+    },
+    {
+      "path": "missile_cruiser_critical.events.json",
+      "size": 1022,
+      "sha256": "92b28cca874fefcdbd2c8051eba7793beae28d08d3f78142e29e126d1bcd913d"
+    },
+    {
+      "path": "missile_cruiser_critical.integration.json",
+      "size": 1110,
+      "sha256": "a6b09384a40a2891ec6ee1f1abf8d7e3daf904795c92c1de730b669f8dbee649"
+    },
+    {
+      "path": "missile_cruiser_critical.manifest.json",
+      "size": 5730,
+      "sha256": "ca9bb6f0a1d158c2fe86fe2fff7e801d07d76607c1092fe04b1a101f47138be2"
+    },
+    {
+      "path": "missile_cruiser_critical.qa.json",
+      "size": 689,
+      "sha256": "beb3a34aef353370ebb2f7ca2e3afec0ae876752d11a8cdc4b7dd0ce23743796"
+    },
+    {
+      "path": "missile_cruiser_critical.review.html",
+      "size": 2846,
+      "sha256": "4c79391bab286e0bf72e4ad6430f1f2c9c1c37ba0a9f2b23b419a71c59bb8442"
+    },
+    {
+      "path": "missile_cruiser_critical.spriteframes.tres",
+      "size": 1186,
+      "sha256": "65ee2818829d58be97a9a63cada0c3ed73588ee513134c5b778a1438e385ef47"
+    },
+    {
+      "path": "previews/critical.contact.png",
+      "size": 4784,
+      "sha256": "3afc079de1737d9f32028b374d99c9f1e5f1d8579eeb28731ed6ebba236abc01"
+    },
+    {
+      "path": "previews/critical.difference.png",
+      "size": 2748,
+      "sha256": "be11f6e56c9fc859d28d0e1be45ef86f7d3718e0be4ffdd5589fca38f4b98579"
+    },
+    {
+      "path": "previews/critical.gif",
+      "size": 6549,
+      "sha256": "5d1776777b962a92ad3824dfcacc9e7759b90160a976d9d93198075a4b3d4fba"
+    },
+    {
+      "path": "previews/critical.onion.png",
+      "size": 5494,
+      "sha256": "260b552a5042692a78d41e72de870109b6506c466660dce714833af594e59351"
+    },
+    {
+      "path": "previews/critical.pivots.png",
+      "size": 4966,
+      "sha256": "907d8b245b029ef87c87462f6d9313de1efdcae33d847280bc00dd446e0e59fd"
+    }
+  ]
+}

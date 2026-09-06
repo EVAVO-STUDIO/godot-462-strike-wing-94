@@ -1,0 +1,248 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_hunter_rack_empty"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_released_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_hunter_rack_left_released"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_hunter_rack_loaded"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_precision_bomb_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_precision_bomb_empty"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_precision_bomb_left_released_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_precision_bomb_left_released"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_precision_bomb_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_precision_bomb_loaded"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_empty"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_left_expended"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_loaded"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "fighter_hunter_rack_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "fighter_hunter_rack_empty"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "fighter_hunter_rack_left_released_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "fighter_hunter_rack_left_released"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "fighter_hunter_rack_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "fighter_hunter_rack_loaded"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "fighter_twin_rocket_pods_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "fighter_twin_rocket_pods_empty"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "fighter_twin_rocket_pods_left_expended_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "fighter_twin_rocket_pods_left_expended"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frames": [
+        {
+          "duration_seconds": 1.0,
+          "events": [],
+          "frame": "fighter_twin_rocket_pods_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        }
+      ],
+      "loop": false,
+      "name": "fighter_twin_rocket_pods_loaded"
+    }
+  ],
+  "asset": "vx94_external_stores",
+  "schema_version": 1,
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>vx94_transform_stores sprite review</title>
+<style>
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+body { margin: 0 auto; max-width: 1500px; padding: 32px; line-height: 1.45; }
+header, .card { border: 1px solid color-mix(in srgb, CanvasText 20%, transparent); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+h1, h2 { margin-top: 0; }
+dl { display: grid; grid-template-columns: minmax(180px, auto) 1fr; gap: 6px 18px; }
+dt { font-weight: 700; } dd { margin: 0; }
+.media { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+figure { margin: 0; } img { max-width: min(100%, 720px); image-rendering: pixelated; border: 1px solid color-mix(in srgb, CanvasText 20%, transparent); }
+table { width: 100%; border-collapse: collapse; } th, td { text-align: left; vertical-align: top; padding: 8px; border-bottom: 1px solid color-mix(in srgb, CanvasText 15%, transparent); }
+code { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<header><h1>vx94_transform_stores</h1><p>QA status: <strong>PASS</strong></p><dl><dt>animations</dt><dd>2</dd><dt>duplicate_frames</dt><dd>2</dd><dt>empty_frames</dt><dd>0</dd><dt>errors</dt><dd>0</dd><dt>event_markers</dt><dd>0</dd><dt>frames</dt><dd>20</dd><dt>max_area_variance</dt><dd>0.235885</dd><dt>max_brightness_range</dt><dd>0.055609</dd><dt>max_centroid_jump</dt><dd>0.004464</dd><dt>max_ground_contact_shift</dt><dd>0.001162</dd><dt>max_loop_delta</dt><dd>0.0</dd><dt>max_palette_colors</dt><dd>94</dd><dt>max_palette_distance</dt><dd>0.314815</dd><dt>max_silhouette_delta</dt><dd>0.091018</dd><dt>warnings</dt><dd>0</dd></dl></header>
+<section class="card"><h2>QA findings</h2><table><thead><tr><th>Severity</th><th>Code</th><th>Animation</th><th>Frame</th><th>Message</th></tr></thead><tbody><tr><td>info</td><td>duplicate_frame</td><td></td><td>hunter_rack_09</td><td>Frame is pixel-identical to hunter_rack_07</td></tr><tr><td>info</td><td>duplicate_frame</td><td></td><td>twin_rocket_pods_09</td><td>Frame is pixel-identical to twin_rocket_pods_07</td></tr></tbody></table></section>
+<section class="card"><h2>hunter_rack</h2><p>10 frames · 18 FPS · one shot · events: none</p><div class="media"><figure><img src="previews/hunter_rack.gif" alt="hunter_rack animation"><figcaption>animation</figcaption></figure><figure><img src="previews/hunter_rack.contact.png" alt="hunter_rack contact sheet"><figcaption>contact sheet</figcaption></figure><figure><img src="previews/hunter_rack.onion.png" alt="hunter_rack onion skin"><figcaption>onion skin</figcaption></figure><figure><img src="previews/hunter_rack.difference.png" alt="hunter_rack frame differences"><figcaption>frame differences</figcaption></figure><figure><img src="previews/hunter_rack.pivots.png" alt="hunter_rack pivots and contact"><figcaption>pivots and contact</figcaption></figure></div></section><section class="card"><h2>twin_rocket_pods</h2><p>10 frames · 18 FPS · one shot · events: none</p><div class="media"><figure><img src="previews/twin_rocket_pods.gif" alt="twin_rocket_pods animation"><figcaption>animation</figcaption></figure><figure><img src="previews/twin_rocket_pods.contact.png" alt="twin_rocket_pods contact sheet"><figcaption>contact sheet</figcaption></figure><figure><img src="previews/twin_rocket_pods.onion.png" alt="twin_rocket_pods onion skin"><figcaption>onion skin</figcaption></figure><figure><img src="previews/twin_rocket_pods.difference.png" alt="twin_rocket_pods frame differences"><figcaption>frame differences</figcaption></figure><figure><img src="previews/twin_rocket_pods.pivots.png" alt="twin_rocket_pods pivots and contact"><figcaption>pivots and contact</figcaption></figure></div></section>
+</body>
+</html>

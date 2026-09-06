@@ -1,0 +1,50 @@
+[
+  {
+    "id": "rain",
+    "issues": [],
+    "metrics": {
+      "peak": 0.8199462890625,
+      "rms": 0.15620373216916397,
+      "dc": -1.8407428075396827e-07,
+      "clippedSamples": 0,
+      "crestFactor": 5.249210615334552,
+      "estimatedBpm": 198.76802884615384,
+      "pulseStrength": 0.4480806589126587,
+      "stereoCorrelation": 0.6737889725347936,
+      "loopSeamDelta": 0.0,
+      "issueCount": 0
+    }
+  },
+  {
+    "id": "storm",
+    "issues": [],
+    "metrics": {
+      "peak": 0.8199462890625,
+      "rms": 0.12670762572817157,
+      "dc": -1.996444736748866e-07,
+      "clippedSamples": 0,
+      "crestFactor": 6.471167653437656,
+      "estimatedBpm": 184.5703125,
+      "pulseStrength": 0.39478468894958496,
+      "stereoCorrelation": 0.7022363202275681,
+      "loopSeamDelta": 0.0,
+      "issueCount": 0
+    }
+  },
+  {
+    "id": "snow_wind",
+    "issues": [],
+    "metrics": {
+      "peak": 0.8199462890625,
+      "rms": 0.13049160049411695,
+      "dc": 3.28185066344246e-07,
+      "clippedSamples": 0,
+      "crestFactor": 6.283517758625258,
+      "estimatedBpm": 215.33203125,
+      "pulseStrength": 0.6296291351318359,
+      "stereoCorrelation": 0.7989937760659699,
+      "loopSeamDelta": 0.0,
+      "issueCount": 0
+    }
+  }
+]

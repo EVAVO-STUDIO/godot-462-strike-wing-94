@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "armoured_train_critical.manifest.json",
+  "files": [
+    {
+      "path": "aligned/critical_0.png",
+      "size": 546,
+      "sha256": "16ba81ee53989d92bd4af727f4a6dcb45c6634ff8ea1b636da3d7a0fd84adaa9"
+    },
+    {
+      "path": "aligned/critical_1.png",
+      "size": 544,
+      "sha256": "b9398a6eaf277e5d36ae064cc7e65aa154f587158ebb21e9a410ec9ac94af32a"
+    },
+    {
+      "path": "aligned/critical_2.png",
+      "size": 546,
+      "sha256": "426c7b7cad868222aa7b15fce893fe87d6610c64ec225512316e788ae460008d"
+    },
+    {
+      "path": "aligned/critical_3.png",
+      "size": 551,
+      "sha256": "b3bff3ebcf6685c80c22b5b71390b3bf807dba6b766230a44ee74f0474fc0972"
+    },
+    {
+      "path": "armoured_train_critical.animated_sprite.tscn",
+      "size": 341,
+      "sha256": "6f99a37ff8f092cefdbe3195b2eb53dea0fc171c631d8914b3d59ad0ee952e7d"
+    },
+    {
+      "path": "armoured_train_critical.atlas.0.png",
+      "size": 1040,
+      "sha256": "93998db70e16591d2e3d4e1faf2b371e10ba2055a71450d89f96d45fc15e21ad"
+    },
+    {
+      "path": "armoured_train_critical.atlas.json",
+      "size": 3592,
+      "sha256": "0707283a7844576e21f658126f8bf0ae5a5124a94e688aa6e49a90fd1de0189f"
+    },
+    {
+      "path": "armoured_train_critical.build.json",
+      "size": 4449,
+      "sha256": "69dcfdfb8091c0dd0e7bdf779cefcae98f66beb316588684fcbcd5105e996e88"
+    },
+    {
+      "path": "armoured_train_critical.corrections.json",
+      "size": 148,
+      "sha256": "c4975886ab951eab2ad3ceb89f8b2c89ffb2bb36a1c7983f9ea648eb1cb4a2d1"
+    },
+    {
+      "path": "armoured_train_critical.events.json",
+      "size": 1021,
+      "sha256": "f57e722c36a70e2ea608ed3bacc3f0e789eb37ec5e74e8fd5eda1aceba4cf230"
+    },
+    {
+      "path": "armoured_train_critical.integration.json",
+      "size": 1102,
+      "sha256": "7595464f2da5fe69655d24fe7b1fe25e94ed6bcd100c62f003e7036d3e1ead3b"
+    },
+    {
+      "path": "armoured_train_critical.manifest.json",
+      "size": 5716,
+      "sha256": "195cb6c5ac33c9299235f020e7c3472cdd45b4ded497c269c764a0c580c89eba"
+    },
+    {
+      "path": "armoured_train_critical.qa.json",
+      "size": 486,
+      "sha256": "94bb6a508c7654e862e8ee539c0efe6d2b7ae2967dcf42510f3fe0b191c5546e"
+    },
+    {
+      "path": "armoured_train_critical.review.html",
+      "size": 2760,
+      "sha256": "adbb29be2b38f7c4450c9fec914bf500aceeafcb015e3b0da6e0a92ca2712ddc"
+    },
+    {
+      "path": "armoured_train_critical.spriteframes.tres",
+      "size": 1185,
+      "sha256": "25a69567ff0f7c481f62b5f7ea61d595ab779e011b7867ff3b7818bb122ac0cf"
+    },
+    {
+      "path": "frames/critical_0.png",
+      "size": 415,
+      "sha256": "68ad773db21e188583f770f99d30b21b1fb282db748c5d2c1061cc579aaada41"
+    },
+    {
+      "path": "frames/critical_1.png",
+      "size": 404,
+      "sha256": "43a52d21e16119c838d195f98dbe97a9c75076d0c2d10ffef17c90d7bc5e420d"
+    },
+    {
+      "path": "frames/critical_2.png",
+      "size": 418,
+      "sha256": "5f94ae28db14df2de126ea618def01458a2e4a0d8d429a6bfd14b55e12ca7158"
+    },
+    {
+      "path": "frames/critical_3.png",
+      "size": 418,
+      "sha256": "e0c37a2758664b66fab2980851fd33601706de5fb2c310fc7240fc2bf0f90bf5"
+    },
+    {
+      "path": "previews/critical.contact.png",
+      "size": 3109,
+      "sha256": "8a8ec211a9d7f6ebc76d62ab24db6d2924633e88a31ead8b71e348ad01a6a96a"
+    },
+    {
+      "path": "previews/critical.difference.png",
+      "size": 2494,
+      "sha256": "4f6d0a2590aee2c2909643f0975968af4c8b71ba183d803e1b0ead2213fd507a"
+    },
+    {
+      "path": "previews/critical.gif",
+      "size": 4174,
+      "sha256": "c8d9f6e08887f2a595c60119975bd96150aee6edb4a73fc38d5d8ed793a36144"
+    },
+    {
+      "path": "previews/critical.onion.png",
+      "size": 3121,
+      "sha256": "65845e5734fbc6c8253f6189a276661ee5ce3860ab1d73551f4f099cc418ddc5"
+    },
+    {
+      "path": "previews/critical.pivots.png",
+      "size": 2691,
+      "sha256": "b95bdc657d7d3027025738924daa687f54be3db19ca7e89911caa718cdc7b09a"
+    }
+  ]
+}

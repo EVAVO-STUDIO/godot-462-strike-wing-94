@@ -1,0 +1,43 @@
+{
+  "schema": "hypersonic_secret_sortie_presentation_runtime_v3",
+  "status": "reviewed_native_runtime",
+  "sorties": 6,
+  "fixed_fallback": "EncounterDirector now resolves scene._active_mission; MissionRadioDirector derives callsign from active sector.",
+  "native_before": "work/secret_art_review_v3",
+  "native_after": "work/secret_art_review_v3_fixed",
+  "contact": "work/secret_art_review_v3_fixed/contact.png",
+  "contact_sha256": "66629F8FDE437CE798FFFF0C6CA665896D6A9A59B7C3CD2C4DA71EB3E0B0E4A4",
+  "review_video": "outputs/HYPERSONIC-six-secret-sorties-runtime.mp4",
+  "captures": [
+    {
+      "secret_id": "sm01_black_wake",
+      "file": "work/secret_art_review_v3_fixed/sm01_black_wake.png",
+      "sha256": "DD0420012F37896ABED6C42353B822A0CC6A32E472ADA8EDD7CA746AC4FEDD5C"
+    },
+    {
+      "secret_id": "sm02_furnace_vault",
+      "file": "work/secret_art_review_v3_fixed/sm02_furnace_vault.png",
+      "sha256": "225AF97D622359573A10F49DD9A402C96F5A42BBC8E35AD0B72CBA32834BBE43"
+    },
+    {
+      "secret_id": "sm03_dead_frequency",
+      "file": "work/secret_art_review_v3_fixed/sm03_dead_frequency.png",
+      "sha256": "DC5418697339AF36644CBD8A1768A1C3DD5533BE6A1EF19B092D7293D2FF4A26"
+    },
+    {
+      "secret_id": "sm04_seed_manifest",
+      "file": "work/secret_art_review_v3_fixed/sm04_seed_manifest.png",
+      "sha256": "4E54D6B158EEC198020FE4F88BBD3E71C8A0FFBBECA264877664366432FF2ADF"
+    },
+    {
+      "secret_id": "sm05_submerged_cradle",
+      "file": "work/secret_art_review_v3_fixed/sm05_submerged_cradle.png",
+      "sha256": "B44FADA475B596BA34908FA79BE88EB9C275D5A02DD305386D831A0C61B98151"
+    },
+    {
+      "secret_id": "sm06_dead_satellite",
+      "file": "work/secret_art_review_v3_fixed/sm06_dead_satellite.png",
+      "sha256": "37BFC785E2ED70AA7AE13CA1B5D360EECCDEA57A66F140C14C3C053992A9A61E"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "hypersonic-low-wisp-resampling-cleanup",
+  "projectId": "hypersonic",
+  "purpose": "Remove only alpha 1-4 resampling noise; measured bad pixels have no stronger alpha. Keep all stronger partial vapour.",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "b",
+      "kind": "image",
+      "source": "work/low_cloud_companions_v3/native/b.png",
+      "targetPath": "b.png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 4,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "kind": "image",
+      "source": "work/low_cloud_companions_v3/native/c.png",
+      "targetPath": "c.png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 4,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "d",
+      "kind": "image",
+      "source": "work/low_cloud_companions_v3/native/d.png",
+      "targetPath": "d.png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 4,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    }
+  ]
+}

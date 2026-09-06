@@ -1,0 +1,436 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "ddbae35e51c52493a541755088b4d64b9307b1be5287292a25096389f66f1547",
+  "planBytesSha256": "c3c74492760637966aa9f37dd0a5deaf9f8929309397db923a2a1925ec2ad105",
+  "sandboxId": "hypersonic-pitch-relief-board",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:5e3d43b337c277698f3f9ee7",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0404bd6dcd1cf2bf3bf8fd78acdd5d4f",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_18.png",
+      "sha256": "efe14807ebd89d651042e153663fa9c12444db2231952c2d6cf4eca10bbf20db",
+      "bytes": 4574
+    },
+    {
+      "sourceId": "source_194cb70e9e6467351caa0a6cce580af1",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_06.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550
+    },
+    {
+      "sourceId": "source_4c82715acc5f3de404b10c9f9860dca7",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_18.png",
+      "sha256": "eae2148ba47211d571c2ec1e68f3ee425d8c5d4510fdc4ebd9d68574a6aefed0",
+      "bytes": 4487
+    },
+    {
+      "sourceId": "source_5ba0c0cd2c52394277d4bd94d2bc1d66",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_12.png",
+      "sha256": "979755fb54fc557fe8ccb7900b63c926381d5c031272287f178613e6fb8d23f5",
+      "bytes": 3437
+    },
+    {
+      "sourceId": "source_6088e2105b166d4ad7b24ed2b01b79da",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_06.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473
+    },
+    {
+      "sourceId": "source_7951a8073a93b946efc7fa6e9be4b51f",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_06.png",
+      "sha256": "5c264c0dc0728350e2e40171d475c3e8908f3b1d8cbfb02f9740a8b72f86461f",
+      "bytes": 4561
+    },
+    {
+      "sourceId": "source_9625b7128a95fff71931f66128eeaeb4",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_18.png",
+      "sha256": "01429a24a7f1405b32eccfefbe195fb979b3c1a2a2535e425956b1f583f0f78c",
+      "bytes": 3389
+    },
+    {
+      "sourceId": "source_9a81edcccb6cd86d8df8a1569e942567",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_18.png",
+      "sha256": "2de5cad02ba58d65b00199f197fe0f8f7c47ba746b0c3aac6f4979503e358e1e",
+      "bytes": 3423
+    },
+    {
+      "sourceId": "source_a11a91c3dca6e2728a47eb8e8c9e3cdf",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_12.png",
+      "sha256": "4180d992c7e714ba9ef6d60188e711299baf2bf87ad7faa23f9c83f308728d5b",
+      "bytes": 4575
+    },
+    {
+      "sourceId": "source_a22bcb4709c6a6865a605c3153751bdf",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_neutral.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473
+    },
+    {
+      "sourceId": "source_a55fd54606986db89ee4db7b25c97734",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_12.png",
+      "sha256": "28cd766b569ab5b2a4d391564ad0d4bf8041318f742658d025b469c192d4d059",
+      "bytes": 4564
+    },
+    {
+      "sourceId": "source_d393fa2a7cab13ab9dd95424610fab2d",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_06.png",
+      "sha256": "1e0eeb75c6aeb21000fd306141fa7868b0b61b2c44fbb39eeebdf7b95772de51",
+      "bytes": 3438
+    },
+    {
+      "sourceId": "source_fc5a4308c4e21ece470434cf950beec7",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_12.png",
+      "sha256": "845a5cf6c4b12437d08694834b340695c16c5be48d5221050084c29cfe16d741",
+      "bytes": 3442
+    },
+    {
+      "sourceId": "source_fdbf4b07ef2c5e9035b28a34149e9881",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_neutral.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "pitch_family",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 14,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 10,
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 11,
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 12,
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 640,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        },
+        {
+          "index": 13,
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 768,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 128,
+          "height": 144
+        }
+      ],
+      "outputs": [
+        {
+          "path": "pitch_family.png",
+          "sha256": "9d5c0ca335f1b86492fcc2a731582705820d00a8f6c7ea9118cd473edb2dcce5",
+          "bytes": 19485,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 896,
+            "height": 288
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 258048
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            896,
+            288
+          ],
+          "pixelSha256": "dd79a209232d3e8d2487e4b53b265832b97f1150fa3c46b59bfc214e035795eb"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "pitch_family.png",
+      "sha256": "9d5c0ca335f1b86492fcc2a731582705820d00a8f6c7ea9118cd473edb2dcce5",
+      "bytes": 19485,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 896,
+        "height": 288
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 258048
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        896,
+        288
+      ],
+      "pixelSha256": "dd79a209232d3e8d2487e4b53b265832b97f1150fa3c46b59bfc214e035795eb"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 14,
+    "externalSourceBytes": 55936,
+    "plannedMaximumOutputFiles": 2,
+    "taskOutputFiles": 1,
+    "taskOutputBytes": 19485,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "2f99a3ec482afa8fed13e826db96efa1a40b7512ac437ab072a6a11040fc39f2"
+}

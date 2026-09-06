@@ -1,0 +1,72 @@
+{
+  "bomber_climb_06": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "bomber_climb_12": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "bomber_climb_18": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "bomber_dive_06": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "bomber_dive_12": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "bomber_dive_18": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "bomber_neutral": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_climb_06": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_climb_12": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_climb_18": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_dive_06": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_dive_12": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_dive_18": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_neutral": {
+    "visible_rgba_unchanged": true,
+    "hidden_rgb_nonzero": 0
+  },
+  "fighter_neutral_registration": {
+    "alpha_exact": true,
+    "visible_rgba_exact": false,
+    "visible_max_channel_error": 2,
+    "opaque_rgba_exact": true,
+    "changed_visible_pixels": 358
+  },
+  "bomber_neutral_registration": {
+    "alpha_exact": true,
+    "visible_rgba_exact": false,
+    "visible_max_channel_error": 2,
+    "opaque_rgba_exact": true,
+    "changed_visible_pixels": 527
+  }
+}

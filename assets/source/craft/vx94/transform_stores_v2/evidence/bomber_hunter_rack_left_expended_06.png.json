@@ -1,0 +1,300 @@
+{
+  "schemaVersion": "2.0",
+  "command": "master-alpha",
+  "inputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_stores_v2\\composites\\bomber_hunter_rack_left_expended_06.png",
+  "outputPath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_stores_v2\\alpha\\bomber_hunter_rack_left_expended_06.png",
+  "evidencePath": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_stores_v2\\evidence\\bomber_hunter_rack_left_expended_06.png.json",
+  "approvalState": "unapproved",
+  "promotionEligible": true,
+  "extraction": {
+    "schemaVersion": "2.0",
+    "strategy": "native-alpha-preserved",
+    "inputSha256": "8a3fcfd92654405e4997c46a7f04973889b0fe5d082bf3b61932704d54c919e7",
+    "outputSha256": "fb4a993a3197cfc1b2ff3345189906627d5d8bd935c0210e7cca48eb6b04a673",
+    "source": {
+      "format": "png",
+      "width": 64,
+      "height": 72,
+      "pages": 1,
+      "hasAlpha": true,
+      "sizeBytes": 4594
+    },
+    "classification": {
+      "sourceTransparentPixels": 2957,
+      "sourcePartialPixels": 255,
+      "sourceOpaquePixels": 1396,
+      "transparentBorderFraction": 1,
+      "nativeAlphaMeaningful": true,
+      "checkerboard": {
+        "detected": false,
+        "confidence": 0,
+        "sampledBorderPixels": 2320,
+        "visibleBorderFraction": 0.1625,
+        "opaqueBorderFraction": 0.119397,
+        "lowChromaBorderFraction": 0.920424,
+        "tileSize": 8,
+        "phaseX": 2,
+        "phaseY": 0,
+        "colours": [
+          {
+            "r": 42,
+            "g": 47,
+            "b": 54
+          },
+          {
+            "r": 14,
+            "g": 16,
+            "b": 20
+          }
+        ],
+        "colourSeparation": 53.8609,
+        "fitFraction": 0.511111,
+        "coverageFraction": 0.238727,
+        "rmse": 1.2424
+      },
+      "inferredMatte": null
+    },
+    "output": {
+      "transparentPixels": 2957,
+      "partialPixels": 255,
+      "opaquePixels": 1396,
+      "decontaminatedPixels": 0,
+      "transparentBleedPixels": 0
+    },
+    "guarantees": {
+      "realAlpha": true,
+      "fakeCheckerboardAcceptedAsTransparency": false,
+      "transparentCanvasEdge": true,
+      "edgeConnectedBackgroundOnly": false,
+      "partialEdgeDecontamination": false,
+      "recompositionVerified": false
+    }
+  },
+  "guidance": null,
+  "spillSuppression": null,
+  "transparencyProof": {
+    "path": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\vx94_transform_stores_v2\\proofs\\bomber_hunter_rack_left_expended_06.png",
+    "evidence": {
+      "schemaVersion": "1.0",
+      "inputSha256": "fb4a993a3197cfc1b2ff3345189906627d5d8bd935c0210e7cca48eb6b04a673",
+      "outputSha256": "8aebca85d29635beafcc384231092907bd8b60211808e49b044ebdd6c9c4483d",
+      "backgrounds": [
+        "#000000",
+        "#ffffff",
+        "#808080",
+        "#00ff00",
+        "#ff00ff"
+      ],
+      "includesAlphaMask": true,
+      "checkerboardUsed": false,
+      "columns": 3,
+      "rows": 2,
+      "previewWidth": 64,
+      "previewHeight": 72,
+      "cellWidth": 80,
+      "cellHeight": 88
+    }
+  },
+  "quality": {
+    "schemaVersion": "1.0",
+    "frameId": "bomber_hunter_rack_left_expended_06.png",
+    "passed": true,
+    "rawRgbaSha256": "af234b3ac3f2d219d8c807d984d77bf99111d603f0cfe26e49d4c7e33d8f958f",
+    "source": {
+      "format": "png",
+      "hasAlpha": true,
+      "pages": 1,
+      "width": 64,
+      "height": 72,
+      "channels": 4
+    },
+    "alpha": {
+      "transparentPixels": 2957,
+      "partialPixels": 711,
+      "opaquePixels": 940,
+      "transparentFraction": 0.6417100694444444,
+      "partialFraction": 0.154296875,
+      "opaqueFraction": 0.20399305555555555,
+      "minimumAlpha": 0,
+      "maximumAlpha": 255
+    },
+    "visibleBounds": {
+      "visiblePixels": 1651,
+      "visibleFraction": 0.3582899305555556,
+      "minX": 7,
+      "minY": 4,
+      "maxX": 56,
+      "maxY": 70,
+      "width": 50,
+      "height": 67,
+      "clearance": {
+        "left": 7,
+        "top": 4,
+        "right": 7,
+        "bottom": 1
+      },
+      "centroid": {
+        "x": 31.8695,
+        "y": 48.2237
+      },
+      "touchingSides": []
+    },
+    "fakeTransparency": {
+      "flatMatteDetected": false,
+      "flatMatteConfidence": 0,
+      "dominantBorderColour": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "dominantBorderFraction": 1,
+      "nearestKnownMatteDistance": 336.7655,
+      "checkerboardDetected": false,
+      "checkerboardConfidence": 0,
+      "checkerboardTileSize": null,
+      "checkerboardColours": [],
+      "checkerboardFitFraction": null,
+      "checkerboardCoverageFraction": null,
+      "checkerboardRmse": null
+    },
+    "halo": {
+      "partialPixelsInspected": 196,
+      "haloPixels": 0,
+      "haloFraction": 0
+    },
+    "transparentRgb": {
+      "transparentPixelsInspected": 2957,
+      "nonZeroTransparentPixels": 0,
+      "intentionalBleedPixels": 0,
+      "unexpectedPixels": 0,
+      "unexpectedFraction": 0
+    },
+    "gates": [
+      {
+        "id": "dimensions",
+        "status": "pass",
+        "blocking": true,
+        "message": "Decoded dimensions match the declared frame contract.",
+        "value": "64x72",
+        "threshold": "64x72",
+        "evidence": {
+          "width": 64,
+          "height": 72
+        }
+      },
+      {
+        "id": "file-format",
+        "status": "pass",
+        "blocking": true,
+        "message": "Decoded source format matches the declared output profile.",
+        "value": "png",
+        "threshold": "png",
+        "evidence": {
+          "sourceFormat": "png"
+        }
+      },
+      {
+        "id": "alpha-channel",
+        "status": "pass",
+        "blocking": true,
+        "message": "The decoded source contains usable alpha for the declared transparency policy.",
+        "value": true,
+        "threshold": "alpha-required",
+        "evidence": {
+          "sourceHasAlpha": true,
+          "transparentPixels": 2957,
+          "partialPixels": 711,
+          "opaquePixels": 940,
+          "transparentFraction": 0.6417100694444444,
+          "partialFraction": 0.154296875,
+          "opaqueFraction": 0.20399305555555555,
+          "minimumAlpha": 0,
+          "maximumAlpha": 255
+        }
+      },
+      {
+        "id": "fake-transparency",
+        "status": "pass",
+        "blocking": true,
+        "message": "No baked matte or checkerboard transparency imitation was detected.",
+        "value": 0,
+        "threshold": 0.86,
+        "evidence": {
+          "flatMatteDetected": false,
+          "flatMatteConfidence": 0,
+          "dominantBorderColour": {
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "dominantBorderFraction": 1,
+          "nearestKnownMatteDistance": 336.7655,
+          "checkerboardDetected": false,
+          "checkerboardConfidence": 0,
+          "checkerboardTileSize": null,
+          "checkerboardColours": [],
+          "checkerboardFitFraction": null,
+          "checkerboardCoverageFraction": null,
+          "checkerboardRmse": null
+        }
+      },
+      {
+        "id": "frame-crop",
+        "status": "pass",
+        "blocking": true,
+        "message": "Visible subject bounds retain the declared transparent safety margin.",
+        "value": 1,
+        "threshold": 1,
+        "evidence": {
+          "visiblePixels": 1651,
+          "visibleFraction": 0.3582899305555556,
+          "minX": 7,
+          "minY": 4,
+          "maxX": 56,
+          "maxY": 70,
+          "width": 50,
+          "height": 67,
+          "clearance": {
+            "left": 7,
+            "top": 4,
+            "right": 7,
+            "bottom": 1
+          },
+          "centroid": {
+            "x": 31.8695,
+            "y": 48.2237
+          },
+          "touchingSides": []
+        }
+      },
+      {
+        "id": "edge-halo",
+        "status": "pass",
+        "blocking": true,
+        "message": "Partially transparent edges remain consistent with neighbouring subject colour.",
+        "value": 0,
+        "threshold": 0.015,
+        "evidence": {
+          "partialPixelsInspected": 196,
+          "haloPixels": 0,
+          "haloFraction": 0
+        }
+      },
+      {
+        "id": "transparent-pixel-colour",
+        "status": "pass",
+        "blocking": true,
+        "message": "Transparent RGB is clean or agrees with nearby subject edge bleed.",
+        "value": 0,
+        "threshold": 0.02,
+        "evidence": {
+          "transparentPixelsInspected": 2957,
+          "nonZeroTransparentPixels": 0,
+          "intentionalBleedPixels": 0,
+          "unexpectedPixels": 0,
+          "unexpectedFraction": 0
+        }
+      }
+    ]
+  }
+}

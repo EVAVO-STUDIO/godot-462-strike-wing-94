@@ -1,0 +1,9 @@
+{
+  "transparency": "alpha-required",
+  "expectedWidth": 64,
+  "expectedHeight": 72,
+  "expectedFormat": "png",
+  "safePadding": 1,
+  "knownMatteColours": ["#ef0bed", "#f6f6f6", "#fefefe"],
+  "maximumHaloFraction": 0.015
+}

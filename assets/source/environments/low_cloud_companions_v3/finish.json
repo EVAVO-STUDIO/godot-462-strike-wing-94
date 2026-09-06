@@ -1,0 +1,113 @@
+{
+  "b": {
+    "resize": {
+      "sourceWidth": 2172,
+      "sourceHeight": 724,
+      "sourceHasAlpha": true,
+      "cleanupWidth": 2117,
+      "cleanupHeight": 689,
+      "retainedAreaRatio": 0.9275593184986213,
+      "aspectRatioDrift": 1.0241896468311562,
+      "outputWidth": 180,
+      "outputHeight": 64,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "trim:0",
+        "cleanup-geometry-verified",
+        "resize",
+        "pad",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 180,
+      "sourceHeight": 64,
+      "sourceHasAlpha": true,
+      "outputWidth": 192,
+      "outputHeight": 64,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  },
+  "c": {
+    "resize": {
+      "sourceWidth": 2172,
+      "sourceHeight": 724,
+      "sourceHasAlpha": true,
+      "cleanupWidth": 2052,
+      "cleanupHeight": 419,
+      "retainedAreaRatio": 0.5467552883001129,
+      "aspectRatioDrift": 1.6324582338902147,
+      "outputWidth": 192,
+      "outputHeight": 46,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "trim:0",
+        "cleanup-geometry-verified",
+        "resize",
+        "pad",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 192,
+      "sourceHeight": 46,
+      "sourceHasAlpha": true,
+      "outputWidth": 192,
+      "outputHeight": 64,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  },
+  "d": {
+    "resize": {
+      "sourceWidth": 2172,
+      "sourceHeight": 724,
+      "sourceHasAlpha": true,
+      "cleanupWidth": 1995,
+      "cleanupHeight": 329,
+      "retainedAreaRatio": 0.4173884344189738,
+      "aspectRatioDrift": 2.021276595744681,
+      "outputWidth": 192,
+      "outputHeight": 38,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "trim:0",
+        "cleanup-geometry-verified",
+        "resize",
+        "pad",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 192,
+      "sourceHeight": 38,
+      "sourceHasAlpha": true,
+      "outputWidth": 192,
+      "outputHeight": 64,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  }
+}

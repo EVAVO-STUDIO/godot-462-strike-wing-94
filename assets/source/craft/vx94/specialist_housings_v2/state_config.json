@@ -1,0 +1,1604 @@
+{
+  "name": "vx94_specialist_states",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 64,
+    "canvas_height": 72,
+    "pivot_x": 32,
+    "pivot_y": 38,
+    "padding": 0,
+    "manual_anchors": {
+      "needle_rail_bomber_hard_left_0_00": [
+        23,
+        34
+      ],
+      "needle_rail_bomber_hard_left_1_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_hard_left_2_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_hard_left_3_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_hard_right_0_00": [
+        23,
+        34
+      ],
+      "needle_rail_bomber_hard_right_1_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_hard_right_2_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_hard_right_3_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_left_0_00": [
+        23,
+        34
+      ],
+      "needle_rail_bomber_left_1_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_left_2_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_left_3_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_neutral_0_00": [
+        26,
+        34
+      ],
+      "needle_rail_bomber_neutral_1_00": [
+        26,
+        35
+      ],
+      "needle_rail_bomber_neutral_2_00": [
+        26,
+        35
+      ],
+      "needle_rail_bomber_neutral_3_00": [
+        26,
+        35
+      ],
+      "needle_rail_bomber_right_0_00": [
+        23,
+        34
+      ],
+      "needle_rail_bomber_right_1_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_right_2_00": [
+        23,
+        35
+      ],
+      "needle_rail_bomber_right_3_00": [
+        23,
+        35
+      ],
+      "needle_rail_fighter_hard_left_0_00": [
+        18,
+        34
+      ],
+      "needle_rail_fighter_hard_left_1_00": [
+        18,
+        36
+      ],
+      "needle_rail_fighter_hard_left_2_00": [
+        18,
+        36
+      ],
+      "needle_rail_fighter_hard_left_3_00": [
+        18,
+        36
+      ],
+      "needle_rail_fighter_hard_right_0_00": [
+        17,
+        34
+      ],
+      "needle_rail_fighter_hard_right_1_00": [
+        17,
+        36
+      ],
+      "needle_rail_fighter_hard_right_2_00": [
+        17,
+        36
+      ],
+      "needle_rail_fighter_hard_right_3_00": [
+        17,
+        36
+      ],
+      "needle_rail_fighter_left_0_00": [
+        17,
+        34
+      ],
+      "needle_rail_fighter_left_1_00": [
+        17,
+        35
+      ],
+      "needle_rail_fighter_left_2_00": [
+        17,
+        35
+      ],
+      "needle_rail_fighter_left_3_00": [
+        17,
+        35
+      ],
+      "needle_rail_fighter_neutral_0_00": [
+        18,
+        34
+      ],
+      "needle_rail_fighter_neutral_1_00": [
+        18,
+        35
+      ],
+      "needle_rail_fighter_neutral_2_00": [
+        18,
+        35
+      ],
+      "needle_rail_fighter_neutral_3_00": [
+        18,
+        35
+      ],
+      "needle_rail_fighter_right_0_00": [
+        17,
+        34
+      ],
+      "needle_rail_fighter_right_1_00": [
+        17,
+        35
+      ],
+      "needle_rail_fighter_right_2_00": [
+        17,
+        35
+      ],
+      "needle_rail_fighter_right_3_00": [
+        17,
+        35
+      ],
+      "plasma_lance_bomber_hard_left_0_00": [
+        23,
+        34
+      ],
+      "plasma_lance_bomber_hard_left_1_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_hard_left_2_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_hard_left_3_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_hard_right_0_00": [
+        23,
+        34
+      ],
+      "plasma_lance_bomber_hard_right_1_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_hard_right_2_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_hard_right_3_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_left_0_00": [
+        23,
+        34
+      ],
+      "plasma_lance_bomber_left_1_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_left_2_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_left_3_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_neutral_0_00": [
+        26,
+        34
+      ],
+      "plasma_lance_bomber_neutral_1_00": [
+        26,
+        35
+      ],
+      "plasma_lance_bomber_neutral_2_00": [
+        26,
+        35
+      ],
+      "plasma_lance_bomber_neutral_3_00": [
+        26,
+        35
+      ],
+      "plasma_lance_bomber_right_0_00": [
+        23,
+        34
+      ],
+      "plasma_lance_bomber_right_1_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_right_2_00": [
+        23,
+        35
+      ],
+      "plasma_lance_bomber_right_3_00": [
+        23,
+        35
+      ],
+      "plasma_lance_fighter_hard_left_0_00": [
+        18,
+        34
+      ],
+      "plasma_lance_fighter_hard_left_1_00": [
+        18,
+        36
+      ],
+      "plasma_lance_fighter_hard_left_2_00": [
+        18,
+        36
+      ],
+      "plasma_lance_fighter_hard_left_3_00": [
+        18,
+        36
+      ],
+      "plasma_lance_fighter_hard_right_0_00": [
+        17,
+        34
+      ],
+      "plasma_lance_fighter_hard_right_1_00": [
+        17,
+        36
+      ],
+      "plasma_lance_fighter_hard_right_2_00": [
+        17,
+        36
+      ],
+      "plasma_lance_fighter_hard_right_3_00": [
+        17,
+        36
+      ],
+      "plasma_lance_fighter_left_0_00": [
+        17,
+        34
+      ],
+      "plasma_lance_fighter_left_1_00": [
+        17,
+        35
+      ],
+      "plasma_lance_fighter_left_2_00": [
+        17,
+        35
+      ],
+      "plasma_lance_fighter_left_3_00": [
+        17,
+        35
+      ],
+      "plasma_lance_fighter_neutral_0_00": [
+        18,
+        34
+      ],
+      "plasma_lance_fighter_neutral_1_00": [
+        18,
+        35
+      ],
+      "plasma_lance_fighter_neutral_2_00": [
+        18,
+        35
+      ],
+      "plasma_lance_fighter_neutral_3_00": [
+        18,
+        35
+      ],
+      "plasma_lance_fighter_right_0_00": [
+        17,
+        34
+      ],
+      "plasma_lance_fighter_right_1_00": [
+        17,
+        35
+      ],
+      "plasma_lance_fighter_right_2_00": [
+        17,
+        35
+      ],
+      "plasma_lance_fighter_right_3_00": [
+        17,
+        35
+      ],
+      "storm_cannon_bomber_hard_left_0_00": [
+        23,
+        34
+      ],
+      "storm_cannon_bomber_hard_left_1_00": [
+        23,
+        36
+      ],
+      "storm_cannon_bomber_hard_left_2_00": [
+        23,
+        36
+      ],
+      "storm_cannon_bomber_hard_left_3_00": [
+        23,
+        36
+      ],
+      "storm_cannon_bomber_hard_right_0_00": [
+        23,
+        34
+      ],
+      "storm_cannon_bomber_hard_right_1_00": [
+        23,
+        36
+      ],
+      "storm_cannon_bomber_hard_right_2_00": [
+        23,
+        36
+      ],
+      "storm_cannon_bomber_hard_right_3_00": [
+        23,
+        36
+      ],
+      "storm_cannon_bomber_left_0_00": [
+        23,
+        34
+      ],
+      "storm_cannon_bomber_left_1_00": [
+        23,
+        35
+      ],
+      "storm_cannon_bomber_left_2_00": [
+        23,
+        35
+      ],
+      "storm_cannon_bomber_left_3_00": [
+        23,
+        35
+      ],
+      "storm_cannon_bomber_neutral_0_00": [
+        26,
+        34
+      ],
+      "storm_cannon_bomber_neutral_1_00": [
+        26,
+        35
+      ],
+      "storm_cannon_bomber_neutral_2_00": [
+        26,
+        35
+      ],
+      "storm_cannon_bomber_neutral_3_00": [
+        26,
+        35
+      ],
+      "storm_cannon_bomber_right_0_00": [
+        23,
+        34
+      ],
+      "storm_cannon_bomber_right_1_00": [
+        23,
+        35
+      ],
+      "storm_cannon_bomber_right_2_00": [
+        23,
+        35
+      ],
+      "storm_cannon_bomber_right_3_00": [
+        23,
+        35
+      ],
+      "storm_cannon_fighter_hard_left_0_00": [
+        18,
+        34
+      ],
+      "storm_cannon_fighter_hard_left_1_00": [
+        18,
+        36
+      ],
+      "storm_cannon_fighter_hard_left_2_00": [
+        18,
+        36
+      ],
+      "storm_cannon_fighter_hard_left_3_00": [
+        18,
+        36
+      ],
+      "storm_cannon_fighter_hard_right_0_00": [
+        17,
+        34
+      ],
+      "storm_cannon_fighter_hard_right_1_00": [
+        17,
+        36
+      ],
+      "storm_cannon_fighter_hard_right_2_00": [
+        17,
+        36
+      ],
+      "storm_cannon_fighter_hard_right_3_00": [
+        17,
+        36
+      ],
+      "storm_cannon_fighter_left_0_00": [
+        17,
+        34
+      ],
+      "storm_cannon_fighter_left_1_00": [
+        17,
+        35
+      ],
+      "storm_cannon_fighter_left_2_00": [
+        17,
+        35
+      ],
+      "storm_cannon_fighter_left_3_00": [
+        17,
+        35
+      ],
+      "storm_cannon_fighter_neutral_0_00": [
+        18,
+        34
+      ],
+      "storm_cannon_fighter_neutral_1_00": [
+        18,
+        35
+      ],
+      "storm_cannon_fighter_neutral_2_00": [
+        18,
+        35
+      ],
+      "storm_cannon_fighter_neutral_3_00": [
+        18,
+        35
+      ],
+      "storm_cannon_fighter_right_0_00": [
+        17,
+        34
+      ],
+      "storm_cannon_fighter_right_1_00": [
+        17,
+        35
+      ],
+      "storm_cannon_fighter_right_2_00": [
+        17,
+        35
+      ],
+      "storm_cannon_fighter_right_3_00": [
+        17,
+        35
+      ]
+    }
+  },
+  "qa": {
+    "strict": true,
+    "contracts": {
+      "required_animations": [
+        "needle_rail_bomber_hard_left_0",
+        "needle_rail_bomber_hard_left_1",
+        "needle_rail_bomber_hard_left_2",
+        "needle_rail_bomber_hard_left_3",
+        "needle_rail_bomber_hard_right_0",
+        "needle_rail_bomber_hard_right_1",
+        "needle_rail_bomber_hard_right_2",
+        "needle_rail_bomber_hard_right_3",
+        "needle_rail_bomber_left_0",
+        "needle_rail_bomber_left_1",
+        "needle_rail_bomber_left_2",
+        "needle_rail_bomber_left_3",
+        "needle_rail_bomber_neutral_0",
+        "needle_rail_bomber_neutral_1",
+        "needle_rail_bomber_neutral_2",
+        "needle_rail_bomber_neutral_3",
+        "needle_rail_bomber_right_0",
+        "needle_rail_bomber_right_1",
+        "needle_rail_bomber_right_2",
+        "needle_rail_bomber_right_3",
+        "needle_rail_fighter_hard_left_0",
+        "needle_rail_fighter_hard_left_1",
+        "needle_rail_fighter_hard_left_2",
+        "needle_rail_fighter_hard_left_3",
+        "needle_rail_fighter_hard_right_0",
+        "needle_rail_fighter_hard_right_1",
+        "needle_rail_fighter_hard_right_2",
+        "needle_rail_fighter_hard_right_3",
+        "needle_rail_fighter_left_0",
+        "needle_rail_fighter_left_1",
+        "needle_rail_fighter_left_2",
+        "needle_rail_fighter_left_3",
+        "needle_rail_fighter_neutral_0",
+        "needle_rail_fighter_neutral_1",
+        "needle_rail_fighter_neutral_2",
+        "needle_rail_fighter_neutral_3",
+        "needle_rail_fighter_right_0",
+        "needle_rail_fighter_right_1",
+        "needle_rail_fighter_right_2",
+        "needle_rail_fighter_right_3",
+        "plasma_lance_bomber_hard_left_0",
+        "plasma_lance_bomber_hard_left_1",
+        "plasma_lance_bomber_hard_left_2",
+        "plasma_lance_bomber_hard_left_3",
+        "plasma_lance_bomber_hard_right_0",
+        "plasma_lance_bomber_hard_right_1",
+        "plasma_lance_bomber_hard_right_2",
+        "plasma_lance_bomber_hard_right_3",
+        "plasma_lance_bomber_left_0",
+        "plasma_lance_bomber_left_1",
+        "plasma_lance_bomber_left_2",
+        "plasma_lance_bomber_left_3",
+        "plasma_lance_bomber_neutral_0",
+        "plasma_lance_bomber_neutral_1",
+        "plasma_lance_bomber_neutral_2",
+        "plasma_lance_bomber_neutral_3",
+        "plasma_lance_bomber_right_0",
+        "plasma_lance_bomber_right_1",
+        "plasma_lance_bomber_right_2",
+        "plasma_lance_bomber_right_3",
+        "plasma_lance_fighter_hard_left_0",
+        "plasma_lance_fighter_hard_left_1",
+        "plasma_lance_fighter_hard_left_2",
+        "plasma_lance_fighter_hard_left_3",
+        "plasma_lance_fighter_hard_right_0",
+        "plasma_lance_fighter_hard_right_1",
+        "plasma_lance_fighter_hard_right_2",
+        "plasma_lance_fighter_hard_right_3",
+        "plasma_lance_fighter_left_0",
+        "plasma_lance_fighter_left_1",
+        "plasma_lance_fighter_left_2",
+        "plasma_lance_fighter_left_3",
+        "plasma_lance_fighter_neutral_0",
+        "plasma_lance_fighter_neutral_1",
+        "plasma_lance_fighter_neutral_2",
+        "plasma_lance_fighter_neutral_3",
+        "plasma_lance_fighter_right_0",
+        "plasma_lance_fighter_right_1",
+        "plasma_lance_fighter_right_2",
+        "plasma_lance_fighter_right_3",
+        "storm_cannon_bomber_hard_left_0",
+        "storm_cannon_bomber_hard_left_1",
+        "storm_cannon_bomber_hard_left_2",
+        "storm_cannon_bomber_hard_left_3",
+        "storm_cannon_bomber_hard_right_0",
+        "storm_cannon_bomber_hard_right_1",
+        "storm_cannon_bomber_hard_right_2",
+        "storm_cannon_bomber_hard_right_3",
+        "storm_cannon_bomber_left_0",
+        "storm_cannon_bomber_left_1",
+        "storm_cannon_bomber_left_2",
+        "storm_cannon_bomber_left_3",
+        "storm_cannon_bomber_neutral_0",
+        "storm_cannon_bomber_neutral_1",
+        "storm_cannon_bomber_neutral_2",
+        "storm_cannon_bomber_neutral_3",
+        "storm_cannon_bomber_right_0",
+        "storm_cannon_bomber_right_1",
+        "storm_cannon_bomber_right_2",
+        "storm_cannon_bomber_right_3",
+        "storm_cannon_fighter_hard_left_0",
+        "storm_cannon_fighter_hard_left_1",
+        "storm_cannon_fighter_hard_left_2",
+        "storm_cannon_fighter_hard_left_3",
+        "storm_cannon_fighter_hard_right_0",
+        "storm_cannon_fighter_hard_right_1",
+        "storm_cannon_fighter_hard_right_2",
+        "storm_cannon_fighter_hard_right_3",
+        "storm_cannon_fighter_left_0",
+        "storm_cannon_fighter_left_1",
+        "storm_cannon_fighter_left_2",
+        "storm_cannon_fighter_left_3",
+        "storm_cannon_fighter_neutral_0",
+        "storm_cannon_fighter_neutral_1",
+        "storm_cannon_fighter_neutral_2",
+        "storm_cannon_fighter_neutral_3",
+        "storm_cannon_fighter_right_0",
+        "storm_cannon_fighter_right_1",
+        "storm_cannon_fighter_right_2",
+        "storm_cannon_fighter_right_3"
+      ],
+      "frame_count_rules": [
+        {
+          "pattern": "needle_rail_bomber_hard_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_hard_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_hard_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_hard_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_hard_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_hard_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_hard_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_hard_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_neutral_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_neutral_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_neutral_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_neutral_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_bomber_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_hard_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_neutral_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_neutral_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_neutral_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_neutral_3",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "needle_rail_fighter_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_hard_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_neutral_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_neutral_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_neutral_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_neutral_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_bomber_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_hard_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_neutral_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_neutral_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_neutral_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_neutral_3",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "plasma_lance_fighter_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_hard_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_neutral_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_neutral_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_neutral_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_neutral_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_bomber_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_hard_right_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_left_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_left_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_left_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_left_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_neutral_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_neutral_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_neutral_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_neutral_3",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_right_0",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_right_1",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_right_2",
+          "exact": 1
+        },
+        {
+          "pattern": "storm_cannon_fighter_right_3",
+          "exact": 1
+        }
+      ]
+    }
+  },
+  "animations": {
+    "needle_rail_bomber_hard_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_hard_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_hard_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_hard_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_hard_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_hard_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_hard_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_hard_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_neutral_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_neutral_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_neutral_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_neutral_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_bomber_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_hard_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_neutral_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_neutral_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_neutral_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_neutral_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "needle_rail_fighter_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_hard_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_neutral_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_neutral_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_neutral_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_neutral_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_bomber_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_hard_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_neutral_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_neutral_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_neutral_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_neutral_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "plasma_lance_fighter_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_hard_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_neutral_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_neutral_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_neutral_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_neutral_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_bomber_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_hard_right_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_left_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_left_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_left_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_left_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_neutral_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_neutral_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_neutral_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_neutral_3": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_right_0": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_right_1": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_right_2": {
+      "fps": 1,
+      "loop": false
+    },
+    "storm_cannon_fighter_right_3": {
+      "fps": 1,
+      "loop": false
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "gif": false,
+    "contact_sheet": true,
+    "onion_skin": false
+  }
+}

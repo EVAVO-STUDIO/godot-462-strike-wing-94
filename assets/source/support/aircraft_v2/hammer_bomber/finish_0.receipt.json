@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "input": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\support_art_v2\\model_candidates_e\\hammer_bomber_0.png",
+  "output": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\support_art_v2\\native_e\\hammer_bomber\\flight_0.png",
+  "preset": "web-hero",
+  "evidence": {
+    "sourceWidth": 512,
+    "sourceHeight": 288,
+    "sourceHasAlpha": true,
+    "outputWidth": 64,
+    "outputHeight": 36,
+    "outputHasAlpha": true,
+    "format": "png",
+    "operations": [
+      "ensure-alpha",
+      "sharpen:0.5",
+      "resize",
+      "encode:png"
+    ]
+  }
+}

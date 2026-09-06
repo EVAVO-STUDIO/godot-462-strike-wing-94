@@ -1,0 +1,27 @@
+{
+  "status": "shallow_relief_art_study_not_final_aircraft_model",
+  "source": "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+  "pivot": [
+    32,
+    38
+  ],
+  "render_size": [
+    256,
+    288
+  ],
+  "native_size": [
+    64,
+    72
+  ],
+  "faces": 1487,
+  "angles": {
+    "dive_18": -18,
+    "dive_12": -12,
+    "dive_06": -6,
+    "neutral": 0,
+    "climb_06": 6,
+    "climb_12": 12,
+    "climb_18": 18
+  },
+  "scope": "Retained source UV with authored shallow fuselage/canopy/engine height and boundary edge faces. Neutral registration must be verified before accepting any pitched output."
+}

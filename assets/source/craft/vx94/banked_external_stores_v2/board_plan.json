@@ -1,0 +1,2981 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "vx94-banked-stores-review",
+  "projectId": "hypersonic",
+  "purpose": "Five banks, three static load states, five loadouts",
+  "compiledAt": "2026-09-06T10:38:59.594Z",
+  "runId": "project-art-sandbox:e65d905a389d71862f012dd1",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "f98332c4dd4d4e4d4c63a2f557b88c4d6fb54943c7fa5b0f28711d4130566619",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_00944bcaafa16f0bad84ef051c02395f",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_loaded_neutral.png",
+      "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "bytes": 4693,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_04822ec8ec4c4783a7d2df40151d0767",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_empty_neutral.png",
+      "sha256": "c43a6530c1f684eb206dfb706bb0063a775e74288f79283a30cae25798f52a18",
+      "bytes": 3502,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_0c3a3f2f3c52a7f8d19512ff56f031a5",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_empty_left.png",
+      "sha256": "8d7b5ede0ea729e36eb24783e077d030e7e4303ec6b1536a2a66db4932fff2e6",
+      "bytes": 4603,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_0d32428dbc4d6020c10551f2a9095c8e",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_empty_hard_left.png",
+      "sha256": "e9f0cc78b34fb6f7b16418a8c133f7c196755b04815536788f53deb141a6db6b",
+      "bytes": 5458,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_15cef5cbe83e10c51dbc7c68b47e230c",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_empty_right.png",
+      "sha256": "744ae26a21e7fedac83dfcd13e58f6b83a373495dc34b5395f293304dfb88f08",
+      "bytes": 3814,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_15ed3993836b515cc9795310bb5ce80a",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_loaded_hard_right.png",
+      "sha256": "ff957218eb6b4ca45923024125e6334dac2298226218dd77d582bb3ee8fb6e0b",
+      "bytes": 4237,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_19509eb554aca5952d1a121aa9a19295",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_empty_neutral.png",
+      "sha256": "895d3e40e67cd87566e1bc8202359c4fc6ba0a0bfca065b613a0e6631d2a6136",
+      "bytes": 4673,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_19ee721954acb4a459a5fed6b8bf1534",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_empty_hard_left.png",
+      "sha256": "2472e91fa446cc87b4f41b268bcd257d1d180a3eb777d61b77f6cd7a753bc0d9",
+      "bytes": 5540,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_1abc7b54bcf4c81327b902fd1a202d40",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_empty_neutral.png",
+      "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "bytes": 4589,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_1d99472db679846eb9cb58dec3dc87fa",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_loaded_hard_right.png",
+      "sha256": "fb092ad265940dccde39c7741b386f51a64befd524b90ef5cb7f2de795b8c65e",
+      "bytes": 5128,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2054ec8bb5c8b2ae7191be5336a17edb",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_loaded_neutral.png",
+      "sha256": "b34b50218bdbc02d28306d2411610e9a4d9225f9183efea86929835a47f38408",
+      "bytes": 4657,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_224772bd0e00df77f51030b6027cf1fd",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_loaded_left.png",
+      "sha256": "b5e89e7dd561163244e3b74605d8f571305d646b977fbb4738f4ea6d42da2820",
+      "bytes": 4639,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2a519708e31a84dd465468e0210ba50a",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_loaded_neutral.png",
+      "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "bytes": 4684,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2c00cff9ee98f5061ead5b899af432dc",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_loaded_hard_left.png",
+      "sha256": "b9a01e378c120d37fef44b7b44fd57f22c9f6fa833321ea0c1c2be423f9a680f",
+      "bytes": 5489,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2d17b2396188f3a24a23a899612ec839",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_loaded_hard_left.png",
+      "sha256": "6b84e6afb1686f85d48f2d812c9e05ca44f8e992ac2491d4dcdbc07300951480",
+      "bytes": 5569,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2db8595386b3adc84e9edd5ac9f98d29",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_empty_neutral.png",
+      "sha256": "1159a456ab460dd6a3941baff6a0107856e09bd61dfe84dde0958c870636efe2",
+      "bytes": 3569,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2e168249e8083c5db17f2545b65c3be8",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_left_released_hard_right.png",
+      "sha256": "1aff17340af5d5d29278fae22519a75438ca5dec69d450fd82810e36757e201d",
+      "bytes": 5126,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_2e237fc1a0f95cea825dc19853b3df33",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_loaded_left.png",
+      "sha256": "21b6750b9048c5fc7c14631c4f70a05a606dbe6cd028db5f096b118efd60b99d",
+      "bytes": 4511,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_328efcadab91b9fcc1c6ec785215a601",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_left_expended_right.png",
+      "sha256": "1209eca2d8ef2076aeee77b659182f299a1f15912508806403c36e4b3f83aae3",
+      "bytes": 4794,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_33fa94f8dd943ec553b2b3f8b532ded7",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_empty_neutral.png",
+      "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "bytes": 4589,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_35f084ae519495f4ac06a12a56475061",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_left_released_neutral.png",
+      "sha256": "57e308796b4bd73f367f3c431264398cebd78bffccae8ca369d4f84691e8b6da",
+      "bytes": 4628,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_380c1d8d5e8acb7e7917041f86e14854",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_empty_hard_right.png",
+      "sha256": "64ee9a9da974a2f659cc13c268ca93d2475f174869495afa8b64ff9ef5ea01aa",
+      "bytes": 5067,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_3eea4dab06eacc5843b1aef02b10e1af",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_left_expended_hard_left.png",
+      "sha256": "3fbd343878b79a61f4b9a06b05f0aced0f8efe83e4a6c2ff5d6ba6b70ecedf8e",
+      "bytes": 4320,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_40e735e200f18e2296ff3ec293717542",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_loaded_neutral.png",
+      "sha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+      "bytes": 3594,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_4891806ecfc30627a57fd96411e09647",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_left_expended_left.png",
+      "sha256": "cc378d5dc48df9b033cd145d23fdcbb5b62437e97b92270a9af50422900abfd9",
+      "bytes": 4625,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_4b71249ec5975ed38cbc115bceae1b58",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_left_released_hard_left.png",
+      "sha256": "026f4382f40695fa8d5ee2d112dbf603e513b0dc8fd15bc95fcb8125742fd8d4",
+      "bytes": 5467,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_552a117528a237a48e4db7339c35c525",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_loaded_hard_left.png",
+      "sha256": "bc6a8d8404e120185d74baedc2fee0f3ee70ad864559825a65ec6a356caac0c4",
+      "bytes": 5536,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5587824ff6a09170628b165460a7788b",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_empty_left.png",
+      "sha256": "03c736d210f8a9d1bdc60d26653ade649ceb250dcb61cdd28bf2acf45496840b",
+      "bytes": 4473,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_560f6ecaded5b4ffb05ed6a8eb53bc33",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_loaded_right.png",
+      "sha256": "aef806d2da3673de150f49a57392ef5d4c96c9981b5369ced9f8ab9e2ed8b135",
+      "bytes": 3853,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_56c1d21b6a92a7d04dddcdffe6676c0f",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_empty_right.png",
+      "sha256": "dc52dbb292c213528bfd24ca9209e0f2d4f0dff68bb320f0983d32115ce8c6de",
+      "bytes": 4612,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_57337092b675aed7b4cd4d143cfe9f07",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_left_released_neutral.png",
+      "sha256": "5a4257ae1e6563f29c7bae05797e9a10ca6403f6088250e5fa07045509ef8a1e",
+      "bytes": 4659,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5be0f76fc3e2eb6a9b2ac2986bf20cb9",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_empty_hard_left.png",
+      "sha256": "ec13a5ef80f8622853e0157af10de94f1e9bf7cc5dcda9fbbb984803c6f90c7c",
+      "bytes": 4312,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_649197d549692ead5f7e0564ef351f1f",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_left_expended_hard_left.png",
+      "sha256": "0317d13fd3c481aeb6a45c94413e1c7cfaa2e9bc795bb07f55efb3df74a90156",
+      "bytes": 5555,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_68ffc0c02c742c0062055efc92907acd",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_loaded_hard_right.png",
+      "sha256": "3adc1c713151e1c11ee32504e3acd353cf8a3edd70a0107f0d693c123367b8a8",
+      "bytes": 4289,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_6b9bab26a8a8a86bcab33e7c8bb1d9a5",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_loaded_left.png",
+      "sha256": "855c5dd195baada058e3eb3bb5e6dcb2056b12bc5efac3c21158b99d95b1714a",
+      "bytes": 3771,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_77fc69262c46091b74d2afc5ebfd6369",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_empty_left.png",
+      "sha256": "c9d898d0fd26017d9f7325338fd132c0212a6ffd86df4b709b21ddb396ad1085",
+      "bytes": 3684,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_785dff81a481a71fdcaa5050d24af01a",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_loaded_right.png",
+      "sha256": "8e5f2ddf85445b396708fb33fb2d397ccf58abe2fc658e82960ad651ed7fd1e9",
+      "bytes": 3843,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_7c3178fe6fb6c9f3878811bff3f5ce2d",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_empty_right.png",
+      "sha256": "e95096352bff8c80d4f4d27d8b8e7101a56b7d747a519b3e6233b9d92e1d1ff0",
+      "bytes": 4751,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_86a37e2eb9d8845eda81118fe2adf9a7",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_loaded_hard_left.png",
+      "sha256": "fef2ea2cac39300b8c175d2e8a8e38c96b85fa91e3350fab84e6807b3e83fa85",
+      "bytes": 4314,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_8b25fb8b2804c4df98c92320293bfe13",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_left_released_left.png",
+      "sha256": "828e7afb3e9aa6d1b5fd39c04ea711709707e33cfa9aa75ed34f9abefb9a8ce3",
+      "bytes": 4576,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_91c13c884e59d1a2f66503a44ec8dcad",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_loaded_hard_right.png",
+      "sha256": "dcf867dc298069099993dfa810e246e941f9e78b269581a8917306fc8ed03daf",
+      "bytes": 5171,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9405834e3707b4856c22cb4d9a176d68",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_left_expended_hard_right.png",
+      "sha256": "6ea9d2a886bad5da38c34289db3fcbdf06daa682ee55a73e1df752d473e783cc",
+      "bytes": 4277,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9541a5b9c9a6d52ce5cbb3768e9b6881",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_left_released_left.png",
+      "sha256": "c19afa8df7ee2ddab547ee4920e641b18660077d44c88c66b93d0eee4caee3fe",
+      "bytes": 4500,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9acca57da27b58dd67eeba2eae54135d",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_loaded_neutral.png",
+      "sha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+      "bytes": 3590,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9c6874f894b9b8ae085bd761c964bcad",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_left_released_hard_right.png",
+      "sha256": "545d693e4a2e35d767ee0bb28dfec07008f3f3d3f0aaa81a4414ec764d91d8b0",
+      "bytes": 5087,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9dd0c7d9eb5e058760fb7cbcbe192ed5",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_loaded_hard_right.png",
+      "sha256": "401ceafa89c5fc654ad8d141f3ac0462177462d6d4df76d20c7f29a32e03e52d",
+      "bytes": 5206,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9f1f57244cbdcdab812663f1b62ef666",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_empty_hard_right.png",
+      "sha256": "9609dcf10bc6e001a9be693acea0097fdbbd2586d05b451218fd6a83ffc7cd81",
+      "bytes": 4167,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9fa244bee5c5aaa2c8a0eba00b792074",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_empty_right.png",
+      "sha256": "dc52dbb292c213528bfd24ca9209e0f2d4f0dff68bb320f0983d32115ce8c6de",
+      "bytes": 4612,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a3be3a8688a6355d3fe4f4c02122c692",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_empty_left.png",
+      "sha256": "b201baccc118e69ad87fbe0e7f6f266c6b3400bb1eb06688e5886603974f4682",
+      "bytes": 3750,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a8a7c2e8d57972c2b00c73262a3c0cbb",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_left_released_neutral.png",
+      "sha256": "16dd64b66464cb6a2c792b9e944be479c10f50a39b5883c4a07967f58856e7ee",
+      "bytes": 3559,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_aae5dc73bdc9373fc2ac953b1f225a3a",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_loaded_right.png",
+      "sha256": "496e7c8fe99f5699ed3c01f7fd6e346375c13a5e941591f4839167d6ac415487",
+      "bytes": 4795,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ac36e0a2c45a1e52aa0cf2c7b40daccc",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_loaded_right.png",
+      "sha256": "cbdb211aee000dabe587d1ea1cf2b5c62202710d1517b435b714e47dc9b398af",
+      "bytes": 4706,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ad2e04d6f4c83fd026ba4568901bb5db",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_left_released_right.png",
+      "sha256": "a411b212c21f431a3bbf7821613c3d7b60bb888d3d0e3cfc252ddeaeb96f0800",
+      "bytes": 4687,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b20db294c273827722486aeadd1100b3",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_empty_hard_left.png",
+      "sha256": "67e4912fae56f77893ebab9b90dd5393302fe3b4bc7f4da17fc1422f9a1c5db0",
+      "bytes": 4235,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b2a13a015ed1914a2757806a7b7bdd13",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_left_expended_neutral.png",
+      "sha256": "320923c49f97a1045fb701545ac85d4d7ecc2b5fa8c3e9d5ff03a0dfeb5367ad",
+      "bytes": 3597,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b3af16afae94474dfc823a480e39f445",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_left_released_hard_right.png",
+      "sha256": "b67bfa2541f972156ee53568c789b65e79f70df9ad073910070cbd58ae186cc6",
+      "bytes": 4172,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_b4200e3fab4c7174d0a51dd0b5abab6c",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_left_released_left.png",
+      "sha256": "c22da4d8e896c740075f81b0ef128c13788394eb43a93ea60b24a95e64a5ae43",
+      "bytes": 3742,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_bd46b768d91859376e028cbd0de7e397",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_loaded_left.png",
+      "sha256": "ceb7ea520f0072979e00e4a9c0859cafc6e0f543c3c5f12c0b03517018966025",
+      "bytes": 4652,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c12a4c9ccd530991883ebb49c2c5f920",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_left_expended_hard_right.png",
+      "sha256": "84139d6a963b60ce2c85dc9d991f32938cdb78d064551ca4b4d4953f758d48c5",
+      "bytes": 5189,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c13efe14b39e6d4f57fda72324c7c7df",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_empty_right.png",
+      "sha256": "af76df89f0bc15e81704db0ffe0a88c4623d1df5ecfcd60ce1f2036f53d97ee1",
+      "bytes": 3743,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c2cc747966a9fc67cf5959f3ca8f72fc",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_empty_hard_right.png",
+      "sha256": "64ee9a9da974a2f659cc13c268ca93d2475f174869495afa8b64ff9ef5ea01aa",
+      "bytes": 5067,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c33f671b5e724c1b7a6138a3dd1ec119",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_empty_hard_left.png",
+      "sha256": "e9f0cc78b34fb6f7b16418a8c133f7c196755b04815536788f53deb141a6db6b",
+      "bytes": 5458,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c4cd2c579318ecb7ba3d1799ad98f02a",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_left_released_right.png",
+      "sha256": "8f9476cb3bd2983fcb66b09913b9ae0043bb6345eadcaaf05c5ebe876b26d18b",
+      "bytes": 3797,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c93109555d3e7fa7f23b20beed7fc3fa",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_loaded_hard_left.png",
+      "sha256": "5cf68ad7aab1f94db37cc1ee704835ab11538c6b88d8e4191faf19325b9c246e",
+      "bytes": 4323,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_c9974174a5cffbae09d78e46cb120232",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_empty_hard_right.png",
+      "sha256": "586091dd6d9f7616882aa36508ae7effbae1b747de59c1ec9db797eaf87bbacd",
+      "bytes": 4251,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_cf96f9b6935e3c5d712c88a25891b370",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_loaded_right.png",
+      "sha256": "d1026f9c6c5026fe02d6d2368dc84339c12804b88756f7e30e23feeeb0e7dfb2",
+      "bytes": 4804,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_d8d521d167a7ef2cb65981f6756d6a35",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_hunter_rack_left_released_right.png",
+      "sha256": "2bf25963e8c84c5ccf63be1b2657b04d38a175d7d0c11d6e620af5d34603736d",
+      "bytes": 4709,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_de6c2f933a3a0c0c27685b84a8b1a1e5",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_left_expended_neutral.png",
+      "sha256": "20009e5f788a901d8b19664d82e697e3bbd71f8400336e22e68827569d1220ae",
+      "bytes": 4705,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_df0a984050d6b03c654b7cf548292d70",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_left_expended_right.png",
+      "sha256": "dbf38beec6dd4925ab7840b61e451240947736ff30fee40b06422523f6465a47",
+      "bytes": 3839,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e57e80757a629d649596f9972319d588",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_left_released_hard_left.png",
+      "sha256": "74b1ed77f0086232296fc72cec0e673e518246bc049ae13a49045666945ed2f3",
+      "bytes": 5460,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e8960160cf9c1cbd92755784577c6523",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_hunter_rack_left_released_hard_left.png",
+      "sha256": "6bb018fd500deb275754a980f9304c9f7ac9eb4af61023acc56bdc503406cf04",
+      "bytes": 4297,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_e8a632940cb75ee02a95b2894e8acbbd",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_twin_rocket_pods_empty_hard_right.png",
+      "sha256": "ac615dff49ee72a50c40d6417fd4d8d33ead15ac1df44cdcc6362e95abf6b350",
+      "bytes": 5174,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_eef1a8ad0c895bec361fb49d6a04d75a",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_loaded_left.png",
+      "sha256": "e251a0861146b628a09aeea1e8f4404f981bbc11991555279e24ffdb174a8b2a",
+      "bytes": 3787,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_f7edc23ed68a8af3fd2bb7e541e8928b",
+      "path": "work/vx94_banked_stores_v2/composites/fighter_twin_rocket_pods_left_expended_left.png",
+      "sha256": "01746c5fa01f5fb7408a09642cefe8d1d5400e8726dd327451055fe6b10fde5c",
+      "bytes": 3783,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_ff83627e5f6ff3ee42ca0d748b858594",
+      "path": "work/vx94_banked_stores_v2/composites/bomber_precision_bomb_empty_left.png",
+      "sha256": "03c736d210f8a9d1bdc60d26653ade649ceb250dcb61cdd28bf2acf45496840b",
+      "bytes": 4473,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "fighter_hunter_rack",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_86a37e2eb9d8845eda81118fe2adf9a7"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_6b9bab26a8a8a86bcab33e7c8bb1d9a5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9acca57da27b58dd67eeba2eae54135d"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_785dff81a481a71fdcaa5050d24af01a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_15ed3993836b515cc9795310bb5ce80a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e8960160cf9c1cbd92755784577c6523"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_b4200e3fab4c7174d0a51dd0b5abab6c"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a8a7c2e8d57972c2b00c73262a3c0cbb"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c4cd2c579318ecb7ba3d1799ad98f02a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_b3af16afae94474dfc823a480e39f445"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_b20db294c273827722486aeadd1100b3"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_77fc69262c46091b74d2afc5ebfd6369"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_04822ec8ec4c4783a7d2df40151d0767"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c13efe14b39e6d4f57fda72324c7c7df"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9f1f57244cbdcdab812663f1b62ef666"
+        }
+      ],
+      "targetPath": "fighter_hunter_rack.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 432,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "fighter_twin_rocket_pods",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_c93109555d3e7fa7f23b20beed7fc3fa"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_eef1a8ad0c895bec361fb49d6a04d75a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_40e735e200f18e2296ff3ec293717542"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_560f6ecaded5b4ffb05ed6a8eb53bc33"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_68ffc0c02c742c0062055efc92907acd"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_3eea4dab06eacc5843b1aef02b10e1af"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_f7edc23ed68a8af3fd2bb7e541e8928b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_b2a13a015ed1914a2757806a7b7bdd13"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_df0a984050d6b03c654b7cf548292d70"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9405834e3707b4856c22cb4d9a176d68"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5be0f76fc3e2eb6a9b2ac2986bf20cb9"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_a3be3a8688a6355d3fe4f4c02122c692"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2db8595386b3adc84e9edd5ac9f98d29"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_15cef5cbe83e10c51dbc7c68b47e230c"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c9974174a5cffbae09d78e46cb120232"
+        }
+      ],
+      "targetPath": "fighter_twin_rocket_pods.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 432,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "bomber_hunter_rack",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_552a117528a237a48e4db7339c35c525"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_224772bd0e00df77f51030b6027cf1fd"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2a519708e31a84dd465468e0210ba50a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_aae5dc73bdc9373fc2ac953b1f225a3a"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_91c13c884e59d1a2f66503a44ec8dcad"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_4b71249ec5975ed38cbc115bceae1b58"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_8b25fb8b2804c4df98c92320293bfe13"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_57337092b675aed7b4cd4d143cfe9f07"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_d8d521d167a7ef2cb65981f6756d6a35"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2e168249e8083c5db17f2545b65c3be8"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_0d32428dbc4d6020c10551f2a9095c8e"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_5587824ff6a09170628b165460a7788b"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_1abc7b54bcf4c81327b902fd1a202d40"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_56c1d21b6a92a7d04dddcdffe6676c0f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c2cc747966a9fc67cf5959f3ca8f72fc"
+        }
+      ],
+      "targetPath": "bomber_hunter_rack.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 432,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "bomber_twin_rocket_pods",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_2d17b2396188f3a24a23a899612ec839"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_bd46b768d91859376e028cbd0de7e397"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_00944bcaafa16f0bad84ef051c02395f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_cf96f9b6935e3c5d712c88a25891b370"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9dd0c7d9eb5e058760fb7cbcbe192ed5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_649197d549692ead5f7e0564ef351f1f"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_4891806ecfc30627a57fd96411e09647"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_de6c2f933a3a0c0c27685b84a8b1a1e5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_328efcadab91b9fcc1c6ec785215a601"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c12a4c9ccd530991883ebb49c2c5f920"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_19ee721954acb4a459a5fed6b8bf1534"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_0c3a3f2f3c52a7f8d19512ff56f031a5"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_19509eb554aca5952d1a121aa9a19295"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_7c3178fe6fb6c9f3878811bff3f5ce2d"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e8a632940cb75ee02a95b2894e8acbbd"
+        }
+      ],
+      "targetPath": "bomber_twin_rocket_pods.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 432,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    },
+    {
+      "id": "bomber_precision_bomb",
+      "kind": "image-composite",
+      "sources": [
+        {
+          "kind": "external",
+          "sourceId": "source_2c00cff9ee98f5061ead5b899af432dc"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2e237fc1a0f95cea825dc19853b3df33"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_2054ec8bb5c8b2ae7191be5336a17edb"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_ac36e0a2c45a1e52aa0cf2c7b40daccc"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_1d99472db679846eb9cb58dec3dc87fa"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_e57e80757a629d649596f9972319d588"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9541a5b9c9a6d52ce5cbb3768e9b6881"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_35f084ae519495f4ac06a12a56475061"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_ad2e04d6f4c83fd026ba4568901bb5db"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9c6874f894b9b8ae085bd761c964bcad"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_c33f671b5e724c1b7a6138a3dd1ec119"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_ff83627e5f6ff3ee42ca0d748b858594"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_33fa94f8dd943ec553b2b3f8b532ded7"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_9fa244bee5c5aaa2c8a0eba00b792074"
+        },
+        {
+          "kind": "external",
+          "sourceId": "source_380c1d8d5e8acb7e7917041f86e14854"
+        }
+      ],
+      "targetPath": "bomber_precision_bomb.png",
+      "outputFormat": "png",
+      "canvas": {
+        "width": 640,
+        "height": 432,
+        "background": "#15212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 144,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 10,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 11,
+          "maskSourceIndex": null,
+          "x": 128,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 12,
+          "maskSourceIndex": null,
+          "x": 256,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 13,
+          "maskSourceIndex": null,
+          "x": 384,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        },
+        {
+          "sourceIndex": 14,
+          "maskSourceIndex": null,
+          "x": 512,
+          "y": 288,
+          "opacity": 1,
+          "blendMode": "normal",
+          "maskChannel": "alpha",
+          "invertMask": false,
+          "sampling": "nearest",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "width": 128,
+          "height": 144
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 339157,
+    "plannedMaximumOutputFiles": 6
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "c0d73232d1a6896d01065948e1cab7d97c7b50b4dd527fae3ee382239a586abe"
+}

@@ -1,0 +1,75 @@
+{
+  "name": "engine_burst",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true,
+    "alpha_threshold": 1
+  },
+  "extraction": {
+    "mode": "frames",
+    "alpha_threshold": 1
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 112,
+    "canvas_height": 40,
+    "pivot_x": 48,
+    "pivot_y": 8,
+    "manual_anchors": {
+      "engine_burst_0": [
+        13,
+        3
+      ],
+      "engine_burst_1": [
+        18,
+        3
+      ],
+      "engine_burst_2": [
+        25,
+        -1
+      ],
+      "engine_burst_3": [
+        33,
+        -1
+      ],
+      "engine_burst_4": [
+        42,
+        -2
+      ],
+      "engine_burst_5": [
+        48,
+        -2
+      ]
+    }
+  },
+  "animations": {
+    "engine_burst": {
+      "fps": 100,
+      "loop": false,
+      "duration_multipliers": {
+        "engine_burst_0": 3.5,
+        "engine_burst_1": 4.5,
+        "engine_burst_2": 5.5,
+        "engine_burst_3": 6.5,
+        "engine_burst_4": 7.5,
+        "engine_burst_5": 8.5
+      }
+    }
+  },
+  "qa": {
+    "strict": true,
+    "contracts": {
+      "required_animations": [
+        "engine_burst"
+      ],
+      "frame_count_rules": [
+        {
+          "pattern": "engine_burst",
+          "exact": 6
+        }
+      ]
+    }
+  }
+}

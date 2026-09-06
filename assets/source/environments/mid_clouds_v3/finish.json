@@ -1,0 +1,150 @@
+{
+  "a": {
+    "resize": {
+      "sourceWidth": 1983,
+      "sourceHeight": 793,
+      "sourceHasAlpha": true,
+      "cleanupWidth": 1949,
+      "cleanupHeight": 683,
+      "retainedAreaRatio": 0.8465188655908132,
+      "aspectRatioDrift": 1.1411470412119413,
+      "outputWidth": 256,
+      "outputHeight": 95,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "trim:0",
+        "cleanup-geometry-verified",
+        "resize",
+        "pad",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 256,
+      "sourceHeight": 95,
+      "sourceHasAlpha": true,
+      "outputWidth": 256,
+      "outputHeight": 112,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  },
+  "b": {
+    "resize": {
+      "sourceWidth": 1983,
+      "sourceHeight": 793,
+      "sourceHasAlpha": true,
+      "cleanupWidth": 1955,
+      "cleanupHeight": 758,
+      "retainedAreaRatio": 0.9423669920681403,
+      "aspectRatioDrift": 1.0314021424855333,
+      "outputWidth": 256,
+      "outputHeight": 104,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "trim:0",
+        "cleanup-geometry-verified",
+        "resize",
+        "pad",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 256,
+      "sourceHeight": 104,
+      "sourceHasAlpha": true,
+      "outputWidth": 256,
+      "outputHeight": 112,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  },
+  "c": {
+    "resize": {
+      "sourceWidth": 1983,
+      "sourceHeight": 793,
+      "sourceHasAlpha": true,
+      "cleanupWidth": 1916,
+      "cleanupHeight": 710,
+      "retainedAreaRatio": 0.8650833471646447,
+      "aspectRatioDrift": 1.0791644470960913,
+      "outputWidth": 256,
+      "outputHeight": 100,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "trim:0",
+        "cleanup-geometry-verified",
+        "resize",
+        "pad",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 256,
+      "sourceHeight": 100,
+      "sourceHasAlpha": true,
+      "outputWidth": 256,
+      "outputHeight": 112,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  },
+  "d": {
+    "resize": {
+      "sourceWidth": 1983,
+      "sourceHeight": 793,
+      "sourceHasAlpha": true,
+      "cleanupWidth": 1948,
+      "cleanupHeight": 749,
+      "retainedAreaRatio": 0.9278437971178727,
+      "aspectRatioDrift": 1.0400581174967194,
+      "outputWidth": 256,
+      "outputHeight": 103,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "trim:0",
+        "cleanup-geometry-verified",
+        "resize",
+        "pad",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 256,
+      "sourceHeight": 103,
+      "sourceHasAlpha": true,
+      "outputWidth": 256,
+      "outputHeight": 112,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  }
+}

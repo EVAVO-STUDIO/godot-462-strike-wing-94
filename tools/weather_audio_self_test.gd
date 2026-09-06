@@ -1,0 +1,42 @@
+extends SceneTree
+const WeatherRules = preload("res://scripts/weather_rules.gd")
+const WeatherRenderer = preload("res://scripts/weather_renderer.gd")
+var failures: Array[String] = []
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+	var clear := WeatherRules.audio_mix("clear",1.0,1.0)
+	var rain := WeatherRules.audio_mix("rain",1.0,1.0)
+	var storm := WeatherRules.audio_mix("storm",1.0,1.0)
+	var high := WeatherRules.audio_mix("storm",0.0,1.0)
+	var fast := WeatherRules.audio_mix("rain",1.0,4.2)
+	check(clear.rain == 0.0 and clear.storm == 0.0 and clear.snow == 0.0, "Clear and orbital routes must be silent")
+	check(storm.storm > rain.rain and storm.rain == 0.0 and rain.rain > 0.0, "Storm weather should select its stronger authored bed instead of reusing ordinary rain")
+	check(high.rain == 0.0 and high.storm == 0.0 and high.snow == 0.0, "Altitude fade must silence weather audio with the visual field")
+	check(fast.rain > rain.rain and fast.pitch <= 1.04, "Actual flight speed should add restrained airflow without cartoon pitch")
+	for path in ["res://assets/runtime/audio/weather/rain_loop.wav","res://assets/runtime/audio/weather/storm_loop.wav","res://assets/runtime/audio/weather/snow_wind_loop.wav"]:
+		var stream := load(path)
+		check(stream is AudioStreamWAV and stream.mix_rate == 22050 and stream.stereo, "Weather loop must retain reviewed 22.05 kHz stereo delivery: %s" % path)
+	var renderer := FileAccess.get_file_as_string("res://scripts/weather_renderer.gd")
+	check(renderer.contains("LOOP_FORWARD") and renderer.contains("_update_weather_audio") and renderer.contains("move_toward"), "Runtime weather beds must loop and crossfade")
+	var live := WeatherRenderer.new()
+	root.add_child(live)
+	await process_frame
+	live.set_process(false)
+	live.set("_profile","storm")
+	live.set("_weight",1.0)
+	live.call("_update_weather_audio",1.0)
+	var rain_player: AudioStreamPlayer = live.get("_rain_player")
+	var storm_player: AudioStreamPlayer = live.get("_storm_player")
+	var snow_player: AudioStreamPlayer = live.get("_snow_player")
+	check((rain_player.stream as AudioStreamWAV).loop_mode == AudioStreamWAV.LOOP_FORWARD and (storm_player.stream as AudioStreamWAV).loop_mode == AudioStreamWAV.LOOP_FORWARD and (snow_player.stream as AudioStreamWAV).loop_mode == AudioStreamWAV.LOOP_FORWARD, "All seamless beds should retain restart-free forward loops")
+	check(storm_player.volume_db > -40.0 and rain_player.volume_db <= -79.0 and snow_player.volume_db <= -79.0, "Live storm mix should expose the storm bed and suppress ordinary rain and snow")
+	live.set("_profile","snow")
+	live.call("_update_weather_audio",1.0)
+	check(snow_player.volume_db > -40.0 and rain_player.volume_db <= -79.0 and storm_player.volume_db <= -79.0, "Live snow mix should crossfade to wind and suppress both rain beds")
+	live.free()
+	if failures.is_empty(): print("HYPERSONIC weather audio self-test passed: governed rain/storm/snow loops, altitude fades and restrained speed lift.")
+	else:
+		for failure in failures: push_error(failure)
+	quit(0 if failures.is_empty() else 1)
+func check(value: bool, message: String) -> void:
+	if not value: failures.append(message)

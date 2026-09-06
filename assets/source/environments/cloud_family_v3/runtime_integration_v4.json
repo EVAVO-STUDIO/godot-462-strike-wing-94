@@ -1,0 +1,66 @@
+{
+  "schema": "hypersonic_cloud_family_runtime_v4",
+  "status": "reviewed_native_runtime",
+  "runtime_banks": 12,
+  "families": {
+    "low_wisp": 4,
+    "mid_broken": 4,
+    "high_mass": 4
+  },
+  "transition": "smoothstep crossfade of authored families and their registered undercast shadows",
+  "matched_altitude_evidence": "work/cloud_family_v4/native",
+  "transition_evidence": "work/cloud_family_v4/transition_native",
+  "transition_contact": "work/cloud_family_v4/transition_contact.png",
+  "transition_contact_sha256": "051AFDD3B381BD373A86DC40380FD25CD704EB4B4113F13B0D5F8CF524343688",
+  "review_video": "outputs/HYPERSONIC-cloud-altitude-crossfade-runtime.mp4",
+  "files": [
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_high_mass_a.png",
+      "sha256": "3B2049530773F12620FEC77208E99EBDCE0A8ED11F1B142A21DFC74FE00A215C"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_high_mass_b.png",
+      "sha256": "71F1954E09298D434EB01F4D6FB7A955C1EB3A04E7E4C00D85FEAFAFEEF06559"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_high_mass_c.png",
+      "sha256": "C232AB02CB3C7AD72EEEBEF8AFC9B6E0036E2730C84ECDAA19143592D9E8FDF9"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_high_mass_d.png",
+      "sha256": "D2796EF4C798BE09B49ECCE9AE7AE6109EE86166DD61F13E96C8A53C664D9CAA"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png",
+      "sha256": "C28EE14970DCA745613A3FD7166C99FE8DE51D73AE10891A5527CA8E36A87323"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_low_wisp_b.png",
+      "sha256": "AF0BEB2573C3316FB6652140FFD5AE8EC909353CD468F2EDC6BB4BC49C2ADFFA"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_low_wisp_c.png",
+      "sha256": "48DF33E0A7C1C8A60539325B0CF757689FB43F15D98679CBC8D926397AFC1BE4"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_low_wisp_d.png",
+      "sha256": "2FD01BEE3F48CA4C00CF95DC81BC89F3A0998137AA3080288D9D30184D161BF0"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_mid_broken_a.png",
+      "sha256": "5C4B345B7CA475AC5D659A14E18301352A27AEA3D8157B6FECA07A723AD1AEBC"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_mid_broken_b.png",
+      "sha256": "4C2BE1B680D292B3D7E1A8A7DFCE639E972EE33DA42BC5317CC6D39433E796AE"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_mid_broken_c.png",
+      "sha256": "7D0A5AA49514D064A793CD174D3F0EAC246B9241E8DB018F7F86693552672348"
+    },
+    {
+      "path": "assets/runtime/environments/clouds/cloud_bank_mid_broken_d.png",
+      "sha256": "BC1BA8999D0F169F4E0D800A41249018222B8C309337A76AAEE21EDD490ADCA3"
+    }
+  ]
+}

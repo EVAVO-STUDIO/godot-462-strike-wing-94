@@ -1,0 +1,156 @@
+{
+  "name": "vx94_external_stores",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 64,
+    "canvas_height": 72,
+    "pivot_x": 32,
+    "pivot_y": 38,
+    "padding": 0,
+    "manual_anchors": {
+      "fighter_hunter_rack_loaded_00": [
+        18,
+        34
+      ],
+      "fighter_hunter_rack_left_released_00": [
+        18,
+        34
+      ],
+      "fighter_hunter_rack_empty_00": [
+        18,
+        34
+      ],
+      "fighter_twin_rocket_pods_loaded_00": [
+        18,
+        34
+      ],
+      "fighter_twin_rocket_pods_left_expended_00": [
+        18,
+        34
+      ],
+      "fighter_twin_rocket_pods_empty_00": [
+        18,
+        34
+      ],
+      "bomber_hunter_rack_loaded_00": [
+        26,
+        34
+      ],
+      "bomber_hunter_rack_left_released_00": [
+        26,
+        34
+      ],
+      "bomber_hunter_rack_empty_00": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_loaded_00": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_left_expended_00": [
+        26,
+        34
+      ],
+      "bomber_twin_rocket_pods_empty_00": [
+        26,
+        34
+      ],
+      "bomber_precision_bomb_loaded_00": [
+        26,
+        34
+      ],
+      "bomber_precision_bomb_left_released_00": [
+        26,
+        34
+      ],
+      "bomber_precision_bomb_empty_00": [
+        26,
+        34
+      ]
+    }
+  },
+  "qa": {
+    "strict": true
+  },
+  "animations": {
+    "fighter_hunter_rack_loaded": {
+      "fps": 1,
+      "loop": false
+    },
+    "fighter_hunter_rack_left_released": {
+      "fps": 1,
+      "loop": false
+    },
+    "fighter_hunter_rack_empty": {
+      "fps": 1,
+      "loop": false
+    },
+    "fighter_twin_rocket_pods_loaded": {
+      "fps": 1,
+      "loop": false
+    },
+    "fighter_twin_rocket_pods_left_expended": {
+      "fps": 1,
+      "loop": false
+    },
+    "fighter_twin_rocket_pods_empty": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_hunter_rack_loaded": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_hunter_rack_left_released": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_hunter_rack_empty": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_twin_rocket_pods_loaded": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_twin_rocket_pods_left_expended": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_twin_rocket_pods_empty": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_precision_bomb_loaded": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_precision_bomb_left_released": {
+      "fps": 1,
+      "loop": false
+    },
+    "bomber_precision_bomb_empty": {
+      "fps": 1,
+      "loop": false
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "contact_sheet": true
+  }
+}

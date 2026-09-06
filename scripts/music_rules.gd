@@ -21,6 +21,11 @@ static func sanitize_tracks(raw:Variant)->Array:
 		if valid:tracks.append(track)
 	tracks.sort_custom(func(a:Dictionary,b:Dictionary):return TRACK_IDS.find(str(a.get("id")))<TRACK_IDS.find(str(b.get("id"))))
 	return tracks
+static func valid_tracker_voice(value:Variant)->bool:
+	if typeof(value)!=TYPE_DICTIONARY:return false
+	for key in ["lead","bass","kick","snare"]:
+		if typeof(value.get(key))!=TYPE_ARRAY or value.get(key).size()!=16:return false
+	return typeof(value.get("chords"))==TYPE_ARRAY and value.get("chords").size()==4
 static func track_id_for(phase:int,mission_index:int)->String:
 	if phase==2:return "after_action"
 	if phase!=1:return "hangar_signal"

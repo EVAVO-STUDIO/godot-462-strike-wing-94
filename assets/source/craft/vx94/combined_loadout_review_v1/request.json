@@ -1,0 +1,3445 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "vx94-combined-loadouts",
+  "projectId": "hypersonic",
+  "purpose": "Review primary plus one support using retained independent layers in correct depth order",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_left_1.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_0.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_fighter_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_left_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_1.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_fighter_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_neutral_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_fighter_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_right_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_1.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_fighter_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_fighter_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_twin_rocket_pods_loaded_hard_right_1.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_1.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_fighter_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_left_1.png",
+        "work/vx94_banked_housings/layers/bomber_hard_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_bomber_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_left_1.png",
+        "work/vx94_banked_housings/layers/bomber_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_bomber_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_neutral_1.png",
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_bomber_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_right_1.png",
+        "work/vx94_banked_housings/layers/bomber_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_bomber_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_twin_rocket_pods_bomber_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_twin_rocket_pods_loaded_hard_right_1.png",
+        "work/vx94_banked_housings/layers/bomber_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png"
+      ],
+      "targetPath": "ballistic_twin_rocket_pods_bomber_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_left_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_fighter_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_left_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_fighter_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_neutral_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_neutral_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_fighter_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_right_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_fighter_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_fighter_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/fighter_hunter_rack_loaded_hard_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_fighter_hard_right_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_fighter_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_left_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_bomber_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_left_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_left_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_left_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_bomber_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_neutral_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_neutral_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_neutral_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_bomber_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_right_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_bomber_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "needle_rail_hunter_rack_bomber_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_right_0.png",
+        "work/vx94_banked_stores_v2/layers/bomber_hunter_rack_loaded_hard_right_1.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/needle_rail_bomber_hard_right_2_aperture.png"
+      ],
+      "targetPath": "needle_rail_hunter_rack_bomber_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_left_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_fighter_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_left_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_fighter_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_neutral_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_fighter_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_right_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_fighter_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_fighter_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_fighter_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_fighter_hard_right_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_fighter_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_left_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_bomber_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_left_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_bomber_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_neutral_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_bomber_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_right_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_bomber_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "plasma_lance_magnetic_screen_bomber_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/magnetic_screen_bomber_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/plasma_lance_bomber_hard_right_2_aperture.png"
+      ],
+      "targetPath": "plasma_lance_magnetic_screen_bomber_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_left_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_fighter_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_left_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_fighter_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_neutral_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_fighter_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_right_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_fighter_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_fighter_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_fighter_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_fighter_hard_right_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_fighter_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_hard_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_left_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_bomber_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_left_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_left.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_left_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_bomber_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_neutral.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_neutral_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_bomber_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_right_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_bomber_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "storm_cannon_emp_disruptor_bomber_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_right_2.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/emp_disruptor_bomber_active_hard_right.png",
+        "work/vx94_specialist_housings_v2/layers/storm_cannon_bomber_hard_right_2_aperture.png"
+      ],
+      "targetPath": "storm_cannon_emp_disruptor_bomber_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_1.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_hard_left.png",
+        "work/vx94_banked_housings/layers/fighter_hard_left_3_0.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_fighter_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_left",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_left.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_left_3_1.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_fighter_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_neutral.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_neutral_3_1.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_fighter_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_right",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_right.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_0.png",
+        "work/vx94_banked_housings/layers/fighter_right_3_1.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_fighter_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_fighter_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/fighter_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_fighter_active_hard_right.png",
+        "work/vx94_banked_housings/layers/fighter_hard_right_3_1.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_fighter_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_hard_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_housings/layers/bomber_hard_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_hard_left.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_bomber_hard_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_left",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_housings/layers/bomber_left_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_left.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_left.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_bomber_left.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_neutral",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_housings/layers/bomber_neutral_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_neutral.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_bomber_neutral.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_housings/layers/bomber_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_right.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_bomber_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_point_defence_pod_bomber_hard_right",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_banked_housings/layers/bomber_hard_right_3_0.png",
+        "assets/runtime/craft/vx94/gameplay/bank/bomber_hard_right.png",
+        "work/vx94_dorsal_modules_v1/layers/point_defence_pod_bomber_active_hard_right.png"
+      ],
+      "targetPath": "ballistic_point_defence_pod_bomber_hard_right.png",
+      "canvas": {
+        "width": 64,
+        "height": 72,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

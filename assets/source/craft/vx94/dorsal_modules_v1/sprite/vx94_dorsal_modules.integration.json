@@ -1,0 +1,516 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_active_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_active_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_active_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_active_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_active_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_idle_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_idle_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_idle_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_idle_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_bomber_idle_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_active_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_active_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_active_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_active_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_active_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_idle_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_idle_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_idle_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_idle_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "emp_disruptor_fighter_idle_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_active_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_active_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_active_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_active_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_active_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_idle_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_idle_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_idle_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_idle_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_bomber_idle_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_active_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_active_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_active_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_active_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_active_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_idle_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_idle_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_idle_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_idle_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "magnetic_screen_fighter_idle_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_active_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_active_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_active_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_active_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_active_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_idle_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_idle_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_idle_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_idle_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_bomber_idle_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_active_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_active_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_active_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_active_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_active_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_idle_hard_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_idle_hard_right"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_idle_left"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_idle_neutral"
+    },
+    {
+      "duration_seconds": 1.0,
+      "events": [],
+      "fps": 1.0,
+      "frame_count": 1,
+      "loop": false,
+      "name": "point_defence_pod_fighter_idle_right"
+    }
+  ],
+  "asset": "vx94_dorsal_modules",
+  "atlas_pages": [
+    {
+      "file": "vx94_dorsal_modules.atlas.0.png",
+      "height": 1992,
+      "index": 0,
+      "width": 133
+    }
+  ],
+  "canvas": {
+    "height": 72,
+    "pivot_x": 32.0,
+    "pivot_y": 38.0,
+    "width": 64
+  },
+  "corrected_frames": 0,
+  "correction_audit": "vx94_dorsal_modules.corrections.json",
+  "event_timeline": "vx94_dorsal_modules.events.json",
+  "manifest": "vx94_dorsal_modules.manifest.json",
+  "qa": "vx94_dorsal_modules.qa.json",
+  "receipt": "build.receipt.json",
+  "runtime": {
+    "godot": {
+      "animated_sprite_scene": "vx94_dorsal_modules.animated_sprite.tscn",
+      "atlas_root": "res://",
+      "sprite_frames": "vx94_dorsal_modules.spriteframes.tres"
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

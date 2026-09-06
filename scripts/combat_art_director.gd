@@ -65,6 +65,16 @@ const VX94_BOMBER_BREAKUP := [
 	preload("res://assets/runtime/craft/vx94/gameplay/destruction/bomber_breakup_3.png"),
 ]
 const VX94_ESCAPE_CAPSULE := preload("res://assets/runtime/craft/vx94/gameplay/destruction/escape_capsule.png")
+const VX94_VENTRAL_BAY := {
+	"closed": preload("res://assets/runtime/craft/vx94/gameplay/ventral_bay/bay_closed.png"),
+	"opening": preload("res://assets/runtime/craft/vx94/gameplay/ventral_bay/bay_opening.png"),
+	"open": preload("res://assets/runtime/craft/vx94/gameplay/ventral_bay/bay_open.png")
+}
+const VX94_STRATEGIC_BAY := {
+	"closed": preload("res://assets/runtime/craft/vx94/gameplay/strategic_bay/strategic_closed.png"),
+	"opening": preload("res://assets/runtime/craft/vx94/gameplay/strategic_bay/strategic_opening.png"),
+	"open": preload("res://assets/runtime/craft/vx94/gameplay/strategic_bay/strategic_open.png")
+}
 const VX94_BOMBER_TRANSFORM := [
 	preload("res://assets/runtime/craft/vx94/transform/bomber_00.png"),
 	preload("res://assets/runtime/craft/vx94/transform/bomber_01.png"),
@@ -673,6 +683,23 @@ const BOSS_PHASE_OVERLAYS := {
 		],
 	},
 }
+const BOSS_WEAK_POINT_CUES := [
+	preload("res://assets/runtime/enemies/boss_weak_point/cue_0.png"),
+	preload("res://assets/runtime/enemies/boss_weak_point/cue_1.png"),
+	preload("res://assets/runtime/enemies/boss_weak_point/cue_2.png"),
+	preload("res://assets/runtime/enemies/boss_weak_point/cue_3.png"),
+]
+const BOSS_WEAK_POINTS := {
+	"gunship_alpha":[Vector2(-26,4),Vector2(26,4),Vector2(0,-15)],
+	"armoured_train":[Vector2(0,-48),Vector2(-20,5),Vector2(20,5)],
+	"missile_cruiser":[Vector2(-25,-18),Vector2(25,-18),Vector2(0,32)],
+	"swarm_controller":[Vector2(-31,8),Vector2(31,8),Vector2(0,-10)],
+	"ai_forge_core":[Vector2(-30,10),Vector2(30,10),Vector2(0,-18)],
+	"orbital_command_node":[Vector2(-38,4),Vector2(38,4),Vector2(0,-20)],
+	"phase_control_array":[Vector2(-42,0),Vector2(42,0),Vector2(0,0)],
+	"station_warden":[Vector2(-47,0),Vector2(47,0),Vector2(0,-16)],
+	"machine_ark":[Vector2(-52,10),Vector2(48,8),Vector2(0,-22)],
+}
 const MACHINE_BOSS_SPRITES := {
 	"swarm_controller": preload("res://assets/runtime/enemies/machine_boss/swarm_controller_idle_v2.png"),
 	"ai_forge_core": preload("res://assets/runtime/enemies/machine_boss/ai_forge_core_idle_v2.png"),
@@ -807,9 +834,22 @@ var _visual_sweep := 0.0
 var _bank_visual := 0.0
 var _redraw_elapsed := 0.0
 var _missing_art_ids: Dictionary = {}
+var _player_housing_cache: Dictionary = {}
+var _external_store_cache: Dictionary = {}
+var _dorsal_module_cache: Dictionary = {}
+var _module_damage_cache: Dictionary = {}
+var _transform_primary_cache: Dictionary = {}
+var _transform_store_cache: Dictionary = {}
+var _transform_module_cache: Dictionary = {}
+var _transform_module_damage_cache: Dictionary = {}
+var _pitch_primary_cache: Dictionary = {}
 
 func _ready() -> void:
 	layer = 12
+	_preload_player_housings()
+	_preload_player_stores_and_modules()
+	_preload_player_transform_loadouts()
+	_preload_player_pitch_loadouts()
 	_surface = CombatArtSurface.new()
 	_surface.director = self
 	_surface.position = Vector2.ZERO
@@ -817,6 +857,68 @@ func _ready() -> void:
 	_surface.custom_minimum_size = Vector2(640, 360)
 	_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_surface)
+
+func _preload_player_housings() -> void:
+	var forms := ["fighter", "bomber"]
+	var banks := ["hard_left", "left", "neutral", "right", "hard_right"]
+	for form in forms:
+		for bank in banks:
+			for state in range(4):
+				var generic_key := "%s_%s_%d" % [form, bank, state]
+				_player_housing_cache[generic_key] = load("res://assets/runtime/craft/vx94/gameplay/primary_housings/%s.png" % generic_key) as Texture2D
+				for weapon_id in ["needle_rail", "storm_cannon", "plasma_lance"]:
+					var specialist_key := "%s_%s_%s_%d" % [weapon_id, form, bank, state]
+					_player_housing_cache[specialist_key] = load("res://assets/runtime/craft/vx94/gameplay/specialist_housings/%s.png" % specialist_key) as Texture2D
+
+func _preload_player_stores_and_modules() -> void:
+	var banks := ["hard_left", "left", "neutral", "right", "hard_right"]
+	for form in ["fighter", "bomber"]:
+		for bank in banks:
+			for kind in ["hunter_rack", "twin_rocket_pods"]:
+				var partial_state := "left_released" if kind == "hunter_rack" else "left_expended"
+				for state in ["loaded", partial_state, "empty"]:
+					for layer_index in range(2):
+						var store_key := "%s_%s_%s_%s_%d" % [form, kind, state, bank, layer_index]
+						_external_store_cache[store_key] = load("res://assets/runtime/craft/vx94/gameplay/external_stores/%s.png" % store_key) as Texture2D
+			for module_id in ["point_defence_pod", "emp_disruptor", "magnetic_screen"]:
+				for active_state in ["idle", "active"]:
+					var module_key := "%s_%s_%s_%s" % [module_id, form, active_state, bank]
+					_dorsal_module_cache[module_key] = load("res://assets/runtime/craft/vx94/gameplay/dorsal_modules/%s.png" % module_key) as Texture2D
+				for damage_state in ["scarred", "burnt"]:
+					var damage_key := "%s_%s_%s_%s" % [module_id, form, damage_state, bank]
+					_module_damage_cache[damage_key] = load("res://assets/runtime/craft/vx94/gameplay/module_damage/%s.png" % damage_key) as Texture2D
+
+func _preload_player_transform_loadouts() -> void:
+	for destination in ["bomber", "hypersonic"]:
+		for weapon_family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
+			for exposure in range(10):
+				var primary_key := "%s_%s_%02d" % [destination, weapon_family, exposure]
+				_transform_primary_cache[primary_key] = load("res://assets/runtime/craft/vx94/gameplay/transform_primary/%s.png" % primary_key) as Texture2D
+		for store_kind in ["hunter_rack", "twin_rocket_pods"]:
+			var partial_state := "left_expended"
+			for store_state in ["loaded", partial_state, "empty"]:
+				for exposure in range(10):
+					for layer_index in range(2):
+						var store_key := "%s_%s_%s_%02d_%d" % [destination, store_kind, store_state, exposure, layer_index]
+						_transform_store_cache[store_key] = load("res://assets/runtime/craft/vx94/gameplay/transform_stores/%s.png" % store_key) as Texture2D
+	for destination in ["bomber", "hypersonic"]:
+		for module_id in ["point_defence_pod", "emp_disruptor", "magnetic_screen"]:
+			for module_state in ["idle", "active"]:
+				for exposure in range(10):
+					var module_key := "%s_%s_%s_%02d" % [destination, module_id, module_state, exposure]
+					_transform_module_cache[module_key] = load("res://assets/runtime/craft/vx94/gameplay/transform_modules/%s.png" % module_key) as Texture2D
+			for damage_state in ["scarred", "burnt"]:
+				for exposure in range(10):
+					var damage_key := "%s_%s_%s_%02d" % [destination, module_id, damage_state, exposure]
+					_transform_module_damage_cache[damage_key] = load("res://assets/runtime/craft/vx94/gameplay/transform_module_damage/%s.png" % damage_key) as Texture2D
+
+func _preload_player_pitch_loadouts() -> void:
+	for form in ["fighter", "bomber"]:
+		for pitch_state in ["dive_18", "dive_12", "dive_06", "neutral", "climb_06", "climb_12", "climb_18"]:
+			for family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
+				for hardware_state in range(4):
+					var key := "%s_%s_%s_%d" % [family, form, pitch_state, hardware_state]
+					_pitch_primary_cache[key] = load("res://assets/runtime/craft/vx94/gameplay/pitch_primary/%s.png" % key) as Texture2D
 
 func _process(delta: float) -> void:
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
@@ -1131,9 +1233,32 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	if hypersonic_sweep > 0.01:
 		var exposure := roundf(hypersonic_sweep * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
 		_draw_transform_exposure(surface, p, exposure, true)
-		var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
-		var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
-		_draw_player_damage(surface, origin, damage_ratio)
+		return
+	var pitch_state := _altitude_pitch_state()
+	if not pitch_state.is_empty() and (_visual_sweep <= 0.02 or _visual_sweep >= 0.98):
+		var pitch_form := "fighter" if _visual_sweep <= 0.02 else "bomber"
+		var pitch_family := _player_weapon_id(scene)
+		if not pitch_family in ["needle_rail", "storm_cannon", "plasma_lance"]:
+			pitch_family = "ballistic"
+		var weapon: Dictionary = scene.call("_active_weapon") if scene.has_method("_active_weapon") else {}
+		var pitch_interval := maxf(0.01, float(weapon.get("fire_interval", 0.11)))
+		var pitch_timer := float(scene.get("fire_timer")) if _has_property(scene, "fire_timer") else 0.0
+		var pitch_hardware_state := 2
+		if pitch_timer > pitch_interval * 0.55:
+			pitch_hardware_state = 3
+		elif pitch_timer > 0.0:
+			pitch_hardware_state = 1
+		_draw_player_external_stores(surface, scene, origin, 2)
+		var pitch_key := "%s_%s_%s_%d" % [pitch_family, pitch_form, pitch_state, pitch_hardware_state]
+		var pitch_texture := _pitch_primary_cache.get(pitch_key) as Texture2D
+		if pitch_texture != null:
+			surface.draw_texture(pitch_texture, origin)
+		_draw_player_ventral_bay(surface, scene, origin)
+		_draw_player_strategic_bay(surface, origin)
+		var pitch_max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
+		var pitch_damage := 1.0 - clampf(float(scene.get("hull")) / float(pitch_max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
+		_draw_player_damage(surface, origin, pitch_damage)
+		_draw_player_dorsal_module(surface, scene, origin, 2, pitch_damage)
 		return
 	if _visual_sweep <= 0.02:
 		texture = VX94_FIGHTER_BANK[_bank_frame_index()]
@@ -1143,11 +1268,130 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 		var exposure := roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1)) / float(TRANSFORM_EXPOSURES - 1)
 		_draw_transform_exposure(surface, p, exposure, false)
 		texture = null
-	if texture != null:
-		surface.draw_texture(texture, origin)
 	var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
 	var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
-	_draw_player_damage(surface, origin, damage_ratio)
+	if texture != null:
+		_draw_player_external_stores(surface, scene, origin, _bank_frame_index())
+		var housing_texture := _player_housing_texture(scene, _bank_frame_index())
+		if housing_texture != null:
+			texture = housing_texture
+		surface.draw_texture(texture, origin)
+		_draw_player_ventral_bay(surface, scene, origin)
+		_draw_player_strategic_bay(surface, origin)
+		_draw_player_damage(surface, origin, damage_ratio)
+		_draw_player_dorsal_module(surface, scene, origin, _bank_frame_index(), damage_ratio)
+
+func _player_housing_texture(scene: Object, bank_index: int) -> Texture2D:
+	if not scene.has_method("_active_weapon"):
+		return null
+	var weapon: Dictionary = scene.call("_active_weapon")
+	var weapon_id := _player_weapon_id(scene)
+	var form := "fighter" if _visual_sweep <= 0.02 else "bomber"
+	var bank_names := ["hard_left", "left", "neutral", "right", "hard_right"]
+	var bank_name: String = bank_names[clampi(bank_index, 0, bank_names.size() - 1)]
+	var interval := maxf(0.01, float(weapon.get("fire_interval", 0.11)))
+	var timer := float(scene.get("fire_timer")) if _has_property(scene, "fire_timer") else 0.0
+	var state := 2
+	if timer > interval * 0.55:
+		state = 3
+	elif timer > 0.0:
+		state = 1
+	var specialist := weapon_id in ["needle_rail", "storm_cannon", "plasma_lance"]
+	var key := "%s_%s_%s_%d" % [weapon_id, form, bank_name, state] if specialist else "%s_%s_%d" % [form, bank_name, state]
+	return _player_housing_cache.get(key) as Texture2D
+
+func _player_weapon_id(scene: Object) -> String:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-weapon="):
+			return argument.trim_prefix("--capture-weapon=").to_lower()
+	if scene != null and scene.has_method("_active_weapon"):
+		return str((scene.call("_active_weapon") as Dictionary).get("id", "twin_cannon_mk1"))
+	return "twin_cannon_mk1"
+
+func _draw_player_external_stores(surface: CanvasItem, scene: Object, origin: Vector2, bank_index: int) -> void:
+	var support := get_node_or_null("/root/SupportDirector")
+	var support_data: Dictionary = support.call("current_support") if support != null and support.has_method("current_support") else {}
+	var support_id := str(support_data.get("id", ""))
+	var form := "fighter" if _visual_sweep <= 0.02 else "bomber"
+	var bank_names := ["hard_left", "left", "neutral", "right", "hard_right"]
+	var bank_name: String = bank_names[clampi(bank_index, 0, bank_names.size() - 1)]
+	var kind := ""
+	var state := "loaded"
+	if support_id in ["hunter_rack", "twin_rocket_pods"]:
+		kind = support_id
+		var cooldown := float(support.call("cooldown_remaining")) if support.has_method("cooldown_remaining") else 0.0
+		var duration := maxf(0.01, float(support_data.get("cooldown", 1.0)))
+		if cooldown > duration * 0.55:
+			state = "left_released" if kind == "hunter_rack" else "left_expended"
+		elif cooldown > 0.0:
+			state = "empty"
+	if kind.is_empty():
+		return
+	for layer_index in range(2):
+		var key := "%s_%s_%s_%s_%d" % [form, kind, state, bank_name, layer_index]
+		var texture := _external_store_cache.get(key) as Texture2D
+		if texture != null:
+			surface.draw_texture(texture, origin)
+
+func _draw_player_ventral_bay(surface: CanvasItem, scene: Object, origin: Vector2) -> void:
+	if _visual_sweep < 0.98:
+		return
+	var state := "closed"
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-ventral-bay="):
+			var requested := argument.trim_prefix("--capture-ventral-bay=").to_lower()
+			if requested in ["closed", "opening", "open"]:
+				state = requested
+	var timer := float(scene.get("secondary_timer")) if scene != null and _has_property(scene, "secondary_timer") else 0.0
+	if state == "closed" and timer > 0.58:
+		state = "open" if timer > 0.82 else "opening"
+	var texture := VX94_VENTRAL_BAY[state] as Texture2D
+	surface.draw_texture(texture, origin)
+
+func _draw_player_strategic_bay(surface: CanvasItem, origin: Vector2) -> void:
+	var support := get_node_or_null("/root/SupportDirector")
+	var forced_state := ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-strategic-bay="):
+			var requested := argument.trim_prefix("--capture-strategic-bay=").to_lower()
+			if requested in ["closed", "opening", "open"]:
+				forced_state = requested
+	if forced_state.is_empty():
+		if support == null or not support.has_method("current_support") or str((support.call("current_support") as Dictionary).get("id", "")) != "micro_warhead_rack":
+			return
+	var state := forced_state if not forced_state.is_empty() else "closed"
+	if forced_state.is_empty() and support.has_method("strategic_launch_timer"):
+		var timer := float(support.call("strategic_launch_timer"))
+		if timer > 0.12:
+			state = "open" if timer > 0.30 else "opening"
+	var texture := VX94_STRATEGIC_BAY[state] as Texture2D
+	surface.draw_texture(texture, origin)
+
+func _draw_player_dorsal_module(surface: CanvasItem, scene: Object, origin: Vector2, bank_index: int, damage_ratio: float) -> void:
+	var support := get_node_or_null("/root/SupportDirector")
+	if support == null or not support.has_method("current_support"):
+		return
+	var support_data: Dictionary = support.call("current_support")
+	var module_id := str(support_data.get("id", ""))
+	if not module_id in ["point_defence_pod", "emp_disruptor", "magnetic_screen"]:
+		return
+	var form := "fighter" if _visual_sweep <= 0.02 else "bomber"
+	var bank_names := ["hard_left", "left", "neutral", "right", "hard_right"]
+	var bank_name: String = bank_names[clampi(bank_index, 0, bank_names.size() - 1)]
+	var active := bool(support.call("magnetic_active")) if module_id == "magnetic_screen" and support.has_method("magnetic_active") else false
+	if not active and support.has_method("cooldown_remaining"):
+		var duration := maxf(0.01, float(support_data.get("cooldown", 1.0)))
+		active = float(support.call("cooldown_remaining")) > duration * 0.82
+	var module_key := "%s_%s_%s_%s" % [module_id, form, "active" if active else "idle", bank_name]
+	var module_texture := _dorsal_module_cache.get(module_key) as Texture2D
+	if module_texture != null:
+		surface.draw_texture(module_texture, origin)
+	var damage_state := "burnt" if damage_ratio >= 0.55 else ("scarred" if damage_ratio >= 0.22 else "")
+	if not damage_state.is_empty():
+		var damage_key := "%s_%s_%s_%s" % [module_id, form, damage_state, bank_name]
+		var damage_texture := _module_damage_cache.get(damage_key) as Texture2D
+		if damage_texture != null:
+			surface.draw_texture(damage_texture, origin)
 
 func _draw_evasive_player(surface: CanvasItem, p: Vector2, time: float, progress: float, direction: int) -> void:
 	var roll_phase := clampf(progress, 0.0, 1.0)
@@ -1166,7 +1410,70 @@ func _draw_evasive_player(surface: CanvasItem, p: Vector2, time: float, progress
 func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hypersonic: bool) -> void:
 	var index := clampi(roundi(clampf(ratio, 0.0, 1.0) * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
 	var frames: Array = VX94_HYPERSONIC_TRANSFORM if hypersonic else VX94_BOMBER_TRANSFORM
-	surface.draw_texture(frames[index], (p - VX94_GAMEPLAY_ANCHOR).round())
+	var origin := (p - VX94_GAMEPLAY_ANCHOR).round()
+	var destination := "hypersonic" if hypersonic else "bomber"
+	var scene := get_tree().current_scene
+	if scene != null:
+		_draw_transform_external_stores(surface, origin, destination, index)
+	var texture: Texture2D = frames[index]
+	if scene != null and scene.has_method("_active_weapon"):
+		var weapon_id := _player_weapon_id(scene)
+		var family := weapon_id if weapon_id in ["needle_rail", "storm_cannon", "plasma_lance"] else "ballistic"
+		var key := "%s_%s_%02d" % [destination, family, index]
+		var mounted_texture := _transform_primary_cache.get(key) as Texture2D
+		if mounted_texture != null:
+			texture = mounted_texture
+	surface.draw_texture(texture, origin)
+	if scene != null:
+		var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
+		var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
+		_draw_player_damage(surface, origin, damage_ratio)
+		_draw_transform_dorsal_module(surface, origin, destination, index, damage_ratio)
+
+func _draw_transform_external_stores(surface: CanvasItem, origin: Vector2, destination: String, exposure: int) -> void:
+	var support := get_node_or_null("/root/SupportDirector")
+	if support == null or not support.has_method("current_support"):
+		return
+	var support_data: Dictionary = support.call("current_support")
+	var kind := str(support_data.get("id", ""))
+	var state := "loaded"
+	if kind in ["hunter_rack", "twin_rocket_pods"]:
+		var cooldown := float(support.call("cooldown_remaining")) if support.has_method("cooldown_remaining") else 0.0
+		var duration := maxf(0.01, float(support_data.get("cooldown", 1.0)))
+		if cooldown > duration * 0.55:
+			state = "left_expended"
+		elif cooldown > 0.0:
+			state = "empty"
+	else:
+		return
+	for layer_index in range(2):
+		var key := "%s_%s_%s_%02d_%d" % [destination, kind, state, exposure, layer_index]
+		var store_texture := _transform_store_cache.get(key) as Texture2D
+		if store_texture != null:
+			surface.draw_texture(store_texture, origin)
+
+func _draw_transform_dorsal_module(surface: CanvasItem, origin: Vector2, destination: String, exposure: int, damage_ratio: float) -> void:
+	var support := get_node_or_null("/root/SupportDirector")
+	if support == null or not support.has_method("current_support"):
+		return
+	var support_data: Dictionary = support.call("current_support")
+	var module_id := str(support_data.get("id", ""))
+	if not module_id in ["point_defence_pod", "emp_disruptor", "magnetic_screen"]:
+		return
+	var active := bool(support.call("magnetic_active")) if module_id == "magnetic_screen" and support.has_method("magnetic_active") else false
+	if not active and support.has_method("cooldown_remaining"):
+		var duration := maxf(0.01, float(support_data.get("cooldown", 1.0)))
+		active = float(support.call("cooldown_remaining")) > duration * 0.82
+	var key := "%s_%s_%s_%02d" % [destination, module_id, "active" if active else "idle", exposure]
+	var texture := _transform_module_cache.get(key) as Texture2D
+	if texture != null:
+		surface.draw_texture(texture, origin)
+	var damage_state := "burnt" if damage_ratio >= 0.55 else ("scarred" if damage_ratio >= 0.22 else "")
+	if not damage_state.is_empty():
+		var damage_key := "%s_%s_%s_%02d" % [destination, module_id, damage_state, exposure]
+		var damage_texture := _transform_module_damage_cache.get(damage_key) as Texture2D
+		if damage_texture != null:
+			surface.draw_texture(damage_texture, origin)
 
 func _hypersonic_visual_ratio() -> float:
 	var craft := get_node_or_null("/root/CraftFormDirector")
@@ -1197,6 +1504,21 @@ func _capture_bank_state() -> String:
 		if argument.begins_with("--capture-bank="):
 			return argument.trim_prefix("--capture-bank=").to_lower()
 	return ""
+
+func _altitude_pitch_state() -> String:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-pitch="):
+			return argument.trim_prefix("--capture-pitch=").to_lower()
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft == null or not craft.has_method("altitude_transition_active") or not bool(craft.call("altitude_transition_active")):
+		return ""
+	var direction := int(craft.call("altitude_transition_direction")) if craft.has_method("altitude_transition_direction") else 0
+	if direction == 0:
+		return ""
+	var ratio := clampf(float(craft.call("altitude_transition_ratio")), 0.0, 1.0) if craft.has_method("altitude_transition_ratio") else 0.0
+	var relief := sin(ratio * PI)
+	var degrees := 18 if relief >= 0.78 else (12 if relief >= 0.42 else 6)
+	return "%s_%02d" % ["climb" if direction > 0 else "dive", degrees]
 
 func _capture_ground_state() -> String:
 	if not "--capture-gameplay" in OS.get_cmdline_user_args(): return ""
@@ -1264,6 +1586,12 @@ func _bank_frame_index() -> int:
 	if _bank_visual > 0.78: return 4
 	if _bank_visual > 0.22: return 3
 	return 2
+
+func propulsion_bank_frame_index() -> int:
+	return _bank_frame_index()
+
+func propulsion_pitch_offset() -> Vector2:
+	return _altitude_pitch_offset()
 
 func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	var p: Vector2 = enemy.get("position", Vector2.ZERO)
@@ -1848,9 +2176,21 @@ func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, en
 		var critical_frames: Array = overlays["critical"]
 		var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % critical_frames.size()
 		_draw_production_sprite(surface, p, critical_frames[frame_index])
+		_draw_boss_weak_points(surface, p, enemy_id, float(enemy.get("age", 0.0)))
 	_draw_mercenary_boss_mechanics(surface, p, enemy_id, enemy)
 	if enemy_id == "gunship_alpha":
 		_render_mercenary_position_lights(surface, p, enemy_id, enemy, texture)
+
+func _draw_boss_weak_points(surface: CanvasItem, center: Vector2, enemy_id: String, age: float) -> void:
+	if not BOSS_WEAK_POINTS.has(enemy_id): return
+	var points: Array = BOSS_WEAK_POINTS[enemy_id]
+	var active_index := posmod(int(floor(age * 0.75)), points.size())
+	var frame_index := posmod(int(floor(age * 8.0)), BOSS_WEAK_POINT_CUES.size())
+	for index in range(points.size()):
+		var cue: Texture2D = BOSS_WEAK_POINT_CUES[frame_index if index == active_index else 0]
+		var position := center + Vector2(points[index]) - cue.get_size() * 0.5
+		var alpha := 1.0 if index == active_index else 0.48
+		surface.draw_texture(cue, position.round(), Color(1,1,1,alpha))
 
 func _draw_machine_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
 	if not MACHINE_BOSS_SPECIALIST_ART.has(enemy_id):

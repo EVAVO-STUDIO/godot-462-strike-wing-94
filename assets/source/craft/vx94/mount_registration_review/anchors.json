@@ -1,0 +1,199 @@
+[
+  {
+    "form": "fighter",
+    "anchor": [
+      32,
+      38
+    ],
+    "mounts": [
+      {
+        "id": "wing_root_left",
+        "roles": [
+          "ballistic_primary"
+        ],
+        "pixel": [
+          19,
+          26
+        ]
+      },
+      {
+        "id": "wing_root_right",
+        "roles": [
+          "ballistic_primary"
+        ],
+        "pixel": [
+          45,
+          26
+        ]
+      },
+      {
+        "id": "centerline_emitter",
+        "roles": [
+          "rail",
+          "directed_energy",
+          "plasma"
+        ],
+        "pixel": [
+          32,
+          19
+        ]
+      },
+      {
+        "id": "inner_pylon_left",
+        "roles": [
+          "missile",
+          "rocket"
+        ],
+        "pixel": [
+          17,
+          33
+        ]
+      },
+      {
+        "id": "inner_pylon_right",
+        "roles": [
+          "missile",
+          "rocket"
+        ],
+        "pixel": [
+          47,
+          33
+        ]
+      },
+      {
+        "id": "ventral_strategic_bay",
+        "roles": [
+          "strategic_store"
+        ],
+        "pixel": [
+          32,
+          31
+        ]
+      },
+      {
+        "id": "dorsal_module",
+        "roles": [
+          "ecm",
+          "emp",
+          "magnetic",
+          "sensor"
+        ],
+        "pixel": [
+          32,
+          44
+        ]
+      }
+    ]
+  },
+  {
+    "form": "bomber",
+    "anchor": [
+      32,
+      38
+    ],
+    "mounts": [
+      {
+        "id": "nose_rotary",
+        "roles": [
+          "ballistic_primary"
+        ],
+        "pixel": [
+          32,
+          11
+        ]
+      },
+      {
+        "id": "centerline_emitter",
+        "roles": [
+          "rail",
+          "directed_energy",
+          "plasma"
+        ],
+        "pixel": [
+          32,
+          14
+        ]
+      },
+      {
+        "id": "inner_pylon_left",
+        "roles": [
+          "missile",
+          "rocket"
+        ],
+        "pixel": [
+          11,
+          41
+        ]
+      },
+      {
+        "id": "inner_pylon_right",
+        "roles": [
+          "missile",
+          "rocket"
+        ],
+        "pixel": [
+          53,
+          41
+        ]
+      },
+      {
+        "id": "outer_pylon_left",
+        "roles": [
+          "bomb",
+          "rocket",
+          "missile"
+        ],
+        "pixel": [
+          5,
+          47
+        ]
+      },
+      {
+        "id": "outer_pylon_right",
+        "roles": [
+          "bomb",
+          "rocket",
+          "missile"
+        ],
+        "pixel": [
+          59,
+          47
+        ]
+      },
+      {
+        "id": "ventral_strike_bay",
+        "roles": [
+          "precision_bomb",
+          "guided_bomb"
+        ],
+        "pixel": [
+          32,
+          46
+        ]
+      },
+      {
+        "id": "ventral_strategic_bay",
+        "roles": [
+          "strategic_store"
+        ],
+        "pixel": [
+          32,
+          31
+        ]
+      },
+      {
+        "id": "dorsal_module",
+        "roles": [
+          "ecm",
+          "emp",
+          "magnetic",
+          "sensor"
+        ],
+        "pixel": [
+          32,
+          45
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "status": "reviewed_native_runtime",
+  "runtime_directory": "res://assets/runtime/craft/vx94/gameplay/strategic_bay/",
+  "method": "Authored SVG masters rasterized at exact native size and passed through EVAVO Art Studio Project Art compositing",
+  "states": {
+    "closed": {
+      "file": "strategic_closed.png",
+      "sha256": "940ade7e75fda61f2555fddff5d80d02f65aeb21a79c9cb752045096bf3c05f2"
+    },
+    "opening": {
+      "file": "strategic_opening.png",
+      "sha256": "7c46a586398cdd0a01083a129cb8426d4d9bf80961d7f90bb7aad606c36ec59e"
+    },
+    "open": {
+      "file": "strategic_open.png",
+      "sha256": "4f15170df779417c53cb33ecf333e9d2bdc95d58b9224c9d0bbfc2d5dd7328e9"
+    }
+  },
+  "mount": "ventral_strategic_bay",
+  "support": "micro_warhead_rack",
+  "launch_impulse_seconds": 0.46,
+  "visual_contract": "A compact reinforced centerline hatch opens only for strategic-store release; its amber ejector rail is a one-pixel mechanical marking, not a glow.",
+  "native_captures": [
+    {
+      "form": "fighter",
+      "state": "closed",
+      "path": "work/vx94_strategic_bay_v1/native/fighter_closed.png",
+      "sha256": "8b626efe984170e8c2208ef86d3e9e7d3e7dd1710dcc7bcab7fa3145447cdf21"
+    },
+    {
+      "form": "fighter",
+      "state": "opening",
+      "path": "work/vx94_strategic_bay_v1/native/fighter_opening.png",
+      "sha256": "f016d7d881e6faeaab0c99409c3326870313ae901d0567c6c2a9a1e3a1441b7b"
+    },
+    {
+      "form": "fighter",
+      "state": "open",
+      "path": "work/vx94_strategic_bay_v1/native/fighter_open.png",
+      "sha256": "0bb02e472d8b7e2e13ffc7da2b3805321550d5994bf51c0139405a71ac4a6e36"
+    },
+    {
+      "form": "bomber",
+      "state": "closed",
+      "path": "work/vx94_strategic_bay_v1/native/bomber_closed.png",
+      "sha256": "ad10c9618a99d5dcce0bb72cd669dfe67ebd53af617f9a75dc16faa7448d1489"
+    },
+    {
+      "form": "bomber",
+      "state": "opening",
+      "path": "work/vx94_strategic_bay_v1/native/bomber_opening.png",
+      "sha256": "c9b93ab36e11eab366d66b4baf5445367df26b3326bfa1c991af4ff97b707b92"
+    },
+    {
+      "form": "bomber",
+      "state": "open",
+      "path": "work/vx94_strategic_bay_v1/native/bomber_open.png",
+      "sha256": "a45bc61e152f0bacd8f0812dce66be12645be1f4bd6f8ceef850f6d489746fc7"
+    }
+  ],
+  "review_contact": "work/vx94_strategic_bay_v1/native_contact.png"
+}

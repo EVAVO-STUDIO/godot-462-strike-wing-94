@@ -1,0 +1,17 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {parseEffectSpec} from 'file:///C:/Gitrepos/particle-studio/src/core/schema.ts';
+import {simulateProjected} from 'file:///C:/Gitrepos/particle-studio/src/core/simulator.ts';
+const base='C:/Gitrepos/godot-462-strike-wing-94/work/snow_flight_v4/';
+await mkdir(base,{recursive:true});
+const input=JSON.parse(await readFile('C:/Gitrepos/godot-462-strike-wing-94/assets/source/environments/weather_study_v3/snow_b/snow.particle.json','utf8'));
+input.id='hypersonic-snow-flight-art-v4';input.fps=24;
+input.metadata.scope='Art fixture: separate depth particles with actual travel displacement, not production weather';
+const effect=parseEffectSpec(input);
+const frames=Array.from({length:96},(_,i)=>simulateProjected(effect,i/24,640,304).map(p=>({id:p.id,layer:p.layerId,x:p.screenX,y:p.screenY,size:p.screenSize,alpha:p.alpha,color:p.color})));
+const end=simulateProjected(effect,4,640,304).map(p=>({id:p.id,layer:p.layerId,x:p.screenX,y:p.screenY,size:p.screenSize,alpha:p.alpha,color:p.color}));
+if(JSON.stringify(frames[0])!==JSON.stringify(end))throw Error('Snow particle cycle does not close');
+await writeFile(base+'snow.particle.json',JSON.stringify(effect,null,2));
+await writeFile(base+'states.json',JSON.stringify({fps:24,cycle:4,frames}));
+const counts=frames.map(x=>x.length);
+await writeFile(base+'verification.json',JSON.stringify({loopExact:true,frames:96,particleCount:[Math.min(...counts),Math.max(...counts)],travelPixelsPerWorldUnit:{distant:6,middle:20,near:52},viewport:[0,34,640,304],wrapMargin:8,source:'Particle Studio simulateProjected; original Snow B shape/material/motion retained'},null,2));
+console.log(JSON.stringify({frames:96,particleCount:[Math.min(...counts),Math.max(...counts)],loopExact:true}));

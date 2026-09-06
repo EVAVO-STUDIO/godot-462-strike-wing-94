@@ -1,0 +1,2986 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "70b28916ba36fcfcb4397c1425af63452f6ec2ebbdf6e00f225eb9d0862058f5",
+  "planBytesSha256": "0dfa7781a9b3d7d5cbe93366bd9390d5ef870aa167d5a9439eace87a338e484b",
+  "sandboxId": "hypersonic-housings-alpha-review",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:c77151abde7b0fc995aa480b",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_0066527e56fd4b66e6678fcd2fc2431d",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_0_1.png",
+      "sha256": "8b9d5177c261587655c0bc6a1d81534c3370d371487d65a9122c65ceea39a342",
+      "bytes": 1046
+    },
+    {
+      "sourceId": "source_04fd23781127a6def6659f4f93f78ce9",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_left_0.png",
+      "sha256": "a2dc5e2d8921257046b1748e544e0e4c5bfafe032125e7a167c17d2ce91dec53",
+      "bytes": 8954
+    },
+    {
+      "sourceId": "source_0b7934ed10889755ab12d3f9303a1de0",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_right_3.png",
+      "sha256": "89cd4cc71c0c2cd3e08a45a61fe1b55fe24ef573b76fd871f06bead2a0e08b67",
+      "bytes": 10792
+    },
+    {
+      "sourceId": "source_0c3a00a3d2324b168002688af2150428",
+      "path": "work/vx94_banked_housings/proofs/fighter_right_2.png",
+      "sha256": "c77a099f064fad53c1a6053704c31fd838a09e83be24464751d132c7d4d66bcc",
+      "bytes": 9210
+    },
+    {
+      "sourceId": "source_11681662c84aea790c3f0217617bb271",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_0_0.png",
+      "sha256": "7c699e88820885da568cc489c03f79fe289bd4e189e6eb50d08981a3474ecd0b",
+      "bytes": 989
+    },
+    {
+      "sourceId": "source_14bc976729dff7dc599b3688959b740c",
+      "path": "work/vx94_banked_housings/proofs/bomber_left_3.png",
+      "sha256": "0a08b1165100adabc1f6706af057b0df554473ec2a14edc22e52953515f33a2f",
+      "bytes": 9861
+    },
+    {
+      "sourceId": "source_1940b27a9223a3228d73f1a9c440c5e6",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_1_0.png",
+      "sha256": "2cf28c15e7f166adc2d2435ad9eaf2d580c40b93dd646425b1e80f9c9d130bd3",
+      "bytes": 1066
+    },
+    {
+      "sourceId": "source_1b89d886c2b8bce17cb172427852f434",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_3_0.png",
+      "sha256": "e1e274f6ad84f015aad560ba007a2c36f067df84f004ffaa066f4b69c398599c",
+      "bytes": 1142
+    },
+    {
+      "sourceId": "source_1db4bc01d5d0042b87bf0ba0f187377d",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_neutral_1_0.png",
+      "sha256": "b7f20bffecde7ad77db2d0cb7ad29ad5d780a4220cb303438c52b4eb8aa754ad",
+      "bytes": 1136
+    },
+    {
+      "sourceId": "source_1e1581b53e32ae25442924b27d95d7a6",
+      "path": "work/vx94_banked_housings/proofs/fighter_right_3.png",
+      "sha256": "7db16a685c9153f57e58fa059027e3c520de15cd674957620f138fd3cdbca57a",
+      "bytes": 9222
+    },
+    {
+      "sourceId": "source_1f39d647f4c4425679eff4e714c6568b",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_0_0.png",
+      "sha256": "daf1bba67b903872046ce835849f300e2e8fd3287eb902d6100b63af477fa971",
+      "bytes": 1077
+    },
+    {
+      "sourceId": "source_1f7e751d5d32fdcc2ed8910b7c345b65",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_1_1.png",
+      "sha256": "dcf3ff38912b458d3bd8387e3e17718e5cb2f6d391c2a1e281a82705501c6bd2",
+      "bytes": 1112
+    },
+    {
+      "sourceId": "source_2051dc8a0b41731c25bb30d333f3f19e",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_1_1.png",
+      "sha256": "57eee2b5dd5c20178a06d894d6fb5917f60e27637b6a7ffc98ca6e73a532de08",
+      "bytes": 1074
+    },
+    {
+      "sourceId": "source_217e5270394d499ed6d4ffcc011b040b",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_3_1.png",
+      "sha256": "1422c4088c866b26e71af62f93d094427d5391ea8cd40dcbcb607299fc02c8b6",
+      "bytes": 1081
+    },
+    {
+      "sourceId": "source_2336a3618d4c76f7fef77caff2145698",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_0_1.png",
+      "sha256": "fb4cf42b658851f89a4f8821385e265a6d1d425cdf994e49809ed24e459bafd4",
+      "bytes": 1038
+    },
+    {
+      "sourceId": "source_2992128f84b71f114c1adcdbc4c16097",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_left_3_0.png",
+      "sha256": "7441edc25215aae4010b34accbc65cc35f24885c2c9d141185a4d791cf05f020",
+      "bytes": 1306
+    },
+    {
+      "sourceId": "source_333ad0b3e3949b9a04880c4bc265808a",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_1_1.png",
+      "sha256": "c41bdbfbcf2ca1512a4e4bca22d68e85817f5c8be85ac7e5d40063a1bb6158b2",
+      "bytes": 1042
+    },
+    {
+      "sourceId": "source_3d1b47861bfd0db328e53ab3c9cf06c1",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_right_1.png",
+      "sha256": "b2e8a2fae68ff28ca0852cf8b9e193b3e0283af3b8144f5e89445568c44be8b7",
+      "bytes": 10727
+    },
+    {
+      "sourceId": "source_3d29d6c8cabf7c12b6de5dd0823644e5",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_right_1_0.png",
+      "sha256": "e7068d8cb836dbaa90c7c7b326b9563082f734be0bbea534b490f2d4cc7e0219",
+      "bytes": 1215
+    },
+    {
+      "sourceId": "source_3fa7aca538b28cab943fc8e12d804422",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_right_0_0.png",
+      "sha256": "968d4922580898a71d11096e0b37cd67dfe5279ae42133fdac963b8b5413a005",
+      "bytes": 1179
+    },
+    {
+      "sourceId": "source_42a9f8ddcf5870f81fec4bb062cf8553",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_1_1.png",
+      "sha256": "a91b12302a4ff9ed8d037fcc53aa911a78f7cf01ab5f61f38bbd8d35bff5feb2",
+      "bytes": 1061
+    },
+    {
+      "sourceId": "source_42f239be7aba5600fdc11a4978af3baf",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_left_2.png",
+      "sha256": "992b9b473cd283f9a57e11f3288f8a0b359726e6b0716d21866709aa133ddd19",
+      "bytes": 10837
+    },
+    {
+      "sourceId": "source_4491304390e4c5d7067b7045f6a5fe5e",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_neutral_2_0.png",
+      "sha256": "5a069f10508dc7699130ddad199c5437be31623a0fea1ec1e47c5a1d5e590aba",
+      "bytes": 1157
+    },
+    {
+      "sourceId": "source_450f026c1c7aa1be6f7b8dc3da50f93d",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_left_1_0.png",
+      "sha256": "dfea5e637d731956e621634f917ecef6b3e4ab4570a3230309d9c3dd84ebb18a",
+      "bytes": 1291
+    },
+    {
+      "sourceId": "source_4588054e25d28f23ca9c34c25b8d8794",
+      "path": "work/vx94_banked_housings/proofs/fighter_neutral_2.png",
+      "sha256": "81cf482b34914859cad1e74aabcff10ec2c2444944090ed6f92bac26fb92e18f",
+      "bytes": 9119
+    },
+    {
+      "sourceId": "source_473d1e0442d257cf91c7f64a8ec7f0bd",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_left_3.png",
+      "sha256": "dee5d37d8349c0f5c2e0ee8db919b482bde7d24c872bff7fcb908dab518895c3",
+      "bytes": 8972
+    },
+    {
+      "sourceId": "source_48802d87c2023ffd5d205ed0313b2815",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_2_1.png",
+      "sha256": "bd4cd1e34b48b130642621b1717ae157b93b74691747987a46362b394e208068",
+      "bytes": 1063
+    },
+    {
+      "sourceId": "source_4b4df700d8310fcb49020005a92d9993",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_2_1.png",
+      "sha256": "b2b31c528365f93b984ce0a17e08b0c7ac268e8dd97a92b2b6b83adb340493ea",
+      "bytes": 1078
+    },
+    {
+      "sourceId": "source_4be740a5abef33efe06e6528ae06c380",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_right_1_0.png",
+      "sha256": "8eeab0127fd4dd91a47acae4d66612f4f0c61f2851932d7d1dc04a2bde671f54",
+      "bytes": 1324
+    },
+    {
+      "sourceId": "source_4de2543824392f1d53f1ee1bb2aa5007",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_2_0.png",
+      "sha256": "3524c641c9e0b0d2b50065bafca4577a9128fa726764c64799ad8eb2de21ffb9",
+      "bytes": 1058
+    },
+    {
+      "sourceId": "source_4fedc510628f9b532bc8c8c3b48c3d7a",
+      "path": "work/vx94_banked_housings/proofs/bomber_left_1.png",
+      "sha256": "5f293e7d13c8b883bc4657184c1a274b77b77655d9082ed78f180db65a9b16e4",
+      "bytes": 9820
+    },
+    {
+      "sourceId": "source_50b8d4bdda9cb5b8cb4d058a90381bf3",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_3_1.png",
+      "sha256": "6f7ded43e603e87d8b64e806ac888575c50df02f6898d57545f89bb613efa883",
+      "bytes": 1157
+    },
+    {
+      "sourceId": "source_524364bb55843e23fe9be42ff9729556",
+      "path": "work/vx94_banked_housings/proofs/fighter_left_0.png",
+      "sha256": "d88365baa4a349d6089e88b8cb0e6b8bf1d4d44d66f2561bdf7ada4f8f63ad75",
+      "bytes": 8770
+    },
+    {
+      "sourceId": "source_52a0f0cb93580eca38ff03b3efc8ba9d",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_left_2.png",
+      "sha256": "0fa259a3cea600e77c8c6bf8e02710bd6b47c3a54687b040c3b5b4c35578cf14",
+      "bytes": 8986
+    },
+    {
+      "sourceId": "source_554820fac87f9b5befca1c1dd9aa180e",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_0_0.png",
+      "sha256": "ce83472a11f83109f80dc546cb4836ecdb9d80cc64c1d9fcb5a14b3ae0f689ea",
+      "bytes": 1023
+    },
+    {
+      "sourceId": "source_5848af385b62cbab94237c6d46c65919",
+      "path": "work/vx94_banked_housings/proofs/fighter_right_0.png",
+      "sha256": "682b9660cd39c697dee44f24eddf89d62adcc78b078850bfa0f49bd5cd4fdb7a",
+      "bytes": 9226
+    },
+    {
+      "sourceId": "source_649a4802b26fb30a1bc8d287b78152d0",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_3_0.png",
+      "sha256": "5321e086c345c6cf842d0b06aabb59be6813f5985e12a9b2d6c266ab5c981f80",
+      "bytes": 1156
+    },
+    {
+      "sourceId": "source_66d9d72583b2741dd9a1fe6882989615",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_neutral_3_0.png",
+      "sha256": "2e8f2fb0bef1a773874f695333562da709996816cb229e8f1fb05b3a6352f2c0",
+      "bytes": 1161
+    },
+    {
+      "sourceId": "source_67830923a12bc9c0ba67334a1984c308",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_1_0.png",
+      "sha256": "d5ce2454653683f7603662606e1fc5ed08dfc2425e9a0d8cb0b1b3633d0cd228",
+      "bytes": 1060
+    },
+    {
+      "sourceId": "source_68071c4ea8b050f9b2f53116b5e42cdb",
+      "path": "work/vx94_banked_housings/proofs/bomber_right_2.png",
+      "sha256": "7416ed00dbb49e59870e63a952caccd5e0536aaa74c4001f1dcbce17223e1b04",
+      "bytes": 11090
+    },
+    {
+      "sourceId": "source_6c40a076fe5c58dda03480f67aa35d14",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_3_1.png",
+      "sha256": "0a7341335588c36632279dedefd0640277c96c4308fcf6f84ba949fbbb0e3924",
+      "bytes": 1068
+    },
+    {
+      "sourceId": "source_6c70bbcdcbd699e1a1db6c82c9f55cbd",
+      "path": "work/vx94_banked_housings/proofs/bomber_neutral_1.png",
+      "sha256": "4ee6f5e71fa5c0e2b6bb100d839b1d8eede819de0f0b860f5d93b6048b150085",
+      "bytes": 10945
+    },
+    {
+      "sourceId": "source_6f7c7b29892fd31cb8e8ba9f1278e189",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_2_0.png",
+      "sha256": "8ec44fd20c582299fb46d24e4ff152ed484a5e75568ddfa6aa96ce1eb2043eef",
+      "bytes": 1145
+    },
+    {
+      "sourceId": "source_724ec660c25b58343682410a684af6c6",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_1_0.png",
+      "sha256": "4885d4ccfedf8c42e7c104cbf50ee0e3d4562a72f73f1caf6d34a803f3ca651a",
+      "bytes": 1075
+    },
+    {
+      "sourceId": "source_73f630b087fffc0994fce5523519b27b",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_2_1.png",
+      "sha256": "f7aea825e70aab0ded922358f996ccad1b28b768a36df6bf3e628fce593bdf64",
+      "bytes": 1154
+    },
+    {
+      "sourceId": "source_76997840e9e69a7e3623ba884c92b867",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_right_3_0.png",
+      "sha256": "75168b4e860f70729750da93d0fa4215dac64b120c5508718c0f94acc017459f",
+      "bytes": 1438
+    },
+    {
+      "sourceId": "source_8000733a700877a8d1cf15c41f99b14a",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_left_0_0.png",
+      "sha256": "c64807f5f8fa08a7e42c906d3893611090f04243c17d566ebf93aea0956b5b45",
+      "bytes": 1074
+    },
+    {
+      "sourceId": "source_829530824e488f36e8c16877cf16c481",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_left_2_0.png",
+      "sha256": "e79817abbfff13a68a58bfedcd290cc6d8b1b8255420442175749a91f3a7d686",
+      "bytes": 1308
+    },
+    {
+      "sourceId": "source_836089c4029834bab87eb56774557a96",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_0_0.png",
+      "sha256": "8fb845dda0bd744a376adce351f246a68b89a53cce21d742244dff9548375ccc",
+      "bytes": 991
+    },
+    {
+      "sourceId": "source_858e02122ec4dce10d12cc348de56fa3",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_3_0.png",
+      "sha256": "fc7bfc474c6d8ba7e4d5450836c4f6f31f3a4ce608b89983399a320ea901850e",
+      "bytes": 1065
+    },
+    {
+      "sourceId": "source_87b51fa0acaa7842c12d73099a39cd5e",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_left_1.png",
+      "sha256": "576d36115c6cfc117593ee7c5ced2f2d2a1ae9765ec794c0bfcaff9ae447ba9b",
+      "bytes": 8973
+    },
+    {
+      "sourceId": "source_87d6cf68e2393d311621860ec47fb855",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_1_0.png",
+      "sha256": "f6b3d7ffe7368576f7ae29e592db4a32ddb6e907de35a0fe4bdcb70790674eb7",
+      "bytes": 1118
+    },
+    {
+      "sourceId": "source_887fe67d319fd1bf9ad0554da984a5d9",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_2_1.png",
+      "sha256": "d6728193b9cafdee3e7843116ad3fe3284ede85a1e4d04576b010a91b5b6da6f",
+      "bytes": 1042
+    },
+    {
+      "sourceId": "source_8b57782684580b35adc926d0ac84e1a7",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_2_1.png",
+      "sha256": "861b3feaabac4fad5fdd39c04b05f7eed2c503b57d6eb913e76c5019f61efbdb",
+      "bytes": 1112
+    },
+    {
+      "sourceId": "source_8ce34bafded0d4e837ecc773eb80f5d4",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_right_0_0.png",
+      "sha256": "c2d0045ee4c5da7079dbd3032204a0c74f0c3ece5e1da9b329e65353d2cd6c1a",
+      "bytes": 1075
+    },
+    {
+      "sourceId": "source_8f261763ac18b42dd7ecb8196333f9e8",
+      "path": "work/vx94_banked_housings/proofs/fighter_neutral_1.png",
+      "sha256": "5a46f75fb3116c2b41e86ec40e8a5039d59e28317011df489f9f6ee4ecd55b56",
+      "bytes": 9147
+    },
+    {
+      "sourceId": "source_9260817c33f75fb10ad26a77631c1d1d",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_0_1.png",
+      "sha256": "8de52835e9266f5f941385e37fc6bacac55dbad228db07bc09435304ff84b406",
+      "bytes": 991
+    },
+    {
+      "sourceId": "source_94f75a29a36799b6dcfe93018f969723",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_neutral_0_0.png",
+      "sha256": "49c81edab8da058e227f4e6c9faff2203ac5958f1ec1fd0b5d70edb160d13ab9",
+      "bytes": 1021
+    },
+    {
+      "sourceId": "source_9f610d43e61da774907e110cb95084ab",
+      "path": "work/vx94_banked_housings/proofs/fighter_neutral_3.png",
+      "sha256": "e6482f8b2de710e29a4c1086f253856557524af151fd4a90184c753e828022d8",
+      "bytes": 9117
+    },
+    {
+      "sourceId": "source_a0d224cddef193f9ed47e2c7bd679b45",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_right_0.png",
+      "sha256": "d2d2410777886511f981a999de11d26de31aa61f55459f2b3f43016d5ba17e1d",
+      "bytes": 10752
+    },
+    {
+      "sourceId": "source_a2feecd83896bba3a17fe09989a93f30",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_right_2_0.png",
+      "sha256": "196fc1ed89e0b94bc979e3add1f499b4b775eaea631f20540999203dda525102",
+      "bytes": 1381
+    },
+    {
+      "sourceId": "source_a35fa0a7610593496fe1e89b2917fcba",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_1_1.png",
+      "sha256": "2376e8106cfe3ddc2a80eb4f5aca32c867852ad08896ef0987cc6e41b1c38e30",
+      "bytes": 1076
+    },
+    {
+      "sourceId": "source_a3f69b2b5064e2527fe20443403f09c2",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_0_0.png",
+      "sha256": "3daf26d1de0bdc74b867eec20b05d97b9a5d6e8e12d95dec706407d28ecaf1c6",
+      "bytes": 1039
+    },
+    {
+      "sourceId": "source_a4c6d7652c33fec508988c0397b1914f",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_left_0_0.png",
+      "sha256": "1c726c088c8f56c590e1ae4171b2e03ebdc43fe180af4cc28655b1795181ed14",
+      "bytes": 1164
+    },
+    {
+      "sourceId": "source_a8445608503ffa3dec743e1aa6bf64b3",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_3_0.png",
+      "sha256": "7a00d3df1235f74270b323fa036ad32e0abcbf3d729479b596c3f3990c083f7a",
+      "bytes": 1061
+    },
+    {
+      "sourceId": "source_aab6aca292d5a1ce6def703f78667211",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_right_1.png",
+      "sha256": "5e8a125be42552de28498dbf484e2451811c621a4118a44b2433e46c1e5788de",
+      "bytes": 8882
+    },
+    {
+      "sourceId": "source_ab3880f6c3ede857f6041980efdf06fe",
+      "path": "work/vx94_banked_housings/proofs/fighter_right_1.png",
+      "sha256": "4d16d339d963d6dd0ff420ed2ebfbd5b2827b912e6f5b67d876782eb9eda7334",
+      "bytes": 9231
+    },
+    {
+      "sourceId": "source_ae9e2b04cc83646339e00616d716dfe2",
+      "path": "work/vx94_banked_housings/proofs/bomber_neutral_3.png",
+      "sha256": "cf69087275a738ca3502464913c1f106d92c0b7b361d4ab1fab7beb66e44fa40",
+      "bytes": 11007
+    },
+    {
+      "sourceId": "source_b1bf054833051ee3820acd3c3c9882be",
+      "path": "work/vx94_banked_housings/proofs/bomber_neutral_0.png",
+      "sha256": "2d6090fb3d26de84ca2b0a63c9711ec7b7523f76563a5fe2285b112cc096b701",
+      "bytes": 10912
+    },
+    {
+      "sourceId": "source_b4b56487a522caa0fca037887ea9847e",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_left_3.png",
+      "sha256": "397f5c1c7fdaea02986613b7cf60b03d61bb65b7a6f05dcefade45c991810144",
+      "bytes": 10888
+    },
+    {
+      "sourceId": "source_bed365c878a58aefbd3aa15719aa45e1",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_left_3_1.png",
+      "sha256": "999641bb8f22be64d1f0b8c4359d91c7e123eb55e901639c342ab6a56ef00259",
+      "bytes": 1140
+    },
+    {
+      "sourceId": "source_bf55be61187cbfb8caccbd0c0386b9cd",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_2_0.png",
+      "sha256": "20db331b8f753c0e4ec87cbe1f00bc5d619bd04f4ba52cc3b4949d98f952530b",
+      "bytes": 1063
+    },
+    {
+      "sourceId": "source_bfa3f519cb886ecef759f72daba7a3a0",
+      "path": "work/vx94_banked_housings/proofs/fighter_neutral_0.png",
+      "sha256": "986ec59c03d9fad3db0d6fdc73de23bf2edf504c4a9183c8f0d35512b7d43f0b",
+      "bytes": 9127
+    },
+    {
+      "sourceId": "source_c1a78fdff9742924ae1b817ea5b7112d",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_2_0.png",
+      "sha256": "522e13112b1ad7c12ea23fc7a0a3d2d47139d795a13712049758374f01242385",
+      "bytes": 1069
+    },
+    {
+      "sourceId": "source_c84da825a5a178e597d060b9258998b2",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_left_2_0.png",
+      "sha256": "e86dad34be69a3a67900d58769f8ad9f8b263cb218f05e74e4e2fdf5427742fb",
+      "bytes": 1376
+    },
+    {
+      "sourceId": "source_c95dd79600093a6d2a17674274da1ea5",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_hard_left_3_0.png",
+      "sha256": "eefd17a5ea7f0ddaeb1f8b94403717d5797ccf2370bef5c76ac60ccb12b3a1ea",
+      "bytes": 1436
+    },
+    {
+      "sourceId": "source_c994408305ba161e5fd7e9202c2747d1",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_left_1.png",
+      "sha256": "e08f51dc50adf6b8e211c4d3f3da70711ccf25a79f70e994ab55439118450ac6",
+      "bytes": 10814
+    },
+    {
+      "sourceId": "source_cdd4d620ed22ff6a81ac43bdfdc1aa60",
+      "path": "work/vx94_banked_housings/proofs/bomber_right_3.png",
+      "sha256": "f5a26339a184c10f73c25d1beaaf713805c2a89d0c70e61eb6a6962be7d07781",
+      "bytes": 11069
+    },
+    {
+      "sourceId": "source_d0ee7eb33a9be20b5cf90b3a64f634cc",
+      "path": "work/vx94_banked_housings/proofs/bomber_right_0.png",
+      "sha256": "94cb55a6e8a4273903aa071bca5aa0f6ad4fa96b9e265add358f2038204b1a32",
+      "bytes": 11020
+    },
+    {
+      "sourceId": "source_d4919a95fd19c74a6162b725d268b761",
+      "path": "work/vx94_banked_housings/proofs/bomber_neutral_2.png",
+      "sha256": "75022e91af9a866ce3dd3d0f479adf7ee17297f51eea7b06386665d002ec53f8",
+      "bytes": 11016
+    },
+    {
+      "sourceId": "source_d725ac3d3a4743a01c1d1897bd8d37e4",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_right_1_0.png",
+      "sha256": "311de3fd82768bf2d8bc1bc6d2a374bb38af87622f5b4a61a4ffb2d97dae8fe2",
+      "bytes": 1054
+    },
+    {
+      "sourceId": "source_d7bfeff7a49bc66a4f15c4bfc7d546f3",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_right_3_0.png",
+      "sha256": "bf051e51ea3951f0fc0930216ba3d7b3594a2d5053ed745c348a33e554508325",
+      "bytes": 1305
+    },
+    {
+      "sourceId": "source_db2365d4cd65e395d0a55acbedfa3d68",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_right_2.png",
+      "sha256": "3fcf853818c26d80a1d00bed23a84befed728071cc98f6de593a2f9ee83a7fd8",
+      "bytes": 8915
+    },
+    {
+      "sourceId": "source_e08596ca316b9a19674221256d5fb71c",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_neutral_0_1.png",
+      "sha256": "5a194f02dec6f02b570b6674ece22ca0612d096bfb6e6a9d71652b7526fc729f",
+      "bytes": 994
+    },
+    {
+      "sourceId": "source_e14e7827c8247ac1dbe0fb03be530363",
+      "path": "work/vx94_banked_housings/proofs/bomber_left_2.png",
+      "sha256": "323a9edf2818135385c75aecaacb2350fb73f25a51c05e29c9e477a46b15485a",
+      "bytes": 9819
+    },
+    {
+      "sourceId": "source_e23085fcf3b73e0eb486d9cba504baf9",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_2_0.png",
+      "sha256": "573e9cffe8e137df9eadf95426d8151ecd42b99dc97d533310037729dbbb9d1d",
+      "bytes": 1105
+    },
+    {
+      "sourceId": "source_e70a86166e89b7dfb8a53c855f79e356",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_right_2_0.png",
+      "sha256": "e87b4db5d2c1160d81c243695cd04f24ceefd7164ac979ad0f9d2e5061e6b772",
+      "bytes": 1257
+    },
+    {
+      "sourceId": "source_e844e19007f3d9083edde3cca3a99e21",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_right_0.png",
+      "sha256": "f05db78884741a675d1d7ee75da1b9b23647a3400366b384ae8109a4d3a444ae",
+      "bytes": 8854
+    },
+    {
+      "sourceId": "source_e93b0fe26f5df1ce3ad2e2fde9ab19dc",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_3_1.png",
+      "sha256": "5637bca5a1f6dfdf896205f7e214bddb5cbd1fe7871897f5b288a49662bead5b",
+      "bytes": 1047
+    },
+    {
+      "sourceId": "source_e9eb8a250890ad9bce1b9b8be3da5c09",
+      "path": "work/vx94_banked_housings/proofs/bomber_left_0.png",
+      "sha256": "3df78a9741cac3d0756cf75889c32c0e5b66f7cb3163b4218b31e21bb9c501fc",
+      "bytes": 9809
+    },
+    {
+      "sourceId": "source_ec901e802747daa003f0caedd2f826ed",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_left_3_0.png",
+      "sha256": "85d557f1def7bf7a3c804f6d1720a8ad86fd88c71e929a05638ab68f43fd2894",
+      "bytes": 1072
+    },
+    {
+      "sourceId": "source_edf37ca5d1f85c54619037b2f17a852c",
+      "path": "work/vx94_banked_housings/proofs/fighter_left_3.png",
+      "sha256": "8abe2113d001d57754822dd63d0502eb040077f0c7985dac65e5bd7514ad1050",
+      "bytes": 8711
+    },
+    {
+      "sourceId": "source_ee6f33292f34313f9884eede48079280",
+      "path": "work/vx94_banked_housings/proofs/fighter_left_1.png",
+      "sha256": "b3445ce238d2f0ba3f720ed23a500457cca0d18dc99be2bdb9b6cc8bdb471d08",
+      "bytes": 8752
+    },
+    {
+      "sourceId": "source_f1873e26fbac6083843ec28b2af0e943",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_left_0.png",
+      "sha256": "f8ababaeba6cf97dfbf6670fb30e84f20fdc6484db7940089f9d3987c082ff2c",
+      "bytes": 10828
+    },
+    {
+      "sourceId": "source_f608171b8f6ffa44d066c28096b2ce4a",
+      "path": "work/vx94_banked_housings/proofs/bomber_hard_right_2.png",
+      "sha256": "29c0f68b620bb0fb589ef55c4ca67f48878a309642d12d3be85c64ac3905b81d",
+      "bytes": 10724
+    },
+    {
+      "sourceId": "source_f662ac3685b5f391683e69bcdb10d925",
+      "path": "work/vx94_banked_housings/proofs/fighter_left_2.png",
+      "sha256": "94870cc0520661ef3eef608b1dd42743f2cf67e3e3db0165da5a9fe0ffeb456c",
+      "bytes": 8731
+    },
+    {
+      "sourceId": "source_f7d515567b3aa49ffe795d29a8034d99",
+      "path": "work/vx94_banked_housings/proofs/bomber_right_1.png",
+      "sha256": "41944ef49f61ed68a880598871f06789c0be05bb5933622c488d7fb1fbc33785",
+      "bytes": 11076
+    },
+    {
+      "sourceId": "source_f8a080362398849a6cd10c73cb291930",
+      "path": "work/vx94_banked_housings/layer_proofs/bomber_left_1_0.png",
+      "sha256": "38d582af9bbba25329efe387f8ccad22ceefb0c12c1c9658bda3a32b3f3a8bc4",
+      "bytes": 1226
+    },
+    {
+      "sourceId": "source_fa5e4f3c00275b9b0828e70e1d133985",
+      "path": "work/vx94_banked_housings/proofs/fighter_hard_right_3.png",
+      "sha256": "72d016c11225675727d59f61894153c09b471dd35458e70a94dacc889c996a53",
+      "bytes": 8932
+    },
+    {
+      "sourceId": "source_fafa74e7b16aed808c72cb373f8f0679",
+      "path": "work/vx94_banked_housings/layer_proofs/fighter_hard_right_0_1.png",
+      "sha256": "540ad73f2fd18aad5e4967e7a8aea11f176de77653aab7a41294a26e8a820de3",
+      "bytes": 1071
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "layer_proofs_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "layer_proofs_0.png",
+          "sha256": "37dcc038a0a8014d4cd217e053a678f637766c9a07c19c6df22014fcaaabde94",
+          "bytes": 7118,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "0061679e0185942704dab7ffdc77036565d6a7d988e66d4cb5857ffd2fb90e30"
+        }
+      ]
+    },
+    {
+      "taskId": "layer_proofs_10",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "layer_proofs_10.png",
+          "sha256": "bbb245bfcb6e70ea999044715f261560c9499e967a1cace24843bc0964686195",
+          "bytes": 5426,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "23f25b5e44407993a4d3842541b860ff6a8841853504f76d08fc00b0b4db2e14"
+        }
+      ]
+    },
+    {
+      "taskId": "layer_proofs_20",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "layer_proofs_20.png",
+          "sha256": "f7000986a5629224d00f0612250b0871145b0d1e2209353fd7c92d991f260ee4",
+          "bytes": 5308,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "b80be5f1d366b0e5b8faaa56614c56010c17ca9a873e308d06e48363eedcab3c"
+        }
+      ]
+    },
+    {
+      "taskId": "layer_proofs_30",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "layer_proofs_30.png",
+          "sha256": "d3de999554faeaa3b85696820762f023539afca2577b164d6499b5776af7951c",
+          "bytes": 4938,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "9f9829c9d39ebd101ccc7ab3342f5aba34db0e7eacfdf3d186e98d398872ce99"
+        }
+      ]
+    },
+    {
+      "taskId": "layer_proofs_40",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "layer_proofs_40.png",
+          "sha256": "0dc7c605642559dc99eb70ba13612cc0dbab24f75af7963db66b111a52f48614",
+          "bytes": 4110,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "95f9d6835e1cc0e361b89aff814b378b63f5807ef3b01dad9e6f4655cc35bc09"
+        }
+      ]
+    },
+    {
+      "taskId": "layer_proofs_50",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "layer_proofs_50.png",
+          "sha256": "e73e22e2c0c6dfef505e85c70a153425804224da4dccebbedbd9b5bd0532e317",
+          "bytes": 4220,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "513ac91023313eb07cad1890de17dc06f7c174af0830f6c3eb5838db16130d07"
+        }
+      ]
+    },
+    {
+      "taskId": "proofs_0",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "proofs_0.png",
+          "sha256": "ca2e0412f1f0f23eb5b47b7c20c71c10010b9b069567345210518a3f1868b7ab",
+          "bytes": 93686,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "7b21fffdd15c4f54cc63119632d7cc0c16c874f77f1627a349589edccf0579f1"
+        }
+      ]
+    },
+    {
+      "taskId": "proofs_10",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "proofs_10.png",
+          "sha256": "c5808d6aa6e9238d9af2bcaff1cf52bc6ea057bb8ba04a21d0fad344c3056560",
+          "bytes": 86620,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "565d1df9a741812b329064bafcb2af78c662c8192ed8456a5935338749ca09ba"
+        }
+      ]
+    },
+    {
+      "taskId": "proofs_20",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "proofs_20.png",
+          "sha256": "0a7d9c474f114f11c539067a32071772293fb1ef10ee96133527e3f8122ceb55",
+          "bytes": 72798,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "108dedf50017dd953b72ae9515faa4b8f127d316c8362f49b028021ffbd3800f"
+        }
+      ]
+    },
+    {
+      "taskId": "proofs_30",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 10,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 3,
+          "sourceIndex": 3,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 4,
+          "sourceIndex": 4,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 5,
+          "sourceIndex": 5,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 6,
+          "sourceIndex": 6,
+          "maskSourceIndex": null,
+          "x": 240,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 7,
+          "sourceIndex": 7,
+          "maskSourceIndex": null,
+          "x": 480,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 8,
+          "sourceIndex": 8,
+          "maskSourceIndex": null,
+          "x": 720,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        },
+        {
+          "index": 9,
+          "sourceIndex": 9,
+          "maskSourceIndex": null,
+          "x": 960,
+          "y": 176,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "maskSourceRect": null,
+          "width": 240,
+          "height": 176
+        }
+      ],
+      "outputs": [
+        {
+          "path": "proofs_30.png",
+          "sha256": "992fc97c9b40a6637ee68af0691872fd41d299b8fa154992a801d4ac4a29941e",
+          "bytes": 66574,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 1200,
+            "height": 352
+          },
+          "alpha": {
+            "transparentPixels": 0,
+            "partialPixels": 0,
+            "opaquePixels": 422400
+          },
+          "alphaBoundingBox": [
+            0,
+            0,
+            1200,
+            352
+          ],
+          "pixelSha256": "74666fc439dec6f5832e6fc5dc6c0a6f6b753f664e7c20e91c906eb2fe86dd22"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "layer_proofs_0.png",
+      "sha256": "37dcc038a0a8014d4cd217e053a678f637766c9a07c19c6df22014fcaaabde94",
+      "bytes": 7118,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "0061679e0185942704dab7ffdc77036565d6a7d988e66d4cb5857ffd2fb90e30"
+    },
+    {
+      "path": "layer_proofs_10.png",
+      "sha256": "bbb245bfcb6e70ea999044715f261560c9499e967a1cace24843bc0964686195",
+      "bytes": 5426,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "23f25b5e44407993a4d3842541b860ff6a8841853504f76d08fc00b0b4db2e14"
+    },
+    {
+      "path": "layer_proofs_20.png",
+      "sha256": "f7000986a5629224d00f0612250b0871145b0d1e2209353fd7c92d991f260ee4",
+      "bytes": 5308,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "b80be5f1d366b0e5b8faaa56614c56010c17ca9a873e308d06e48363eedcab3c"
+    },
+    {
+      "path": "layer_proofs_30.png",
+      "sha256": "d3de999554faeaa3b85696820762f023539afca2577b164d6499b5776af7951c",
+      "bytes": 4938,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "9f9829c9d39ebd101ccc7ab3342f5aba34db0e7eacfdf3d186e98d398872ce99"
+    },
+    {
+      "path": "layer_proofs_40.png",
+      "sha256": "0dc7c605642559dc99eb70ba13612cc0dbab24f75af7963db66b111a52f48614",
+      "bytes": 4110,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "95f9d6835e1cc0e361b89aff814b378b63f5807ef3b01dad9e6f4655cc35bc09"
+    },
+    {
+      "path": "layer_proofs_50.png",
+      "sha256": "e73e22e2c0c6dfef505e85c70a153425804224da4dccebbedbd9b5bd0532e317",
+      "bytes": 4220,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "513ac91023313eb07cad1890de17dc06f7c174af0830f6c3eb5838db16130d07"
+    },
+    {
+      "path": "proofs_0.png",
+      "sha256": "ca2e0412f1f0f23eb5b47b7c20c71c10010b9b069567345210518a3f1868b7ab",
+      "bytes": 93686,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "7b21fffdd15c4f54cc63119632d7cc0c16c874f77f1627a349589edccf0579f1"
+    },
+    {
+      "path": "proofs_10.png",
+      "sha256": "c5808d6aa6e9238d9af2bcaff1cf52bc6ea057bb8ba04a21d0fad344c3056560",
+      "bytes": 86620,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "565d1df9a741812b329064bafcb2af78c662c8192ed8456a5935338749ca09ba"
+    },
+    {
+      "path": "proofs_20.png",
+      "sha256": "0a7d9c474f114f11c539067a32071772293fb1ef10ee96133527e3f8122ceb55",
+      "bytes": 72798,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "108dedf50017dd953b72ae9515faa4b8f127d316c8362f49b028021ffbd3800f"
+    },
+    {
+      "path": "proofs_30.png",
+      "sha256": "992fc97c9b40a6637ee68af0691872fd41d299b8fa154992a801d4ac4a29941e",
+      "bytes": 66574,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 1200,
+        "height": 352
+      },
+      "alpha": {
+        "transparentPixels": 0,
+        "partialPixels": 0,
+        "opaquePixels": 422400
+      },
+      "alphaBoundingBox": [
+        0,
+        0,
+        1200,
+        352
+      ],
+      "pixelSha256": "74666fc439dec6f5832e6fc5dc6c0a6f6b753f664e7c20e91c906eb2fe86dd22"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 100,
+    "externalSourceBytes": 461342,
+    "plannedMaximumOutputFiles": 11,
+    "taskOutputFiles": 10,
+    "taskOutputBytes": 350798,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "d72f804726ba0616a209f4e9a3c198371ccd8f0425b548a0e81a9fad4ea7a4c1"
+}

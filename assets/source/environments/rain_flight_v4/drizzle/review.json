@@ -1,0 +1,27 @@
+{
+  "status": "native_drizzle_art_review_completed_not_runtime_integration",
+  "native_frames": 120,
+  "reviewed_frames": [
+    18,
+    54,
+    84,
+    114
+  ],
+  "speed_range": [
+    0.62,
+    1.78
+  ],
+  "atmosphere_head_samples": 8064,
+  "maximum_head_error_pixels": 6.103515625e-05,
+  "capture_invulnerable": true,
+  "finding": "Drizzle is sparse and subtle over the dense refinery. Gunfire, lock reticle and radio remain legible in the inspected frames. This does not establish whole-mission readability.",
+  "first_capture": "Preserved in work/rain_flight_v4/native_drizzle. Aircraft died before completion; frame 114 is debrief and cannot establish combat-weather acceptance.",
+  "open": [
+    "altitude blending",
+    "orbital exclusion",
+    "reduced effects",
+    "audio mix",
+    "production adapter",
+    "normal-play validation"
+  ]
+}

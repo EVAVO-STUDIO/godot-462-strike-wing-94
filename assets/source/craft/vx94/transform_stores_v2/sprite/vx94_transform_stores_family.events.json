@@ -1,0 +1,956 @@
+{
+  "animations": [
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_empty_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_hunter_rack_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_left_expended_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_hunter_rack_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_hunter_rack_loaded_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_hunter_rack_loaded"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_empty_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_left_expended_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "bomber_twin_rocket_pods_loaded_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "bomber_twin_rocket_pods_loaded"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_empty_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_hunter_rack_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_left_expended_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_hunter_rack_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_hunter_rack_loaded_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_hunter_rack_loaded"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_empty_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_twin_rocket_pods_empty"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_left_expended_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_twin_rocket_pods_left_expended"
+    },
+    {
+      "duration_seconds": 0.555555556,
+      "events": [],
+      "fps": 18.0,
+      "frames": [
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_00",
+          "index": 0,
+          "start_seconds": 0.0
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_01",
+          "index": 1,
+          "start_seconds": 0.055555556
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_02",
+          "index": 2,
+          "start_seconds": 0.111111111
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_03",
+          "index": 3,
+          "start_seconds": 0.166666667
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_04",
+          "index": 4,
+          "start_seconds": 0.222222222
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_05",
+          "index": 5,
+          "start_seconds": 0.277777778
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_06",
+          "index": 6,
+          "start_seconds": 0.333333333
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_07",
+          "index": 7,
+          "start_seconds": 0.388888889
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_08",
+          "index": 8,
+          "start_seconds": 0.444444444
+        },
+        {
+          "duration_seconds": 0.055555556,
+          "events": [],
+          "frame": "hypersonic_twin_rocket_pods_loaded_09",
+          "index": 9,
+          "start_seconds": 0.5
+        }
+      ],
+      "loop": false,
+      "name": "hypersonic_twin_rocket_pods_loaded"
+    }
+  ],
+  "asset": "vx94_transform_stores_family",
+  "schema_version": 1,
+  "tool": "evavo-sprite-studio",
+  "tool_version": "0.5.0"
+}

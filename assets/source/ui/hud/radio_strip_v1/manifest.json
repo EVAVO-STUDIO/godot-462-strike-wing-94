@@ -1,0 +1,18 @@
+{
+  "asset_family": "combat_radio_instrumentation",
+  "status": "runtime_v1",
+  "source_directory": "res://assets/source/ui/hud/radio_strip_v1/originals/",
+  "finished_directory": "res://assets/source/ui/hud/radio_strip_v1/finished/",
+  "runtime_directory": "res://assets/runtime/ui/hud/radio/",
+  "canvas": [608, 18],
+  "states": {
+    "radio_receive.png": "cyan channel trace, amber carrier meter and cool avionics frame",
+    "radio_priority.png": "red priority carrier, higher-amplitude trace and alert frame"
+  },
+  "visual_contract": {
+    "era": "late-1990s tactical transceiver instrumentation",
+    "purpose": "make routine and urgent radio traffic distinct without covering the aircraft or lower battlefield",
+    "avoid": ["portrait dialogue box", "modern chat bubble", "neon hologram", "large cinematic subtitle plate"]
+  },
+  "finishing": "EVAVO Art Studio exact-size PNG finishing from immutable SVG originals"
+}

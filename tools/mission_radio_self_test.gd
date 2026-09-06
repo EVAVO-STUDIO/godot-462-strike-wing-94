@@ -7,10 +7,15 @@ func _initialize() -> void:
 	var source := _source("res://scripts/mission_radio_director.gd")
 	for token in ["current_briefing", "boss_spawned", "status_text", "egress_active", "BREAK THE MACH GATE", "COASTWATCH", "ORACLE", "SKYWARD", "subtitles_enabled", "RADIO_TX", "RADIO_ALERT", "RX //"]:
 		_expect(source.contains(token), "mission radio missing production contract: %s" % token, failures)
-	_expect(source.contains("RADIO_STRIP") and source.contains("Rect2(16, 337, 608, 18)"), "combat radio should use a compact authored edge strip instead of a lower-playfield dialogue box", failures)
+	_expect(source.contains("RADIO_RECEIVE_STRIP") and source.contains("RADIO_PRIORITY_STRIP") and source.contains("Rect2(16, 337, 608, 18)"), "combat radio should use compact authored receive and priority strips instead of a lower-playfield dialogue box", failures)
+	_expect(source.contains("--capture-radio-alert"), "visual QA should expose the priority radio treatment deterministically", failures)
+	for asset_name in ["radio_receive", "radio_priority"]:
+		var texture=load("res://assets/runtime/ui/hud/radio/%s.png"%asset_name)
+		_expect(texture is Texture2D and texture.get_size()==Vector2(608,18),"radio instrumentation should retain native strip geometry: %s"%asset_name,failures)
 	_expect(source.contains("func _flight_warning_active()") and source.contains('status.begins_with("CM ")') and source.contains("LOW ALT OVERSPEED") and source.contains("HULL CRITICAL"), "defensive confirmations and flight-critical warnings should preempt routine radio traffic in the shared status lane", failures)
 	_expect(source.contains("func occupies_status_lane") and source.contains("not _message.is_empty() and _subtitles_enabled()"), "visible radio subtitles should publish ownership of the shared lower status lane", failures)
 	_expect(source.contains("_capture_time() > INTRO_DELAY + INTRO_SECONDS"), "mid-mission visual QA must not replay the launch briefing", failures)
+	_expect(source.contains('scene.call("_active_mission")') and source.contains('sector.begins_with("S1")') and source.contains('sector.begins_with("S2")') and source.contains('sector.begins_with("S3")'), "secret-sortie radio should derive its command callsign from the active sector", failures)
 	_expect(not source.contains("Rect2(18, 263, 292, 43)"), "obsolete oversized combat radio panel should remain removed", failures)
 	_expect(not source.contains('scene.set(') and not source.contains("CampaignSave"), "mission radio must remain presentation-only", failures)
 	var rules := _source("res://scripts/retro_sfx_rules.gd")

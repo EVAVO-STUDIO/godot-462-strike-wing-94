@@ -1,0 +1,437 @@
+{
+	"frames": [
+		{
+			"frame": 0,
+			"mission_time": 48.6166666666667,
+			"speed_multiplier": 0.9593,
+			"world_distance": 48.6142925
+		},
+		{
+			"frame": 1,
+			"mission_time": 48.7013888888889,
+			"speed_multiplier": 0.924818055555556,
+			"world_distance": 48.6938133815586
+		},
+		{
+			"frame": 2,
+			"mission_time": 48.7982824444444,
+			"speed_multiplier": 0.885382378444445,
+			"world_distance": 48.7809264966077
+		},
+		{
+			"frame": 3,
+			"mission_time": 48.8905073333333,
+			"speed_multiplier": 0.847846848666667,
+			"world_distance": 48.860359190575
+		},
+		{
+			"frame": 4,
+			"mission_time": 48.9874913333333,
+			"speed_multiplier": 0.808374360666667,
+			"world_distance": 48.940350332974
+		},
+		{
+			"frame": 5,
+			"mission_time": 49.0874796666666,
+			"speed_multiplier": 0.767679109,
+			"world_distance": 49.018803450455
+		},
+		{
+			"frame": 6,
+			"mission_time": 49.1874276666666,
+			"speed_multiplier": 0.727000273,
+			"world_distance": 49.0931597434075
+		},
+		{
+			"frame": 7,
+			"mission_time": 49.287386,
+			"speed_multiplier": 0.686317231333333,
+			"world_distance": 49.1634572901284
+		},
+		{
+			"frame": 8,
+			"mission_time": 49.387386,
+			"speed_multiplier": 0.645617231333333,
+			"world_distance": 49.229714846595
+		},
+		{
+			"frame": 9,
+			"mission_time": 49.487386,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.2923173748284
+		},
+		{
+			"frame": 10,
+			"mission_time": 49.587386,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.3543173748284
+		},
+		{
+			"frame": 11,
+			"mission_time": 49.6873653333333,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.4163045614951
+		},
+		{
+			"frame": 12,
+			"mission_time": 49.7873583333333,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.4783002214951
+		},
+		{
+			"frame": 13,
+			"mission_time": 49.8873583333333,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.5403002214951
+		},
+		{
+			"frame": 14,
+			"mission_time": 49.9873259999999,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.6022801748284
+		},
+		{
+			"frame": 15,
+			"mission_time": 50.0873259999999,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.6642801748284
+		},
+		{
+			"frame": 16,
+			"mission_time": 50.1873259999999,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.7262801748285
+		},
+		{
+			"frame": 17,
+			"mission_time": 50.2873259999999,
+			"speed_multiplier": 0.62,
+			"world_distance": 49.7882801748285
+		},
+		{
+			"frame": 18,
+			"mission_time": 50.3873259999999,
+			"speed_multiplier": 0.6607,
+			"world_distance": 49.8526543414951
+		},
+		{
+			"frame": 19,
+			"mission_time": 50.4873259999999,
+			"speed_multiplier": 0.7014,
+			"world_distance": 49.9210985081618
+		},
+		{
+			"frame": 20,
+			"mission_time": 50.5873259999999,
+			"speed_multiplier": 0.7421,
+			"world_distance": 49.9936126748285
+		},
+		{
+			"frame": 21,
+			"mission_time": 50.6873259999999,
+			"speed_multiplier": 0.7828,
+			"world_distance": 50.0701968414951
+		},
+		{
+			"frame": 22,
+			"mission_time": 50.7873223333332,
+			"speed_multiplier": 0.823498507666667,
+			"world_distance": 50.150847963795
+		},
+		{
+			"frame": 23,
+			"mission_time": 50.8873223333332,
+			"speed_multiplier": 0.864198507666667,
+			"world_distance": 50.2355719812284
+		},
+		{
+			"frame": 24,
+			"mission_time": 50.9873223333332,
+			"speed_multiplier": 0.904898507666666,
+			"world_distance": 50.3243659986617
+		},
+		{
+			"frame": 25,
+			"mission_time": 51.0873223333332,
+			"speed_multiplier": 0.945598507666666,
+			"world_distance": 50.417230016095
+		},
+		{
+			"frame": 26,
+			"mission_time": 51.1872963333332,
+			"speed_multiplier": 0.986287925666666,
+			"world_distance": 50.5141382136756
+		},
+		{
+			"frame": 27,
+			"mission_time": 51.2872963333332,
+			"speed_multiplier": 1.02698792566667,
+			"world_distance": 50.615141172909
+		},
+		{
+			"frame": 28,
+			"mission_time": 51.3872963333332,
+			"speed_multiplier": 1.06768792566667,
+			"world_distance": 50.7202141321423
+		},
+		{
+			"frame": 29,
+			"mission_time": 51.4707079999999,
+			"speed_multiplier": 1.101636474,
+			"world_distance": 50.8109716960925
+		},
+		{
+			"frame": 30,
+			"mission_time": 51.5707003333332,
+			"speed_multiplier": 1.14233335366667,
+			"world_distance": 50.9235007002645
+		},
+		{
+			"frame": 31,
+			"mission_time": 51.6707003333332,
+			"speed_multiplier": 1.18303335366667,
+			"world_distance": 51.0401082022979
+		},
+		{
+			"frame": 32,
+			"mission_time": 51.7707003333332,
+			"speed_multiplier": 1.22373335366667,
+			"world_distance": 51.1607857043312
+		},
+		{
+			"frame": 33,
+			"mission_time": 51.8707003333332,
+			"speed_multiplier": 1.26443335366667,
+			"world_distance": 51.2855332063645
+		},
+		{
+			"frame": 34,
+			"mission_time": 51.9707003333332,
+			"speed_multiplier": 1.30513335366667,
+			"world_distance": 51.4143507083978
+		},
+		{
+			"frame": 35,
+			"mission_time": 52.0707003333332,
+			"speed_multiplier": 1.34583335366667,
+			"world_distance": 51.5472382104312
+		},
+		{
+			"frame": 36,
+			"mission_time": 52.1540763333332,
+			"speed_multiplier": 1.36,
+			"world_distance": 51.6605058886526
+		},
+		{
+			"frame": 37,
+			"mission_time": 52.2540106666665,
+			"speed_multiplier": 1.36,
+			"world_distance": 51.796416581986
+		},
+		{
+			"frame": 38,
+			"mission_time": 52.3540106666665,
+			"speed_multiplier": 1.36,
+			"world_distance": 51.9324165819859
+		},
+		{
+			"frame": 39,
+			"mission_time": 52.4540106666665,
+			"speed_multiplier": 1.36,
+			"world_distance": 52.0684165819859
+		},
+		{
+			"frame": 40,
+			"mission_time": 52.5540106666665,
+			"speed_multiplier": 1.36,
+			"world_distance": 52.2044165819859
+		},
+		{
+			"frame": 41,
+			"mission_time": 52.6540106666665,
+			"speed_multiplier": 1.36,
+			"world_distance": 52.3404165819859
+		},
+		{
+			"frame": 42,
+			"mission_time": 52.7540106666665,
+			"speed_multiplier": 1.36,
+			"world_distance": 52.4764165819859
+		},
+		{
+			"frame": 43,
+			"mission_time": 52.8540106666665,
+			"speed_multiplier": 1.36,
+			"world_distance": 52.6124165819859
+		},
+		{
+			"frame": 44,
+			"mission_time": 52.9540106666664,
+			"speed_multiplier": 1.36,
+			"world_distance": 52.7484165819859
+		},
+		{
+			"frame": 45,
+			"mission_time": 53.0540106666664,
+			"speed_multiplier": 1.36,
+			"world_distance": 52.8844165819859
+		},
+		{
+			"frame": 46,
+			"mission_time": 53.1540106666664,
+			"speed_multiplier": 1.36,
+			"world_distance": 53.0204165819859
+		},
+		{
+			"frame": 47,
+			"mission_time": 53.2540106666664,
+			"speed_multiplier": 1.36,
+			"world_distance": 53.1564165819859
+		},
+		{
+			"frame": 48,
+			"mission_time": 53.3540106666664,
+			"speed_multiplier": 1.58,
+			"world_distance": 53.3052499153192
+		},
+		{
+			"frame": 49,
+			"mission_time": 53.4540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 53.4757499153192
+		},
+		{
+			"frame": 50,
+			"mission_time": 53.5540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 53.6537499153192
+		},
+		{
+			"frame": 51,
+			"mission_time": 53.6540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 53.8317499153192
+		},
+		{
+			"frame": 52,
+			"mission_time": 53.7540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 54.0097499153192
+		},
+		{
+			"frame": 53,
+			"mission_time": 53.8540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 54.1877499153192
+		},
+		{
+			"frame": 54,
+			"mission_time": 53.9540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 54.3657499153192
+		},
+		{
+			"frame": 55,
+			"mission_time": 54.0540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 54.5437499153191
+		},
+		{
+			"frame": 56,
+			"mission_time": 54.1540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 54.7217499153191
+		},
+		{
+			"frame": 57,
+			"mission_time": 54.2540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 54.8997499153191
+		},
+		{
+			"frame": 58,
+			"mission_time": 54.3540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 55.0777499153191
+		},
+		{
+			"frame": 59,
+			"mission_time": 54.4540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 55.2557499153191
+		},
+		{
+			"frame": 60,
+			"mission_time": 54.5540106666664,
+			"speed_multiplier": 1.78,
+			"world_distance": 55.4337499153191
+		},
+		{
+			"frame": 61,
+			"mission_time": 54.6540106666664,
+			"speed_multiplier": 1.81666666666667,
+			"world_distance": 55.6123610264302
+		},
+		{
+			"frame": 62,
+			"mission_time": 54.7540106666663,
+			"speed_multiplier": 2.03666666666667,
+			"world_distance": 55.8068610264301
+		},
+		{
+			"frame": 63,
+			"mission_time": 54.8540106666663,
+			"speed_multiplier": 2.25666666666667,
+			"world_distance": 56.0233610264302
+		},
+		{
+			"frame": 64,
+			"mission_time": 54.9540106666663,
+			"speed_multiplier": 2.47666666666667,
+			"world_distance": 56.2618610264302
+		},
+		{
+			"frame": 65,
+			"mission_time": 55.0540106666663,
+			"speed_multiplier": 2.69666666666667,
+			"world_distance": 56.5223610264302
+		},
+		{
+			"frame": 66,
+			"mission_time": 55.1540106666663,
+			"speed_multiplier": 2.91666666666667,
+			"world_distance": 56.8048610264302
+		},
+		{
+			"frame": 67,
+			"mission_time": 55.2540106666663,
+			"speed_multiplier": 3.13666666666667,
+			"world_distance": 57.1093610264302
+		},
+		{
+			"frame": 68,
+			"mission_time": 55.3540106666663,
+			"speed_multiplier": 3.35666666666667,
+			"world_distance": 57.4358610264301
+		},
+		{
+			"frame": 69,
+			"mission_time": 55.4540106666663,
+			"speed_multiplier": 3.57666666666666,
+			"world_distance": 57.7843610264301
+		},
+		{
+			"frame": 70,
+			"mission_time": 55.5540106666663,
+			"speed_multiplier": 3.79666666666666,
+			"world_distance": 58.1548610264301
+		},
+		{
+			"frame": 71,
+			"mission_time": 55.6540106666663,
+			"speed_multiplier": 4.01666666666666,
+			"world_distance": 58.5473610264301
+		}
+	],
+	"scope": "Actual production cloud renderer with refined low-altitude family, firing, throttle and afterburner input"
+}

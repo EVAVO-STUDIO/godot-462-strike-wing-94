@@ -1,0 +1,677 @@
+{
+	"frames": [
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.272083666666667,
+			"travel": 0.160894154666667,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.408726666666667,
+			"travel": 0.177837886666667,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.533333333333333,
+			"travel": 0.193289113333334,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.671337666666667,
+			"travel": 0.225611250925199,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.813123333333334,
+			"travel": 0.274951664483961,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 0.948880333333334,
+			"travel": 0.333030380759786,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.08333333333333,
+			"travel": 0.397959576054967,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.21492233333333,
+			"travel": 0.466611677370542,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.342413,
+			"travel": 0.536594501982672,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.472746,
+			"travel": 0.610688385397569,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.60432,
+			"travel": 0.687379309155554,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.74998666666667,
+			"travel": 0.773864512625665,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 1.88332,
+			"travel": 0.854061067349516,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.01665333333333,
+			"travel": 0.934957821468533,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.13614533333333,
+			"travel": 1.00788753167224,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.26947866666667,
+			"travel": 1.08961350040475,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.40489533333333,
+			"travel": 1.17288894339002,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.54327333333333,
+			"travel": 1.2581876215205,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.673536,
+			"travel": 1.33861714562465,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.81322033333333,
+			"travel": 1.4249661958864,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 2.93697,
+			"travel": 1.501528488553,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 3.068233,
+			"travel": 1.58278616761323,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 3.20156633333333,
+			"travel": 1.66536132842884,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.62,
+			"time": 3.33489966666667,
+			"travel": 1.74796242828812,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.675068863666667,
+			"time": 3.470204,
+			"travel": 1.85485090820263,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.730692197,
+			"time": 3.60687066666667,
+			"travel": 1.98177862471677,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.788219340666667,
+			"time": 3.748215,
+			"travel": 2.12987012272695,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.843212502333333,
+			"time": 3.88333333333333,
+			"travel": 2.28416903503947,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.893861617333333,
+			"time": 4.00777833333333,
+			"travel": 2.43562606819924,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 0.948471249333333,
+			"time": 4.14195433333333,
+			"travel": 2.60965317823213,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.00193680433333,
+			"time": 4.27331933333333,
+			"travel": 2.78864727781105,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.05619397433333,
+			"time": 4.40662933333333,
+			"travel": 2.97207910873775,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.10970185733333,
+			"time": 4.53809833333333,
+			"travel": 3.15563566782401,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.16622963511111,
+			"time": 4.67698722222222,
+			"travel": 3.35383269255733,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.21968126166667,
+			"time": 4.808318,
+			"travel": 3.54511556922265,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.27154486466667,
+			"time": 4.935747,
+			"travel": 3.73497491674015,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.57221153133333,
+			"time": 5.07241366666667,
+			"travel": 4.00233910784276,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.2,
+			"travel": 4.28030353318665,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.33887366666667,
+			"travel": 4.56720733658401,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.471063,
+			"travel": 4.8294262644339,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.60776066666667,
+			"travel": 5.09264738810748,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.742246,
+			"travel": 5.34597783170221,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 5.87347066666667,
+			"travel": 5.58931805845182,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.00727066666667,
+			"travel": 5.83462880381948,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.14872766666667,
+			"travel": 6.09178129511661,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 1.78,
+			"time": 6.27096733333333,
+			"travel": 6.31269410984291,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 2.06387186666667,
+			"time": 6.4,
+			"travel": 6.59848652187328,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 2.383185,
+			"time": 6.54514233333333,
+			"travel": 6.97551425047819,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 2.67651833333333,
+			"time": 6.67847566666667,
+			"travel": 7.36234375177434,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 2.97455233333333,
+			"time": 6.81394566666667,
+			"travel": 7.79456364576308,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 3.2438492,
+			"time": 6.93635333333333,
+			"travel": 8.21545059536373,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 3.56596073333333,
+			"time": 7.08276766666667,
+			"travel": 8.76279725033312,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 3.85929406666667,
+			"time": 7.216101,
+			"travel": 9.29655572845303,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": false,
+			"speed": 4.1389126,
+			"time": 7.34320033333334,
+			"travel": 9.83787151149986,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 3.86728666666667,
+			"time": 7.46666666666667,
+			"travel": 10.3242429390099,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 3.56208433333333,
+			"time": 7.605395,
+			"travel": 10.8223902752014,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 3.28062,
+			"time": 7.73333333333334,
+			"travel": 11.2410205563678,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 2.95978666666667,
+			"time": 7.87916666666667,
+			"travel": 11.6653762254601,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 2.67378666666667,
+			"time": 8.00916666666667,
+			"travel": 12.0013658016613,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 2.39991233333333,
+			"time": 8.133655,
+			"travel": 12.2834872900871,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 2.10118606666667,
+			"time": 8.26943966666667,
+			"travel": 12.5422903797093,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.7973734,
+			"time": 8.40753633333333,
+			"travel": 12.7526903981358,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.4968138,
+			"time": 8.54415433333334,
+			"travel": 12.905895607857,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.67697333333333,
+			"travel": 13.0372826640471,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.80499666666667,
+			"travel": 13.1771442385285,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 8.94388555555556,
+			"travel": 13.3393970527786,
+			"weight": 1.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.06822,
+			"travel": 13.4913497143434,
+			"weight": 0.89188309178744
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.208342,
+			"travel": 13.668019712583,
+			"weight": 0.770037874396135
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.34182066666667,
+			"travel": 13.8401521970098,
+			"weight": 0.653969468599034
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.47858833333334,
+			"travel": 14.0192851841336,
+			"weight": 0.535041062801932
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.606733,
+			"travel": 14.1889416410875,
+			"weight": 0.423610917874396
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.73829266666667,
+			"travel": 14.3644334807378,
+			"weight": 0.309211207729469
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 9.87995933333334,
+			"travel": 14.5544738909657,
+			"weight": 0.186022801932367
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.006626,
+			"travel": 14.7250632689149,
+			"weight": 0.0758778743961352
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.145001,
+			"travel": 14.911936617612,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.2752996666667,
+			"travel": 15.0882571712641,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.406086,
+			"travel": 15.265485144882,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.5359763333333,
+			"travel": 15.4416761326437,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.6804207777778,
+			"travel": 15.6377572665564,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.8081985555556,
+			"travel": 15.8113066214674,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 10.9356006666667,
+			"travel": 15.9844079456887,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 11.0740426666667,
+			"travel": 16.1725599362401,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 11.2149606666667,
+			"travel": 16.3641157020221,
+			"weight": 0.0
+		},
+		{
+			"profile": "snow",
+			"reduced": true,
+			"speed": 1.36,
+			"time": 11.3399606666667,
+			"travel": 16.534056783257,
+			"weight": 0.0
+		}
+	],
+	"scope": "Native integrated weather: staged speed, reduced flashes, low-to-high altitude fade. Invulnerable; not survival evidence."
+}

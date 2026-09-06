@@ -1,0 +1,6 @@
+{
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\scripts\\combat_fx_director.gd",
+  "sha256": "5a544f236035e0749c957926e850ef6540f16796be501394eda641b70a824605",
+  "status": "art_preview_not_production_integration",
+  "change": "Hold the existing breakup pose at zero under the early blast, through ratio 0.32 inclusive. Existing late breakup remains unchanged."
+}

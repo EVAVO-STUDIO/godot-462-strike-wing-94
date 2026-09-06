@@ -1,0 +1,269 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "intel-icons-review",
+  "projectId": "hypersonic",
+  "purpose": "Original then revised intelligence symbols, 4x native",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "icons",
+      "kind": "image-composite",
+      "sources": [
+        "work/mission_intel_icons_v2/originals/icon_threat.png",
+        "work/mission_intel_icons_v2/originals/icon_envelope.png",
+        "work/mission_intel_icons_v2/originals/icon_profile.png",
+        "work/mission_intel_icons_v2/originals/icon_lanes.png",
+        "work/mission_intel_icons_v2/originals/icon_routes.png",
+        "work/mission_intel_icons_v2/originals/icon_boss.png",
+        "work/mission_intel_icons_v2/originals/icon_allied.png",
+        "work/mission_intel_icons_v2/originals/icon_advice.png",
+        "work/mission_intel_icons_v2/icons/icon_threat.png",
+        "work/mission_intel_icons_v2/icons/icon_envelope.png",
+        "work/mission_intel_icons_v2/icons/icon_profile.png",
+        "work/mission_intel_icons_v2/icons/icon_lanes.png",
+        "work/mission_intel_icons_v2/icons/icon_routes.png",
+        "work/mission_intel_icons_v2/icons/icon_boss.png",
+        "work/mission_intel_icons_v2/icons/icon_allied.png",
+        "work/mission_intel_icons_v2/icons/icon_advice.png"
+      ],
+      "targetPath": "icons.png",
+      "canvas": {
+        "width": 512,
+        "height": 128,
+        "background": "#111e27"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 256,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 5,
+          "x": 320,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 6,
+          "x": 384,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 7,
+          "x": 448,
+          "y": 0,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 8,
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 9,
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 10,
+          "x": 128,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 11,
+          "x": 192,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 12,
+          "x": 256,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 13,
+          "x": 320,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 14,
+          "x": 384,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 15,
+          "x": 448,
+          "y": 64,
+          "width": 64,
+          "height": 64,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

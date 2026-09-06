@@ -1,0 +1,1612 @@
+{
+  "source_hashes": {
+    "missions": "b2e8c04be39411a80316440e7689df539c9faf82f64d2b20bae59b76b2e28bee",
+    "secret_missions": "c03e93d2dc8d5d7563f35cf6d18c12eb90ee08abcdb71de03503abc5f3df166d",
+    "campaign": "c771ea7885538d97db0586094f9ba23e0d1c5f886fd32c64ed9cac8df92360ba",
+    "campaign_world": "48f6ee0600f26552373c9b7685286ad9ade37dc209e1718e9c0027274d43cad2",
+    "weapons": "71e45c2df3cdaa2a762d475e7bbe96d9c9bbe838c81440b32b3ca67ac0cdec02",
+    "support_systems": "6ffb773360813f14e161a88638bcf89a1ef9774bf65d1fc56dfb7f035c275afc",
+    "airframes": "30cb0a1893849015746d2bf8f19260b3d2f84db1e1bb3d0604268379bc7f4ed4",
+    "game_modes": "ddd06c0090b09dbe01cae3c95e923ac86a0c198367b020bd26d44614eb61b481"
+  },
+  "scope": "Static design audit, not playtesting. Cruise-distance boss gate assumes uninterrupted fixed throttle and excludes mode overrides.",
+  "missions": [
+    {
+      "order": 1,
+      "id": "m01_coastal_intercept",
+      "name": "Coastal Intercept",
+      "duration": 150.0,
+      "boss": "gunship_alpha",
+      "boss_gate_route_units": 108.0,
+      "minimum_power_boss_arrival_seconds": 174.19,
+      "afterburner_boss_arrival_seconds": 60.67,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 96.0,
+      "maximum_authored_beat_gap": 32.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_ace",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.72,
+            "minimum_shots": 70
+          }
+        }
+      ],
+      "environment": "coast",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 150,
+          "label": "CLOSE ON COMMAND FLIGHT",
+          "required": true
+        },
+        {
+          "id": "destroy_boss",
+          "type": "destroy_enemy",
+          "enemy_id": "gunship_alpha",
+          "count": 1,
+          "label": "DESTROY GUNSHIP ALPHA",
+          "required": true
+        },
+        {
+          "id": "egress",
+          "type": "hypersonic_egress",
+          "seconds": 1.25,
+          "label": "CLIMB + BREAK MACH GATE",
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "m02_refinery_run",
+      "name": "Refinery Run",
+      "duration": 180.0,
+      "boss": "armoured_train",
+      "boss_gate_route_units": 129.6,
+      "minimum_power_boss_arrival_seconds": 209.03,
+      "afterburner_boss_arrival_seconds": 72.81,
+      "beat_count": 6,
+      "first_beat": 8.0,
+      "last_beat": 116.0,
+      "maximum_authored_beat_gap": 40.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "low_attack_window",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "low",
+            "form": "bomber"
+          }
+        },
+        {
+          "id": "hidden_stockpile",
+          "condition": {
+            "type": "score_at_least",
+            "value": 6500
+          }
+        }
+      ],
+      "environment": "industrial",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "destroy_train",
+          "type": "destroy_enemy",
+          "enemy_id": "armoured_train",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 180,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "m03_black_sea",
+      "name": "Black Sea",
+      "duration": 210.0,
+      "boss": "missile_cruiser",
+      "boss_gate_route_units": 151.2,
+      "minimum_power_boss_arrival_seconds": 243.87,
+      "afterburner_boss_arrival_seconds": 84.94,
+      "beat_count": 5,
+      "first_beat": 9.0,
+      "last_beat": 136.0,
+      "maximum_authored_beat_gap": 46.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_intercept",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 3
+          }
+        }
+      ],
+      "environment": "open_water",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "sink_cruiser",
+          "type": "destroy_enemy",
+          "enemy_id": "missile_cruiser",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 210,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "id": "m04_breakwater",
+      "name": "Breakwater",
+      "duration": 170.0,
+      "boss": "gunship_alpha",
+      "boss_gate_route_units": 122.39999999999999,
+      "minimum_power_boss_arrival_seconds": 197.42,
+      "afterburner_boss_arrival_seconds": 68.76,
+      "beat_count": 6,
+      "first_beat": 6.0,
+      "last_beat": 108.0,
+      "maximum_authored_beat_gap": 38.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "high_intercept_route",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "high",
+            "form": "fighter"
+          }
+        },
+        {
+          "id": "hidden_hunters",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.76,
+            "minimum_shots": 110
+          }
+        }
+      ],
+      "environment": "coast",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 170,
+          "required": true
+        },
+        {
+          "id": "destroy_command_gunship",
+          "type": "destroy_enemy",
+          "enemy_id": "gunship_alpha",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "id": "m05_furnace_line",
+      "name": "Furnace Line",
+      "duration": 195.0,
+      "boss": "armoured_train",
+      "boss_gate_route_units": 140.4,
+      "minimum_power_boss_arrival_seconds": 226.45,
+      "afterburner_boss_arrival_seconds": 78.88,
+      "beat_count": 6,
+      "first_beat": 8.0,
+      "last_beat": 126.0,
+      "maximum_authored_beat_gap": 43.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "low_bomber_route",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "low",
+            "form": "bomber"
+          }
+        },
+        {
+          "id": "hidden_armoury",
+          "condition": {
+            "type": "score_at_least",
+            "value": 12000
+          }
+        }
+      ],
+      "environment": "industrial",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 195,
+          "required": true
+        },
+        {
+          "id": "destroy_train",
+          "type": "destroy_enemy",
+          "enemy_id": "armoured_train",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "id": "m06_black_flag",
+      "name": "Black Flag",
+      "duration": 225.0,
+      "boss": "missile_cruiser",
+      "boss_gate_route_units": 162.0,
+      "minimum_power_boss_arrival_seconds": 261.29,
+      "afterburner_boss_arrival_seconds": 91.01,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 145.0,
+      "maximum_authored_beat_gap": 51.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_last_chance",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 2
+          }
+        }
+      ],
+      "environment": "open_water",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 225,
+          "required": true
+        },
+        {
+          "id": "sink_flagship",
+          "type": "destroy_enemy",
+          "enemy_id": "missile_cruiser",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "id": "s1_m07_desert_lance",
+      "name": "Desert Lance",
+      "duration": 205.0,
+      "boss": "armoured_train",
+      "boss_gate_route_units": 147.6,
+      "minimum_power_boss_arrival_seconds": 238.06,
+      "afterburner_boss_arrival_seconds": 82.92,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 142.0,
+      "maximum_authored_beat_gap": 40.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "buried_fuel_dump",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "low",
+            "form": "bomber"
+          }
+        }
+      ],
+      "environment": "industrial",
+      "variant": "desert_front",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 205,
+          "required": true
+        },
+        {
+          "id": "break_railhead",
+          "type": "destroy_enemy",
+          "enemy_id": "armoured_train",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "id": "s1_m08_river_hammer",
+      "name": "River Hammer",
+      "duration": 215.0,
+      "boss": "missile_cruiser",
+      "boss_gate_route_units": 154.79999999999998,
+      "minimum_power_boss_arrival_seconds": 249.68,
+      "afterburner_boss_arrival_seconds": 86.97,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 151.0,
+      "maximum_authored_beat_gap": 44.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "floodgate_cache",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 3
+          }
+        }
+      ],
+      "environment": "open_water",
+      "variant": "river_corridor",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 215,
+          "required": true
+        },
+        {
+          "id": "silence_cruiser",
+          "type": "destroy_enemy",
+          "enemy_id": "missile_cruiser",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "id": "s1_m09_mountain_eye",
+      "name": "Mountain Eye",
+      "duration": 220.0,
+      "boss": "gunship_alpha",
+      "boss_gate_route_units": 158.4,
+      "minimum_power_boss_arrival_seconds": 255.48,
+      "afterburner_boss_arrival_seconds": 88.99,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 157.0,
+      "maximum_authored_beat_gap": 44.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "summit_vector",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.78,
+            "minimum_shots": 120
+          }
+        }
+      ],
+      "environment": "high_cloud",
+      "variant": "mountain_radar",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 220,
+          "required": true
+        },
+        {
+          "id": "destroy_eye",
+          "type": "destroy_enemy",
+          "enemy_id": "gunship_alpha",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "id": "s1_m10_night_harbor",
+      "name": "Night Harbor",
+      "duration": 235.0,
+      "boss": "missile_cruiser",
+      "boss_gate_route_units": 169.2,
+      "minimum_power_boss_arrival_seconds": 272.9,
+      "afterburner_boss_arrival_seconds": 95.06,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 171.0,
+      "maximum_authored_beat_gap": 47.0,
+      "beats_after_boss_gate": [
+        "vesper_last_screen"
+      ],
+      "secrets": [
+        {
+          "id": "sealed_machine_hold",
+          "condition": {
+            "type": "score_at_least",
+            "value": 18500
+          }
+        }
+      ],
+      "environment": "coast",
+      "variant": "night_harbor",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 235,
+          "required": true
+        },
+        {
+          "id": "sink_command_fleet",
+          "type": "destroy_enemy",
+          "enemy_id": "missile_cruiser",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "id": "m07_ghost_sky",
+      "name": "Ghost Sky",
+      "duration": 205.0,
+      "boss": "swarm_controller",
+      "boss_gate_route_units": 147.6,
+      "minimum_power_boss_arrival_seconds": 238.06,
+      "afterburner_boss_arrival_seconds": 82.92,
+      "beat_count": 6,
+      "first_beat": 6.0,
+      "last_beat": 132.0,
+      "maximum_authored_beat_gap": 37.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "high_hunter_route",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "high",
+            "form": "fighter"
+          }
+        },
+        {
+          "id": "hidden_signal",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.78,
+            "minimum_shots": 130
+          }
+        }
+      ],
+      "environment": "high_cloud",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 205,
+          "required": true
+        },
+        {
+          "id": "destroy_controller",
+          "type": "destroy_enemy",
+          "enemy_id": "swarm_controller",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "id": "m08_machine_furnace",
+      "name": "Machine Furnace",
+      "duration": 220.0,
+      "boss": "ai_forge_core",
+      "boss_gate_route_units": 158.4,
+      "minimum_power_boss_arrival_seconds": 255.48,
+      "afterburner_boss_arrival_seconds": 88.99,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 148.0,
+      "maximum_authored_beat_gap": 43.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_core_route",
+          "condition": {
+            "type": "score_at_least",
+            "value": 17500
+          }
+        }
+      ],
+      "environment": "industrial",
+      "variant": "machine_furnace",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 220,
+          "required": true
+        },
+        {
+          "id": "destroy_forge",
+          "type": "destroy_enemy",
+          "enemy_id": "ai_forge_core",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "id": "s2_m03_broken_truce",
+      "name": "Broken Truce",
+      "duration": 210.0,
+      "boss": "swarm_controller",
+      "boss_gate_route_units": 151.2,
+      "minimum_power_boss_arrival_seconds": 243.87,
+      "afterburner_boss_arrival_seconds": 84.94,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 150.0,
+      "maximum_authored_beat_gap": 41.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "truce_courier",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.76,
+            "minimum_shots": 115
+          }
+        }
+      ],
+      "environment": "coast",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 210,
+          "required": true
+        },
+        {
+          "id": "break_override",
+          "type": "destroy_enemy",
+          "enemy_id": "swarm_controller",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "id": "s2_m04_dead_factory",
+      "name": "Dead Factory",
+      "duration": 225.0,
+      "boss": "ai_forge_core",
+      "boss_gate_route_units": 162.0,
+      "minimum_power_boss_arrival_seconds": 261.29,
+      "afterburner_boss_arrival_seconds": 91.01,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 163.0,
+      "maximum_authored_beat_gap": 45.0,
+      "beats_after_boss_gate": [
+        "forge_conveyor"
+      ],
+      "secrets": [
+        {
+          "id": "manual_shutdown",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "low",
+            "form": "bomber"
+          }
+        }
+      ],
+      "environment": "industrial",
+      "variant": "machine_furnace",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 225,
+          "required": true
+        },
+        {
+          "id": "cold_shutdown",
+          "type": "destroy_enemy",
+          "enemy_id": "ai_forge_core",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "id": "s2_m05_iron_rain",
+      "name": "Iron Rain",
+      "duration": 230.0,
+      "boss": "swarm_controller",
+      "boss_gate_route_units": 165.6,
+      "minimum_power_boss_arrival_seconds": 267.1,
+      "afterburner_boss_arrival_seconds": 93.03,
+      "beat_count": 5,
+      "first_beat": 6.0,
+      "last_beat": 168.0,
+      "maximum_authored_beat_gap": 49.0,
+      "beats_after_boss_gate": [
+        "shepherd_ring"
+      ],
+      "secrets": [
+        {
+          "id": "storm_ace_vector",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "high",
+            "form": "fighter"
+          }
+        }
+      ],
+      "environment": "high_cloud",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 230,
+          "required": true
+        },
+        {
+          "id": "kill_shepherd",
+          "type": "destroy_enemy",
+          "enemy_id": "swarm_controller",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "id": "s2_m06_ghost_convoy",
+      "name": "Ghost Convoy",
+      "duration": 235.0,
+      "boss": "armoured_train",
+      "boss_gate_route_units": 169.2,
+      "minimum_power_boss_arrival_seconds": 272.9,
+      "afterburner_boss_arrival_seconds": 95.06,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 174.0,
+      "maximum_authored_beat_gap": 47.0,
+      "beats_after_boss_gate": [
+        "foundry_train_shell"
+      ],
+      "secrets": [
+        {
+          "id": "seed_manifest",
+          "condition": {
+            "type": "score_at_least",
+            "value": 22000
+          }
+        }
+      ],
+      "environment": "industrial",
+      "variant": "city_outskirts",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 235,
+          "required": true
+        },
+        {
+          "id": "destroy_seed_train",
+          "type": "destroy_enemy",
+          "enemy_id": "armoured_train",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "id": "s2_m07_red_circuit",
+      "name": "Red Circuit",
+      "duration": 240.0,
+      "boss": "phase_control_array",
+      "boss_gate_route_units": 172.79999999999998,
+      "minimum_power_boss_arrival_seconds": 278.71,
+      "afterburner_boss_arrival_seconds": 97.08,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 178.0,
+      "maximum_authored_beat_gap": 49.0,
+      "beats_after_boss_gate": [
+        "field_array_guard"
+      ],
+      "secrets": [
+        {
+          "id": "red_substation",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 2
+          }
+        }
+      ],
+      "environment": "coast",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 240,
+          "required": true
+        },
+        {
+          "id": "cut_red_circuit",
+          "type": "destroy_enemy",
+          "enemy_id": "phase_control_array",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "id": "s2_m08_swarm_sea",
+      "name": "Swarm Sea",
+      "duration": 245.0,
+      "boss": "swarm_controller",
+      "boss_gate_route_units": 176.4,
+      "minimum_power_boss_arrival_seconds": 284.52,
+      "afterburner_boss_arrival_seconds": 99.1,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 183.0,
+      "maximum_authored_beat_gap": 50.0,
+      "beats_after_boss_gate": [
+        "ocean_swarm_wall"
+      ],
+      "secrets": [
+        {
+          "id": "submerged_cradle",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "low",
+            "form": "bomber"
+          }
+        }
+      ],
+      "environment": "open_water",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 245,
+          "required": true
+        },
+        {
+          "id": "sink_swarm_core",
+          "type": "destroy_enemy",
+          "enemy_id": "swarm_controller",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 19,
+      "id": "s2_m09_silent_city",
+      "name": "Silent City",
+      "duration": 250.0,
+      "boss": "ai_forge_core",
+      "boss_gate_route_units": 180.0,
+      "minimum_power_boss_arrival_seconds": 290.32,
+      "afterburner_boss_arrival_seconds": 101.12,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 187.0,
+      "maximum_authored_beat_gap": 52.0,
+      "beats_after_boss_gate": [
+        "distributed_forge"
+      ],
+      "secrets": [
+        {
+          "id": "civil_defence_vault",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.8,
+            "minimum_shots": 145
+          }
+        }
+      ],
+      "environment": "industrial",
+      "variant": "city_outskirts",
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 250,
+          "required": true
+        },
+        {
+          "id": "collapse_city_forge",
+          "type": "destroy_enemy",
+          "enemy_id": "ai_forge_core",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "id": "s2_m10_machine_crown",
+      "name": "Machine Crown",
+      "duration": 260.0,
+      "boss": "phase_control_array",
+      "boss_gate_route_units": 187.2,
+      "minimum_power_boss_arrival_seconds": 301.94,
+      "afterburner_boss_arrival_seconds": 105.17,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 197.0,
+      "maximum_authored_beat_gap": 53.0,
+      "beats_after_boss_gate": [
+        "black_sky_gate"
+      ],
+      "secrets": [
+        {
+          "id": "crown_blind_spot",
+          "condition": {
+            "type": "altitude_form",
+            "altitude": "high",
+            "form": "fighter"
+          }
+        }
+      ],
+      "environment": "high_cloud",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 260,
+          "required": true
+        },
+        {
+          "id": "destroy_crown",
+          "type": "destroy_enemy",
+          "enemy_id": "phase_control_array",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "id": "m09_black_horizon",
+      "name": "Black Horizon",
+      "duration": 240.0,
+      "boss": "orbital_command_node",
+      "boss_gate_route_units": 172.79999999999998,
+      "minimum_power_boss_arrival_seconds": 278.71,
+      "afterburner_boss_arrival_seconds": 97.08,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 168.0,
+      "maximum_authored_beat_gap": 54.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_station_vector",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 2
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 240,
+          "required": true
+        },
+        {
+          "id": "destroy_orbital_node",
+          "type": "destroy_enemy",
+          "enemy_id": "orbital_command_node",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 22,
+      "id": "s3_m02_thin_blue_line",
+      "name": "Thin Blue Line",
+      "duration": 255.0,
+      "boss": "orbital_command_node",
+      "boss_gate_route_units": 183.6,
+      "minimum_power_boss_arrival_seconds": 296.13,
+      "afterburner_boss_arrival_seconds": 103.15,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 191.0,
+      "maximum_authored_beat_gap": 52.0,
+      "beats_after_boss_gate": [
+        "blockade_node"
+      ],
+      "secrets": [
+        {
+          "id": "weather_satellite",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.81,
+            "minimum_shots": 150
+          }
+        }
+      ],
+      "environment": "high_cloud",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 255,
+          "required": true
+        },
+        {
+          "id": "break_blockade",
+          "type": "destroy_enemy",
+          "enemy_id": "orbital_command_node",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 23,
+      "id": "m10_blue_fire",
+      "name": "Blue Fire",
+      "duration": 250.0,
+      "boss": "phase_control_array",
+      "boss_gate_route_units": 180.0,
+      "minimum_power_boss_arrival_seconds": 290.32,
+      "afterburner_boss_arrival_seconds": 101.12,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 174.0,
+      "maximum_authored_beat_gap": 53.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_field_test",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.8,
+            "minimum_shots": 150
+          }
+        }
+      ],
+      "environment": "high_cloud",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 250,
+          "required": true
+        },
+        {
+          "id": "destroy_phase_array",
+          "type": "destroy_enemy",
+          "enemy_id": "phase_control_array",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 24,
+      "id": "s3_m04_kinetic_dawn",
+      "name": "Kinetic Dawn",
+      "duration": 270.0,
+      "boss": "station_warden",
+      "boss_gate_route_units": 194.4,
+      "minimum_power_boss_arrival_seconds": 313.55,
+      "afterburner_boss_arrival_seconds": 109.21,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 204.0,
+      "maximum_authored_beat_gap": 57.0,
+      "beats_after_boss_gate": [
+        "rail_platform_shell"
+      ],
+      "secrets": [
+        {
+          "id": "blind_orbit",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 2
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 270,
+          "required": true
+        },
+        {
+          "id": "seize_rail_platform",
+          "type": "destroy_enemy",
+          "enemy_id": "station_warden",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 25,
+      "id": "s3_m05_orbitfall",
+      "name": "Orbitfall",
+      "duration": 275.0,
+      "boss": "orbital_command_node",
+      "boss_gate_route_units": 198.0,
+      "minimum_power_boss_arrival_seconds": 319.35,
+      "afterburner_boss_arrival_seconds": 111.24,
+      "beat_count": 5,
+      "first_beat": 7.0,
+      "last_beat": 210.0,
+      "maximum_authored_beat_gap": 60.0,
+      "beats_after_boss_gate": [
+        "orbitfall_control"
+      ],
+      "secrets": [
+        {
+          "id": "launch_site_vector",
+          "condition": {
+            "type": "score_at_least",
+            "value": 31000
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 275,
+          "required": true
+        },
+        {
+          "id": "stop_orbitfall",
+          "type": "destroy_enemy",
+          "enemy_id": "orbital_command_node",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 26,
+      "id": "m11_cold_station",
+      "name": "Cold Station",
+      "duration": 270.0,
+      "boss": "station_warden",
+      "boss_gate_route_units": 194.4,
+      "minimum_power_boss_arrival_seconds": 313.55,
+      "afterburner_boss_arrival_seconds": 109.21,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 190.0,
+      "maximum_authored_beat_gap": 60.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_maintenance_ring",
+          "condition": {
+            "type": "score_at_least",
+            "value": 26000
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 270,
+          "required": true
+        },
+        {
+          "id": "destroy_warden",
+          "type": "destroy_enemy",
+          "enemy_id": "station_warden",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 27,
+      "id": "s3_m07_dead_satellite",
+      "name": "Dead Satellite",
+      "duration": 280.0,
+      "boss": "station_warden",
+      "boss_gate_route_units": 201.6,
+      "minimum_power_boss_arrival_seconds": 325.16,
+      "afterburner_boss_arrival_seconds": 113.26,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 216.0,
+      "maximum_authored_beat_gap": 61.0,
+      "beats_after_boss_gate": [
+        "lattice_warden"
+      ],
+      "secrets": [
+        {
+          "id": "cold_antenna_route",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.82,
+            "minimum_shots": 165
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 280,
+          "required": true
+        },
+        {
+          "id": "destroy_lattice_warden",
+          "type": "destroy_enemy",
+          "enemy_id": "station_warden",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 28,
+      "id": "s3_m08_black_sky",
+      "name": "Black Sky",
+      "duration": 290.0,
+      "boss": "phase_control_array",
+      "boss_gate_route_units": 208.79999999999998,
+      "minimum_power_boss_arrival_seconds": 336.77,
+      "afterburner_boss_arrival_seconds": 117.3,
+      "beat_count": 5,
+      "first_beat": 8.0,
+      "last_beat": 225.0,
+      "maximum_authored_beat_gap": 63.0,
+      "beats_after_boss_gate": [
+        "curtain_anchor"
+      ],
+      "secrets": [
+        {
+          "id": "dark_side_gap",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 2
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 290,
+          "required": true
+        },
+        {
+          "id": "tear_field_curtain",
+          "type": "destroy_enemy",
+          "enemy_id": "phase_control_array",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 29,
+      "id": "s3_m09_last_horizon",
+      "name": "Last Horizon",
+      "duration": 295.0,
+      "boss": "orbital_command_node",
+      "boss_gate_route_units": 212.4,
+      "minimum_power_boss_arrival_seconds": 342.58,
+      "afterburner_boss_arrival_seconds": 119.33,
+      "beat_count": 5,
+      "first_beat": 9.0,
+      "last_beat": 232.0,
+      "maximum_authored_beat_gap": 65.0,
+      "beats_after_boss_gate": [
+        "last_horizon_wall"
+      ],
+      "secrets": [
+        {
+          "id": "command_shell_gap",
+          "condition": {
+            "type": "accuracy_at_least",
+            "value": 0.83,
+            "minimum_shots": 180
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 295,
+          "required": true
+        },
+        {
+          "id": "break_outer_command",
+          "type": "destroy_enemy",
+          "enemy_id": "orbital_command_node",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 30,
+      "id": "m12_machine_ark",
+      "name": "Machine Ark",
+      "duration": 300.0,
+      "boss": "machine_ark",
+      "boss_gate_route_units": 216.0,
+      "minimum_power_boss_arrival_seconds": 348.39,
+      "afterburner_boss_arrival_seconds": 121.35,
+      "beat_count": 5,
+      "first_beat": 9.0,
+      "last_beat": 214.0,
+      "maximum_authored_beat_gap": 65.0,
+      "beats_after_boss_gate": [],
+      "secrets": [
+        {
+          "id": "hidden_core_vector",
+          "condition": {
+            "type": "bombs_at_least",
+            "value": 2
+          }
+        }
+      ],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 300,
+          "required": true
+        },
+        {
+          "id": "destroy_machine_ark",
+          "type": "destroy_enemy",
+          "enemy_id": "machine_ark",
+          "count": 1,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 31,
+      "id": "sm01_black_wake",
+      "name": "Black Wake",
+      "duration": 145.0,
+      "boss": "gunship_alpha",
+      "boss_gate_route_units": 104.39999999999999,
+      "minimum_power_boss_arrival_seconds": 168.39,
+      "afterburner_boss_arrival_seconds": 58.65,
+      "beat_count": 3,
+      "first_beat": 7.0,
+      "last_beat": 88.0,
+      "maximum_authored_beat_gap": 42.0,
+      "beats_after_boss_gate": [],
+      "secrets": [],
+      "environment": "open_water",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "destroy_command",
+          "type": "destroy_enemy",
+          "enemy_id": "gunship_alpha",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 145,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 32,
+      "id": "sm02_furnace_vault",
+      "name": "Furnace Vault",
+      "duration": 155.0,
+      "boss": "armoured_train",
+      "boss_gate_route_units": 111.6,
+      "minimum_power_boss_arrival_seconds": 180.0,
+      "afterburner_boss_arrival_seconds": 62.7,
+      "beat_count": 3,
+      "first_beat": 8.0,
+      "last_beat": 97.0,
+      "maximum_authored_beat_gap": 46.0,
+      "beats_after_boss_gate": [],
+      "secrets": [],
+      "environment": "industrial",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "destroy_train",
+          "type": "destroy_enemy",
+          "enemy_id": "armoured_train",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 155,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 33,
+      "id": "sm03_dead_frequency",
+      "name": "Dead Frequency",
+      "duration": 160.0,
+      "boss": "ai_forge_core",
+      "boss_gate_route_units": 115.19999999999999,
+      "minimum_power_boss_arrival_seconds": 185.81,
+      "afterburner_boss_arrival_seconds": 64.72,
+      "beat_count": 3,
+      "first_beat": 7.0,
+      "last_beat": 101.0,
+      "maximum_authored_beat_gap": 49.0,
+      "beats_after_boss_gate": [],
+      "secrets": [],
+      "environment": "high_cloud",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "destroy_core",
+          "type": "destroy_enemy",
+          "enemy_id": "ai_forge_core",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 160,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 34,
+      "id": "sm04_seed_manifest",
+      "name": "Seed Manifest",
+      "duration": 165.0,
+      "boss": "swarm_controller",
+      "boss_gate_route_units": 118.8,
+      "minimum_power_boss_arrival_seconds": 191.61,
+      "afterburner_boss_arrival_seconds": 66.74,
+      "beat_count": 3,
+      "first_beat": 8.0,
+      "last_beat": 108.0,
+      "maximum_authored_beat_gap": 52.0,
+      "beats_after_boss_gate": [],
+      "secrets": [],
+      "environment": "industrial",
+      "variant": "city_outskirts",
+      "required_objectives": [
+        {
+          "id": "destroy_crown",
+          "type": "destroy_enemy",
+          "enemy_id": "swarm_controller",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 165,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 35,
+      "id": "sm05_submerged_cradle",
+      "name": "Submerged Cradle",
+      "duration": 170.0,
+      "boss": "phase_control_array",
+      "boss_gate_route_units": 122.39999999999999,
+      "minimum_power_boss_arrival_seconds": 197.42,
+      "afterburner_boss_arrival_seconds": 68.76,
+      "beat_count": 3,
+      "first_beat": 7.0,
+      "last_beat": 112.0,
+      "maximum_authored_beat_gap": 54.0,
+      "beats_after_boss_gate": [],
+      "secrets": [],
+      "environment": "open_water",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "destroy_array",
+          "type": "destroy_enemy",
+          "enemy_id": "phase_control_array",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 170,
+          "required": true
+        }
+      ]
+    },
+    {
+      "order": 36,
+      "id": "sm06_dead_satellite",
+      "name": "Dead Satellite",
+      "duration": 175.0,
+      "boss": "orbital_command_node",
+      "boss_gate_route_units": 126.0,
+      "minimum_power_boss_arrival_seconds": 203.23,
+      "afterburner_boss_arrival_seconds": 70.79,
+      "beat_count": 3,
+      "first_beat": 8.0,
+      "last_beat": 116.0,
+      "maximum_authored_beat_gap": 55.0,
+      "beats_after_boss_gate": [],
+      "secrets": [],
+      "environment": "orbital",
+      "variant": null,
+      "required_objectives": [
+        {
+          "id": "destroy_command_ship",
+          "type": "destroy_enemy",
+          "enemy_id": "orbital_command_node",
+          "count": 1,
+          "required": true
+        },
+        {
+          "id": "survive",
+          "type": "survive",
+          "seconds": 175,
+          "required": true
+        }
+      ]
+    }
+  ],
+  "mode_bosses": {
+    "arcade_assault": [
+      "gunship_alpha",
+      "armoured_train",
+      "missile_cruiser",
+      "missile_cruiser",
+      "swarm_controller",
+      "ai_forge_core",
+      "phase_control_array",
+      "phase_control_array",
+      "orbital_command_node",
+      "phase_control_array",
+      "station_warden",
+      "machine_ark"
+    ],
+    "boss_rush": [
+      "gunship_alpha",
+      "missile_cruiser",
+      "missile_cruiser",
+      "phase_control_array",
+      "phase_control_array",
+      "station_warden",
+      "machine_ark"
+    ],
+    "hypersonic_trial": [
+      "gunship_alpha",
+      "swarm_controller",
+      "swarm_controller",
+      "phase_control_array",
+      "orbital_command_node",
+      "orbital_command_node",
+      "phase_control_array",
+      "orbital_command_node",
+      "machine_ark"
+    ],
+    "strike_mastery": [
+      "armoured_train",
+      "missile_cruiser",
+      "armoured_train",
+      "armoured_train",
+      "missile_cruiser",
+      "ai_forge_core",
+      "armoured_train",
+      "swarm_controller",
+      "ai_forge_core"
+    ]
+  },
+  "missed_normal_deadline_at_minimum_throttle": [
+    "m01_coastal_intercept",
+    "m02_refinery_run",
+    "m03_black_sea",
+    "m04_breakwater",
+    "m05_furnace_line",
+    "m06_black_flag",
+    "s1_m07_desert_lance",
+    "s1_m08_river_hammer",
+    "s1_m09_mountain_eye",
+    "s1_m10_night_harbor",
+    "m07_ghost_sky",
+    "m08_machine_furnace",
+    "s2_m03_broken_truce",
+    "s2_m04_dead_factory",
+    "s2_m05_iron_rain",
+    "s2_m06_ghost_convoy",
+    "s2_m07_red_circuit",
+    "s2_m08_swarm_sea",
+    "s2_m09_silent_city",
+    "s2_m10_machine_crown",
+    "m09_black_horizon",
+    "s3_m02_thin_blue_line",
+    "m10_blue_fire",
+    "s3_m04_kinetic_dawn",
+    "s3_m05_orbitfall",
+    "m11_cold_station",
+    "s3_m07_dead_satellite",
+    "s3_m08_black_sky",
+    "s3_m09_last_horizon",
+    "m12_machine_ark",
+    "sm01_black_wake",
+    "sm02_furnace_vault",
+    "sm03_dead_frequency",
+    "sm04_seed_manifest",
+    "sm05_submerged_cradle",
+    "sm06_dead_satellite"
+  ]
+}

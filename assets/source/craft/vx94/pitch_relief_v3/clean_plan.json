@@ -1,0 +1,518 @@
+{
+  "schema": "evavo.project-art-sandbox-plan.v1",
+  "sandboxId": "hypersonic-pitch-hidden-rgb-clean",
+  "projectId": "hypersonic",
+  "purpose": "Clear fully transparent renderer RGB; preserve all visible RGBA",
+  "compiledAt": "2026-09-06T10:28:02.547Z",
+  "runId": "project-art-sandbox:e7d863b0a76300715807f24b",
+  "workspace": {
+    "root": "C:\\Gitrepos\\godot-462-strike-wing-94",
+    "sourcePathsAreRelative": true,
+    "symbolicLinksAllowed": false
+  },
+  "requestSha256": "0ac50428c4df2274b2cb8cb03993a94462569af09b9df811f4432d109f10efb4",
+  "registrySha256": "a30b7529a125821862dc4b9e9ecc353c1327198fd8b8a67d598a0c5119d2fb9b",
+  "externalSources": [
+    {
+      "sourceId": "source_0404bd6dcd1cf2bf3bf8fd78acdd5d4f",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_18.png",
+      "sha256": "efe14807ebd89d651042e153663fa9c12444db2231952c2d6cf4eca10bbf20db",
+      "bytes": 4574,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_194cb70e9e6467351caa0a6cce580af1",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_06.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_4c82715acc5f3de404b10c9f9860dca7",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_18.png",
+      "sha256": "eae2148ba47211d571c2ec1e68f3ee425d8c5d4510fdc4ebd9d68574a6aefed0",
+      "bytes": 4487,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_5ba0c0cd2c52394277d4bd94d2bc1d66",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_12.png",
+      "sha256": "979755fb54fc557fe8ccb7900b63c926381d5c031272287f178613e6fb8d23f5",
+      "bytes": 3437,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_6088e2105b166d4ad7b24ed2b01b79da",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_06.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_7951a8073a93b946efc7fa6e9be4b51f",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_06.png",
+      "sha256": "5c264c0dc0728350e2e40171d475c3e8908f3b1d8cbfb02f9740a8b72f86461f",
+      "bytes": 4561,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9625b7128a95fff71931f66128eeaeb4",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_18.png",
+      "sha256": "01429a24a7f1405b32eccfefbe195fb979b3c1a2a2535e425956b1f583f0f78c",
+      "bytes": 3389,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_9a81edcccb6cd86d8df8a1569e942567",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_climb_18.png",
+      "sha256": "2de5cad02ba58d65b00199f197fe0f8f7c47ba746b0c3aac6f4979503e358e1e",
+      "bytes": 3423,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a11a91c3dca6e2728a47eb8e8c9e3cdf",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_dive_12.png",
+      "sha256": "4180d992c7e714ba9ef6d60188e711299baf2bf87ad7faa23f9c83f308728d5b",
+      "bytes": 4575,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a22bcb4709c6a6865a605c3153751bdf",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_neutral.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592",
+      "bytes": 3473,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_a55fd54606986db89ee4db7b25c97734",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_climb_12.png",
+      "sha256": "28cd766b569ab5b2a4d391564ad0d4bf8041318f742658d025b469c192d4d059",
+      "bytes": 4564,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_d393fa2a7cab13ab9dd95424610fab2d",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_06.png",
+      "sha256": "1e0eeb75c6aeb21000fd306141fa7868b0b61b2c44fbb39eeebdf7b95772de51",
+      "bytes": 3438,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_fc5a4308c4e21ece470434cf950beec7",
+      "path": "work/vx94_pitch_relief_v3/native/fighter_dive_12.png",
+      "sha256": "845a5cf6c4b12437d08694834b340695c16c5be48d5221050084c29cfe16d741",
+      "bytes": 3442,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    },
+    {
+      "sourceId": "source_fdbf4b07ef2c5e9035b28a34149e9881",
+      "path": "work/vx94_pitch_relief_v3/native/bomber_neutral.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899",
+      "bytes": 4550,
+      "mediaType": "image/png",
+      "mediaKind": "image",
+      "image": {
+        "format": "png",
+        "width": 64,
+        "height": 72,
+        "hasAlpha": true,
+        "animated": false
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "fighter_dive_18",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_9625b7128a95fff71931f66128eeaeb4"
+      },
+      "targetPath": "fighter_dive_18.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "fighter_dive_12",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_fc5a4308c4e21ece470434cf950beec7"
+      },
+      "targetPath": "fighter_dive_12.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "fighter_dive_06",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_d393fa2a7cab13ab9dd95424610fab2d"
+      },
+      "targetPath": "fighter_dive_06.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "fighter_neutral",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_a22bcb4709c6a6865a605c3153751bdf"
+      },
+      "targetPath": "fighter_neutral.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "fighter_climb_06",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_6088e2105b166d4ad7b24ed2b01b79da"
+      },
+      "targetPath": "fighter_climb_06.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "fighter_climb_12",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_5ba0c0cd2c52394277d4bd94d2bc1d66"
+      },
+      "targetPath": "fighter_climb_12.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "fighter_climb_18",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_9a81edcccb6cd86d8df8a1569e942567"
+      },
+      "targetPath": "fighter_climb_18.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "bomber_dive_18",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_4c82715acc5f3de404b10c9f9860dca7"
+      },
+      "targetPath": "bomber_dive_18.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "bomber_dive_12",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_a11a91c3dca6e2728a47eb8e8c9e3cdf"
+      },
+      "targetPath": "bomber_dive_12.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "bomber_dive_06",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_7951a8073a93b946efc7fa6e9be4b51f"
+      },
+      "targetPath": "bomber_dive_06.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "bomber_neutral",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_fdbf4b07ef2c5e9035b28a34149e9881"
+      },
+      "targetPath": "bomber_neutral.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "bomber_climb_06",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_194cb70e9e6467351caa0a6cce580af1"
+      },
+      "targetPath": "bomber_climb_06.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "bomber_climb_12",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_a55fd54606986db89ee4db7b25c97734"
+      },
+      "targetPath": "bomber_climb_12.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    },
+    {
+      "id": "bomber_climb_18",
+      "kind": "image",
+      "source": {
+        "kind": "external",
+        "sourceId": "source_0404bd6dcd1cf2bf3bf8fd78acdd5d4f"
+      },
+      "targetPath": "bomber_climb_18.png",
+      "outputFormat": "png",
+      "operations": [
+        {
+          "op": "alpha-clean",
+          "threshold": 0,
+          "binary": false,
+          "zeroTransparentRgb": true
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "maximumTasks": 2000,
+    "maximumExternalSources": 10000,
+    "maximumSourceBytes": 2147483648,
+    "maximumTotalSourceBytes": 17179869184,
+    "maximumDecodedPixels": 220000000,
+    "maximumOutputFiles": 20000,
+    "maximumOutputBytes": 2147483648,
+    "maximumTotalOutputBytes": 17179869184,
+    "boundExternalSourceBytes": 55936,
+    "plannedMaximumOutputFiles": 15
+  },
+  "execution": {
+    "runtime": "python-pillow",
+    "entrypoint": "tools/run_project_art_sandbox.py",
+    "outputRootMustNotExist": true,
+    "wholeRunAtomicPublication": true,
+    "createOnlyReceipt": true,
+    "sourceHashesRevalidatedBeforeExecution": true,
+    "sourceHashesRevalidatedAfterExecution": true,
+    "requiresExplicitExecution": true
+  },
+  "authority": {
+    "sandboxCompilation": true,
+    "sandboxExecution": false,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "a691ef9d7cf30d4c0b04ce61c7c2fc395bc2ba560579e34d006d761f2eba944e"
+}

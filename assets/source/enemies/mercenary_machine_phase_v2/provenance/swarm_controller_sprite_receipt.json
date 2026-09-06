@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "manifest": "swarm_controller_critical.manifest.json",
+  "files": [
+    {
+      "path": "aligned/critical_0.png",
+      "size": 984,
+      "sha256": "ff47f1f6778b2edec93e566630ba35db80d7ad9240a7e7f36e9b5e1a2ef7de56"
+    },
+    {
+      "path": "aligned/critical_1.png",
+      "size": 1001,
+      "sha256": "8121851754941cd113b2ab2e944bdc1cfbda193fab6c7832d9b7bfe89cdf08be"
+    },
+    {
+      "path": "aligned/critical_2.png",
+      "size": 1007,
+      "sha256": "727646dd80390e7959d7fbba1a1241f96670f0567347f15249ae9b9bde2be821"
+    },
+    {
+      "path": "aligned/critical_3.png",
+      "size": 994,
+      "sha256": "bea1779bd0584ca73926b596342d134565a9638a32c66d46dba9c8b8574c4905"
+    },
+    {
+      "path": "frames/critical_0.png",
+      "size": 813,
+      "sha256": "e8441423808ebad323a48d4405e87a22b6deca1b618c2c0d4ccf4165e07ed075"
+    },
+    {
+      "path": "frames/critical_1.png",
+      "size": 827,
+      "sha256": "0a67de15ee8f699d294ba30c0754eacb98815650a7a5651d3443ab99a49c8a4e"
+    },
+    {
+      "path": "frames/critical_2.png",
+      "size": 843,
+      "sha256": "a00117a98d0e8675f88f866fc7bf814b18cb40c6216ba35da78c329e570555e4"
+    },
+    {
+      "path": "frames/critical_3.png",
+      "size": 819,
+      "sha256": "2f58082a416a01547bf0a5b4929b5498baaa40dc15b29c6bb5021ae0d7becdaa"
+    },
+    {
+      "path": "previews/critical.contact.png",
+      "size": 4351,
+      "sha256": "6caf5b9e735379f55cb5e18c9a86fdd5a10b27681abd8a011a0b15bb9902446f"
+    },
+    {
+      "path": "previews/critical.difference.png",
+      "size": 2924,
+      "sha256": "6c23545bf5314cf75de890e059fc4a28e8e53eb2a1686fdc64483f394a914dd1"
+    },
+    {
+      "path": "previews/critical.gif",
+      "size": 5246,
+      "sha256": "eaea307707a93d93acde58570ea5eac84109fb4c74b2a3e8e43e0c91dcc7fe28"
+    },
+    {
+      "path": "previews/critical.onion.png",
+      "size": 4407,
+      "sha256": "5b33daa489a8cf6159c72a6113fd0b6886a100edbe0f8fa39d02548c13e1dbf3"
+    },
+    {
+      "path": "previews/critical.pivots.png",
+      "size": 4103,
+      "sha256": "e72c7ec2ccfbe4f7ebdd794909a245cceb2e960df3d3a31eef0954ba51646b6a"
+    },
+    {
+      "path": "swarm_controller_critical.animated_sprite.tscn",
+      "size": 345,
+      "sha256": "50bf343b71ead2938785861f50478e9e95de9fc2d022445180bf0a244e0b82e6"
+    },
+    {
+      "path": "swarm_controller_critical.atlas.0.png",
+      "size": 2514,
+      "sha256": "db29dfd15e7d798f5ce76864cf3b590dc95bd54adae4ff2a7be1d13effec66d9"
+    },
+    {
+      "path": "swarm_controller_critical.atlas.json",
+      "size": 3598,
+      "sha256": "eddac60b0a2aaa5477b0a992e22df6c6c08e5ba826574e3d7ad096128d1a5d92"
+    },
+    {
+      "path": "swarm_controller_critical.build.json",
+      "size": 4469,
+      "sha256": "0d98e0c8ae8ede6a0747e69b4a768769715d5e1ec1d32a228a9e18108eae31e6"
+    },
+    {
+      "path": "swarm_controller_critical.corrections.json",
+      "size": 150,
+      "sha256": "df7aa9d56bb475d1f9c7bcee2a2b6262cfd87fa6d2c60da7806495ab8f3f893e"
+    },
+    {
+      "path": "swarm_controller_critical.events.json",
+      "size": 1023,
+      "sha256": "6facf7eb61782b9905d9600572f465b7ceb32eeac98a347ca0205f6b49158765"
+    },
+    {
+      "path": "swarm_controller_critical.integration.json",
+      "size": 1119,
+      "sha256": "7da4dab9c753ce98f962f6730ae5e3864a55ffb0951b9d584dba2ea7ff7cc2c1"
+    },
+    {
+      "path": "swarm_controller_critical.manifest.json",
+      "size": 5729,
+      "sha256": "dbc055748817dcb1b22b547f13455b8e4272934bf84cb9547011900c59e14bfd"
+    },
+    {
+      "path": "swarm_controller_critical.qa.json",
+      "size": 495,
+      "sha256": "80156deb068b3aea193ba4299ad43bd36c7a30727b5d0908902da4b33bea79d9"
+    },
+    {
+      "path": "swarm_controller_critical.review.html",
+      "size": 2769,
+      "sha256": "1610511a44e9c7fb8d8efd7de9c3e8b80cf8e5dcfbd05449f7afe85499853979"
+    },
+    {
+      "path": "swarm_controller_critical.spriteframes.tres",
+      "size": 1183,
+      "sha256": "1654e3652426df5080167780aceafb39600ac03bd139c06010a2f341879bcbdb"
+    }
+  ]
+}

@@ -1,0 +1,510 @@
+{
+  "schema": "hypersonic_vx94_transform_dorsal_modules_v1",
+  "status": "reviewed_art_candidate",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "routes": [
+    "bomber",
+    "hypersonic"
+  ],
+  "modules": [
+    "point_defence_pod",
+    "emp_disruptor",
+    "magnetic_screen"
+  ],
+  "states": [
+    "idle",
+    "active"
+  ],
+  "exposures": 10,
+  "runtime_layers": 120,
+  "files": [
+    {
+      "path": "bomber_emp_disruptor_active_00.png",
+      "sha256": "9DB959E389797F5F4213D4E75FFB6B124AD423CF7C91659E16006855F9032802"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_01.png",
+      "sha256": "9DB959E389797F5F4213D4E75FFB6B124AD423CF7C91659E16006855F9032802"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_02.png",
+      "sha256": "9DB959E389797F5F4213D4E75FFB6B124AD423CF7C91659E16006855F9032802"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_03.png",
+      "sha256": "9DB959E389797F5F4213D4E75FFB6B124AD423CF7C91659E16006855F9032802"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_04.png",
+      "sha256": "9DB959E389797F5F4213D4E75FFB6B124AD423CF7C91659E16006855F9032802"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_05.png",
+      "sha256": "EA3CE65D3CAB394D91F21E5C8440D503345E05E9A1C174A4BB14A7C9476D3751"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_06.png",
+      "sha256": "EA3CE65D3CAB394D91F21E5C8440D503345E05E9A1C174A4BB14A7C9476D3751"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_07.png",
+      "sha256": "EA3CE65D3CAB394D91F21E5C8440D503345E05E9A1C174A4BB14A7C9476D3751"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_08.png",
+      "sha256": "EA3CE65D3CAB394D91F21E5C8440D503345E05E9A1C174A4BB14A7C9476D3751"
+    },
+    {
+      "path": "bomber_emp_disruptor_active_09.png",
+      "sha256": "EA3CE65D3CAB394D91F21E5C8440D503345E05E9A1C174A4BB14A7C9476D3751"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_00.png",
+      "sha256": "97ED40B7C86F50D82AFC79A8161836C9931D63A6C8D5DF182CF82B280134F3D2"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_01.png",
+      "sha256": "97ED40B7C86F50D82AFC79A8161836C9931D63A6C8D5DF182CF82B280134F3D2"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_02.png",
+      "sha256": "97ED40B7C86F50D82AFC79A8161836C9931D63A6C8D5DF182CF82B280134F3D2"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_03.png",
+      "sha256": "97ED40B7C86F50D82AFC79A8161836C9931D63A6C8D5DF182CF82B280134F3D2"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_04.png",
+      "sha256": "97ED40B7C86F50D82AFC79A8161836C9931D63A6C8D5DF182CF82B280134F3D2"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_05.png",
+      "sha256": "26979324F0D4676F12C22E7A3C850ECF0C6A06CA3E160D9FBAE15818D2F5C3FA"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_06.png",
+      "sha256": "26979324F0D4676F12C22E7A3C850ECF0C6A06CA3E160D9FBAE15818D2F5C3FA"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_07.png",
+      "sha256": "26979324F0D4676F12C22E7A3C850ECF0C6A06CA3E160D9FBAE15818D2F5C3FA"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_08.png",
+      "sha256": "26979324F0D4676F12C22E7A3C850ECF0C6A06CA3E160D9FBAE15818D2F5C3FA"
+    },
+    {
+      "path": "bomber_emp_disruptor_idle_09.png",
+      "sha256": "26979324F0D4676F12C22E7A3C850ECF0C6A06CA3E160D9FBAE15818D2F5C3FA"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_00.png",
+      "sha256": "4949E2C0C7C1CE84D48A03DAE0CD19E8A2BE2128E038B2F8299A33B23CE6148A"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_01.png",
+      "sha256": "4949E2C0C7C1CE84D48A03DAE0CD19E8A2BE2128E038B2F8299A33B23CE6148A"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_02.png",
+      "sha256": "4949E2C0C7C1CE84D48A03DAE0CD19E8A2BE2128E038B2F8299A33B23CE6148A"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_03.png",
+      "sha256": "4949E2C0C7C1CE84D48A03DAE0CD19E8A2BE2128E038B2F8299A33B23CE6148A"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_04.png",
+      "sha256": "4949E2C0C7C1CE84D48A03DAE0CD19E8A2BE2128E038B2F8299A33B23CE6148A"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_05.png",
+      "sha256": "361A91F504367B8A42087F653F91196BC6299D2DF4770812C8AFD221B95D2DD3"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_06.png",
+      "sha256": "361A91F504367B8A42087F653F91196BC6299D2DF4770812C8AFD221B95D2DD3"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_07.png",
+      "sha256": "361A91F504367B8A42087F653F91196BC6299D2DF4770812C8AFD221B95D2DD3"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_08.png",
+      "sha256": "361A91F504367B8A42087F653F91196BC6299D2DF4770812C8AFD221B95D2DD3"
+    },
+    {
+      "path": "bomber_magnetic_screen_active_09.png",
+      "sha256": "361A91F504367B8A42087F653F91196BC6299D2DF4770812C8AFD221B95D2DD3"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_00.png",
+      "sha256": "5CAFEB7EF4F7E4E3CA7AADB2CEAC968470B3650B35654438BBA8639BBFBB7F47"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_01.png",
+      "sha256": "5CAFEB7EF4F7E4E3CA7AADB2CEAC968470B3650B35654438BBA8639BBFBB7F47"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_02.png",
+      "sha256": "5CAFEB7EF4F7E4E3CA7AADB2CEAC968470B3650B35654438BBA8639BBFBB7F47"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_03.png",
+      "sha256": "5CAFEB7EF4F7E4E3CA7AADB2CEAC968470B3650B35654438BBA8639BBFBB7F47"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_04.png",
+      "sha256": "5CAFEB7EF4F7E4E3CA7AADB2CEAC968470B3650B35654438BBA8639BBFBB7F47"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_05.png",
+      "sha256": "030C4CDD242342D3C66090E07B318E3D64973D1B47B99FA03EFBA010ACBFB292"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_06.png",
+      "sha256": "030C4CDD242342D3C66090E07B318E3D64973D1B47B99FA03EFBA010ACBFB292"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_07.png",
+      "sha256": "030C4CDD242342D3C66090E07B318E3D64973D1B47B99FA03EFBA010ACBFB292"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_08.png",
+      "sha256": "030C4CDD242342D3C66090E07B318E3D64973D1B47B99FA03EFBA010ACBFB292"
+    },
+    {
+      "path": "bomber_magnetic_screen_idle_09.png",
+      "sha256": "030C4CDD242342D3C66090E07B318E3D64973D1B47B99FA03EFBA010ACBFB292"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_00.png",
+      "sha256": "D6F0ABCA9CFBBC7C1CC76180F98C87CB1AEFCCD39EB1B82BD0D66A36AB9DCBCE"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_01.png",
+      "sha256": "D6F0ABCA9CFBBC7C1CC76180F98C87CB1AEFCCD39EB1B82BD0D66A36AB9DCBCE"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_02.png",
+      "sha256": "D6F0ABCA9CFBBC7C1CC76180F98C87CB1AEFCCD39EB1B82BD0D66A36AB9DCBCE"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_03.png",
+      "sha256": "D6F0ABCA9CFBBC7C1CC76180F98C87CB1AEFCCD39EB1B82BD0D66A36AB9DCBCE"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_04.png",
+      "sha256": "D6F0ABCA9CFBBC7C1CC76180F98C87CB1AEFCCD39EB1B82BD0D66A36AB9DCBCE"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_05.png",
+      "sha256": "1852627AE68DE40D6E9400CF3F8238E3C4E8002DB4973E7D73E42AEE0B2A3412"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_06.png",
+      "sha256": "1852627AE68DE40D6E9400CF3F8238E3C4E8002DB4973E7D73E42AEE0B2A3412"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_07.png",
+      "sha256": "1852627AE68DE40D6E9400CF3F8238E3C4E8002DB4973E7D73E42AEE0B2A3412"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_08.png",
+      "sha256": "1852627AE68DE40D6E9400CF3F8238E3C4E8002DB4973E7D73E42AEE0B2A3412"
+    },
+    {
+      "path": "bomber_point_defence_pod_active_09.png",
+      "sha256": "1852627AE68DE40D6E9400CF3F8238E3C4E8002DB4973E7D73E42AEE0B2A3412"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_00.png",
+      "sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_01.png",
+      "sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_02.png",
+      "sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_03.png",
+      "sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_04.png",
+      "sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_05.png",
+      "sha256": "937C1A4F2326422F408FCC5A907C6CC16ECE289DED925B44CD2F37312819344A"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_06.png",
+      "sha256": "937C1A4F2326422F408FCC5A907C6CC16ECE289DED925B44CD2F37312819344A"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_07.png",
+      "sha256": "937C1A4F2326422F408FCC5A907C6CC16ECE289DED925B44CD2F37312819344A"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_08.png",
+      "sha256": "937C1A4F2326422F408FCC5A907C6CC16ECE289DED925B44CD2F37312819344A"
+    },
+    {
+      "path": "bomber_point_defence_pod_idle_09.png",
+      "sha256": "937C1A4F2326422F408FCC5A907C6CC16ECE289DED925B44CD2F37312819344A"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_00.png",
+      "sha256": "9DB959E389797F5F4213D4E75FFB6B124AD423CF7C91659E16006855F9032802"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_01.png",
+      "sha256": "9DB959E389797F5F4213D4E75FFB6B124AD423CF7C91659E16006855F9032802"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_02.png",
+      "sha256": "D5F006B535EA50A928B7CA037EDD6082FEC6B9F8C14B0EFE6E8CD938499AC671"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_03.png",
+      "sha256": "206B75F46EE82C801696FA4A7EAD85E3F1013D22AF4564A40DA21504B26021EB"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_04.png",
+      "sha256": "899FCD15AC5EE5370DB59D7BF75AE348F75D1465FEDE1698E17A0AECFB273793"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_05.png",
+      "sha256": "6BBD57DC73368B0C85D2899B1204DFC7E0C9FC18CCC699589554F8867A1DB541"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_06.png",
+      "sha256": "5514DF52DA24250DC7AE51EA706C6DB417184F13F0533749C3D81E3CEBB83069"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_07.png",
+      "sha256": "F0CC37ABEEFA07F3335B0618596E4FA25AE879C1F85531497CE1959149847A13"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_08.png",
+      "sha256": "F25F3971A6AA0807CD546F500A2304932AC9E4423E31EC43F305632AF67C2BCD"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_active_09.png",
+      "sha256": "AF5F6D5686A828174A826AB240341CBF0B8E66580A89EAB8DF544F7EF2884B65"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_00.png",
+      "sha256": "97ED40B7C86F50D82AFC79A8161836C9931D63A6C8D5DF182CF82B280134F3D2"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_01.png",
+      "sha256": "97ED40B7C86F50D82AFC79A8161836C9931D63A6C8D5DF182CF82B280134F3D2"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_02.png",
+      "sha256": "A6E2A76E2611A4BB057587B9F90F5942065249D9ECDFA9BFE4861B103ACD08BC"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_03.png",
+      "sha256": "92B7AE367E10A0688E583CA123FB64C841A3A815837D7F30E9E41834C91AC9C0"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_04.png",
+      "sha256": "313820334CBEA800B70E146B2C96739483275274B135841778CDD5B8644244F3"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_05.png",
+      "sha256": "A025D846621098354F9B4F71DA72ED22AF2A40D544327CAE6572968821DB2F52"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_06.png",
+      "sha256": "5872417621F391ADEB6FCF111377ABA3C593B060974978F251DDF84C0986A50C"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_07.png",
+      "sha256": "2B2C7736485D74A74A5727B87314CDD2F0F1DE04C67332D475D87DDA5A23DB7E"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_08.png",
+      "sha256": "3A971B2B9DE84A1E6DE56D0E384A7A7DF2D1063295337EB3F7CAFD09FF94DCF1"
+    },
+    {
+      "path": "hypersonic_emp_disruptor_idle_09.png",
+      "sha256": "02B0EE92BC468404B18D7EDC3E6EB8B96D7D18B3435635D9C6C1D24C2449F2D7"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_00.png",
+      "sha256": "4949E2C0C7C1CE84D48A03DAE0CD19E8A2BE2128E038B2F8299A33B23CE6148A"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_01.png",
+      "sha256": "4949E2C0C7C1CE84D48A03DAE0CD19E8A2BE2128E038B2F8299A33B23CE6148A"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_02.png",
+      "sha256": "BE3B5E40D694211F0E3A9CBE953CA1052A988EF79197DDCFE85221A95F56AB7D"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_03.png",
+      "sha256": "28D3B9B2DCC8A5E9F53A90ECAD80620DB76057B19A5BA575A3F381A417A005FB"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_04.png",
+      "sha256": "06C5C1D343A8ECFD0FFF7609F111E28E7488CC98EA9743BB6F9A5AB0DA76EDC0"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_05.png",
+      "sha256": "492486115D56B186ED8E015A5A6BBF8232431FAF352E34891E590CE3240D8E87"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_06.png",
+      "sha256": "0246610E521AEA3E47C4216E1D9EB717C2AC1002667C76EDE84AFC68A495C2FE"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_07.png",
+      "sha256": "24005CEB92CB1B9986E4D82CFE8F266ACDD4C14B2EAC9F2CF76443E900AEBD53"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_08.png",
+      "sha256": "B67D60BA12AF759D6B4FA4F2434B295E2AC5903254F0141CFD1F3F227D353042"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_active_09.png",
+      "sha256": "C01552308A7E257F03BDAA551F1A0565A3575A317D4B359CAA6031862123B7E1"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_00.png",
+      "sha256": "5CAFEB7EF4F7E4E3CA7AADB2CEAC968470B3650B35654438BBA8639BBFBB7F47"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_01.png",
+      "sha256": "5CAFEB7EF4F7E4E3CA7AADB2CEAC968470B3650B35654438BBA8639BBFBB7F47"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_02.png",
+      "sha256": "E498274BC8A2FA27CF797BAA43DF6A0D248AFC82CDC5F7799353DC72DB335B07"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_03.png",
+      "sha256": "EC7BA235B4968BAD92FDE15904A9F474DCFEEC9247BCDAC54B811BEA1B4409D2"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_04.png",
+      "sha256": "EF04D973587749B18AA87672293A44410E2080FC6BDDEC7708CA5C401730B478"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_05.png",
+      "sha256": "2EDBFD7EC3209F6519165826DC044AA501519B8594C1BD69A7727D4867AA1D38"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_06.png",
+      "sha256": "8F074BE05756B650A30CF075AC0FECB9E8275E130EF829B92A5820ACED3570B0"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_07.png",
+      "sha256": "A355BEF127037A413FBC245F61394B0F4F95EDEB629CAC91D896704368B93208"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_08.png",
+      "sha256": "C9EC1D662ABF9CD854B453D241AD6982D8E2D0090C29A3349B3F60F2846CB4ED"
+    },
+    {
+      "path": "hypersonic_magnetic_screen_idle_09.png",
+      "sha256": "1EF3CC21343FB394105A161DD1C417666AB0C57F9B2CA248BB04026B2611506A"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_00.png",
+      "sha256": "D6F0ABCA9CFBBC7C1CC76180F98C87CB1AEFCCD39EB1B82BD0D66A36AB9DCBCE"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_01.png",
+      "sha256": "D6F0ABCA9CFBBC7C1CC76180F98C87CB1AEFCCD39EB1B82BD0D66A36AB9DCBCE"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_02.png",
+      "sha256": "51E33E72E5A06E289FB3C6244D076EFD969E1D346E639FE4A022FC017D3ED731"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_03.png",
+      "sha256": "1B463DAFECF9BE704974BE91B3FADCA125AFED94A5EE1B38B4B96A0072F02DEE"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_04.png",
+      "sha256": "58AB7E2098CEB78D8F75C2AA28904A26CDA57800549B2DB8BCA820D0B2EAAAD7"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_05.png",
+      "sha256": "32062003031C0B42E3B713AE41B3BF14E1F8796BAF2C909338DF2F305EDF9A06"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_06.png",
+      "sha256": "E7462EE69572650BF6CAEF20FE67996C466B04DC31E3327624E832103E02DD3C"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_07.png",
+      "sha256": "05372F39C4AFA03900B3BF99B1F7B0AE0098DF2D80246C3EAD1B60F0E6AD5E69"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_08.png",
+      "sha256": "CBE2C022923F45EF7D13F94895A4A5E30C01ED32632091C6A56E4DB45051AEA3"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_active_09.png",
+      "sha256": "9FA6E7BA74CAC5C4F6F50DEB40CFE4310C4CAC1FB20C405DDA991F13AD94E131"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_00.png",
+      "sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_01.png",
+      "sha256": "56041F787B1FEC1706AF6AC765DFFCD5FAA077F7D40AC833C19A5633A232446B"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_02.png",
+      "sha256": "0C0FBC0EB19C0440D94EECD4CD14229AA1AF811BD44A5316ACFCCB3CEDF0B41F"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_03.png",
+      "sha256": "BC802E9CC4DDEE98ABD623632DC342191BA8FBFF14BB87DFC894CFFFC7AEEFAA"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_04.png",
+      "sha256": "2315603E9092F14177838ED400BA070492134089DAB66DD32EEDD04BEDA5AA38"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_05.png",
+      "sha256": "49E29005AD8847EA240E954655586FD44BC9618ECE464F521FF90E09CC745E2A"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_06.png",
+      "sha256": "2A936B6A11A0B1A15F9988C9044454EE6924F2FD1A5801FDB121F322FB61E794"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_07.png",
+      "sha256": "C01322BDDA1EE13C35AE6BA5D5169DF30065693425409E69DCEF23873B73B9D9"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_08.png",
+      "sha256": "5468DFCD9EAEFFAD8E1807FEB476F6AC3D03067774777929D69E289B6632CB24"
+    },
+    {
+      "path": "hypersonic_point_defence_pod_idle_09.png",
+      "sha256": "E2D2257201D16BAE13B70D57E8F0264E82D2510C98FA89005B79AAB9EDC83D4F"
+    }
+  ],
+  "review_board": "work/vx94_transform_dorsal_modules_v1/review.png"
+}

@@ -229,6 +229,11 @@ func _nearest_match(previous: Dictionary, current: Array, used: Dictionary) -> i
 			best = i
 	return best
 
+func shift_camera_projection(shift: Vector2) -> void:
+	for collection in [_events, _previous_enemies]:
+		for item in collection:
+			item["position"] = Vector2(item.get("position", Vector2.ZERO)) + shift
+
 func _emit(kind: String, position: Vector2, size: float, duration: float, metadata := {}) -> void:
 	_serial += 1
 	var event := {

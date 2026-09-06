@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\fire_ballistic.wav",
+  "source_sha256": "b601adfaddabb35c0ab41809fd3fe038319093e1c9e8c1f39d2124f882ab7904",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.15501133786848073,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.1199951171875,
+    "rms": 0.03199835345369444,
+    "dc": 0.0011331503540539059,
+    "clippedSamples": 0,
+    "crestFactor": 3.7500403687145236,
+    "estimatedBpm": 0.0,
+    "pulseStrength": 0.0,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

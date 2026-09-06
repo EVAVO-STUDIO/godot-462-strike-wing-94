@@ -1,0 +1,11 @@
+{
+  "nine_runtime_files_match_reviewed_hashes": true,
+  "original_shared_screen_restored_exact": true,
+  "native_capture_engine": "Godot 4.6.2 stable 71f334935",
+  "mission_flow": "passed_with_existing_ObjectDB_exit_warning",
+  "integration": [
+    "scripts/mission_intel_director.gd",
+    "scripts/loadout_schematic_director.gd",
+    "scripts/pause_director.gd"
+  ]
+}

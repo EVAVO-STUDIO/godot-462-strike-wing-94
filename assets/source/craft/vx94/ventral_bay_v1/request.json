@@ -1,0 +1,39 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "hypersonic-vx94-ventral-bay-v1",
+  "projectId": "hypersonic",
+  "purpose": "Exact registered raster exports of the authored VX-94 ventral strike-bay overlays",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "bay_closed",
+      "kind": "image-composite",
+      "sources": ["assets/source/craft/vx94/ventral_bay_v1/inputs/bay_closed.png"],
+      "targetPath": "bay_closed.png",
+      "canvas": {"width": 64, "height": 72, "background": "#00000000"},
+      "layers": [{"sourceIndex": 0, "x": 0, "y": 0, "sourceRect": {"x": 0, "y": 0, "width": 64, "height": 72}, "sampling": "nearest"}]
+    },
+    {
+      "id": "bay_opening",
+      "kind": "image-composite",
+      "sources": ["assets/source/craft/vx94/ventral_bay_v1/inputs/bay_opening.png"],
+      "targetPath": "bay_opening.png",
+      "canvas": {"width": 64, "height": 72, "background": "#00000000"},
+      "layers": [{"sourceIndex": 0, "x": 0, "y": 0, "sourceRect": {"x": 0, "y": 0, "width": 64, "height": 72}, "sampling": "nearest"}]
+    },
+    {
+      "id": "bay_open",
+      "kind": "image-composite",
+      "sources": ["assets/source/craft/vx94/ventral_bay_v1/inputs/bay_open.png"],
+      "targetPath": "bay_open.png",
+      "canvas": {"width": 64, "height": 72, "background": "#00000000"},
+      "layers": [{"sourceIndex": 0, "x": 0, "y": 0, "sourceRect": {"x": 0, "y": 0, "width": 64, "height": 72}, "sampling": "nearest"}]
+    }
+  ]
+}

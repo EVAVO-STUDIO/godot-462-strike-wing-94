@@ -1,0 +1,32 @@
+{
+  "drizzle": {
+    "particles": 42,
+    "bands": {
+      "background": 22,
+      "midground": 13,
+      "foreground": 7
+    },
+    "loopExact": true,
+    "checksum": "ea7cf69d5ca201eec481cb170f229785394de7e8531a875865dca2111e5f7420"
+  },
+  "rain": {
+    "particles": 95,
+    "bands": {
+      "background": 51,
+      "midground": 31,
+      "foreground": 13
+    },
+    "loopExact": true,
+    "checksum": "5bb3315bd1bf2e701818d639c59fd12550e860bb13b901ae43bb187858ec1d18"
+  },
+  "storm": {
+    "particles": 188,
+    "bands": {
+      "background": 101,
+      "midground": 62,
+      "foreground": 25
+    },
+    "loopExact": true,
+    "checksum": "7ac22a969e2d176de5266a27da15919bca2992c0c3db3f6acf9d8d47883a0ef3"
+  }
+}

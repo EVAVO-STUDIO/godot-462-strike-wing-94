@@ -1,0 +1,1858 @@
+{
+  "schema": "evavo.project-art-sandbox-receipt.v1",
+  "processor": {
+    "id": "python-pillow-project-art-sandbox",
+    "version": "1.1.0",
+    "python": "3.12.10",
+    "pillow": "12.2.0"
+  },
+  "planSha256": "752486e56dd06cea7123697662d30133d6225cdad169935b06dc6f0ad5b289c9",
+  "planBytesSha256": "043084e4bd1bd7dfe3b69789345f0cbfb48c4fe85d4f2e25757f08897c9c0567",
+  "sandboxId": "vx94-external-stores",
+  "projectId": "hypersonic",
+  "runId": "project-art-sandbox:131f0fd2eda452018344b191",
+  "status": "passed",
+  "blockedTaskIds": [],
+  "sources": [
+    {
+      "sourceId": "source_05e4999411da2ef1ee18edce8b947271",
+      "path": "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_empty_0.png",
+      "sha256": "846b8a54bad5a136be5a86fde9e4e4d95bb0ca7f886666d073faf2fed13a85c0",
+      "bytes": 189
+    },
+    {
+      "sourceId": "source_13ec2008f40cb36dfc1341acd40ffe9f",
+      "path": "work/vx94_external_stores_v3/layers/bomber_precision_bomb_empty_0.png",
+      "sha256": "5cf937c3385fbb014c440da1b745409ee463b3075aae68a5f2665431849be9ff",
+      "bytes": 152
+    },
+    {
+      "sourceId": "source_170a46ee9894b7874936c458c7337feb",
+      "path": "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_left_expended_0.png",
+      "sha256": "846b8a54bad5a136be5a86fde9e4e4d95bb0ca7f886666d073faf2fed13a85c0",
+      "bytes": 189
+    },
+    {
+      "sourceId": "source_23fe3237a99e14ad80deced1cc7462bc",
+      "path": "work/vx94_external_stores_v3/layers/bomber_precision_bomb_left_released_1.png",
+      "sha256": "3cf633d17c08c34bc514a8b9a7e505429192121578c4afe950aada30b32394f4",
+      "bytes": 220
+    },
+    {
+      "sourceId": "source_2a168295c34986fb9f546eba59c153de",
+      "path": "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_loaded_1.png",
+      "sha256": "1ac4f7e2309fa60a114dfa81a28fd532e504a4375d5130644748e8523ac9ba23",
+      "bytes": 205
+    },
+    {
+      "sourceId": "source_35d72c2874e0879438b538ac151917f7",
+      "path": "work/vx94_external_stores_v3/layers/bomber_precision_bomb_left_released_0.png",
+      "sha256": "5cf937c3385fbb014c440da1b745409ee463b3075aae68a5f2665431849be9ff",
+      "bytes": 152
+    },
+    {
+      "sourceId": "source_496a7b399b3dc62bf20084b3f125206d",
+      "path": "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_loaded_0.png",
+      "sha256": "e8bbc4aa4539be372dd078b9c0520c1056772f40b8ad2b877510e48ec2c0083b",
+      "bytes": 203
+    },
+    {
+      "sourceId": "source_4be33872ab370f764f94f23b48e68a4f",
+      "path": "work/vx94_external_stores_v3/layers/bomber_precision_bomb_loaded_1.png",
+      "sha256": "3cf633d17c08c34bc514a8b9a7e505429192121578c4afe950aada30b32394f4",
+      "bytes": 220
+    },
+    {
+      "sourceId": "source_53515296ce174acc200d70ea77cf747c",
+      "path": "work/vx94_external_stores_v3/layers/bomber_hunter_rack_empty_1.png",
+      "sha256": "0a6ab27063ef99ffaca0bbd11e9b24b9fa38e623a03c9d257de1385b4dd5fc1b",
+      "bytes": 153
+    },
+    {
+      "sourceId": "source_6d90082c146b61990946eaafabb867ea",
+      "path": "work/vx94_external_stores_v3/layers/fighter_hunter_rack_empty_1.png",
+      "sha256": "ec745b88d9a9473a969d3b0b64199f60f021fc5ee91336aae12a1f3b1077a951",
+      "bytes": 153
+    },
+    {
+      "sourceId": "source_75704175b51904e301ea0ae36fdebae0",
+      "path": "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_empty_1.png",
+      "sha256": "e75aea88c08670a21b836b457900039752d16f94b651bc911152655be3bbd066",
+      "bytes": 190
+    },
+    {
+      "sourceId": "source_7c9d621383d91f70c10153cc90a2ca13",
+      "path": "work/vx94_external_stores_v3/layers/bomber_hunter_rack_empty_0.png",
+      "sha256": "5cf937c3385fbb014c440da1b745409ee463b3075aae68a5f2665431849be9ff",
+      "bytes": 152
+    },
+    {
+      "sourceId": "source_825e5d078131ecb7ebd1385d51725dbc",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/fighter_neutral.png",
+      "sha256": "b7c553bbf15c8798133b96b4d806644451232415e7092cd676715baedc20e458",
+      "bytes": 3681
+    },
+    {
+      "sourceId": "source_865461c624ffdf436ff070f5b93a4760",
+      "path": "work/vx94_external_stores_v3/layers/bomber_hunter_rack_loaded_0.png",
+      "sha256": "794360bba42d1bdfb444dd56114cd790a15e475b48b585e5d4a7a0553f63e776",
+      "bytes": 225
+    },
+    {
+      "sourceId": "source_87db84667e2f48735658ee1778241307",
+      "path": "work/vx94_external_stores_v3/layers/bomber_hunter_rack_loaded_1.png",
+      "sha256": "f6c59c3e47efa116e6ef56cffd939a6112609733c41d6800de000bbd5b1a2dfc",
+      "bytes": 226
+    },
+    {
+      "sourceId": "source_91663abf7ca80a5727174e4cd7c19b40",
+      "path": "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_left_expended_1.png",
+      "sha256": "1ac4f7e2309fa60a114dfa81a28fd532e504a4375d5130644748e8523ac9ba23",
+      "bytes": 205
+    },
+    {
+      "sourceId": "source_9cb2edf14d6cdffa87b93e36d202a136",
+      "path": "work/vx94_external_stores_v3/layers/fighter_hunter_rack_left_released_0.png",
+      "sha256": "866c3c1ea3aee43591d5b222adc58181fa05798bb5f863b228637b36edcd9f44",
+      "bytes": 153
+    },
+    {
+      "sourceId": "source_a5af8cc6df246545b8e1c619bc2e9bb5",
+      "path": "work/vx94_external_stores_v3/layers/bomber_precision_bomb_loaded_0.png",
+      "sha256": "e1756efb62b3f840e97fe040541572a21883c7aaca6348caae2013a7622b8753",
+      "bytes": 219
+    },
+    {
+      "sourceId": "source_b1afeda05a950ea814908c6500c1864d",
+      "path": "work/vx94_external_stores_v3/layers/fighter_hunter_rack_loaded_0.png",
+      "sha256": "c890320fc774fed14fdc6335a680ebc21de881bd01a9c4e6ccf59a5c6ce934f9",
+      "bytes": 226
+    },
+    {
+      "sourceId": "source_b6f5c023f19b7cd0eab165a18d62e07b",
+      "path": "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_loaded_0.png",
+      "sha256": "fc5a0d4149b964aec73dbe1070873989b7f85ceb490c93fa14d492d4e5054932",
+      "bytes": 205
+    },
+    {
+      "sourceId": "source_b9491ca87dab61f535351f2735c519cc",
+      "path": "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_left_expended_1.png",
+      "sha256": "2386edebd9d24c56c3cddf7253be0da9dc283076207b4b94336eca2fc8fe4ef7",
+      "bytes": 205
+    },
+    {
+      "sourceId": "source_ba2931e545ba34ea63e7d8ebfc2d5c6c",
+      "path": "work/vx94_external_stores_v3/layers/fighter_hunter_rack_left_released_1.png",
+      "sha256": "2405d3de14fbcb0b4b82e55f8e405561f17cfdaa986d0ef4e5319702c59759e5",
+      "bytes": 226
+    },
+    {
+      "sourceId": "source_ba494bb636f82cd5d36e3b5ea3bfcc75",
+      "path": "work/vx94_external_stores_v3/layers/bomber_precision_bomb_empty_1.png",
+      "sha256": "0a6ab27063ef99ffaca0bbd11e9b24b9fa38e623a03c9d257de1385b4dd5fc1b",
+      "bytes": 153
+    },
+    {
+      "sourceId": "source_bcedeba1f5eab752a600ca1e5fb3f1b9",
+      "path": "work/vx94_external_stores_v3/layers/fighter_hunter_rack_empty_0.png",
+      "sha256": "866c3c1ea3aee43591d5b222adc58181fa05798bb5f863b228637b36edcd9f44",
+      "bytes": 153
+    },
+    {
+      "sourceId": "source_c30ad29909575bca41a1d590f43e9c47",
+      "path": "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_empty_0.png",
+      "sha256": "25cb7bf6b4435b990d995f14a1ce08c6df2f416bdab7a21adde2089bde8d29cc",
+      "bytes": 190
+    },
+    {
+      "sourceId": "source_c6471538d409b744665761de22f858c4",
+      "path": "work/vx94_external_stores_v3/layers/bomber_hunter_rack_left_released_0.png",
+      "sha256": "5cf937c3385fbb014c440da1b745409ee463b3075aae68a5f2665431849be9ff",
+      "bytes": 152
+    },
+    {
+      "sourceId": "source_cbc7e56e93ec138c45e61c5a4d5550e8",
+      "path": "work/vx94_external_stores_v3/layers/bomber_twin_rocket_pods_empty_1.png",
+      "sha256": "0022a321437f6101e9ade63e0153804f7bfd431775bff0b6df58611d39de51b2",
+      "bytes": 189
+    },
+    {
+      "sourceId": "source_ccb98c62bbfc38dd057620778f909e2e",
+      "path": "work/vx94_external_stores_v3/layers/bomber_hunter_rack_left_released_1.png",
+      "sha256": "f6c59c3e47efa116e6ef56cffd939a6112609733c41d6800de000bbd5b1a2dfc",
+      "bytes": 226
+    },
+    {
+      "sourceId": "source_cd8a39c52d790056039ca830d06bd185",
+      "path": "work/vx94_external_stores_v3/layers/fighter_hunter_rack_loaded_1.png",
+      "sha256": "2405d3de14fbcb0b4b82e55f8e405561f17cfdaa986d0ef4e5319702c59759e5",
+      "bytes": 226
+    },
+    {
+      "sourceId": "source_dea22008ae375a8e2c640c52bd1b69d5",
+      "path": "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_loaded_1.png",
+      "sha256": "2386edebd9d24c56c3cddf7253be0da9dc283076207b4b94336eca2fc8fe4ef7",
+      "bytes": 205
+    },
+    {
+      "sourceId": "source_eabd653a33f3db03aac55e37a095a938",
+      "path": "assets/runtime/craft/vx94/gameplay/bank/bomber_neutral.png",
+      "sha256": "4487099d01e06d34a46f917df0c30d7b0f47e41bec8ba1101dcc885efd77bfcb",
+      "bytes": 1666
+    },
+    {
+      "sourceId": "source_eee2562b8a4727c1dcbded29098c3c2b",
+      "path": "work/vx94_external_stores_v3/layers/fighter_twin_rocket_pods_left_expended_0.png",
+      "sha256": "25cb7bf6b4435b990d995f14a1ce08c6df2f416bdab7a21adde2089bde8d29cc",
+      "bytes": 190
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "fighter_hunter_rack_loaded",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hunter_rack_loaded.png",
+          "sha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+          "bytes": 3590,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3280,
+            "partialPixels": 472,
+            "opaquePixels": 856
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "2966123ca0549ab119e954ced1b56a1b13d7009cdf80006d2c1ecadedaba5a1c"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hunter_rack_left_released",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hunter_rack_left_released.png",
+          "sha256": "16dd64b66464cb6a2c792b9e944be479c10f50a39b5883c4a07967f58856e7ee",
+          "bytes": 3559,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3316,
+            "partialPixels": 477,
+            "opaquePixels": 815
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "7058c500e4cd4533b72d40bb56e80980cf7f4181a0a44575a43bd7bb7f4a718c"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_hunter_rack_empty",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_hunter_rack_empty.png",
+          "sha256": "c43a6530c1f684eb206dfb706bb0063a775e74288f79283a30cae25798f52a18",
+          "bytes": 3502,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3344,
+            "partialPixels": 487,
+            "opaquePixels": 777
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "f4d8f92663055ef436e76a7b4998dc7335e67b38d185a767f31c2c7079dbb883"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_twin_rocket_pods_loaded",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_twin_rocket_pods_loaded.png",
+          "sha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+          "bytes": 3594,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3247,
+            "partialPixels": 473,
+            "opaquePixels": 888
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "46999f5ef34b733174f20238a7e4029a781dffb6133b83541fea458405f41688"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_twin_rocket_pods_left_expended",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_twin_rocket_pods_left_expended.png",
+          "sha256": "320923c49f97a1045fb701545ac85d4d7ecc2b5fa8c3e9d5ff03a0dfeb5367ad",
+          "bytes": 3597,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3247,
+            "partialPixels": 473,
+            "opaquePixels": 888
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "6133efbd58a9db0a61ac8795c691a540bc359cea1c181c99ac289314f7bdb99e"
+        }
+      ]
+    },
+    {
+      "taskId": "fighter_twin_rocket_pods_empty",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "fighter_twin_rocket_pods_empty.png",
+          "sha256": "1159a456ab460dd6a3941baff6a0107856e09bd61dfe84dde0958c870636efe2",
+          "bytes": 3569,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 3247,
+            "partialPixels": 473,
+            "opaquePixels": 888
+          },
+          "alphaBoundingBox": [
+            14,
+            4,
+            50,
+            71
+          ],
+          "pixelSha256": "44a9f0e90bfc3cdce454b93ca4cd7760cc38d2ca5f9fa8184d319cba65cee8ac"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hunter_rack_loaded",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hunter_rack_loaded.png",
+          "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+          "bytes": 4684,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2908,
+            "partialPixels": 710,
+            "opaquePixels": 990
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "de166398f770b08c9947d8f9dd330d8360e781e81da16ca0004f765f2d6b1f3d"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hunter_rack_left_released",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hunter_rack_left_released.png",
+          "sha256": "5a4257ae1e6563f29c7bae05797e9a10ca6403f6088250e5fa07045509ef8a1e",
+          "bytes": 4659,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2939,
+            "partialPixels": 724,
+            "opaquePixels": 945
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "700a4f7fb3e92be7d547815679c50451bdaca087325963e5cfb96349a32969ea"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_hunter_rack_empty",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_hunter_rack_empty.png",
+          "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+          "bytes": 4589,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2968,
+            "partialPixels": 738,
+            "opaquePixels": 902
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "71ca0d3fedddb79ecb43dc6a8dc5735af1e939809e98025cc069a53cb6763bb7"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_twin_rocket_pods_loaded",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_twin_rocket_pods_loaded.png",
+          "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+          "bytes": 4693,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2862,
+            "partialPixels": 735,
+            "opaquePixels": 1011
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "fc71cfe5db9b361fa28fcd5465cffa8155449d575063af7d456154810875ca1c"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_twin_rocket_pods_left_expended",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_twin_rocket_pods_left_expended.png",
+          "sha256": "20009e5f788a901d8b19664d82e697e3bbd71f8400336e22e68827569d1220ae",
+          "bytes": 4705,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2862,
+            "partialPixels": 735,
+            "opaquePixels": 1011
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "7576aaf4f3c8ef77119287add92a0323b502efcb3838147f2f7aa5e3902909c7"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_twin_rocket_pods_empty",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_twin_rocket_pods_empty.png",
+          "sha256": "895d3e40e67cd87566e1bc8202359c4fc6ba0a0bfca065b613a0e6631d2a6136",
+          "bytes": 4673,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2862,
+            "partialPixels": 735,
+            "opaquePixels": 1011
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "13c4a5640e18e3889ddf95811eb9d9d3930ddeca216871a8581605265dc8e8f1"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_precision_bomb_loaded",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_precision_bomb_loaded.png",
+          "sha256": "b34b50218bdbc02d28306d2411610e9a4d9225f9183efea86929835a47f38408",
+          "bytes": 4657,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2919,
+            "partialPixels": 707,
+            "opaquePixels": 982
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "5f13d960fa93ad10aa8be6ce48eeb97583f2a61435e96ce635b7243373a2bff2"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_precision_bomb_left_released",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_precision_bomb_left_released.png",
+          "sha256": "57e308796b4bd73f367f3c431264398cebd78bffccae8ca369d4f84691e8b6da",
+          "bytes": 4628,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2944,
+            "partialPixels": 723,
+            "opaquePixels": 941
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "14a269882502e93b8333772601fbe450e15a7921303a5cb231d158bc868e8d91"
+        }
+      ]
+    },
+    {
+      "taskId": "bomber_precision_bomb_empty",
+      "kind": "image-composite",
+      "status": "passed",
+      "layerCount": 3,
+      "layers": [
+        {
+          "index": 0,
+          "sourceIndex": 0,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 1,
+          "sourceIndex": 1,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        },
+        {
+          "index": 2,
+          "sourceIndex": 2,
+          "maskSourceIndex": null,
+          "x": 0,
+          "y": 0,
+          "opacity": 1,
+          "blendMode": "normal",
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 72
+          },
+          "maskSourceRect": null,
+          "width": 64,
+          "height": 72
+        }
+      ],
+      "outputs": [
+        {
+          "path": "bomber_precision_bomb_empty.png",
+          "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+          "bytes": 4589,
+          "role": "composite-image",
+          "dimensions": {
+            "width": 64,
+            "height": 72
+          },
+          "alpha": {
+            "transparentPixels": 2968,
+            "partialPixels": 738,
+            "opaquePixels": 902
+          },
+          "alphaBoundingBox": [
+            6,
+            4,
+            58,
+            71
+          ],
+          "pixelSha256": "71ca0d3fedddb79ecb43dc6a8dc5735af1e939809e98025cc069a53cb6763bb7"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "bomber_hunter_rack_empty.png",
+      "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "bytes": 4589,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2968,
+        "partialPixels": 738,
+        "opaquePixels": 902
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "71ca0d3fedddb79ecb43dc6a8dc5735af1e939809e98025cc069a53cb6763bb7"
+    },
+    {
+      "path": "bomber_hunter_rack_left_released.png",
+      "sha256": "5a4257ae1e6563f29c7bae05797e9a10ca6403f6088250e5fa07045509ef8a1e",
+      "bytes": 4659,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2939,
+        "partialPixels": 724,
+        "opaquePixels": 945
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "700a4f7fb3e92be7d547815679c50451bdaca087325963e5cfb96349a32969ea"
+    },
+    {
+      "path": "bomber_hunter_rack_loaded.png",
+      "sha256": "71136d9b401005245ea6a8bd954cdfe11ee34b77e13ce12bc27b98a50f070803",
+      "bytes": 4684,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2908,
+        "partialPixels": 710,
+        "opaquePixels": 990
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "de166398f770b08c9947d8f9dd330d8360e781e81da16ca0004f765f2d6b1f3d"
+    },
+    {
+      "path": "bomber_precision_bomb_empty.png",
+      "sha256": "e7e341562dbd4cad3deb99bd18a87dd1652056c5492820e27fd8f9250fa3e8ed",
+      "bytes": 4589,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2968,
+        "partialPixels": 738,
+        "opaquePixels": 902
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "71ca0d3fedddb79ecb43dc6a8dc5735af1e939809e98025cc069a53cb6763bb7"
+    },
+    {
+      "path": "bomber_precision_bomb_left_released.png",
+      "sha256": "57e308796b4bd73f367f3c431264398cebd78bffccae8ca369d4f84691e8b6da",
+      "bytes": 4628,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2944,
+        "partialPixels": 723,
+        "opaquePixels": 941
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "14a269882502e93b8333772601fbe450e15a7921303a5cb231d158bc868e8d91"
+    },
+    {
+      "path": "bomber_precision_bomb_loaded.png",
+      "sha256": "b34b50218bdbc02d28306d2411610e9a4d9225f9183efea86929835a47f38408",
+      "bytes": 4657,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2919,
+        "partialPixels": 707,
+        "opaquePixels": 982
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "5f13d960fa93ad10aa8be6ce48eeb97583f2a61435e96ce635b7243373a2bff2"
+    },
+    {
+      "path": "bomber_twin_rocket_pods_empty.png",
+      "sha256": "895d3e40e67cd87566e1bc8202359c4fc6ba0a0bfca065b613a0e6631d2a6136",
+      "bytes": 4673,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2862,
+        "partialPixels": 735,
+        "opaquePixels": 1011
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "13c4a5640e18e3889ddf95811eb9d9d3930ddeca216871a8581605265dc8e8f1"
+    },
+    {
+      "path": "bomber_twin_rocket_pods_left_expended.png",
+      "sha256": "20009e5f788a901d8b19664d82e697e3bbd71f8400336e22e68827569d1220ae",
+      "bytes": 4705,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2862,
+        "partialPixels": 735,
+        "opaquePixels": 1011
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "7576aaf4f3c8ef77119287add92a0323b502efcb3838147f2f7aa5e3902909c7"
+    },
+    {
+      "path": "bomber_twin_rocket_pods_loaded.png",
+      "sha256": "5d0771b8f214a8420e107067ff06e0c3100e87ece6fb8cf05ecdb02fed81eaf4",
+      "bytes": 4693,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 2862,
+        "partialPixels": 735,
+        "opaquePixels": 1011
+      },
+      "alphaBoundingBox": [
+        6,
+        4,
+        58,
+        71
+      ],
+      "pixelSha256": "fc71cfe5db9b361fa28fcd5465cffa8155449d575063af7d456154810875ca1c"
+    },
+    {
+      "path": "fighter_hunter_rack_empty.png",
+      "sha256": "c43a6530c1f684eb206dfb706bb0063a775e74288f79283a30cae25798f52a18",
+      "bytes": 3502,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3344,
+        "partialPixels": 487,
+        "opaquePixels": 777
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "f4d8f92663055ef436e76a7b4998dc7335e67b38d185a767f31c2c7079dbb883"
+    },
+    {
+      "path": "fighter_hunter_rack_left_released.png",
+      "sha256": "16dd64b66464cb6a2c792b9e944be479c10f50a39b5883c4a07967f58856e7ee",
+      "bytes": 3559,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3316,
+        "partialPixels": 477,
+        "opaquePixels": 815
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "7058c500e4cd4533b72d40bb56e80980cf7f4181a0a44575a43bd7bb7f4a718c"
+    },
+    {
+      "path": "fighter_hunter_rack_loaded.png",
+      "sha256": "4bb903466cb2b5f065c9b26fd3eea29749cbc617d9a70c9efb8fd4a373ce95f9",
+      "bytes": 3590,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3280,
+        "partialPixels": 472,
+        "opaquePixels": 856
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "2966123ca0549ab119e954ced1b56a1b13d7009cdf80006d2c1ecadedaba5a1c"
+    },
+    {
+      "path": "fighter_twin_rocket_pods_empty.png",
+      "sha256": "1159a456ab460dd6a3941baff6a0107856e09bd61dfe84dde0958c870636efe2",
+      "bytes": 3569,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3247,
+        "partialPixels": 473,
+        "opaquePixels": 888
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "44a9f0e90bfc3cdce454b93ca4cd7760cc38d2ca5f9fa8184d319cba65cee8ac"
+    },
+    {
+      "path": "fighter_twin_rocket_pods_left_expended.png",
+      "sha256": "320923c49f97a1045fb701545ac85d4d7ecc2b5fa8c3e9d5ff03a0dfeb5367ad",
+      "bytes": 3597,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3247,
+        "partialPixels": 473,
+        "opaquePixels": 888
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "6133efbd58a9db0a61ac8795c691a540bc359cea1c181c99ac289314f7bdb99e"
+    },
+    {
+      "path": "fighter_twin_rocket_pods_loaded.png",
+      "sha256": "89e5fb90f78e1813a7e7d2d8db3d914001131d39603c2676268891c3c9b99a21",
+      "bytes": 3594,
+      "role": "composite-image",
+      "dimensions": {
+        "width": 64,
+        "height": 72
+      },
+      "alpha": {
+        "transparentPixels": 3247,
+        "partialPixels": 473,
+        "opaquePixels": 888
+      },
+      "alphaBoundingBox": [
+        14,
+        4,
+        50,
+        71
+      ],
+      "pixelSha256": "46999f5ef34b733174f20238a7e4029a781dffb6133b83541fea458405f41688"
+    }
+  ],
+  "resourceUsage": {
+    "externalSourceFiles": 32,
+    "externalSourceBytes": 11099,
+    "plannedMaximumOutputFiles": 16,
+    "taskOutputFiles": 15,
+    "taskOutputBytes": 63288,
+    "receiptExcludedFromTaskOutputTotals": true
+  },
+  "effects": {
+    "sandboxExecution": true,
+    "createOnlyOutputRoot": true,
+    "wholeRunAtomicPublication": true,
+    "sourceMutation": false,
+    "sourceDeletion": false,
+    "providerExecution": false,
+    "runtimeSubmission": false,
+    "candidateApproval": false,
+    "candidatePromotion": false,
+    "targetRepositoryMutation": false,
+    "publication": false,
+    "deployment": false,
+    "forcePush": false
+  },
+  "documentSha256": "464943cf8578e57493c1ced9ade4637d9fe3e772d40fa2b5ea0a79ec0928da52"
+}

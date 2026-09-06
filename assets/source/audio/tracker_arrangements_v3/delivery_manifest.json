@@ -1,0 +1,139 @@
+{
+  "status": "screening_candidates_not_runtime_or_listening_approved",
+  "tracks": [
+    {
+      "id": "hangar_signal",
+      "bars": 32,
+      "bpm": 108,
+      "seconds": 71.11111111111111,
+      "dc": -3.011664565728635e-07,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "hangar_signal_review.wav",
+      "wav_sha256": "f43dc57604174279b35f8d1c6c2f46940cb03ea974916375cdfec41853077468",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "title_vector",
+      "bars": 32,
+      "bpm": 116,
+      "seconds": 66.20689342403628,
+      "dc": -1.0012175152835508e-06,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "title_vector_softened.wav",
+      "wav_sha256": "033b15d948f596fe06b0ac59afb09bdb7e66f31b6e02ba2303782509b82bdf1f",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "salt_wake",
+      "bars": 32,
+      "bpm": 124,
+      "seconds": 61.93546485260771,
+      "dc": 1.5788872478631478e-06,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "salt_wake_review.wav",
+      "wav_sha256": "bd956562432ccb9d7ff65ce770fbdb2d22ea341ac9df8b3fe47aa178558effb1",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "furnace_alarm",
+      "bars": 32,
+      "bpm": 148,
+      "seconds": 51.8918820861678,
+      "dc": 9.050861145726637e-07,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "furnace_alarm_review.wav",
+      "wav_sha256": "56e1610a3b7f7be42a03332ae1c04799ebfa56d06d610f5fafff81610c755430",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "machine_pressure",
+      "bars": 32,
+      "bpm": 144,
+      "seconds": 53.333333333333336,
+      "dc": -1.3861364247847578e-06,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "machine_pressure_review.wav",
+      "wav_sha256": "a25a5f8ab3e5fcff051ed0a2ec78ddf37e42a544b813ca77184c8a424f518622",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "dead_factory",
+      "bars": 32,
+      "bpm": 118,
+      "seconds": 65.0847619047619,
+      "dc": -1.1286739943799957e-06,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "dead_factory_review.wav",
+      "wav_sha256": "7c22ba3caf61d7fa7799598bd3b933666340ab29155a69fddb1469be39607596",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "ghost_signal",
+      "bars": 32,
+      "bpm": 156,
+      "seconds": 49.23074829931973,
+      "dc": 1.0912850104337665e-06,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "ghost_signal_review.wav",
+      "wav_sha256": "706030e91adbe16cc108a32c6f0aa90632ddb55e7e02e8653c4c44234f9f3d59",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "black_sky",
+      "bars": 32,
+      "bpm": 126,
+      "seconds": 60.95238095238095,
+      "dc": -1.0343960353306363e-06,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "black_sky_review.wav",
+      "wav_sha256": "72f5ed5894d0f77ad5dfc984b94e7467c299c807baf5f154c10b9fe9b815992d",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "thin_blue",
+      "bars": 32,
+      "bpm": 138,
+      "seconds": 55.652154195011335,
+      "dc": 4.104888190584942e-07,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "thin_blue_review.wav",
+      "wav_sha256": "326803aab292340232ad38eec0f0c5782dda89cf1718b5cf2696bff4fdb05e09",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "ark_descent",
+      "bars": 32,
+      "bpm": 164,
+      "seconds": 46.829251700680274,
+      "dc": -1.0720615047732149e-06,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "ark_descent_review.wav",
+      "wav_sha256": "28b70256ee11eb193feead3aae47c3909292445ce5443fc3bf714645dc5b2efb",
+      "audition_gain": 0.52
+    },
+    {
+      "id": "after_action",
+      "bars": 32,
+      "bpm": 92,
+      "seconds": 83.47827664399092,
+      "dc": 5.663015055259668e-07,
+      "clipped_samples": 0,
+      "detected_issues": 0,
+      "review_variant": "after_action_review.wav",
+      "wav_sha256": "20970c0d4d45a0d226e42e2a283d7778de69fd8837a85cf6e1c55831d6e42465",
+      "audition_gain": 0.52
+    }
+  ],
+  "steel_vector": "../steel_vector_arrangement_v2",
+  "render_engine": "Godot 4.6.2 stable 71f334935"
+}

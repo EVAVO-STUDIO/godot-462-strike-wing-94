@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\sonic_boom.wav",
+  "source_sha256": "9de0ce56c3b9d8f55cd7083d9cc3190d6a61a7f7a2a5a2a1c3d9d5e3dde843bf",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.58,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.296051025390625,
+    "rms": 0.05597598941250869,
+    "dc": 0.0005579474235365842,
+    "clippedSamples": 0,
+    "crestFactor": 5.288893121720846,
+    "estimatedBpm": 129.19921875,
+    "pulseStrength": 0.033110443502664566,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

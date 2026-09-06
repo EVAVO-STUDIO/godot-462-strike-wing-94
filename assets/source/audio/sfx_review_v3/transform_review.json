@@ -1,0 +1,23 @@
+{
+  "schema": "evavo_audio_review_v1",
+  "source": "C:\\Gitrepos\\godot-462-strike-wing-94\\work\\sfx_review_v3\\transform.wav",
+  "source_sha256": "95efa06c6355bee8202eae77065aaf420aa7ab3fed8b84ab5aa9b50be3b36e00",
+  "sample_rate": 22050,
+  "channels": 1,
+  "duration_seconds": 0.42,
+  "status": "pass",
+  "metrics": {
+    "peak": 0.13409423828125,
+    "rms": 0.03294484001194297,
+    "dc": 9.809056776232318e-05,
+    "clippedSamples": 0,
+    "crestFactor": 4.070265274579226,
+    "estimatedBpm": 184.5703125,
+    "pulseStrength": 0.04046056419610977,
+    "stereoCorrelation": 1.0,
+    "loopSeamDelta": 0.0,
+    "issueCount": 0
+  },
+  "issues": [],
+  "notes": []
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "hypersonic_vx94_external_stores_runtime_integration_v1",
+  "status": "reviewed_native_runtime",
+  "runtime_layers": 150,
+  "canvas": [64, 72],
+  "loadouts": ["hunter_rack", "twin_rocket_pods", "precision_bomb"],
+  "representative_runtime_sha256": "FC5A0D4149B964AEC73DBE1070873989B7F85CEB490C93FA14D492D4E5054932",
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/external_stores",
+  "draw_order": "beneath retained banked airframe painting",
+  "native_evidence": ["work/storm_pulse_v2/runtime_native", "work/vx94_loadout_runtime/native"],
+  "review_movies": ["outputs/HYPERSONIC-vx94-mounted-weapons-runtime.mp4", "outputs/HYPERSONIC-vx94-loadout-bank-runtime.mp4"]
+}

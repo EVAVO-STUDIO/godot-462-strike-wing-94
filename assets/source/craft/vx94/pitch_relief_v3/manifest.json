@@ -1,0 +1,637 @@
+{
+  "status": "reviewed_native_runtime",
+  "frames": 14,
+  "forms": 2,
+  "distinct_frames": 12,
+  "pitch_degrees": [
+    -18,
+    -12,
+    -6,
+    0,
+    6,
+    12,
+    18
+  ],
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "files": [
+    {
+      "path": ".gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "alpha.log",
+      "sha256": "0bbaac6d25543fe5151f90c308c052023a21dbfaa29a151d2a710e0f70176cff"
+    },
+    {
+      "path": "board/_evavo/project-art-sandbox-receipt.json",
+      "sha256": "e8869aa843ff1dc448a047150e38092da33e1a693dbd6ff0234a59e3b85529ba"
+    },
+    {
+      "path": "board/pitch_family.png",
+      "sha256": "9d5c0ca335f1b86492fcc2a731582705820d00a8f6c7ea9118cd473edb2dcce5"
+    },
+    {
+      "path": "board_plan.json",
+      "sha256": "c3c74492760637966aa9f37dd0a5deaf9f8929309397db923a2a1925ec2ad105"
+    },
+    {
+      "path": "board_request.json",
+      "sha256": "573b5ec671058ae0a1a02c65fc5d7f8d5588159eee7b9b9953381c85eb896d4b"
+    },
+    {
+      "path": "bomber/climb_06_4x.png",
+      "sha256": "d762931a3549562993d353e890793cbcd5c1aab88d6cb7dfbf8c79022dbf3909"
+    },
+    {
+      "path": "bomber/climb_12_4x.png",
+      "sha256": "919d7c4ddd5ed7cc99501fe0596a63a658651d9ad001e5b7d3851973f8d530bb"
+    },
+    {
+      "path": "bomber/climb_18_4x.png",
+      "sha256": "a0c5a416b8c6932e8d83afe78df4f7873955e4e6e2a08feefbc6539f7eaab934"
+    },
+    {
+      "path": "bomber/dive_06_4x.png",
+      "sha256": "a79f8850d93f30477c2729d134e5db6b352ca60e65fb30796979da5c6b0d707d"
+    },
+    {
+      "path": "bomber/dive_12_4x.png",
+      "sha256": "a971782f025b0f8bf2ca6db2c90c430be12be001d317d4d8600b90f72c6b6efb"
+    },
+    {
+      "path": "bomber/dive_18_4x.png",
+      "sha256": "faec5b8ae6efb6809eb4dbe8986a410cb1d6569632a8f4cab0878f3d4bb2318c"
+    },
+    {
+      "path": "bomber/manifest.json",
+      "sha256": "9dd5036525d345095b96a1b6ce4da9b79006b46b0636260181f273e55c335850"
+    },
+    {
+      "path": "bomber/neutral_4x.png",
+      "sha256": "c157328c7cd2e20652561fb28b1892affe44f0018d9f2d1569be03c4d124b3b1"
+    },
+    {
+      "path": "bomber/vx94_relief.blend",
+      "sha256": "9067ed10d0fe31ac31b8b66ec71927de540d2517ddf08684c57ee4a997e2b425"
+    },
+    {
+      "path": "bomber.log",
+      "sha256": "acd4fa984d811a40c4b1c2837629ac52a0f9c90087da2b1567005311d6a6b597"
+    },
+    {
+      "path": "build_vx94_pitch_relief_v3.py",
+      "sha256": "c3317318d8b68aed74fafb1a66ba3b4f5672862a96b3480d9a5d700e4dbbc085"
+    },
+    {
+      "path": "clean/_evavo/project-art-sandbox-receipt.json",
+      "sha256": "c59228ba5619338804ddb4fbd3909ac4c986410eeef7de7c1e5ca40fd69d6bf6"
+    },
+    {
+      "path": "clean/bomber_climb_06.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899"
+    },
+    {
+      "path": "clean/bomber_climb_12.png",
+      "sha256": "28cd766b569ab5b2a4d391564ad0d4bf8041318f742658d025b469c192d4d059"
+    },
+    {
+      "path": "clean/bomber_climb_18.png",
+      "sha256": "efe14807ebd89d651042e153663fa9c12444db2231952c2d6cf4eca10bbf20db"
+    },
+    {
+      "path": "clean/bomber_dive_06.png",
+      "sha256": "5c264c0dc0728350e2e40171d475c3e8908f3b1d8cbfb02f9740a8b72f86461f"
+    },
+    {
+      "path": "clean/bomber_dive_12.png",
+      "sha256": "4180d992c7e714ba9ef6d60188e711299baf2bf87ad7faa23f9c83f308728d5b"
+    },
+    {
+      "path": "clean/bomber_dive_18.png",
+      "sha256": "eae2148ba47211d571c2ec1e68f3ee425d8c5d4510fdc4ebd9d68574a6aefed0"
+    },
+    {
+      "path": "clean/bomber_neutral.png",
+      "sha256": "a590b1cfb69a7176bb2e1dffdb4c51cb93b8bae18badb560b85e659521e8f899"
+    },
+    {
+      "path": "clean/fighter_climb_06.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592"
+    },
+    {
+      "path": "clean/fighter_climb_12.png",
+      "sha256": "979755fb54fc557fe8ccb7900b63c926381d5c031272287f178613e6fb8d23f5"
+    },
+    {
+      "path": "clean/fighter_climb_18.png",
+      "sha256": "2de5cad02ba58d65b00199f197fe0f8f7c47ba746b0c3aac6f4979503e358e1e"
+    },
+    {
+      "path": "clean/fighter_dive_06.png",
+      "sha256": "1e0eeb75c6aeb21000fd306141fa7868b0b61b2c44fbb39eeebdf7b95772de51"
+    },
+    {
+      "path": "clean/fighter_dive_12.png",
+      "sha256": "845a5cf6c4b12437d08694834b340695c16c5be48d5221050084c29cfe16d741"
+    },
+    {
+      "path": "clean/fighter_dive_18.png",
+      "sha256": "01429a24a7f1405b32eccfefbe195fb979b3c1a2a2535e425956b1f583f0f78c"
+    },
+    {
+      "path": "clean/fighter_neutral.png",
+      "sha256": "487a7fc198d3fc015a3ab86c253ba0a713c26336817d2f596c6f3da362a30592"
+    },
+    {
+      "path": "clean.mjs",
+      "sha256": "3a337c6beb7d89293e3903568b89f7a981293665b119a8e7a4c30e448d63bb5a"
+    },
+    {
+      "path": "clean_alpha.log",
+      "sha256": "a9136e8c7f3b945b636f98772222e58ef27a9895d3d6aaf8a9d9bfe0b8bda476"
+    },
+    {
+      "path": "clean_evidence/bomber_climb_06.png.json",
+      "sha256": "118d85da7d6ab473e10419969cec2cf950d6d2c4010de2759ca0d1c7b3f6164d"
+    },
+    {
+      "path": "clean_evidence/bomber_climb_12.png.json",
+      "sha256": "a8eacf67d45d34524a01a35478ff05611939519fc2e61c04c79ae446d8796558"
+    },
+    {
+      "path": "clean_evidence/bomber_climb_18.png.json",
+      "sha256": "12492390aad57329c592c64f765608289c26b4e1017f417cc755bc00c74c7e4f"
+    },
+    {
+      "path": "clean_evidence/bomber_dive_06.png.json",
+      "sha256": "439c45ab95f33aca9851075af0f87b824867de60bf543c5c8b6dc53e975c1f7c"
+    },
+    {
+      "path": "clean_evidence/bomber_dive_12.png.json",
+      "sha256": "acde6c79ffb5f2256f73d618fa1b4d21cf3ba1b1285f0c617a5f4d5e586a89a5"
+    },
+    {
+      "path": "clean_evidence/bomber_dive_18.png.json",
+      "sha256": "19def6581a9135d2d143bab4c59aa8355822c908a11ae9e866ff3fe5c553d010"
+    },
+    {
+      "path": "clean_evidence/bomber_neutral.png.json",
+      "sha256": "030a4017fbe9c20aaa8353f111b2b555cf7ed0de988538d2b4ccc4380787befe"
+    },
+    {
+      "path": "clean_evidence/fighter_climb_06.png.json",
+      "sha256": "eca4e314d0659ac85f81f028e7cd123f64cda325a4bccfa56fe463909c0ff321"
+    },
+    {
+      "path": "clean_evidence/fighter_climb_12.png.json",
+      "sha256": "cf7991d6e834b2e792fa593ec9cc5a9ae908ed208faac332429c1e2ea845af91"
+    },
+    {
+      "path": "clean_evidence/fighter_climb_18.png.json",
+      "sha256": "5bd3dcfc1d64e9db7d251997be9cf869bb7771a8a8f4a13c98950dc7b5cad4e7"
+    },
+    {
+      "path": "clean_evidence/fighter_dive_06.png.json",
+      "sha256": "c30e142057f20c988f2c0c92440cbc3688350b303c163a54664082f2d7153c35"
+    },
+    {
+      "path": "clean_evidence/fighter_dive_12.png.json",
+      "sha256": "8013141a39f6350d4dbce2145f125c21090efadaec82fbb935de8568247948a8"
+    },
+    {
+      "path": "clean_evidence/fighter_dive_18.png.json",
+      "sha256": "5f084cd78867641ab7620c4f22fbc779ff30e8e98949d4e4bbd123f532625430"
+    },
+    {
+      "path": "clean_evidence/fighter_neutral.png.json",
+      "sha256": "83eae8dec1ee45e98229e46592131f428ef3dd842aecd059055cb51bfc76a391"
+    },
+    {
+      "path": "clean_plan.json",
+      "sha256": "76eafc8f06b91c8e50f14820b4075d84e74e73b1ccc8c7786b49c81532655934"
+    },
+    {
+      "path": "clean_proofs/bomber_climb_06.png",
+      "sha256": "5b9ade612534bb7abe6deb9f2fc1643e5c4dfee1cbcdae2bee8d828e1acb05cc"
+    },
+    {
+      "path": "clean_proofs/bomber_climb_12.png",
+      "sha256": "8068d4439145be53a2564182c6d13c6873980af76cda406d09e0a502f9251667"
+    },
+    {
+      "path": "clean_proofs/bomber_climb_18.png",
+      "sha256": "a96cc3adf6b535cb658a049b30e9f8c552892ca0c6b41f0365e503c1c948f090"
+    },
+    {
+      "path": "clean_proofs/bomber_dive_06.png",
+      "sha256": "dd9a277c9955048a0aeccbb67646510905fe2d65af563c510c34083711cbc5f9"
+    },
+    {
+      "path": "clean_proofs/bomber_dive_12.png",
+      "sha256": "48fd55708cdf544edd6b6aa425ea23527f561399702c744f940b618e4df34a41"
+    },
+    {
+      "path": "clean_proofs/bomber_dive_18.png",
+      "sha256": "226814646e702af30cee1b831bd3783c9300b562d2bd7cc055a3e84be94bd861"
+    },
+    {
+      "path": "clean_proofs/bomber_neutral.png",
+      "sha256": "5b9ade612534bb7abe6deb9f2fc1643e5c4dfee1cbcdae2bee8d828e1acb05cc"
+    },
+    {
+      "path": "clean_proofs/fighter_climb_06.png",
+      "sha256": "c669a748c30f17d5aa01649d912d52448af73dd10e5d461c864ab29ff9052441"
+    },
+    {
+      "path": "clean_proofs/fighter_climb_12.png",
+      "sha256": "40b9664937e0732de8db64f723e29a92d17a778dc746affef9d4c16410b94909"
+    },
+    {
+      "path": "clean_proofs/fighter_climb_18.png",
+      "sha256": "a608d9ed2800d72a2b6b799ff04813331108761d585b93b7ccd9e91690790c33"
+    },
+    {
+      "path": "clean_proofs/fighter_dive_06.png",
+      "sha256": "1bc67710a7a1e66b777b6ee365056f41a464ac82b26a9d229a9819fe2d0d31c7"
+    },
+    {
+      "path": "clean_proofs/fighter_dive_12.png",
+      "sha256": "6f7b6d81446bdbca1c7c4afcb691492b4ff72d97e7d6ee25683ab84f658c726a"
+    },
+    {
+      "path": "clean_proofs/fighter_dive_18.png",
+      "sha256": "fc1f701a3b26b0943d73230be5dab54a2d6e1bde92384e3a63eba63cf90a17c1"
+    },
+    {
+      "path": "clean_proofs/fighter_neutral.png",
+      "sha256": "c669a748c30f17d5aa01649d912d52448af73dd10e5d461c864ab29ff9052441"
+    },
+    {
+      "path": "clean_request.json",
+      "sha256": "0ac50428c4df2274b2cb8cb03993a94462569af09b9df811f4432d109f10efb4"
+    },
+    {
+      "path": "fighter/climb_06_4x.png",
+      "sha256": "1dfb03dcd9f53eb4807c4675711d7a2f460d1cbfbac280886eca218b53bb9ce5"
+    },
+    {
+      "path": "fighter/climb_12_4x.png",
+      "sha256": "1fd1d548c1e4dd3fc8e918c9d4ff9cf02514e425068c5b83a5bc8da934099435"
+    },
+    {
+      "path": "fighter/climb_18_4x.png",
+      "sha256": "f048f3408165dbd8455e4edbe223c8b3a0189a137fb0c7d4a5685f99ede8823f"
+    },
+    {
+      "path": "fighter/dive_06_4x.png",
+      "sha256": "1e216364362b72ea790e42e6de104333f164053c96559d8dc2e136dd95b587f1"
+    },
+    {
+      "path": "fighter/dive_12_4x.png",
+      "sha256": "af47ea258f3591bc2cc1cbe51fe1e8326deed8a6f6478d3d14f2d9c29d653ee5"
+    },
+    {
+      "path": "fighter/dive_18_4x.png",
+      "sha256": "78d1d2083cbaec079fa560e8dbdf09816feb1853327d1b10d728d4584ee9253e"
+    },
+    {
+      "path": "fighter/manifest.json",
+      "sha256": "645a2c3da5ce708c44abce434ac8997417910d3e1a932a639b1000ad80f8d471"
+    },
+    {
+      "path": "fighter/neutral_4x.png",
+      "sha256": "725fec0a5d2fb48012cdfcf3a30f8922fbaa992f54acac0229b6950c8da6a88f"
+    },
+    {
+      "path": "fighter/vx94_relief.blend",
+      "sha256": "2f9ecfc7724af8804324ab6ca55d56ff80c7e256e9f8d7a2986f9633c2ad2f96"
+    },
+    {
+      "path": "fighter.log",
+      "sha256": "67f3ddc88e020af6a99c7c9c8c3e08aa89d2ac3a0615ff81f9db1adbce7faa78"
+    },
+    {
+      "path": "finish.mjs",
+      "sha256": "caf4967d01b87fd3b577791e4f0a1947ed40f64d6d1497955c1ef936538e4d79"
+    },
+    {
+      "path": "native_plan.json",
+      "sha256": "b5a8d8ea3a6bb44a2bd6d209d2e234b8b8deac157b112170bf64922f7c3dd4d3"
+    },
+    {
+      "path": "native_request.json",
+      "sha256": "a83470bd1e48de52994cbfd75b5b7ffeebdd1262785861c0bbb28dceeaa218df"
+    },
+    {
+      "path": "native_review/frame_000.png",
+      "sha256": "27aa3f79afd0a30b1e2cac1f081ae6081b2e007ac1dc4e4cba1723c7e28fbc15"
+    },
+    {
+      "path": "native_review/frame_012.png",
+      "sha256": "5dca745f063859b4e263962ad99e745bbd624203d8eb3fd4a8ccc181cc8a05b8"
+    },
+    {
+      "path": "native_review/frame_036.png",
+      "sha256": "54c80b38e9bffe7b78028fb34d8b2d2a0d116842bce64da6e73e4b819dda7757"
+    },
+    {
+      "path": "native_review/frame_048.png",
+      "sha256": "27aa3f79afd0a30b1e2cac1f081ae6081b2e007ac1dc4e4cba1723c7e28fbc15"
+    },
+    {
+      "path": "native_review.log",
+      "sha256": "cb3eca2173630f6d01bfb363bf2ccf4f8717881936f8000329968ba8ed90736d"
+    },
+    {
+      "path": "originals/bomber_neutral.png",
+      "sha256": "4487099d01e06d34a46f917df0c30d7b0f47e41bec8ba1101dcc885efd77bfcb"
+    },
+    {
+      "path": "originals/fighter_neutral.png",
+      "sha256": "b7c553bbf15c8798133b96b4d806644451232415e7092cd676715baedc20e458"
+    },
+    {
+      "path": "package.py",
+      "sha256": "0321cba11c378fb3948a3ce7c306b24fe34985511eea03445494c34a70731399"
+    },
+    {
+      "path": "proof.mjs",
+      "sha256": "4ded9620eaaa014fa6fd3f978ac373e3732263bdbe5ffe34baa3303971099bc2"
+    },
+    {
+      "path": "proof_full/_evavo/project-art-sandbox-receipt.json",
+      "sha256": "a21f0dfe59bb0cf3f032457bcf3b23d58bbafb62bf090b59b2ecbd31d4ec5961"
+    },
+    {
+      "path": "proof_full/proof_board.png",
+      "sha256": "d106e0ce0e03305ded1607aff8da570cb3462de5d55441fc1116af92238906b0"
+    },
+    {
+      "path": "proof_full.mjs",
+      "sha256": "220c2746bb88aab6ec9ff539331e46973906b4274112b85e2b47771ea9ad8ed3"
+    },
+    {
+      "path": "proof_full_plan.json",
+      "sha256": "f3d7950274c1cc65e56f179ed99e1902730617230a7d66049cbd93d71e9c4f76"
+    },
+    {
+      "path": "proof_full_request.json",
+      "sha256": "ff19d305965557b52bf4558f905a7e259d09da5360a207c8369009fcf351ba98"
+    },
+    {
+      "path": "proof_plan.json",
+      "sha256": "594b10463bfd4afd3d32385ef493b6a6848cd9b24b2ab41d55431f86f40693e7"
+    },
+    {
+      "path": "proof_request.json",
+      "sha256": "978e35851c5780972f82284a563aefdee4daeeed10d419bf4578ecc60580a6c0"
+    },
+    {
+      "path": "quantify.py",
+      "sha256": "4276a502608355559492f1a70e128845a83bc68b16637bed79b7a46283612863"
+    },
+    {
+      "path": "registration.json",
+      "sha256": "1e7ae7000e5086eaef25ccf04f28da32a1772077daae88d162b1dc2c874963c3"
+    },
+    {
+      "path": "review/project.godot",
+      "sha256": "05f62286211cb24b4e5a857ccc374b43c88afef24c55f0d208e49e03203da8a5"
+    },
+    {
+      "path": "review/review.gd",
+      "sha256": "12cbcf1c1983e117bb6d5693a329fc623afecf01d0aeccfebea7f722e851da2f"
+    },
+    {
+      "path": "sprite.log",
+      "sha256": "684393b00aefacbb596fd17c3830202a991b617d933ae5a9c824b468d2b2d48f"
+    },
+    {
+      "path": "sprite.py",
+      "sha256": "9ed30c5354d33698ff43a1b65926ad3cc6a9a79a2b1630cfddc98bcd8e4786ce"
+    },
+    {
+      "path": "sprite_clean/aligned/bomber_00.png",
+      "sha256": "cc28f603587296fdfe0217ae3ec031f1c9c1d7fcb5ad98286c8ba56f4fa8589e"
+    },
+    {
+      "path": "sprite_clean/aligned/bomber_01.png",
+      "sha256": "06a7a879d5eff8b8b99458e2ab8e6f9917c4530dd68955dbcef00920ff8fe587"
+    },
+    {
+      "path": "sprite_clean/aligned/bomber_02.png",
+      "sha256": "e307a0db0d362ab8cf631666eef86c47205cbd9aba823e58520c02eceeac34d8"
+    },
+    {
+      "path": "sprite_clean/aligned/bomber_03.png",
+      "sha256": "d10c941e9174250aca0e2c5e0f1cff66aa5639940cfe677a82abb48e1bf7b369"
+    },
+    {
+      "path": "sprite_clean/aligned/bomber_04.png",
+      "sha256": "d10c941e9174250aca0e2c5e0f1cff66aa5639940cfe677a82abb48e1bf7b369"
+    },
+    {
+      "path": "sprite_clean/aligned/bomber_05.png",
+      "sha256": "00d48a435af39ace1694cde00a6452e6a1b17bb8be305a3676cdbab879521e20"
+    },
+    {
+      "path": "sprite_clean/aligned/bomber_06.png",
+      "sha256": "8d6e2f8fba1ec536d52987d8b1e88c5d25c242328c344fab2c614f65fdd9b3db"
+    },
+    {
+      "path": "sprite_clean/aligned/fighter_00.png",
+      "sha256": "2100b9b3933d208f8a3a20bcc247ca9f7e6fe9bf238ae73509488dacf4f445c1"
+    },
+    {
+      "path": "sprite_clean/aligned/fighter_01.png",
+      "sha256": "373fb8a97ea371710d3df6022d1405147e9de6dab340ccd18258b7002e947e32"
+    },
+    {
+      "path": "sprite_clean/aligned/fighter_02.png",
+      "sha256": "84115a21f4a2cb737d994bc9db5629ccf74af596207e1a5fb4ae3ab63942041e"
+    },
+    {
+      "path": "sprite_clean/aligned/fighter_03.png",
+      "sha256": "ab24d4a9d8ab98e0e97cad365f301669c56137a2599fbcf26fd3d8b475aca90b"
+    },
+    {
+      "path": "sprite_clean/aligned/fighter_04.png",
+      "sha256": "ab24d4a9d8ab98e0e97cad365f301669c56137a2599fbcf26fd3d8b475aca90b"
+    },
+    {
+      "path": "sprite_clean/aligned/fighter_05.png",
+      "sha256": "df316e1f813fb8fdf9d00ec6f9679c0d097a6aa1c520cc11607364a11dd1aa55"
+    },
+    {
+      "path": "sprite_clean/aligned/fighter_06.png",
+      "sha256": "1d19c07c164455edbfef1bc1151499bdd16ac7fbfb191feffe660edde680df58"
+    },
+    {
+      "path": "sprite_clean/build.receipt.json",
+      "sha256": "bbdd24c288bdbbda8e7eb8224422cd8fcb5495ae90a85352a8d9f82b41dfa729"
+    },
+    {
+      "path": "sprite_clean/frames/bomber_00.png",
+      "sha256": "919b24a5e95d825ef3c23a91f8b1a37034eafcac640b853e71c64ab9d4f82337"
+    },
+    {
+      "path": "sprite_clean/frames/bomber_01.png",
+      "sha256": "e80df2f009f70a096314bd9020aa258202cc73f1fa6de5d8d787dd2d7d8ebfcb"
+    },
+    {
+      "path": "sprite_clean/frames/bomber_02.png",
+      "sha256": "2abc935077d9fbf2034b8b6aa8e13d03cab6f77ae9f0e1969b7a4128fdbdd8ba"
+    },
+    {
+      "path": "sprite_clean/frames/bomber_03.png",
+      "sha256": "3f1f850b513e1ba93536a43a4a641fd36a68438046fdc7c37d0bc4c4d27d38bc"
+    },
+    {
+      "path": "sprite_clean/frames/bomber_04.png",
+      "sha256": "3f1f850b513e1ba93536a43a4a641fd36a68438046fdc7c37d0bc4c4d27d38bc"
+    },
+    {
+      "path": "sprite_clean/frames/bomber_05.png",
+      "sha256": "154c61c1cb5ca271baadd14baa52ad6016e5f537e639427c0e4a0323c04e5d8a"
+    },
+    {
+      "path": "sprite_clean/frames/bomber_06.png",
+      "sha256": "f4970d611b5b82295be4cc9b730d6c7a2d4edeb35139990e17f4a0ea6f6d0220"
+    },
+    {
+      "path": "sprite_clean/frames/fighter_00.png",
+      "sha256": "be6ea3a706d07b858c2a8932ae5c0be5e6b078056ef13fd6985d7d5ad91cec80"
+    },
+    {
+      "path": "sprite_clean/frames/fighter_01.png",
+      "sha256": "866067b9583913b82caf0e7147d2ecca7e5c0c195c2a70933c347ab17f82a4da"
+    },
+    {
+      "path": "sprite_clean/frames/fighter_02.png",
+      "sha256": "cd084d766149ac947cbc18e9fd09e4481949a7c8ec112997ed193ab2587fdf87"
+    },
+    {
+      "path": "sprite_clean/frames/fighter_03.png",
+      "sha256": "3760de443dfb81e8a82003b5c7624331e1f40a76a30c1ace9c67d441bb17495d"
+    },
+    {
+      "path": "sprite_clean/frames/fighter_04.png",
+      "sha256": "3760de443dfb81e8a82003b5c7624331e1f40a76a30c1ace9c67d441bb17495d"
+    },
+    {
+      "path": "sprite_clean/frames/fighter_05.png",
+      "sha256": "371b6c27017afd77cca8584c67bdaec93d17df698a89b1814e0764421ab8dd5b"
+    },
+    {
+      "path": "sprite_clean/frames/fighter_06.png",
+      "sha256": "0775da0fed276f19c6a1ab230916874e4d9e836914d696a343dc34073fe8f12c"
+    },
+    {
+      "path": "sprite_clean/previews/bomber.contact.png",
+      "sha256": "af1a0d9c8b0f3c96ae05c2f62b6e098b510c4ebc419b6199760a0efdb1c6a5aa"
+    },
+    {
+      "path": "sprite_clean/previews/bomber.difference.png",
+      "sha256": "d5ea7235fa2835922e31ce4375e21d5d32fb6f08844eb53635737149a01d7582"
+    },
+    {
+      "path": "sprite_clean/previews/bomber.gif",
+      "sha256": "6a07d5d59cba16db65029031947d905f7b32d1359435b7c868ccb5c2d0731767"
+    },
+    {
+      "path": "sprite_clean/previews/bomber.onion.png",
+      "sha256": "08a7bb44322afefda4950232624fc4d9a563f83154922aac37eb1348b508c9d2"
+    },
+    {
+      "path": "sprite_clean/previews/bomber.pivots.png",
+      "sha256": "c915de12f30a5b1c8496ad4ea182664e5175432cedfc789aa98e9de397c70085"
+    },
+    {
+      "path": "sprite_clean/previews/fighter.contact.png",
+      "sha256": "0097fdca2ccdc0fc985b8011d770607d8b895c57da17527a90bfd3492b8ff064"
+    },
+    {
+      "path": "sprite_clean/previews/fighter.difference.png",
+      "sha256": "3de07b4c520a40a5d85ac76608b747b45996b0b6fc7b8da0d20ad5bcf3a737af"
+    },
+    {
+      "path": "sprite_clean/previews/fighter.gif",
+      "sha256": "21569367cf95e0bf68751667ca6656c6a1c7c0e628d97db55751bddd70de60ea"
+    },
+    {
+      "path": "sprite_clean/previews/fighter.onion.png",
+      "sha256": "93cf1dcf501ee6d2b5bb360d386c5b06ec585ed9d06b2bd5f3de8b6b06269cfb"
+    },
+    {
+      "path": "sprite_clean/previews/fighter.pivots.png",
+      "sha256": "fc42684295da3d30ee2c93f66e421deef558dc1be8b9afd4be6290a4cf6a99fa"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.animated_sprite.tscn",
+      "sha256": "07e16370ea4fa5bd23b20a47e5eec728e488c079c170e9f31a652cfb79c15d4c"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.atlas.0.png",
+      "sha256": "bd7e4b7064a8726a8bcf2a42eb02892e1af3dab917138c19828e720050dbd4f3"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.atlas.json",
+      "sha256": "e206e6bf429af2f9e1239051eb8029ecfc82bb5c6af26a668cddf908091ec14f"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.build.json",
+      "sha256": "774ad9876ab29d276ce38135811c00af214cb1be1864425cfc1aab1326afbacb"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.corrections.json",
+      "sha256": "6cfec9f2883e238f16b5e5be8fbc046c5fd4443ecb8f549e8178171dce97e8dc"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.events.json",
+      "sha256": "a7231f60d49e04a3f511d8e03382da15459a434c349234122526820077723936"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.integration.json",
+      "sha256": "e00b86ce9806e6e7641ce00c2c462e1821db7359a8c49103b948ec78ecead101"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.manifest.json",
+      "sha256": "ea2c54c113f8bcc422a73863740f679a536d07c762157096fd71bcc169b25127"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.qa.json",
+      "sha256": "dc95e385d059fba3fb0ae78ae4c3af1d1f10901ec1c0e3da2c7efceb5816d2e8"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.review.html",
+      "sha256": "09758cd8ccf4705a59ebd5eb1acb7a05fdcaa5258a8bd52f82a3197d6b7b52ed"
+    },
+    {
+      "path": "sprite_clean/vx94_pitch_relief.spriteframes.tres",
+      "sha256": "094adf0d4ce201ccb40f8a96f99049e0d212ad5ca06e47189e087e1e4ba718b6"
+    },
+    {
+      "path": "sprite_clean.log",
+      "sha256": "54b55436066ea1c827cb8765c1d0b3ec7ac2a353713eb8bd7d633f82ac428d92"
+    },
+    {
+      "path": "sprite_clean.py",
+      "sha256": "429a52d02f8bb2d2a9e71e230a4fcedcf3358bdf8d5f84e30ae5c3553fdab6aa"
+    },
+    {
+      "path": "sprite_config.json",
+      "sha256": "a87edff38076ad39db241e1a9ab694d6708813d9a5ec51cdd063374db9e7e3b0"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "abff6232c8d8aa0548ee9f3af9dfa0bd0d8c73d02b3819d758746447c341701c"
+    }
+  ]
+}

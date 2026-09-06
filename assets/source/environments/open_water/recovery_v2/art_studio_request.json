@@ -1,0 +1,1053 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "hypersonic-water-detail-recovery-v2",
+  "projectId": "hypersonic",
+  "purpose": "Preserve original sea pixels with wrapped phase offsets; replace only final row for matching seam.",
+  "tasks": [
+    {
+      "id": "deep-0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_deep_tile.png"
+      ],
+      "targetPath": "deep_0.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 511
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "deep-1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_deep_tile.png"
+      ],
+      "targetPath": "deep_1.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 639,
+            "y": 509,
+            "width": 1,
+            "height": 3
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 3,
+          "sourceRect": {
+            "x": 639,
+            "y": 0,
+            "width": 1,
+            "height": 508
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 639,
+            "y": 509,
+            "width": 1,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 1,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 639,
+            "height": 3
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 1,
+          "y": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 639,
+            "height": 508
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 1,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 639,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "deep-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_deep_tile.png"
+      ],
+      "targetPath": "deep_2.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 506,
+            "width": 640,
+            "height": 6
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 6,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 505
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 506,
+            "width": 640,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "deep-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_deep_tile.png"
+      ],
+      "targetPath": "deep_3.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 1,
+            "y": 509,
+            "width": 639,
+            "height": 3
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 3,
+          "sourceRect": {
+            "x": 1,
+            "y": 0,
+            "width": 639,
+            "height": 508
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 1,
+            "y": 509,
+            "width": 639,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 639,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 1,
+            "height": 3
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 639,
+          "y": 3,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 508
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 639,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 509,
+            "width": 1,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "surface-0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_surface_tile.png"
+      ],
+      "targetPath": "surface_0.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 511
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "surface-1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_surface_tile.png"
+      ],
+      "targetPath": "surface_1.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 5
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 5,
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 506
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 5
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 5,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 506
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "surface-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_surface_tile.png"
+      ],
+      "targetPath": "surface_2.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 636,
+            "y": 502,
+            "width": 4,
+            "height": 10
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 10,
+          "sourceRect": {
+            "x": 636,
+            "y": 0,
+            "width": 4,
+            "height": 501
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 636,
+            "y": 502,
+            "width": 4,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 502,
+            "width": 636,
+            "height": 10
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 10,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 636,
+            "height": 501
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 502,
+            "width": 636,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "surface-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_surface_tile.png"
+      ],
+      "targetPath": "surface_3.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 5
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 5,
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 506
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 638,
+            "y": 507,
+            "width": 2,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 5
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 5,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 506
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 507,
+            "width": 638,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "foam-0",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_foam_tile.png"
+      ],
+      "targetPath": "foam_0.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 511
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 640,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "foam-1",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_foam_tile.png"
+      ],
+      "targetPath": "foam_1.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 4
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 4,
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 507
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 4
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 4,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 507
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "foam-2",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_foam_tile.png"
+      ],
+      "targetPath": "foam_2.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 8
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 8,
+          "sourceRect": {
+            "x": 636,
+            "y": 0,
+            "width": 4,
+            "height": 503
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 8
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 8,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 636,
+            "height": 503
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "foam-3",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_foam_tile.png"
+      ],
+      "targetPath": "foam_3.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 634,
+            "y": 500,
+            "width": 6,
+            "height": 12
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 12,
+          "sourceRect": {
+            "x": 634,
+            "y": 0,
+            "width": 6,
+            "height": 499
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 634,
+            "y": 500,
+            "width": 6,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 6,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 500,
+            "width": 634,
+            "height": 12
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 6,
+          "y": 12,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 634,
+            "height": 499
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 6,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 500,
+            "width": 634,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "foam-4",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_foam_tile.png"
+      ],
+      "targetPath": "foam_4.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 8
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 8,
+          "sourceRect": {
+            "x": 636,
+            "y": 0,
+            "width": 4,
+            "height": 503
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 636,
+            "y": 504,
+            "width": 4,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 8
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 8,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 636,
+            "height": 503
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 4,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 504,
+            "width": 636,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    },
+    {
+      "id": "foam-5",
+      "kind": "image-composite",
+      "sources": [
+        "assets/runtime/environments/layers/sea_foam_tile.png"
+      ],
+      "targetPath": "foam_5.png",
+      "canvas": {
+        "width": 640,
+        "height": 512,
+        "background": "#00000000"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 4
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 4,
+          "sourceRect": {
+            "x": 638,
+            "y": 0,
+            "width": 2,
+            "height": 507
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 511,
+          "sourceRect": {
+            "x": 638,
+            "y": 508,
+            "width": 2,
+            "height": 1
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 4
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 4,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 638,
+            "height": 507
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 0,
+          "x": 2,
+          "y": 511,
+          "sourceRect": {
+            "x": 0,
+            "y": 508,
+            "width": 638,
+            "height": 1
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ],
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "schema": "evavo.project-art-sandbox-request.v1",
+  "sandboxId": "pitch-proof-board",
+  "projectId": "hypersonic",
+  "purpose": "Diving 18/12/6, neutral, climbing 6/12/18 degrees; fighter then bomber",
+  "authority": {
+    "candidatePromotion": false,
+    "publication": false,
+    "targetRepositoryMutation": false,
+    "candidateApproval": false,
+    "providerExecution": false
+  },
+  "tasks": [
+    {
+      "id": "pitch_family",
+      "kind": "image-composite",
+      "sources": [
+        "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_18.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_12.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/fighter_dive_06.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/fighter_neutral.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_06.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_12.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/fighter_climb_18.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_18.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_12.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/bomber_dive_06.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/bomber_neutral.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_06.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_12.png",
+        "work/vx94_pitch_relief_v3/clean_proofs/bomber_climb_18.png"
+      ],
+      "targetPath": "proof_board.png",
+      "canvas": {
+        "width": 960,
+        "height": 704,
+        "background": "#17212b"
+      },
+      "layers": [
+        {
+          "sourceIndex": 0,
+          "x": 0,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 1,
+          "x": 240,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 2,
+          "x": 480,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 3,
+          "x": 720,
+          "y": 0,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 4,
+          "x": 0,
+          "y": 176,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 5,
+          "x": 240,
+          "y": 176,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 6,
+          "x": 480,
+          "y": 176,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 7,
+          "x": 720,
+          "y": 176,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 8,
+          "x": 0,
+          "y": 352,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 9,
+          "x": 240,
+          "y": 352,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 10,
+          "x": 480,
+          "y": 352,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 11,
+          "x": 720,
+          "y": 352,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 12,
+          "x": 0,
+          "y": 528,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        },
+        {
+          "sourceIndex": 13,
+          "x": 240,
+          "y": 528,
+          "sourceRect": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 176
+          },
+          "sampling": "nearest"
+        }
+      ]
+    }
+  ]
+}

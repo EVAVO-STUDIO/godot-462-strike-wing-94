@@ -1,0 +1,19 @@
+{
+  "status": "integrated_low_cloud_a_native_reviewed",
+  "provider": "built-in image generation",
+  "runtime": "assets/runtime/environments/clouds/cloud_bank_low_wisp_a.png",
+  "master": "master.png",
+  "sha256": "c28ee14970dca745613a3fd7166c99fe8de51d73ae10891a5527ca8e36a87323",
+  "geometry": [
+    192,
+    64
+  ],
+  "finishing": "EVAVO Art Studio native alpha retained, downsampled, transparent padding; six-background proof inspected",
+  "qa": "PASS with black and chromatic contamination probes. White excluded because white vapour is the subject, not a source matte. Default white-matte failure retained.",
+  "native_frames": 72,
+  "speed_range": [
+    0.62,
+    1.78
+  ],
+  "native_scope": "Refinery low-altitude capture with actual firing/throttle/afterburner input; loaded texture size asserted 192x64. Frames 12,36,60,71 inspected. Not full weather or altitude matrix."
+}

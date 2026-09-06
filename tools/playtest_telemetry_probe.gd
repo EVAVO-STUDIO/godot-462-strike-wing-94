@@ -2,7 +2,7 @@ extends Node
 
 const DEFAULT_SIMULATION_SECONDS := 36.0
 const TIME_SCALE := 3.0
-const PULSE_ACTIONS := ["transform_craft", "altitude_up", "altitude_down", "evasive_roll", "fire_support", "call_battlefield_support", "drop_strike_ordnance", "fire_secondary"]
+const PULSE_ACTIONS := ["transform_craft", "altitude_up", "altitude_down", "evasive_roll", "deploy_countermeasure", "fire_support", "call_battlefield_support", "drop_strike_ordnance", "fire_secondary"]
 const MOVE_ACTIONS := ["move_left", "move_right", "move_up", "move_down"]
 
 var scene: Node
@@ -11,13 +11,14 @@ var duration := DEFAULT_SIMULATION_SECONDS
 var last_second := -1
 var altitude_seconds: Dictionary = {}
 var form_seconds: Dictionary = {}
-var commands: Dictionary = {"transform":0, "altitude":0, "roll":0, "tactical_support":0, "battlefield_support":0, "ordnance":0, "screen_bomb":0}
+var commands: Dictionary = {"transform":0, "altitude":0, "roll":0, "countermeasure":0, "tactical_support":0, "battlefield_support":0, "ordnance":0, "screen_bomb":0}
 var accepted: Dictionary = {"tactical_support":0, "battlefield_support":0, "ordnance":0}
 var maxima: Dictionary = {"enemies":0, "player_projectiles":0, "hostile_projectiles":0}
 var starting: Dictionary = {}
 var _support_active := false
 var _battlefield_active := false
 var _last_ordnance := -1
+var _starting_countermeasures := -1
 var _starting_world_distance := 0.0
 var _minimum_world_speed := 99.0
 var _maximum_world_speed := 0.0
@@ -49,6 +50,8 @@ func _prepare() -> void:
 	_starting_world_distance = float(scene.get("environment_world_distance")) if _has_property(scene, "environment_world_distance") else 0.0
 	var strike := get_node_or_null("/root/StrikeOrdnanceDirector")
 	_last_ordnance = int(strike.get("ordnance")) if strike != null else -1
+	var countermeasures := get_node_or_null("/root/CountermeasureDirector")
+	_starting_countermeasures = int(countermeasures.call("charges_remaining")) if countermeasures != null and countermeasures.has_method("charges_remaining") else -1
 	if not _passive_profile:
 		Input.action_press("fire_primary")
 
@@ -165,6 +168,7 @@ func _drive_commands(second: int) -> void:
 	if second in [8, 30]: _pulse("altitude_up", "altitude")
 	if second in [19]: _pulse("altitude_down", "altitude")
 	if second in [6, 17, 28]: _pulse("evasive_roll", "roll")
+	if second in [9, 20, 32]: _pulse("deploy_countermeasure", "countermeasure")
 	if second in [10, 24]: _pulse("fire_support", "tactical_support")
 	if second in [13, 31]: _pulse("call_battlefield_support", "battlefield_support")
 	if second in [12, 25]: _pulse("drop_strike_ordnance", "ordnance")
@@ -193,6 +197,8 @@ func _finish() -> void:
 	Engine.time_scale = 1.0
 	var ending := _snapshot_counters()
 	var mission: Dictionary = scene.call("_active_mission") if scene.has_method("_active_mission") else {}
+	var countermeasures := get_node_or_null("/root/CountermeasureDirector")
+	var countermeasures_remaining := int(countermeasures.call("charges_remaining")) if countermeasures != null and countermeasures.has_method("charges_remaining") else -1
 	var report := {
 		"profile":"HYPERSONIC_PASSIVE_EXPOSURE" if _passive_profile else ("HYPERSONIC_STATIONARY_FIRE" if _stationary_fire_profile else "HYPERSONIC_BOUNDED_AUTOPILOT"),
 		"mission_id":str(mission.get("id", "unknown")),
@@ -204,6 +210,9 @@ func _finish() -> void:
 		"targets_destroyed":int(ending["targets_destroyed"]) - int(starting["targets_destroyed"]),
 		"damage_taken":int(ending["damage_taken"]) - int(starting["damage_taken"]),
 		"damage_sources":scene.get("damage_sources").duplicate(true) if _has_property(scene, "damage_sources") else {},
+		"enemy_missiles_launched":int(scene.get("enemy_missiles_launched")) if _has_property(scene, "enemy_missiles_launched") else 0,
+		"countermeasures_decoyed":int(scene.get("countermeasures_decoyed")) if _has_property(scene, "countermeasures_decoyed") else 0,
+		"countermeasure_charges_spent":maxi(0, _starting_countermeasures - countermeasures_remaining) if _starting_countermeasures >= 0 and countermeasures_remaining >= 0 else 0,
 		"score_earned":int(ending["score"]) - int(starting["score"]),
 		"altitude_seconds":altitude_seconds,
 		"form_seconds":form_seconds,
@@ -212,6 +221,8 @@ func _finish() -> void:
 		"maxima":maxima,
 		"forward_flight":{
 			"world_distance":float(scene.get("environment_world_distance")) - _starting_world_distance if _has_property(scene, "environment_world_distance") else 0.0,
+			"camera_route_distance":float(scene.call("camera_route_distance")) if scene.has_method("camera_route_distance") else 0.0,
+			"camera_offset_pixels":float(scene.get("flight_camera_offset")) if _has_property(scene, "flight_camera_offset") else 0.0,
 			"minimum_world_multiplier":_minimum_world_speed,
 			"maximum_world_multiplier":_maximum_world_speed,
 			"minimum_throttle":_minimum_throttle,

@@ -1,0 +1,62 @@
+[
+  {
+    "file": "sm01_black_wake.png",
+    "secret_id": "sm01_black_wake",
+    "scope": "Native staged art capture, not continuous sortie completion or difficulty evidence",
+    "form": "fighter",
+    "git_head": "0a9c3efc9a9d5adac916dfe76e9e47722009cba7",
+    "exit_code": 0,
+    "capture_time": 52,
+    "altitude": "mid"
+  },
+  {
+    "file": "sm02_furnace_vault.png",
+    "secret_id": "sm02_furnace_vault",
+    "scope": "Native staged art capture, not continuous sortie completion or difficulty evidence",
+    "form": "bomber",
+    "git_head": "0a9c3efc9a9d5adac916dfe76e9e47722009cba7",
+    "exit_code": 0,
+    "capture_time": 52,
+    "altitude": "low"
+  },
+  {
+    "file": "sm03_dead_frequency.png",
+    "secret_id": "sm03_dead_frequency",
+    "scope": "Native staged art capture, not continuous sortie completion or difficulty evidence",
+    "form": "fighter",
+    "git_head": "0a9c3efc9a9d5adac916dfe76e9e47722009cba7",
+    "exit_code": 0,
+    "capture_time": 52,
+    "altitude": "high"
+  },
+  {
+    "file": "sm04_seed_manifest.png",
+    "secret_id": "sm04_seed_manifest",
+    "scope": "Native staged art capture, not continuous sortie completion or difficulty evidence",
+    "form": "bomber",
+    "git_head": "0a9c3efc9a9d5adac916dfe76e9e47722009cba7",
+    "exit_code": 0,
+    "capture_time": 52,
+    "altitude": "low"
+  },
+  {
+    "file": "sm05_submerged_cradle.png",
+    "secret_id": "sm05_submerged_cradle",
+    "scope": "Native staged art capture, not continuous sortie completion or difficulty evidence",
+    "form": "bomber",
+    "git_head": "0a9c3efc9a9d5adac916dfe76e9e47722009cba7",
+    "exit_code": 0,
+    "capture_time": 52,
+    "altitude": "low"
+  },
+  {
+    "file": "sm06_dead_satellite.png",
+    "secret_id": "sm06_dead_satellite",
+    "scope": "Native staged art capture, not continuous sortie completion or difficulty evidence",
+    "form": "fighter",
+    "git_head": "0a9c3efc9a9d5adac916dfe76e9e47722009cba7",
+    "exit_code": 0,
+    "capture_time": 52,
+    "altitude": "orbital"
+  }
+]

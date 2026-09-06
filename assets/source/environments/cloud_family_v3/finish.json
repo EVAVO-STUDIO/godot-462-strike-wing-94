@@ -1,0 +1,92 @@
+{
+  "anvil": {
+    "resize": {
+      "sourceWidth": 1536,
+      "sourceHeight": 360,
+      "sourceHasAlpha": true,
+      "outputWidth": 320,
+      "outputHeight": 75,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "resize",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 320,
+      "sourceHeight": 75,
+      "sourceHasAlpha": true,
+      "outputWidth": 320,
+      "outputHeight": 160,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  },
+  "broken": {
+    "resize": {
+      "sourceWidth": 1536,
+      "sourceHeight": 304,
+      "sourceHasAlpha": true,
+      "outputWidth": 320,
+      "outputHeight": 63,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "resize",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 320,
+      "sourceHeight": 63,
+      "sourceHasAlpha": true,
+      "outputWidth": 320,
+      "outputHeight": 160,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  },
+  "front": {
+    "resize": {
+      "sourceWidth": 1536,
+      "sourceHeight": 360,
+      "sourceHasAlpha": true,
+      "outputWidth": 320,
+      "outputHeight": 75,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "resize",
+        "encode:png"
+      ]
+    },
+    "padding": {
+      "sourceWidth": 320,
+      "sourceHeight": 75,
+      "sourceHasAlpha": true,
+      "outputWidth": 320,
+      "outputHeight": 160,
+      "outputHasAlpha": true,
+      "format": "png",
+      "operations": [
+        "ensure-alpha",
+        "pad",
+        "encode:png"
+      ]
+    }
+  }
+}

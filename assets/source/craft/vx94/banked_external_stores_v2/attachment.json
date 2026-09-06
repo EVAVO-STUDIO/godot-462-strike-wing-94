@@ -1,0 +1,755 @@
+{
+  "neutral_15_rgba_exact": true,
+  "layers": [
+    {
+      "id": "fighter_hunter_rack_loaded_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 85
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 38
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_left",
+      "side": 0,
+      "under_airframe_pixels": 76
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_left",
+      "side": 1,
+      "under_airframe_pixels": 61
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_neutral",
+      "side": 0,
+      "under_airframe_pixels": 48
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_neutral",
+      "side": 1,
+      "under_airframe_pixels": 59
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_right",
+      "side": 0,
+      "under_airframe_pixels": 63
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_right",
+      "side": 1,
+      "under_airframe_pixels": 77
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 24
+    },
+    {
+      "id": "fighter_hunter_rack_loaded_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 90
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 27
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 38
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_left",
+      "side": 0,
+      "under_airframe_pixels": 26
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_left",
+      "side": 1,
+      "under_airframe_pixels": 61
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_neutral",
+      "side": 0,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_neutral",
+      "side": 1,
+      "under_airframe_pixels": 59
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_right",
+      "side": 0,
+      "under_airframe_pixels": 22
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_right",
+      "side": 1,
+      "under_airframe_pixels": 77
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 10
+    },
+    {
+      "id": "fighter_hunter_rack_left_released_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 90
+    },
+    {
+      "id": "fighter_hunter_rack_empty_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 27
+    },
+    {
+      "id": "fighter_hunter_rack_empty_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "fighter_hunter_rack_empty_left",
+      "side": 0,
+      "under_airframe_pixels": 26
+    },
+    {
+      "id": "fighter_hunter_rack_empty_left",
+      "side": 1,
+      "under_airframe_pixels": 21
+    },
+    {
+      "id": "fighter_hunter_rack_empty_neutral",
+      "side": 0,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "fighter_hunter_rack_empty_neutral",
+      "side": 1,
+      "under_airframe_pixels": 22
+    },
+    {
+      "id": "fighter_hunter_rack_empty_right",
+      "side": 0,
+      "under_airframe_pixels": 22
+    },
+    {
+      "id": "fighter_hunter_rack_empty_right",
+      "side": 1,
+      "under_airframe_pixels": 26
+    },
+    {
+      "id": "fighter_hunter_rack_empty_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 10
+    },
+    {
+      "id": "fighter_hunter_rack_empty_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 26
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 74
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 27
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_left",
+      "side": 0,
+      "under_airframe_pixels": 69
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_left",
+      "side": 1,
+      "under_airframe_pixels": 38
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_neutral",
+      "side": 0,
+      "under_airframe_pixels": 34
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_neutral",
+      "side": 1,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_right",
+      "side": 0,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_right",
+      "side": 1,
+      "under_airframe_pixels": 72
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "fighter_twin_rocket_pods_loaded_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 80
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 74
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 27
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_left",
+      "side": 0,
+      "under_airframe_pixels": 69
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_left",
+      "side": 1,
+      "under_airframe_pixels": 38
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_neutral",
+      "side": 0,
+      "under_airframe_pixels": 34
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_neutral",
+      "side": 1,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_right",
+      "side": 0,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_right",
+      "side": 1,
+      "under_airframe_pixels": 72
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "fighter_twin_rocket_pods_left_expended_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 80
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 74
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 27
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_left",
+      "side": 0,
+      "under_airframe_pixels": 69
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_left",
+      "side": 1,
+      "under_airframe_pixels": 38
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_neutral",
+      "side": 0,
+      "under_airframe_pixels": 34
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_neutral",
+      "side": 1,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_right",
+      "side": 0,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_right",
+      "side": 1,
+      "under_airframe_pixels": 72
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "fighter_twin_rocket_pods_empty_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 80
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 50
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 52
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_left",
+      "side": 0,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_left",
+      "side": 1,
+      "under_airframe_pixels": 34
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_neutral",
+      "side": 0,
+      "under_airframe_pixels": 53
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_neutral",
+      "side": 1,
+      "under_airframe_pixels": 57
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_right",
+      "side": 0,
+      "under_airframe_pixels": 36
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_right",
+      "side": 1,
+      "under_airframe_pixels": 38
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 43
+    },
+    {
+      "id": "bomber_hunter_rack_loaded_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 17
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 52
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_left",
+      "side": 0,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_left",
+      "side": 1,
+      "under_airframe_pixels": 34
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_neutral",
+      "side": 0,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_neutral",
+      "side": 1,
+      "under_airframe_pixels": 57
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_right",
+      "side": 0,
+      "under_airframe_pixels": 13
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_right",
+      "side": 1,
+      "under_airframe_pixels": 38
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 16
+    },
+    {
+      "id": "bomber_hunter_rack_left_released_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 42
+    },
+    {
+      "id": "bomber_hunter_rack_empty_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 17
+    },
+    {
+      "id": "bomber_hunter_rack_empty_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 16
+    },
+    {
+      "id": "bomber_hunter_rack_empty_left",
+      "side": 0,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "bomber_hunter_rack_empty_left",
+      "side": 1,
+      "under_airframe_pixels": 13
+    },
+    {
+      "id": "bomber_hunter_rack_empty_neutral",
+      "side": 0,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "bomber_hunter_rack_empty_neutral",
+      "side": 1,
+      "under_airframe_pixels": 21
+    },
+    {
+      "id": "bomber_hunter_rack_empty_right",
+      "side": 0,
+      "under_airframe_pixels": 13
+    },
+    {
+      "id": "bomber_hunter_rack_empty_right",
+      "side": 1,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_hunter_rack_empty_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 16
+    },
+    {
+      "id": "bomber_hunter_rack_empty_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 26
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 44
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_left",
+      "side": 0,
+      "under_airframe_pixels": 21
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_left",
+      "side": 1,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_neutral",
+      "side": 0,
+      "under_airframe_pixels": 31
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_neutral",
+      "side": 1,
+      "under_airframe_pixels": 35
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_right",
+      "side": 0,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_right",
+      "side": 1,
+      "under_airframe_pixels": 17
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 33
+    },
+    {
+      "id": "bomber_twin_rocket_pods_loaded_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 26
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 44
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_left",
+      "side": 0,
+      "under_airframe_pixels": 21
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_left",
+      "side": 1,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_neutral",
+      "side": 0,
+      "under_airframe_pixels": 31
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_neutral",
+      "side": 1,
+      "under_airframe_pixels": 35
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_right",
+      "side": 0,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_right",
+      "side": 1,
+      "under_airframe_pixels": 17
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 33
+    },
+    {
+      "id": "bomber_twin_rocket_pods_left_expended_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 26
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 44
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_left",
+      "side": 0,
+      "under_airframe_pixels": 21
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_left",
+      "side": 1,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_neutral",
+      "side": 0,
+      "under_airframe_pixels": 31
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_neutral",
+      "side": 1,
+      "under_airframe_pixels": 35
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_right",
+      "side": 0,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_right",
+      "side": 1,
+      "under_airframe_pixels": 17
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 33
+    },
+    {
+      "id": "bomber_twin_rocket_pods_empty_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 51
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 55
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_left",
+      "side": 0,
+      "under_airframe_pixels": 47
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_left",
+      "side": 1,
+      "under_airframe_pixels": 43
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_neutral",
+      "side": 0,
+      "under_airframe_pixels": 58
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_neutral",
+      "side": 1,
+      "under_airframe_pixels": 61
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_right",
+      "side": 0,
+      "under_airframe_pixels": 44
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_right",
+      "side": 1,
+      "under_airframe_pixels": 45
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 48
+    },
+    {
+      "id": "bomber_precision_bomb_loaded_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 45
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 17
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 55
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_left",
+      "side": 0,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_left",
+      "side": 1,
+      "under_airframe_pixels": 43
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_neutral",
+      "side": 0,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_neutral",
+      "side": 1,
+      "under_airframe_pixels": 61
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_right",
+      "side": 0,
+      "under_airframe_pixels": 13
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_right",
+      "side": 1,
+      "under_airframe_pixels": 45
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 16
+    },
+    {
+      "id": "bomber_precision_bomb_left_released_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 45
+    },
+    {
+      "id": "bomber_precision_bomb_empty_hard_left",
+      "side": 0,
+      "under_airframe_pixels": 17
+    },
+    {
+      "id": "bomber_precision_bomb_empty_hard_left",
+      "side": 1,
+      "under_airframe_pixels": 16
+    },
+    {
+      "id": "bomber_precision_bomb_empty_left",
+      "side": 0,
+      "under_airframe_pixels": 15
+    },
+    {
+      "id": "bomber_precision_bomb_empty_left",
+      "side": 1,
+      "under_airframe_pixels": 13
+    },
+    {
+      "id": "bomber_precision_bomb_empty_neutral",
+      "side": 0,
+      "under_airframe_pixels": 19
+    },
+    {
+      "id": "bomber_precision_bomb_empty_neutral",
+      "side": 1,
+      "under_airframe_pixels": 21
+    },
+    {
+      "id": "bomber_precision_bomb_empty_right",
+      "side": 0,
+      "under_airframe_pixels": 13
+    },
+    {
+      "id": "bomber_precision_bomb_empty_right",
+      "side": 1,
+      "under_airframe_pixels": 14
+    },
+    {
+      "id": "bomber_precision_bomb_empty_hard_right",
+      "side": 0,
+      "under_airframe_pixels": 16
+    },
+    {
+      "id": "bomber_precision_bomb_empty_hard_right",
+      "side": 1,
+      "under_airframe_pixels": 15
+    }
+  ]
+}

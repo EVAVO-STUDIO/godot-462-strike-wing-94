@@ -1,0 +1,230 @@
+{
+  "status": "neutral_pose_art_candidate",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "exposure_fps": 8,
+  "files": [
+    {
+      "id": "fighter_0",
+      "form": "fighter",
+      "frame": 0,
+      "layer": "over_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          26,
+          23
+        ],
+        [
+          38,
+          23
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "id": "fighter_1",
+      "form": "fighter",
+      "frame": 1,
+      "layer": "over_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          26,
+          23
+        ],
+        [
+          38,
+          23
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "id": "fighter_2",
+      "form": "fighter",
+      "frame": 2,
+      "layer": "over_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          26,
+          23
+        ],
+        [
+          38,
+          23
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "id": "fighter_3",
+      "form": "fighter",
+      "frame": 3,
+      "layer": "over_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          26,
+          23
+        ],
+        [
+          38,
+          23
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "id": "bomber_0",
+      "form": "bomber",
+      "frame": 0,
+      "layer": "under_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          32,
+          3
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "id": "bomber_1",
+      "form": "bomber",
+      "frame": 1,
+      "layer": "under_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          32,
+          3
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "id": "bomber_2",
+      "form": "bomber",
+      "frame": 2,
+      "layer": "under_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          32,
+          3
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    },
+    {
+      "id": "bomber_3",
+      "form": "bomber",
+      "frame": 3,
+      "layer": "under_airframe",
+      "proposed_muzzle_pixels": [
+        [
+          32,
+          3
+        ]
+      ],
+      "evidence": {
+        "sourceWidth": 64,
+        "sourceHeight": 72,
+        "sourceHasAlpha": true,
+        "outputWidth": 64,
+        "outputHeight": 72,
+        "outputHasAlpha": true,
+        "format": "png",
+        "operations": [
+          "ensure-alpha",
+          "encode:png"
+        ]
+      }
+    }
+  ]
+}

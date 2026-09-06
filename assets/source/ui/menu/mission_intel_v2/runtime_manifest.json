@@ -1,0 +1,57 @@
+{
+  "status": "reviewed_for_runtime",
+  "files": [
+    {
+      "source": "icons/icon_advice.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_advice.png",
+      "sha256": "3d3f4ebe04e5df4e1bfedbaeddbce6588086f8706d412247990d0f5f99938306"
+    },
+    {
+      "source": "icons/icon_allied.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_allied.png",
+      "sha256": "9bc1cfa2697d396a04f9fe017ea0ea1b6e541f8353f454e5cecf3dd8f1953fb7"
+    },
+    {
+      "source": "icons/icon_boss.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_boss.png",
+      "sha256": "797b10bb84467c1815304b843d6fbe3574045a7329dc030011fbd853748ed21a"
+    },
+    {
+      "source": "icons/icon_envelope.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_envelope.png",
+      "sha256": "d7bd6e76f6bd554d2159ea12181ba3e406919132f7badc3d5e03949d15a4c099"
+    },
+    {
+      "source": "icons/icon_lanes.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_lanes.png",
+      "sha256": "f85a3bd3d6c8d28e53980eaba491a532d5e54dda41978a76acd129c5de15f7ec"
+    },
+    {
+      "source": "icons/icon_profile.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_profile.png",
+      "sha256": "ed0ba76914fd3217ddf7f51401597eaf0344b4526c0dac9a5e82e72ee9e178b4"
+    },
+    {
+      "source": "icons/icon_routes.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_routes.png",
+      "sha256": "a6cca989655d6cedaa92ff462d728581afbbf28a59bbfffc26d23e01c6f0430a"
+    },
+    {
+      "source": "icons/icon_threat.png",
+      "runtime": "assets/runtime/ui/menu/mission_intel/icon_threat.png",
+      "sha256": "fa027223ba969940ce95fd3dcf931e5c7fff12e80b0aa87b5b1b4e91bc626e82"
+    },
+    {
+      "source": "screen/operations_screen_9slice.png",
+      "runtime": "assets/runtime/ui/menu/operations_modal_screen_9slice.png",
+      "sha256": "73bf3e28bf9d939a18fa237e2898e30a8a84c7085f1483b33e5a70d432a76d47"
+    }
+  ],
+  "opaque_inner_surface": [
+    4,
+    4,
+    24,
+    24
+  ],
+  "outer_four_pixel_border_exact": true
+}

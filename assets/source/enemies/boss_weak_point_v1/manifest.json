@@ -1,0 +1,36 @@
+{
+  "schema": "hypersonic_boss_weak_point_v1",
+  "status": "reviewed_native_runtime",
+  "canvas": [
+    18,
+    18
+  ],
+  "pivot": [
+    9,
+    9
+  ],
+  "frames": [
+    {
+      "file": "cue_0.png",
+      "sha256": "0A3BE9B4AA5529A80B5D0D7354968D355A348909198BC49FA6A9DBA79447B231"
+    },
+    {
+      "file": "cue_1.png",
+      "sha256": "ADC1FB5DC3750005992794C04902AAC69FA6B85A716488DAA46C890E7BB285AF"
+    },
+    {
+      "file": "cue_2.png",
+      "sha256": "359B4D529EAF255D6FDBA9255041725A5B752AD0C797CE235ED7D70473FC68A4"
+    },
+    {
+      "file": "cue_3.png",
+      "sha256": "ADC1FB5DC3750005992794C04902AAC69FA6B85A716488DAA46C890E7BB285AF"
+    }
+  ],
+  "visual_contract": "Amber mechanical acquisition brackets and aperture ticks; no neon bloom; displayed only for exposed phase-three boss hardpoints.",
+  "rejected_source": "originals/cue_0.svg through cue_3.svg retained after clipped-corner review failure",
+  "approved_source": "originals/cue_v2_0.svg through cue_v2_3.svg",
+  "source_review": "work/boss_weak_point_v1/review_v2.png",
+  "native_evidence": "work/boss_weak_point_v1/native",
+  "review_video": "outputs/HYPERSONIC-nine-boss-weak-points-runtime.mp4"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "hypersonic_vx94_transform_precision_bombs_runtime_v1",
+  "status": "reviewed_native_runtime",
+  "canvas": [
+    64,
+    72
+  ],
+  "pivot": [
+    32,
+    38
+  ],
+  "runtime_layers": 60,
+  "states": [
+    "loaded",
+    "left_released",
+    "empty"
+  ],
+  "runtime_root": "assets/runtime/craft/vx94/gameplay/transform_stores",
+  "native_evidence": "work/vx94_transform_precision_bombs_v1/native",
+  "review_video": "outputs/HYPERSONIC-vx94-precision-bomb-transform-runtime.mp4",
+  "representative_runtime_sha256": "E50894477A6EDF7B066968B483F54ADF48225CA994753047A8F7729241B139BF"
+}

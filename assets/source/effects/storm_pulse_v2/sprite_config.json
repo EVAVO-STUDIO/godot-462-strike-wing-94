@@ -1,0 +1,70 @@
+{
+  "name": "storm_candidate_flight",
+  "pixel_art": true,
+  "cleanup": {
+    "background": "none",
+    "despeckle_min_area": 0,
+    "clear_hidden_rgb": true
+  },
+  "extraction": {
+    "mode": "frames"
+  },
+  "alignment": {
+    "anchor": "manual",
+    "canvas_width": 16,
+    "canvas_height": 24,
+    "pivot_x": 8,
+    "pivot_y": 7,
+    "padding": 0,
+    "manual_anchors": {
+      "flight_0": [
+        5,
+        5
+      ],
+      "flight_1": [
+        5,
+        5
+      ],
+      "flight_2": [
+        5,
+        5
+      ],
+      "flight_3": [
+        5,
+        5
+      ]
+    }
+  },
+  "qa": {
+    "strict": true,
+    "contracts": {
+      "required_animations": [
+        "flight"
+      ],
+      "frame_count_rules": [
+        {
+          "pattern": "flight",
+          "exact": 4
+        }
+      ]
+    }
+  },
+  "animations": {
+    "flight": {
+      "fps": 8,
+      "loop": true
+    }
+  },
+  "export": {
+    "godot": true,
+    "generic_json": true,
+    "animated_scene": true,
+    "integration_contract": true
+  },
+  "previews": {
+    "enabled": true,
+    "gif": true,
+    "contact_sheet": true,
+    "onion_skin": true
+  }
+}

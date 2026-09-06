@@ -79,6 +79,7 @@ func _initialize() -> void:
 		_expect(source.contains("_altitude_state()"), "environment renderer should consume live transition state")
 		_expect(source.contains("blended_parallax_speed"), "environment renderer should blend parallax speed")
 		_expect(source.contains("blended_cloud_density"), "environment renderer should blend cloud density")
+		_expect(source.contains("_draw_cloud_family") and source.contains("1.0 - blend") and source.contains("_cloud_family(to_band)"), "altitude changes should crossfade authored low, mid and high cloud families instead of switching silhouettes")
 		_expect(source.contains("_orbital_mix"), "orbital starfield should fade through the atmospheric transition")
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
 		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("EARTH_LIMB_V2"), "upper atmosphere and orbital space should use authored sparse stars and a low near-Earth curvature layer")
@@ -255,7 +256,7 @@ func _initialize() -> void:
 		for biome_layer in ["REFINERY_DETAIL_TILE", "DESERT_DUST_GUST", "RIVER_CURRENT_ANIMATION", "MOUNTAIN_WEATHER_ANIMATION", "HARBOR_REFLECTION_ANIMATION", "CITY_ACTIVITY_ANIMATION", "FURNACE_ACTIVITY_TILE", "ORBITAL_DEBRIS_ANIMATION"]:
 			_expect(source.contains(biome_layer), "environment renderer should use authored biome detail layer %s" % biome_layer)
 		_expect(source.contains("deep_scroll") and source.contains("surface_scroll") and source.contains("foam_scroll"), "environment sea depth layers should scroll independently")
-		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("RAIN_ACCENTS"), "environment motion should use authored depth glints, wakes and weather sprites")
+		_expect(source.contains("PARALLAX_ACCENTS") and source.contains("COAST_WAKE") and source.contains("WeatherRenderer"), "environment motion should use authored glints, wakes and the reviewed weather renderer")
 		_expect(source.contains("vertical travel") and source.contains("Vector2(8.0,streak_height)"), "hypersonic exposure streaks should follow forward screen travel rather than smear sideways")
 		_expect(source.contains("atmospheric extinction") and source.contains("0.16 * mix"), "high-altitude terrain should lose near-field contrast beneath atmospheric haze")
 		_expect(source.contains("var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y") and source.contains("ENVIRONMENT_VIEW.position.y - size.y * 0.5"), "cloud banks should enter and leave continuously through the viewport edges")
@@ -530,6 +531,7 @@ func _initialize() -> void:
 					_expect(master_image.get_pixel(sample_x,0).is_equal_approx(master_image.get_pixel(sample_x,719)), "environment master must close its vertical seam: %s x=%d" % [master_path,sample_x])
 		for cloud_asset in ["low_wisp_a", "low_wisp_b", "low_wisp_c", "low_wisp_d", "mid_broken_a", "mid_broken_b", "mid_broken_c", "mid_broken_d", "high_mass_a", "high_mass_b", "high_mass_c", "high_mass_d"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/environments/clouds/cloud_bank_%s.png" % cloud_asset), "missing authored cloud sprite %s" % cloud_asset)
+		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_family_v3/runtime_integration_v4.json"), "complete cloud family should retain native altitude and transition evidence")
 		for variant_function in ["_draw_desert_front", "_draw_river_corridor", "_draw_mountain_radar", "_draw_night_harbor", "_draw_city_outskirts", "_draw_machine_furnace"]:
 			_expect(source.contains(variant_function), "Sector I environment identity missing %s" % variant_function)
 		_expect(not source.substr(source.find("func _draw_cloud_top"), source.find("func _draw_high_atmosphere_horizon") - source.find("func _draw_cloud_top")).contains("draw_circle"), "cloud-top renderer should use hand-shaped banks instead of circular placeholders")

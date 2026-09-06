@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpriteFrames" path="res://vx94_transform_stores.spriteframes.tres" id="1_frames"]
+
+[node name="vx94_transform_stores" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_frames")
+centered = false
+offset = Vector2(-32, -38)
+animation = &"hunter_rack"
+autoplay = "hunter_rack"

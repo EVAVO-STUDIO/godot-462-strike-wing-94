@@ -117,6 +117,7 @@ func _test_route_runtime_wiring() -> void:
 	_expect(director != null, "encounter director should be readable")
 	if director != null:
 		var source := director.get_as_text()
+		_expect(source.contains('scene.has_method("_active_mission")') and source.contains('scene.call("_active_mission")'), "encounter beats should resolve the active secret sortie instead of falling back to the core campaign index")
 		_expect(source.contains('"--capture-secret"') and source.contains("capture_secret"), "secret-route visual QA should expose a deterministic due-beat fixture")
 		_expect(source.contains('enemy["strike_priority"] = true'), "LOW+BMB route should tag surface strike-priority targets")
 		_expect(source.contains('enemy["intercept_priority"] = true'), "HIGH+FTR route should tag air intercept-priority targets")
