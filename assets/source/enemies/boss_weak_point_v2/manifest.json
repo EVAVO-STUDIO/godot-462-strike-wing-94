@@ -1,0 +1,80 @@
+{
+  "schema": "hypersonic_boss_weak_point_families_v2",
+  "source": "assets/runtime/enemies/boss_weak_point/cue_0..3.png",
+  "geometry": "18x18",
+  "contract": "Conventional amber acquisition brackets, autonomous red-orange scan marks and BLACK SKY cyan aperture marks; final color baked into transparent runtime rasters.",
+  "assets": [
+    {
+      "family": "conventional",
+      "frame": 0,
+      "runtime": "assets/runtime/enemies/boss_weak_point/conventional/cue_0.png",
+      "sha256": "4833028813709eec0da2edf258177a45d0a62b716bb69ea146b4865a3f85b1f1"
+    },
+    {
+      "family": "conventional",
+      "frame": 1,
+      "runtime": "assets/runtime/enemies/boss_weak_point/conventional/cue_1.png",
+      "sha256": "cda5033d60f8af6918dac82b89d6bd0d04ceb2edd9f402154b45cba1b4158383"
+    },
+    {
+      "family": "conventional",
+      "frame": 2,
+      "runtime": "assets/runtime/enemies/boss_weak_point/conventional/cue_2.png",
+      "sha256": "24d40ccba047f849e032813fcc07e50606c169da5b389f50811bf3a490048d5b"
+    },
+    {
+      "family": "conventional",
+      "frame": 3,
+      "runtime": "assets/runtime/enemies/boss_weak_point/conventional/cue_3.png",
+      "sha256": "cda5033d60f8af6918dac82b89d6bd0d04ceb2edd9f402154b45cba1b4158383"
+    },
+    {
+      "family": "machine",
+      "frame": 0,
+      "runtime": "assets/runtime/enemies/boss_weak_point/machine/cue_0.png",
+      "sha256": "bd5f6c6f18fdcc55df34ab20c49034a4060d8abe38a0f1b0265571f189a4f79a"
+    },
+    {
+      "family": "machine",
+      "frame": 1,
+      "runtime": "assets/runtime/enemies/boss_weak_point/machine/cue_1.png",
+      "sha256": "5db9fbc0b3ba613f8a56cc573fb9eae7553b2c14d941b566577ec2488a80ca81"
+    },
+    {
+      "family": "machine",
+      "frame": 2,
+      "runtime": "assets/runtime/enemies/boss_weak_point/machine/cue_2.png",
+      "sha256": "33d24e7fce360053ac96482b4cf6f0da6a6718877715b04403409cf4b205910a"
+    },
+    {
+      "family": "machine",
+      "frame": 3,
+      "runtime": "assets/runtime/enemies/boss_weak_point/machine/cue_3.png",
+      "sha256": "5db9fbc0b3ba613f8a56cc573fb9eae7553b2c14d941b566577ec2488a80ca81"
+    },
+    {
+      "family": "orbital",
+      "frame": 0,
+      "runtime": "assets/runtime/enemies/boss_weak_point/orbital/cue_0.png",
+      "sha256": "d80f49b78e336d9c6749784f83b8b0bf13e70aea8f23610c50489f5071350747"
+    },
+    {
+      "family": "orbital",
+      "frame": 1,
+      "runtime": "assets/runtime/enemies/boss_weak_point/orbital/cue_1.png",
+      "sha256": "325ed985bd6d69d143b9ed966c0e4448bf371c2ea28e18c9a34968bc6bb26985"
+    },
+    {
+      "family": "orbital",
+      "frame": 2,
+      "runtime": "assets/runtime/enemies/boss_weak_point/orbital/cue_2.png",
+      "sha256": "7abc01144a06b50d702d06af04d0a45c84794836dc6279cf24739bdf5fbb04d6"
+    },
+    {
+      "family": "orbital",
+      "frame": 3,
+      "runtime": "assets/runtime/enemies/boss_weak_point/orbital/cue_3.png",
+      "sha256": "325ed985bd6d69d143b9ed966c0e4448bf371c2ea28e18c9a34968bc6bb26985"
+    }
+  ]
+}

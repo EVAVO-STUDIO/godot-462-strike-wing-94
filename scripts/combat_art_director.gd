@@ -683,12 +683,20 @@ const BOSS_PHASE_OVERLAYS := {
 		],
 	},
 }
-const BOSS_WEAK_POINT_CUES := [
-	preload("res://assets/runtime/enemies/boss_weak_point/cue_0.png"),
-	preload("res://assets/runtime/enemies/boss_weak_point/cue_1.png"),
-	preload("res://assets/runtime/enemies/boss_weak_point/cue_2.png"),
-	preload("res://assets/runtime/enemies/boss_weak_point/cue_3.png"),
-]
+const BOSS_WEAK_POINT_CUES := {
+	"conventional": [
+		preload("res://assets/runtime/enemies/boss_weak_point/conventional/cue_0.png"), preload("res://assets/runtime/enemies/boss_weak_point/conventional/cue_1.png"),
+		preload("res://assets/runtime/enemies/boss_weak_point/conventional/cue_2.png"), preload("res://assets/runtime/enemies/boss_weak_point/conventional/cue_3.png"),
+	],
+	"machine": [
+		preload("res://assets/runtime/enemies/boss_weak_point/machine/cue_0.png"), preload("res://assets/runtime/enemies/boss_weak_point/machine/cue_1.png"),
+		preload("res://assets/runtime/enemies/boss_weak_point/machine/cue_2.png"), preload("res://assets/runtime/enemies/boss_weak_point/machine/cue_3.png"),
+	],
+	"orbital": [
+		preload("res://assets/runtime/enemies/boss_weak_point/orbital/cue_0.png"), preload("res://assets/runtime/enemies/boss_weak_point/orbital/cue_1.png"),
+		preload("res://assets/runtime/enemies/boss_weak_point/orbital/cue_2.png"), preload("res://assets/runtime/enemies/boss_weak_point/orbital/cue_3.png"),
+	],
+}
 const BOSS_WEAK_POINTS := {
 	"gunship_alpha":[Vector2(-26,4),Vector2(26,4),Vector2(0,-15)],
 	"armoured_train":[Vector2(0,-48),Vector2(-20,5),Vector2(20,5)],
@@ -2221,12 +2229,22 @@ func _draw_boss_weak_points(surface: CanvasItem, center: Vector2, enemy_id: Stri
 	if not BOSS_WEAK_POINTS.has(enemy_id): return
 	var points: Array = BOSS_WEAK_POINTS[enemy_id]
 	var active_index := posmod(int(floor(age * 0.75)), points.size())
-	var frame_index := posmod(int(floor(age * 8.0)), BOSS_WEAK_POINT_CUES.size())
+	var family := _boss_weak_point_family(enemy_id)
+	var cues: Array = BOSS_WEAK_POINT_CUES[family]
+	var frame_index := posmod(int(floor(age * 8.0)), cues.size())
 	for index in range(points.size()):
-		var cue: Texture2D = BOSS_WEAK_POINT_CUES[frame_index if index == active_index else 0]
+		var cue: Texture2D = cues[frame_index if index == active_index else 0]
 		var position := center + Vector2(points[index]) - cue.get_size() * 0.5
-		var alpha := 1.0 if index == active_index else 0.48
+		var active := index == active_index
+		var alpha := (0.90 + sin(age*TAU*2.0)*0.10) if active else 0.38
 		surface.draw_texture(cue, position.round(), Color(1,1,1,alpha))
+
+func _boss_weak_point_family(enemy_id: String) -> String:
+	if enemy_id in ["swarm_controller", "ai_forge_core"]:
+		return "machine"
+	if enemy_id in ["orbital_command_node", "phase_control_array", "station_warden", "machine_ark"]:
+		return "orbital"
+	return "conventional"
 
 func _draw_machine_boss_mechanics(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
 	if not MACHINE_BOSS_SPECIALIST_ART.has(enemy_id):

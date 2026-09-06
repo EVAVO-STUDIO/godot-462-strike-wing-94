@@ -209,6 +209,11 @@ func _test_visual_language() -> void:
 		var orbital_air_layer := load("res://assets/runtime/enemies/orbital_air_layered/%s.png" % orbital_air_layer_id) as Texture2D
 		_expect(orbital_air_layer != null and orbital_air_layer.get_size() == layered_orbital_air_sizes[orbital_air_layer_id], "layered BLACK SKY component should retain its registered canvas: %s" % orbital_air_layer_id)
 	_expect(source.contains('_capture_air_state() == "orbital"') and source.contains("_render_orbital_air_capture") and source.contains("_render_orbital_air_propulsion"), "visual QA should expose isolated BLACK SKY bank, thrust, phase, iris and rail fixtures")
+	_expect(source.contains("func _boss_weak_point_family") and source.contains('BOSS_WEAK_POINT_CUES[family]'), "boss weak points should select distinct authored conventional, autonomous and BLACK SKY cue families")
+	for family in ["conventional", "machine", "orbital"]:
+		for frame in range(4):
+			var cue := load("res://assets/runtime/enemies/boss_weak_point/%s/cue_%d.png" % [family, frame]) as Texture2D
+			_expect(cue != null and cue.get_size() == Vector2(18,18), "boss weak-point cue should retain reviewed 18x18 geometry: %s %d" % [family, frame])
 	_expect(source.contains('definition["barrel_recoil"]') and source.contains('definition["capacitor"]'), "BLACK SKY sentry and lancer should use separately articulated weapon hardware")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_layered/orbital_air_layered_manifest.json"), "layered BLACK SKY source/runtime manifest should exist")
 	var enemy_file := FileAccess.open("res://data/enemies.json", FileAccess.READ)
