@@ -59,6 +59,8 @@ $Cases = @(
 	@{ id='flight_cruise_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=50') },
 	@{ id='flight_military_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=100') },
 	@{ id='flight_hypersonic_forward'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-flight=hypersonic','--capture-altitude=high') },
+	@{ id='altitude_climb_cloud_boundary'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-altitude-transition=climb','--visual-capture-delay=0.52') },
+	@{ id='altitude_dive_cloud_boundary'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=42','--capture-altitude=high','--capture-altitude-transition=dive','--visual-capture-delay=0.52') },
 	@{ id='vx94_fighter_roll_mounted'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=0.20','--capture-craft=evasive-roll','--capture-weapon=storm_cannon','--visual-capture-delay=0.10') },
 	@{ id='vx94_fighter_roll_damaged'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=0.80','--capture-craft=evasive-roll','--capture-weapon=storm_cannon','--capture-hull-ratio=0.28','--visual-capture-delay=0.10') },
 	@{ id='vx94_bomber_roll_mounted'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=0.20','--capture-craft=evasive-roll-bomber','--capture-weapon=ballistic','--visual-capture-delay=0.10') },

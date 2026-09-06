@@ -124,6 +124,7 @@ func _test_source_integration() -> void:
 		_expect(source.contains('mounts.call("primary_offsets"'), "primary mount offsets should come from authored mount catalogue")
 		_expect(source.contains('mounts.call("bomber_rotary_deployed"'), "bomber nose-gun state should come from authored mount catalogue")
 		_expect(source.contains("_capture_altitude_override") and source.contains("--capture-altitude="), "visual QA should expose a deterministic altitude override without changing authored campaign context")
+		_expect(source.contains("_apply_capture_altitude_transition") and source.contains("--capture-altitude-transition="), "visual QA should exercise the live climb and dive presentation")
 		_expect(source.contains("var allowed: Array = _mission_manual_bands()") and source.contains("func _mission_manual_bands"), "manual altitude selection should remain available across mission-authored adjacent lanes")
 	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
 	_expect(encounter_file != null, "encounter director should be readable")
@@ -146,6 +147,7 @@ func _test_source_integration() -> void:
 		_expect(not source.contains("_draw_rotary_cannon"), "bomber presentation should not regress to a procedural cannon substitute")
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)
 	var transition_source := transition_file.get_as_text() if transition_file != null else ""
+	_expect(transition_source.contains("ATMOSPHERIC_VEIL") and transition_source.contains("for i in range(9)") and transition_source.contains("var travel := 286.0"), "altitude transitions should cross a dense registered cloud boundary with directional travel and authored atmospheric extinction")
 	_expect(transition_source.contains('return "%s<%s>%s"') and transition_source.contains('return "%s>%s"') and transition_source.contains('return "%s<%s"'), "altitude choice HUD should reduce available routes to a compact top-rail diagram")
 	_expect(not transition_source.contains("LOWER_LEFT_KEEP_OUT") and not transition_source.contains("ALT SELECT") and not transition_source.contains("LANE_PANEL"), "altitude choices should not add a redundant lower-left panel over propulsion instruments")
 	_expect(transition_source.contains("CHOICE_REVEAL_SECONDS := 2.4") and transition_source.contains("CHOICE_REMINDER_SECONDS := 1.4"), "altitude choice HUD should reveal briefly instead of occupying the playfield for an entire lane window")

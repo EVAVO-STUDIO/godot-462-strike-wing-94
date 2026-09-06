@@ -6,6 +6,7 @@ const AltitudeTransitionSurface = preload("res://scripts/altitude_transition_sur
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const PixelFont = preload("res://scripts/pixel_font.gd")
 const CLOUD_SHADOW := preload("res://assets/runtime/ui/hud/altitude_transition/cloud_shadow.png")
+const ATMOSPHERIC_VEIL := preload("res://assets/runtime/ui/hud/altitude_transition/atmospheric_veil.png")
 const CLIMB_LEFT := preload("res://assets/runtime/ui/hud/altitude_transition/climb_left.png")
 const CLIMB_RIGHT := preload("res://assets/runtime/ui/hud/altitude_transition/climb_right.png")
 const DIVE_LEFT := preload("res://assets/runtime/ui/hud/altitude_transition/dive_left.png")
@@ -113,18 +114,26 @@ func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 		return
 
 func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> void:
-	var travel := 160.0 * ratio
+	var pulse := sin(ratio * PI)
+	# Brief extinction makes the lane change read as passage through a physical
+	# cloud boundary. It peaks at mid-transition and clears before control returns.
+	var veil_tint := Color(0.72,0.82,0.88,0.72*pulse) if direction > 0 else Color(0.54,0.66,0.72,0.62*pulse)
+	surface.draw_texture(ATMOSPHERIC_VEIL, Vector2(8,34), veil_tint)
+	var travel := 286.0 * smoothstep(0.0, 1.0, ratio)
 	var sign_dir := -1.0 if direction > 0 else 1.0
-	for i in range(7):
-		var base_y := 86.0 + float(i) * 42.0
-		var y := fposmod(base_y + sign_dir * travel, 330.0) + 36.0
-		var x := 72.0 + float((i * 83) % 430)
+	for i in range(9):
+		var base_y := 58.0 + float(i) * 39.0
+		var y := fposmod(base_y + sign_dir * travel, 374.0) + 22.0
+		var x := 34.0 + float((i * 97) % 548)
 		var texture: Texture2D = TRANSITION_CLOUDS[i % TRANSITION_CLOUDS.size()]
-		var scale := 0.58 + float(i % 3) * 0.10
+		var depth := float((i * 5) % 4) / 3.0
+		var approach := ratio if direction > 0 else 1.0-ratio
+		var scale := 0.52 + depth*0.20 + approach*0.18
 		var size := Vector2(texture.get_size()) * scale
-		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.84,0.86,0.18))
+		var cloud_alpha := (0.18 + depth*0.11 + pulse*0.08)
+		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.84,0.86,cloud_alpha))
 		var shadow_width := size.x * 0.82
-		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(x - shadow_width * 0.5, y + size.y * 0.27), Vector2(shadow_width, 8)), false, Color(1,1,1,0.44))
+		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(x - shadow_width * 0.5, y + size.y * 0.27), Vector2(shadow_width, 8)), false, Color(1,1,1,0.34+depth*0.16))
 
 func _draw_speed_brackets(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var alpha := sin(ratio * PI) * 0.55

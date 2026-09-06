@@ -1,0 +1,7 @@
+{
+  "schema": "hypersonic_altitude_transition_art_v2",
+  "source": "atmospheric_veil.svg",
+  "runtime": "res://assets/runtime/ui/hud/altitude_transition/atmospheric_veil.png",
+  "geometry": "624x286",
+  "contract": "Transparent cool-grey atmospheric extinction layer used only during adjacent-lane climb and dive; authored raster at runtime, with clear HUD margins and no vector placeholder rendering."
+}

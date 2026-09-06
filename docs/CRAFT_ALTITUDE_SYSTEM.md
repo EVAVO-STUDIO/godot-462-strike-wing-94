@@ -167,7 +167,7 @@ Controls:
 - `PageUp`: climb one available lane;
 - `PageDown`: descend one available lane.
 
-The bottom HUD shows an `ALTITUDE LANE` prompt only while a choice window is active.
+The HUD briefly reveals the available altitude route at mission ingress and when the pilot requests a climb or dive. Authored choice windows call attention to tactical opportunities; they do not disable adjacent-lane control elsewhere in the sortie.
 
 Current examples include:
 

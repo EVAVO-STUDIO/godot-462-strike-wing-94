@@ -278,6 +278,23 @@ func _apply_mission_context(scene: Object) -> void:
 	_altitude_transition_from = altitude
 	_altitude_transition_to = altitude
 	_altitude_transition_direction = 0
+	_apply_capture_altitude_transition(scene)
+
+func _apply_capture_altitude_transition(scene: Object) -> void:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return
+	var requested := ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-altitude-transition="):
+			requested = argument.trim_prefix("--capture-altitude-transition=").to_lower()
+			break
+	if requested not in ["climb", "dive"]:
+		return
+	var direction := 1 if requested == "climb" else -1
+	var destination := AltitudeRules.adjacent_band(altitude, direction)
+	if destination == altitude:
+		return
+	_begin_altitude_transition(scene, destination, "CLIMB" if direction > 0 else "DIVE")
 
 func _publish_altitude_spawn_profiles(scene: Object) -> void:
 	if _base_spawn_profiles.is_empty():

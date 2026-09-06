@@ -70,8 +70,8 @@ The obsolete player/enemy/projectile polygons have been removed from `main.gd`. 
 - Afterburner: `Shift`
 - Transform fighter / bomber: `Q`
 - Committed evasive roll: hold left/right and press `C`
-- Optional altitude climb during an authored lane window: `PageUp`
-- Optional altitude dive during an authored lane window: `PageDown`
+- Climb one mission-authorized altitude lane: `PageUp`
+- Dive one mission-authorized altitude lane: `PageDown`
 - Emergency screen bomb: `X`
 - Bomber precision strike: `E`
 - Onboard tactical support: `Z`
@@ -149,7 +149,7 @@ The four ordered lanes are:
 3. HIGH
 4. ORBITAL / ATMOS-SPACE
 
-Some missions open a bounded `ALTITUDE LANE` choice window. While that prompt is visible, `PageUp` or `PageDown` moves exactly one adjacent band. The player cannot freely jump multiple bands or bypass scripted mission choreography.
+`PageUp` or `PageDown` moves exactly one adjacent band inside the mission's authorized airspace. Timed `ALTITUDE LANE` prompts identify tactical opportunities, but flight control remains available before and after those prompts. The player cannot jump multiple bands or bypass scripted mission choreography.
 
 Major mission transitions remain authored set pieces, including Black Flag's sea-skimming descent and Machine Ark's final orbital burn.
 
