@@ -3,8 +3,8 @@ extends RefCounted
 
 const FIGHTER := "fighter"
 const BOMBER := "bomber"
-const TRANSFORM_VISUAL_SECONDS := 0.92
-const TRANSFORM_COOLDOWN := 1.05
+const TRANSFORM_VISUAL_SECONDS := 1.18
+const TRANSFORM_COOLDOWN := 1.30
 const TRANSFORM_WEAPON_INTERLOCK := TRANSFORM_VISUAL_SECONDS
 
 static func sanitize(form: String) -> String:

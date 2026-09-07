@@ -988,12 +988,15 @@ func _process(delta: float) -> void:
 	var target := 1.0 if _craft_form() == "bomber" else 0.0
 	_visual_sweep = move_toward(_visual_sweep, target, maxf(0.0, delta) / CraftFormRules.TRANSFORM_VISUAL_SECONDS)
 	var bank_target := Input.get_axis("move_left", "move_right")
+	var active_scene := get_tree().current_scene
+	if active_scene != null and active_scene.has_method("player_bank_input"):
+		bank_target = float(active_scene.call("player_bank_input"))
 	match _capture_bank_state():
 		"hard-left": bank_target = -1.0
 		"left": bank_target = -0.52
 		"right": bank_target = 0.52
 		"hard-right": bank_target = 1.0
-	_bank_visual = move_toward(_bank_visual, bank_target, maxf(0.0, delta) * 5.5)
+	_bank_visual = move_toward(_bank_visual, bank_target, maxf(0.0, delta) * 4.6)
 	_redraw_elapsed += maxf(0.0, delta)
 	if _surface != null and _redraw_elapsed >= PRESENTATION_REDRAW_SECONDS:
 		_redraw_elapsed = fposmod(_redraw_elapsed, PRESENTATION_REDRAW_SECONDS)
@@ -1288,6 +1291,18 @@ func _has_property(subject: Object, property_name: String) -> bool:
 	return SceneContractCache.has_property(subject, property_name)
 
 func _draw_player(surface: CanvasItem, scene: Object) -> void:
+	var pivot: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
+	var visual_scale := _altitude_craft_scale()
+	if not is_equal_approx(visual_scale,1.0):
+		# Scale absolute player-layer coordinates around the airframe centre. This
+		# modest pulse supplies depth while the environment performs the larger
+		# terrain/parallax transition behind the cloud-boundary occlusion.
+		surface.draw_set_transform(pivot*(1.0-visual_scale),0.0,Vector2.ONE*visual_scale)
+	_draw_player_unscaled(surface,scene)
+	if not is_equal_approx(visual_scale,1.0):
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+func _draw_player_unscaled(surface: CanvasItem, scene: Object) -> void:
 	var p: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
 	var origin := (p - VX94_GAMEPLAY_ANCHOR).round()
 	var loss_timer := float(scene.get("player_loss_timer")) if _has_property(scene, "player_loss_timer") else 0.0
@@ -2747,7 +2762,16 @@ func _altitude_pitch_offset() -> Vector2:
 		return Vector2.ZERO
 	var ratio := float(director.call("altitude_transition_ratio"))
 	var direction := int(director.call("altitude_transition_direction"))
-	return Vector2(0, -roundf(sin(ratio * PI) * 4.0 * float(direction)))
+	return Vector2(0, -roundf(sin(ratio * PI) * 7.0 * float(direction)))
+
+func _altitude_craft_scale() -> float:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	if director == null or not director.has_method("altitude_transition_active") or not bool(director.call("altitude_transition_active")):
+		return 1.0
+	var ratio := clampf(float(director.call("altitude_transition_ratio")),0.0,1.0)
+	var direction := int(director.call("altitude_transition_direction"))
+	var depth_pulse := sin(ratio*PI)
+	return 1.0-depth_pulse*0.07 if direction > 0 else 1.0+depth_pulse*0.06
 
 func _craft_form() -> String:
 	if "--capture-gameplay" in OS.get_cmdline_user_args():

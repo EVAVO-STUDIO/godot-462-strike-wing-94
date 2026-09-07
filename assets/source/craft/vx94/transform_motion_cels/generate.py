@@ -7,8 +7,14 @@ OUT = ROOT / "assets" / "runtime" / "craft" / "vx94" / "gameplay" / "transform_m
 OUT.mkdir(parents=True, exist_ok=True)
 
 ANCHOR = (32, 38)
-START = ((-19, 10), (19, 10))
-END = ((-8, 18), (8, 18))
+# Registered gameplay-space wing-tip travel. The previous marks lived low on
+# the nacelles and disappeared into the fuselage; these follow the actual main
+# plane tuck from broad fighter geometry toward the hypersonic rails.
+TIP_PATHS = {
+    "bomber": (((14, 38), (23, 31)), ((50, 38), (41, 31))),
+    "hypersonic": (((14, 38), (22, 49)), ((50, 38), (42, 49))),
+}
+HINGES = ((25, 35), (38, 35))
 PALETTES = {
     "bomber": ((255, 132, 54, 74), (255, 180, 84, 214), (255, 225, 156, 255)),
     "hypersonic": ((64, 180, 255, 78), (104, 226, 255, 224), (214, 250, 255, 255)),
@@ -16,7 +22,7 @@ PALETTES = {
 
 
 def point(a, b, t):
-    return (round(ANCHOR[0] + a[0] + (b[0] - a[0]) * t), round(ANCHOR[1] + a[1] + (b[1] - a[1]) * t))
+    return (round(a[0] + (b[0] - a[0]) * t), round(a[1] + (b[1] - a[1]) * t))
 
 
 for family, (trail, active, hot) in PALETTES.items():
@@ -28,24 +34,29 @@ for family, (trail, active, hot) in PALETTES.items():
         front = Image.new("RGBA", (64, 72))
         fore = ImageDraw.Draw(front)
         for side in range(2):
-            start = point(START[side], END[side], 0.0)
-            tip = point(START[side], END[side], t)
+            path = TIP_PATHS[family][side]
+            start = path[0]
+            tip = point(path[0], path[1], t)
             if 0 < exposure < 9:
-                rear.line((start, tip), fill=trail, width=3)
-                rear.line((start, tip), fill=active, width=1)
-                fore.rectangle((tip[0] - 1, tip[1] - 1, tip[0] + 1, tip[1] + 1), fill=active)
+                # Two held afterimages communicate fast mechanical travel while
+                # remaining discrete cel animation rather than a vector effect.
+                ghost = point(start, tip, 0.48)
+                rear.line((start, ghost), fill=trail, width=3)
+                rear.line((ghost, tip), fill=active, width=2)
+                rear.point(point(start,tip,0.24),fill=active)
+                fore.rectangle((tip[0] - 1, tip[1] - 2, tip[0] + 1, tip[1] + 2), fill=active)
                 fore.point(tip, fill=hot)
         if 0 < exposure < 9:
-            for hx in (26, 38):
-                fore.rectangle((hx - 1, 44, hx + 1, 46), outline=active)
-                if exposure in (4, 5):
-                    fore.point((hx - 2, 43), fill=hot)
-                    fore.point((hx + 2, 47), fill=hot)
+            for hx, hy in HINGES:
+                fore.rectangle((hx - 2, hy - 2, hx + 2, hy + 2), outline=active)
+                if exposure in (3, 4, 5, 6):
+                    fore.line((hx-1,hy,hx+1,hy),fill=hot,width=1)
         if family == "hypersonic" and exposure == 9:
-            rear.line((25, 57, 29, 61), fill=active, width=1)
-            rear.line((39, 57, 35, 61), fill=active, width=1)
-            fore.point((29, 61), fill=hot)
-            fore.point((35, 61), fill=hot)
+            for side, path in enumerate(TIP_PATHS[family]):
+                tip = path[1]
+                direction = 1 if side == 0 else -1
+                rear.line((tip[0],tip[1],tip[0]+direction*4,tip[1]+3),fill=active,width=2)
+                fore.rectangle((tip[0]-1,tip[1]-1,tip[0]+1,tip[1]+1),outline=hot)
         back.save(OUT / f"{family}_back_{exposure:02d}.png")
         front.save(OUT / f"{family}_front_{exposure:02d}.png")
 
@@ -57,6 +68,6 @@ manifest = {
     "families": list(PALETTES),
     "exposures": 10,
     "layers": ["back", "front"],
-    "style": "held-pose late-90s military animation; palette-limited actuator trails",
+    "style": "held-pose late-90s military animation; registered wing-tip afterimages, hinge lamps and palette-limited actuator trails",
 }
 (Path(__file__).parent / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
