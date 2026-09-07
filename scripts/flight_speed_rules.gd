@@ -28,6 +28,18 @@ static func world_closure_multiplier(world_multiplier: float, category: String) 
 		return maxf(0.48, world_multiplier)
 	return maxf(0.70, 1.0 + excess * 0.46)
 
+static func contact_screen_speed(world_multiplier: float, category: String, platform_speed: float) -> float:
+	var safe_world := maxf(0.0,world_multiplier)
+	var safe_platform := maxf(0.0,platform_speed)
+	if category == "ground":
+		# Geography supplies most screen travel; road motion is a restrained
+		# addition. Static sites therefore remain attached to the moving map.
+		return 28.0*safe_world + minf(safe_platform,40.0)*0.18
+	if category == "sea":
+		# Ships share water closure while preserving visible speed differences.
+		return 28.0*safe_world + minf(safe_platform,80.0)*0.30
+	return safe_platform*world_closure_multiplier(safe_world,category)
+
 static func recovery_closure_multiplier(world_multiplier: float) -> float:
 	return maxf(0.48, world_multiplier)
 

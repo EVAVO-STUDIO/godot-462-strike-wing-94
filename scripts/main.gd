@@ -352,6 +352,13 @@ func _begin_capture_gameplay() -> void:
 			enemies[0]["lateral_velocity"] = MovementPatternRules.hit_response_impulse("air","sine_dive",245.0,player_position.x,245.0)
 			enemies[0]["maneuver_break_timer"] = 0.48
 			enemies[0]["hit_timer"] = 0.14
+	if "--capture-surface-travel" in OS.get_cmdline_user_args():
+		enemies.clear()
+		_spawn_enemy(_find_enemy_archetype("strategic_silo"))
+		if not enemies.is_empty():
+			enemies[0]["position"] = Vector2(230,112)
+			enemies[0]["pattern_anchor_x"] = 230.0
+			enemies[0]["strike_priority"] = true
 	queue_redraw()
 
 func _stage_capture_player_loss_fx(loss_ratio: float) -> void:
@@ -1544,8 +1551,8 @@ func _update_enemies(delta: float) -> void:
 			position.y = move_toward(position.y, player_position.y - 92.0, float(enemy["speed"]) * HypersonicRules.ENEMY_SPEED_MULTIPLIER * delta)
 			position.x = move_toward(position.x, player_position.x, float(enemy["speed"]) * 0.72 * delta)
 		else:
-			var closure := FlightSpeedRules.world_closure_multiplier(_environment_speed_multiplier(), str(enemy.get("category", "air")))
-			position.y += float(enemy["speed"]) * closure * delta
+			var enemy_category := str(enemy.get("category","air"))
+			position.y += FlightSpeedRules.contact_screen_speed(_environment_speed_multiplier(),enemy_category,float(enemy["speed"]))*delta
 			var pattern := str(enemy.get("pattern", "sine_dive"))
 			var anchor_x := float(enemy.get("pattern_anchor_x", position.x))
 			enemy["pattern_anchor_x"] = anchor_x

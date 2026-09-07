@@ -86,6 +86,7 @@ func _test_overtime() -> void:
 		_expect(source.contains("ProjectileRules.enemy_has_firing_solution") and source.contains("firing_solution and missile_lock_ready"), "enemy fire should require a credible weapon arc as well as a ready timer")
 		_expect(source.contains("MovementPatternRules.hit_response_impulse") and source.contains('enemy["maneuver_break_timer"]'), "live damage should produce bounded enemy maneuver and suppression response")
 		_expect(source.contains('"--capture-enemy-hit-response"') and source.contains('_find_enemy_archetype("scout_falcon")'), "visual QA should expose the live enemy break response without mutating production data")
+		_expect(source.contains('"--capture-surface-travel"') and source.contains('_find_enemy_archetype("strategic_silo")'), "visual QA should expose a live zero-speed site attached to route travel")
 	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_time_remaining")'), "combat chronometer should change from route time to the live extraction window")
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_active")'), "urgent extraction guidance should override stale routine radio occupancy")
