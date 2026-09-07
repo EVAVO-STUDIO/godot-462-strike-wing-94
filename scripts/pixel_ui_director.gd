@@ -131,6 +131,11 @@ const HUD_TACTICAL_RADAR_CONTACTS := {
 	"objective": preload("res://assets/runtime/ui/hud/tactical_radar/objective.png"),
 	"protected": preload("res://assets/runtime/ui/hud/tactical_radar/protected.png"),
 }
+const HUD_TACTICAL_RADAR_ALTITUDE := {
+	"up": preload("res://assets/runtime/ui/hud/tactical_radar/altitude_up.png"),
+	"level": preload("res://assets/runtime/ui/hud/tactical_radar/altitude_level.png"),
+	"down": preload("res://assets/runtime/ui/hud/tactical_radar/altitude_down.png"),
+}
 const SUPPORT_LINK_TROUGH := preload("res://assets/runtime/ui/hud/support_link/trough.png")
 const SUPPORT_LINK_TACTICAL_FILL := preload("res://assets/runtime/ui/hud/support_link/tactical_fill.png")
 const SUPPORT_LINK_BATTLEFIELD_FILL := preload("res://assets/runtime/ui/hud/support_link/battlefield_fill.png")
@@ -825,8 +830,8 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 			if typeof(forecast) == TYPE_DICTIONARY:
 				contacts.append(forecast)
 	if "--capture-radar" in OS.get_cmdline_user_args():
-		contacts.append({"position":player+Vector2(-230,-470),"protected":true})
-		contacts.append({"position":player+Vector2(210,-390),"objective":true,"category":"ground"})
+		contacts.append({"position":player+Vector2(-230,-470),"protected":true,"altitude":"high"})
+		contacts.append({"position":player+Vector2(210,-390),"objective":true,"category":"ground","altitude":"low"})
 	var shown := 0
 	var tracked: Dictionary = {}
 	var tracked_priority := -1
@@ -859,6 +864,11 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(56,59))
 	PixelFont.draw_text(surface,"TAC %02d"%mini(shown,99),scope_position+Vector2(8,4),1,GREEN,1)
 	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(76,4),1,GOLD if tracked_priority >= 4 else MUTED,1)
+	var craft := surface.get_node_or_null("/root/CraftFormDirector")
+	var speed := float(craft.call("world_speed_multiplier")) if craft != null and craft.has_method("world_speed_multiplier") else 1.0
+	var altitude := str(craft.call("current_altitude")) if craft != null and craft.has_method("current_altitude") else "mid"
+	var band: String = str({"low":"LO","mid":"MD","high":"HI","orbital":"OR"}.get(altitude,"MD"))
+	PixelFont.draw_text(surface,"SCAN24S %s X%.1f" % [band,clampf(speed,0.0,9.9)],scope_position+Vector2(8,78),1,MUTED,1)
 
 func _tactical_radar_priority(contact: Dictionary) -> int:
 	if bool(contact.get("missile",false)): return 5
@@ -899,6 +909,15 @@ func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, 
 	var icon: Texture2D = HUD_TACTICAL_RADAR_CONTACTS.get(kind,HUD_TACTICAL_RADAR_CONTACTS["air"])
 	var tint := Color(0.58,0.82,0.86,0.58) if bool(contact.get("forecast",false)) else Color.WHITE
 	surface.draw_texture(icon,(scope_position+scope_point-Vector2(4,4)).round(),tint)
+	if contact.has("altitude"):
+		var own_altitude := "mid"
+		var craft := surface.get_node_or_null("/root/CraftFormDirector")
+		if craft != null and craft.has_method("current_altitude"):
+			own_altitude = str(craft.call("current_altitude"))
+		var bands := ["low","mid","high","orbital"]
+		var separation := bands.find(str(contact.get("altitude","mid"))) - bands.find(own_altitude)
+		var cue := "up" if separation > 0 else ("down" if separation < 0 else "level")
+		surface.draw_texture(HUD_TACTICAL_RADAR_ALTITUDE[cue],(scope_position+scope_point+Vector2(3,-4)).round(),tint)
 
 func _draw_surface_iff_markers(surface: CanvasItem, scene: Object) -> void:
 	var marked := 0

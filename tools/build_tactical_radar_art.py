@@ -16,11 +16,18 @@ def frame():
     d.rectangle((8, 12, 111, 68), fill=(5, 20, 20, 232), outline=(52, 95, 91, 255))
     for y in range(16, 68, 4):
         d.line((9, y, 110, y), fill=(12, 39, 37, 90))
-    d.line((60, 14, 60, 66), fill=(40, 83, 76, 145))
-    d.line((10, 40, 110, 40), fill=(32, 72, 67, 125))
-    d.line((35, 14, 48, 66), fill=(28, 66, 62, 115))
-    d.line((85, 14, 72, 66), fill=(28, 66, 62, 115))
-    d.arc((25, 35, 95, 84), 202, 338, fill=(47, 91, 82, 150), width=1)
+    # Forward-flight presentation: the narrow end is the long-range horizon and
+    # the wide end is the aircraft. Three broken range gates read cleanly over
+    # detailed terrain while retaining the late-90s monochrome scope character.
+    d.line((60, 14, 60, 66), fill=(52, 105, 94, 190))
+    d.line((35, 14, 48, 66), fill=(28, 66, 62, 140))
+    d.line((85, 14, 72, 66), fill=(28, 66, 62, 140))
+    for box in ((42, 20, 78, 43), (32, 25, 88, 58), (22, 31, 98, 73)):
+        d.arc(box, 202, 255, fill=(62, 120, 106, 190), width=1)
+        d.arc(box, 285, 338, fill=(62, 120, 106, 190), width=1)
+    for y in (20, 31, 46):
+        d.line((57, y, 59, y), fill=(104, 174, 147, 230))
+        d.line((61, y, 63, y), fill=(104, 174, 147, 230))
     d.rectangle((8, 7, 31, 9), fill=(61, 111, 99, 210))
     d.rectangle((92, 7, 111, 9), fill=(31, 67, 64, 230))
     image.save(OUT / "scope.png")
@@ -68,6 +75,9 @@ icon("boss", [(3,0),(2,1),(4,1),(1,2),(5,2),(0,3),(6,3),(1,4),(5,4),(2,5),(3,6),
 icon("missile", [(3,0),(2,2),(3,1),(4,2),(3,3),(3,4),(2,5),(4,5)], (255,78,58,255))
 icon("objective", [(3,0),(3,1),(0,3),(1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(3,4),(3,5),(3,6)], (101,205,169,255))
 icon("protected", [(2,1),(3,1),(4,1),(1,2),(5,2),(1,3),(5,3),(1,4),(5,4),(2,5),(3,5),(4,5)], (104,181,210,255))
+icon("altitude_up", [(3,1),(2,2),(3,2),(4,2),(1,3),(2,3),(3,3),(4,3),(5,3)], (132,205,215,255), False)
+icon("altitude_down", [(1,2),(2,2),(3,2),(4,2),(5,2),(2,3),(3,3),(4,3),(3,4)], (226,189,83,255), False)
+icon("altitude_level", [(1,3),(2,3),(3,3),(4,3),(5,3)], (117,169,150,255), False)
 world_marker("objective_marker", (105, 211, 172, 255))
 world_marker("protected_marker", (104, 181, 210, 255), True)
 print(OUT)

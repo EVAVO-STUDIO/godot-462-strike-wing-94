@@ -67,12 +67,16 @@ func _condition_state(scene: Object) -> Dictionary:
 	}
 
 func _current_altitude() -> String:
+	if not is_inside_tree():
+		return AltitudeRules.MID
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if craft != null and craft.has_method("current_altitude"):
 		return str(craft.call("current_altitude"))
 	return AltitudeRules.MID
 
 func _current_form() -> String:
+	if not is_inside_tree():
+		return "fighter"
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	if craft != null and craft.has_method("current_form"):
 		return str(craft.call("current_form"))
@@ -101,6 +105,7 @@ func radar_forecast_contacts(scene: Object) -> Array:
 		return result
 	var beats := EncounterRules.beats_for_mission(_active_mission(scene))
 	var route_progress := _route_progress(scene)
+	var radar_altitude := _current_altitude()
 	for beat_index in range(_next_beat_index, beats.size()):
 		var beat = beats[beat_index]
 		if typeof(beat) != TYPE_DICTIONARY:
@@ -125,6 +130,7 @@ func radar_forecast_contacts(scene: Object) -> Array:
 					Vector2(scene.get("player_position")).y - clampf(36.0 + seconds_ahead * 8.0 + point.y * 0.25, 36.0, 216.0)
 				),
 				"category": str(archetype.get("class", "air")),
+				"altitude": radar_altitude,
 				"forecast": true,
 				"eta_seconds": ceili(seconds_ahead),
 				"objective": EncounterRules.is_low_bomber_route(beat),
