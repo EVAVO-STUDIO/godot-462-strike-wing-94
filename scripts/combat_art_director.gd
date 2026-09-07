@@ -395,6 +395,18 @@ const SURFACE_SITE_SPRITES := {
 	"civilian_village": preload("res://assets/runtime/surface_sites/civilian_village.png"),
 	"field_clinic": preload("res://assets/runtime/surface_sites/field_clinic.png"),
 }
+const SURFACE_SITE_ANIMATION := {
+	"radar_site": [
+		preload("res://assets/runtime/surface_sites/animation/radar_site/0.png"),
+		preload("res://assets/runtime/surface_sites/animation/radar_site/1.png"),
+		preload("res://assets/runtime/surface_sites/animation/radar_site/2.png"),
+		preload("res://assets/runtime/surface_sites/animation/radar_site/3.png"),
+	],
+	"field_artillery": [
+		preload("res://assets/runtime/surface_sites/animation/field_artillery/0.png"),
+		preload("res://assets/runtime/surface_sites/animation/field_artillery/1.png"),
+	],
+}
 const LAYERED_GROUND_SPRITES := {
 	"light_tank": {
 		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_base.png"),
@@ -1059,7 +1071,7 @@ func _draw_surface_site_capture(surface: CanvasItem) -> void:
 	var ids := ["strategic_silo", "ballistic_launcher", "field_artillery", "radar_site", "logistics_truck", "ammo_depot", "civilian_village", "field_clinic"]
 	for index in range(ids.size()):
 		var position := Vector2(105 + (index % 4) * 138, 126 + int(index / 4) * 104)
-		_draw_production_sprite(surface, position, SURFACE_SITE_SPRITES[ids[index]], 1.0)
+		_draw_surface_site(surface, position, ids[index], {"age":1.1,"recoil_timer":0.08}, 1.0)
 
 func _render_mech_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
@@ -1754,7 +1766,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
 	elif category == "ground" and SURFACE_SITE_SPRITES.has(enemy_id):
-		_draw_production_sprite(surface, p, SURFACE_SITE_SPRITES[enemy_id], scale)
+		_draw_surface_site(surface, p, enemy_id, enemy, scale)
 	elif category == "ground":
 		_report_missing_art(enemy_id)
 	elif category == "sea" and MERCENARY_SEA_SPRITES.has(enemy_id):
@@ -1818,6 +1830,15 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 	var size := texture.get_size() * scale
 	var destination := Rect2((p - size * 0.5).round(), size.round())
 	surface.draw_texture_rect(texture, destination, false)
+
+func _draw_surface_site(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, scale: float) -> void:
+	var texture: Texture2D = SURFACE_SITE_SPRITES[enemy_id]
+	if enemy_id == "radar_site":
+		var frames: Array = SURFACE_SITE_ANIMATION[enemy_id]
+		texture = frames[int(floor(float(enemy.get("age", 0.0)) * 3.0)) % frames.size()]
+	elif enemy_id == "field_artillery" and float(enemy.get("recoil_timer", 0.0)) > 0.0:
+		texture = SURFACE_SITE_ANIMATION[enemy_id][1]
+	_draw_production_sprite(surface, p, texture, scale)
 
 func _animated_unit_texture(enemy_id: String, enemy: Dictionary, fallback: Texture2D) -> Texture2D:
 	if not UNIT_ANIMATION_FRAMES.has(enemy_id):

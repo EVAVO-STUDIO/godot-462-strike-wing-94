@@ -92,8 +92,12 @@ func _test_visual_language() -> void:
 		_expect(surface_site_manifest.get("military", []).size() == 6, "surface-site family should cover six military strike identities")
 		_expect(surface_site_manifest.get("protected", []).size() == 2, "surface-site family should distinguish two protected civilian identities")
 		for site_id in surface_site_manifest.get("military", []) + surface_site_manifest.get("protected", []):
-			var site_image := Image.load_from_file("res://assets/runtime/surface_sites/%s.png" % str(site_id))
-			_expect(not site_image.is_empty() and site_image.get_size() == Vector2i(48,48) and site_image.detect_alpha() != Image.ALPHA_NONE, "surface site should retain transparent 48x48 runtime geometry: %s" % str(site_id))
+			var site_texture := load("res://assets/runtime/surface_sites/%s.png" % str(site_id))
+			_expect(site_texture is Texture2D and site_texture.get_size() == Vector2(48,48) and site_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "surface site should retain transparent 48x48 runtime geometry: %s" % str(site_id))
+	_expect(surface_site_manifest.get("animation", {}).has("radar_site") and surface_site_manifest.get("animation", {}).has("field_artillery"), "surface sites should declare radar sweep and artillery recoil cels")
+	for animation_path in ["radar_site/0.png","radar_site/1.png","radar_site/2.png","radar_site/3.png","field_artillery/0.png","field_artillery/1.png"]:
+		var animation_texture := load("res://assets/runtime/surface_sites/animation/%s" % animation_path)
+		_expect(animation_texture is Texture2D and animation_texture.get_size() == Vector2(48,48), "surface-site mechanical cel should retain 48x48 registration: %s" % animation_path)
 	_expect(typeof(surface_site_catalog) == TYPE_DICTIONARY and surface_site_catalog.get("sites", []).size() == 6 and surface_site_catalog.get("protected_sites", []).size() == 2, "surface-site gameplay catalog should preserve six military and two protected identities outside the 38-enemy roster")
 	_expect(typeof(enemy_catalog) == TYPE_DICTIONARY, "enemy catalogue should load for production-art coverage")
 	if typeof(enemy_catalog) == TYPE_DICTIONARY:
@@ -103,6 +107,7 @@ func _test_visual_language() -> void:
 				_expect(CombatArtDirector.has_production_art(enemy_id), "canonical enemy is missing production sprite coverage: %s" % enemy_id)
 	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("LAYERED_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("MACHINE_BOSS_SPRITES") and source.contains("ORBITAL_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
 	_expect(source.contains("SURFACE_SITE_SPRITES") and source.contains("surface_sites/strategic_silo.png") and source.contains("surface_sites/radar_site.png"), "military surface sites should use the authored strike-site family")
+	_expect(source.contains("SURFACE_SITE_ANIMATION") and source.contains("func _draw_surface_site") and source.contains('enemy_id == "radar_site"') and source.contains('enemy_id == "field_artillery"'), "live surface sites should animate authored mechanical cels")
 	_expect(source.contains("func _draw_layered_ground") and source.contains("Vector2.DOWN.angle_to") and source.contains("recoil_timer"), "layered emplacements should track targets and recoil around registered pivots")
 	_expect(source.contains('ImpactArtLibrary.frame_for_ratio("muzzle"') and not source.contains("surface.draw_circle(Vector2(0, 14)"), "layered weapon recoil should use authored muzzle sprites instead of circle/line programmer art")
 	_expect(source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES"), "autonomous machines should retain their own authored visual families")

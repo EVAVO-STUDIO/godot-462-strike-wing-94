@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "identity": "believable late-1990s imagined-future military pixel art",
   "canvas": [
     48,
@@ -17,9 +17,20 @@
     "civilian_village",
     "field_clinic"
   ],
+  "animation": {
+    "radar_site": {
+      "frames": 4,
+      "fps": 3.0
+    },
+    "field_artillery": {
+      "frames": 2,
+      "trigger": "recoil_timer"
+    }
+  },
   "rules": [
     "red-cross clinic and slate-roof homes are protected contacts",
     "military silhouettes remain readable at native 640x360 gameplay scale",
-    "surface sites are separate from the established 38-enemy identity roster"
+    "surface sites are separate from the established 38-enemy identity roster",
+    "mechanical motion uses held nearest-neighbour cels"
   ]
 }
