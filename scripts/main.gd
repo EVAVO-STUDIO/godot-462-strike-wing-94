@@ -1540,14 +1540,17 @@ func _update_enemies(delta: float) -> void:
 			var anchor_x := float(enemy.get("pattern_anchor_x", position.x))
 			enemy["pattern_anchor_x"] = anchor_x
 			if pattern in MovementPatternRules.supported_patterns():
-				position = MovementPatternRules.adjusted_position(
+				var motion := MovementPatternRules.adjusted_motion(
 					pattern,
 					position,
 					player_position,
 					float(enemy["age"]),
 					delta,
-					anchor_x
+					anchor_x,
+					float(enemy.get("lateral_velocity",0.0))
 				)
+				position = motion["position"]
+				enemy["lateral_velocity"] = motion["lateral_velocity"]
 			else:
 				position.x += (
 					sin(float(enemy["age"]) * float(enemy["turn_rate"]) + float(enemy["phase"]))
@@ -1563,8 +1566,9 @@ func _update_enemies(delta: float) -> void:
 		enemy["position"] = position
 		var lateral_delta := position.x - previous_x
 		var bank_target := 0.0
-		if absf(lateral_delta) > maxf(0.12, delta * 2.0):
-			bank_target = signf(lateral_delta)
+		var lateral_velocity := float(enemy.get("lateral_velocity",lateral_delta/maxf(delta,0.001)))
+		if absf(lateral_velocity) > 5.0:
+			bank_target = clampf(lateral_velocity/52.0,-1.0,1.0)
 		enemy["visual_bank"] = move_toward(float(enemy.get("visual_bank", 0.0)), bank_target, delta * 5.0)
 		var missile_lock_ready := true
 		if str(enemy.get("weapon", "")) == "missile":
@@ -2033,6 +2037,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"hypersonic_boom_age": 99.0,
 		"pattern": str(archetype.get("pattern", "sine_dive")),
 		"pattern_anchor_x": x,
+		"lateral_velocity": 0.0,
 		"fire_timer": mission_rng.randf_range(0.5, 1.6),
 		"recoil_timer": 0.0,
 		"boss": is_boss

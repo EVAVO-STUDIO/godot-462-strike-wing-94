@@ -24,6 +24,13 @@ func _initialize() -> void:
 	_expect(MovementPatternRules.adjusted_position("hover_strafe", base, player, 1.0, 1.0, 200.0).y < base.y, "hover strafe should resist downward travel")
 	_expect(MovementPatternRules.adjusted_position("road_column", Vector2(240,100), player, 1.0, 1.0, 200.0).x < 240.0, "road column should return toward lane anchor")
 	_expect(MovementPatternRules.adjusted_position("static", Vector2(240,100), player, 1.0, 1.0, 200.0).x == 200.0, "static emplacement should lock to anchor")
+	var air_first := MovementPatternRules.adjusted_motion("tracking_sweep",base,player,1.0,0.1,200.0,0.0)
+	var air_second := MovementPatternRules.adjusted_motion("tracking_sweep",air_first["position"],player,1.1,0.1,200.0,float(air_first["lateral_velocity"]))
+	_expect(float(air_first["lateral_velocity"]) > 0.0 and float(air_second["lateral_velocity"]) >= float(air_first["lateral_velocity"]), "interceptors should build lateral pursuit velocity instead of snapping sideways")
+	var road := MovementPatternRules.adjusted_motion("road_column",Vector2(240,100),player,1.0,0.1,200.0,0.0)
+	_expect(absf(float(road["lateral_velocity"])) <= 3.01, "road vehicles should steer gradually within their route lane")
+	var ship := MovementPatternRules.adjusted_motion("water_lane",Vector2(200,100),player,1.0,0.1,200.0,0.0)
+	_expect(absf(float(ship["lateral_velocity"])) <= 1.21, "ships should change heading with heavy waterborne inertia")
 	var clamped := MovementPatternRules.clamp_x(Vector2(999, 100), 36.0, 604.0)
 	_expect(clamped.x == 604.0, "movement clamp should keep enemies inside playfield")
 	if failures.is_empty():
