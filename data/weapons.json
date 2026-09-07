@@ -9,6 +9,6 @@
     {"id":"needle_rail","name":"Needle Rail","slot":"primary","unlock_tech_era":"electromagnetic","damage":4,"fire_interval":0.18,"projectile_speed":590.0,"projectiles":1,"spread_degrees":0.0,"energy_cost":11,"archetype":"precision_kinetic","pierce":2,"cost":13200},
     {"id":"storm_cannon","name":"Storm Cannon","slot":"primary","unlock_tech_era":"directed_energy","damage":3,"fire_interval":0.13,"projectile_speed":510.0,"projectiles":3,"spread_degrees":6.0,"energy_cost":18,"archetype":"directed_energy_pulse","cost":17800},
     {"id":"plasma_lance","name":"Plasma Lance","slot":"primary","unlock_tech_era":"strategic_orbital","damage":8,"fire_interval":0.34,"projectile_speed":390.0,"projectiles":1,"spread_degrees":0.0,"energy_cost":28,"archetype":"strategic_plasma","cost":26500},
-    {"id":"screen_bomb","name":"Flash Bomb","slot":"secondary","unlock_tech_era":"advanced_conventional","damage":999,"fire_interval":1.0,"projectile_speed":0.0,"projectiles":1,"spread_degrees":0.0,"energy_cost":0,"archetype":"screen_clear","cost":1200}
+    {"id":"screen_bomb","name":"Tactical Bomb","slot":"secondary","unlock_tech_era":"advanced_conventional","damage":24,"fire_interval":1.0,"projectile_speed":0.0,"projectiles":1,"spread_degrees":0.0,"energy_cost":0,"archetype":"localized_surface_strike","cost":1200}
   ]
 }
