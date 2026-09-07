@@ -796,6 +796,11 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 				var marked: Dictionary = protected_contact.duplicate()
 				marked["protected"] = true
 				contacts.append(marked)
+	var encounter_director := surface.get_node_or_null("/root/EncounterDirector")
+	if encounter_director != null and encounter_director.has_method("radar_forecast_contacts"):
+		for forecast in encounter_director.call("radar_forecast_contacts", scene):
+			if typeof(forecast) == TYPE_DICTIONARY:
+				contacts.append(forecast)
 	if "--capture-radar" in OS.get_cmdline_user_args():
 		contacts.append({"position":player+Vector2(-230,-470),"protected":true})
 		contacts.append({"position":player+Vector2(210,-390),"objective":true,"category":"ground"})
@@ -835,12 +840,14 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 func _tactical_radar_priority(contact: Dictionary) -> int:
 	if bool(contact.get("missile",false)): return 5
 	if bool(contact.get("boss",false)): return 4
+	if bool(contact.get("forecast",false)): return 3
 	if bool(contact.get("objective",false)) or bool(contact.get("strike_priority",false)): return 3
 	if bool(contact.get("protected",false)) or str(contact.get("faction","")) == "civilian": return 2
 	return 1
 
 func _tactical_radar_track_label(contact: Dictionary, player: Vector2) -> String:
 	if contact.is_empty(): return "AHEAD"
+	if bool(contact.get("forecast",false)): return "IN%02d" % clampi(int(contact.get("eta_seconds",0)),0,99)
 	var kind := "AIR"
 	if bool(contact.get("missile",false)): kind = "MSL"
 	elif bool(contact.get("boss",false)): kind = "BOS"
@@ -867,7 +874,8 @@ func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, 
 		var category := str(contact.get("category",contact.get("class","air")))
 		kind = "ground" if category == "ground" else ("sea" if category == "sea" else "air")
 	var icon: Texture2D = HUD_TACTICAL_RADAR_CONTACTS.get(kind,HUD_TACTICAL_RADAR_CONTACTS["air"])
-	surface.draw_texture(icon,(scope_position+scope_point-Vector2(4,4)).round())
+	var tint := Color(0.58,0.82,0.86,0.58) if bool(contact.get("forecast",false)) else Color.WHITE
+	surface.draw_texture(icon,(scope_position+scope_point-Vector2(4,4)).round(),tint)
 
 func _draw_surface_iff_markers(surface: CanvasItem, scene: Object) -> void:
 	var marked := 0

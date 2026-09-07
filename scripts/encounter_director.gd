@@ -5,6 +5,8 @@ const EncounterRules = preload("res://scripts/encounter_rules.gd")
 const AltitudeRules = preload("res://scripts/altitude_rules.gd")
 const FORMATION_MIN_X := 58.0
 const FORMATION_MAX_X := 582.0
+const RADAR_FORECAST_HORIZON_SECONDS := 24.0
+const RADAR_FORECAST_MAX_CONTACTS := 8
 
 var _scene_id := 0
 var _last_phase := -1
@@ -92,6 +94,45 @@ func _route_progress(scene: Object) -> float:
 	if scene.has_method("route_progress_seconds"):
 		return maxf(0.0, float(scene.call("route_progress_seconds")))
 	return maxf(0.0, float(scene.get("mission_time")))
+
+func radar_forecast_contacts(scene: Object) -> Array:
+	var result: Array = []
+	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
+		return result
+	var beats := EncounterRules.beats_for_mission(_active_mission(scene))
+	var route_progress := _route_progress(scene)
+	for beat_index in range(_next_beat_index, beats.size()):
+		var beat = beats[beat_index]
+		if typeof(beat) != TYPE_DICTIONARY:
+			continue
+		var seconds_ahead := float(beat.get("at_seconds", route_progress)) - route_progress
+		if seconds_ahead < 0.0:
+			continue
+		if seconds_ahead > RADAR_FORECAST_HORIZON_SECONDS:
+			break
+		if beat.has("condition") and not EncounterRules.condition_met(beat, _condition_state(scene)):
+			continue
+		var ids := EncounterRules.expanded_enemy_ids(beat)
+		var points := EncounterRules.formation_points(beat, ids.size())
+		for index in range(ids.size()):
+			var archetype := _enemy_for_id(scene.get("enemy_catalog"), ids[index])
+			if archetype.is_empty() or bool(archetype.get("boss", false)):
+				continue
+			var point: Vector2 = points[index] if index < points.size() else Vector2(0.5, 0.0)
+			result.append({
+				"position": Vector2(
+					lerpf(FORMATION_MIN_X, FORMATION_MAX_X, clampf(point.x, 0.0, 1.0)),
+					Vector2(scene.get("player_position")).y - clampf(36.0 + seconds_ahead * 8.0 + point.y * 0.25, 36.0, 216.0)
+				),
+				"category": str(archetype.get("class", "air")),
+				"forecast": true,
+				"eta_seconds": ceili(seconds_ahead),
+				"objective": EncounterRules.is_low_bomber_route(beat),
+				"intercept_priority": EncounterRules.is_high_fighter_route(beat)
+			})
+			if result.size() >= RADAR_FORECAST_MAX_CONTACTS:
+				return result
+	return result
 
 func _apply_beat(scene: Object, beat: Dictionary) -> void:
 	var enemy_ids := EncounterRules.expanded_enemy_ids(beat)

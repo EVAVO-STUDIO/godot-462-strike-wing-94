@@ -3,6 +3,7 @@ extends SceneTree
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const EncounterRules = preload("res://scripts/encounter_rules.gd")
 const InterceptRouteRules = preload("res://scripts/intercept_route_rules.gd")
+const EncounterDirectorScript = preload("res://scripts/encounter_director.gd")
 
 var failures: Array[String] = []
 
@@ -52,6 +53,7 @@ func _initialize() -> void:
 	_test_intercept_chain()
 	_test_formation_geometry()
 	_test_route_runtime_wiring()
+	_test_radar_forecast()
 	if failures.is_empty():
 		print("Strike Wing encounter self-test passed.")
 		quit(0)
@@ -129,6 +131,9 @@ func _test_route_runtime_wiring() -> void:
 		_expect(source.contains("discovered_secret_ids") and source.contains('var stable_id := "%s:%s"'), "triggered mastery secrets should persist stable mission-and-vector identities")
 		_expect(source.contains('scene.has_method("_boss_alive")') and source.contains("_next_beat_index = EncounterRules.beats_for_mission"), "pending lesser encounter beats should retire once command contact owns the lane")
 		_expect(source.contains("_route_progress(scene)") and source.contains('scene.has_method("route_progress_seconds")'), "encounter timestamps should represent travelled route positions rather than elapsed combat time")
+		_expect(source.contains("func radar_forecast_contacts") and source.contains("RADAR_FORECAST_HORIZON_SECONDS") and source.contains('"eta_seconds"'), "tactical radar should preview authored route contacts with bounded time-to-contact")
+	var hud_source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
+	_expect(hud_source.contains('encounter_director.call("radar_forecast_contacts", scene)') and hud_source.contains('return "IN%02d"'), "HUD should render the encounter forecast as a time-to-contact datalink track")
 	var cue := FileAccess.open("res://scripts/intercept_route_director.gd", FileAccess.READ)
 	_expect(cue != null, "intercept route director should be readable")
 	if cue != null:
@@ -147,6 +152,40 @@ func _test_route_runtime_wiring() -> void:
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
 		_expect(project.get_as_text().contains('InterceptRouteDirector="*res://scripts/intercept_route_director.gd"'), "intercept route presentation should remain autoloaded")
+
+func _test_radar_forecast() -> void:
+	var director = EncounterDirectorScript.new()
+	var fixture = RadarForecastFixture.new()
+	root.add_child(director)
+	root.add_child(fixture)
+	var contacts: Array = director.radar_forecast_contacts(fixture)
+	_expect(contacts.size() == 2, "radar datalink should expose every contact in the next authored formation")
+	if contacts.size() == 2:
+		_expect(bool(contacts[0].get("forecast", false)) and int(contacts[0].get("eta_seconds", -1)) == 12, "forecast contacts should carry a bounded time-to-contact")
+		_expect(Vector2(contacts[0].get("position", Vector2.ZERO)).x < Vector2(contacts[1].get("position", Vector2.ZERO)).x, "forecast should retain the authored formation geometry")
+	director.free()
+	fixture.free()
+
+class RadarForecastFixture extends Node:
+	var phase := 1
+	var mission_time := 0.0
+	var mission_index := 0
+	var mission_catalog: Array = []
+	var enemy_catalog: Array = [{"id":"scout_falcon", "class":"air", "boss":false}]
+	var enemies: Array = []
+	var enemy_spawn_timer := 0.0
+	var pickups: Array = []
+	var status_text := ""
+	var status_timer := 0.0
+	var shots_fired := 0
+	var shots_hit := 0
+	var score := 0
+	var bombs := 3
+	var player_position := Vector2(320, 250)
+	func _spawn_enemy(_archetype: Dictionary = {}) -> void: pass
+	func route_progress_seconds() -> float: return 0.0
+	func _active_mission() -> Dictionary:
+		return {"encounter_beats":[{"id":"incoming", "at_seconds":12.0, "formation":"line", "enemies":[{"id":"scout_falcon", "count":2}]}]}
 
 func _expect(condition: bool, message: String) -> void:
 	if not condition: failures.append(message)
