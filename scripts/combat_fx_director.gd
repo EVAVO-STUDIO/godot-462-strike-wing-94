@@ -445,12 +445,14 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		surface.draw_texture_rect(core,Rect2((p-Vector2.ONE*core_size*0.5).round(),Vector2.ONE*core_size),false,Color(1.0,0.82,0.58,0.90*(1.0-core_ratio*0.58)))
 	if not boss and impact_family == "missile" and blast_clock < 0.42:
 		var pressure_ratio := blast_clock / 0.42
-		var pressure_color := Color(1.0, 0.88, 0.62, 0.82 * (1.0 - pressure_ratio))
-		surface.draw_arc(p.round(), lerpf(9.0, 48.0, pressure_ratio), 0.0, TAU, 32, pressure_color, 2.0)
+		var pressure := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", pressure_ratio)
+		var pressure_size := Vector2.ONE * roundf(lerpf(18.0, 96.0, pressure_ratio))
+		surface.draw_texture_rect(pressure, Rect2((p-pressure_size*0.5).round(),pressure_size), false, Color(1.0,0.88,0.62,0.82*(1.0-pressure_ratio)))
 	if not boss and impact_family in ["rocket", "bomb"] and blast_clock < 0.58:
 		var ground_ratio := blast_clock / 0.58
-		var ground_width := lerpf(14.0, 62.0, ground_ratio)
-		surface.draw_arc((p + Vector2(0, 12)).round(), ground_width * 0.5, PI, TAU, 24, Color(0.72, 0.58, 0.38, 0.54 * (1.0-ground_ratio)), 3.0)
+		var ground_pressure := ImpactArtLibrary.frame_for_ratio("dust_impact",ground_ratio)
+		var ground_size := Vector2(lerpf(18.0,72.0,ground_ratio),lerpf(10.0,32.0,ground_ratio))
+		surface.draw_texture_rect(ground_pressure,Rect2((p+Vector2(0,12)-ground_size*0.5).round(),ground_size.round()),false,Color(0.72,0.58,0.38,0.62*(1.0-ground_ratio)))
 	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
 	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
 	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))

@@ -719,6 +719,7 @@ func _test_combat_fx() -> void:
 	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
 	_expect(source.contains("EXPLOSION_FRAMES"), "enemy destruction should use the authored eight-frame raster sequence")
 	_expect(source.contains("A killing cannon burst ruptures the target") and source.contains("fireball_size") and source.contains("MISSILE_BLAST_SCALE := 3.65") and source.contains("SURFACE_BLAST_SCALE := 3.35") and source.contains("detonation_grade"), "lethal cannon, rocket and missile impacts should remain distinct without obscuring the physical breakup")
+	_expect(source.contains('frame_for_ratio("sonic_boom", pressure_ratio)') and source.contains('frame_for_ratio("dust_impact",ground_ratio)') and not source.contains("surface.draw_arc"), "warhead pressure fronts should use authored cel silhouettes instead of perfect vector rings")
 	_expect(source.contains("func _draw_destruction_consequence") and source.contains('category == "sea"') and source.contains('faction == "autonomous"'), "enemy destruction should branch into naval, machine, air and ground material consequences")
 	_expect(source.contains('enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]'), "infantry destruction should use subdued dust/scatter instead of a wreck fire")
 	_expect(source.contains('ImpactArtLibrary.frame_for_ratio("water_impact"') and source.contains('ImpactArtLibrary.frame_for_ratio("emp_disruption"'), "naval and autonomous destruction should use authored water and EMP raster effects")
