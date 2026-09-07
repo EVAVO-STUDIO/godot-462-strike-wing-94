@@ -36,15 +36,20 @@ const EVAVO_SPARKLE_FRAMES := [
 
 enum Stage { EVAVO, BLACK_PAUSE, HYPERSONIC, COMPLETE }
 
-const EVAVO_READABLE_SECONDS := 1.0
-const EVAVO_TOTAL_SECONDS := 2.28
-const BLACK_PAUSE_SECONDS := 0.42
+# Keep the publisher portion aligned with evavo-game-runtime's shared ident
+# contract: readable before skipping, 3.6s target, and never beyond 5s.
+const EVAVO_READABLE_SECONDS := 1.5
+const EVAVO_TOTAL_SECONDS := 3.6
+const EVAVO_MAX_SECONDS := 5.0
+const EVAVO_SPARKLE_AT_SECONDS := 1.55
+const BLACK_PAUSE_SECONDS := 0.28
 const TITLE_TOTAL_SECONDS := 9.2
 const TITLE_CRAFT_SCALE := 1.75
 
 var stage := Stage.EVAVO
 var elapsed := 0.0
 var _surface: Control
+var _transition_locked := false
 
 func _ready() -> void:
 	layer = 100
@@ -75,7 +80,7 @@ func _apply_capture_override(arguments: PackedStringArray) -> bool:
 			continue
 		var fixture := argument.trim_prefix("--capture-startup=").to_lower()
 		var fixtures := {
-			"evavo_ident": {"stage":Stage.EVAVO, "elapsed":1.12},
+			"evavo_ident": {"stage":Stage.EVAVO, "elapsed":1.82},
 			"vx94_transform": {"stage":Stage.HYPERSONIC, "elapsed":3.46},
 			"title_prompt": {"stage":Stage.HYPERSONIC, "elapsed":7.24},
 		}
@@ -92,19 +97,20 @@ func _apply_capture_override(arguments: PackedStringArray) -> bool:
 	return false
 
 func _process(delta: float) -> void:
-	if stage == Stage.COMPLETE:
+	if stage == Stage.COMPLETE or _transition_locked:
 		return
 	elapsed += delta
-	if stage == Stage.EVAVO and elapsed >= EVAVO_TOTAL_SECONDS:
+	if stage == Stage.EVAVO and (elapsed >= EVAVO_TOTAL_SECONDS or elapsed >= EVAVO_MAX_SECONDS):
 		_set_stage(Stage.BLACK_PAUSE)
 	elif stage == Stage.BLACK_PAUSE and elapsed >= BLACK_PAUSE_SECONDS:
 		_set_stage(Stage.HYPERSONIC)
 	elif stage == Stage.HYPERSONIC and elapsed >= TITLE_TOTAL_SECONDS:
 		_complete()
-	_surface.queue_redraw()
+	if _surface != null:
+		_surface.queue_redraw()
 
 func _input(event: InputEvent) -> void:
-	if stage == Stage.COMPLETE or not _is_commit_input(event):
+	if stage == Stage.COMPLETE or _transition_locked or not _is_commit_input(event):
 		return
 	get_viewport().set_input_as_handled()
 	if stage == Stage.EVAVO and elapsed >= EVAVO_READABLE_SECONDS:
@@ -116,16 +122,24 @@ func _unhandled_input(event: InputEvent) -> void:
 	_input(event)
 
 func _set_stage(next_stage: int) -> void:
+	if _transition_locked or stage == next_stage:
+		return
+	_transition_locked = true
 	stage = next_stage
 	elapsed = 0.0
+	_transition_locked = false
 
 func _complete() -> void:
+	if stage == Stage.COMPLETE or _transition_locked:
+		return
+	_transition_locked = true
 	stage = Stage.COMPLETE
 	set_process(false)
 	set_process_input(false)
 	set_process_unhandled_input(false)
 	if _surface != null:
 		_surface.queue_free()
+	_transition_locked = false
 
 func is_complete() -> bool:
 	return stage == Stage.COMPLETE
@@ -141,17 +155,18 @@ func draw_startup_sequence(surface: CanvasItem) -> void:
 			_draw_hypersonic(surface)
 
 func _draw_evavo(surface: CanvasItem) -> void:
-	# Timing, plate geometry and sparkle placement are preserved from the
-	# approved Battle Chess publisher-ident implementation on main.
+	# Preserve the approved plate artwork but follow the shared runtime timing.
+	# The logo remains deliberately smaller than a game title card and the
+	# sparkle gets a distinct readable beat around the middle of the ident.
 	var wake := _range_progress(0.0, 0.34)
 	if wake < 1.0:
 		var half_height := maxf(1.0, 180.0 * wake)
 		surface.draw_rect(Rect2(0, 180.0-half_height, 640, half_height*2.0), Color("0d0a18"))
 		surface.draw_line(Vector2(0,180), Vector2(640,180), Color(0.94,0.84,0.60,1.0-wake), 2.0)
-	var alpha := _range_progress(0.38, 1.18) * (1.0 - _range_progress(1.62, 2.04))
+	var alpha := _range_progress(0.38, 0.95) * (1.0 - _range_progress(3.18, 3.52))
 	if alpha > 0.0:
 		surface.draw_texture_rect(EVAVO_SPLASH, Rect2(0,0,640,360), false, Color(1,1,1,alpha))
-	var sparkle_index := int(floor((elapsed - 0.62) * 12.0))
+	var sparkle_index := int(floor((elapsed - EVAVO_SPARKLE_AT_SECONDS) * 12.0))
 	if sparkle_index >= 0 and sparkle_index < EVAVO_SPARKLE_FRAMES.size():
 		surface.draw_texture_rect(EVAVO_SPARKLE_FRAMES[sparkle_index], Rect2(568,66,64,64), false)
 
