@@ -1232,11 +1232,14 @@ func _render_orbital_boss_capture(surface: CanvasItem, scene: Object) -> void:
 func _render_combat_fx_capture(surface: CanvasItem,scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene,"mission_time") else 0.0
 	var frame_index := posmod(int(floor(time*7.0)),4)
-	var projectile_families := ["ballistic","enemy_cannon","homing_missile","needle_rail","plasma_lance","support_rocket","strategic_warhead"]
+	# Present the complete technology ladder in one reviewable native-resolution
+	# row: conventional fire, guided ordnance, electromagnetic rail, both
+	# directed-energy families, support rockets, and strategic delivery.
+	var projectile_families := ["ballistic","enemy_cannon","homing_missile","needle_rail","storm_pulse","plasma_lance","support_rocket","strategic_warhead"]
 	for index in range(projectile_families.size()):
 		var frames: Array = ProjectileCueDirector.PROJECTILE_FRAMES[projectile_families[index]]
 		var texture: Texture2D = frames[frame_index]
-		var center := Vector2(85+index*78,82)
+		var center := Vector2(62+index*73,82)
 		surface.draw_texture(texture,(center-texture.get_size()*0.5).round())
 	var impact_families := ["muzzle","rotary_muzzle","armor_hit","shield_hit","bomb_impact","emp_disruption","water_impact","dust_impact"]
 	for index in range(impact_families.size()):

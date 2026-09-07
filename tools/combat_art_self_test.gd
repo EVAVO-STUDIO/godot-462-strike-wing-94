@@ -907,6 +907,7 @@ func _test_persistent_effect_art() -> void:
 	var combat_source_file := FileAccess.open("res://scripts/combat_art_director.gd",FileAccess.READ)
 	var combat_source := combat_source_file.get_as_text() if combat_source_file != null else ""
 	_expect(combat_source.contains('_capture_fx_state() == "combat"') and combat_source.contains("_render_combat_fx_capture"),"visual QA should expose the complete projectile, impact and persistent FX fixture")
+	_expect(combat_source.contains('"needle_rail","storm_pulse","plasma_lance"'),"combat FX review should expose the electromagnetic rail and both directed-energy projectile families in progression order")
 	var damage := FileAccess.open("res://scripts/damage_state_director.gd", FileAccess.READ)
 	if damage != null:
 		var source := damage.get_as_text()
