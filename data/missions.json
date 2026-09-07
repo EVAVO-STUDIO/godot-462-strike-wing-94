@@ -79,7 +79,7 @@
       "briefing": "Punch through the reinforced breakwater screen and eliminate the rebuilt command gunship.",
       "encounter_beats": [
         {"id":"ace_entry","at_seconds":6,"label":"ACE ENTRY","formation":"wedge","enemies":[{"id":"ace_interceptor","count":2},{"id":"scout_falcon","count":3}],"suppress_random_seconds":4},
-        {"id":"flak_wall","at_seconds":44,"label":"FLAK WALL","formation":"line","enemies":[{"id":"coastal_flak","count":4},{"id":"heavy_bomber","count":1}],"suppress_random_seconds":6},
+        {"id":"flak_wall","at_seconds":44,"label":"COASTAL FIRE BATTERY","formation":"line","enemies":[{"id":"coastal_flak","count":3},{"id":"field_artillery","count":2},{"id":"heavy_bomber","count":1}],"suppress_random_seconds":6},
         {"id":"high_intercept_route","at_seconds":64,"label":"HIGH INTERCEPT ROUTE","formation":"wedge","secret":true,"condition":{"type":"altitude_form","altitude":"high","form":"fighter"},"enemies":[{"id":"ace_interceptor","count":2},{"id":"heavy_bomber","count":1}],"pickup":"shield","suppress_random_seconds":6},
         {"id":"breakwater_cache","at_seconds":82,"label":"BREAKWATER CACHE","formation":"split","enemies":[{"id":"gunship_mk1","count":2}],"pickup":"weapon","suppress_random_seconds":8},
         {"id":"hidden_hunters","at_seconds":96,"label":"HUNTER CELL","formation":"wedge","secret":true,"condition":{"type":"accuracy_at_least","value":0.76,"minimum_shots":110},"enemies":[{"id":"ace_interceptor","count":2}],"pickup":"shield","suppress_random_seconds":6},
@@ -104,7 +104,7 @@
         {"id":"aa_gate","at_seconds":8,"label":"AA GATE","formation":"line","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":5},
         {"id":"bomber_lane","at_seconds":51,"label":"BOMBER LANE","formation":"wedge","enemies":[{"id":"heavy_bomber","count":3},{"id":"sam_truck","count":2}],"suppress_random_seconds":6},
         {"id":"low_bomber_route","at_seconds":74,"label":"LOW BOMBER ROUTE","formation":"split","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"armoured_aa_carrier","count":1},{"id":"fortified_turret","count":2}],"pickup":"bomb","suppress_random_seconds":7},
-        {"id":"service_convoy","at_seconds":96,"label":"SERVICE CONVOY","formation":"column","enemies":[{"id":"light_tank","count":2}],"pickup":"repair","suppress_random_seconds":9},
+        {"id":"service_convoy","at_seconds":96,"label":"SERVICE CONVOY","formation":"column","enemies":[{"id":"light_tank","count":1},{"id":"logistics_truck","count":2}],"pickup":"repair","suppress_random_seconds":9},
         {"id":"hidden_armoury","at_seconds":112,"label":"FURNACE ARMOURY","formation":"split","secret":true,"condition":{"type":"score_at_least","value":12000},"enemies":[{"id":"armoured_aa_carrier","count":1},{"id":"ace_interceptor","count":1}],"pickup":"weapon","suppress_random_seconds":6},
         {"id":"tunnel_guard","at_seconds":126,"label":"TUNNEL GUARD","formation":"stagger","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"ace_interceptor","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":8}
       ],
@@ -150,7 +150,7 @@
         {"id":"dust_spearhead","at_seconds":7,"label":"DUST SPEARHEAD","formation":"echelon_right","enemies":[{"id":"light_tank","count":3},{"id":"attack_chopper","count":2}],"suppress_random_seconds":4},
         {"id":"salt_flak_crossing","at_seconds":46,"label":"SALT FLAT CROSSFIRE","formation":"crossing_attack","enemies":[{"id":"armoured_aa_carrier","count":2},{"id":"ace_interceptor","count":2}],"suppress_random_seconds":6},
         {"id":"lance_service_drop","at_seconds":86,"label":"LANCE SERVICE DROP","formation":"column","enemies":[{"id":"light_tank","count":2}],"pickup":"repair","suppress_random_seconds":9},
-        {"id":"buried_fuel_dump","at_seconds":108,"label":"BURIED FUEL DUMP","formation":"ambush","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"fortified_turret","count":2},{"id":"sam_truck","count":1}],"pickup":"bomb","suppress_random_seconds":7},
+        {"id":"buried_fuel_dump","at_seconds":108,"label":"BALLISTIC FUEL SITE","formation":"ambush","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"fortified_turret","count":2},{"id":"ballistic_launcher","count":1},{"id":"strategic_silo","count":1}],"pickup":"bomb","suppress_random_seconds":7},
         {"id":"railhead_shell","at_seconds":142,"label":"RAILHEAD ESCORT SHELL","formation":"escort_shell","enemies":[{"id":"armoured_aa_carrier","count":3},{"id":"heavy_bomber","count":2}],"suppress_random_seconds":10}
       ],
       "objectives": [
