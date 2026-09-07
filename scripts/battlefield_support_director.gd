@@ -406,8 +406,15 @@ func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 		if burst_phase < 0.22:
 			_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), p+SPECTRE_MUZZLE_OFFSETS[index], target, 3.0)
 		elif burst_phase < 0.48:
-			var impact := BattlefieldSupportArtLibrary.staged_effect("impact", (burst_phase-0.22)/0.26)
-			surface.draw_texture(impact, (target-impact.get_size()*0.5).round(), Color(1,1,1,1.0-(burst_phase-0.22)/0.26))
+			var impact_ratio := (burst_phase-0.22)/0.26
+			var impact := BattlefieldSupportArtLibrary.strike_cel("gunship_impact",impact_ratio)
+			var impact_size := Vector2.ONE*lerpf(54.0,72.0,impact_ratio)
+			if impact_ratio < 0.45:
+				var contact_ratio := impact_ratio*1.35
+				var contact := BattlefieldSupportArtLibrary.strike_cel("detonation_core",contact_ratio)
+				var contact_size := Vector2.ONE*lerpf(18.0,28.0,contact_ratio)
+				surface.draw_texture_rect(contact,Rect2((target-contact_size*0.5).round(),contact_size.round()),false,Color(1.0,0.84,0.58,0.94-impact_ratio))
+			surface.draw_texture_rect(impact,Rect2((target-impact_size*0.5).round(),impact_size.round()),false,Color(1.0,0.78,0.48,1.0-impact_ratio*0.46))
 
 func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float) -> void:
 	var texture := BattlefieldSupportArtLibrary.frame_for_clock(family, _animation_clock, fps)

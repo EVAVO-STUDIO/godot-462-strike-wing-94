@@ -65,6 +65,9 @@ func _test_production_art() -> void:
 	for frame_index in range(8):
 		var bomb_impact_frame := load("res://assets/runtime/effects/weapon_explosions/rocket/frame_%04d.png" % frame_index)
 		_expect(bomb_impact_frame is Texture2D and bomb_impact_frame.get_size() == Vector2(128,128), "Hammer strike should retain its authored bomb impact exposure: %d" % frame_index)
+	for frame_index in range(6):
+		var gunship_impact_frame := load("res://assets/runtime/effects/weapon_explosions/cannon/frame_%04d.png" % frame_index)
+		_expect(gunship_impact_frame is Texture2D and gunship_impact_frame.get_size() == Vector2(64,64), "Spectre fire mission should retain its authored cannon impact exposure: %d" % frame_index)
 	for frame_index in range(8):
 		var core_frame := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index)
 		_expect(core_frame is Texture2D and core_frame.get_size() == Vector2(48,48), "precision support strike should retain its hot detonation core: %d" % frame_index)
@@ -115,6 +118,7 @@ func _test_source_contract() -> void:
 		_expect(source.contains('frame_for_clock("precision_missile"') and source.contains("direction.angle()+PI*0.5"), "precision support should use an animated guided missile aligned to its terminal path")
 		_expect(source.contains('strike_cel("missile_impact"') and source.contains('strike_cel("detonation_core"') and not source.contains('staged_effect("impact", impact_ratio)'), "precision support impact should combine authored fire, fragmentation, smoke and a hot detonation core")
 		_expect(source.contains('strike_cel("bomb_impact"') and source.contains("detonation_start := 0.48"), "Hammer strike should finish its bomb release with staggered authored ground detonations")
+		_expect(source.contains('strike_cel("gunship_impact"') and not source.contains('staged_effect("impact", (burst_phase'), "Spectre fire mission should use directional cannon debris instead of the generic star impact")
 		_expect(source.contains("SPECTRE_MUZZLE_OFFSETS") and source.contains("Vector2(-19.64,13.05)") and source.contains("burst_phase"), "Spectre tracers should leave all three projected v2 gun muzzles with staged cadence")
 		_expect(not source.contains('p+Vector2(-31,18+offset*0.2)'), "Spectre must not regress to the detached legacy emitter")
 		_expect(source.contains('argument.begins_with("--capture-support=")') and source.contains('"missile_impact"') and source.contains('"tanker", "fighter", "bomber", "gunship", "missile"'), "all battlefield support presentations should expose deterministic visual QA fixtures")
