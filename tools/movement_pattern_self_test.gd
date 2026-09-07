@@ -35,6 +35,10 @@ func _initialize() -> void:
 	_expect(absf(float(bomber["lateral_velocity"])) <= 2.01, "loaded bombers should make measured course corrections")
 	var sentry := MovementPatternRules.adjusted_motion("combat_orbit",base,player,1.0,0.1,200.0,0.0)
 	_expect(float(sentry["position"].y) < base.y and absf(float(sentry["lateral_velocity"])) <= 3.81, "airborne sentries should establish a controlled standoff orbit")
+	_expect(MovementPatternRules.hit_response_impulse("air","tracking_sweep",240.0,200.0,240.0)>0.0, "hit aircraft should break away from the attacker's line")
+	_expect(absf(MovementPatternRules.hit_response_impulse("air","bomber_run",240.0,200.0,240.0))<absf(MovementPatternRules.hit_response_impulse("air","tracking_sweep",240.0,200.0,240.0)), "loaded bombers should react with less lateral authority than fighters")
+	_expect(is_zero_approx(MovementPatternRules.hit_response_impulse("ground","road_column",240.0,200.0,240.0)), "surface units should not slide sideways when hit")
+	_expect(MovementPatternRules.hit_suppression_seconds("ground")>MovementPatternRules.hit_suppression_seconds("air"), "surface crews should need longer to recover their firing solution")
 	var clamped := MovementPatternRules.clamp_x(Vector2(999, 100), 36.0, 604.0)
 	_expect(clamped.x == 604.0, "movement clamp should keep enemies inside playfield")
 	if failures.is_empty():

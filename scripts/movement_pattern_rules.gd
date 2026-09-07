@@ -7,7 +7,7 @@ static func supported_patterns() -> Array[String]:
 static func adjusted_position(pattern: String, current: Vector2, player: Vector2, age: float, delta: float, anchor_x: float) -> Vector2:
 	return adjusted_motion(pattern,current,player,age,delta,anchor_x,0.0)["position"]
 
-static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, age: float, delta: float, anchor_x: float, lateral_velocity: float) -> Dictionary:
+static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, age: float, delta: float, anchor_x: float, lateral_velocity: float, control_authority: float = 1.0) -> Dictionary:
 	var next := current
 	var desired_velocity := 0.0
 	var acceleration := 80.0
@@ -47,9 +47,21 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 			desired_velocity = sin(age*2.15+maneuver_phase)*76.0 + clampf((player.x-next.x)*0.18,-22.0,22.0)
 			acceleration = 155.0
 	if pattern != "static":
-		lateral_velocity = move_toward(lateral_velocity,desired_velocity,acceleration*maxf(0.0,delta))
+		lateral_velocity = move_toward(lateral_velocity,desired_velocity,acceleration*clampf(control_authority,0.0,1.0)*maxf(0.0,delta))
 		next.x += lateral_velocity*delta
 	return {"position":next,"lateral_velocity":lateral_velocity,"desired_lateral_velocity":desired_velocity}
+
+static func hit_response_impulse(category: String, pattern: String, enemy_x: float, player_x: float, anchor_x: float) -> float:
+	if category != "air":
+		return 0.0
+	var away := signf(enemy_x-player_x)
+	if is_zero_approx(away):
+		away = -1.0 if fposmod(anchor_x,2.0)<1.0 else 1.0
+	var magnitude := 30.0 if pattern in ["bomber_run","hover_strafe","combat_orbit"] else 52.0
+	return away*magnitude
+
+static func hit_suppression_seconds(category: String) -> float:
+	return 0.38 if category in ["ground","sea"] else 0.22
 
 static func clamp_x(position: Vector2, minimum_x: float, maximum_x: float) -> Vector2:
 	var next := position

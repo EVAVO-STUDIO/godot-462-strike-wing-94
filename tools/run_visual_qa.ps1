@@ -63,6 +63,7 @@ $Cases = @(
 	@{ id='cloud_family_mid'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid') },
 	@{ id='cloud_family_high'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=high') },
 	@{ id='roster_human_air'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-air=human') },
+	@{ id='enemy_hit_response'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-enemy-hit-response','--visual-capture-delay=0.28') },
 	@{ id='roster_machine_air'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-air=machine') },
 	@{ id='roster_orbital_air'; args=@('--capture-gameplay','--capture-mission=25','--capture-time=42','--capture-altitude=orbital','--capture-air=orbital') },
 	@{ id='roster_mobile_ground'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=low','--capture-ground=mobile') },

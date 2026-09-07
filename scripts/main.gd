@@ -343,6 +343,15 @@ func _begin_capture_gameplay() -> void:
 	if "--capture-flight-warning" in OS.get_cmdline_user_args():
 		status_text = "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB"
 		status_timer = 30.0
+	if "--capture-enemy-hit-response" in OS.get_cmdline_user_args():
+		enemies.clear()
+		_spawn_enemy(_find_enemy_archetype("scout_falcon"))
+		if not enemies.is_empty():
+			enemies[0]["position"] = Vector2(245,154)
+			enemies[0]["pattern_anchor_x"] = 245.0
+			enemies[0]["lateral_velocity"] = MovementPatternRules.hit_response_impulse("air","sine_dive",245.0,player_position.x,245.0)
+			enemies[0]["maneuver_break_timer"] = 0.48
+			enemies[0]["hit_timer"] = 0.14
 	queue_redraw()
 
 func _stage_capture_player_loss_fx(loss_ratio: float) -> void:
@@ -1496,6 +1505,7 @@ func _update_enemies(delta: float) -> void:
 		enemy["fire_timer"] = float(enemy["fire_timer"]) - delta
 		enemy["recoil_timer"] = maxf(0.0, float(enemy.get("recoil_timer", 0.0)) - delta)
 		enemy["hit_timer"] = maxf(0.0, float(enemy.get("hit_timer", 0.0)) - delta)
+		enemy["maneuver_break_timer"] = maxf(0.0,float(enemy.get("maneuver_break_timer",0.0))-delta)
 		var position: Vector2 = enemy["position"]
 		var previous_x := position.x
 		var is_boss := bool(enemy.get("boss", false))
@@ -1547,7 +1557,8 @@ func _update_enemies(delta: float) -> void:
 					float(enemy["age"]),
 					delta,
 					anchor_x,
-					float(enemy.get("lateral_velocity",0.0))
+					float(enemy.get("lateral_velocity",0.0)),
+					0.24 if float(enemy.get("maneuver_break_timer",0.0))>0.0 else 1.0
 				)
 				position = motion["position"]
 				enemy["lateral_velocity"] = motion["lateral_velocity"]
@@ -1727,6 +1738,14 @@ func _resolve_combat() -> void:
 				)
 				enemies[enemy_index]["hp"] -= applied_damage
 				enemies[enemy_index]["hit_timer"] = 0.14
+				if not is_boss_target:
+					var hit_category := str(enemies[enemy_index].get("category","air"))
+					var hit_pattern := str(enemies[enemy_index].get("pattern","sine_dive"))
+					var enemy_position: Vector2 = enemies[enemy_index]["position"]
+					var impulse := MovementPatternRules.hit_response_impulse(hit_category,hit_pattern,enemy_position.x,player_position.x,float(enemies[enemy_index].get("pattern_anchor_x",enemy_position.x)))
+					enemies[enemy_index]["lateral_velocity"] = clampf(float(enemies[enemy_index].get("lateral_velocity",0.0))+impulse,-96.0,96.0)
+					enemies[enemy_index]["maneuver_break_timer"] = 0.48
+					enemies[enemy_index]["fire_timer"] = maxf(float(enemies[enemy_index].get("fire_timer",0.0)),MovementPatternRules.hit_suppression_seconds(hit_category))
 				if not bool(bullet.get("accuracy_registered", false)):
 					shots_hit += 1
 					bullet["accuracy_registered"] = true
@@ -2040,6 +2059,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"pattern": str(archetype.get("pattern", "sine_dive")),
 		"pattern_anchor_x": x,
 		"lateral_velocity": 0.0,
+		"maneuver_break_timer": 0.0,
 		"fire_timer": mission_rng.randf_range(0.5, 1.6),
 		"recoil_timer": 0.0,
 		"boss": is_boss
