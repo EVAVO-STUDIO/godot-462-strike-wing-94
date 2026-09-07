@@ -1,0 +1,70 @@
+{
+  "schema": "hypersonic_support_strike_cel_v3",
+  "style": "held-frame late-90s military cel energy",
+  "files": [
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_beam_0.png",
+      "sha256": "724E835A35BBACBE8D303102D9422C822520B1EE0F6033DBFC486FCF9578E211"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_impact_0.png",
+      "sha256": "485BA20DB5CD1497AB45CB368253160B00859ABB165784FB93139BA78F3D438A"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_beam_1.png",
+      "sha256": "141420C3336F588D4113F60972B78B17F54A6BFEA0726A5865F76EEB4D1CEF58"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_impact_1.png",
+      "sha256": "EED99000021B9546CF5554E354595B21A79429C29BD53960E4ED4F234842B0C4"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_beam_2.png",
+      "sha256": "DAC058DC284681488DD2413C0F88BE5CD78FD5D9FB37120FD60DEEE56C53966E"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_impact_2.png",
+      "sha256": "E7146131872FD6DEFE1295B946F6DF673339477D5EE0D5C0D923F2F9EA5671F8"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_beam_3.png",
+      "sha256": "27B77FA75EA4679E9D3532850F6FB811B8314BC28CD6ECED8D986F43AE9583C7"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/rail_impact_3.png",
+      "sha256": "398DC7DD38A528FE56D03CF94E2759FA938412624D79348664B297833178292D"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_0.png",
+      "sha256": "213C5E6377F94E68663380F8454DA65A6B5F9BDA5537CC2984E1DC8976A84275"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_0.png",
+      "sha256": "13186128D98F636ABFC7C3264D243820277FAB9D6074EAD4F9A68A03425D43C0"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_1.png",
+      "sha256": "DAB600F765F8E3A8ADB2D1B1A0D817E8CE5164A63022702C871BEF0B2EEBDDEC"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_1.png",
+      "sha256": "2468069986894652574CB260E3C22CBC1E8F500A2DFA3681E7918A8A2AAC343D"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_2.png",
+      "sha256": "A1133EE8F0DD10AA89174148A9B080166127827E7351732A7611DD86374AF43E"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_2.png",
+      "sha256": "A899C384904F9B104B28D768E3F144BDE98577708DC24B91FE605B961D3FF3D1"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_3.png",
+      "sha256": "F38B99C041EC84641EB05B38D5B01770BDA9CDCAAB2AB63DD2BC4DAC0C32B8A6"
+    },
+    {
+      "path": "assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_3.png",
+      "sha256": "A7C91404E1937264B016FC3BE0DA0FCE1309EBA727F433F047C017DA09C8F1CF"
+    }
+  ]
+}

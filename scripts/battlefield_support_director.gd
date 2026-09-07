@@ -419,20 +419,25 @@ func _draw_rail_strike(surface: CanvasItem, progress: float) -> void:
 		surface.draw_texture(charge_frame, (_visual_target - charge_frame.get_size() * 0.5).round())
 		return
 	var fade := 1.0 - clampf((progress-0.38)/0.62,0.0,1.0)
-	var beam := BattlefieldSupportArtLibrary.effect("rail_beam")
-	surface.draw_texture_rect(beam, Rect2(_visual_target.x - 6, 0, 12, 360), false, Color(1,1,1,fade))
-	var impact := BattlefieldSupportArtLibrary.staged_effect("impact", clampf((progress - 0.38) / 0.62, 0.0, 1.0))
+	var strike_ratio := clampf((progress - 0.38) / 0.62, 0.0, 1.0)
+	var beam := BattlefieldSupportArtLibrary.strike_cel("rail_beam", strike_ratio)
+	surface.draw_texture_rect(beam, Rect2(_visual_target.x - 14, 0, 28, 360), false, Color(1,1,1,fade))
+	var impact := BattlefieldSupportArtLibrary.strike_cel("rail_impact", strike_ratio)
 	surface.draw_texture(impact, (_visual_target - impact.get_size() * 0.5).round(), Color(1,1,1,fade))
 
 func _draw_orbital_strike(surface: CanvasItem, progress: float) -> void:
 	var fade := 1.0 - progress
+	var strike_ratio := clampf((progress - 0.46) / 0.54, 0.0, 1.0)
+	var index := 0
 	for x in [130.0, 240.0, 350.0, 460.0, 540.0]:
 		var bottom := Vector2(x + sin(x)*8.0, 300)
-		var beam := BattlefieldSupportArtLibrary.effect("orbital_beam")
-		surface.draw_texture_rect(beam, Rect2(bottom.x - 6, 0, 12, bottom.y), false, Color(1,1,1,0.35+fade*0.65))
+		var local_ratio := fposmod(strike_ratio + float(index) * 0.18, 1.0)
+		var beam := BattlefieldSupportArtLibrary.strike_cel("orbital_beam", local_ratio)
+		surface.draw_texture_rect(beam, Rect2(bottom.x - 14, 0, 28, bottom.y), false, Color(1,1,1,0.35+fade*0.65))
 		if progress > 0.55:
-			var impact := BattlefieldSupportArtLibrary.effect("orbital_impact")
+			var impact := BattlefieldSupportArtLibrary.strike_cel("orbital_impact", local_ratio)
 			surface.draw_texture(impact, (bottom - impact.get_size() * 0.5).round(), Color(1,1,1,fade))
+		index += 1
 
 func _draw_clipped_effect(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
 	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))

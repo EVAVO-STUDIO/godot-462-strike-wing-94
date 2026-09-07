@@ -7,6 +7,13 @@ const FAMILIES := {
 	"spectre_gunship": [preload("res://assets/runtime/support/battlefield/spectre_gunship/0.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/1.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/2.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/3.png")],
 }
 
+const STRIKE_CEL := {
+	"rail_beam": [preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_beam_0.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_beam_1.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_beam_2.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_beam_3.png")],
+	"rail_impact": [preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_impact_0.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_impact_1.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_impact_2.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/rail_impact_3.png")],
+	"orbital_beam": [preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_0.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_1.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_2.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_beam_3.png")],
+	"orbital_impact": [preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_0.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_1.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_2.png"), preload("res://assets/runtime/support/battlefield/strike_cel_v3/orbital_impact_3.png")],
+}
+
 const EFFECTS := {
 	"tanker_hose": preload("res://assets/runtime/support/battlefield/effects/tanker_hose.png"),
 	"tanker_contact": preload("res://assets/runtime/support/battlefield/effects/tanker_contact.png"),
@@ -42,3 +49,9 @@ static func effect(name: String) -> Texture2D:
 static func staged_effect(prefix: String, ratio: float, frame_count: int = 3) -> Texture2D:
 	var index := clampi(int(floor(clampf(ratio, 0.0, 0.9999) * frame_count)), 0, frame_count - 1)
 	return effect("%s_%d" % [prefix, index])
+
+static func strike_cel(prefix: String, ratio: float) -> Texture2D:
+	var frames: Array = STRIKE_CEL.get(prefix, [])
+	if frames.is_empty(): return null
+	var index := clampi(int(floor(clampf(ratio, 0.0, 0.9999) * frames.size())), 0, frames.size()-1)
+	return frames[index]

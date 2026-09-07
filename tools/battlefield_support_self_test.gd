@@ -65,6 +65,14 @@ func _test_production_art() -> void:
 		for frame_index in range(3):
 			var frame := load("res://assets/runtime/support/battlefield/effects/%s_%d.png" % [prefix, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == Vector2(48,48), "support effect animation should retain registered geometry: %s/%d" % [prefix, frame_index])
+	for strike_family in ["rail", "orbital"]:
+		for frame_index in range(4):
+			var beam_frame := load("res://assets/runtime/support/battlefield/strike_cel_v3/%s_beam_%d.png" % [strike_family,frame_index])
+			var impact_frame := load("res://assets/runtime/support/battlefield/strike_cel_v3/%s_impact_%d.png" % [strike_family,frame_index])
+			_expect(beam_frame is Texture2D and beam_frame.get_size() == Vector2(28,192), "strategic support beam should retain registered cel geometry: %s/%d" % [strike_family,frame_index])
+			var expected_impact := Vector2(96,96) if strike_family == "rail" else Vector2(112,112)
+			_expect(impact_frame is Texture2D and impact_frame.get_size() == expected_impact, "strategic support impact should retain registered cel geometry: %s/%d" % [strike_family,frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/support/strike_cel_v3/manifest.json"), "strategic support cel source/runtime manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/effect_manifest.json"), "battlefield support effect manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/tanker_docking_instrument_manifest.json"), "tanker docking instrument source/runtime manifest should exist")
 	for dock_state in ["align","contact","transfer","complete"]:
@@ -91,6 +99,7 @@ func _test_source_contract() -> void:
 		_expect(source.contains("_visual_timer = 1.25"), "immediate support set pieces should remain short and readable")
 		_expect(source.contains("_priority_target_position(scene)"), "precision support visuals should anchor to a real priority target")
 		_expect(source.contains("BattlefieldSupportArtLibrary") and source.contains("_draw_support_craft"), "tanker, fighter, bomber and gunship set pieces should use authored sprite animation")
+		_expect(source.contains('strike_cel("rail_beam"') and source.contains('strike_cel("orbital_impact"'), "rail and orbital support should use held-frame beam and impact cel art")
 		_expect(source.contains("SPECTRE_MUZZLE_OFFSETS") and source.contains("Vector2(-19.64,13.05)") and source.contains("burst_phase"), "Spectre tracers should leave all three projected v2 gun muzzles with staged cadence")
 		_expect(not source.contains('p+Vector2(-31,18+offset*0.2)'), "Spectre must not regress to the detached legacy emitter")
 		_expect(source.contains('argument.begins_with("--capture-support=")') and source.contains('"tanker", "fighter", "bomber", "gunship", "missile", "rail", "orbital"'), "all battlefield support presentations should expose deterministic visual QA fixtures")
