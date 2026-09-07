@@ -31,7 +31,7 @@ func run() -> void:
 	var military_y := Camera.ANCHOR_Y + Camera.target_offset(1.36)
 	var hypersonic_y := Camera.ANCHOR_Y + Camera.target_offset(4.4)
 	check(slow_y > cruise_y and cruise_y > military_y and military_y > hypersonic_y, "Acceleration must move the aircraft visibly forward through the camera")
-	check(slow_y <= 292.0 and hypersonic_y >= 132.0 and slow_y - hypersonic_y >= 140.0, "Camera follow envelope must use most of the playable depth without entering the HUD")
+	check(slow_y <= 292.0 and hypersonic_y >= 102.0 and slow_y - hypersonic_y >= 175.0, "Camera follow envelope must use most of the playable depth without entering the HUD")
 	var travelled := 0.0
 	var settling := Camera.target_offset(4.4)
 	var previous_camera := Camera.camera_distance(travelled, settling)

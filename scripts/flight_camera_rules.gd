@@ -14,7 +14,7 @@ static func target_offset(speed: float) -> float:
 		return lerpf(58.0, 0.0, clampf((speed - 0.62) / 0.38, 0.0, 1.0))
 	# Acceleration must visibly carry the aircraft forward. The asymptote keeps
 	# even hypersonic flight readable below the HUD instead of pinning the VX-94.
-	return -96.0 * (1.0 - exp(-0.75 * (speed - 1.0)))
+	return -132.0 * (1.0 - exp(-0.85 * (speed - 1.0)))
 
 static func advance_offset(offset: float, speed: float, delta: float) -> float:
 	var projected := lerpf(offset, target_offset(speed), 1.0 - exp(-RESPONSE * maxf(0.0, delta)))
