@@ -4,6 +4,7 @@ const CountermeasureRules = preload("res://scripts/countermeasure_rules.gd")
 const CountermeasureSurface = preload("res://scripts/countermeasure_surface.gd")
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const FLARE_FRAMES := [
 	preload("res://assets/runtime/effects/countermeasure/flare_0.png"),
 	preload("res://assets/runtime/effects/countermeasure/flare_1.png"),
@@ -113,11 +114,14 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 				continue
 			var puff_position := position - trail_direction * float(8 + puff_index * 7)
 			var puff_alpha := (1.0 - ratio) * (0.20 - float(puff_index) * 0.04)
-			surface.draw_circle(puff_position.round(), 2.5 + float(puff_index), Color(0.68, 0.72, 0.70, puff_alpha))
+			var smoke := PersistentEffectArtLibrary.frame_for_ratio("damage_smoke",trail_ratio)
+			var smoke_size := Vector2.ONE*(13.0+float(puff_index)*4.0)
+			surface.draw_texture_rect(smoke,Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round()),false,Color(0.68,0.72,0.70,puff_alpha*2.4))
 		if ratio < 0.18:
 			var ignition := 1.0 - ratio / 0.18
-			surface.draw_circle(position.round(), 6.0 + ratio * 18.0, Color(1.0, 0.82, 0.38, 0.18 * ignition))
-			surface.draw_arc(position.round(), 5.0 + ratio * 20.0, 0.0, TAU, 20, Color(1.0, 0.94, 0.72, 0.72 * ignition), 1.2)
+			var sparks := PersistentEffectArtLibrary.frame_for_ratio("damage_sparks",ratio/0.18)
+			var spark_size := Vector2.ONE*(30.0+ratio*34.0)
+			surface.draw_texture_rect(sparks,Rect2((position-spark_size*0.5).round(),spark_size.round()),false,Color(1.0,0.88,0.60,ignition))
 		surface.draw_set_transform(position.round(), float(event.get("angle",0.0)), SALVO_CARTRIDGE_SCALE)
 		surface.draw_texture(texture, -FLARE_PIVOT, Color(1,1,1,1.0-smoothstep(0.72,1.0,ratio)))
 		surface.draw_set_transform(Vector2.ZERO)
