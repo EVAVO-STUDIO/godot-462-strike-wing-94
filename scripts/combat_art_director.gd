@@ -385,6 +385,16 @@ const MERCENARY_GROUND_SPRITES := {
 	"coastal_flak": preload("res://assets/runtime/enemies/mercenary_ground/coastal_flak_idle.png"),
 	"armoured_aa_carrier": preload("res://assets/runtime/enemies/mercenary_ground/armoured_aa_carrier_idle.png"),
 }
+const SURFACE_SITE_SPRITES := {
+	"strategic_silo": preload("res://assets/runtime/surface_sites/strategic_silo.png"),
+	"ballistic_launcher": preload("res://assets/runtime/surface_sites/ballistic_launcher.png"),
+	"field_artillery": preload("res://assets/runtime/surface_sites/field_artillery.png"),
+	"radar_site": preload("res://assets/runtime/surface_sites/radar_site.png"),
+	"logistics_truck": preload("res://assets/runtime/surface_sites/logistics_truck.png"),
+	"ammo_depot": preload("res://assets/runtime/surface_sites/ammo_depot.png"),
+	"civilian_village": preload("res://assets/runtime/surface_sites/civilian_village.png"),
+	"field_clinic": preload("res://assets/runtime/surface_sites/field_clinic.png"),
+}
 const LAYERED_GROUND_SPRITES := {
 	"light_tank": {
 		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_base.png"),
@@ -975,6 +985,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_draw_mobile_ground_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _capture_ground_state() == "sites":
+		_draw_surface_site_capture(surface)
+		_draw_player(surface, scene)
+		return
 	if _capture_ground_state() == "mechs":
 		_render_mech_capture(surface, scene)
 		_draw_player(surface, scene)
@@ -1036,6 +1050,12 @@ func _draw_mobile_ground_capture(surface: CanvasItem, scene: Object) -> void:
 	]
 	for enemy in machine_definitions:
 		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_MACHINE_GROUND_SPRITES[enemy["id"]], 1.0)
+
+func _draw_surface_site_capture(surface: CanvasItem) -> void:
+	var ids := ["strategic_silo", "ballistic_launcher", "field_artillery", "radar_site", "logistics_truck", "ammo_depot", "civilian_village", "field_clinic"]
+	for index in range(ids.size()):
+		var position := Vector2(105 + (index % 4) * 138, 126 + int(index / 4) * 104)
+		_draw_production_sprite(surface, position, SURFACE_SITE_SPRITES[ids[index]], 1.0)
 
 func _render_mech_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
@@ -1729,6 +1749,8 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 			_draw_animated_unit(surface, p, enemy_id, enemy, MERCENARY_GROUND_FORCE_SPRITES[enemy_id], unit_scale)
 	elif category == "ground" and MERCENARY_GROUND_SPRITES.has(enemy_id):
 		_draw_production_sprite(surface, p, MERCENARY_GROUND_SPRITES[enemy_id], scale)
+	elif category == "ground" and SURFACE_SITE_SPRITES.has(enemy_id):
+		_draw_production_sprite(surface, p, SURFACE_SITE_SPRITES[enemy_id], scale)
 	elif category == "ground":
 		_report_missing_art(enemy_id)
 	elif category == "sea" and MERCENARY_SEA_SPRITES.has(enemy_id):
@@ -1780,7 +1802,7 @@ func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: Str
 	return true
 
 static func has_production_art(enemy_id: String) -> bool:
-	return MERCENARY_AIR_SPRITES.has(enemy_id) or MERCENARY_GROUND_SPRITES.has(enemy_id) or MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id) or MERCENARY_SEA_SPRITES.has(enemy_id) or MACHINE_AIR_SPRITES.has(enemy_id) or MACHINE_GROUND_SPRITES.has(enemy_id) or MACHINE_MECH_SPRITES.has(enemy_id) or ORBITAL_AIR_SPRITES.has(enemy_id) or MERCENARY_BOSS_SPRITES.has(enemy_id) or MACHINE_BOSS_SPRITES.has(enemy_id) or ORBITAL_BOSS_SPRITES.has(enemy_id)
+	return MERCENARY_AIR_SPRITES.has(enemy_id) or MERCENARY_GROUND_SPRITES.has(enemy_id) or SURFACE_SITE_SPRITES.has(enemy_id) or MERCENARY_GROUND_FORCE_SPRITES.has(enemy_id) or MERCENARY_SEA_SPRITES.has(enemy_id) or MACHINE_AIR_SPRITES.has(enemy_id) or MACHINE_GROUND_SPRITES.has(enemy_id) or MACHINE_MECH_SPRITES.has(enemy_id) or ORBITAL_AIR_SPRITES.has(enemy_id) or MERCENARY_BOSS_SPRITES.has(enemy_id) or MACHINE_BOSS_SPRITES.has(enemy_id) or ORBITAL_BOSS_SPRITES.has(enemy_id)
 
 func _report_missing_art(enemy_id: String) -> void:
 	if _missing_art_ids.has(enemy_id):

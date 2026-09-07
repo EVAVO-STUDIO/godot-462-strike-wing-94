@@ -35,11 +35,11 @@
       "boss_id": "armoured_train",
       "briefing": "Cut through the refinery corridor and destroy the mobile command train.",
       "encounter_beats": [
-        {"id":"road_column","at_seconds":8,"label":"ARMOURED COLUMN","formation":"column","enemies":[{"id":"light_tank","count":3},{"id":"sam_truck","count":2}],"suppress_random_seconds":4},
+        {"id":"road_column","at_seconds":8,"label":"ARMOURED LOGISTICS COLUMN","formation":"column","enemies":[{"id":"light_tank","count":2},{"id":"sam_truck","count":1},{"id":"logistics_truck","count":2}],"suppress_random_seconds":4},
         {"id":"refinery_crossfire","at_seconds":48,"label":"REFINERY CROSSFIRE","formation":"split","enemies":[{"id":"attack_chopper","count":2},{"id":"fortified_turret","count":2}],"suppress_random_seconds":5},
         {"id":"low_attack_window","at_seconds":72,"label":"LOW ATTACK ROUTE","formation":"column","secret":true,"condition":{"type":"altitude_form","altitude":"low","form":"bomber"},"enemies":[{"id":"light_tank","count":2},{"id":"sam_truck","count":1}],"pickup":"bomb","suppress_random_seconds":6},
         {"id":"maintenance_gap","at_seconds":88,"label":"MAINTENANCE GAP","formation":"column","enemies":[{"id":"light_tank","count":2}],"pickup":"repair","suppress_random_seconds":8},
-        {"id":"hidden_stockpile","at_seconds":102,"label":"MUNITIONS STOCKPILE","formation":"stagger","secret":true,"condition":{"type":"score_at_least","value":6500},"enemies":[{"id":"sam_truck","count":1},{"id":"fortified_turret","count":1}],"pickup":"bomb","suppress_random_seconds":5},
+        {"id":"hidden_stockpile","at_seconds":102,"label":"MUNITIONS STOCKPILE","formation":"stagger","secret":true,"condition":{"type":"score_at_least","value":6500},"enemies":[{"id":"ammo_depot","count":1},{"id":"fortified_turret","count":1}],"pickup":"bomb","suppress_random_seconds":5},
         {"id":"train_escort","at_seconds":116,"label":"TRAIN ESCORT","formation":"line","enemies":[{"id":"sam_truck","count":3},{"id":"gunship_mk1","count":2}],"suppress_random_seconds":7}
       ],
       "objectives": [
@@ -192,7 +192,7 @@
       "briefing": "Climb through the Karakoram storm wall, blind the mercenary over-horizon radar and duel its command gunship above the snow line.",
       "encounter_beats": [
         {"id":"valley_pursuit","at_seconds":7,"label":"VALLEY PURSUIT","formation":"pursuit","enemies":[{"id":"scout_falcon","count":3},{"id":"attack_chopper","count":2}],"suppress_random_seconds":5},
-        {"id":"radar_echelon","at_seconds":49,"label":"RADAR ECHELON","formation":"echelon_left","enemies":[{"id":"ace_interceptor","count":3},{"id":"sam_truck","count":2}],"suppress_random_seconds":7},
+        {"id":"radar_echelon","at_seconds":49,"label":"RADAR ECHELON","formation":"echelon_left","enemies":[{"id":"ace_interceptor","count":2},{"id":"sam_truck","count":2},{"id":"radar_site","count":1}],"suppress_random_seconds":7},
         {"id":"storm_shelter","at_seconds":93,"label":"STORM SHELTER","formation":"line","enemies":[{"id":"heavy_bomber","count":2}],"pickup":"repair","suppress_random_seconds":10},
         {"id":"summit_vector","at_seconds":121,"label":"SUMMIT VECTOR","formation":"hunter_pair","secret":true,"condition":{"type":"accuracy_at_least","value":0.78,"minimum_shots":120},"enemies":[{"id":"ace_interceptor","count":2}],"pickup":"weapon","suppress_random_seconds":8},
         {"id":"eye_guard","at_seconds":157,"label":"MOUNTAIN EYE GUARD","formation":"bomber_box","enemies":[{"id":"heavy_bomber","count":3},{"id":"ace_interceptor","count":3}],"suppress_random_seconds":11}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "sites": [
+    {"id":"strategic_silo","class":"ground","hp":18,"speed":0,"value":1400,"pattern":"static","weapon":"none","strike_priority":true,"site_role":"strategic"},
+    {"id":"ballistic_launcher","class":"ground","hp":9,"speed":16,"value":1150,"pattern":"road_column","weapon":"none","strike_priority":true,"site_role":"strategic"},
+    {"id":"field_artillery","class":"ground","hp":7,"speed":0,"value":720,"pattern":"static","weapon":"cannon","site_role":"fire_support"},
+    {"id":"radar_site","class":"ground","hp":8,"speed":0,"value":900,"pattern":"static","weapon":"none","strike_priority":true,"site_role":"sensor"},
+    {"id":"logistics_truck","class":"ground","hp":3,"speed":17,"value":360,"pattern":"road_column","weapon":"none","site_role":"logistics"},
+    {"id":"ammo_depot","class":"ground","hp":10,"speed":0,"value":850,"pattern":"static","weapon":"none","strike_priority":true,"site_role":"logistics"}
+  ],
+  "protected_sites": [
+    {"id":"civilian_village","class":"ground","protected":true,"site_role":"civilian"},
+    {"id":"field_clinic","class":"ground","protected":true,"site_role":"medical"}
+  ]
+}

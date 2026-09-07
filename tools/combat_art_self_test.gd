@@ -86,6 +86,7 @@ func _test_visual_language() -> void:
 	_expect(not source.contains("func _draw_ground") and not source.contains("func _draw_sea") and not source.contains("func _draw_air") and not source.contains("func _draw_autonomous"), "obsolete generic enemy silhouette fallbacks should remain removed")
 	var enemy_catalog = ContentCatalog.load_json("res://data/enemies.json")
 	var surface_site_manifest = ContentCatalog.load_json("res://assets/source/surface_sites/mercenary_war_v1/manifest.json")
+	var surface_site_catalog = ContentCatalog.load_json("res://data/surface_sites.json")
 	_expect(typeof(surface_site_manifest) == TYPE_DICTIONARY, "surface-site art manifest should load")
 	if typeof(surface_site_manifest) == TYPE_DICTIONARY:
 		_expect(surface_site_manifest.get("military", []).size() == 6, "surface-site family should cover six military strike identities")
@@ -93,6 +94,7 @@ func _test_visual_language() -> void:
 		for site_id in surface_site_manifest.get("military", []) + surface_site_manifest.get("protected", []):
 			var site_image := Image.load_from_file("res://assets/runtime/surface_sites/%s.png" % str(site_id))
 			_expect(not site_image.is_empty() and site_image.get_size() == Vector2i(48,48) and site_image.detect_alpha() != Image.ALPHA_NONE, "surface site should retain transparent 48x48 runtime geometry: %s" % str(site_id))
+	_expect(typeof(surface_site_catalog) == TYPE_DICTIONARY and surface_site_catalog.get("sites", []).size() == 6 and surface_site_catalog.get("protected_sites", []).size() == 2, "surface-site gameplay catalog should preserve six military and two protected identities outside the 38-enemy roster")
 	_expect(typeof(enemy_catalog) == TYPE_DICTIONARY, "enemy catalogue should load for production-art coverage")
 	if typeof(enemy_catalog) == TYPE_DICTIONARY:
 		for enemy in enemy_catalog.get("enemies", []):
@@ -100,6 +102,7 @@ func _test_visual_language() -> void:
 				var enemy_id := str(enemy.get("id", ""))
 				_expect(CombatArtDirector.has_production_art(enemy_id), "canonical enemy is missing production sprite coverage: %s" % enemy_id)
 	_expect(source.contains("MERCENARY_AIR_SPRITES") and source.contains("MERCENARY_GROUND_SPRITES") and source.contains("LAYERED_GROUND_SPRITES") and source.contains("MERCENARY_SEA_SPRITES") and source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES") and source.contains("MERCENARY_BOSS_SPRITES") and source.contains("MACHINE_BOSS_SPRITES") and source.contains("ORBITAL_BOSS_SPRITES") and source.contains("func _draw_production_sprite"), "reviewed units should use production sprite assets")
+	_expect(source.contains("SURFACE_SITE_SPRITES") and source.contains("surface_sites/strategic_silo.png") and source.contains("surface_sites/radar_site.png"), "military surface sites should use the authored strike-site family")
 	_expect(source.contains("func _draw_layered_ground") and source.contains("Vector2.DOWN.angle_to") and source.contains("recoil_timer"), "layered emplacements should track targets and recoil around registered pivots")
 	_expect(source.contains('ImpactArtLibrary.frame_for_ratio("muzzle"') and not source.contains("surface.draw_circle(Vector2(0, 14)"), "layered weapon recoil should use authored muzzle sprites instead of circle/line programmer art")
 	_expect(source.contains("MACHINE_AIR_SPRITES") and source.contains("MACHINE_GROUND_SPRITES") and source.contains("ORBITAL_AIR_SPRITES"), "autonomous machines should retain their own authored visual families")

@@ -127,6 +127,7 @@ var countermeasures_decoyed := 0
 var enemies: Array = []
 var pickups: Array = []
 var enemy_catalog: Array = []
+var surface_site_catalog: Array = []
 var weapon_catalog: Array = []
 var generator_catalog: Array = []
 var mission_catalog: Array = []
@@ -807,6 +808,7 @@ func mission_remaining_seconds() -> float:
 
 func _load_content() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
+	var surface_sites_data = ContentCatalog.load_json("res://data/surface_sites.json")
 	var weapons_data = ContentCatalog.load_json("res://data/weapons.json")
 	var generators_data = ContentCatalog.load_json("res://data/generators.json")
 	var missions_data = ContentCatalog.load_json("res://data/missions.json")
@@ -816,6 +818,8 @@ func _load_content() -> void:
 
 	if typeof(enemies_data) == TYPE_DICTIONARY:
 		enemy_catalog = enemies_data.get("enemies", [])
+	if typeof(surface_sites_data) == TYPE_DICTIONARY:
+		surface_site_catalog = surface_sites_data.get("sites", [])
 	if typeof(weapons_data) == TYPE_DICTIONARY:
 		weapon_catalog = weapons_data.get("weapons", [])
 	if typeof(generators_data) == TYPE_DICTIONARY:
@@ -1551,7 +1555,7 @@ func _update_enemies(delta: float) -> void:
 			enemy["missile_lock_ratio"] = lock_ratio
 			var missile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed("missile"))
 			missile_lock_ready = lock_ratio >= 0.999 and ProjectileRules.missile_launch_has_warning_time(position, player_position, missile_speed)
-		if float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
+		if str(enemy.get("weapon", "none")) != "none" and float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
 			_fire_enemy_weapon(enemy)
 			if str(enemy.get("weapon", "")) == "missile": enemy["missile_lock_ratio"] = 0.0
 			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(
@@ -1860,6 +1864,9 @@ func _find_enemy_archetype(id: String) -> Dictionary:
 	for enemy in enemy_catalog:
 		if str(enemy.get("id", "")) == id:
 			return enemy
+	for site in surface_site_catalog:
+		if str(site.get("id", "")) == id:
+			return site
 	return {}
 
 func _spawn_candidates() -> Array:
@@ -1940,6 +1947,8 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"value": _difficulty_elite_value(CombatRules.destroy_value(int(archetype.get("value", 100)), wave)) if elite else CombatRules.destroy_value(int(archetype.get("value", 100)), wave),
 		"elite": elite,
 		"weapon": str(archetype.get("weapon", "single_burst")),
+		"strike_priority": bool(archetype.get("strike_priority", false)),
+		"site_role": str(archetype.get("site_role", "")),
 		"hypersonic_capable": HypersonicRules.enemy_can_pursue(archetype),
 		"hypersonic_charge": 0.0,
 		"hypersonic_ratio": 0.0,
