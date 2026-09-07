@@ -146,6 +146,10 @@ func _test_visual_language() -> void:
 			_expect(bank_texture is Texture2D and bank_texture.get_size() == bank_sizes[bank_id], "hostile bank pose should preserve registered canvas: %s %s" % [bank_id, direction])
 	_expect(CombatArtDirector.hostile_bank_frame_index(-0.4) == 0 and CombatArtDirector.hostile_bank_frame_index(0.0) == 1 and CombatArtDirector.hostile_bank_frame_index(0.4) == 2, "hostile airframes should hold discrete left, neutral and right bank poses")
 	_expect(source.contains('enemy.get("visual_bank", 0.0)'), "hostile bank art should consume real movement state")
+	var fixed_discharge := CombatArtDirector.hostile_airframe_weapon_direction(Vector2(200,100),Vector2(320,260),{"category":"air","pattern":"aggressive_weave","weapon":"twin_burst","lateral_velocity":-48.0})
+	_expect(fixed_discharge.x < 0.0 and fixed_discharge.y > 0.0, "fixed aircraft muzzle art should follow airframe heading instead of tracking the player")
+	var turret_discharge := CombatArtDirector.hostile_airframe_weapon_direction(Vector2(200,100),Vector2(320,260),{"category":"air","pattern":"bomber_run","weapon":"cannon","lateral_velocity":-48.0})
+	_expect(turret_discharge.x > 0.0 and turret_discharge.y > 0.0, "traversing aircraft mounts should retain target-directed muzzle art")
 	_expect(source.contains("func _render_airframe_shadow") and source.contains("visible_hull") and source.contains("CraftFormDirector"), "atmospheric hostile airframes should cast their authored silhouette with altitude-aware separation")
 	_expect(source.contains("ORBITAL_AIR_SPRITES.has(enemy_id)") and source.contains("AltitudeRules.ORBITAL"), "orbital hostiles should not receive an atmospheric contact shadow")
 	_expect(source.contains("func _render_mercenary_position_lights") and source.contains("MERCENARY_AIR_SPRITES.has(enemy_id)") and source.contains("fposmod(age + phase * 0.09, 1.18)"), "human hostile aircraft should retain subdued navigation lamps and an asynchronous anti-collision strobe for dark-terrain separation")
@@ -163,7 +167,7 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(1.0, 0.8) == 3, "heavy bomber bay should expose an authored firing pose during recoil")
 	_expect(source.contains('enemy_id == "gunship_mk1"') and source.contains('enemy_id == "attack_chopper"'), "gunship turret and helicopter cannon should receive specialist articulation")
 	_expect(source.contains("func _draw_infantry_member") and source.contains("shadow_size") and source.contains("Color(1.16,1.14,1.08,0.24)"), "human-scale squads should retain registered contact shadows and a restrained value lift over detailed terrain")
-	_expect(source.contains("func _render_airframe_weapon_discharge") and source.contains('"scout_falcon", "ace_interceptor", "drone_scout", "drone_hunter", "phase_interceptor"') and source.contains("direction.orthogonal() * 4.0"), "ordinary and pursuit-capable hostile fighters should expose authored single/twin hardpoint discharge instead of spawning disconnected rounds")
+	_expect(source.contains("func _render_airframe_weapon_discharge") and source.contains('"scout_falcon", "ace_interceptor", "drone_scout", "drone_hunter", "phase_interceptor"') and source.contains("ProjectileRules.twin_gun_origins(muzzle_center, direction)"), "ordinary and pursuit-capable hostile fighters should expose authored single/twin hardpoint discharge instead of spawning disconnected rounds")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_specialist/air_specialist_asset_manifest.json"), "air specialist source/runtime manifest should exist")
 	var layered_human_air_sizes := {
 		"gunship_mount":Vector2(15,15), "gunship_turret":Vector2(16,20), "gunship_barrel":Vector2(12,24), "gunship_barrel_recoil":Vector2(12,24), "gunship_sensor":Vector2(8,8),

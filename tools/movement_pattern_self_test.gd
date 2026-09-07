@@ -52,6 +52,8 @@ func _initialize() -> void:
 	_expect(Vector2(road_boundary.position).x == 36.0 and is_zero_approx(float(road_boundary.lateral_velocity)), "ground vehicles should stop at their route boundary instead of bouncing")
 	var sea_boundary := MovementPatternRules.constrain_lateral_motion(Vector2(620,100),9.0,36.0,604.0,"sea")
 	_expect(Vector2(sea_boundary.position).x == 604.0 and is_zero_approx(float(sea_boundary.lateral_velocity)), "ships should stop at their water-lane boundary instead of bouncing")
+	var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
+	_expect(main_source.contains("if is_boss or pursuit_active:") and main_source.contains("lateral_delta / maxf(delta, 0.001)"), "bosses and hypersonic pursuers should expose their real lateral motion to bank presentation")
 	if failures.is_empty():
 		print("Strike Wing movement pattern self-test passed.")
 		quit(0)

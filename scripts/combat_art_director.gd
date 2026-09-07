@@ -8,6 +8,7 @@ const BossRules = preload("res://scripts/boss_rules.gd")
 const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const ImpactArtLibrary = preload("res://scripts/impact_art_library.gd")
 const ProjectileCueDirector = preload("res://scripts/projectile_cue_director.gd")
+const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 const AIRCRAFT_NAVIGATION_LIGHTS := {
 	"port": preload("res://assets/runtime/effects/aircraft_navigation_lights/port_red.png"),
 	"starboard": preload("res://assets/runtime/effects/aircraft_navigation_lights/starboard_green.png"),
@@ -2007,16 +2008,26 @@ func _render_airframe_weapon_discharge(surface: CanvasItem, p: Vector2, enemy_id
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
 	if recoil_ratio <= 0.01:
 		return
-	var direction := p.direction_to(_player_position())
+	var direction := hostile_airframe_weapon_direction(p, _player_position(), enemy)
 	if direction.length_squared() < 0.001:
 		direction = Vector2.DOWN
 	var muzzle_center := p + direction * maxf(9.0, hull.get_height() * 0.30)
-	if enemy_id in ["ace_interceptor", "drone_hunter", "phase_interceptor"]:
-		var lateral := direction.orthogonal() * 4.0
-		_render_air_muzzle(surface, muzzle_center - lateral, recoil_ratio)
-		_render_air_muzzle(surface, muzzle_center + lateral, recoil_ratio)
+	if str(enemy.get("weapon", "")) == "twin_burst" or enemy_id in ["ace_interceptor", "drone_hunter", "phase_interceptor"]:
+		for gun_origin in ProjectileRules.twin_gun_origins(muzzle_center, direction):
+			_render_air_muzzle(surface, gun_origin, recoil_ratio)
 	else:
 		_render_air_muzzle(surface, muzzle_center, recoil_ratio)
+
+static func hostile_airframe_weapon_direction(origin: Vector2, target: Vector2, enemy: Dictionary) -> Vector2:
+	if ProjectileRules.uses_fixed_aircraft_gun(
+		str(enemy.get("category", "air")),
+		str(enemy.get("pattern", "")),
+		str(enemy.get("weapon", "")),
+		bool(enemy.get("boss", false))
+	):
+		return ProjectileRules.fixed_aircraft_shot_velocity(float(enemy.get("lateral_velocity", 0.0)), 1.0).normalized()
+	var direction := origin.direction_to(target)
+	return direction if direction.length_squared() > 0.001 else Vector2.DOWN
 
 static func heavy_bomber_bay_frame_index(fire_timer: float, recoil_ratio: float) -> int:
 	if recoil_ratio > 0.01:

@@ -1623,6 +1623,8 @@ func _update_enemies(delta: float) -> void:
 
 		enemy["position"] = position
 		var lateral_delta := position.x - previous_x
+		if is_boss or pursuit_active:
+			enemy["lateral_velocity"] = lateral_delta / maxf(delta, 0.001)
 		var bank_target := 0.0
 		var lateral_velocity := float(enemy.get("lateral_velocity",lateral_delta/maxf(delta,0.001)))
 		if absf(lateral_velocity) > 5.0:
