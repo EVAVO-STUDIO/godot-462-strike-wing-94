@@ -1133,13 +1133,22 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 		text = "RADAR SPIKE  %02d%%  EVADE  CM%02d" % [int(roundf(acquiring * 100.0)), cm]
 	if text == "": return
 	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2) if count > 0 else 1
-	var position := Vector2(180, 42)
-	surface.draw_texture(HUD_THREAT_FRAMES[level], position)
+	var position := Vector2(180, 42) if count > 0 else Vector2(220, 42)
+	if count > 0:
+		surface.draw_texture(HUD_THREAT_FRAMES[level], position)
+	else:
+		# Radar acquisition is actionable but common. Give it a compact RWR key;
+		# reserve the full 280px red annunciator for a weapon already in flight.
+		surface.draw_texture_rect(HUD_THREAT_FRAMES[level], Rect2(position,Vector2(200,20)), false, Color(1,1,1,0.78))
 	surface.draw_texture(HUD_THREAT_MISSILE_ICON, position + Vector2(7, 5), RED if level >= 2 else (GOLD if level == 1 else BLUE))
-	PixelFont.draw_centered(surface, text, 326, 48, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)
-	surface.draw_texture(HUD_THREAT_APPROACH_TROUGH, position + Vector2(190, 16))
+	PixelFont.draw_centered(surface, text, 326 if count > 0 else 320, 48, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)
+	var trough_offset := Vector2(190,16) if count > 0 else Vector2(112,16)
+	surface.draw_texture_rect(HUD_THREAT_APPROACH_TROUGH,Rect2(position+trough_offset,Vector2(80 if count == 0 else HUD_THREAT_APPROACH_TROUGH.get_width(),HUD_THREAT_APPROACH_TROUGH.get_height())),false)
 	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0) if count > 0 else acquiring
-	_draw_clipped_fill(surface, HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL, position + Vector2(191, 17), approach_ratio)
+	var fill_position := position + trough_offset + Vector2(1,1)
+	var fill_width := floorf((78.0 if count == 0 else float(HUD_THREAT_CAUTION_FILL.get_width())) * approach_ratio)
+	if fill_width > 0.0:
+		surface.draw_texture_rect_region(HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL,Rect2(fill_position,Vector2(fill_width,HUD_THREAT_CAUTION_FILL.get_height())),Rect2(0,0,fill_width,HUD_THREAT_CAUTION_FILL.get_height()))
 	_draw_aircraft_rwr_cue(surface, scene, snapshot, level)
 
 func _draw_aircraft_rwr_cue(surface: CanvasItem, scene: Object, snapshot: Dictionary, warning_level: int) -> void:
