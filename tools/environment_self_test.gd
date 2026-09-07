@@ -421,6 +421,7 @@ func _initialize() -> void:
 		_expect(not source.contains("density * 8.0) * world_scale") and not source.contains("density * 14.0) * world_scale"), "opaque full-field cloud plates should stay retired instead of accelerating into visible bands")
 		_expect(source.contains("lerpf(1.0, 3.6, hypersonic_ratio)"), "hypersonic environment presentation should stretch authored motion accents without blurring combat readability")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png"), "stratospheric runtime master should exist")
+		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK") and source.contains("travel * 8.5"), "sustained high-altitude flight should render the finished scrolling cloud-deck master")
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/cloud_top_chunks/cloud_top_geography_manifest.json"), "cloud-top geography/turbulence assembly manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_cloud_top_geography_art.ps1"), "cloud-top geography should retain a reproducible registered builder")

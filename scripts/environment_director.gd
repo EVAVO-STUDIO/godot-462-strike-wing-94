@@ -222,6 +222,7 @@ const CONTRAIL_NEAR := [
 	preload("res://assets/runtime/environments/high_atmosphere_motion/contrail_broken.png"),
 ]
 const ANVIL_SHADOW := preload("res://assets/runtime/environments/high_atmosphere_motion/anvil_shadow.png")
+const STRATOSPHERIC_CLOUD_DECK := preload("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png")
 const LANDMARKS := {
 	"coast": preload("res://assets/runtime/environments/landmarks/coastal_battery.png"),
 	"industrial": preload("res://assets/runtime/environments/landmarks/refinery_stack.png"),
@@ -574,6 +575,15 @@ func _draw_high_atmosphere_far(surface: CanvasItem, scene: Object, state: Dictio
 	# stay crisp while distant terrain loses near-field black levels.
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.20, 0.31, 0.40, 0.26 * mix))
 	var travel := _world_distance(scene)
+	# The finished deck master supplies continuous cloud-top geography between
+	# the sparse near banks. Its dark open corridor preserves combat contrast.
+	_draw_vertical_loop(
+		surface,
+		STRATOSPHERIC_CLOUD_DECK,
+		travel * 8.5,
+		ENVIRONMENT_VIEW,
+		Color(0.82,0.88,0.91,0.18 * mix)
+	)
 	for i in range(4):
 		var texture: Texture2D = CIRRUS_FAR[i % CIRRUS_FAR.size()]
 		var x := float((i * 181 + 29) % 760) - 80.0
