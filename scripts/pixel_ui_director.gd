@@ -725,8 +725,12 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	# but battlefield sprites must never show through those apertures before they
 	# have entered the combat viewport. A single smoked avionics backing keeps the
 	# permanent strip visually solid without extending into the warning lane.
-	surface.draw_rect(Rect2(8, 5, 624, 30), Color(0.018, 0.035, 0.048, 0.76))
-	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 5), Color(1,1,1,0.86))
+	# The three survival meters are self-framed. Keep only a light local key
+	# behind them and a narrow data rail; the old 624-pixel fascia made every
+	# route feel as though it was being viewed through a menu.
+	surface.draw_rect(Rect2(8,5,280,28),Color(0.018,0.035,0.048,0.38))
+	surface.draw_rect(Rect2(292,6,340,14),Color(0.018,0.035,0.048,0.46))
+	surface.draw_rect(Rect2(292,19,340,1),Color(0.26,0.43,0.49,0.44))
 	_draw_tactical_radar(surface,scene)
 	_draw_surface_iff_markers(surface,scene)
 	var max_hull := _call_int(scene, "_max_hull", 100)
@@ -755,8 +759,10 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	else:
 		surface.draw_texture(HUD_ICON_TIME, Vector2(390, 10))
 	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(404, 13), 1, TEXT, 1)
-	surface.draw_texture(HUD_ICON_SCORE, Vector2(506, 10))
-	PixelFont.draw_text(surface, "%08d" % int(scene.get("score")), Vector2(522, 13), 1, TEXT, 1)
+	var show_score := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
+	if show_score:
+		surface.draw_texture(HUD_ICON_SCORE,Vector2(506,10))
+		PixelFont.draw_text(surface,"%08d"%int(scene.get("score")),Vector2(522,13),1,TEXT,1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var altitude_choice := _compact_altitude_choice()
 	if altitude_choice.is_empty():
@@ -814,9 +820,9 @@ func _draw_lateral_airspace_warning(surface: CanvasItem, scene: Object) -> void:
 func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	# Keep the tactical picture in the pilot's instrument scan instead of masking
 	# the forward terrain.  Contacts stay bright while the housing recedes.
-	var scope_position := Vector2(548,278)
-	var scope_size := Vector2(84,52)
-	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(0.72,0.82,0.84,0.52))
+	var scope_position := Vector2(560,286)
+	var scope_size := Vector2(72,44)
+	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(0.68,0.78,0.80,0.38))
 	var player: Vector2 = scene.get("player_position") if _has_property(scene,"player_position") else Vector2(320,250)
 	var contacts: Array = []
 	if _has_property(scene,"enemies") and typeof(scene.get("enemies")) == TYPE_ARRAY:
@@ -864,9 +870,8 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 				tracked_distance = missile_distance
 			shown += 1
 			if shown >= 22: break
-	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(38,42))
-	PixelFont.draw_text(surface,"T%02d"%mini(shown,99),scope_position+Vector2(5,3),1,Color(GREEN,0.88),1)
-	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(48,3),1,Color(GOLD if tracked_priority >= 4 else MUTED,0.84),1)
+	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(32,33))
+	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(5,3),1,Color(GOLD if tracked_priority >= 4 else MUTED,0.82),1)
 
 func _tactical_radar_priority(contact: Dictionary) -> int:
 	if bool(contact.get("missile",false)): return 5
@@ -893,8 +898,8 @@ func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, 
 	var world_position: Vector2 = contact.get("position",player)
 	var relative := world_position-player
 	var scope_point := Vector2(
-		clampf(42.0+relative.x*0.072,10.0,74.0),
-		clampf(44.0+relative.y*0.082,13.0,45.0)
+		clampf(36.0+relative.x*0.058,8.0,64.0),
+		clampf(36.0+relative.y*0.066,11.0,37.0)
 	)
 	var kind := "air"
 	if bool(contact.get("protected",false)) or str(contact.get("faction","")) == "civilian": kind = "protected"
@@ -1054,6 +1059,7 @@ func _draw_objective_tracker(surface: CanvasItem, scene: Object) -> void:
 	# the centered y=42 combat lane for ingress, bosses and genuine RWR events
 	# returns twenty unobstructed pixels to the battlefield at all other times.
 	var position := Vector2(298, 24)
+	surface.draw_rect(Rect2(position-Vector2(4,2),Vector2(334,13)),Color(0.018,0.035,0.048,0.34))
 	surface.draw_texture_rect(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, Rect2(position, Vector2(7,7)), false)
 	PixelFont.draw_text(surface, _clip(_objective_line(scene, objective), 48), position + Vector2(10, 1), 1, GREEN if required else GOLD, 1)
 	surface.draw_texture_rect(OBJECTIVE_TRACKER_TROUGH, Rect2(position + Vector2(10,8),Vector2(310,2)), false)

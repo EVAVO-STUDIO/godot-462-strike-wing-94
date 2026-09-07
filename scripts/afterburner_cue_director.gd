@@ -118,7 +118,7 @@ func _draw_meter(surface: CanvasItem, scene: Object, ratio: float, charge_ratio:
 		position.x = 640.0 - LOWER_HUD_MARGIN - float(frame.get_width())
 	# Keep the housing in the peripheral scan while fuel and power fills retain
 	# full contrast. This avoids laying an opaque plate over low-altitude routes.
-	surface.draw_texture(frame, position, Color(1,1,1,0.70))
+	surface.draw_texture(frame, position, Color(1,1,1,0.56))
 	PixelFont.draw_text(surface, "AB", position + Vector2(7,3), 1, ALERT if ratio <= 0.20 else FUEL, 1)
 	var state_label := "MACH" if hypersonic else ("GEOM" if burning else "THR")
 	PixelFont.draw_text(surface, state_label, position + Vector2(91,3), 1, CORE if hypersonic else CHARGE, 1)

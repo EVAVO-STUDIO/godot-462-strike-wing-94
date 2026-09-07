@@ -123,7 +123,7 @@ func draw_radio(surface: CanvasItem) -> void:
 	var strip_width := clampf(126.0+float(message_text.length())*5.0,286.0,608.0)
 	var strip := Rect2(16,337,strip_width,18)
 	var priority_alert := _priority >= 3
-	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1,1,1,alpha*0.82))
+	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1,1,1,alpha*0.68))
 	PixelFont.draw_text(surface, ("PR // %s" if priority_alert else "RX // %s") % _speaker, Vector2(31, 343), 1, Color(0.90, 0.38, 0.30, alpha) if priority_alert else Color(0.42, 0.73, 0.78, alpha), 1)
 	PixelFont.draw_text(surface,message_text,Vector2(112,343),1,Color(0.86,0.89,0.90,alpha),1)
 

@@ -214,7 +214,7 @@ func _test_pixel_ui() -> void:
 		_expect(visual_qa_source.contains("id='mission_30_final_boss'; args=@('--capture-gameplay','--capture-mission=29','--capture-time=238','--visual-capture-delay=11.0')"), "canonical final-boss QA must advance beyond the Machine Ark route gate and use its live HUD during the complete arrival")
 		var capture_probe_source := FileAccess.get_file_as_string("res://tools/visual_capture_probe.gd")
 		_expect(capture_probe_source.contains("clampf(delay, 0.1, 12.0)"), "visual capture probe should permit the bounded live Machine Ark arrival window")
-		_expect(source.contains("battlefield sprites must never show through") and source.contains("Rect2(8, 5, 624, 30)"), "permanent HUD fascia should occlude actors until they enter the combat viewport")
+		_expect(source.contains("Rect2(8,5,280,28)") and source.contains("Rect2(292,6,340,14)"), "survival meters and flight data should use separate translucent local keys instead of a full-width HUD slab")
 		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("occupies_status_lane") and source.contains("AltitudeTransitionDirector"), "only a visible altitude selector or transition should suppress colliding routine status notices")
 		_expect(source.contains("_radio_occupies_status_lane()") and source.contains("MissionRadioDirector"), "radio subtitles and transient status should arbitrate one shared lower information lane instead of overprinting")
 		_expect(FileAccess.file_exists("res://tools/build_hud_threat_art.ps1"), "threat-annunciator sprites should remain reproducible from their governed SVG source")
@@ -277,7 +277,8 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
 		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAMES"), "gameplay HUD should use authored raster frame and meter families")
 		_expect(source.contains("HUD_TACTICAL_RADAR_SCOPE") and source.contains("HUD_TACTICAL_RADAR_CONTACTS") and source.contains("func _draw_tactical_radar"), "gameplay HUD should expose a sprite-authored tactical picture of the forward battlespace")
-		_expect(source.contains("Vector2(548,278)") and source.contains("Vector2(84,52)") and not source.contains("var scope_position := Vector2(8,40)"), "tactical radar should use the minimal lower-right instrument presentation")
+		_expect(source.contains("Vector2(560,286)") and source.contains("Vector2(72,44)") and not source.contains("var scope_position := Vector2(8,40)"), "tactical radar should use the minimal lower-right instrument presentation")
+		_expect(source.contains('str(scene.get("game_mode")) != "campaign"') and not source.contains("surface.draw_texture(HUD_TOP_FRAME"), "campaign HUD should omit score clutter and the full-width opaque fascia")
 		_expect(source.contains('"protected": preload') and source.contains('"missile": preload') and source.contains('"objective": preload'), "tactical radar should distinguish protected, missile and objective contacts from combat targets")
 		_expect(source.contains("func _tactical_radar_priority") and source.contains("func _tactical_radar_track_label"), "tactical radar should select and identify a prioritized forward track")
 		for track_code in ['kind = "MSL"','kind = "BOS"','kind = "ROE"','kind = "OBJ"','kind = "GND"','kind = "SEA"']:
