@@ -1383,12 +1383,21 @@ func _update_weapons() -> void:
 	if Input.is_action_just_pressed("fire_secondary") and secondary_timer <= 0.0 and bombs > 0:
 		bombs -= 1
 		secondary_timer = 1.0
+		var strike_point := BombRules.strike_point(player_position)
 		var survivors: Array = []
 		var boss_damaged := false
+		var targets_hit := 0
 		for enemy in enemies:
 			if typeof(enemy) != TYPE_DICTIONARY:
 				continue
-			if bool(enemy.get("boss", false)):
+			var is_boss := bool(enemy.get("boss", false))
+			var category := str(enemy.get("category", "air"))
+			var target_position: Vector2 = enemy.get("position", Vector2.ZERO)
+			if not BombRules.can_damage_category(category, is_boss) or not BombRules.in_strike_radius(target_position, strike_point):
+				survivors.append(enemy)
+				continue
+			targets_hit += 1
+			if is_boss:
 				var boss: Dictionary = enemy.duplicate(true)
 				var hp := maxi(1, int(boss.get("hp", 1)))
 				var max_hp := maxi(hp, int(boss.get("max_hp", hp)))
@@ -1398,13 +1407,23 @@ func _update_weapons() -> void:
 				survivors.append(boss)
 				boss_damaged = true
 			else:
-				enemy["last_impact_family"] = "bomb"
-				_register_destroy(enemy)
-				score += _mode_score_value(75 + int(enemy.get("hp", 1)) * 25)
+				var damaged: Dictionary = enemy.duplicate(true)
+				damaged["hp"] = int(damaged.get("hp", 1)) - BombRules.LEGACY_SURFACE_DAMAGE
+				damaged["last_impact_family"] = "bomb"
+				if int(damaged["hp"]) <= 0:
+					_register_destroy(damaged)
+					score += _mode_score_value(75 + int(enemy.get("hp", 1)) * 25)
+				else:
+					survivors.append(damaged)
 		enemies = survivors
-		enemy_bullets.clear()
 		if boss_damaged:
 			status_text = "BOMB STRIKE - BOSS DAMAGED"
+			status_timer = 1.5
+		elif targets_hit > 0:
+			status_text = "LOCALIZED STRIKE - %d SURFACE HIT" % targets_hit
+			status_timer = 1.5
+		else:
+			status_text = "BOMB IMPACT - NO SURFACE TARGET"
 			status_timer = 1.5
 
 func _update_bullets(delta: float) -> void:

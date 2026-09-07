@@ -110,6 +110,11 @@ func _test_bombs() -> void:
 	_expect(BombRules.boss_bomb_damage(100) >= 6 and BombRules.boss_bomb_damage(100) <= 18, "boss bomb damage should remain bounded")
 	_expect(BombRules.apply_nonlethal_boss_damage(100, 100) < 100, "bomb should damage a healthy boss")
 	_expect(BombRules.apply_nonlethal_boss_damage(3, 100) == 1, "bomb must never destroy a mission boss")
+	var strike_point := BombRules.strike_point(Vector2(320, 260))
+	_expect(strike_point == Vector2(320, 188), "secondary bomb should land ahead of the VX-94")
+	_expect(BombRules.in_strike_radius(strike_point + Vector2(40, 0), strike_point), "surface contact inside the localized blast should be hit")
+	_expect(not BombRules.in_strike_radius(strike_point + Vector2(80, 0), strike_point), "distant contacts should survive a localized blast")
+	_expect(BombRules.can_damage_category("ground") and BombRules.can_damage_category("sea") and not BombRules.can_damage_category("air"), "ordinary bombs should damage surface contacts without clearing aircraft")
 
 func _test_mission_state() -> void:
 	var campaign = {"starting_hull":92,"starting_shield":84}
