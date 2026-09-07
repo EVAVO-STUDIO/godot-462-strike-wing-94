@@ -235,6 +235,9 @@ func _observe_combat() -> void:
 		_emit(shield_kind, Vector2(scene.get("player_position")), 17.0 if shield_kind == "shield_break" else 13.0, shield_duration)
 	if _previous_hull >= 0 and hull < _previous_hull:
 		_emit("player_hit", Vector2(scene.get("player_position")), 13.0, PLAYER_HIT_SECONDS, {"shield": false})
+		if hull <= 0:
+			var status := str(scene.get("status_text")) if SceneContractCache.has_property(scene,"status_text") else ""
+			register_player_loss(Vector2(scene.get("player_position")),"missile" if "WARHEAD" in status else "cannon")
 	_previous_hull = hull
 	_previous_shield = shield
 	_previous_enemies = current
@@ -306,6 +309,13 @@ func register_enemy_destruction(enemy: Dictionary) -> void:
 	_emit("boss_explosion" if boss else "explosion", position, 28.0 if boss else (19.0 if retained else 15.0), duration, {
 		"enemy_id": enemy_id, "category": category, "faction": str(enemy.get("faction", "mercenary")),
 		"impact_family": str(enemy.get("last_impact_family", "cannon"))
+	})
+
+func register_player_loss(position: Vector2, impact_family: String = "cannon", staged_ratio: float = 0.0) -> void:
+	_emit("explosion",position,20.0,EXPLOSION_SECONDS,{
+		"enemy_id":"vx94", "category":"air", "faction":"mercenary",
+		"impact_family":impact_family if impact_family in ["missile","rocket","bomb","cannon"] else "cannon",
+		"age":clampf(staged_ratio,0.0,0.98)*EXPLOSION_SECONDS
 	})
 
 func _play_audio_for(kind: String) -> void:
@@ -401,7 +411,14 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	var scale_factor := 5.80 if impact_family == "missile" else (5.60 if impact_family in ["rocket", "bomb"] else 2.80)
 	if boss: scale_factor = 2.35
 	var draw_size := roundf(max_size * scale_factor)
-	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,blast_clock)))
+	var detonation_grade := Color(1.0,0.78,0.56,1.0) if impact_family == "missile" and not boss else Color.WHITE
+	detonation_grade.a = 1.0-smoothstep(0.68,1.0,blast_clock)
+	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, detonation_grade)
+	if not boss and impact_family == "missile" and blast_clock < 0.46:
+		var core_ratio := blast_clock/0.46
+		var core: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
+		var core_size := roundf(max_size*lerpf(1.55,2.55,core_ratio))
+		surface.draw_texture_rect(core,Rect2((p-Vector2.ONE*core_size*0.5).round(),Vector2.ONE*core_size),false,Color(1.0,0.82,0.58,0.90*(1.0-core_ratio*0.58)))
 	if not boss and impact_family == "missile" and blast_clock < 0.42:
 		var pressure_ratio := blast_clock / 0.42
 		var pressure_color := Color(1.0, 0.88, 0.62, 0.82 * (1.0 - pressure_ratio))

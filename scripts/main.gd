@@ -296,11 +296,29 @@ func _capture_hull_ratio(arguments: PackedStringArray) -> float:
 				return clampf(value.to_float(), 0.01, 1.0)
 	return -1.0
 
+func _capture_player_loss_ratio(arguments: PackedStringArray) -> float:
+	if not "--capture-gameplay" in arguments:
+		return -1.0
+	for argument in arguments:
+		if argument.begins_with("--capture-player-loss="):
+			var value := argument.trim_prefix("--capture-player-loss=")
+			if value.is_valid_float():
+				return clampf(value.to_float(),0.02,0.96)
+	return -1.0
+
 func _begin_capture_gameplay() -> void:
 	_start_mission()
 	var captured_hull_ratio := _capture_hull_ratio(OS.get_cmdline_user_args())
 	if captured_hull_ratio >= 0.0:
 		hull = maxi(1, roundi(float(_max_hull()) * captured_hull_ratio))
+	var captured_loss_ratio := _capture_player_loss_ratio(OS.get_cmdline_user_args())
+	if captured_loss_ratio >= 0.0:
+		hull = 0
+		shield = 0
+		player_loss_timer = PLAYER_LOSS_SEQUENCE_SECONDS*(1.0-captured_loss_ratio)
+		status_text = "AIRFRAME LOST // EJECTION SEQUENCE"
+		status_timer = PLAYER_LOSS_SEQUENCE_SECONDS
+		call_deferred("_stage_capture_player_loss_fx",captured_loss_ratio)
 	mission_time = minf(_capture_time(OS.get_cmdline_user_args()), maxf(0.0, mission_duration - 1.0))
 	var captured_distance := _capture_world_distance(OS.get_cmdline_user_args())
 	environment_world_distance = captured_distance if captured_distance >= 0.0 else mission_time * _environment_speed_multiplier()
@@ -322,6 +340,13 @@ func _begin_capture_gameplay() -> void:
 		status_text = "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB"
 		status_timer = 30.0
 	queue_redraw()
+
+func _stage_capture_player_loss_fx(loss_ratio: float) -> void:
+	var combat_fx := get_node_or_null("/root/CombatFxDirector")
+	if combat_fx != null and combat_fx.has_method("register_player_loss"):
+		# The capture probe waits one tenth of a second before reading the frame;
+		# offset that wait so the requested ratio remains the reviewed exposure.
+		combat_fx.call("register_player_loss",player_position,"missile",maxf(0.0,loss_ratio-0.14))
 
 func _begin_capture_result(state: String) -> void:
 	phase = GamePhase.RESULT
@@ -671,7 +696,8 @@ func _input(event: InputEvent) -> void:
 
 func _update_mission(delta: float) -> void:
 	if player_loss_timer > 0.0:
-		player_loss_timer = maxf(0.0, player_loss_timer - delta)
+		if _capture_player_loss_ratio(OS.get_cmdline_user_args()) < 0.0:
+			player_loss_timer = maxf(0.0, player_loss_timer - delta)
 		if player_loss_timer <= 0.0:
 			_finish_mission(false)
 		return

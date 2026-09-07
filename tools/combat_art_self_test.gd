@@ -79,6 +79,7 @@ func _test_visual_language() -> void:
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	var main_source := main_file.get_as_text() if main_file != null else ""
 	_expect(main_source.contains("PLAYER_LOSS_SEQUENCE_SECONDS") and main_source.contains("player_loss_timer") and main_source.contains("_finish_mission(false)"), "fatal hull damage should hold gameplay for the authored VX-94 loss sequence before mission failure")
+	_expect(main_source.contains("--capture-player-loss=") and main_source.contains("AIRFRAME LOST // EJECTION SEQUENCE"), "visual QA should expose deterministic early, breakup and ejection states for VX-94 loss art")
 	_expect(source.contains("PLAYER_GLASS"), "VX-94 should retain visible cockpit-glass language")
 	_expect(source.contains("PLAYER_ENGINE"), "VX-94 should retain visible engine/hardpoint accents")
 	_expect(source.contains("has_production_art") and source.contains("_report_missing_art"), "unregistered enemies should fail explicitly instead of receiving generic vector silhouettes")
@@ -696,7 +697,7 @@ func _test_combat_fx() -> void:
 	_expect(source.contains('"hit"') and source.contains('"explosion"') and source.contains('"boss_explosion"') and source.contains('"shield_hit"') and source.contains('"shield_break"') and source.contains('"player_hit"'), "combat FX should distinguish shield contact, shield collapse, hull strikes, kills and bosses")
 	_expect(source.contains("_draw_explosion"), "enemy destruction should receive pixel explosion feedback")
 	_expect(source.contains("EXPLOSION_FRAMES"), "enemy destruction should use the authored eight-frame raster sequence")
-	_expect(source.contains("A killing cannon burst ruptures the target") and source.contains("fireball_size") and source.contains("5.80 if impact_family") and source.contains("5.60 if impact_family"), "lethal cannon, rocket and missile impacts should remain distinct while producing readable target-scale destruction")
+	_expect(source.contains("A killing cannon burst ruptures the target") and source.contains("fireball_size") and source.contains("5.80 if impact_family") and source.contains("5.60 if impact_family") and source.contains("detonation_grade"), "lethal cannon, rocket and missile impacts should remain distinct while producing readable target-scale destruction")
 	_expect(source.contains("func _draw_destruction_consequence") and source.contains('category == "sea"') and source.contains('faction == "autonomous"'), "enemy destruction should branch into naval, machine, air and ground material consequences")
 	_expect(source.contains('enemy_id in ["mercenary_rifle_team", "mercenary_heavy_team"]'), "infantry destruction should use subdued dust/scatter instead of a wreck fire")
 	_expect(source.contains('ImpactArtLibrary.frame_for_ratio("water_impact"') and source.contains('ImpactArtLibrary.frame_for_ratio("emp_disruption"'), "naval and autonomous destruction should use authored water and EMP raster effects")
@@ -722,6 +723,7 @@ func _test_combat_fx() -> void:
 	_expect(FileAccess.file_exists("res://assets/source/effects/ground_breakup/ground_breakup_asset_manifest.json"),"ground-emplacement breakup source/runtime manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/effects/destruction_consequence_asset_manifest.json"), "destruction consequence source/runtime manifest should exist")
 	_expect(source.contains("_draw_player_hit") and source.contains("SHIELD_BREAK_SECONDS") and source.contains("RetroSfxRules.SHIELD_BREAK"), "VX-94 damage should receive distinct shield-contact, shield-collapse and hull-impact feedback")
+	_expect(source.contains("func register_player_loss") and source.contains('"WARHEAD" in status') and source.contains('"enemy_id":"vx94"'), "fatal VX-94 damage should carry its causing warhead or cannon blast into the authored breakup sequence")
 	_expect(not source.contains("scene.set(\"enemies\"") and not source.contains("scene.set(\"hull\""), "combat FX must remain presentation-only")
 	for frame_index in range(8):
 		var frame := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index)
