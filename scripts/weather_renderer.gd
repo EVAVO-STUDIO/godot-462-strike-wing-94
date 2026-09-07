@@ -141,26 +141,35 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 		for p in sample:
 			if (str(p.layer) == "near") != near_band: continue
 			var position := WeatherRules.snow_position(p, _travel, _time).round()
-			var radius := maxf(0.7, float(p.size) * (0.66 if near_band else 0.52))
-			var alpha := clampf(float(p.alpha)*opacity*(1.72 if near_band else 1.38),0.0,0.92)
+			var radius := maxf(0.55, float(p.size) * (0.48 if near_band else 0.34))
+			var alpha := clampf(float(p.alpha)*opacity*(1.68 if near_band else 1.28),0.0,0.90)
 			var cel: Texture2D = SNOW_CELS.get(str(p.layer),SNOW_CELS["distant"])
-			var draw_extent := maxf(5.0,radius*(6.0 if near_band else 4.6))
+			# At 640x360, flakes larger than a few pixels read as targeting icons.
+			# Keep the authored silhouettes, but reserve their full shape for the
+			# nearest depth band and let distant snow become moving atmospheric grain.
+			var draw_extent := clampf(radius*(5.2 if near_band else 3.4),5.0 if near_band else 2.5,8.0 if near_band else 5.0)
 			var draw_size := Vector2.ONE*draw_extent
 			# A cool shadow key makes the white cel legible over snowfields without
 			# turning it into a bright UI particle. Near flakes also retain a faint
 			# previous exposure so their sideways slip reads at gameplay speed.
 			if near_band:
-				var slip := Vector2(-3.0-clampf((_world_speed-1.0)*0.8,0.0,2.0),-2.0)
-				surface.draw_texture_rect(cel,Rect2((position+slip-draw_size*0.5).round(),draw_size.round()),false,Color(0.66,0.76,0.80,alpha*0.22))
-			surface.draw_texture_rect(cel,Rect2((position+Vector2(1,1)-draw_size*0.5).round(),draw_size.round()+Vector2.ONE*2.0),false,Color(0.07,0.12,0.15,alpha*0.48))
+				var slip := Vector2(-2.0-clampf((_world_speed-1.0)*0.7,0.0,1.6),-1.0)
+				surface.draw_texture_rect(cel,Rect2((position+slip-draw_size*0.5).round(),draw_size.round()),false,Color(0.66,0.76,0.80,alpha*0.18))
+			var shadow_pad := Vector2.ONE if near_band else Vector2.ZERO
+			surface.draw_texture_rect(cel,Rect2((position+Vector2(1,1)-draw_size*0.5).round(),draw_size.round()+shadow_pad),false,Color(0.07,0.12,0.15,alpha*0.40))
 			surface.draw_texture_rect(cel,Rect2((position-draw_size*0.5).round(),draw_size.round()),false,Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha))
 	else:
+		# A low, translucent rain curtain ties the individual cels into weather
+		# without washing contrast out of aircraft, missiles, or ground targets.
+		if not near_band:
+			var curtain_alpha := opacity * (0.035 if _profile == "drizzle" else (0.075 if _profile == "rain" else 0.11))
+			surface.draw_rect(Rect2(0,0,640,304),Color(0.18,0.28,0.34,curtain_alpha),true)
 		for p in _rain.get(_profile, []):
 			if (str(p.depthBand) == "foreground") != near_band: continue
 			var state := WeatherRules.rain_drop(p, _time, _travel, _world_speed)
 			var middle: Vector2 = Vector2(state.tail).lerp(state.head, 0.5)
-			var profile_lift := 1.22 if _profile == "storm" else 1.0
-			var alpha: float = clampf(float(state.opacity)*opacity*float(RAIN_VISIBILITY.get(_profile,1.0))*(1.34 if near_band else 1.10)*profile_lift,0.0,0.86)
+			var profile_lift := 1.16 if _profile == "storm" else 1.0
+			var alpha: float = clampf(float(state.opacity)*opacity*float(RAIN_VISIBILITY.get(_profile,1.0))*(1.18 if near_band else 0.96)*profile_lift,0.0,0.76)
 			var direction := Vector2(state.head)-Vector2(state.tail)
 			if direction.length_squared() <= 0.01: continue
 			var cel: Texture2D = RAIN_CELS[abs(str(p.id).hash())%RAIN_CELS.size()]
@@ -170,7 +179,7 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			var length_scale := direction.length()/cel.get_height()
 			if near_band:
 				surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale*1.55,length_scale))
-				surface.draw_texture(cel,-cel.get_size()*0.5,Color(0.56,0.72,0.78,alpha*0.24))
+				surface.draw_texture(cel,-cel.get_size()*0.5,Color(0.56,0.72,0.78,alpha*0.18))
 			surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale,length_scale))
 			surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha))
 			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)

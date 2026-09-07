@@ -1074,6 +1074,13 @@ func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, densit
 		var depth_alpha := lerpf(0.62,1.12,depth)
 		var cloud_tone := Color(0.88,0.92,0.94,alpha*depth_alpha) if band == "high" else Color(0.78,0.84,0.88,alpha*depth_alpha)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, cloud_tone)
+		# Pair selected banks with a dimmer offset lobe. Overlap breaks the repeated
+		# rectangular cadence while retaining the authored cel edges and registration.
+		if i % 2 == 0:
+			var lobe_texture: Texture2D = family[(i + 1) % family.size()]
+			var lobe_size := size * Vector2(0.68,0.62)
+			var lobe_offset := Vector2(size.x*0.34,-size.y*0.08)
+			surface.draw_texture_rect(lobe_texture,Rect2(Vector2(x,y)+lobe_offset-lobe_size*0.5,lobe_size),false,Color(cloud_tone.r,cloud_tone.g,cloud_tone.b,cloud_tone.a*0.58))
 
 func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, visibility: float, index: int) -> void:
 	# The shadow reuses the authored bank alpha so every visible cloud has a
