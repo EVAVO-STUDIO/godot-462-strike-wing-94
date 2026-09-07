@@ -175,7 +175,7 @@ This prevents a same-frame altitude transition from creating ground targets in a
 
 ## Transition safety
 
-During the approximately 1.15 second altitude change:
+During the approximately 1.4 second altitude change:
 
 - Q geometry switching is locked;
 - precision bombing release is safed;

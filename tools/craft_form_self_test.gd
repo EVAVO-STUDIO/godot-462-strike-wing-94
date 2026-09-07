@@ -64,7 +64,7 @@ func _test_altitudes() -> void:
 	_expect(AltitudeRules.adjacent_band("high", -1) == "mid", "manual dive should move only one altitude lane")
 	_expect(AltitudeRules.is_adjacent("mid", "high"), "mid/high should be adjacent lanes")
 	_expect(not AltitudeRules.is_adjacent("low", "high"), "manual altitude selection must not skip lanes")
-	_expect(AltitudeRules.TRANSITION_SECONDS >= 0.8 and AltitudeRules.TRANSITION_SECONDS <= 1.5, "altitude transition should be visible but remain arcade-responsive")
+	_expect(AltitudeRules.TRANSITION_SECONDS >= 1.2 and AltitudeRules.TRANSITION_SECONDS <= 1.6, "altitude transition should provide a readable physical layer crossing while remaining responsive")
 	_expect(AltitudeRules.ground_scale("low") > AltitudeRules.ground_scale("mid") and AltitudeRules.ground_scale("mid") > AltitudeRules.ground_scale("high") and AltitudeRules.ground_scale("high") > AltitudeRules.ground_scale("orbital"), "ground presentation should diminish with altitude")
 	_expect(AltitudeRules.supports_form("orbital", "fighter"), "fighter should support orbital operations")
 	_expect(not AltitudeRules.supports_form("orbital", "bomber"), "bomber geometry should be unavailable in orbital flight")
@@ -152,7 +152,7 @@ func _test_source_integration() -> void:
 		_expect(not source.contains("_draw_rotary_cannon"), "bomber presentation should not regress to a procedural cannon substitute")
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)
 	var transition_source := transition_file.get_as_text() if transition_file != null else ""
-	_expect(transition_source.contains("ATMOSPHERIC_VEIL") and transition_source.contains("for i in range(9)") and transition_source.contains("var travel := 286.0"), "altitude transitions should cross a dense registered cloud boundary with directional travel and authored atmospheric extinction")
+	_expect(transition_source.contains("ATMOSPHERIC_VEIL") and transition_source.contains("for i in range(9)") and transition_source.contains("var travel := 382.0") and transition_source.contains("_draw_layer_exposure") and transition_source.contains("_draw_depth_rush"), "altitude transitions should cross a dense registered cloud boundary with directional travel and authored atmospheric extinction")
 	_expect(transition_source.contains('return "%s<%s>%s"') and transition_source.contains('return "%s>%s"') and transition_source.contains('return "%s<%s"'), "altitude choice HUD should reduce available routes to a compact top-rail diagram")
 	_expect(not transition_source.contains("LOWER_LEFT_KEEP_OUT") and not transition_source.contains("ALT SELECT") and not transition_source.contains("LANE_PANEL"), "altitude choices should not add a redundant lower-left panel over propulsion instruments")
 	_expect(transition_source.contains("CHOICE_REVEAL_SECONDS := 2.4") and transition_source.contains("CHOICE_REMINDER_SECONDS := 1.4"), "altitude choice HUD should reveal briefly instead of occupying the playfield for an entire lane window")

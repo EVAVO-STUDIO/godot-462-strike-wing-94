@@ -247,7 +247,7 @@ Examples:
 
 Scripted and manual altitude changes share one transition owner.
 
-The transition lasts about 1.15 seconds and includes:
+The transition lasts about 1.4 seconds and includes:
 
 - directional `CLIMB` / `DIVE` pixel cue;
 - moving cloud bands;

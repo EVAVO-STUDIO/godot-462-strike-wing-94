@@ -259,7 +259,7 @@ Assert-Contains $InterceptText @('intercept_priority','HIGH INTERCEPT  SHIFT AB'
 if ($InterceptText.Contains('scene.set("score"')) { throw 'Intercept presentation must not mutate authoritative score.' }
 
 $AltitudeText = Get-Content -Raw (Join-Path $Root 'scripts/altitude_rules.gd')
-Assert-Contains $AltitudeText @('TRANSITION_SECONDS := 1.15','allows_enemy_class','allows_enemy_archetype','adjacent_band') 'Altitude rules'
+Assert-Contains $AltitudeText @('TRANSITION_SECONDS := 1.40','allows_enemy_class','allows_enemy_archetype','adjacent_band') 'Altitude rules'
 $MainText = Get-Content -Raw (Join-Path $Root 'scripts/main.gd')
 Assert-Contains $MainText @('_craft_primary_mount_offsets(weapon, count)','"position": player_position + mount_offsets[i]','mission_rng.seed = RunSeedRules.mission_seed(mission_index)','EnvironmentRules.surface_spawn_x','--visual-capture=','res://tools/visual_capture_probe.gd','--playtest-telemetry','res://tools/playtest_telemetry_probe.gd') 'Main gameplay'
 $StrikeRulesText = Get-Content -Raw (Join-Path $Root 'scripts/strike_ordnance_rules.gd')

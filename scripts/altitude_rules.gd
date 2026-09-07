@@ -6,7 +6,7 @@ const MID := "mid"
 const HIGH := "high"
 const ORBITAL := "orbital"
 const BANDS := [LOW, MID, HIGH, ORBITAL]
-const TRANSITION_SECONDS := 1.15
+const TRANSITION_SECONDS := 1.40
 
 static func sanitize(band: String) -> String:
 	return band if band in BANDS else MID

@@ -156,7 +156,7 @@ The four ordered lanes are:
 
 Major mission transitions remain authored set pieces, including Black Flag's sea-skimming descent and Machine Ark's final orbital burn.
 
-A climb/dive lasts roughly 1.15 seconds visually and includes moving cloud bands, a subtle craft pitch, interpolated surface-target scale and direction-specific procedural audio.
+A climb/dive lasts roughly 1.4 seconds visually and includes a cel-edged cloud-ceiling crossing, directional depth streaks, atmospheric colour exposure, moving cloud banks, craft pitch, interpolated surface-target scale and direction-specific procedural audio.
 
 ## Technology eras
 

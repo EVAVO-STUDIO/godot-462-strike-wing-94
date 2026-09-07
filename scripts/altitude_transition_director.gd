@@ -19,6 +19,7 @@ const TRANSITION_CLOUDS := [
 ]
 const CHOICE_REVEAL_SECONDS := 2.4
 const CHOICE_REMINDER_SECONDS := 1.4
+const FLIGHT_VIEW := Rect2(8, 34, 624, 304)
 
 var _surface: Control
 var _choice_was_available := false
@@ -107,7 +108,9 @@ func _draw_altitude_transition_surface(surface: CanvasItem) -> void:
 		var from_band := str(craft.call("altitude_transition_from"))
 		var to_band := str(craft.call("altitude_transition_to"))
 		var eased := smoothstep(0.0, 1.0, ratio)
+		_draw_layer_exposure(surface, eased, direction, from_band, to_band)
 		_draw_cloud_sweep(surface, eased, direction)
+		_draw_depth_rush(surface, eased, direction)
 		_draw_speed_brackets(surface, eased, direction)
 		var label := "CLIMB" if direction > 0 else "DIVE"
 		PixelFont.draw_text(surface, "%s  %s > %s" % [label, _code(from_band), _code(to_band)], Vector2(272, 68), 1, Color(0.78,0.9,0.94,0.94))
@@ -117,9 +120,9 @@ func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> voi
 	var pulse := sin(ratio * PI)
 	# Brief extinction makes the lane change read as passage through a physical
 	# cloud boundary. It peaks at mid-transition and clears before control returns.
-	var veil_tint := Color(0.72,0.82,0.88,0.72*pulse) if direction > 0 else Color(0.54,0.66,0.72,0.62*pulse)
+	var veil_tint := Color(0.72,0.82,0.88,0.82*pulse) if direction > 0 else Color(0.54,0.66,0.72,0.72*pulse)
 	surface.draw_texture(ATMOSPHERIC_VEIL, Vector2(8,34), veil_tint)
-	var travel := 286.0 * smoothstep(0.0, 1.0, ratio)
+	var travel := 382.0 * smoothstep(0.0, 1.0, ratio)
 	var sign_dir := -1.0 if direction > 0 else 1.0
 	for i in range(9):
 		var base_y := 58.0 + float(i) * 39.0
@@ -128,12 +131,53 @@ func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> voi
 		var texture: Texture2D = TRANSITION_CLOUDS[i % TRANSITION_CLOUDS.size()]
 		var depth := float((i * 5) % 4) / 3.0
 		var approach := ratio if direction > 0 else 1.0-ratio
-		var scale := 0.52 + depth*0.20 + approach*0.18
+		var scale := 0.58 + depth*0.23 + approach*0.24
 		var size := Vector2(texture.get_size()) * scale
-		var cloud_alpha := (0.18 + depth*0.11 + pulse*0.08)
+		var cloud_alpha := (0.24 + depth*0.13 + pulse*0.12)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.84,0.86,cloud_alpha))
 		var shadow_width := size.x * 0.82
 		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(x - shadow_width * 0.5, y + size.y * 0.27), Vector2(shadow_width, 8)), false, Color(1,1,1,0.34+depth*0.16))
+
+func _draw_layer_exposure(surface: CanvasItem, ratio: float, direction: int, from_band: String, to_band: String) -> void:
+	var pulse := sin(ratio * PI)
+	var source := _band_tint(from_band)
+	var destination := _band_tint(to_band)
+	var atmosphere := source.lerp(destination, ratio)
+	atmosphere.a = 0.10 + pulse * 0.18
+	surface.draw_texture(ATMOSPHERIC_VEIL, FLIGHT_VIEW.position, atmosphere)
+	# The cloud ceiling crosses the complete flight window as the aircraft passes
+	# through it. Overlapping silhouettes keep the boundary physical rather than
+	# reading as a rectangular HUD wipe over the terrain.
+	var boundary_y := lerpf(52.0, 332.0, ratio) if direction > 0 else lerpf(332.0, 52.0, ratio)
+	for i in range(5):
+		var texture: Texture2D = TRANSITION_CLOUDS[(i + (1 if direction > 0 else 2)) % TRANSITION_CLOUDS.size()]
+		var size := Vector2(texture.get_size()) * Vector2(1.15, 0.58)
+		var center := Vector2(18.0 + float(i) * 151.0, boundary_y + float((i % 3) - 1) * 7.0)
+		surface.draw_texture_rect(texture, Rect2(center - size * 0.5, size), false, Color(0.80, 0.88, 0.91, 0.14 + pulse * 0.27))
+	surface.draw_texture_rect(CLOUD_SHADOW, Rect2(8.0, boundary_y - 1.0, 624.0, 3.0), false, Color(0.88, 0.95, 0.97, pulse * 0.24))
+
+func _draw_depth_rush(surface: CanvasItem, ratio: float, direction: int) -> void:
+	var pulse := sin(ratio * PI)
+	if pulse <= 0.02:
+		return
+	var tint := Color(0.80, 0.90, 0.94, pulse * 0.48)
+	var left_texture := CLIMB_LEFT if direction > 0 else DIVE_LEFT
+	var right_texture := CLIMB_RIGHT if direction > 0 else DIVE_RIGHT
+	for i in range(8):
+		var texture: Texture2D = left_texture if i % 2 == 0 else right_texture
+		var x := 20.0 + float(i) * 79.0
+		var phase := fposmod(ratio * 328.0 + float((i * 61) % 173), 304.0)
+		var y := 34.0 + (phase if direction > 0 else 304.0 - phase) - 108.0
+		surface.draw_texture(texture, Vector2(x, y), tint)
+		surface.draw_texture(texture, Vector2(x, y + (304.0 if direction > 0 else -304.0)), tint)
+
+func _band_tint(band: String) -> Color:
+	match AltitudeRules.sanitize(band):
+		AltitudeRules.LOW: return Color(0.28, 0.22, 0.15, 1.0)
+		AltitudeRules.MID: return Color(0.18, 0.28, 0.34, 1.0)
+		AltitudeRules.HIGH: return Color(0.20, 0.35, 0.48, 1.0)
+		AltitudeRules.ORBITAL: return Color(0.035, 0.075, 0.15, 1.0)
+	return Color(0.18, 0.28, 0.34, 1.0)
 
 func _draw_speed_brackets(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var alpha := sin(ratio * PI) * 0.55
