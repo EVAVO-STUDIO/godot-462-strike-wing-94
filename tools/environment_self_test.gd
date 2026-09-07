@@ -429,13 +429,13 @@ func _initialize() -> void:
 		var harbor_master := load("res://assets/source/environments/harbor_chunks/harbor_geography_source_v2.png") as Texture2D
 		_expect(harbor_master != null and harbor_master.get_size() == Vector2(1920,1024), "harbor master should provide three native 640x1024 districts without runtime enlargement")
 		var harbor_builder := FileAccess.get_file_as_string("res://tools/build_harbor_geography_art.ps1")
-		_expect(harbor_builder.contains("harbor_geography_source_v2.png") and harbor_builder.contains("640x1024+1280+0") and not harbor_builder.contains("-resize '640x1024!'"), "harbor build should crop native-width districts instead of stretching undersized plates")
+		_expect(harbor_builder.contains("harbor_geography_source_v2.png") and harbor_builder.contains("640x1024+1280+0") and harbor_builder.contains("640x964+0+40") and harbor_builder.contains("640x1+0+0") and not harbor_builder.contains("-region '640x22"), "harbor build should remove generated edge gutters and close native-width districts with one natural row")
 		_expect(FileAccess.file_exists("res://tools/build_harbor_crane_art.ps1"), "harbor crane should retain a reproducible source finisher")
 		var harbor_manifest = ContentCatalog.load_json("res://assets/source/environments/harbor_chunks/harbor_geography_manifest.json")
 		_expect(typeof(harbor_manifest) == TYPE_DICTIONARY and harbor_manifest.get("chunks", []).size() == 6 and int(harbor_manifest.get("cycle_height", 0)) == 6144, "harbor manifest should register six distinct 1024px port districts")
 		var harbor_names := ["outer_breakwater", "repair_basin", "command_docks", "offshore_mole", "drydock_row", "blackout_basin"]
 		var harbor_expansion_builder := FileAccess.get_file_as_string("res://tools/build_harbor_route_expansion.py")
-		_expect(harbor_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and harbor_expansion_builder.contains("expanded_districts") and harbor_expansion_builder.contains("reflections"), "harbor expansion should retain deterministic source composition and independent water animation")
+		_expect(harbor_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and harbor_expansion_builder.contains("expanded_districts") and harbor_expansion_builder.contains("(0, 1023, 640, 1024)"), "harbor expansion should retain deterministic source composition and the repaired single-row route boundary")
 		var harbor_images: Array[Image] = []
 		for chunk_name in harbor_names:
 			var harbor_texture := load("res://assets/runtime/environments/harbor_chunks/%s.png" % chunk_name) as Texture2D

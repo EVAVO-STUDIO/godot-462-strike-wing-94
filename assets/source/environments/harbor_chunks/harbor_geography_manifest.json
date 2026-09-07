@@ -13,6 +13,7 @@
   ],
   "animation": {"id":"harbor_reflection","frames":6,"size":[128,224],"fps":6,"registration":"world-space finite water-channel events"},
   "cycle_height": 6144,
+  "shared_connector_height": 1,
   "assembly": {
     "base_order":["geography_chunk","world_registered_reflection","finite_cranes_ships_and_targets","wakes_and_rain","cloud_shadow","cloud_body"],
     "rules":["No ships or complete cranes are baked into geography.","Every chunk has a broad navigable water channel.","Adjacent chunks close at zero scanline error.","Recognizable port districts do not repeat at the former 720-pixel interval.","Every harbor district enters the build at its final 640-pixel runtime width; the builder may not enlarge an undersized plate.","Native low-altitude captures must preserve crisp dock joints, rails, tetrapods, hazard markings and machinery without widened proportions."]

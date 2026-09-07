@@ -18,25 +18,26 @@ $Sections = @(
 )
 for ($Index=0; $Index -lt $Sections.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
+    $Registered = Join-Path $Work "registered_$Index.png"
     # Dock plating, rails, tetrapods and machinery are authored at runtime width.
     # The former 522-530px panels were visibly softened and widened by enlargement.
     & $MagickPath $Source -crop $Sections[$Index].Crop +repage -colorspace sRGB -depth 8 $Raw
     if ($LASTEXITCODE -ne 0) { throw "Failed to register harbor section $Index" }
+    # Generated panels carry a dark preview gutter along their north and south
+    # edges. Remove it before route assembly so adjacent districts do not form a
+    # full-width black belt in play. Horizontal registration stays pixel exact.
+    & $MagickPath $Raw -crop '640x964+0+40' +repage -resize '640x1024!' -depth 8 $Registered
+    if ($LASTEXITCODE -ne 0) { throw "Failed to remove harbor preview gutter $Index" }
 }
 
-# Every district shares a 48px open-water boundary. The connector is copied to
-# both ends and lightly blended inward, so all three orders and the cycle closure
-# remain exact without mirroring the authored interior geography.
-$Connector = Join-Path $Work 'shared_connector.png'
+# Every district shares one natural open-water boundary scanline. The former
+# 48-row connector and blurred inset bands were visible as a black bar in play.
 $ConnectorRow = Join-Path $Work 'connector_row.png'
-& $MagickPath (Join-Path $Work 'raw_0.png') -crop '640x48+0+0' +repage $Connector
-& $MagickPath $Connector -crop '640x1+0+0' +repage $ConnectorRow
-& $MagickPath $Connector $ConnectorRow -gravity south -compose over -composite $Connector
+& $MagickPath (Join-Path $Work 'registered_0.png') -crop '640x1+0+0' +repage $ConnectorRow
 for ($Index=0; $Index -lt $Sections.Count; $Index++) {
-    $Raw = Join-Path $Work "raw_$Index.png"
+    $Raw = Join-Path $Work "registered_$Index.png"
     $Destination = Join-Path $Output "$($Sections[$Index].Name).png"
-    & $MagickPath $Raw $Connector -gravity north -compose over -composite $Connector -gravity south -compose over -composite `
-        -region '640x22+0+38' -blur '0x2.2' +region -region '640x22+0+964' -blur '0x2.2' +region -depth 8 $Destination
+    & $MagickPath $Raw $ConnectorRow -gravity north -compose over -composite $ConnectorRow -gravity south -compose over -composite -depth 8 $Destination
     if ($LASTEXITCODE -ne 0) { throw "Failed to finish harbor chunk: $($Sections[$Index].Name)" }
 }
 

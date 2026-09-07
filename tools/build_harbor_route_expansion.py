@@ -19,10 +19,10 @@ def build_district(name, base_name, contrast, colour, brightness):
     result = ImageEnhance.Contrast(result).enhance(contrast)
     result = ImageEnhance.Color(result).enhance(colour)
     result = ImageEnhance.Brightness(result).enhance(brightness)
-    # Reapply common dock connectors after grading. Ships, complete cranes,
-    # wakes, rain and water reflections remain independent animated layers.
-    result.paste(original.crop((0, 0, 640, 48)), (0, 0))
-    result.paste(original.crop((0, 976, 640, 1024)), (0, 976))
+    # Reapply only the exact outer scanline after grading. Wide inherited edge
+    # blocks created hard bands inside every mirrored harbor district.
+    result.paste(original.crop((0, 0, 640, 1)), (0, 0))
+    result.paste(original.crop((0, 1023, 640, 1024)), (0, 1023))
     SOURCE.mkdir(parents=True, exist_ok=True)
     RUNTIME.mkdir(parents=True, exist_ok=True)
     result.save(SOURCE / f"{name}.png", optimize=True)
