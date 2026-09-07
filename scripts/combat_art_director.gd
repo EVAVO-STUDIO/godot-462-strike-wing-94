@@ -2768,7 +2768,7 @@ func _altitude_pitch_offset() -> Vector2:
 		return Vector2.ZERO
 	var ratio := float(director.call("altitude_transition_ratio"))
 	var direction := int(director.call("altitude_transition_direction"))
-	return Vector2(0, -roundf(sin(ratio * PI) * 7.0 * float(direction)))
+	return Vector2(0, -roundf(sin(ratio * PI) * 11.0 * float(direction)))
 
 func _altitude_craft_scale() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
@@ -2777,7 +2777,7 @@ func _altitude_craft_scale() -> float:
 	var ratio := clampf(float(director.call("altitude_transition_ratio")),0.0,1.0)
 	var direction := int(director.call("altitude_transition_direction"))
 	var depth_pulse := sin(ratio*PI)
-	return 1.0-depth_pulse*0.07 if direction > 0 else 1.0+depth_pulse*0.06
+	return 1.0-depth_pulse*0.11 if direction > 0 else 1.0+depth_pulse*0.10
 
 func _craft_form() -> String:
 	if "--capture-gameplay" in OS.get_cmdline_user_args():
