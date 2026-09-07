@@ -56,6 +56,10 @@ func run() -> void:
 		check(surface.get_parent().clip_contents and surface.get_parent().size == Vector2(640,304), "Weather must clip before HUD and radio lanes")
 	var renderer_source := FileAccess.get_file_as_string("res://scripts/weather_renderer.gd")
 	check(renderer_source.contains("RAIN_VISIBILITY") and renderer_source.contains("RAIN_COLOUR") and renderer_source.contains("_world_speed"), "rain profiles should retain reviewed visibility, cool military palette and speed-driven closure")
+	check(renderer_source.contains("RAIN_CELS") and renderer_source.contains("draw_texture(cel") and not renderer_source.contains("surface.draw_line(state.tail"), "rain should use authored Atmosphere Studio cels instead of procedural line streaks")
+	for rain_cel in ["rain_a","rain_b"]:
+		var rain_texture := load("res://assets/runtime/environments/motion/%s.png" % rain_cel)
+		check(rain_texture is Texture2D and rain_texture.get_size() == Vector2(16,24), "rain cel should retain registered 16x24 geometry: "+rain_cel)
 	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("draw_colored_polygon"), "snow should retain its pale cel face and contrast underside over mixed terrain")
 	scene.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC weather self-test passed: 36 mappings, altitude fades, motion, clipping and secret context.")

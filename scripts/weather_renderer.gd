@@ -4,6 +4,10 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const RAIN_AUDIO = preload("res://assets/runtime/audio/weather/rain_loop.wav")
 const STORM_AUDIO = preload("res://assets/runtime/audio/weather/storm_loop.wav")
 const SNOW_AUDIO = preload("res://assets/runtime/audio/weather/snow_wind_loop.wav")
+const RAIN_CELS := [
+	preload("res://assets/runtime/environments/motion/rain_a.png"),
+	preload("res://assets/runtime/environments/motion/rain_b.png"),
+]
 const RAIN_VISIBILITY := {"drizzle":1.18, "rain":1.34, "storm":1.48}
 const RAIN_COLOUR := Color(0.64, 0.72, 0.76, 1.0)
 const SNOW_COLOUR := Color(0.88, 0.92, 0.94, 1.0)
@@ -142,6 +146,11 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			var state := WeatherRules.rain_drop(p, _time, _travel, _world_speed)
 			var middle: Vector2 = Vector2(state.tail).lerp(state.head, 0.5)
 			var alpha: float = clampf(float(state.opacity) * opacity * float(RAIN_VISIBILITY.get(_profile,1.0)) * (1.16 if near_band else 1.0), 0.0, 0.76)
-			var width := 1.35 if near_band else 1.0
-			surface.draw_line(state.tail, middle, Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha*0.46), width, false)
-			surface.draw_line(middle, state.head, Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha), width, false)
+			var direction := Vector2(state.head)-Vector2(state.tail)
+			if direction.length_squared() <= 0.01: continue
+			var cel: Texture2D = RAIN_CELS[abs(str(p.id).hash())%RAIN_CELS.size()]
+			var width_scale := 0.62 if near_band else 0.48
+			var length_scale := direction.length()/cel.get_height()
+			surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale,length_scale))
+			surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha))
+			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
