@@ -269,6 +269,8 @@ func _restore(scene: Object) -> void:
 	scene.set("credits", credits)
 	scene.set("mission_index", mission_index)
 	scene.set("weapon_index", weapon_index)
+	if _has_property(scene, "weapon_loadout_index"):
+		scene.set("weapon_loadout_index", weapon_index)
 	scene.set("generator_index", generator_index)
 	scene.set("service_hull", service_hull)
 	scene.set("service_shield", service_shield)

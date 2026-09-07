@@ -87,7 +87,10 @@ var intelligence_unlocked_ids: Array = []
 var completed_secret_mission_ids: Array = []
 var career_statistics: Dictionary = {}
 var active_secret_mission_id := ""
+# Highest permanently purchased primary. The sortie selection is separate so
+# buying a specialist gun does not erase earlier owned loadouts.
 var weapon_index := 0
+var weapon_loadout_index := 0
 var generator_index := 0
 var temporary_weapon_boost := 0
 var energy := 100.0
@@ -383,6 +386,8 @@ func _process(delta: float) -> void:
 				front_end_screen = "main_menu"
 			elif Input.is_action_just_pressed("upgrade"):
 				if not _mode_active(): _try_buy_next_weapon()
+			elif Input.is_action_just_pressed("fire_missile"):
+				if not _mode_active(): _cycle_owned_weapon()
 			elif Input.is_action_just_pressed("upgrade_generator"):
 				if not _mode_active(): _try_buy_next_generator()
 			elif Input.is_action_just_pressed("service_hull"):
@@ -1129,9 +1134,10 @@ func _active_weapon() -> Dictionary:
 			"energy_cost":0.0,
 			"cost":0
 		}
+	var selected_index := weapon_index if _mode_active() else clampi(weapon_loadout_index, 0, weapon_index)
 	var max_available := maxi(weapon_index, _highest_available_primary_index(primaries))
 	var requested_index := WeaponPickupRules.effective_index(
-		weapon_index,
+		selected_index,
 		temporary_weapon_boost,
 		primaries.size()
 	)
@@ -1168,11 +1174,22 @@ func _try_buy_next_weapon() -> void:
 	var result := ProgressionRules.next_weapon_index(weapon_index, primaries, credits)
 	if bool(result["changed"]):
 		weapon_index = int(result["index"])
+		weapon_loadout_index = weapon_index
 		credits = int(result["credits"])
 		status_text = "UPGRADE PURCHASED: %s" % str(_active_weapon().get("name", "WEAPON")).to_upper()
 		_play_sfx(RetroSfxRules.UI_PURCHASE)
 	else:
 		status_text = "NEED %d CREDITS" % int(next_weapon.get("cost", 0))
+	status_timer = 2.0
+
+func _cycle_owned_weapon() -> void:
+	var primaries := _primary_weapons()
+	if primaries.is_empty():
+		return
+	var owned_count := clampi(weapon_index + 1, 1, primaries.size())
+	weapon_loadout_index = posmod(weapon_loadout_index + 1, owned_count)
+	temporary_weapon_boost = 0
+	status_text = "PRIMARY SELECTED: %s" % str(primaries[weapon_loadout_index].get("name", "CANNON")).to_upper()
 	status_timer = 2.0
 
 func _try_buy_next_generator() -> void:
@@ -1731,11 +1748,12 @@ func _apply_pickup(kind: String) -> void:
 		"weapon":
 			var primaries := _primary_weapons()
 			if not primaries.is_empty():
+				var selected_index := weapon_index if _mode_active() else clampi(weapon_loadout_index, 0, weapon_index)
 				var max_allowed := maxi(
 					weapon_index,
 					_highest_available_primary_index(primaries)
 				)
-				var max_boost := maxi(0, max_allowed - weapon_index)
+				var max_boost := maxi(0, max_allowed - selected_index)
 				temporary_weapon_boost = mini(
 					max_boost,
 					temporary_weapon_boost + 1

@@ -264,7 +264,7 @@ func _draw_title(surface: CanvasItem, scene: Object) -> void:
 	_draw_console_panel(surface, Rect2(26, 203, 370, 93), "FIXED MODE STORES" if mode_active else "ARM / SERVICE", TEXT)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var generator := _call_dictionary(scene, "_active_generator")
-	PixelFont.draw_text(surface, "U PRIMARY", Vector2(40, 224), 1, MUTED, 1)
+	PixelFont.draw_text(surface, "M SELECT/U BUY", Vector2(40, 224), 1, MUTED, 1)
 	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 22), Vector2(126, 224), 1, GOLD, 1)
 	PixelFont.draw_text(surface, "G POWER", Vector2(40, 239), 1, MUTED, 1)
 	PixelFont.draw_text(surface, _clip(str(generator.get("name", "GENERATOR")), 22), Vector2(126, 239), 1, BLUE, 1)

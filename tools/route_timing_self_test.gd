@@ -51,6 +51,12 @@ func run()->void:
 	Objectives.update_survival(route_objective,route_progress,150.0)
 	check(Objectives.required_complete(route_objective,route_progress),"Reaching the authored route distance must satisfy its survival contract regardless of elapsed wall time")
 	check(Objectives.progress_text(route_objective[0],{"route":75.0})=="50% ROUTE","Route survival HUD must describe spatial progress instead of false wall-clock seconds")
+	scene.set("weapon_index",4);scene.set("weapon_loadout_index",4)
+	scene.call("_cycle_owned_weapon")
+	check(int(scene.get("weapon_index"))==4 and int(scene.get("weapon_loadout_index"))==0,"Cycling primaries must preserve the highest purchased tier while returning to the twin cannon")
+	check(str(scene.call("_active_weapon").id)=="twin_cannon_mk1","Owned primary selection must drive the live weapon without repurchasing it")
+	scene.call("_cycle_owned_weapon")
+	check(str(scene.call("_active_weapon").id)=="spread_vulcan","Primary selection must traverse the owned specialist gun family")
 	# A fast aircraft that has already destroyed the command target must be able
 	# to finish at the route boundary even when little wall-clock time elapsed.
 	scene.set("active_secret_mission_id","");scene.set("mission_index",1)
