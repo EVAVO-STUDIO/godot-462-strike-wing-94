@@ -1,0 +1,10 @@
+{
+  "family": "weather_particle_cels_v1",
+  "studio": "EVAVO Particle Studio / Atmosphere Studio",
+  "style": "late-90s military pixel cel",
+  "runtime": "assets/runtime/effects/weather/snow",
+  "geometry": [16, 16],
+  "members": ["distant", "middle", "near"],
+  "builder": "tools/build_weather_particle_cels.py",
+  "purpose": "replace procedural snow circles and polygons with registered depth-specific raster cels"
+}

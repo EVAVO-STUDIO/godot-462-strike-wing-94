@@ -8,6 +8,11 @@ const RAIN_CELS := [
 	preload("res://assets/runtime/environments/motion/rain_a.png"),
 	preload("res://assets/runtime/environments/motion/rain_b.png"),
 ]
+const SNOW_CELS := {
+	"distant": preload("res://assets/runtime/effects/weather/snow/distant.png"),
+	"middle": preload("res://assets/runtime/effects/weather/snow/middle.png"),
+	"near": preload("res://assets/runtime/effects/weather/snow/near.png"),
+}
 const RAIN_VISIBILITY := {"drizzle":1.18, "rain":1.34, "storm":1.48}
 const RAIN_COLOUR := Color(0.64, 0.72, 0.76, 1.0)
 const SNOW_COLOUR := Color(0.88, 0.92, 0.94, 1.0)
@@ -126,20 +131,11 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			if (str(p.layer) == "near") != near_band: continue
 			var position := WeatherRules.snow_position(p, _travel, _time).round()
 			var radius := maxf(0.7, float(p.size) * (0.54 if near_band else 0.47))
-			var alpha := clampf(float(p.alpha) * opacity * (1.32 if near_band else 1.14), 0.0, 0.78)
-			# A one-pixel underside keeps pale flakes readable over snowfields while
-			# the cool top face remains visible against sea, cloud and refinery art.
-			if near_band and radius >= 1.65:
-				var flake := PackedVector2Array([Vector2(0,-radius),Vector2(radius*0.74,0),Vector2(0,radius),Vector2(-radius*0.74,0)])
-				var shadow_flake := PackedVector2Array()
-				for point in flake: shadow_flake.append(position + point + Vector2(1,1))
-				var face_flake := PackedVector2Array()
-				for point in flake: face_flake.append(position + point)
-				surface.draw_colored_polygon(shadow_flake, Color(0.12,0.16,0.19,alpha*0.38))
-				surface.draw_colored_polygon(face_flake, Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha))
-			else:
-				surface.draw_circle(position + Vector2(1,1), radius, Color(0.12,0.16,0.19,alpha*0.38), true, -1, false)
-				surface.draw_circle(position, radius, Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha), true, -1, false)
+			var alpha := clampf(float(p.alpha) * opacity * (1.46 if near_band else 1.24), 0.0, 0.86)
+			var cel: Texture2D = SNOW_CELS.get(str(p.layer),SNOW_CELS["distant"])
+			var draw_extent := maxf(5.0,radius*(5.5 if near_band else 4.2))
+			var draw_size := Vector2.ONE*draw_extent
+			surface.draw_texture_rect(cel,Rect2((position-draw_size*0.5).round(),draw_size.round()),false,Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha))
 	else:
 		for p in _rain.get(_profile, []):
 			if (str(p.depthBand) == "foreground") != near_band: continue

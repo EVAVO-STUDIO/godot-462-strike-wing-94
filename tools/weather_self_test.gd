@@ -60,7 +60,11 @@ func run() -> void:
 	for rain_cel in ["rain_a","rain_b"]:
 		var rain_texture := load("res://assets/runtime/environments/motion/%s.png" % rain_cel)
 		check(rain_texture is Texture2D and rain_texture.get_size() == Vector2(16,24), "rain cel should retain registered 16x24 geometry: "+rain_cel)
-	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("draw_colored_polygon"), "snow should retain its pale cel face and contrast underside over mixed terrain")
+	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("SNOW_CELS") and not renderer_source.contains("draw_colored_polygon") and not renderer_source.contains("draw_circle"), "snow should use registered depth-specific raster cels over mixed terrain")
+	for snow_cel in ["distant","middle","near"]:
+		var snow_texture := load("res://assets/runtime/effects/weather/snow/%s.png" % snow_cel)
+		check(snow_texture is Texture2D and snow_texture.get_size() == Vector2(16,16), "snow cel should retain registered 16x16 geometry: "+snow_cel)
+	check(FileAccess.file_exists("res://assets/source/environments/weather_particle_cels_v1/manifest.json"), "weather particle cel source/runtime manifest should exist")
 	scene.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC weather self-test passed: 36 mappings, altitude fades, motion, clipping and secret context.")
 	else:
