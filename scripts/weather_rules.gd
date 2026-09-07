@@ -24,14 +24,31 @@ static func rain_drop(p: Dictionary, elapsed: float, travel: float) -> Dictionar
 	var y := -margin + age * period
 	var length := float(p.lengthPixels) * (0.92 + 0.08 * sin(TAU * (phase * 2.0 + float(p.gustPhase))))
 	var direction := Vector2(0.14 * length * (0.34 + perspective * 0.16) + gust * length * 0.035, length * 1.028)
-	var cap: float = {"background":2.0, "midground":4.0, "foreground":8.0}[p.depthBand]
+	# Three fixed cel lengths create readable depth without approaching the long,
+	# bright language reserved for cannon and directed-energy fire.
+	var cap: float = {"background":3.0, "midground":5.5, "foreground":8.0}[p.depthBand]
 	var drawn_length := minf(direction.length(), cap)
 	direction = direction.normalized()
 	var fade := minf(clampf((y + margin) / margin, 0, 1), clampf((304.0 + margin - (y - direction.y * drawn_length)) / margin, 0, 1))
 	return {"head":Vector2(x,y), "tail":Vector2(x,y) - direction * drawn_length, "opacity":float(p.opacity) * fade * 0.78}
 
-static func snow_position(p: Dictionary, travel: float) -> Vector2:
-	return Vector2(fposmod(float(p.x) + 8.0, 656.0) - 8.0, fposmod(float(p.y) + travel * float(SNOW_TRAVEL[p.layer]) + 8.0, 320.0) - 8.0)
+static func snow_position(p: Dictionary, travel: float, elapsed: float = 0.0) -> Vector2:
+	var layer_speed: float = float(SNOW_TRAVEL[p.layer])
+	var phase := float(abs(str(p.id).hash()) % 997) / 997.0
+	var gust_strength: float = {"distant":2.0, "middle":5.0, "near":10.0}[p.layer]
+	var gust := sin(elapsed * 1.7 + phase * TAU) + 0.38 * sin(elapsed * 3.1 + phase * TAU * 2.0)
+	return Vector2(
+		fposmod(float(p.x) + gust * gust_strength + 8.0, 656.0) - 8.0,
+		fposmod(float(p.y) + travel * layer_speed + elapsed * layer_speed * 0.34 + 8.0, 320.0) - 8.0
+	)
+
+static func storm_flash(elapsed: float) -> float:
+	# Two-frame stepped lightning cells, followed by a dimmer reflected exposure.
+	# The long irregular cycle avoids a metronomic arcade blink.
+	var phase := fposmod(elapsed + 1.73, 7.9)
+	if phase < 0.055: return 0.34
+	if phase >= 0.12 and phase < 0.175: return 0.18
+	return 0.0
 
 static func audio_mix(profile: String, altitude_weight_value: float, world_speed_multiplier: float) -> Dictionary:
 	var weather_gain := float(AUDIO_BASE_GAIN.get(profile, 0.0)) * clampf(altitude_weight_value, 0.0, 1.0)

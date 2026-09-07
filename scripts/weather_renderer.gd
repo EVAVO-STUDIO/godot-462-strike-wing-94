@@ -108,18 +108,31 @@ func _apply_weather_player(player: AudioStreamPlayer, gain: float, pitch: float)
 func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 	if _weight <= 0.001 or _profile == "clear": return
 	var opacity := _weight * (0.55 if _reduced else 1.0)
+	if _profile == "storm" and near_band:
+		var flash := WeatherRules.storm_flash(_time) * opacity
+		if flash > 0.001:
+			surface.draw_rect(Rect2(0,0,640,304), Color(0.64,0.74,0.82,flash), true)
 	if _profile == "snow":
 		if _snow.is_empty(): return
 		var sample: Array = _snow[posmod(int(floor(_time * 24.0)), _snow.size())]
 		for p in sample:
 			if (str(p.layer) == "near") != near_band: continue
-			var position := WeatherRules.snow_position(p, _travel).round()
+			var position := WeatherRules.snow_position(p, _travel, _time).round()
 			var radius := maxf(0.7, float(p.size) * (0.54 if near_band else 0.47))
 			var alpha := clampf(float(p.alpha) * opacity * (1.32 if near_band else 1.14), 0.0, 0.78)
 			# A one-pixel underside keeps pale flakes readable over snowfields while
 			# the cool top face remains visible against sea, cloud and refinery art.
-			surface.draw_circle(position + Vector2(1,1), radius, Color(0.12,0.16,0.19,alpha*0.38), true, -1, false)
-			surface.draw_circle(position, radius, Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha), true, -1, false)
+			if near_band and radius >= 1.65:
+				var flake := PackedVector2Array([Vector2(0,-radius),Vector2(radius*0.74,0),Vector2(0,radius),Vector2(-radius*0.74,0)])
+				var shadow_flake := PackedVector2Array()
+				for point in flake: shadow_flake.append(position + point + Vector2(1,1))
+				var face_flake := PackedVector2Array()
+				for point in flake: face_flake.append(position + point)
+				surface.draw_colored_polygon(shadow_flake, Color(0.12,0.16,0.19,alpha*0.38))
+				surface.draw_colored_polygon(face_flake, Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha))
+			else:
+				surface.draw_circle(position + Vector2(1,1), radius, Color(0.12,0.16,0.19,alpha*0.38), true, -1, false)
+				surface.draw_circle(position, radius, Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha), true, -1, false)
 	else:
 		for p in _rain.get(_profile, []):
 			if (str(p.depthBand) == "foreground") != near_band: continue

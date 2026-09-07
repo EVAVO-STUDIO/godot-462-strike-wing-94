@@ -44,14 +44,15 @@ func run() -> void:
 	check(snow.frames.size() == 96, "Preserve all 96 Particle Studio exposures")
 	for sample in snow.frames:
 		for p in sample:
-			var position := Weather.snow_position(p, 10000.0)
+			var position := Weather.snow_position(p, 10000.0, 2.5)
 			check(position.y >= -8.0 and position.y < 312.0, "Snow wrapping must stay inside its offscreen margin")
+	check(Weather.storm_flash(6.17) > 0.0 and is_zero_approx(Weather.storm_flash(3.0)), "Storm lightning should use brief irregular cel exposures")
 	check(renderer.get("_surfaces").size() == 2, "Weather needs layers behind and ahead of aircraft")
 	for surface in renderer.get("_surfaces"):
 		check(surface.get_parent().clip_contents and surface.get_parent().size == Vector2(640,304), "Weather must clip before HUD and radio lanes")
 	var renderer_source := FileAccess.get_file_as_string("res://scripts/weather_renderer.gd")
 	check(renderer_source.contains("RAIN_VISIBILITY") and renderer_source.contains("RAIN_COLOUR"), "rain profiles should retain reviewed visibility and cool military palette")
-	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("position + Vector2(1,1)"), "snow should retain its pale face and contrast underside over mixed terrain")
+	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("draw_colored_polygon"), "snow should retain its pale cel face and contrast underside over mixed terrain")
 	scene.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC weather self-test passed: 36 mappings, altitude fades, motion, clipping and secret context.")
 	else:
