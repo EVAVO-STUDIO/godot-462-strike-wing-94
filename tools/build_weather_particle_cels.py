@@ -1,5 +1,5 @@
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets" / "runtime" / "effects" / "weather" / "snow"
@@ -56,4 +56,37 @@ def save_near():
 save_distant()
 save_middle()
 save_near()
+
+
+def save_lightning(index, reveal, opacity):
+    size = (160, 224)
+    image = Image.new("RGBA", size, (0, 0, 0, 0))
+    path = [(78, -4), (72, 24), (82, 39), (65, 64), (71, 82), (53, 108), (61, 127), (42, 153), (49, 170), (31, 218)]
+    branches = [
+        [(70, 65), (43, 79), (31, 104)],
+        [(57, 111), (84, 126), (103, 151)],
+        [(47, 156), (23, 169), (10, 192)],
+    ]
+    visible_count = max(2, round(len(path) * reveal))
+    visible_path = path[:visible_count]
+    glow = Image.new("RGBA", size, (0, 0, 0, 0))
+    glow_draw = ImageDraw.Draw(glow)
+    glow_draw.line(visible_path, fill=(84, 174, 226, round(150 * opacity)), width=7, joint="curve")
+    for branch in branches:
+        if branch[0][1] <= visible_path[-1][1]:
+            glow_draw.line(branch, fill=(73, 151, 210, round(105 * opacity)), width=5, joint="curve")
+    glow = glow.filter(ImageFilter.GaussianBlur(3.0))
+    image.alpha_composite(glow)
+    draw = ImageDraw.Draw(image)
+    draw.line(visible_path, fill=(194, 231, 247, round(245 * opacity)), width=2, joint="curve")
+    draw.line(visible_path, fill=(248, 252, 238, round(255 * opacity)), width=1, joint="curve")
+    for branch in branches:
+        if branch[0][1] <= visible_path[-1][1]:
+            draw.line(branch, fill=(151, 211, 239, round(220 * opacity)), width=1, joint="curve")
+    image.save(OUT.parent / f"lightning_{index}.png")
+
+
+save_lightning(0, 0.58, 0.90)
+save_lightning(1, 1.00, 1.00)
+save_lightning(2, 1.00, 0.48)
 print(OUT)

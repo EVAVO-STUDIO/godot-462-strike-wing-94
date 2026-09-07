@@ -13,6 +13,11 @@ const SNOW_CELS := {
 	"middle": preload("res://assets/runtime/effects/weather/snow/middle.png"),
 	"near": preload("res://assets/runtime/effects/weather/snow/near.png"),
 }
+const LIGHTNING_CELS := [
+	preload("res://assets/runtime/effects/weather/lightning_0.png"),
+	preload("res://assets/runtime/effects/weather/lightning_1.png"),
+	preload("res://assets/runtime/effects/weather/lightning_2.png"),
+]
 const RAIN_VISIBILITY := {"drizzle":1.18, "rain":1.34, "storm":1.48}
 const RAIN_COLOUR := Color(0.64, 0.72, 0.76, 1.0)
 const SNOW_COLOUR := Color(0.88, 0.92, 0.94, 1.0)
@@ -121,9 +126,15 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 	if _weight <= 0.001 or _profile == "clear": return
 	var opacity := _weight * (0.55 if _reduced else 1.0)
 	if _profile == "storm" and near_band:
-		var flash := WeatherRules.storm_flash(_time) * opacity
+		var capture_lightning := "--capture-weather-lightning" in OS.get_cmdline_user_args()
+		var flash := (0.34 if capture_lightning else WeatherRules.storm_flash(_time)) * opacity
 		if flash > 0.001:
-			surface.draw_rect(Rect2(0,0,640,304), Color(0.64,0.74,0.82,flash), true)
+			surface.draw_rect(Rect2(0,0,640,304), Color(0.64,0.74,0.82,flash*0.38), true)
+			var flash_frame := 1 if capture_lightning else WeatherRules.storm_flash_frame(_time)
+			var lightning: Texture2D = LIGHTNING_CELS[clampi(flash_frame,0,LIGHTNING_CELS.size()-1)]
+			var cycle := int(floor((_time+1.73)/7.9))
+			var lightning_x := 26.0+float(posmod(cycle*173,420))
+			surface.draw_texture(lightning,Vector2(lightning_x,-8),Color(0.90,0.96,1.0,clampf(flash*2.7,0.0,1.0)))
 	if _profile == "snow":
 		if _snow.is_empty(): return
 		var sample: Array = _snow[posmod(int(floor(_time * 24.0)), _snow.size())]

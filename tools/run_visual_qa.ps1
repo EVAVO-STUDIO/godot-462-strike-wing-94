@@ -57,6 +57,7 @@ $Cases = @(
     @{ id='weather_drizzle'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=24','--capture-altitude=low') },
     @{ id='weather_rain'; args=@('--capture-gameplay','--capture-mission=2','--capture-time=24','--capture-altitude=low') },
     @{ id='weather_storm'; args=@('--capture-gameplay','--capture-mission=5','--capture-time=24','--capture-altitude=low') },
+	@{ id='weather_storm_lightning'; args=@('--capture-gameplay','--capture-mission=5','--capture-time=24','--capture-altitude=low','--capture-weather-lightning') },
     @{ id='weather_snow'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=24','--capture-altitude=low') },
 	@{ id='cloud_family_low'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=low') },
 	@{ id='cloud_family_mid'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid') },

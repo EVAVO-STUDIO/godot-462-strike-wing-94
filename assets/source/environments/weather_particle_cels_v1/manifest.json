@@ -4,7 +4,7 @@
   "style": "late-90s military pixel cel",
   "runtime": "assets/runtime/effects/weather/snow",
   "geometry": [16, 16],
-  "members": ["distant", "middle", "near"],
+  "members": ["distant", "middle", "near", "lightning_0", "lightning_1", "lightning_2"],
   "builder": "tools/build_weather_particle_cels.py",
-  "purpose": "replace procedural snow circles and polygons with registered depth-specific raster cels"
+  "purpose": "replace procedural snow primitives and uniform storm flashes with registered depth-specific raster cels"
 }

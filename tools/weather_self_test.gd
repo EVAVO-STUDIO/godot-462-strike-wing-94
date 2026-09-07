@@ -51,6 +51,7 @@ func run() -> void:
 			var position := Weather.snow_position(p, 10000.0, 2.5)
 			check(position.y >= -8.0 and position.y < 312.0, "Snow wrapping must stay inside its offscreen margin")
 	check(Weather.storm_flash(6.17) > 0.0 and is_zero_approx(Weather.storm_flash(3.0)), "Storm lightning should use brief irregular cel exposures")
+	check(Weather.storm_flash_frame(6.17) >= 0 and Weather.storm_flash_frame(3.0) == -1, "Storm lightning should select authored exposure frames only during irregular flashes")
 	check(renderer.get("_surfaces").size() == 2, "Weather needs layers behind and ahead of aircraft")
 	for surface in renderer.get("_surfaces"):
 		check(surface.get_parent().clip_contents and surface.get_parent().size == Vector2(640,304), "Weather must clip before HUD and radio lanes")
@@ -61,10 +62,14 @@ func run() -> void:
 		var rain_texture := load("res://assets/runtime/environments/motion/%s.png" % rain_cel)
 		check(rain_texture is Texture2D and rain_texture.get_size() == Vector2(16,24), "rain cel should retain registered 16x24 geometry: "+rain_cel)
 	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("SNOW_CELS") and not renderer_source.contains("draw_colored_polygon") and not renderer_source.contains("draw_circle"), "snow should use registered depth-specific raster cels over mixed terrain")
+	check(renderer_source.contains("LIGHTNING_CELS") and renderer_source.contains("--capture-weather-lightning") and renderer_source.contains("storm_flash_frame"), "storm should render an authored branching lightning sequence with deterministic visual QA")
 	for snow_cel in ["distant","middle","near"]:
 		var snow_texture := load("res://assets/runtime/effects/weather/snow/%s.png" % snow_cel)
 		check(snow_texture is Texture2D and snow_texture.get_size() == Vector2(16,16), "snow cel should retain registered 16x16 geometry: "+snow_cel)
 	check(FileAccess.file_exists("res://assets/source/environments/weather_particle_cels_v1/manifest.json"), "weather particle cel source/runtime manifest should exist")
+	for lightning_frame in range(3):
+		var lightning_texture := load("res://assets/runtime/effects/weather/lightning_%d.png" % lightning_frame)
+		check(lightning_texture is Texture2D and lightning_texture.get_size() == Vector2(160,224), "lightning cel should retain registered 160x224 geometry: %d" % lightning_frame)
 	scene.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC weather self-test passed: 36 mappings, altitude fades, motion, clipping and secret context.")
 	else:

@@ -52,6 +52,13 @@ static func storm_flash(elapsed: float) -> float:
 	if phase >= 0.12 and phase < 0.175: return 0.18
 	return 0.0
 
+static func storm_flash_frame(elapsed: float) -> int:
+	var phase := fposmod(elapsed + 1.73, 7.9)
+	if phase < 0.025: return 0
+	if phase < 0.055: return 1
+	if phase >= 0.12 and phase < 0.175: return 2
+	return -1
+
 static func audio_mix(profile: String, altitude_weight_value: float, world_speed_multiplier: float) -> Dictionary:
 	var weather_gain := float(AUDIO_BASE_GAIN.get(profile, 0.0)) * clampf(altitude_weight_value, 0.0, 1.0)
 	var speed_lift := lerpf(0.88, 1.08, clampf((world_speed_multiplier - 0.45) / 3.75, 0.0, 1.0))
