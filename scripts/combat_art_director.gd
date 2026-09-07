@@ -2426,6 +2426,10 @@ func _draw_production_boss(surface: CanvasItem, p: Vector2, enemy_id: String, en
 
 func _draw_boss_weak_points(surface: CanvasItem, center: Vector2, enemy_id: String, age: float) -> void:
 	if not BOSS_WEAK_POINTS.has(enemy_id): return
+	# A large boss can begin entering while its registered centre is still above
+	# the flight view. Do not let offset weak-point cels arrive first as floating
+	# HUD boxes; reveal them only once their carrier silhouette is readable.
+	if not Rect2(28,64,584,252).has_point(center): return
 	var points: Array = BOSS_WEAK_POINTS[enemy_id]
 	var active_index := posmod(int(floor(age * 0.75)), points.size())
 	var family := _boss_weak_point_family(enemy_id)

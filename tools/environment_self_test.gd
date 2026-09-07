@@ -306,6 +306,7 @@ func _initialize() -> void:
 		var storm_platform_v2 := load("res://assets/runtime/environments/landmarks/storm_platform_v2.png") as Texture2D
 		_expect(storm_platform_v2 != null and storm_platform_v2.get_size() == Vector2(128,160), "open-water landmark should use the registered v2 offshore platform sprite")
 		_expect(source.contains('"water": preload("res://assets/runtime/environments/landmarks/storm_platform_v2.png")') and source.contains('family == "water"'), "water landmark should select its physically engineered v2 art and world-scale treatment")
+		_expect(source.contains("scale = 0.58 + 0.08") and source.contains("Color(0.60,0.68,0.70,alpha)"), "orbital truss landmarks should remain subdued world hardware instead of reading as oversized HUD geometry")
 		_expect(FileAccess.file_exists("res://assets/source/environments/landmark_asset_manifest.json"), "mission landmark source/runtime manifest should exist")
 		for landmark_family in ["coast", "industrial", "water", "desert_front", "river_corridor", "mountain_radar", "night_harbor", "city_outskirts", "machine_furnace", "cloud_top", "orbital"]:
 			for frame_index in range(4):

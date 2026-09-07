@@ -462,7 +462,7 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.BOSS_WEAK_POINTS.size() == 9, "all nine bosses should register their three authored physical weak points")
 	for boss_id in CombatArtDirector.BOSS_WEAK_POINTS:
 		_expect(CombatArtDirector.BOSS_WEAK_POINTS[boss_id].size() == 3, "boss should retain three documented weak-point stations: %s" % boss_id)
-	_expect(source.contains("_draw_boss_weak_points") and source.contains("boss_phase >= 3"), "phase-three bosses should reveal the authored on-hull weak-point cue")
+	_expect(source.contains("_draw_boss_weak_points") and source.contains("boss_phase >= 3") and source.contains("Rect2(28,64,584,252).has_point(center)"), "phase-three bosses should reveal authored on-hull weak-point cues only after the carrier silhouette enters the readable flight area")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/boss_weak_point_v1/runtime_integration.json"), "boss weak-point presentation should retain native runtime evidence")
 	var mercenary_boss_specialist_sizes := {
 		"gunship_turret":Vector2(18,24), "train_turret":Vector2(20,28), "cruiser_turret":Vector2(22,30),

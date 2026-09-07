@@ -376,16 +376,19 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	if family == "cloud_top":
 		scale = 0.86
 	elif family == "orbital":
-		scale = 0.82 + 0.16 * clampf(orbital_mix, 0.0, 1.0)
+		# The truss is background navigation hardware, not a targeting overlay.
+		# Keep its schematic silhouette but subordinate it to ships and HUD marks.
+		scale = 0.58 + 0.08 * clampf(orbital_mix, 0.0, 1.0)
 	elif family == "water":
 		scale = 0.62
 	var size := texture.get_size() * scale
 	var x_span := maxf(1.0, 640.0 - size.x - 48.0)
 	var x := 24.0 + fposmod(float(mission_seed * 73), x_span)
-	var alpha := 0.88 if family not in ["cloud_top", "orbital"] else 0.74
+	var alpha := 0.88 if family not in ["cloud_top", "orbital"] else (0.46 if family == "orbital" else 0.74)
 	if family == "orbital":
 		alpha *= clampf(orbital_mix, 0.0, 1.0)
-	surface.draw_texture_rect(texture, Rect2(Vector2(x, y), size), false, Color(0.86, 0.89, 0.88, alpha))
+	var landmark_tint := Color(0.60,0.68,0.70,alpha) if family == "orbital" else Color(0.86,0.89,0.88,alpha)
+	surface.draw_texture_rect(texture, Rect2(Vector2(x, y), size), false, landmark_tint)
 	if LANDMARK_FX_FRAMES.has(family):
 		var fx_frames: Array = LANDMARK_FX_FRAMES[family]
 		var fx: Texture2D = fx_frames[posmod(int(floor(t * 4.0)), fx_frames.size())]
