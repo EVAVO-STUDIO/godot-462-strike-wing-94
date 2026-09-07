@@ -2,6 +2,7 @@
 from pathlib import Path
 from PIL import Image, ImageDraw
 import json
+import math
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets/runtime/surface_sites"
@@ -33,6 +34,15 @@ def scud():
     im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,14,43,41)); rect(d,(8,16,39,38),"olive"); rect(d,(5,19,13,35),"dark"); rect(d,(34,19,42,35),"dark")
     rect(d,(12,17,35,34),"tan"); d.polygon([(15,17),(20,7),(30,7),(35,17)],fill=PAL["dark"],outline=PAL["outline"])
     d.polygon([(20,26),(22,7),(27,3),(30,7),(29,27)],fill=PAL["light"],outline=PAL["outline"]); rect(d,(20,25,30,30),"red")
+    return im
+
+def ballistic_pose(angle_degrees):
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,14,43,41)); rect(d,(8,18,39,37),"olive"); rect(d,(5,22,13,35),"dark"); rect(d,(34,22,42,35),"dark"); rect(d,(12,20,35,34),"tan")
+    angle=math.radians(angle_degrees); base=(25,27); tip=(base[0]+math.cos(angle)*24, base[1]-math.sin(angle)*24)
+    line(d,(base,tip),"outline",7); line(d,(base,tip),"light",4)
+    nx,ny=math.cos(angle),-math.sin(angle); px,py=-ny,nx
+    d.polygon([(tip[0]+nx*4,tip[1]+ny*4),(tip[0]-nx*3+px*3,tip[1]-ny*3+py*3),(tip[0]-nx*3-px*3,tip[1]-ny*3-py*3)],fill=PAL["light"],outline=PAL["outline"])
+    line(d,((base[0]-px*5,base[1]-py*5),(base[0]+px*5,base[1]+py*5)),"red",3)
     return im
 
 def artillery():
@@ -74,6 +84,7 @@ for name,fn in ASSETS.items(): fn().save(OUT/f"{name}.png")
 ANIM = OUT / "animation"
 (ANIM / "radar_site").mkdir(parents=True, exist_ok=True)
 (ANIM / "field_artillery").mkdir(parents=True, exist_ok=True)
+(ANIM / "ballistic_launcher").mkdir(parents=True, exist_ok=True)
 (ANIM / "damage").mkdir(parents=True, exist_ok=True)
 radar_base = radar()
 for index, angle in enumerate((-18, -6, 6, 18)):
@@ -90,6 +101,8 @@ ImageDraw.Draw(recoil).rectangle((18, 0, 30, 25), fill=(0, 0, 0, 0))
 barrel = artillery_base.crop((18, 0, 31, 26))
 recoil.alpha_composite(barrel, (18, 4))
 recoil.save(ANIM / "field_artillery" / "1.png")
+for index, angle in enumerate((8, 42, 78)):
+    ballistic_pose(angle).save(ANIM / "ballistic_launcher" / f"{index}.png")
 for index in range(2):
     damage = canvas(); dd = ImageDraw.Draw(damage)
     if index == 0:
@@ -103,5 +116,5 @@ for index in range(2):
 sheet=Image.new("RGBA",(S*4,S*2),(18,23,22,255))
 for i,(name,fn) in enumerate(ASSETS.items()): sheet.alpha_composite(fn(),((i%4)*S,(i//4)*S))
 sheet.save(SRC/"surface_site_contact_sheet.png")
-(SRC/"manifest.json").write_text(json.dumps({"schema_version":3,"identity":"believable late-1990s imagined-future military pixel art","canvas":[48,48],"military":["strategic_silo","ballistic_launcher","field_artillery","radar_site","logistics_truck","ammo_depot"],"protected":["civilian_village","field_clinic"],"animation":{"radar_site":{"frames":4,"fps":3.0},"field_artillery":{"frames":2,"trigger":"recoil_timer"},"damage":{"frames":2,"thresholds":[0.62,0.32]}},"rules":["red-cross clinic and slate-roof homes are protected contacts","military silhouettes remain readable at native 640x360 gameplay scale","surface sites are separate from the established 38-enemy identity roster","mechanical motion uses held nearest-neighbour cels","damaged sites use registered breach overlays before persistent smoke and fire"]},indent=2)+"\n",encoding="utf-8")
+(SRC/"manifest.json").write_text(json.dumps({"schema_version":4,"identity":"believable late-1990s imagined-future military pixel art","canvas":[48,48],"military":["strategic_silo","ballistic_launcher","field_artillery","radar_site","logistics_truck","ammo_depot"],"protected":["civilian_village","field_clinic"],"animation":{"radar_site":{"frames":4,"fps":3.0},"field_artillery":{"frames":2,"trigger":"recoil_timer"},"ballistic_launcher":{"frames":3,"sequence":"stowed_rising_deployed"},"damage":{"frames":2,"thresholds":[0.62,0.32]}},"rules":["red-cross clinic and slate-roof homes are protected contacts","military silhouettes remain readable at native 640x360 gameplay scale","surface sites are separate from the established 38-enemy identity roster","mechanical motion uses held nearest-neighbour cels","damaged sites use registered breach overlays before persistent smoke and fire"]},indent=2)+"\n",encoding="utf-8")
 print(f"built {len(ASSETS)} surface-site sprites")

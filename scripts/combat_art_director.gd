@@ -406,6 +406,11 @@ const SURFACE_SITE_ANIMATION := {
 		preload("res://assets/runtime/surface_sites/animation/field_artillery/0.png"),
 		preload("res://assets/runtime/surface_sites/animation/field_artillery/1.png"),
 	],
+	"ballistic_launcher": [
+		preload("res://assets/runtime/surface_sites/animation/ballistic_launcher/0.png"),
+		preload("res://assets/runtime/surface_sites/animation/ballistic_launcher/1.png"),
+		preload("res://assets/runtime/surface_sites/animation/ballistic_launcher/2.png"),
+	],
 }
 const SURFACE_SITE_DAMAGE := [
 	preload("res://assets/runtime/surface_sites/animation/damage/0.png"),
@@ -1845,6 +1850,10 @@ func _draw_surface_site(surface: CanvasItem, p: Vector2, enemy_id: String, enemy
 		texture = frames[int(floor(float(enemy.get("age", 0.0)) * 3.0)) % frames.size()]
 	elif enemy_id == "field_artillery" and float(enemy.get("recoil_timer", 0.0)) > 0.0:
 		texture = SURFACE_SITE_ANIMATION[enemy_id][1]
+	elif enemy_id == "ballistic_launcher":
+		var deployment_age := float(enemy.get("age", 0.0))
+		var deployment_frame := 0 if deployment_age < 0.35 else (1 if deployment_age < 0.85 else 2)
+		texture = SURFACE_SITE_ANIMATION[enemy_id][deployment_frame]
 	_draw_production_sprite(surface, p, texture, scale)
 	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
 	var integrity := clampf(float(enemy.get("hp", max_hp)) / max_hp, 0.0, 1.0)
