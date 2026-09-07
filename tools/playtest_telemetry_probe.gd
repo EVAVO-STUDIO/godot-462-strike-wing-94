@@ -13,7 +13,7 @@ var altitude_seconds: Dictionary = {}
 var form_seconds: Dictionary = {}
 var commands: Dictionary = {"transform":0, "altitude":0, "roll":0, "countermeasure":0, "tactical_support":0, "battlefield_support":0, "ordnance":0, "screen_bomb":0}
 var accepted: Dictionary = {"tactical_support":0, "battlefield_support":0, "ordnance":0}
-var maxima: Dictionary = {"enemies":0, "player_projectiles":0, "hostile_projectiles":0}
+var maxima: Dictionary = {"enemies":0, "protected_contacts":0, "player_projectiles":0, "hostile_projectiles":0}
 var starting: Dictionary = {}
 var _support_active := false
 var _battlefield_active := false
@@ -95,6 +95,7 @@ func _sample_state(delta: float) -> void:
 	altitude_seconds[altitude] = float(altitude_seconds.get(altitude, 0.0)) + delta
 	form_seconds[form] = float(form_seconds.get(form, 0.0)) + delta
 	maxima["enemies"] = maxi(int(maxima["enemies"]), _array_size("enemies"))
+	maxima["protected_contacts"] = maxi(int(maxima["protected_contacts"]), _array_size("protected_contacts"))
 	maxima["player_projectiles"] = maxi(int(maxima["player_projectiles"]), _array_size("bullets"))
 	maxima["hostile_projectiles"] = maxi(int(maxima["hostile_projectiles"]), _array_size("enemy_bullets"))
 	_sample_boss_state()
@@ -193,6 +194,7 @@ func _snapshot_counters() -> Dictionary:
 		"shots_fired":int(scene.get("shots_fired")),
 		"shots_hit":int(scene.get("shots_hit")),
 		"targets_destroyed":int(scene.get("targets_destroyed")),
+		"collateral_strikes":int(scene.get("collateral_strikes")) if _has_property(scene, "collateral_strikes") else 0,
 		"damage_taken":int(scene.get("damage_taken")),
 		"score":int(scene.get("score")),
 	}
@@ -214,6 +216,7 @@ func _finish() -> void:
 		"shots_fired":int(ending["shots_fired"]) - int(starting["shots_fired"]),
 		"shots_hit":int(ending["shots_hit"]) - int(starting["shots_hit"]),
 		"targets_destroyed":int(ending["targets_destroyed"]) - int(starting["targets_destroyed"]),
+		"collateral_strikes":int(ending["collateral_strikes"]) - int(starting["collateral_strikes"]),
 		"damage_taken":int(ending["damage_taken"]) - int(starting["damage_taken"]),
 		"damage_sources":scene.get("damage_sources").duplicate(true) if _has_property(scene, "damage_sources") else {},
 		"enemy_missiles_launched":int(scene.get("enemy_missiles_launched")) if _has_property(scene, "enemy_missiles_launched") else 0,
