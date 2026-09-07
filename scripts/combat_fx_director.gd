@@ -423,6 +423,14 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(blast_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 		var fireball_size := roundf(max_size*3.45)
 		surface.draw_texture_rect(fireball,Rect2((p-Vector2.ONE*fireball_size*0.5).round(),Vector2.ONE*fireball_size),false,Color(1,1,1,0.92-smoothstep(0.68,1.0,blast_clock)*0.72))
+	elif not boss and impact_family in ["rocket","bomb"] and blast_clock < 0.64:
+		# Surface warheads need a dense incandescent core behind the radial debris
+		# cel. Without it, their open silhouettes collapse to a tiny spark over
+		# detailed terrain even though the blast is lethal at gameplay scale.
+		var core_ratio := blast_clock/0.64
+		var ground_fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
+		var ground_fireball_size := roundf(max_size*lerpf(1.8,2.65,core_ratio))
+		surface.draw_texture_rect(ground_fireball,Rect2((p-Vector2.ONE*ground_fireball_size*0.5).round(),Vector2.ONE*ground_fireball_size),false,Color(1.0,0.78,0.48,0.90*(1.0-core_ratio*0.62)))
 	# Preserve the authored 64-pixel cel silhouette. Earlier 5.6x/5.8x
 	# enlargement made every warhead a square, screen-covering bloom and erased
 	# the wreck/debris consequence that communicates mass and lethality.
