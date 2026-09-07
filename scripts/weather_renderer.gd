@@ -18,7 +18,7 @@ const LIGHTNING_CELS := [
 	preload("res://assets/runtime/effects/weather/lightning_1.png"),
 	preload("res://assets/runtime/effects/weather/lightning_2.png"),
 ]
-const RAIN_VISIBILITY := {"drizzle":1.18, "rain":1.34, "storm":1.48}
+const RAIN_VISIBILITY := {"drizzle":1.24, "rain":1.62, "storm":1.88}
 const RAIN_COLOUR := Color(0.64, 0.72, 0.76, 1.0)
 const SNOW_COLOUR := Color(0.88, 0.92, 0.94, 1.0)
 
@@ -156,7 +156,9 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			var direction := Vector2(state.head)-Vector2(state.tail)
 			if direction.length_squared() <= 0.01: continue
 			var cel: Texture2D = RAIN_CELS[abs(str(p.id).hash())%RAIN_CELS.size()]
-			var width_scale := 0.62 if near_band else 0.48
+			# Keep the authored ink core at a full native pixel in the near band.
+			# Sub-pixel compression made rain disappear against moving dark water.
+			var width_scale := 0.78 if near_band else 0.60
 			var length_scale := direction.length()/cel.get_height()
 			surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale,length_scale))
 			surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha))

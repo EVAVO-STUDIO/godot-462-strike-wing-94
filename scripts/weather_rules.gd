@@ -28,7 +28,7 @@ static func rain_drop(p: Dictionary, elapsed: float, travel: float, world_speed_
 	var direction := Vector2((0.14*(0.34+perspective*0.16)+gust*0.035+speed_ratio*0.22)*length,length*1.028)
 	# Three fixed cel lengths create readable depth without approaching the long,
 	# bright language reserved for cannon and directed-energy fire.
-	var cap: float = {"background":3.0, "midground":5.5, "foreground":8.0}[p.depthBand]
+	var cap: float = {"background":4.0, "midground":7.0, "foreground":10.5}[p.depthBand]
 	var drawn_length := minf(direction.length()*closure_scale,cap*closure_scale)
 	direction = direction.normalized()
 	var fade := minf(clampf((y + margin) / margin, 0, 1), clampf((304.0 + margin - (y - direction.y * drawn_length)) / margin, 0, 1))

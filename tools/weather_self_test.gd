@@ -37,7 +37,7 @@ func run() -> void:
 			var start := Weather.rain_drop(p, 0.0, 0.0)
 			var end := Weather.rain_drop(p, 8.0, 0.0)
 			check(Vector2(start.head).distance_to(end.head) < 0.0001, "Rain time cycle closes")
-			check(Vector2(start.head).distance_to(start.tail) <= 8.001, "Rain must remain shorter than bright combat tracers")
+			check(Vector2(start.head).distance_to(start.tail) <= 10.501, "Cruise-speed rain must remain shorter than bright combat tracers")
 			var moved := Weather.rain_drop(p, 0.0, 0.001)
 			check(Vector2(start.head).distance_to(moved.head) > 0.0, "Rain must respond to integrated travel without advancing wind time")
 			var slow := Weather.rain_drop(p,0.0,0.0,0.45)
@@ -56,7 +56,7 @@ func run() -> void:
 	for surface in renderer.get("_surfaces"):
 		check(surface.get_parent().clip_contents and surface.get_parent().size == Vector2(640,304), "Weather must clip before HUD and radio lanes")
 	var renderer_source := FileAccess.get_file_as_string("res://scripts/weather_renderer.gd")
-	check(renderer_source.contains("RAIN_VISIBILITY") and renderer_source.contains("RAIN_COLOUR") and renderer_source.contains("_world_speed"), "rain profiles should retain reviewed visibility, cool military palette and speed-driven closure")
+	check(renderer_source.contains('"rain":1.62') and renderer_source.contains('"storm":1.88') and renderer_source.contains("RAIN_COLOUR") and renderer_source.contains("width_scale := 0.78") and renderer_source.contains("_world_speed"), "rain profiles should retain native-pixel visibility, cool military palette and speed-driven closure")
 	check(renderer_source.contains("RAIN_CELS") and renderer_source.contains("draw_texture(cel") and not renderer_source.contains("surface.draw_line(state.tail"), "rain should use authored Atmosphere Studio cels instead of procedural line streaks")
 	for rain_cel in ["rain_a","rain_b"]:
 		var rain_texture := load("res://assets/runtime/environments/motion/%s.png" % rain_cel)
