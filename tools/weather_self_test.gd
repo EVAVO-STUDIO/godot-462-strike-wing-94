@@ -56,7 +56,7 @@ func run() -> void:
 	for surface in renderer.get("_surfaces"):
 		check(surface.get_parent().clip_contents and surface.get_parent().size == Vector2(640,304), "Weather must clip before HUD and radio lanes")
 	var renderer_source := FileAccess.get_file_as_string("res://scripts/weather_renderer.gd")
-	check(renderer_source.contains('"rain":1.62') and renderer_source.contains('"storm":1.88') and renderer_source.contains("RAIN_COLOUR") and renderer_source.contains("width_scale := 0.78") and renderer_source.contains("_world_speed"), "rain profiles should retain native-pixel visibility, cool military palette and speed-driven closure")
+	check(renderer_source.contains('"rain":1.62') and renderer_source.contains('"storm":1.88') and renderer_source.contains("RAIN_COLOUR") and renderer_source.contains("width_scale := 1.0") and renderer_source.contains("width_scale*1.55") and renderer_source.contains("_world_speed"), "rain profiles should retain a solid native-pixel core, pale near-field halo, cool military palette and speed-driven closure")
 	check(renderer_source.contains("RAIN_CELS") and renderer_source.contains("draw_texture(cel") and not renderer_source.contains("surface.draw_line(state.tail"), "rain should use authored Atmosphere Studio cels instead of procedural line streaks")
 	for rain_cel in ["rain_a","rain_b"]:
 		var rain_texture := load("res://assets/runtime/environments/motion/%s.png" % rain_cel)

@@ -152,14 +152,18 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			if (str(p.depthBand) == "foreground") != near_band: continue
 			var state := WeatherRules.rain_drop(p, _time, _travel, _world_speed)
 			var middle: Vector2 = Vector2(state.tail).lerp(state.head, 0.5)
-			var alpha: float = clampf(float(state.opacity) * opacity * float(RAIN_VISIBILITY.get(_profile,1.0)) * (1.16 if near_band else 1.0), 0.0, 0.76)
+			var profile_lift := 1.22 if _profile == "storm" else 1.0
+			var alpha: float = clampf(float(state.opacity)*opacity*float(RAIN_VISIBILITY.get(_profile,1.0))*(1.34 if near_band else 1.10)*profile_lift,0.0,0.86)
 			var direction := Vector2(state.head)-Vector2(state.tail)
 			if direction.length_squared() <= 0.01: continue
 			var cel: Texture2D = RAIN_CELS[abs(str(p.id).hash())%RAIN_CELS.size()]
 			# Keep the authored ink core at a full native pixel in the near band.
 			# Sub-pixel compression made rain disappear against moving dark water.
-			var width_scale := 0.78 if near_band else 0.60
+			var width_scale := 1.0 if near_band else 0.72
 			var length_scale := direction.length()/cel.get_height()
+			if near_band:
+				surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale*1.55,length_scale))
+				surface.draw_texture(cel,-cel.get_size()*0.5,Color(0.56,0.72,0.78,alpha*0.24))
 			surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale,length_scale))
 			surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha))
 			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)

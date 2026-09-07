@@ -1048,25 +1048,31 @@ func _cloud_family(band: String) -> Array:
 func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, density: float, travel: float, t: float, blend: float) -> void:
 	if density <= 0.08 or blend <= 0.01:
 		return
-	var count := maxi(2, int(round(6.0 * density)))
+	# Keep at least one far and one near bank visible in every cloud-bearing
+	# lane. Three mid-level banks could previously wrap beyond both screen edges
+	# together and make MID read exactly like LOW for several seconds.
+	var count := 3 if band == "low" else (5 if band == "mid" else 7)
+	count = maxi(count, int(round(7.0*density)))
 	var alpha := (0.14 + density * 0.24) * blend
 	if band == "low": alpha *= 0.72
 	if band == "high": alpha *= 1.42
 	for i in range(count):
 		var texture: Texture2D = family[i % family.size()]
-		var speed := 10.0 + density * 20.0 + float(i % 3) * 2.0
+		var depth := 0.18+float((i*7)%5)/4.0*0.82
+		var speed := 8.0+density*15.0+depth*13.0
 		var wind := 2.4 + float(i % 4) * 0.8
-		var x := fposmod(float(i * 149 + 61) + t * wind, 800.0) - 80.0
+		var x := fposmod(float(i*131+47) + t * wind,760.0)-60.0
 		var scale_base := 0.92 if band == "high" else 0.72
 		var scale_step := 0.14 if band == "high" else 0.12
-		var scale := scale_base + float((i * 5) % 4) * scale_step
+		var scale := scale_base+depth*scale_step*2.4
 		var size := Vector2(texture.get_size()) * scale
 		# Include the bank height in the wrap cycle so clouds cross both viewport
 		# edges continuously instead of popping in fully formed and dwelling below.
 		var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y
-		var y := fposmod(float(i) * 97.0 + travel * speed, cloud_cycle) + ENVIRONMENT_VIEW.position.y - size.y * 0.5
+		var y := fposmod(float(i)*73.0 + travel * speed,cloud_cycle) + ENVIRONMENT_VIEW.position.y - size.y * 0.5
 		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, blend, i)
-		var cloud_tone := Color(0.88,0.92,0.94,alpha) if band == "high" else Color(0.78,0.84,0.88,alpha)
+		var depth_alpha := lerpf(0.62,1.12,depth)
+		var cloud_tone := Color(0.88,0.92,0.94,alpha*depth_alpha) if band == "high" else Color(0.78,0.84,0.88,alpha*depth_alpha)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, cloud_tone)
 
 func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, visibility: float, index: int) -> void:
