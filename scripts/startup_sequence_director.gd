@@ -37,11 +37,12 @@ const EVAVO_SPARKLE_FRAMES := [
 enum Stage { EVAVO, BLACK_PAUSE, HYPERSONIC, COMPLETE }
 
 # Keep the publisher portion aligned with evavo-game-runtime's shared ident
-# contract: readable before skipping, 3.6s target, and never beyond 5s.
+# contract: audio-synced sparkle, readable before skipping, 3.6s target, and
+# never beyond 5s.
 const EVAVO_READABLE_SECONDS := 1.5
 const EVAVO_TOTAL_SECONDS := 3.6
 const EVAVO_MAX_SECONDS := 5.0
-const EVAVO_SPARKLE_AT_SECONDS := 1.55
+const EVAVO_SPARKLE_AT_SECONDS := 0.92
 const BLACK_PAUSE_SECONDS := 0.28
 const TITLE_TOTAL_SECONDS := 9.2
 const TITLE_CRAFT_SCALE := 1.75
@@ -156,8 +157,7 @@ func draw_startup_sequence(surface: CanvasItem) -> void:
 
 func _draw_evavo(surface: CanvasItem) -> void:
 	# Preserve the approved plate artwork but follow the shared runtime timing.
-	# The logo remains deliberately smaller than a game title card and the
-	# sparkle gets a distinct readable beat around the middle of the ident.
+	# The visual sparkle is sample-aligned to the approved audio master accent.
 	var wake := _range_progress(0.0, 0.34)
 	if wake < 1.0:
 		var half_height := maxf(1.0, 180.0 * wake)
