@@ -23,8 +23,14 @@ func _init() -> void:
 		for bomber_prefix in ["bomber_roll", "bomber_roll_right"]:
 			var bomber_frame := load("res://assets/runtime/craft/vx94/evasive_roll/%s_%02d.png" % [bomber_prefix,frame_index]) as Texture2D
 			_expect(bomber_frame != null and bomber_frame.get_size() == Vector2(64,72) and bomber_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "%s frame %02d should retain reviewed registered transparent sprite geometry" % [bomber_prefix,frame_index], failures)
+			if bomber_frame != null and frame != null and frame_index in [0, 5, 7, 10, 12, 15, 16, 19]:
+				var fighter_width := frame.get_image().get_used_rect().size.x
+				var bomber_width := bomber_frame.get_image().get_used_rect().size.x
+				_expect(bomber_width >= fighter_width + 4, "%s frame %02d should preserve a visibly broader bomber projection (%d > %d)" % [bomber_prefix, frame_index, bomber_width, fighter_width], failures)
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/evasive_roll/vx94_evasive_roll_manifest.json"), "directional evasive-roll manifest should exist", failures)
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/evasive_roll_loadout_v1/manifest.json"), "evasive-roll loadout layers should retain reproducible source evidence", failures)
+	var builder := FileAccess.get_file_as_string("res://tools/build_vx94_evasive_roll_art.ps1")
+	_expect(builder.contains('-resize "$($Width)x64!"'), "bomber roll generation must author its requested width instead of silently retaining fighter width", failures)
 	_expect(art.contains("_draw_evasive_loadout") and art.contains("_roll_primary_cache") and art.contains("roll_cosine"), "evasive rolls should retain mounted weapon and damage identity through authored exposures", failures)
 	var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
 	_expect(main_source.contains("--capture-hull-ratio=") and main_source.contains("captured_hull_ratio"), "visual QA should expose deterministic damaged roll states", failures)

@@ -88,7 +88,10 @@ for ($Index = 0; $Index -lt $PoseCrops.Count; $Index++) {
         $SourceFrame = Join-Path $Runtime ("roll$($DirectionTag)_{0:d2}.png" -f $Index)
         $DestinationFrame = Join-Path $Runtime ("bomber_roll$($DirectionTag)_{0:d2}.png" -f $Index)
         $Width = $BomberWidths[$Index]
-        & $Magick $SourceFrame -trim +repage -filter point -resize "$($Width)x64>" -gravity center -background none -extent '64x72' -colors 48 -dither None -depth 8 $DestinationFrame
+        # Author the requested projected wing width exactly. The previous
+        # shrink-only `>` geometry silently left face-up bomber frames at the
+        # fighter width, making the two forms nearly identical in motion.
+        & $Magick $SourceFrame -trim +repage -filter point -resize "$($Width)x64!" -gravity center -background none -extent '64x72' -colors 48 -dither None -depth 8 $DestinationFrame
         if ($LASTEXITCODE -ne 0) { throw "Failed to author bomber evasive-roll frame $DirectionTag $Index." }
     }
 }

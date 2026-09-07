@@ -64,6 +64,7 @@ $Cases = @(
 	@{ id='vx94_fighter_roll_mounted'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=0.20','--capture-craft=evasive-roll','--capture-weapon=storm_cannon','--visual-capture-delay=0.10') },
 	@{ id='vx94_fighter_roll_damaged'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=0.80','--capture-craft=evasive-roll','--capture-weapon=storm_cannon','--capture-hull-ratio=0.28','--visual-capture-delay=0.10') },
 	@{ id='vx94_bomber_roll_mounted'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=0.20','--capture-craft=evasive-roll-bomber','--capture-weapon=ballistic','--visual-capture-delay=0.10') },
+	@{ id='vx94_bomber_roll_underside'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=0.58','--capture-craft=evasive-roll-bomber','--capture-weapon=ballistic','--capture-hull-ratio=0.42','--visual-capture-delay=0.10') },
 	@{ id='boss_family_mercenary_phase3'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=4.25','--capture-boss=mercenary','--capture-altitude=mid') },
 	@{ id='boss_family_machine_phase3'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=4.25','--capture-boss=machine','--capture-altitude=mid') },
 	@{ id='boss_family_orbital_phase3'; args=@('--capture-gameplay','--capture-mission=25','--capture-time=4.25','--capture-boss=orbital','--capture-altitude=orbital') },
