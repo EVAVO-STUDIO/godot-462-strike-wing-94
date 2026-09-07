@@ -324,7 +324,7 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 			"bomber": _draw_bomber_run(surface, 0.52)
 			"gunship": _draw_gunship_fire(surface, 0.56)
 			"missile": _draw_missile_strike(surface, 0.72)
-			"missile_impact": _draw_missile_strike(surface, 0.93)
+			"missile_impact": _draw_missile_strike(surface, 0.89)
 			"rail": _draw_rail_strike(surface, 0.52)
 			"orbital": _draw_orbital_strike(surface, 0.66)
 		return
@@ -406,15 +406,21 @@ func _draw_missile_strike(surface: CanvasItem, progress: float) -> void:
 	var start := Vector2(64, 18)
 	var p := start.lerp(_visual_target, progress)
 	var direction := (_visual_target-start).normalized()
-	var trail_start := p-direction*clampf(24.0+progress*28.0,24.0,48.0)
-	_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), trail_start, p-direction*10.0, 5.0)
-	var missile := BattlefieldSupportArtLibrary.frame_for_clock("precision_missile", _animation_clock, 14.0)
-	_draw_rotated_effect(surface, missile, p, direction.angle()+PI*0.5, 1.45)
-	if progress > 0.86:
-		var impact_ratio := (progress - 0.86) / 0.14
-		var impact := BattlefieldSupportArtLibrary.staged_effect("impact", impact_ratio)
-		var impact_size := Vector2.ONE * lerpf(48.0,72.0,impact_ratio)
+	if progress < 0.88:
+		var trail_start := p-direction*clampf(24.0+progress*28.0,24.0,48.0)
+		_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), trail_start, p-direction*10.0, 5.0)
+		var missile := BattlefieldSupportArtLibrary.frame_for_clock("precision_missile", _animation_clock, 14.0)
+		_draw_rotated_effect(surface, missile, p, direction.angle()+PI*0.5, 1.45)
+	if progress > 0.82:
+		var impact_ratio := clampf((progress - 0.82) / 0.18, 0.0, 0.999)
+		var impact := BattlefieldSupportArtLibrary.strike_cel("missile_impact", impact_ratio)
+		var impact_size := Vector2.ONE * lerpf(92.0,132.0,impact_ratio)
 		surface.draw_texture_rect(impact,Rect2((_visual_target-impact_size*0.5).round(),impact_size.round()),false)
+		if impact_ratio < 0.68:
+			var core_ratio := clampf(impact_ratio * 0.62, 0.0, 0.999)
+			var core := BattlefieldSupportArtLibrary.strike_cel("detonation_core", core_ratio)
+			var core_size := Vector2.ONE * lerpf(42.0,76.0,core_ratio)
+			surface.draw_texture_rect(core,Rect2((_visual_target-core_size*0.5).round(),core_size.round()),false,Color(1.0,0.82,0.58,1.0-core_ratio*0.42))
 
 func _draw_rail_strike(surface: CanvasItem, progress: float) -> void:
 	var charge := clampf(progress / 0.38, 0.0, 1.0)
