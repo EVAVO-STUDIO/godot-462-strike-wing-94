@@ -8,6 +8,8 @@ const SURFACE_GUN_RANGE := 390.0
 const MIN_GUN_RANGE := 42.0
 const ENEMY_MISSILE_ENGAGEMENT_INTERVAL := 1.6
 const MAX_ACTIVE_GUIDED_MISSILES := 4
+const FIXED_GUN_PATTERNS := ["sine_dive", "tracking_sweep", "aggressive_weave"]
+const FIXED_GUN_ALIGNMENT_PIXELS := 34.0
 
 static func enemy_missile_capacity(category: String, boss: bool = false) -> int:
 	if boss:
@@ -31,6 +33,27 @@ static func enemy_shot_velocity(origin: Vector2, target: Vector2, speed: float) 
 	if direction.length_squared() < 0.001:
 		direction = Vector2.DOWN
 	return direction * speed
+
+static func uses_fixed_aircraft_gun(category: String, pattern: String, weapon_id: String, boss: bool = false) -> bool:
+	return category == "air" and not boss and pattern in FIXED_GUN_PATTERNS and weapon_id not in ["missile", "side_burst"]
+
+static func fixed_aircraft_shot_velocity(lateral_velocity: float, speed: float) -> Vector2:
+	var heading := Vector2(clampf(lateral_velocity / 120.0, -0.48, 0.48), 1.0).normalized()
+	return heading * maxf(1.0, speed)
+
+static func fixed_aircraft_has_boresight(origin: Vector2, target: Vector2, lateral_velocity: float, projectile_speed: float) -> bool:
+	var offset := target - origin
+	if offset.y < 0.0:
+		return false
+	var velocity := fixed_aircraft_shot_velocity(lateral_velocity, projectile_speed)
+	var time_to_target_y := offset.y / maxf(1.0, velocity.y)
+	var projected_x := origin.x + velocity.x * time_to_target_y
+	return absf(projected_x - target.x) <= FIXED_GUN_ALIGNMENT_PIXELS
+
+static func twin_gun_origins(origin: Vector2, shot_velocity: Vector2, half_spacing: float = 4.0) -> Array[Vector2]:
+	var direction := shot_velocity.normalized() if shot_velocity.length_squared() > 0.001 else Vector2.DOWN
+	var across := direction.orthogonal() * maxf(1.0, half_spacing)
+	return [origin - across, origin + across]
 
 static func missile_in_acquisition_envelope(origin: Vector2, target: Vector2) -> bool:
 	return origin.distance_to(target) <= MISSILE_ACQUISITION_RANGE

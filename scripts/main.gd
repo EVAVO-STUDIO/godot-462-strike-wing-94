@@ -1639,6 +1639,13 @@ func _update_enemies(delta: float) -> void:
 			missile_lock_ready = missile_lock_ready and lock_ratio >= 0.999 and ProjectileRules.missile_launch_has_warning_time(position, player_position, missile_speed)
 		var weapon_id := str(enemy.get("weapon", "none"))
 		var firing_solution := ProjectileRules.enemy_has_firing_solution(position,player_position,weapon_id,str(enemy.get("category","air")))
+		if firing_solution and ProjectileRules.uses_fixed_aircraft_gun(str(enemy.get("category","air")),str(enemy.get("pattern","")),weapon_id,is_boss):
+			firing_solution = ProjectileRules.fixed_aircraft_has_boresight(
+				position,
+				player_position,
+				float(enemy.get("lateral_velocity",0.0)),
+				_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
+			)
 		if weapon_id != "none" and float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and firing_solution and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
 			_fire_enemy_weapon(enemy)
 			if weapon_id == "missile": enemy["missile_lock_ratio"] = 0.0
@@ -1736,21 +1743,20 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 			).rotated([-0.16, 0.0, 0.16][index])
 			enemy_bullets.append(_make_enemy_shot(boss_origin, boss_velocity, damage, false, weapon_id))
 		return
-	var velocity := ProjectileRules.enemy_shot_velocity(
-		origin,
-		player_position,
-		_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
-	)
+	var projectile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
+	var velocity := ProjectileRules.fixed_aircraft_shot_velocity(float(enemy.get("lateral_velocity",0.0)),projectile_speed) if ProjectileRules.uses_fixed_aircraft_gun(str(enemy.get("category","air")),str(enemy.get("pattern","")),weapon_id,bool(enemy.get("boss",false))) else ProjectileRules.enemy_shot_velocity(origin,player_position,projectile_speed)
 	var is_missile := weapon_id == "missile"
-	enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, is_missile, weapon_id))
 	if weapon_id == "twin_burst":
-		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.16), damage, false, weapon_id))
-		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(-0.16), damage, false, weapon_id))
+		for gun_origin in ProjectileRules.twin_gun_origins(origin,velocity):
+			enemy_bullets.append(_make_enemy_shot(gun_origin,velocity,damage,false,weapon_id))
 	elif is_missile:
+		enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, true, weapon_id))
 		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true, weapon_id))
 		enemy["missiles_remaining"] = maxi(0, int(enemy.get("missiles_remaining", 0)) - 2)
 		enemy_missile_engagement_cooldown = ProjectileRules.ENEMY_MISSILE_ENGAGEMENT_INTERVAL
 		_register_enemy_missile_launch(2)
+	else:
+		enemy_bullets.append(_make_enemy_shot(origin,velocity,damage,false,weapon_id))
 
 func _active_guided_enemy_missiles() -> int:
 	var active := 0
