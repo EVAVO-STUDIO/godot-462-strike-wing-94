@@ -36,6 +36,7 @@ Implemented now:
 - six-district 6144-pixel blackout-harbor routes with breakwaters, repair rows, command docks and offshore moles beneath separately animated reflections, wakes and rain
 - six-district 6144-pixel Desert Lance routes with salt escarpments, wadi choke points, launcher dispersal lanes and the railhead basin beneath separate dust, scars and battlefield targets
 - six-district 6144-pixel River Hammer routes with floodplains, defended crossings, artillery islands and an estuary shipyard beneath registered current, bridges, wakes and rain
+- six-district 6144-pixel BLACK SKY orbital routes with dead antenna lattices, kinetic rail platforms, debris foundries and command-ark infrastructure over separate near-Earth, debris and combat layers
 - visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
 - distinct missile acquisition and launch voices for interceptor and boss homing salvos
 - mechanical purchase/service confirmation and short mission-clear reward stingers

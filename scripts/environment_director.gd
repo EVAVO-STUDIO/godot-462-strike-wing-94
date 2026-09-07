@@ -90,6 +90,9 @@ const ORBITAL_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/orbital_chunks/dead_lattice.png"),
 	preload("res://assets/runtime/environments/orbital_chunks/kinetic_rail_platform.png"),
 	preload("res://assets/runtime/environments/orbital_chunks/ark_industrial_approach.png"),
+	preload("res://assets/runtime/environments/orbital_chunks/dawn_rail_shadow.png"),
+	preload("res://assets/runtime/environments/orbital_chunks/debris_foundry.png"),
+	preload("res://assets/runtime/environments/orbital_chunks/ark_escape_vector.png"),
 ]
 const CITY_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/city_chunks/freight_belt.png"),
@@ -1010,8 +1013,11 @@ func _draw_orbital(surface: CanvasItem, scene: Object, _profile: Dictionary, _st
 	var star_scroll := travel * 2.0
 	_draw_vertical_loop(surface, ORBITAL_STARFIELD_TILE, star_scroll, ENVIRONMENT_VIEW, Color(1,1,1,0.82*mix))
 	surface.draw_texture_rect(EARTH_LIMB_V2, ENVIRONMENT_VIEW, false, Color(1,1,1,0.92*mix))
-	var scroll := travel * 12.0 + float(_mission_seed(scene) % 3) * 1024.0
-	_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW, Color(0.82,0.86,0.89,0.94*mix))
+	var route := _route("black_sky_orbital_run")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = ORBITAL_GEOGRAPHY_CHUNKS
+	var route_scroll := travel * 12.0 + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
+	_draw_vertical_chunk_sequence(surface, route_chunks, route_scroll, ENVIRONMENT_VIEW, Color(0.82,0.86,0.89,0.94*mix))
 	var debris_slots := [
 		{"x":72.0,"y":210.0}, {"x":394.0,"y":690.0}, {"x":248.0,"y":1160.0},
 		{"x":420.0,"y":1660.0}, {"x":92.0,"y":2170.0}, {"x":360.0,"y":2680.0},
@@ -1019,7 +1025,7 @@ func _draw_orbital(surface: CanvasItem, scene: Object, _profile: Dictionary, _st
 	for slot_index in range(debris_slots.size()):
 		var slot: Dictionary = debris_slots[slot_index]
 		var debris: Texture2D = ORBITAL_DEBRIS_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index, ORBITAL_DEBRIS_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(slot["y"]) + route_scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface, debris, Rect2(Vector2(float(slot["x"]),y).round(),Vector2(144,144)),ENVIRONMENT_VIEW,Color(0.88,0.91,0.94,0.72*mix))
 
 func _draw_clouds(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:

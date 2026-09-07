@@ -44,6 +44,9 @@ func _initialize() -> void:
 		var river_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "river_hammer_corridor")
 		_expect(not river_route.is_empty() and EnvironmentRouteRules.validation_errors(river_route).is_empty(), "River Hammer should resolve a valid expanded production route")
 		_expect(river_route.get("districts", []).size() == 6 and int(river_route.get("world_length", 0)) == 6144, "river route should provide six distinct 1024px districts before repeating")
+		var orbital_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "black_sky_orbital_run")
+		_expect(not orbital_route.is_empty() and EnvironmentRouteRules.validation_errors(orbital_route).is_empty(), "BLACK SKY should resolve a valid expanded production route")
+		_expect(orbital_route.get("districts", []).size() == 6 and int(orbital_route.get("world_length", 0)) == 6144, "orbital route should provide six distinct 1024px districts before repeating")
 		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
 		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
@@ -114,7 +117,7 @@ func _initialize() -> void:
 		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains('_route("mountain_whiteout_corridor")'), "mountain benchmark should use its expanded data-authored route")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains('_route("harbor_blackout_approach")'), "harbor benchmark should use its expanded data-authored route")
 		_expect(source.contains('EnvironmentRouteRules.by_id(_routes, route_id)') and source.contains('_route("cloud_top_silver_front")'), "high-altitude benchmark should resolve its authored route from content data")
-		_expect(source.contains("ORBITAL_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS"), "orbital benchmark should use three forward-scrolling authored infrastructure districts")
+		_expect(source.contains("ORBITAL_GEOGRAPHY_CHUNKS") and source.contains('_route("black_sky_orbital_run")'), "orbital benchmark should use its expanded data-authored infrastructure route")
 		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains('_route("city_meridian_evacuated")'), "city belt should use its expanded data-authored route")
 		_expect(source.contains("MACHINE_FURNACE"), "machine-war reveal should use its authored autonomous-foundry raster master")
 		_expect(source.contains("_draw_vertical_loop"), "coastal benchmark should scroll its authored plate without exposed seams")
@@ -487,8 +490,10 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/orbital_chunks/orbital_geography_manifest.json"), "orbital geography/debris/Earth-limb assembly manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_orbital_geography_art.ps1"), "orbital geography should retain a reproducible registered builder")
 		var orbital_manifest = ContentCatalog.load_json("res://assets/source/environments/orbital_chunks/orbital_geography_manifest.json")
-		_expect(typeof(orbital_manifest) == TYPE_DICTIONARY and orbital_manifest.get("chunks", []).size() == 3, "orbital manifest should register three distinct 1024px infrastructure districts")
-		var orbital_names := ["dead_lattice", "kinetic_rail_platform", "ark_industrial_approach"]
+		_expect(typeof(orbital_manifest) == TYPE_DICTIONARY and orbital_manifest.get("chunks", []).size() == 6 and int(orbital_manifest.get("cycle_height", 0)) == 6144, "orbital manifest should register six distinct 1024px infrastructure districts")
+		var orbital_names := ["dead_lattice", "kinetic_rail_platform", "ark_industrial_approach", "dawn_rail_shadow", "debris_foundry", "ark_escape_vector"]
+		var orbital_expansion_builder := FileAccess.get_file_as_string("res://tools/build_orbital_route_expansion.py")
+		_expect(orbital_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and orbital_expansion_builder.contains("expanded_districts") and orbital_expansion_builder.contains("Earth limb"), "orbital expansion should retain deterministic transparent composition and separate near-Earth layers")
 		var orbital_images: Array[Image] = []
 		for chunk_name in orbital_names:
 			var orbital_texture := load("res://assets/runtime/environments/orbital_chunks/%s.png" % chunk_name) as Texture2D
@@ -504,9 +509,9 @@ func _initialize() -> void:
 		var earth_limb_v2 := load("res://assets/runtime/environments/orbital/earth_limb_v2.png") as Texture2D
 		_expect(earth_limb_v2 != null and earth_limb_v2.get_size() == Vector2(640,324), "near-Earth limb should retain full playfield registration")
 		if earth_limb_v2 != null: _expect(earth_limb_v2.get_image().detect_alpha() != Image.ALPHA_NONE, "near-Earth limb must retain transparent black space above the planet")
-		_expect(source.contains("ORBITAL_DEBRIS_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "orbital debris should use held frames registered to forward-moving infrastructure coordinates")
+		_expect(source.contains("ORBITAL_DEBRIS_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + route_scroll'), "orbital debris should use held frames registered to expanded forward-moving infrastructure coordinates")
 		_expect(not source.contains("_draw_vertical_loop(surface, ORBITAL_DEBRIS_TILE"), "orbital debris must not regress to a full-screen schematic tile")
-		_expect(source.contains("var scroll := travel * 12.0") and source.contains("var travel := _world_distance(scene)"), "orbital infrastructure should accelerate through integrated world distance without re-phasing at Mach transitions")
+		_expect(source.contains("var route_scroll := travel * 12.0") and source.contains("var travel := _world_distance(scene)"), "orbital infrastructure should accelerate through integrated world distance without re-phasing at Mach transitions")
 		_expect(not source.contains("func _parallax_speed") and not source.contains("t * 30.0 * _world_speed_multiplier()") and not source.contains("t * 38.0 * _world_speed_multiplier()"), "no authored spatial layer may multiply all elapsed mission time by the current speed state")
 		var orbital_layer_sizes := {"starfield_tile":Vector2(640,512),"high_atmosphere_rim":Vector2(640,208),"orbital_rim":Vector2(640,208),"earth_limb_v2":Vector2(640,324)}
 		for orbital_layer in orbital_layer_sizes:

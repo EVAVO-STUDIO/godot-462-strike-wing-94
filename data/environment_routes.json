@@ -50,6 +50,18 @@
       ],"animation_slots":[]
     },
     {
+      "id":"black_sky_orbital_run","environment":"orbital","native_width":640,"chunk_height":1024,"world_length":6144,
+      "planes":[{"id":"starfield_and_earth","kind":"finite_field","ratio":0.18},{"id":"infrastructure","kind":"chunk_route","ratio":1.0},{"id":"finite_debris","kind":"registered_animation","ratio":1.0},{"id":"combat_and_thrusters","kind":"registered_objects","ratio":1.0}],
+      "districts":[
+        {"id":"dead_lattice","asset":"res://assets/runtime/environments/orbital_chunks/dead_lattice.png","north":"orbital_a","south":"orbital_a"},
+        {"id":"kinetic_rail_platform","asset":"res://assets/runtime/environments/orbital_chunks/kinetic_rail_platform.png","north":"orbital_a","south":"orbital_a"},
+        {"id":"ark_industrial_approach","asset":"res://assets/runtime/environments/orbital_chunks/ark_industrial_approach.png","north":"orbital_a","south":"orbital_a"},
+        {"id":"dawn_rail_shadow","asset":"res://assets/runtime/environments/orbital_chunks/dawn_rail_shadow.png","north":"orbital_a","south":"orbital_a"},
+        {"id":"debris_foundry","asset":"res://assets/runtime/environments/orbital_chunks/debris_foundry.png","north":"orbital_a","south":"orbital_a"},
+        {"id":"ark_escape_vector","asset":"res://assets/runtime/environments/orbital_chunks/ark_escape_vector.png","north":"orbital_a","south":"orbital_a"}
+      ],"animation_slots":[]
+    },
+    {
       "id":"river_hammer_corridor","environment":"open_water","native_width":640,"chunk_height":1024,"world_length":6144,
       "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"current","kind":"registered_animation","ratio":1.0},{"id":"bridge_and_surface_contacts","kind":"registered_objects","ratio":1.0},{"id":"rain_and_mist","kind":"finite_field","ratio":1.14}],
       "districts":[
