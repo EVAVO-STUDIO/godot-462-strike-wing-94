@@ -1063,14 +1063,19 @@ func _draw_objective_tracker(surface: CanvasItem, scene: Object) -> void:
 	# Routine mission progress belongs inside the instrument fascia. Reserving
 	# the centered y=42 combat lane for ingress, bosses and genuine RWR events
 	# returns twenty unobstructed pixels to the battlefield at all other times.
-	var position := Vector2(298, 24)
-	surface.draw_rect(Rect2(position-Vector2(4,2),Vector2(334,13)),Color(0.018,0.035,0.048,0.34))
+	var tracker_text := _clip(_objective_line(scene, objective),42)
+	var tracker_width := clampf(28.0+float(tracker_text.length())*5.0,140.0,286.0)
+	# Anchor routine progress to the right edge and size it to the transmission.
+	# Short survival or rendezvous orders should not reserve half the screen.
+	var position := Vector2(636.0-tracker_width,24)
+	surface.draw_rect(Rect2(position-Vector2(4,2),Vector2(tracker_width,13)),Color(0.018,0.035,0.048,0.32))
 	surface.draw_texture_rect(OBJECTIVE_REQUIRED if required else OBJECTIVE_BONUS, Rect2(position, Vector2(7,7)), false)
-	PixelFont.draw_text(surface, _clip(_objective_line(scene, objective), 48), position + Vector2(10, 1), 1, GREEN if required else GOLD, 1)
-	surface.draw_texture_rect(OBJECTIVE_TRACKER_TROUGH, Rect2(position + Vector2(10,8),Vector2(310,2)), false)
+	PixelFont.draw_text(surface,tracker_text,position+Vector2(10,1),1,GREEN if required else GOLD,1)
+	var trough_width := tracker_width-20.0
+	surface.draw_texture_rect(OBJECTIVE_TRACKER_TROUGH,Rect2(position+Vector2(10,8),Vector2(trough_width,2)),false)
 	var ratio := _objective_ratio(scene, objective)
 	if ratio > 0.0:
-		surface.draw_texture_rect(OBJECTIVE_TRACKER_REQUIRED_FILL if required else OBJECTIVE_TRACKER_BONUS_FILL, Rect2(position + Vector2(11,8),Vector2(308.0*ratio,1)), false)
+		surface.draw_texture_rect(OBJECTIVE_TRACKER_REQUIRED_FILL if required else OBJECTIVE_TRACKER_BONUS_FILL,Rect2(position+Vector2(11,8),Vector2((trough_width-2.0)*ratio,1)),false)
 
 func _objective_line(scene: Object, objective: Dictionary) -> String:
 	var label := str(objective.get("label", objective.get("id", "OBJECTIVE"))).to_upper().replace("_", " ")

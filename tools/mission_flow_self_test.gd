@@ -215,6 +215,7 @@ func _test_pixel_ui() -> void:
 		var capture_probe_source := FileAccess.get_file_as_string("res://tools/visual_capture_probe.gd")
 		_expect(capture_probe_source.contains("clampf(delay, 0.1, 12.0)"), "visual capture probe should permit the bounded live Machine Ark arrival window")
 		_expect(source.contains("Rect2(8,5,280,28)") and source.contains("Rect2(292,6,78,14)") and source.contains("Rect2(586,6,46,14)") and not source.contains("Rect2(292,6,340,14)"), "survival meters and flight data should use separated translucent local keys instead of a full-width HUD slab")
+		_expect(source.contains("tracker_width := clampf") and source.contains("Vector2(636.0-tracker_width,24)") and not source.contains("Vector2(334,13)"), "routine objectives should use a content-sized right-anchored pixel readout instead of reserving half the battlefield")
 		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("occupies_status_lane") and source.contains("AltitudeTransitionDirector"), "only a visible altitude selector or transition should suppress colliding routine status notices")
 		_expect(source.contains("_radio_occupies_status_lane()") and source.contains("MissionRadioDirector"), "radio subtitles and transient status should arbitrate one shared lower information lane instead of overprinting")
 		_expect(FileAccess.file_exists("res://tools/build_hud_threat_art.ps1"), "threat-annunciator sprites should remain reproducible from their governed SVG source")
