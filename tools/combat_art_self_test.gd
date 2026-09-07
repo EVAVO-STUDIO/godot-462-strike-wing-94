@@ -212,6 +212,7 @@ func _test_visual_language() -> void:
 		var orbital_air_layer := load("res://assets/runtime/enemies/orbital_air_layered/%s.png" % orbital_air_layer_id) as Texture2D
 		_expect(orbital_air_layer != null and orbital_air_layer.get_size() == layered_orbital_air_sizes[orbital_air_layer_id], "layered BLACK SKY component should retain its registered canvas: %s" % orbital_air_layer_id)
 	_expect(source.contains('_capture_air_state() == "orbital"') and source.contains("_render_orbital_air_capture") and source.contains("_render_orbital_air_propulsion"), "visual QA should expose isolated BLACK SKY bank, thrust, phase, iris and rail fixtures")
+	_expect(source.contains('"river_patrol", "position":Vector2(350,132)') and source.contains('"light_tank", "position":Vector2(88,146)'), "coastal roster fixtures should register naval units to open water and mobile armor to land")
 	_expect(source.contains("func _boss_weak_point_family") and source.contains('BOSS_WEAK_POINT_CUES[family]'), "boss weak points should select distinct authored conventional, autonomous and BLACK SKY cue families")
 	for family in ["conventional", "machine", "orbital"]:
 		for frame in range(4):

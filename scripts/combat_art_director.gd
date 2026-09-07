@@ -1024,15 +1024,15 @@ func _draw_mobile_ground_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
 	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
 	var definitions := [
-		{"id":"light_tank", "position":Vector2(176,158), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
-		{"id":"sam_truck", "position":Vector2(320,142), "fire_timer":fposmod(1.1-time, 1.1), "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
-		{"id":"armoured_aa_carrier", "position":Vector2(464,158), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+		{"id":"light_tank", "position":Vector2(88,146), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+		{"id":"sam_truck", "position":Vector2(168,132), "fire_timer":fposmod(1.1-time, 1.1), "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+		{"id":"armoured_aa_carrier", "position":Vector2(246,150), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
 	]
 	for enemy in definitions:
 		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_GROUND_SPRITES[enemy["id"]], 1.0)
 	var machine_definitions := [
-		{"id":"autonomous_armor", "position":Vector2(250,222), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
-		{"id":"factory_defence_node", "position":Vector2(390,222), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
+		{"id":"autonomous_armor", "position":Vector2(126,232), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
+		{"id":"factory_defence_node", "position":Vector2(222,226), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
 	]
 	for enemy in machine_definitions:
 		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_MACHINE_GROUND_SPRITES[enemy["id"]], 1.0)
@@ -1056,10 +1056,10 @@ func _render_naval_capture(surface: CanvasItem, scene: Object) -> void:
 	var recoil := 0.12 if fposmod(time, 1.40) < 0.14 else 0.0
 	var fire_timer := fposmod(1.0-time, 1.0)
 	var definitions := [
-		{"id":"river_patrol", "position":Vector2(110,150), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
-		{"id":"torpedo_boat", "position":Vector2(245,150), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":14, "max_hp":14, "age":time},
-		{"id":"fast_attack_craft", "position":Vector2(390,150), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time},
-		{"id":"missile_corvette", "position":Vector2(530,150), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time},
+		{"id":"river_patrol", "position":Vector2(350,132), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+		{"id":"torpedo_boat", "position":Vector2(420,205), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":14, "max_hp":14, "age":time},
+		{"id":"fast_attack_craft", "position":Vector2(490,128), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time},
+		{"id":"missile_corvette", "position":Vector2(565,210), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time},
 	]
 	for enemy in definitions:
 		_draw_naval_unit(surface, enemy["position"], enemy["id"], enemy, MERCENARY_SEA_SPRITES[enemy["id"]], 1.0)
