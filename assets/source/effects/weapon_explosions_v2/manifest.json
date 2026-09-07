@@ -1,0 +1,36 @@
+{
+  "asset_family": "hypersonic_weapon_explosion_cels_v2",
+  "method": "deterministic offline cel authoring with retained transparent canvases",
+  "families": {
+    "missile": {
+      "frames": 11,
+      "size": [
+        128,
+        128
+      ],
+      "motion": "flash-pressure-fireball-smoke-fragment"
+    },
+    "rocket": {
+      "frames": 8,
+      "size": [
+        128,
+        128
+      ],
+      "motion": "ground-coupled-dirt-flame-column-fragment"
+    },
+    "cannon": {
+      "frames": 6,
+      "size": [
+        64,
+        64
+      ],
+      "motion": "directional-hot-metal-spall"
+    }
+  },
+  "rules": [
+    "No full-screen bloom",
+    "No circular particle rosette",
+    "Smoke and debris outlive the hot core",
+    "Ground bursts remain vertically biased"
+  ]
+}
