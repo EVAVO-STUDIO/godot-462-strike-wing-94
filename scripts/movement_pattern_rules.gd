@@ -63,6 +63,20 @@ static func hit_response_impulse(category: String, pattern: String, enemy_x: flo
 static func hit_suppression_seconds(category: String) -> float:
 	return 0.38 if category in ["ground","sea"] else 0.22
 
+static func airframe_control_authority(category: String, hp: int, max_hp: int) -> float:
+	if category != "air" or max_hp <= 0:
+		return 1.0
+	var integrity := clampf(float(hp) / float(max_hp), 0.0, 1.0)
+	# Damaged aircraft can still escape, but cannot keep snapping through the
+	# same high-g manoeuvres as an intact airframe.
+	return lerpf(0.42, 1.0, integrity)
+
+static func fire_recovery_multiplier(hp: int, max_hp: int) -> float:
+	if max_hp <= 0:
+		return 1.0
+	var integrity := clampf(float(hp) / float(max_hp), 0.0, 1.0)
+	return lerpf(1.55, 1.0, integrity)
+
 static func clamp_x(position: Vector2, minimum_x: float, maximum_x: float) -> Vector2:
 	var next := position
 	next.x = clampf(next.x, minimum_x, maximum_x)

@@ -39,6 +39,9 @@ func _initialize() -> void:
 	_expect(absf(MovementPatternRules.hit_response_impulse("air","bomber_run",240.0,200.0,240.0))<absf(MovementPatternRules.hit_response_impulse("air","tracking_sweep",240.0,200.0,240.0)), "loaded bombers should react with less lateral authority than fighters")
 	_expect(is_zero_approx(MovementPatternRules.hit_response_impulse("ground","road_column",240.0,200.0,240.0)), "surface units should not slide sideways when hit")
 	_expect(MovementPatternRules.hit_suppression_seconds("ground")>MovementPatternRules.hit_suppression_seconds("air"), "surface crews should need longer to recover their firing solution")
+	_expect(MovementPatternRules.airframe_control_authority("air",2,8)<MovementPatternRules.airframe_control_authority("air",8,8), "damaged aircraft should lose maneuver authority")
+	_expect(is_equal_approx(MovementPatternRules.airframe_control_authority("ground",2,8),1.0), "surface lane movement should not be treated as aircraft control damage")
+	_expect(MovementPatternRules.fire_recovery_multiplier(2,8)>MovementPatternRules.fire_recovery_multiplier(8,8), "damaged weapon systems should take longer to recover a firing solution")
 	var clamped := MovementPatternRules.clamp_x(Vector2(999, 100), 36.0, 604.0)
 	_expect(clamped.x == 604.0, "movement clamp should keep enemies inside playfield")
 	if failures.is_empty():

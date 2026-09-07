@@ -350,6 +350,7 @@ func _begin_capture_gameplay() -> void:
 		if not enemies.is_empty():
 			enemies[0]["position"] = Vector2(245,154)
 			enemies[0]["pattern_anchor_x"] = 245.0
+			enemies[0]["hp"] = 1
 			enemies[0]["lateral_velocity"] = MovementPatternRules.hit_response_impulse("air","sine_dive",245.0,player_position.x,245.0)
 			enemies[0]["maneuver_break_timer"] = 0.48
 			enemies[0]["hit_timer"] = 0.14
@@ -1566,6 +1567,11 @@ func _update_enemies(delta: float) -> void:
 			var anchor_x := float(enemy.get("pattern_anchor_x", position.x))
 			enemy["pattern_anchor_x"] = anchor_x
 			if pattern in MovementPatternRules.supported_patterns():
+				var damage_control := MovementPatternRules.airframe_control_authority(
+					enemy_category,
+					int(enemy.get("hp",1)),
+					int(enemy.get("max_hp",1))
+				)
 				var motion := MovementPatternRules.adjusted_motion(
 					pattern,
 					position,
@@ -1574,7 +1580,7 @@ func _update_enemies(delta: float) -> void:
 					delta,
 					anchor_x,
 					float(enemy.get("lateral_velocity",0.0)),
-					0.24 if float(enemy.get("maneuver_break_timer",0.0))>0.0 else 1.0
+					damage_control * (0.24 if float(enemy.get("maneuver_break_timer",0.0))>0.0 else 1.0)
 				)
 				position = motion["position"]
 				enemy["lateral_velocity"] = motion["lateral_velocity"]
@@ -1613,7 +1619,10 @@ func _update_enemies(delta: float) -> void:
 			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(
 				weapon_id,
 				wave
-			)) * _mission_enemy_fire_interval_scale()
+			)) * _mission_enemy_fire_interval_scale() * MovementPatternRules.fire_recovery_multiplier(
+				int(enemy.get("hp",1)),
+				int(enemy.get("max_hp",1))
+			)
 		enemies[i] = enemy
 		if not is_boss and position.y > PLAYFIELD.end.y + 22:
 			enemies.remove_at(i)
