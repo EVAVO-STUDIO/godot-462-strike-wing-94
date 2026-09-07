@@ -20,7 +20,9 @@ foreach($Plate in $Plates) {
     $source = Join-Path $SourceRoot $Plate.Source
     $destination = Join-Path $RuntimeRoot "$($Plate.Id).png"
     if(-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Cinematic source not found: $source" }
-    & $Magick $source -crop $Plate.Crop +repage -filter Lanczos -resize '640x320!' -gamma $Plate.Gamma -modulate '100,92,100' -colors 64 -dither FloydSteinberg -depth 8 $destination
+    # Preserve the industrial compositions while grouping surface detail into
+    # stable held-cel values that remain clean during camera moves.
+    & $Magick $source -crop $Plate.Crop +repage -filter Lanczos -resize '640x320!' -gamma $Plate.Gamma -modulate '100,92,100' +dither -colors 36 -unsharp '0x0.55+0.55+0.02' -type Palette -depth 8 -define png:color-type=3 $destination
     if($LASTEXITCODE -ne 0) { throw "Failed to build cinematic plate: $($Plate.Id)" }
 }
 

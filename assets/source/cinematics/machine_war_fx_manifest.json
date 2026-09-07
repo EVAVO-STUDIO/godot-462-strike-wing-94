@@ -1,9 +1,9 @@
 {
   "asset_family": "sector_ii_machine_war_limited_fx_cels",
-  "status": "runtime_v1",
+  "status": "runtime_v2_cel_plate_values",
   "production_method": {
     "timing_basis": "authored held-drawing and exposure discipline inspected from local EVAVO Cel Animation Studio",
-    "render_method": "deterministic hard-edge SVG drawings rasterized locally; no provider generation or interpolation claimed",
+    "render_method": "deterministic hard-edge SVG drawings plus undithered 36-colour cel plate finishing, rasterized locally; no provider generation or interpolation claimed",
     "frame_rate": 24,
     "exposure": "eight-frame holds",
     "playback_fps": 3,
