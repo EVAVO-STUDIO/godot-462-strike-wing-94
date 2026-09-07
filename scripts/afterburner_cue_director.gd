@@ -38,6 +38,8 @@ const ENGINE_MOUNTS := {
 var _surface: Control
 var _boom_age := 99.0
 var _last_hypersonic := false
+var _last_throttle := -1.0
+var _meter_reveal_timer := 2.0
 
 func _ready() -> void:
 	layer = 14
@@ -53,6 +55,14 @@ func _process(delta: float) -> void:
 	_boom_age += maxf(0.0, delta)
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	var active := craft != null and craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
+	var throttle := float(craft.call("throttle_ratio")) if craft != null and craft.has_method("throttle_ratio") else -1.0
+	if throttle >= 0.0:
+		if _last_throttle < 0.0:
+			_meter_reveal_timer = 2.0
+		elif absf(throttle-_last_throttle) >= 0.004:
+			_meter_reveal_timer = 1.25
+		_last_throttle = throttle
+	_meter_reveal_timer = maxf(0.0,_meter_reveal_timer-maxf(0.0,delta))
 	if active and not _last_hypersonic:
 		_boom_age = 0.0
 	_last_hypersonic = active
@@ -73,7 +83,8 @@ func draw_afterburner(surface: CanvasItem) -> void:
 	var speed_ratio := clampf(float(craft.call("hypersonic_speed_ratio")), 0.0, 1.0) if craft.has_method("hypersonic_speed_ratio") else (1.0 if hypersonic else 0.0)
 	var throttle := clampf(float(craft.call("throttle_ratio")), 0.0, 1.0) if craft.has_method("throttle_ratio") else 0.5
 	var mach_recovery := speed_ratio > 0.02
-	_draw_meter(surface, scene, ratio, charge_ratio, throttle, burning, hypersonic or mach_recovery, speed_ratio)
+	if _meter_reveal_timer > 0.0 or burning or hypersonic or mach_recovery or ratio <= 0.20:
+		_draw_meter(surface, scene, ratio, charge_ratio, throttle, burning, hypersonic or mach_recovery, speed_ratio)
 	if (burning or mach_recovery) and _has_property(scene, "player_position"):
 		var visual_position: Vector2 = scene.get("player_position")
 		var combat_art := get_node_or_null("/root/CombatArtDirector")

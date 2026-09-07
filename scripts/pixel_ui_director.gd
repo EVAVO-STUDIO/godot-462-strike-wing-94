@@ -770,6 +770,9 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	else:
 		PixelFont.draw_centered(surface, altitude_choice, 320, 13, 1, GOLD, 1)
 	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 12), Vector2(448, 13), 1, MUTED, 1)
+	var craft_state := surface.get_node_or_null("/root/CraftFormDirector")
+	var throttle_value := clampi(int(roundf(float(craft_state.call("throttle_ratio"))*100.0)),0,100) if craft_state != null and craft_state.has_method("throttle_ratio") else 50
+	PixelFont.draw_text(surface,"T%03d"%throttle_value,Vector2(594,13),1,BLUE,1)
 	# One shared information lane: urgent combat state always replaces routine mission data.
 	if not _active_boss(scene).is_empty():
 		_draw_boss(surface, scene)
