@@ -40,6 +40,10 @@ func run() -> void:
 			check(Vector2(start.head).distance_to(start.tail) <= 8.001, "Rain must remain shorter than bright combat tracers")
 			var moved := Weather.rain_drop(p, 0.0, 0.001)
 			check(Vector2(start.head).distance_to(moved.head) > 0.0, "Rain must respond to integrated travel without advancing wind time")
+			var slow := Weather.rain_drop(p,0.0,0.0,0.45)
+			var fast := Weather.rain_drop(p,0.0,0.0,4.4)
+			check(Vector2(fast.head).distance_to(fast.tail) > Vector2(slow.head).distance_to(slow.tail), "Rain streak closure must lengthen with actual world speed")
+			check(absf(Vector2(fast.head).x-Vector2(fast.tail).x) > absf(Vector2(slow.head).x-Vector2(slow.tail).x), "Rain streak slant must increase with actual world speed")
 	var snow: Dictionary = Catalog.load_json("res://data/weather/snow_states.json")
 	check(snow.frames.size() == 96, "Preserve all 96 Particle Studio exposures")
 	for sample in snow.frames:
@@ -51,7 +55,7 @@ func run() -> void:
 	for surface in renderer.get("_surfaces"):
 		check(surface.get_parent().clip_contents and surface.get_parent().size == Vector2(640,304), "Weather must clip before HUD and radio lanes")
 	var renderer_source := FileAccess.get_file_as_string("res://scripts/weather_renderer.gd")
-	check(renderer_source.contains("RAIN_VISIBILITY") and renderer_source.contains("RAIN_COLOUR"), "rain profiles should retain reviewed visibility and cool military palette")
+	check(renderer_source.contains("RAIN_VISIBILITY") and renderer_source.contains("RAIN_COLOUR") and renderer_source.contains("_world_speed"), "rain profiles should retain reviewed visibility, cool military palette and speed-driven closure")
 	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("draw_colored_polygon"), "snow should retain its pale cel face and contrast underside over mixed terrain")
 	scene.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC weather self-test passed: 36 mappings, altitude fades, motion, clipping and secret context.")

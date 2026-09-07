@@ -10,7 +10,7 @@ static func altitude_weight(state: Dictionary, weights: Dictionary = ALTITUDE_WE
 		return lerpf(float(weights.get(str(state.get("from", "mid")), 0.0)), float(weights.get(str(state.get("to", "mid")), 0.0)), clampf(float(state.get("ratio", 1.0)), 0.0, 1.0))
 	return float(weights.get(str(state.get("current", "mid")), 0.0))
 
-static func rain_drop(p: Dictionary, elapsed: float, travel: float) -> Dictionary:
+static func rain_drop(p: Dictionary, elapsed: float, travel: float, world_speed_multiplier: float = 1.0) -> Dictionary:
 	# Registered Atmosphere Studio v4 drop-head projection. Time supplies wind
 	# and rainfall; integrated camera travel supplies depth-dependent closure.
 	var phase := fposmod(elapsed / 8.0, 1.0)
@@ -23,11 +23,13 @@ static func rain_drop(p: Dictionary, elapsed: float, travel: float) -> Dictionar
 	var x := fposmod(float(p.baseX) + drift + gust * float(p.lateralVariation), 1.0) * 640.0
 	var y := -margin + age * period
 	var length := float(p.lengthPixels) * (0.92 + 0.08 * sin(TAU * (phase * 2.0 + float(p.gustPhase))))
-	var direction := Vector2(0.14 * length * (0.34 + perspective * 0.16) + gust * length * 0.035, length * 1.028)
+	var speed_ratio := clampf((world_speed_multiplier-0.45)/3.95,0.0,1.0)
+	var closure_scale := lerpf(0.78,1.38,speed_ratio)
+	var direction := Vector2((0.14*(0.34+perspective*0.16)+gust*0.035+speed_ratio*0.22)*length,length*1.028)
 	# Three fixed cel lengths create readable depth without approaching the long,
 	# bright language reserved for cannon and directed-energy fire.
 	var cap: float = {"background":3.0, "midground":5.5, "foreground":8.0}[p.depthBand]
-	var drawn_length := minf(direction.length(), cap)
+	var drawn_length := minf(direction.length()*closure_scale,cap*closure_scale)
 	direction = direction.normalized()
 	var fade := minf(clampf((y + margin) / margin, 0, 1), clampf((304.0 + margin - (y - direction.y * drawn_length)) / margin, 0, 1))
 	return {"head":Vector2(x,y), "tail":Vector2(x,y) - direction * drawn_length, "opacity":float(p.opacity) * fade * 0.78}

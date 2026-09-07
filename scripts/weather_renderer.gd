@@ -21,6 +21,7 @@ var _profile := "clear"
 var _weight := 0.0
 var _time := 0.0
 var _travel := 0.0
+var _world_speed := 1.0
 var _reduced := false
 var _rain_player: AudioStreamPlayer
 var _storm_player: AudioStreamPlayer
@@ -70,6 +71,8 @@ func _process(_delta: float) -> void:
 		_weight = WeatherRules.altitude_weight(get_parent().call("_altitude_state"), _placement.get("altitude_weights", WeatherRules.ALTITUDE_WEIGHTS))
 		_time = float(scene.get("mission_time"))
 		_travel = float(get_parent().call("_world_distance", scene))
+		var craft := get_node_or_null("/root/CraftFormDirector")
+		_world_speed = float(craft.call("world_speed_multiplier")) if craft != null and craft.has_method("world_speed_multiplier") else 1.0
 		var settings := get_node_or_null("/root/SettingsDirector")
 		_reduced = settings != null and settings.has_method("reduced_flashes") and bool(settings.call("reduced_flashes"))
 	_update_weather_audio(_delta)
@@ -136,7 +139,7 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 	else:
 		for p in _rain.get(_profile, []):
 			if (str(p.depthBand) == "foreground") != near_band: continue
-			var state := WeatherRules.rain_drop(p, _time, _travel)
+			var state := WeatherRules.rain_drop(p, _time, _travel, _world_speed)
 			var middle: Vector2 = Vector2(state.tail).lerp(state.head, 0.5)
 			var alpha: float = clampf(float(state.opacity) * opacity * float(RAIN_VISIBILITY.get(_profile,1.0)) * (1.16 if near_band else 1.0), 0.0, 0.76)
 			var width := 1.35 if near_band else 1.0
