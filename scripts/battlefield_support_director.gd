@@ -1,5 +1,6 @@
 extends CanvasLayer
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const BattlefieldSupportRules = preload("res://scripts/battlefield_support_rules.gd")
@@ -376,7 +377,7 @@ func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
 		# Rapier enters from port and accelerates starboard toward its intercept.
 		# The authored sheet faces port, so mirror this pass to keep nose, weapon
 		# launch and screen travel in the same direction.
-		_draw_support_craft(surface, p, "rapier_fighter", 11.0 + float(i), true)
+		_draw_support_craft(surface, p, "rapier_fighter", 11.0 + float(i), true, deg_to_rad(float(i-1)*3.0))
 	if progress >= 0.32 and progress < 0.52:
 		var intercept_ratio := clampf((progress-0.32)/0.20,0.0,0.999)
 		var launch_point := Vector2(-40.0+0.32*760.0,122.0)
@@ -400,7 +401,7 @@ func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
 		var x := 700.0 - progress * 820.0 - float(i) * 64.0
 		var y := 92.0 + float(i) * 20.0
 		var p := Vector2(x, y)
-		_draw_support_craft(surface, p, "hammer_bomber", 7.0 + float(i))
+		_draw_support_craft(surface, p, "hammer_bomber", 7.0 + float(i), false, deg_to_rad(float(1-i)*2.5))
 		if progress > 0.35:
 			var bomb := BattlefieldSupportArtLibrary.effect("strike_bomb")
 			surface.draw_texture(bomb, (p + Vector2(-8, 8 + 24.0 * (progress - 0.35))).round())
@@ -437,15 +438,30 @@ func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 				surface.draw_texture_rect(contact,Rect2((target-contact_size*0.5).round(),contact_size.round()),false,Color(1.0,0.84,0.58,0.94-impact_ratio))
 			surface.draw_texture_rect(impact,Rect2((target-impact_size*0.5).round(),impact_size.round()),false,Color(1.0,0.78,0.48,1.0-impact_ratio*0.46))
 
-func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float, flip_h := false) -> void:
+func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float, flip_h := false, bank_angle := 0.0) -> void:
 	var texture := BattlefieldSupportArtLibrary.frame_for_clock(family, _animation_clock, fps)
 	if texture != null:
-		if flip_h:
-			surface.draw_set_transform(position.round(),0.0,Vector2(-1,1))
-			surface.draw_texture(texture,(-texture.get_size()*0.5).round())
+		var facing_scale := Vector2(-1,1) if flip_h else Vector2.ONE
+		# Registered contact shadow and short twin exhaust strokes seat support craft
+		# above the battlefield and preserve their direction at native resolution.
+		surface.draw_set_transform((position+Vector2(5,7)).round(),bank_angle,facing_scale)
+		surface.draw_texture(texture,(-texture.get_size()*0.5).round(),Color(0.04,0.06,0.07,0.48))
+		surface.draw_set_transform(Vector2.ZERO)
+		var tail_direction := Vector2(-1,0) if flip_h else Vector2(1,0)
+		tail_direction = tail_direction.rotated(bank_angle)
+		var cross := tail_direction.orthogonal()
+		var tail_center := position+tail_direction*(texture.get_width()*0.34)
+		var trail_length := 13.0 if family == "rapier_fighter" else 9.0
+		var contrail: Texture2D = PersistentEffectArtLibrary.frame_for_clock("contrail",11.0,int(floor(_animation_clock*7.0)))
+		for side in [-1.0,1.0]:
+			var root: Vector2 = tail_center+cross*float(side)*2.0
+			var trail_center := root+tail_direction*(trail_length*0.58)
+			surface.draw_set_transform(trail_center.round(),tail_direction.angle()-PI*0.5,Vector2(0.54,trail_length/18.0))
+			surface.draw_texture(contrail,(-contrail.get_size()*0.5).round(),Color(0.74,0.84,0.86,0.34))
 			surface.draw_set_transform(Vector2.ZERO)
-		else:
-			surface.draw_texture(texture, (position - texture.get_size() * 0.5).round())
+		surface.draw_set_transform(position.round(),bank_angle,facing_scale)
+		surface.draw_texture(texture,(-texture.get_size()*0.5).round())
+		surface.draw_set_transform(Vector2.ZERO)
 
 func _draw_missile_strike(surface: CanvasItem, progress: float) -> void:
 	var start := Vector2(64, 18)
