@@ -694,7 +694,6 @@ func _update_mission(delta: float) -> void:
 				_finish_mission(true)
 		return
 	mission_time += delta
-	ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)
 	fire_timer = maxf(0.0, fire_timer - delta)
 	secondary_timer = maxf(0.0, secondary_timer - delta)
 	contact_damage_cooldown = maxf(0.0, contact_damage_cooldown - delta)
@@ -702,6 +701,10 @@ func _update_mission(delta: float) -> void:
 	energy = EnergyRules.recharge(energy, _active_generator(), delta)
 	_update_player(delta)
 	_advance_route_progress(delta)
+	# Survival contracts describe traversing the hostile route. Keeping their
+	# progress on the same integrated distance as scenery, encounters and ETA
+	# lets acceleration shorten the approach without producing a false timeout.
+	ObjectiveRules.update_survival(current_objectives, objective_progress, route_progress_seconds())
 	wave = MissionStateRules.live_wave(_active_mission(), route_progress_seconds())
 	var evasive := get_node_or_null("/root/EvasiveRollDirector")
 	if evasive != null and evasive.has_method("update_maneuver"):

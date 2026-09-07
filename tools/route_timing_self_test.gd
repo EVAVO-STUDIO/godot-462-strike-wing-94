@@ -1,5 +1,6 @@
 extends SceneTree
 const Routes=preload("res://scripts/route_progress_rules.gd")
+const Objectives=preload("res://scripts/objective_rules.gd")
 var failures:Array[String]=[]
 func _initialize()->void:call_deferred("run")
 func check(value:bool,message:String)->void:
@@ -45,6 +46,20 @@ func run()->void:
 		check(int(scene.get("phase"))==2 and not bool(scene.get("mission_success")),id+": overtime still expires in real seconds")
 	check(is_equal_approx(Routes.remaining_travel_seconds(50,150,.5),200),"ETA must use actual speed")
 	check(is_equal_approx(Routes.remaining_travel_seconds(50,150,2),50),"Faster travel must reduce ETA")
+	var route_objective := [{"id":"route","type":"survive","seconds":150,"required":true}]
+	var route_progress := Objectives.make_progress(route_objective)
+	Objectives.update_survival(route_objective,route_progress,150.0)
+	check(Objectives.required_complete(route_objective,route_progress),"Reaching the authored route distance must satisfy its survival contract regardless of elapsed wall time")
+	check(Objectives.progress_text(route_objective[0],{"route":75.0})=="50% ROUTE","Route survival HUD must describe spatial progress instead of false wall-clock seconds")
+	# A fast aircraft that has already destroyed the command target must be able
+	# to finish at the route boundary even when little wall-clock time elapsed.
+	scene.set("active_secret_mission_id","");scene.set("mission_index",1)
+	scene.call("_prepare_mission",1);scene.call("_start_mission")
+	scene.set("mission_time",20.0);scene.set("environment_world_distance",Routes.route_length(campaign[1])-.01)
+	var fast_progress:Dictionary=scene.get("objective_progress")
+	Objectives.register_destroy(scene.get("current_objectives"),fast_progress,str(campaign[1].boss_id))
+	scene.set("objective_progress",fast_progress);scene.call("_update_mission",.02)
+	check(int(scene.get("phase"))==2 and bool(scene.get("mission_success")),"Fast route traversal plus the required command kill must complete instead of reporting OBJECTIVES INCOMPLETE")
 	if failures.is_empty():print("HYPERSONIC route timing self-test passed: 36 slow approaches, 36 boss gates, 36 overtime boundaries.")
 	else:
 		for failure in failures:push_error(failure)

@@ -76,7 +76,8 @@ static func progress_text(objective: Dictionary, progress: Dictionary) -> String
 	var value := float(progress.get(id, 0.0))
 	match str(objective.get("type", "")):
 		"survive":
-			return "%d/%d SEC" % [int(value), int(objective.get("seconds", 0))]
+			var target := maxf(1.0, float(objective.get("seconds", 0)))
+			return "%d%% ROUTE" % int(roundf(clampf(value / target, 0.0, 1.0) * 100.0))
 		"hypersonic_egress":
 			return "%d%%" % int(roundf(clampf(value / maxf(0.01, float(objective.get("seconds", 1.0))), 0.0, 1.0) * 100.0))
 		"destroy_count", "destroy_enemy":

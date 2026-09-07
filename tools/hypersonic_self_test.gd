@@ -53,7 +53,7 @@ func _initialize() -> void:
 	_expect(main_source.contains('"--capture-flight-warning" in OS.get_cmdline_user_args()') and main_source.contains('status_text = "LOW ALT OVERSPEED // THROTTLE BACK OR CLIMB"'), "visual QA should expose the flight-critical low-altitude hypersonic warning")
 	_expect(main_source.contains("FlightSpeedRules.world_closure_multiplier") and main_source.contains("FlightSpeedRules.recovery_closure_multiplier"), "forward power should accelerate terrain-fixed contacts and recovery pods with the world")
 	_expect(main_source.contains("RouteProgressRules.advance") and main_source.contains("RouteProgressRules.boss_gate") and main_source.contains("func route_progress_seconds()"), "world velocity should own authoritative spatial mission progress and boss arrival")
-	_expect(main_source.contains("ObjectiveRules.update_survival(current_objectives, objective_progress, mission_time)"), "survival objectives should remain tied to real exposure time")
+	_expect(main_source.contains("ObjectiveRules.update_survival(current_objectives, objective_progress, route_progress_seconds())"), "survival objectives should advance with the travelled route so acceleration cannot cause a false incomplete failure")
 	var encounter_file := FileAccess.open("res://scripts/encounter_director.gd", FileAccess.READ)
 	_expect(encounter_file != null and encounter_file.get_as_text().contains("_route_progress(scene)"), "authored encounter locations should use travelled route progress")
 	if failures.is_empty():
