@@ -2413,10 +2413,19 @@ func _draw_boss_weak_points(surface: CanvasItem, center: Vector2, enemy_id: Stri
 	var frame_index := posmod(int(floor(age * 8.0)), cues.size())
 	for index in range(points.size()):
 		var cue: Texture2D = cues[frame_index if index == active_index else 0]
-		var position := center + Vector2(points[index]) - cue.get_size() * 0.5
 		var active := index == active_index
-		var alpha := (0.90 + sin(age*TAU*2.0)*0.10) if active else 0.38
-		surface.draw_texture(cue, position.round(), Color(1,1,1,alpha))
+		var cue_center := center+Vector2(points[index])
+		# Exposed hardware should remain part of the boss silhouette. Inactive nodes
+		# are a dim aperture mark; only the currently vulnerable mechanism opens to
+		# the full registered cue and receives a restrained acquisition echo.
+		var cue_scale := 1.0 if active else 0.68
+		var cue_size := cue.get_size()*cue_scale
+		var alpha := (0.88+sin(age*TAU*2.0)*0.12) if active else 0.14
+		surface.draw_texture_rect(cue,Rect2((cue_center-cue_size*0.5).round(),cue_size.round()),false,Color(1,1,1,alpha))
+		if active:
+			var echo_scale := 1.28+sin(age*TAU*2.0)*0.06
+			var echo_size := cue.get_size()*echo_scale
+			surface.draw_texture_rect(cue,Rect2((cue_center-echo_size*0.5).round(),echo_size.round()),false,Color(1,1,1,0.16))
 
 func _boss_weak_point_family(enemy_id: String) -> String:
 	if enemy_id in ["swarm_controller", "ai_forge_core"]:
