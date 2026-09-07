@@ -49,6 +49,9 @@ const DESERT_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/desert_chunks/armour_approach.png"),
 	preload("res://assets/runtime/environments/desert_chunks/wadi_crossing.png"),
 	preload("res://assets/runtime/environments/desert_chunks/logistics_belt.png"),
+	preload("res://assets/runtime/environments/desert_chunks/salt_escarpment.png"),
+	preload("res://assets/runtime/environments/desert_chunks/scud_dispersal.png"),
+	preload("res://assets/runtime/environments/desert_chunks/railhead_basin.png"),
 ]
 const RIVER_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/river_chunks/floodplain.png"),
@@ -861,7 +864,11 @@ func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictio
 func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
 	var scroll := _world_distance(scene) * 30.0
-	_draw_vertical_chunk_sequence(surface, DESERT_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
+	var route := _route("desert_lance_railhead")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = DESERT_GEOGRAPHY_CHUNKS
+	var route_scroll := scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
+	_draw_vertical_chunk_sequence(surface, route_chunks, route_scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.075, 0.045, 0.025, 0.18))
 	var gust: Texture2D = DESERT_DUST_GUST[posmod(int(floor(t * 6.0)), DESERT_DUST_GUST.size())]
 	var seed := _mission_seed(scene)

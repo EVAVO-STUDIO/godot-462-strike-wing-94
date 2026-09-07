@@ -7,10 +7,13 @@
   "chunks": [
     {"id": "armour_approach", "role": "fast exposed combined-arms approach", "size": [640, 1024]},
     {"id": "wadi_crossing", "role": "fortified dry-river choke point", "size": [640, 1024]},
-    {"id": "logistics_belt", "role": "forward-base and supply strike corridor", "size": [640, 1024]}
+    {"id": "logistics_belt", "role": "forward-base and supply strike corridor", "size": [640, 1024]},
+    {"id": "salt_escarpment", "role": "open salt-pan acceleration run below eroded escarpments", "size": [640, 1024]},
+    {"id": "scud_dispersal", "role": "concealed mobile-launcher dispersal lanes", "size": [640, 1024]},
+    {"id": "railhead_basin", "role": "fortified railhead and armoured-train approach basin", "size": [640, 1024]}
   ],
   "assembly_contract": {
-    "geography_cycle_pixels": 3072,
+    "geography_cycle_pixels": 6144,
     "dust_loop_pixels": 512,
     "landmark_cycle_independent": true,
     "shared_connector_height": 48,

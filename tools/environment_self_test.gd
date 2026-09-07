@@ -38,6 +38,9 @@ func _initialize() -> void:
 		var harbor_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "harbor_blackout_approach")
 		_expect(not harbor_route.is_empty() and EnvironmentRouteRules.validation_errors(harbor_route).is_empty(), "night harbor should resolve a valid expanded production route")
 		_expect(harbor_route.get("districts", []).size() == 6 and int(harbor_route.get("world_length", 0)) == 6144, "harbor route should provide six distinct 1024px districts before repeating")
+		var desert_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "desert_lance_railhead")
+		_expect(not desert_route.is_empty() and EnvironmentRouteRules.validation_errors(desert_route).is_empty(), "Desert Lance should resolve a valid expanded production route")
+		_expect(desert_route.get("districts", []).size() == 6 and int(desert_route.get("world_length", 0)) == 6144, "desert route should provide six distinct 1024px districts before repeating")
 		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
 		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
@@ -103,7 +106,7 @@ func _initialize() -> void:
 		_expect(source.contains("COAST_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "coastal benchmark should assemble registered authored geography chunks")
 		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains('_route("refinery_long_night")') and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble the expanded data-authored refinery route")
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
-		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should assemble registered authored battlefield geography chunks")
+		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains('_route("desert_lance_railhead")') and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should use its expanded data-authored battlefield route")
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
 		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains('_route("mountain_whiteout_corridor")'), "mountain benchmark should use its expanded data-authored route")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains('_route("harbor_blackout_approach")'), "harbor benchmark should use its expanded data-authored route")
@@ -317,8 +320,10 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/desert_chunks/desert_geography_manifest.json"), "desert geography source/build/assembly manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_desert_geography_art.ps1"), "desert geography should retain a reproducible registered builder")
 		var desert_geography_manifest = ContentCatalog.load_json("res://assets/source/environments/desert_chunks/desert_geography_manifest.json")
-		_expect(typeof(desert_geography_manifest) == TYPE_DICTIONARY and desert_geography_manifest.get("chunks", []).size() == 3, "desert geography manifest should register three distinct 1024px sections")
-		var desert_geography_names := ["armour_approach", "wadi_crossing", "logistics_belt"]
+		_expect(typeof(desert_geography_manifest) == TYPE_DICTIONARY and desert_geography_manifest.get("chunks", []).size() == 6 and int(desert_geography_manifest.get("assembly_contract", {}).get("geography_cycle_pixels", 0)) == 6144, "desert geography manifest should register six distinct 1024px sections")
+		var desert_geography_names := ["armour_approach", "wadi_crossing", "logistics_belt", "salt_escarpment", "scud_dispersal", "railhead_basin"]
+		var desert_expansion_builder := FileAccess.get_file_as_string("res://tools/build_desert_route_expansion.py")
+		_expect(desert_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and desert_expansion_builder.contains("expanded_districts") and desert_expansion_builder.contains("launchers"), "desert expansion should retain deterministic source composition and separate battlefield actors")
 		var desert_geography_images: Array[Image] = []
 		for chunk_name in desert_geography_names:
 			var geography_texture := load("res://assets/runtime/environments/desert_chunks/%s.png" % chunk_name) as Texture2D

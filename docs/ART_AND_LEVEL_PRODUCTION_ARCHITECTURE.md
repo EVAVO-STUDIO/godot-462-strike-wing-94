@@ -88,8 +88,8 @@ landmarks and separately pivoted machinery such as the mountain radar dish.
 The production gaps are narrower and more important than simply generating
 more paintings:
 
-- coast, high-cloud, refinery, city, mountain and harbor now use data-authored six-district 6144px
-  routes; desert, river and orbital families still
+- coast, high-cloud, refinery, city, mountain, harbor and desert now use data-authored six-district 6144px
+  routes; river and orbital families still
   need migration from their hard-coded three-chunk cycles;
 - route order, animation slots and finite prop placement live in GDScript
   instead of mission-authorable data;
