@@ -324,6 +324,7 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 			"bomber": _draw_bomber_run(surface, 0.52)
 			"gunship": _draw_gunship_fire(surface, 0.56)
 			"missile": _draw_missile_strike(surface, 0.72)
+			"missile_impact": _draw_missile_strike(surface, 0.93)
 			"rail": _draw_rail_strike(surface, 0.52)
 			"orbital": _draw_orbital_strike(surface, 0.66)
 		return
@@ -346,7 +347,7 @@ func _capture_support_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-support="):
 			var value := argument.trim_prefix("--capture-support=").to_lower()
-			return value if value in ["tanker", "fighter", "bomber", "gunship", "missile", "rail", "orbital"] else ""
+			return value if value in ["tanker", "fighter", "bomber", "gunship", "missile", "missile_impact", "rail", "orbital"] else ""
 	return ""
 
 func _draw_tanker(surface: CanvasItem, capture_connected := false) -> void:
@@ -402,15 +403,18 @@ func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String,
 		surface.draw_texture(texture, (position - texture.get_size() * 0.5).round())
 
 func _draw_missile_strike(surface: CanvasItem, progress: float) -> void:
-	var start := Vector2(80, 330)
+	var start := Vector2(64, 18)
 	var p := start.lerp(_visual_target, progress)
-	var trail_start := start.lerp(_visual_target, maxf(0.0, progress-0.18))
-	_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), trail_start, p, 5.0)
-	var bomb := BattlefieldSupportArtLibrary.effect("strike_bomb")
-	_draw_rotated_effect(surface, bomb, p, (_visual_target - start).angle() + PI * 0.5)
+	var direction := (_visual_target-start).normalized()
+	var trail_start := p-direction*clampf(24.0+progress*28.0,24.0,48.0)
+	_draw_effect_between(surface, BattlefieldSupportArtLibrary.effect("tracer"), trail_start, p-direction*10.0, 5.0)
+	var missile := BattlefieldSupportArtLibrary.frame_for_clock("precision_missile", _animation_clock, 14.0)
+	_draw_rotated_effect(surface, missile, p, direction.angle()+PI*0.5, 1.45)
 	if progress > 0.86:
-		var impact := BattlefieldSupportArtLibrary.staged_effect("impact", (progress - 0.86) / 0.14)
-		surface.draw_texture(impact, (_visual_target - impact.get_size() * 0.5).round())
+		var impact_ratio := (progress - 0.86) / 0.14
+		var impact := BattlefieldSupportArtLibrary.staged_effect("impact", impact_ratio)
+		var impact_size := Vector2.ONE * lerpf(48.0,72.0,impact_ratio)
+		surface.draw_texture_rect(impact,Rect2((_visual_target-impact_size*0.5).round(),impact_size.round()),false)
 
 func _draw_rail_strike(surface: CanvasItem, progress: float) -> void:
 	var charge := clampf(progress / 0.38, 0.0, 1.0)
@@ -452,8 +456,8 @@ func _draw_effect_between(surface: CanvasItem, texture: Texture2D, start: Vector
 	surface.draw_texture(texture, Vector2(0, -texture.get_height() * 0.5))
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
-func _draw_rotated_effect(surface: CanvasItem, texture: Texture2D, position: Vector2, angle: float) -> void:
-	surface.draw_set_transform(position, angle, Vector2.ONE)
+func _draw_rotated_effect(surface: CanvasItem, texture: Texture2D, position: Vector2, angle: float, scale: float = 1.0) -> void:
+	surface.draw_set_transform(position, angle, Vector2.ONE * scale)
 	surface.draw_texture(texture, -texture.get_size() * 0.5)
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 

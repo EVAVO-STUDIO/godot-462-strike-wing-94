@@ -56,6 +56,9 @@ func _test_production_art() -> void:
 		for frame_index in range(4):
 			var frame := load("res://assets/runtime/support/battlefield/%s/%d.png" % [family, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == registered_sizes[family], "battlefield support frame should retain registered geometry: %s/%d" % [family, frame_index])
+	for frame_index in range(4):
+		var missile_frame := load("res://assets/runtime/effects/projectiles/support_rocket/%d.png" % frame_index)
+		_expect(missile_frame is Texture2D and missile_frame.get_size() == Vector2(16,24), "precision support missile should retain its authored projectile exposure: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/battlefield_support_asset_manifest.json"), "battlefield support source/runtime manifest should exist")
 	var effect_sizes := {"tanker_hose":Vector2(64,32),"tanker_contact":Vector2(64,64),"tanker_meter_trough":Vector2(80,6),"tanker_meter_fill":Vector2(80,4),"strike_bomb":Vector2(16,32),"tracer":Vector2(64,8),"rail_beam":Vector2(12,64),"orbital_beam":Vector2(12,64),"orbital_impact":Vector2(48,48)}
 	for effect_name in effect_sizes:
@@ -100,9 +103,10 @@ func _test_source_contract() -> void:
 		_expect(source.contains("_priority_target_position(scene)"), "precision support visuals should anchor to a real priority target")
 		_expect(source.contains("BattlefieldSupportArtLibrary") and source.contains("_draw_support_craft"), "tanker, fighter, bomber and gunship set pieces should use authored sprite animation")
 		_expect(source.contains('strike_cel("rail_beam"') and source.contains('strike_cel("orbital_impact"'), "rail and orbital support should use held-frame beam and impact cel art")
+		_expect(source.contains('frame_for_clock("precision_missile"') and source.contains("direction.angle()+PI*0.5"), "precision support should use an animated guided missile aligned to its terminal path")
 		_expect(source.contains("SPECTRE_MUZZLE_OFFSETS") and source.contains("Vector2(-19.64,13.05)") and source.contains("burst_phase"), "Spectre tracers should leave all three projected v2 gun muzzles with staged cadence")
 		_expect(not source.contains('p+Vector2(-31,18+offset*0.2)'), "Spectre must not regress to the detached legacy emitter")
-		_expect(source.contains('argument.begins_with("--capture-support=")') and source.contains('"tanker", "fighter", "bomber", "gunship", "missile", "rail", "orbital"'), "all battlefield support presentations should expose deterministic visual QA fixtures")
+		_expect(source.contains('argument.begins_with("--capture-support=")') and source.contains('"missile_impact"') and source.contains('"tanker", "fighter", "bomber", "gunship", "missile"'), "all battlefield support presentations should expose deterministic visual QA fixtures")
 		_expect(not source.contains("draw_line") and not source.contains("draw_circle") and not source.contains("draw_rect"), "battlefield support effects should not regress to vector line, circle or rectangle programmer art")
 		var craft_section_start := source.find("func _draw_tanker")
 		var craft_section_end := source.find("func _draw_missile_strike")

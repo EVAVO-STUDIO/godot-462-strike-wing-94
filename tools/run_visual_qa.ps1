@@ -73,6 +73,7 @@ $Cases = @(
 	@{ id='support_bomber_run'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-support=bomber') },
 	@{ id='support_gunship_fire'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-support=gunship') },
 	@{ id='support_missile_strike'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-support=missile') },
+	@{ id='support_missile_impact'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-support=missile_impact') },
 	@{ id='support_rail_strike'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-support=rail') },
 	@{ id='support_orbital_strike'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-support=orbital') },
 	@{ id='flight_minimum_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=0') },

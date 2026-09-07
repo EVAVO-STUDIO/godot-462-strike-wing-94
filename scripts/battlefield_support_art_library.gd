@@ -5,6 +5,7 @@ const FAMILIES := {
 	"rapier_fighter": [preload("res://assets/runtime/support/battlefield/rapier_fighter/0.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/1.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/2.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/3.png")],
 	"hammer_bomber": [preload("res://assets/runtime/support/battlefield/hammer_bomber/0.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/1.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/2.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/3.png")],
 	"spectre_gunship": [preload("res://assets/runtime/support/battlefield/spectre_gunship/0.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/1.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/2.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/3.png")],
+	"precision_missile": [preload("res://assets/runtime/effects/projectiles/support_rocket/0.png"), preload("res://assets/runtime/effects/projectiles/support_rocket/1.png"), preload("res://assets/runtime/effects/projectiles/support_rocket/2.png"), preload("res://assets/runtime/effects/projectiles/support_rocket/3.png")],
 }
 
 const STRIKE_CEL := {
