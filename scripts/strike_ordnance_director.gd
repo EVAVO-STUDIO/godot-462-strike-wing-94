@@ -195,9 +195,14 @@ func _impact(scene: Object, item: Dictionary) -> void:
 	if precision_bonus > 0:
 		scene.set("score", int(scene.get("score")) + precision_bonus)
 	scene.set("enemies", enemies)
+	var collateral_losses := 0
+	if scene.has_method("_apply_bomb_collateral"):
+		collateral_losses = int(scene.call("_apply_bomb_collateral", point, StrikeOrdnanceRules.blast_radius(altitude)))
 	_emit_impact_fx(point, altitude, bool(item.get("priority_lock", false)), float(item.get("stability", 0.0)), _impact_family(scene, hit_sea))
 	_play_impact_sfx()
-	if precision_bonus > 0:
+	if collateral_losses > 0:
+		pass
+	elif precision_bonus > 0:
 		_set_status(scene, "PRECISION ROUTE HIT  +%d" % precision_bonus)
 	else:
 		_set_status(scene, "SURFACE IMPACT")

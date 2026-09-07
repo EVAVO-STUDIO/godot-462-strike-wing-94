@@ -125,6 +125,8 @@ var enemy_bullets: Array = []
 var enemy_missiles_launched := 0
 var countermeasures_decoyed := 0
 var enemies: Array = []
+var protected_contacts: Array = []
+var collateral_strikes := 0
 var pickups: Array = []
 var enemy_catalog: Array = []
 var surface_site_catalog: Array = []
@@ -752,6 +754,7 @@ func _update_mission(delta: float) -> void:
 	_update_enemy_bullets(delta)
 	_update_pickups(delta)
 	_update_enemies(delta)
+	_update_protected_contacts(delta)
 	_resolve_combat()
 	if boss_victory_timer > 0.0:
 		return
@@ -1005,6 +1008,7 @@ func _start_mission() -> void:
 	damage_sources = {}
 	enemy_missiles_launched = 0
 	countermeasures_decoyed = 0
+	collateral_strikes = 0
 	secrets_discovered = 0
 	mission_reward_earned = 0
 	repair_cost = 0
@@ -1030,6 +1034,7 @@ func _start_mission() -> void:
 	egress_completion_timer = 0.0
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_clear_combat()
+	_seed_protected_contacts()
 
 func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") -> void:
 	if phase == GamePhase.RESULT:
@@ -1132,6 +1137,7 @@ func _clear_combat() -> void:
 	bullets.clear()
 	enemy_bullets.clear()
 	enemies.clear()
+	protected_contacts.clear()
 	pickups.clear()
 	temporary_weapon_boost = 0
 
@@ -1336,7 +1342,7 @@ func camera_route_distance() -> float:
 func _shift_camera_projection(shift: Vector2) -> void:
 	# Contacts already include route-speed closure. Apply only the change in
 	# camera look-ahead here, never the full travelled distance a second time.
-	for collection in [enemies, bullets, enemy_bullets, pickups]:
+	for collection in [enemies, protected_contacts, bullets, enemy_bullets, pickups]:
 		for item in collection:
 			item["position"] = Vector2(item.get("position", Vector2.ZERO)) + shift
 	for director_name in ["CombatFxDirector", "StrikeOrdnanceDirector"]:
@@ -1420,7 +1426,10 @@ func _update_weapons() -> void:
 				else:
 					survivors.append(damaged)
 		enemies = survivors
-		if boss_damaged:
+		var collateral_hit := _apply_bomb_collateral(strike_point, BombRules.LEGACY_STRIKE_RADIUS) > 0
+		if collateral_hit:
+			pass
+		elif boss_damaged:
 			status_text = "BOMB STRIKE - BOSS DAMAGED"
 			status_timer = 1.5
 		elif targets_hit > 0:
@@ -1566,6 +1575,46 @@ func _update_enemies(delta: float) -> void:
 		if not is_boss and position.y > PLAYFIELD.end.y + 22:
 			enemies.remove_at(i)
 
+func _seed_protected_contacts() -> void:
+	protected_contacts.clear()
+	if current_environment not in ["coast", "industrial", "desert", "mountain"]:
+		return
+	protected_contacts = [
+		{"id":"civilian_village", "faction":"civilian", "protected":true, "category":"ground", "position":Vector2(176, -120), "hp":18},
+		{"id":"field_clinic", "faction":"civilian", "protected":true, "category":"ground", "position":Vector2(478, -430), "hp":12},
+	]
+
+func _update_protected_contacts(delta: float) -> void:
+	var closure := FlightSpeedRules.world_closure_multiplier(_environment_speed_multiplier(), "ground")
+	for index in range(protected_contacts.size() - 1, -1, -1):
+		var contact: Dictionary = protected_contacts[index]
+		contact["position"] = Vector2(contact.get("position", Vector2.ZERO)) + Vector2.DOWN * 28.0 * closure * delta
+		protected_contacts[index] = contact
+		if Vector2(contact["position"]).y > PLAYFIELD.end.y + 30:
+			protected_contacts.remove_at(index)
+
+func _apply_bomb_collateral(point: Vector2, radius: float) -> int:
+	var radius_sq := radius * radius
+	var losses := 0
+	for index in range(protected_contacts.size() - 1, -1, -1):
+		var contact: Dictionary = protected_contacts[index]
+		if Vector2(contact.get("position", Vector2.ZERO)).distance_squared_to(point) <= radius_sq:
+			_register_collateral_loss(contact)
+			protected_contacts.remove_at(index)
+			losses += 1
+	return losses
+
+func _register_collateral_loss(contact: Dictionary) -> void:
+	collateral_strikes += 1
+	score = maxi(0, score - 2500)
+	status_text = "ROE VIOLATION // PROTECTED SITE HIT -2500"
+	status_timer = 3.0
+	var combat_fx := get_node_or_null("/root/CombatFxDirector")
+	if combat_fx != null and combat_fx.has_method("register_enemy_destruction"):
+		var wreck := contact.duplicate(true)
+		wreck["last_impact_family"] = "bomb"
+		combat_fx.call("register_enemy_destruction", wreck)
+
 func _mission_enemy_fire_interval_scale() -> float:
 	return clampf(float(_active_mission().get("enemy_fire_interval_scale", 1.0)), 0.75, 1.5)
 
@@ -1626,6 +1675,22 @@ func _register_enemy_missile_launch(count: int = 1) -> void:
 	enemy_missiles_launched += maxi(0, count)
 
 func _resolve_combat() -> void:
+	for bullet_index in range(bullets.size() - 1, -1, -1):
+		var bullet: Dictionary = bullets[bullet_index]
+		var hit_protected := false
+		for contact_index in range(protected_contacts.size() - 1, -1, -1):
+			if Vector2(bullet.get("position", Vector2.ZERO)).distance_squared_to(Vector2(protected_contacts[contact_index].get("position", Vector2.ZERO))) <= 196.0:
+				var contact: Dictionary = protected_contacts[contact_index]
+				contact["hp"] = int(contact.get("hp", 1)) - int(bullet.get("damage", 1))
+				if int(contact["hp"]) <= 0:
+					_register_collateral_loss(contact)
+					protected_contacts.remove_at(contact_index)
+				else:
+					protected_contacts[contact_index] = contact
+				hit_protected = true
+				break
+		if hit_protected:
+			bullets.remove_at(bullet_index)
 	for bullet_index in range(bullets.size() - 1, -1, -1):
 		var consume_bullet := false
 		var bullet: Dictionary = bullets[bullet_index]

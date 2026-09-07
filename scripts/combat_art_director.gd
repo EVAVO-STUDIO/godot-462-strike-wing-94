@@ -1029,6 +1029,10 @@ func _draw_combat_art(surface: CanvasItem) -> void:
 		_render_orbital_boss_capture(surface, scene)
 		_draw_player(surface, scene)
 		return
+	if _has_property(scene, "protected_contacts"):
+		for contact in scene.get("protected_contacts"):
+			if typeof(contact) == TYPE_DICTIONARY and SURFACE_SITE_SPRITES.has(str(contact.get("id", ""))):
+				_draw_production_sprite(surface, Vector2(contact.get("position", Vector2.ZERO)), SURFACE_SITE_SPRITES[str(contact.get("id", ""))], _surface_target_scale())
 	for enemy in scene.get("enemies"):
 		if typeof(enemy) == TYPE_DICTIONARY:
 			_draw_enemy(surface, enemy)
