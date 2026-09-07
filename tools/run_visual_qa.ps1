@@ -119,7 +119,9 @@ $Cases = @(
     @{ id='mission_09_air'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high') },
     @{ id='mission_12_machine_reveal'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=96') },
     @{ id='mission_26_orbital'; args=@('--capture-gameplay','--capture-mission=25','--capture-time=118','--capture-altitude=orbital') },
-    @{ id='mission_30_final_boss'; args=@('--capture-gameplay','--capture-mission=29','--capture-time=180','--capture-hud=boss') },
+    # The final authored guard beat is at route 214 and the boss gate preserves
+    # eight seconds of separation, so this must capture beyond route 222.
+    @{ id='mission_30_final_boss'; args=@('--capture-gameplay','--capture-mission=29','--capture-time=238','--capture-hud=boss','--visual-capture-delay=11.0') },
     @{ id='ending_ark_fall'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=0') },
     @{ id='ending_reentry'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=1') },
     @{ id='ending_city_silence'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=2') },

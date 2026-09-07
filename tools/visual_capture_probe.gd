@@ -11,7 +11,10 @@ func _ready() -> void:
 
 func _capture() -> void:
 	var delay := _argument_float("--visual-capture-delay=", 0.85)
-	await get_tree().create_timer(clampf(delay, 0.1, 5.0)).timeout
+	# Large bosses enter from beyond the visible route. A bounded eleven-second
+	# review case must be able to observe that real arrival instead of teleporting
+	# a presentation-only fixture into place.
+	await get_tree().create_timer(clampf(delay, 0.1, 12.0)).timeout
 	await RenderingServer.frame_post_draw
 	var output := _argument_value("--visual-capture=", "")
 	if output.is_empty():
