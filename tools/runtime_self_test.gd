@@ -128,7 +128,8 @@ func _test_mission_state() -> void:
 func _test_direct_runtime_ownership() -> void:
 	var weapon_data = ContentCatalog.load_json("res://data/weapons.json")
 	if typeof(weapon_data) == TYPE_DICTIONARY:
-		var secondary := weapon_data.get("weapons", [])[-1]
+		var weapon_entries: Array = weapon_data.get("weapons", [])
+		var secondary: Dictionary = weapon_entries[-1] if not weapon_entries.is_empty() else {}
 		_expect(str(secondary.get("id", "")) == "screen_bomb" and str(secondary.get("name", "")) == "Tactical Bomb", "localized bomb should retain its save-compatible ID with an accurate display name")
 		_expect(str(secondary.get("archetype", "")) == "localized_surface_strike" and int(secondary.get("damage", 0)) == BombRules.LEGACY_SURFACE_DAMAGE, "secondary weapon data should describe localized surface damage rather than a screen clear")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
