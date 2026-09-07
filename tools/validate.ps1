@@ -279,7 +279,7 @@ Assert-Contains $SfxDirectorText @('const MIX_RATE := 22050.0','func play_event'
 $HypersonicText = Get-Content -Raw (Join-Path $Root 'scripts/hypersonic_rules.gd')
 Assert-Contains $HypersonicText @('SPEED_MULTIPLIER := 4.40','TURN_SCALE := 0.38','structural_damage_per_second','enemy_can_pursue','ENEMY_CHARGE_SECONDS') 'Hypersonic flight rules'
 $SaveText = Get-Content -Raw (Join-Path $Root 'scripts/campaign_save.gd')
-Assert-Contains $SaveText @('SAVE_VERSION := 12','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','branch_decisions','intelligence_unlocked_ids','completed_secret_mission_ids','career_statistics','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
+Assert-Contains $SaveText @('SAVE_VERSION := 13','mission_id','LEGACY_V5_MISSION_IDS','airframe_index','weapon_loadout_index','campaign_completed','completed_difficulties','discovered_secret_ids','mode_records','branch_decisions','intelligence_unlocked_ids','completed_secret_mission_ids','career_statistics','SaveRecoveryRules.choose_primary_or_backup') 'Campaign save'
 $ExportText = Get-Content -Raw (Join-Path $Root 'export_presets.cfg')
 Assert-Contains $ExportText @('name="Windows Desktop"','export_path="build/windows/HYPERSONIC.exe"','binary_format/embed_pck=true','application/icon="res://assets/runtime/brand/hypersonic_application_icon.png"','application/company_name="EVAVO Studio"','application/product_name="HYPERSONIC"') 'Windows export preset'
 $ExportScriptPath = Join-Path $Root 'tools/export_windows.ps1'

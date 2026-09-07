@@ -1,7 +1,7 @@
 extends Node
 
 const SaveRecoveryRules = preload("res://scripts/save_recovery_rules.gd")
-const SAVE_VERSION := 12
+const SAVE_VERSION := 13
 const SAVE_INTERVAL := 1.0
 const MAX_CREDITS := 99999999
 const LEGACY_V5_MISSION_IDS := [
@@ -108,6 +108,8 @@ func _snapshot(scene: Object) -> Dictionary:
 	var max_shield := maxi(0, _scene_max(scene, "_max_shield", 100))
 	var support := _support_state()
 	var airframe := _airframe_state()
+	var weapon_index := clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1)
+	var weapon_loadout_index := clampi(int(scene.get("weapon_loadout_index")), 0, weapon_index) if _has_property(scene, "weapon_loadout_index") else weapon_index
 	return {
 		"version": SAVE_VERSION,
 		"credits": clampi(int(scene.get("credits")), 0, MAX_CREDITS),
@@ -122,7 +124,8 @@ func _snapshot(scene: Object) -> Dictionary:
 		"intelligence_unlocked_ids": _string_array(scene.get("intelligence_unlocked_ids")) if _has_property(scene, "intelligence_unlocked_ids") else [],
 		"completed_secret_mission_ids": _string_array(scene.get("completed_secret_mission_ids")) if _has_property(scene, "completed_secret_mission_ids") else [],
 		"career_statistics": _career_statistics(scene.get("career_statistics")) if _has_property(scene, "career_statistics") else {},
-		"weapon_index": clampi(int(scene.get("weapon_index")), 0, _primary_weapon_count(scene) - 1),
+		"weapon_index": weapon_index,
+		"weapon_loadout_index": weapon_loadout_index,
 		"generator_index": clampi(int(scene.get("generator_index")), 0, _generator_count(scene) - 1),
 		"airframe_index": maxi(0, int(airframe.get("airframe_index", 0))),
 		"service_hull": clampi(int(scene.get("service_hull")), 1, max_hull),
@@ -260,6 +263,7 @@ func _restore(scene: Object) -> void:
 		airframe_director.call("restore_airframe_state", int(parsed.get("airframe_index", 0)))
 	var mission_index := _restored_mission_index(scene, parsed)
 	var weapon_index := clampi(int(parsed.get("weapon_index", scene.get("weapon_index"))), 0, _primary_weapon_count(scene) - 1)
+	var weapon_loadout_index := clampi(int(parsed.get("weapon_loadout_index", weapon_index)), 0, weapon_index)
 	var generator_index := clampi(int(parsed.get("generator_index", scene.get("generator_index"))), 0, _generator_count(scene) - 1)
 	var credits := clampi(int(parsed.get("credits", scene.get("credits"))), 0, MAX_CREDITS)
 	var max_hull := maxi(1, _scene_max(scene, "_max_hull", 100))
@@ -270,7 +274,7 @@ func _restore(scene: Object) -> void:
 	scene.set("mission_index", mission_index)
 	scene.set("weapon_index", weapon_index)
 	if _has_property(scene, "weapon_loadout_index"):
-		scene.set("weapon_loadout_index", weapon_index)
+		scene.set("weapon_loadout_index", weapon_loadout_index)
 	scene.set("generator_index", generator_index)
 	scene.set("service_hull", service_hull)
 	scene.set("service_shield", service_shield)

@@ -43,7 +43,7 @@ func _run() -> void:
 	_expect(ui.contains('load(str(selected.get("illustration"') and ui.contains("UiSpriteRenderer.draw_nine_slice"), "database should display governed illustrations inside authored UI chrome")
 	_expect(ui.contains('Color("142831") if selected_row else Color("09151c")') and ui.contains('GOLD if selected_row else Color("294652")'), "database rows should separate the active gold command from subdued released files")
 	var save := _source("res://scripts/campaign_save.gd")
-	_expect(save.contains('SAVE_VERSION := 12') and save.contains('"intelligence_unlocked_ids"'), "intelligence unlocks should persist in save schema v12")
+	_expect(save.contains('SAVE_VERSION := 13') and save.contains('"intelligence_unlocked_ids"'), "intelligence unlocks should persist in save schema v13")
 	if failures.is_empty():
 		print("HYPERSONIC intelligence database self-test passed.")
 		quit(0)

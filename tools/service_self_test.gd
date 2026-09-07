@@ -116,7 +116,7 @@ func _test_runtime_ownership() -> void:
 	_expect(save_file != null, "campaign save should be readable")
 	if save_file != null:
 		var source := save_file.get_as_text()
-		_expect(source.contains("SAVE_VERSION := 12") and source.contains('"airframe_index"'), "campaign save v12 should persist airframe tier")
+		_expect(source.contains("SAVE_VERSION := 13") and source.contains('"airframe_index"'), "campaign save v13 should persist airframe tier")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	if project != null:
 		var text := project.get_as_text()
