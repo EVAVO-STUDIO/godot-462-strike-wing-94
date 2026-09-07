@@ -123,6 +123,7 @@ $Cases = @(
     @{ id='hud_countermeasure_break'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high','--capture-hud=warning','--capture-countermeasure','--visual-capture-delay=0.34') },
 	@{ id='hud_countermeasure_ignition'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high','--capture-hud=warning','--capture-countermeasure','--visual-capture-delay=0.08') },
 	@{ id='weapon_explosion_families'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-weapon-explosions','--visual-capture-delay=0.32') },
+	@{ id='surface_strategic_destruction'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=42','--capture-surface-destruction','--visual-capture-delay=0.46') },
     @{ id='hud_player_missile_lock'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=44','--capture-altitude=mid','--capture-hud=objective','--capture-air=human','--capture-player-lock','--visual-capture-delay=0.18') },
     @{ id='pause_command'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=menu') },
     @{ id='pause_options'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=options') },

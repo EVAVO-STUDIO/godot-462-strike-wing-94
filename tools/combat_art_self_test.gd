@@ -748,6 +748,8 @@ func _test_combat_fx() -> void:
 		var frame := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index)
 		_expect(frame is Texture2D and frame.get_size() == Vector2(48,48), "explosion animation frame should retain native 48x48 geometry: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/effects/explosion_asset_manifest.json"), "explosion source/runtime manifest should exist")
+	_expect(source.contains("STRATEGIC_SITES") and source.contains("STRATEGIC_SITE_DESTRUCTION_SECONDS") and source.contains("secondary_ratio"), "silos, ballistic launchers and ammunition sites should retain staged secondary detonations")
+	_expect(source.contains("--capture-surface-destruction"), "visual QA should expose deterministic strategic-site destruction")
 	var observer := CombatFxDirector.new()
 	_expect(observer.call("_observation_kind", {"hp":4}, {"hp":4}, true) == "", "a surviving unchanged enemy must not emit a false explosion")
 	_expect(observer.call("_observation_kind", {"hp":4}, {"hp":3}, true) == "hit", "a surviving damaged enemy should emit only a hit cue")

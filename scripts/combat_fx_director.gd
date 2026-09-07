@@ -44,6 +44,8 @@ const ORBITAL_BOSS_DESTRUCTION_SECONDS := 3.00
 const NAVAL_SINK_SECONDS := 1.35
 const PLAYER_HIT_SECONDS := 0.18
 const SHIELD_BREAK_SECONDS := 0.34
+const STRATEGIC_SITE_DESTRUCTION_SECONDS := 1.28
+const STRATEGIC_SITES := ["strategic_silo", "ammo_depot", "ballistic_launcher"]
 const NAVAL_WRECK_HULLS := {
 	"river_patrol": preload("res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png"),
 	"torpedo_boat": preload("res://assets/runtime/enemies/mercenary_sea/torpedo_boat_idle.png"),
@@ -165,12 +167,18 @@ func _process(delta: float) -> void:
 		_surface.queue_redraw()
 
 func _deploy_weapon_fx_capture() -> void:
-	if _weapon_fx_capture_deployed or not "--capture-weapon-explosions" in OS.get_cmdline_user_args():
+	var weapon_capture := "--capture-weapon-explosions" in OS.get_cmdline_user_args()
+	var strategic_capture := "--capture-surface-destruction" in OS.get_cmdline_user_args()
+	if _weapon_fx_capture_deployed or (not weapon_capture and not strategic_capture):
 		return
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
 		return
 	_weapon_fx_capture_deployed = true
+	if strategic_capture:
+		_emit("explosion", Vector2(230, 168), 27.0, STRATEGIC_SITE_DESTRUCTION_SECONDS, {"enemy_id":"strategic_silo", "category":"ground", "faction":"mercenary", "impact_family":"bomb"})
+		_emit("explosion", Vector2(410, 168), 24.0, STRATEGIC_SITE_DESTRUCTION_SECONDS, {"enemy_id":"ammo_depot", "category":"ground", "faction":"mercenary", "impact_family":"rocket"})
+		return
 	_emit("explosion", Vector2(220, 155), 19.0, 0.92, {"enemy_id":"mercenary_fighter", "category":"air", "faction":"mercenary", "impact_family":"cannon"})
 	_emit("explosion", Vector2(320, 155), 21.0, 0.92, {"enemy_id":"light_tank", "category":"ground", "faction":"mercenary", "impact_family":"rocket"})
 	_emit("explosion", Vector2(420, 155), 23.0, 0.92, {"enemy_id":"drone_fighter", "category":"air", "faction":"autonomous", "impact_family":"missile"})
@@ -305,8 +313,10 @@ func register_enemy_destruction(enemy: Dictionary) -> void:
 	elif GROUND_MECH_WRECK_HULLS.has(enemy_id): duration = 1.10
 	elif GROUND_VEHICLE_WRECK_LAYERS.has(enemy_id): duration = 0.96
 	elif AIRFRAME_WRECK_HULLS.has(enemy_id): duration = 0.92
+	elif enemy_id in STRATEGIC_SITES: duration = STRATEGIC_SITE_DESTRUCTION_SECONDS
 	var retained := GROUND_MECH_WRECK_HULLS.has(enemy_id) or GROUND_VEHICLE_WRECK_LAYERS.has(enemy_id) or AIRFRAME_WRECK_HULLS.has(enemy_id)
-	_emit("boss_explosion" if boss else "explosion", position, 28.0 if boss else (19.0 if retained else 15.0), duration, {
+	var blast_size := 27.0 if enemy_id in STRATEGIC_SITES else (19.0 if retained else 15.0)
+	_emit("boss_explosion" if boss else "explosion", position, 28.0 if boss else blast_size, duration, {
 		"enemy_id": enemy_id, "category": category, "faction": str(enemy.get("faction", "mercenary")),
 		"impact_family": str(enemy.get("last_impact_family", "cannon"))
 	})
@@ -390,6 +400,8 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		blast_duration = BOSS_EXPLOSION_SECONDS
 	elif category == "sea":
 		event_duration = NAVAL_SINK_SECONDS
+	elif enemy_id in STRATEGIC_SITES:
+		event_duration = STRATEGIC_SITE_DESTRUCTION_SECONDS
 	var blast_clock := clampf(ratio * event_duration / blast_duration, 0.0, 0.999)
 	var blast_ratio := clampf(blast_clock / 0.66, 0.0, 0.999)
 	if category == "sea":
@@ -414,6 +426,12 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	var detonation_grade := Color(1.0,0.78,0.56,1.0) if impact_family == "missile" and not boss else Color.WHITE
 	detonation_grade.a = 1.0-smoothstep(0.68,1.0,blast_clock)
 	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, detonation_grade)
+	if enemy_id in STRATEGIC_SITES and blast_clock > 0.18 and blast_clock < 0.82:
+		var secondary_ratio := fposmod(blast_clock - 0.18, 0.32) / 0.32
+		var secondary: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(secondary_ratio * EXPLOSION_FRAMES.size())), 0, EXPLOSION_FRAMES.size()-1)]
+		var offset := Vector2(-16 if int(blast_clock * 10.0) % 2 == 0 else 17, -9 if enemy_id == "strategic_silo" else 8)
+		var secondary_size := Vector2.ONE * lerpf(28.0, 52.0, secondary_ratio)
+		surface.draw_texture_rect(secondary, Rect2((p + offset - secondary_size * 0.5).round(), secondary_size), false, Color(1.0,0.82,0.58,1.0-secondary_ratio*0.72))
 	if not boss and impact_family == "missile" and blast_clock < 0.46:
 		var core_ratio := blast_clock/0.46
 		var core: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
