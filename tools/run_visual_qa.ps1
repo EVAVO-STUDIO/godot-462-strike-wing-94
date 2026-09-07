@@ -62,6 +62,7 @@ $Cases = @(
 	@{ id='flight_mountain_long_route'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=136','--capture-throttle=78','--capture-altitude=low') },
 	@{ id='flight_harbor_long_route'; args=@('--capture-gameplay','--capture-mission=9','--capture-time=152','--capture-throttle=72','--capture-altitude=low') },
 	@{ id='flight_desert_long_route'; args=@('--capture-gameplay','--capture-mission=6','--capture-time=148','--capture-throttle=82','--capture-altitude=low') },
+	@{ id='flight_river_long_route'; args=@('--capture-gameplay','--capture-mission=7','--capture-time=156','--capture-throttle=76','--capture-altitude=low') },
 	@{ id='cloud_family_low'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=low') },
 	@{ id='cloud_family_mid'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid') },
 	@{ id='cloud_family_high'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=high') },

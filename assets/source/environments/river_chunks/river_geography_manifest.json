@@ -7,11 +7,14 @@
   "chunks": [
     {"id":"floodplain","role":"broad marsh and levee approach","size":[640,1024]},
     {"id":"defended_crossing","role":"bridge-abutment and flood-control choke point","size":[640,1024]},
-    {"id":"industrial_bend","role":"quay and industrial river strike lane","size":[640,1024]}
+    {"id":"industrial_bend","role":"quay and industrial river strike lane","size":[640,1024]},
+    {"id":"evacuation_floodway","role":"broad civilian evacuation and flood-control reach","size":[640,1024]},
+    {"id":"artillery_island","role":"fortified island fire-support choke point","size":[640,1024]},
+    {"id":"estuary_shipyard","role":"naval repair and missile-cruiser approach channel","size":[640,1024]}
   ],
   "current_animation": {"frames":6,"exposure_fps":6,"registration":[112,220],"spatial_loop":false,"world_registered":true},
   "assembly_contract": {
-    "geography_cycle_pixels":3072,
+    "geography_cycle_pixels":6144,
     "shared_connector_height":48,
     "base_order":["geography_chunk","world_registered_current","finite_bridge_and_targets","reflection_and_wakes","cloud_shadow","cloud_body","rain_and_mist"],
     "rules":["No complete bridge span is baked into geography.","Current events stay registered inside authored channels.","Adjacent chunks close at zero scanline error.","Recognizable geography never repeats at the former 720-pixel interval."]

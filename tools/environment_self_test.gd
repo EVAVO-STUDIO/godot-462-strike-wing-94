@@ -41,6 +41,9 @@ func _initialize() -> void:
 		var desert_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "desert_lance_railhead")
 		_expect(not desert_route.is_empty() and EnvironmentRouteRules.validation_errors(desert_route).is_empty(), "Desert Lance should resolve a valid expanded production route")
 		_expect(desert_route.get("districts", []).size() == 6 and int(desert_route.get("world_length", 0)) == 6144, "desert route should provide six distinct 1024px districts before repeating")
+		var river_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "river_hammer_corridor")
+		_expect(not river_route.is_empty() and EnvironmentRouteRules.validation_errors(river_route).is_empty(), "River Hammer should resolve a valid expanded production route")
+		_expect(river_route.get("districts", []).size() == 6 and int(river_route.get("world_length", 0)) == 6144, "river route should provide six distinct 1024px districts before repeating")
 		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
 		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
@@ -107,7 +110,7 @@ func _initialize() -> void:
 		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains('_route("refinery_long_night")') and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble the expanded data-authored refinery route")
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
 		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains('_route("desert_lance_railhead")') and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should use its expanded data-authored battlefield route")
-		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
+		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains('_route("river_hammer_corridor")') and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should use its expanded data-authored floodplain route")
 		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains('_route("mountain_whiteout_corridor")'), "mountain benchmark should use its expanded data-authored route")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains('_route("harbor_blackout_approach")'), "harbor benchmark should use its expanded data-authored route")
 		_expect(source.contains('EnvironmentRouteRules.by_id(_routes, route_id)') and source.contains('_route("cloud_top_silver_front")'), "high-altitude benchmark should resolve its authored route from content data")
@@ -348,8 +351,10 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://tools/build_river_geography_art.ps1"), "river geography should retain a reproducible registered builder")
 		_expect(FileAccess.file_exists("res://tools/build_river_bridge_art.ps1"), "river bridge should retain a reproducible source finisher")
 		var river_manifest = ContentCatalog.load_json("res://assets/source/environments/river_chunks/river_geography_manifest.json")
-		_expect(typeof(river_manifest) == TYPE_DICTIONARY and river_manifest.get("chunks", []).size() == 3, "river manifest should register three distinct 1024px sections")
-		var river_names := ["floodplain", "defended_crossing", "industrial_bend"]
+		_expect(typeof(river_manifest) == TYPE_DICTIONARY and river_manifest.get("chunks", []).size() == 6 and int(river_manifest.get("assembly_contract", {}).get("geography_cycle_pixels", 0)) == 6144, "river manifest should register six distinct 1024px sections")
+		var river_names := ["floodplain", "defended_crossing", "industrial_bend", "evacuation_floodway", "artillery_island", "estuary_shipyard"]
+		var river_expansion_builder := FileAccess.get_file_as_string("res://tools/build_river_route_expansion.py")
+		_expect(river_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and river_expansion_builder.contains("expanded_districts") and river_expansion_builder.contains("protected traffic"), "river expansion should retain deterministic source composition and separate mission actors")
 		var river_images: Array[Image] = []
 		for chunk_name in river_names:
 			var river_texture := load("res://assets/runtime/environments/river_chunks/%s.png" % chunk_name) as Texture2D
@@ -362,11 +367,11 @@ func _initialize() -> void:
 			var current_frame := load("res://assets/runtime/environments/river_current_animation/current_%d.png" % frame_index) as Texture2D
 			_expect(current_frame != null and current_frame.get_size() == Vector2(112,220), "river current should retain shared 112x220 registration: %d" % frame_index)
 			if current_frame != null: _expect(current_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "river current frame must retain genuine alpha: %d" % frame_index)
-		_expect(source.contains("RIVER_CURRENT_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "river current should use held frames registered to forward-moving geography world coordinates")
+		_expect(source.contains("RIVER_CURRENT_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + route_scroll'), "river current should use held frames registered to expanded forward-moving geography coordinates")
 		_expect(not source.contains("_draw_vertical_loop(surface, RIVER_CURRENT_TILE"), "river presentation must not regress to full-screen straight-line current tiling")
 		_expect(not source.contains('family in ["coast", "industrial", "river_corridor"'), "river geography should allow its complete bridge landmark to remain a separate layer")
 		_expect(source.contains("_draw_registered_river_bridge"), "river bridge should use geography-registered placement")
-		_expect(source.contains("crossing_world_y := 1594.0"), "river bridge should align to defended-crossing abutments")
+		_expect(source.contains("crossing_world_y := 1594.0") and source.contains("crossing_world_y + scroll, 6144.0"), "river bridge should align to defended-crossing abutments on the expanded route")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/mountain/mountain_radar_loop_v1.png"), "mountain runtime master should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_asset_manifest.json"), "mountain source manifest should exist")
 		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_chunks/mountain_geography_manifest.json"), "mountain geography/weather/layered-radar manifest should exist")

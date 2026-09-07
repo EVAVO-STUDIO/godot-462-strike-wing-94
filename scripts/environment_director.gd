@@ -57,6 +57,9 @@ const RIVER_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/river_chunks/floodplain.png"),
 	preload("res://assets/runtime/environments/river_chunks/defended_crossing.png"),
 	preload("res://assets/runtime/environments/river_chunks/industrial_bend.png"),
+	preload("res://assets/runtime/environments/river_chunks/evacuation_floodway.png"),
+	preload("res://assets/runtime/environments/river_chunks/artillery_island.png"),
+	preload("res://assets/runtime/environments/river_chunks/estuary_shipyard.png"),
 ]
 const MOUNTAIN_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/mountain_chunks/switchback_pass.png"),
@@ -386,11 +389,14 @@ func _draw_registered_river_bridge(surface: CanvasItem, scene: Object, state: Di
 	# The complete span belongs over the matching abutments in the defended-
 	# crossing chunk. Keeping the sprite separate still permits destruction and
 	# animation, while this shared world coordinate prevents seeded dry-land drops.
-	var scroll := _world_distance(scene) * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
+	var route := _route("river_hammer_corridor")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = RIVER_GEOGRAPHY_CHUNKS
+	var scroll := _world_distance(scene) * 27.0 + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var size := texture.get_size() * scale
 	var crossing_world_y := 1594.0
-	var center_y := fposmod(crossing_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+	var center_y := fposmod(crossing_world_y + scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
 	var y := center_y - size.y * 0.5
 	if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
 		return
@@ -879,8 +885,11 @@ func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t
 
 func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := _world_distance(scene) * 27.0 + float(_mission_seed(scene) % 3) * 1024.0
-	_draw_vertical_chunk_sequence(surface, RIVER_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
+	var route := _route("river_hammer_corridor")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = RIVER_GEOGRAPHY_CHUNKS
+	var route_scroll := _world_distance(scene) * 27.0 + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
+	_draw_vertical_chunk_sequence(surface, route_chunks, route_scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.035, 0.032, 0.13))
 	var current_slots := [
 		{"x":292.0,"y":110.0}, {"x":370.0,"y":610.0}, {"x":264.0,"y":1110.0},
@@ -889,7 +898,7 @@ func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary,
 	for slot_index in range(current_slots.size()):
 		var slot: Dictionary = current_slots[slot_index]
 		var current: Texture2D = RIVER_CURRENT_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2,RIVER_CURRENT_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) + scroll,3072.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(slot["y"]) + route_scroll,6144.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface,current,Rect2(Vector2(float(slot["x"]),y).round(),Vector2(112,220)),ENVIRONMENT_VIEW,Color(0.62,0.72,0.78,0.18))
 
 func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:

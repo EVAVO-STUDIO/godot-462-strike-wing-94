@@ -50,6 +50,18 @@
       ],"animation_slots":[]
     },
     {
+      "id":"river_hammer_corridor","environment":"open_water","native_width":640,"chunk_height":1024,"world_length":6144,
+      "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"current","kind":"registered_animation","ratio":1.0},{"id":"bridge_and_surface_contacts","kind":"registered_objects","ratio":1.0},{"id":"rain_and_mist","kind":"finite_field","ratio":1.14}],
+      "districts":[
+        {"id":"floodplain","asset":"res://assets/runtime/environments/river_chunks/floodplain.png","north":"river_a","south":"river_a"},
+        {"id":"defended_crossing","asset":"res://assets/runtime/environments/river_chunks/defended_crossing.png","north":"river_a","south":"river_a"},
+        {"id":"industrial_bend","asset":"res://assets/runtime/environments/river_chunks/industrial_bend.png","north":"river_a","south":"river_a"},
+        {"id":"evacuation_floodway","asset":"res://assets/runtime/environments/river_chunks/evacuation_floodway.png","north":"river_a","south":"river_a"},
+        {"id":"artillery_island","asset":"res://assets/runtime/environments/river_chunks/artillery_island.png","north":"river_a","south":"river_a"},
+        {"id":"estuary_shipyard","asset":"res://assets/runtime/environments/river_chunks/estuary_shipyard.png","north":"river_a","south":"river_a"}
+      ],"animation_slots":[]
+    },
+    {
       "id":"desert_lance_railhead","environment":"industrial","native_width":640,"chunk_height":1024,"world_length":6144,
       "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"finite_targets","kind":"registered_objects","ratio":1.0},{"id":"dust_and_scars","kind":"registered_animation","ratio":1.0},{"id":"heat_haze","kind":"finite_field","ratio":1.12}],
       "districts":[
