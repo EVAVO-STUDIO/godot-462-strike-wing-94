@@ -1,6 +1,6 @@
 {
-  "asset_family": "hypersonic_weapon_explosion_cels_v2",
-  "method": "deterministic offline cel authoring with retained transparent canvases",
+  "asset_family": "hypersonic_weapon_explosion_cels_v3",
+  "method": "deterministic offline cel authoring with ragged hand-cut silhouettes and retained transparent canvases",
   "families": {
     "missile": {
       "frames": 11,
