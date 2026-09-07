@@ -141,11 +141,18 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 		for p in sample:
 			if (str(p.layer) == "near") != near_band: continue
 			var position := WeatherRules.snow_position(p, _travel, _time).round()
-			var radius := maxf(0.7, float(p.size) * (0.54 if near_band else 0.47))
-			var alpha := clampf(float(p.alpha) * opacity * (1.46 if near_band else 1.24), 0.0, 0.86)
+			var radius := maxf(0.7, float(p.size) * (0.66 if near_band else 0.52))
+			var alpha := clampf(float(p.alpha)*opacity*(1.72 if near_band else 1.38),0.0,0.92)
 			var cel: Texture2D = SNOW_CELS.get(str(p.layer),SNOW_CELS["distant"])
-			var draw_extent := maxf(5.0,radius*(5.5 if near_band else 4.2))
+			var draw_extent := maxf(5.0,radius*(6.0 if near_band else 4.6))
 			var draw_size := Vector2.ONE*draw_extent
+			# A cool shadow key makes the white cel legible over snowfields without
+			# turning it into a bright UI particle. Near flakes also retain a faint
+			# previous exposure so their sideways slip reads at gameplay speed.
+			if near_band:
+				var slip := Vector2(-3.0-clampf((_world_speed-1.0)*0.8,0.0,2.0),-2.0)
+				surface.draw_texture_rect(cel,Rect2((position+slip-draw_size*0.5).round(),draw_size.round()),false,Color(0.66,0.76,0.80,alpha*0.22))
+			surface.draw_texture_rect(cel,Rect2((position+Vector2(1,1)-draw_size*0.5).round(),draw_size.round()+Vector2.ONE*2.0),false,Color(0.07,0.12,0.15,alpha*0.48))
 			surface.draw_texture_rect(cel,Rect2((position-draw_size*0.5).round(),draw_size.round()),false,Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha))
 	else:
 		for p in _rain.get(_profile, []):
