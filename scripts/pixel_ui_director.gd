@@ -578,9 +578,12 @@ func _draw_front_end_dossier(surface: CanvasItem, scene: Object) -> void:
 	var texture: Texture2D = load(str(selected.get("illustration",""))) as Texture2D
 	if texture is Texture2D:
 		var raw_size: Vector2 = texture.get_size()
-		var scale: float = minf(142.0/maxf(1.0,raw_size.x),92.0/maxf(1.0,raw_size.y))
+		# The dossier is an inspection surface, so native gameplay silhouettes need
+		# more authority here. Nearest-neighbour project sampling keeps pixel edges
+		# intact while the cap still protects the classification and summary columns.
+		var scale: float = minf(142.0/maxf(1.0,raw_size.x),106.0/maxf(1.0,raw_size.y))
 		var draw_size: Vector2 = (raw_size*scale).round()
-		surface.draw_texture_rect(texture,Rect2((Vector2(330,207)-draw_size*0.5).round(),draw_size),false,Color(0.88,0.93,0.95))
+		surface.draw_texture_rect(texture,Rect2((Vector2(330,202)-draw_size*0.5).round(),draw_size),false,Color(0.92,0.96,0.98))
 	PixelFont.draw_text(surface,str(selected.get("category","FILE")),Vector2(412,154),1,GOLD,1)
 	PixelFont.draw_text(surface,_clip(str(selected.get("name","UNKNOWN")),29),Vector2(412,171),1,TEXT,1)
 	PixelFont.draw_text(surface,_clip(str(selected.get("classification","RESTRICTED")),29),Vector2(412,187),1,BLUE,1)
