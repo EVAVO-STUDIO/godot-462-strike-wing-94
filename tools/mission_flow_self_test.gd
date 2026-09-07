@@ -162,7 +162,7 @@ func _test_movement_patterns() -> void:
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	if main_file != null:
 		var source := main_file.get_as_text()
-		_expect(source.contains("position = MovementPatternRules.adjusted_position(") and source.contains("\n\t\t\t\t\tpattern,") and source.contains("\n\t\t\t\t\tplayer_position,"), "main should apply movement directly")
+		_expect(source.contains("MovementPatternRules.adjusted_motion(") and source.contains('enemy["lateral_velocity"] = motion["lateral_velocity"]'), "main should preserve inertial movement state between simulation steps")
 	_expect(not FileAccess.file_exists("res://scripts/movement_pattern_director.gd"), "obsolete movement director should remain deleted")
 
 func _test_autoloads() -> void:
@@ -198,6 +198,10 @@ func _test_pixel_ui() -> void:
 		for front_end_asset in ["frame.png", "button_idle.png", "button_selected.png", "cursor.png"]:
 			_expect(ResourceLoader.exists("res://assets/runtime/ui/menu/front_end/%s" % front_end_asset), "front-end menu sprite should exist: %s" % front_end_asset)
 		_expect(source.contains("func _draw_support_links"), "support readiness instrumentation should remain available without permanently crowding the combat field")
+		_expect(source.contains("func _draw_surface_iff_markers") and source.contains('"--capture-surface-iff"'), "surface strike and protected contacts should have deterministic world-space IFF markers")
+		for marker_asset in ["objective_marker.png", "protected_marker.png"]:
+			var marker := load("res://assets/runtime/ui/hud/tactical_radar/%s" % marker_asset)
+			_expect(marker is Texture2D and marker.get_size() == Vector2(28,28), "surface IFF marker should retain reviewed 28x28 geometry: %s" % marker_asset)
 		_expect(source.contains('argument.begins_with("--capture-hud=")') and source.contains('["objective", "ingress", "acquisition", "warning", "boss"]'), "visual QA should expose deterministic ingress, objective, acquisition, warning and boss HUD fixtures without mutating simulation")
 		_expect(source.contains('_capture_time() > INGRESS_SECONDS') and source.contains('capture_state == "ingress"'), "representative gameplay captures should suppress the launch transient unless ingress is explicitly requested")
 		_expect(source.contains('if _capture_hud_state() == "boss"') and source.contains('if _capture_hud_state() == "warning"'), "critical HUD capture fixtures should provide deterministic boss and missile-lock presentation data")

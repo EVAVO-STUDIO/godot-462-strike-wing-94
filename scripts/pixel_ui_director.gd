@@ -118,6 +118,8 @@ const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
 const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
 const HUD_TACTICAL_RADAR_SCOPE := preload("res://assets/runtime/ui/hud/tactical_radar/scope.png")
+const HUD_OBJECTIVE_MARKER := preload("res://assets/runtime/ui/hud/tactical_radar/objective_marker.png")
+const HUD_PROTECTED_MARKER := preload("res://assets/runtime/ui/hud/tactical_radar/protected_marker.png")
 const HUD_TACTICAL_RADAR_CONTACTS := {
 	"player": preload("res://assets/runtime/ui/hud/tactical_radar/player.png"),
 	"air": preload("res://assets/runtime/ui/hud/tactical_radar/air.png"),
@@ -720,6 +722,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	surface.draw_rect(Rect2(8, 5, 624, 30), Color(0.018, 0.035, 0.048, 0.97))
 	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 5))
 	_draw_tactical_radar(surface,scene)
+	_draw_surface_iff_markers(surface,scene)
 	var max_hull := _call_int(scene, "_max_hull", 100)
 	var max_shield := _call_int(scene, "_max_shield", 100)
 	var generator := _call_dictionary(scene, "_active_generator")
@@ -865,6 +868,32 @@ func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, 
 		kind = "ground" if category == "ground" else ("sea" if category == "sea" else "air")
 	var icon: Texture2D = HUD_TACTICAL_RADAR_CONTACTS.get(kind,HUD_TACTICAL_RADAR_CONTACTS["air"])
 	surface.draw_texture(icon,(scope_position+scope_point-Vector2(4,4)).round())
+
+func _draw_surface_iff_markers(surface: CanvasItem, scene: Object) -> void:
+	var marked := 0
+	if _has_property(scene,"enemies"):
+		for enemy in scene.get("enemies"):
+			if typeof(enemy) != TYPE_DICTIONARY or not bool(enemy.get("strike_priority",false)): continue
+			var position: Vector2 = enemy.get("position",Vector2.ZERO)
+			if not Rect2(18,52,604,296).has_point(position): continue
+			surface.draw_texture(HUD_OBJECTIVE_MARKER,(position-Vector2(14,14)).round())
+			PixelFont.draw_centered(surface,"STRIKE",int(position.x),int(position.y-22),1,GREEN,1)
+			marked += 1
+			if marked >= 4: break
+	if _has_property(scene,"protected_contacts"):
+		for contact in scene.get("protected_contacts"):
+			if typeof(contact) != TYPE_DICTIONARY: continue
+			var position: Vector2 = contact.get("position",Vector2.ZERO)
+			if not Rect2(18,52,604,296).has_point(position): continue
+			surface.draw_texture(HUD_PROTECTED_MARKER,(position-Vector2(14,14)).round())
+			PixelFont.draw_centered(surface,"PROTECTED",int(position.x),int(position.y-22),1,BLUE,1)
+	if "--capture-surface-iff" in OS.get_cmdline_user_args():
+		var objective_fixture := Vector2(230,135)
+		var protected_fixture := Vector2(517,230)
+		surface.draw_texture(HUD_OBJECTIVE_MARKER,(objective_fixture-Vector2(14,14)).round())
+		PixelFont.draw_centered(surface,"STRIKE",int(objective_fixture.x),int(objective_fixture.y-22),1,GREEN,1)
+		surface.draw_texture(HUD_PROTECTED_MARKER,(protected_fixture-Vector2(14,14)).round())
+		PixelFont.draw_centered(surface,"PROTECTED",int(protected_fixture.x),int(protected_fixture.y-22),1,BLUE,1)
 
 func _altitude_choice_active(scene: Object) -> bool:
 	var presentation := get_node_or_null("/root/AltitudeTransitionDirector")

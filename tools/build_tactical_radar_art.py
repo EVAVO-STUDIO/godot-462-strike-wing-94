@@ -38,6 +38,27 @@ def icon(name, pixels, colour, shadow=True):
     image.save(OUT / f"{name}.png")
 
 
+def world_marker(name, colour, protected=False):
+    image = Image.new("RGBA", (28, 28), (0, 0, 0, 0))
+    d = ImageDraw.Draw(image)
+    dark = (4, 10, 11, 220)
+    corners = [((2, 8), (2, 2), (8, 2)), ((19, 2), (25, 2), (25, 8)),
+               ((2, 19), (2, 25), (8, 25)), ((19, 25), (25, 25), (25, 19))]
+    for points in corners:
+        shifted = [(x + 1, y + 1) for x, y in points]
+        d.line(shifted, fill=dark, width=2)
+        d.line(points, fill=colour, width=2)
+    if protected:
+        d.rectangle((12, 5, 15, 22), fill=dark)
+        d.rectangle((5, 12, 22, 15), fill=dark)
+        d.rectangle((13, 6, 14, 21), fill=colour)
+        d.rectangle((6, 13, 21, 14), fill=colour)
+    else:
+        d.polygon(((14,4),(18,8),(14,12),(10,8)), fill=dark)
+        d.line(((14,5),(17,8),(14,11),(11,8),(14,5)), fill=colour, width=1)
+    image.save(OUT / f"{name}.png")
+
+
 frame()
 icon("player", [(3,1),(2,2),(3,2),(4,2),(1,3),(2,3),(3,3),(4,3),(5,3),(3,4),(3,5)], (205,235,220,255))
 icon("air", [(3,1),(2,2),(4,2),(1,3),(5,3),(2,4),(3,4),(4,4)], (222,104,77,255))
@@ -47,4 +68,6 @@ icon("boss", [(3,0),(2,1),(4,1),(1,2),(5,2),(0,3),(6,3),(1,4),(5,4),(2,5),(3,6),
 icon("missile", [(3,0),(2,2),(3,1),(4,2),(3,3),(3,4),(2,5),(4,5)], (255,78,58,255))
 icon("objective", [(3,0),(3,1),(0,3),(1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(3,4),(3,5),(3,6)], (101,205,169,255))
 icon("protected", [(2,1),(3,1),(4,1),(1,2),(5,2),(1,3),(5,3),(1,4),(5,4),(2,5),(3,5),(4,5)], (104,181,210,255))
+world_marker("objective_marker", (105, 211, 172, 255))
+world_marker("protected_marker", (104, 181, 210, 255), True)
 print(OUT)

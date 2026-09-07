@@ -4,7 +4,9 @@
   "style": "late-1990s military CRT scope",
   "scope_geometry": [120, 76],
   "contact_geometry": [8, 8],
+  "world_marker_geometry": [28, 28],
   "contacts": ["player", "air", "ground", "sea", "boss", "missile", "objective", "protected"],
   "builder": "tools/build_tactical_radar_art.py",
+  "world_markers": ["objective_marker", "protected_marker"],
   "purpose": "show lateral bearing and forward depth for combat, objective, missile and protected contacts"
 }
