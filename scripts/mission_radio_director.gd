@@ -116,14 +116,16 @@ func draw_radio(surface: CanvasItem) -> void:
 	if _message.is_empty() or not _subtitles_enabled() or _flight_warning_active(): return
 	var age := _message_duration - _message_timer
 	var alpha := minf(clampf(age / 0.12, 0.0, 1.0), clampf(_message_timer / 0.22, 0.0, 1.0))
-	# Combat radio is instrumentation, not a dialogue window. One full-width
-	# raster strip preserves subtitles while returning the lower playfield and
-	# the player's silhouette to combat. Cinematics retain their own framing.
-	var strip := Rect2(16, 337, 608, 18)
+	# Size the receive rail to its transmission. Routine calls no longer paint a
+	# permanent-looking footer across the route; long briefings can still expand
+	# to the full subtitle-safe width.
+	var message_text := _clip(_message,102)
+	var strip_width := clampf(126.0+float(message_text.length())*5.0,286.0,608.0)
+	var strip := Rect2(16,337,strip_width,18)
 	var priority_alert := _priority >= 3
-	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1, 1, 1, alpha))
+	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1,1,1,alpha*0.82))
 	PixelFont.draw_text(surface, ("PR // %s" if priority_alert else "RX // %s") % _speaker, Vector2(31, 343), 1, Color(0.90, 0.38, 0.30, alpha) if priority_alert else Color(0.42, 0.73, 0.78, alpha), 1)
-	PixelFont.draw_text(surface, _clip(_message, 102), Vector2(112, 343), 1, Color(0.86, 0.89, 0.90, alpha), 1)
+	PixelFont.draw_text(surface,message_text,Vector2(112,343),1,Color(0.86,0.89,0.90,alpha),1)
 
 func occupies_status_lane() -> bool:
 	return not _message.is_empty() and _subtitles_enabled() and not _flight_warning_active()

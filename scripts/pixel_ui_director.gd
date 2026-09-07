@@ -725,8 +725,8 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	# but battlefield sprites must never show through those apertures before they
 	# have entered the combat viewport. A single smoked avionics backing keeps the
 	# permanent strip visually solid without extending into the warning lane.
-	surface.draw_rect(Rect2(8, 5, 624, 30), Color(0.018, 0.035, 0.048, 0.97))
-	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 5))
+	surface.draw_rect(Rect2(8, 5, 624, 30), Color(0.018, 0.035, 0.048, 0.76))
+	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 5), Color(1,1,1,0.86))
 	_draw_tactical_radar(surface,scene)
 	_draw_surface_iff_markers(surface,scene)
 	var max_hull := _call_int(scene, "_max_hull", 100)
@@ -814,9 +814,9 @@ func _draw_lateral_airspace_warning(surface: CanvasItem, scene: Object) -> void:
 func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	# Keep the tactical picture in the pilot's instrument scan instead of masking
 	# the forward terrain.  Contacts stay bright while the housing recedes.
-	var scope_position := Vector2(528,244)
-	var scope_size := Vector2(104,66)
-	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(0.78,0.88,0.90,0.72))
+	var scope_position := Vector2(548,278)
+	var scope_size := Vector2(84,52)
+	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(0.72,0.82,0.84,0.52))
 	var player: Vector2 = scene.get("player_position") if _has_property(scene,"player_position") else Vector2(320,250)
 	var contacts: Array = []
 	if _has_property(scene,"enemies") and typeof(scene.get("enemies")) == TYPE_ARRAY:
@@ -864,14 +864,9 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 				tracked_distance = missile_distance
 			shown += 1
 			if shown >= 22: break
-	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(48,49))
-	PixelFont.draw_text(surface,"TAC%02d"%mini(shown,99),scope_position+Vector2(6,3),1,Color(GREEN,0.90),1)
-	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(67,3),1,Color(GOLD if tracked_priority >= 4 else MUTED,0.88),1)
-	var craft := surface.get_node_or_null("/root/CraftFormDirector")
-	var speed := float(craft.call("world_speed_multiplier")) if craft != null and craft.has_method("world_speed_multiplier") else 1.0
-	var altitude := str(craft.call("current_altitude")) if craft != null and craft.has_method("current_altitude") else "mid"
-	var band: String = str({"low":"LO","mid":"MD","high":"HI","orbital":"OR"}.get(altitude,"MD"))
-	PixelFont.draw_text(surface,"24S %s X%.1f" % [band,clampf(speed,0.0,9.9)],scope_position+Vector2(6,57),1,Color(MUTED,0.82),1)
+	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(38,42))
+	PixelFont.draw_text(surface,"T%02d"%mini(shown,99),scope_position+Vector2(5,3),1,Color(GREEN,0.88),1)
+	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(48,3),1,Color(GOLD if tracked_priority >= 4 else MUTED,0.84),1)
 
 func _tactical_radar_priority(contact: Dictionary) -> int:
 	if bool(contact.get("missile",false)): return 5
@@ -898,8 +893,8 @@ func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, 
 	var world_position: Vector2 = contact.get("position",player)
 	var relative := world_position-player
 	var scope_point := Vector2(
-		clampf(52.0+relative.x*0.090,12.0,92.0),
-		clampf(52.0+relative.y*0.105,14.0,54.0)
+		clampf(42.0+relative.x*0.072,10.0,74.0),
+		clampf(44.0+relative.y*0.082,13.0,45.0)
 	)
 	var kind := "air"
 	if bool(contact.get("protected",false)) or str(contact.get("faction","")) == "civilian": kind = "protected"
