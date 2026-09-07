@@ -379,6 +379,10 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 		# The truss is background navigation hardware, not a targeting overlay.
 		# Keep its schematic silhouette but subordinate it to ships and HUD marks.
 		scale = 0.58 + 0.08 * clampf(orbital_mix, 0.0, 1.0)
+	elif family == "desert_front":
+		# The runway is a distant route landmark. At the generic ground scale its
+		# schematic geometry competed with tanks and read like a navigation widget.
+		scale = 0.58
 	elif family == "water":
 		scale = 0.62
 	var size := texture.get_size() * scale
@@ -387,7 +391,7 @@ func _draw_landmarks(surface: CanvasItem, scene: Object, profile: Dictionary, st
 	var alpha := 0.88 if family not in ["cloud_top", "orbital"] else (0.46 if family == "orbital" else 0.74)
 	if family == "orbital":
 		alpha *= clampf(orbital_mix, 0.0, 1.0)
-	var landmark_tint := Color(0.60,0.68,0.70,alpha) if family == "orbital" else Color(0.86,0.89,0.88,alpha)
+	var landmark_tint := Color(0.60,0.68,0.70,alpha) if family == "orbital" else (Color(0.72,0.63,0.48,alpha*0.72) if family == "desert_front" else Color(0.86,0.89,0.88,alpha))
 	surface.draw_texture_rect(texture, Rect2(Vector2(x, y), size), false, landmark_tint)
 	if LANDMARK_FX_FRAMES.has(family):
 		var fx_frames: Array = LANDMARK_FX_FRAMES[family]
@@ -1058,10 +1062,11 @@ func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, densit
 	# Keep at least one far and one near bank visible in every cloud-bearing
 	# lane. Three mid-level banks could previously wrap beyond both screen edges
 	# together and make MID read exactly like LOW for several seconds.
-	var count := 3 if band == "low" else (3 if band == "mid" else 7)
-	count = maxi(count, int(round(6.0*density)))
+	var count := 1 if band == "low" else (3 if band == "mid" else 7)
+	var density_count_scale := 1.0 if band == "low" else 6.0
+	count = maxi(count, int(round(density_count_scale*density)))
 	var alpha := (0.12 + density * 0.21) * blend
-	if band == "low": alpha *= 0.72
+	if band == "low": alpha *= 0.20
 	if band == "high": alpha *= 1.42
 	for i in range(count):
 		var texture: Texture2D = family[i % family.size()]
@@ -1073,7 +1078,9 @@ func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, densit
 		var scale_step := 0.14 if band == "high" else 0.12
 		var scale := scale_base+depth*scale_step*2.4
 		var size := Vector2(texture.get_size()) * scale
-		if band == "mid":
+		if band == "low":
+			size *= Vector2(0.72,0.74)
+		elif band == "mid":
 			size *= Vector2(0.82,0.88)
 		# Include the bank height in the wrap cycle so clouds cross both viewport
 		# edges continuously instead of popping in fully formed and dwelling below.
@@ -1088,7 +1095,7 @@ func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, densit
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, cloud_tone)
 		# Pair selected banks with a dimmer offset lobe. Overlap breaks the repeated
 		# rectangular cadence while retaining the authored cel edges and registration.
-		if i % 3 == 0:
+		if i % 3 == 0 and band != "low":
 			var lobe_texture: Texture2D = family[(i + 1) % family.size()]
 			var lobe_size := size * Vector2(0.68,0.62)
 			var lobe_offset := Vector2(size.x*0.34,-size.y*0.08)

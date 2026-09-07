@@ -22,10 +22,11 @@ def build_district(name, base_name, contrast, colour, brightness):
     result = ImageEnhance.Contrast(result).enhance(contrast)
     result = ImageEnhance.Color(result).enhance(colour)
     result = ImageEnhance.Brightness(result).enhance(brightness)
-    # Restore the common route connectors after grading. Convoys, launchers,
-    # dust gusts, vehicle scars and destructible sites remain separate layers.
-    result.paste(original.crop((0, 0, 640, 48)), (0, 0))
-    result.paste(original.crop((0, 976, 640, 1024)), (0, 976))
+    # Restore only the exact boundary scanline after grading. Copying 48-row
+    # edge blocks into the mirrored district created hard horizontal bands at
+    # rows 48 and 976 even though the outermost seam itself tested cleanly.
+    result.paste(original.crop((0, 0, 640, 1)), (0, 0))
+    result.paste(original.crop((0, 1023, 640, 1024)), (0, 1023))
     SOURCE.mkdir(parents=True, exist_ok=True)
     RUNTIME.mkdir(parents=True, exist_ok=True)
     result.save(SOURCE / f"{name}.png", optimize=True)

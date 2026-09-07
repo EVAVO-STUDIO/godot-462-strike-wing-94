@@ -16,7 +16,7 @@
     "geography_cycle_pixels": 6144,
     "dust_loop_pixels": 512,
     "landmark_cycle_independent": true,
-    "shared_connector_height": 48,
+    "shared_connector_height": 1,
     "base_order": ["geography_chunk", "finite_targets_and_wreckage", "dust_and_vehicle_scars", "landmark", "cloud_shadow", "cloud_body", "heat_and_mist"],
     "rules": [
       "Recognizable desert geography never repeats at the former 720-pixel interval.",

@@ -34,16 +34,15 @@ for ($Index = 0; $Index -lt 6; $Index++) {
     if ($Channels -notmatch 'a') { throw "Desert dust frame lost alpha: $Index [$Channels]" }
 }
 
-$Connector = Join-Path $Work 'shared_connector.png'
 $ConnectorRow = Join-Path $Work 'connector_row.png'
-& $MagickPath (Join-Path $Work 'raw_0.png') -crop '640x48+0+0' +repage $Connector
-& $MagickPath $Connector -crop '640x1+0+0' +repage $ConnectorRow
-& $MagickPath $Connector $ConnectorRow -gravity south -compose over -composite $Connector
+# Close the route with one natural source scanline. The previous 48-row paste
+# plus two 22-row blur regions produced visible horizontal bands every time a
+# chunk boundary crossed the screen.
+& $MagickPath (Join-Path $Work 'raw_0.png') -crop '640x1+0+0' +repage $ConnectorRow
 for ($Index = 0; $Index -lt $Sections.Count; $Index++) {
     $Raw = Join-Path $Work "raw_$Index.png"
     $Destination = Join-Path $Output "$($Sections[$Index].Name).png"
-    & $MagickPath $Raw $Connector -gravity north -compose over -composite $Connector -gravity south -compose over -composite `
-        -region '640x22+0+38' -blur '0x2.2' +region -region '640x22+0+964' -blur '0x2.2' +region -depth 8 $Destination
+    & $MagickPath $Raw $ConnectorRow -gravity north -compose over -composite $ConnectorRow -gravity south -compose over -composite -depth 8 $Destination
     if ($LASTEXITCODE -ne 0) { throw "Failed to finish desert chunk: $($Sections[$Index].Name)" }
 }
 

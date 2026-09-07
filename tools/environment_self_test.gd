@@ -285,6 +285,7 @@ func _initialize() -> void:
 		_expect(source.contains("vertical travel") and source.contains("Vector2(8.0,streak_height)"), "hypersonic exposure streaks should follow forward screen travel rather than smear sideways")
 		_expect(source.contains("atmospheric extinction") and source.contains("0.26 * mix"), "high-altitude terrain should lose near-field contrast beneath atmospheric haze")
 		_expect(source.contains("var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y") and source.contains("ENVIRONMENT_VIEW.position.y - size.y * 0.5"), "cloud banks should enter and leave continuously through the viewport edges")
+		_expect(source.contains('1 if band == "low"') and source.contains("alpha *= 0.20") and source.contains('band != "low"'), "low-altitude lanes should stay beneath the cloud deck with at most one faint local wisp and no secondary cloud lobe")
 		_expect(source.contains("LANDMARKS") and source.contains("_draw_landmarks") and source.contains("_mission_seed"), "environment renderer should layer sparse deterministic mission landmarks over seamless biome plates")
 		_expect(source.contains("LANDMARK_FX_FRAMES") and source.contains("floor(t * 4.0)"), "mission landmarks should consume deliberate four-fps held sprite animation")
 		var landmark_names := ["coastal_battery", "refinery_stack", "storm_platform", "desert_airstrip", "river_bridge", "mountain_radar", "harbor_cranes", "city_rail_hub", "machine_gantry", "weather_relay", "orbital_truss"]
@@ -307,6 +308,7 @@ func _initialize() -> void:
 		_expect(storm_platform_v2 != null and storm_platform_v2.get_size() == Vector2(128,160), "open-water landmark should use the registered v2 offshore platform sprite")
 		_expect(source.contains('"water": preload("res://assets/runtime/environments/landmarks/storm_platform_v2.png")') and source.contains('family == "water"'), "water landmark should select its physically engineered v2 art and world-scale treatment")
 		_expect(source.contains("scale = 0.58 + 0.08") and source.contains("Color(0.60,0.68,0.70,alpha)"), "orbital truss landmarks should remain subdued world hardware instead of reading as oversized HUD geometry")
+		_expect(source.contains('family == "desert_front"') and source.contains("scale = 0.58") and source.contains("Color(0.72,0.63,0.48,alpha*0.72)"), "desert airstrip landmarks should remain distant dust-graded route structures instead of reading as navigation widgets")
 		_expect(FileAccess.file_exists("res://assets/source/environments/landmark_asset_manifest.json"), "mission landmark source/runtime manifest should exist")
 		for landmark_family in ["coast", "industrial", "water", "desert_front", "river_corridor", "mountain_radar", "night_harbor", "city_outskirts", "machine_furnace", "cloud_top", "orbital"]:
 			for frame_index in range(4):
@@ -330,7 +332,7 @@ func _initialize() -> void:
 		_expect(typeof(desert_geography_manifest) == TYPE_DICTIONARY and desert_geography_manifest.get("chunks", []).size() == 6 and int(desert_geography_manifest.get("assembly_contract", {}).get("geography_cycle_pixels", 0)) == 6144, "desert geography manifest should register six distinct 1024px sections")
 		var desert_geography_names := ["armour_approach", "wadi_crossing", "logistics_belt", "salt_escarpment", "scud_dispersal", "railhead_basin"]
 		var desert_expansion_builder := FileAccess.get_file_as_string("res://tools/build_desert_route_expansion.py")
-		_expect(desert_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and desert_expansion_builder.contains("expanded_districts") and desert_expansion_builder.contains("launchers"), "desert expansion should retain deterministic source composition and separate battlefield actors")
+		_expect(desert_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and desert_expansion_builder.contains("expanded_districts") and desert_expansion_builder.contains("(0, 1023, 640, 1024)"), "desert expansion should retain deterministic source composition and the repaired single-row route boundary")
 		var desert_geography_images: Array[Image] = []
 		for chunk_name in desert_geography_names:
 			var geography_texture := load("res://assets/runtime/environments/desert_chunks/%s.png" % chunk_name) as Texture2D
