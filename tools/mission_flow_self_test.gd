@@ -265,6 +265,9 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAMES"), "gameplay HUD should use authored raster frame and meter families")
 		_expect(source.contains("HUD_TACTICAL_RADAR_SCOPE") and source.contains("HUD_TACTICAL_RADAR_CONTACTS") and source.contains("func _draw_tactical_radar"), "gameplay HUD should expose a sprite-authored tactical picture of the forward battlespace")
 		_expect(source.contains('"protected": preload') and source.contains('"missile": preload') and source.contains('"objective": preload'), "tactical radar should distinguish protected, missile and objective contacts from combat targets")
+		_expect(source.contains("func _tactical_radar_priority") and source.contains("func _tactical_radar_track_label"), "tactical radar should select and identify a prioritized forward track")
+		for track_code in ['kind = "MSL"','kind = "BOS"','kind = "ROE"','kind = "OBJ"','kind = "GND"','kind = "SEA"']:
+			_expect(source.contains(track_code), "tactical radar should expose track code: %s" % track_code)
 		for radar_asset in ["scope","player","air","ground","sea","boss","missile","objective","protected"]:
 			var radar_texture := load("res://assets/runtime/ui/hud/tactical_radar/%s.png" % radar_asset)
 			var expected_size := Vector2(120,76) if radar_asset == "scope" else Vector2(8,8)

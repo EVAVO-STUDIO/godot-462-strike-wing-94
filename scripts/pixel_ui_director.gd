@@ -797,20 +797,56 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 		contacts.append({"position":player+Vector2(-230,-470),"protected":true})
 		contacts.append({"position":player+Vector2(210,-390),"objective":true,"category":"ground"})
 	var shown := 0
+	var tracked: Dictionary = {}
+	var tracked_priority := -1
+	var tracked_distance := INF
 	for contact in contacts:
 		if typeof(contact) != TYPE_DICTIONARY or not contact.has("position"): continue
 		_draw_tactical_radar_contact(surface,scope_position,player,contact)
+		var relative: Vector2 = Vector2(contact.get("position",player))-player
+		if relative.y <= 24.0:
+			var priority := _tactical_radar_priority(contact)
+			var distance := relative.length_squared()
+			if priority > tracked_priority or (priority == tracked_priority and distance < tracked_distance):
+				tracked = contact
+				tracked_priority = priority
+				tracked_distance = distance
 		shown += 1
 		if shown >= 18: break
 	if _has_property(scene,"enemy_bullets") and typeof(scene.get("enemy_bullets")) == TYPE_ARRAY:
 		for projectile in scene.get("enemy_bullets"):
 			if typeof(projectile) != TYPE_DICTIONARY or not bool(projectile.get("homing",false)): continue
-			_draw_tactical_radar_contact(surface,scope_position,player,{"position":projectile.get("position",player),"missile":true})
+			var missile_contact := {"position":projectile.get("position",player),"missile":true}
+			_draw_tactical_radar_contact(surface,scope_position,player,missile_contact)
+			var missile_distance := Vector2(projectile.get("position",player)).distance_squared_to(player)
+			if 5 > tracked_priority or (5 == tracked_priority and missile_distance < tracked_distance):
+				tracked = missile_contact
+				tracked_priority = 5
+				tracked_distance = missile_distance
 			shown += 1
 			if shown >= 22: break
 	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(56,59))
 	PixelFont.draw_text(surface,"TAC %02d"%mini(shown,99),scope_position+Vector2(8,4),1,GREEN,1)
-	PixelFont.draw_text(surface,"AHEAD",scope_position+Vector2(82,4),1,MUTED,1)
+	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(76,4),1,GOLD if tracked_priority >= 4 else MUTED,1)
+
+func _tactical_radar_priority(contact: Dictionary) -> int:
+	if bool(contact.get("missile",false)): return 5
+	if bool(contact.get("boss",false)): return 4
+	if bool(contact.get("objective",false)) or bool(contact.get("strike_priority",false)): return 3
+	if bool(contact.get("protected",false)) or str(contact.get("faction","")) == "civilian": return 2
+	return 1
+
+func _tactical_radar_track_label(contact: Dictionary, player: Vector2) -> String:
+	if contact.is_empty(): return "AHEAD"
+	var kind := "AIR"
+	if bool(contact.get("missile",false)): kind = "MSL"
+	elif bool(contact.get("boss",false)): kind = "BOS"
+	elif bool(contact.get("protected",false)) or str(contact.get("faction","")) == "civilian": kind = "ROE"
+	elif bool(contact.get("objective",false)) or bool(contact.get("strike_priority",false)): kind = "OBJ"
+	elif str(contact.get("category",contact.get("class","air"))) == "ground": kind = "GND"
+	elif str(contact.get("category",contact.get("class","air"))) == "sea": kind = "SEA"
+	var distance := clampi(int(round(Vector2(contact.get("position",player)).distance_to(player)/32.0)),0,99)
+	return "%s%02d" % [kind,distance]
 
 func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, player: Vector2, contact: Dictionary) -> void:
 	var world_position: Vector2 = contact.get("position",player)
