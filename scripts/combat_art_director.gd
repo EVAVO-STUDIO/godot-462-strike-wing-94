@@ -520,6 +520,12 @@ const MACHINE_AIR_SPRITES := {
 	"drone_bomber": preload("res://assets/runtime/enemies/machine_air/drone_bomber_idle.png"),
 	"drone_missile_node": preload("res://assets/runtime/enemies/machine_air/drone_missile_node_idle.png"),
 }
+const MACHINE_AIR_ROLE_SCALE := {
+	"drone_scout":{"core":0.72,"thruster":0.58},
+	"drone_hunter":{"core":0.90,"thruster":0.78},
+	"drone_bomber":{"core":1.18,"thruster":1.08},
+	"drone_missile_node":{"core":0.98,"thruster":0.90},
+}
 const MACHINE_GROUND_SPRITES := {
 	"autonomous_armor": preload("res://assets/runtime/enemies/machine_ground/autonomous_armor_idle.png"),
 	"factory_defence_node": preload("res://assets/runtime/enemies/machine_ground/factory_defence_node_idle.png"),
@@ -1964,6 +1970,8 @@ static func heavy_bomber_bay_frame_index(fire_timer: float, recoil_ratio: float)
 func _render_machine_air_specialist(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, bank_index: int) -> void:
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
 	var bank_scale := Vector2(0.82 if bank_index != 1 else 1.0, 1.0)
+	var role: Dictionary = MACHINE_AIR_ROLE_SCALE.get(enemy_id,{"core":1.0,"thruster":1.0})
+	var core_scale := bank_scale*float(role.get("core",1.0))
 	if enemy_id == "drone_hunter":
 		var definition: Dictionary = MACHINE_AIR_SPECIALIST_ART[enemy_id]
 		var anchor: Vector2 = p + Vector2(definition["anchor"])
@@ -1982,13 +1990,13 @@ func _render_machine_air_specialist(surface: CanvasItem, p: Vector2, enemy_id: S
 		var door_frames: Array = definition["frames"]
 		var door_index := machine_weapon_door_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
 		_render_machine_component(surface, door_frames[door_index], p + Vector2(definition["anchor"]), 0.0, Vector2(0.5,0.5), bank_scale)
-	_render_machine_component(surface, MACHINE_AIR_SPECIALIST_ART["collar"], p, 0.0, Vector2(0.5,0.5), bank_scale)
+	_render_machine_component(surface, MACHINE_AIR_SPECIALIST_ART["collar"], p, 0.0, Vector2(0.5,0.5), core_scale)
 	var core_frames: Array = MACHINE_AIR_SPECIALIST_ART["core"]
 	var pulse_cycle := [0, 1, 2, 1]
 	var core_index: int = pulse_cycle[int(floor(float(enemy.get("age", 0.0)) * 6.0)) % pulse_cycle.size()]
 	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1.0))))
 	var core: Texture2D = MACHINE_AIR_SPECIALIST_ART["damaged_core"] if float(enemy.get("hp", max_hp)) / max_hp <= 0.45 else core_frames[core_index]
-	_render_machine_component(surface, core, p, 0.0, Vector2(0.5,0.5), bank_scale)
+	_render_machine_component(surface, core, p, 0.0, Vector2(0.5,0.5), core_scale)
 
 func _render_machine_air_propulsion(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> void:
 	var frames: Array = MACHINE_AIR_SPECIALIST_ART["propulsion"]
@@ -1996,7 +2004,9 @@ func _render_machine_air_propulsion(surface: CanvasItem, p: Vector2, enemy_id: S
 	var frame_index: int = cycle[int(floor(float(enemy.get("age",0.0))*9.0)) % cycle.size()]
 	var thruster: Texture2D = frames[frame_index]
 	var anchor := p + Vector2(0, -12 if enemy_id != "drone_bomber" else -16)
-	surface.draw_set_transform(anchor.round(), PI, Vector2(0.80,0.80))
+	var role: Dictionary = MACHINE_AIR_ROLE_SCALE.get(enemy_id,{"core":1.0,"thruster":1.0})
+	var thruster_scale := 0.80*float(role.get("thruster",1.0))
+	surface.draw_set_transform(anchor.round(), PI, Vector2.ONE*thruster_scale)
 	surface.draw_texture(thruster, -thruster.get_size()*0.5)
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
