@@ -2215,6 +2215,10 @@ func _render_ground_force_specialist(surface: CanvasItem, p: Vector2, enemy_id: 
 		_draw_production_sprite(surface, p, definition["scatter"], scale)
 
 func _draw_infantry_team(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, scale: float) -> void:
+	# Human-scale contacts need a small optical-scale allowance at the 640x360
+	# combat resolution. This preserves squad proportions while keeping the team
+	# distinguishable from terrain noise and aligned with its compact hit envelope.
+	scale *= 1.12
 	var definition: Dictionary = INFANTRY_LAYERED_ART[enemy_id]
 	var age := float(enemy.get("age", 0.0))
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
@@ -2259,11 +2263,11 @@ func _draw_infantry_member(surface: CanvasItem, center: Vector2, texture: Textur
 	var shadow_size := Vector2(maxf(7.0, texture.get_width() * 0.82), 4.0) * scale
 	var shadow_center := center + Vector2(2.0, 3.5) * scale
 	surface.draw_set_transform(shadow_center.round(), 0.0, Vector2(1.0, shadow_size.y / shadow_size.x))
-	surface.draw_circle(Vector2.ZERO, shadow_size.x * 0.5, Color(0.02,0.025,0.03,0.28), true, -1, false)
+	surface.draw_circle(Vector2.ZERO, shadow_size.x * 0.5, Color(0.02,0.025,0.03,0.36), true, -1, false)
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	_draw_production_sprite(surface, center, texture, scale)
 	var size := texture.get_size() * scale
-	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(),size.round()), false, Color(1.16,1.14,1.08,0.24))
+	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(),size.round()), false, Color(1.18,1.16,1.10,0.34))
 
 func _draw_infantry_effect(surface: CanvasItem, center: Vector2, texture: Texture2D, scale: float) -> void:
 	var size := texture.get_size() * scale
