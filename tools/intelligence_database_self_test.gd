@@ -41,6 +41,7 @@ func _run() -> void:
 	var ui := _source("res://scripts/pixel_ui_director.gd")
 	_expect(ui.contains("EVAVO TACTICAL INTELLIGENCE DATABASE") and ui.contains("TECHNICAL FILE"), "front door should expose a dedicated period military database")
 	_expect(ui.contains('load(str(selected.get("illustration"') and ui.contains("UiSpriteRenderer.draw_nine_slice"), "database should display governed illustrations inside authored UI chrome")
+	_expect(ui.contains('Color("142831") if selected_row else Color("09151c")') and ui.contains('GOLD if selected_row else Color("294652")'), "database rows should separate the active gold command from subdued released files")
 	var save := _source("res://scripts/campaign_save.gd")
 	_expect(save.contains('SAVE_VERSION := 12') and save.contains('"intelligence_unlocked_ids"'), "intelligence unlocks should persist in save schema v12")
 	if failures.is_empty():

@@ -426,7 +426,10 @@ func _draw_front_end_branch(surface: CanvasItem, scene: Object) -> void:
 	for i in range(mini(2,choices.size())):
 		var choice: Dictionary = choices[i]
 		var position := Vector2(70,190+i*43)
-		surface.draw_texture(FRONT_END_BUTTON_SELECTED if i == selection else FRONT_END_BUTTON_IDLE,position)
+		var selected_row := i == selection
+		surface.draw_rect(Rect2(position.x,position.y-2,500,34),Color("132730") if selected_row else Color("09151c"))
+		surface.draw_rect(Rect2(position.x,position.y-2,500,34),GOLD if selected_row else Color("294652"),false,1.0)
+		surface.draw_rect(Rect2(position.x,position.y-2,4,34),GOLD if selected_row else BLUE)
 		if i == selection: surface.draw_texture(FRONT_END_CURSOR,position+Vector2(-16,6))
 		PixelFont.draw_text(surface,str(choice.get("label","VECTOR")),position+Vector2(18,7),1,GOLD if i == selection else TEXT,1)
 		PixelFont.draw_text(surface,_clip(str(choice.get("detail","")),28),Vector2(366,position.y+7),1,BLUE if i == selection else MUTED,1)
@@ -449,7 +452,10 @@ func _draw_front_end_secret_sorties(surface: CanvasItem, scene: Object) -> void:
 	for i in range(unlocked.size()):
 		var mission: Dictionary = unlocked[i]
 		var y := 158+i*22
-		UiSpriteRenderer.draw_nine_slice(surface,OPERATIONS_BUTTON,Rect2(38,y,204,20),6)
+		var selected_row := i == selection
+		surface.draw_rect(Rect2(38,y,204,20),Color("142831") if selected_row else Color("09151c"))
+		surface.draw_rect(Rect2(38,y,204,20),GOLD if selected_row else Color("294652"),false,1.0)
+		surface.draw_rect(Rect2(38,y,3,20),GOLD if selected_row else BLUE)
 		if i == selection: surface.draw_texture(FRONT_END_CURSOR,Vector2(22,y+4))
 		var clear_mark := "C " if str(mission.get("id","")) in completed else "  "
 		PixelFont.draw_text(surface,_clip(clear_mark+str(mission.get("name","VECTOR")).to_upper(),25),Vector2(50,y+6),1,GOLD if i == selection else TEXT,1)
@@ -543,7 +549,10 @@ func _draw_front_end_dossier(surface: CanvasItem, scene: Object) -> void:
 	for row in range(first,mini(first+5,unlocked.size())):
 		var entry: Dictionary = unlocked[row]
 		var y := 158+(row-first)*27
-		UiSpriteRenderer.draw_nine_slice(surface,OPERATIONS_BUTTON,Rect2(38,y,194,24),6)
+		var selected_row := row == selection
+		surface.draw_rect(Rect2(38,y,194,24),Color("142831") if selected_row else Color("09151c"))
+		surface.draw_rect(Rect2(38,y,194,24),GOLD if selected_row else Color("294652"),false,1.0)
+		surface.draw_rect(Rect2(38,y,3,24),GOLD if selected_row else BLUE)
 		if row == selection: surface.draw_texture(FRONT_END_CURSOR,Vector2(22,y+6))
 		PixelFont.draw_text(surface,_clip(str(entry.get("name","FILE")),25),Vector2(54,y+8),1,GOLD if row == selection else TEXT,1)
 	var selected: Dictionary = unlocked[selection]

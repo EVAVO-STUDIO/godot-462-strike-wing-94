@@ -37,6 +37,7 @@ func _run() -> void:
 	_expect(main.contains('"--capture-branch"'), "branch choice should expose deterministic visual QA")
 	var ui := _source("res://scripts/pixel_ui_director.gd")
 	_expect(ui.contains("_draw_front_end_branch") and ui.contains("OPERATIONAL BRANCH // COMMAND DECISION"), "branch choice should use a dedicated period-authentic operations screen")
+	_expect(ui.contains("Rect2(position.x,position.y-2,500,34)") and ui.contains('GOLD if selected_row else Color("294652")'), "branch choice should present each route as a full-width command row with clear active hierarchy")
 	var save := _source("res://scripts/campaign_save.gd")
 	_expect(save.contains('SAVE_VERSION := 12') and save.contains('"branch_decisions"'), "branch decisions should persist in save schema v12")
 	_test_runtime_branch()

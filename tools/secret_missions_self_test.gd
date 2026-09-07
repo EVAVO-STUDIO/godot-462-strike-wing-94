@@ -59,6 +59,7 @@ func _run() -> void:
 	scene.free()
 	var ui := _source("res://scripts/pixel_ui_director.gd")
 	_expect(ui.contains("ENCRYPTED OPTIONAL OPERATIONS") and ui.contains("MISSION FILE"), "front end should expose a dedicated secret-operations board")
+	_expect(ui.contains('var selected_row := i == selection') and ui.contains('GOLD if selected_row else BLUE'), "secret vector list should reserve gold command framing for the active file")
 	_expect(ui.contains("SECRET %02d / %02d") and ui.contains("_secret_sortie_header"), "secret briefings should identify their own classified route instead of impersonating core campaign missions")
 	var main := _source("res://scripts/main.gd")
 	_expect(main.contains("--capture-secret-mission=") and main.contains("_return_from_secret_sortie"), "secret sortie flow should expose deterministic presentation QA and an explicit campaign-safe return")
