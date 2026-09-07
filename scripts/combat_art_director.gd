@@ -786,6 +786,7 @@ const AI_CORE := Color("67c3a5")
 const BOSS := Color("c86054")
 const BOSS_DARK := Color("55322f")
 const TRANSFORM_EXPOSURES := 10
+const TRANSFORM_EXPOSURE_THRESHOLDS := [0.0, 0.14, 0.25, 0.35, 0.44, 0.52, 0.60, 0.68, 0.78, 0.90]
 const PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0
 const VX94_EVASIVE_ROLL := [
 	preload("res://assets/runtime/craft/vx94/evasive_roll/roll_00.png"), preload("res://assets/runtime/craft/vx94/evasive_roll/roll_01.png"),
@@ -1450,7 +1451,8 @@ func _draw_evasive_loadout(surface: CanvasItem, p: Vector2, roll_phase: float, b
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hypersonic: bool) -> void:
-	var index := clampi(roundi(clampf(ratio, 0.0, 1.0) * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
+	var captured_index := _captured_transform_exposure_index()
+	var index := captured_index if captured_index >= 0 else _transform_exposure_index(ratio)
 	var frames: Array = VX94_HYPERSONIC_TRANSFORM if hypersonic else VX94_BOMBER_TRANSFORM
 	var origin := (p - VX94_GAMEPLAY_ANCHOR).round()
 	var destination := "hypersonic" if hypersonic else "bomber"
@@ -1471,6 +1473,21 @@ func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hyp
 		var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
 		_draw_player_damage(surface, origin, damage_ratio)
 		_draw_transform_dorsal_module(surface, origin, destination, index, damage_ratio)
+
+func _transform_exposure_index(ratio: float) -> int:
+	var safe_ratio := clampf(ratio, 0.0, 1.0)
+	for index in range(TRANSFORM_EXPOSURE_THRESHOLDS.size() - 1, -1, -1):
+		if safe_ratio >= float(TRANSFORM_EXPOSURE_THRESHOLDS[index]):
+			return index
+	return 0
+
+func _captured_transform_exposure_index() -> int:
+	if not "--capture-gameplay" in OS.get_cmdline_user_args():
+		return -1
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture-transform-exposure="):
+			return clampi(int(argument.trim_prefix("--capture-transform-exposure=")), 0, TRANSFORM_EXPOSURES - 1)
+	return -1
 
 func _draw_transform_external_stores(surface: CanvasItem, origin: Vector2, destination: String, exposure: int) -> void:
 	var support := get_node_or_null("/root/SupportDirector")
@@ -1698,7 +1715,7 @@ func _draw_enemy(surface: CanvasItem, enemy: Dictionary) -> void:
 func _draw_hypersonic_interceptor(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary) -> bool:
 	if not HYPERSONIC_PURSUER_TRANSFORMS.has(enemy_id): return false
 	var ratio := clampf(float(enemy.get("hypersonic_ratio", 0.0)), 0.0, 1.0)
-	var frame_index := clampi(roundi(ratio * float(TRANSFORM_EXPOSURES - 1)), 0, TRANSFORM_EXPOSURES - 1)
+	var frame_index := _transform_exposure_index(ratio)
 	var frames: Array = HYPERSONIC_PURSUER_TRANSFORMS[enemy_id]
 	var hull: Texture2D = frames[frame_index]
 	# The pursuit path returns before the ordinary hostile-airframe renderer, so

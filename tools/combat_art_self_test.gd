@@ -768,6 +768,15 @@ func _test_damage_state() -> void:
 		_expect(component_texture != null and component_texture.get_image().detect_alpha() != Image.ALPHA_NONE, "VX-94 articulated component should retain transparency: %s" % component_name)
 	_expect(combat_source.contains('argument.begins_with("--capture-craft=")') and combat_source.contains('"layered-sweep"'), "visual QA should expose a simulation-isolated articulated VX-94 sweep fixture")
 	_expect(combat_source.contains('"hypersonic-sweep"') and combat_source.contains("_draw_transform_exposure"), "visual QA should expose both registered ten-exposure geometry families")
+	_expect(combat_source.contains("TRANSFORM_EXPOSURE_THRESHOLDS") and combat_source.contains("func _transform_exposure_index"), "VX-94 transformations should use authored cel holds and accelerated mechanical middle exposures")
+	var combat_art := CombatArtDirector.new()
+	var previous_transform_index := -1
+	for sample in range(101):
+		var transform_index := int(combat_art.call("_transform_exposure_index", float(sample) / 100.0))
+		_expect(transform_index >= previous_transform_index and transform_index >= 0 and transform_index < 10, "VX-94 cel exposure timing should remain monotonic and bounded at sample %d" % sample)
+		previous_transform_index = transform_index
+	_expect(int(combat_art.call("_transform_exposure_index", 0.0)) == 0 and int(combat_art.call("_transform_exposure_index", 1.0)) == 9, "VX-94 cel exposure timing should retain exact fighter and destination endpoints")
+	combat_art.free()
 	for family_name in ["bomber", "hypersonic"]:
 		for frame_index in 10:
 			var transform_texture := load("res://assets/runtime/craft/vx94/transform/%s_%02d.png" % [family_name, frame_index]) as Texture2D
