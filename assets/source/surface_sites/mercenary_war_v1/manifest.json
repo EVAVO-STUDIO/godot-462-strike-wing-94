@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "identity": "believable late-1990s imagined-future military pixel art",
+  "canvas": [
+    48,
+    48
+  ],
+  "military": [
+    "strategic_silo",
+    "ballistic_launcher",
+    "field_artillery",
+    "radar_site",
+    "logistics_truck",
+    "ammo_depot"
+  ],
+  "protected": [
+    "civilian_village",
+    "field_clinic"
+  ],
+  "rules": [
+    "red-cross clinic and slate-roof homes are protected contacts",
+    "military silhouettes remain readable at native 640x360 gameplay scale",
+    "surface sites are separate from the established 38-enemy identity roster"
+  ]
+}

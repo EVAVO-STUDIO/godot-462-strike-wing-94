@@ -85,6 +85,14 @@ func _test_visual_language() -> void:
 	_expect(source.contains("has_production_art") and source.contains("_report_missing_art"), "unregistered enemies should fail explicitly instead of receiving generic vector silhouettes")
 	_expect(not source.contains("func _draw_ground") and not source.contains("func _draw_sea") and not source.contains("func _draw_air") and not source.contains("func _draw_autonomous"), "obsolete generic enemy silhouette fallbacks should remain removed")
 	var enemy_catalog = ContentCatalog.load_json("res://data/enemies.json")
+	var surface_site_manifest = ContentCatalog.load_json("res://assets/source/surface_sites/mercenary_war_v1/manifest.json")
+	_expect(typeof(surface_site_manifest) == TYPE_DICTIONARY, "surface-site art manifest should load")
+	if typeof(surface_site_manifest) == TYPE_DICTIONARY:
+		_expect(surface_site_manifest.get("military", []).size() == 6, "surface-site family should cover six military strike identities")
+		_expect(surface_site_manifest.get("protected", []).size() == 2, "surface-site family should distinguish two protected civilian identities")
+		for site_id in surface_site_manifest.get("military", []) + surface_site_manifest.get("protected", []):
+			var site_image := Image.load_from_file("res://assets/runtime/surface_sites/%s.png" % str(site_id))
+			_expect(not site_image.is_empty() and site_image.get_size() == Vector2i(48,48) and site_image.detect_alpha() != Image.ALPHA_NONE, "surface site should retain transparent 48x48 runtime geometry: %s" % str(site_id))
 	_expect(typeof(enemy_catalog) == TYPE_DICTIONARY, "enemy catalogue should load for production-art coverage")
 	if typeof(enemy_catalog) == TYPE_DICTIONARY:
 		for enemy in enemy_catalog.get("enemies", []):
