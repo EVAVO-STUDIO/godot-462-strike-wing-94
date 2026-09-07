@@ -7,6 +7,9 @@ func check(value: bool, message: String) -> void:
 func run() -> void:
 	var cue: Node = load("res://scripts/afterburner_cue_director.gd").new()
 	check(cue.get("ENGINE_BURST_FRAME_ENDS") == [0.035,0.080,0.135,0.200,0.275,0.360], "Burst timing must retain reviewed 35/45/55/65/75/85 ms exposures")
+	check(is_equal_approx(float(cue.get("SONIC_BOOM_DURATION")),0.58), "Sonic pressure break must remain visible long enough to read during acceleration")
+	check(float(cue.get("SECONDARY_RING_DELAY")) > 0.0 and float(cue.get("SECONDARY_RING_DELAY")) < float(cue.get("SONIC_BOOM_DURATION")), "Secondary compression ring must trail the primary pressure front")
+	check(Vector2(cue.get("PRIMARY_RING_END_SIZE")).x >= 300.0 and Vector2(cue.get("SECONDARY_RING_END_SIZE")).x >= 220.0, "Hypersonic pressure fronts must expand well beyond the VX-94 silhouette")
 	var previous := -1
 	for sample in [0.0,0.034,0.035,0.079,0.080,0.134,0.135,0.199,0.200,0.274,0.275,0.359]:
 		var frame := int(cue.call("_engine_burst_frame", sample))

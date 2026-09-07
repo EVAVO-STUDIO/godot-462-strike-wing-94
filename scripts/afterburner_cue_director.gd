@@ -24,6 +24,12 @@ const LOWER_HUD_Y := 315.0
 const LOWER_HUD_MARGIN := 14.0
 const LOWER_LEFT_KEEP_OUT := Rect2(0.0, 252.0, 244.0, 108.0)
 const ENGINE_BURST_FRAME_ENDS := [0.035, 0.080, 0.135, 0.200, 0.275, 0.360]
+const SONIC_BOOM_DURATION := 0.58
+const SECONDARY_RING_DELAY := 0.075
+const PRIMARY_RING_SIZE := Vector2(112,112)
+const PRIMARY_RING_END_SIZE := Vector2(304,304)
+const SECONDARY_RING_SIZE := Vector2(76,76)
+const SECONDARY_RING_END_SIZE := Vector2(224,224)
 const ENGINE_MOUNTS := {
 	"fighter": [[Vector2(1,27),Vector2(9,25)],[Vector2(-7,30),Vector2(3,30)],[Vector2(-6,30),Vector2(5,30)],[Vector2(-3,30),Vector2(5,30)],[Vector2(-10,25),Vector2(-2,28)]],
 	"bomber": [[Vector2(1,26),Vector2(10,22)],[Vector2(-4,30),Vector2(5,29)],[Vector2(-6,30),Vector2(5,30)],[Vector2(-7,29),Vector2(3,30)],[Vector2(-12,24),Vector2(-3,27)]],
@@ -74,22 +80,33 @@ func draw_afterburner(surface: CanvasItem) -> void:
 		if combat_art != null and combat_art.has_method("propulsion_pitch_offset"):
 			visual_position += Vector2(combat_art.call("propulsion_pitch_offset"))
 		_draw_flame(surface, visual_position, str(craft.call("current_form")) if craft.has_method("current_form") else "fighter", hypersonic or mach_recovery, burning, speed_ratio)
-	if _boom_age < 0.42 and _has_property(scene, "player_position"):
-		var t := _boom_age / 0.42
+	if _boom_age < SONIC_BOOM_DURATION and _has_property(scene, "player_position"):
+		var t := _boom_age / SONIC_BOOM_DURATION
 		var texture := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", t)
 		# A top-down pressure break expands mostly across the flight path. Keeping
 		# it shallow preserves the VX-94 silhouette and avoids the old square,
 		# U-shaped exposure reading as a second translucent pair of wings.
-		var draw_size := Vector2(roundf(lerpf(76.0, 236.0, t)), roundf(lerpf(38.0, 92.0, t)))
+		var draw_size := Vector2(roundf(lerpf(76.0, 286.0, t)), roundf(lerpf(38.0, 104.0, t)))
 		var p: Vector2 = scene.get("player_position")
 		var flash_scale := _flash_scale()
-		surface.draw_texture_rect(texture, Rect2((p - draw_size * 0.5).round(), draw_size), false, Color(1,1,1,0.34*(1.0-t)*flash_scale))
+		surface.draw_texture_rect(texture, Rect2((p - draw_size * 0.5).round(), draw_size), false, Color(1,1,1,0.30*(1.0-t)*flash_scale))
 		# The primary Mach cue begins at the paired engine cluster and expands as
 		# an authored annular pressure wave. The older lateral front remains as a
 		# restrained atmospheric compression layer behind it.
 		var engine_ring := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_engine_ring", t)
-		var ring_origin := (p + Vector2(0, 24) - engine_ring.get_size() * 0.5).round()
-		surface.draw_texture(engine_ring, ring_origin, Color(1,1,1,(1.0-smoothstep(0.72,1.0,t))*flash_scale))
+		var ring_center := p + Vector2(0,24)
+		var ring_ease := ease(t,0.72)
+		var ring_size := PRIMARY_RING_SIZE.lerp(PRIMARY_RING_END_SIZE,ring_ease).round()
+		var ring_alpha := (1.0-smoothstep(0.58,1.0,t))*flash_scale
+		surface.draw_texture_rect(engine_ring,Rect2((ring_center-ring_size*0.5).round(),ring_size),false,Color(1,1,1,ring_alpha))
+		# A delayed inner wake makes the pressure break read as a launched pulse,
+		# rather than a static targeting ring centered on the aircraft.
+		if _boom_age >= SECONDARY_RING_DELAY:
+			var wake_t := clampf((_boom_age-SECONDARY_RING_DELAY)/(SONIC_BOOM_DURATION-SECONDARY_RING_DELAY),0.0,1.0)
+			var wake := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_engine_ring",wake_t)
+			var wake_size := SECONDARY_RING_SIZE.lerp(SECONDARY_RING_END_SIZE,ease(wake_t,0.72)).round()
+			var wake_alpha := 0.58*(1.0-smoothstep(0.52,1.0,wake_t))*flash_scale
+			surface.draw_texture_rect(wake,Rect2((ring_center-wake_size*0.5).round(),wake_size),false,Color(0.78,0.92,1.0,wake_alpha))
 		if _boom_age < ENGINE_BURST_FRAME_ENDS[-1]:
 			var burst: Texture2D = PersistentEffectArtLibrary.FRAMES["hypersonic_engine_burst"][_engine_burst_frame(_boom_age)]
 			surface.draw_texture(burst, (p + Vector2(-48,22)).round(), Color(1,1,1,flash_scale))
