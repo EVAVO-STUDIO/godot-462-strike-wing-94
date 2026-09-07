@@ -117,6 +117,7 @@ func _test_source_contract() -> void:
 		_expect(source.contains("_visual_timer = 1.25"), "immediate support set pieces should remain short and readable")
 		_expect(source.contains("_priority_target_position(scene)"), "precision support visuals should anchor to a real priority target")
 		_expect(source.contains("BattlefieldSupportArtLibrary") and source.contains("_draw_support_craft"), "tanker, fighter, bomber and gunship set pieces should use authored sprite animation")
+		_expect(source.contains('"rapier_fighter", 11.0 + float(i), true') and source.contains("Vector2(-1,1)"), "Rapier sweep art should face its starboard travel and intercept direction")
 		_expect(source.contains('strike_cel("rail_beam"') and source.contains('strike_cel("orbital_impact"'), "rail and orbital support should use held-frame beam and impact cel art")
 		_expect(source.contains('frame_for_clock("precision_missile"') and source.contains("direction.angle()+PI*0.5"), "precision support should use an animated guided missile aligned to its terminal path")
 		_expect(source.contains('strike_cel("missile_impact"') and source.contains('strike_cel("detonation_core"') and not source.contains('staged_effect("impact", impact_ratio)'), "precision support impact should combine authored fire, fragmentation, smoke and a hot detonation core")

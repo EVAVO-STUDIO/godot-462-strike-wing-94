@@ -373,7 +373,10 @@ func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
 		var x := -40.0 + progress * 760.0 + float(i) * 52.0
 		var y := 112.0 + float(i) * 24.0
 		var p := Vector2(x, y)
-		_draw_support_craft(surface, p, "rapier_fighter", 11.0 + float(i))
+		# Rapier enters from port and accelerates starboard toward its intercept.
+		# The authored sheet faces port, so mirror this pass to keep nose, weapon
+		# launch and screen travel in the same direction.
+		_draw_support_craft(surface, p, "rapier_fighter", 11.0 + float(i), true)
 	if progress >= 0.32 and progress < 0.52:
 		var intercept_ratio := clampf((progress-0.32)/0.20,0.0,0.999)
 		var launch_point := Vector2(-40.0+0.32*760.0,122.0)
@@ -434,10 +437,15 @@ func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 				surface.draw_texture_rect(contact,Rect2((target-contact_size*0.5).round(),contact_size.round()),false,Color(1.0,0.84,0.58,0.94-impact_ratio))
 			surface.draw_texture_rect(impact,Rect2((target-impact_size*0.5).round(),impact_size.round()),false,Color(1.0,0.78,0.48,1.0-impact_ratio*0.46))
 
-func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float) -> void:
+func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float, flip_h := false) -> void:
 	var texture := BattlefieldSupportArtLibrary.frame_for_clock(family, _animation_clock, fps)
 	if texture != null:
-		surface.draw_texture(texture, (position - texture.get_size() * 0.5).round())
+		if flip_h:
+			surface.draw_set_transform(position.round(),0.0,Vector2(-1,1))
+			surface.draw_texture(texture,(-texture.get_size()*0.5).round())
+			surface.draw_set_transform(Vector2.ZERO)
+		else:
+			surface.draw_texture(texture, (position - texture.get_size() * 0.5).round())
 
 func _draw_missile_strike(surface: CanvasItem, progress: float) -> void:
 	var start := Vector2(64, 18)
