@@ -15,7 +15,7 @@ const FLARE_PIVOT := Vector2(24, 10)
 const SALVO_CARTRIDGE_SCALE := Vector2(0.72, 0.72)
 const SALVO_DELAYS := [0.0, 0.055, 0.11]
 const SALVO_LATERAL_OFFSETS := [-3.0, 0.0, 3.0]
-const SALVO_ANGLE_OFFSETS := [-0.16, 0.0, 0.16]
+const SALVO_ANGLE_OFFSETS := [-0.28, 0.0, 0.28]
 const DISPENSER_OFFSETS := {
 	"fighter": [Vector2(-5,14),Vector2(-3,15),Vector2(0,16),Vector2(3,15),Vector2(5,14)],
 	"bomber": [Vector2(-6,16),Vector2(-3,17),Vector2(0,18),Vector2(3,17),Vector2(6,16)],
@@ -105,9 +105,10 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 		var frame_index := clampi(int(floor(ratio * float(FLARE_FRAMES.size()))), 0, FLARE_FRAMES.size() - 1)
 		var texture: Texture2D = FLARE_FRAMES[frame_index]
 		var position: Vector2 = event.get("position", Vector2.ZERO)
-		position.y += ratio * CountermeasureRules.DECOY_TRAIL_DISTANCE
-		position.x += sin(ratio * PI) * (-18.0 if posmod(int(event.get("serial", 0)), 2) == 0 else 18.0)
 		var trail_direction := Vector2(sin(float(event.get("angle", 0.0))), cos(float(event.get("angle", 0.0))))
+		# Cartridge, incandescent head and smoke all follow the same ejection
+		# vector. The earlier unrelated sine offset made the wake bend sideways.
+		position += trail_direction*ratio*CountermeasureRules.DECOY_TRAIL_DISTANCE
 		for puff_index in range(3):
 			var trail_ratio := clampf(ratio - float(puff_index + 1) * 0.075, 0.0, 1.0)
 			if trail_ratio <= 0.0:

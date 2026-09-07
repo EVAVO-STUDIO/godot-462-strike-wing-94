@@ -29,6 +29,7 @@ func _initialize() -> void:
 	_expect(director_source.contains("DISPENSER_OFFSETS") and director_source.contains("FLARE_PIVOT") and director_source.contains("draw_set_transform"), "countermeasure burst should register to form and bank aware aft dispensers")
 	_expect(director_source.contains("SALVO_DELAYS") and director_source.contains("SALVO_LATERAL_OFFSETS") and director_source.contains("SALVO_ANGLE_OFFSETS") and director_source.contains("SALVO_CARTRIDGE_SCALE"), "one countermeasure charge should present as a staggered multi-cartridge dispenser salvo")
 	_expect(director_source.contains("PersistentEffectArtLibrary") and director_source.contains('frame_for_ratio("damage_smoke"') and director_source.contains('frame_for_ratio("damage_sparks"'), "countermeasure ignition and wake should use authored Particle Studio cels")
+	_expect(director_source.contains("position += trail_direction*ratio*CountermeasureRules.DECOY_TRAIL_DISTANCE") and not director_source.contains("sin(ratio * PI)"), "flare cartridges and smoke should follow one bank-aware ballistic ejection vector")
 	_expect(not director_source.contains("draw_circle") and not director_source.contains("draw_arc"), "countermeasure presentation should not regress to procedural circles or arcs")
 	if failures.is_empty():
 		print("HYPERSONIC countermeasure self-test passed.")
