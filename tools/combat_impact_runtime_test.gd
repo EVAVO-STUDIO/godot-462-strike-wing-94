@@ -24,8 +24,17 @@ func run() -> void:
 		scene.set("enemy_bullets",[cannon]); scene.call("_update_enemy_bullets",0.0)
 	check(int(scene.get("hull")) == 0, "Three live heavy-cannon collisions must destroy basic craft")
 	check(int(scene.get("damage_sources").get("heavy_cannon",0)) > 0, "Runtime telemetry must classify cannon damage")
+	scene.call("_start_mission"); p=scene.get("player_position")
+	var aircraft := {"id":"scout_falcon","category":"air","position":p,"hp":4,"max_hp":4,"value":100,"boss":false}
+	scene.set("enemies",[aircraft]); scene.call("_resolve_combat")
+	check(int(scene.get("hull"))==0 and scene.get("enemies").is_empty(), "Live airframe contact must destroy both aircraft")
+	check(str(scene.get("status_text")).contains("AIRFRAME COLLISION") and int(scene.get("targets_destroyed"))==1, "Live collision must enter structural-loss presentation and register hostile destruction")
+	scene.call("_start_mission"); p=scene.get("player_position")
+	var tank := {"id":"light_tank","category":"ground","position":p,"hp":4,"max_hp":4,"value":100,"boss":false}
+	scene.set("enemies",[tank]); scene.call("_resolve_combat")
+	check(int(scene.get("hull"))==int(scene.call("_max_hull")) and scene.get("enemies").size()==1, "A coincident surface target must not collide across altitude separation")
 	scene.queue_free(); await process_frame
-	if failures.is_empty(): print("HYPERSONIC impact runtime test passed: live missile and three-hit heavy cannon loss paths.")
+	if failures.is_empty(): print("HYPERSONIC impact runtime test passed: lethal missiles, cannon attrition, catastrophic airframe contact and surface separation.")
 	else:
 		for failure in failures: push_error(failure)
 	quit(0 if failures.is_empty() else 1)

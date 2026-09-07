@@ -1784,6 +1784,9 @@ func _resolve_combat() -> void:
 	var player_contact_radius := sqrt(maxf(0.0, player_contact_radius_sq))
 	for enemy_index in range(enemies.size() - 1, -1, -1):
 		var boss_contact := bool(enemies[enemy_index].get("boss", false))
+		var contact_category := str(enemies[enemy_index].get("category","air"))
+		if not boss_contact and contact_category != "air":
+			continue
 		var contact: bool = BossRules.craft_contacts(
 			str(enemies[enemy_index].get("id", "")),
 			enemies[enemy_index]["position"],
@@ -1807,6 +1810,9 @@ func _resolve_combat() -> void:
 			if phase != GamePhase.PLAYING:
 				return
 			if not bool(enemies[enemy_index].get("boss", false)):
+				var collided_enemy: Dictionary = enemies[enemy_index]
+				collided_enemy["last_impact_family"] = "cannon"
+				_register_destroy(collided_enemy)
 				enemies.remove_at(enemy_index)
 
 func _register_destroy(enemy: Dictionary) -> void:
@@ -1914,13 +1920,17 @@ func _apply_damage(amount: int, source: String = "projectile") -> void:
 		return
 	var previous_integrity := hull + shield
 	var previous_shield := shield
-	var state := CombatRules.apply_shielded_damage(hull, shield, amount)
+	var collision := source in ["contact","boss_contact"]
+	var state := CombatImpactRules.apply(hull,shield,amount,CombatImpactRules.AIRFRAME_COLLISION,CombatRules.incoming_damage_multiplier()) if collision else CombatRules.apply_shielded_damage(hull, shield, amount)
 	hull = int(state["hull"])
 	shield = int(state["shield"])
 	var applied := maxi(0, previous_integrity - hull - shield)
 	damage_taken += applied
 	damage_sources[source] = int(damage_sources.get(source, 0)) + applied
-	if previous_shield > 0 and shield <= 0:
+	if collision:
+		status_text = "AIRFRAME COLLISION // STRUCTURAL LOSS"
+		status_timer = PLAYER_LOSS_SEQUENCE_SECONDS
+	elif previous_shield > 0 and shield <= 0:
 		status_text = "SHIELDS DOWN // HULL EXPOSED"
 		status_timer = 1.4
 	elif hull > 0 and hull <= maxi(1, int(round(float(_max_hull()) * 0.25))):

@@ -7,6 +7,7 @@ const AUTOCANNON := "autocannon"
 const FRAGMENT := "fragment"
 const ENERGY := "energy"
 const HEAT_SEEKING := "heat_seeking"
+const AIRFRAME_COLLISION := "airframe_collision"
 
 static func projectile_class(weapon_id: String) -> String:
 	match weapon_id:
@@ -20,7 +21,7 @@ static func guidance_class(weapon_id: String) -> String:
 static func apply(hull: int, shield: int, amount: int, impact_class: String, multiplier: float) -> Dictionary:
 	var next_hull := maxi(0, hull)
 	var next_shield := maxi(0, shield)
-	if impact_class == DIRECT_WARHEAD:
+	if impact_class in [DIRECT_WARHEAD,AIRFRAME_COLLISION]:
 		return {"hull":0, "shield":0, "catastrophic":true}
 	var scaled := maxi(1, int(round(float(maxi(1,amount)) * multiplier)))
 	match impact_class:

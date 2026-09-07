@@ -16,6 +16,8 @@ func _initialize() -> void:
 	check(Impact.guidance_class("missile") == Impact.HEAT_SEEKING, "Current Sidewinder-like missiles need heat-seeking guidance")
 	var direct := Impact.apply(160,140,13,Impact.DIRECT_WARHEAD,0.65)
 	check(direct.hull == 0 and direct.shield == 0 and direct.catastrophic, "A successful direct warhead must destroy even an upgraded craft")
+	var collision := Impact.apply(160,140,18,Impact.AIRFRAME_COLLISION,0.65)
+	check(collision.hull == 0 and collision.shield == 0 and collision.catastrophic, "An airframe collision must be catastrophic despite shield or hull upgrades")
 	var state := {"hull":100,"shield":100}
 	for i in 2: state = Impact.apply(state.hull,state.shield,8,Impact.AUTOCANNON,1.0)
 	check(state.hull == 44 and state.shield == 80, "Two autocannon hits should leave basic airframe critical but flying")
@@ -38,7 +40,9 @@ func _initialize() -> void:
 	var advanced := preload("res://scripts/projectile_rules.gd").advance_enemy_shot(guided,Vector2(100,200),0.25)
 	check(Vector2(advanced.velocity).y > 0.0 and float(advanced.life) == 1.75, "Live seeker must turn toward target and consume finite lifetime")
 	var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
-	check(main_source.contains("_apply_projectile_impact(shot)") and main_source.contains('"DIRECT WARHEAD IMPACT // AIRFRAME LOST"'), "Runtime collision must use classified impact outcome")
+	check(main_source.contains("_apply_projectile_impact(shot)") and main_source.contains('"DIRECT WARHEAD IMPACT // AIRFRAME LOST"'), "Runtime projectile collision must use classified impact outcome")
+	check(main_source.contains("CombatImpactRules.AIRFRAME_COLLISION") and main_source.contains('"AIRFRAME COLLISION // STRUCTURAL LOSS"') and main_source.contains("_register_destroy(collided_enemy)"), "Runtime craft collision should destroy both airframes and register hostile breakup")
+	check(main_source.contains('if not boss_contact and contact_category != "air"') and main_source.contains("continue"), "ground and naval targets should never become airborne collision hazards")
 	if failures.is_empty(): print("HYPERSONIC combat impact self-test passed: catastrophic warheads, penetrating cannon, recoverable fragments and heat-only flares.")
 	else:
 		for failure in failures: push_error(failure)
