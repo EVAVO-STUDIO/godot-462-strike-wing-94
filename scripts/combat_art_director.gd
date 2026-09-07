@@ -890,12 +890,14 @@ var _transform_module_cache: Dictionary = {}
 var _transform_module_damage_cache: Dictionary = {}
 var _roll_primary_cache: Dictionary = {}
 var _pitch_primary_cache: Dictionary = {}
+var _transform_motion_cache: Dictionary = {}
 
 func _ready() -> void:
 	layer = 12
 	_preload_player_housings()
 	_preload_player_stores_and_modules()
 	_preload_player_transform_loadouts()
+	_preload_transform_motion_cels()
 	_preload_player_pitch_loadouts()
 	_preload_player_roll_loadouts()
 	_surface = CombatArtSurface.new()
@@ -959,6 +961,13 @@ func _preload_player_transform_loadouts() -> void:
 				for exposure in range(10):
 					var damage_key := "%s_%s_%s_%02d" % [destination, module_id, damage_state, exposure]
 					_transform_module_damage_cache[damage_key] = load("res://assets/runtime/craft/vx94/gameplay/transform_module_damage/%s.png" % damage_key) as Texture2D
+
+func _preload_transform_motion_cels() -> void:
+	for family in ["bomber", "hypersonic"]:
+		for layer_name in ["back", "front"]:
+			for exposure in range(TRANSFORM_EXPOSURES):
+				var key := "%s_%s_%02d" % [family, layer_name, exposure]
+				_transform_motion_cache[key] = load("res://assets/runtime/craft/vx94/gameplay/transform_motion/%s.png" % key) as Texture2D
 
 func _preload_player_pitch_loadouts() -> void:
 	for form in ["fighter", "bomber"]:
@@ -1531,29 +1540,12 @@ func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hyp
 		_draw_transform_dorsal_module(surface, origin, destination, index, damage_ratio)
 
 func _draw_transform_motion_cues(surface: CanvasItem, p: Vector2, exposure: int, hypersonic: bool, foreground: bool) -> void:
-	var progress := clampf(float(exposure)/float(TRANSFORM_EXPOSURES-1),0.0,1.0)
-	var cue_strength := sin(progress*PI)
-	var color := Color(0.45,0.88,1.0,0.72*cue_strength) if hypersonic else Color(1.0,0.66,0.28,0.68*cue_strength)
-	var start_left := p+Vector2(-19,10)
-	var start_right := p+Vector2(19,10)
-	var end_left := p+Vector2(-8,18)
-	var end_right := p+Vector2(8,18)
-	var left_tip := start_left.lerp(end_left,progress).round()
-	var right_tip := start_right.lerp(end_right,progress).round()
-	if not foreground:
-		if exposure > 0 and exposure < TRANSFORM_EXPOSURES-1:
-			surface.draw_line(start_left.round(),left_tip,color,1.0,false)
-			surface.draw_line(start_right.round(),right_tip,color,1.0,false)
-		return
-	var hinge_color := Color(color.r,color.g,color.b,maxf(color.a,0.34 if exposure in [0,TRANSFORM_EXPOSURES-1] else color.a))
-	for hinge in [p+Vector2(-6,7),p+Vector2(6,7)]:
-		surface.draw_circle(hinge.round(),1.5,hinge_color,false,1.0,false)
-	if exposure > 0 and exposure < TRANSFORM_EXPOSURES-1:
-		surface.draw_circle(left_tip,1.25,color,false,1.0,false)
-		surface.draw_circle(right_tip,1.25,color,false,1.0,false)
-	elif exposure == TRANSFORM_EXPOSURES-1 and hypersonic:
-		surface.draw_line((p+Vector2(-7,17)).round(),(p+Vector2(-3,19)).round(),Color(0.72,0.94,1.0,0.82),1.0,false)
-		surface.draw_line((p+Vector2(7,17)).round(),(p+Vector2(3,19)).round(),Color(0.72,0.94,1.0,0.82),1.0,false)
+	var family := "hypersonic" if hypersonic else "bomber"
+	var layer := "front" if foreground else "back"
+	var key := "%s_%s_%02d" % [family, layer, clampi(exposure, 0, TRANSFORM_EXPOSURES - 1)]
+	var texture := _transform_motion_cache.get(key) as Texture2D
+	if texture != null:
+		surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round())
 
 func _transform_exposure_index(ratio: float) -> int:
 	var safe_ratio := clampf(ratio, 0.0, 1.0)

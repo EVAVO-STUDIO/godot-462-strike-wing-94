@@ -565,7 +565,7 @@ func _test_transform_presentation() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("CraftFormRules.TRANSFORM_VISUAL_SECONDS"), "variable geometry sweep should consume the canonical near-one-second mechanical cadence")
 	_expect(source.contains("TRANSFORM_EXPOSURES := 10"), "variable geometry should retain ten deliberate animation exposures")
-	_expect(source.contains("func _draw_transform_motion_cues") and source.contains("start_left.lerp(end_left,progress)"), "variable geometry sweep should expose readable wing-tip travel and hinge cues at gameplay scale")
+	_expect(source.contains("func _draw_transform_motion_cues") and source.contains("_transform_motion_cache") and not source.contains("start_left.lerp(end_left,progress)"), "variable geometry sweep should use registered cel overlays instead of runtime vector marks")
 	_expect(source.contains("PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0"), "combat sprites should retain an authentic held-pose 30 Hz presentation cadence over 60 Hz simulation")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
 	_expect(source.contains("roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1))"), "variable geometry should advance through quantized authored exposures")
@@ -582,6 +582,12 @@ func _test_transform_presentation() -> void:
 	var tucked_hypersonic := load("res://assets/runtime/craft/vx94/transform/hypersonic_09.png") as Texture2D
 	_expect(open_hypersonic != null and tucked_hypersonic != null and open_hypersonic.get_image().get_used_rect().size.x - tucked_hypersonic.get_image().get_used_rect().size.x >= 14, "hypersonic geometry must produce a clearly readable deep wing tuck at gameplay scale")
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_v3/manifest.json"), "deep-sweep hypersonic art should preserve its predecessor and build evidence")
+	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/transform_motion_cels/manifest.json"), "variable-geometry motion cels should preserve their source/runtime registration evidence")
+	for cue_family in ["bomber", "hypersonic"]:
+		for cue_layer in ["back", "front"]:
+			for exposure in range(10):
+				var cue := load("res://assets/runtime/craft/vx94/gameplay/transform_motion/%s_%s_%02d.png" % [cue_family, cue_layer, exposure]) as Texture2D
+				_expect(cue != null and cue.get_size() == Vector2(64,72), "transform motion cel should retain registered canvas: %s %s %02d" % [cue_family, cue_layer, exposure])
 	for destination in ["bomber", "hypersonic"]:
 		for weapon_family in ["ballistic", "needle_rail", "storm_cannon", "plasma_lance"]:
 			for exposure in range(10):

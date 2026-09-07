@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "identity": "VX-94 registered variable-geometry motion cels",
+  "canvas": [
+    64,
+    72
+  ],
+  "anchor": [
+    32,
+    38
+  ],
+  "families": [
+    "bomber",
+    "hypersonic"
+  ],
+  "exposures": 10,
+  "layers": [
+    "back",
+    "front"
+  ],
+  "style": "held-pose late-90s military animation; palette-limited actuator trails"
+}
