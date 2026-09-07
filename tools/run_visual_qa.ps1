@@ -100,6 +100,7 @@ $Cases = @(
 	@{ id='hud_mission_ingress'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=0.8','--capture-hud=ingress') },
     @{ id='hud_radio_receive'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=2.4','--capture-radio') },
     @{ id='hud_radio_priority'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=2.4','--capture-radio','--capture-radio-alert') },
+	@{ id='hud_radio_roe_violation'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=2.4','--capture-radio','--capture-roe-warning') },
     @{ id='hud_objective_compact'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-hud=objective') },
     @{ id='mission_01_hypersonic_egress'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=149','--capture-egress','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.18') },
     @{ id='mission_01_egress_clear'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=149','--capture-egress','--capture-egress-complete','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.18') },

@@ -69,7 +69,9 @@ func _process(delta: float) -> void:
 		_redraw()
 		return
 	if _intro_delay == 0.0 and _message.is_empty():
-		if "--capture-radio-alert" in OS.get_cmdline_user_args():
+		if "--capture-roe-warning" in OS.get_cmdline_user_args():
+			_show("COMMAND", "ROE VIOLATION // PROTECTED SITE HIT -2500", BOSS_SECONDS, 4, RetroSfxRules.RADIO_ALERT)
+		elif "--capture-radio-alert" in OS.get_cmdline_user_args():
 			_show("SKYWARD", "PRIORITY // HEAVY CONTACT. WEAPONS FREE.", INTRO_SECONDS, 3, RetroSfxRules.RADIO_ALERT)
 		else:
 			_show(_sector_callsign(scene), str(scene.get("current_briefing")), INTRO_SECONDS, 1, RetroSfxRules.RADIO_TX)
@@ -90,7 +92,10 @@ func _process(delta: float) -> void:
 	var status := str(scene.get("status_text"))
 	var status_timer := float(scene.get("status_timer"))
 	if not status.is_empty() and status != _last_status and status_timer >= 1.0 and not status.begins_with("BOMB STRIKE"):
-		_show("AWACS", "CONTACT // %s" % status, CONTACT_SECONDS, 2, RetroSfxRules.RADIO_TX)
+		if status.begins_with("ROE "):
+			_show("COMMAND", status, BOSS_SECONDS, 4, RetroSfxRules.RADIO_ALERT)
+		else:
+			_show("AWACS", "CONTACT // %s" % status, CONTACT_SECONDS, 2, RetroSfxRules.RADIO_TX)
 	_last_status = status
 	if _message_timer > 0.0:
 		_message_timer = maxf(0.0, _message_timer - delta)

@@ -9,6 +9,7 @@ func _initialize() -> void:
 		_expect(source.contains(token), "mission radio missing production contract: %s" % token, failures)
 	_expect(source.contains("RADIO_RECEIVE_STRIP") and source.contains("RADIO_PRIORITY_STRIP") and source.contains("Rect2(16, 337, 608, 18)"), "combat radio should use compact authored receive and priority strips instead of a lower-playfield dialogue box", failures)
 	_expect(source.contains("--capture-radio-alert"), "visual QA should expose the priority radio treatment deterministically", failures)
+	_expect(source.contains('status.begins_with("ROE ")') and source.contains('_show("COMMAND", status, BOSS_SECONDS, 4, RetroSfxRules.RADIO_ALERT)'), "protected-site violations should interrupt routine traffic as priority command radio", failures)
 	for asset_name in ["radio_receive", "radio_priority"]:
 		var texture=load("res://assets/runtime/ui/hud/radio/%s.png"%asset_name)
 		_expect(texture is Texture2D and texture.get_size()==Vector2(608,18),"radio instrumentation should retain native strip geometry: %s"%asset_name,failures)
