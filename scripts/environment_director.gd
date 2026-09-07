@@ -924,7 +924,8 @@ func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary,
 		var slot: Dictionary = weather_slots[slot_index]
 		var weather: Texture2D = MOUNTAIN_WEATHER_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, MOUNTAIN_WEATHER_ANIMATION.size())]
 		var y := fposmod(float(slot["y"]) + route_scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
-		_draw_texture_rect_clipped(surface, weather, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(224,144)), ENVIRONMENT_VIEW, Color(0.82,0.88,0.92,0.28))
+		var wind_x := sin(t*0.42+float(slot_index)*1.7)*12.0
+		_draw_texture_rect_clipped(surface, weather, Rect2(Vector2(float(slot["x"])+wind_x, y).round(), Vector2(192,120)), ENVIRONMENT_VIEW, Color(0.82,0.88,0.92,0.19))
 
 func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
@@ -1054,9 +1055,9 @@ func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, densit
 	# Keep at least one far and one near bank visible in every cloud-bearing
 	# lane. Three mid-level banks could previously wrap beyond both screen edges
 	# together and make MID read exactly like LOW for several seconds.
-	var count := 3 if band == "low" else (5 if band == "mid" else 7)
-	count = maxi(count, int(round(7.0*density)))
-	var alpha := (0.14 + density * 0.24) * blend
+	var count := 3 if band == "low" else (3 if band == "mid" else 7)
+	count = maxi(count, int(round(6.0*density)))
+	var alpha := (0.12 + density * 0.21) * blend
 	if band == "low": alpha *= 0.72
 	if band == "high": alpha *= 1.42
 	for i in range(count):
@@ -1069,17 +1070,22 @@ func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, densit
 		var scale_step := 0.14 if band == "high" else 0.12
 		var scale := scale_base+depth*scale_step*2.4
 		var size := Vector2(texture.get_size()) * scale
+		if band == "mid":
+			size *= Vector2(0.82,0.88)
 		# Include the bank height in the wrap cycle so clouds cross both viewport
 		# edges continuously instead of popping in fully formed and dwelling below.
 		var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y
-		var y := fposmod(float(i)*73.0 + travel * speed,cloud_cycle) + ENVIRONMENT_VIEW.position.y - size.y * 0.5
+		# Quadratic phase spacing prevents several wide banks from resolving into
+		# evenly repeated horizontal strips over detailed terrain.
+		var phase_offset := float(i)*73.0 + float((i*i*19)%61)
+		var y := fposmod(phase_offset + travel * speed,cloud_cycle) + ENVIRONMENT_VIEW.position.y - size.y * 0.5
 		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, blend, i)
 		var depth_alpha := lerpf(0.62,1.12,depth)
 		var cloud_tone := Color(0.88,0.92,0.94,alpha*depth_alpha) if band == "high" else Color(0.78,0.84,0.88,alpha*depth_alpha)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, cloud_tone)
 		# Pair selected banks with a dimmer offset lobe. Overlap breaks the repeated
 		# rectangular cadence while retaining the authored cel edges and registration.
-		if i % 2 == 0:
+		if i % 3 == 0:
 			var lobe_texture: Texture2D = family[(i + 1) % family.size()]
 			var lobe_size := size * Vector2(0.68,0.62)
 			var lobe_offset := Vector2(size.x*0.34,-size.y*0.08)
