@@ -210,7 +210,7 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains('_capture_time() > INGRESS_SECONDS') and source.contains('capture_state == "ingress"'), "representative gameplay captures should suppress the launch transient unless ingress is explicitly requested")
 		_expect(source.contains('if _capture_hud_state() == "boss"') and source.contains('if _capture_hud_state() == "warning"'), "critical HUD capture fixtures should provide deterministic boss and missile-lock presentation data")
 		var visual_qa_source := FileAccess.get_file_as_string("res://tools/run_visual_qa.ps1")
-		_expect(visual_qa_source.contains("id='mission_30_final_boss'") and visual_qa_source.contains("--capture-time=238") and visual_qa_source.contains("--visual-capture-delay=11.0"), "canonical final-boss QA must advance beyond the Machine Ark route gate and observe its complete live arrival")
+		_expect(visual_qa_source.contains("id='mission_30_final_boss'; args=@('--capture-gameplay','--capture-mission=29','--capture-time=238','--visual-capture-delay=11.0')"), "canonical final-boss QA must advance beyond the Machine Ark route gate and use its live HUD during the complete arrival")
 		var capture_probe_source := FileAccess.get_file_as_string("res://tools/visual_capture_probe.gd")
 		_expect(capture_probe_source.contains("clampf(delay, 0.1, 12.0)"), "visual capture probe should permit the bounded live Machine Ark arrival window")
 		_expect(source.contains("battlefield sprites must never show through") and source.contains("Rect2(8, 5, 624, 30)"), "permanent HUD fascia should occlude actors until they enter the combat viewport")

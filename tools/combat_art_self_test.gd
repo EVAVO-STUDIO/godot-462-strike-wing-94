@@ -707,6 +707,8 @@ func _test_airframe_cues() -> void:
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/banked_external_stores_v2/runtime_integration.json"), "external store runtime receipt should exist")
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/dorsal_modules_v1/runtime_integration.json"), "dorsal module runtime receipt should exist")
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/module_damage_v1/runtime_integration.json"), "module damage runtime receipt should exist")
+	var hud_source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
+	_expect(not hud_source.contains("SKY FORTRESS") and hud_source.contains('scene.get("current_boss_id")'), "boss HUD fixtures should use the active canonical identity instead of stale prototype copy")
 
 func _test_combat_fx() -> void:
 	var file := FileAccess.open("res://scripts/combat_fx_director.gd", FileAccess.READ)

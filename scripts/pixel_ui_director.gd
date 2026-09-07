@@ -1240,11 +1240,12 @@ func _draw_divider(surface: CanvasItem, y: float) -> void:
 	surface.draw_texture(REPORT_DIVIDER, Vector2(42, y - 2))
 
 func _active_boss(scene: Object) -> Dictionary:
-	if _capture_hud_state() == "boss":
-		return {"id":"SKY FORTRESS", "boss":true, "hp":720, "max_hp":1200, "boss_phase":2}
 	var enemies: Array = scene.get("enemies")
 	for enemy in enemies:
 		if typeof(enemy) == TYPE_DICTIONARY and bool(enemy.get("boss", false)) and bool(enemy.get("entry_ready", true)) and int(enemy.get("hp", 0)) > 0: return enemy
+	if _capture_hud_state() == "boss":
+		var boss_id := str(scene.get("current_boss_id")) if _has_property(scene,"current_boss_id") else ""
+		return {"id":boss_id if not boss_id.is_empty() else "COMMAND TARGET", "boss":true, "hp":720, "max_hp":1200, "boss_phase":2}
 	return {}
 
 func _threat_snapshot(scene: Object) -> Dictionary:
