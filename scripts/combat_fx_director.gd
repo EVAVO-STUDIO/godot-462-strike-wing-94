@@ -453,12 +453,56 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var ground_pressure := ImpactArtLibrary.frame_for_ratio("dust_impact",ground_ratio)
 		var ground_size := Vector2(lerpf(18.0,72.0,ground_ratio),lerpf(10.0,32.0,ground_ratio))
 		surface.draw_texture_rect(ground_pressure,Rect2((p+Vector2(0,12)-ground_size*0.5).round(),ground_size.round()),false,Color(0.72,0.58,0.38,0.62*(1.0-ground_ratio)))
+	if not boss and impact_family in ["missile", "rocket", "bomb"]:
+		_draw_hot_fragment_fan(surface,p,blast_clock,max_size,serial,category)
 	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
 	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
 	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))
 	var debris_tint := Color(0.78,0.86,0.90,1.0-ratio) if faction == "autonomous" else Color(0.86,0.78,0.62,1.0-ratio)
 	surface.draw_texture_rect(debris, Rect2((p - debris_size * 0.5).round(), debris_size), false, debris_tint)
 	_draw_destruction_consequence(surface, p, ratio, category, faction, enemy_id, serial, boss)
+	if enemy_id in STRATEGIC_SITES:
+		_draw_strategic_aftermath(surface,p,blast_clock,serial,enemy_id)
+
+func _draw_hot_fragment_fan(surface: CanvasItem, p: Vector2, ratio: float, blast_size: float, serial: int, category: String) -> void:
+	if ratio >= 0.74:
+		return
+	var travel := smoothstep(0.02,0.74,ratio)
+	var fade := 1.0-smoothstep(0.42,0.74,ratio)
+	var count := 8 if category == "ground" else 6
+	for index in range(count):
+		var phase := float(index)/float(count)*TAU+float(posmod(serial*37,19))*0.031
+		var horizontal := cos(phase)
+		var vertical := sin(phase)*0.72
+		if category == "ground":
+			vertical = -absf(vertical)*0.82+travel*0.58
+		var distance := lerpf(5.0,blast_size*2.25,travel)*(0.72+float(index%3)*0.16)
+		var head := p+Vector2(horizontal,vertical)*distance
+		var tail := head-Vector2(horizontal,vertical)*lerpf(2.0,7.0,1.0-travel)
+		var colour := Color(1.0,0.82,0.42,0.90*fade) if index%3 else Color(0.94,0.46,0.18,0.78*fade)
+		surface.draw_line(tail.round(),head.round(),colour,1.0,false)
+
+func _draw_strategic_aftermath(surface: CanvasItem, p: Vector2, ratio: float, serial: int, enemy_id: String) -> void:
+	# Surface targets need a consequence anchored to the map: a flattened dust
+	# front, burning centre, and a smoke column that outlives the white-hot flash.
+	if ratio > 0.16:
+		var scar_ratio := clampf((ratio-0.16)/0.84,0.0,1.0)
+		var scar := ImpactArtLibrary.frame_for_ratio("dust_impact",clampf(scar_ratio*0.74,0.0,0.999))
+		var scar_size := Vector2(lerpf(28.0,82.0,scar_ratio),lerpf(13.0,38.0,scar_ratio))
+		surface.draw_texture_rect(scar,Rect2((p+Vector2(0,9)-scar_size*0.5).round(),scar_size.round()),false,Color(0.42,0.31,0.20,0.56*(1.0-scar_ratio*0.56)))
+	if ratio > 0.24 and ratio < 0.94:
+		var smoke_ratio := clampf((ratio-0.24)/0.70,0.0,1.0)
+		for layer_index in range(3):
+			var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial+layer_index+int(smoke_ratio*8.0),4)]
+			var lift := Vector2(float(layer_index-1)*7.0,-10.0-float(layer_index)*14.0-22.0*smoke_ratio)
+			var smoke_size := Vector2.ONE*lerpf(72.0+layer_index*7.0,98.0+layer_index*9.0,smoke_ratio)
+			var smoke_tint := Color(0.78,0.74,0.66,(0.82-float(layer_index)*0.08)*(1.0-smoothstep(0.76,1.0,smoke_ratio)))
+			surface.draw_texture_rect(smoke,Rect2((p+lift-smoke_size*0.5).round(),smoke_size.round()),false,smoke_tint)
+	if ratio > 0.20 and ratio < 0.82:
+		var fire: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_fire"][posmod(serial+int(ratio*12.0),4)]
+		var fire_offset := Vector2(0,-3 if enemy_id == "strategic_silo" else 4)
+		var fire_size := Vector2.ONE*lerpf(72.0,54.0,ratio)
+		surface.draw_texture_rect(fire,Rect2((p+fire_offset-fire_size*0.5).round(),fire_size.round()),false,Color(1.0,0.73,0.34,0.88*(1.0-ratio)))
 
 func _draw_destruction_consequence(surface: CanvasItem, p: Vector2, ratio: float, category: String, faction: String, enemy_id: String, serial: int, boss: bool) -> void:
 	var late_ratio := clampf((ratio - 0.32) / 0.68, 0.0, 0.999)
