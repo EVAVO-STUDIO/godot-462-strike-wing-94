@@ -22,7 +22,10 @@ foreach($Plate in $Plates) {
     $source = Join-Path $SourceRoot $Plate.Source
     $destination = Join-Path $PlateRuntime "$($Plate.Id).png"
     if(-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Ending plate source not found: $source" }
-    & $Magick $source -filter Lanczos -resize '640x320!' -gamma $Plate.Gamma -modulate "100,$($Plate.Saturation),100" -dither FloydSteinberg -colors 64 -depth 8 $destination
+    # Keep the painted military compositions, but group them into stable cel values.
+    # Error diffusion introduced fine crawling noise once the camera panned across a
+    # plate; an undithered 36-colour pass gives held animation shapes instead.
+    & $Magick $source -filter Lanczos -resize '640x320!' -gamma $Plate.Gamma -modulate "100,$($Plate.Saturation),100" +dither -colors 36 -unsharp '0x0.55+0.55+0.02' -type Palette -depth 8 -define png:color-type=3 $destination
     if($LASTEXITCODE -ne 0) { throw "Failed to build ending plate: $($Plate.Id)" }
 }
 
