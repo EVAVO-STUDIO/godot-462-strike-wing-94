@@ -68,6 +68,7 @@ $Cases = @(
 	@{ id='roster_mobile_ground'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=low','--capture-ground=mobile') },
 	@{ id='roster_surface_sites'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=42','--capture-altitude=low','--capture-ground=sites','--capture-radar') },
 	@{ id='hud_tactical_radar'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=low','--capture-air=human','--capture-ground=mobile','--capture-radar') },
+	@{ id='debrief_roe_failure'; args=@('--capture-gameplay','--capture-mission=1','--capture-collateral-failure','--visual-capture-delay=0.18') },
 	@{ id='roster_ground_mechs'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=low','--capture-ground=mechs') },
 	@{ id='roster_naval'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=low','--capture-ground=naval') },
 	@{ id='roster_infantry'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=42','--capture-altitude=low','--capture-ground=infantry') },

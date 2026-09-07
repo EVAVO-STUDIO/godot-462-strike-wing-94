@@ -147,6 +147,7 @@ func _test_direct_runtime_ownership() -> void:
 		_expect(not text.contains("enemies.clear(); enemy_bullets.clear()"), "screen bomb must not blanket-clear bosses")
 		_expect(text.contains("var protected_contacts: Array") and text.contains("_seed_protected_contacts()") and text.contains("_update_protected_contacts(delta)"), "live missions should carry protected civilian contacts through route travel")
 		_expect(text.contains("ROE VIOLATION // PROTECTED SITE HIT -2500") and text.contains("_apply_bomb_collateral"), "cannon and bomb damage should impose visible collateral consequences")
+		_expect(text.contains('collateral_strikes >= 2') and text.contains('_finish_mission(false, "RULES OF ENGAGEMENT VIOLATION")'), "a repeated protected-site loss should abort the sortie for an ROE failure")
 		_expect(text.contains("var shots_fired := 0") and text.contains("var shots_hit := 0"), "main should own exact sortie accuracy counters")
 		_expect(text.contains("shots_fired += count"), "player projectile creation should increment shots fired at source")
 		_expect(text.contains("shots_hit += 1"), "player bullet collision should increment shots hit at source")

@@ -127,6 +127,7 @@ var countermeasures_decoyed := 0
 var enemies: Array = []
 var protected_contacts: Array = []
 var collateral_strikes := 0
+var roe_failure_pending := false
 var pickups: Array = []
 var enemy_catalog: Array = []
 var surface_site_catalog: Array = []
@@ -756,6 +757,9 @@ func _update_mission(delta: float) -> void:
 	_update_enemies(delta)
 	_update_protected_contacts(delta)
 	_resolve_combat()
+	if roe_failure_pending:
+		_finish_mission(false, "RULES OF ENGAGEMENT VIOLATION")
+		return
 	if boss_victory_timer > 0.0:
 		return
 	if egress_active:
@@ -1009,6 +1013,7 @@ func _start_mission() -> void:
 	enemy_missiles_launched = 0
 	countermeasures_decoyed = 0
 	collateral_strikes = 0
+	roe_failure_pending = false
 	secrets_discovered = 0
 	mission_reward_earned = 0
 	repair_cost = 0
@@ -1035,6 +1040,11 @@ func _start_mission() -> void:
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_clear_combat()
 	_seed_protected_contacts()
+	if "--capture-collateral-failure" in OS.get_cmdline_user_args():
+		collateral_strikes = 2
+		roe_failure_pending = true
+		status_text = "ROE FAILURE // ABORT ORDERED"
+		status_timer = 3.0
 
 func _finish_mission(success: bool, failure_reason: String = "AIRFRAME LOST") -> void:
 	if phase == GamePhase.RESULT:
@@ -1607,7 +1617,8 @@ func _apply_bomb_collateral(point: Vector2, radius: float) -> int:
 func _register_collateral_loss(contact: Dictionary) -> void:
 	collateral_strikes += 1
 	score = maxi(0, score - 2500)
-	status_text = "ROE VIOLATION // PROTECTED SITE HIT -2500"
+	roe_failure_pending = collateral_strikes >= 2
+	status_text = "ROE FAILURE // ABORT ORDERED" if roe_failure_pending else "ROE VIOLATION // PROTECTED SITE HIT -2500"
 	status_timer = 3.0
 	var combat_fx := get_node_or_null("/root/CombatFxDirector")
 	if combat_fx != null and combat_fx.has_method("register_enemy_destruction"):
