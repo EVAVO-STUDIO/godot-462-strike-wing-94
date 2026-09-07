@@ -1,6 +1,9 @@
 class_name CombatRules
 extends RefCounted
 
+const NORMAL_TARGET_DURABILITY_SCALE := 0.58
+const NORMAL_TARGET_HP_CAP := 9
+
 static var _incoming_damage_multiplier := 1.0
 
 static func set_incoming_damage_multiplier(value: float) -> void:
@@ -36,3 +39,9 @@ static func wave_for_time(mission_time: float) -> int:
 
 static func destroy_value(base_value: int, wave: int) -> int:
 	return maxi(0, base_value) + maxi(1, wave) * 15
+
+static func normal_target_hp(scaled_hp: int, is_boss: bool) -> int:
+	var safe_hp := maxi(1, scaled_hp)
+	if is_boss:
+		return safe_hp
+	return mini(NORMAL_TARGET_HP_CAP, maxi(1, int(ceil(float(safe_hp) * NORMAL_TARGET_DURABILITY_SCALE))))

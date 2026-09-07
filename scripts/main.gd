@@ -1974,6 +1974,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		int(archetype.get("hp", 1)) + (0 if is_boss else int(wave / 5))
 	)
 	hp = _mode_enemy_hp(_difficulty_enemy_hp(hp,elite))
+	hp = CombatRules.normal_target_hp(hp, is_boss)
 	var x := (
 		PLAYFIELD.get_center().x
 		if is_boss

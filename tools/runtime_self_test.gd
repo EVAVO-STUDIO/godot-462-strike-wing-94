@@ -124,6 +124,9 @@ func _test_mission_state() -> void:
 	_expect(MissionStateRules.starting_wave(mission) == 4, "mission starting wave should be respected")
 	_expect(MissionStateRules.live_wave(mission, 0.0) == 4, "mission should begin on authored starting wave")
 	_expect(MissionStateRules.live_wave(mission, 40.0) == 6, "mission wave progression should advance relative to starting wave")
+	_expect(CombatRules.normal_target_hp(30, false) == 9, "ordinary high-tech targets should remain below the lethal-combat durability cap")
+	_expect(CombatRules.normal_target_hp(7, false) == 5, "ordinary armour should require materially fewer cannon hits")
+	_expect(CombatRules.normal_target_hp(220, true) == 220, "boss phase durability should remain intact")
 
 func _test_direct_runtime_ownership() -> void:
 	var weapon_data = ContentCatalog.load_json("res://data/weapons.json")
