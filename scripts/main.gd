@@ -1562,7 +1562,12 @@ func _update_enemies(delta: float) -> void:
 			position.x = move_toward(position.x, player_position.x, float(enemy["speed"]) * 0.72 * delta)
 		else:
 			var enemy_category := str(enemy.get("category","air"))
-			position.y += FlightSpeedRules.contact_screen_speed(_environment_speed_multiplier(),enemy_category,float(enemy["speed"]))*delta
+			var propulsion := MovementPatternRules.airframe_propulsion_multiplier(
+				enemy_category,
+				int(enemy.get("hp",1)),
+				int(enemy.get("max_hp",1))
+			)
+			position.y += FlightSpeedRules.contact_screen_speed(_environment_speed_multiplier(),enemy_category,float(enemy["speed"])*propulsion)*delta
 			var pattern := str(enemy.get("pattern", "sine_dive"))
 			var anchor_x := float(enemy.get("pattern_anchor_x", position.x))
 			enemy["pattern_anchor_x"] = anchor_x

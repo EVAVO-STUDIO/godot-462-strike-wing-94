@@ -71,6 +71,14 @@ static func airframe_control_authority(category: String, hp: int, max_hp: int) -
 	# same high-g manoeuvres as an intact airframe.
 	return lerpf(0.42, 1.0, integrity)
 
+static func airframe_propulsion_multiplier(category: String, hp: int, max_hp: int) -> float:
+	if category != "air" or max_hp <= 0:
+		return 1.0
+	var integrity := clampf(float(hp) / float(max_hp), 0.0, 1.0)
+	# Engine and control damage reduce closure without making a wounded aircraft
+	# hover unnaturally or reverse against the route.
+	return lerpf(0.64, 1.0, integrity)
+
 static func fire_recovery_multiplier(hp: int, max_hp: int) -> float:
 	if max_hp <= 0:
 		return 1.0
