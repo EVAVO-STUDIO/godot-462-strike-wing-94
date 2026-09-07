@@ -59,6 +59,9 @@ const MOUNTAIN_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/mountain_chunks/switchback_pass.png"),
 	preload("res://assets/runtime/environments/mountain_chunks/radar_service_valley.png"),
 	preload("res://assets/runtime/environments/mountain_chunks/ice_cliff_corridor.png"),
+	preload("res://assets/runtime/environments/mountain_chunks/glacial_switchbacks.png"),
+	preload("res://assets/runtime/environments/mountain_chunks/command_bowl.png"),
+	preload("res://assets/runtime/environments/mountain_chunks/avalanche_cut.png"),
 ]
 const HARBOR_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/harbor_chunks/outer_breakwater.png"),
@@ -411,10 +414,10 @@ func _draw_registered_harbor_crane(surface: CanvasItem, scene: Object, state: Di
 func _draw_registered_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	# The foundation is fixed to the empty service-valley pad while the dish is a
 	# separately pivoted tracking layer. This preserves target/damage animation.
-	var scroll := _world_distance(scene) * 24.0 + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 24.0 + float(_mission_seed(scene) % 6) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var radar_world_y := 1288.0
-	var center := Vector2(320.0, fposmod(radar_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y)
+	var center := Vector2(320.0, fposmod(radar_world_y + scroll, 6144.0) + ENVIRONMENT_VIEW.position.y)
 	var base_size := MOUNTAIN_RADAR_BASE.get_size() * scale
 	if center.y + base_size.y * 0.5 < ENVIRONMENT_VIEW.position.y or center.y - base_size.y * 0.5 > ENVIRONMENT_VIEW.end.y:
 		return
@@ -881,8 +884,12 @@ func _draw_river_corridor(surface: CanvasItem, scene: Object, state: Dictionary,
 
 func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := _world_distance(scene) * 24.0 + float(_mission_seed(scene) % 3) * 1024.0
-	_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
+	var scroll := _world_distance(scene) * 24.0
+	var route := _route("mountain_whiteout_corridor")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = MOUNTAIN_GEOGRAPHY_CHUNKS
+	var route_scroll := scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
+	_draw_vertical_chunk_sequence(surface, route_chunks, route_scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.015, 0.025, 0.045, 0.10))
 	var weather_slots := [
 		{"x":42.0,"y":170.0}, {"x":354.0,"y":650.0}, {"x":118.0,"y":1130.0},
@@ -891,7 +898,7 @@ func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary,
 	for slot_index in range(weather_slots.size()):
 		var slot: Dictionary = weather_slots[slot_index]
 		var weather: Texture2D = MOUNTAIN_WEATHER_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, MOUNTAIN_WEATHER_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(slot["y"]) + route_scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface, weather, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(224,144)), ENVIRONMENT_VIEW, Color(0.82,0.88,0.92,0.28))
 
 func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:

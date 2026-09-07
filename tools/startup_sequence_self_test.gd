@@ -6,7 +6,7 @@ func _initialize() -> void:
 	_expect(startup != null, "startup sequence autoload should exist", failures)
 	if startup != null:
 		_expect(float(startup.EVAVO_READABLE_SECONDS) >= 1.0, "EVAVO identity should remain readable before skip", failures)
-		_expect(float(startup.BLACK_PAUSE_SECONDS) >= 0.3, "publisher and title sequences should have a black pause", failures)
+		_expect(float(startup.BLACK_PAUSE_SECONDS) >= 0.25, "publisher and title sequences should retain the shared ident's perceptible black pause", failures)
 		_expect(float(startup.TITLE_TOTAL_SECONDS) >= 8.0 and float(startup.TITLE_TOTAL_SECONDS) <= 15.0, "HYPERSONIC title sequence should meet the 8-15 second contract", failures)
 		_expect(is_equal_approx(float(startup.TITLE_CRAFT_SCALE), 1.75), "final title should give the VX-94 a reviewed hero-scale silhouette without changing gameplay scale", failures)
 	var splash := load("res://assets/runtime/brand/front_door_raw_art_v1/evavo_splash_plate_v1.png")

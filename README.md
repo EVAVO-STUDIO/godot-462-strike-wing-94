@@ -32,6 +32,7 @@ Implemented now:
 - lateral mission-airspace recovery zones with directional edge chevrons and a four-second abort countdown instead of an unexplained invisible wall
 - six-district 6144-pixel refinery routes with distinct storage, cracking, rail, flare-service, pressure-grid and evacuation-terminal geography
 - six-district 6144-pixel Meridian city routes with freight, flooded transit, conversion, evacuation and drainage geography while protected civilian contacts remain separate gameplay objects
+- six-district 6144-pixel mountain routes with frozen switchbacks, radar basins, ice cliffs and avalanche cuts beneath separately animated snow shear and weather particles
 - visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
 - distinct missile acquisition and launch voices for interceptor and boss homing salvos
 - mechanical purchase/service confirmation and short mission-clear reward stingers

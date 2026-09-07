@@ -38,6 +38,18 @@
       ],"animation_slots":[]
     },
     {
+      "id":"mountain_whiteout_corridor","environment":"high_cloud","native_width":640,"chunk_height":1024,"world_length":6144,
+      "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"radar_installation","kind":"registered_objects","ratio":1.0},{"id":"snow_shear","kind":"registered_animation","ratio":1.0},{"id":"weather","kind":"finite_field","ratio":1.18}],
+      "districts":[
+        {"id":"switchback_pass","asset":"res://assets/runtime/environments/mountain_chunks/switchback_pass.png","north":"mountain_a","south":"mountain_a"},
+        {"id":"radar_service_valley","asset":"res://assets/runtime/environments/mountain_chunks/radar_service_valley.png","north":"mountain_a","south":"mountain_a"},
+        {"id":"ice_cliff_corridor","asset":"res://assets/runtime/environments/mountain_chunks/ice_cliff_corridor.png","north":"mountain_a","south":"mountain_a"},
+        {"id":"glacial_switchbacks","asset":"res://assets/runtime/environments/mountain_chunks/glacial_switchbacks.png","north":"mountain_a","south":"mountain_a"},
+        {"id":"command_bowl","asset":"res://assets/runtime/environments/mountain_chunks/command_bowl.png","north":"mountain_a","south":"mountain_a"},
+        {"id":"avalanche_cut","asset":"res://assets/runtime/environments/mountain_chunks/avalanche_cut.png","north":"mountain_a","south":"mountain_a"}
+      ],"animation_slots":[]
+    },
+    {
       "id": "cloud_top_silver_front",
       "environment": "high_cloud",
       "native_width": 640,

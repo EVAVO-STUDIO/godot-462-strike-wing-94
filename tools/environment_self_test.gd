@@ -32,6 +32,9 @@ func _initialize() -> void:
 		var city_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "city_meridian_evacuated")
 		_expect(not city_route.is_empty() and EnvironmentRouteRules.validation_errors(city_route).is_empty(), "city belt should resolve a valid expanded data-authored production route")
 		_expect(city_route.get("districts", []).size() == 6 and int(city_route.get("world_length", 0)) == 6144, "city route should provide six distinct 1024px districts before repeating")
+		var mountain_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "mountain_whiteout_corridor")
+		_expect(not mountain_route.is_empty() and EnvironmentRouteRules.validation_errors(mountain_route).is_empty(), "mountain corridor should resolve a valid expanded production route")
+		_expect(mountain_route.get("districts", []).size() == 6 and int(mountain_route.get("world_length", 0)) == 6144, "mountain route should provide six distinct 1024px districts before repeating")
 		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
 		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
@@ -99,7 +102,7 @@ func _initialize() -> void:
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
 		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should assemble registered authored battlefield geography chunks")
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
-		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, MOUNTAIN_GEOGRAPHY_CHUNKS"), "mountain benchmark should use three forward-scrolling authored districts")
+		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains('_route("mountain_whiteout_corridor")'), "mountain benchmark should use its expanded data-authored route")
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
 		_expect(source.contains('EnvironmentRouteRules.by_id(_routes, route_id)') and source.contains('_route("cloud_top_silver_front")'), "high-altitude benchmark should resolve its authored route from content data")
 		_expect(source.contains("ORBITAL_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS"), "orbital benchmark should use three forward-scrolling authored infrastructure districts")
@@ -366,8 +369,10 @@ func _initialize() -> void:
 		var mountain_builder := FileAccess.get_file_as_string("res://tools/build_mountain_geography_art.ps1")
 		_expect(mountain_builder.contains("mountain_geography_source_v2.png") and mountain_builder.contains("640x1024+1280+0") and not mountain_builder.contains("-resize '640x1024!'"), "mountain builder must crop v2 at native width without terrain enlargement")
 		var mountain_manifest = ContentCatalog.load_json("res://assets/source/environments/mountain_chunks/mountain_geography_manifest.json")
-		_expect(typeof(mountain_manifest) == TYPE_DICTIONARY and mountain_manifest.get("chunks", []).size() == 3, "mountain manifest should register three distinct 1024px pass districts")
-		var mountain_names := ["switchback_pass", "radar_service_valley", "ice_cliff_corridor"]
+		_expect(typeof(mountain_manifest) == TYPE_DICTIONARY and mountain_manifest.get("chunks", []).size() == 6 and int(mountain_manifest.get("cycle_height", 0)) == 6144, "mountain manifest should register six distinct 1024px pass districts")
+		var mountain_names := ["switchback_pass", "radar_service_valley", "ice_cliff_corridor", "glacial_switchbacks", "command_bowl", "avalanche_cut"]
+		var mountain_expansion_builder := FileAccess.get_file_as_string("res://tools/build_mountain_route_expansion.py")
+		_expect(mountain_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and mountain_expansion_builder.contains("expanded_districts") and mountain_expansion_builder.contains("storm"), "mountain expansion should retain deterministic source composition and separate weather layers")
 		var mountain_images: Array[Image] = []
 		for chunk_name in mountain_names:
 			var mountain_texture := load("res://assets/runtime/environments/mountain_chunks/%s.png" % chunk_name) as Texture2D
@@ -395,7 +400,7 @@ func _initialize() -> void:
 						if pixel.a > 0.0 and pixel.a < 1.0: binary_component_alpha = false
 				_expect(component_palette.size() <= 31, "mountain radar component should retain disciplined palette: %s" % component_name)
 				_expect(binary_component_alpha, "mountain radar component should retain binary alpha: %s" % component_name)
-		_expect(source.contains("MOUNTAIN_WEATHER_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "mountain snow shear should use held frames registered to forward-moving geography coordinates")
+		_expect(source.contains("MOUNTAIN_WEATHER_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + route_scroll'), "mountain snow shear should use held frames registered to the expanded geography coordinate")
 		_expect(not source.contains("_draw_vertical_loop(surface, MOUNTAIN_WEATHER_TILE"), "mountain presentation must not regress to a full-screen schematic weather tile")
 		_expect(source.contains("_draw_registered_mountain_radar") and source.contains("radar_world_y := 1288.0") and source.contains("surface.draw_set_transform(center.round(), t * 0.32"), "mountain radar should use a registered stationary base and independently tracking dish")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/harbor/night_harbor_loop_v1.png"), "harbor runtime master should exist")
