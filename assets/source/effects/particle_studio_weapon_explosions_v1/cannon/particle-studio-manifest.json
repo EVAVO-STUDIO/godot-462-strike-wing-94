@@ -1,0 +1,118 @@
+{
+  "manifestVersion": "evavo.particle-render/v1",
+  "effectId": "limited-cel-white-spark-impact-v2",
+  "effectSha256": "a059bee6e79840d21a58f77bc5de26f67fdd813aea0eea792db97392e4f4ffa6",
+  "width": 64,
+  "height": 64,
+  "frameCount": 8,
+  "fps": 16,
+  "duration": 0.75,
+  "loop": false,
+  "sampling": {
+    "policy": "inclusive-one-shot",
+    "interval": "[0,duration]",
+    "stepSeconds": 0.10714286,
+    "terminalFrameDuplicatesFirst": false
+  },
+  "deliverySeam": {
+    "measured": false,
+    "passes": true,
+    "lastToFirstRms": 0,
+    "interiorP95Rms": 0.10120861,
+    "normalizedStepRatio": 0,
+    "maxStepRatio": 1.5
+  },
+  "columns": 3,
+  "rows": 3,
+  "spriteSheet": "limited-cel-white-spark-impact-v2-sheet.png",
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "x": 0,
+      "y": 0,
+      "width": 64,
+      "height": 64,
+      "particleCount": 2,
+      "rgbaSha256": "3329bbd440f8ed2dc401025a6f4e0fda12e15ac5565e30fc21e40ff70ae844b4",
+      "file": "frame-0000.png"
+    },
+    {
+      "index": 1,
+      "time": 0.10714286,
+      "x": 64,
+      "y": 0,
+      "width": 64,
+      "height": 64,
+      "particleCount": 40,
+      "rgbaSha256": "4cd675cb1e38c4a286564400483e7f4ce5d7fd348f97dadaadf35ce71b392d62",
+      "file": "frame-0001.png"
+    },
+    {
+      "index": 2,
+      "time": 0.21428571,
+      "x": 128,
+      "y": 0,
+      "width": 64,
+      "height": 64,
+      "particleCount": 33,
+      "rgbaSha256": "ed8e525b54eb2721890bde6debe5838aad25a7fb2466fd5c3aec667c7392d301",
+      "file": "frame-0002.png"
+    },
+    {
+      "index": 3,
+      "time": 0.32142857,
+      "x": 0,
+      "y": 64,
+      "width": 64,
+      "height": 64,
+      "particleCount": 28,
+      "rgbaSha256": "e0ab659bcbd24bff4678fb10216373a32383c4e9a51f23c5f4e9bdc9c90098a7",
+      "file": "frame-0003.png"
+    },
+    {
+      "index": 4,
+      "time": 0.42857143,
+      "x": 64,
+      "y": 64,
+      "width": 64,
+      "height": 64,
+      "particleCount": 21,
+      "rgbaSha256": "fc0df0abff6947e84e300e6309e373471d08f3f6d35b43d8a7302fe77ddb31ec",
+      "file": "frame-0004.png"
+    },
+    {
+      "index": 5,
+      "time": 0.53571429,
+      "x": 128,
+      "y": 64,
+      "width": 64,
+      "height": 64,
+      "particleCount": 14,
+      "rgbaSha256": "1d17aa24ea593a321c6be5af12e5e9cd773cfc3600a1be1cbfddcdd54ec441d4",
+      "file": "frame-0005.png"
+    },
+    {
+      "index": 6,
+      "time": 0.64285714,
+      "x": 0,
+      "y": 128,
+      "width": 64,
+      "height": 64,
+      "particleCount": 2,
+      "rgbaSha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+      "file": "frame-0006.png"
+    },
+    {
+      "index": 7,
+      "time": 0.75,
+      "x": 64,
+      "y": 128,
+      "width": 64,
+      "height": 64,
+      "particleCount": 0,
+      "rgbaSha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+      "file": "frame-0007.png"
+    }
+  ]
+}

@@ -15,6 +15,25 @@ const EXPLOSION_FRAMES := [
 	preload("res://assets/runtime/effects/explosion/explosion_6.png"),
 	preload("res://assets/runtime/effects/explosion/explosion_7.png"),
 ]
+const MISSILE_AIRBURST_FRAMES := [
+	preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0000.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0001.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0002.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0003.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0004.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0005.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0006.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0007.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0008.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0009.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0010.png")
+]
+const ROCKET_BURST_FRAMES := [
+	preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0000.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0001.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0002.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0003.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0004.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0005.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0006.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0007.png")
+]
+const CANNON_SPARK_FRAMES := [
+	preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0000.png"), preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0001.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0002.png"), preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0003.png"),
+	preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0004.png"), preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0005.png")
+]
 
 const MAX_EVENTS := 48
 const HIT_SECONDS := 0.12
@@ -124,6 +143,7 @@ var _previous_hull := -1
 var _previous_shield := -1
 var _serial := 0
 var _hit_audio_cooldown := 0.0
+var _weapon_fx_capture_deployed := false
 
 func _ready() -> void:
 	layer = 16
@@ -140,8 +160,20 @@ func _process(delta: float) -> void:
 	_hit_audio_cooldown = maxf(0.0, _hit_audio_cooldown - delta)
 	_update_events(delta)
 	_observe_combat()
+	_deploy_weapon_fx_capture()
 	if _surface != null:
 		_surface.queue_redraw()
+
+func _deploy_weapon_fx_capture() -> void:
+	if _weapon_fx_capture_deployed or not "--capture-weapon-explosions" in OS.get_cmdline_user_args():
+		return
+	var scene := get_tree().current_scene
+	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
+		return
+	_weapon_fx_capture_deployed = true
+	_emit("explosion", Vector2(220, 155), 19.0, 0.92, {"enemy_id":"mercenary_fighter", "category":"air", "faction":"mercenary", "impact_family":"cannon"})
+	_emit("explosion", Vector2(320, 155), 21.0, 0.92, {"enemy_id":"light_tank", "category":"ground", "faction":"mercenary", "impact_family":"rocket"})
+	_emit("explosion", Vector2(420, 155), 23.0, 0.92, {"enemy_id":"drone_fighter", "category":"air", "faction":"autonomous", "impact_family":"missile"})
 
 func _observe_combat() -> void:
 	var scene := get_tree().current_scene
@@ -160,7 +192,8 @@ func _observe_combat() -> void:
 				"hp": int(enemy.get("hp", 0)),
 				"boss": bool(enemy.get("boss", false)),
 				"category": str(enemy.get("category", "air")),
-				"faction": str(enemy.get("faction", "mercenary"))
+				"faction": str(enemy.get("faction", "mercenary")),
+				"last_impact_family": str(enemy.get("last_impact_family", "cannon"))
 			})
 
 	var matched_current: Dictionary = {}
@@ -190,7 +223,8 @@ func _observe_combat() -> void:
 			_emit(kind, Vector2(previous.get("position", Vector2.ZERO)), size, duration, {
 				"enemy_id": str(previous.get("id", "enemy")),
 				"category": str(previous.get("category", "air")),
-				"faction": str(previous.get("faction", "mercenary"))
+				"faction": str(previous.get("faction", "mercenary")),
+				"impact_family": str(previous.get("last_impact_family", "cannon"))
 			})
 
 	var hull := int(scene.get("hull"))
@@ -252,6 +286,28 @@ func _emit(kind: String, position: Vector2, size: float, duration: float, metada
 		_events.pop_front()
 	_play_audio_for(kind)
 
+func register_enemy_destruction(enemy: Dictionary) -> void:
+	var enemy_id := str(enemy.get("id", "enemy"))
+	var position: Vector2 = enemy.get("position", Vector2.ZERO)
+	for index in range(_previous_enemies.size() - 1, -1, -1):
+		var previous: Dictionary = _previous_enemies[index]
+		if str(previous.get("id", "")) == enemy_id and Vector2(previous.get("position", Vector2.ZERO)).distance_squared_to(position) <= 180.0 * 180.0:
+			_previous_enemies.remove_at(index)
+			break
+	var boss := bool(enemy.get("boss", false))
+	var category := str(enemy.get("category", "air"))
+	var duration := BOSS_DESTRUCTION_SECONDS if boss else EXPLOSION_SECONDS
+	if boss and ORBITAL_BOSS_WRECK_HULLS.has(enemy_id): duration = ORBITAL_BOSS_DESTRUCTION_SECONDS
+	elif category == "sea": duration = NAVAL_SINK_SECONDS
+	elif GROUND_MECH_WRECK_HULLS.has(enemy_id): duration = 1.10
+	elif GROUND_VEHICLE_WRECK_LAYERS.has(enemy_id): duration = 0.96
+	elif AIRFRAME_WRECK_HULLS.has(enemy_id): duration = 0.92
+	var retained := GROUND_MECH_WRECK_HULLS.has(enemy_id) or GROUND_VEHICLE_WRECK_LAYERS.has(enemy_id) or AIRFRAME_WRECK_HULLS.has(enemy_id)
+	_emit("boss_explosion" if boss else "explosion", position, 28.0 if boss else (19.0 if retained else 15.0), duration, {
+		"enemy_id": enemy_id, "category": category, "faction": str(enemy.get("faction", "mercenary")),
+		"impact_family": str(enemy.get("last_impact_family", "cannon"))
+	})
+
 func _play_audio_for(kind: String) -> void:
 	var event_id := ""
 	match kind:
@@ -297,9 +353,9 @@ func _draw_combat_fx(surface: CanvasItem) -> void:
 			"hit":
 				_draw_hit(surface, position, ratio, str(event.get("category", "air")))
 			"explosion":
-				_draw_explosion(surface, position, ratio, float(event.get("size", 15.0)), int(event.get("serial", 0)), false, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "enemy")))
+				_draw_explosion(surface, position, ratio, float(event.get("size", 15.0)), int(event.get("serial", 0)), false, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "enemy")), str(event.get("impact_family", "cannon")))
 			"boss_explosion":
-				_draw_explosion(surface, position, ratio, float(event.get("size", 28.0)), int(event.get("serial", 0)), true, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "boss")))
+				_draw_explosion(surface, position, ratio, float(event.get("size", 28.0)), int(event.get("serial", 0)), true, str(event.get("category", "air")), str(event.get("faction", "mercenary")), str(event.get("enemy_id", "boss")), str(event.get("impact_family", "cannon")))
 			"shield_hit":
 				_draw_player_hit(surface, position, ratio, true)
 			"shield_break":
@@ -312,7 +368,7 @@ func _draw_hit(surface: CanvasItem, p: Vector2, ratio: float, category: String) 
 	var texture := ImpactArtLibrary.frame_for_ratio(family, ratio)
 	surface.draw_texture(texture, (p - Vector2(12, 12)).round())
 
-func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool, category: String, faction: String, enemy_id: String) -> void:
+func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: float, serial: int, boss: bool, category: String, faction: String, enemy_id: String, impact_family: String) -> void:
 	# The hot blast keeps its short arcade cadence, while retained hull material
 	# consumes the complete extended event. Previously the accelerated blast
 	# clock was also fed into breakup rendering, collapsing a 2.3-second boss
@@ -330,10 +386,24 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var water := ImpactArtLibrary.frame_for_ratio("water_impact", clampf(blast_clock / 0.72, 0.0, 0.999))
 		var water_size := Vector2.ONE * lerpf(20.0, 38.0, blast_clock)
 		surface.draw_texture_rect(water, Rect2((p - water_size * 0.5).round(), water_size), false, Color(0.66,0.80,0.86,0.72*(1.0-blast_clock*0.65)))
-	var frame_index := clampi(int(floor(blast_ratio * float(EXPLOSION_FRAMES.size()))), 0, EXPLOSION_FRAMES.size() - 1)
-	var frame: Texture2D = EXPLOSION_FRAMES[frame_index]
-	var draw_size := roundf(max_size * (2.35 if boss else 2.20))
+	var frames: Array = EXPLOSION_FRAMES
+	if not boss and impact_family == "missile": frames = MISSILE_AIRBURST_FRAMES
+	elif not boss and impact_family in ["rocket", "bomb"]: frames = ROCKET_BURST_FRAMES
+	elif not boss and impact_family == "cannon": frames = CANNON_SPARK_FRAMES
+	var frame_index := clampi(int(floor(blast_ratio * float(frames.size()))), 0, frames.size() - 1)
+	var frame: Texture2D = frames[frame_index]
+	var scale_factor := 5.20 if impact_family == "missile" else (4.20 if impact_family in ["rocket", "bomb"] else 2.80)
+	if boss: scale_factor = 2.35
+	var draw_size := roundf(max_size * scale_factor)
 	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,blast_clock)))
+	if not boss and impact_family == "missile" and blast_clock < 0.42:
+		var pressure_ratio := blast_clock / 0.42
+		var pressure_color := Color(1.0, 0.88, 0.62, 0.82 * (1.0 - pressure_ratio))
+		surface.draw_arc(p.round(), lerpf(9.0, 48.0, pressure_ratio), 0.0, TAU, 32, pressure_color, 2.0)
+	if not boss and impact_family in ["rocket", "bomb"] and blast_clock < 0.58:
+		var ground_ratio := blast_clock / 0.58
+		var ground_width := lerpf(14.0, 62.0, ground_ratio)
+		surface.draw_arc((p + Vector2(0, 12)).round(), ground_width * 0.5, PI, TAU, 24, Color(0.72, 0.58, 0.38, 0.54 * (1.0-ground_ratio)), 3.0)
 	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
 	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
 	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))

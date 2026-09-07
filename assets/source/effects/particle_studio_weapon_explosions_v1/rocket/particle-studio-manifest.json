@@ -1,0 +1,162 @@
+{
+  "manifestVersion": "evavo.particle-render/v1",
+  "effectId": "limited-cel-ground-explosion",
+  "effectSha256": "7375cf81edd8cb96e25c11ef3149390164d6f10e91db7c0407cde7eb600298f9",
+  "width": 128,
+  "height": 128,
+  "frameCount": 12,
+  "fps": 20,
+  "duration": 1,
+  "loop": false,
+  "sampling": {
+    "policy": "inclusive-one-shot",
+    "interval": "[0,duration]",
+    "stepSeconds": 0.09090909,
+    "terminalFrameDuplicatesFirst": false
+  },
+  "deliverySeam": {
+    "measured": false,
+    "passes": true,
+    "lastToFirstRms": 0,
+    "interiorP95Rms": 0.06803848,
+    "normalizedStepRatio": 0,
+    "maxStepRatio": 1.5
+  },
+  "columns": 4,
+  "rows": 3,
+  "spriteSheet": "limited-cel-ground-explosion-sheet.png",
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "x": 0,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "particleCount": 3,
+      "rgbaSha256": "323a6825ea9210f4a6d785008e2b0168eff18368171b9ec03799028c167b87dd",
+      "file": "frame-0000.png"
+    },
+    {
+      "index": 1,
+      "time": 0.09090909,
+      "x": 128,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "particleCount": 50,
+      "rgbaSha256": "9bf3c1e8982fa9a73513528bed42284972f094b01f0166c37cceea97f2f56e4d",
+      "file": "frame-0001.png"
+    },
+    {
+      "index": 2,
+      "time": 0.18181818,
+      "x": 256,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "particleCount": 46,
+      "rgbaSha256": "c90181a7edafd06eb2b2d5d897ce8fa5646b7e32fad5f5bf29b94591c6d13717",
+      "file": "frame-0002.png"
+    },
+    {
+      "index": 3,
+      "time": 0.27272727,
+      "x": 384,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "particleCount": 42,
+      "rgbaSha256": "cb458d9d1393837fcf11b2626502784c13a2c9fb8c404ee1f684797376fc3e98",
+      "file": "frame-0003.png"
+    },
+    {
+      "index": 4,
+      "time": 0.36363636,
+      "x": 0,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "particleCount": 40,
+      "rgbaSha256": "24d1191121e47dc05190a702bd497110ebf98b53924632017e0c9b661cdafc1a",
+      "file": "frame-0004.png"
+    },
+    {
+      "index": 5,
+      "time": 0.45454545,
+      "x": 128,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "particleCount": 38,
+      "rgbaSha256": "ce8db0e2e3671c8240f0ae54ac65333b1734786cab90ae5fc8590e3aee47a12e",
+      "file": "frame-0005.png"
+    },
+    {
+      "index": 6,
+      "time": 0.54545455,
+      "x": 256,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "particleCount": 28,
+      "rgbaSha256": "f001affa4b761b64e2b764b966f6ec4d124131b01967b99e5c793a840dd9c001",
+      "file": "frame-0006.png"
+    },
+    {
+      "index": 7,
+      "time": 0.63636364,
+      "x": 384,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "particleCount": 16,
+      "rgbaSha256": "10dd1d5bae8c204831f4c097d5326be0adea13d13d5c7bb357900b650ca5b049",
+      "file": "frame-0007.png"
+    },
+    {
+      "index": 8,
+      "time": 0.72727273,
+      "x": 0,
+      "y": 256,
+      "width": 128,
+      "height": 128,
+      "particleCount": 6,
+      "rgbaSha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+      "file": "frame-0008.png"
+    },
+    {
+      "index": 9,
+      "time": 0.81818182,
+      "x": 128,
+      "y": 256,
+      "width": 128,
+      "height": 128,
+      "particleCount": 0,
+      "rgbaSha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+      "file": "frame-0009.png"
+    },
+    {
+      "index": 10,
+      "time": 0.90909091,
+      "x": 256,
+      "y": 256,
+      "width": 128,
+      "height": 128,
+      "particleCount": 0,
+      "rgbaSha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+      "file": "frame-0010.png"
+    },
+    {
+      "index": 11,
+      "time": 1,
+      "x": 384,
+      "y": 256,
+      "width": 128,
+      "height": 128,
+      "particleCount": 0,
+      "rgbaSha256": "de2f256064a0af797747c2b97505dc0b9f3df0de4f489eac731c23ae9ca9cc31",
+      "file": "frame-0011.png"
+    }
+  ]
+}

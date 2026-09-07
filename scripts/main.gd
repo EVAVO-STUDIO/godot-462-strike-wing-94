@@ -1352,6 +1352,7 @@ func _update_weapons() -> void:
 				survivors.append(boss)
 				boss_damaged = true
 			else:
+				enemy["last_impact_family"] = "bomb"
 				_register_destroy(enemy)
 				score += _mode_score_value(75 + int(enemy.get("hp", 1)) * 25)
 		enemies = survivors
@@ -1568,6 +1569,7 @@ func _resolve_combat() -> void:
 			) if is_boss_target else bullet["position"].distance_squared_to(enemies[enemy_index]["position"]) <= 196.0
 			if hit:
 				var enemy_class := str(enemies[enemy_index].get("category", "air"))
+				enemies[enemy_index]["last_impact_family"] = _player_projectile_impact_family(bullet)
 				var applied_damage := maxi(
 					1,
 					int(round(float(bullet["damage"]) * _target_damage_multiplier(enemy_class)))
@@ -1639,11 +1641,25 @@ func _resolve_combat() -> void:
 
 func _register_destroy(enemy: Dictionary) -> void:
 	targets_destroyed += 1
+	var combat_fx := get_node_or_null("/root/CombatFxDirector")
+	if combat_fx != null and combat_fx.has_method("register_enemy_destruction"):
+		combat_fx.call("register_enemy_destruction", enemy)
 	ObjectiveRules.register_destroy(
 		current_objectives,
 		objective_progress,
 		str(enemy.get("id", ""))
 	)
+
+func _player_projectile_impact_family(projectile: Dictionary) -> String:
+	if bool(projectile.get("strategic_support", false)):
+		return "strategic"
+	if bool(projectile.get("player_guided_missile", false)) or str(projectile.get("weapon_id", "")) == "sidewinder":
+		return "missile"
+	if bool(projectile.get("support_homing", false)) or bool(projectile.get("support", false)):
+		return "rocket"
+	if str(projectile.get("weapon_id", "")) in ["storm_cannon", "plasma_lance"]:
+		return "energy"
+	return "cannon"
 
 func _begin_boss_victory_hold(enemy: Dictionary) -> void:
 	if not bool(enemy.get("boss", false)):

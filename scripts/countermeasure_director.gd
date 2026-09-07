@@ -106,6 +106,18 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 		var position: Vector2 = event.get("position", Vector2.ZERO)
 		position.y += ratio * CountermeasureRules.DECOY_TRAIL_DISTANCE
 		position.x += sin(ratio * PI) * (-18.0 if posmod(int(event.get("serial", 0)), 2) == 0 else 18.0)
+		var trail_direction := Vector2(sin(float(event.get("angle", 0.0))), cos(float(event.get("angle", 0.0))))
+		for puff_index in range(3):
+			var trail_ratio := clampf(ratio - float(puff_index + 1) * 0.075, 0.0, 1.0)
+			if trail_ratio <= 0.0:
+				continue
+			var puff_position := position - trail_direction * float(8 + puff_index * 7)
+			var puff_alpha := (1.0 - ratio) * (0.20 - float(puff_index) * 0.04)
+			surface.draw_circle(puff_position.round(), 2.5 + float(puff_index), Color(0.68, 0.72, 0.70, puff_alpha))
+		if ratio < 0.18:
+			var ignition := 1.0 - ratio / 0.18
+			surface.draw_circle(position.round(), 6.0 + ratio * 18.0, Color(1.0, 0.82, 0.38, 0.18 * ignition))
+			surface.draw_arc(position.round(), 5.0 + ratio * 20.0, 0.0, TAU, 20, Color(1.0, 0.94, 0.72, 0.72 * ignition), 1.2)
 		surface.draw_set_transform(position.round(), float(event.get("angle",0.0)), SALVO_CARTRIDGE_SCALE)
 		surface.draw_texture(texture, -FLARE_PIVOT, Color(1,1,1,1.0-smoothstep(0.72,1.0,ratio)))
 		surface.draw_set_transform(Vector2.ZERO)

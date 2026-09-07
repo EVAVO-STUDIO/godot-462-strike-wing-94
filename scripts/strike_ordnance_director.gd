@@ -183,6 +183,7 @@ func _impact(scene: Object, item: Dictionary) -> void:
 			enemy["hp"] = maxi(1, hp - damage)
 			enemies[i] = enemy
 		elif hp - damage <= 0:
+			enemy["last_impact_family"] = "bomb"
 			if scene.has_method("_register_destroy"):
 				scene.call("_register_destroy", enemy)
 			precision_bonus += StrikeOrdnanceRules.route_precision_score(enemy, true)
