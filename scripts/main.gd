@@ -35,6 +35,7 @@ const PLAYER_FLIGHT_MIN := Vector2(34.0, 76.0)
 const PLAYER_FLIGHT_MAX := Vector2(606.0, 288.0)
 const PLAYER_SORTIE_START := Vector2(320.0, FlightCameraRules.ANCHOR_Y)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
+const BOSS_RUSH_INGRESS_DISTANCE := 4.0
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 
 enum GamePhase { TITLE, PLAYING, RESULT }
@@ -745,7 +746,7 @@ func _update_mission(delta: float) -> void:
 		enemies.clear()
 		if boss_victory_timer <= 0.0:
 			ObjectiveRules.complete_survival(current_objectives, objective_progress)
-			if MissionFlowRules.requires_hypersonic_egress(str(_active_mission().get("id", ""))):
+			if MissionFlowRules.requires_hypersonic_egress(str(_active_mission().get("id", ""))) and not _boss_rush_active():
 				_begin_hypersonic_egress()
 			else:
 				_finish_mission(true)
@@ -811,7 +812,7 @@ func _update_mission(delta: float) -> void:
 			_finish_mission(false, "OBJECTIVES INCOMPLETE")
 			return
 
-	if enemy_spawn_timer <= 0.0 and not _boss_alive():
+	if enemy_spawn_timer <= 0.0 and not _boss_alive() and not _boss_rush_active():
 		_spawn_enemy()
 		enemy_spawn_timer = _difficulty_spawn_interval(CombatRules.enemy_spawn_interval(wave)) * _random_contact_interval_scale()
 
@@ -897,6 +898,9 @@ func _prepare_mission(index: int) -> void:
 		current_boss_id = str(mission.get("boss_id", ""))
 		current_environment = str(mission.get("environment", "coast"))
 		current_objectives = mission.get("objectives", [])
+		if _boss_rush_active() and not current_boss_id.is_empty():
+			current_briefing = "Immediate command intercept. Destroy %s and preserve the remaining airframes." % current_boss_id.replace("_"," ").to_upper()
+			current_objectives = [{"id":"destroy_boss","type":"destroy_enemy","enemy_id":current_boss_id,"count":1,"required":true}]
 	objective_progress = ObjectiveRules.make_progress(current_objectives)
 	_refresh_intelligence_unlocks()
 
@@ -1012,6 +1016,9 @@ func _credits_blocking() -> bool:
 
 func _mode_active() -> bool:
 	return game_mode != "campaign"
+
+func _boss_rush_active() -> bool:
+	return game_mode == "boss_rush"
 
 func _advance_mode_result() -> void:
 	var modes := get_node_or_null("/root/GameModeDirector")
@@ -2144,7 +2151,8 @@ func _difficulty_elite_value(base: int) -> int:
 	var director := _difficulty(); return int(director.call("elite_value",base)) if director != null else base
 
 func _try_spawn_boss() -> void:
-	if boss_spawned or current_boss_id == "" or not RouteProgressRules.reached(route_progress_seconds(), RouteProgressRules.boss_gate_for_mission(_active_mission())):
+	var boss_gate := BOSS_RUSH_INGRESS_DISTANCE if _boss_rush_active() else RouteProgressRules.boss_gate_for_mission(_active_mission())
+	if boss_spawned or current_boss_id == "" or not RouteProgressRules.reached(route_progress_seconds(), boss_gate):
 		return
 	var boss := _find_enemy_archetype(current_boss_id)
 	if not boss.is_empty():

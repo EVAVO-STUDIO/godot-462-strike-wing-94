@@ -46,6 +46,12 @@ func _run() -> void:
 		_expect(float(mode.get("score_multiplier", 0.0)) > 1.0,"each mode should reward its higher stakes",failures)
 	_expect(ids == ["arcade_assault","boss_rush","hypersonic_trial","strike_mastery"],"mode identity/order should remain canonical",failures)
 	_expect(bool(modes[1].get("requires_campaign_clear", false)),"Boss Rush should be the authored BLACK SKY completion unlock",failures)
+	var missions_by_id: Dictionary = {}
+	for mission in missions_data.get("missions",[]): missions_by_id[str(mission.get("id",""))] = mission
+	var boss_rush_ids: Array[String] = []
+	for mission_id in modes[1].get("missions",[]): boss_rush_ids.append(str(missions_by_id.get(str(mission_id),{}).get("boss_id","")))
+	_expect(boss_rush_ids == ["gunship_alpha","armoured_train","missile_cruiser","swarm_controller","ai_forge_core","orbital_command_node","phase_control_array","station_warden","machine_ark"],"Boss Rush should fight all nine canonical command targets exactly once",failures)
+	_expect(str(modes[1].get("tagline","")) == "9 COMMAND TARGETS" and "Nine decisive" in str(modes[1].get("description","")),"Boss Rush menu copy should state its complete nine-boss contract",failures)
 	_expect(GameModeRules.scaled_hp(10,modes[1]) == 12,"Boss Rush should apply authored armour scaling",failures)
 	_expect(GameModeRules.scaled_score(100,modes[3]) == 200,"Strike Mastery should double canonical target score",failures)
 	for emblem in ["arcade","boss","hypersonic","strike"]:
@@ -78,9 +84,12 @@ func _run() -> void:
 	var main_source := _source("res://scripts/main.gd")
 	_expect(main_source.contains("_mode_enemy_hp") and main_source.contains("_mode_enemy_speed") and main_source.contains("_mode_score_value"),"alternate modifiers should hook canonical combat spawn and score paths",failures)
 	_expect(main_source.contains("_advance_mode_result") and main_source.contains("_update_front_end_modes"),"alternate routes should own real result and menu flow",failures)
+	_expect(main_source.contains("BOSS_RUSH_INGRESS_DISTANCE") and main_source.contains('current_objectives = [{"id":"destroy_boss"') and main_source.contains("not _boss_rush_active()"),"Boss Rush should skip patrol contacts and complete each sortie from the immediate command kill",failures)
 	_expect(main_source.contains("--capture-game-mode=") and main_source.contains("--capture-mode-selection="),"mode board and live routes should expose deterministic visual QA capture",failures)
 	_expect(main_source.contains('catalogue[i].get("requires_campaign_clear", false)') and main_source.contains("campaign_completed = true") and main_source.contains("_begin_capture_gameplay()"),"live mode capture should unlock QA-only postgame routes and honor captured mission time",failures)
 	_expect(main_source.contains('"--capture-mode-records"') and main_source.contains('"best_score":284600'),"persistent mode records should expose deterministic front-door visual QA",failures)
+	var visual_qa_source := _source("res://tools/run_visual_qa.ps1")
+	_expect(visual_qa_source.contains("id='mode_boss_rush'; args=@('--capture-gameplay','--capture-game-mode=boss_rush','--capture-time=48','--visual-capture-delay=4.0')"),"Boss Rush visual QA should observe its first real command arrival and live HUD",failures)
 	var save_source := _source("res://scripts/campaign_save.gd")
 	_expect(save_source.contains("_campaign_mode(scene)"),"alternate modes should be isolated from persistent campaign saves",failures)
 	var ui_source := _source("res://scripts/pixel_ui_director.gd")

@@ -36,7 +36,7 @@ $Cases = @(
 	@{ id='front_stores_schematic'; args=@('--capture-gameplay','--capture-front-end=sortie','--capture-stores-schematic') },
     @{ id='front_modes'; args=@('--capture-gameplay','--capture-front-end=modes','--capture-campaign-clear','--capture-mode-records') },
     @{ id='mode_arcade_assault'; args=@('--capture-gameplay','--capture-game-mode=arcade_assault','--capture-time=48') },
-    @{ id='mode_boss_rush'; args=@('--capture-gameplay','--capture-game-mode=boss_rush','--capture-time=48','--capture-hud=boss') },
+    @{ id='mode_boss_rush'; args=@('--capture-gameplay','--capture-game-mode=boss_rush','--capture-time=48','--visual-capture-delay=4.0') },
     @{ id='mode_hypersonic_trial'; args=@('--capture-gameplay','--capture-game-mode=hypersonic_trial','--capture-time=48','--capture-flight=hypersonic','--capture-altitude=high') },
     @{ id='hypersonic_entry_burst'; args=@('--capture-gameplay','--capture-mission=0','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.10') },
 	@{ id='hypersonic_engine_ring'; args=@('--capture-gameplay','--capture-mission=0','--capture-flight=hypersonic','--capture-altitude=high','--visual-capture-delay=0.40') },
