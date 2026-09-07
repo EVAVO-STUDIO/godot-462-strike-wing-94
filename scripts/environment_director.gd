@@ -572,7 +572,7 @@ func _draw_high_atmosphere_far(surface: CanvasItem, scene: Object, state: Dictio
 	# contrast must fall away at HIGH or the aircraft appears to skim the ground.
 	# Lay the atmospheric extinction beneath clouds and combat actors so threats
 	# stay crisp while distant terrain loses near-field black levels.
-	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.18, 0.29, 0.38, 0.16 * mix))
+	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.20, 0.31, 0.40, 0.26 * mix))
 	var travel := _world_distance(scene)
 	for i in range(4):
 		var texture: Texture2D = CIRRUS_FAR[i % CIRRUS_FAR.size()]
