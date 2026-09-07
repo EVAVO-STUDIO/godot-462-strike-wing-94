@@ -24,6 +24,8 @@ var _minimum_world_speed := 99.0
 var _maximum_world_speed := 0.0
 var _minimum_throttle := 1.0
 var _maximum_throttle := 0.0
+var _minimum_camera_offset := 999.0
+var _maximum_camera_offset := -999.0
 var _passive_profile := false
 var _stationary_fire_profile := false
 var _boss_seen := false
@@ -86,6 +88,10 @@ func _sample_state(delta: float) -> void:
 		var throttle := float(craft.call("throttle_ratio"))
 		_minimum_throttle = minf(_minimum_throttle, throttle)
 		_maximum_throttle = maxf(_maximum_throttle, throttle)
+	if _has_property(scene, "flight_camera_offset"):
+		var camera_offset := float(scene.get("flight_camera_offset"))
+		_minimum_camera_offset = minf(_minimum_camera_offset, camera_offset)
+		_maximum_camera_offset = maxf(_maximum_camera_offset, camera_offset)
 	altitude_seconds[altitude] = float(altitude_seconds.get(altitude, 0.0)) + delta
 	form_seconds[form] = float(form_seconds.get(form, 0.0)) + delta
 	maxima["enemies"] = maxi(int(maxima["enemies"]), _array_size("enemies"))
@@ -223,6 +229,9 @@ func _finish() -> void:
 			"world_distance":float(scene.get("environment_world_distance")) - _starting_world_distance if _has_property(scene, "environment_world_distance") else 0.0,
 			"camera_route_distance":float(scene.call("camera_route_distance")) if scene.has_method("camera_route_distance") else 0.0,
 			"camera_offset_pixels":float(scene.get("flight_camera_offset")) if _has_property(scene, "flight_camera_offset") else 0.0,
+			"minimum_camera_offset_pixels":_minimum_camera_offset,
+			"maximum_camera_offset_pixels":_maximum_camera_offset,
+			"camera_travel_span_pixels":_maximum_camera_offset - _minimum_camera_offset,
 			"minimum_world_multiplier":_minimum_world_speed,
 			"maximum_world_multiplier":_maximum_world_speed,
 			"minimum_throttle":_minimum_throttle,

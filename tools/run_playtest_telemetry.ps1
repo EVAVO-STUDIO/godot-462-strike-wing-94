@@ -56,12 +56,17 @@ $AcceptedTactical = [int](($Summaries | ForEach-Object { $_.accepted_system_uses
 $AcceptedBattlefield = [int](($Summaries | ForEach-Object { $_.accepted_system_uses.battlefield_support } | Measure-Object -Sum).Sum)
 $AcceptedOrdnance = [int](($Summaries | ForEach-Object { $_.accepted_system_uses.ordnance } | Measure-Object -Sum).Sum)
 $CountermeasureChargesSpent = [int](($Summaries | Measure-Object -Property countermeasure_charges_spent -Sum).Sum)
+$MinimumCameraOffset = [double](($Summaries | ForEach-Object { $_.forward_flight.minimum_camera_offset_pixels } | Measure-Object -Minimum).Minimum)
+$MaximumCameraOffset = [double](($Summaries | ForEach-Object { $_.forward_flight.maximum_camera_offset_pixels } | Measure-Object -Maximum).Maximum)
 if ($TotalHits -le 0 -or $TotalKills -le 0) { throw 'Representative playtests did not produce confirmed hits and destruction.' }
 if ($SimulationSeconds -ge 32.0 -and ($AcceptedTactical -le 0 -or $AcceptedBattlefield -le 0 -or $AcceptedOrdnance -le 0)) {
     throw 'Representative playtests did not confirm accepted tactical, battlefield and strike-ordnance usage.'
 }
 if ($SimulationSeconds -ge 32.0 -and $CountermeasureChargesSpent -lt $Summaries.Count) {
     throw 'Representative playtests did not confirm a live countermeasure cassette release in every sortie.'
+}
+if ($SimulationSeconds -ge 32.0 -and ($MinimumCameraOffset -gt -70.0 -or $MaximumCameraOffset -lt 35.0 -or ($MaximumCameraOffset - $MinimumCameraOffset) -lt 120.0)) {
+    throw "Representative playtests did not confirm the full speed-driven camera envelope: $MinimumCameraOffset to $MaximumCameraOffset pixels."
 }
 [ordered]@{ schema_version=1; scope='bounded deterministic automation; not a substitute for human feel review'; runs=$Summaries } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $AbsoluteOutput 'summary.json') -Encoding UTF8
 Write-Host "HYPERSONIC bounded playtest telemetry passed: $($Summaries.Count) representative sorties." -ForegroundColor Green
