@@ -83,6 +83,9 @@ const CITY_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/city_chunks/freight_belt.png"),
 	preload("res://assets/runtime/environments/city_chunks/flooded_underpass.png"),
 	preload("res://assets/runtime/environments/city_chunks/machine_foundations.png"),
+	preload("res://assets/runtime/environments/city_chunks/evacuation_grid.png"),
+	preload("res://assets/runtime/environments/city_chunks/drainage_quarter.png"),
+	preload("res://assets/runtime/environments/city_chunks/conversion_trench.png"),
 ]
 const MACHINE_FURNACE := preload("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png")
 const SEA_DEEP_ANIMATION := [
@@ -428,7 +431,7 @@ func _draw_registered_city_rail_hub(surface: CanvasItem, scene: Object, state: D
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var size := texture.get_size() * scale
 	var hub_world_y := 540.0
-	var center_y := fposmod(hub_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+	var center_y := fposmod(hub_world_y + scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
 	var y := center_y - size.y * 0.5
 	if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
 		return
@@ -908,8 +911,12 @@ func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t
 
 func _draw_city_outskirts(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := _world_distance(scene) * 38.0 + float(_mission_seed(scene) % 3) * 1024.0
-	_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
+	var scroll := _world_distance(scene) * 38.0
+	var route := _route("city_meridian_evacuated")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = CITY_GEOGRAPHY_CHUNKS
+	var route_scroll := scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
+	_draw_vertical_chunk_sequence(surface, route_chunks, route_scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.018, 0.023, 0.026, 0.12))
 	var activity_slots := [
 		{"x":202.0,"y":210.0}, {"x":330.0,"y":690.0}, {"x":248.0,"y":1130.0},
@@ -918,7 +925,7 @@ func _draw_city_outskirts(surface: CanvasItem, scene: Object, state: Dictionary,
 	for slot_index in range(activity_slots.size()):
 		var slot: Dictionary = activity_slots[slot_index]
 		var activity: Texture2D = CITY_ACTIVITY_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, CITY_ACTIVITY_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(slot["y"]) + route_scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface, activity, Rect2(Vector2(float(slot["x"]), y).round(), Vector2(144,208)), ENVIRONMENT_VIEW, Color(0.84,0.88,0.86,0.30))
 
 func _draw_machine_furnace(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:

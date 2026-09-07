@@ -31,6 +31,7 @@ Implemented now:
 - pilot-controlled dry throttle where scenery, surface contacts, recovery pods, authored encounter locations, altitude gates and command-contact arrival all use accumulated forward route distance; weapon timing and survival exposure remain real-time
 - lateral mission-airspace recovery zones with directional edge chevrons and a four-second abort countdown instead of an unexplained invisible wall
 - six-district 6144-pixel refinery routes with distinct storage, cracking, rail, flare-service, pressure-grid and evacuation-terminal geography
+- six-district 6144-pixel Meridian city routes with freight, flooded transit, conversion, evacuation and drainage geography while protected civilian contacts remain separate gameplay objects
 - visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
 - distinct missile acquisition and launch voices for interceptor and boss homing salvos
 - mechanical purchase/service confirmation and short mission-clear reward stingers

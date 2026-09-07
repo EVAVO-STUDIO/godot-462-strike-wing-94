@@ -26,6 +26,18 @@
       ],"animation_slots":[]
     },
     {
+      "id":"city_meridian_evacuated","environment":"industrial","native_width":640,"chunk_height":1024,"world_length":6144,
+      "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"utility_activity","kind":"registered_animation","ratio":1.0},{"id":"protected_sites","kind":"registered_objects","ratio":1.0},{"id":"weather","kind":"finite_field","ratio":1.12}],
+      "districts":[
+        {"id":"freight_belt","asset":"res://assets/runtime/environments/city_chunks/freight_belt.png","north":"city_a","south":"city_a"},
+        {"id":"flooded_underpass","asset":"res://assets/runtime/environments/city_chunks/flooded_underpass.png","north":"city_a","south":"city_a"},
+        {"id":"machine_foundations","asset":"res://assets/runtime/environments/city_chunks/machine_foundations.png","north":"city_a","south":"city_a"},
+        {"id":"evacuation_grid","asset":"res://assets/runtime/environments/city_chunks/evacuation_grid.png","north":"city_a","south":"city_a"},
+        {"id":"drainage_quarter","asset":"res://assets/runtime/environments/city_chunks/drainage_quarter.png","north":"city_a","south":"city_a"},
+        {"id":"conversion_trench","asset":"res://assets/runtime/environments/city_chunks/conversion_trench.png","north":"city_a","south":"city_a"}
+      ],"animation_slots":[]
+    },
+    {
       "id": "cloud_top_silver_front",
       "environment": "high_cloud",
       "native_width": 640,

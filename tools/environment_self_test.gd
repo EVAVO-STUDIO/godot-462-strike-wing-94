@@ -29,6 +29,9 @@ func _initialize() -> void:
 		_expect(not refinery_route.is_empty(), "refinery should resolve its expanded data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(refinery_route).is_empty(), "expanded refinery route should satisfy width, length, uniqueness, asset and connector contracts")
 		_expect(refinery_route.get("districts", []).size() == 6 and int(refinery_route.get("world_length", 0)) == 6144, "refinery route should provide six distinct 1024px districts before repeating")
+		var city_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "city_meridian_evacuated")
+		_expect(not city_route.is_empty() and EnvironmentRouteRules.validation_errors(city_route).is_empty(), "city belt should resolve a valid expanded data-authored production route")
+		_expect(city_route.get("districts", []).size() == 6 and int(city_route.get("world_length", 0)) == 6144, "city route should provide six distinct 1024px districts before repeating")
 		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
 		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
@@ -100,7 +103,7 @@ func _initialize() -> void:
 		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
 		_expect(source.contains('EnvironmentRouteRules.by_id(_routes, route_id)') and source.contains('_route("cloud_top_silver_front")'), "high-altitude benchmark should resolve its authored route from content data")
 		_expect(source.contains("ORBITAL_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS"), "orbital benchmark should use three forward-scrolling authored infrastructure districts")
-		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, CITY_GEOGRAPHY_CHUNKS"), "city belt should use three forward-scrolling authored districts")
+		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains('_route("city_meridian_evacuated")'), "city belt should use its expanded data-authored route")
 		_expect(source.contains("MACHINE_FURNACE"), "machine-war reveal should use its authored autonomous-foundry raster master")
 		_expect(source.contains("_draw_vertical_loop"), "coastal benchmark should scroll its authored plate without exposed seams")
 		_expect(source.contains("Restrained moving wakes"), "coastal benchmark should retain subdued open-water motion cues")
@@ -505,8 +508,10 @@ func _initialize() -> void:
 		_expect(city_builder.contains("city_geography_source_v2.png") and city_builder.contains("640x1024+1280+0") and not city_builder.contains("-resize '640x1024!'"), "city build should crop native-width districts instead of stretching undersized plates")
 		_expect(FileAccess.file_exists("res://tools/build_city_rail_hub_art.ps1"), "city rail hub should retain a reproducible source finisher")
 		var city_manifest = ContentCatalog.load_json("res://assets/source/environments/city_chunks/city_geography_manifest.json")
-		_expect(typeof(city_manifest) == TYPE_DICTIONARY and city_manifest.get("chunks", []).size() == 3, "city manifest should register three distinct 1024px districts")
-		var city_names := ["freight_belt", "flooded_underpass", "machine_foundations"]
+		_expect(typeof(city_manifest) == TYPE_DICTIONARY and city_manifest.get("chunks", []).size() == 6 and int(city_manifest.get("cycle_height", 0)) == 6144, "city manifest should register six distinct 1024px districts")
+		var city_names := ["freight_belt", "flooded_underpass", "machine_foundations", "evacuation_grid", "drainage_quarter", "conversion_trench"]
+		var city_expansion_builder := FileAccess.get_file_as_string("res://tools/build_city_route_expansion.py")
+		_expect(city_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and city_expansion_builder.contains("expanded_districts") and city_expansion_builder.contains("protected sites"), "city expansion should retain deterministic source composition while keeping protected sites independent")
 		var city_images: Array[Image] = []
 		for chunk_name in city_names:
 			var city_texture := load("res://assets/runtime/environments/city_chunks/%s.png" % chunk_name) as Texture2D
@@ -519,7 +524,7 @@ func _initialize() -> void:
 			var activity_frame := load("res://assets/runtime/environments/city_activity_animation/activity_%d.png" % frame_index) as Texture2D
 			_expect(activity_frame != null and activity_frame.get_size() == Vector2(144,208), "city activity should retain shared 144x208 registration: %d" % frame_index)
 			if activity_frame != null: _expect(activity_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "city activity frame must retain genuine alpha: %d" % frame_index)
-		_expect(source.contains("CITY_ACTIVITY_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "city utility activity should use held frames registered to forward-moving geography coordinates")
+		_expect(source.contains("CITY_ACTIVITY_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + route_scroll'), "city utility activity should use held frames registered to the expanded forward-moving geography coordinate")
 		_expect(not source.contains("_draw_vertical_loop(surface, CITY_LIGHT_TILE"), "city presentation must not regress to a full-screen schematic light tile")
 		_expect(source.contains("_draw_registered_city_rail_hub") and source.contains("hub_world_y := 540.0"), "city rail hub should occupy one registered freight-belt coordinate")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/machine_furnace/machine_furnace_loop_v1.png"), "machine furnace runtime master should exist")
