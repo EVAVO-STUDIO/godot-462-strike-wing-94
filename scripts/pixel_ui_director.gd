@@ -728,11 +728,11 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	# The three survival meters are self-framed. Keep only a light local key
 	# behind them and isolated data keys; the old 624-pixel fascia made every
 	# route feel as though it was being viewed through a menu.
-	surface.draw_rect(Rect2(8,5,280,28),Color(0.018,0.035,0.048,0.34))
+	surface.draw_rect(Rect2(8,5,280,23),Color(0.018,0.035,0.048,0.25))
 	# Flight data is grouped around the actual glyphs. The clear gaps keep this
 	# from reading as a full-width dashboard while retaining the late-90s MFD key.
 	for key_rect in [Rect2(292,6,78,14),Rect2(384,6,68,14),Rect2(444,6,100,14),Rect2(586,6,46,14)]:
-		surface.draw_rect(key_rect,Color(0.018,0.035,0.048,0.34))
+		surface.draw_rect(key_rect,Color(0.018,0.035,0.048,0.25))
 	_draw_tactical_radar(surface,scene)
 	_draw_surface_iff_markers(surface,scene)
 	var max_hull := _call_int(scene, "_max_hull", 100)

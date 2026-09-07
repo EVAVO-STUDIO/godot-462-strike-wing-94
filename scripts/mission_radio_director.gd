@@ -119,13 +119,13 @@ func draw_radio(surface: CanvasItem) -> void:
 	# Size the receive rail to its transmission. Routine calls no longer paint a
 	# permanent-looking footer across the route; long briefings can still expand
 	# to the full subtitle-safe width.
-	var message_text := _clip(_message,102)
-	var strip_width := clampf(126.0+float(message_text.length())*5.0,286.0,608.0)
-	var strip := Rect2(16,337,strip_width,18)
+	var message_text := _clip(_message,66)
+	var strip_width := clampf(118.0+float(message_text.length())*4.0,240.0,472.0)
+	var strip := Rect2(16,341,strip_width,14)
 	var priority_alert := _priority >= 3
-	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1,1,1,alpha*0.68))
-	PixelFont.draw_text(surface, ("PR // %s" if priority_alert else "RX // %s") % _speaker, Vector2(31, 343), 1, Color(0.90, 0.38, 0.30, alpha) if priority_alert else Color(0.42, 0.73, 0.78, alpha), 1)
-	PixelFont.draw_text(surface,message_text,Vector2(112,343),1,Color(0.86,0.89,0.90,alpha),1)
+	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1,1,1,alpha*0.52))
+	PixelFont.draw_text(surface, ("PR/%s" if priority_alert else "RX/%s") % _speaker, Vector2(25, 345), 1, Color(0.90, 0.38, 0.30, alpha) if priority_alert else Color(0.42, 0.73, 0.78, alpha), 1)
+	PixelFont.draw_text(surface,message_text,Vector2(96,345),1,Color(0.86,0.89,0.90,alpha),1)
 
 func occupies_status_lane() -> bool:
 	return not _message.is_empty() and _subtitles_enabled() and not _flight_warning_active()

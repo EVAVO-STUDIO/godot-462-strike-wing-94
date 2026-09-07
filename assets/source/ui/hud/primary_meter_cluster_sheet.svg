@@ -2,14 +2,14 @@
   <rect width="288" height="52" fill="none"/>
   <defs>
     <g id="housing">
-      <path d="M2 0h86l4 4v17l-4 4H2l-2-2V2z" fill="#060b10"/>
-      <path d="M3 1h84l3 3v16l-3 3H3l-1-1V3z" fill="#1d2a32"/>
-      <path d="M4 3h82l2 2v14l-2 2H4z" fill="#091117"/>
-      <path d="M4 3h82v1H4zM4 20h82v1H4z" fill="#3d505b"/>
+      <path d="M2 1h86l3 3v16l-3 3H2l-2-2V3z" fill="#060b10" fill-opacity=".72"/>
+      <path d="M3 2h84l2 2v15l-2 2H3l-1-1V4z" fill="#1d2a32" fill-opacity=".58"/>
+      <path d="M4 4h82l1 1v13l-1 1H4z" fill="#091117" fill-opacity=".72"/>
+      <path d="M4 4h82v1H4zM4 19h82v1H4z" fill="#526873" fill-opacity=".72"/>
       <rect x="17" y="14" width="69" height="7" fill="#020609"/>
       <rect x="18" y="15" width="67" height="5" fill="#101a20"/>
       <path d="M2 5h1v4H2zM89 5h1v4h-1z" fill="#697982"/>
-      <path d="M4 22h12v1H4zM76 22h10v-1h1v2H76z" fill="#121b20"/>
+      <path d="M4 21h12v1H4zM76 21h10v-1h1v2H76z" fill="#344651" fill-opacity=".55"/>
     </g>
     <g id="glyph-hl" fill="currentColor"><path d="M6 6h1v2h2V6h1v6H9V9H7v3H6zM12 6h1v5h3v1h-4z"/></g>
     <g id="glyph-sh" fill="currentColor"><path d="M6 6h4v1H7v1h3v4H6v-1h3v-2H6zM12 6h1v2h2V6h1v6h-1V9h-2v3h-1z"/></g>
