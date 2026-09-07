@@ -1292,7 +1292,7 @@ func _has_property(subject: Object, property_name: String) -> bool:
 
 func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	var pivot: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
-	var visual_scale := _altitude_craft_scale()
+	var visual_scale := _altitude_craft_scale()*_transform_craft_scale()
 	if not is_equal_approx(visual_scale,1.0):
 		# Scale absolute player-layer coordinates around the airframe centre. This
 		# modest pulse supplies depth while the environment performs the larger
@@ -1301,6 +1301,19 @@ func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	_draw_player_unscaled(surface,scene)
 	if not is_equal_approx(visual_scale,1.0):
 		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
+
+func _transform_craft_scale() -> float:
+	var capture_state := _capture_craft_state()
+	if capture_state in ["layered-sweep","hypersonic-sweep"]:
+		var captured_index := _captured_transform_exposure_index()
+		var captured_ratio := float(maxi(0,captured_index))/float(TRANSFORM_EXPOSURES-1) if captured_index >= 0 else 0.0
+		return 1.0+sin(captured_ratio*PI)*0.10
+	var hypersonic_ratio := _hypersonic_visual_ratio()
+	if hypersonic_ratio > 0.01 and hypersonic_ratio < 0.99:
+		return 1.0+sin(hypersonic_ratio*PI)*0.10
+	if _visual_sweep > 0.02 and _visual_sweep < 0.98:
+		return 1.0+sin(_visual_sweep*PI)*0.10
+	return 1.0
 
 func _draw_player_unscaled(surface: CanvasItem, scene: Object) -> void:
 	var p: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
