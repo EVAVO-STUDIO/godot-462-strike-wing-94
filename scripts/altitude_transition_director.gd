@@ -131,10 +131,10 @@ func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> voi
 		var approach := ratio if direction < 0 else 1.0-ratio
 		var scale := 0.48 + depth*0.20 + approach*0.34
 		var size := Vector2(texture.get_size()) * scale
-		var cloud_alpha := (0.18 + depth*0.10 + pulse*0.16)
+		var cloud_alpha := (0.20 + depth*0.10 + pulse*0.20)
 		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.84,0.86,cloud_alpha))
-		var shadow_width := size.x * 0.82
-		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(x - shadow_width * 0.5, y + size.y * 0.27), Vector2(shadow_width, 8)), false, Color(1,1,1,0.34+depth*0.16))
+		var shadow_width := size.x * 0.54
+		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(x - shadow_width * 0.5, y + size.y * 0.27), Vector2(shadow_width, 5)), false, Color(1,1,1,0.16+depth*0.10))
 
 func _draw_layer_exposure(surface: CanvasItem, ratio: float, direction: int, from_band: String, to_band: String) -> void:
 	var pulse := sin(ratio * PI)
@@ -152,7 +152,10 @@ func _draw_layer_exposure(surface: CanvasItem, ratio: float, direction: int, fro
 		var size := Vector2(texture.get_size()) * Vector2(1.15, 0.58)
 		var center := Vector2(18.0 + float(i) * 151.0, boundary_y + float((i % 3) - 1) * 7.0)
 		surface.draw_texture_rect(texture, Rect2(center - size * 0.5, size), false, Color(0.80, 0.88, 0.91, 0.10 + pulse * 0.30))
-	surface.draw_texture_rect(CLOUD_SHADOW, Rect2(8.0, boundary_y - 2.0, 624.0, 4.0), false, Color(0.88, 0.95, 0.97, pulse * 0.30))
+		# Each cloud mass carries its own soft underside. A single 624-pixel shadow
+		# line exposed the layer swap and made the climb look like a screen wipe.
+		var shadow_size := Vector2(size.x * 0.58, 5.0)
+		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(center + Vector2(-shadow_size.x * 0.5, size.y * 0.18), shadow_size), false, Color(0.88, 0.95, 0.97, pulse * 0.13))
 
 func _draw_depth_rush(surface: CanvasItem, ratio: float, direction: int) -> void:
 	var pulse := sin(ratio * PI)
