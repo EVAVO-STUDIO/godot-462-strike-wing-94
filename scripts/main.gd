@@ -20,6 +20,7 @@ const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const HypersonicRules = preload("res://scripts/hypersonic_rules.gd")
 const FlightSpeedRules = preload("res://scripts/flight_speed_rules.gd")
 const FlightCameraRules = preload("res://scripts/flight_camera_rules.gd")
+const LateralAirspaceRules = preload("res://scripts/lateral_airspace_rules.gd")
 const RouteProgressRules = preload("res://scripts/route_progress_rules.gd")
 const EvasiveRollRules = preload("res://scripts/evasive_roll_rules.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
@@ -61,6 +62,8 @@ var mode_lives := 0
 var mode_total_score := 0
 var player_position := PLAYER_SORTIE_START
 var player_lateral_velocity := 0.0
+var lateral_airspace_timer := 0.0
+var lateral_airspace_side := ""
 var fire_timer := 0.0
 var secondary_timer := 0.0
 var enemy_spawn_timer := 0.5
@@ -368,6 +371,18 @@ func _begin_capture_gameplay() -> void:
 		player_lateral_velocity = -PLAYER_SPEED*0.72
 	elif "--capture-steering=right" in OS.get_cmdline_user_args():
 		player_lateral_velocity = PLAYER_SPEED*0.72
+	if "--capture-airspace=left" in OS.get_cmdline_user_args():
+		player_position.x = 52.0
+		lateral_airspace_side = "left"
+		lateral_airspace_timer = 2.65
+		status_text = "OFF COURSE // TURN RIGHT // ABORT 2"
+		status_timer = 30.0
+	elif "--capture-airspace=right" in OS.get_cmdline_user_args():
+		player_position.x = 588.0
+		lateral_airspace_side = "right"
+		lateral_airspace_timer = 2.65
+		status_text = "OFF COURSE // TURN LEFT // ABORT 2"
+		status_timer = 30.0
 	queue_redraw()
 
 func _stage_capture_player_loss_fx(loss_ratio: float) -> void:
@@ -830,6 +845,10 @@ func _environment_speed_multiplier() -> float:
 		return maxf(0.0, float(craft.call("world_speed_multiplier")))
 	return 1.0
 
+func _current_altitude_band() -> String:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	return str(craft.call("current_altitude")) if craft != null and craft.has_method("current_altitude") else AltitudeRules.MID
+
 func _random_contact_interval_scale() -> float:
 	return clampf(float(_active_mission().get("random_contact_interval_scale", 1.0)), 0.75, 2.5)
 
@@ -1069,6 +1088,8 @@ func _start_mission() -> void:
 	enemy_spawn_timer = maxf(0.35, float(_active_mission().get("ingress_seconds", 0.35)))
 	player_position = PLAYER_SORTIE_START
 	player_lateral_velocity = 0.0
+	lateral_airspace_timer = 0.0
+	lateral_airspace_side = ""
 	player_loss_timer = 0.0
 	contact_damage_cooldown = 0.0
 	boss_victory_timer = 0.0
@@ -1379,6 +1400,15 @@ func _update_player(delta: float) -> void:
 	player_position.x = clampf(unclamped_x,PLAYER_FLIGHT_MIN.x,PLAYER_FLIGHT_MAX.x)
 	if not is_equal_approx(player_position.x,unclamped_x):
 		player_lateral_velocity = 0.0
+	lateral_airspace_timer = LateralAirspaceRules.advance(lateral_airspace_timer,player_position.x,delta,lateral)
+	lateral_airspace_side = LateralAirspaceRules.side_for_x(player_position.x)
+	if not lateral_airspace_side.is_empty():
+		var return_direction := "RIGHT" if lateral_airspace_side == "left" else "LEFT"
+		status_text = "OFF COURSE // TURN %s // ABORT %d" % [return_direction,LateralAirspaceRules.seconds_remaining(lateral_airspace_timer)]
+		status_timer = 0.25
+		if lateral_airspace_timer >= LateralAirspaceRules.ABORT_SECONDS:
+			_finish_mission(false,"MISSION AIRSPACE VIOLATION")
+			return
 	var previous_offset := flight_camera_offset
 	flight_camera_offset = FlightCameraRules.advance_offset(previous_offset, _environment_speed_multiplier(), delta)
 	player_position.y = FlightCameraRules.ANCHOR_Y + flight_camera_offset
@@ -1504,6 +1534,13 @@ func _update_bullets(delta: float) -> void:
 func _update_enemy_bullets(delta: float) -> void:
 	for i in range(enemy_bullets.size() - 1, -1, -1):
 		var shot: Dictionary = enemy_bullets[i]
+		if not AltitudeRules.enemy_weapon_can_engage(
+			_current_altitude_band(),
+			str(shot.get("source_category", "air")),
+			str(shot.get("weapon_id", "single_burst"))
+		):
+			enemy_bullets.remove_at(i)
+			continue
 		shot = ProjectileRules.advance_enemy_shot(shot, player_position, delta)
 		var position: Vector2 = shot["position"]
 		enemy_bullets[i] = shot
@@ -1640,7 +1677,8 @@ func _update_enemies(delta: float) -> void:
 			var missile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed("missile"))
 			missile_lock_ready = missile_lock_ready and lock_ratio >= 0.999 and ProjectileRules.missile_launch_has_warning_time(position, player_position, missile_speed)
 		var weapon_id := str(enemy.get("weapon", "none"))
-		var firing_solution := ProjectileRules.enemy_has_firing_solution(position,player_position,weapon_id,str(enemy.get("category","air")))
+		var enemy_category := str(enemy.get("category","air"))
+		var firing_solution := AltitudeRules.enemy_weapon_can_engage(_current_altitude_band(),enemy_category,weapon_id,is_boss) and ProjectileRules.enemy_has_firing_solution(position,player_position,weapon_id,enemy_category)
 		if firing_solution and ProjectileRules.uses_fixed_aircraft_gun(str(enemy.get("category","air")),str(enemy.get("pattern","")),weapon_id,is_boss):
 			firing_solution = ProjectileRules.fixed_aircraft_has_boresight(
 				position,
@@ -1711,13 +1749,15 @@ func _make_enemy_shot(
 	velocity: Vector2,
 	damage: int,
 	homing := false,
-	weapon_id := "single_burst"
+	weapon_id := "single_burst",
+	source_category := "air"
 ) -> Dictionary:
 	var shot := {
 		"position": origin,
 		"velocity": velocity,
 		"damage": damage,
 		"weapon_id": weapon_id,
+		"source_category": source_category,
 		"impact_class": CombatImpactRules.projectile_class(weapon_id),
 		"guidance_class": CombatImpactRules.guidance_class(weapon_id)
 	}
@@ -1732,6 +1772,7 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	enemy["recoil_timer"] = 0.10
 	var origin: Vector2 = enemy["position"]
 	var weapon_id := str(enemy.get("weapon", "single_burst"))
+	var source_category := str(enemy.get("category", "air"))
 	var damage := 14 if bool(enemy.get("boss", false)) else 8
 	if bool(enemy.get("boss", false)) and str(enemy.get("id", "")) == "gunship_alpha" and weapon_id == "twin_burst":
 		var boss_origins := BossRules.volley_origins("gunship_alpha", origin, 3)
@@ -1744,7 +1785,7 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 				Vector2(player_lateral_velocity, 0.0),
 				_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 			).rotated([-0.16, 0.0, 0.16][index])
-			enemy_bullets.append(_make_enemy_shot(boss_origin, boss_velocity, damage, false, weapon_id))
+			enemy_bullets.append(_make_enemy_shot(boss_origin, boss_velocity, damage, false, weapon_id, source_category))
 		enemy["last_shot_direction"] = Vector2(enemy_bullets.back()["velocity"]).normalized()
 		return
 	var projectile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
@@ -1754,15 +1795,15 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 	var is_missile := weapon_id == "missile"
 	if weapon_id == "twin_burst":
 		for gun_origin in ProjectileRules.twin_gun_origins(origin,velocity):
-			enemy_bullets.append(_make_enemy_shot(gun_origin,velocity,damage,false,weapon_id))
+			enemy_bullets.append(_make_enemy_shot(gun_origin,velocity,damage,false,weapon_id,source_category))
 	elif is_missile:
-		enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, true, weapon_id))
-		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true, weapon_id))
+		enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, true, weapon_id, source_category))
+		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true, weapon_id, source_category))
 		enemy["missiles_remaining"] = maxi(0, int(enemy.get("missiles_remaining", 0)) - 2)
 		enemy_missile_engagement_cooldown = ProjectileRules.ENEMY_MISSILE_ENGAGEMENT_INTERVAL
 		_register_enemy_missile_launch(2)
 	else:
-		enemy_bullets.append(_make_enemy_shot(origin,velocity,damage,false,weapon_id))
+		enemy_bullets.append(_make_enemy_shot(origin,velocity,damage,false,weapon_id,source_category))
 
 func _active_guided_enemy_missiles() -> int:
 	var active := 0

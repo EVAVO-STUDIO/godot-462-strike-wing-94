@@ -2,6 +2,7 @@ extends Node
 
 const DEFAULT_SIMULATION_SECONDS := 36.0
 const TIME_SCALE := 3.0
+const LateralAirspaceRules = preload("res://scripts/lateral_airspace_rules.gd")
 const PULSE_ACTIONS := ["transform_craft", "altitude_up", "altitude_down", "evasive_roll", "deploy_countermeasure", "fire_support", "call_battlefield_support", "drop_strike_ordnance", "fire_secondary"]
 const MOVE_ACTIONS := ["move_left", "move_right", "move_up", "move_down"]
 
@@ -132,8 +133,13 @@ func _sample_accepted_systems() -> void:
 func _drive_movement(second: int) -> void:
 	for action in MOVE_ACTIONS:
 		Input.action_release(action)
+	var airspace_side := LateralAirspaceRules.side_for_x(Vector2(scene.get("player_position")).x)
 	var avoidance := _contact_avoidance_direction()
-	if avoidance != 0:
+	if airspace_side == "left":
+		Input.action_press("move_right")
+	elif airspace_side == "right":
+		Input.action_press("move_left")
+	elif avoidance != 0:
 		Input.action_press("move_left" if avoidance < 0 else "move_right")
 	else:
 		match posmod(int(second / 3), 4):

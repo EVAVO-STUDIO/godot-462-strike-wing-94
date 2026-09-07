@@ -76,6 +76,16 @@ static func allows_enemy_archetype(band: String, archetype: Dictionary) -> bool:
 		bool(archetype.get("boss", false))
 	)
 
+static func enemy_weapon_can_engage(band: String, enemy_class: String, weapon_id: String, is_boss: bool = false) -> bool:
+	if is_boss or enemy_class in ["air", "boss"]:
+		return true
+	var safe_band := sanitize(band)
+	if safe_band == ORBITAL:
+		return false
+	if weapon_id == "missile":
+		return safe_band in [LOW, MID, HIGH]
+	return safe_band in [LOW, MID]
+
 static func adjacent_band(current: String, direction: int) -> String:
 	var current_index := index(current)
 	if current_index < 0 or direction == 0:

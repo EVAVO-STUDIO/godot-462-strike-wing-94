@@ -87,6 +87,8 @@ $Cases = @(
 	@{ id='flight_minimum_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=0') },
 	@{ id='flight_cruise_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=50') },
 	@{ id='flight_inertial_bank_left'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=50','--capture-steering=left','--visual-capture-delay=0.10') },
+	@{ id='flight_airspace_departure_left'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=50','--capture-airspace=left','--visual-capture-delay=0.10') },
+	@{ id='flight_airspace_departure_right'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=50','--capture-airspace=right','--visual-capture-delay=0.10') },
 	@{ id='flight_military_power'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-throttle=100') },
 	@{ id='flight_hypersonic_forward'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-flight=hypersonic','--capture-altitude=high') },
 	@{ id='altitude_climb_cloud_boundary'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-altitude-transition=climb','--visual-capture-delay=0.52') },

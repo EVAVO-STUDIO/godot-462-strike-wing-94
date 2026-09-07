@@ -8,6 +8,7 @@ const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const EnergyRules = preload("res://scripts/energy_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
+const LateralAirspaceRules = preload("res://scripts/lateral_airspace_rules.gd")
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v3.png")
@@ -779,9 +780,31 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
 		else:
 			var egress_priority := (_has_property(scene, "egress_active") and bool(scene.get("egress_active"))) or (_has_property(scene, "egress_completion_timer") and float(scene.get("egress_completion_timer")) > 0.0)
-			if egress_priority or (not _altitude_choice_active(scene) and not _radio_occupies_status_lane()):
+			var airspace_priority := _has_property(scene,"lateral_airspace_side") and not str(scene.get("lateral_airspace_side")).is_empty()
+			if egress_priority or airspace_priority or (not _altitude_choice_active(scene) and not _radio_occupies_status_lane()):
 				surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
-				PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
+				PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, RED if airspace_priority else GOLD, 1)
+	_draw_lateral_airspace_warning(surface,scene)
+
+func _draw_lateral_airspace_warning(surface: CanvasItem, scene: Object) -> void:
+	if not _has_property(scene,"lateral_airspace_side") or not _has_property(scene,"lateral_airspace_timer"):
+		return
+	var side := str(scene.get("lateral_airspace_side"))
+	if side.is_empty():
+		return
+	var ratio := clampf(float(scene.get("lateral_airspace_timer"))/LateralAirspaceRules.ABORT_SECONDS,0.0,1.0)
+	var color := RED if ratio >= 0.62 else GOLD
+	var edge_x := 18.0 if side == "left" else 618.0
+	var inward := 1.0 if side == "left" else -1.0
+	var pulse := 0.48 + 0.32 * sin(Time.get_ticks_msec()*0.018)
+	surface.draw_rect(Rect2(edge_x if side == "left" else edge_x-3.0,52,3,284),Color(color,pulse))
+	for y in range(72,326,28):
+		var tip := Vector2(edge_x+inward*13.0,float(y))
+		surface.draw_polyline(PackedVector2Array([tip+Vector2(-inward*7.0,-5.0),tip,tip+Vector2(-inward*7.0,5.0)]),Color(color,0.72),1.0)
+	var return_direction := "RIGHT" if side == "left" else "LEFT"
+	var seconds := maxi(0,int(ceil(LateralAirspaceRules.ABORT_SECONDS-float(scene.get("lateral_airspace_timer")))))
+	surface.draw_texture_rect(HUD_STATUS_FRAME,Rect2(180,39,280,14),false)
+	PixelFont.draw_centered(surface,"AIRSPACE LIMIT // TURN %s // ABORT %d" % [return_direction,seconds],320,42,1,color,1)
 
 func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	var scope_position := Vector2(8,40)

@@ -73,6 +73,11 @@ func _test_altitudes() -> void:
 	_expect(not AltitudeRules.allows_enemy_class("high", "ground"), "high altitude should reject normal ground filler")
 	_expect(not AltitudeRules.allows_enemy_class("orbital", "sea"), "orbital altitude should reject terrestrial/naval filler")
 	_expect(AltitudeRules.allows_enemy_class("orbital", "air"), "orbital altitude should retain air/exo threats")
+	_expect(AltitudeRules.enemy_weapon_can_engage("low","ground","cannon"), "surface cannon should threaten terrain-skimming aircraft")
+	_expect(not AltitudeRules.enemy_weapon_can_engage("high","ground","cannon"), "climbing above the cloud layer should defeat ordinary surface gun envelopes")
+	_expect(AltitudeRules.enemy_weapon_can_engage("high","ground","missile"), "high-altitude flight should remain exposed to capable surface missiles")
+	_expect(not AltitudeRules.enemy_weapon_can_engage("orbital","ground","missile"), "terrestrial SAM batteries should not engage through the orbital lane")
+	_expect(AltitudeRules.enemy_weapon_can_engage("orbital","air","twin_burst"), "orbital aircraft should retain air-to-air engagement authority")
 	_expect(AltitudeRules.allows_enemy_class("orbital", "boss", true), "bosses should remain eligible regardless of ordinary class filter")
 
 func _test_campaign_world() -> void:

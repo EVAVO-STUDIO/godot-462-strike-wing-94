@@ -1,6 +1,7 @@
 extends SceneTree
 const Camera = preload("res://scripts/flight_camera_rules.gd")
 const Speed = preload("res://scripts/flight_speed_rules.gd")
+const Airspace = preload("res://scripts/lateral_airspace_rules.gd")
 var failures: Array[String] = []
 func _initialize() -> void: call_deferred("run")
 func check(value: bool, message: String) -> void:
@@ -56,6 +57,11 @@ func run() -> void:
 	check(craft_source.contains('active_scene.has_method("player_bank_input")') and craft_source.contains('active_scene.call("player_bank_input")'), "craft presentation should consume the live scene velocity ratio")
 	check(main_source.contains("_shift_camera_projection(Vector2(0.0, flight_camera_offset - previous_offset))"), "Contacts and projectiles must receive only the camera delta")
 	check(main_source.contains("FlightCameraRules.camera_distance(environment_world_distance, flight_camera_offset)"), "Route travel must remain unbounded behind the screen projection")
+	check(Airspace.side_for_x(60.0)=="left" and Airspace.side_for_x(580.0)=="right" and Airspace.side_for_x(320.0).is_empty(), "lateral airspace should expose wide left/right recovery zones before the physical display edge")
+	var warning_time := Airspace.advance(0.0,60.0,3.0,-1.0)
+	check(Airspace.seconds_remaining(warning_time)==1 and Airspace.warning_ratio(warning_time)>0.7, "off-course flight should provide a readable four-second abort countdown")
+	check(Airspace.advance(warning_time,60.0,1.0,1.0)<warning_time and Airspace.advance(warning_time,320.0,1.0)<warning_time, "releasing outward steering or returning toward the mission route should actively clear the off-course timer")
+	check(main_source.contains('"MISSION AIRSPACE VIOLATION"') and main_source.contains("lateral_airspace_timer"), "live flight should warn and abort sustained departure instead of presenting an unexplained edge clamp")
 	craft.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC flight camera self-test passed.")
 	else:

@@ -29,6 +29,7 @@ Implemented now:
 - animated climb/dive cloud sweep, pitch cue, target-scale interpolation and separate climb/dive SFX
 - finite afterburner reserve with form/altitude efficiency and Atlas tanker refuel
 - pilot-controlled dry throttle where scenery, surface contacts, recovery pods, authored encounter locations, altitude gates and command-contact arrival all use accumulated forward route distance; weapon timing and survival exposure remain real-time
+- lateral mission-airspace recovery zones with directional edge chevrons and a four-second abort countdown instead of an unexplained invisible wall
 - visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
 - distinct missile acquisition and launch voices for interceptor and boss homing salvos
 - mechanical purchase/service confirmation and short mission-clear reward stingers
@@ -89,6 +90,8 @@ Controller defaults use Godot's standard Xbox/PlayStation-style mapping:
 - Altitude: D-pad up/down
 - Cycle tactical/battlefield support: D-pad left/right
 - Precision strike ordnance: right-stick click
+
+The combat viewport represents the currently assigned mission corridor. Flying into either lateral recovery zone raises directional edge chevrons and an **AIRSPACE LIMIT** countdown. Turn back toward the route to clear it; holding outward flight through the countdown aborts the sortie. Terrain-defined collision corridors and wider world-space maps are the next environment-production pass.
 
 Keyboard flight bindings can be reassigned from **FLIGHT CONTROLS** on the main menu. The assignment station captures physical keys, swaps conflicts so both actions remain reachable, persists changes in the local options file, preserves controller bindings, and supports restoring the authored defaults with `Backspace`.
 
