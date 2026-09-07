@@ -401,6 +401,7 @@ func _test_visual_language() -> void:
 			var propulsion_frame := load("res://assets/runtime/effects/enemy_propulsion/%s/%d.png" % [family, frame_index])
 			_expect(propulsion_frame is Texture2D and propulsion_frame.get_size() == Vector2(16,24), "enemy propulsion frame should retain registered 16x24 geometry: %s/%d" % [family, frame_index])
 	_expect(source.contains("AIR_PROPULSION_FRAMES") and source.contains("AIR_PROPULSION_STYLE") and source.contains("func _draw_hostile_airframe"), "static hostile airframes should receive faction-specific production propulsion animation")
+	_expect(source.contains('var wake_direction := Vector2(-clampf(lateral_velocity / 72.0') and source.contains('phase - wake_index'), "damaged aircraft smoke should form a velocity-aligned authored wake")
 	_expect(source.contains('"human_turbine"') and source.contains('"machine_thruster"') and source.contains('"orbital_impulse"'), "human, machine and orbital propulsion should remain visually distinct")
 	_expect(FileAccess.file_exists("res://assets/source/effects/enemy_propulsion/enemy_propulsion_asset_manifest.json"), "enemy propulsion source/runtime manifest should exist")
 	var machine_ground_sizes := {

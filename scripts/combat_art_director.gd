@@ -2327,6 +2327,22 @@ func _draw_enemy_damage_attachments(surface: CanvasItem, p: Vector2, enemy: Dict
 	var smoke_tint := Color(0.62, 0.68, 0.70, 0.76)
 	if faction == "autonomous": smoke_tint = Color(0.54, 0.66, 0.72, 0.72)
 	_draw_enemy_effect_frame(surface, p + base_offset * effect_scale, "damage_smoke", phase, effect_scale, smoke_tint)
+	if category == "air":
+		# Stretch the authored smoke into the aircraft's actual wake. Lateral
+		# inertia bends the trail opposite the break instead of leaving a generic
+		# effect pinned over the hull.
+		var lateral_velocity := float(enemy.get("lateral_velocity", 0.0))
+		var wake_direction := Vector2(-clampf(lateral_velocity / 72.0, -0.72, 0.72), -1.0).normalized()
+		for wake_index in range(1, 3):
+			var wake_alpha := 0.58 - float(wake_index) * 0.14
+			_draw_enemy_effect_frame(
+				surface,
+				p + base_offset * effect_scale + wake_direction * float(wake_index) * 7.0 * effect_scale,
+				"damage_smoke",
+				phase - wake_index,
+				effect_scale * (1.0 + float(wake_index) * 0.16),
+				Color(smoke_tint, wake_alpha)
+			)
 	if damage_ratio >= 0.62:
 		_draw_enemy_effect_frame(surface, p - base_offset * 0.35, "damage_sparks", phase + 1, effect_scale, Color(1.0, 0.90, 0.66, 0.92))
 	if damage_ratio >= 0.82:
