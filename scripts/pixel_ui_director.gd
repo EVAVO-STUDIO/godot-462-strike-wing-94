@@ -726,11 +726,13 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	# have entered the combat viewport. A single smoked avionics backing keeps the
 	# permanent strip visually solid without extending into the warning lane.
 	# The three survival meters are self-framed. Keep only a light local key
-	# behind them and a narrow data rail; the old 624-pixel fascia made every
+	# behind them and isolated data keys; the old 624-pixel fascia made every
 	# route feel as though it was being viewed through a menu.
-	surface.draw_rect(Rect2(8,5,280,28),Color(0.018,0.035,0.048,0.38))
-	surface.draw_rect(Rect2(292,6,340,14),Color(0.018,0.035,0.048,0.46))
-	surface.draw_rect(Rect2(292,19,340,1),Color(0.26,0.43,0.49,0.44))
+	surface.draw_rect(Rect2(8,5,280,28),Color(0.018,0.035,0.048,0.34))
+	# Flight data is grouped around the actual glyphs. The clear gaps keep this
+	# from reading as a full-width dashboard while retaining the late-90s MFD key.
+	for key_rect in [Rect2(292,6,78,14),Rect2(384,6,68,14),Rect2(444,6,100,14),Rect2(586,6,46,14)]:
+		surface.draw_rect(key_rect,Color(0.018,0.035,0.048,0.34))
 	_draw_tactical_radar(surface,scene)
 	_draw_surface_iff_markers(surface,scene)
 	var max_hull := _call_int(scene, "_max_hull", 100)
@@ -825,7 +827,7 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	# the forward terrain.  Contacts stay bright while the housing recedes.
 	var scope_position := Vector2(560,286)
 	var scope_size := Vector2(72,44)
-	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(0.68,0.78,0.80,0.38))
+	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(0.68,0.78,0.80,0.30))
 	var player: Vector2 = scene.get("player_position") if _has_property(scene,"player_position") else Vector2(320,250)
 	var contacts: Array = []
 	if _has_property(scene,"enemies") and typeof(scene.get("enemies")) == TYPE_ARRAY:

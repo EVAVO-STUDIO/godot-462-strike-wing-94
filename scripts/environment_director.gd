@@ -194,7 +194,10 @@ const ORBITAL_DEBRIS_ANIMATION := [
 ]
 const ORBITAL_STARFIELD_TILE := preload("res://assets/runtime/environments/orbital/starfield_tile.png")
 const EARTH_LIMB_V2 := preload("res://assets/runtime/environments/orbital/earth_limb_v2.png")
-const ENVIRONMENT_VIEW := Rect2(0, 36, 640, 324)
+# Terrain fills the frame behind the translucent avionics. Combat contacts and
+# weather still respect their safe flight region, but the HUD no longer sits on
+# an artificial black letterbox.
+const ENVIRONMENT_VIEW := Rect2(0, 0, 640, 360)
 const COAST_ROUTE_SCROLL_SCALE := 0.82
 const PARALLAX_ACCENTS := [
 	preload("res://assets/runtime/environments/motion/parallax_far.png"),
