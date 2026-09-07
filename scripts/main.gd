@@ -58,6 +58,7 @@ var mode_route_total := 0
 var mode_lives := 0
 var mode_total_score := 0
 var player_position := PLAYER_SORTIE_START
+var player_lateral_velocity := 0.0
 var fire_timer := 0.0
 var secondary_timer := 0.0
 var enemy_spawn_timer := 0.5
@@ -359,6 +360,10 @@ func _begin_capture_gameplay() -> void:
 			enemies[0]["position"] = Vector2(230,112)
 			enemies[0]["pattern_anchor_x"] = 230.0
 			enemies[0]["strike_priority"] = true
+	if "--capture-steering=left" in OS.get_cmdline_user_args():
+		player_lateral_velocity = -PLAYER_SPEED*0.72
+	elif "--capture-steering=right" in OS.get_cmdline_user_args():
+		player_lateral_velocity = PLAYER_SPEED*0.72
 	queue_redraw()
 
 func _stage_capture_player_loss_fx(loss_ratio: float) -> void:
@@ -1046,6 +1051,7 @@ func _start_mission() -> void:
 	# at their precise route positions and extend this suppression window.
 	enemy_spawn_timer = maxf(0.35, float(_active_mission().get("ingress_seconds", 0.35)))
 	player_position = PLAYER_SORTIE_START
+	player_lateral_velocity = 0.0
 	player_loss_timer = 0.0
 	contact_damage_cooldown = 0.0
 	boss_victory_timer = 0.0
@@ -1351,16 +1357,19 @@ func _service_status() -> String:
 func _update_player(delta: float) -> void:
 	var lateral := Input.get_axis("move_left", "move_right")
 	var speed_mult := _craft_float("movement_multiplier", 1.0)
-	player_position.x += lateral * PLAYER_SPEED * speed_mult * delta
-	player_position.x = clampf(
-		player_position.x,
-		PLAYER_FLIGHT_MIN.x,
-		PLAYER_FLIGHT_MAX.x
-	)
+	player_lateral_velocity = FlightSpeedRules.advance_lateral_velocity(player_lateral_velocity,lateral,PLAYER_SPEED*speed_mult,delta)
+	var unclamped_x := player_position.x+player_lateral_velocity*delta
+	player_position.x = clampf(unclamped_x,PLAYER_FLIGHT_MIN.x,PLAYER_FLIGHT_MAX.x)
+	if not is_equal_approx(player_position.x,unclamped_x):
+		player_lateral_velocity = 0.0
 	var previous_offset := flight_camera_offset
 	flight_camera_offset = FlightCameraRules.advance_offset(previous_offset, _environment_speed_multiplier(), delta)
 	player_position.y = FlightCameraRules.ANCHOR_Y + flight_camera_offset
 	_shift_camera_projection(Vector2(0.0, flight_camera_offset - previous_offset))
+
+func player_bank_input() -> float:
+	var maximum := maxf(1.0,PLAYER_SPEED*_craft_float("movement_multiplier",1.0))
+	return clampf(player_lateral_velocity/maximum,-1.0,1.0)
 
 func camera_route_distance() -> float:
 	return FlightCameraRules.camera_distance(environment_world_distance, flight_camera_offset)

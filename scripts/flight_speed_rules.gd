@@ -10,10 +10,18 @@ const AFTERBURNER_POWER_MULTIPLIER := 1.78
 const HYPERSONIC_POWER_MULTIPLIER := HypersonicRules.SPEED_MULTIPLIER
 const THROTTLE_CHANGE_PER_SECOND := 0.55
 const POWER_RESPONSE_PER_SECOND := 2.20
+const LATERAL_ACCELERATION := 720.0
+const LATERAL_DAMPING := 900.0
 const DEFAULT_THROTTLE_RATIO := (CRUISE_POWER_MULTIPLIER - MINIMUM_POWER_MULTIPLIER) / (MILITARY_POWER_MULTIPLIER - MINIMUM_POWER_MULTIPLIER)
 
 static func commanded_power(throttle_ratio: float) -> float:
 	return lerpf(MINIMUM_POWER_MULTIPLIER, MILITARY_POWER_MULTIPLIER, clampf(throttle_ratio, 0.0, 1.0))
+
+static func advance_lateral_velocity(current: float, input_axis: float, maximum_speed: float, delta: float) -> float:
+	var command := clampf(input_axis,-1.0,1.0)
+	var target := command*maxf(0.0,maximum_speed)
+	var response := LATERAL_DAMPING if is_zero_approx(command) else LATERAL_ACCELERATION
+	return move_toward(current,target,response*maxf(0.0,delta))
 
 static func target_world_multiplier(throttle_ratio: float, afterburner: bool, hypersonic_ratio: float) -> float:
 	var dry_power := commanded_power(throttle_ratio)

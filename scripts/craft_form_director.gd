@@ -55,7 +55,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
 	_altitude_transition_timer = maxf(0.0, _altitude_transition_timer - delta)
-	_mount_bank_visual = move_toward(_mount_bank_visual, Input.get_axis("move_left", "move_right"), maxf(0.0, delta) * 5.5)
+	var bank_target := Input.get_axis("move_left", "move_right")
+	var active_scene := get_tree().current_scene
+	if active_scene != null and active_scene.has_method("player_bank_input"):
+		bank_target = float(active_scene.call("player_bank_input"))
+	_mount_bank_visual = move_toward(_mount_bank_visual, bank_target, maxf(0.0, delta) * 5.5)
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene):
 		_afterburner_active = false
