@@ -12,7 +12,10 @@ const FLARE_FRAMES := [
 	preload("res://assets/runtime/effects/countermeasure/flare_3.png"),
 ]
 const FLARE_PIVOT := Vector2(24, 10)
-const SALVO_CARTRIDGE_SCALE := Vector2(0.62,0.62)
+# Preserve the authored magnesium head at the 640x360 gameplay resolution.
+# The previous 62% reduction collapsed each paired cartridge into an orange
+# triangle and hid the separate cool-grey wake.
+const SALVO_CARTRIDGE_SCALE := Vector2(0.78,0.78)
 const SALVO_DELAYS := [0.0,0.040,0.080,0.120,0.160]
 const SALVO_LATERAL_OFFSETS := [-5.0,-2.0,0.0,2.0,5.0]
 const SALVO_ANGLE_OFFSETS := [-0.72,-0.36,0.0,0.36,0.72]
@@ -114,10 +117,10 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 			if trail_ratio <= 0.0:
 				continue
 			var puff_position := position - trail_direction * float(8 + puff_index * 7)
-			var puff_alpha := (1.0 - ratio) * (0.20 - float(puff_index) * 0.04)
+			var puff_alpha := (1.0 - ratio) * (0.24 - float(puff_index) * 0.045)
 			var smoke := PersistentEffectArtLibrary.frame_for_ratio("damage_smoke",trail_ratio)
-			var smoke_size := Vector2.ONE*(13.0+float(puff_index)*4.0)
-			surface.draw_texture_rect(smoke,Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round()),false,Color(0.68,0.72,0.70,puff_alpha*2.4))
+			var smoke_size := Vector2.ONE*(15.0+float(puff_index)*5.0)
+			surface.draw_texture_rect(smoke,Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round()),false,Color(0.62,0.66,0.64,puff_alpha*2.6))
 		if ratio < 0.18:
 			var ignition := 1.0 - ratio / 0.18
 			var sparks := PersistentEffectArtLibrary.frame_for_ratio("damage_sparks",ratio/0.18)
