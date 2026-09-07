@@ -74,6 +74,7 @@ for name,fn in ASSETS.items(): fn().save(OUT/f"{name}.png")
 ANIM = OUT / "animation"
 (ANIM / "radar_site").mkdir(parents=True, exist_ok=True)
 (ANIM / "field_artillery").mkdir(parents=True, exist_ok=True)
+(ANIM / "damage").mkdir(parents=True, exist_ok=True)
 radar_base = radar()
 for index, angle in enumerate((-18, -6, 6, 18)):
     frame = radar_base.copy()
@@ -89,8 +90,18 @@ ImageDraw.Draw(recoil).rectangle((18, 0, 30, 25), fill=(0, 0, 0, 0))
 barrel = artillery_base.crop((18, 0, 31, 26))
 recoil.alpha_composite(barrel, (18, 4))
 recoil.save(ANIM / "field_artillery" / "1.png")
+for index in range(2):
+    damage = canvas(); dd = ImageDraw.Draw(damage)
+    if index == 0:
+        dd.polygon([(11,19),(17,15),(21,20),(27,14),(34,19),(30,25),(36,31),(27,30),(22,36),(18,29),(10,31),(15,24)], fill=(37,31,25,150))
+        line(dd, [(13,20),(20,24),(17,31)], "outline", 2); line(dd, [(28,16),(25,24),(34,29)], "red", 2)
+    else:
+        dd.polygon([(7,16),(15,11),(21,17),(28,9),(39,17),(34,25),(42,31),(31,35),(24,42),(17,34),(6,37),(12,26)], fill=(24,24,22,205))
+        line(dd, [(10,17),(20,23),(14,34)], "outline", 3); line(dd, [(31,12),(25,24),(38,31)], "red", 3)
+        dd.rectangle((20,21,27,28), fill=(217,102,38,180)); dd.rectangle((22,23,25,27), fill=(255,201,74,220))
+    damage.save(ANIM / "damage" / f"{index}.png")
 sheet=Image.new("RGBA",(S*4,S*2),(18,23,22,255))
 for i,(name,fn) in enumerate(ASSETS.items()): sheet.alpha_composite(fn(),((i%4)*S,(i//4)*S))
 sheet.save(SRC/"surface_site_contact_sheet.png")
-(SRC/"manifest.json").write_text(json.dumps({"schema_version":2,"identity":"believable late-1990s imagined-future military pixel art","canvas":[48,48],"military":["strategic_silo","ballistic_launcher","field_artillery","radar_site","logistics_truck","ammo_depot"],"protected":["civilian_village","field_clinic"],"animation":{"radar_site":{"frames":4,"fps":3.0},"field_artillery":{"frames":2,"trigger":"recoil_timer"}},"rules":["red-cross clinic and slate-roof homes are protected contacts","military silhouettes remain readable at native 640x360 gameplay scale","surface sites are separate from the established 38-enemy identity roster","mechanical motion uses held nearest-neighbour cels"]},indent=2)+"\n",encoding="utf-8")
+(SRC/"manifest.json").write_text(json.dumps({"schema_version":3,"identity":"believable late-1990s imagined-future military pixel art","canvas":[48,48],"military":["strategic_silo","ballistic_launcher","field_artillery","radar_site","logistics_truck","ammo_depot"],"protected":["civilian_village","field_clinic"],"animation":{"radar_site":{"frames":4,"fps":3.0},"field_artillery":{"frames":2,"trigger":"recoil_timer"},"damage":{"frames":2,"thresholds":[0.62,0.32]}},"rules":["red-cross clinic and slate-roof homes are protected contacts","military silhouettes remain readable at native 640x360 gameplay scale","surface sites are separate from the established 38-enemy identity roster","mechanical motion uses held nearest-neighbour cels","damaged sites use registered breach overlays before persistent smoke and fire"]},indent=2)+"\n",encoding="utf-8")
 print(f"built {len(ASSETS)} surface-site sprites")

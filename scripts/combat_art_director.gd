@@ -407,6 +407,10 @@ const SURFACE_SITE_ANIMATION := {
 		preload("res://assets/runtime/surface_sites/animation/field_artillery/1.png"),
 	],
 }
+const SURFACE_SITE_DAMAGE := [
+	preload("res://assets/runtime/surface_sites/animation/damage/0.png"),
+	preload("res://assets/runtime/surface_sites/animation/damage/1.png"),
+]
 const LAYERED_GROUND_SPRITES := {
 	"light_tank": {
 		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_base.png"),
@@ -1071,7 +1075,10 @@ func _draw_surface_site_capture(surface: CanvasItem) -> void:
 	var ids := ["strategic_silo", "ballistic_launcher", "field_artillery", "radar_site", "logistics_truck", "ammo_depot", "civilian_village", "field_clinic"]
 	for index in range(ids.size()):
 		var position := Vector2(105 + (index % 4) * 138, 126 + int(index / 4) * 104)
-		_draw_surface_site(surface, position, ids[index], {"age":1.1,"recoil_timer":0.08}, 1.0)
+		var fixture := {"age":1.1,"recoil_timer":0.08,"hp":10,"max_hp":10}
+		if index == 0: fixture = {"age":1.1,"recoil_timer":0.0,"hp":5,"max_hp":18}
+		elif index == 3: fixture = {"age":1.1,"recoil_timer":0.0,"hp":4,"max_hp":8}
+		_draw_surface_site(surface, position, ids[index], fixture, 1.0)
 
 func _render_mech_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
@@ -1839,6 +1846,11 @@ func _draw_surface_site(surface: CanvasItem, p: Vector2, enemy_id: String, enemy
 	elif enemy_id == "field_artillery" and float(enemy.get("recoil_timer", 0.0)) > 0.0:
 		texture = SURFACE_SITE_ANIMATION[enemy_id][1]
 	_draw_production_sprite(surface, p, texture, scale)
+	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
+	var integrity := clampf(float(enemy.get("hp", max_hp)) / max_hp, 0.0, 1.0)
+	if integrity <= 0.62:
+		var damage_index := 1 if integrity <= 0.32 else 0
+		_draw_production_sprite(surface, p, SURFACE_SITE_DAMAGE[damage_index], scale)
 
 func _animated_unit_texture(enemy_id: String, enemy: Dictionary, fallback: Texture2D) -> Texture2D:
 	if not UNIT_ANIMATION_FRAMES.has(enemy_id):

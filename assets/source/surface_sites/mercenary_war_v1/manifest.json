@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "identity": "believable late-1990s imagined-future military pixel art",
   "canvas": [
     48,
@@ -25,12 +25,20 @@
     "field_artillery": {
       "frames": 2,
       "trigger": "recoil_timer"
+    },
+    "damage": {
+      "frames": 2,
+      "thresholds": [
+        0.62,
+        0.32
+      ]
     }
   },
   "rules": [
     "red-cross clinic and slate-roof homes are protected contacts",
     "military silhouettes remain readable at native 640x360 gameplay scale",
     "surface sites are separate from the established 38-enemy identity roster",
-    "mechanical motion uses held nearest-neighbour cels"
+    "mechanical motion uses held nearest-neighbour cels",
+    "damaged sites use registered breach overlays before persistent smoke and fire"
   ]
 }
