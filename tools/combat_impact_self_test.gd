@@ -5,6 +5,11 @@ const ProjectileRules = preload("res://scripts/projectile_rules.gd")
 var failures: Array[String] = []
 func _initialize() -> void:
 	check(ProjectileRules.missile_in_acquisition_envelope(Vector2(0,0),Vector2(0,430)), "Missile acquisition should cover the authored warning envelope")
+	check(ProjectileRules.enemy_has_firing_solution(Vector2(200,100),Vector2(220,260),"cannon","air"), "forward aircraft guns should fire on a downrange target")
+	check(not ProjectileRules.enemy_has_firing_solution(Vector2(200,260),Vector2(220,100),"cannon","air"), "fixed aircraft guns should not fire backward after overshooting")
+	check(ProjectileRules.enemy_has_firing_solution(Vector2(200,170),Vector2(260,120),"side_burst","air"), "door guns should retain their authored broad beam arc")
+	check(not ProjectileRules.enemy_has_firing_solution(Vector2(200,240),Vector2(200,120),"deck_gun","sea"), "surface mounts should not fire through their own hull after the player passes")
+	check(not ProjectileRules.enemy_has_firing_solution(Vector2(200,100),Vector2(200,560),"cannon","ground"), "surface weapons should respect their credible engagement range")
 	check(not ProjectileRules.missile_launch_has_warning_time(Vector2(0,0),Vector2(0,144),161.04), "Ace missiles must not launch with less than 0.9 seconds of reaction time")
 	check(ProjectileRules.missile_launch_has_warning_time(Vector2(0,0),Vector2(0,145),161.04), "Ace missiles should launch once the 0.9-second reaction window is available")
 	check(Impact.projectile_class("missile") == Impact.DIRECT_WARHEAD, "Missiles need direct-warhead impacts")

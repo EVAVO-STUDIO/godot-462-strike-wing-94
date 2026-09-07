@@ -1578,11 +1578,13 @@ func _update_enemies(delta: float) -> void:
 			enemy["missile_lock_ratio"] = lock_ratio
 			var missile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed("missile"))
 			missile_lock_ready = lock_ratio >= 0.999 and ProjectileRules.missile_launch_has_warning_time(position, player_position, missile_speed)
-		if str(enemy.get("weapon", "none")) != "none" and float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
+		var weapon_id := str(enemy.get("weapon", "none"))
+		var firing_solution := ProjectileRules.enemy_has_firing_solution(position,player_position,weapon_id,str(enemy.get("category","air")))
+		if weapon_id != "none" and float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and firing_solution and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
 			_fire_enemy_weapon(enemy)
-			if str(enemy.get("weapon", "")) == "missile": enemy["missile_lock_ratio"] = 0.0
+			if weapon_id == "missile": enemy["missile_lock_ratio"] = 0.0
 			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(
-				str(enemy.get("weapon", "single_burst")),
+				weapon_id,
 				wave
 			)) * _mission_enemy_fire_interval_scale()
 		enemies[i] = enemy

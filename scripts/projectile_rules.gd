@@ -3,6 +3,9 @@ extends RefCounted
 
 const MISSILE_ACQUISITION_RANGE := 430.0
 const MISSILE_MIN_POST_LAUNCH_TTI := 0.90
+const AIR_GUN_RANGE := 430.0
+const SURFACE_GUN_RANGE := 390.0
+const MIN_GUN_RANGE := 42.0
 
 static func enemy_shot_velocity(origin: Vector2, target: Vector2, speed: float) -> Vector2:
 	var direction := origin.direction_to(target)
@@ -15,6 +18,23 @@ static func missile_in_acquisition_envelope(origin: Vector2, target: Vector2) ->
 
 static func missile_launch_has_warning_time(origin: Vector2, target: Vector2, speed: float) -> bool:
 	return origin.distance_to(target) / maxf(1.0, speed) >= MISSILE_MIN_POST_LAUNCH_TTI
+
+static func enemy_has_firing_solution(origin: Vector2, target: Vector2, weapon_id: String, category: String) -> bool:
+	var offset := target-origin
+	var distance := offset.length()
+	if weapon_id == "missile":
+		return missile_in_acquisition_envelope(origin,target)
+	if distance < MIN_GUN_RANGE:
+		return false
+	if category in ["ground","sea"]:
+		# Surface mounts traverse, but cannot shoot through their own hull or
+		# terrain once the player has passed the emplacement.
+		return distance <= SURFACE_GUN_RANGE and offset.y >= 10.0
+	if weapon_id == "side_burst":
+		# Door guns and helicopter cheek mounts retain a broad beam arc.
+		return distance <= AIR_GUN_RANGE and offset.y >= -72.0
+	# Fixed forward aircraft guns require the target to remain downrange.
+	return distance <= AIR_GUN_RANGE and offset.y >= -24.0
 
 static func advance_enemy_shot(shot: Dictionary, target: Vector2, delta: float) -> Dictionary:
 	var next := shot.duplicate(true)

@@ -83,6 +83,7 @@ func _test_overtime() -> void:
 		_expect(source.contains('get("ingress_seconds", 0.35)') and source.contains("enemy_spawn_timer = maxf"), "authored mission ingress should suppress unscripted contact without delaying route-positioned encounter beats")
 		_expect(source.contains("_random_contact_interval_scale()") and source.contains('get("random_contact_interval_scale", 1.0)'), "mission pacing should support bounded unscripted-contact cadence without altering authored encounter packets")
 		_expect(source.contains("_mission_enemy_fire_interval_scale()") and source.contains('get("enemy_fire_interval_scale", 1.0)'), "missions should support bounded hostile volley cadence without weakening authored projectile damage")
+		_expect(source.contains("ProjectileRules.enemy_has_firing_solution") and source.contains("firing_solution and missile_lock_ready"), "enemy fire should require a credible weapon arc as well as a ready timer")
 	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_time_remaining")'), "combat chronometer should change from route time to the live extraction window")
 	_expect(ui_file != null and ui_file.get_as_text().contains('scene.get("egress_active")'), "urgent extraction guidance should override stale routine radio occupancy")
