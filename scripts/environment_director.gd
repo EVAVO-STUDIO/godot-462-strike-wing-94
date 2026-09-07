@@ -990,22 +990,25 @@ func _draw_cloud_family(surface: CanvasItem, family: Array, band: String, densit
 	if density <= 0.08 or blend <= 0.01:
 		return
 	var count := maxi(2, int(round(6.0 * density)))
-	var alpha := (0.12 + density * 0.18) * blend
+	var alpha := (0.14 + density * 0.24) * blend
 	if band == "low": alpha *= 0.72
-	if band == "high": alpha *= 1.18
+	if band == "high": alpha *= 1.42
 	for i in range(count):
 		var texture: Texture2D = family[i % family.size()]
 		var speed := 10.0 + density * 20.0 + float(i % 3) * 2.0
 		var wind := 2.4 + float(i % 4) * 0.8
 		var x := fposmod(float(i * 149 + 61) + t * wind, 800.0) - 80.0
-		var scale := 0.72 + float((i * 5) % 4) * 0.12
+		var scale_base := 0.92 if band == "high" else 0.72
+		var scale_step := 0.14 if band == "high" else 0.12
+		var scale := scale_base + float((i * 5) % 4) * scale_step
 		var size := Vector2(texture.get_size()) * scale
 		# Include the bank height in the wrap cycle so clouds cross both viewport
 		# edges continuously instead of popping in fully formed and dwelling below.
 		var cloud_cycle := ENVIRONMENT_VIEW.size.y + size.y
 		var y := fposmod(float(i) * 97.0 + travel * speed, cloud_cycle) + ENVIRONMENT_VIEW.position.y - size.y * 0.5
 		_draw_cloud_bank_shadow(surface, texture, Vector2(x, y), size, band, density, blend, i)
-		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, Color(0.78, 0.84, 0.88, alpha))
+		var cloud_tone := Color(0.88,0.92,0.94,alpha) if band == "high" else Color(0.78,0.84,0.88,alpha)
+		surface.draw_texture_rect(texture, Rect2(Vector2(x, y) - size * 0.5, size), false, cloud_tone)
 
 func _draw_cloud_bank_shadow(surface: CanvasItem, texture: Texture2D, center: Vector2, size: Vector2, band: String, density: float, visibility: float, index: int) -> void:
 	# The shadow reuses the authored bank alpha so every visible cloud has a

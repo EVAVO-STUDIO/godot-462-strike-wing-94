@@ -80,6 +80,7 @@ func _initialize() -> void:
 		_expect(source.contains("blended_parallax_speed"), "environment renderer should blend parallax speed")
 		_expect(source.contains("blended_cloud_density"), "environment renderer should blend cloud density")
 		_expect(source.contains("_draw_cloud_family") and source.contains("1.0 - blend") and source.contains("_cloud_family(to_band)"), "altitude changes should crossfade authored low, mid and high cloud families instead of switching silhouettes")
+		_expect(source.contains('if band == "high": alpha *= 1.42') and source.contains('scale_base := 0.92 if band == "high"') and source.contains("cloud_tone"), "high lane should render broad bright cloud masses above receding terrain")
 		_expect(source.contains("_orbital_mix"), "orbital starfield should fade through the atmospheric transition")
 		_expect(source.contains("_draw_high_atmosphere_horizon"), "orbital ascent should retain atmospheric curvature during transition")
 		_expect(source.contains("ORBITAL_STARFIELD_TILE") and source.contains("EARTH_LIMB_V2"), "upper atmosphere and orbital space should use authored sparse stars and a low near-Earth curvature layer")
