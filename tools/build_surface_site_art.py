@@ -25,20 +25,26 @@ def rect(d, box, fill, outline="outline", w=1): d.rectangle(box, fill=PAL[fill],
 def line(d, pts, fill="edge", w=1): d.line(pts, fill=PAL[fill], width=w)
 
 def silo():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(7,12,41,40)); rect(d,(8,9,39,38),"dark"); rect(d,(11,12,36,35),"tan")
-    d.ellipse((14,15,33,34),fill=PAL["outline"]); d.ellipse((16,17,31,32),fill=PAL["metal"]); line(d,(16,24,31,24),"light",2)
-    rect(d,(7,17,11,30),"olive"); rect(d,(36,17,40,30),"olive"); rect(d,(20,8,27,12),"red")
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,17,44,43))
+    d.polygon([(8,12),(37,10),(43,18),(40,38),(11,41),(5,32)],fill=PAL["dark"],outline=PAL["outline"])
+    d.polygon([(10,14),(35,12),(40,19),(37,36),(13,38),(8,31)],fill=PAL["tan"],outline=PAL["edge"])
+    d.ellipse((13,14,36,37),fill=PAL["outline"]); d.ellipse((16,17,33,34),fill=PAL["metal"]); d.ellipse((19,20,30,31),fill=PAL["dark"])
+    line(d,(17,24,32,24),"light",2); line(d,(24,18,24,33),"light",1); rect(d,(7,20,11,29),"olive"); rect(d,(37,19,41,28),"olive"); rect(d,(20,10,27,13),"red")
     return im
 
 def scud():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,14,43,41)); rect(d,(8,16,39,38),"olive"); rect(d,(5,19,13,35),"dark"); rect(d,(34,19,42,35),"dark")
-    rect(d,(12,17,35,34),"tan"); d.polygon([(15,17),(20,7),(30,7),(35,17)],fill=PAL["dark"],outline=PAL["outline"])
-    d.polygon([(20,26),(22,7),(27,3),(30,7),(29,27)],fill=PAL["light"],outline=PAL["outline"]); rect(d,(20,25,30,30),"red")
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(7,9,41,44))
+    rect(d,(11,6,36,41),"dark"); rect(d,(14,8,33,39),"olive"); rect(d,(15,29,32,38),"tan")
+    for y in (11,20,31,38): rect(d,(8,y,13,y+4),"outline",None); rect(d,(34,y,39,y+4),"outline",None)
+    d.polygon([(20,31),(20,8),(24,3),(28,8),(28,31)],fill=PAL["light"],outline=PAL["outline"])
+    line(d,(22,9,26,9),"white",1); rect(d,(19,29,29,33),"red"); rect(d,(17,34,30,38),"dark")
     return im
 
 def ballistic_pose(angle_degrees):
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,14,43,41)); rect(d,(8,18,39,37),"olive"); rect(d,(5,22,13,35),"dark"); rect(d,(34,22,42,35),"dark"); rect(d,(12,20,35,34),"tan")
-    angle=math.radians(angle_degrees); base=(25,27); tip=(base[0]+math.cos(angle)*24, base[1]-math.sin(angle)*24)
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(7,8,41,44)); rect(d,(11,9,36,41),"dark"); rect(d,(14,11,33,39),"olive")
+    for y in (13,25,35): rect(d,(8,y,13,y+4),"outline",None); rect(d,(34,y,39,y+4),"outline",None)
+    rect(d,(16,30,31,38),"tan"); line(d,(18,32,29,32),"edge",1)
+    angle=math.radians(angle_degrees); base=(24,30); tip=(base[0]+math.cos(angle)*24, base[1]-math.sin(angle)*24)
     line(d,(base,tip),"outline",7); line(d,(base,tip),"light",4)
     nx,ny=math.cos(angle),-math.sin(angle); px,py=-ny,nx
     d.polygon([(tip[0]+nx*4,tip[1]+ny*4),(tip[0]-nx*3+px*3,tip[1]-ny*3+py*3),(tip[0]-nx*3-px*3,tip[1]-ny*3-py*3)],fill=PAL["light"],outline=PAL["outline"])
@@ -46,34 +52,45 @@ def ballistic_pose(angle_degrees):
     return im
 
 def artillery():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(6,15,42,41)); d.ellipse((7,23,19,39),fill=PAL["dark"],outline=PAL["outline"]); d.ellipse((29,23,41,39),fill=PAL["dark"],outline=PAL["outline"])
-    rect(d,(13,20,35,35),"olive"); d.ellipse((17,16,31,30),fill=PAL["tan"],outline=PAL["outline"]); line(d,(24,18,24,3),"outline",5); line(d,(24,18,24,3),"metal",3); rect(d,(9,34,39,38),"dark")
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,17,43,43))
+    d.polygon([(8,34),(18,25),(30,25),(40,34),(36,39),(27,32),(21,32),(12,39)],fill=PAL["dark"],outline=PAL["outline"])
+    d.ellipse((15,20,33,36),fill=PAL["outline"]); d.ellipse((18,22,30,33),fill=PAL["tan"]); d.ellipse((21,25,27,31),fill=PAL["olive"])
+    line(d,(24,27,24,3),"outline",6); line(d,(24,27,24,4),"metal",3); line(d,(25,6,25,22),"light",1); rect(d,(10,35,15,40),"olive"); rect(d,(33,35,38,40),"olive")
     return im
 
 def radar():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(6,20,42,42)); rect(d,(8,23,40,39),"olive"); rect(d,(18,14,29,29),"metal"); line(d,(23,16,23,8),"light",2)
-    d.arc((8,3,38,24),195,345,fill=PAL["outline"],width=4); d.arc((10,5,36,22),195,345,fill=PAL["light"],width=2); line(d,(14,15,33,8),"metal",2)
-    rect(d,(6,27,11,36),"dark"); rect(d,(37,27,42,36),"dark"); return im
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(6,14,43,43)); rect(d,(10,18,38,40),"dark"); rect(d,(13,20,35,37),"olive")
+    rect(d,(7,23,12,35),"outline",None); rect(d,(36,23,41,35),"outline",None); rect(d,(17,28,31,36),"tan")
+    d.ellipse((11,5,37,25),fill=PAL["outline"]); d.pieslice((13,7,35,23),180,360,fill=PAL["light"]); d.pieslice((16,10,32,22),180,360,fill=PAL["glass"])
+    line(d,(24,18,24,29),"metal",3); line(d,(14,16,34,16),"edge",1); rect(d,(22,4,26,8),"red"); return im
 
 def logistics():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,13,43,41)); rect(d,(7,13,40,37),"olive"); rect(d,(10,16,26,34),"tan"); rect(d,(27,16,39,34),"dark"); rect(d,(29,18,37,24),"glass")
-    for x in (10,22,34): d.ellipse((x-4,32,x+4,40),fill=PAL["outline"]); d.ellipse((x-2,34,x+2,38),fill=PAL["metal"])
-    line(d,(12,19,24,19),"edge",2); return im
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(8,5,40,44)); rect(d,(11,5,36,42),"dark"); rect(d,(14,8,33,39),"olive")
+    rect(d,(15,9,32,27),"tan"); line(d,(18,11,18,25),"edge",1); line(d,(28,11,28,25),"edge",1)
+    rect(d,(15,29,32,38),"dark"); rect(d,(17,30,30,34),"glass"); line(d,(23,30,23,35),"light",1)
+    for y in (10,22,34): rect(d,(8,y,13,y+5),"outline",None); rect(d,(34,y,39,y+5),"outline",None)
+    return im
 
 def ammo_depot():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(4,12,44,42)); rect(d,(6,13,42,39),"dark"); rect(d,(9,16,39,37),"olive")
-    for x,y in ((12,18),(23,18),(12,27),(23,27)): rect(d,(x,y,x+8,y+6),"tan")
-    d.polygon([(34,20),(38,27),(30,27)],fill=PAL["yellow"],outline=PAL["outline"]); line(d,(34,22,34,25),"outline",1); return im
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(4,11,45,43))
+    d.polygon([(6,12),(42,12),(45,21),(42,40),(6,40),(3,30)],fill=PAL["dark"],outline=PAL["outline"])
+    for x,y in ((9,16),(21,16),(9,27),(21,27)): rect(d,(x,y,x+9,y+7),"olive"); line(d,(x+2,y+2,x+7,y+2),"edge",1)
+    d.polygon([(36,19),(41,28),(31,28)],fill=PAL["yellow"],outline=PAL["outline"]); line(d,(36,21,36,25),"outline",1); rect(d,(35,27,37,28),"outline",None)
+    return im
 
 def village():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(3,12,45,43));
-    rect(d,(5,20,22,39),"civil"); d.polygon([(3,21),(13,11),(24,21)],fill=PAL["roof"],outline=PAL["outline"]); rect(d,(10,27,16,39),"dark"); rect(d,(17,24,21,29),"glass")
-    rect(d,(26,18,43,39),"light"); d.polygon([(24,19),(34,9),(45,19)],fill=PAL["roof"],outline=PAL["outline"]); rect(d,(31,27,37,39),"dark"); rect(d,(27,22,31,27),"glass")
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(3,10,46,44))
+    d.polygon([(5,10),(23,8),(25,27),(7,30)],fill=PAL["outline"]); d.polygon([(8,12),(20,11),(22,24),(9,27)],fill=PAL["roof"]); line(d,(15,11,16,25),"civil",2)
+    d.polygon([(25,15),(43,12),(45,35),(27,39)],fill=PAL["outline"]); d.polygon([(28,17),(40,15),(42,32),(29,36)],fill=PAL["civil"]); line(d,(34,16,35,34),"light",2)
+    rect(d,(10,30,16,36),"dark"); rect(d,(20,29,24,33),"glass"); rect(d,(39,35,43,39),"dark")
     return im
 
 def clinic():
-    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(4,12,44,43)); rect(d,(6,14,42,40),"white"); rect(d,(9,18,39,38),"civil"); rect(d,(18,24,30,40),"dark")
-    rect(d,(20,15,28,30),"red",None); rect(d,(16,19,32,26),"red",None); line(d,(8,33,40,33),"light",2); return im
+    im=canvas(); d=ImageDraw.Draw(im); shadow(d,(5,9,44,44))
+    d.polygon([(7,10),(39,8),(43,38),(10,42)],fill=PAL["outline"]); d.polygon([(10,13),(36,11),(39,35),(12,38)],fill=PAL["white"])
+    line(d,(12,18,37,16),"civil",1); line(d,(14,34,38,31),"civil",1)
+    d.polygon([(21,16),(28,15),(29,22),(35,21),(36,28),(29,29),(30,35),(23,36),(22,29),(16,30),(15,23),(22,22)],fill=PAL["red"],outline=PAL["outline"])
+    rect(d,(8,31,13,39),"civil"); rect(d,(37,27,42,36),"civil"); return im
 
 ASSETS={"strategic_silo":silo,"ballistic_launcher":scud,"field_artillery":artillery,"radar_site":radar,"logistics_truck":logistics,"ammo_depot":ammo_depot,"civilian_village":village,"field_clinic":clinic}
 OUT.mkdir(parents=True,exist_ok=True); SRC.mkdir(parents=True,exist_ok=True)

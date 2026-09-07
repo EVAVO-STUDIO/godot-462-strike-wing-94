@@ -1862,6 +1862,12 @@ func _draw_surface_site(surface: CanvasItem, p: Vector2, enemy_id: String, enemy
 		var deployment_age := float(enemy.get("age", 0.0))
 		var deployment_frame := 0 if deployment_age < 0.35 else (1 if deployment_age < 0.85 else 2)
 		texture = SURFACE_SITE_ANIMATION[enemy_id][deployment_frame]
+	# Reuse the registered silhouette as a soft ground-contact exposure. This
+	# seats the top-down site into detailed terrain without adding procedural
+	# geometry or obscuring its military/protected identity.
+	surface.draw_set_transform((p+Vector2(3,5)*scale).round(),0.0,Vector2(scale*0.94,scale*0.42))
+	surface.draw_texture(texture,(-texture.get_size()*0.5).round(),Color(0.025,0.03,0.028,0.32))
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 	_draw_production_sprite(surface, p, texture, scale)
 	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
 	var integrity := clampf(float(enemy.get("hp", max_hp)) / max_hp, 0.0, 1.0)
