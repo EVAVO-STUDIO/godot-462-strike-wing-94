@@ -1457,6 +1457,7 @@ func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hyp
 	var origin := (p - VX94_GAMEPLAY_ANCHOR).round()
 	var destination := "hypersonic" if hypersonic else "bomber"
 	var scene := get_tree().current_scene
+	_draw_transform_motion_cues(surface,p,index,hypersonic,false)
 	if scene != null:
 		_draw_transform_external_stores(surface, origin, destination, index)
 	var texture: Texture2D = frames[index]
@@ -1468,11 +1469,37 @@ func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hyp
 		if mounted_texture != null:
 			texture = mounted_texture
 	surface.draw_texture(texture, origin)
+	_draw_transform_motion_cues(surface,p,index,hypersonic,true)
 	if scene != null:
 		var max_hull := maxi(1, int(scene.call("_max_hull"))) if scene.has_method("_max_hull") else 100
 		var damage_ratio := 1.0 - clampf(float(scene.get("hull")) / float(max_hull), 0.0, 1.0) if _has_property(scene, "hull") else 0.0
 		_draw_player_damage(surface, origin, damage_ratio)
 		_draw_transform_dorsal_module(surface, origin, destination, index, damage_ratio)
+
+func _draw_transform_motion_cues(surface: CanvasItem, p: Vector2, exposure: int, hypersonic: bool, foreground: bool) -> void:
+	var progress := clampf(float(exposure)/float(TRANSFORM_EXPOSURES-1),0.0,1.0)
+	var cue_strength := sin(progress*PI)
+	var color := Color(0.45,0.88,1.0,0.72*cue_strength) if hypersonic else Color(1.0,0.66,0.28,0.68*cue_strength)
+	var start_left := p+Vector2(-19,10)
+	var start_right := p+Vector2(19,10)
+	var end_left := p+Vector2(-8,18)
+	var end_right := p+Vector2(8,18)
+	var left_tip := start_left.lerp(end_left,progress).round()
+	var right_tip := start_right.lerp(end_right,progress).round()
+	if not foreground:
+		if exposure > 0 and exposure < TRANSFORM_EXPOSURES-1:
+			surface.draw_line(start_left.round(),left_tip,color,1.0,false)
+			surface.draw_line(start_right.round(),right_tip,color,1.0,false)
+		return
+	var hinge_color := Color(color.r,color.g,color.b,maxf(color.a,0.34 if exposure in [0,TRANSFORM_EXPOSURES-1] else color.a))
+	for hinge in [p+Vector2(-6,7),p+Vector2(6,7)]:
+		surface.draw_circle(hinge.round(),1.5,hinge_color,false,1.0,false)
+	if exposure > 0 and exposure < TRANSFORM_EXPOSURES-1:
+		surface.draw_circle(left_tip,1.25,color,false,1.0,false)
+		surface.draw_circle(right_tip,1.25,color,false,1.0,false)
+	elif exposure == TRANSFORM_EXPOSURES-1 and hypersonic:
+		surface.draw_line((p+Vector2(-7,17)).round(),(p+Vector2(-3,19)).round(),Color(0.72,0.94,1.0,0.82),1.0,false)
+		surface.draw_line((p+Vector2(7,17)).round(),(p+Vector2(3,19)).round(),Color(0.72,0.94,1.0,0.82),1.0,false)
 
 func _transform_exposure_index(ratio: float) -> int:
 	var safe_ratio := clampf(ratio, 0.0, 1.0)

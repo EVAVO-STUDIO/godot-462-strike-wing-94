@@ -543,6 +543,7 @@ func _test_transform_presentation() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("CraftFormRules.TRANSFORM_VISUAL_SECONDS"), "variable geometry sweep should consume the canonical near-one-second mechanical cadence")
 	_expect(source.contains("TRANSFORM_EXPOSURES := 10"), "variable geometry should retain ten deliberate animation exposures")
+	_expect(source.contains("func _draw_transform_motion_cues") and source.contains("start_left.lerp(end_left,progress)"), "variable geometry sweep should expose readable wing-tip travel and hinge cues at gameplay scale")
 	_expect(source.contains("PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0"), "combat sprites should retain an authentic held-pose 30 Hz presentation cadence over 60 Hz simulation")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
 	_expect(source.contains("roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1))"), "variable geometry should advance through quantized authored exposures")
@@ -867,7 +868,8 @@ func _test_persistent_effect_art() -> void:
 		var source := afterburner.get_as_text()
 		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"') and source.contains('frame_for_clock("hypersonic_blue_plume"'), "propulsion should separate ordinary afterburner, hypersonic blue plumes and contrails")
 		_expect(source.contains('frame_for_ratio("sonic_boom"'), "sonic transition should use the authored broken pressure front")
-		_expect(source.contains("Vector2(roundf(lerpf(76.0, 236.0, t)), roundf(lerpf(38.0, 92.0, t)))"), "player sonic break should expand as a shallow transverse pressure front instead of a square ghost-wing exposure")
+		_expect(source.contains("Vector2(roundf(lerpf(76.0, 286.0, t)), roundf(lerpf(38.0, 104.0, t)))"), "player sonic break should expand as a shallow transverse pressure front instead of a square ghost-wing exposure")
+		_expect(source.contains("SECONDARY_RING_DELAY") and source.contains("PRIMARY_RING_END_SIZE"), "player sonic break should stage expanding primary and secondary engine-origin pressure rings")
 		_expect(source.contains('"hypersonic_engine_burst"') and source.contains("ENGINE_BURST_FRAME_ENDS") and not source.contains("draw_circle"), "hypersonic latch should use the registered timed engine burst instead of programmer-art circles")
 		_expect(not source.contains("surface.draw_arc(scene.get(\"player_position\")"), "sonic boom should not regress to a perfect vector circle")
 
