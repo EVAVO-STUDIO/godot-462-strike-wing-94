@@ -36,6 +36,7 @@ const PLAYER_FLIGHT_MAX := Vector2(606.0, 288.0)
 const PLAYER_SORTIE_START := Vector2(320.0, FlightCameraRules.ANCHOR_Y)
 const BOSS_OVERTIME_LIMIT_SECONDS := 45.0
 const BOSS_RUSH_INGRESS_DISTANCE := 4.0
+const MAX_AMBIENT_CONTACTS := 10
 const PLAYER_LOSS_SEQUENCE_SECONDS := 2.40
 
 enum GamePhase { TITLE, PLAYING, RESULT }
@@ -813,8 +814,13 @@ func _update_mission(delta: float) -> void:
 			return
 
 	if enemy_spawn_timer <= 0.0 and not _boss_alive() and not _boss_rush_active():
-		_spawn_enemy()
-		enemy_spawn_timer = _difficulty_spawn_interval(CombatRules.enemy_spawn_interval(wave)) * _random_contact_interval_scale()
+		if enemies.size() < MAX_AMBIENT_CONTACTS:
+			_spawn_enemy()
+			enemy_spawn_timer = _difficulty_spawn_interval(CombatRules.enemy_spawn_interval(wave)) * _random_contact_interval_scale()
+		else:
+			# Authored formations retain priority. Ambient contacts wait for a lane
+			# to clear instead of burying aircraft silhouettes and warning geometry.
+			enemy_spawn_timer = 0.35
 
 func _environment_speed_multiplier() -> float:
 	var craft := get_node_or_null("/root/CraftFormDirector")

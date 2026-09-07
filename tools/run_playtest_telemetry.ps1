@@ -59,6 +59,8 @@ $CountermeasureChargesSpent = [int](($Summaries | Measure-Object -Property count
 $CollateralStrikes = [int](($Summaries | Measure-Object -Property collateral_strikes -Sum).Sum)
 $MinimumCameraOffset = [double](($Summaries | ForEach-Object { $_.forward_flight.minimum_camera_offset_pixels } | Measure-Object -Minimum).Minimum)
 $MaximumCameraOffset = [double](($Summaries | ForEach-Object { $_.forward_flight.maximum_camera_offset_pixels } | Measure-Object -Maximum).Maximum)
+$MaximumEnemies = [int](($Summaries | ForEach-Object { $_.maxima.enemies } | Measure-Object -Maximum).Maximum)
+$MaximumHostileProjectiles = [int](($Summaries | ForEach-Object { $_.maxima.hostile_projectiles } | Measure-Object -Maximum).Maximum)
 if ($TotalHits -le 0 -or $TotalKills -le 0) { throw 'Representative playtests did not produce confirmed hits and destruction.' }
 if ($SimulationSeconds -ge 32.0 -and ($AcceptedTactical -le 0 -or $AcceptedBattlefield -le 0 -or $AcceptedOrdnance -le 0)) {
     throw 'Representative playtests did not confirm accepted tactical, battlefield and strike-ordnance usage.'
@@ -68,6 +70,9 @@ if ($SimulationSeconds -ge 32.0 -and $CountermeasureChargesSpent -lt $Summaries.
 }
 if ($CollateralStrikes -gt 0) {
     throw "Representative playtests destroyed $CollateralStrikes protected surface contacts."
+}
+if ($MaximumEnemies -gt 18 -or $MaximumHostileProjectiles -gt 64) {
+    throw "Representative playtests exceeded readable combat density: $MaximumEnemies enemies, $MaximumHostileProjectiles hostile projectiles."
 }
 if ($SimulationSeconds -ge 32.0 -and ($MinimumCameraOffset -gt -70.0 -or $MaximumCameraOffset -lt 35.0 -or ($MaximumCameraOffset - $MinimumCameraOffset) -lt 120.0)) {
     throw "Representative playtests did not confirm the full speed-driven camera envelope: $MinimumCameraOffset to $MaximumCameraOffset pixels."
