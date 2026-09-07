@@ -359,7 +359,11 @@ func _draw_tanker(surface: CanvasItem, capture_connected := false) -> void:
 	var hose := BattlefieldSupportArtLibrary.effect("tanker_hose")
 	var contact := BattlefieldSupportArtLibrary.effect("tanker_contact")
 	surface.draw_texture(hose, (p + Vector2(-32, 8)).round())
-	surface.draw_texture(contact, (hose_point - contact.get_size() * 0.5).round())
+	# Keep the rendezvous reference close to the hose rather than surrounding the
+	# entire player silhouette like a boss reticle. Gameplay connection distance
+	# remains governed independently by BattlefieldSupportRules.
+	var contact_size := (Vector2(contact.get_size()) * 0.72).round()
+	surface.draw_texture_rect(contact, Rect2((hose_point-contact_size*0.5).round(),contact_size), false)
 	var ratio := clampf(_tanker_progress / BattlefieldSupportRules.TANKER_REQUIRED_SECONDS, 0.0, 1.0)
 	var scene := get_tree().current_scene
 	var connected := capture_connected or (scene != null and _has_property(scene,"player_position") and BattlefieldSupportRules.tanker_connected(scene.get("player_position"),p))
