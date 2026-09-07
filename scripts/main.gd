@@ -126,6 +126,7 @@ var egress_completion_timer := 0.0
 var bullets: Array = []
 var enemy_bullets: Array = []
 var enemy_missiles_launched := 0
+var enemy_missile_engagement_cooldown := 0.0
 var countermeasures_decoyed := 0
 var enemies: Array = []
 var protected_contacts: Array = []
@@ -756,6 +757,7 @@ func _update_mission(delta: float) -> void:
 	fire_timer = maxf(0.0, fire_timer - delta)
 	secondary_timer = maxf(0.0, secondary_timer - delta)
 	contact_damage_cooldown = maxf(0.0, contact_damage_cooldown - delta)
+	enemy_missile_engagement_cooldown = maxf(0.0, enemy_missile_engagement_cooldown - delta)
 	enemy_spawn_timer -= delta
 	energy = EnergyRules.recharge(energy, _active_generator(), delta)
 	_update_player(delta)
@@ -1046,6 +1048,7 @@ func _start_mission() -> void:
 	damage_taken = 0
 	damage_sources = {}
 	enemy_missiles_launched = 0
+	enemy_missile_engagement_cooldown = 0.0
 	countermeasures_decoyed = 0
 	collateral_strikes = 0
 	roe_failure_pending = false
@@ -1623,12 +1626,13 @@ func _update_enemies(delta: float) -> void:
 		enemy["visual_bank"] = move_toward(float(enemy.get("visual_bank", 0.0)), bank_target, delta * 5.0)
 		var missile_lock_ready := true
 		if str(enemy.get("weapon", "")) == "missile":
+			missile_lock_ready = ProjectileRules.missile_salvo_available(int(enemy.get("missiles_remaining", 0))) and ProjectileRules.missile_launch_authorized(enemy_missile_engagement_cooldown, _active_guided_enemy_missiles())
 			var in_envelope := ProjectileRules.missile_in_acquisition_envelope(position, player_position)
 			var lock_ratio := float(enemy.get("missile_lock_ratio", 0.0))
-			lock_ratio = move_toward(lock_ratio, 1.0 if in_envelope else 0.0, delta / (0.82 if pursuit_active else 1.20))
+			lock_ratio = move_toward(lock_ratio, 1.0 if in_envelope and missile_lock_ready else 0.0, delta / (0.82 if pursuit_active else 1.20))
 			enemy["missile_lock_ratio"] = lock_ratio
 			var missile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed("missile"))
-			missile_lock_ready = lock_ratio >= 0.999 and ProjectileRules.missile_launch_has_warning_time(position, player_position, missile_speed)
+			missile_lock_ready = missile_lock_ready and lock_ratio >= 0.999 and ProjectileRules.missile_launch_has_warning_time(position, player_position, missile_speed)
 		var weapon_id := str(enemy.get("weapon", "none"))
 		var firing_solution := ProjectileRules.enemy_has_firing_solution(position,player_position,weapon_id,str(enemy.get("category","air")))
 		if weapon_id != "none" and float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and firing_solution and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
@@ -1740,7 +1744,16 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(-0.16), damage, false, weapon_id))
 	elif is_missile:
 		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true, weapon_id))
+		enemy["missiles_remaining"] = maxi(0, int(enemy.get("missiles_remaining", 0)) - 2)
+		enemy_missile_engagement_cooldown = ProjectileRules.ENEMY_MISSILE_ENGAGEMENT_INTERVAL
 		_register_enemy_missile_launch(2)
+
+func _active_guided_enemy_missiles() -> int:
+	var active := 0
+	for shot in enemy_bullets:
+		if str(shot.get("weapon_id", "")) == "missile" and bool(shot.get("homing", false)):
+			active += 1
+	return active
 
 func _register_enemy_missile_launch(count: int = 1) -> void:
 	enemy_missiles_launched += maxi(0, count)
@@ -2102,6 +2115,7 @@ func _spawn_enemy(archetype: Dictionary = {}) -> void:
 		"value": _difficulty_elite_value(CombatRules.destroy_value(int(archetype.get("value", 100)), wave)) if elite else CombatRules.destroy_value(int(archetype.get("value", 100)), wave),
 		"elite": elite,
 		"weapon": str(archetype.get("weapon", "single_burst")),
+		"missiles_remaining": ProjectileRules.enemy_missile_capacity(enemy_class, is_boss) if str(archetype.get("weapon", "single_burst")) == "missile" else 0,
 		"strike_priority": bool(archetype.get("strike_priority", false)),
 		"site_role": str(archetype.get("site_role", "")),
 		"hypersonic_capable": HypersonicRules.enemy_can_pursue(archetype),

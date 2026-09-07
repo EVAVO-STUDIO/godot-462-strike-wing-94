@@ -15,6 +15,9 @@ func _initialize() -> void:
 		var enemy_ids: Dictionary = {}
 		if typeof(enemy_data) == TYPE_DICTIONARY:
 			for enemy in enemy_data.get("enemies", []): enemy_ids[str(enemy.get("id", ""))] = true
+		var surface_data = ContentCatalog.load_json("res://data/surface_sites.json")
+		if typeof(surface_data) == TYPE_DICTIONARY:
+			for site in surface_data.get("sites", []): enemy_ids[str(site.get("id", ""))] = true
 		var route_ids := {"low_attack_window":false,"high_intercept_route":false,"low_bomber_route":false,"high_hunter_route":false}
 		for mission in data.get("missions", []):
 			var beats := EncounterRules.beats_for_mission(mission)

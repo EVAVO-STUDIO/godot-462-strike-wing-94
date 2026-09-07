@@ -6,6 +6,25 @@ const MISSILE_MIN_POST_LAUNCH_TTI := 0.90
 const AIR_GUN_RANGE := 430.0
 const SURFACE_GUN_RANGE := 390.0
 const MIN_GUN_RANGE := 42.0
+const ENEMY_MISSILE_ENGAGEMENT_INTERVAL := 1.6
+const MAX_ACTIVE_GUIDED_MISSILES := 4
+
+static func enemy_missile_capacity(category: String, boss: bool = false) -> int:
+	if boss:
+		return 8
+	match category:
+		"ground":
+			return 4
+		"sea":
+			return 6
+		_:
+			return 2
+
+static func missile_salvo_available(remaining: int) -> bool:
+	return remaining >= 2
+
+static func missile_launch_authorized(engagement_cooldown: float, active_guided_missiles: int) -> bool:
+	return engagement_cooldown <= 0.0 and active_guided_missiles < MAX_ACTIVE_GUIDED_MISSILES
 
 static func enemy_shot_velocity(origin: Vector2, target: Vector2, speed: float) -> Vector2:
 	var direction := origin.direction_to(target)

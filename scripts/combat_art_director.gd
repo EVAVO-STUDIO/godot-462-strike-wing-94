@@ -2056,7 +2056,8 @@ func _render_machine_air_specialist(surface: CanvasItem, p: Vector2, enemy_id: S
 	elif enemy_id in ["drone_bomber", "drone_missile_node"]:
 		var definition: Dictionary = MACHINE_AIR_SPECIALIST_ART[enemy_id]
 		var door_frames: Array = definition["frames"]
-		var door_index := machine_weapon_door_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
+		var rack_empty := enemy_id == "drone_missile_node" and int(enemy.get("missiles_remaining", 0)) < 2
+		var door_index := 0 if rack_empty else machine_weapon_door_frame_index(float(enemy.get("fire_timer", 1.0)), recoil_ratio)
 		_render_machine_component(surface, door_frames[door_index], p + Vector2(definition["anchor"]), 0.0, Vector2(0.5,0.5), bank_scale)
 	_render_machine_component(surface, MACHINE_AIR_SPECIALIST_ART["collar"], p, 0.0, Vector2(0.5,0.5), core_scale)
 	var core_frames: Array = MACHINE_AIR_SPECIALIST_ART["core"]
