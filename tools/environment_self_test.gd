@@ -25,6 +25,10 @@ func _initialize() -> void:
 	var route_data = ContentCatalog.load_json("res://data/environment_routes.json")
 	_expect(typeof(route_data) == TYPE_DICTIONARY, "environment route catalogue should load")
 	if typeof(route_data) == TYPE_DICTIONARY:
+		var refinery_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "refinery_long_night")
+		_expect(not refinery_route.is_empty(), "refinery should resolve its expanded data-authored production route")
+		_expect(EnvironmentRouteRules.validation_errors(refinery_route).is_empty(), "expanded refinery route should satisfy width, length, uniqueness, asset and connector contracts")
+		_expect(refinery_route.get("districts", []).size() == 6 and int(refinery_route.get("world_length", 0)) == 6144, "refinery route should provide six distinct 1024px districts before repeating")
 		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
 		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
@@ -88,7 +92,7 @@ func _initialize() -> void:
 		var gameplay_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 		_expect(gameplay_file != null and gameplay_file.get_as_text().contains("fposmod(-mission_time * 12.0"), "neutral depth fallback should preserve forward world travel during environment handoff")
 		_expect(source.contains("COAST_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "coastal benchmark should assemble registered authored geography chunks")
-		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble registered authored refinery geography chunks")
+		_expect(source.contains("REFINERY_GEOGRAPHY_CHUNKS") and source.contains('_route("refinery_long_night")') and source.contains("_draw_vertical_chunk_sequence"), "industrial benchmark should assemble the expanded data-authored refinery route")
 		_expect(source.contains("SEA_DEEP_ANIMATION") and source.contains("SEA_SURFACE_ANIMATION") and source.contains("SEA_FOAM_ANIMATION"), "open-water benchmark should use independent temporal material families")
 		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should assemble registered authored battlefield geography chunks")
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
@@ -187,8 +191,10 @@ func _initialize() -> void:
 		_expect(FileAccess.file_exists("res://assets/source/environments/refinery_chunks/refinery_geography_manifest.json"), "refinery geography source/build/assembly manifest should exist")
 		_expect(FileAccess.file_exists("res://tools/build_refinery_geography_art.ps1"), "refinery geography should retain a reproducible registered builder")
 		var refinery_geography_manifest = ContentCatalog.load_json("res://assets/source/environments/refinery_chunks/refinery_geography_manifest.json")
-		_expect(typeof(refinery_geography_manifest) == TYPE_DICTIONARY and refinery_geography_manifest.get("chunks", []).size() == 3, "refinery geography manifest should register three distinct 1024px sections")
-		var refinery_geography_names := ["tank_farm", "cracking_corridor", "rail_loading"]
+		_expect(typeof(refinery_geography_manifest) == TYPE_DICTIONARY and refinery_geography_manifest.get("chunks", []).size() == 6 and int(refinery_geography_manifest.get("assembly_contract", {}).get("geography_cycle_pixels", 0)) == 6144, "refinery geography manifest should register six distinct 1024px sections")
+		var refinery_geography_names := ["tank_farm", "cracking_corridor", "rail_loading", "flare_service_yard", "pressure_grid", "evacuation_terminal"]
+		var refinery_expansion_builder := FileAccess.get_file_as_string("res://tools/build_refinery_route_expansion.py")
+		_expect(refinery_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and refinery_expansion_builder.contains("alpha * 0.76") and refinery_expansion_builder.contains("expanded_districts"), "expanded refinery districts should retain deterministic source composition and night-plate grading")
 		var refinery_geography_images: Array[Image] = []
 		for chunk_name in refinery_geography_names:
 			var geography_texture := load("res://assets/runtime/environments/refinery_chunks/%s.png" % chunk_name) as Texture2D

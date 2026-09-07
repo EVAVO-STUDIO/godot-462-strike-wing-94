@@ -41,6 +41,9 @@ const REFINERY_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/refinery_chunks/tank_farm.png"),
 	preload("res://assets/runtime/environments/refinery_chunks/cracking_corridor.png"),
 	preload("res://assets/runtime/environments/refinery_chunks/rail_loading.png"),
+	preload("res://assets/runtime/environments/refinery_chunks/flare_service_yard.png"),
+	preload("res://assets/runtime/environments/refinery_chunks/pressure_grid.png"),
+	preload("res://assets/runtime/environments/refinery_chunks/evacuation_terminal.png"),
 ]
 const DESERT_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/desert_chunks/armour_approach.png"),
@@ -769,7 +772,10 @@ func _draw_industrial(surface: CanvasItem, scene: Object, profile: Dictionary, s
 	if not _draw_ground_detail(state):
 		return
 	var scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.30
-	_draw_vertical_chunk_sequence(surface, REFINERY_GEOGRAPHY_CHUNKS, scroll + float(_mission_seed(scene) % 3) * 1024.0, ENVIRONMENT_VIEW)
+	var route := _route("refinery_long_night")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = REFINERY_GEOGRAPHY_CHUNKS
+	_draw_vertical_chunk_sequence(surface, route_chunks, scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0, ENVIRONMENT_VIEW)
 	_draw_modular_refinery_pass(surface, scene, profile, state, t)
 
 func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary, t: float) -> void:

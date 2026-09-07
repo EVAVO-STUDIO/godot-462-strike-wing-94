@@ -88,8 +88,9 @@ landmarks and separately pivoted machinery such as the mountain radar dish.
 The production gaps are narrower and more important than simply generating
 more paintings:
 
-- most ground families are hard-coded three-chunk cycles, so an exact district
-  returns after 3072px;
+- coast, high-cloud and refinery now use data-authored six-district 6144px
+  routes; desert, river, mountain, harbor, city and orbital families still
+  need migration from their hard-coded three-chunk cycles;
 - route order, animation slots and finite prop placement live in GDScript
   instead of mission-authorable data;
 - some layer offsets are integrated from mission time rather than one shared

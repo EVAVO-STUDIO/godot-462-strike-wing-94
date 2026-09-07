@@ -14,6 +14,18 @@
       ],"animation_slots":[]
     },
     {
+      "id":"refinery_long_night","environment":"industrial","native_width":640,"chunk_height":1024,"world_length":6144,
+      "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"finite_machinery","kind":"registered_objects","ratio":1.0},{"id":"process_fx","kind":"registered_animation","ratio":1.0},{"id":"weather","kind":"finite_field","ratio":1.12}],
+      "districts":[
+        {"id":"tank_farm","asset":"res://assets/runtime/environments/refinery_chunks/tank_farm.png","north":"refinery_a","south":"refinery_a"},
+        {"id":"cracking_corridor","asset":"res://assets/runtime/environments/refinery_chunks/cracking_corridor.png","north":"refinery_a","south":"refinery_a"},
+        {"id":"rail_loading","asset":"res://assets/runtime/environments/refinery_chunks/rail_loading.png","north":"refinery_a","south":"refinery_a"},
+        {"id":"flare_service_yard","asset":"res://assets/runtime/environments/refinery_chunks/flare_service_yard.png","north":"refinery_a","south":"refinery_a"},
+        {"id":"pressure_grid","asset":"res://assets/runtime/environments/refinery_chunks/pressure_grid.png","north":"refinery_a","south":"refinery_a"},
+        {"id":"evacuation_terminal","asset":"res://assets/runtime/environments/refinery_chunks/evacuation_terminal.png","north":"refinery_a","south":"refinery_a"}
+      ],"animation_slots":[]
+    },
+    {
       "id": "cloud_top_silver_front",
       "environment": "high_cloud",
       "native_width": 640,

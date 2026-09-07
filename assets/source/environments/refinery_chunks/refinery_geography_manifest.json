@@ -1,15 +1,18 @@
 {
   "asset_family": "hypersonic_refinery_geography_v1",
   "source": "res://assets/source/environments/refinery_chunks/refinery_geography_source_v1.png",
-  "builder": "res://tools/build_refinery_geography_art.ps1",
+  "builder": "res://tools/build_refinery_geography_art.ps1 + res://tools/build_refinery_route_expansion.py",
   "source_method": "Built-in image generation created the opaque industrial geography source; deterministic EVAVO finishing registers, seam-closes and exports the runtime sections.",
   "chunks": [
     {"id": "tank_farm", "role": "containment and storage approach", "size": [640, 1024]},
     {"id": "cracking_corridor", "role": "dense process and pipe strike corridor", "size": [640, 1024]},
-    {"id": "rail_loading", "role": "loading gantry and rail attack lane", "size": [640, 1024]}
+    {"id": "rail_loading", "role": "loading gantry and rail attack lane", "size": [640, 1024]},
+    {"id": "flare_service_yard", "role": "flare towers, generator service and tank approach", "size": [640, 1024]},
+    {"id": "pressure_grid", "role": "transformer, valve and cooling infrastructure", "size": [640, 1024]},
+    {"id": "evacuation_terminal", "role": "rail maintenance and emergency loading district", "size": [640, 1024]}
   ],
   "assembly_contract": {
-    "geography_cycle_pixels": 3072,
+    "geography_cycle_pixels": 6144,
     "finite_machinery_cycle_pixels": 1800,
     "shared_connector_height": 48,
     "base_order": ["geography_chunk", "finite_machinery", "steam_smoke_flare", "practical_light", "cloud_shadow", "cloud_body", "mist"],

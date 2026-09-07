@@ -30,6 +30,7 @@ Implemented now:
 - finite afterburner reserve with form/altitude efficiency and Atlas tanker refuel
 - pilot-controlled dry throttle where scenery, surface contacts, recovery pods, authored encounter locations, altitude gates and command-contact arrival all use accumulated forward route distance; weapon timing and survival exposure remain real-time
 - lateral mission-airspace recovery zones with directional edge chevrons and a four-second abort countdown instead of an unexplained invisible wall
+- six-district 6144-pixel refinery routes with distinct storage, cracking, rail, flare-service, pressure-grid and evacuation-terminal geography
 - visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
 - distinct missile acquisition and launch voices for interceptor and boss homing salvos
 - mechanical purchase/service confirmation and short mission-clear reward stingers
