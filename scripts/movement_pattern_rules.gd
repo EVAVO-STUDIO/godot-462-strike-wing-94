@@ -89,3 +89,16 @@ static func clamp_x(position: Vector2, minimum_x: float, maximum_x: float) -> Ve
 	var next := position
 	next.x = clampf(next.x, minimum_x, maximum_x)
 	return next
+
+static func constrain_lateral_motion(position: Vector2, lateral_velocity: float, minimum_x: float, maximum_x: float, category: String) -> Dictionary:
+	var next := position
+	var velocity := lateral_velocity
+	if next.x < minimum_x:
+		next.x = minimum_x
+		if velocity < 0.0:
+			velocity = -velocity * 0.46 if category == "air" else 0.0
+	elif next.x > maximum_x:
+		next.x = maximum_x
+		if velocity > 0.0:
+			velocity = -velocity * 0.46 if category == "air" else 0.0
+	return {"position": next, "lateral_velocity": velocity}

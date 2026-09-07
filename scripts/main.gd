@@ -1611,11 +1611,15 @@ func _update_enemies(delta: float) -> void:
 					* float(enemy["drift"])
 					* delta
 				)
-			position = MovementPatternRules.clamp_x(
+			var constrained := MovementPatternRules.constrain_lateral_motion(
 				position,
+				float(enemy.get("lateral_velocity",0.0)),
 				PLAYFIELD.position.x + 18.0,
-				PLAYFIELD.end.x - 18.0
+				PLAYFIELD.end.x - 18.0,
+				enemy_category
 			)
+			position = constrained["position"]
+			enemy["lateral_velocity"] = constrained["lateral_velocity"]
 
 		enemy["position"] = position
 		var lateral_delta := position.x - previous_x

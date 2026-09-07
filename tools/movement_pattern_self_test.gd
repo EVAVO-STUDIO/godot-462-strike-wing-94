@@ -46,6 +46,12 @@ func _initialize() -> void:
 	_expect(MovementPatternRules.fire_recovery_multiplier(2,8)>MovementPatternRules.fire_recovery_multiplier(8,8), "damaged weapon systems should take longer to recover a firing solution")
 	var clamped := MovementPatternRules.clamp_x(Vector2(999, 100), 36.0, 604.0)
 	_expect(clamped.x == 604.0, "movement clamp should keep enemies inside playfield")
+	var air_boundary := MovementPatternRules.constrain_lateral_motion(Vector2(620,100),72.0,36.0,604.0,"air")
+	_expect(Vector2(air_boundary.position).x == 604.0 and float(air_boundary.lateral_velocity) < 0.0 and absf(float(air_boundary.lateral_velocity)) < 72.0, "aircraft should bank inward with energy loss instead of sticking to the playfield edge")
+	var road_boundary := MovementPatternRules.constrain_lateral_motion(Vector2(20,100),-14.0,36.0,604.0,"ground")
+	_expect(Vector2(road_boundary.position).x == 36.0 and is_zero_approx(float(road_boundary.lateral_velocity)), "ground vehicles should stop at their route boundary instead of bouncing")
+	var sea_boundary := MovementPatternRules.constrain_lateral_motion(Vector2(620,100),9.0,36.0,604.0,"sea")
+	_expect(Vector2(sea_boundary.position).x == 604.0 and is_zero_approx(float(sea_boundary.lateral_velocity)), "ships should stop at their water-lane boundary instead of bouncing")
 	if failures.is_empty():
 		print("Strike Wing movement pattern self-test passed.")
 		quit(0)
