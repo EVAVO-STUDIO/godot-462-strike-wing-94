@@ -1577,7 +1577,11 @@ func _draw_transform_motion_cues(surface: CanvasItem, p: Vector2, exposure: int,
 	var key := "%s_%s_%02d" % [family, layer, clampi(exposure, 0, TRANSFORM_EXPOSURES - 1)]
 	var texture := _transform_motion_cache.get(key) as Texture2D
 	if texture != null:
-		surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round())
+		# These cels describe actuator travel around the moving panels. Keeping the
+		# rear trace dimmer than the front hinge lamps prevents the cyan marks from
+		# reading as a targeting bracket locked to the player aircraft.
+		var cue_alpha := 0.66 if foreground else 0.42
+		surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round(), Color(0.82,0.94,1.0,cue_alpha))
 
 func _transform_exposure_index(ratio: float) -> int:
 	var safe_ratio := clampf(ratio, 0.0, 1.0)
