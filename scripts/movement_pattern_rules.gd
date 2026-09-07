@@ -2,7 +2,7 @@ class_name MovementPatternRules
 extends RefCounted
 
 static func supported_patterns() -> Array[String]:
-	return ["sine_dive", "tracking_sweep", "hover_strafe", "road_column", "water_lane", "static", "aggressive_weave"]
+	return ["sine_dive", "tracking_sweep", "hover_strafe", "bomber_run", "combat_orbit", "road_column", "water_lane", "static", "aggressive_weave"]
 
 static func adjusted_position(pattern: String, current: Vector2, player: Vector2, age: float, delta: float, anchor_x: float) -> Vector2:
 	return adjusted_motion(pattern,current,player,age,delta,anchor_x,0.0)["position"]
@@ -24,6 +24,16 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 			desired_velocity = sin(age * 0.92 + maneuver_phase) * 42.0
 			acceleration = 55.0
 			next.y -= 18.0 * delta
+		"bomber_run":
+			# Loaded strike aircraft commit to a stable run and make measured course corrections.
+			desired_velocity = clampf((anchor_x-next.x)*0.42 + sin(age*0.32+maneuver_phase)*7.0,-16.0,16.0)
+			acceleration = 20.0
+		"combat_orbit":
+			# Airborne sentries hold a broad standoff orbit instead of directly homing.
+			var orbit_center := player.x + sin(age*0.48+maneuver_phase)*118.0
+			desired_velocity = clampf((orbit_center-next.x)*0.36,-34.0,34.0)
+			acceleration = 38.0
+			next.y -= 10.0*delta
 		"road_column":
 			desired_velocity = clampf((anchor_x-next.x)*0.9,-18.0,18.0)
 			acceleration = 30.0

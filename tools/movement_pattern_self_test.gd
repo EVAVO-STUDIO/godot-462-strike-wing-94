@@ -16,7 +16,7 @@ func _initialize() -> void:
 		var pattern := str(enemy.get("pattern", ""))
 		seen[pattern] = true
 		_expect(pattern in MovementPatternRules.supported_patterns(), "unsupported authored pattern: %s" % pattern)
-	for required in ["sine_dive", "tracking_sweep", "hover_strafe", "road_column", "water_lane", "static", "aggressive_weave"]:
+	for required in ["sine_dive", "tracking_sweep", "hover_strafe", "bomber_run", "combat_orbit", "road_column", "water_lane", "static", "aggressive_weave"]:
 		_expect(seen.has(required), "expected authored movement pattern: %s" % required)
 	var base := Vector2(200, 100)
 	var player := Vector2(400, 200)
@@ -31,6 +31,10 @@ func _initialize() -> void:
 	_expect(absf(float(road["lateral_velocity"])) <= 3.01, "road vehicles should steer gradually within their route lane")
 	var ship := MovementPatternRules.adjusted_motion("water_lane",Vector2(200,100),player,1.0,0.1,200.0,0.0)
 	_expect(absf(float(ship["lateral_velocity"])) <= 1.21, "ships should change heading with heavy waterborne inertia")
+	var bomber := MovementPatternRules.adjusted_motion("bomber_run",Vector2(240,100),player,1.0,0.1,200.0,0.0)
+	_expect(absf(float(bomber["lateral_velocity"])) <= 2.01, "loaded bombers should make measured course corrections")
+	var sentry := MovementPatternRules.adjusted_motion("combat_orbit",base,player,1.0,0.1,200.0,0.0)
+	_expect(float(sentry["position"].y) < base.y and absf(float(sentry["lateral_velocity"])) <= 3.81, "airborne sentries should establish a controlled standoff orbit")
 	var clamped := MovementPatternRules.clamp_x(Vector2(999, 100), 36.0, 604.0)
 	_expect(clamped.x == 604.0, "movement clamp should keep enemies inside playfield")
 	if failures.is_empty():

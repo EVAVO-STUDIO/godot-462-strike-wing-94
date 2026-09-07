@@ -154,7 +154,7 @@ func _test_movement_patterns() -> void:
 		if bool(enemy.get("boss", false)): continue
 		var pattern := str(enemy.get("pattern", "")); seen[pattern] = true
 		_expect(pattern in supported, "unsupported authored movement pattern: %s" % pattern)
-	for required in ["sine_dive", "tracking_sweep", "hover_strafe", "road_column", "water_lane", "static", "aggressive_weave"]:
+	for required in ["sine_dive", "tracking_sweep", "hover_strafe", "bomber_run", "combat_orbit", "road_column", "water_lane", "static", "aggressive_weave"]:
 		_expect(seen.has(required), "missing authored movement pattern: %s" % required)
 	var base := Vector2(200,100); var player := Vector2(400,200)
 	_expect(MovementPatternRules.adjusted_position("tracking_sweep", base, player, 1.0, 1.0, 200.0).x > base.x, "tracking sweep should move toward player")
