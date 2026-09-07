@@ -1738,15 +1738,19 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 		enemy["salvo_station_count"] = boss_origins.size()
 		for index in range(boss_origins.size()):
 			var boss_origin: Vector2 = boss_origins[index]
-			var boss_velocity := ProjectileRules.enemy_shot_velocity(
+			var boss_velocity := ProjectileRules.enemy_intercept_velocity(
 				boss_origin,
 				player_position,
+				Vector2(player_lateral_velocity, 0.0),
 				_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 			).rotated([-0.16, 0.0, 0.16][index])
 			enemy_bullets.append(_make_enemy_shot(boss_origin, boss_velocity, damage, false, weapon_id))
+		enemy["last_shot_direction"] = Vector2(enemy_bullets.back()["velocity"]).normalized()
 		return
 	var projectile_speed := _difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
-	var velocity := ProjectileRules.fixed_aircraft_shot_velocity(float(enemy.get("lateral_velocity",0.0)),projectile_speed) if ProjectileRules.uses_fixed_aircraft_gun(str(enemy.get("category","air")),str(enemy.get("pattern","")),weapon_id,bool(enemy.get("boss",false))) else ProjectileRules.enemy_shot_velocity(origin,player_position,projectile_speed)
+	var fixed_gun := ProjectileRules.uses_fixed_aircraft_gun(str(enemy.get("category","air")),str(enemy.get("pattern","")),weapon_id,bool(enemy.get("boss",false)))
+	var velocity := ProjectileRules.fixed_aircraft_shot_velocity(float(enemy.get("lateral_velocity",0.0)),projectile_speed) if fixed_gun else ProjectileRules.enemy_intercept_velocity(origin,player_position,Vector2(player_lateral_velocity,0.0),projectile_speed)
+	enemy["last_shot_direction"] = velocity.normalized()
 	var is_missile := weapon_id == "missile"
 	if weapon_id == "twin_burst":
 		for gun_origin in ProjectileRules.twin_gun_origins(origin,velocity):

@@ -34,6 +34,13 @@ static func enemy_shot_velocity(origin: Vector2, target: Vector2, speed: float) 
 		direction = Vector2.DOWN
 	return direction * speed
 
+static func enemy_intercept_velocity(origin: Vector2, target: Vector2, target_velocity: Vector2, speed: float, maximum_lead_seconds: float = 0.85) -> Vector2:
+	var safe_speed := maxf(1.0, speed)
+	var lead_time := clampf(origin.distance_to(target) / safe_speed, 0.0, maxf(0.0, maximum_lead_seconds))
+	var predicted := target + target_velocity * lead_time
+	lead_time = clampf(origin.distance_to(predicted) / safe_speed, 0.0, maxf(0.0, maximum_lead_seconds))
+	return enemy_shot_velocity(origin, target + target_velocity * lead_time, safe_speed)
+
 static func uses_fixed_aircraft_gun(category: String, pattern: String, weapon_id: String, boss: bool = false) -> bool:
 	return category == "air" and not boss and pattern in FIXED_GUN_PATTERNS and weapon_id not in ["missile", "side_burst"]
 

@@ -2026,6 +2026,9 @@ static func hostile_airframe_weapon_direction(origin: Vector2, target: Vector2, 
 		bool(enemy.get("boss", false))
 	):
 		return ProjectileRules.fixed_aircraft_shot_velocity(float(enemy.get("lateral_velocity", 0.0)), 1.0).normalized()
+	var fired_direction := Vector2(enemy.get("last_shot_direction", Vector2.ZERO))
+	if fired_direction.length_squared() > 0.001:
+		return fired_direction.normalized()
 	var direction := origin.direction_to(target)
 	return direction if direction.length_squared() > 0.001 else Vector2.DOWN
 
