@@ -45,6 +45,9 @@ const NAVAL_SINK_SECONDS := 1.35
 const PLAYER_HIT_SECONDS := 0.18
 const SHIELD_BREAK_SECONDS := 0.34
 const STRATEGIC_SITE_DESTRUCTION_SECONDS := 1.28
+const MISSILE_BLAST_SCALE := 3.65
+const SURFACE_BLAST_SCALE := 3.35
+const CANNON_KILL_SCALE := 2.80
 const STRATEGIC_SITES := ["strategic_silo", "ammo_depot", "ballistic_launcher"]
 const NAVAL_WRECK_HULLS := {
 	"river_patrol": preload("res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png"),
@@ -420,7 +423,10 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(blast_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 		var fireball_size := roundf(max_size*3.45)
 		surface.draw_texture_rect(fireball,Rect2((p-Vector2.ONE*fireball_size*0.5).round(),Vector2.ONE*fireball_size),false,Color(1,1,1,0.92-smoothstep(0.68,1.0,blast_clock)*0.72))
-	var scale_factor := 5.80 if impact_family == "missile" else (5.60 if impact_family in ["rocket", "bomb"] else 2.80)
+	# Preserve the authored 64-pixel cel silhouette. Earlier 5.6x/5.8x
+	# enlargement made every warhead a square, screen-covering bloom and erased
+	# the wreck/debris consequence that communicates mass and lethality.
+	var scale_factor := MISSILE_BLAST_SCALE if impact_family == "missile" else (SURFACE_BLAST_SCALE if impact_family in ["rocket", "bomb"] else CANNON_KILL_SCALE)
 	if boss: scale_factor = 2.35
 	var draw_size := roundf(max_size * scale_factor)
 	var detonation_grade := Color(1.0,0.78,0.56,1.0) if impact_family == "missile" and not boss else Color.WHITE
