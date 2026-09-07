@@ -263,6 +263,13 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains('var cue := " WEAK" if phase >= 3'), "phase-three boss HUD should retain weak-point cue")
 		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
 		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAMES"), "gameplay HUD should use authored raster frame and meter families")
+		_expect(source.contains("HUD_TACTICAL_RADAR_SCOPE") and source.contains("HUD_TACTICAL_RADAR_CONTACTS") and source.contains("func _draw_tactical_radar"), "gameplay HUD should expose a sprite-authored tactical picture of the forward battlespace")
+		_expect(source.contains('"protected": preload') and source.contains('"missile": preload') and source.contains('"objective": preload'), "tactical radar should distinguish protected, missile and objective contacts from combat targets")
+		for radar_asset in ["scope","player","air","ground","sea","boss","missile","objective","protected"]:
+			var radar_texture := load("res://assets/runtime/ui/hud/tactical_radar/%s.png" % radar_asset)
+			var expected_size := Vector2(120,76) if radar_asset == "scope" else Vector2(8,8)
+			_expect(radar_texture is Texture2D and radar_texture.get_size() == expected_size, "tactical radar art should retain registered geometry: "+radar_asset)
+		_expect(FileAccess.file_exists("res://assets/source/ui/hud/tactical_radar_v1/manifest.json"), "tactical radar source/runtime manifest should exist")
 		for hud_path in ["top_frame.png", "meter_trough.png", "hull_fill.png", "shield_fill.png", "energy_fill.png", "status_frame.png", "boss_frame.png", "boss_trough.png", "boss_fill.png", "threat_frame.png", "icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png", "afterburner_frame.png", "afterburner_trough.png", "afterburner_fill.png", "stability_trough.png", "stability_fill.png"]:
 			_expect(FileAccess.file_exists("res://assets/runtime/ui/hud/%s" % hud_path), "missing authored HUD sprite: %s" % hud_path)
 		for primary_meter in ["hull_frame", "shield_frame", "energy_frame", "hull_warning_frame", "shield_warning_frame", "energy_warning_frame"]:

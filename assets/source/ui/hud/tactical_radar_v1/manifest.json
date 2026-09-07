@@ -1,0 +1,10 @@
+{
+  "family": "tactical_radar_v1",
+  "studio": "EVAVO Art Studio",
+  "style": "late-1990s military CRT scope",
+  "scope_geometry": [120, 76],
+  "contact_geometry": [8, 8],
+  "contacts": ["player", "air", "ground", "sea", "boss", "missile", "objective", "protected"],
+  "builder": "tools/build_tactical_radar_art.py",
+  "purpose": "show lateral bearing and forward depth for combat, objective, missile and protected contacts"
+}

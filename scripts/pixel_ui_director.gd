@@ -117,6 +117,17 @@ const HUD_ICON_BOMB := preload("res://assets/runtime/ui/hud/icon_bomb.png")
 const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
 const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
+const HUD_TACTICAL_RADAR_SCOPE := preload("res://assets/runtime/ui/hud/tactical_radar/scope.png")
+const HUD_TACTICAL_RADAR_CONTACTS := {
+	"player": preload("res://assets/runtime/ui/hud/tactical_radar/player.png"),
+	"air": preload("res://assets/runtime/ui/hud/tactical_radar/air.png"),
+	"ground": preload("res://assets/runtime/ui/hud/tactical_radar/ground.png"),
+	"sea": preload("res://assets/runtime/ui/hud/tactical_radar/sea.png"),
+	"boss": preload("res://assets/runtime/ui/hud/tactical_radar/boss.png"),
+	"missile": preload("res://assets/runtime/ui/hud/tactical_radar/missile.png"),
+	"objective": preload("res://assets/runtime/ui/hud/tactical_radar/objective.png"),
+	"protected": preload("res://assets/runtime/ui/hud/tactical_radar/protected.png"),
+}
 const SUPPORT_LINK_TROUGH := preload("res://assets/runtime/ui/hud/support_link/trough.png")
 const SUPPORT_LINK_TACTICAL_FILL := preload("res://assets/runtime/ui/hud/support_link/tactical_fill.png")
 const SUPPORT_LINK_BATTLEFIELD_FILL := preload("res://assets/runtime/ui/hud/support_link/battlefield_fill.png")
@@ -708,6 +719,7 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	# permanent strip visually solid without extending into the warning lane.
 	surface.draw_rect(Rect2(8, 5, 624, 30), Color(0.018, 0.035, 0.048, 0.97))
 	surface.draw_texture(HUD_TOP_FRAME, Vector2(8, 5))
+	_draw_tactical_radar(surface,scene)
 	var max_hull := _call_int(scene, "_max_hull", 100)
 	var max_shield := _call_int(scene, "_max_shield", 100)
 	var generator := _call_dictionary(scene, "_active_generator")
@@ -767,6 +779,56 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 			if egress_priority or (not _altitude_choice_active(scene) and not _radio_occupies_status_lane()):
 				surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
 				PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, GOLD, 1)
+
+func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
+	var scope_position := Vector2(8,40)
+	surface.draw_texture(HUD_TACTICAL_RADAR_SCOPE,scope_position)
+	var player: Vector2 = scene.get("player_position") if _has_property(scene,"player_position") else Vector2(320,250)
+	var contacts: Array = []
+	if _has_property(scene,"enemies") and typeof(scene.get("enemies")) == TYPE_ARRAY:
+		contacts = scene.get("enemies").duplicate()
+	if _has_property(scene,"protected_contacts") and typeof(scene.get("protected_contacts")) == TYPE_ARRAY:
+		for protected_contact in scene.get("protected_contacts"):
+			if typeof(protected_contact) == TYPE_DICTIONARY:
+				var marked: Dictionary = protected_contact.duplicate()
+				marked["protected"] = true
+				contacts.append(marked)
+	if "--capture-radar" in OS.get_cmdline_user_args():
+		contacts.append({"position":player+Vector2(-230,-470),"protected":true})
+		contacts.append({"position":player+Vector2(210,-390),"objective":true,"category":"ground"})
+	var shown := 0
+	for contact in contacts:
+		if typeof(contact) != TYPE_DICTIONARY or not contact.has("position"): continue
+		_draw_tactical_radar_contact(surface,scope_position,player,contact)
+		shown += 1
+		if shown >= 18: break
+	if _has_property(scene,"enemy_bullets") and typeof(scene.get("enemy_bullets")) == TYPE_ARRAY:
+		for projectile in scene.get("enemy_bullets"):
+			if typeof(projectile) != TYPE_DICTIONARY or not bool(projectile.get("homing",false)): continue
+			_draw_tactical_radar_contact(surface,scope_position,player,{"position":projectile.get("position",player),"missile":true})
+			shown += 1
+			if shown >= 22: break
+	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(56,59))
+	PixelFont.draw_text(surface,"TAC %02d"%mini(shown,99),scope_position+Vector2(8,4),1,GREEN,1)
+	PixelFont.draw_text(surface,"AHEAD",scope_position+Vector2(82,4),1,MUTED,1)
+
+func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, player: Vector2, contact: Dictionary) -> void:
+	var world_position: Vector2 = contact.get("position",player)
+	var relative := world_position-player
+	var scope_point := Vector2(
+		clampf(60.0+relative.x*0.105,14.0,106.0),
+		clampf(61.0+relative.y*0.125,16.0,62.0)
+	)
+	var kind := "air"
+	if bool(contact.get("protected",false)) or str(contact.get("faction","")) == "civilian": kind = "protected"
+	elif bool(contact.get("missile",false)): kind = "missile"
+	elif bool(contact.get("objective",false)): kind = "objective"
+	elif bool(contact.get("boss",false)): kind = "boss"
+	else:
+		var category := str(contact.get("category",contact.get("class","air")))
+		kind = "ground" if category == "ground" else ("sea" if category == "sea" else "air")
+	var icon: Texture2D = HUD_TACTICAL_RADAR_CONTACTS.get(kind,HUD_TACTICAL_RADAR_CONTACTS["air"])
+	surface.draw_texture(icon,(scope_position+scope_point-Vector2(4,4)).round())
 
 func _altitude_choice_active(scene: Object) -> bool:
 	var presentation := get_node_or_null("/root/AltitudeTransitionDirector")
