@@ -834,6 +834,13 @@ func _test_projectile_art() -> void:
 			var frame := load("res://assets/runtime/effects/projectiles/%s/%d.png" % [family, frame_index])
 			_expect(frame is Texture2D and frame.get_size() == Vector2(16,24), "projectile frame should retain registered 16x24 geometry: %s/%d" % [family, frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/effects/projectiles/projectile_asset_manifest.json"), "projectile source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/effects/projectiles/homing_missile_v2/manifest.json"), "hostile guided missile should retain its fixed-airframe source/runtime manifest")
+	var missile_reference := (load("res://assets/runtime/effects/projectiles/homing_missile/0.png") as Texture2D).get_image()
+	for frame_index in range(1,4):
+		var missile_frame := (load("res://assets/runtime/effects/projectiles/homing_missile/%d.png" % frame_index) as Texture2D).get_image()
+		for y in range(14):
+			for x in range(16):
+				_expect(missile_frame.get_pixel(x,y) == missile_reference.get_pixel(x,y), "guided missile airframe must remain fixed while exhaust animates: frame %d pixel %d,%d" % [frame_index,x,y])
 	_expect(FileAccess.file_exists("res://assets/source/effects/storm_pulse_v2/runtime_integration.json"), "Storm pulse should retain its reviewed runtime integration receipt")
 	_expect(FileAccess.file_exists("res://assets/source/effects/combat_fx_v2/combat_fx_v2_manifest.json"), "combat FX v2 source/runtime contract should exist")
 	var strike_source := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)

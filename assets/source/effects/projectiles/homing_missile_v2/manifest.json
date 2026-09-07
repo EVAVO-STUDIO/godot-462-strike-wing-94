@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "identity": "hostile heat-seeking missile in flight",
+  "canvas": [
+    16,
+    24
+  ],
+  "pivot": [
+    8,
+    7
+  ],
+  "frames": 4,
+  "invariants": [
+    "fixed airframe silhouette",
+    "fixed seeker and fin registration",
+    "exhaust animation only"
+  ],
+  "style": "late-90s military cel ordnance; pale body, red identification band, hot chemical exhaust"
+}
