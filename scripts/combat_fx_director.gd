@@ -392,7 +392,13 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	elif not boss and impact_family == "cannon": frames = CANNON_SPARK_FRAMES
 	var frame_index := clampi(int(floor(blast_ratio * float(frames.size()))), 0, frames.size() - 1)
 	var frame: Texture2D = frames[frame_index]
-	var scale_factor := 5.20 if impact_family == "missile" else (4.20 if impact_family in ["rocket", "bomb"] else 2.80)
+	# A killing cannon burst ruptures the target behind the short impact spark.
+	# Nonlethal cannon hits stay in _draw_hit and never receive this fireball.
+	if not boss and impact_family == "cannon":
+		var fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(blast_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
+		var fireball_size := roundf(max_size*3.45)
+		surface.draw_texture_rect(fireball,Rect2((p-Vector2.ONE*fireball_size*0.5).round(),Vector2.ONE*fireball_size),false,Color(1,1,1,0.92-smoothstep(0.68,1.0,blast_clock)*0.72))
+	var scale_factor := 5.80 if impact_family == "missile" else (5.60 if impact_family in ["rocket", "bomb"] else 2.80)
 	if boss: scale_factor = 2.35
 	var draw_size := roundf(max_size * scale_factor)
 	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, Color(1,1,1,1.0-smoothstep(0.68,1.0,blast_clock)))
