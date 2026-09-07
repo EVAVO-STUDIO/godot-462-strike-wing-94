@@ -321,7 +321,7 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 				_tanker_progress = BattlefieldSupportRules.TANKER_REQUIRED_SECONDS * 0.62
 				_draw_tanker(surface, true)
 			"fighter": _draw_fighter_sweep(surface, 0.46)
-			"bomber": _draw_bomber_run(surface, 0.52)
+			"bomber": _draw_bomber_run(surface, 0.68)
 			"gunship": _draw_gunship_fire(surface, 0.56)
 			"missile": _draw_missile_strike(surface, 0.72)
 			"missile_impact": _draw_missile_strike(surface, 0.89)
@@ -383,6 +383,18 @@ func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
 		if progress > 0.35:
 			var bomb := BattlefieldSupportArtLibrary.effect("strike_bomb")
 			surface.draw_texture(bomb, (p + Vector2(-8, 8 + 24.0 * (progress - 0.35))).round())
+		var detonation_start := 0.48 + float(i) * 0.07
+		if progress > detonation_start:
+			var blast_ratio := clampf((progress-detonation_start)/0.34,0.0,0.999)
+			var impact_position := _visual_target + Vector2(float(i-1)*52.0,float(abs(i-1))*14.0)
+			var impact := BattlefieldSupportArtLibrary.strike_cel("bomb_impact",blast_ratio)
+			var impact_size := Vector2.ONE*lerpf(84.0,118.0,blast_ratio)
+			surface.draw_texture_rect(impact,Rect2((impact_position-impact_size*0.5).round(),impact_size.round()),false)
+			if blast_ratio < 0.64:
+				var core_ratio := blast_ratio*0.58
+				var core := BattlefieldSupportArtLibrary.strike_cel("detonation_core",core_ratio)
+				var core_size := Vector2.ONE*lerpf(36.0,68.0,core_ratio)
+				surface.draw_texture_rect(core,Rect2((impact_position-core_size*0.5).round(),core_size.round()),false,Color(1.0,0.76,0.48,0.96-core_ratio*0.38))
 
 func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 	var p := Vector2(552, 118 + sin(progress * PI) * 8.0)
