@@ -50,6 +50,18 @@
       ],"animation_slots":[]
     },
     {
+      "id":"harbor_blackout_approach","environment":"coast","native_width":640,"chunk_height":1024,"world_length":6144,
+      "planes":[{"id":"geography","kind":"chunk_route","ratio":1.0},{"id":"cranes_and_ships","kind":"registered_objects","ratio":1.0},{"id":"water_reflection","kind":"registered_animation","ratio":1.0},{"id":"rain","kind":"finite_field","ratio":1.16}],
+      "districts":[
+        {"id":"outer_breakwater","asset":"res://assets/runtime/environments/harbor_chunks/outer_breakwater.png","north":"harbor_a","south":"harbor_a"},
+        {"id":"repair_basin","asset":"res://assets/runtime/environments/harbor_chunks/repair_basin.png","north":"harbor_a","south":"harbor_a"},
+        {"id":"command_docks","asset":"res://assets/runtime/environments/harbor_chunks/command_docks.png","north":"harbor_a","south":"harbor_a"},
+        {"id":"offshore_mole","asset":"res://assets/runtime/environments/harbor_chunks/offshore_mole.png","north":"harbor_a","south":"harbor_a"},
+        {"id":"drydock_row","asset":"res://assets/runtime/environments/harbor_chunks/drydock_row.png","north":"harbor_a","south":"harbor_a"},
+        {"id":"blackout_basin","asset":"res://assets/runtime/environments/harbor_chunks/blackout_basin.png","north":"harbor_a","south":"harbor_a"}
+      ],"animation_slots":[]
+    },
+    {
       "id": "cloud_top_silver_front",
       "environment": "high_cloud",
       "native_width": 640,

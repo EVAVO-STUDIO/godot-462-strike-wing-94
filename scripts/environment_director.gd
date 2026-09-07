@@ -67,6 +67,9 @@ const HARBOR_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/harbor_chunks/outer_breakwater.png"),
 	preload("res://assets/runtime/environments/harbor_chunks/repair_basin.png"),
 	preload("res://assets/runtime/environments/harbor_chunks/command_docks.png"),
+	preload("res://assets/runtime/environments/harbor_chunks/offshore_mole.png"),
+	preload("res://assets/runtime/environments/harbor_chunks/drydock_row.png"),
+	preload("res://assets/runtime/environments/harbor_chunks/blackout_basin.png"),
 ]
 const CLOUD_TOP_GEOGRAPHY_CHUNKS := [
 	preload("res://assets/runtime/environments/cloud_top_chunks/anvil_wells.png"),
@@ -400,11 +403,11 @@ func _draw_registered_harbor_crane(surface: CanvasItem, scene: Object, state: Di
 	# The crane base stays on the repair-basin quay while its boom reaches over the
 	# authored water channel. It remains a separate target/event layer rather than
 	# being baked into repeating geography or dropped at a random seeded X.
-	var scroll := _world_distance(scene) * 29.0 + float(_mission_seed(scene) % 3) * 1024.0
+	var scroll := _world_distance(scene) * 29.0 + float(_mission_seed(scene) % 6) * 1024.0
 	var scale := 0.78 + _ground_scale(state) * 0.34
 	var size := texture.get_size() * scale
 	var crane_world_y := 1500.0
-	var center_y := fposmod(crane_world_y + scroll, 3072.0) + ENVIRONMENT_VIEW.position.y
+	var center_y := fposmod(crane_world_y + scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
 	var y := center_y - size.y * 0.5
 	if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
 		return
@@ -903,8 +906,12 @@ func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary,
 
 func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
-	var scroll := _world_distance(scene) * 29.0 + float(_mission_seed(scene) % 3) * 1024.0
-	_draw_vertical_chunk_sequence(surface, HARBOR_GEOGRAPHY_CHUNKS, scroll, ENVIRONMENT_VIEW)
+	var scroll := _world_distance(scene) * 29.0
+	var route := _route("harbor_blackout_approach")
+	var route_chunks := _textures_for_route(route)
+	if route_chunks.is_empty(): route_chunks = HARBOR_GEOGRAPHY_CHUNKS
+	var route_scroll := scroll + float(_mission_seed(scene) % route_chunks.size()) * 1024.0
+	_draw_vertical_chunk_sequence(surface, route_chunks, route_scroll, ENVIRONMENT_VIEW)
 	surface.draw_rect(ENVIRONMENT_VIEW, Color(0.008, 0.018, 0.032, 0.12))
 	var reflection_slots := [
 		{"x":286.0,"y":130.0}, {"x":340.0,"y":620.0}, {"x":304.0,"y":1110.0},
@@ -913,7 +920,7 @@ func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t
 	for slot_index in range(reflection_slots.size()):
 		var slot: Dictionary = reflection_slots[slot_index]
 		var reflection: Texture2D = HARBOR_REFLECTION_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2,HARBOR_REFLECTION_ANIMATION.size())]
-		var y := fposmod(float(slot["y"]) + scroll,3072.0) + ENVIRONMENT_VIEW.position.y
+		var y := fposmod(float(slot["y"]) + route_scroll,6144.0) + ENVIRONMENT_VIEW.position.y
 		_draw_texture_rect_clipped(surface,reflection,Rect2(Vector2(float(slot["x"]),y).round(),Vector2(128,224)),ENVIRONMENT_VIEW,Color(0.72,0.80,0.82,0.34))
 
 func _draw_city_outskirts(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:

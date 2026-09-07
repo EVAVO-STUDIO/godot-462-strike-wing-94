@@ -35,6 +35,9 @@ func _initialize() -> void:
 		var mountain_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "mountain_whiteout_corridor")
 		_expect(not mountain_route.is_empty() and EnvironmentRouteRules.validation_errors(mountain_route).is_empty(), "mountain corridor should resolve a valid expanded production route")
 		_expect(mountain_route.get("districts", []).size() == 6 and int(mountain_route.get("world_length", 0)) == 6144, "mountain route should provide six distinct 1024px districts before repeating")
+		var harbor_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "harbor_blackout_approach")
+		_expect(not harbor_route.is_empty() and EnvironmentRouteRules.validation_errors(harbor_route).is_empty(), "night harbor should resolve a valid expanded production route")
+		_expect(harbor_route.get("districts", []).size() == 6 and int(harbor_route.get("world_length", 0)) == 6144, "harbor route should provide six distinct 1024px districts before repeating")
 		var cloud_route := EnvironmentRouteRules.by_id(route_data.get("routes", []), "cloud_top_silver_front")
 		_expect(not cloud_route.is_empty(), "Cloud Top should resolve its data-authored production route")
 		_expect(EnvironmentRouteRules.validation_errors(cloud_route).is_empty(), "Cloud Top route should satisfy width, length, uniqueness, asset and connector contracts")
@@ -103,7 +106,7 @@ func _initialize() -> void:
 		_expect(source.contains("DESERT_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "desert benchmark should assemble registered authored battlefield geography chunks")
 		_expect(source.contains("RIVER_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "river benchmark should assemble registered authored floodplain geography chunks")
 		_expect(source.contains("MOUNTAIN_GEOGRAPHY_CHUNKS") and source.contains('_route("mountain_whiteout_corridor")'), "mountain benchmark should use its expanded data-authored route")
-		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence"), "harbor benchmark should assemble registered authored naval-port geography chunks")
+		_expect(source.contains("HARBOR_GEOGRAPHY_CHUNKS") and source.contains('_route("harbor_blackout_approach")'), "harbor benchmark should use its expanded data-authored route")
 		_expect(source.contains('EnvironmentRouteRules.by_id(_routes, route_id)') and source.contains('_route("cloud_top_silver_front")'), "high-altitude benchmark should resolve its authored route from content data")
 		_expect(source.contains("ORBITAL_GEOGRAPHY_CHUNKS") and source.contains("_draw_vertical_chunk_sequence(surface, ORBITAL_GEOGRAPHY_CHUNKS"), "orbital benchmark should use three forward-scrolling authored infrastructure districts")
 		_expect(source.contains("CITY_GEOGRAPHY_CHUNKS") and source.contains('_route("city_meridian_evacuated")'), "city belt should use its expanded data-authored route")
@@ -413,8 +416,10 @@ func _initialize() -> void:
 		_expect(harbor_builder.contains("harbor_geography_source_v2.png") and harbor_builder.contains("640x1024+1280+0") and not harbor_builder.contains("-resize '640x1024!'"), "harbor build should crop native-width districts instead of stretching undersized plates")
 		_expect(FileAccess.file_exists("res://tools/build_harbor_crane_art.ps1"), "harbor crane should retain a reproducible source finisher")
 		var harbor_manifest = ContentCatalog.load_json("res://assets/source/environments/harbor_chunks/harbor_geography_manifest.json")
-		_expect(typeof(harbor_manifest) == TYPE_DICTIONARY and harbor_manifest.get("chunks", []).size() == 3, "harbor manifest should register three distinct 1024px port districts")
-		var harbor_names := ["outer_breakwater", "repair_basin", "command_docks"]
+		_expect(typeof(harbor_manifest) == TYPE_DICTIONARY and harbor_manifest.get("chunks", []).size() == 6 and int(harbor_manifest.get("cycle_height", 0)) == 6144, "harbor manifest should register six distinct 1024px port districts")
+		var harbor_names := ["outer_breakwater", "repair_basin", "command_docks", "offshore_mole", "drydock_row", "blackout_basin"]
+		var harbor_expansion_builder := FileAccess.get_file_as_string("res://tools/build_harbor_route_expansion.py")
+		_expect(harbor_expansion_builder.contains("Image.Transpose.FLIP_LEFT_RIGHT") and harbor_expansion_builder.contains("expanded_districts") and harbor_expansion_builder.contains("reflections"), "harbor expansion should retain deterministic source composition and independent water animation")
 		var harbor_images: Array[Image] = []
 		for chunk_name in harbor_names:
 			var harbor_texture := load("res://assets/runtime/environments/harbor_chunks/%s.png" % chunk_name) as Texture2D
@@ -427,7 +432,7 @@ func _initialize() -> void:
 			var reflection_frame := load("res://assets/runtime/environments/harbor_reflection_animation/reflection_%d.png" % frame_index) as Texture2D
 			_expect(reflection_frame != null and reflection_frame.get_size() == Vector2(128,224), "harbor reflection should retain shared 128x224 registration: %d" % frame_index)
 			if reflection_frame != null: _expect(reflection_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "harbor reflection frame must retain genuine alpha: %d" % frame_index)
-		_expect(source.contains("HARBOR_REFLECTION_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + scroll'), "harbor reflections should use held frames registered to forward-moving geography world coordinates")
+		_expect(source.contains("HARBOR_REFLECTION_ANIMATION") and source.contains("floor(t * 6.0)") and source.contains('float(slot["y"]) + route_scroll'), "harbor reflections should use held frames registered to the expanded geography coordinate")
 		_expect(not source.contains("_draw_vertical_loop(surface, HARBOR_REFLECTION_TILE"), "harbor presentation must not regress to full-screen schematic reflection tiling")
 		_expect(source.contains("_draw_registered_harbor_crane") and source.contains("crane_world_y := 1500.0"), "harbor crane should align to the repair-basin quay")
 		_expect(source.contains("fposmod(-source_y") and source.contains("_world_speed_multiplier()"), "positive world speed should move tiled and chunked geography downward past the player")
