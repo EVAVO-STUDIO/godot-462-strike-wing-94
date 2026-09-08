@@ -1977,6 +1977,7 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 	if HOSTILE_BANK_FRAMES.has(enemy_id) and bank_index != 1:
 		var bank_frames: Array = HOSTILE_BANK_FRAMES[enemy_id]
 		visible_hull = bank_frames[bank_index]
+	_render_airframe_maneuver_vapor(surface, p, enemy_id, enemy, visible_hull)
 	_render_airframe_shadow(surface, p, visible_hull, enemy_id)
 	_render_airframe_cel_key(surface, p, visible_hull)
 	if MACHINE_AIR_SPRITES.has(enemy_id):
@@ -2004,6 +2005,30 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 	elif ORBITAL_AIR_SPRITES.has(enemy_id):
 		_render_orbital_air_specialist(surface, p, enemy_id, enemy, bank_index)
 	_render_airframe_weapon_discharge(surface, p, enemy_id, enemy, visible_hull)
+
+func _render_airframe_maneuver_vapor(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
+	if not enemy_id in ["scout_falcon", "ace_interceptor"]:
+		return
+	var bank := float(enemy.get("visual_bank", 0.0))
+	var bank_load := clampf((absf(bank) - 0.42) / 0.58, 0.0, 1.0)
+	var forward_speed := maxf(0.0, float(enemy.get("speed", 0.0)))
+	var speed_load := clampf((forward_speed - 82.0) / 82.0, 0.0, 1.0)
+	var vapor_strength := bank_load * speed_load
+	if vapor_strength <= 0.02:
+		return
+	var lateral_velocity := float(enemy.get("lateral_velocity", 0.0))
+	var trail_direction := Vector2(-clampf(lateral_velocity / maxf(forward_speed, 48.0), -0.42, 0.42), -1.0).normalized()
+	var frame := PersistentEffectArtLibrary.FRAMES["contrail"][posmod(int(floor(float(enemy.get("age", 0.0)) * 8.0)), 4)] as Texture2D
+	var half_span := hull.get_width() * 0.34
+	var trail_length := lerpf(0.66, 1.06, vapor_strength)
+	var turn_angle := Vector2.UP.angle_to(trail_direction)
+	for side_value in [-1.0, 1.0]:
+		var side := float(side_value)
+		var wingtip := p + Vector2(side * half_span, -hull.get_height() * 0.02)
+		var center := wingtip + trail_direction * (frame.get_height() * trail_length * 0.38 + 2.0)
+		surface.draw_set_transform(center.round(), turn_angle, Vector2(0.30, trail_length))
+		surface.draw_texture(frame, -frame.get_size() * 0.5, Color(0.86, 0.92, 0.94, lerpf(0.12, 0.34, vapor_strength)))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _render_airframe_cel_key(surface: CanvasItem, p: Vector2, texture: Texture2D) -> void:
 	# A one-pixel cool ink key keeps low-contrast military paint readable over
