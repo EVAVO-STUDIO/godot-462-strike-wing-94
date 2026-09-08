@@ -50,6 +50,19 @@ def tapered_streak(draw, start, end, colour, width):
                    (end[0]-nx*0.12,end[1]-ny*0.12),(start[0]-nx,start[1]-ny)], colour)
 
 
+def pressure_arc(draw, cx, cy, radius, start, end, colour, width, rng, flatten=0.92):
+    """Draw an uneven held-cel condensation arc without a geometric ring."""
+    steps = max(5, int((end - start) * 8.0))
+    points = []
+    for step in range(steps + 1):
+        ratio = step / steps
+        angle = start + (end - start) * ratio
+        wobble = 1.0 + math.sin(angle * 3.0 + 0.7) * 0.025 + rng.uniform(-0.018, 0.018)
+        points.append((cx + math.cos(angle) * radius * wobble,
+                       cy + math.sin(angle) * radius * wobble * flatten))
+    line(draw, points, colour, width)
+
+
 def finish(image: Image.Image, size: int) -> Image.Image:
     return image.resize((size, size), Image.Resampling.LANCZOS)
 
@@ -97,8 +110,12 @@ def missile_frame(index: int, count: int = 11) -> Image.Image:
     if t < 0.34:
         ring = 8.0 + t * 170.0
         alpha = int(210*(1.0-t/0.34))
-        draw.arc(tuple(int(v*SCALE) for v in (cx-ring,cy-ring,cx+ring,cy+ring)),8,162,fill=(255,224,159,alpha),width=2*SCALE)
-        draw.arc(tuple(int(v*SCALE) for v in (cx-ring,cy-ring,cx+ring,cy+ring)),188,344,fill=(255,193,91,alpha),width=2*SCALE)
+        front_rng = random.Random(9640)
+        pressure_arc(draw,cx,cy,ring,-0.12,1.23,(221,244,247,alpha),1.55,front_rng)
+        pressure_arc(draw,cx,cy,ring,1.74,2.72,(196,229,237,int(alpha*0.78)),1.25,front_rng)
+        pressure_arc(draw,cx,cy,ring,3.18,5.38,(214,240,244,int(alpha*0.88)),1.45,front_rng)
+        if t > 0.08:
+            pressure_arc(draw,cx,cy,ring*0.84,3.54,4.72,(151,207,222,int(alpha*0.38)),0.8,front_rng,0.88)
     for fragment in range(10):
         angle = fragment * math.tau / 10.0 + rng.uniform(-0.25, 0.25)
         distance = radius * rng.uniform(0.72, 1.45)
@@ -230,7 +247,7 @@ def main():
             "rocket": {"frames": 8, "size": [128,128], "motion": "ground-coupled-dirt-flame-column-fragment"},
             "cannon": {"frames": 6, "size": [64,64], "motion": "directional-hot-metal-spall"},
         },
-        "rules": ["No full-screen bloom", "No circular particle rosette", "Smoke and debris outlive the hot core", "Ground bursts remain vertically biased"],
+        "rules": ["No full-screen bloom", "No circular particle rosette", "Missile pressure fronts use broken cool condensation contours", "Smoke and debris outlive the hot core", "Ground bursts remain vertically biased"],
     }
     SOURCE.mkdir(parents=True, exist_ok=True)
     (SOURCE / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

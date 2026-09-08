@@ -67,7 +67,7 @@ func _test_production_art() -> void:
 		_expect(bomb_impact_frame is Texture2D and bomb_impact_frame.get_size() == Vector2(128,128), "Hammer strike should retain its authored bomb impact exposure: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/effects/weapon_explosions_v2/manifest.json"), "weapon explosion v2 source/runtime contract should exist")
 	var explosion_builder := FileAccess.get_file_as_string("res://tools/build_weapon_explosion_cels_v2.py")
-	_expect(explosion_builder.contains("flash-pressure-fireball-smoke-fragment") and explosion_builder.contains("ground-coupled-dirt-flame-column-fragment") and explosion_builder.contains("directional-hot-metal-spall"), "weapon explosion builder should preserve distinct missile, ground-blast and cannon motion languages")
+	_expect(explosion_builder.contains("flash-pressure-fireball-smoke-fragment") and explosion_builder.contains("ground-coupled-dirt-flame-column-fragment") and explosion_builder.contains("directional-hot-metal-spall") and explosion_builder.contains("def pressure_arc") and not explosion_builder.contains("draw.arc"), "weapon explosion builder should preserve distinct missile, ground-blast and cannon motion languages without geometric pressure rings")
 	for frame_index in range(6):
 		var gunship_impact_frame := load("res://assets/runtime/effects/weapon_explosions/cannon/frame_%04d.png" % frame_index)
 		_expect(gunship_impact_frame is Texture2D and gunship_impact_frame.get_size() == Vector2(64,64), "Spectre fire mission should retain its authored cannon impact exposure: %d" % frame_index)

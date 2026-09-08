@@ -30,6 +30,7 @@
   "rules": [
     "No full-screen bloom",
     "No circular particle rosette",
+    "Missile pressure fronts use broken cool condensation contours",
     "Smoke and debris outlive the hot core",
     "Ground bursts remain vertically biased"
   ]
