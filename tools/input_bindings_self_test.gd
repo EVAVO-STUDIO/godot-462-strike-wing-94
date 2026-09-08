@@ -9,6 +9,7 @@ func _initialize() -> void:
 	var project_source := project.get_as_text() if project != null else ""
 	_expect(project != null and project_source.contains('InputBindings="*res://scripts/input_bindings.gd"'), "InputBindings should be a project autoload")
 	_expect(project != null and project_source.contains('ControllerSortieBayDirector="*res://scripts/controller_sortie_bay_director.gd"'), "contextual controller sortie-bay router should be a project autoload")
+	_expect(project != null and project_source.contains('ControllerMenuContextDirector="*res://scripts/controller_menu_context_director.gd"'), "controller options/controls context owner should be a project autoload")
 	_expect(project != null and project_source.contains('FirstSortieGuidanceDirector="*res://scripts/first_sortie_guidance_director.gd"'), "Mission 1 contextual guidance should be a project autoload")
 	for action in ["move_left","move_right","move_up","move_down","fire_primary","fire_secondary","fire_support","transform_craft","afterburner","evasive_roll","deploy_countermeasure","fire_missile","call_battlefield_support","altitude_up","altitude_down","drop_strike_ordnance","throttle_up","throttle_down","confirm","cancel"]:
 		_expect(InputMap.has_action(action), "missing input action: %s" % action)
@@ -58,6 +59,27 @@ func _initialize() -> void:
 	_expect(router_source.contains('_try_buy_next_weapon') and router_source.contains('_try_buy_next_generator') and router_source.contains('_service_hull_full') and router_source.contains('_service_shield_full'), "controller maintenance router should reach the four main campaign service commands")
 	_expect(router_source.contains('_buy_next_airframe') and router_source.contains('_buy_next_support'), "controller maintenance router should reach airframe and tactical progression")
 
+	# Menu contexts reuse fixed combat buttons only while their relevant screen is
+	# visible. Prove the temporary mapping and exact restoration without changing
+	# the universal/in-flight controller contract.
+	var menu_context_script := load("res://scripts/controller_menu_context_director.gd") as Script
+	_expect(menu_context_script != null, "controller menu context director should load")
+	if menu_context_script != null:
+		var menu_context: Node = menu_context_script.new()
+		menu_context.call("_set_context", "options")
+		_expect(_has_button("confirm", JOY_BUTTON_A), "Options should retain A/confirm for value adjustment")
+		_expect(_has_button("fire_secondary", JOY_BUTTON_X) and not _has_button("fire_secondary", JOY_BUTTON_B), "Options should use X for next category while preserving B as back")
+		menu_context.call("_set_context", "controls")
+		_expect(not _has_button("confirm", JOY_BUTTON_A), "Flight Controls should suppress pad A so a controller cannot enter keyboard-only key listening")
+		_expect(_has_button("fire_secondary", JOY_BUTTON_B) and not _has_button("fire_secondary", JOY_BUTTON_X), "leaving Options should restore B as the universal secondary-fire button")
+		menu_context.call("_set_context", "")
+		_expect(_has_button("confirm", JOY_BUTTON_A), "leaving Flight Controls should restore A/confirm")
+		_expect(_has_button("fire_secondary", JOY_BUTTON_B) and not _has_button("fire_secondary", JOY_BUTTON_X), "universal secondary-fire mapping should be exactly restored after menu context")
+		menu_context.free()
+	var menu_context_source := FileAccess.get_file_as_string("res://scripts/controller_menu_context_director.gd")
+	_expect(menu_context_source.contains('"options"') and menu_context_source.contains('"controls"') and menu_context_source.contains('JOY_BUTTON_B') and menu_context_source.contains('JOY_BUTTON_X'), "controller menu context should own the Options B/X conflict explicitly")
+	_expect(menu_context_source.contains('qa_controls_confirm_suppressed') and menu_context_source.contains('PAD VIEW ONLY') and menu_context_source.contains('PAD Y/X CATEGORY'), "controller menu context should expose native QA receipts and discoverable pad hints")
+
 	bindings.call("restore_keyboard_defaults", false)
 	_expect(int(bindings.call("binding_count")) == 18, "flight keyboard station should expose all eighteen combat and propulsion bindings")
 	_expect(str(bindings.call("binding_label", 6)) == "WING GEOMETRY", "binding catalogue should expose player-facing action labels")
@@ -97,10 +119,11 @@ func _initialize() -> void:
 	var guidance_source := FileAccess.get_file_as_string("res://scripts/first_sortie_guidance_director.gd")
 	_expect(guidance_source.contains('int(scene.get("mission_index")) != 0') and guidance_source.contains('str(scene.get("game_mode")) != "campaign"'), "first-sortie prompts must stay limited to Mission 1 campaign play")
 	_expect(guidance_source.contains('active_secret_mission_id') and guidance_source.contains('egress_active') and guidance_source.contains('ThreatWarningRules.homing_count'), "guidance should exclude secret sorties and react to real egress/threat state")
+	_expect(guidance_source.contains('InputMap.action_get_events') and guidance_source.contains('_keyboard_label'), "Mission 1 guidance should follow live rebound keyboard assignments")
 
 	bindings.free()
 	if failures.is_empty():
-		print("HYPERSONIC controller input and first-sortie guidance self-test passed.")
+		print("HYPERSONIC controller input, menu context and first-sortie guidance self-test passed.")
 		quit(0)
 		return
 	for failure in failures:
