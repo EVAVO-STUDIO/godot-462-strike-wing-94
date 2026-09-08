@@ -28,6 +28,9 @@ func _initialize()->void:
 	for i in range(4096):
 		alternating_in=1.0 if i%2==0 else -1.0;alternating_out=float(director.call("_title_soften",alternating_in))
 	_expect(absf(alternating_out)<0.76,"title mastering should retain the approved high-frequency shelf reduction")
+	director.call("duck_for_critical_cue",0.28)
+	_expect(float(director.get("_critical_duck_timer"))>=0.28,"critical cockpit cue should request a bounded music-duck window")
+	_expect(float(director.call("critical_duck_gain"))==1.0,"duck request should start from current gain and be smoothed in the live process instead of hard-cutting the score")
 	director.free()
 	var source:=_source("res://scripts/retro_music_director.gd")
 	_expect(source.contains("const MIX_RATE:=22050.0") and source.contains("AudioStreamGenerator.new()"),"music runtime should use one bounded 22.05 kHz procedural stream")
@@ -36,6 +39,7 @@ func _initialize()->void:
 	_expect(source.contains("_select_live_track") and source.contains("set_mix_levels"),"music runtime should transition by phase and obey its real mixer")
 	_expect(source.contains("data/music_arrangements") and source.contains("_arranged_voice") and source.contains("arrangement_step"),"music runtime should synthesize the authored 32-bar arrangements")
 	_expect(source.contains('startup_stage<2:wanted=""') and source.contains('startup_stage==2:wanted="title_vector"'),"approved splash should remain silent while the HYPERSONIC reveal owns its title cue")
+	_expect(source.contains("CRITICAL_DUCK_GAIN:=0.58") and source.contains("duck_for_critical_cue") and source.contains("_critical_duck_gain=move_toward"),"critical cockpit cues should use bounded smoothed music ducking rather than abrupt score cuts")
 	_expect(_source("res://project.godot").contains('RetroMusicDirector="*res://scripts/retro_music_director.gd"'),"music runtime should be a canonical project service")
 	if failures.is_empty():print("HYPERSONIC tracker music self-test passed.");quit(0);return
 	for failure in failures:push_error(failure)
