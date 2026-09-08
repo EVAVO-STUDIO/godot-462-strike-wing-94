@@ -14,6 +14,7 @@ source=json.loads((PACKAGE/"source_manifest.json").read_text(encoding="utf-8"))
 require(manifest["frame_rate"]==24 and manifest["frame_count"]==288,"cinematic timing must remain 12 seconds at 24 fps")
 require(len(manifest["beats"])==6,"cinematic must retain its six authored editorial beats")
 require(len(source["keys"])==5,"cinematic must retain five registered production keys")
+require(any("no rain" in item for item in source["locks"]),"above-cloud precipitation rejection must remain explicit")
 keys=[]
 for item in source["keys"]:
     image=Image.open(PACKAGE/item["file"]).convert("RGB")

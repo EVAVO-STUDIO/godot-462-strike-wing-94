@@ -25,14 +25,7 @@ def speed_treatment(source:Image.Image,ratio:float,frame:int)->Image.Image:
     scaled=source.resize((round(640*zoom),round(360*zoom)),Image.Resampling.LANCZOS)
     left=(scaled.width-640)//2
     top=min(scaled.height-360,(scaled.height-360)//2+round(ratio*7))
-    result=scaled.crop((left,top,left+640,top+360))
-    draw=ImageDraw.Draw(result,"RGBA")
-    for index in range(24):
-        x=(index*83+29)%640
-        y=(index*43+frame*round(3+ratio*22))%390-30
-        length=round(5+ratio*58+(index%4)*4)
-        draw.line((x,y,x,y+length),fill=(202,229,239,round(148*ratio)),width=1+index%2)
-    return result
+    return scaled.crop((left,top,left+640,top+360))
 
 def letterbox(image:Image.Image)->Image.Image:
     draw=ImageDraw.Draw(image)
