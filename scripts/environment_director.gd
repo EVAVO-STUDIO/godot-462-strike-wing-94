@@ -616,15 +616,15 @@ func _draw_high_atmosphere_far(surface: CanvasItem, scene: Object, state: Dictio
 		STRATOSPHERIC_CLOUD_DECK,
 		travel * 8.5,
 		ENVIRONMENT_VIEW,
-		Color(0.82,0.88,0.91,0.18 * mix)
+		Color(0.82,0.88,0.91,0.11*mix)
 	)
-	for i in range(4):
+	for i in range(3):
 		var texture: Texture2D = CIRRUS_FAR[i % CIRRUS_FAR.size()]
 		var x := float((i * 181 + 29) % 760) - 80.0
 		var y := fposmod(float(i) * 91.0 + travel * (5.0 + float(i % 2) * 1.4), 330.0) + 82.0
 		var scale := 0.86 + float(i % 3) * 0.14
 		var size := texture.get_size() * scale
-		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.86,0.89,0.10 + mix * 0.14))
+		surface.draw_texture_rect(texture,Rect2(Vector2(x,y)-size*0.5,size),false,Color(0.78,0.86,0.89,0.07+mix*0.10))
 	for i in range(2):
 		var x := float((i * 337 + 73) % 690) - 40.0
 		var y := fposmod(float(i) * 191.0 + travel * (8.0 + float(i) * 1.5), 350.0) + 100.0
@@ -638,7 +638,7 @@ func _draw_high_atmosphere_near(surface: CanvasItem, scene: Object, state: Dicti
 	# Long vertical contrail sprites looked identical to rain above the cloud
 	# deck. Turn the authored marks across the wind and use them as sparse,
 	# broad cloud-top shear bands with an open central combat corridor.
-	var count := maxi(1, int(round(3.0 * mix)))
+	var count := maxi(1,int(round(2.0*mix)))
 	for i in range(count):
 		var texture: Texture2D = CONTRAIL_NEAR[i % CONTRAIL_NEAR.size()]
 		var x: float = float([118.0, 490.0, 168.0][i])
