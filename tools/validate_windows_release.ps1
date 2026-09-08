@@ -11,6 +11,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $ContractScript = Join-Path $PSScriptRoot 'verify_release_contract.ps1'
+$SupplementalContractScript = Join-Path $PSScriptRoot 'verify_release_contract_supplement.ps1'
 $ResolveGodotScript = Join-Path $PSScriptRoot 'resolve_release_godot.ps1'
 $ValidateScript = Join-Path $PSScriptRoot 'validate.ps1'
 $ExportScript = Join-Path $PSScriptRoot 'export_windows.ps1'
@@ -25,7 +26,7 @@ $BranchDominanceScript = Join-Path $PSScriptRoot 'analyze_branch_economic_domina
 $SpendingStrategyScript = Join-Path $PSScriptRoot 'simulate_progression_spending_strategies.ps1'
 $ReceiptScript = Join-Path $PSScriptRoot 'write_windows_release_receipt.ps1'
 
-foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $VulnerableBalanceScript, $EconomyAuditScript, $RouteProjectionScript, $BranchDominanceScript, $SpendingStrategyScript, $ReceiptScript)) {
+foreach ($ScriptPath in @($ContractScript, $SupplementalContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $VulnerableBalanceScript, $EconomyAuditScript, $RouteProjectionScript, $BranchDominanceScript, $SpendingStrategyScript, $ReceiptScript)) {
     $Tokens = $null
     $Errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($ScriptPath, [ref]$Tokens, [ref]$Errors) | Out-Null
@@ -36,6 +37,8 @@ foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript,
 
 Write-Host 'Verifying HYPERSONIC release contract and documentation authority...' -ForegroundColor Cyan
 & $ContractScript
+Write-Host 'Verifying contextual controller, native maintenance and Mission 1 onboarding authority...' -ForegroundColor Cyan
+& $SupplementalContractScript
 
 # Resolve one exact engine executable once and pass it through every native
 # release stage. This prevents different child scripts from silently finding
@@ -98,7 +101,7 @@ Write-Host 'Launching and verifying the packaged HYPERSONIC runtime...' -Foregro
 if (-not $SkipPerformance -and -not $SkipVisualQa -and -not $SkipPlaytestTelemetry -and -not $SkipVulnerableBalance -and -not $SkipEconomyAudit) {
     Write-Host 'Recording exact-SHA packaged-build evidence...' -ForegroundColor Cyan
     & $ReceiptScript -GodotBin $GodotBin -Executable $OutputPath
-    Write-Host 'HYPERSONIC automated Windows release gate passed. Vulnerable autoplay and conservative sequential/branch/spending economy evidence are diagnostic; human campaign, visual, audio and balance signoff are still required for a release candidate.' -ForegroundColor Green
+    Write-Host 'HYPERSONIC automated Windows release gate passed. Vulnerable autoplay and conservative sequential/branch/spending economy evidence are diagnostic; native controller-maintenance plus human campaign, onboarding, visual, audio and balance signoff are still required for a release candidate.' -ForegroundColor Green
 } else {
     Write-Warning 'HYPERSONIC focused Windows validation passed with one or more release stages skipped; no exact-SHA release receipt was issued.'
 }
