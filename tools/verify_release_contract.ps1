@@ -19,12 +19,17 @@ $AgentsPath = Require-File 'AGENTS.md'
 $ReleaseGatePath = Require-File 'tools/validate_windows_release.ps1'
 $VulnerableBalancePath = Require-File 'tools/run_vulnerable_balance_telemetry.ps1'
 $VulnerableBalanceDocPath = Require-File 'docs/VULNERABLE_BALANCE_EVIDENCE.md'
+$SignoffTemplatePath = Require-File 'docs/RELEASE_SIGNOFF_TEMPLATE.json'
+$HumanSignoffPath = Require-File 'tools/verify_human_release_signoff.ps1'
+$NativeContractPath = Require-File 'tools/verify_native_test_lab_contract.ps1'
+Require-File '.evavo/godot-lab-native.json' | Out-Null
+Require-File '.evavo/godot-lab-native.lock.json' | Out-Null
+Require-File 'docs/NATIVE_TEST_LAB_RELEASE_JOURNEYS.md' | Out-Null
+Require-File 'tools/run_native_test_lab_release.ps1' | Out-Null
 Require-File 'docs/PORTFOLIO_RELEASE_TRANCHE.md' | Out-Null
 Require-File 'docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md' | Out-Null
-Require-File 'docs/RELEASE_SIGNOFF_TEMPLATE.json' | Out-Null
 Require-File 'tools/resolve_release_godot.ps1' | Out-Null
 Require-File 'tools/write_windows_release_receipt.ps1' | Out-Null
-Require-File 'tools/verify_human_release_signoff.ps1' | Out-Null
 Require-File 'tools/validate_windows_candidate.ps1' | Out-Null
 
 $Readme = Get-Content -Raw -LiteralPath $ReadmePath
@@ -36,6 +41,8 @@ $Agents = Get-Content -Raw -LiteralPath $AgentsPath
 $ReleaseGate = Get-Content -Raw -LiteralPath $ReleaseGatePath
 $VulnerableBalance = Get-Content -Raw -LiteralPath $VulnerableBalancePath
 $VulnerableBalanceDoc = Get-Content -Raw -LiteralPath $VulnerableBalanceDocPath
+$SignoffTemplate = Get-Content -Raw -LiteralPath $SignoffTemplatePath | ConvertFrom-Json
+$HumanSignoff = Get-Content -Raw -LiteralPath $HumanSignoffPath
 
 $SaveMatch = [regex]::Match($Save, 'SAVE_VERSION\s*:=\s*(\d+)')
 if (-not $SaveMatch.Success) { throw 'Unable to resolve campaign SAVE_VERSION.' }
@@ -99,4 +106,17 @@ foreach ($Token in @('Never auto-tune from one deterministic pilot','Human balan
     if (-not $VulnerableBalanceDoc.Contains($Token)) { throw "Vulnerable balance documentation lost truth boundary: $Token" }
 }
 
-Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance evidence wired." -ForegroundColor Green
+if ([int]$SignoffTemplate.schema_version -ne 2) { throw 'RELEASE_SIGNOFF_TEMPLATE.json must use schema_version 2.' }
+foreach ($Property in @('passed','all_required_journeys_reviewed','checkpoint_media_reviewed','runtime_logs_reviewed','audio_media_reviewed')) {
+    if ($null -eq $SignoffTemplate.native_test_lab.PSObject.Properties[$Property]) {
+        throw "Release signoff template lost native_test_lab.$Property."
+    }
+}
+foreach ($Token in @('interactive_windows_session','Native Test Lab handoff does not match the exact HYPERSONIC HEAD','native_test_lab.audio_media_reviewed')) {
+    if (-not $HumanSignoff.Contains($Token)) { throw "Human signoff verifier lost native evidence guard: $Token" }
+}
+
+Write-Host 'Validating HYPERSONIC native Test Lab profile and authority lock...' -ForegroundColor DarkCyan
+& $NativeContractPath
+
+Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + native Test Lab authority wired." -ForegroundColor Green
