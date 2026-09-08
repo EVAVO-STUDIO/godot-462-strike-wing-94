@@ -1738,16 +1738,24 @@ func _draw_player_loss(surface: CanvasItem, p: Vector2, origin: Vector2, loss_ti
 	var ratio := clampf(1.0 - loss_timer / PLAYER_LOSS_SEQUENCE_SECONDS, 0.0, 1.0)
 	var frames: Array = VX94_BOMBER_BREAKUP if _craft_form() == "bomber" else VX94_FIGHTER_BREAKUP
 	var frame_index := clampi(int(floor(ratio * 4.8)), 0, frames.size() - 1)
-	var wreck_fall := Vector2(sin(ratio * 9.0) * 3.0, ratio * ratio * 24.0)
-	surface.draw_texture(frames[frame_index], (origin + wreck_fall).round(), Color(0.88, 0.86, 0.79, 1.0 - smoothstep(0.76, 1.0, ratio)))
+	var wreck_fall := Vector2(sin(ratio*8.0)*8.0+ratio*11.0,ratio*ratio*46.0)
+	var wreck_scale := Vector2.ONE*lerpf(1.16,1.04,ratio)
+	surface.draw_set_transform((p+wreck_fall).round(),sin(ratio*7.0)*0.10,wreck_scale)
+	surface.draw_texture(frames[frame_index],-VX94_GAMEPLAY_ANCHOR,Color(0.88,0.86,0.79,1.0-smoothstep(0.76,1.0,ratio)))
+	surface.draw_set_transform(Vector2.ZERO)
 	var phase := int(floor(ratio * 30.0))
-	_draw_enemy_effect_frame(surface, p + wreck_fall + Vector2(-5, 5), "damage_smoke", phase, 1.15, Color(0.64, 0.68, 0.67, 0.82))
+	for wake_index in range(3):
+		var wake_age := clampf(ratio-float(wake_index)*0.07,0.0,1.0)
+		var wake_offset := Vector2(-6.0+float(wake_index)*7.0,-8.0-float(wake_index)*14.0-ratio*10.0)
+		_draw_enemy_effect_frame(surface,p+wreck_fall+wake_offset,"damage_smoke",phase-wake_index,1.18+float(wake_index)*0.16,Color(0.58,0.62,0.62,(0.72-float(wake_index)*0.12)*(1.0-wake_age*0.34)))
 	if ratio < 0.72:
 		_draw_enemy_effect_frame(surface, p + wreck_fall + Vector2(5, 7), "damage_fire", phase + 1, 0.92, Color(1.0, 0.78, 0.46, 0.94))
 	if ratio >= 0.18:
 		var escape_ratio := clampf((ratio - 0.18) / 0.82, 0.0, 1.0)
-		var capsule_center := p + Vector2(7.0 + sin(escape_ratio * 5.0) * 2.0, -10.0 - escape_ratio * 76.0)
-		surface.draw_texture(VX94_ESCAPE_CAPSULE, (capsule_center - VX94_ESCAPE_CAPSULE.get_size() * 0.5).round())
+		var capsule_center := p+Vector2(9.0+sin(escape_ratio*5.0)*4.0,-12.0-escape_ratio*92.0)
+		surface.draw_set_transform(capsule_center.round(),sin(escape_ratio*8.0)*0.06,Vector2.ONE*1.25)
+		surface.draw_texture(VX94_ESCAPE_CAPSULE,-VX94_ESCAPE_CAPSULE.get_size()*0.5)
+		surface.draw_set_transform(Vector2.ZERO)
 		_draw_enemy_effect_frame(surface, capsule_center + Vector2(0, 9), "damage_sparks", phase, 0.46, Color(1.0, 0.88, 0.58, 0.82))
 
 func _bank_frame_index() -> int:

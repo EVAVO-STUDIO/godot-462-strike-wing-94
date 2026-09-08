@@ -145,6 +145,8 @@ func draw_targeting(surface: CanvasItem) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or not _supports(scene) or int(scene.get("phase")) != 1:
 		return
+	if SceneContractCache.has_property(scene,"player_loss_timer") and float(scene.get("player_loss_timer")) > 0.0:
+		return
 	var position := _target_position
 	var ratio := _lock_ratio
 	var ammo := _missiles

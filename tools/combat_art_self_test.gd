@@ -75,6 +75,7 @@ func _test_visual_language() -> void:
 	var escape_capsule := load("res://assets/runtime/craft/vx94/gameplay/destruction/escape_capsule.png")
 	_expect(escape_capsule is Texture2D and escape_capsule.get_size() == Vector2(16,20), "VX-94 escape capsule should retain registered 16x20 geometry")
 	_expect(source.contains("VX94_FIGHTER_BREAKUP") and source.contains("VX94_BOMBER_BREAKUP") and source.contains("VX94_ESCAPE_CAPSULE") and source.contains("_draw_player_loss"), "VX-94 loss should render authored form-specific breakup and escape art")
+	_expect(source.contains("wreck_scale") and source.contains("for wake_index in range(3)") and source.contains("escape_ratio*92.0") and source.contains("Vector2.ONE*1.25"), "VX-94 loss should separate a readable scaled wreck, retained smoke wake and clear escape capsule trajectory")
 	_expect(FileAccess.file_exists("res://assets/source/craft/vx94/vx94_destruction_asset_manifest.json"), "VX-94 destruction/escape manifest should exist")
 	var main_file := FileAccess.open("res://scripts/main.gd", FileAccess.READ)
 	var main_source := main_file.get_as_text() if main_file != null else ""

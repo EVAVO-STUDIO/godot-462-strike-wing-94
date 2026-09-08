@@ -266,6 +266,8 @@ func _draw_surface(surface: CanvasItem) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or int(scene.get("phase")) != 1:
 		return
+	if SceneContractCache.has_property(scene,"player_loss_timer") and float(scene.get("player_loss_timer")) > 0.0:
+		return
 	var form := _craft_value("current_form", "fighter")
 	var altitude := _craft_value("current_altitude", "mid")
 	if form != "bomber" or not StrikeOrdnanceRules.altitude_allowed(altitude):
