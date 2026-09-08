@@ -130,6 +130,25 @@ if (@($Dominance.cross_difficulty).Count -ne 3 -or @($Dominance.difficulties).Co
     throw 'Branch economic dominance report is structurally incomplete.'
 }
 
+$StrategyPath = Join-Path (Split-Path -Parent $EconomyPath) 'progression_spending_strategies.json'
+if (-not (Test-Path -LiteralPath $StrategyPath)) { throw "Progression spending strategy report is missing: $StrategyPath" }
+$Strategy = Get-Content -Raw -LiteralPath $StrategyPath | ConvertFrom-Json
+if ([int]$Strategy.schema_version -ne 1) { throw 'Progression spending strategy report schema_version must be 1.' }
+if ([string]$Strategy.source.head_sha -ne $HeadSha) { throw 'Progression spending strategy report does not match the exact HYPERSONIC HEAD being signed.' }
+if (-not ([string]$Strategy.source.godot_version).StartsWith('4.6.2')) { throw 'Progression spending strategy report was not derived from Godot 4.6.2 economy evidence.' }
+if ([int]$Strategy.source.economy_schema_version -ne 2 -or [int]$Strategy.source.route_projection_schema_version -ne 1) {
+    throw 'Progression spending strategy report was not derived from the governed economy/route schemas.'
+}
+if ([int]$Strategy.matrix.route_count -ne 8 -or [int]$Strategy.matrix.difficulty_count -ne 4 -or [int]$Strategy.matrix.route_difficulty_count -ne 32 -or [int]$Strategy.matrix.strategy_count -ne 7 -or [int]$Strategy.matrix.simulation_count -ne 224 -or [int]$Strategy.matrix.sorties_per_simulation -ne 27) {
+    throw 'Progression spending strategy report does not cover the governed 224 simulations.'
+}
+if (-not [bool]$Strategy.matrix.one_major_purchase_per_sortie -or -not [bool]$Strategy.matrix.reserve_aware) {
+    throw 'Progression spending strategy report lost its reserve-aware one-purchase cadence contract.'
+}
+if (@($Strategy.strategies).Count -ne 7 -or @($Strategy.simulations).Count -ne 224) {
+    throw 'Progression spending strategy report is structurally incomplete.'
+}
+
 $RequiredTrue = [ordered]@{
     'native_test_lab.passed' = [bool]$Signoff.native_test_lab.passed
     'native_test_lab.all_required_journeys_reviewed' = [bool]$Signoff.native_test_lab.all_required_journeys_reviewed
@@ -165,4 +184,4 @@ if ([int]$Signoff.blockers.p0 -ne 0 -or [int]$Signoff.blockers.p1 -ne 0) {
     throw "Human release signoff still has blockers: P0=$($Signoff.blockers.p0), P1=$($Signoff.blockers.p1)."
 }
 
-Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure, sequential economy, 8-route progression and paired branch-dominance evidence." -ForegroundColor Green
+Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure, sequential economy, 8-route progression, paired branch-dominance and 224 progression-spending simulations." -ForegroundColor Green
