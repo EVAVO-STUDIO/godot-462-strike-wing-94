@@ -33,6 +33,11 @@ func _input(event: InputEvent) -> void:
 	if _dispatch(scene, action):
 		last_action = action
 		action_serial += 1
+		# Native Test Lab can assert boolean metadata without reaching into game
+		# implementation fields. These receipts prove a real joypad event crossed
+		# the visible-sortie-bay gate and reached its intended command router.
+		set_meta(StringName("qa_" + action), true)
+		set_meta(&"qa_any_sortie_controller_action", true)
 		get_viewport().set_input_as_handled()
 
 func _dispatch(scene: Node, action: String) -> bool:
