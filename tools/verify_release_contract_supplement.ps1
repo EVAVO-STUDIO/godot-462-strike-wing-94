@@ -13,6 +13,8 @@ function Require-Text([string]$RelativePath) {
 $Project = Require-Text 'project.godot'
 $Router = Require-Text 'scripts/controller_sortie_bay_director.gd'
 $MenuContext = Require-Text 'scripts/controller_menu_context_director.gd'
+$Pause = Require-Text 'scripts/pause_director.gd'
+$PauseTest = Require-Text 'tools/pause_self_test.gd'
 $Guidance = Require-Text 'scripts/first_sortie_guidance_director.gd'
 $InputTest = Require-Text 'tools/input_bindings_self_test.gd'
 $NativeContract = Require-Text 'tools/verify_native_test_lab_contract.ps1'
@@ -36,11 +38,17 @@ foreach ($Token in @(
 foreach ($Token in @('JOY_BUTTON_X','buy_primary','JOY_BUTTON_Y','buy_generator','JOY_BUTTON_LEFT_SHOULDER','service_hull','JOY_BUTTON_RIGHT_SHOULDER','service_shield','JOY_BUTTON_LEFT_STICK','buy_airframe','JOY_BUTTON_RIGHT_STICK','buy_support','front_end_screen','"sortie"','StartupSequenceDirector')) {
     if (-not $Router.Contains($Token)) { throw "Controller sortie-bay router lost contextual maintenance contract: $Token" }
 }
-foreach ($Token in @('process_priority = -45','_wanted_context','"options"','"controls"','JOY_BUTTON_B','JOY_BUTTON_A','fire_secondary','_restore_universal_buttons')) {
-    if (-not $MenuContext.Contains($Token)) { throw "Controller menu-context router lost safe front-end remap contract: $Token" }
+foreach ($Token in @('PROCESS_MODE_ALWAYS','_wanted_context','"options"','"controls"','"pause_options"','"flight"','JOY_BUTTON_B','JOY_BUTTON_START','fire_secondary','_remove_button(&"cancel", JOY_BUTTON_B)','_restore_universal_buttons')) {
+    if (-not $MenuContext.Contains($Token)) { throw "Controller context router lost safe menu/flight/pause remap contract: $Token" }
+}
+foreach ($Token in @('pause_context','ENTER/A SELECT','ESC/B RESUME','Q/Y PREV','X NEXT','ENTER/A CONFIRM','ESC/B CANCEL')) {
+    if (-not $Pause.Contains($Token)) { throw "Pause presentation/controller contract missing: $Token" }
+}
+foreach ($Token in @('JOY_BUTTON_START','flight must retain B as screen bomb','paused Options must keep pad B free for BACK','PROCESS_MODE_ALWAYS')) {
+    if (-not $PauseTest.Contains($Token)) { throw "Pause regression lost controller conflict guard: $Token" }
 }
 
-foreach ($Token in @('FLIGHT CHECK // %s-%s/LS STEER','POWER // %s-%s/RS THROTTLE','ALTITUDE // %s-%s / D-PAD','MISSILE // %s / LT COUNTERMEASURE','EGRESS // %s / D-PAD UP -> HIGH','MACH GATE // HOLD %s / LB AFTERBURNER','_keyboard_label','InputMap.action_get_events','mission_index','game_mode','active_secret_mission_id','ThreatWarningRules.homing_count','egress_active')) {
+foreach ($Token in @('FLIGHT CHECK // %s-%s/LS STEER','%s/START PAUSE','POWER // %s-%s/RS THROTTLE','ALTITUDE // %s-%s / D-PAD','MISSILE // %s / LT COUNTERMEASURE','EGRESS // %s / D-PAD UP -> HIGH','MACH GATE // HOLD %s / LB AFTERBURNER','_keyboard_label','InputMap.action_get_events','mission_index','game_mode','active_secret_mission_id','ThreatWarningRules.homing_count','egress_active')) {
     if (-not $Guidance.Contains($Token)) { throw "Mission 1 guidance lost onboarding/rebinding contract: $Token" }
 }
 
@@ -48,14 +56,14 @@ foreach ($Token in @('ControllerSortieBayDirector','ControllerMenuContextDirecto
     if (-not $InputTest.Contains($Token)) { throw "Input regression suite lost release guidance/controller guard: $Token" }
 }
 
-foreach ($Token in @('godot-lab-controller-sortie.json','controller-sortie-bay-maintenance','controller-options-controls-navigation','required_journey_count = 10','controller_sortie_required = $true','controller_menu_required = $true')) {
-    if (-not $NativeContract.Contains($Token) -and -not $NativeRunner.Contains($Token)) { throw "Native release contract lost ten-journey controller authority: $Token" }
+foreach ($Token in @('godot-lab-controller-sortie.json','controller-sortie-bay-maintenance','controller-options-controls-navigation','qa_flight_pause_start','qa_pause_options_context_configured','required_journey_count = 10','controller_sortie_required = $true','controller_menu_required = $true')) {
+    if (-not $NativeContract.Contains($Token) -and -not $NativeRunner.Contains($Token)) { throw "Native release contract lost ten-journey controller/pause authority: $Token" }
 }
 foreach ($Token in @('required_journey_count -ne 10','controller_sortie_required','controller_menu_required','controller_sortie_profile','godot-lab-controller-sortie.json','Godot 4.6.2')) {
     if (-not $NativeHandoff.Contains($Token)) { throw "Native handoff verifier lost ten-journey controller authority: $Token" }
 }
-foreach ($Token in @('ten required journeys','controller-sortie-bay-maintenance','controller-options-controls-navigation','controller_maintenance_reviewed','controller_menu_navigation_reviewed','Godot **4.6.2**')) {
-    if (-not $NativeDocs.Contains($Token)) { throw "Native release documentation lost ten-journey truth boundary: $Token" }
+foreach ($Token in @('ten required journeys','controller-sortie-bay-maintenance','controller-options-controls-navigation','START to Pause','B remains Screen Bomb','controller_maintenance_reviewed','controller_menu_navigation_reviewed','Godot **4.6.2**')) {
+    if (-not $NativeDocs.Contains($Token)) { throw "Native release documentation lost controller/pause truth boundary: $Token" }
 }
 
 foreach ($Property in @('controller_maintenance_reviewed','controller_menu_navigation_reviewed')) {
@@ -70,4 +78,4 @@ foreach ($Token in @('verify_native_release_handoff.ps1','controller_maintenance
     if (-not $CandidateGate.Contains($Token)) { throw "Final candidate gate lost controller front-end authority: $Token" }
 }
 
-Write-Host 'HYPERSONIC supplemental release contract passed: contextual controller maintenance/menu navigation, 10 native journeys and rebound-aware Mission 1 guidance are governed.' -ForegroundColor Green
+Write-Host 'HYPERSONIC supplemental release contract passed: contextual controller maintenance, B-bomb/START-pause separation, paused Options safety, 10 native journeys and rebound-aware Mission 1 guidance are governed.' -ForegroundColor Green
