@@ -12,17 +12,46 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 	var desired_velocity := 0.0
 	var acceleration := 80.0
 	var maneuver_phase := fposmod(anchor_x * 0.037,TAU)
+	var approach_distance := player.y-next.y
+	var entry_side := -1.0 if sin(maneuver_phase)<0.0 else 1.0
+	var tracking_error := player.x-next.x
+	var away_side := signf(next.x-player.x)
+	if is_zero_approx(away_side): away_side = -entry_side
 	match pattern:
 		"sine_dive":
-			desired_velocity = sin(age * 1.45 + maneuver_phase) * 48.0
-			acceleration = 74.0
+			# Human fighters fly one readable slashing pass: establish an offset,
+			# lead-turn into the firing corridor, hold the gun line, then unload
+			# away after crossing the player's plane. They do not waggle left/right.
+			if approach_distance>145.0:
+				desired_velocity = clampf(tracking_error*0.42+entry_side*18.0,-54.0,54.0)
+				acceleration = 46.0
+			elif approach_distance>38.0:
+				desired_velocity = clampf(tracking_error*0.66,-62.0,62.0)
+				acceleration = 82.0
+			elif approach_distance>-18.0:
+				desired_velocity = lateral_velocity*0.82
+				acceleration = 28.0
+			else:
+				desired_velocity = away_side*76.0
+				acceleration = 104.0
 		"tracking_sweep":
-			var tracking_error := player.x-next.x
-			desired_velocity = clampf(tracking_error*0.72,-58.0,58.0) if absf(tracking_error)>22.0 else 0.0
-			acceleration = 92.0
+			# Gunships build a lead solution on approach, stabilize while weapons
+			# bear, and break away after overflight instead of mirroring the player.
+			if approach_distance>82.0:
+				desired_velocity = clampf(tracking_error*0.62,-52.0,52.0) if absf(tracking_error)>18.0 else 0.0
+				acceleration = 66.0
+			elif approach_distance>-22.0:
+				desired_velocity = lateral_velocity*0.72
+				acceleration = 24.0
+			else:
+				desired_velocity = away_side*58.0
+				acceleration = 72.0
 		"hover_strafe":
-			desired_velocity = sin(age * 0.92 + maneuver_phase) * 42.0
-			acceleration = 55.0
+			# Rotorcraft translate toward a stable offset firing station. Their
+			# slower mass response distinguishes them from fixed-wing interceptors.
+			var station_x := player.x+entry_side*104.0
+			desired_velocity = clampf((station_x-next.x)*0.38,-34.0,34.0)
+			acceleration = 34.0
 			next.y -= 18.0 * delta
 		"bomber_run":
 			# Loaded strike aircraft commit to a stable run and make measured course corrections.
@@ -44,8 +73,20 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 			next.x = anchor_x
 			lateral_velocity = 0.0
 		"aggressive_weave":
-			desired_velocity = sin(age*2.15+maneuver_phase)*76.0 + clampf((player.x-next.x)*0.18,-22.0,22.0)
-			acceleration = 155.0
+			# Aces and hunter drones make a high-authority lead turn and a single
+			# close defensive jink, then preserve energy in the breakaway.
+			if approach_distance>112.0:
+				desired_velocity = clampf(tracking_error*0.82+entry_side*14.0,-82.0,82.0)
+				acceleration = 118.0
+			elif approach_distance>18.0:
+				desired_velocity = clampf(tracking_error*0.38-entry_side*64.0,-92.0,92.0)
+				acceleration = 148.0
+			elif approach_distance>-20.0:
+				desired_velocity = lateral_velocity*0.90
+				acceleration = 30.0
+			else:
+				desired_velocity = away_side*104.0
+				acceleration = 170.0
 	if pattern != "static":
 		lateral_velocity = move_toward(lateral_velocity,desired_velocity,acceleration*clampf(control_authority,0.0,1.0)*maxf(0.0,delta))
 		next.x += lateral_velocity*delta

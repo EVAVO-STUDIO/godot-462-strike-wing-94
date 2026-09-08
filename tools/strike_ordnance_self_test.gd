@@ -49,6 +49,9 @@ func _test_route_targeting() -> void:
 	var point := StrikeOrdnanceRules.assisted_target_point(player, "low", enemies)
 	_expect(point == Vector2(roundf(enemies[1].position.x), roundf(enemies[1].position.y)), "route-priority lock should use the tagged target position")
 	_expect(StrikeOrdnanceRules.priority_target_at_point(point, enemies), "route target should expose stronger bombing-computer designation")
+	var protected_contacts := [{"id":"field_clinic","protected":true,"faction":"civilian","position":point+Vector2(28,0)}]
+	_expect(not StrikeOrdnanceRules.clear_of_protected(point, protected_contacts, 22.0), "precision release should be inhibited when a protected site falls inside blast clearance")
+	_expect(StrikeOrdnanceRules.clear_of_protected(point-Vector2(100,0), protected_contacts, 22.0), "precision release should remain available with positive protected-site separation")
 	_expect(StrikeOrdnanceRules.route_precision_score(enemies[1], true) == StrikeOrdnanceRules.ROUTE_PRECISION_SCORE, "precision ordnance kill should award bounded route score")
 	_expect(StrikeOrdnanceRules.route_precision_score(enemies[1], false) == 0, "route bonus must not award if ordnance did not make the kill")
 	_expect(StrikeOrdnanceRules.route_precision_score(enemies[0], true) == 0, "ordinary surface targets must not award route precision score")
@@ -103,6 +106,7 @@ func _test_source_wiring() -> void:
 		_expect(source.contains("STB%03d"), "bombing HUD should expose stabilization percentage")
 		_expect(source.contains("stabilized_impact_delay"), "drop timing should consume stabilization rules")
 		_expect(source.contains('"ORDNANCE SAFE - ALTITUDE TRANSITION"'), "bombing computer should safe release during climb/dive")
+		_expect(source.contains('"ROE INHIBIT // PROTECTED SITE IN BLAST ENVELOPE"') and source.contains("clear_of_protected"), "precision bombing computer should inhibit an unsafe release before consuming ordnance")
 		_expect(source.contains("not _altitude_transition_active()"), "attack-run stability should not build while changing altitude")
 		_expect(source.contains("HUD_STRIKE_SAFE") and source.contains("transition_active"), "bombing HUD should expose transition-safe state with authored annunciator art")
 		_expect(source.contains("maxi(1, hp - damage)"), "strike ordnance must remain nonlethal against bosses")

@@ -131,10 +131,14 @@ func _try_drop(scene: Object) -> void:
 		elif ordnance <= 0:
 			_set_status(scene, "STRIKE ORDNANCE EMPTY")
 		return
-	ordnance -= 1
-	_cooldown = StrikeOrdnanceRules.DROP_COOLDOWN
 	var enemies: Array = scene.get("enemies")
 	var point := StrikeOrdnanceRules.assisted_target_point(scene.get("player_position"), altitude, enemies)
+	var protected_contacts: Array = scene.get("protected_contacts") if _has_property(scene, "protected_contacts") and typeof(scene.get("protected_contacts")) == TYPE_ARRAY else []
+	if not StrikeOrdnanceRules.clear_of_protected(point, protected_contacts, StrikeOrdnanceRules.blast_radius(altitude)):
+		_set_status(scene, "ROE INHIBIT // PROTECTED SITE IN BLAST ENVELOPE")
+		return
+	ordnance -= 1
+	_cooldown = StrikeOrdnanceRules.DROP_COOLDOWN
 	var delay := StrikeOrdnanceRules.stabilized_impact_delay(altitude, _stability)
 	_pending.append({
 		"position": point,

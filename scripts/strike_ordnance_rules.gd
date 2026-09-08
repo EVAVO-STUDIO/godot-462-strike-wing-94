@@ -82,6 +82,19 @@ static func priority_target_at_point(point: Vector2, enemies: Array, tolerance: 
 			return true
 	return false
 
+static func clear_of_protected(point: Vector2, protected_contacts: Array, radius: float, clearance_margin: float = 8.0) -> bool:
+	var safe_radius := maxf(0.0, radius)+maxf(0.0, clearance_margin)
+	var safe_radius_sq := safe_radius*safe_radius
+	for contact in protected_contacts:
+		if typeof(contact) != TYPE_DICTIONARY:
+			continue
+		if not bool(contact.get("protected", false)) and str(contact.get("faction", "")) != "civilian":
+			continue
+		var position: Vector2 = contact.get("position", Vector2.ZERO)
+		if position.distance_squared_to(point)<=safe_radius_sq:
+			return false
+	return true
+
 static func route_precision_score(enemy: Dictionary, killed_by_ordnance: bool) -> int:
 	if not killed_by_ordnance or not bool(enemy.get("strike_priority", false)):
 		return 0
