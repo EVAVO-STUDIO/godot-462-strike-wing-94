@@ -118,7 +118,7 @@ foreach ($Token in @('Never auto-tune from one deterministic pilot','Human balan
 foreach ($Token in @('run_economy_progression_audit.ps1','SkipEconomyAudit','complete automated progression-evidence audit')) {
     if (-not $ReleaseGate.Contains($Token)) { throw "Windows release gate lost economy evidence wiring: $Token" }
 }
-foreach ($Token in @('economy_progression_self_test.gd','worst_survivable_full_service','first_mission_conservative_affordability','guaranteed_zero_score_reward')) {
+foreach ($Token in @('economy_progression_self_test.gd','worst_survivable_full_service','first_mission_conservative_affordability','guaranteed_zero_score_reward','cumulative_acquisition_cost','next_purchases_from_fresh','schema_version = 2')) {
     if (-not $EconomyAudit.Contains($Token)) { throw "Economy audit lost progression guard: $Token" }
 }
 foreach ($Token in @('ProgressionRules.mission_reward','ServiceRules.service_cost','first primary purchase','difficulty reward multipliers')) {
@@ -128,17 +128,32 @@ foreach ($Token in @('Conservative opening guardrail','Never auto-tune rewards',
     if (-not $EconomyDoc.Contains($Token)) { throw "Economy evidence documentation lost truth boundary: $Token" }
 }
 
-if ([int]$SignoffTemplate.schema_version -ne 2) { throw 'RELEASE_SIGNOFF_TEMPLATE.json must use schema_version 2.' }
+if ([int]$SignoffTemplate.schema_version -ne 3) { throw 'RELEASE_SIGNOFF_TEMPLATE.json must use schema_version 3.' }
 foreach ($Property in @('passed','all_required_journeys_reviewed','checkpoint_media_reviewed','runtime_logs_reviewed','audio_media_reviewed')) {
     if ($null -eq $SignoffTemplate.native_test_lab.PSObject.Properties[$Property]) {
         throw "Release signoff template lost native_test_lab.$Property."
     }
 }
-foreach ($Token in @('interactive_windows_session','Native Test Lab handoff does not match the exact HYPERSONIC HEAD','native_test_lab.audio_media_reviewed')) {
-    if (-not $HumanSignoff.Contains($Token)) { throw "Human signoff verifier lost native evidence guard: $Token" }
+foreach ($Property in @('difficulty_matrix_reviewed','vulnerable_summary_path','economy_audit_path','vulnerable_evidence_reviewed','economy_evidence_reviewed')) {
+    if ($null -eq $SignoffTemplate.balance.PSObject.Properties[$Property]) {
+        throw "Release signoff template lost balance.$Property."
+    }
+}
+foreach ($Token in @(
+    'interactive_windows_session',
+    'Native Test Lab handoff does not match the exact HYPERSONIC HEAD',
+    'native_test_lab.audio_media_reviewed',
+    'Vulnerable balance summary does not match the exact HYPERSONIC HEAD',
+    'Economy progression audit does not match the exact HYPERSONIC HEAD',
+    'Economy progression audit schema_version must be 2',
+    'balance.difficulty_matrix_reviewed',
+    'balance.vulnerable_evidence_reviewed',
+    'balance.economy_evidence_reviewed'
+)) {
+    if (-not $HumanSignoff.Contains($Token)) { throw "Human signoff verifier lost exact-SHA evidence guard: $Token" }
 }
 
 Write-Host 'Validating HYPERSONIC native Test Lab profile and authority lock...' -ForegroundColor DarkCyan
 & $NativeContractPath
 
-Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + economy progression + native Test Lab authority wired." -ForegroundColor Green
+Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + sequential economy progression + native Test Lab authority wired to signoff v3." -ForegroundColor Green
