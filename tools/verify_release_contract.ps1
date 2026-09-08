@@ -18,6 +18,7 @@ $ProjectPath = Require-File 'project.godot'
 $AgentsPath = Require-File 'AGENTS.md'
 $ReleaseGatePath = Require-File 'tools/validate_windows_release.ps1'
 $VulnerableBalancePath = Require-File 'tools/run_vulnerable_balance_telemetry.ps1'
+$VulnerableBalanceDocPath = Require-File 'docs/VULNERABLE_BALANCE_EVIDENCE.md'
 Require-File 'docs/PORTFOLIO_RELEASE_TRANCHE.md' | Out-Null
 Require-File 'docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md' | Out-Null
 Require-File 'docs/RELEASE_SIGNOFF_TEMPLATE.json' | Out-Null
@@ -34,6 +35,7 @@ $Project = Get-Content -Raw -LiteralPath $ProjectPath
 $Agents = Get-Content -Raw -LiteralPath $AgentsPath
 $ReleaseGate = Get-Content -Raw -LiteralPath $ReleaseGatePath
 $VulnerableBalance = Get-Content -Raw -LiteralPath $VulnerableBalancePath
+$VulnerableBalanceDoc = Get-Content -Raw -LiteralPath $VulnerableBalanceDocPath
 
 $SaveMatch = [regex]::Match($Save, 'SAVE_VERSION\s*:=\s*(\d+)')
 if (-not $SaveMatch.Success) { throw 'Unable to resolve campaign SAVE_VERSION.' }
@@ -77,6 +79,9 @@ foreach ($Token in @(
 if (-not $Agents.Contains('release candidate') -or -not $Agents.Contains('docs/PORTFOLIO_RELEASE_TRANCHE.md')) {
     throw 'AGENTS.md no longer exposes the release-candidate tranche to coding agents.'
 }
+if (-not $Agents.Contains('docs/VULNERABLE_BALANCE_EVIDENCE.md') -or -not $Agents.Contains('run_vulnerable_balance_telemetry.ps1')) {
+    throw 'AGENTS.md no longer exposes the vulnerable balance truth boundary.'
+}
 if (-not $Readme.Contains('validate_windows_candidate.ps1') -or -not $Readme.Contains('HYPERSONIC.release.json')) {
     throw 'README no longer documents the final candidate gate and exact-SHA receipt.'
 }
@@ -89,6 +94,9 @@ foreach ($Token in @('--playtest-telemetry','--capture-difficulty=','vulnerable 
 }
 if ($VulnerableBalance.Contains("'--capture-invulnerable'" + ',')) {
     throw 'Vulnerable balance argument list must not add --capture-invulnerable.'
+}
+foreach ($Token in @('Never auto-tune from one deterministic pilot','Human balance evidence still required','Test Lab handoff')) {
+    if (-not $VulnerableBalanceDoc.Contains($Token)) { throw "Vulnerable balance documentation lost truth boundary: $Token" }
 }
 
 Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance evidence wired." -ForegroundColor Green
