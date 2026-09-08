@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "lab_repository": "EVAVO-STUDIO/godot-game-test-lab",
+  "lab_sha": "32693ba39a3360dac6cdafd116da930d52553184",
+  "profile": ".evavo/godot-lab-native.json",
+  "release_engine": "4.6.2",
+  "authority": "Native Test Lab evidence must use this exact Lab SHA and the exact target HEAD SHA. Updating the Lab SHA requires reviewing the profile/schema/runner contract before issuing new release evidence."
+}
