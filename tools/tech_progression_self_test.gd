@@ -14,6 +14,7 @@ func _initialize() -> void:
 	_test_weapon_gates()
 	_test_generator_gates()
 	_test_central_purchase_gate()
+	_test_progression_cost_overlay()
 	_test_emp_resistance()
 	_test_source_wiring()
 	if failures.is_empty():
@@ -107,6 +108,26 @@ func _test_central_purchase_gate() -> void:
 	_expect(int(allowed.get("credits", 0)) == 800, "matching-era purchase should deduct exact cost")
 	ProgressionRules.set_current_tech_era("advanced_conventional")
 
+func _test_progression_cost_overlay() -> void:
+	var overlay_script := load("res://scripts/progression_cost_director.gd") as Script
+	_expect(overlay_script != null, "progression cost overlay should load")
+	if overlay_script == null:
+		return
+	var overlay: Node = overlay_script.new()
+	var max_tag: Dictionary = overlay.call("_purchase_tag", {}, "advanced_conventional", 99999)
+	_expect(str(max_tag.get("text", "")) == "MAX", "maxed sequential family should advertise MAX")
+	var first_weapon := {"cost":2600,"unlock_tech_era":"advanced_conventional"}
+	var short_wallet: Dictionary = overlay.call("_purchase_tag", first_weapon, "advanced_conventional", 2500)
+	_expect(str(short_wallet.get("text", "")) == ">002600" and str(short_wallet.get("tone", "")) == "price", "legal unaffordable purchase should expose its exact next price")
+	var ready_wallet: Dictionary = overlay.call("_purchase_tag", first_weapon, "advanced_conventional", 2600)
+	_expect(str(ready_wallet.get("tone", "")) == "ready", "affordable purchase should receive ready tone")
+	var locked: Dictionary = overlay.call("_purchase_tag", {"cost":4800,"unlock_tech_era":"electromagnetic"}, "advanced_conventional", 99999)
+	_expect(str(locked.get("text", "")) == "LOCK EM", "future-era purchase should explain its technology lock rather than masquerading as a credit problem")
+	var catalogue := [{"id":"base","cost":0},{"id":"tier1","cost":2600},{"id":"tier2","cost":4800}]
+	_expect(str((overlay.call("_next_catalog_item", catalogue, 0) as Dictionary).get("id", "")) == "tier1", "cost overlay should follow the same next sequential tier model as purchase logic")
+	_expect((overlay.call("_next_catalog_item", catalogue, 2) as Dictionary).is_empty(), "completed progression family should not expose a phantom price")
+	overlay.free()
+
 func _test_emp_resistance() -> void:
 	var enemies_data = ContentCatalog.load_json("res://data/enemies.json")
 	_expect(typeof(enemies_data) == TYPE_DICTIONARY, "enemy catalogue should load for EMP resistance")
@@ -146,10 +167,19 @@ func _test_source_wiring() -> void:
 	_expect(energy_file != null, "energy rules should be readable for generator efficiency wiring")
 	if energy_file != null:
 		_expect(energy_file.get_as_text().contains("effective_weapon_cost"), "weapon firing should retain generator-adjusted energy path")
+	var overlay_file := FileAccess.open("res://scripts/progression_cost_director.gd", FileAccess.READ)
+	_expect(overlay_file != null, "progression cost overlay should be readable")
+	if overlay_file != null:
+		var overlay_source := overlay_file.get_as_text()
+		_expect(overlay_source.contains("repair_cost_per_hull") and overlay_source.contains("shield_recharge_cost_per_point"), "sortie bay should show authoritative hull and shield service liabilities")
+		_expect(overlay_source.contains("Vector2(340, 224)") and overlay_source.contains("Vector2(340, 269)"), "sortie bay should show cost/lock status for all four progression families")
+		_expect(overlay_source.contains('str(scene.get("game_mode")) != "campaign"'), "fixed modes should not advertise campaign purchases")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
-		_expect(project.get_as_text().contains('DirectedEnergyDirector="*res://scripts/directed_energy_director.gd"'), "directed-energy owner should remain active")
+		var project_source := project.get_as_text()
+		_expect(project_source.contains('DirectedEnergyDirector="*res://scripts/directed_energy_director.gd"'), "directed-energy owner should remain active")
+		_expect(project_source.contains('ProgressionCostDirector="*res://scripts/progression_cost_director.gd"'), "progression cost clarity overlay should remain mounted")
 
 func _item_for_id(items: Array, id: String) -> Dictionary:
 	for item in items:
