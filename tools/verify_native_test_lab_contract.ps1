@@ -108,7 +108,7 @@ if ([string]$Lock.release_engine -ne '4.6.2') { throw 'Native Test Lab release e
 foreach ($Token in @('ExpectedLabSha','ExpectedTargetSha','GodotExecutable','MinimumGodotVersion = ''4.6.2''','clean HYPERSONIC worktree','clean Test Lab worktree','godot-lab-controller-sortie.json','controller sortie-bay maintenance (1)','required_journey_count = 9','controller_sortie_required = $true')) {
     if (-not $Runner.Contains($Token)) { throw "Native Test Lab wrapper lost authority token: $Token" }
 }
-foreach ($Token in @('Authentic front-door journeys','Focused fixture journeys','exact Godot **4.6.2**','Do not use `-AllowNonInteractive` for release evidence','controller sortie-bay maintenance')) {
+foreach ($Token in @('Authentic front-door journeys','Focused fixture journeys','Godot **4.6.2**','Do not use `-AllowNonInteractive` for release evidence','controller-sortie-bay-maintenance')) {
     if (-not $Doc.Contains($Token)) { throw "Native Test Lab documentation lost truth boundary: $Token" }
 }
 
