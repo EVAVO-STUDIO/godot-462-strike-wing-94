@@ -38,6 +38,11 @@ func _test_primary_mounts(mounts: Array) -> void:
 	_expect(storm.size() == 3 and storm[0] == Vector2(0,-24) and storm[2] == Vector2(0,-24), "Storm pulses should share bomber centreline emitter")
 	_expect(PlayerMountRules.bomber_rotary_deployed("bomber", ballistic), "bomber conventional gun should deploy nose rotary")
 	_expect(not PlayerMountRules.bomber_rotary_deployed("fighter", ballistic), "fighter should keep nose rotary retracted")
+	var heavy := {"id":"heavy_autocannon","archetype":"heavy"}
+	_expect(PlayerMountRules.primary_engagement_classes("fighter",heavy,"low") == ["air","boss"], "paired fighter wing guns should retain a forward air-combat solution")
+	_expect(PlayerMountRules.primary_engagement_classes("bomber",heavy,"low") == ["ground","sea","boss"], "single bomber heavy autocannon should depress into a low-altitude surface-strafing solution")
+	_expect(PlayerMountRules.primary_engagement_classes("bomber",heavy,"mid",true) == ["ground","sea","boss"], "diving into the low lane should establish the heavy-cannon strafing solution during the visible descent")
+	_expect("ground" in PlayerMountRules.primary_engagement_classes("bomber",ballistic,"mid"), "ordinary bomber rotary fire should remain a flexible close-support weapon")
 
 func _test_support_mounts(mounts: Array) -> void:
 	var rockets := {"id":"twin_rocket_pods","type":"rockets"}
@@ -68,6 +73,8 @@ func _test_wiring() -> void:
 		var source := craft.get_as_text()
 		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "primary weapon origins should consume canonical mount owner")
 		_expect(source.contains('mounts.call("primary_offsets"'), "primary weapons should request authored mount offsets")
+	var main := FileAccess.get_file_as_string("res://scripts/main.gd")
+	_expect(main.contains('"engagement_classes": engagement_classes') and main.contains("target_category not in engagement_classes"), "live cannon collision should respect the firing plane selected by its physical mount")
 	var cue := FileAccess.open("res://scripts/weapon_mount_cue_director.gd", FileAccess.READ)
 	_expect(cue != null, "weapon mount cue should be readable")
 	if cue != null:

@@ -84,3 +84,15 @@ static func support_offsets(mounts: Array, form: String, support: Dictionary, pr
 static func bomber_rotary_deployed(form: String, weapon: Dictionary) -> bool:
 	if sanitize_form(form) != BOMBER: return false
 	return primary_role(weapon, BOMBER) == "ballistic_primary"
+
+static func primary_engagement_classes(form: String, weapon: Dictionary, altitude: String, diving_to_low: bool = false) -> Array[String]:
+	var safe_form := sanitize_form(form)
+	var weapon_id := str(weapon.get("id", ""))
+	var archetype := str(weapon.get("archetype", "balanced"))
+	# The single heavy nose gun uses a depressed strafing solution only near the
+	# surface. Paired fighter wing-root guns retain a forward air-combat plane.
+	if safe_form == BOMBER and weapon_id == "heavy_autocannon" and (altitude == "low" or diving_to_low):
+		return ["ground", "sea", "boss"]
+	if safe_form == FIGHTER and archetype in ["balanced", "spread", "rapid", "burst", "heavy"]:
+		return ["air", "boss"]
+	return ["air", "ground", "sea", "boss"]

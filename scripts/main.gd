@@ -849,6 +849,14 @@ func _current_altitude_band() -> String:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	return str(craft.call("current_altitude")) if craft != null and craft.has_method("current_altitude") else AltitudeRules.MID
 
+func _surface_collision_active() -> bool:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	if craft == null:
+		return false
+	var diving_to_low := craft.has_method("altitude_transition_direction") and craft.has_method("altitude_transition_to") and int(craft.call("altitude_transition_direction")) < 0 and str(craft.call("altitude_transition_to")) == AltitudeRules.LOW
+	var transition_ratio := float(craft.call("altitude_transition_ratio")) if craft.has_method("altitude_transition_ratio") else 0.0
+	return AltitudeRules.surface_collision_active(_current_altitude_band(), diving_to_low, transition_ratio)
+
 func _random_contact_interval_scale() -> float:
 	return clampf(float(_active_mission().get("random_contact_interval_scale", 1.0)), 0.75, 2.5)
 
@@ -977,6 +985,17 @@ func _craft_form_name() -> String:
 	if director != null and director.has_method("current_form_name"):
 		return str(director.call("current_form_name"))
 	return "FIGHTER"
+
+func _primary_engagement_classes(weapon: Dictionary) -> Array[String]:
+	var director := get_node_or_null("/root/CraftFormDirector")
+	var form := "fighter"
+	var diving_to_low := false
+	if director != null:
+		if director.has_method("current_form"):
+			form = str(director.call("current_form"))
+		if director.has_method("altitude_transition_direction") and director.has_method("altitude_transition_to"):
+			diving_to_low = int(director.call("altitude_transition_direction")) < 0 and str(director.call("altitude_transition_to")) == AltitudeRules.LOW
+	return PlayerMountRules.primary_engagement_classes(form, weapon, _current_altitude_band(), diving_to_low)
 
 func _current_tech_era() -> String:
 	var director := get_node_or_null("/root/CraftFormDirector")
@@ -1455,6 +1474,7 @@ func _update_weapons() -> void:
 			))
 		)
 		var mount_offsets := _craft_primary_mount_offsets(weapon, count)
+		var engagement_classes := _primary_engagement_classes(weapon)
 		for i in range(count):
 			var angle := 0.0
 			if count > 1:
@@ -1466,6 +1486,7 @@ func _update_weapons() -> void:
 				"velocity": Vector2.UP.rotated(angle) * float(weapon.get("projectile_speed", 430.0)),
 				"damage": damage,
 				"weapon_id": str(weapon.get("id", "")),
+				"engagement_classes": engagement_classes,
 				"pierce_remaining": clampi(int(weapon.get("pierce", 0)), 0, 4)
 			}
 			if int(bullet["pierce_remaining"]) > 0:
@@ -1819,6 +1840,9 @@ func _resolve_combat() -> void:
 	for bullet_index in range(bullets.size() - 1, -1, -1):
 		var bullet: Dictionary = bullets[bullet_index]
 		var hit_protected := false
+		var protected_engagement_classes: Array = bullet.get("engagement_classes", ["air","ground","sea","boss"])
+		if "ground" not in protected_engagement_classes:
+			continue
 		for contact_index in range(protected_contacts.size() - 1, -1, -1):
 			if Vector2(bullet.get("position", Vector2.ZERO)).distance_squared_to(Vector2(protected_contacts[contact_index].get("position", Vector2.ZERO))) <= 196.0:
 				var contact: Dictionary = protected_contacts[contact_index]
@@ -1837,6 +1861,10 @@ func _resolve_combat() -> void:
 		var bullet: Dictionary = bullets[bullet_index]
 		for enemy_index in range(enemies.size() - 1, -1, -1):
 			var is_boss_target := bool(enemies[enemy_index].get("boss", false))
+			var target_category := "boss" if is_boss_target else str(enemies[enemy_index].get("category", "air"))
+			var engagement_classes: Array = bullet.get("engagement_classes", ["air","ground","sea","boss"])
+			if target_category not in engagement_classes:
+				continue
 			var hit: bool = BossRules.projectile_hits(
 				str(enemies[enemy_index].get("id", "")),
 				enemies[enemy_index]["position"],
@@ -1893,6 +1921,25 @@ func _resolve_combat() -> void:
 		else:
 			bullets[bullet_index] = bullet
 
+	if _surface_collision_active():
+		for enemy_index in range(enemies.size() - 1, -1, -1):
+			var surface_contact: Dictionary = enemies[enemy_index]
+			var surface_id := str(surface_contact.get("id", ""))
+			var surface_radius := AltitudeRules.surface_collision_radius(surface_id)
+			if surface_radius > 0.0 and Vector2(surface_contact.get("position", Vector2.ZERO)).distance_to(player_position) <= surface_radius:
+				_apply_damage(1, "terrain_collision")
+				surface_contact["last_impact_family"] = "cannon"
+				_register_destroy(surface_contact)
+				enemies.remove_at(enemy_index)
+				return
+		for contact_index in range(protected_contacts.size() - 1, -1, -1):
+			var protected_contact: Dictionary = protected_contacts[contact_index]
+			var protected_radius := AltitudeRules.surface_collision_radius(str(protected_contact.get("id", "")))
+			if protected_radius > 0.0 and Vector2(protected_contact.get("position", Vector2.ZERO)).distance_to(player_position) <= protected_radius:
+				_apply_damage(1, "terrain_collision")
+				_register_collateral_loss(protected_contact)
+				protected_contacts.remove_at(contact_index)
+				return
 	var player_contact_radius_sq := _craft_float("collision_radius_sq", 420.0) * _evasive_collision_multiplier()
 	var player_contact_radius := sqrt(maxf(0.0, player_contact_radius_sq))
 	for enemy_index in range(enemies.size() - 1, -1, -1):
@@ -2033,7 +2080,7 @@ func _apply_damage(amount: int, source: String = "projectile") -> void:
 		return
 	var previous_integrity := hull + shield
 	var previous_shield := shield
-	var collision := source in ["contact","boss_contact"]
+	var collision := source in ["contact","boss_contact","terrain_collision"]
 	var state := CombatImpactRules.apply(hull,shield,amount,CombatImpactRules.AIRFRAME_COLLISION,CombatRules.incoming_damage_multiplier()) if collision else CombatRules.apply_shielded_damage(hull, shield, amount)
 	hull = int(state["hull"])
 	shield = int(state["shield"])
@@ -2041,7 +2088,7 @@ func _apply_damage(amount: int, source: String = "projectile") -> void:
 	damage_taken += applied
 	damage_sources[source] = int(damage_sources.get(source, 0)) + applied
 	if collision:
-		status_text = "AIRFRAME COLLISION // STRUCTURAL LOSS"
+		status_text = "LOW ALTITUDE IMPACT // AIRFRAME LOST" if source == "terrain_collision" else "AIRFRAME COLLISION // STRUCTURAL LOSS"
 		status_timer = PLAYER_LOSS_SEQUENCE_SECONDS
 	elif previous_shield > 0 and shield <= 0:
 		status_text = "SHIELDS DOWN // HULL EXPOSED"

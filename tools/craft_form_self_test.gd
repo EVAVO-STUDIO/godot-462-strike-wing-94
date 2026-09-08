@@ -80,6 +80,9 @@ func _test_altitudes() -> void:
 	_expect(not AltitudeRules.enemy_weapon_can_engage("orbital","ground","missile"), "terrestrial SAM batteries should not engage through the orbital lane")
 	_expect(AltitudeRules.enemy_weapon_can_engage("orbital","air","twin_burst"), "orbital aircraft should retain air-to-air engagement authority")
 	_expect(AltitudeRules.allows_enemy_class("orbital", "boss", true), "bosses should remain eligible regardless of ordinary class filter")
+	_expect(AltitudeRules.surface_collision_active("low") and not AltitudeRules.surface_collision_active("mid"), "only terrain-skimming flight should share a collision plane with tall surface structures")
+	_expect(not AltitudeRules.surface_collision_active("mid",true,0.60) and AltitudeRules.surface_collision_active("mid",true,0.80), "a dive should enter the surface collision plane late in its visible descent")
+	_expect(AltitudeRules.surface_collision_radius("strategic_silo") > AltitudeRules.surface_collision_radius("light_tank"), "tall installations should be collision hazards while vehicles retain safe vertical separation")
 
 func _test_campaign_world() -> void:
 	var data = ContentCatalog.load_json("res://data/campaign_world.json")

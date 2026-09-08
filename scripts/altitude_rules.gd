@@ -7,6 +7,7 @@ const HIGH := "high"
 const ORBITAL := "orbital"
 const BANDS := [LOW, MID, HIGH, ORBITAL]
 const TRANSITION_SECONDS := 1.40
+const TALL_SURFACE_HAZARDS := ["strategic_silo", "radar_site", "fortified_turret", "factory_defence_node", "civilian_village", "field_clinic"]
 
 static func sanitize(band: String) -> String:
 	return band if band in BANDS else MID
@@ -51,6 +52,19 @@ static func clouds_in_front(band: String) -> bool:
 
 static func allows_ground_targets(band: String) -> bool:
 	return sanitize(band) in [LOW, MID]
+
+static func surface_collision_active(band: String, diving_to_low: bool = false, transition_ratio: float = 0.0) -> bool:
+	return sanitize(band) == LOW or (diving_to_low and transition_ratio >= 0.72)
+
+static func is_tall_surface_hazard(contact_id: String) -> bool:
+	return contact_id in TALL_SURFACE_HAZARDS
+
+static func surface_collision_radius(contact_id: String) -> float:
+	match contact_id:
+		"strategic_silo", "factory_defence_node": return 25.0
+		"civilian_village": return 29.0
+		"radar_site", "fortified_turret", "field_clinic": return 22.0
+	return 0.0
 
 static func supports_form(band: String, form: String) -> bool:
 	var safe_band := sanitize(band)

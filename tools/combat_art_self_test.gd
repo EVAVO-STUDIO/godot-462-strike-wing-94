@@ -169,7 +169,7 @@ func _test_visual_language() -> void:
 	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(0.1, 0.0) == 2, "heavy bomber bay should reach an open weapon-ready pose")
 	_expect(CombatArtDirector.heavy_bomber_bay_frame_index(1.0, 0.8) == 3, "heavy bomber bay should expose an authored firing pose during recoil")
 	_expect(source.contains('enemy_id == "gunship_mk1"') and source.contains('enemy_id == "attack_chopper"'), "gunship turret and helicopter cannon should receive specialist articulation")
-	_expect(source.contains("func _draw_infantry_member") and source.contains("scale *= 1.12") and source.contains("shadow_size") and source.contains("Color(1.18,1.16,1.10,0.34)"), "human-scale squads should retain a compact optical-scale allowance, registered contact shadows and a restrained value lift over detailed terrain")
+	_expect(source.contains("func _draw_infantry_member") and source.contains("scale *= 1.24") and source.contains("shadow_size") and source.contains("Color(1.22,1.19,1.10,0.46)"), "human-scale squads should retain a compact optical-scale allowance, registered contact shadows and a restrained value lift over detailed terrain")
 	_expect(source.contains("func _render_airframe_weapon_discharge") and source.contains('"scout_falcon", "ace_interceptor", "drone_scout", "drone_hunter", "phase_interceptor"') and source.contains("ProjectileRules.twin_gun_origins(muzzle_center, direction)"), "ordinary and pursuit-capable hostile fighters should expose authored single/twin hardpoint discharge instead of spawning disconnected rounds")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_specialist/air_specialist_asset_manifest.json"), "air specialist source/runtime manifest should exist")
 	var layered_human_air_sizes := {
@@ -322,6 +322,7 @@ func _test_visual_language() -> void:
 	_expect(source.contains("INFANTRY_LAYERED_ART") and source.contains("var active_member") and source.contains("offsets[active_member]+Vector2(0,7)"), "rifle squads should assemble independent members with restrained one-at-a-time firing cadence")
 	_expect(source.contains('"belt": preload("res://assets/runtime/enemies/infantry_layered/heavy_ammo_belt.png")') and source.contains('definition["tripod_recoil"]') and source.contains('definition["belt"]'), "heavy teams should assemble independent crew, ammunition feed, and tripod recoil layers")
 	_expect(source.contains('_capture_ground_state() == "infantry"') and source.contains("_render_infantry_capture"), "visual QA should expose an isolated infantry gait, firing, recoil, and hit fixture")
+	_expect(source.contains("var team_shadow :=") and source.contains("scale *= 1.24") and source.contains("Vector2(-11,-6)"), "human-scale infantry should retain a readable formation footprint over dense production terrain")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/infantry_layered/infantry_layered_manifest.json"), "layered infantry source/runtime manifest should exist")
 	var mech_layer_sizes := {
 		"security_cannon":Vector2(18,38), "security_cannon_recoil":Vector2(18,38), "security_barrel":Vector2(12,30), "security_shield":Vector2(16,28), "security_collar":Vector2(14,14),

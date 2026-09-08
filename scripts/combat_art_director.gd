@@ -2225,13 +2225,20 @@ func _draw_infantry_team(surface: CanvasItem, p: Vector2, enemy_id: String, enem
 	# Human-scale contacts need a small optical-scale allowance at the 640x360
 	# combat resolution. This preserves squad proportions while keeping the team
 	# distinguishable from terrain noise and aligned with its compact hit envelope.
-	scale *= 1.12
+	scale *= 1.24
 	var definition: Dictionary = INFANTRY_LAYERED_ART[enemy_id]
 	var age := float(enemy.get("age", 0.0))
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.10, 0.0, 1.0)
 	var hit_ratio := clampf(float(enemy.get("hit_timer", 0.0)) / 0.14, 0.0, 1.0)
+	# Seat the whole fire team into one patch of terrain before drawing each
+	# soldier. The broad low-opacity contact mass makes the formation readable
+	# over refinery pipework without turning human troops into oversized icons.
+	var team_shadow := Vector2(31.0 if enemy_id == "mercenary_rifle_team" else 29.0, 12.0) * scale
+	surface.draw_set_transform((p+Vector2(3,5)*scale).round(), 0.0, Vector2(1.0, team_shadow.y/team_shadow.x))
+	surface.draw_circle(Vector2.ZERO, team_shadow.x*0.5, Color(0.015,0.02,0.018,0.28), true, -1, false)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if enemy_id == "mercenary_rifle_team":
-		var offsets := [Vector2(-9,-5), Vector2(8,-4), Vector2(-5,4), Vector2(6,5), Vector2(0,10)]
+		var offsets := [Vector2(-11,-6), Vector2(10,-5), Vector2(-7,4), Vector2(8,5), Vector2(0,11)]
 		var active_member := int(floor(age * 6.0)) % offsets.size()
 		var advance_frames: Array = definition["advance"]
 		for member_index in range(offsets.size()):
@@ -2274,7 +2281,7 @@ func _draw_infantry_member(surface: CanvasItem, center: Vector2, texture: Textur
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	_draw_production_sprite(surface, center, texture, scale)
 	var size := texture.get_size() * scale
-	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(),size.round()), false, Color(1.18,1.16,1.10,0.34))
+	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(),size.round()), false, Color(1.22,1.19,1.10,0.46))
 
 func _draw_infantry_effect(surface: CanvasItem, center: Vector2, texture: Texture2D, scale: float) -> void:
 	var size := texture.get_size() * scale

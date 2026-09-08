@@ -1,9 +1,9 @@
 {
-  "asset_family": "mercenary_infantry_layered_v1",
+  "asset_family": "mercenary_infantry_layered_v2",
   "raw_art": "res://assets/source/enemies/infantry_layered/infantry_component_sheet_raw_v1.png",
   "clean_source": "res://assets/source/enemies/infantry_layered/infantry_component_sheet_source_v1.png",
   "cleanup_profile": "res://assets/source/enemies/infantry_layered/infantry_cleanup.sprite.json",
-  "builder": "res://tools/build_infantry_layered_art.ps1",
+  "builder": "res://tools/build_infantry_pixel_art_v2.py",
   "runtime_directory": "res://assets/runtime/enemies/infantry_layered/",
   "units": {
     "mercenary_rifle_team": ["rifle_advance_0", "rifle_advance_1", "rifle_advance_2", "rifle_aim", "rifle_fire", "rifle_flinch", "rifle_kneel", "rifle_kneel_fire", "rifle_prone", "radio_operator"],
@@ -14,7 +14,8 @@
     "rifle_team": "five independently registered members with staggered gait, restrained single-member firing cadence, kneeling and prone silhouette options",
     "heavy_team": "separate gunner, loader, spotter, tripod recoil, ammunition feed, and field equipment layers",
     "damage": "individual flinch and restrained dust layers preserve readable human-scale hits without arcade fireballs",
-    "registration": "all individual poses retain shoulder-centred pivots and assemble inside a compact squad footprint"
+    "registration": "all individual poses retain shoulder-centred pivots and assemble inside a readable squad footprint",
+    "palette": "dark olive fatigues, warm field equipment, pale helmets and hard gunmetal weapon pixels separate human figures from industrial terrain"
   },
   "qa": ["exterior checker cleanup", "native-scale silhouette separation", "staggered gait", "single-member muzzle cadence", "tripod recoil", "in-engine terrain contrast"]
 }

@@ -41,6 +41,19 @@ func run() -> void:
 	var tank := {"id":"light_tank","category":"ground","position":p,"hp":4,"max_hp":4,"value":100,"boss":false}
 	scene.set("enemies",[tank]); scene.call("_resolve_combat")
 	check(int(scene.get("hull"))==int(scene.call("_max_hull")) and scene.get("enemies").size()==1, "A coincident surface target must not collide across altitude separation")
+	scene.call("_start_mission"); p=scene.get("player_position")
+	root.get_node("CraftFormDirector").set("altitude","low")
+	var silo := {"id":"strategic_silo","category":"ground","position":p,"hp":20,"max_hp":20,"value":100,"boss":false}
+	scene.set("enemies",[silo]); scene.call("_resolve_combat")
+	check(int(scene.get("hull"))==0 and scene.get("enemies").is_empty(), "Terrain-skimming contact with a tall silo must destroy both aircraft and installation")
+	check(str(scene.get("status_text")).contains("LOW ALTITUDE IMPACT") and int(scene.get("damage_sources").get("terrain_collision",0))>0, "Tall-site collision must enter explicit structural-loss presentation and telemetry")
+	scene.call("_start_mission"); p=scene.get("player_position")
+	var air_target := {"id":"scout_falcon","category":"air","position":p+Vector2(0,-80),"hp":4,"max_hp":4,"value":100,"boss":false}
+	var ground_target := {"id":"light_tank","category":"ground","position":p+Vector2(0,-80),"hp":4,"max_hp":4,"value":100,"boss":false}
+	var strafe_round := {"position":p+Vector2(0,-80),"velocity":Vector2.UP*390.0,"damage":5,"weapon_id":"heavy_autocannon","engagement_classes":["ground","sea","boss"],"pierce_remaining":0}
+	scene.set("enemies",[air_target,ground_target]); scene.set("bullets",[strafe_round]); scene.call("_resolve_combat")
+	var strafe_survivors: Array = scene.get("enemies")
+	check(strafe_survivors.size()==1 and str(strafe_survivors[0].get("id",""))=="scout_falcon", "Depressed heavy-autocannon fire must cross the surface plane without hitting a coincident aircraft")
 	scene.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC impact runtime test passed: lethal missiles, cannon attrition, catastrophic airframe contact and surface separation.")
 	else:
