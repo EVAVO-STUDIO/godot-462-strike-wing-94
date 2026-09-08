@@ -44,7 +44,9 @@ function Next-Tier($Economy, [string]$Family, [int]$OwnedIndex) {
 function Candidate-For-Family($Economy, [string]$Family, [int]$OwnedIndex, [string]$TechEra, $TechRanks, [int]$Wallet, [int]$Reward, [int]$ServiceReserve) {
     $Tier = Next-Tier $Economy $Family $OwnedIndex
     if ($null -eq $Tier) { return $null }
-    if (Tech-Rank ([string]$Tier.unlock_tech_era) $TechRanks -gt Tech-Rank $TechEra $TechRanks) { return $null }
+    $RequiredRank = Tech-Rank ([string]$Tier.unlock_tech_era) $TechRanks
+    $CurrentRank = Tech-Rank $TechEra $TechRanks
+    if ($RequiredRank -gt $CurrentRank) { return $null }
     $Cost = [int]$Tier.sticker_cost
     if ($Cost -le 0) { return $null }
     # Reserve-aware affordability: after buying now, the guaranteed modeled
@@ -69,7 +71,12 @@ function Strategy-Order([string]$StrategyId, [int]$SortieIndex) {
         'balanced_round_robin' {
             $Base = @('primary_weapon','generator','airframe','support')
             $Offset = $SortieIndex % $Base.Count
-            return @($Base[$Offset..($Base.Count - 1)] + $Base[0..($Offset - 1)]) if $Offset -gt 0 else $Base
+            if ($Offset -gt 0) {
+                $Tail = @($Base[$Offset..($Base.Count - 1)])
+                $Head = @($Base[0..($Offset - 1)])
+                return @($Tail + $Head)
+            }
+            return $Base
         }
         default { return @('primary_weapon','generator','airframe','support') }
     }
@@ -204,10 +211,10 @@ foreach ($Route in @($Projection.projections)) {
             total_spend = $TotalSpend
             total_paid_tiers = $PaidTiers
             owned_paid_tiers = [ordered]@{
-                primary_weapon = [int]$Owned.primary_weapon
-                generator = [int]$Owned.generator
-                airframe = [int]$Owned.airframe
-                support = [int]$Owned.support
+                primary_weapon = [int]$Owned['primary_weapon']
+                generator = [int]$Owned['generator']
+                airframe = [int]$Owned['airframe']
+                support = [int]$Owned['support']
             }
             forced_single_family_windows = $ForcedSingleFamilyWindows
             multi_family_choice_windows = $MultiFamilyChoiceWindows
