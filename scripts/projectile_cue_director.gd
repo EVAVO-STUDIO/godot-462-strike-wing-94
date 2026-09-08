@@ -97,11 +97,26 @@ class ProjectileCueCanvas:
 				_draw_energy_pulse(position, direction)
 			elif bool(shot.get("support_homing", false)) or bool(shot.get("support", false)):
 				_draw_support_round(position, direction, bool(shot.get("support_homing", false)))
+			elif bool(shot.get("surface_strafe", false)):
+				_draw_surface_strafe(position, direction)
 			else:
 				_draw_ballistic(position, direction)
 
 	func _draw_ballistic(position: Vector2, direction: Vector2) -> void:
 		_draw_registered_sprite(position, direction, "ballistic")
+
+	func _draw_surface_strafe(position: Vector2, direction: Vector2) -> void:
+		# The bomber's depressed nose gun occupies a lower firing plane. A compact
+		# displaced cel shadow makes that depth legible without adding a HUD reticle
+		# or turning the tracer into an oversized arcade beam.
+		var frames: Array = PROJECTILE_FRAMES["ballistic"]
+		var frame_index := int(floor(Time.get_ticks_msec() / 83.0)) % frames.size()
+		var texture: Texture2D = frames[frame_index]
+		draw_set_transform((position + Vector2(5,7)).round(), Vector2.UP.angle_to(direction), Vector2(0.72,0.72))
+		draw_texture(texture, Vector2(-8,-7), Color(0.02,0.025,0.03,0.62))
+		draw_set_transform(position.round(), Vector2.UP.angle_to(direction), Vector2(0.88,0.88))
+		draw_texture(texture, Vector2(-8,-7), Color(1.0,0.78,0.48,1.0))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 	func _draw_kinetic(position: Vector2, direction: Vector2) -> void:
 		_draw_registered_sprite(position, direction, "needle_rail")

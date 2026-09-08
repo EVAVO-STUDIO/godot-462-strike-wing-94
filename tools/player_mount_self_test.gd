@@ -75,6 +75,9 @@ func _test_wiring() -> void:
 		_expect(source.contains('mounts.call("primary_offsets"'), "primary weapons should request authored mount offsets")
 	var main := FileAccess.get_file_as_string("res://scripts/main.gd")
 	_expect(main.contains('"engagement_classes": engagement_classes') and main.contains("target_category not in engagement_classes"), "live cannon collision should respect the firing plane selected by its physical mount")
+	_expect(main.contains('"surface_strafe": surface_strafe') and main.contains('"--capture-player-strafe"'), "bomber heavy-cannon rounds should carry a deterministic lower-plane presentation cue")
+	var projectile_cues := FileAccess.get_file_as_string("res://scripts/projectile_cue_director.gd")
+	_expect(projectile_cues.contains("func _draw_surface_strafe") and projectile_cues.contains("Vector2(5,7)") and projectile_cues.contains("Vector2(0.72,0.72)"), "surface strafing should render a compact displaced cel shadow instead of reading as flat air-combat fire")
 	var cue := FileAccess.open("res://scripts/weapon_mount_cue_director.gd", FileAccess.READ)
 	_expect(cue != null, "weapon mount cue should be readable")
 	if cue != null:

@@ -401,6 +401,18 @@ func _begin_capture_gameplay() -> void:
 		lateral_airspace_timer = 2.65
 		status_text = "OFF COURSE // TURN LEFT // ABORT 2"
 		status_timer = 30.0
+	if "--capture-player-strafe" in OS.get_cmdline_user_args():
+		bullets.clear()
+		for i in range(5):
+			bullets.append({
+				"position": player_position + Vector2(0,-34-i*18),
+				"velocity": Vector2.UP*390.0,
+				"damage":5,
+				"weapon_id":"heavy_autocannon",
+				"engagement_classes":["ground","sea","boss"],
+				"surface_strafe":true,
+				"pierce_remaining":0
+			})
 	queue_redraw()
 
 func _stage_capture_player_loss_fx(loss_ratio: float) -> void:
@@ -1493,6 +1505,11 @@ func _update_weapons() -> void:
 		)
 		var mount_offsets := _craft_primary_mount_offsets(weapon, count)
 		var engagement_classes := _primary_engagement_classes(weapon)
+		var surface_strafe := (
+			str(weapon.get("id", "")) == "heavy_autocannon"
+			and "ground" in engagement_classes
+			and "air" not in engagement_classes
+		)
 		for i in range(count):
 			var angle := 0.0
 			if count > 1:
@@ -1505,6 +1522,7 @@ func _update_weapons() -> void:
 				"damage": damage,
 				"weapon_id": str(weapon.get("id", "")),
 				"engagement_classes": engagement_classes,
+				"surface_strafe": surface_strafe,
 				"pierce_remaining": clampi(int(weapon.get("pierce", 0)), 0, 4)
 			}
 			if int(bullet["pierce_remaining"]) > 0:
