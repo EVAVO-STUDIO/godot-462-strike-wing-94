@@ -14,8 +14,6 @@ var _last_controller_msec := -100000
 func _ready() -> void:
 	layer = 39
 	process_priority = -45
-	# PauseDirector freezes the SceneTree. Context remapping still has to run so
-	# B can remain BACK instead of also becoming the paused-options category key.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if DisplayServer.get_name() != "headless":
 		_surface = ControllerMenuContextSurface.new()
@@ -36,18 +34,21 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		_last_controller_msec = Time.get_ticks_msec()
-	if _context == "controls" and event is InputEventJoypadButton and event.pressed and int((event as InputEventJoypadButton).button_index) == JOY_BUTTON_A:
-		set_meta(&"qa_controls_confirm_suppressed", true)
-		get_viewport().set_input_as_handled()
-	elif _context in ["options", "pause_options"] and event is InputEventJoypadButton and event.pressed:
+	if event is InputEventJoypadButton and event.pressed:
 		var button := int((event as InputEventJoypadButton).button_index)
-		var prefix := "qa_pause_options_" if _context == "pause_options" else "qa_options_"
-		if button == JOY_BUTTON_X:
-			set_meta(StringName(prefix + "next_category"), true)
-		elif button == JOY_BUTTON_Y:
-			set_meta(StringName(prefix + "previous_category"), true)
-		elif button == JOY_BUTTON_B:
-			set_meta(StringName(prefix + "back"), true)
+		if _context == "flight" and button == JOY_BUTTON_START:
+			set_meta(&"qa_flight_pause_start", true)
+		elif _context == "controls" and button == JOY_BUTTON_A:
+			set_meta(&"qa_controls_confirm_suppressed", true)
+			get_viewport().set_input_as_handled()
+		elif _context in ["options", "pause_options"]:
+			var prefix := "qa_pause_options_" if _context == "pause_options" else "qa_options_"
+			if button == JOY_BUTTON_X:
+				set_meta(StringName(prefix + "next_category"), true)
+			elif button == JOY_BUTTON_Y:
+				set_meta(StringName(prefix + "previous_category"), true)
+			elif button == JOY_BUTTON_B:
+				set_meta(StringName(prefix + "back"), true)
 
 func _exit_tree() -> void:
 	_restore_universal_buttons()
@@ -58,9 +59,12 @@ func _wanted_context() -> String:
 		var pause_context := str(pause.call("pause_context")) if pause.has_method("pause_context") else ""
 		return "pause_options" if pause_context == "options" else ""
 	var scene := get_tree().current_scene
-	if scene == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 0:
+	if scene == null or not _has_property(scene, "phase"):
 		return ""
-	if not _has_property(scene, "front_end_screen"):
+	var phase := int(scene.get("phase"))
+	if phase == 1:
+		return "flight"
+	if phase != 0 or not _has_property(scene, "front_end_screen"):
 		return ""
 	var screen := str(scene.get("front_end_screen"))
 	return screen if screen in ["options", "controls"] else ""
@@ -68,7 +72,14 @@ func _wanted_context() -> String:
 func _set_context(next_context: String) -> void:
 	_restore_universal_buttons()
 	_context = next_context
-	if _context in ["options", "pause_options"]:
+	if _context == "flight":
+		# B is the authored screen-bomb button. If B is also Cancel, main.gd can
+		# consume the same just-pressed frame as both bomb and pause. While flying,
+		# move Cancel/Pause to START and leave B exclusively on fire_secondary.
+		_remove_button(&"cancel", JOY_BUTTON_B)
+		_add_button(&"cancel", JOY_BUTTON_START)
+		set_meta(&"qa_flight_context_configured", true)
+	elif _context in ["options", "pause_options"]:
 		_remove_button(&"fire_secondary", JOY_BUTTON_B)
 		_add_button(&"fire_secondary", JOY_BUTTON_X)
 		if _context == "pause_options":
@@ -82,6 +93,8 @@ func _set_context(next_context: String) -> void:
 func _restore_universal_buttons() -> void:
 	_remove_button(&"fire_secondary", JOY_BUTTON_X)
 	_add_button(&"fire_secondary", JOY_BUTTON_B)
+	_remove_button(&"cancel", JOY_BUTTON_START)
+	_add_button(&"cancel", JOY_BUTTON_B)
 	_add_button(&"confirm", JOY_BUTTON_A)
 
 func draw_context_hint(surface: CanvasItem) -> void:
