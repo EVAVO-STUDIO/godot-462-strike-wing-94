@@ -38,6 +38,9 @@ func run() -> void:
 	check(Art.FRAMES["hypersonic_engine_ring"].size() == 6, "Engine-origin pressure ring must retain its six authored exposures")
 	for frame in Art.FRAMES["hypersonic_engine_ring"]:
 		check(frame is Texture2D and frame.get_size() == Vector2(128,128) and frame.get_image().detect_alpha() != Image.ALPHA_NONE, "Engine-origin pressure ring must retain registered transparent geometry")
+	var ring_source := FileAccess.get_file_as_string("res://assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg")
+	check(ring_source.contains("M63 29C79") and ring_source.contains('stroke-width="9"'), "mature pressure fronts should retain irregular vapor contours with a broad condensation body")
+	check(not ring_source.contains("M45 64h38") and not ring_source.contains("M64 45v38"), "hypersonic pressure art must not regress to a targeting-style center cross")
 	cue.free()
 	if failures.is_empty(): print("HYPERSONIC propulsion self-test passed: paired engines, timed expanding burst and blue plume loop.")
 	else:
