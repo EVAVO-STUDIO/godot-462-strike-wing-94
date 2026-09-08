@@ -20,9 +20,10 @@ $VisualQaScript = Join-Path $PSScriptRoot 'run_visual_qa.ps1'
 $PlaytestTelemetryScript = Join-Path $PSScriptRoot 'run_playtest_telemetry.ps1'
 $VulnerableBalanceScript = Join-Path $PSScriptRoot 'run_vulnerable_balance_telemetry.ps1'
 $EconomyAuditScript = Join-Path $PSScriptRoot 'run_economy_progression_audit.ps1'
+$RouteProjectionScript = Join-Path $PSScriptRoot 'run_route_progression_projection.ps1'
 $ReceiptScript = Join-Path $PSScriptRoot 'write_windows_release_receipt.ps1'
 
-foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $VulnerableBalanceScript, $EconomyAuditScript, $ReceiptScript)) {
+foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $VulnerableBalanceScript, $EconomyAuditScript, $RouteProjectionScript, $ReceiptScript)) {
     $Tokens = $null
     $Errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($ScriptPath, [ref]$Tokens, [ref]$Errors) | Out-Null
@@ -74,10 +75,12 @@ if (-not $SkipVulnerableBalance) {
 }
 
 if (-not $SkipEconomyAudit) {
-    Write-Host 'Running authored economy, servicing and progression affordability evidence...' -ForegroundColor Cyan
+    Write-Host 'Running authored economy, servicing and sequential progression affordability evidence...' -ForegroundColor Cyan
     & $EconomyAuditScript -GodotBin $GodotBin
+    Write-Host 'Projecting all eight campaign branch routes across four difficulties...' -ForegroundColor Cyan
+    & $RouteProjectionScript
 } else {
-    Write-Warning 'Economy progression audit was explicitly skipped; this run is not a complete automated progression-evidence audit.'
+    Write-Warning 'Economy progression and branch-route projection were explicitly skipped; this run is not a complete automated progression-evidence audit.'
 }
 
 Write-Host 'Building the canonical HYPERSONIC Windows package...' -ForegroundColor Cyan
@@ -89,7 +92,7 @@ Write-Host 'Launching and verifying the packaged HYPERSONIC runtime...' -Foregro
 if (-not $SkipPerformance -and -not $SkipVisualQa -and -not $SkipPlaytestTelemetry -and -not $SkipVulnerableBalance -and -not $SkipEconomyAudit) {
     Write-Host 'Recording exact-SHA packaged-build evidence...' -ForegroundColor Cyan
     & $ReceiptScript -GodotBin $GodotBin -Executable $OutputPath
-    Write-Host 'HYPERSONIC automated Windows release gate passed. Vulnerable autoplay and conservative economy evidence are diagnostic; human campaign, visual, audio and balance signoff are still required for a release candidate.' -ForegroundColor Green
+    Write-Host 'HYPERSONIC automated Windows release gate passed. Vulnerable autoplay and conservative sequential-route economy evidence are diagnostic; human campaign, visual, audio and balance signoff are still required for a release candidate.' -ForegroundColor Green
 } else {
     Write-Warning 'HYPERSONIC focused Windows validation passed with one or more release stages skipped; no exact-SHA release receipt was issued.'
 }
