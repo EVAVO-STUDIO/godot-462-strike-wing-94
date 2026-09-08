@@ -1743,7 +1743,8 @@ func _update_enemies(delta: float) -> void:
 				float(enemy.get("lateral_velocity",0.0)),
 				_difficulty_projectile_speed(ProjectileRules.enemy_projectile_speed(weapon_id))
 			)
-		if weapon_id != "none" and float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and firing_solution and missile_lock_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
+		var hostile_fire_ready := ProjectileRules.hostile_fire_authorized(enemy_bullets.size(), is_boss)
+		if weapon_id != "none" and float(enemy["fire_timer"]) <= 0.0 and position.y > PLAYFIELD.position.y and firing_solution and missile_lock_ready and hostile_fire_ready and (not is_boss or bool(enemy.get("entry_ready", false))):
 			_fire_enemy_weapon(enemy)
 			if weapon_id == "missile": enemy["missile_lock_ratio"] = 0.0
 			enemy["fire_timer"] = _difficulty_fire_interval(ProjectileRules.enemy_fire_interval(

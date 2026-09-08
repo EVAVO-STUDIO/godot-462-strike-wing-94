@@ -8,6 +8,8 @@ const SURFACE_GUN_RANGE := 390.0
 const MIN_GUN_RANGE := 42.0
 const ENEMY_MISSILE_ENGAGEMENT_INTERVAL := 1.6
 const MAX_ACTIVE_GUIDED_MISSILES := 4
+const MAX_ACTIVE_HOSTILE_PROJECTILES := 32
+const BOSS_PROJECTILE_RESERVE := 6
 const FIXED_GUN_PATTERNS := ["sine_dive", "tracking_sweep", "aggressive_weave"]
 const FIXED_GUN_ALIGNMENT_PIXELS := 34.0
 
@@ -27,6 +29,10 @@ static func missile_salvo_available(remaining: int) -> bool:
 
 static func missile_launch_authorized(engagement_cooldown: float, active_guided_missiles: int) -> bool:
 	return engagement_cooldown <= 0.0 and active_guided_missiles < MAX_ACTIVE_GUIDED_MISSILES
+
+static func hostile_fire_authorized(active_projectiles: int, boss: bool = false) -> bool:
+	var ceiling := MAX_ACTIVE_HOSTILE_PROJECTILES + (BOSS_PROJECTILE_RESERVE if boss else 0)
+	return active_projectiles < ceiling
 
 static func enemy_shot_velocity(origin: Vector2, target: Vector2, speed: float) -> Vector2:
 	var direction := origin.direction_to(target)
