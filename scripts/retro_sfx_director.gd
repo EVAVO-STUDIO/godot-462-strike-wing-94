@@ -3,6 +3,7 @@ extends Node
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const RetroSfxPriorityRules = preload("res://scripts/retro_sfx_priority_rules.gd")
 const ThreatWarningRules = preload("res://scripts/threat_warning_rules.gd")
 const MIX_RATE := 22050.0
 const MAX_VOICES := 8
@@ -23,6 +24,7 @@ var _last_enemy_missiles_launched := 0
 var _last_strike_ordnance := -1
 var _noise_state := 0x1345ABCD
 var _rotary_cooldown := 0.0
+var _critical_duck_timer := 0.0
 var _sfx_gain:=0.75
 var _radio_gain:=0.80
 var _propulsion_gain := 0.0
@@ -60,6 +62,7 @@ func set_mix_levels(master_percent:int,sfx_percent:int,radio_percent:int=100)->v
 
 func _process(delta: float) -> void:
 	_rotary_cooldown = maxf(0.0, _rotary_cooldown - maxf(0.0, delta))
+	_critical_duck_timer = maxf(0.0, _critical_duck_timer - maxf(0.0, delta))
 	_observe_gameplay()
 	_propulsion_gain = move_toward(_propulsion_gain, _propulsion_target_gain, maxf(0.0, delta) * 0.18)
 	_propulsion_frequency = move_toward(_propulsion_frequency, _propulsion_target_frequency, maxf(0.0, delta) * 90.0)
@@ -263,23 +266,32 @@ func _trigger(event_id: String) -> void:
 	var spec := RetroSfxRules.voice(event_id)
 	if not RetroSfxRules.valid_voice(spec):
 		return
-	if _voices.size() >= MAX_VOICES:
-		_voices.pop_front()
+	var incoming_priority := RetroSfxPriorityRules.priority(event_id)
+	var eviction_index := RetroSfxPriorityRules.eviction_index(_voices, incoming_priority, MAX_VOICES)
+	if eviction_index == -2:
+		return
+	if eviction_index >= 0:
+		_voices.remove_at(eviction_index)
 	var voice := spec.duplicate(true)
+	voice["event_id"] = event_id
+	voice["priority"] = incoming_priority
 	voice["mix_gain"]=_radio_gain if event_id in [RetroSfxRules.MISSILE_WARNING,RetroSfxRules.ALTITUDE_SHIFT,RetroSfxRules.ALTITUDE_CLIMB,RetroSfxRules.ALTITUDE_DIVE,RetroSfxRules.RADIO_TX,RetroSfxRules.RADIO_ALERT] else _sfx_gain
 	voice["elapsed"] = 0.0
 	voice["phase"] = 0.0
 	_voices.append(voice)
+	if RetroSfxPriorityRules.critical(incoming_priority):
+		_critical_duck_timer = maxf(_critical_duck_timer, RetroSfxPriorityRules.CRITICAL_DUCK_SECONDS)
 
 func _fill_audio_buffer() -> void:
 	if _playback == null:
 		return
+	var critical_duck_active := _critical_duck_timer > 0.0
 	var frames := _playback.get_frames_available()
 	for _i in range(frames):
 		_propulsion_phase = fposmod(_propulsion_phase + _propulsion_frequency / MIX_RATE, 1.0)
 		var turbine := sin(_propulsion_phase * TAU) * 0.62 + sin(_propulsion_phase * TAU * 2.03) * 0.20
 		var airflow := _noise_sample() * _propulsion_airflow
-		var sample := (turbine + airflow) * _propulsion_gain * _sfx_gain
+		var sample := (turbine + airflow) * _propulsion_gain * _sfx_gain * RetroSfxPriorityRules.propulsion_duck(critical_duck_active)
 		for vi in range(_voices.size() - 1, -1, -1):
 			var voice: Dictionary = _voices[vi]
 			var duration := maxf(0.001, float(voice.get("duration", 0.1)))
@@ -297,7 +309,9 @@ func _fill_audio_buffer() -> void:
 			voice["phase"] = phase
 			voice["elapsed"] = elapsed + 1.0 / MIX_RATE
 			var envelope := (1.0 - t) * (1.0 - t)
-			var gain := float(voice.get("gain",0.12))*float(voice.get("mix_gain",1.0))*envelope
+			var priority_value := int(voice.get("priority", RetroSfxPriorityRules.ROUTINE))
+			var duck_gain := RetroSfxPriorityRules.voice_duck(priority_value, critical_duck_active)
+			var gain := float(voice.get("gain",0.12))*float(voice.get("mix_gain",1.0))*envelope*duck_gain
 			sample += _wave_sample(str(voice.get("wave", "sine")), phase, t) * gain
 			_voices[vi] = voice
 		sample = clampf(sample, -0.85, 0.85)
