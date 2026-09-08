@@ -58,7 +58,7 @@ Implemented now:
 - Needle Rail penetration, Storm Cannon pulse discharge and Plasma Lance field discharge
 - bounded strategic Micro-Warhead pre-impact blast
 - persistent campaign credits, equipment and serviced airframe state
-- versioned v12 local autosave with stable mission identity, validated backup recovery and v1-v11 migration compatibility
+- versioned v13 local autosave with stable mission identity, validated backup recovery and v1-v12 migration compatibility
 - verified layered runtime art for the VX-94, enemies, bosses, projectiles, airframes, support set pieces and cinematic hero cels
 - modular, seam-tested coast/refinery environment stacks with animated water, surf, cloud, smoke and weather layers
 - deterministic surface-force lanes that keep armour and infantry on land, ships in navigable water, and river forces on the correct bank or channel
@@ -99,7 +99,7 @@ Controller defaults use Godot's standard Xbox/PlayStation-style mapping:
 - Cycle tactical/battlefield support: D-pad left/right
 - Precision strike ordnance: right-stick click
 
-The combat viewport represents the currently assigned mission corridor. Flying into either lateral recovery zone raises directional edge chevrons and an **AIRSPACE LIMIT** countdown. Turn back toward the route to clear it; holding outward flight through the countdown aborts the sortie. Terrain-defined collision corridors and wider world-space maps are the next environment-production pass.
+The combat viewport represents the currently assigned mission corridor. Flying into either lateral recovery zone raises directional edge chevrons and an **AIRSPACE LIMIT** countdown. Turn back toward the route to clear it; holding outward flight through the countdown aborts the sortie. Broader terrain-defined collision corridors or wider world-space maps are post-release design candidates, not part of the current Windows release tranche.
 
 Keyboard flight bindings can be reassigned from **FLIGHT CONTROLS** on the main menu. The assignment station captures physical keys, swaps conflicts so both actions remain reachable, persists changes in the local options file, preserves controller bindings, and supports restoring the authored defaults with `Backspace`.
 
@@ -208,8 +208,13 @@ The playable campaign escalates from the Mercenary War through the autonomous Ma
 - `docs/STRATEGIC_ORBITAL_ENDGAME.md` — M12 / ORB-era contract
 - `docs/VX94_COMBAT_ART_DIRECTION.md` — production combat-art direction
 - `docs/ARCHITECTURE.md` — runtime ownership and invariants
+- `docs/PORTFOLIO_RELEASE_TRANCHE.md` — current feature-freeze and promotion contract
+- `docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md` — current release truth and remaining candidate work
 - `tools/validate.ps1` — zero-cost local structural + optional Godot validation
-- `tools/validate_windows_release.ps1` — full local source, export, metadata and packaged-runtime gate
+- `tools/validate_windows_release.ps1` — complete automated local Windows evidence gate
+- `tools/validate_windows_candidate.ps1` — final exact-SHA automated + human candidate gate
+- `tools/resolve_release_godot.ps1` — exact Godot 4.6.2 release-engine resolver
+- `tools/write_windows_release_receipt.ps1` — exact-SHA packaged-build receipt writer
 - `tools/run_playtest_telemetry.ps1` — bounded eight-sortie live gameplay and system-usage matrix
 
 ## Validate locally
@@ -225,14 +230,24 @@ Campaign validation executes all eight combinations of the three controlled bran
 
 ## Export for Windows
 
-Install the export templates matching the Godot editor version, then run:
+Install the export templates matching Godot 4.6.2, then run:
 
 ```powershell
 Set-Location C:\GitRepos\godot-462-strike-wing-94
 .\tools\validate_windows_release.ps1
 ```
 
-The release gate first runs the complete source/engine suite, native 1280×720 production-combat stress profile, a twenty-six-state canonical 640×360 visual QA matrix, and a bounded eight-sortie live gameplay telemetry matrix, then the canonical `Windows Desktop` preset produces a single embedded-PCK executable at `build/windows/HYPERSONIC.exe`. The performance gate sustains 14 enemies, 16 player projectiles and 64 hostile projectiles with all production layers active, requiring at least 60 average FPS and a 16.67 ms-or-better p95 frame time. Visual captures cover the approved EVAVO ident, VX-94 title transformation, final title prompt, main menu, sortie bay, arcade/challenge modes, accessibility options, both halves of the fourteen-command flight-control catalogue, intelligence dossier, secret operations, campaign branch choice, three pause states, credits, first mission ingress, the compact routine objective HUD, bomber/low route, difficult high-air route, machine-war reveal, orbital combat, final boss, secret sortie, missile warning and successful debrief; exact arguments and hashes are recorded under ignored `work/visual_qa`. The gameplay matrix advances the real first, bomber-heavy, difficult-air, altitude-choice, machine-reveal, orbital-transition, secret and final sorties while exercising transformation, altitude, roll, support and ordnance systems; reports remain under ignored `work/playtest_telemetry`. It catches runtime integration regressions and suspicious usage, but is explicitly not a substitute for human feel and presentation review. Source-production art, documentation, tools and local work captures are excluded from the player package. The export and verification scripts refuse paths outside the repository's ignored `build` directory. Verification checks Windows identity metadata and launches the packaged game through a deterministic headless front-door smoke test. `-SkipPerformance`, `-SkipVisualQa` and `-SkipPlaytestTelemetry` exist only for focused diagnosis; such runs are not complete release audits. The lower-level visual, profile, telemetry, export and verification commands remain available for focused diagnosis.
+The automated release gate resolves one exact Godot 4.6.2 executable and passes it through the complete source/engine suite, native 1280×720 production-combat stress profile, canonical 640×360 logical visual QA matrix, and bounded eight-sortie live gameplay telemetry matrix. The canonical `Windows Desktop` preset then produces a single embedded-PCK executable at `build/windows/HYPERSONIC.exe` and the packaged runtime is launched through a deterministic front-door smoke test.
+
+The performance gate sustains 14 enemies, 16 player projectiles and 64 hostile projectiles with all production layers active, requiring at least 60 average FPS and a 16.67 ms-or-better p95 frame time. Visual captures cover the approved EVAVO ident, VX-94 transformation, menus, accessibility and control surfaces, intelligence/secret operations, route/weather/altitude states, combat effects, pause/debrief states, final boss, ending and credits; exact arguments and hashes are recorded under ignored `work/visual_qa`. The gameplay matrix advances the real first, bomber-heavy, difficult-air, altitude-choice, machine-reveal, orbital-transition, secret and final sorties while exercising transformation, altitude, roll, countermeasure, support and ordnance systems; reports remain under ignored `work/playtest_telemetry`.
+
+Automation catches runtime integration regressions and suspicious usage, but is explicitly not a substitute for human feel, campaign, presentation or audio review. Source-production art, documentation, tools and local work captures are excluded from the player package. The export and verification scripts refuse paths outside the repository's ignored `build` directory. A complete run with no skip switches records `build/windows/HYPERSONIC.release.json` containing the exact source SHA, Godot version and executable SHA-256. `-SkipPerformance`, `-SkipVisualQa` and `-SkipPlaytestTelemetry` exist only for focused diagnosis; those runs do not issue release receipts.
+
+A real candidate additionally requires an exact-SHA human signoff based on `docs/RELEASE_SIGNOFF_TEMPLATE.json`, a non-development product version synchronized with `export_presets.cfg`, and:
+
+```powershell
+.\tools\validate_windows_candidate.ps1
+```
 
 ## Direction
 
@@ -254,8 +269,9 @@ HYPERSONIC's own identity is:
 
 - Godot 4.6.2
 - GDScript-first gameplay foundation
-- desktop-first
-- later controller/web/mobile support where appropriate
+- Windows desktop is the active release target
+- keyboard and controller are active player inputs
+- other platform targets require separate release evidence and are not implied by the Windows candidate gate
 - no dependency on paid GitHub Actions or Vercel services
 - local validation and automation are first-class
 
