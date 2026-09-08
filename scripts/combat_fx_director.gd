@@ -509,15 +509,22 @@ func _draw_hot_fragment_fan(surface: CanvasItem, p: Vector2, ratio: float, blast
 	var fade := 1.0-smoothstep(0.42,0.74,ratio)
 	var count := 4 if impact_family == "cannon" else (8 if category == "ground" else 6)
 	for index in range(count):
-		var phase := float(index)/float(count)*TAU+float(posmod(serial*37,19))*0.031
+		# Golden-angle stepping and a stable serial perturbation avoid the perfect
+		# radial spokes that made every detonation resemble an arcade star pickup.
+		# The sequence remains deterministic for capture comparison and replays.
+		var fragment_seed := float(posmod(serial*97+index*53+11,101))/101.0
+		var phase := float(index)*2.39996323+float(posmod(serial*37,29))*0.071+(fragment_seed-0.5)*0.46
 		var horizontal := cos(phase)
 		var vertical := sin(phase)*0.72
 		if category == "ground":
-			vertical = -absf(vertical)*0.82+travel*0.58
+			# Surface fragments eject above the impact plane, then begin to fall as
+			# the hot exposure ages; they never form a symmetric ring underground.
+			vertical = -0.18-absf(vertical)*0.88+travel*0.72
 		var throw_scale := 1.55 if impact_family == "cannon" else 2.25
-		var distance := lerpf(5.0,blast_size*throw_scale,travel)*(0.72+float(index%3)*0.16)
-		var head := p+Vector2(horizontal,vertical)*distance
-		var tail := head-Vector2(horizontal,vertical)*lerpf(2.0,7.0,1.0-travel)
+		var distance := lerpf(5.0,blast_size*throw_scale,travel)*lerpf(0.68,1.08,fragment_seed)
+		var direction := Vector2(horizontal,vertical).normalized()
+		var head := p+direction*distance
+		var tail := head-direction*lerpf(2.0,7.0,1.0-travel)
 		var colour := Color(0.90,0.86,0.72,0.78*fade) if impact_family == "cannon" else (Color(1.0,0.82,0.42,0.90*fade) if index%3 else Color(0.94,0.46,0.18,0.78*fade))
 		surface.draw_line(tail.round(),head.round(),colour,1.0,false)
 
