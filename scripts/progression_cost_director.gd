@@ -8,6 +8,9 @@ const GREEN := Color("67c3a5")
 const GOLD := Color("e8ca6a")
 const MUTED := Color("7f909b")
 const RED := Color("dc6655")
+const BLUE := Color("6aa4c8")
+const PANEL := Color("070a0e")
+const PAD_LEGEND := "PAD X WPN  Y PWR  L3 FRAME  R3 TACT  LB HULL  RB SHLD  RT SELECT"
 
 var _surface: Control
 
@@ -47,6 +50,14 @@ func draw_progression_costs(surface: CanvasItem) -> void:
 	var shield_cost := maxi(0, max_shield - service_shield) * maxi(0, int(campaign.get("shield_recharge_cost_per_point", 0)))
 	_draw_service_tag(surface, Vector2(570, 243), hull_cost, credits)
 	_draw_service_tag(surface, Vector2(570, 258), shield_cost, credits)
+
+	# The underlying airframe panel used to say Q SWEEP in the hangar even
+	# though wing geometry is an in-flight command. Replace that misleading hint
+	# with the actual context, then expose the full controller maintenance map in
+	# the otherwise unused gutter above the launch rail.
+	surface.draw_rect(Rect2(490, 160, 112, 15), PANEL)
+	PixelFont.draw_text(surface, "FORM IN FLIGHT", Vector2(493, 166), 1, BLUE, 1)
+	PixelFont.draw_centered(surface, PAD_LEGEND, 320, 299, 1, MUTED, 1)
 
 func _sortie_bay_active(scene: Node) -> bool:
 	if scene == null:
