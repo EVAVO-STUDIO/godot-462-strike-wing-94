@@ -15,9 +15,9 @@ const FLARE_PIVOT := Vector2(24, 10)
 # Each cel already contains a paired cartridge. Keep the pair crisp but small
 # enough that five staged ejections read as ten individual decoys, not one fire.
 const SALVO_CARTRIDGE_SCALE := Vector2(0.58,0.58)
-const SALVO_DELAYS := [0.0,0.040,0.080,0.120,0.160]
-const SALVO_LATERAL_OFFSETS := [-12.0,-6.0,0.0,6.0,12.0]
-const SALVO_ANGLE_OFFSETS := [-0.95,-0.48,0.0,0.48,0.95]
+const SALVO_DELAYS := [0.0,0.055,0.110,0.165,0.220]
+const SALVO_LATERAL_OFFSETS := [-14.0,14.0,-10.0,10.0,0.0]
+const SALVO_ANGLE_OFFSETS := [-0.72,0.72,-0.48,0.48,0.0]
 const DISPENSER_OFFSETS := {
 	"fighter": [Vector2(-10,14),Vector2(-7,15),Vector2(0,16),Vector2(7,15),Vector2(10,14)],
 	"bomber": [Vector2(-14,16),Vector2(-9,17),Vector2(0,18),Vector2(9,17),Vector2(14,16)],
@@ -119,12 +119,12 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 			var puff_alpha := (1.0 - ratio) * (0.24 - float(puff_index) * 0.045)
 			var smoke := PersistentEffectArtLibrary.frame_for_ratio("damage_smoke",trail_ratio)
 			var smoke_size := Vector2.ONE*(15.0+float(puff_index)*5.0)
-			surface.draw_texture_rect(smoke,Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round()),false,Color(0.62,0.66,0.64,puff_alpha*2.6))
+			surface.draw_texture_rect(smoke,Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round()),false,Color(0.62,0.66,0.64,puff_alpha*1.6))
 		if ratio < 0.18:
 			var ignition := 1.0 - ratio / 0.18
 			var sparks := PersistentEffectArtLibrary.frame_for_ratio("damage_sparks",ratio/0.18)
-			var spark_size := Vector2.ONE*(30.0+ratio*34.0)
-			surface.draw_texture_rect(sparks,Rect2((position-spark_size*0.5).round(),spark_size.round()),false,Color(1.0,0.88,0.60,ignition))
+			var spark_size := Vector2.ONE*(18.0+ratio*24.0)
+			surface.draw_texture_rect(sparks,Rect2((position-spark_size*0.5).round(),spark_size.round()),false,Color(1.0,0.88,0.60,ignition*0.72))
 		surface.draw_set_transform(position.round(), float(event.get("angle",0.0)), SALVO_CARTRIDGE_SCALE)
 		surface.draw_texture(texture, -FLARE_PIVOT, Color(1,1,1,1.0-smoothstep(0.72,1.0,ratio)))
 		surface.draw_set_transform(Vector2.ZERO)
