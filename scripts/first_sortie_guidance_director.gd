@@ -10,7 +10,6 @@ const BLUE := Color("6aa4c8")
 const GOLD := Color("e8ca6a")
 const RED := Color("dc6655")
 const PANEL := Color(0.02, 0.05, 0.07, 0.82)
-const PANEL_EDGE := Color(0.25, 0.43, 0.50, 0.86)
 
 var _surface: Control
 
@@ -55,25 +54,46 @@ func guidance_for(scene: Object) -> Dictionary:
 		return _egress_guidance()
 
 	if _homing_threat_count(scene) > 0:
-		return {"id":"countermeasure", "text":"MISSILE // V / LT COUNTERMEASURE", "tone":"red"}
+		return _countermeasure_guidance()
 
 	var elapsed := _route_seconds(scene)
 	if elapsed >= 1.8 and elapsed < 6.8:
-		return {"id":"steer_fire", "text":"FLIGHT CHECK // A-D/LS STEER // SPACE/A FIRE", "tone":"blue"}
+		return _steer_fire_guidance()
 	if elapsed >= 9.0 and elapsed < 14.0:
-		return {"id":"power_geometry", "text":"POWER // T-G/RS THROTTLE // Q/Y GEOMETRY", "tone":"gold"}
+		return _power_geometry_guidance()
 	if elapsed >= 18.0 and elapsed < 23.0:
-		return {"id":"altitude", "text":"ALTITUDE // PGUP-PGDN / D-PAD", "tone":"blue"}
+		return _altitude_guidance()
 	return {}
+
+func _steer_fire_guidance() -> Dictionary:
+	var left := _keyboard_label("move_left", "A")
+	var right := _keyboard_label("move_right", "D")
+	var fire := _keyboard_label("fire_primary", "SPACE")
+	return {"id":"steer_fire", "text":"FLIGHT CHECK // %s-%s/LS STEER // %s/A FIRE" % [left, right, fire], "tone":"blue"}
+
+func _power_geometry_guidance() -> Dictionary:
+	var throttle_up := _keyboard_label("throttle_up", "T")
+	var throttle_down := _keyboard_label("throttle_down", "G")
+	var transform := _keyboard_label("transform_craft", "Q")
+	return {"id":"power_geometry", "text":"POWER // %s-%s/RS THROTTLE // %s/Y GEOMETRY" % [throttle_up, throttle_down, transform], "tone":"gold"}
+
+func _altitude_guidance() -> Dictionary:
+	var up := _keyboard_label("altitude_up", "PGUP")
+	var down := _keyboard_label("altitude_down", "PGDN")
+	return {"id":"altitude", "text":"ALTITUDE // %s-%s / D-PAD" % [up, down], "tone":"blue"}
+
+func _countermeasure_guidance() -> Dictionary:
+	var countermeasure := _keyboard_label("deploy_countermeasure", "V")
+	return {"id":"countermeasure", "text":"MISSILE // %s / LT COUNTERMEASURE" % countermeasure, "tone":"red"}
 
 func _egress_guidance() -> Dictionary:
 	var craft := get_node_or_null("/root/CraftFormDirector")
 	var altitude := str(craft.call("current_altitude")) if craft != null and craft.has_method("current_altitude") else "mid"
 	var hypersonic := craft != null and craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
 	if altitude not in ["high", "orbital"]:
-		return {"id":"egress_climb", "text":"EGRESS // PGUP / D-PAD UP -> HIGH", "tone":"red"}
+		return {"id":"egress_climb", "text":"EGRESS // %s / D-PAD UP -> HIGH" % _keyboard_label("altitude_up", "PGUP"), "tone":"red"}
 	if not hypersonic:
-		return {"id":"egress_burn", "text":"MACH GATE // HOLD SHIFT / LB AFTERBURNER", "tone":"red"}
+		return {"id":"egress_burn", "text":"MACH GATE // HOLD %s / LB AFTERBURNER" % _keyboard_label("afterburner", "SHIFT"), "tone":"red"}
 	return {"id":"egress_hold", "text":"MACH GATE // HOLD COURSE", "tone":"gold"}
 
 func _first_campaign_sortie_active(scene: Object) -> bool:
@@ -100,6 +120,25 @@ func _route_seconds(scene: Object) -> float:
 		return maxf(0.0, float(scene.call("route_progress_seconds")))
 	return maxf(0.0, float(scene.get("mission_time"))) if scene != null and _has_property(scene, "mission_time") else 0.0
 
+func _keyboard_label(action: StringName, fallback: String) -> String:
+	if not InputMap.has_action(action):
+		return fallback
+	for event in InputMap.action_get_events(action):
+		if event is InputEventKey:
+			var key_event := event as InputEventKey
+			var key := key_event.physical_keycode if key_event.physical_keycode != KEY_NONE else key_event.keycode
+			var label := OS.get_keycode_string(key).to_upper()
+			if not label.is_empty():
+				return _short_key(label)
+	return fallback
+
+func _short_key(label: String) -> String:
+	match label:
+		"PAGEUP": return "PGUP"
+		"PAGEDOWN": return "PGDN"
+		"SHIFT": return "SHIFT"
+	return label
+
 func _capture_guidance() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-first-sortie-guidance="):
@@ -108,12 +147,12 @@ func _capture_guidance() -> String:
 
 func _forced_guidance(id: String) -> Dictionary:
 	match id:
-		"steer_fire": return {"id":id, "text":"FLIGHT CHECK // A-D/LS STEER // SPACE/A FIRE", "tone":"blue"}
-		"power_geometry": return {"id":id, "text":"POWER // T-G/RS THROTTLE // Q/Y GEOMETRY", "tone":"gold"}
-		"altitude": return {"id":id, "text":"ALTITUDE // PGUP-PGDN / D-PAD", "tone":"blue"}
-		"countermeasure": return {"id":id, "text":"MISSILE // V / LT COUNTERMEASURE", "tone":"red"}
-		"egress_climb": return {"id":id, "text":"EGRESS // PGUP / D-PAD UP -> HIGH", "tone":"red"}
-		"egress_burn": return {"id":id, "text":"MACH GATE // HOLD SHIFT / LB AFTERBURNER", "tone":"red"}
+		"steer_fire": return _steer_fire_guidance()
+		"power_geometry": return _power_geometry_guidance()
+		"altitude": return _altitude_guidance()
+		"countermeasure": return _countermeasure_guidance()
+		"egress_climb": return {"id":id, "text":"EGRESS // %s / D-PAD UP -> HIGH" % _keyboard_label("altitude_up", "PGUP"), "tone":"red"}
+		"egress_burn": return {"id":id, "text":"MACH GATE // HOLD %s / LB AFTERBURNER" % _keyboard_label("afterburner", "SHIFT"), "tone":"red"}
 	return {}
 
 func _tone(id: String) -> Color:
