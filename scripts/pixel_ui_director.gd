@@ -797,6 +797,9 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 			status = "CM 03 // MISSILE DECOYED"
 		if status.begins_with("SECRET - "):
 			_draw_secret_discovery(surface, status, float(scene.get("status_timer")))
+		elif status.begins_with("CM "):
+			if not _has_threat_warning(scene):
+				_draw_countermeasure_confirmation(surface, status)
 		else:
 			var egress_priority := (_has_property(scene, "egress_active") and bool(scene.get("egress_active"))) or (_has_property(scene, "egress_completion_timer") and float(scene.get("egress_completion_timer")) > 0.0)
 			var airspace_priority := _has_property(scene,"lateral_airspace_side") and not str(scene.get("lateral_airspace_side")).is_empty()
@@ -1133,25 +1136,40 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var cm := int(countermeasures.call("charges_remaining")) if countermeasures != null and countermeasures.has_method("charges_remaining") else 0
 	var text := ThreatWarningRules.warning_text(distance, count)
 	if count > 0:
-		text = "MSL%d %02dOC T%.1f CM%d" % [count, int(snapshot.get("bearing", 12)), float(snapshot.get("tti", 9.9)), cm]
+		text = "M%d B%02d T%.1f C%d" % [count, int(snapshot.get("bearing", 12)), float(snapshot.get("tti", 9.9)), cm]
 	elif acquiring > 0.0:
-		text = "SPIKE %02d%% CM%d" % [int(roundf(acquiring * 100.0)), cm]
+		text = "SPIKE %02d%% C%d" % [int(roundf(acquiring * 100.0)), cm]
+	var status := str(scene.get("status_text")) if _has_property(scene,"status_text") else ""
+	var capture_countermeasure := "--capture-countermeasure" in OS.get_cmdline_user_args()
+	if capture_countermeasure or status.begins_with("CM "):
+		var fields := ("CM 03" if capture_countermeasure or not status.begins_with("CM ") else status).split(" ",false)
+		text = "C%s DECOY" % (fields[1] if fields.size() > 1 else "--")
 	if text == "": return
 	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2) if count > 0 else 1
 	# Keep the RWR beside the lower-right radar so the forward intercept lane stays
 	# visually open. Aircraft-centred bearing cues still provide the fast response.
-	var position := Vector2(448,264)
-	surface.draw_texture_rect(HUD_THREAT_FRAMES[level],Rect2(position,Vector2(184,18)),false,Color(1,1,1,0.82))
-	surface.draw_texture_rect(HUD_THREAT_MISSILE_ICON,Rect2(position+Vector2(5,3),Vector2(10,10)),false,RED if level >= 2 else (GOLD if level == 1 else BLUE))
-	PixelFont.draw_text(surface,text,position+Vector2(18,5),1,RED if level >= 2 else (GOLD if level == 1 else BLUE),1)
-	var trough_offset := Vector2(126,12)
-	surface.draw_texture_rect(HUD_THREAT_APPROACH_TROUGH,Rect2(position+trough_offset,Vector2(52,4)),false)
+	var position := Vector2(504,266)
+	surface.draw_texture_rect(HUD_THREAT_FRAMES[level],Rect2(position,Vector2(128,16)),false,Color(1,1,1,0.76))
+	surface.draw_texture_rect(HUD_THREAT_MISSILE_ICON,Rect2(position+Vector2(4,3),Vector2(9,9)),false,RED if level >= 2 else (GOLD if level == 1 else BLUE))
+	PixelFont.draw_text(surface,text,position+Vector2(16,4),1,RED if level >= 2 else (GOLD if level == 1 else BLUE),1)
+	var trough_offset := Vector2(91,11)
+	surface.draw_texture_rect(HUD_THREAT_APPROACH_TROUGH,Rect2(position+trough_offset,Vector2(32,4)),false)
 	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0) if count > 0 else acquiring
 	var fill_position := position + trough_offset + Vector2(1,1)
-	var fill_width := floorf(50.0*approach_ratio)
+	var fill_width := floorf(30.0*approach_ratio)
 	if fill_width > 0.0:
 		surface.draw_texture_rect_region(HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL,Rect2(fill_position,Vector2(fill_width,HUD_THREAT_CAUTION_FILL.get_height())),Rect2(0,0,fill_width,HUD_THREAT_CAUTION_FILL.get_height()))
 	_draw_aircraft_rwr_cue(surface, scene, snapshot, level)
+
+func _draw_countermeasure_confirmation(surface: CanvasItem, status: String) -> void:
+	# Seeker-break confirmation shares the RWR rail instead of opening a second,
+	# wide footer across the flight view.
+	var position := Vector2(504,266)
+	surface.draw_texture_rect(HUD_THREAT_FRAMES[1],Rect2(position,Vector2(128,16)),false,Color(1,1,1,0.80))
+	surface.draw_texture_rect(HUD_THREAT_MISSILE_ICON,Rect2(position+Vector2(4,3),Vector2(9,9)),false,GOLD)
+	var fields := status.split(" ",false)
+	var count := fields[1] if fields.size() > 1 else "--"
+	PixelFont.draw_text(surface,"C%s DECOY" % count,position+Vector2(16,4),1,GOLD,1)
 
 func _draw_aircraft_rwr_cue(surface: CanvasItem, scene: Object, snapshot: Dictionary, warning_level: int) -> void:
 	var player: Vector2 = scene.get("player_position")

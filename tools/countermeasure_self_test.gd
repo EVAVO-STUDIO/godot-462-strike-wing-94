@@ -22,7 +22,7 @@ func _initialize() -> void:
 	var project := FileAccess.get_file_as_string("res://project.godot")
 	_expect(project.contains('CountermeasureDirector="*res://scripts/countermeasure_director.gd"'), "countermeasure presentation should be a live project system")
 	var ui_source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
-	_expect(ui_source.contains('status = "CM 03 // MISSILE DECOYED"'), "countermeasure visual QA should expose an explicit seeker-break confirmation")
+	_expect(ui_source.contains('status = "CM 03 // MISSILE DECOYED"') and ui_source.contains("_draw_countermeasure_confirmation") and ui_source.contains('"C%s DECOY"'), "countermeasure visual QA should expose an explicit compact seeker-break confirmation in the RWR rail")
 	_expect(FileAccess.file_exists("res://tools/build_countermeasure_art.ps1"), "countermeasure sprites should remain reproducible from governed vector source")
 	_expect(FileAccess.file_exists("res://tools/build_countermeasure_art_v2.ps1") and FileAccess.file_exists("res://assets/source/effects/countermeasure_v2/originals/flare_sheet_v1.svg"), "v2 countermeasure delivery should retain immutable predecessor and EVAVO finishing build")
 	var director_source := FileAccess.get_file_as_string("res://scripts/countermeasure_director.gd")

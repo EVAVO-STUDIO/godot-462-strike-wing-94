@@ -44,7 +44,7 @@ func _init() -> void:
 	_expect(main.contains("MIN_HIT_PROFILE * EvasiveRollRules.MIN_HIT_PROFILE"), "runtime clamp should preserve the authored 38-percent radius in squared-distance collision space", failures)
 	_expect(main.contains("missile_lock_ratio") and main.contains("missile_lock_ready"), "missile interceptors should visibly acquire before launch", failures)
 	var hud := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
-	_expect(hud.contains('MSL%d %02dOC T%.1f CM%d') and hud.contains("SPIKE %02d%% CM%d") and hud.contains("Vector2(448,264)"), "compact late-1990s RWR symbology should expose threat, clock bearing, time-to-impact and remaining countermeasures beside the tactical radar", failures)
+	_expect(hud.contains('M%d B%02d T%.1f C%d') and hud.contains("SPIKE %02d%% C%d") and hud.contains("Vector2(504,266)") and hud.contains("Vector2(128,16)"), "compact late-1990s RWR symbology should expose threat, bearing, time-to-impact and remaining countermeasures beside the tactical radar", failures)
 	if failures.is_empty():
 		quit(0)
 	else:
