@@ -4,22 +4,24 @@ param()
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $PSScriptRoot
 $ProfilePath = Join-Path $Root '.evavo/godot-lab-native.json'
+$ControllerProfilePath = Join-Path $Root '.evavo/godot-lab-controller-sortie.json'
 $LockPath = Join-Path $Root '.evavo/godot-lab-native.lock.json'
 $RunnerPath = Join-Path $PSScriptRoot 'run_native_test_lab_release.ps1'
 $DocPath = Join-Path $Root 'docs/NATIVE_TEST_LAB_RELEASE_JOURNEYS.md'
 
-foreach ($Path in @($ProfilePath, $LockPath, $RunnerPath, $DocPath)) {
+foreach ($Path in @($ProfilePath, $ControllerProfilePath, $LockPath, $RunnerPath, $DocPath)) {
     if (-not (Test-Path -LiteralPath $Path)) { throw "Missing native Test Lab contract file: $Path" }
 }
 
 $Profile = Get-Content -Raw -LiteralPath $ProfilePath | ConvertFrom-Json
+$ControllerProfile = Get-Content -Raw -LiteralPath $ControllerProfilePath | ConvertFrom-Json
 $Lock = Get-Content -Raw -LiteralPath $LockPath | ConvertFrom-Json
 $Runner = Get-Content -Raw -LiteralPath $RunnerPath
 $Doc = Get-Content -Raw -LiteralPath $DocPath
 
 if ([string]$Profile.schemaVersion -ne '2.0') { throw 'Native Test Lab profile must use schemaVersion 2.0.' }
 $Journeys = @($Profile.journeys)
-if ($Journeys.Count -ne 8) { throw "Expected exactly 8 bounded native journeys, got $($Journeys.Count)." }
+if ($Journeys.Count -ne 8) { throw "Expected exactly 8 bounded core native journeys, got $($Journeys.Count)." }
 $JourneyIds = @($Journeys | ForEach-Object { [string]$_.id })
 if (@($JourneyIds | Sort-Object -Unique).Count -ne $JourneyIds.Count) { throw 'Native Test Lab journey IDs must be unique.' }
 
@@ -69,16 +71,45 @@ if (@($Gamepad.steps | Where-Object { $_.type -eq 'joy_axis' }).Count -lt 2 -or 
     throw 'Gamepad journey no longer exercises real joypad axis/button events.'
 }
 
+# The maintenance profile is separate so the broad eight-journey matrix stays
+# bounded while controller progression receives a dedicated authentic front-door
+# contract. It must not use fixture arguments or global fake purchase actions.
+if ([string]$ControllerProfile.schemaVersion -ne '2.0') { throw 'Controller sortie profile must use schemaVersion 2.0.' }
+$ControllerJourneys = @($ControllerProfile.journeys)
+if ($ControllerJourneys.Count -ne 1) { throw "Expected exactly one controller sortie-bay journey, got $($ControllerJourneys.Count)." }
+$ControllerJourney = $ControllerJourneys[0]
+if ([string]$ControllerJourney.id -ne 'controller-sortie-bay-maintenance' -or -not [bool]$ControllerJourney.required) {
+    throw 'Controller sortie profile lost its required maintenance journey.'
+}
+if ([string]$ControllerJourney.device -ne 'synthetic_gamepad' -or [string]$ControllerJourney.scene -ne 'res://scenes/main.tscn') {
+    throw 'Controller maintenance journey must use the main scene with synthetic gamepad events.'
+}
+if ([string]$ControllerJourney.renderingMethod -ne 'gl_compatibility' -or [string]$ControllerJourney.renderingDriver -ne 'opengl3') {
+    throw 'Controller maintenance journey must use the production GL Compatibility renderer.'
+}
+if (@($ControllerJourney.userArguments).Count -ne 0) { throw 'Controller maintenance journey must be an authentic front-door run with no capture fixtures.' }
+$ControllerButtons = @($ControllerJourney.steps | Where-Object { $_.type -like 'joy_button*' } | ForEach-Object { [int]$_.buttonIndex })
+foreach ($Button in @(0,2,3,7,8,9,10,13,14)) {
+    if ($ControllerButtons -notcontains $Button) { throw "Controller maintenance journey lost required physical button $Button." }
+}
+if (@($ControllerJourney.steps | Where-Object { $_.type -eq 'joy_axis' -and [int]$_.axis -eq 5 }).Count -lt 2) {
+    throw 'Controller maintenance journey must exercise right-trigger primary selection.'
+}
+$MetadataKeys = @($ControllerJourney.assertions | Where-Object { $_.type -eq 'metadata_equals' } | ForEach-Object { [string]$_.key })
+foreach ($Key in @('qa_buy_primary','qa_buy_generator','qa_service_hull','qa_service_shield','qa_buy_airframe','qa_buy_support','qa_cycle_support','qa_cycle_battlefield_support')) {
+    if ($MetadataKeys -notcontains $Key) { throw "Controller maintenance journey lost router receipt assertion: $Key" }
+}
+
 $LabSha = ([string]$Lock.lab_sha).Trim().ToLowerInvariant()
 if ($LabSha -notmatch '^[0-9a-f]{40}$') { throw 'Native Test Lab lock must contain an exact 40-character SHA.' }
-if ([string]$Lock.profile -ne '.evavo/godot-lab-native.json') { throw 'Native Test Lab lock points at the wrong profile.' }
+if ([string]$Lock.profile -ne '.evavo/godot-lab-native.json') { throw 'Native Test Lab lock points at the wrong core profile.' }
 if ([string]$Lock.release_engine -ne '4.6.2') { throw 'Native Test Lab release engine must remain 4.6.2.' }
 
-foreach ($Token in @('ExpectedLabSha','ExpectedTargetSha','GodotExecutable','MinimumGodotVersion = ''4.6.2''','clean HYPERSONIC worktree','clean Test Lab worktree')) {
+foreach ($Token in @('ExpectedLabSha','ExpectedTargetSha','GodotExecutable','MinimumGodotVersion = ''4.6.2''','clean HYPERSONIC worktree','clean Test Lab worktree','godot-lab-controller-sortie.json','controller sortie-bay maintenance (1)','required_journey_count = 9','controller_sortie_required = $true')) {
     if (-not $Runner.Contains($Token)) { throw "Native Test Lab wrapper lost authority token: $Token" }
 }
-foreach ($Token in @('Authentic front-door journeys','Focused fixture journeys','exact Godot **4.6.2**','Do not use `-AllowNonInteractive` for release evidence')) {
+foreach ($Token in @('Authentic front-door journeys','Focused fixture journeys','exact Godot **4.6.2**','Do not use `-AllowNonInteractive` for release evidence','controller sortie-bay maintenance')) {
     if (-not $Doc.Contains($Token)) { throw "Native Test Lab documentation lost truth boundary: $Token" }
 }
 
-Write-Host "HYPERSONIC native Test Lab contract passed: 8 journeys, Lab $LabSha, exact Godot 4.6.2." -ForegroundColor Green
+Write-Host "HYPERSONIC native Test Lab contract passed: 8 core + 1 controller-maintenance journeys, Lab $LabSha, exact Godot 4.6.2." -ForegroundColor Green
