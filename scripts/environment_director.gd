@@ -635,13 +635,18 @@ func _draw_high_atmosphere_near(surface: CanvasItem, scene: Object, state: Dicti
 	var mix := _high_atmosphere_mix(state)
 	if mix <= 0.20: return
 	var travel := _world_distance(scene)
-	var count := maxi(1, int(round(5.0 * mix)))
+	# Long vertical contrail sprites looked identical to rain above the cloud
+	# deck. Turn the authored marks across the wind and use them as sparse,
+	# broad cloud-top shear bands with an open central combat corridor.
+	var count := maxi(1, int(round(3.0 * mix)))
 	for i in range(count):
 		var texture: Texture2D = CONTRAIL_NEAR[i % CONTRAIL_NEAR.size()]
-		var x := 42.0 + float((i * 139 + 47) % 550)
-		var y := fposmod(float(i) * 107.0 + travel * (48.0 + float(i % 3) * 7.0), 410.0) + ENVIRONMENT_VIEW.position.y
-		var alpha := (0.18 + float(i % 2) * 0.05) * mix
-		surface.draw_texture(texture, Vector2(x,y), Color(0.82,0.90,0.92,alpha))
+		var x: float = float([118.0, 490.0, 168.0][i])
+		var y := fposmod(float(i) * 121.0 + travel * (31.0 + float(i % 2) * 5.0), 390.0) + ENVIRONMENT_VIEW.position.y
+		var alpha := (0.11 + float(i % 2) * 0.025) * mix
+		surface.draw_set_transform(Vector2(x,y).round(),PI*0.5,Vector2(0.70,1.25))
+		surface.draw_texture(texture,-texture.get_size()*0.5,Color(0.82,0.90,0.92,alpha))
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 
 func _draw_parallax(surface: CanvasItem, scene: Object, profile: Dictionary, state: Dictionary) -> void:
 	var forward_scale := _world_speed_multiplier()

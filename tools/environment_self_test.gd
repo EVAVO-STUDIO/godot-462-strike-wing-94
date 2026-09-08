@@ -124,7 +124,7 @@ func _initialize() -> void:
 		_expect(source.contains("Restrained moving wakes"), "coastal benchmark should retain subdued open-water motion cues")
 		for cloud_family in ["CLOUD_LOW", "CLOUD_MID", "CLOUD_HIGH"]:
 			_expect(source.contains(cloud_family), "environment renderer should retain authored %s family" % cloud_family)
-		_expect(source.contains("CIRRUS_FAR") and source.contains("CONTRAIL_NEAR") and source.contains("ANVIL_SHADOW") and source.contains("_draw_high_atmosphere_far") and source.contains("_draw_high_atmosphere_near"), "high-altitude environments should retain independent authored far-weather and near-speed layers")
+		_expect(source.contains("CIRRUS_FAR") and source.contains("CONTRAIL_NEAR") and source.contains("ANVIL_SHADOW") and source.contains("_draw_high_atmosphere_far") and source.contains("_draw_high_atmosphere_near") and source.contains("PI*0.5") and source.contains("Vector2(0.70,1.25)"), "high-altitude environments should retain independent far weather and horizontal cloud-top shear without rain-like vertical marks")
 		var atmosphere_sizes := {"cirrus_a":Vector2(192,48),"cirrus_b":Vector2(192,48),"contrail_long":Vector2(12,112),"contrail_short":Vector2(10,88),"contrail_broken":Vector2(12,104),"anvil_shadow":Vector2(192,80)}
 		for atmosphere_asset in atmosphere_sizes:
 			var atmosphere_texture := load("res://assets/runtime/environments/high_atmosphere_motion/%s.png" % atmosphere_asset)
