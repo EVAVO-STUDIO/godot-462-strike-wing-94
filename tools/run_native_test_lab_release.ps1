@@ -78,6 +78,11 @@ Write-Host "Governed Godot: $GodotBin" -ForegroundColor DarkCyan
 & $LabInvoke @InvokeArgs
 if ($LASTEXITCODE -ne 0) { throw "HYPERSONIC native Test Lab runner failed with exit code $LASTEXITCODE." }
 
+if ($AllowNonInteractive) {
+    Write-Warning 'Noninteractive contract-test run completed. No authoritative native HYPERSONIC handoff is issued.'
+    return
+}
+
 $Handoff = [ordered]@{
     schema_version = 1
     target_sha = $TargetSha
@@ -87,6 +92,7 @@ $Handoff = [ordered]@{
     godot_version = ((@(& $GodotBin --version 2>&1) | Select-Object -First 1) -as [string]).Trim()
     profile = '.evavo/godot-lab-native.json'
     artifact_path = $ArtifactPath
+    interactive_windows_session = $true
     authority = 'Native synthetic-input evidence only. Human visual/audio/game-feel review and exact-SHA release signoff remain separate.'
 }
 $HandoffPath = Join-Path $ArtifactPath 'hypersonic-native-handoff.json'
