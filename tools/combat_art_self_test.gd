@@ -157,6 +157,7 @@ func _test_visual_language() -> void:
 	var recorded_discharge := CombatArtDirector.hostile_airframe_weapon_direction(Vector2(200,100),Vector2(320,260),{"category":"air","pattern":"bomber_run","weapon":"cannon","last_shot_direction":Vector2(-0.3,0.9)})
 	_expect(recorded_discharge.x < 0.0 and recorded_discharge.y > 0.0, "traversing mount art should retain the projectile's predicted firing vector during recoil")
 	_expect(source.contains("func _render_airframe_shadow") and source.contains("visible_hull") and source.contains("CraftFormDirector"), "atmospheric hostile airframes should cast their authored silhouette with altitude-aware separation")
+	_expect(source.contains("func _render_airframe_cel_key") and source.contains("Vector2(-1,0)") and source.contains("Color(0.018, 0.028, 0.040, 0.74)"), "hostile airframes should retain a restrained one-pixel cel ink key over detailed terrain")
 	_expect(source.contains("ORBITAL_AIR_SPRITES.has(enemy_id)") and source.contains("AltitudeRules.ORBITAL"), "orbital hostiles should not receive an atmospheric contact shadow")
 	_expect(source.contains("func _render_mercenary_position_lights") and source.contains("MERCENARY_AIR_SPRITES.has(enemy_id)") and source.contains("fposmod(age + phase * 0.09, 1.18)"), "human hostile aircraft should retain subdued navigation lamps and an asynchronous anti-collision strobe for dark-terrain separation")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/air_bank_asset_manifest.json"), "hostile bank source/runtime manifest should exist")
