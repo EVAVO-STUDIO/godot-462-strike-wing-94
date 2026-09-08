@@ -6,19 +6,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $PSScriptRoot
-
-if (-not $GodotBin) {
-    foreach ($Candidate in @('godot_console', 'godot', 'godot4')) {
-        $Command = Get-Command $Candidate -ErrorAction SilentlyContinue
-        if ($Command) {
-            $GodotBin = $Command.Source
-            break
-        }
-    }
-}
-if (-not $GodotBin -or -not (Test-Path -LiteralPath $GodotBin)) {
-    throw 'Godot executable was not found. Set GODOT_BIN to a Godot 4.6.2 console executable.'
-}
+$Resolver = Join-Path $PSScriptRoot 'resolve_release_godot.ps1'
+if (-not (Test-Path -LiteralPath $Resolver)) { throw "Missing governed release-engine resolver: $Resolver" }
+$GodotBin = [string](& $Resolver -Preferred $GodotBin)
+if (-not $GodotBin) { throw 'Unable to resolve governed Godot 4.6.2 executable.' }
 
 $AbsoluteOutput = if ([System.IO.Path]::IsPathRooted($OutputPath)) {
     [System.IO.Path]::GetFullPath($OutputPath)
@@ -33,10 +24,10 @@ if (-not $AbsoluteOutput.StartsWith($BuildRoot + [System.IO.Path]::DirectorySepa
 $OutputDirectory = Split-Path -Parent $AbsoluteOutput
 New-Item -ItemType Directory -Force -Path $OutputDirectory | Out-Null
 
-Write-Host 'Exporting HYPERSONIC for Windows Desktop...' -ForegroundColor Cyan
+Write-Host "Exporting HYPERSONIC for Windows Desktop with $GodotBin..." -ForegroundColor Cyan
 & $GodotBin --headless --path $Root --export-release 'Windows Desktop' $AbsoluteOutput
 if ($LASTEXITCODE -ne 0) {
-    throw "HYPERSONIC Windows export failed with exit code $LASTEXITCODE. Confirm that the matching Godot export templates are installed."
+    throw "HYPERSONIC Windows export failed with exit code $LASTEXITCODE. Confirm that the Godot 4.6.2 export templates are installed."
 }
 if (-not (Test-Path -LiteralPath $AbsoluteOutput)) {
     throw "Godot reported success but did not create $AbsoluteOutput."
