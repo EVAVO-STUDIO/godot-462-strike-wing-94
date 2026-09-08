@@ -25,7 +25,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	_publish_context()
 	var scene := get_tree().current_scene
-	if scene == null or not _supports(scene) or int(scene.get("phase")) != 0:
+	if scene == null or not _supports(scene) or int(scene.get("phase")) != 0 or not _sortie_bay_active(scene):
 		return
 	if Input.is_action_just_pressed("upgrade_airframe"):
 		_buy_next_airframe(scene)
@@ -73,8 +73,14 @@ func _publish_context() -> void:
 	MissionStateRules.set_airframe_context(frame)
 	CombatRules.set_incoming_damage_multiplier(AirframeRules.incoming_damage_multiplier(frame))
 
+func _sortie_bay_active(scene: Object) -> bool:
+	return _has_property(scene, "front_end_screen") and str(scene.get("front_end_screen")) == "sortie" and (not _has_property(scene, "game_mode") or str(scene.get("game_mode")) == "campaign")
+
 func _supports(scene: Object) -> bool:
 	return SceneContractCache.supports(scene, ["phase", "credits", "status_text", "status_timer"])
+
+func _has_property(object: Object, property_name: String) -> bool:
+	return SceneContractCache.has_property(object, property_name)
 
 func _set_status(scene: Object, text: String) -> void:
 	scene.set("status_text", text)
