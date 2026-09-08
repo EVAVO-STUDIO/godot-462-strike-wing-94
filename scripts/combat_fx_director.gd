@@ -442,9 +442,17 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	var scale_factor := MISSILE_BLAST_SCALE if impact_family == "missile" else (SURFACE_BLAST_SCALE if impact_family in ["rocket", "bomb"] else CANNON_KILL_SCALE)
 	if boss: scale_factor = 2.35
 	var draw_size := roundf(max_size * scale_factor)
-	var detonation_grade := Color(1.0,0.78,0.56,1.0) if impact_family == "missile" and not boss else Color.WHITE
+	# Project each authored family into its physical blast plane. Surface charges
+	# spread across the ground, cannon spall follows the firing axis, and missile
+	# airbursts retain a round volume rather than sharing one arcade footprint.
+	var draw_dimensions := Vector2.ONE*draw_size
+	if not boss and impact_family in ["rocket","bomb"]:
+		draw_dimensions=Vector2(draw_size*1.20,draw_size*0.82).round()
+	elif not boss and impact_family=="cannon":
+		draw_dimensions=Vector2(draw_size*0.88,draw_size*1.12).round()
+	var detonation_grade := Color(0.92,0.96,1.0,1.0) if impact_family == "missile" and not boss else (Color(0.90,0.68,0.42,1.0) if impact_family in ["rocket","bomb"] and not boss else Color.WHITE)
 	detonation_grade.a = 1.0-smoothstep(0.78,1.0,blast_clock)
-	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, detonation_grade)
+	surface.draw_texture_rect(frame,Rect2((p-draw_dimensions*0.5).round(),draw_dimensions),false,detonation_grade)
 	if enemy_id in STRATEGIC_SITES and blast_clock > 0.18 and blast_clock < 0.82:
 		var secondary_ratio := fposmod(blast_clock - 0.18, 0.32) / 0.32
 		var secondary: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(secondary_ratio * EXPLOSION_FRAMES.size())), 0, EXPLOSION_FRAMES.size()-1)]
