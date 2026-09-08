@@ -1,8 +1,11 @@
 class_name LateralAirspaceRules
 extends RefCounted
 
-const SAFE_MIN_X := 72.0
-const SAFE_MAX_X := 568.0
+# Keep the mission corridor almost as wide as the physical flight envelope.
+# The final 18 pixels on either side are a recoverable departure shoulder:
+# enough room to show the warning while the registered 64px craft remains whole.
+const SAFE_MIN_X := 52.0
+const SAFE_MAX_X := 588.0
 const ABORT_SECONDS := 4.0
 
 static func side_for_x(x: float) -> String:

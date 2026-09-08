@@ -390,13 +390,13 @@ func _begin_capture_gameplay() -> void:
 	elif "--capture-steering=right" in OS.get_cmdline_user_args():
 		player_lateral_velocity = PLAYER_SPEED*0.72
 	if "--capture-airspace=left" in OS.get_cmdline_user_args():
-		player_position.x = 52.0
+		player_position.x = 42.0
 		lateral_airspace_side = "left"
 		lateral_airspace_timer = 2.65
 		status_text = "OFF COURSE // TURN RIGHT // ABORT 2"
 		status_timer = 30.0
 	elif "--capture-airspace=right" in OS.get_cmdline_user_args():
-		player_position.x = 588.0
+		player_position.x = 598.0
 		lateral_airspace_side = "right"
 		lateral_airspace_timer = 2.65
 		status_text = "OFF COURSE // TURN LEFT // ABORT 2"
