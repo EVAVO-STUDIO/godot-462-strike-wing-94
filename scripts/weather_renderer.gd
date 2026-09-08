@@ -4,6 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const RAIN_AUDIO = preload("res://assets/runtime/audio/weather/rain_loop.wav")
 const STORM_AUDIO = preload("res://assets/runtime/audio/weather/storm_loop.wav")
 const SNOW_AUDIO = preload("res://assets/runtime/audio/weather/snow_wind_loop.wav")
+const THUNDER_AUDIO = preload("res://assets/runtime/audio/weather/thunder_strike.wav")
 const RAIN_CELS := [
 	preload("res://assets/runtime/environments/motion/rain_a.png"),
 	preload("res://assets/runtime/environments/motion/rain_b.png"),
@@ -40,9 +41,12 @@ var _reduced := false
 var _rain_player: AudioStreamPlayer
 var _storm_player: AudioStreamPlayer
 var _snow_player: AudioStreamPlayer
+var _thunder_player: AudioStreamPlayer
 var _rain_gain := 0.0
 var _storm_gain := 0.0
 var _snow_gain := 0.0
+var _thunder_cycle := -2147483648
+var _thunder_due := -1.0
 
 func _ready() -> void:
 	process_priority = 50
@@ -53,6 +57,9 @@ func _ready() -> void:
 	_rain_player = _make_loop_player(RAIN_AUDIO)
 	_storm_player = _make_loop_player(STORM_AUDIO)
 	_snow_player = _make_loop_player(SNOW_AUDIO)
+	_thunder_player = AudioStreamPlayer.new()
+	_thunder_player.stream = THUNDER_AUDIO
+	add_child(_thunder_player)
 	for index in 2:
 		var canvas := CanvasLayer.new()
 		canvas.layer = 8 if index == 0 else 18
@@ -90,6 +97,7 @@ func _process(_delta: float) -> void:
 		var settings := get_node_or_null("/root/SettingsDirector")
 		_reduced = settings != null and settings.has_method("reduced_flashes") and bool(settings.call("reduced_flashes"))
 	_update_weather_audio(_delta)
+	_update_thunder_audio()
 	for surface in _surfaces: surface.queue_redraw()
 
 func _make_loop_player(source: AudioStreamWAV) -> AudioStreamPlayer:
@@ -122,6 +130,24 @@ func _apply_weather_player(player: AudioStreamPlayer, gain: float, pitch: float)
 	player.volume_db = -80.0 if gain <= 0.0001 else linear_to_db(gain)
 	player.pitch_scale = pitch
 
+func _update_thunder_audio() -> void:
+	if _profile != "storm" or _weight <= 0.05:
+		_thunder_due = -1.0
+		return
+	var cycle := WeatherRules.storm_cycle(_time)
+	if WeatherRules.storm_phase(_time) < 0.055 and cycle != _thunder_cycle:
+		_thunder_cycle = cycle
+		_thunder_due = _time + WeatherRules.thunder_delay(cycle)
+	if _thunder_due < 0.0 or _time < _thunder_due: return
+	_thunder_due = -1.0
+	var settings := get_node_or_null("/root/SettingsDirector")
+	var user_gain := 0.60
+	if settings != null and settings.has_method("master_level") and settings.has_method("sfx_level"):
+		user_gain = float(settings.call("master_level")) * float(settings.call("sfx_level")) / 10000.0
+	_thunder_player.volume_db = linear_to_db(maxf(0.0001, 0.18 * _weight * user_gain))
+	_thunder_player.pitch_scale = 0.96 + float(posmod(cycle * 13, 9)) * 0.01
+	_thunder_player.play()
+
 func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 	if _weight <= 0.001 or _profile == "clear": return
 	var opacity := _weight * (0.55 if _reduced else 1.0)
@@ -132,7 +158,7 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			surface.draw_rect(Rect2(0,0,640,304), Color(0.64,0.74,0.82,flash*0.38), true)
 			var flash_frame := 1 if capture_lightning else WeatherRules.storm_flash_frame(_time)
 			var lightning: Texture2D = LIGHTNING_CELS[clampi(flash_frame,0,LIGHTNING_CELS.size()-1)]
-			var cycle := int(floor((_time+1.73)/7.9))
+			var cycle := WeatherRules.storm_cycle(_time)
 			var lightning_x := 26.0+float(posmod(cycle*173,420))
 			surface.draw_texture(lightning,Vector2(lightning_x,-8),Color(0.90,0.96,1.0,clampf(flash*2.7,0.0,1.0)))
 	if _profile == "snow":

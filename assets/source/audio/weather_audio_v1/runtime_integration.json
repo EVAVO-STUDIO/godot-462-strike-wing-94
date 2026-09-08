@@ -8,7 +8,8 @@
   "runtime_bindings": {
     "drizzle_and_rain": "res://assets/runtime/audio/weather/rain_loop.wav",
     "storm": "res://assets/runtime/audio/weather/storm_loop.wav",
-    "snow": "res://assets/runtime/audio/weather/snow_wind_loop.wav"
+    "snow": "res://assets/runtime/audio/weather/snow_wind_loop.wav",
+    "thunder": "res://assets/runtime/audio/weather/thunder_strike.wav"
   },
   "base_linear_gain": {
     "drizzle": 0.040,
@@ -20,6 +21,7 @@
     "Visual and audio altitude weights are identical.",
     "World speed changes gain by at most plus or minus twelve percent and pitch from 0.96 to 1.04.",
     "Rain, storm and snow loops remain clocked and crossfade without restarting.",
+    "One restrained thunder transient follows each first lightning exposure after a deterministic 0.22 to 0.82 second distance delay.",
     "Master and SFX user levels apply after authored weather gain.",
     "Radio and missile warning tones retain their independent foreground mix."
   ],

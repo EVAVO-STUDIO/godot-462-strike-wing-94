@@ -4,6 +4,7 @@ extends RefCounted
 const ALTITUDE_WEIGHTS := {"low":1.0, "mid":0.6, "high":0.0, "orbital":0.0}
 const SNOW_TRAVEL := {"distant":6.0, "middle":20.0, "near":52.0}
 const AUDIO_BASE_GAIN := {"clear":0.0, "drizzle":0.040, "rain":0.070, "storm":0.100, "snow":0.062}
+const STORM_CYCLE_SECONDS := 7.9
 
 static func altitude_weight(state: Dictionary, weights: Dictionary = ALTITUDE_WEIGHTS) -> float:
 	if bool(state.get("transition", false)):
@@ -47,17 +48,28 @@ static func snow_position(p: Dictionary, travel: float, elapsed: float = 0.0) ->
 static func storm_flash(elapsed: float) -> float:
 	# Two-frame stepped lightning cells, followed by a dimmer reflected exposure.
 	# The long irregular cycle avoids a metronomic arcade blink.
-	var phase := fposmod(elapsed + 1.73, 7.9)
+	var phase := storm_phase(elapsed)
 	if phase < 0.055: return 0.34
 	if phase >= 0.12 and phase < 0.175: return 0.18
 	return 0.0
 
 static func storm_flash_frame(elapsed: float) -> int:
-	var phase := fposmod(elapsed + 1.73, 7.9)
+	var phase := storm_phase(elapsed)
 	if phase < 0.025: return 0
 	if phase < 0.055: return 1
 	if phase >= 0.12 and phase < 0.175: return 2
 	return -1
+
+static func storm_phase(elapsed: float) -> float:
+	return fposmod(elapsed + 1.73, STORM_CYCLE_SECONDS)
+
+static func storm_cycle(elapsed: float) -> int:
+	return int(floor((elapsed + 1.73) / STORM_CYCLE_SECONDS))
+
+static func thunder_delay(cycle: int) -> float:
+	# A stable offset gives each distant strike its own apparent range while
+	# keeping capture playback and gameplay telemetry deterministic.
+	return 0.22 + float(posmod(cycle * 47 + 19, 61)) / 100.0
 
 static func audio_mix(profile: String, altitude_weight_value: float, world_speed_multiplier: float) -> Dictionary:
 	var weather_gain := float(AUDIO_BASE_GAIN.get(profile, 0.0)) * clampf(altitude_weight_value, 0.0, 1.0)

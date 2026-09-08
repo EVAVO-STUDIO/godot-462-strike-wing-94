@@ -1,0 +1,14 @@
+{
+  "schema": "hypersonic_audio_studio_transient_v1",
+  "identity": "distant conventional thunder: dry crack, low pressure body, three irregular rolls",
+  "source": "tools/build_weather_thunder.py",
+  "runtime": "res://assets/runtime/audio/weather/thunder_strike.wav",
+  "sha256": "13cc5a510a0539d44f89425f4275f7ff81d446ffa024bb96052868eacf64e586",
+  "sample_rate": 22050,
+  "channels": 2,
+  "duration_seconds": 3.2,
+  "peak": 0.657624,
+  "clipped_samples": 0,
+  "loop": false,
+  "review_status": "runtime_candidate_pending_final_listen"
+}
