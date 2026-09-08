@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "product": "HYPERSONIC",
   "head_sha": "REPLACE_WITH_EXACT_GIT_HEAD_SHA",
   "reviewer": "REPLACE_WITH_HUMAN_REVIEWER",
@@ -27,8 +27,12 @@
     "difficulty_matrix_reviewed": false,
     "vulnerable_summary_path": "work/vulnerable_balance/summary.json",
     "economy_audit_path": "work/economy/economy_progression_audit.json",
+    "route_projection_path": "work/economy/route_progression_projection.json",
+    "branch_dominance_path": "work/economy/branch_economic_dominance.json",
     "vulnerable_evidence_reviewed": false,
-    "economy_evidence_reviewed": false
+    "economy_evidence_reviewed": false,
+    "route_projection_reviewed": false,
+    "branch_economy_reviewed": false
   },
   "visual": {
     "passed": false,
