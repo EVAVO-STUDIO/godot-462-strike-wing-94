@@ -17,7 +17,7 @@ if (-not (Test-Path -LiteralPath $AbsoluteSignoff)) {
 }
 
 $Signoff = Get-Content -Raw -LiteralPath $AbsoluteSignoff | ConvertFrom-Json
-if ([int]$Signoff.schema_version -ne 2) { throw 'Human release signoff schema_version must be 2.' }
+if ([int]$Signoff.schema_version -ne 3) { throw 'Human release signoff schema_version must be 3.' }
 if ([string]$Signoff.product -ne 'HYPERSONIC') { throw 'Human release signoff product must be HYPERSONIC.' }
 
 $HeadSha = (& git -C $Root rev-parse HEAD).Trim()
@@ -32,29 +32,55 @@ if (-not [DateTimeOffset]::TryParse([string]$Signoff.reviewed_utc, [ref]$Reviewe
     throw 'Human release signoff reviewed_utc must be a valid ISO-8601 timestamp.'
 }
 
+function Resolve-EvidencePath([string]$Value, [string]$AllowedRelativeRoot, [string]$Label) {
+    if (-not $Value.Trim()) { throw "$Label path is required." }
+    $Path = if ([System.IO.Path]::IsPathRooted($Value)) {
+        [System.IO.Path]::GetFullPath($Value)
+    } else {
+        [System.IO.Path]::GetFullPath((Join-Path $Root $Value))
+    }
+    $AllowedRoot = [System.IO.Path]::GetFullPath((Join-Path $Root $AllowedRelativeRoot))
+    if (-not $Path.StartsWith($AllowedRoot + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "$Label must remain inside $AllowedRoot."
+    }
+    if (-not (Test-Path -LiteralPath $Path)) { throw "$Label is missing: $Path" }
+    return $Path
+}
+
 $LabLockPath = Join-Path $Root '.evavo/godot-lab-native.lock.json'
 if (-not (Test-Path -LiteralPath $LabLockPath)) { throw 'Native Test Lab authority lock is missing.' }
 $LabLock = Get-Content -Raw -LiteralPath $LabLockPath | ConvertFrom-Json
 $ExpectedLabSha = ([string]$LabLock.lab_sha).Trim().ToLowerInvariant()
 
-$HandoffValue = ([string]$Signoff.native_test_lab.handoff_path).Trim()
-if (-not $HandoffValue) { throw 'Human release signoff requires native_test_lab.handoff_path.' }
-$HandoffPath = if ([System.IO.Path]::IsPathRooted($HandoffValue)) {
-    [System.IO.Path]::GetFullPath($HandoffValue)
-} else {
-    [System.IO.Path]::GetFullPath((Join-Path $Root $HandoffValue))
-}
-$NativeRoot = [System.IO.Path]::GetFullPath((Join-Path $Root 'work/test_lab_native'))
-if (-not $HandoffPath.StartsWith($NativeRoot + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) {
-    throw "Native Test Lab handoff must remain inside $NativeRoot."
-}
-if (-not (Test-Path -LiteralPath $HandoffPath)) { throw "Native Test Lab handoff is missing: $HandoffPath" }
+$HandoffPath = Resolve-EvidencePath ([string]$Signoff.native_test_lab.handoff_path) 'work/test_lab_native' 'Native Test Lab handoff'
 $Handoff = Get-Content -Raw -LiteralPath $HandoffPath | ConvertFrom-Json
 if ([int]$Handoff.schema_version -ne 1) { throw 'Native Test Lab handoff schema_version must be 1.' }
 if ([string]$Handoff.target_sha -ne $HeadSha) { throw 'Native Test Lab handoff does not match the exact HYPERSONIC HEAD being signed.' }
 if ([string]$Handoff.lab_sha -ne $ExpectedLabSha) { throw 'Native Test Lab handoff does not match the pinned Test Lab authority SHA.' }
 if (-not ([string]$Handoff.godot_version).StartsWith('4.6.2')) { throw "Native Test Lab handoff was not produced with Godot 4.6.2: $($Handoff.godot_version)" }
 if (-not [bool]$Handoff.interactive_windows_session) { throw 'Native Test Lab handoff was not produced in an authoritative interactive Windows session.' }
+
+$VulnerablePath = Resolve-EvidencePath ([string]$Signoff.balance.vulnerable_summary_path) 'work/vulnerable_balance' 'Vulnerable balance summary'
+$Vulnerable = Get-Content -Raw -LiteralPath $VulnerablePath | ConvertFrom-Json
+if ([int]$Vulnerable.schema_version -ne 1) { throw 'Vulnerable balance summary schema_version must be 1.' }
+if ([string]$Vulnerable.source.head_sha -ne $HeadSha) { throw 'Vulnerable balance summary does not match the exact HYPERSONIC HEAD being signed.' }
+if (-not ([string]$Vulnerable.source.godot_version).StartsWith('4.6.2')) { throw 'Vulnerable balance summary was not produced with Godot 4.6.2.' }
+if ([bool]$Vulnerable.source.invulnerability) { throw 'Human balance signoff cannot use an invulnerable pressure summary.' }
+if ([int]$Vulnerable.matrix.case_count -lt 9 -or [int]$Vulnerable.matrix.first_mission_difficulty_count -ne 4) {
+    throw 'Vulnerable balance summary does not contain the governed nine-case / four-difficulty matrix.'
+}
+
+$EconomyPath = Resolve-EvidencePath ([string]$Signoff.balance.economy_audit_path) 'work/economy' 'Economy progression audit'
+$Economy = Get-Content -Raw -LiteralPath $EconomyPath | ConvertFrom-Json
+if ([int]$Economy.schema_version -ne 1) { throw 'Economy progression audit schema_version must be 1.' }
+if ([string]$Economy.source.head_sha -ne $HeadSha) { throw 'Economy progression audit does not match the exact HYPERSONIC HEAD being signed.' }
+if (-not ([string]$Economy.source.godot_version).StartsWith('4.6.2')) { throw 'Economy progression audit was not produced with Godot 4.6.2.' }
+if ([int]$Economy.campaign.mission_count -ne 30) { throw 'Economy progression audit does not cover all 30 campaign missions.' }
+foreach ($DifficultyId in @('cadet','combat','veteran','ace')) {
+    if ($null -eq $Economy.first_mission_conservative_affordability.PSObject.Properties[$DifficultyId]) {
+        throw "Economy progression audit lost first-mission affordability evidence for $DifficultyId."
+    }
+}
 
 $RequiredTrue = [ordered]@{
     'native_test_lab.passed' = [bool]$Signoff.native_test_lab.passed
@@ -69,6 +95,9 @@ $RequiredTrue = [ordered]@{
     'balance.passed' = [bool]$Signoff.balance.passed
     'balance.no_dominant_trivial_strategy' = [bool]$Signoff.balance.no_dominant_trivial_strategy
     'balance.no_progress_wall' = [bool]$Signoff.balance.no_progress_wall
+    'balance.difficulty_matrix_reviewed' = [bool]$Signoff.balance.difficulty_matrix_reviewed
+    'balance.vulnerable_evidence_reviewed' = [bool]$Signoff.balance.vulnerable_evidence_reviewed
+    'balance.economy_evidence_reviewed' = [bool]$Signoff.balance.economy_evidence_reviewed
     'visual.passed' = [bool]$Signoff.visual.passed
     'visual.native_1280x720' = [bool]$Signoff.visual.native_1280x720
     'visual.native_1920x1080_or_fullscreen' = [bool]$Signoff.visual.native_1920x1080_or_fullscreen
@@ -86,4 +115,4 @@ if ([int]$Signoff.blockers.p0 -ne 0 -or [int]$Signoff.blockers.p1 -ne 0) {
     throw "Human release signoff still has blockers: P0=$($Signoff.blockers.p0), P1=$($Signoff.blockers.p1)."
 }
 
-Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab evidence $ExpectedLabSha." -ForegroundColor Green
+Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure and economy progression evidence." -ForegroundColor Green
