@@ -6,7 +6,9 @@ Before making changes, read:
 
 1. `README.md`
 2. `docs/PORTFOLIO_RELEASE_TRANCHE.md`
-3. the repo's validation/release documentation relevant to the files being changed
+3. `docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md`
+4. `docs/VULNERABLE_BALANCE_EVIDENCE.md` when touching difficulty, damage, rewards, repair, progression, weapons, support or mission pressure
+5. the repo's validation/release documentation relevant to the files being changed
 
 ## Non-negotiable production rule
 
@@ -14,9 +16,13 @@ The scope policy is **freeze**. Work should close release defects, improve prese
 
 Do not add a new campaign sector, aircraft family, game mode, meta-progression layer or renderer architecture unless an evidenced release blocker cannot be corrected inside the existing design.
 
+## Balance rule
+
+Do not tune difficulty, rewards, damage, repair costs, weapons or mission pressure from an invulnerable autoplay trace or from one deterministic vulnerable bot run. Use `tools/run_vulnerable_balance_telemetry.ps1` as a repeatable pressure signal and corroborate material balance changes with vulnerable human/Test Lab evidence or a directly proven runtime defect.
+
 ## Evidence rule
 
-Do not describe the game as release-ready from source inspection alone. Native Godot execution, packaged-build startup, representative gameplay, performance and human visual/playtest evidence remain required.
+Do not describe the game as release-ready from source inspection alone. Native Godot execution, packaged-build startup, representative vulnerable gameplay, performance and human visual/playtest/audio/balance evidence remain required.
 
 ## Repository rule
 
