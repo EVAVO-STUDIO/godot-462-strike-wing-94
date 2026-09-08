@@ -732,7 +732,13 @@ func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dicti
 	var speed := _base_parallax_speed(profile, state, "mid") * COAST_ROUTE_SCROLL_SCALE
 	var world_scroll := _world_distance(scene) * speed
 	var seed := _mission_seed(scene)
-	var scale := 0.34 + 0.12 * _ground_scale(state)
+	# Preserve the approved low-lane size, then contract finite installations
+	# much more decisively as the VX-94 climbs. The old eight-percent range left
+	# radar bunkers and piers almost screen-sized at HIGH, where their pale line
+	# work could be mistaken for HUD symbology.
+	var altitude_detail := _ground_scale(state)
+	var scale := 0.22 + 0.24 * altitude_detail
+	var altitude_alpha := lerpf(0.58,1.0,altitude_detail)
 	var cycle := 1960.0
 	var slots := [
 		{"x": 92.0, "y": 150.0, "chunk": 0, "role": "land"},
@@ -752,7 +758,7 @@ func _draw_modular_coast_pass(surface: CanvasItem, scene: Object, profile: Dicti
 			continue
 		var x_jitter := float((seed + slot_index * 31) % 9) - 4.0
 		var x := clampf(float(slot["x"]) + x_jitter, 8.0, 632.0 - size.x)
-		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x, y).round(), size), ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.84, 0.76))
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x, y).round(), size), ENVIRONMENT_VIEW, Color(0.82, 0.86, 0.84, 0.76 * altitude_alpha))
 
 func _draw_texture_rect_clipped(surface: CanvasItem, texture: Texture2D, destination: Rect2, clip_rect: Rect2, modulate := Color.WHITE) -> void:
 	var clipped := destination.intersection(clip_rect)
@@ -819,7 +825,9 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 	var world_scroll := _world_distance(scene) * speed
 	var seed := _mission_seed(scene)
 	var cycle := 1800.0
-	var scale := 0.42 + 0.15 * _ground_scale(state)
+	var altitude_detail := _ground_scale(state)
+	var scale := 0.28 + 0.29 * altitude_detail
+	var altitude_alpha := lerpf(0.58,1.0,altitude_detail)
 	var slots := [
 		{"x":104.0,"y":210.0,"chunk":3,"alpha":0.74},
 		{"x":424.0,"y":810.0,"chunk":2,"alpha":0.70},
@@ -831,7 +839,7 @@ func _draw_modular_refinery_pass(surface: CanvasItem, scene: Object, profile: Di
 		var y := fposmod(float(slot["y"]) + world_scroll + float(seed % 83), cycle) - 170.0 + ENVIRONMENT_VIEW.position.y
 		var size := (texture.get_size() * scale).round()
 		var x := clampf(float(slot["x"]) + float((seed + slot_index * 19) % 23), 8.0, 632.0 - size.x)
-		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.76,0.80,0.78,float(slot["alpha"])))
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.76,0.80,0.78,float(slot["alpha"]) * altitude_alpha))
 
 	var steam: Texture2D = REFINERY_STEAM[posmod(int(floor(t * 5.0)), REFINERY_STEAM.size())]
 	var steam_y := fposmod(world_scroll + 510.0 + float(seed % 97), cycle) - 120.0 + ENVIRONMENT_VIEW.position.y
@@ -863,7 +871,9 @@ func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictio
 	var world_scroll := _world_distance(scene) * _base_parallax_speed(profile, state, "mid") * 0.24
 	var seed := _mission_seed(scene)
 	var cycle := 2380.0
-	var scale := 0.58 + 0.14 * _ground_scale(state)
+	var altitude_detail := _ground_scale(state)
+	var scale := 0.38 + 0.34 * altitude_detail
+	var altitude_alpha := lerpf(0.62,1.0,altitude_detail)
 	var slots := [
 		{"x":76.0, "y":120.0, "asset":10, "alpha":0.72},
 		{"x":428.0, "y":410.0, "asset":0, "alpha":0.76},
@@ -883,7 +893,7 @@ func _draw_open_water_finite(surface: CanvasItem, scene: Object, profile: Dictio
 		if y + size.y < ENVIRONMENT_VIEW.position.y or y > ENVIRONMENT_VIEW.end.y:
 			continue
 		var x := clampf(float(slot["x"]) + float((seed + slot_index * 41) % 47) - 23.0, 8.0, 632.0 - size.x)
-		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.80,0.86,0.88,float(slot["alpha"])))
+		_draw_texture_rect_clipped(surface, texture, Rect2(Vector2(x,y).round(), size), ENVIRONMENT_VIEW, Color(0.80,0.86,0.88,float(slot["alpha"]) * altitude_alpha))
 
 func _draw_desert_front(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return
