@@ -45,9 +45,9 @@ const NAVAL_SINK_SECONDS := 1.35
 const PLAYER_HIT_SECONDS := 0.18
 const SHIELD_BREAK_SECONDS := 0.34
 const STRATEGIC_SITE_DESTRUCTION_SECONDS := 1.28
-const MISSILE_BLAST_SCALE := 3.65
-const SURFACE_BLAST_SCALE := 3.35
-const CANNON_KILL_SCALE := 2.80
+const MISSILE_BLAST_SCALE := 4.15
+const SURFACE_BLAST_SCALE := 3.65
+const CANNON_KILL_SCALE := 2.15
 const STRATEGIC_SITES := ["strategic_silo", "ammo_depot", "ballistic_launcher"]
 const NAVAL_WRECK_HULLS := {
 	"river_patrol": preload("res://assets/runtime/enemies/mercenary_sea/river_patrol_idle.png"),
@@ -423,7 +423,9 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	# Nonlethal cannon hits stay in _draw_hit and never receive this fireball.
 	if not boss and impact_family == "cannon":
 		var fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(blast_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
-		var fireball_size := roundf(max_size*3.45)
+		# Cannon kills are a localized airframe rupture. The separated wreck and
+		# retained smoke carry the consequence; the flash must not outrank a missile.
+		var fireball_size := roundf(max_size*2.15)
 		surface.draw_texture_rect(fireball,Rect2((p-Vector2.ONE*fireball_size*0.5).round(),Vector2.ONE*fireball_size),false,Color(1,1,1,0.92-smoothstep(0.68,1.0,blast_clock)*0.72))
 	elif not boss and impact_family in ["rocket","bomb"] and blast_clock < 0.76:
 		# Surface warheads need a dense incandescent core behind the radial debris
@@ -431,7 +433,7 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		# detailed terrain even though the blast is lethal at gameplay scale.
 		var core_ratio := blast_clock/0.76
 		var ground_fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
-		var ground_fireball_size := roundf(max_size*lerpf(1.8,2.65,core_ratio))
+		var ground_fireball_size := roundf(max_size*lerpf(2.05,3.0,core_ratio))
 		surface.draw_texture_rect(ground_fireball,Rect2((p-Vector2.ONE*ground_fireball_size*0.5).round(),Vector2.ONE*ground_fireball_size),false,Color(1.0,0.78,0.48,0.90*(1.0-core_ratio*0.62)))
 	# Preserve the authored 64-pixel cel silhouette. Earlier 5.6x/5.8x
 	# enlargement made every warhead a square, screen-covering bloom and erased
@@ -451,13 +453,15 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	if not boss and impact_family == "missile" and blast_clock < 0.62:
 		var core_ratio := blast_clock/0.62
 		var core: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
-		var core_size := roundf(max_size*lerpf(1.55,2.55,core_ratio))
-		surface.draw_texture_rect(core,Rect2((p-Vector2.ONE*core_size*0.5).round(),Vector2.ONE*core_size),false,Color(1.0,0.82,0.58,0.90*(1.0-core_ratio*0.58)))
+		var core_size := roundf(max_size*lerpf(2.10,3.10,core_ratio))
+		surface.draw_texture_rect(core,Rect2((p-Vector2.ONE*core_size*0.5).round(),Vector2.ONE*core_size),false,Color(1.0,0.92,0.72,0.98*(1.0-core_ratio*0.64)))
 	if not boss and impact_family == "missile" and blast_clock < 0.58:
 		var pressure_ratio := blast_clock / 0.58
 		var pressure := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", pressure_ratio)
-		var pressure_size := Vector2.ONE * roundf(lerpf(18.0, 104.0, pressure_ratio))
-		surface.draw_texture_rect(pressure, Rect2((p-pressure_size*0.5).round(),pressure_size), false, Color(1.0,0.88,0.62,0.86*(1.0-pressure_ratio)))
+		# The pressure front is pale condensation, not an orange targeting ring.
+		# Keep it subordinate to the white-hot warhead core and fragment fan.
+		var pressure_size := Vector2.ONE * roundf(lerpf(22.0, 96.0, pressure_ratio))
+		surface.draw_texture_rect(pressure, Rect2((p-pressure_size*0.5).round(),pressure_size), false, Color(0.88,0.94,0.96,0.38*(1.0-pressure_ratio)))
 	if not boss and impact_family in ["rocket", "bomb"] and blast_clock < 0.58:
 		var ground_ratio := blast_clock / 0.58
 		var ground_pressure := ImpactArtLibrary.frame_for_ratio("dust_impact",ground_ratio)
