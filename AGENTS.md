@@ -7,8 +7,9 @@ Before making changes, read:
 1. `README.md`
 2. `docs/PORTFOLIO_RELEASE_TRANCHE.md`
 3. `docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md`
-4. `docs/VULNERABLE_BALANCE_EVIDENCE.md` when touching difficulty, damage, rewards, repair, progression, weapons, support or mission pressure
-5. the repo's validation/release documentation relevant to the files being changed
+4. `docs/VULNERABLE_BALANCE_EVIDENCE.md` when touching difficulty, damage, mission pressure or combat survivability
+5. `docs/ECONOMY_PROGRESSION_EVIDENCE.md` when touching rewards, repair/recharge prices, progression costs, weapons, generators, airframes or support purchases
+6. the repo's validation/release documentation relevant to the files being changed
 
 ## Non-negotiable production rule
 
@@ -18,7 +19,7 @@ Do not add a new campaign sector, aircraft family, game mode, meta-progression l
 
 ## Balance rule
 
-Do not tune difficulty, rewards, damage, repair costs, weapons or mission pressure from an invulnerable autoplay trace or from one deterministic vulnerable bot run. Use `tools/run_vulnerable_balance_telemetry.ps1` as a repeatable pressure signal and corroborate material balance changes with vulnerable human/Test Lab evidence or a directly proven runtime defect.
+Do not tune difficulty, rewards, damage, repair costs, equipment prices, weapons or mission pressure from an invulnerable autoplay trace, one deterministic vulnerable bot run or the static affordability model alone. Use `tools/run_vulnerable_balance_telemetry.ps1` as a repeatable pressure signal and `tools/run_economy_progression_audit.ps1` as a structural progression signal. Corroborate material balance changes with vulnerable completed-sortie/human Test Lab evidence or a directly proven runtime defect.
 
 ## Evidence rule
 
