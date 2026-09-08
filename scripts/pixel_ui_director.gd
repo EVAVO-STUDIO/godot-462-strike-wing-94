@@ -731,10 +731,10 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	# The three survival meters are self-framed. Keep only a light local key
 	# behind them and isolated data keys; the old 624-pixel fascia made every
 	# route feel as though it was being viewed through a menu.
-	surface.draw_rect(Rect2(8,5,280,23),Color(0.018,0.035,0.048,0.25))
+	surface.draw_rect(Rect2(6,4,218,18),Color(0.018,0.035,0.048,0.20))
 	# Flight data is grouped around the actual glyphs. The clear gaps keep this
 	# from reading as a full-width dashboard while retaining the late-90s MFD key.
-	for key_rect in [Rect2(292,6,78,14),Rect2(384,6,68,14),Rect2(444,6,100,14),Rect2(586,6,46,14)]:
+	for key_rect in [Rect2(230,5,60,13),Rect2(300,5,58,13),Rect2(368,5,94,13),Rect2(478,5,48,13)]:
 		surface.draw_rect(key_rect,Color(0.018,0.035,0.048,0.25))
 	_draw_tactical_radar(surface,scene)
 	_draw_surface_iff_markers(surface,scene)
@@ -746,11 +746,11 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	var hull_value := mini(int(scene.get("hull")), 18) if capture_warning else int(scene.get("hull"))
 	var shield_value := mini(int(scene.get("shield")), 15) if capture_warning else int(scene.get("shield"))
 	var energy_value := minf(energy, 12.0) if capture_warning else energy
-	_draw_primary_meter(surface, Vector2(12, 7), hull_value, max_hull, HUD_HULL_FILL, HUD_HULL_FRAME, HUD_HULL_WARNING_FRAME, 0.30)
-	_draw_primary_meter(surface, Vector2(106, 7), shield_value, maxi(1, max_shield), HUD_SHIELD_FILL, HUD_SHIELD_FRAME, HUD_SHIELD_WARNING_FRAME, 0.24)
-	_draw_primary_meter(surface, Vector2(200, 7), int(round(energy_value)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, HUD_ENERGY_FRAME, HUD_ENERGY_WARNING_FRAME, 0.18)
-	surface.draw_texture(HUD_ICON_BOMB, Vector2(342, 10))
-	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(356, 13), 1, TEXT, 1)
+	_draw_primary_meter(surface, Vector2(8, 5), "H", hull_value, max_hull, HUD_HULL_FILL, 0.30)
+	_draw_primary_meter(surface, Vector2(80, 5), "S", shield_value, maxi(1, max_shield), HUD_SHIELD_FILL, 0.24)
+	_draw_primary_meter(surface, Vector2(152, 5), "E", int(round(energy_value)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, 0.18)
+	surface.draw_texture(HUD_ICON_BOMB, Vector2(278, 8))
+	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(292, 11), 1, TEXT, 1)
 	var remaining := maxi(0, int(ceil(float(scene.get("mission_duration")) - float(scene.get("mission_time")))))
 	if scene.has_method("mission_remaining_seconds"):
 		remaining = maxi(0, int(ceil(float(scene.call("mission_remaining_seconds")))))
@@ -760,24 +760,24 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		route_eta = false
 	if route_eta:
 		var label := "OT" if _has_property(scene, "route_overtime_elapsed") and float(scene.get("route_overtime_elapsed")) > 0.0 else "ETA"
-		PixelFont.draw_text(surface, label, Vector2(390,13), 1, TEXT, 1)
+		PixelFont.draw_text(surface, label, Vector2(306,11), 1, TEXT, 1)
 	else:
-		surface.draw_texture(HUD_ICON_TIME, Vector2(390, 10))
-	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(404, 13), 1, TEXT, 1)
+		surface.draw_texture(HUD_ICON_TIME, Vector2(306, 8))
+	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(320, 11), 1, TEXT, 1)
 	var show_score := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
 	if show_score:
 		surface.draw_texture(HUD_ICON_SCORE,Vector2(506,10))
-		PixelFont.draw_text(surface,"%08d"%int(scene.get("score")),Vector2(522,13),1,TEXT,1)
+		PixelFont.draw_text(surface,"%08d"%int(scene.get("score")),Vector2(542,11),1,TEXT,1)
 	var weapon := _call_dictionary(scene, "_active_weapon")
 	var altitude_choice := _compact_altitude_choice()
 	if altitude_choice.is_empty():
-		PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _compact_form_state()], Vector2(298, 13), 1, GOLD if _form_transition_active() else BLUE, 1)
+		PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _compact_form_state()], Vector2(234, 11), 1, GOLD if _form_transition_active() else BLUE, 1)
 	else:
-		PixelFont.draw_centered(surface, altitude_choice, 320, 13, 1, GOLD, 1)
-	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 12), Vector2(448, 13), 1, MUTED, 1)
+		PixelFont.draw_centered(surface, altitude_choice, 258, 11, 1, GOLD, 1)
+	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 12), Vector2(372, 11), 1, MUTED, 1)
 	var craft_state := surface.get_node_or_null("/root/CraftFormDirector")
 	var throttle_value := clampi(int(roundf(float(craft_state.call("throttle_ratio"))*100.0)),0,100) if craft_state != null and craft_state.has_method("throttle_ratio") else 50
-	PixelFont.draw_text(surface,"T%03d"%throttle_value,Vector2(594,13),1,BLUE,1)
+	PixelFont.draw_text(surface,"T%03d"%throttle_value,Vector2(482,11),1,BLUE,1)
 	# One shared information lane: urgent combat state always replaces routine mission data.
 	if not _active_boss(scene).is_empty():
 		_draw_boss(surface, scene)
@@ -1279,16 +1279,17 @@ func _draw_meter(surface: CanvasItem, position: Vector2, label: String, current:
 	surface.draw_texture(HUD_METER_TROUGH, position + Vector2(0, 13))
 	_draw_clipped_fill(surface, fill_texture, position + Vector2(1, 14), ratio)
 
-func _draw_primary_meter(surface: CanvasItem, position: Vector2, current: int, maximum: int, fill_texture: Texture2D, normal_frame: Texture2D, warning_frame: Texture2D, warning_ratio: float) -> void:
+func _draw_primary_meter(surface: CanvasItem, position: Vector2, label: String, current: int, maximum: int, fill_texture: Texture2D, warning_ratio: float) -> void:
 	var max_value := maxi(1, maximum)
 	var value := clampi(current, 0, max_value)
 	var ratio := clampf(float(value) / float(max_value), 0.0, 1.0)
-	var frame := warning_frame if ratio <= warning_ratio else normal_frame
-	surface.draw_texture(frame, position)
-	PixelFont.draw_text(surface, "%03d" % value, position + Vector2(25, 5), 1, RED if ratio <= warning_ratio else TEXT, 1)
-	var instrument_width := floorf(67.0 * ratio)
+	var readout_colour := RED if ratio <= warning_ratio else TEXT
+	PixelFont.draw_text(surface, "%s%03d" % [label, value], position, 1, readout_colour, 1)
+	surface.draw_texture_rect(HUD_METER_TROUGH, Rect2(position + Vector2(0, 8), Vector2(68, 5)), false, Color(1,1,1,0.78))
+	var instrument_width := floorf(66.0 * ratio)
 	if instrument_width > 0.0:
-		surface.draw_texture_rect_region(fill_texture, Rect2(position + Vector2(18,15),Vector2(instrument_width,fill_texture.get_height())),Rect2(0,0,instrument_width,fill_texture.get_height()))
+		var source_width := float(fill_texture.get_width()) * ratio
+		surface.draw_texture_rect_region(fill_texture, Rect2(position + Vector2(1,9),Vector2(instrument_width,3)),Rect2(0,0,source_width,fill_texture.get_height()))
 
 func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
 	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))
