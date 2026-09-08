@@ -21,6 +21,7 @@ $VulnerableBalancePath = Require-File 'tools/run_vulnerable_balance_telemetry.ps
 $VulnerableBalanceDocPath = Require-File 'docs/VULNERABLE_BALANCE_EVIDENCE.md'
 $EconomyAuditPath = Require-File 'tools/run_economy_progression_audit.ps1'
 $EconomyProjectionPath = Require-File 'tools/run_route_progression_projection.ps1'
+$BranchDominancePath = Require-File 'tools/analyze_branch_economic_dominance.ps1'
 $EconomySelfTestPath = Require-File 'tools/economy_progression_self_test.gd'
 $EconomyDocPath = Require-File 'docs/ECONOMY_PROGRESSION_EVIDENCE.md'
 $ProgressionOverlayPath = Require-File 'scripts/progression_cost_director.gd'
@@ -51,6 +52,7 @@ $VulnerableBalance = Get-Content -Raw -LiteralPath $VulnerableBalancePath
 $VulnerableBalanceDoc = Get-Content -Raw -LiteralPath $VulnerableBalanceDocPath
 $EconomyAudit = Get-Content -Raw -LiteralPath $EconomyAuditPath
 $EconomyProjection = Get-Content -Raw -LiteralPath $EconomyProjectionPath
+$BranchDominance = Get-Content -Raw -LiteralPath $BranchDominancePath
 $EconomySelfTest = Get-Content -Raw -LiteralPath $EconomySelfTestPath
 $EconomyDoc = Get-Content -Raw -LiteralPath $EconomyDocPath
 $ProgressionOverlay = Get-Content -Raw -LiteralPath $ProgressionOverlayPath
@@ -131,7 +133,7 @@ foreach ($Token in @('Never auto-tune from one deterministic pilot','Human balan
     if (-not $VulnerableBalanceDoc.Contains($Token)) { throw "Vulnerable balance documentation lost truth boundary: $Token" }
 }
 
-foreach ($Token in @('run_economy_progression_audit.ps1','run_route_progression_projection.ps1','SkipEconomyAudit','branch-route projection')) {
+foreach ($Token in @('run_economy_progression_audit.ps1','run_route_progression_projection.ps1','analyze_branch_economic_dominance.ps1','SkipEconomyAudit','branch-dominance analysis')) {
     if (-not $ReleaseGate.Contains($Token)) { throw "Windows release gate lost economy evidence wiring: $Token" }
 }
 foreach ($Token in @('economy_progression_self_test.gd','worst_survivable_full_service','first_mission_conservative_affordability','guaranteed_zero_score_reward','cumulative_acquisition_cost','next_purchases_from_fresh','schema_version = 2')) {
@@ -140,6 +142,9 @@ foreach ($Token in @('economy_progression_self_test.gd','worst_survivable_full_s
 foreach ($Token in @('ChoiceVectors.Count -ne 8','RouteMissionIds.Count -ne 27','difficulty_count = 4','projection_count = $RouteReports.Count','cumulative_acquisition_cost','never_reachable_signals')) {
     if (-not $EconomyProjection.Contains($Token)) { throw "Route progression projection lost governed matrix guard: $Token" }
 }
+foreach ($Token in @('paired_comparisons_per_branch_per_difficulty = 4','CONSISTENT_CASH_WINNER','CASH_ADVANTAGE_GE_1000','TIER_TIMING_SHIFT_GE_2','paired_final_wallet_delta_b_minus_a','cross_difficulty')) {
+    if (-not $BranchDominance.Contains($Token)) { throw "Branch dominance analysis lost paired-control guard: $Token" }
+}
 foreach ($Token in @('ProgressionRules.mission_reward','ServiceRules.service_cost','first primary purchase','difficulty reward multipliers')) {
     if (-not $EconomySelfTest.Contains($Token)) { throw "Economy runtime self-test lost authority check: $Token" }
 }
@@ -147,13 +152,13 @@ foreach ($Token in @('Conservative opening guardrail','Sequential ownership mode
     if (-not $EconomyDoc.Contains($Token)) { throw "Economy evidence documentation lost truth boundary: $Token" }
 }
 
-if ([int]$SignoffTemplate.schema_version -ne 3) { throw 'RELEASE_SIGNOFF_TEMPLATE.json must use schema_version 3.' }
+if ([int]$SignoffTemplate.schema_version -ne 4) { throw 'RELEASE_SIGNOFF_TEMPLATE.json must use schema_version 4.' }
 foreach ($Property in @('passed','all_required_journeys_reviewed','checkpoint_media_reviewed','runtime_logs_reviewed','audio_media_reviewed')) {
     if ($null -eq $SignoffTemplate.native_test_lab.PSObject.Properties[$Property]) {
         throw "Release signoff template lost native_test_lab.$Property."
     }
 }
-foreach ($Property in @('difficulty_matrix_reviewed','vulnerable_summary_path','economy_audit_path','vulnerable_evidence_reviewed','economy_evidence_reviewed')) {
+foreach ($Property in @('difficulty_matrix_reviewed','vulnerable_summary_path','economy_audit_path','route_projection_path','branch_dominance_path','vulnerable_evidence_reviewed','economy_evidence_reviewed','route_projection_reviewed','branch_economy_reviewed')) {
     if ($null -eq $SignoffTemplate.balance.PSObject.Properties[$Property]) {
         throw "Release signoff template lost balance.$Property."
     }
@@ -167,9 +172,13 @@ foreach ($Token in @(
     'Economy progression audit schema_version must be 2',
     'Route progression projection does not match the exact HYPERSONIC HEAD',
     '8 routes x 4 difficulties x 27 sorties',
+    'Branch economic dominance report does not match the exact HYPERSONIC HEAD',
+    'paired 3-branch / 8-route / 4-difficulty matrix',
     'balance.difficulty_matrix_reviewed',
     'balance.vulnerable_evidence_reviewed',
-    'balance.economy_evidence_reviewed'
+    'balance.economy_evidence_reviewed',
+    'balance.route_projection_reviewed',
+    'balance.branch_economy_reviewed'
 )) {
     if (-not $HumanSignoff.Contains($Token)) { throw "Human signoff verifier lost exact-SHA evidence guard: $Token" }
 }
@@ -177,4 +186,4 @@ foreach ($Token in @(
 Write-Host 'Validating HYPERSONIC native Test Lab profile and authority lock...' -ForegroundColor DarkCyan
 & $NativeContractPath
 
-Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + sequential 8-route economy progression + sortie-bay price clarity + native Test Lab authority wired to signoff v3." -ForegroundColor Green
+Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + sequential 8-route economy + paired branch dominance + sortie-bay price clarity + native Test Lab authority wired to signoff v4." -ForegroundColor Green
