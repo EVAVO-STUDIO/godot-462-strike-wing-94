@@ -19,7 +19,7 @@ const LIGHTNING_CELS := [
 	preload("res://assets/runtime/effects/weather/lightning_1.png"),
 	preload("res://assets/runtime/effects/weather/lightning_2.png"),
 ]
-const RAIN_VISIBILITY := {"drizzle":1.18, "rain":2.08, "storm":2.62}
+const RAIN_VISIBILITY := {"drizzle":2.18, "rain":2.08, "storm":2.62}
 const RAIN_COLOUR := Color(0.70, 0.79, 0.83, 1.0)
 const SNOW_COLOUR := Color(0.88, 0.92, 0.94, 1.0)
 
@@ -208,13 +208,15 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 		# A low, translucent rain curtain ties the individual cels into weather
 		# without washing contrast out of aircraft, missiles, or ground targets.
 		if not near_band:
-			var curtain_alpha := opacity * (0.035 if _profile == "drizzle" else (0.075 if _profile == "rain" else 0.11))
+			var curtain_alpha := opacity * (0.045 if _profile == "drizzle" else (0.075 if _profile == "rain" else 0.11))
 			surface.draw_rect(Rect2(0,0,640,304),Color(0.18,0.28,0.34,curtain_alpha),true)
 		for p in _rain.get(_profile, []):
 			if (str(p.depthBand) == "foreground") != near_band: continue
 			var state := WeatherRules.rain_drop(p, _time, _travel, _world_speed)
 			var middle: Vector2 = Vector2(state.tail).lerp(state.head, 0.5)
-			var profile_lift := 1.22 if _profile == "storm" else 1.0
+			# Drizzle needs a small value lift over refinery steel while remaining
+			# materially finer and sparser than the rain and storm profiles.
+			var profile_lift := 1.22 if _profile == "storm" else (1.12 if _profile == "drizzle" else 1.0)
 			var alpha: float = clampf(float(state.opacity)*opacity*float(RAIN_VISIBILITY.get(_profile,1.0))*(1.24 if near_band else 1.02)*profile_lift,0.0,0.88)
 			var direction := Vector2(state.head)-Vector2(state.tail)
 			if direction.length_squared() <= 0.01: continue
