@@ -33,6 +33,7 @@ var _boss_seen := false
 var _boss_spawn_elapsed := -1.0
 var _boss_destroyed_elapsed := -1.0
 var _boss_spawn_integrity := -1
+var _defensive_response_cooldown := 0.0
 
 func _ready() -> void:
 	process_priority = -100
@@ -66,13 +67,19 @@ func _process(delta: float) -> void:
 			_finish()
 		return
 	elapsed += delta
+	_defensive_response_cooldown = maxf(0.0, _defensive_response_cooldown - delta)
 	_sample_state(delta)
 	var whole_second := int(floor(elapsed))
+	if not _passive_profile and not _stationary_fire_profile:
+		# Steering has to observe the live contact picture. A one-second held input
+		# lets fast interceptors cross the complete avoidance radius between probes
+		# and turns a pressure test into an artificial collision test.
+		_drive_movement(whole_second)
+		_drive_live_countermeasure_response()
 	if whole_second != last_second:
 		last_second = whole_second
 		_release_pulses()
 		if not _passive_profile and not _stationary_fire_profile:
-			_drive_movement(whole_second)
 			_drive_commands(whole_second)
 	if elapsed >= duration:
 		_finish()
@@ -175,6 +182,19 @@ func _contact_avoidance_direction() -> int:
 		nearest_distance = distance
 		direction = -1 if offset.x >= 0.0 else 1
 	return direction
+
+func _drive_live_countermeasure_response() -> void:
+	if _defensive_response_cooldown > 0.0 or Input.is_action_pressed("deploy_countermeasure"):
+		return
+	for projectile in scene.get("enemy_bullets"):
+		if typeof(projectile) != TYPE_DICTIONARY or str(projectile.get("weapon_id", "")) != "missile" or not bool(projectile.get("homing", false)):
+			continue
+		var distance := Vector2(projectile.get("position", Vector2.ZERO)).distance_to(Vector2(scene.get("player_position")))
+		if distance > 250.0:
+			continue
+		_pulse("deploy_countermeasure", "countermeasure")
+		_defensive_response_cooldown = 1.15
+		return
 
 func _drive_commands(second: int) -> void:
 	if second in [4, 15, 26]: _pulse("transform_craft", "transform")

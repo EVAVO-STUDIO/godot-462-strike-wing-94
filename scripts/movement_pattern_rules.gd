@@ -98,6 +98,18 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 				desired_velocity = away_side*104.0
 				acceleration = 170.0
 				next.y += 38.0*delta
+	# Aircraft do not knowingly fly through the player's airframe after obtaining
+	# a firing solution. Begin a committed lateral unload before the physical
+	# collision envelope, preserving lethal contact for genuine failed evasion
+	# while preventing routine attack passes from becoming kamikaze strikes.
+	if pattern in ["sine_dive", "tracking_sweep", "hover_strafe", "bomber_run", "combat_orbit", "aggressive_weave"] and approach_distance < 132.0 and approach_distance > -28.0 and absf(tracking_error) < 56.0:
+		var avoidance_speed := 88.0 if pattern in ["hover_strafe", "bomber_run", "combat_orbit"] else 132.0
+		var avoidance_acceleration := 156.0 if pattern in ["hover_strafe", "bomber_run", "combat_orbit"] else 268.0
+		desired_velocity = away_side * maxf(avoidance_speed, absf(desired_velocity))
+		acceleration = maxf(acceleration, avoidance_acceleration)
+		# A shallow unload also reduces closure for a fraction of a second. It is
+		# deliberately too small to let an interceptor hover or retreat up-screen.
+		next.y -= 28.0 * delta
 	if pattern != "static":
 		lateral_velocity = move_toward(lateral_velocity,desired_velocity,acceleration*clampf(control_authority,0.0,1.0)*maxf(0.0,delta))
 		next.x += lateral_velocity*delta

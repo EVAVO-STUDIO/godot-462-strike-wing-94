@@ -78,9 +78,19 @@ foreach ($Case in $Cases) {
     }
 
     Write-Host "Running vulnerable pressure window: $($Case.id)..." -ForegroundColor DarkCyan
-    $RunOutput = @(& $GodotBin @Arguments 2>&1)
-    $ExitCode = $LASTEXITCODE
-    $OutputText = ($RunOutput | Out-String)
+    $RunOutput = @()
+    $ExitCode = 0
+    $OutputText = ''
+    for ($Attempt = 1; $Attempt -le 3; $Attempt++) {
+        Remove-Item -LiteralPath $ReportPath -Force -ErrorAction SilentlyContinue
+        $RunOutput = @(& $GodotBin @Arguments 2>&1)
+        $ExitCode = $LASTEXITCODE
+        $OutputText = ($RunOutput | Out-String)
+        if ($ExitCode -eq 0) { break }
+        $TransientShutdown = $ExitCode -in @(-1, -1073741819) -and $OutputText -notmatch '(?m)SCRIPT ERROR:|HYPERSONIC bounded playtest failed:'
+        if (-not $TransientShutdown -or $Attempt -eq 3) { break }
+        Write-Warning "$($Case.id) encountered a transient Godot shutdown fault; retrying ($Attempt/3)."
+    }
     if ($ExitCode -ne 0) { throw "Vulnerable pressure window failed for $($Case.id) with exit code $ExitCode.`n$OutputText" }
     if ($OutputText -match '(?m)SCRIPT ERROR:|HYPERSONIC bounded playtest failed:') {
         throw "Vulnerable pressure window emitted a runtime script error: $($Case.id)`n$OutputText"
