@@ -1076,15 +1076,15 @@ func _draw_mobile_ground_capture(surface: CanvasItem, scene: Object) -> void:
 	var time := float(scene.get("mission_time")) if _has_property(scene, "mission_time") else 0.0
 	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
 	var definitions := [
-		{"id":"light_tank", "position":Vector2(88,146), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
-		{"id":"sam_truck", "position":Vector2(168,132), "fire_timer":fposmod(1.1-time, 1.1), "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
-		{"id":"armoured_aa_carrier", "position":Vector2(246,150), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
+		{"id":"light_tank", "position":Vector2(88,146), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time, "speed":46.0, "lateral_velocity":-7.0},
+		{"id":"sam_truck", "position":Vector2(168,132), "fire_timer":fposmod(1.1-time, 1.1), "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time, "speed":72.0, "lateral_velocity":13.0},
+		{"id":"armoured_aa_carrier", "position":Vector2(246,150), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time, "speed":58.0, "lateral_velocity":-10.0},
 	]
 	for enemy in definitions:
 		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_GROUND_SPRITES[enemy["id"]], 1.0)
 	var machine_definitions := [
-		{"id":"autonomous_armor", "position":Vector2(126,232), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
-		{"id":"factory_defence_node", "position":Vector2(222,226), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time},
+		{"id":"autonomous_armor", "position":Vector2(126,232), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time, "speed":64.0, "lateral_velocity":9.0},
+		{"id":"factory_defence_node", "position":Vector2(222,226), "fire_timer":0.0, "recoil_timer":recoil, "hp":12, "max_hp":12, "age":time, "speed":0.0, "lateral_velocity":0.0},
 	]
 	for enemy in machine_definitions:
 		_draw_layered_ground(surface, enemy["position"], enemy, LAYERED_MACHINE_GROUND_SPRITES[enemy["id"]], 1.0)
@@ -1887,6 +1887,28 @@ func _draw_mobile_ground_base(surface: CanvasItem, p: Vector2, texture: Texture2
 	for offset in [Vector2(-1,0),Vector2(1,0),Vector2(0,1)]:
 		surface.draw_texture_rect(texture,Rect2(origin+offset,size.round()),false,Color(0.015,0.025,0.030,0.58))
 	surface.draw_texture_rect(texture,Rect2(origin,size.round()),false)
+
+func _draw_mobile_ground_dust(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, base: Texture2D, scale: float) -> void:
+	if enemy_id == "factory_defence_node":
+		return
+	var forward_speed := maxf(0.0, float(enemy.get("speed", 0.0)))
+	if forward_speed < 18.0:
+		return
+	var lateral_velocity := float(enemy.get("lateral_velocity", 0.0))
+	var trail_direction := Vector2(-clampf(lateral_velocity / maxf(32.0, forward_speed), -0.30, 0.30), -1.0).normalized()
+	var speed_ratio := clampf((forward_speed - 18.0) / 72.0, 0.0, 1.0)
+	var age := float(enemy.get("age", 0.0))
+	var frame := ImpactArtLibrary.FRAMES["dust_impact"][posmod(int(floor(age * 7.0)), 4)] as Texture2D
+	var track_half_width := base.get_width() * scale * 0.22
+	var trail_length := lerpf(15.0, 29.0, speed_ratio) * scale
+	var turn_angle := Vector2.UP.angle_to(trail_direction)
+	for side_value in [-1.0, 1.0]:
+		var side := float(side_value)
+		var side_vector: Vector2 = trail_direction.rotated(PI * 0.5) * track_half_width * side
+		var center: Vector2 = p + trail_direction * (base.get_height() * scale * 0.40 + trail_length * 0.38) + side_vector
+		surface.draw_set_transform(center.round(), turn_angle, Vector2(0.34 * scale, lerpf(0.46, 0.82, speed_ratio) * scale))
+		surface.draw_texture(frame, -frame.get_size() * 0.5, Color(0.54, 0.49, 0.40, lerpf(0.16, 0.31, speed_ratio)))
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_surface_site(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, scale: float) -> void:
 	var texture: Texture2D = SURFACE_SITE_SPRITES[enemy_id]
@@ -2786,6 +2808,7 @@ func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, la
 		base = locomotion[posmod(int(floor(float(enemy.get("age", 0.0)) * 8.0)), locomotion.size())]
 	var weapon: Texture2D = layers.get("weapon")
 	var barrel: Texture2D = layers.get("barrel", null)
+	_draw_mobile_ground_dust(surface, p, str(enemy.get("id", "")), enemy, base, scale)
 	_draw_mobile_ground_base(surface, p, base, scale)
 	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
 	if float(enemy.get("hp", max_hp)) / max_hp <= 0.55 and layers.has("damage"):
