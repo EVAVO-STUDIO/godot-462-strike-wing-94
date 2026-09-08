@@ -662,7 +662,12 @@ func _draw_parallax(surface: CanvasItem, scene: Object, profile: Dictionary, sta
 	for layer_index in range(3):
 		for i in range(16):
 			var y := fposmod(float(i) * gaps[layer_index] + travel * speeds[layer_index], 340.0) + 54.0
-			var x0 := 18.0 + float((i * (83 + layer_index * 19)) % 520)
+			var base_x := 18.0 + float((i * (83 + layer_index * 19)) % 520)
+			var peripheral_x := 24.0 + float((i * 47 + layer_index * 23) % 148) if i % 2 == 0 else 468.0 + float((i * 43 + layer_index * 29) % 148)
+			# As the VX-94 crosses the Mach gate, closure stretches toward the
+			# peripheral scan while the firing corridor stays clean. Keeping these
+			# as textured glints rather than white lines avoids a false rain layer.
+			var x0 := lerpf(base_x,peripheral_x,hypersonic_ratio*0.84)
 			# At hypersonic speed the authored glints stretch along the vertical travel
 			# axis. Horizontal smears imply sideways camera motion in this top-down view.
 			# This creates directionally correct speed exposure without a full-screen
@@ -671,7 +676,10 @@ func _draw_parallax(surface: CanvasItem, scene: Object, profile: Dictionary, sta
 			var accent: Texture2D = PARALLAX_ACCENTS[layer_index]
 			var streak_height := minf(length, ENVIRONMENT_VIEW.end.y - y)
 			if streak_height > 0.0:
-				surface.draw_texture_rect(accent, Rect2(Vector2(x0 - 4.0,y),Vector2(8.0,streak_height)), false, tones[layer_index])
+				var streak_tone: Color = tones[layer_index]
+				streak_tone.a = minf(0.48,streak_tone.a+hypersonic_ratio*(0.10+float(layer_index)*0.035))
+				var streak_width := lerpf(8.0,5.0,hypersonic_ratio)
+				surface.draw_texture_rect(accent, Rect2(Vector2(x0-streak_width*0.5,y),Vector2(streak_width,streak_height)), false, streak_tone)
 
 func _coast_x(world_y: float, scale: float) -> float:
 	return 148.0 * scale + sin(world_y * 0.018) * 35.0 * scale + sin(world_y * 0.047 + 1.3) * 13.0 * scale

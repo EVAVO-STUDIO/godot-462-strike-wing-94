@@ -456,6 +456,7 @@ func _initialize() -> void:
 		_expect(source.contains("travel * 21.0") and source.contains("travel * speed"), "coastal wakes and discrete cloud banks should accelerate through integrated hypersonic world travel")
 		_expect(not source.contains("density * 8.0) * world_scale") and not source.contains("density * 14.0) * world_scale"), "opaque full-field cloud plates should stay retired instead of accelerating into visible bands")
 		_expect(source.contains("lerpf(1.0, 3.6, hypersonic_ratio)"), "hypersonic environment presentation should stretch authored motion accents without blurring combat readability")
+		_expect(source.contains("peripheral_x") and source.contains("hypersonic_ratio*0.84") and source.contains("streak_tone.a") and source.contains("var streak_width"), "hypersonic closure should concentrate textured speed exposures at the peripheral scan while preserving the central firing corridor")
 		_expect(FileAccess.file_exists("res://assets/runtime/environments/high_atmosphere/stratospheric_cloud_deck_loop_v1.png"), "stratospheric runtime master should exist")
 		_expect(source.contains("STRATOSPHERIC_CLOUD_DECK") and source.contains("travel * 8.5"), "sustained high-altitude flight should render the finished scrolling cloud-deck master")
 		_expect(FileAccess.file_exists("res://assets/source/environments/high_atmosphere_asset_manifest.json"), "stratospheric source manifest should exist")
