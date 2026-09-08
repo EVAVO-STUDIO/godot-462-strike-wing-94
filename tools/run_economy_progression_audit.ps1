@@ -42,18 +42,32 @@ function Guaranteed-Boss-Bonus($Mission, $Progression) {
     return 0
 }
 
-function Positive-Items([string]$Family, $Items) {
+function Build-Family-Ladder([string]$Family, $Items) {
     $Rows = @()
+    $Cumulative = 0
+    $FirstPositiveSeen = $false
+    $Index = 0
     foreach ($Item in @($Items)) {
         $Cost = [int]$Item.cost
-        if ($Cost -le 0) { continue }
+        if ($Cost -lt 0) { throw "Negative progression cost in $Family/$($Item.id)." }
+        if ($Cost -gt 0) { $Cumulative += $Cost }
+        $IsNextFromFresh = $false
+        if ($Cost -gt 0 -and -not $FirstPositiveSeen) {
+            $IsNextFromFresh = $true
+            $FirstPositiveSeen = $true
+        }
         $Rows += [ordered]@{
             family = $Family
+            tier_index = $Index
             id = [string]$Item.id
             name = [string]$Item.name
-            cost = $Cost
+            sticker_cost = $Cost
+            cumulative_acquisition_cost = $Cumulative
             unlock_tech_era = [string]$Item.unlock_tech_era
+            owned_at_fresh_start = ($Cost -eq 0 -and $Index -eq 0)
+            next_purchase_from_fresh = $IsNextFromFresh
         }
+        $Index += 1
     }
     return $Rows
 }
@@ -82,13 +96,21 @@ $DefaultDifficulty = [string]$DifficultyData.default
 if (@($Profiles | Where-Object { [string]$_.id -eq $DefaultDifficulty }).Count -ne 1) { throw 'Default difficulty profile is missing or duplicated.' }
 
 $PrimaryWeapons = @($WeaponsData.weapons | Where-Object { [string]$_.slot -eq 'primary' })
+$FamilyLadders = [ordered]@{
+    primary_weapon = @(Build-Family-Ladder 'primary_weapon' $PrimaryWeapons)
+    generator = @(Build-Family-Ladder 'generator' $GeneratorsData.generators)
+    airframe = @(Build-Family-Ladder 'airframe' $AirframesData.airframes)
+    support = @(Build-Family-Ladder 'support' $SupportsData.supports)
+}
 $Purchases = @()
-$Purchases += Positive-Items 'primary_weapon' $PrimaryWeapons
-$Purchases += Positive-Items 'generator' $GeneratorsData.generators
-$Purchases += Positive-Items 'airframe' $AirframesData.airframes
-$Purchases += Positive-Items 'support' $SupportsData.supports
-$Purchases = @($Purchases | Sort-Object cost, family, id)
+foreach ($FamilyName in @('primary_weapon','generator','airframe','support')) {
+    $Purchases += @($FamilyLadders[$FamilyName] | Where-Object { [int]$_.sticker_cost -gt 0 })
+}
+$Purchases = @($Purchases | Sort-Object cumulative_acquisition_cost, family, tier_index)
 if ($Purchases.Count -lt 4) { throw 'Economy audit found too few purchasable progression items.' }
+
+$NextFromFresh = @($Purchases | Where-Object { [bool]$_.next_purchase_from_fresh })
+if ($NextFromFresh.Count -ne 4) { throw "Fresh campaign must expose exactly one next purchase in each of four progression families; got $($NextFromFresh.Count)." }
 
 $RepairPerHull = [int]$Campaign.repair_cost_per_hull
 $ShieldPerPoint = [int]$Campaign.shield_recharge_cost_per_point
@@ -149,17 +171,24 @@ foreach ($Profile in $Profiles) {
     $ProfileId = [string]$Profile.id
     $Reward = [int]$FirstMission.difficulty.$ProfileId.guaranteed_zero_score_reward
     $PostWorstService = $StartingCredits + $Reward - [int]$StartingFrame.worst_survivable_full_service
-    $Affordable = @($Purchases | Where-Object { [int]$_.cost -le $PostWorstService })
-    $MajorAffordable = @($Affordable | Where-Object { $_.family -in @('primary_weapon','generator','airframe','support') })
-    if ($MajorAffordable.Count -eq 0) {
-        throw "First-mission conservative economy leaves no major purchase path on difficulty '$ProfileId'."
+    $AffordableNext = @($NextFromFresh | Where-Object { [int]$_.sticker_cost -le $PostWorstService })
+    if ($AffordableNext.Count -eq 0) {
+        throw "First-mission conservative economy leaves no actually-next-purchasable major upgrade on difficulty '$ProfileId'."
     }
     $FirstMissionAffordability[$ProfileId] = [ordered]@{
         starting_credits = $StartingCredits
         guaranteed_zero_score_reward = $Reward
         worst_survivable_service_reserve = [int]$StartingFrame.worst_survivable_full_service
         credits_after_worst_service = $PostWorstService
-        affordable_major_purchase_ids = @($MajorAffordable | ForEach-Object { $_.id })
+        affordable_next_purchase_ids = @($AffordableNext | ForEach-Object { $_.id })
+        next_purchase_options = @($NextFromFresh | ForEach-Object {
+            [ordered]@{
+                family = $_.family
+                id = $_.id
+                sticker_cost = [int]$_.sticker_cost
+                affordable = ([int]$_.sticker_cost -le $PostWorstService)
+            }
+        })
     }
 }
 
@@ -189,8 +218,8 @@ New-Item -ItemType Directory -Force -Path (Split-Path -Parent $AbsoluteOutput) |
 $HeadSha = (& git -C $Root rev-parse HEAD).Trim()
 $GodotVersion = ((@(& $GodotBin --version 2>&1) | Select-Object -First 1) -as [string]).Trim()
 $Report = [ordered]@{
-    schema_version = 1
-    scope = 'authored economy/progression structure and conservative affordability evidence; not a substitute for vulnerable completed-sortie or human campaign balance evidence'
+    schema_version = 2
+    scope = 'authored economy/progression structure and conservative affordability evidence; sequential tier acquisition modelled; not a substitute for vulnerable completed-sortie or human campaign balance evidence'
     source = [ordered]@{
         head_sha = $HeadSha
         godot_version = $GodotVersion
@@ -203,12 +232,14 @@ $Report = [ordered]@{
         default_difficulty = $DefaultDifficulty
     }
     service_liabilities = $ServiceLiabilities
+    family_ladders = $FamilyLadders
     purchase_ladder = $Purchases
+    next_purchases_from_fresh = $NextFromFresh
     first_mission_conservative_affordability = $FirstMissionAffordability
     branch_bonuses = $BranchBonuses
     missions = $MissionRows
 }
 $Report | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath $AbsoluteOutput -Encoding UTF8
 
-Write-Host "HYPERSONIC economy progression audit passed: $($MissionRows.Count) missions, $($Purchases.Count) priced progression items." -ForegroundColor Green
+Write-Host "HYPERSONIC economy progression audit passed: $($MissionRows.Count) missions, $($Purchases.Count) priced sequential tiers." -ForegroundColor Green
 Write-Host "Evidence: $AbsoluteOutput" -ForegroundColor DarkGray
