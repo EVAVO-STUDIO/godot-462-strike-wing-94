@@ -23,6 +23,10 @@ $EconomyAuditPath = Require-File 'tools/run_economy_progression_audit.ps1'
 $EconomyProjectionPath = Require-File 'tools/run_route_progression_projection.ps1'
 $EconomySelfTestPath = Require-File 'tools/economy_progression_self_test.gd'
 $EconomyDocPath = Require-File 'docs/ECONOMY_PROGRESSION_EVIDENCE.md'
+$ProgressionOverlayPath = Require-File 'scripts/progression_cost_director.gd'
+Require-File 'scripts/progression_cost_surface.gd' | Out-Null
+Require-File 'tools/progression_cost_overlay_self_test.gd' | Out-Null
+$TechProgressionSelfTestPath = Require-File 'tools/tech_progression_self_test.gd'
 $SignoffTemplatePath = Require-File 'docs/RELEASE_SIGNOFF_TEMPLATE.json'
 $HumanSignoffPath = Require-File 'tools/verify_human_release_signoff.ps1'
 $NativeContractPath = Require-File 'tools/verify_native_test_lab_contract.ps1'
@@ -49,6 +53,8 @@ $EconomyAudit = Get-Content -Raw -LiteralPath $EconomyAuditPath
 $EconomyProjection = Get-Content -Raw -LiteralPath $EconomyProjectionPath
 $EconomySelfTest = Get-Content -Raw -LiteralPath $EconomySelfTestPath
 $EconomyDoc = Get-Content -Raw -LiteralPath $EconomyDocPath
+$ProgressionOverlay = Get-Content -Raw -LiteralPath $ProgressionOverlayPath
+$TechProgressionSelfTest = Get-Content -Raw -LiteralPath $TechProgressionSelfTestPath
 $SignoffTemplate = Get-Content -Raw -LiteralPath $SignoffTemplatePath | ConvertFrom-Json
 $HumanSignoff = Get-Content -Raw -LiteralPath $HumanSignoffPath
 
@@ -86,9 +92,17 @@ foreach ($Token in @(
     'window/size/viewport_height=360',
     'window/size/window_width_override=1280',
     'window/size/window_height_override=720',
-    'window/stretch/mode="canvas_items"'
+    'window/stretch/mode="canvas_items"',
+    'ProgressionCostDirector="*res://scripts/progression_cost_director.gd"'
 )) {
     if (-not $Project.Contains($Token)) { throw "Desktop presentation contract missing: $Token" }
+}
+
+foreach ($Token in @('layer = 31','Vector2(340, 224)','Vector2(340, 269)','repair_cost_per_hull','shield_recharge_cost_per_point','LOCK %s','game_mode')) {
+    if (-not $ProgressionOverlay.Contains($Token)) { throw "Progression cost overlay lost clarity contract: $Token" }
+}
+foreach ($Token in @('_test_progression_cost_overlay','>002600','LOCK EM','ProgressionCostDirector')) {
+    if (-not $TechProgressionSelfTest.Contains($Token)) { throw "Tech progression validation lost price/lock clarity regression: $Token" }
 }
 
 if (-not $Agents.Contains('release candidate') -or -not $Agents.Contains('docs/PORTFOLIO_RELEASE_TRANCHE.md')) {
@@ -163,4 +177,4 @@ foreach ($Token in @(
 Write-Host 'Validating HYPERSONIC native Test Lab profile and authority lock...' -ForegroundColor DarkCyan
 & $NativeContractPath
 
-Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + sequential 8-route economy progression + native Test Lab authority wired to signoff v3." -ForegroundColor Green
+Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + sequential 8-route economy progression + sortie-bay price clarity + native Test Lab authority wired to signoff v3." -ForegroundColor Green
