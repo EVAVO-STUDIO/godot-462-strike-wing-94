@@ -281,6 +281,8 @@ func _draw_surface(surface: CanvasItem) -> void:
 	var aim_radius := StrikeOrdnanceRules.stabilized_aim_radius(altitude, _stability)
 	var blast_radius := StrikeOrdnanceRules.blast_radius(altitude)
 	var stable := altitude == "low" and _stability >= 0.95 and not _altitude_transition_active()
+	var protected_contacts: Array = scene.get("protected_contacts") if SceneContractCache.has_property(scene,"protected_contacts") and typeof(scene.get("protected_contacts")) == TYPE_ARRAY else []
+	var roe_clear := StrikeOrdnanceRules.clear_of_protected(target,protected_contacts,blast_radius)
 	var reticle := Color(0.42, 0.96, 0.62, 0.92) if priority else (Color(0.38, 0.86, 0.70, 0.72) if assisted else Color(0.92, 0.74, 0.30, 0.55))
 	if stable:
 		reticle = Color(0.72, 1.0, 0.82, 0.98)
@@ -288,13 +290,21 @@ func _draw_surface(surface: CanvasItem) -> void:
 		_draw_effect_between(surface, GUIDANCE_RIBBON, projected, target, 4.0, Color(1,1,1,0.38))
 	# Keep the simulation radius authoritative while presenting a tighter 1990s
 	# strike sight that does not cover the target or nearby ground detail.
-	var aim_size := Vector2.ONE * aim_radius * 0.92
-	var blast_size := Vector2.ONE * blast_radius * 0.96
-	surface.draw_texture_rect(AIM_LATTICE, Rect2(target - aim_size * 0.5, aim_size), false, Color(1,1,1,reticle.a))
-	surface.draw_texture_rect(BLAST_ENVELOPE, Rect2(target - blast_size * 0.5, blast_size), false)
+	var expanded_solution := assisted or stable or not roe_clear
+	if expanded_solution:
+		var aim_size := Vector2.ONE*aim_radius*0.92
+		var blast_size := Vector2.ONE*blast_radius*0.96
+		surface.draw_texture_rect(AIM_LATTICE,Rect2(target-aim_size*0.5,aim_size),false,Color(1,1,1,reticle.a))
+		var blast_tint := Color(1.0,0.34,0.20,0.88) if not roe_clear else Color(1,1,1,0.72 if stable or priority else 0.46)
+		surface.draw_texture_rect(BLAST_ENVELOPE,Rect2(target-blast_size*0.5,blast_size),false,blast_tint)
+	else:
+		var dormant_size := Vector2.ONE*16.0
+		surface.draw_texture_rect(IMPACT_MARKER,Rect2(target-dormant_size*0.5,dormant_size),false,Color(0.92,0.74,0.30,0.46))
 	if priority:
 		surface.draw_texture(PRIORITY_FRAME, (target - Vector2(16,16)).round())
 		PixelFont.draw_text(surface, "ROUTE TARGET", target + Vector2(-24, 15), 1, reticle, 1)
+	elif not roe_clear:
+		PixelFont.draw_centered(surface,"ROE",int(target.x),int(target.y+15),1,Color(1.0,0.34,0.20,0.94),1)
 	_draw_strike_status(surface, altitude, assisted, priority, stable)
 	for item in _pending:
 		var point: Vector2 = item.get("position", Vector2.ZERO)

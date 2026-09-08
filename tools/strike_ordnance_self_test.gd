@@ -111,6 +111,8 @@ func _test_source_wiring() -> void:
 		_expect(source.contains("HUD_STRIKE_SAFE") and source.contains("transition_active"), "bombing HUD should expose transition-safe state with authored annunciator art")
 		_expect(source.contains("maxi(1, hp - damage)"), "strike ordnance must remain nonlethal against bosses")
 		_expect(source.contains("AIM_LATTICE") and source.contains("BLAST_ENVELOPE") and source.contains("PRIORITY_FRAME") and source.contains("IMPACT_MARKER") and source.contains("GUIDANCE_RIBBON"), "bomber targeting should use the complete authored strike-HUD sprite kit")
+		_expect(source.contains("expanded_solution := assisted or stable or not roe_clear") and source.contains("dormant_size := Vector2.ONE*16.0"), "unacquired bomber aim should collapse to a small dormant impact cue")
+		_expect(source.contains('PixelFont.draw_centered(surface,"ROE"') and source.contains("blast_tint := Color(1.0,0.34,0.20,0.88)"), "protected-site danger should expand a red blast envelope with a terse ROE warning")
 		_expect(not source.contains("draw_arc") and not source.contains("draw_circle") and not source.contains("draw_line") and not source.contains("draw_rect"), "bomber targeting should not regress to vector circles, lines or boxes")
 	var targeting_sizes := {"aim_lattice":Vector2(64,64),"blast_envelope":Vector2(64,64),"priority_frame":Vector2(32,32),"impact_marker":Vector2(32,32),"guidance_ribbon":Vector2(64,8)}
 	for asset_name in targeting_sizes:
