@@ -61,7 +61,7 @@ func run() -> void:
 	for rain_cel in ["rain_a","rain_b"]:
 		var rain_texture := load("res://assets/runtime/environments/motion/%s.png" % rain_cel)
 		check(rain_texture is Texture2D and rain_texture.get_size() == Vector2(16,24), "rain cel should retain registered 16x24 geometry: "+rain_cel)
-	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("SNOW_CELS") and renderer_source.contains("var slip := Vector2") and renderer_source.contains("Color(0.07,0.12,0.15") and not renderer_source.contains("draw_colored_polygon") and not renderer_source.contains("draw_circle"), "snow should use registered depth-specific raster cels with near-field slip and a terrain-readable cool shadow key")
+	check(renderer_source.contains("SNOW_COLOUR") and renderer_source.contains("SNOW_CELS") and renderer_source.contains("var slip := Vector2") and renderer_source.contains("flake_angle") and renderer_source.contains("flake_scale") and renderer_source.contains("Color(0.07,0.12,0.15") and not renderer_source.contains("draw_colored_polygon") and not renderer_source.contains("draw_circle"), "snow should use registered depth-specific raster cels with directional near-field exposure and a terrain-readable cool shadow key")
 	check(renderer_source.contains("LIGHTNING_CELS") and renderer_source.contains("--capture-weather-lightning") and renderer_source.contains("storm_flash_frame"), "storm should render an authored branching lightning sequence with deterministic visual QA")
 	for snow_cel in ["distant","middle","near"]:
 		var snow_texture := load("res://assets/runtime/effects/weather/snow/%s.png" % snow_cel)
