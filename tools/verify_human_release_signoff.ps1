@@ -17,7 +17,7 @@ if (-not (Test-Path -LiteralPath $AbsoluteSignoff)) {
 }
 
 $Signoff = Get-Content -Raw -LiteralPath $AbsoluteSignoff | ConvertFrom-Json
-if ([int]$Signoff.schema_version -ne 3) { throw 'Human release signoff schema_version must be 3.' }
+if ([int]$Signoff.schema_version -ne 4) { throw 'Human release signoff schema_version must be 4.' }
 if ([string]$Signoff.product -ne 'HYPERSONIC') { throw 'Human release signoff product must be HYPERSONIC.' }
 
 $HeadSha = (& git -C $Root rev-parse HEAD).Trim()
@@ -102,8 +102,7 @@ foreach ($DifficultyId in @('cadet','combat','veteran','ace')) {
     }
 }
 
-$ProjectionPath = Join-Path (Split-Path -Parent $EconomyPath) 'route_progression_projection.json'
-if (-not (Test-Path -LiteralPath $ProjectionPath)) { throw "Route progression projection is missing: $ProjectionPath" }
+$ProjectionPath = Resolve-EvidencePath ([string]$Signoff.balance.route_projection_path) 'work/economy' 'Route progression projection'
 $Projection = Get-Content -Raw -LiteralPath $ProjectionPath | ConvertFrom-Json
 if ([int]$Projection.schema_version -ne 1) { throw 'Route progression projection schema_version must be 1.' }
 if ([string]$Projection.source.head_sha -ne $HeadSha) { throw 'Route progression projection does not match the exact HYPERSONIC HEAD being signed.' }
@@ -116,6 +115,19 @@ foreach ($Route in @($Projection.projections)) {
     if ([int]$Route.sortie_count -ne 27 -or @($Route.mission_ids).Count -ne 27) {
         throw "Route progression projection contains an incomplete route '$($Route.route_id)/$($Route.difficulty)'."
     }
+}
+
+$DominancePath = Resolve-EvidencePath ([string]$Signoff.balance.branch_dominance_path) 'work/economy' 'Branch economic dominance report'
+$Dominance = Get-Content -Raw -LiteralPath $DominancePath | ConvertFrom-Json
+if ([int]$Dominance.schema_version -ne 1) { throw 'Branch economic dominance report schema_version must be 1.' }
+if ([string]$Dominance.source.head_sha -ne $HeadSha) { throw 'Branch economic dominance report does not match the exact HYPERSONIC HEAD being signed.' }
+if (-not ([string]$Dominance.source.godot_version).StartsWith('4.6.2')) { throw 'Branch economic dominance report was not derived from Godot 4.6.2 route evidence.' }
+if ([int]$Dominance.source.route_projection_schema_version -ne 1) { throw 'Branch economic dominance report was not derived from route projection schema_version 1.' }
+if ([int]$Dominance.matrix.branch_count -ne 3 -or [int]$Dominance.matrix.choices_per_branch -ne 2 -or [int]$Dominance.matrix.route_count -ne 8 -or [int]$Dominance.matrix.difficulty_count -ne 4 -or [int]$Dominance.matrix.paired_comparisons_per_branch_per_difficulty -ne 4) {
+    throw 'Branch economic dominance report does not cover the governed paired 3-branch / 8-route / 4-difficulty matrix.'
+}
+if (@($Dominance.cross_difficulty).Count -ne 3 -or @($Dominance.difficulties).Count -ne 4) {
+    throw 'Branch economic dominance report is structurally incomplete.'
 }
 
 $RequiredTrue = [ordered]@{
@@ -134,6 +146,8 @@ $RequiredTrue = [ordered]@{
     'balance.difficulty_matrix_reviewed' = [bool]$Signoff.balance.difficulty_matrix_reviewed
     'balance.vulnerable_evidence_reviewed' = [bool]$Signoff.balance.vulnerable_evidence_reviewed
     'balance.economy_evidence_reviewed' = [bool]$Signoff.balance.economy_evidence_reviewed
+    'balance.route_projection_reviewed' = [bool]$Signoff.balance.route_projection_reviewed
+    'balance.branch_economy_reviewed' = [bool]$Signoff.balance.branch_economy_reviewed
     'visual.passed' = [bool]$Signoff.visual.passed
     'visual.native_1280x720' = [bool]$Signoff.visual.native_1280x720
     'visual.native_1920x1080_or_fullscreen' = [bool]$Signoff.visual.native_1920x1080_or_fullscreen
@@ -151,4 +165,4 @@ if ([int]$Signoff.blockers.p0 -ne 0 -or [int]$Signoff.blockers.p1 -ne 0) {
     throw "Human release signoff still has blockers: P0=$($Signoff.blockers.p0), P1=$($Signoff.blockers.p1)."
 }
 
-Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure, sequential economy and 8-route progression evidence." -ForegroundColor Green
+Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure, sequential economy, 8-route progression and paired branch-dominance evidence." -ForegroundColor Green
