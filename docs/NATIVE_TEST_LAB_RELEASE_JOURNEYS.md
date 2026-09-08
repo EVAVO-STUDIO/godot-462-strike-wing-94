@@ -2,7 +2,7 @@
 
 Status: release-tranche native evidence contract  
 Core profile: `.evavo/godot-lab-native.json`  
-Controller-maintenance profile: `.evavo/godot-lab-controller-maintenance.json`  
+Controller-sortie profile: `.evavo/godot-lab-controller-sortie.json`  
 Pinned Test Lab: `.evavo/godot-lab-native.lock.json`  
 Runner: `tools/run_native_test_lab_release.ps1`
 
@@ -35,7 +35,7 @@ Native release evidence must use:
 
 The project wrapper passes both exact SHAs to Test Lab. Updating the pinned Lab SHA is a deliberate authority change and requires re-reviewing the Test Lab profiles/schema/runner contract.
 
-The final native handoff must record `required_journey_count = 9` and `controller_maintenance_required = true`. `tools/verify_native_release_handoff.ps1` rejects older eight-journey handoffs or handoffs missing the maintenance profile.
+The final native handoff must record `required_journey_count = 9` and `controller_sortie_required = true`. `tools/verify_native_release_handoff.ps1` rejects older eight-journey handoffs or handoffs missing `.evavo/godot-lab-controller-sortie.json`.
 
 ## Run locally
 
@@ -59,7 +59,7 @@ The wrapper resolves governed Godot 4.6.2 through `tools/resolve_release_godot.p
 work/test_lab_native/<exact-target-sha>/
 ```
 
-The core profile writes to `core/`; controller-maintenance evidence writes to `controller-maintenance/`.
+The core profile writes to the target-SHA artifact directory; controller-maintenance evidence writes to its `controller_sortie/` child.
 
 Do not use `-AllowNonInteractive` for release evidence. That option exists only to exercise the contract in environments without an interactive desktop; Test Lab explicitly does not treat such a run as native desktop evidence and the project wrapper does not issue an authoritative handoff.
 
@@ -140,7 +140,7 @@ The native worker should retain evidence associated with the exact run, includin
 - performance summaries;
 - synchronized audio evidence and derived waveform/spectrogram/media reports when native capture is enabled;
 - exact Lab and target SHA provenance;
-- controller-maintenance metadata receipts.
+- controller-sortie metadata receipts.
 
 A passing synthetic journey means its declared interaction/assertion contract passed. It does not mean a human approved composition, animation, mix, game feel or balance.
 
