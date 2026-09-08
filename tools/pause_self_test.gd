@@ -19,6 +19,18 @@ func _run() -> void:
 	var controller_context := root.get_node_or_null("ControllerMenuContextDirector")
 	_expect(pause != null, "pause director autoload should exist at runtime")
 	_expect(controller_context != null, "controller menu context autoload should exist at runtime")
+
+	# In flight, B is Screen Bomb and START is Pause. This avoids one B press
+	# being seen as both fire_secondary and cancel during main.gd's update frame.
+	if controller_context != null:
+		controller_context.call("_set_context", "flight")
+		_expect(_has_button(&"fire_secondary", JOY_BUTTON_B), "flight must retain B as screen bomb")
+		_expect(not _has_button(&"cancel", JOY_BUTTON_B), "flight must remove B from cancel/pause")
+		_expect(_has_button(&"cancel", JOY_BUTTON_START), "flight must map START to cancel/pause")
+		controller_context.call("_set_context", "")
+		_expect(_has_button(&"cancel", JOY_BUTTON_B), "leaving flight context should restore B as menu cancel")
+		_expect(not _has_button(&"cancel", JOY_BUTTON_START), "menu context should remove temporary START/cancel mapping")
+
 	if pause != null:
 		_expect(bool(pause.call("pause_game")), "active gameplay should accept a pause request")
 		_expect(paused and bool(pause.call("pause_active")), "pause request should stop the SceneTree and expose active state")
@@ -28,16 +40,13 @@ func _run() -> void:
 		await process_frame
 		_expect(is_equal_approx(float(scene.get("mission_time")), held_time), "mission time should remain frozen while tactical hold is active")
 
-		# Paused Options previously reused B/fire_secondary for next category before
-		# checking cancel, so pad B could not reliably return to Commands. The
-		# always-processing context director now moves that pad event to X only for
-		# the paused-options context and restores the universal map afterward.
 		pause.call("_activate_menu_item", 1)
 		_expect(str(pause.call("pause_context")) == "options", "pause options command should expose options context")
 		if controller_context != null:
 			controller_context.call("_set_context", "pause_options")
 			_expect(_has_button(&"fire_secondary", JOY_BUTTON_X), "paused Options should map next-category to pad X")
 			_expect(not _has_button(&"fire_secondary", JOY_BUTTON_B), "paused Options must keep pad B free for BACK")
+			_expect(_has_button(&"cancel", JOY_BUTTON_B), "paused Options must restore B as cancel/back")
 			controller_context.call("_set_context", "")
 			_expect(_has_button(&"fire_secondary", JOY_BUTTON_B), "leaving paused Options should restore pad B secondary fire")
 			_expect(not _has_button(&"fire_secondary", JOY_BUTTON_X), "leaving paused Options should remove contextual pad X secondary mapping")
@@ -71,9 +80,10 @@ func _run() -> void:
 	_expect(pause_source.contains("ENTER/A CONFIRM") and pause_source.contains("ESC/B CANCEL"), "destructive pause confirmations should expose pad-safe controls")
 	var context_source := FileAccess.get_file_as_string("res://scripts/controller_menu_context_director.gd")
 	_expect(context_source.contains("PROCESS_MODE_ALWAYS") and context_source.contains('"pause_options"') and context_source.contains("pause_context"), "controller menu context should remain active while the SceneTree is paused")
+	_expect(context_source.contains('"flight"') and context_source.contains("JOY_BUTTON_START") and context_source.contains('_remove_button(&"cancel", JOY_BUTTON_B)'), "controller flight context should separate START pause from B screen bomb")
 
 	if failures.is_empty():
-		print("HYPERSONIC tactical pause self-test passed.")
+		print("HYPERSONIC tactical pause/controller-context self-test passed.")
 		quit(0)
 		return
 	for failure in failures:
