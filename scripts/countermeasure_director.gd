@@ -127,7 +127,12 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 			var puff_alpha := (1.0 - ratio) * (0.24 - float(puff_index) * 0.045)
 			var smoke := PersistentEffectArtLibrary.frame_for_ratio("damage_smoke",trail_ratio)
 			var smoke_size := Vector2.ONE*(15.0+float(puff_index)*5.0)
-			surface.draw_texture_rect(smoke,Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round()),false,Color(0.62,0.66,0.64,puff_alpha*1.6))
+			var smoke_rect := Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round())
+			# A cool soot underside survives snowfields; the restrained warm-grey
+			# body remains visible over water and night terrain. Both use the same
+			# authored cel and stay subordinate to the incandescent cartridge.
+			surface.draw_texture_rect(smoke,Rect2(smoke_rect.position+Vector2(1,2),smoke_rect.size),false,Color(0.035,0.045,0.050,puff_alpha*1.45))
+			surface.draw_texture_rect(smoke,smoke_rect,false,Color(0.58,0.60,0.56,puff_alpha*1.12))
 		if ratio < 0.18:
 			var ignition := 1.0 - ratio / 0.18
 			var sparks := PersistentEffectArtLibrary.frame_for_ratio("damage_sparks",ratio/0.18)
