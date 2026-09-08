@@ -1129,25 +1129,22 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var cm := int(countermeasures.call("charges_remaining")) if countermeasures != null and countermeasures.has_method("charges_remaining") else 0
 	var text := ThreatWarningRules.warning_text(distance, count)
 	if count > 0:
-		text = "MISSILE X%d  %d O'CLOCK  TTI %.1f  CM%02d" % [count, int(snapshot.get("bearing", 12)), float(snapshot.get("tti", 9.9)), cm]
+		text = "MSL%d %02dOC T%.1f CM%d" % [count, int(snapshot.get("bearing", 12)), float(snapshot.get("tti", 9.9)), cm]
 	elif acquiring > 0.0:
-		text = "RADAR SPIKE  %02d%%  EVADE  CM%02d" % [int(roundf(acquiring * 100.0)), cm]
+		text = "SPIKE %02d%% CM%d" % [int(roundf(acquiring * 100.0)), cm]
 	if text == "": return
 	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2) if count > 0 else 1
-	var position := Vector2(180, 42) if count > 0 else Vector2(220, 42)
-	if count > 0:
-		surface.draw_texture(HUD_THREAT_FRAMES[level], position)
-	else:
-		# Radar acquisition is actionable but common. Give it a compact RWR key;
-		# reserve the full 280px red annunciator for a weapon already in flight.
-		surface.draw_texture_rect(HUD_THREAT_FRAMES[level], Rect2(position,Vector2(200,20)), false, Color(1,1,1,0.78))
-	surface.draw_texture(HUD_THREAT_MISSILE_ICON, position + Vector2(7, 5), RED if level >= 2 else (GOLD if level == 1 else BLUE))
-	PixelFont.draw_centered(surface, text, 326 if count > 0 else 320, 48, 1, RED if level >= 2 else (GOLD if level == 1 else BLUE), 1)
-	var trough_offset := Vector2(190,16) if count > 0 else Vector2(112,16)
-	surface.draw_texture_rect(HUD_THREAT_APPROACH_TROUGH,Rect2(position+trough_offset,Vector2(80 if count == 0 else HUD_THREAT_APPROACH_TROUGH.get_width(),HUD_THREAT_APPROACH_TROUGH.get_height())),false)
+	# Keep the RWR beside the lower-right radar so the forward intercept lane stays
+	# visually open. Aircraft-centred bearing cues still provide the fast response.
+	var position := Vector2(448,264)
+	surface.draw_texture_rect(HUD_THREAT_FRAMES[level],Rect2(position,Vector2(184,18)),false,Color(1,1,1,0.82))
+	surface.draw_texture_rect(HUD_THREAT_MISSILE_ICON,Rect2(position+Vector2(5,3),Vector2(10,10)),false,RED if level >= 2 else (GOLD if level == 1 else BLUE))
+	PixelFont.draw_text(surface,text,position+Vector2(18,5),1,RED if level >= 2 else (GOLD if level == 1 else BLUE),1)
+	var trough_offset := Vector2(126,12)
+	surface.draw_texture_rect(HUD_THREAT_APPROACH_TROUGH,Rect2(position+trough_offset,Vector2(52,4)),false)
 	var approach_ratio := clampf(1.0 - distance / 480.0, 0.04, 1.0) if count > 0 else acquiring
 	var fill_position := position + trough_offset + Vector2(1,1)
-	var fill_width := floorf((78.0 if count == 0 else float(HUD_THREAT_CAUTION_FILL.get_width())) * approach_ratio)
+	var fill_width := floorf(50.0*approach_ratio)
 	if fill_width > 0.0:
 		surface.draw_texture_rect_region(HUD_THREAT_LOCK_FILL if level >= 2 else HUD_THREAT_CAUTION_FILL,Rect2(fill_position,Vector2(fill_width,HUD_THREAT_CAUTION_FILL.get_height())),Rect2(0,0,fill_width,HUD_THREAT_CAUTION_FILL.get_height()))
 	_draw_aircraft_rwr_cue(surface, scene, snapshot, level)
