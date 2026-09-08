@@ -54,6 +54,7 @@ if ([int]$Handoff.schema_version -ne 1) { throw 'Native Test Lab handoff schema_
 if ([string]$Handoff.target_sha -ne $HeadSha) { throw 'Native Test Lab handoff does not match the exact HYPERSONIC HEAD being signed.' }
 if ([string]$Handoff.lab_sha -ne $ExpectedLabSha) { throw 'Native Test Lab handoff does not match the pinned Test Lab authority SHA.' }
 if (-not ([string]$Handoff.godot_version).StartsWith('4.6.2')) { throw "Native Test Lab handoff was not produced with Godot 4.6.2: $($Handoff.godot_version)" }
+if (-not [bool]$Handoff.interactive_windows_session) { throw 'Native Test Lab handoff was not produced in an authoritative interactive Windows session.' }
 
 $RequiredTrue = [ordered]@{
     'native_test_lab.passed' = [bool]$Signoff.native_test_lab.passed
