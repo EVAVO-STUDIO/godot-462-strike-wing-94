@@ -1,9 +1,17 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "product": "HYPERSONIC",
   "head_sha": "REPLACE_WITH_EXACT_GIT_HEAD_SHA",
   "reviewer": "REPLACE_WITH_HUMAN_REVIEWER",
   "reviewed_utc": "REPLACE_WITH_ISO_8601_UTC_TIMESTAMP",
+  "native_test_lab": {
+    "passed": false,
+    "handoff_path": "work/test_lab_native/REPLACE_WITH_EXACT_GIT_HEAD_SHA/hypersonic-native-handoff.json",
+    "all_required_journeys_reviewed": false,
+    "checkpoint_media_reviewed": false,
+    "runtime_logs_reviewed": false,
+    "audio_media_reviewed": false
+  },
   "campaign": {
     "complete_end_to_end": false,
     "keyboard_complete": false,
