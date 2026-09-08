@@ -59,14 +59,18 @@ static func altitude_event(direction: int) -> String:
 	if direction < 0: return ALTITUDE_DIVE
 	return ALTITUDE_SHIFT
 
-static func propulsion_bed(afterburner: bool, hypersonic: bool, altitude: String, transition_direction: int = 0) -> Dictionary:
-	var gain := 0.026
-	var turbine_hz := 58.0
-	var airflow := 0.18
+static func propulsion_bed(afterburner: bool, hypersonic: bool, altitude: String, transition_direction: int = 0, throttle_ratio: float = 0.5) -> Dictionary:
+	var throttle := clampf(throttle_ratio,0.0,1.0)
+	# Dry thrust follows the same continuous power command that drives route
+	# closure and camera lead. Idle is a low turbine rumble; military power adds
+	# compressor pitch and airframe rush before the afterburner event begins.
+	var gain := lerpf(0.014,0.038,throttle)
+	var turbine_hz := lerpf(44.0,76.0,throttle)
+	var airflow := lerpf(0.07,0.30,throttle)
 	if afterburner:
-		gain = 0.052
-		turbine_hz = 82.0
-		airflow = 0.38
+		gain = maxf(gain,0.052)
+		turbine_hz = maxf(turbine_hz,82.0)
+		airflow = maxf(airflow,0.38)
 	if hypersonic:
 		gain = 0.078
 		turbine_hz = 112.0

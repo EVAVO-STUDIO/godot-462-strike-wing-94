@@ -197,7 +197,8 @@ func _update_propulsion_target(craft: Object) -> void:
 	var hypersonic := craft.has_method("hypersonic_active") and bool(craft.call("hypersonic_active"))
 	var altitude := str(craft.call("current_altitude")) if craft.has_method("current_altitude") else "mid"
 	var transition_direction := int(craft.call("altitude_transition_direction")) if craft.has_method("altitude_transition_direction") else 0
-	_set_propulsion_target(RetroSfxRules.propulsion_bed(afterburner, hypersonic, altitude, transition_direction))
+	var throttle := float(craft.call("throttle_ratio")) if craft.has_method("throttle_ratio") else 0.5
+	_set_propulsion_target(RetroSfxRules.propulsion_bed(afterburner,hypersonic,altitude,transition_direction,throttle))
 
 func _set_propulsion_target(spec: Dictionary) -> void:
 	_propulsion_target_gain = float(spec.get("gain", 0.0))
