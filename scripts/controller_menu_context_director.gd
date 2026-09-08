@@ -37,17 +37,17 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		_last_controller_msec = Time.get_ticks_msec()
 	if _context == "controls" and event is InputEventJoypadButton and event.pressed and int((event as InputEventJoypadButton).button_index) == JOY_BUTTON_A:
-		# Confirm/A is deliberately removed from the keyboard-rebind screen. The
-		# page is inspectable with a pad, but rebinding itself remains a keyboard
-		# operation and cannot trap a controller-only player in key-listen mode.
 		set_meta(&"qa_controls_confirm_suppressed", true)
 		get_viewport().set_input_as_handled()
 	elif _context in ["options", "pause_options"] and event is InputEventJoypadButton and event.pressed:
 		var button := int((event as InputEventJoypadButton).button_index)
 		var prefix := "qa_pause_options_" if _context == "pause_options" else "qa_options_"
-		if button == JOY_BUTTON_X: set_meta(StringName(prefix + "next_category"), true)
-		elif button == JOY_BUTTON_Y: set_meta(StringName(prefix + "previous_category"), true)
-		elif button == JOY_BUTTON_B: set_meta(StringName(prefix + "back"), true)
+		if button == JOY_BUTTON_X:
+			set_meta(StringName(prefix + "next_category"), true)
+		elif button == JOY_BUTTON_Y:
+			set_meta(StringName(prefix + "previous_category"), true)
+		elif button == JOY_BUTTON_B:
+			set_meta(StringName(prefix + "back"), true)
 
 func _exit_tree() -> void:
 	_restore_universal_buttons()
@@ -69,28 +69,22 @@ func _set_context(next_context: String) -> void:
 	_restore_universal_buttons()
 	_context = next_context
 	if _context in ["options", "pause_options"]:
-		# Keyboard X remains fire_secondary. For pad navigation B must remain BACK,
-		# so temporarily move the secondary-action pad event from B to X. The
-		# front-end and pause option handlers then read Y=previous and X=next.
 		_remove_button(&"fire_secondary", JOY_BUTTON_B)
 		_add_button(&"fire_secondary", JOY_BUTTON_X)
-		set_meta(&"qa_pause_options_context_configured" if _context == "pause_options" else &"qa_options_context_configured", true)
+		if _context == "pause_options":
+			set_meta(&"qa_pause_options_context_configured", true)
+		else:
+			set_meta(&"qa_options_context_configured", true)
 	elif _context == "controls":
-		# The control station edits keyboard assignments only. Prevent controller A
-		# from entering a listener that accepts only InputEventKey.
 		_remove_button(&"confirm", JOY_BUTTON_A)
 		set_meta(&"qa_controls_context_configured", true)
 
 func _restore_universal_buttons() -> void:
-	# Restore the fixed in-flight/universal controller map exactly. Only joypad
-	# button events are touched; keyboard bindings and analogue axes are untouched.
 	_remove_button(&"fire_secondary", JOY_BUTTON_X)
 	_add_button(&"fire_secondary", JOY_BUTTON_B)
 	_add_button(&"confirm", JOY_BUTTON_A)
 
 func draw_context_hint(surface: CanvasItem) -> void:
-	# PauseDirector owns its own layer-110 controller legends. This lower front-end
-	# layer only draws hints for non-paused Options / Flight Controls.
 	if _context not in ["options", "controls"] or not _controller_recent_or_connected():
 		return
 	var text := "PAD Y/X CATEGORY  LS ADJUST  B BACK" if _context == "options" else "PAD VIEW ONLY  LS SCROLL  B BACK"
