@@ -16,6 +16,8 @@ $IdentityPath = Require-File 'data/product_identity.json'
 $ExportPath = Require-File 'export_presets.cfg'
 $ProjectPath = Require-File 'project.godot'
 $AgentsPath = Require-File 'AGENTS.md'
+$ReleaseGatePath = Require-File 'tools/validate_windows_release.ps1'
+$VulnerableBalancePath = Require-File 'tools/run_vulnerable_balance_telemetry.ps1'
 Require-File 'docs/PORTFOLIO_RELEASE_TRANCHE.md' | Out-Null
 Require-File 'docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md' | Out-Null
 Require-File 'docs/RELEASE_SIGNOFF_TEMPLATE.json' | Out-Null
@@ -30,6 +32,8 @@ $Identity = Get-Content -Raw -LiteralPath $IdentityPath | ConvertFrom-Json
 $Export = Get-Content -Raw -LiteralPath $ExportPath
 $Project = Get-Content -Raw -LiteralPath $ProjectPath
 $Agents = Get-Content -Raw -LiteralPath $AgentsPath
+$ReleaseGate = Get-Content -Raw -LiteralPath $ReleaseGatePath
+$VulnerableBalance = Get-Content -Raw -LiteralPath $VulnerableBalancePath
 
 $SaveMatch = [regex]::Match($Save, 'SAVE_VERSION\s*:=\s*(\d+)')
 if (-not $SaveMatch.Success) { throw 'Unable to resolve campaign SAVE_VERSION.' }
@@ -77,4 +81,14 @@ if (-not $Readme.Contains('validate_windows_candidate.ps1') -or -not $Readme.Con
     throw 'README no longer documents the final candidate gate and exact-SHA receipt.'
 }
 
-Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion." -ForegroundColor Green
+foreach ($Token in @('run_vulnerable_balance_telemetry.ps1','SkipVulnerableBalance','complete automated balance-evidence audit')) {
+    if (-not $ReleaseGate.Contains($Token)) { throw "Windows release gate lost vulnerable balance evidence wiring: $Token" }
+}
+foreach ($Token in @('--playtest-telemetry','--capture-difficulty=','vulnerable = $true','invulnerability = $false')) {
+    if (-not $VulnerableBalance.Contains($Token)) { throw "Vulnerable balance contract missing: $Token" }
+}
+if ($VulnerableBalance.Contains("'--capture-invulnerable'" + ',')) {
+    throw 'Vulnerable balance argument list must not add --capture-invulnerable.'
+}
+
+Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance evidence wired." -ForegroundColor Green
