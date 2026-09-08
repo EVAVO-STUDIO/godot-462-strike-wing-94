@@ -10,6 +10,7 @@ config/icon="res://assets/runtime/brand/hypersonic_application_icon.png"
 [autoload]
 ProductIdentity="*res://scripts/product_identity.gd"
 InputBindings="*res://scripts/input_bindings.gd"
+ControllerSortieBayDirector="*res://scripts/controller_sortie_bay_director.gd"
 SettingsDirector="*res://scripts/settings_director.gd"
 DifficultyDirector="*res://scripts/difficulty_director.gd"
 PresentationFeedbackDirector="*res://scripts/presentation_feedback_director.gd"
