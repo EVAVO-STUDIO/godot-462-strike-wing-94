@@ -1,5 +1,5 @@
 {
-  "schema_version": 5,
+  "schema_version": 6,
   "identity": "late-1990s military cel sprite family",
   "canvas": [
     48,
@@ -20,6 +20,12 @@
   ],
   "perspective": "shared 70-degree oblique orthographic route-forward view",
   "alpha": "border-connected neutral checker recovery; source retained immutable",
+  "civilian_village_v2": {
+    "source": "civilian_village_v2_raw.png",
+    "builder": "res://tools/build_civilian_village_v2.py",
+    "identity": "three pitched-roof homes, garden plots, civilian path and utility shed",
+    "runtime": "res://assets/runtime/surface_sites/civilian_village_v2.png"
+  },
   "animation": {
     "radar_site": {
       "frames": 4,

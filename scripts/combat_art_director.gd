@@ -393,7 +393,7 @@ const SURFACE_SITE_SPRITES := {
 	"radar_site": preload("res://assets/runtime/surface_sites/radar_site.png"),
 	"logistics_truck": preload("res://assets/runtime/surface_sites/logistics_truck.png"),
 	"ammo_depot": preload("res://assets/runtime/surface_sites/ammo_depot.png"),
-	"civilian_village": preload("res://assets/runtime/surface_sites/civilian_village.png"),
+	"civilian_village": preload("res://assets/runtime/surface_sites/civilian_village_v2.png"),
 	"field_clinic": preload("res://assets/runtime/surface_sites/field_clinic.png"),
 }
 const SURFACE_SITE_ANIMATION := {
