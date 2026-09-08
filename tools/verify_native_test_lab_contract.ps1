@@ -71,8 +71,6 @@ if (@($Gamepad.steps | Where-Object { $_.type -eq 'joy_axis' }).Count -lt 2 -or 
     throw 'Gamepad journey no longer exercises real joypad axis/button events.'
 }
 
-# Controller-specific front-end evidence is separate so the broad eight-journey
-# matrix stays bounded while maintenance and menu contexts remain authentic.
 if ([string]$ControllerProfile.schemaVersion -ne '2.0') { throw 'Controller front-end profile must use schemaVersion 2.0.' }
 $ControllerJourneys = @($ControllerProfile.journeys)
 if ($ControllerJourneys.Count -ne 2) { throw "Expected exactly two controller front-end journeys, got $($ControllerJourneys.Count)." }
@@ -106,15 +104,24 @@ foreach ($Key in @('qa_buy_primary','qa_buy_generator','qa_service_hull','qa_ser
 
 $MenuJourney = @($ControllerJourneys | Where-Object { $_.id -eq 'controller-options-controls-navigation' })[0]
 $MenuButtons = @($MenuJourney.steps | Where-Object { $_.type -like 'joy_button*' } | ForEach-Object { [int]$_.buttonIndex })
-foreach ($Button in @(0,1,2,3)) {
-    if ($MenuButtons -notcontains $Button) { throw "Controller menu journey lost required A/B/X/Y button $Button." }
+foreach ($Button in @(0,1,2,3,6)) {
+    if ($MenuButtons -notcontains $Button) { throw "Controller menu/pause journey lost required A/B/X/Y/START button $Button." }
 }
-if (@($MenuJourney.steps | Where-Object { $_.type -eq 'joy_axis' -and [int]$_.axis -eq 1 }).Count -lt 8) {
-    throw 'Controller menu journey must navigate the front end through real left-stick Y pulses.'
+if (@($MenuJourney.steps | Where-Object { $_.type -eq 'joy_axis' -and [int]$_.axis -eq 1 }).Count -lt 12) {
+    throw 'Controller menu/pause journey must navigate front-end and pause menus through real left-stick Y pulses.'
+}
+$MenuCheckpoints = @($MenuJourney.steps | Where-Object { $_.type -eq 'checkpoint' } | ForEach-Object { [string]$_.id })
+foreach ($Checkpoint in @('controller-options','controller-controls-view','controller-live-before-pause','controller-tactical-pause','controller-pause-options','controller-pause-menu-after-options','controller-gameplay-resumed')) {
+    if ($MenuCheckpoints -notcontains $Checkpoint) { throw "Controller menu/pause journey lost required checkpoint: $Checkpoint" }
 }
 $MenuMetadata = @($MenuJourney.assertions | Where-Object { $_.type -eq 'metadata_equals' } | ForEach-Object { [string]$_.key })
-foreach ($Key in @('qa_options_context_configured','qa_options_previous_category','qa_options_next_category','qa_options_back','qa_controls_context_configured','qa_controls_confirm_suppressed')) {
-    if ($MenuMetadata -notcontains $Key) { throw "Controller menu journey lost context receipt assertion: $Key" }
+foreach ($Key in @(
+    'qa_options_context_configured','qa_options_previous_category','qa_options_next_category','qa_options_back',
+    'qa_controls_context_configured','qa_controls_confirm_suppressed',
+    'qa_flight_context_configured','qa_flight_pause_start',
+    'qa_pause_options_context_configured','qa_pause_options_previous_category','qa_pause_options_next_category','qa_pause_options_back'
+)) {
+    if ($MenuMetadata -notcontains $Key) { throw "Controller menu/pause journey lost context receipt assertion: $Key" }
 }
 
 $LabSha = ([string]$Lock.lab_sha).Trim().ToLowerInvariant()
@@ -125,8 +132,8 @@ if ([string]$Lock.release_engine -ne '4.6.2') { throw 'Native Test Lab release e
 foreach ($Token in @('ExpectedLabSha','ExpectedTargetSha','GodotExecutable','MinimumGodotVersion = ''4.6.2''','clean HYPERSONIC worktree','clean Test Lab worktree','godot-lab-controller-sortie.json','controller front-end contexts (2)','required_journey_count = 10','controller_sortie_required = $true','controller_menu_required = $true')) {
     if (-not $Runner.Contains($Token)) { throw "Native Test Lab wrapper lost authority token: $Token" }
 }
-foreach ($Token in @('Authentic front-door journeys','Focused fixture journeys','Godot **4.6.2**','Do not use `-AllowNonInteractive` for release evidence','controller-sortie-bay-maintenance','controller-options-controls-navigation')) {
+foreach ($Token in @('Authentic front-door journeys','Focused fixture journeys','Godot **4.6.2**','Do not use `-AllowNonInteractive` for release evidence','controller-sortie-bay-maintenance','controller-options-controls-navigation','START')) {
     if (-not $Doc.Contains($Token)) { throw "Native Test Lab documentation lost truth boundary: $Token" }
 }
 
-Write-Host "HYPERSONIC native Test Lab contract passed: 8 core + 2 controller front-end journeys, Lab $LabSha, exact Godot 4.6.2." -ForegroundColor Green
+Write-Host "HYPERSONIC native Test Lab contract passed: 8 core + 2 controller front-end/pause journeys, Lab $LabSha, exact Godot 4.6.2." -ForegroundColor Green
