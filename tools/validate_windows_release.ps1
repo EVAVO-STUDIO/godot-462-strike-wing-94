@@ -8,6 +8,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$ContractScript = Join-Path $PSScriptRoot 'verify_release_contract.ps1'
 $ResolveGodotScript = Join-Path $PSScriptRoot 'resolve_release_godot.ps1'
 $ValidateScript = Join-Path $PSScriptRoot 'validate.ps1'
 $ExportScript = Join-Path $PSScriptRoot 'export_windows.ps1'
@@ -17,7 +18,7 @@ $VisualQaScript = Join-Path $PSScriptRoot 'run_visual_qa.ps1'
 $PlaytestTelemetryScript = Join-Path $PSScriptRoot 'run_playtest_telemetry.ps1'
 $ReceiptScript = Join-Path $PSScriptRoot 'write_windows_release_receipt.ps1'
 
-foreach ($ScriptPath in @($ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $ReceiptScript)) {
+foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $ReceiptScript)) {
     $Tokens = $null
     $Errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($ScriptPath, [ref]$Tokens, [ref]$Errors) | Out-Null
@@ -25,6 +26,9 @@ foreach ($ScriptPath in @($ResolveGodotScript, $ValidateScript, $ExportScript, $
         throw "Release dependency has PowerShell parser errors: $ScriptPath -> $($Errors[0].Message)"
     }
 }
+
+Write-Host 'Verifying HYPERSONIC release contract and documentation authority...' -ForegroundColor Cyan
+& $ContractScript
 
 # Resolve one exact engine executable once and pass it through every native
 # release stage. This prevents different child scripts from silently finding
