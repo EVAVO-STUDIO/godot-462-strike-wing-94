@@ -120,21 +120,31 @@ func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> voi
 	# cloud boundary. It peaks at mid-transition and clears before control returns.
 	var veil_tint := Color(0.72,0.82,0.88,0.34*pulse) if direction > 0 else Color(0.54,0.66,0.72,0.28*pulse)
 	surface.draw_texture(ATMOSPHERIC_VEIL, Vector2(8,34), veil_tint)
-	var travel := 414.0 * smoothstep(0.0, 1.0, ratio)
-	var sign_dir := -1.0 if direction > 0 else 1.0
-	for i in range(7):
-		var base_y := 54.0 + float(i) * 51.0
-		var y := fposmod(base_y + sign_dir * travel, 374.0) + 22.0
-		var x := 42.0 + float((i * 113) % 536)
-		var texture: Texture2D = TRANSITION_CLOUDS[i % TRANSITION_CLOUDS.size()]
-		var depth := float((i * 5) % 4) / 3.0
-		var approach := ratio if direction < 0 else 1.0-ratio
-		var scale := 0.48 + depth*0.20 + approach*0.34
-		var size := Vector2(texture.get_size()) * scale
-		var cloud_alpha := (0.20 + depth*0.10 + pulse*0.20)
-		surface.draw_texture_rect(texture, Rect2(Vector2(x,y) - size * 0.5, size), false, Color(0.78,0.84,0.86,cloud_alpha))
-		var shadow_width := size.x * 0.54
-		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(x - shadow_width * 0.5, y + size.y * 0.27), Vector2(shadow_width, 5)), false, Color(1,1,1,0.16+depth*0.10))
+	# A few independently timed masses follow the main ceiling. Their unequal
+	# spacing and short lifetimes prevent the transition reading as tiled weather.
+	var travel := smoothstep(0.0, 1.0, ratio)
+	var cloud_centers := [
+		Vector2(92.0, 0.18),
+		Vector2(476.0, 0.31),
+		Vector2(248.0, 0.58),
+		Vector2(574.0, 0.76),
+	]
+	for i in range(cloud_centers.size()):
+		var authored: Vector2 = cloud_centers[i]
+		var local_phase := clampf(1.0-absf(travel-authored.y)/0.30, 0.0, 1.0)
+		if local_phase <= 0.01:
+			continue
+		var direction_sign := -1.0 if direction > 0 else 1.0
+		var crossing := (travel-authored.y)*430.0*direction_sign
+		var y := 186.0+crossing+float((i%2)*22-11)
+		var texture: Texture2D = TRANSITION_CLOUDS[(i+1) % TRANSITION_CLOUDS.size()]
+		var depth := 0.35+float((i*7)%4)/5.0
+		var scale := 0.52+depth*0.22+local_phase*0.20
+		var size := Vector2(texture.get_size())*scale
+		var tint := Color(0.78,0.84,0.86,(0.12+depth*0.09+local_phase*0.19)*pulse)
+		surface.draw_texture_rect(texture, Rect2(Vector2(authored.x,y)-size*0.5,size), false, tint)
+		var shadow_width := size.x*0.48
+		surface.draw_texture_rect(CLOUD_SHADOW, Rect2(Vector2(authored.x-shadow_width*0.5,y+size.y*0.25),Vector2(shadow_width,5)), false, Color(1,1,1,local_phase*pulse*0.16))
 
 func _draw_layer_exposure(surface: CanvasItem, ratio: float, direction: int, from_band: String, to_band: String) -> void:
 	var pulse := sin(ratio * PI)
