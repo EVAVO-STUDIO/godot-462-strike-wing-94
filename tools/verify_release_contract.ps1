@@ -19,6 +19,9 @@ $AgentsPath = Require-File 'AGENTS.md'
 $ReleaseGatePath = Require-File 'tools/validate_windows_release.ps1'
 $VulnerableBalancePath = Require-File 'tools/run_vulnerable_balance_telemetry.ps1'
 $VulnerableBalanceDocPath = Require-File 'docs/VULNERABLE_BALANCE_EVIDENCE.md'
+$EconomyAuditPath = Require-File 'tools/run_economy_progression_audit.ps1'
+$EconomySelfTestPath = Require-File 'tools/economy_progression_self_test.gd'
+$EconomyDocPath = Require-File 'docs/ECONOMY_PROGRESSION_EVIDENCE.md'
 $SignoffTemplatePath = Require-File 'docs/RELEASE_SIGNOFF_TEMPLATE.json'
 $HumanSignoffPath = Require-File 'tools/verify_human_release_signoff.ps1'
 $NativeContractPath = Require-File 'tools/verify_native_test_lab_contract.ps1'
@@ -41,6 +44,9 @@ $Agents = Get-Content -Raw -LiteralPath $AgentsPath
 $ReleaseGate = Get-Content -Raw -LiteralPath $ReleaseGatePath
 $VulnerableBalance = Get-Content -Raw -LiteralPath $VulnerableBalancePath
 $VulnerableBalanceDoc = Get-Content -Raw -LiteralPath $VulnerableBalanceDocPath
+$EconomyAudit = Get-Content -Raw -LiteralPath $EconomyAuditPath
+$EconomySelfTest = Get-Content -Raw -LiteralPath $EconomySelfTestPath
+$EconomyDoc = Get-Content -Raw -LiteralPath $EconomyDocPath
 $SignoffTemplate = Get-Content -Raw -LiteralPath $SignoffTemplatePath | ConvertFrom-Json
 $HumanSignoff = Get-Content -Raw -LiteralPath $HumanSignoffPath
 
@@ -89,6 +95,9 @@ if (-not $Agents.Contains('release candidate') -or -not $Agents.Contains('docs/P
 if (-not $Agents.Contains('docs/VULNERABLE_BALANCE_EVIDENCE.md') -or -not $Agents.Contains('run_vulnerable_balance_telemetry.ps1')) {
     throw 'AGENTS.md no longer exposes the vulnerable balance truth boundary.'
 }
+if (-not $Agents.Contains('docs/ECONOMY_PROGRESSION_EVIDENCE.md') -or -not $Agents.Contains('run_economy_progression_audit.ps1')) {
+    throw 'AGENTS.md no longer exposes the economy/progression truth boundary.'
+}
 if (-not $Readme.Contains('validate_windows_candidate.ps1') -or -not $Readme.Contains('HYPERSONIC.release.json')) {
     throw 'README no longer documents the final candidate gate and exact-SHA receipt.'
 }
@@ -106,6 +115,19 @@ foreach ($Token in @('Never auto-tune from one deterministic pilot','Human balan
     if (-not $VulnerableBalanceDoc.Contains($Token)) { throw "Vulnerable balance documentation lost truth boundary: $Token" }
 }
 
+foreach ($Token in @('run_economy_progression_audit.ps1','SkipEconomyAudit','complete automated progression-evidence audit')) {
+    if (-not $ReleaseGate.Contains($Token)) { throw "Windows release gate lost economy evidence wiring: $Token" }
+}
+foreach ($Token in @('economy_progression_self_test.gd','worst_survivable_full_service','first_mission_conservative_affordability','guaranteed_zero_score_reward')) {
+    if (-not $EconomyAudit.Contains($Token)) { throw "Economy audit lost progression guard: $Token" }
+}
+foreach ($Token in @('ProgressionRules.mission_reward','ServiceRules.service_cost','first primary purchase','difficulty reward multipliers')) {
+    if (-not $EconomySelfTest.Contains($Token)) { throw "Economy runtime self-test lost authority check: $Token" }
+}
+foreach ($Token in @('Conservative opening guardrail','Never auto-tune rewards','vulnerable completed-sortie evidence')) {
+    if (-not $EconomyDoc.Contains($Token)) { throw "Economy evidence documentation lost truth boundary: $Token" }
+}
+
 if ([int]$SignoffTemplate.schema_version -ne 2) { throw 'RELEASE_SIGNOFF_TEMPLATE.json must use schema_version 2.' }
 foreach ($Property in @('passed','all_required_journeys_reviewed','checkpoint_media_reviewed','runtime_logs_reviewed','audio_media_reviewed')) {
     if ($null -eq $SignoffTemplate.native_test_lab.PSObject.Properties[$Property]) {
@@ -119,4 +141,4 @@ foreach ($Token in @('interactive_windows_session','Native Test Lab handoff does
 Write-Host 'Validating HYPERSONIC native Test Lab profile and authority lock...' -ForegroundColor DarkCyan
 & $NativeContractPath
 
-Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + native Test Lab authority wired." -ForegroundColor Green
+Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + economy progression + native Test Lab authority wired." -ForegroundColor Green
