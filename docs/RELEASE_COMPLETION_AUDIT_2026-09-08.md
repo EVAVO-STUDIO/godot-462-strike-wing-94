@@ -7,250 +7,237 @@ Required engine for candidate evidence: **Godot 4.6.2**
 
 ## Executive judgement
 
-HYPERSONIC is no longer blocked by missing campaign architecture. The repository contains a playable 30-mission three-sector campaign, six secret sorties, endings/credits, persistent progression, mature combat systems, governed runtime art/audio, accessibility, all-branch campaign-route coverage, performance profiling, broad visual capture, bounded integration telemetry, vulnerable pressure instrumentation, sequential economy/progression evidence, exact-SHA native Test Lab contracts and a packaged Windows verification path.
+HYPERSONIC is no longer blocked by missing campaign architecture. The repository contains a playable 30-mission three-sector campaign, six secret sorties, endings/credits, persistent progression, mature combat, governed runtime art/audio, accessibility, all-branch campaign-route coverage, performance/visual instrumentation, vulnerable pressure evidence, sequential economy analysis, ten native Test Lab journeys and a packaged Windows verification path.
 
-The remaining release work is **execute the evidence on the real Windows host, judge the game, fix measured defects and cut an intentional candidate identity**. It is not new feature-family work.
+The remaining release work is **execute evidence on the real Windows host, judge the game, fix measured defects and cut an intentional candidate identity**. It is not new feature-family work.
 
-The correct production behaviour is:
+Correct production behaviour:
 
 1. keep the feature freeze;
 2. run the complete exact-engine Windows automated gate from clean `main`;
-3. run the pinned exact-SHA native Test Lab journeys in the interactive Windows session;
-4. inspect vulnerable pressure, economy, route, video, screenshot, log and audio evidence;
-5. fix only evidenced release defects and refresh affected evidence after every source change;
-6. complete the exact-SHA human campaign/controller/visual/audio/balance signoff;
-7. promote `0.1.0-dev` only when the selected SHA is intentionally becoming an external candidate;
+3. run the pinned exact-SHA native Test Lab set in an interactive Windows session;
+4. inspect vulnerable pressure, economy, route, branch, spending-strategy, video, screenshot, log and audio evidence;
+5. fix only evidenced release defects and refresh affected evidence after each source change;
+6. complete exact-SHA human campaign/controller/onboarding/visual/audio/balance signoff;
+7. promote `0.1.0-dev` only when that SHA is intentionally becoming an external candidate;
 8. run `tools/validate_windows_candidate.ps1` with no skipped evidence.
 
-## What the repository proves structurally
+## Structurally proven
 
 ### Campaign breadth and routing
 
 - 30 authored core missions across Mercenary War, Machine War and BLACK SKY.
 - Six secret sorties.
-- Campaign completion, ending cinematic, credits and post-campaign state exist.
-- Campaign validation exercises all eight combinations of the three controlled binary branch decisions through real mission-result and advancement code.
-- Every governed branch route contains 27 sorties; together the route matrix visits all 30 core missions.
+- Campaign completion, ending cinematic, credits and post-campaign state.
+- All eight combinations of the three controlled binary branch decisions execute through real result/advancement code.
+- Each governed branch route contains 27 sorties; the combined matrix visits all 30 core missions.
 
 ### Persistence
 
-- Current campaign save authority is schema v13.
+- Campaign save schema v13.
 - Stable mission IDs protect campaign position from index drift.
-- Primary and backup saves are validated before restoration.
-- v1-v12 save migration remains supported under the current authority.
-- Campaign completion, difficulties, secret discovery, mode records, branch decisions, intelligence, career statistics, loadout, airframe and support progression are persisted.
-- README save-version language is contract-checked against the runtime authority so this drift cannot silently return.
+- Validated primary/backup restoration.
+- v1-v12 migrations supported.
+- Completion, difficulties, secrets, records, branch choices, intelligence, career statistics, loadout, airframe and support progression persist.
+- README save-version language is contract-checked against runtime authority.
 
-### Automated Windows release stack
+### Automated Windows evidence chain
 
-`tools/validate_windows_release.ps1` owns the complete automated Windows evidence chain:
+`tools/validate_windows_release.ps1` owns the complete local automated chain:
 
-1. release-contract verification;
-2. resolve one exact Godot 4.6.2 executable;
-3. source/data/editor/headless self-test validation;
-4. native 1280×720 production-combat performance stress;
-5. canonical 640×360 logical visual QA matrix;
-6. eight-sortie bounded integration/system-usage telemetry;
-7. nine-case **vulnerable** pressure/difficulty telemetry;
-8. authored economy/service/sequential-progression audit;
-9. all eight campaign branch routes projected across all four difficulties;
-10. canonical embedded-PCK Windows export;
-11. packaged executable metadata/startup verification;
-12. exact-SHA package receipt when no stage was skipped.
+1. primary release-contract verification;
+2. supplemental controller/onboarding release-contract verification;
+3. exact Godot 4.6.2 resolution;
+4. source/data/editor/headless self-test validation;
+5. native 1280×720 production-combat performance stress;
+6. canonical logical visual QA matrix;
+7. eight-sortie bounded integration/system-usage telemetry;
+8. nine-case vulnerable pressure/difficulty telemetry;
+9. authored economy/service/sequential-progression audit;
+10. eight campaign routes × four difficulties projection;
+11. paired branch-choice economic dominance analysis;
+12. 224 reserve-aware progression spending simulations;
+13. canonical embedded-PCK Windows export;
+14. packaged executable metadata/startup verification;
+15. exact-SHA package receipt when no release stage was skipped.
 
-A run using any release skip switch is diagnostic. It deliberately cannot issue the full exact-SHA release receipt.
+Any release skip switch makes the run diagnostic and prevents the full receipt.
 
-### Performance contract
+### Performance and presentation
 
-The production stress profile exercises the active combat runtime rather than an empty synthetic scene. The governed contract requires at least 60 average FPS and p95 frame time no worse than 16.67 ms under its declared stress density.
+The performance profile exercises the production combat stack and requires at least 60 average FPS with p95 frame time no worse than 16.67 ms under governed stress density.
 
-### Presentation evidence
-
-The logical visual matrix covers front door, title transformation, menus, stores/loadout, options/accessibility, controls, intelligence, secret operations, branch choice, game modes, weather, long routes, enemy/surface families, support effects, altitude transitions, fighter/bomber states, bay states, warnings, pause, debriefs, final boss, ending shots and credits.
-
-This proves broad state reachability and capture integrity. It does **not** replace human judgement of the real displayed 1280×720, 1920×1080 or fullscreen experience.
-
-### Integration telemetry
-
-The bounded autopilot matrix exercises representative first, bomber-heavy, difficult-air, altitude-choice, machine-reveal, orbital-transition, secret and final sorties. It requires live combat, hits/destruction, transformation, altitude changes, evasive roll, countermeasures, tactical support, battlefield support, ordnance and bounded combat density.
-
-These runs intentionally use invulnerability for integration reach. They prove systems integrate; they do not prove survivability or feel.
+The visual matrix covers startup/title, menus, Sortie Bay, options/accessibility, controls, intelligence, secret operations, branch decisions, modes, weather, routes, enemy/surface families, support, altitude/transform states, warnings, pause, debrief, final boss, ending and credits. Logical captures prove state reachability and capture integrity, not human desktop approval.
 
 ### Vulnerable pressure evidence
 
-`tools/run_vulnerable_balance_telemetry.ps1` removes invulnerability and records nine governed pressure windows:
+`tools/run_vulnerable_balance_telemetry.ps1` removes invulnerability and records nine pressure windows: Mission 1 at all four difficulties plus bomber, difficult-air, machine-war, orbital and late final-command cases. It records survival ratio, damage rate/source, accuracy, kills, score rate, missile/countermeasure use and density.
 
-- Mission 1 on Cadet, Combat, Veteran and Ace;
-- low-altitude bomber pressure;
-- high-altitude fighter pressure;
-- Machine War pressure;
-- orbital pressure;
-- late final-command pressure.
+Deterministic-bot death is a review signal, not automatic balance authority.
 
-It records survival ratio, damage rate/source, accuracy, kills, score rate, missiles, countermeasures, system use and density. Early deterministic-bot death is a review signal, not automatic permission to change difficulty.
+### Economy and progression evidence
 
-### Sequential economy and progression evidence
+`tools/run_economy_progression_audit.ps1` models the real sequential ownership ladders for primary weapons, generators, airframes and tactical support. It distinguishes individual sticker cost from cumulative acquisition cost and guards conservative first-mission affordability after a harsh service reserve.
 
-`tools/run_economy_progression_audit.ps1` validates the authored economy and models the real sequential ownership ladders for primary weapons, generators, airframes and tactical support.
+`tools/run_route_progression_projection.ps1` projects all 8 routes × 4 difficulties × 27 sorties using zero score, guaranteed fixed success rewards, branch bonuses, technology-era legality and worst-survivable starting-airframe service reserve.
 
-The evidence distinguishes individual `sticker_cost` from `cumulative_acquisition_cost`, identifies the four actually-next-purchasable fresh-campaign choices and checks a deliberately harsh Mission-1 affordability reserve after near-loss hull plus empty-shield servicing.
+`tools/analyze_branch_economic_dominance.ps1` pairs routes that differ in only one branch decision, isolating branch cash and upgrade-timing effects rather than comparing unrelated campaigns.
 
-`tools/run_route_progression_projection.ps1` then projects:
+`tools/simulate_progression_spending_strategies.ps1` runs 224 conservative simulations across save-only, weapon-first, generator-first, airframe-first, support-first, cheapest-next and balanced-round-robin policies. It tests structural solvency and choice availability without pretending cross-family gameplay utility is numerically equivalent.
 
-- 8 real campaign branch routes;
-- 4 difficulties;
-- 27 sorties per route;
-- zero score;
-- guaranteed fixed rewards only;
-- selected branch bonuses;
-- worst-survivable starting-airframe full-service reserve after every successful sortie;
-- technology-era legality;
-- cumulative acquisition cost for each independent progression family.
+None of these tools may auto-tune prices/rewards. Human vulnerable play remains balance authority.
 
-Any never-reachable tier is a human-review signal. The stress projection is not a target economy and must never auto-tune prices.
+## Controller and onboarding hardening
 
-### Native Test Lab release evidence contract
+### Sortie Bay progression is now controller-complete
 
-`.evavo/godot-lab-native.json` owns eight HYPERSONIC native journeys including authentic keyboard front-door flows at 1280×720 and 1920×1080, Options/Controls, synthetic-gamepad front door/combat, bomber combat, missile/countermeasure recovery, orbital combat and final-boss pressure.
+The campaign previously exposed combat controller support while major maintenance/progression commands remained keyboard-only. `ControllerSortieBayDirector` now contextually maps physical pad controls on the visible campaign Sortie Bay only:
 
-The release handoff is pinned to Godot Game Test Lab SHA:
+- X buy primary;
+- Y buy generator;
+- LB hull service;
+- RB shield recharge;
+- L3 airframe upgrade;
+- R3 tactical-support upgrade;
+- D-pad Left/Right support selection;
+- RT owned-primary selection;
+- A launch;
+- B back.
+
+The same physical controls retain their combat meanings in flight.
+
+### Flight pause no longer collides with Screen Bomb
+
+The old universal mapping made controller B both `fire_secondary` and `cancel`, allowing one B press to spend a Screen Bomb and request pause in the same frame.
+
+The governed contextual mapping is now:
+
+- **flight:** B = Screen Bomb; START = Pause;
+- **normal menus:** B = Back/Cancel;
+- **tactical pause:** B = Resume/Cancel;
+- **Options:** Y/X category and B = Back;
+- **paused Options:** Y/X category and B = Commands.
+
+`tools/pause_self_test.gd` proves the temporary InputMap transitions and restoration.
+
+### Flight Controls cannot trap a controller-only player
+
+The Flight Controls page edits keyboard assignments. Controller A is therefore suppressed on that page; a pad may inspect/scroll but cannot enter a keyboard-only key-listening state. B returns normally.
+
+### Mission 1 contextual guidance
+
+Mission 1 now teaches essential commands without a modal tutorial. The first flight-check beat occurs before the normal radio briefing starts, avoiding simultaneous narrative/control instruction. Later prompts introduce throttle/geometry and altitude; real homing threats expose countermeasure controls; the special Coastal Intercept egress explicitly identifies climb and afterburner inputs.
+
+Keyboard labels are read from the live InputMap, so rebindings remain truthful. The basic flight prompt also identifies `ESC/START PAUSE`.
+
+## Native Test Lab authority
+
+The release set contains **10 required native journeys**:
+
+- eight core journeys in `.evavo/godot-lab-native.json`;
+- two authentic controller journeys in `.evavo/godot-lab-controller-sortie.json`.
+
+The controller journeys prove Sortie Bay maintenance/progression routing plus Options/Flight-Controls navigation, live Mission 1, START pause, paused Options and resume using physical synthetic joypad events.
+
+Pinned Test Lab SHA:
 
 `32693ba39a3360dac6cdafd116da930d52553184`
 
-`tools/run_native_test_lab_release.ps1` requires:
+`tools/run_native_test_lab_release.ps1` requires clean HYPERSONIC `main`, clean pinned Test Lab, exact target SHA, exact Godot 4.6.2 and an interactive Windows session. Noninteractive execution cannot issue authoritative handoff evidence.
 
-- clean HYPERSONIC `main`;
-- clean Test Lab at the pinned SHA;
-- exact HYPERSONIC target SHA;
-- exact Godot 4.6.2;
-- an interactive Windows desktop session for authoritative native evidence.
+`tools/verify_native_release_handoff.ps1` rejects stale handoffs unless `required_journey_count = 10`, controller Sortie Bay evidence is required, controller menu/pause evidence is required, and all provenance matches the exact current SHA.
 
-Noninteractive/contract-test execution cannot issue the authoritative native handoff.
+## Critical audio cue protection
 
-### Critical audio cue protection
+The procedural SFX runtime retains its eight-voice ceiling but uses priority-aware admission rather than blind FIFO eviction. Missile warnings, shield collapse and command alerts outrank routine weapon/impact chatter. A short critical window ducks lower-priority procedural/propulsion sound, and tracker music receives a smoothed critical-warning duck request.
 
-The procedural SFX runtime retains its eight-voice ceiling but no longer uses blind FIFO eviction under load. Critical cockpit/command cues now outrank routine gunfire and impact chatter.
-
-A short critical-cue window ducks lower-priority procedural chatter/propulsion, and the tracker music accepts a smoothed critical-warning duck request. Ordinary gunfire, explosions and normal spectacle do not constantly pump the music. Existing SFX/music regression tests protect the priority and ducking contract.
-
-This reduces a concrete release risk: missile warnings, shield collapse and command alerts can no longer be displaced merely because the procedural voice pool was already saturated with routine effects.
+Existing audio regressions protect that policy. Human listening remains required.
 
 ## Release-truth hardening
 
-### Exact engine authority
+### Exact engine and package provenance
 
-`tools/resolve_release_godot.ps1` rejects release evidence unless the resolved engine identifies as Godot 4.6.2. Release stages receive the same resolved executable rather than independently finding arbitrary Godot installations.
+`tools/resolve_release_godot.ps1` rejects release evidence unless the engine identifies as Godot 4.6.2. `tools/write_windows_release_receipt.ps1` records exact SHA/branch, local `origin/main`, clean-worktree status, Godot version, executable path/size/SHA-256, Windows metadata and product identity.
 
-### Exact-SHA packaged-build receipt
+### Human signoff authority
 
-`tools/write_windows_release_receipt.ps1` records source SHA/branch, local `origin/main`, clean-worktree state, Godot version, executable path/size/SHA-256, Windows metadata and product identity. It refuses a dirty worktree, non-`main` source or source that differs from the locally known `origin/main`.
+`docs/RELEASE_SIGNOFF_TEMPLATE.json` is schema v4. Signoff must belong to the exact source SHA and explicitly cover:
 
-### Human signoff is an evidence authority
-
-`docs/RELEASE_SIGNOFF_TEMPLATE.json` is now schema v3. Human signoff must belong to the exact current HYPERSONIC SHA and explicitly cover:
-
-- pinned native Test Lab handoff and retained media/log/audio review;
-- complete campaign review;
+- all ten native journeys;
+- controller maintenance review;
+- controller Options/Flight-Controls/pause navigation review;
+- retained checkpoint/log/audio review;
+- complete campaign;
 - keyboard and controller coverage;
 - onboarding without README/developer help;
 - vulnerable difficulty evidence;
-- sequential economy and all-route progression evidence;
+- sequential economy, route projection, branch dominance and spending-strategy evidence;
 - no trivial dominant strategy or progression wall;
-- native 1280×720 and 1920×1080/fullscreen presentation;
-- HUD/warning/accessibility behaviour;
-- critical audio readability and no warning masking/clipping;
+- native 720p and 1080p/fullscreen presentation;
+- HUD/warning/accessibility behavior;
+- critical audio readability/no masked warnings;
 - zero unresolved P0/P1 blockers.
 
-`tools/verify_human_release_signoff.ps1` rejects stale or mismatched evidence. The vulnerable summary, economy audit, route projection and native Test Lab handoff must all match the exact source SHA; their governed schemas/matrices are checked before the human `passed` flags are accepted.
+`tools/verify_human_release_signoff.ps1` now calls the centralized ten-journey native handoff verifier and independently validates the vulnerable/economy evidence matrices before accepting the human flags.
 
 ### Final candidate gate
 
-`tools/validate_windows_candidate.ps1` is stricter than the automated release audit. It:
+`tools/validate_windows_candidate.ps1` rejects `-dev`, requires product/export versions to match, runs the complete automated gate, verifies exact-SHA human signoff and ten-journey native authority, then verifies the package receipt belongs to the same SHA/version.
 
-- rejects a `-dev` product identity;
-- requires product identity and Windows export product version to agree;
-- runs the complete automated Windows gate with no skip path;
-- verifies exact-SHA human signoff and its evidence chain;
-- verifies the resulting package receipt belongs to the exact current source SHA and product version.
-
-Passing it is a local technical/human candidate boundary, not store-publication authority.
+Passing it is a local candidate boundary, not store-publication authority.
 
 ## Remaining P0 work
 
 ### P0.1 Execute the complete Windows automated gate
 
-The GitHub-connected session can inspect and change source but is not the required native Windows Godot execution authority.
-
-On the actual production workstation:
+This GitHub-connected session can inspect and change source but is not the required native Windows Godot host.
 
 ```powershell
 Set-Location C:\GitRepos\godot-462-strike-wing-94
 .\tools\validate_windows_release.ps1
 ```
 
-Do not use skip switches for candidate evidence.
+No skip switches for candidate evidence.
 
-### P0.2 Execute pinned native Test Lab journeys
+### P0.2 Execute all ten pinned native Test Lab journeys
 
-From the clean target and clean pinned Lab checkout, run the project-owned HYPERSONIC native handoff wrapper. Review its retained videos, checkpoints, logs and audio rather than treating a runner exit code as visual/audio approval.
+Run the project-owned native wrapper from the clean target and clean pinned Test Lab checkout. Review video/checkpoints/log/audio evidence; do not treat process exit alone as presentation approval.
 
-### P0.3 Complete human end-to-end campaign review
+### P0.3 Human end-to-end campaign and controller review
 
-A human must complete the campaign from a clean start on the intended source SHA and record defects affecting mission clarity, difficulty spikes, upgrade/repair economy, dominant strategies, route/form/altitude readability, retry friction, bosses, ending/credits flow and save/restore confidence.
+A human must complete the campaign from a clean start on the intended SHA and judge mission clarity, difficulty, upgrade/repair economy, dominant strategies, route/form/altitude readability, retries, bosses, ending/credits and save/restore confidence.
 
-At minimum, complete a keyboard campaign and representative physical-controller coverage sufficient to establish practical command/menu usability. Synthetic gamepad Test Lab evidence does not prove physical-device feel.
+A physical controller should verify real feel in addition to synthetic pad evidence, including Sortie Bay progression, Options, Flight Controls, START pause, paused Options and resume.
 
-### P0.4 Complete human visual/audio review
+### P0.4 Human visual/audio review
 
-Review the actual desktop presentation and sound, especially warning priority under heavy effects, projectile/background separation, weather masking, low-health/shield-collapse feedback, reduced-flash behaviour and music versus missile/radio/objective cues.
+Review actual desktop presentation and sound, especially warning priority under density, projectile/background separation, weather masking, low-health/shield-collapse cues, reduced-flash behavior and music versus missile/radio/objective cues.
 
-### P0.5 Zero P0/P1 defects on the selected candidate SHA
+### P0.5 Zero P0/P1 defects on selected candidate SHA
 
-Any source fix changes the SHA and invalidates stale exact-SHA evidence/signoff. Refresh the affected evidence rather than carrying approval across source changes.
+Any source fix changes the SHA and invalidates stale exact-SHA evidence/signoff. Refresh affected evidence.
 
 ## Remaining P1 work
 
 ### Candidate version identity
 
-`data/product_identity.json` remains `0.1.0-dev` intentionally. Keep that during ordinary defect closure. Only when a specific SHA has completed the required evidence should it be promoted to an explicit RC/release identity and synchronized with `export_presets.cfg`.
+`data/product_identity.json` remains `0.1.0-dev` intentionally. Promote it and synchronize `export_presets.cfg` only when a specific evidence-complete SHA is deliberately becoming an external RC/release candidate.
 
 ### Human difficulty/economy judgement
 
-Automation provides reproducible hypotheses, not commercial balance certification. Human review must still judge:
+Human review must still judge realistic service costs, all difficulty bands, fighter/bomber reward-risk, progression-family usefulness, sequential acquisition friction, late-game energy/strategic dominance, final-sector attrition and whether branch bonuses create an undesirable economically dominant route.
 
-- Cadet, Combat and Ace pressure, with Veteran sampled between them;
-- early upgrade affordability after realistic rather than worst-case servicing;
-- repair/recharge economy over repeated missions;
-- bomber versus fighter reward/risk;
-- usefulness of all progression families;
-- sequential acquisition friction versus meaningful choice;
-- late-game energy and strategic-system dominance;
-- final-sector attrition and boss duration;
-- whether branch bonuses produce unintended economically dominant route choices.
+## Scope excluded from this tranche
 
-Do not change prices or rewards merely because the harsh route stress projection produces an early/late acquisition milestone.
-
-## Scope explicitly excluded from this tranche
-
-Do not add:
-
-- another campaign sector;
-- another aircraft family;
-- another major game mode;
-- new meta-progression architecture;
-- renderer rewrite;
-- speculative collision/world rewrite;
-- new platform targets before Windows closes.
-
-Those are post-release/backlog decisions unless a measured candidate blocker proves the existing implementation cannot be repaired.
+Do not add another sector, aircraft family, major mode, meta-progression architecture, renderer rewrite, speculative world/collision rewrite or new platform target before Windows closes.
 
 ## Candidate command
 
-After the exact-SHA evidence has been executed/reviewed, `work/release_signoff.json` is complete for that same SHA, and product identity has deliberately moved off `-dev`:
+After exact-SHA evidence has actually run and been reviewed, `work/release_signoff.json` is complete for that SHA, and product identity has deliberately moved off `-dev`:
 
 ```powershell
 Set-Location C:\GitRepos\godot-462-strike-wing-94
 .\tools\validate_windows_candidate.ps1
 ```
 
-A pass means HYPERSONIC has matched automated Windows evidence, native Test Lab evidence, human campaign/visual/audio/balance signoff and package provenance on one governed source identity.
+A pass means automated Windows evidence, ten-journey native evidence, human campaign/controller/onboarding/visual/audio/balance signoff and package provenance all agree on one source identity.
