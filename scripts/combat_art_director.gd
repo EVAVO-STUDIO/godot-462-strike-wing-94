@@ -2460,10 +2460,12 @@ func _draw_boss_weak_points(surface: CanvasItem, center: Vector2, enemy_id: Stri
 	# HUD boxes; reveal them only once their carrier silhouette is readable.
 	if not Rect2(28,64,584,252).has_point(center): return
 	var points: Array = BOSS_WEAK_POINTS[enemy_id]
-	var active_index := posmod(int(floor(age * 0.75)), points.size())
+	# Hold one exposed station for a deliberate attack window. Rapid cycling made
+	# the hardware read like three HUD icons instead of a physical mechanism.
+	var active_index := posmod(int(floor(age / 3.2)), points.size())
 	var family := _boss_weak_point_family(enemy_id)
 	var cues: Array = BOSS_WEAK_POINT_CUES[family]
-	var frame_index := posmod(int(floor(age * 8.0)), cues.size())
+	var frame_index := posmod(int(floor(age * 5.0)), cues.size())
 	for index in range(points.size()):
 		var cue: Texture2D = cues[frame_index if index == active_index else 0]
 		var active := index == active_index
@@ -2471,14 +2473,14 @@ func _draw_boss_weak_points(surface: CanvasItem, center: Vector2, enemy_id: Stri
 		# Exposed hardware should remain part of the boss silhouette. Inactive nodes
 		# are a dim aperture mark; only the currently vulnerable mechanism opens to
 		# the full registered cue and receives a restrained acquisition echo.
-		var cue_scale := 1.0 if active else 0.68
+		var cue_scale := 0.86 if active else 0.46
 		var cue_size := cue.get_size()*cue_scale
-		var alpha := (0.88+sin(age*TAU*2.0)*0.12) if active else 0.14
+		var alpha := (0.82+sin(age*TAU*1.25)*0.10) if active else 0.07
 		surface.draw_texture_rect(cue,Rect2((cue_center-cue_size*0.5).round(),cue_size.round()),false,Color(1,1,1,alpha))
 		if active:
-			var echo_scale := 1.28+sin(age*TAU*2.0)*0.06
+			var echo_scale := 1.04+sin(age*TAU*1.25)*0.05
 			var echo_size := cue.get_size()*echo_scale
-			surface.draw_texture_rect(cue,Rect2((cue_center-echo_size*0.5).round(),echo_size.round()),false,Color(1,1,1,0.16))
+			surface.draw_texture_rect(cue,Rect2((cue_center-echo_size*0.5).round(),echo_size.round()),false,Color(1,1,1,0.09))
 
 func _boss_weak_point_family(enemy_id: String) -> String:
 	if enemy_id in ["swarm_controller", "ai_forge_core"]:
