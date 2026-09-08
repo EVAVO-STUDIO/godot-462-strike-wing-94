@@ -158,15 +158,25 @@ func draw_targeting(surface: CanvasItem) -> void:
 		position = Vector2(235, 145)
 		ratio = 1.0
 		ammo = 3
-	if ratio <= 0.02:
+	elif "--capture-player-acquisition" in OS.get_cmdline_user_args():
+		position = Vector2(235,145)
+		ratio = 0.62
+		ammo = 3
+	# Let the radar carry initial contact discovery. The world-space seeker cue
+	# appears only once acquisition is deliberate, avoiding a debug-like label
+	# flickering over every contact that briefly crosses the nose.
+	if ratio < 0.18:
 		return
 	var display_position := target_cue_display_position(position)
 	var frame := 2 if ratio >= 0.999 else (1 if ratio >= 0.48 else 0)
 	# Keep the boresight registered to the airframe. A breathing/scaling lock icon
 	# reads like arcade loot UI and makes the target itself shimmer at native scale.
-	surface.draw_texture(RETICLES[frame], (display_position - Vector2(16, 16)).round())
-	var label := "LOCK" if frame == 2 else "ACQ %02d" % int(roundf(ratio * 100.0))
-	PixelFont.draw_text(surface, "%s  AIM9 %d" % [label, ammo], display_position + Vector2(-25, 19), 1, Color("efcc62") if frame == 2 else Color("73b8d2"), 1)
+	var cue_alpha := 1.0 if frame == 2 else lerpf(0.42,0.78,clampf((ratio-0.18)/0.82,0.0,1.0))
+	surface.draw_texture(RETICLES[frame],(display_position-Vector2(16,16)).round(),Color(1,1,1,cue_alpha))
+	# Acquisition percentage belongs in instrumentation, not across the aircraft
+	# silhouette. Confirmed lock is the only state that needs a terse text callout.
+	if frame == 2:
+		PixelFont.draw_centered(surface,"AIM9 %d LOCK"%ammo,int(display_position.x),int(display_position.y+19),1,Color("efcc62"),1)
 
 func target_cue_display_position(world_position: Vector2) -> Vector2:
 	return Vector2(

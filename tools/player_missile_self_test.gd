@@ -57,6 +57,9 @@ func _initialize() -> void:
 	var source_text := source.get_as_text() if source != null else ""
 	_expect(source != null and not source_text.contains("draw_set_transform(position.round()"), "seeker symbology must remain pixel-registered instead of breathing or scaling over the target")
 	_expect(source_text.contains('argument.begins_with("--capture-ground=")'), "surface-art QA should suppress unrelated hidden air-target locks")
+	_expect(source_text.contains("if ratio < 0.18") and not source_text.contains('"ACQ %02d"'), "partial missile acquisition should use restrained seeker brackets without debug-like percentage text")
+	_expect(source_text.contains('"AIM9 %d LOCK"'), "confirmed missile lock should retain one compact weapon callout")
+	_expect(source_text.contains('"--capture-player-acquisition"') and source_text.contains("ratio = 0.62"), "visual QA should expose the text-free partial acquisition state")
 	director.queue_free()
 	scene.queue_free()
 	if failures.is_empty():
