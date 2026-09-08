@@ -1,6 +1,7 @@
 extends SceneTree
 
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
+const RetroSfxPriorityRules = preload("res://scripts/retro_sfx_priority_rules.gd")
 
 var failures: Array[String] = []
 
@@ -11,10 +12,11 @@ class EnemyBoomFixture:
 
 func _initialize() -> void:
 	_test_voice_map()
+	_test_priority_allocator()
 	_test_runtime_wiring()
 	_test_startup_cues()
 	if failures.is_empty():
-		print("Strike Wing retro SFX self-test passed.")
+		print("HYPERSONIC retro SFX self-test passed.")
 		quit(0)
 		return
 	for failure in failures: push_error(failure)
@@ -44,6 +46,39 @@ func _test_voice_map() -> void:
 	var title_bed := RetroSfxRules.title_propulsion_bed()
 	_expect(float(title_bed.get("gain", 0.0)) > 0.0 and float(title_bed.get("gain", 9.0)) < float(cruise.get("gain", 0.0)), "title turbine should be audible but more restrained than in-flight propulsion")
 	_expect(RetroSfxRules.valid_voice(RetroSfxRules.voice(RetroSfxRules.TITLE_RADAR)), "title radar should define a bounded electronic cue")
+	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.MISSILE_WARNING) > RetroSfxPriorityRules.priority(RetroSfxRules.FIRE_BALLISTIC), "missile warning must outrank routine gunfire")
+	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.SHIELD_BREAK) >= RetroSfxPriorityRules.CRITICAL, "shield collapse must be a protected cockpit cue")
+	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.RADIO_ALERT) >= RetroSfxPriorityRules.CRITICAL, "priority command radio must be a protected cockpit cue")
+	_expect(RetroSfxPriorityRules.voice_duck(RetroSfxPriorityRules.ROUTINE, true) < 1.0, "critical cues should duck lower-priority voices")
+	_expect(RetroSfxPriorityRules.voice_duck(RetroSfxPriorityRules.CRITICAL, true) == 1.0, "critical cues must not duck themselves")
+
+func _test_priority_allocator() -> void:
+	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
+	var director: Node = director_script.new()
+	for _index in range(8):
+		director.call("_trigger", RetroSfxRules.FIRE_BALLISTIC)
+	_expect(director.get("_voices").size() == 8, "routine chatter should fill but not exceed the bounded eight-voice budget")
+	director.call("_trigger", RetroSfxRules.MISSILE_WARNING)
+	var voices: Array = director.get("_voices")
+	_expect(voices.size() == 8, "critical warning admission must preserve the eight-voice cap")
+	_expect(_voice_event_count(voices, RetroSfxRules.MISSILE_WARNING) == 1, "missile warning should evict routine chatter rather than being dropped")
+	_expect(float(director.get("_critical_duck_timer")) > 0.0, "critical warning should open a bounded duck window")
+	director.call("_trigger", RetroSfxRules.FIRE_BALLISTIC)
+	voices = director.get("_voices")
+	_expect(_voice_event_count(voices, RetroSfxRules.MISSILE_WARNING) == 1, "later routine gunfire must not evict a live missile warning")
+	var all_critical: Array = []
+	for _index in range(8):
+		all_critical.append({"priority":RetroSfxPriorityRules.COMMAND})
+	_expect(RetroSfxPriorityRules.eviction_index(all_critical, RetroSfxPriorityRules.ROUTINE, 8) == -2, "routine incoming audio should be rejected when every active slot has protected authority")
+	_expect(RetroSfxPriorityRules.eviction_index(all_critical, RetroSfxPriorityRules.COMMAND, 8) == 0, "equal-priority protected cue may replace the oldest protected cue without growing the pool")
+	director.free()
+
+func _voice_event_count(voices: Array, event_id: String) -> int:
+	var count := 0
+	for voice in voices:
+		if typeof(voice) == TYPE_DICTIONARY and str(voice.get("event_id", "")) == event_id:
+			count += 1
+	return count
 
 func _test_runtime_wiring() -> void:
 	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
@@ -76,6 +111,8 @@ func _test_runtime_wiring() -> void:
 		_expect(source.contains("AudioStreamGenerator.new()"), "retro SFX should use Godot procedural generator")
 		_expect(source.contains("get_frames_available()") and source.contains("push_frame"), "procedural playback should use supported generator buffer API")
 		_expect(source.contains("MAX_VOICES := 8"), "procedural audio voice count should stay bounded")
+		_expect(source.contains("RetroSfxPriorityRules.eviction_index") and source.contains("_critical_duck_timer"), "voice admission should preserve critical cockpit cues under dense combat")
+		_expect(source.contains("RetroSfxPriorityRules.voice_duck") and source.contains("RetroSfxPriorityRules.propulsion_duck"), "critical cues should temporarily duck routine procedural chatter and propulsion")
 		_expect(source.contains("_noise_state"), "noise voice should use deterministic local noise state rather than global RNG")
 		_expect(source.contains("afterburner_active") and source.contains("MISSILE"), "SFX observer should cover afterburner and missile-warning events")
 		_expect(source.contains("transform_ready_serial") and source.contains("RetroSfxRules.TRANSFORM_READY"), "mechanical settle should receive a distinct ready latch after the actuator sweep")
@@ -85,6 +122,8 @@ func _test_runtime_wiring() -> void:
 		_expect(source.contains("_observe_startup_sequence") and source.contains("RetroSfxRules.title_propulsion_bed()"), "HYPERSONIC reveal should own a restrained continuous turbine bed")
 		_expect(source.contains("title_elapsed >= 0.45") and source.contains("TITLE_RADAR"), "title reveal should time its subtle radar cue to the moving cloud exposure")
 		_expect(source.contains("title_elapsed >= 3.15") and source.contains("title_elapsed >= 3.72"), "title mechanical sweep and ignition sounds should match their authored visual beats")
+	var priority_source := FileAccess.get_file_as_string("res://scripts/retro_sfx_priority_rules.gd")
+	_expect(priority_source.contains("LOWER_PRIORITY_DUCK_GAIN") and priority_source.contains("eviction_index"), "audio priority policy should remain separate, deterministic and bounded")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:
