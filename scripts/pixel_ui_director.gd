@@ -1111,13 +1111,17 @@ func _draw_boss(surface: CanvasItem, scene: Object) -> void:
 	var hp := maxi(0, int(boss.get("hp", 0)))
 	var max_hp := maxi(1, int(boss.get("max_hp", hp)))
 	var phase := int(boss.get("boss_phase", BossRules.phase_for(hp, max_hp)))
-	var cue := " WEAK" if phase >= 3 else ""
+	var cue := " OPEN" if phase >= 3 else ""
 	var phase_index := clampi(phase - 1, 0, HUD_BOSS_PHASE_FRAMES.size() - 1)
-	surface.draw_texture(HUD_BOSS_PHASE_FRAMES[phase_index], Vector2(126, 42))
-	PixelFont.draw_centered(surface, "%s  P%d%s  %d/%d" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, cue, hp, max_hp], 320, 47, 1, TEXT, 1)
 	var ratio := clampf(float(hp) / float(max_hp), 0.0, 1.0)
-	surface.draw_texture(HUD_BOSS_TROUGH, Vector2(143, 58))
-	_draw_clipped_fill(surface, HUD_BOSS_PHASE_FILLS[phase_index], Vector2(144, 59), ratio)
+	var frame_rect := Rect2(168,42,304,22)
+	surface.draw_texture_rect(HUD_BOSS_PHASE_FRAMES[phase_index],frame_rect,false,Color(1,1,1,0.86))
+	PixelFont.draw_centered(surface, "%s  P%d%s  %d%%" % [str(boss.get("id", "BOSS")).replace("_", " "), phase, cue, int(roundf(ratio*100.0))], 320, 47, 1, TEXT, 1)
+	surface.draw_texture_rect(HUD_BOSS_TROUGH,Rect2(183,57,274,4),false,Color(1,1,1,0.78))
+	var fill_width := floorf(272.0*ratio)
+	if fill_width > 0.0:
+		var fill: Texture2D = HUD_BOSS_PHASE_FILLS[phase_index]
+		surface.draw_texture_rect_region(fill,Rect2(184,58,fill_width,2),Rect2(0,0,float(fill.get_width())*ratio,fill.get_height()))
 
 func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var snapshot := _threat_snapshot(scene)

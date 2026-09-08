@@ -274,7 +274,7 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("func _draw_console_panel"), "sortie console should retain its late-90s panel hierarchy")
 		_expect(source.contains("func _draw_boss"), "pixel UI should own boss HUD")
 		_expect(source.contains("active_support_id") and source.contains('"atlas_tanker"'), "objective tracker should yield visual priority during the authored tanker docking set piece")
-		_expect(source.contains('var cue := " WEAK" if phase >= 3'), "phase-three boss HUD should retain weak-point cue")
+		_expect(source.contains('var cue := " OPEN" if phase >= 3'), "phase-three boss HUD should retain exposed-mechanism cue")
 		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
 		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAMES"), "gameplay HUD should use authored raster frame and meter families")
 		_expect(source.contains("HUD_TACTICAL_RADAR_SCOPE") and source.contains("HUD_TACTICAL_RADAR_CONTACTS") and source.contains("func _draw_tactical_radar"), "gameplay HUD should expose a sprite-authored tactical picture of the forward battlespace")
