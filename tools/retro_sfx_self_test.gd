@@ -15,6 +15,7 @@ func _initialize() -> void:
 	_test_priority_allocator()
 	_test_runtime_wiring()
 	_test_startup_cues()
+	_test_cinematic_cues()
 	if failures.is_empty():
 		print("HYPERSONIC retro SFX self-test passed.")
 		quit(0)
@@ -27,7 +28,7 @@ func _test_voice_map() -> void:
 	_expect(RetroSfxRules.event_for_weapon("needle_rail") == RetroSfxRules.FIRE_RAIL, "Needle Rail should use kinetic rail voice")
 	_expect(RetroSfxRules.event_for_weapon("storm_cannon") == RetroSfxRules.FIRE_STORM, "Storm Cannon should use directed-energy pulse voice")
 	_expect(RetroSfxRules.event_for_weapon("plasma_lance") == RetroSfxRules.FIRE_PLASMA, "Plasma Lance should use strategic plasma voice")
-	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.TRANSFORM_READY, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.MISSILE_LAUNCH, RetroSfxRules.SEEKER_LOCK, RetroSfxRules.COUNTERMEASURE, RetroSfxRules.UI_PURCHASE, RetroSfxRules.UI_SERVICE, RetroSfxRules.REWARD_STINGER, RetroSfxRules.SHIELD_HIT, RetroSfxRules.SHIELD_BREAK, RetroSfxRules.PLAYER_HIT, RetroSfxRules.ALTITUDE_SHIFT]:
+	for event_id in [RetroSfxRules.FIRE_BALLISTIC, RetroSfxRules.FIRE_RAIL, RetroSfxRules.FIRE_STORM, RetroSfxRules.FIRE_PLASMA, RetroSfxRules.TRANSFORM, RetroSfxRules.TRANSFORM_READY, RetroSfxRules.AFTERBURNER, RetroSfxRules.SONIC_BOOM, RetroSfxRules.MISSILE_WARNING, RetroSfxRules.MISSILE_LAUNCH, RetroSfxRules.SEEKER_LOCK, RetroSfxRules.COUNTERMEASURE, RetroSfxRules.UI_PURCHASE, RetroSfxRules.UI_SERVICE, RetroSfxRules.REWARD_STINGER, RetroSfxRules.SHIELD_HIT, RetroSfxRules.SHIELD_BREAK, RetroSfxRules.PLAYER_HIT, RetroSfxRules.ALTITUDE_SHIFT, RetroSfxRules.CINEMATIC_ENGINE_IGNITION, RetroSfxRules.CINEMATIC_CATAPULT]:
 		var voice := RetroSfxRules.voice(event_id)
 		_expect(RetroSfxRules.valid_voice(voice), "%s should define bounded procedural voice" % event_id)
 		_expect(float(voice.get("duration", 9.0)) <= 0.5, "%s should remain a short arcade SFX" % event_id)
@@ -49,6 +50,8 @@ func _test_voice_map() -> void:
 	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.MISSILE_WARNING) > RetroSfxPriorityRules.priority(RetroSfxRules.FIRE_BALLISTIC), "missile warning must outrank routine gunfire")
 	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.SHIELD_BREAK) >= RetroSfxPriorityRules.CRITICAL, "shield collapse must be a protected cockpit cue")
 	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.RADIO_ALERT) >= RetroSfxPriorityRules.CRITICAL, "priority command radio must be a protected cockpit cue")
+	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.CINEMATIC_ENGINE_IGNITION) == RetroSfxPriorityRules.TACTICAL, "carrier ignition should use the tactical voice tier")
+	_expect(RetroSfxPriorityRules.priority(RetroSfxRules.CINEMATIC_CATAPULT) == RetroSfxPriorityRules.TACTICAL, "carrier catapult should use the tactical voice tier")
 	_expect(RetroSfxPriorityRules.voice_duck(RetroSfxPriorityRules.ROUTINE, true) < 1.0, "critical cues should duck lower-priority voices")
 	_expect(RetroSfxPriorityRules.voice_duck(RetroSfxPriorityRules.CRITICAL, true) == 1.0, "critical cues must not duck themselves")
 
@@ -148,6 +151,23 @@ func _test_startup_cues() -> void:
 	_expect(director.get("_voices").size() == 3, "engine flare should queue one ignition cue without retriggering")
 	director.call("_observe_startup_state", 0, 0.0)
 	_expect(is_zero_approx(float(director.get("_propulsion_target_gain"))), "approved EVAVO splash should remain free of the HYPERSONIC turbine bed")
+	director.free()
+
+func _test_cinematic_cues() -> void:
+	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
+	var director: Node = director_script.new()
+	var deck := {"active":true,"sequence_id":"sector_i_carrier_launch","shot_index":0,"bed":{"gain":0.032,"frequency":54.0,"airflow":0.16},"cue":RetroSfxRules.CINEMATIC_ENGINE_IGNITION}
+	_expect(bool(director.call("_observe_cinematic_audio_state", deck)), "active cinematic audio should suppress gameplay observation")
+	_expect(director.get("_voices").size() == 1, "carrier deck should queue one engine ignition cue")
+	_expect(is_equal_approx(float(director.get("_propulsion_target_gain")), 0.032), "carrier deck should engage its authored turbine bed")
+	director.call("_observe_cinematic_audio_state", deck)
+	_expect(director.get("_voices").size() == 1, "holding one cinematic shot should not retrigger its cue")
+	var airborne := {"active":true,"sequence_id":"sector_i_carrier_launch","shot_index":2,"bed":{"gain":0.048,"frequency":78.0,"airflow":0.34},"cue":RetroSfxRules.CINEMATIC_CATAPULT}
+	director.call("_observe_cinematic_audio_state", airborne)
+	_expect(director.get("_voices").size() == 2, "airborne cut should queue one catapult-release cue")
+	_expect(str(director.get("_voices")[1].get("event_id", "")) == RetroSfxRules.CINEMATIC_CATAPULT, "airborne cue should retain its distinct catapult identity")
+	_expect(not bool(director.call("_observe_cinematic_audio_state", {"active":false})), "inactive cinematic state should return control to gameplay observation")
+	_expect(str(director.get("_last_cinematic_audio_key")) == "", "leaving a cinematic should clear its cue latch")
 	director.free()
 
 func _expect(condition: bool, message: String) -> void:

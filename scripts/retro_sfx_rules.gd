@@ -33,6 +33,8 @@ const ALTITUDE_DIVE := "altitude_dive"
 const RADIO_TX := "radio_tx"
 const RADIO_ALERT := "radio_alert"
 const TITLE_RADAR := "title_radar"
+const CINEMATIC_ENGINE_IGNITION := "cinematic_engine_ignition"
+const CINEMATIC_CATAPULT := "cinematic_catapult"
 
 static func event_for_weapon(weapon_id: String) -> String:
 	match weapon_id:
@@ -104,6 +106,8 @@ static func voice(event_id: String) -> Dictionary:
 		SHIELD_HIT: return {"wave":"sine","frequency":680.0,"end_frequency":310.0,"duration":0.10,"gain":0.13}
 		SHIELD_BREAK: return {"wave":"shield_break","frequency":920.0,"end_frequency":92.0,"duration":0.30,"gain":0.20}
 		PLAYER_HIT: return {"wave":"mechanical","frequency":250.0,"end_frequency":82.0,"duration":0.12,"gain":0.17}
+		CINEMATIC_ENGINE_IGNITION: return {"wave":"mechanical","frequency":58.0,"end_frequency":126.0,"duration":0.44,"gain":0.19}
+		CINEMATIC_CATAPULT: return {"wave":"blast","frequency":104.0,"end_frequency":42.0,"duration":0.48,"gain":0.23}
 		# Internal rack solenoid/clunk followed by a short low airflow tail; original procedural release cue.
 		STRIKE_RELEASE: return {"wave":"mechanical","frequency":132.0,"end_frequency":62.0,"duration":0.13,"gain":0.17}
 		STRIKE_IMPACT: return {"wave":"blast","frequency":74.0,"end_frequency":32.0,"duration":0.30,"gain":0.24}

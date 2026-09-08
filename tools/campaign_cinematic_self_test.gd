@@ -36,6 +36,7 @@ func _run() -> void:
 	var triggers: Array[String] = []
 	var used_plates: Dictionary = {}
 	var animated_subject_shots := 0
+	var carrier_audio_cues: Array[String] = []
 	for sequence in sequences:
 		_validate_sequence(sequence, mission_ids, failures)
 		if typeof(sequence) == TYPE_DICTIONARY:
@@ -45,9 +46,15 @@ func _run() -> void:
 					used_plates[str(shot.get("plate", ""))] = true
 					if float(shot.get("animation_fps", 0.0)) > 0.0:
 						animated_subject_shots += 1
+					if str(sequence.get("id", "")) == "sector_i_carrier_launch":
+						var bed = shot.get("audio_bed", {})
+						_expect(typeof(bed) == TYPE_DICTIONARY and float(bed.get("gain", 0.0)) > 0.0 and float(bed.get("gain", 1.0)) <= 0.10, "carrier launch shots should define restrained continuous propulsion beds", failures)
+						var cue := str(shot.get("audio_cue", ""))
+						if not cue.is_empty(): carrier_audio_cues.append(cue)
 	_expect(triggers.count("launch") == 3 and triggers.count("ending") == 1, "cinematic schedule should contain the opening launch, two sector transitions, and one ending", failures)
 	_expect(used_plates.size() == 15, "each campaign cinematic beat should use its own authored editorial plate", failures)
 	_expect(animated_subject_shots >= 4, "campaign cinematics should use restrained authored subject animation on mechanical story beats", failures)
+	_expect(carrier_audio_cues == ["cinematic_engine_ignition", "cinematic_catapult"], "carrier launch should cue ignition and catapult release once, without a deck-level sonic boom", failures)
 	var machine_fx_shots := 0
 	for sequence in sequences:
 		if typeof(sequence) == TYPE_DICTIONARY:
@@ -128,6 +135,7 @@ func _run() -> void:
 	_expect(director_source.contains('argument.begins_with("--capture-cinematic=")') and director_source.contains("_begin_capture_sequence"), "visual QA should expose deterministic campaign cinematic sequence capture", failures)
 	_expect(director_source.contains('argument.begins_with("--capture-cinematic-shot=")') and director_source.contains("_capture_shot_index()"), "visual QA should expose deterministic shot selection for every cinematic beat", failures)
 	_expect(director_source.contains('"plate_center_y"') and director_source.contains('"plate_zoom"') and director_source.contains("source_size"), "cinematic camera moves should consume shot-authored framing instead of clamped generic drift", failures)
+	_expect(director_source.contains("func cinematic_audio_state()") and director_source.contains('shot.get("audio_bed"') and director_source.contains('shot.get("audio_cue"'), "cinematic director should expose shot-authored beds and cues to the procedural mixer", failures)
 	_expect(director_source.contains("BLACK_SKY_SUBJECT_FRAMES") and director_source.contains('shot_id.begins_with("s3_")'), "BLACK SKY shots should use dedicated cinematic subject cels rather than enlarged gameplay sprites", failures)
 	_expect(director_source.contains("ENDING_SUBJECT_FRAMES") and director_source.contains('shot_id.begins_with("end_")'), "ending shots should use dedicated identity-correct VX-94 cinematic subjects", failures)
 	_expect(director_source.contains('== "end_title"') and director_source.contains("HYPERSONIC_WORDMARK") and director_source.contains('"VX-94 VARIABLE STRIKE FIGHTER"'), "final ending plate should resolve the authoritative authored HYPERSONIC title hierarchy", failures)

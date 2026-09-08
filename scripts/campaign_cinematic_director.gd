@@ -222,6 +222,18 @@ func _intercept(mission_id: String, registry: Dictionary, trigger: String) -> bo
 func cinematic_active() -> bool:
 	return not _active.is_empty()
 
+func cinematic_audio_state() -> Dictionary:
+	if _active.is_empty():
+		return {"active":false}
+	var shot := _current_shot()
+	return {
+		"active":true,
+		"sequence_id":str(_active.get("id", "")),
+		"shot_index":_shot_index,
+		"bed":shot.get("audio_bed", {}),
+		"cue":str(shot.get("audio_cue", "")),
+	}
+
 func _capture_sequence_id() -> String:
 	if not "--capture-gameplay" in OS.get_cmdline_user_args():
 		return ""

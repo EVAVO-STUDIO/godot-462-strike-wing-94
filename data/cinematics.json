@@ -7,9 +7,9 @@
       "mission_id": "m01_coastal_intercept",
       "title": "SECTOR I // MERCENARY WAR",
       "shots": [
-        {"id":"launch_deck","role":"anticipation","duration":3.6,"camera":"pan","plate":"launch_deck_ready","plate_center_y":[150,166],"plate_zoom":[1.0,1.035],"fx_fps":3.0,"caption":"VX-94 // CATAPULT ARMED","sound_bridge":"environmental"},
-        {"id":"launch_pilot","role":"observation","duration":3.0,"camera":"locked","plate":"launch_cockpit","fx_fps":3.0,"caption":"STRIKE ONE. CONTROLS LIVE.","sound_bridge":"prelap"},
-        {"id":"launch_airborne","role":"consequence","duration":4.2,"camera":"track","plate":"launch_climbout","plate_center_y":[150,160],"plate_zoom":[1.06,1.0],"fx_fps":3.0,"caption":"WINGS CLEAR // MISSION CLOCK START","sound_bridge":"carry"}
+        {"id":"launch_deck","role":"anticipation","duration":3.6,"camera":"pan","plate":"launch_deck_ready","plate_center_y":[150,166],"plate_zoom":[1.0,1.035],"fx_fps":3.0,"audio_bed":{"gain":0.032,"frequency":54.0,"airflow":0.16},"audio_cue":"cinematic_engine_ignition","caption":"VX-94 // CATAPULT ARMED","sound_bridge":"environmental"},
+        {"id":"launch_pilot","role":"observation","duration":3.0,"camera":"locked","plate":"launch_cockpit","fx_fps":3.0,"audio_bed":{"gain":0.024,"frequency":61.0,"airflow":0.11},"caption":"STRIKE ONE. CONTROLS LIVE.","sound_bridge":"prelap"},
+        {"id":"launch_airborne","role":"consequence","duration":4.2,"camera":"track","plate":"launch_climbout","plate_center_y":[150,160],"plate_zoom":[1.06,1.0],"fx_fps":3.0,"audio_bed":{"gain":0.048,"frequency":78.0,"airflow":0.34},"audio_cue":"cinematic_catapult","caption":"WINGS CLEAR // MISSION CLOCK START","sound_bridge":"carry"}
       ]
     },
     {

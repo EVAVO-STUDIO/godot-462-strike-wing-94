@@ -38,6 +38,7 @@ var _startup_stage := -1
 var _title_radar_cued := false
 var _title_transform_cued := false
 var _title_ignition_cued := false
+var _last_cinematic_audio_key := ""
 
 func _ready() -> void:
 	process_priority = 220
@@ -73,6 +74,8 @@ func play_event(event_id: String) -> void:
 	_trigger(event_id)
 
 func _observe_gameplay() -> void:
+	if _observe_cinematic_sequence():
+		return
 	if _observe_startup_sequence():
 		return
 	var scene := get_tree().current_scene
@@ -133,10 +136,30 @@ func _observe_gameplay() -> void:
 			_last_transform_ready_serial = ready_serial
 	else:
 		_set_propulsion_target({})
-
 	_observe_missile_threat(scene)
 	_observe_enemy_missile_launch(scene)
 	_observe_enemy_hypersonic_boom(scene)
+
+func _observe_cinematic_sequence() -> bool:
+	var cinematic := get_node_or_null("/root/CampaignCinematicDirector")
+	if cinematic == null or not cinematic.has_method("cinematic_audio_state"):
+		_last_cinematic_audio_key = ""
+		return false
+	var state: Dictionary = cinematic.call("cinematic_audio_state")
+	return _observe_cinematic_audio_state(state)
+
+func _observe_cinematic_audio_state(state: Dictionary) -> bool:
+	if not bool(state.get("active", false)):
+		_last_cinematic_audio_key = ""
+		return false
+	_set_propulsion_target(state.get("bed", {}))
+	var audio_key := "%s:%d" % [str(state.get("sequence_id", "")), int(state.get("shot_index", -1))]
+	if audio_key != _last_cinematic_audio_key:
+		_last_cinematic_audio_key = audio_key
+		var cue := str(state.get("cue", ""))
+		if not cue.is_empty():
+			_trigger(cue)
+	return true
 
 func _observe_startup_sequence() -> bool:
 	var startup := get_node_or_null("/root/StartupSequenceDirector")

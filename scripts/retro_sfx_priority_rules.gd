@@ -20,7 +20,7 @@ static func priority(event_id: String) -> int:
 			return CRITICAL
 		"altitude_shift", "altitude_climb", "altitude_dive", "radio_tx":
 			return COCKPIT
-		"boss_explosion", "sonic_boom", "missile_launch", "strike_impact", "fire_strategic", "reward_stinger":
+		"boss_explosion", "sonic_boom", "missile_launch", "strike_impact", "fire_strategic", "reward_stinger", "cinematic_engine_ignition", "cinematic_catapult":
 			return TACTICAL
 		"transform", "transform_ready", "afterburner", "strike_release", "ui_purchase", "ui_service", "fire_support":
 			return TACTICAL
