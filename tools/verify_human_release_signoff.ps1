@@ -72,13 +72,33 @@ if ([int]$Vulnerable.matrix.case_count -lt 9 -or [int]$Vulnerable.matrix.first_m
 
 $EconomyPath = Resolve-EvidencePath ([string]$Signoff.balance.economy_audit_path) 'work/economy' 'Economy progression audit'
 $Economy = Get-Content -Raw -LiteralPath $EconomyPath | ConvertFrom-Json
-if ([int]$Economy.schema_version -ne 1) { throw 'Economy progression audit schema_version must be 1.' }
+if ([int]$Economy.schema_version -ne 2) { throw 'Economy progression audit schema_version must be 2.' }
 if ([string]$Economy.source.head_sha -ne $HeadSha) { throw 'Economy progression audit does not match the exact HYPERSONIC HEAD being signed.' }
 if (-not ([string]$Economy.source.godot_version).StartsWith('4.6.2')) { throw 'Economy progression audit was not produced with Godot 4.6.2.' }
 if ([int]$Economy.campaign.mission_count -ne 30) { throw 'Economy progression audit does not cover all 30 campaign missions.' }
+if (@($Economy.next_purchases_from_fresh).Count -ne 4) { throw 'Economy progression audit must expose exactly four actually-next-purchasable progression choices from a fresh campaign.' }
+foreach ($Purchase in @($Economy.next_purchases_from_fresh)) {
+    if (-not [bool]$Purchase.next_purchase_from_fresh -or [int]$Purchase.sticker_cost -le 0) {
+        throw 'Economy progression audit contains an invalid fresh-campaign next-purchase row.'
+    }
+}
+foreach ($FamilyName in @('primary_weapon','generator','airframe','support')) {
+    $Family = $Economy.family_ladders.PSObject.Properties[$FamilyName]
+    if ($null -eq $Family -or @($Family.Value).Count -lt 2) {
+        throw "Economy progression audit lost sequential family ladder '$FamilyName'."
+    }
+    $PreviousCumulative = -1
+    foreach ($Tier in @($Family.Value)) {
+        $Cumulative = [int]$Tier.cumulative_acquisition_cost
+        if ($Cumulative -lt $PreviousCumulative) { throw "Economy cumulative acquisition cost regressed inside '$FamilyName'." }
+        $PreviousCumulative = $Cumulative
+    }
+}
 foreach ($DifficultyId in @('cadet','combat','veteran','ace')) {
-    if ($null -eq $Economy.first_mission_conservative_affordability.PSObject.Properties[$DifficultyId]) {
-        throw "Economy progression audit lost first-mission affordability evidence for $DifficultyId."
+    $Evidence = $Economy.first_mission_conservative_affordability.PSObject.Properties[$DifficultyId]
+    if ($null -eq $Evidence) { throw "Economy progression audit lost first-mission affordability evidence for $DifficultyId." }
+    if (@($Evidence.Value.affordable_next_purchase_ids).Count -lt 1) {
+        throw "Economy progression audit leaves no actually-next-purchasable upgrade after the conservative first-mission service reserve on $DifficultyId."
     }
 }
 
@@ -115,4 +135,4 @@ if ([int]$Signoff.blockers.p0 -ne 0 -or [int]$Signoff.blockers.p1 -ne 0) {
     throw "Human release signoff still has blockers: P0=$($Signoff.blockers.p0), P1=$($Signoff.blockers.p1)."
 }
 
-Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure and economy progression evidence." -ForegroundColor Green
+Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure and sequential economy progression evidence." -ForegroundColor Green
