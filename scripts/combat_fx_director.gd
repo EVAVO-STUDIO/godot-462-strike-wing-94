@@ -411,6 +411,8 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var water := ImpactArtLibrary.frame_for_ratio("water_impact", clampf(blast_clock / 0.72, 0.0, 0.999))
 		var water_size := Vector2.ONE * lerpf(20.0, 38.0, blast_clock)
 		surface.draw_texture_rect(water, Rect2((p - water_size * 0.5).round(), water_size), false, Color(0.66,0.80,0.86,0.72*(1.0-blast_clock*0.65)))
+	if not boss:
+		_draw_blast_volume(surface, p, blast_clock, max_size, serial, category, faction, impact_family)
 	var frames: Array = EXPLOSION_FRAMES
 	if not boss and impact_family == "missile": frames = MISSILE_AIRBURST_FRAMES
 	elif not boss and impact_family in ["rocket", "bomb"]: frames = ROCKET_BURST_FRAMES
@@ -423,11 +425,11 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(blast_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 		var fireball_size := roundf(max_size*3.45)
 		surface.draw_texture_rect(fireball,Rect2((p-Vector2.ONE*fireball_size*0.5).round(),Vector2.ONE*fireball_size),false,Color(1,1,1,0.92-smoothstep(0.68,1.0,blast_clock)*0.72))
-	elif not boss and impact_family in ["rocket","bomb"] and blast_clock < 0.64:
+	elif not boss and impact_family in ["rocket","bomb"] and blast_clock < 0.76:
 		# Surface warheads need a dense incandescent core behind the radial debris
 		# cel. Without it, their open silhouettes collapse to a tiny spark over
 		# detailed terrain even though the blast is lethal at gameplay scale.
-		var core_ratio := blast_clock/0.64
+		var core_ratio := blast_clock/0.76
 		var ground_fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 		var ground_fireball_size := roundf(max_size*lerpf(1.8,2.65,core_ratio))
 		surface.draw_texture_rect(ground_fireball,Rect2((p-Vector2.ONE*ground_fireball_size*0.5).round(),Vector2.ONE*ground_fireball_size),false,Color(1.0,0.78,0.48,0.90*(1.0-core_ratio*0.62)))
@@ -438,7 +440,7 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	if boss: scale_factor = 2.35
 	var draw_size := roundf(max_size * scale_factor)
 	var detonation_grade := Color(1.0,0.78,0.56,1.0) if impact_family == "missile" and not boss else Color.WHITE
-	detonation_grade.a = 1.0-smoothstep(0.68,1.0,blast_clock)
+	detonation_grade.a = 1.0-smoothstep(0.78,1.0,blast_clock)
 	surface.draw_texture_rect(frame, Rect2((p - Vector2.ONE * draw_size * 0.5).round(), Vector2.ONE * draw_size), false, detonation_grade)
 	if enemy_id in STRATEGIC_SITES and blast_clock > 0.18 and blast_clock < 0.82:
 		var secondary_ratio := fposmod(blast_clock - 0.18, 0.32) / 0.32
@@ -446,23 +448,23 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var offset := Vector2(-16 if int(blast_clock * 10.0) % 2 == 0 else 17, -9 if enemy_id == "strategic_silo" else 8)
 		var secondary_size := Vector2.ONE * lerpf(28.0, 52.0, secondary_ratio)
 		surface.draw_texture_rect(secondary, Rect2((p + offset - secondary_size * 0.5).round(), secondary_size), false, Color(1.0,0.82,0.58,1.0-secondary_ratio*0.72))
-	if not boss and impact_family == "missile" and blast_clock < 0.46:
-		var core_ratio := blast_clock/0.46
+	if not boss and impact_family == "missile" and blast_clock < 0.62:
+		var core_ratio := blast_clock/0.62
 		var core: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 		var core_size := roundf(max_size*lerpf(1.55,2.55,core_ratio))
 		surface.draw_texture_rect(core,Rect2((p-Vector2.ONE*core_size*0.5).round(),Vector2.ONE*core_size),false,Color(1.0,0.82,0.58,0.90*(1.0-core_ratio*0.58)))
-	if not boss and impact_family == "missile" and blast_clock < 0.42:
-		var pressure_ratio := blast_clock / 0.42
+	if not boss and impact_family == "missile" and blast_clock < 0.58:
+		var pressure_ratio := blast_clock / 0.58
 		var pressure := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", pressure_ratio)
-		var pressure_size := Vector2.ONE * roundf(lerpf(18.0, 96.0, pressure_ratio))
-		surface.draw_texture_rect(pressure, Rect2((p-pressure_size*0.5).round(),pressure_size), false, Color(1.0,0.88,0.62,0.82*(1.0-pressure_ratio)))
+		var pressure_size := Vector2.ONE * roundf(lerpf(18.0, 104.0, pressure_ratio))
+		surface.draw_texture_rect(pressure, Rect2((p-pressure_size*0.5).round(),pressure_size), false, Color(1.0,0.88,0.62,0.86*(1.0-pressure_ratio)))
 	if not boss and impact_family in ["rocket", "bomb"] and blast_clock < 0.58:
 		var ground_ratio := blast_clock / 0.58
 		var ground_pressure := ImpactArtLibrary.frame_for_ratio("dust_impact",ground_ratio)
 		var ground_size := Vector2(lerpf(18.0,72.0,ground_ratio),lerpf(10.0,32.0,ground_ratio))
 		surface.draw_texture_rect(ground_pressure,Rect2((p+Vector2(0,12)-ground_size*0.5).round(),ground_size.round()),false,Color(0.72,0.58,0.38,0.62*(1.0-ground_ratio)))
-	if not boss and impact_family in ["missile", "rocket", "bomb"]:
-		_draw_hot_fragment_fan(surface,p,blast_clock,max_size,serial,category)
+	if not boss and impact_family in ["missile", "rocket", "bomb", "cannon"]:
+		_draw_hot_fragment_fan(surface,p,blast_clock,max_size,serial,category,impact_family)
 	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
 	var debris := PersistentEffectArtLibrary.frame_for_ratio("debris", ratio)
 	var debris_size := Vector2.ONE * maxf(24.0, radius * (2.4 if boss else 2.0))
@@ -472,22 +474,47 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 	if enemy_id in STRATEGIC_SITES:
 		_draw_strategic_aftermath(surface,p,blast_clock,serial,enemy_id)
 
-func _draw_hot_fragment_fan(surface: CanvasItem, p: Vector2, ratio: float, blast_size: float, serial: int, category: String) -> void:
+func _draw_blast_volume(surface: CanvasItem, p: Vector2, ratio: float, blast_size: float, serial: int, category: String, faction: String, impact_family: String) -> void:
+	# Start the retained smoke while the incandescent cel is still expanding.
+	# This overlap gives the detonation volume and prevents the final fireball
+	# frame from appearing to vanish before the wreck begins to separate.
+	if ratio < 0.14 or ratio >= 0.94:
+		return
+	var smoke_ratio := clampf((ratio - 0.14) / 0.80, 0.0, 1.0)
+	var family_scale := 1.34 if impact_family == "missile" else (1.22 if impact_family in ["rocket", "bomb"] else 1.0)
+	var smoke_alpha := (1.0 - smoothstep(0.54, 1.0, smoke_ratio)) * 0.72
+	var smoke_colour := Color(0.46, 0.50, 0.52, smoke_alpha) if faction == "autonomous" else Color(0.36, 0.34, 0.31, smoke_alpha)
+	if category == "sea":
+		smoke_colour = Color(0.50, 0.54, 0.54, smoke_alpha * 0.82)
+	for lobe_index in range(2):
+		var smoke: Texture2D = PersistentEffectArtLibrary.FRAMES["damage_smoke"][posmod(serial + lobe_index + int(smoke_ratio * 7.0), 4)]
+		var side := -1.0 if lobe_index == 0 else 1.0
+		var lift := Vector2(side * lerpf(2.0, 8.0, smoke_ratio), lerpf(2.0, -15.0, smoke_ratio) - float(lobe_index) * 3.0)
+		var diameter := roundf(blast_size * family_scale * lerpf(2.0, 3.45, smoke_ratio) * (0.92 + 0.12 * float(lobe_index)))
+		surface.draw_texture_rect(smoke, Rect2((p + lift - Vector2.ONE * diameter * 0.5).round(), Vector2.ONE * diameter), false, smoke_colour)
+	if ratio < 0.30:
+		var flash_ratio := ratio / 0.30
+		var flash_radius := lerpf(3.0, blast_size * (1.20 if impact_family == "missile" else 0.86), flash_ratio)
+		var flash_alpha := (1.0 - flash_ratio) * (0.80 if impact_family == "missile" else 0.62)
+		surface.draw_circle(p.round(), flash_radius, Color(1.0, 0.92, 0.70, flash_alpha), false, 2.0, false)
+
+func _draw_hot_fragment_fan(surface: CanvasItem, p: Vector2, ratio: float, blast_size: float, serial: int, category: String, impact_family: String) -> void:
 	if ratio >= 0.74:
 		return
 	var travel := smoothstep(0.02,0.74,ratio)
 	var fade := 1.0-smoothstep(0.42,0.74,ratio)
-	var count := 8 if category == "ground" else 6
+	var count := 4 if impact_family == "cannon" else (8 if category == "ground" else 6)
 	for index in range(count):
 		var phase := float(index)/float(count)*TAU+float(posmod(serial*37,19))*0.031
 		var horizontal := cos(phase)
 		var vertical := sin(phase)*0.72
 		if category == "ground":
 			vertical = -absf(vertical)*0.82+travel*0.58
-		var distance := lerpf(5.0,blast_size*2.25,travel)*(0.72+float(index%3)*0.16)
+		var throw_scale := 1.55 if impact_family == "cannon" else 2.25
+		var distance := lerpf(5.0,blast_size*throw_scale,travel)*(0.72+float(index%3)*0.16)
 		var head := p+Vector2(horizontal,vertical)*distance
 		var tail := head-Vector2(horizontal,vertical)*lerpf(2.0,7.0,1.0-travel)
-		var colour := Color(1.0,0.82,0.42,0.90*fade) if index%3 else Color(0.94,0.46,0.18,0.78*fade)
+		var colour := Color(0.90,0.86,0.72,0.78*fade) if impact_family == "cannon" else (Color(1.0,0.82,0.42,0.90*fade) if index%3 else Color(0.94,0.46,0.18,0.78*fade))
 		surface.draw_line(tail.round(),head.round(),colour,1.0,false)
 
 func _draw_strategic_aftermath(surface: CanvasItem, p: Vector2, ratio: float, serial: int, enemy_id: String) -> void:
