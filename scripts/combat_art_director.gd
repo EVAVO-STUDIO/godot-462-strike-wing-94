@@ -1117,10 +1117,10 @@ func _render_naval_capture(surface: CanvasItem, scene: Object) -> void:
 	var recoil := 0.12 if fposmod(time, 1.40) < 0.14 else 0.0
 	var fire_timer := fposmod(1.0-time, 1.0)
 	var definitions := [
-		{"id":"river_patrol", "position":Vector2(350,132), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time},
-		{"id":"torpedo_boat", "position":Vector2(420,205), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":14, "max_hp":14, "age":time},
-		{"id":"fast_attack_craft", "position":Vector2(490,128), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time},
-		{"id":"missile_corvette", "position":Vector2(565,210), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time},
+		{"id":"river_patrol", "position":Vector2(350,132), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time, "speed":52.0, "lateral_velocity":-12.0},
+		{"id":"torpedo_boat", "position":Vector2(420,205), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":14, "max_hp":14, "age":time, "speed":88.0, "lateral_velocity":18.0},
+		{"id":"fast_attack_craft", "position":Vector2(490,128), "fire_timer":0.0, "recoil_timer":recoil, "hp":18, "max_hp":18, "age":time, "speed":112.0, "lateral_velocity":-24.0},
+		{"id":"missile_corvette", "position":Vector2(565,210), "fire_timer":fire_timer, "recoil_timer":recoil, "hp":30, "max_hp":30, "age":time, "speed":64.0, "lateral_velocity":8.0},
 	]
 	for enemy in definitions:
 		_draw_naval_unit(surface, enemy["position"], enemy["id"], enemy, MERCENARY_SEA_SPRITES[enemy["id"]], 1.0)
@@ -2354,10 +2354,15 @@ func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: 
 	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()
 	var wake: Texture2D = NAVAL_WAKE_FRAMES[frame_index]
 	var wake_scale := scale * clampf(hull.get_width() / 40.0, 0.72, 1.15)
-	var wake_size := wake.get_size() * wake_scale
-	var wake_center := p + Vector2(0.0, -hull.get_height() * scale * 0.5 - wake_size.y * 0.42 + 4.0 * scale)
-	var destination := Rect2((wake_center - wake_size * 0.5).round(), wake_size.round())
-	surface.draw_texture_rect(wake, destination, false, Color(0.72, 0.82, 0.86, 0.68))
+	var forward_speed := maxf(32.0,float(enemy.get("speed",68.0)))
+	var wake_length := lerpf(0.82,1.34,clampf((forward_speed-40.0)/88.0,0.0,1.0))
+	var lateral_velocity := float(enemy.get("lateral_velocity",0.0))
+	var wake_direction := Vector2(-clampf(lateral_velocity/forward_speed,-0.32,0.32),-1.0).normalized()
+	var wake_extent := wake.get_height()*wake_scale*wake_length
+	var wake_center := p+wake_direction*(hull.get_height()*scale*0.5+wake_extent*0.42-4.0*scale)
+	surface.draw_set_transform(wake_center.round(),Vector2.UP.angle_to(wake_direction),Vector2(wake_scale,wake_scale*wake_length))
+	surface.draw_texture(wake,-wake.get_size()*0.5,Color(0.72,0.82,0.86,0.68))
+	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 	_draw_production_sprite(surface, p, hull, scale)
 	var specialist: Dictionary = NAVAL_SPECIALIST_ART.get(enemy_id, {})
 	var recoil_ratio := clampf(float(enemy.get("recoil_timer", 0.0)) / 0.12, 0.0, 1.0)
