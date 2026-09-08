@@ -157,6 +157,12 @@ func _test_source_integration() -> void:
 	var transition_file := FileAccess.open("res://scripts/altitude_transition_director.gd", FileAccess.READ)
 	var transition_source := transition_file.get_as_text() if transition_file != null else ""
 	_expect(transition_source.contains("ATMOSPHERIC_VEIL") and transition_source.contains("var cloud_centers :=") and transition_source.contains("var local_phase :=") and transition_source.contains("CLOUD_SHADOW") and transition_source.contains("_draw_layer_exposure") and transition_source.contains("_draw_depth_rush"), "altitude transitions should cross an asymmetric registered cloud boundary with independently timed depth masses and authored atmospheric layering")
+	var veil := load("res://assets/runtime/ui/hud/altitude_transition/atmospheric_veil.png") as Texture2D
+	_expect(veil != null and veil.get_size() == Vector2(624,304), "altitude transition veil should retain registered flight-window geometry")
+	if veil != null:
+		var veil_image := veil.get_image()
+		_expect(veil_image.detect_alpha() != Image.ALPHA_NONE and veil_image.get_pixel(0,0).a == 0.0 and veil_image.get_pixel(312,152).a > 0.0, "altitude transition veil should use genuine irregular alpha with a clear canvas edge")
+	_expect(FileAccess.file_exists("res://tools/build_altitude_transition_veil.py") and FileAccess.file_exists("res://assets/source/environments/altitude_transition_veil_v2/manifest.json"), "altitude transition cel fog should retain its deterministic builder and production receipt")
 	_expect(transition_source.contains('return "%s<%s>%s"') and transition_source.contains('return "%s>%s"') and transition_source.contains('return "%s<%s"'), "altitude choice HUD should reduce available routes to a compact top-rail diagram")
 	_expect(not transition_source.contains("LOWER_LEFT_KEEP_OUT") and not transition_source.contains("ALT SELECT") and not transition_source.contains("LANE_PANEL"), "altitude choices should not add a redundant lower-left panel over propulsion instruments")
 	_expect(transition_source.contains("CHOICE_REVEAL_SECONDS := 2.4") and transition_source.contains("CHOICE_REMINDER_SECONDS := 1.4"), "altitude choice HUD should reveal briefly instead of occupying the playfield for an entire lane window")

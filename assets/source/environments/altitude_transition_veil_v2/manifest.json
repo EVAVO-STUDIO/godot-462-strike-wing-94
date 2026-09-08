@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "asset": "altitude_transition_veil_v2",
+  "seed": 94062,
+  "geometry": [
+    624,
+    304
+  ],
+  "style": "irregular limited-alpha cel fog; no scanline or checkerboard content",
+  "runtime": "assets/runtime/ui/hud/altitude_transition/atmospheric_veil.png",
+  "sha256": "9270f546af98fb6ba9fe28dbcbd6f3815159791a823c04f7d93a90625b034007"
+}
