@@ -27,10 +27,11 @@ if (([string]$Handoff.target_sha).ToLowerInvariant() -ne $HeadSha) { throw 'Nati
 if (([string]$Handoff.lab_sha).ToLowerInvariant() -ne $ExpectedLabSha) { throw 'Native Test Lab handoff does not match the pinned Test Lab SHA.' }
 if (-not ([string]$Handoff.godot_version).StartsWith('4.6.2')) { throw 'Native Test Lab handoff was not produced with Godot 4.6.2.' }
 if (-not [bool]$Handoff.interactive_windows_session) { throw 'Native Test Lab handoff was not produced in an authoritative interactive Windows session.' }
-if ([int]$Handoff.required_journey_count -ne 9) { throw 'Native Test Lab handoff must contain all 9 governed release journeys.' }
+if ([int]$Handoff.required_journey_count -ne 10) { throw 'Native Test Lab handoff must contain all 10 governed release journeys.' }
 if (-not [bool]$Handoff.controller_sortie_required) { throw 'Native Test Lab handoff lost the required controller sortie-bay maintenance journey.' }
+if (-not [bool]$Handoff.controller_menu_required) { throw 'Native Test Lab handoff lost the required controller Options/Flight-Controls journey.' }
 if ([string]$Handoff.profile -ne '.evavo/godot-lab-native.json') { throw 'Native Test Lab handoff core profile is incorrect.' }
-if ([string]$Handoff.controller_sortie_profile -ne '.evavo/godot-lab-controller-sortie.json') { throw 'Native Test Lab handoff controller sortie profile is incorrect.' }
+if ([string]$Handoff.controller_sortie_profile -ne '.evavo/godot-lab-controller-sortie.json') { throw 'Native Test Lab handoff controller front-end profile is incorrect.' }
 
 foreach ($Property in @('artifact_path','controller_sortie_artifact_path')) {
     $Value = ([string]$Handoff.$Property).Trim()
@@ -41,4 +42,4 @@ foreach ($Property in @('artifact_path','controller_sortie_artifact_path')) {
     }
 }
 
-Write-Host "HYPERSONIC native handoff passed: 9 journeys including controller sortie-bay maintenance, target $HeadSha, Lab $ExpectedLabSha." -ForegroundColor Green
+Write-Host "HYPERSONIC native handoff passed: 10 journeys including controller maintenance and menu navigation, target $HeadSha, Lab $ExpectedLabSha." -ForegroundColor Green
