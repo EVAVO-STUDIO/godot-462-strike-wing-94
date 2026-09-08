@@ -1,0 +1,447 @@
+{
+  "schemaVersion": "2.0",
+  "journeys": [
+    {
+      "id": "front-door-keyboard-1280x720",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "keyboard",
+      "settleFrames": 420,
+      "maxFrames": 1500,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [],
+      "requiredActions": [
+        {"name": "confirm", "devices": ["keyboard", "gamepad"]},
+        {"name": "cancel", "devices": ["keyboard", "gamepad"]},
+        {"name": "move_up", "devices": ["keyboard", "gamepad"]},
+        {"name": "move_down", "devices": ["keyboard", "gamepad"]},
+        {"name": "fire_primary", "devices": ["keyboard", "gamepad"]},
+        {"name": "transform_craft", "devices": ["keyboard", "gamepad"]},
+        {"name": "afterburner", "devices": ["keyboard", "gamepad"]}
+      ],
+      "steps": [
+        {"type": "checkpoint", "id": "main-menu"},
+        {"type": "action_tap", "action": "confirm", "holdFrames": 2},
+        {"type": "wait", "frames": 45},
+        {"type": "checkpoint", "id": "sortie-bay"},
+        {"type": "action_tap", "action": "confirm", "holdFrames": 2},
+        {"type": "wait", "frames": 210},
+        {"type": "checkpoint", "id": "mission-one-ingress"},
+        {"type": "action", "action": "fire_primary", "pressed": true, "strength": 1.0},
+        {"type": "action", "action": "move_right", "pressed": true, "strength": 1.0},
+        {"type": "wait", "frames": 75},
+        {"type": "action", "action": "move_right", "pressed": false, "strength": 0.0},
+        {"type": "action_tap", "action": "transform_craft", "holdFrames": 2},
+        {"type": "action", "action": "afterburner", "pressed": true, "strength": 1.0},
+        {"type": "wait", "frames": 45},
+        {"type": "action", "action": "afterburner", "pressed": false, "strength": 0.0},
+        {"type": "action", "action": "fire_primary", "pressed": false, "strength": 0.0},
+        {"type": "checkpoint", "id": "mission-one-live-combat"},
+        {"type": "action_tap", "action": "cancel", "holdFrames": 2},
+        {"type": "wait", "frames": 30},
+        {"type": "checkpoint", "id": "pause-command"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "input_action_exists", "action": "fire_primary"},
+        {"type": "input_action_exists", "action": "deploy_countermeasure"},
+        {"type": "input_action_exists", "action": "drop_strike_ordnance"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    },
+    {
+      "id": "front-door-keyboard-1920x1080",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "keyboard",
+      "settleFrames": 420,
+      "maxFrames": 900,
+      "fps": 30,
+      "width": 1920,
+      "height": 1080,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [],
+      "requiredActions": [
+        {"name": "confirm", "devices": ["keyboard", "gamepad"]},
+        {"name": "move_down", "devices": ["keyboard", "gamepad"]}
+      ],
+      "steps": [
+        {"type": "checkpoint", "id": "main-menu-1080p"},
+        {"type": "action_tap", "action": "confirm", "holdFrames": 2},
+        {"type": "wait", "frames": 60},
+        {"type": "checkpoint", "id": "sortie-bay-1080p"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    },
+    {
+      "id": "options-controls-keyboard",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "keyboard",
+      "settleFrames": 420,
+      "maxFrames": 1200,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [],
+      "requiredActions": [
+        {"name": "confirm", "devices": ["keyboard", "gamepad"]},
+        {"name": "cancel", "devices": ["keyboard", "gamepad"]},
+        {"name": "move_down", "devices": ["keyboard", "gamepad"]}
+      ],
+      "steps": [
+        {"type": "action_tap", "action": "move_down", "holdFrames": 2},
+        {"type": "action_tap", "action": "move_down", "holdFrames": 2},
+        {"type": "action_tap", "action": "move_down", "holdFrames": 2},
+        {"type": "action_tap", "action": "confirm", "holdFrames": 2},
+        {"type": "wait", "frames": 45},
+        {"type": "checkpoint", "id": "options"},
+        {"type": "action_tap", "action": "cancel", "holdFrames": 2},
+        {"type": "wait", "frames": 30},
+        {"type": "action_tap", "action": "move_down", "holdFrames": 2},
+        {"type": "action_tap", "action": "confirm", "holdFrames": 2},
+        {"type": "wait", "frames": 45},
+        {"type": "checkpoint", "id": "flight-controls"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "input_action_exists", "action": "throttle_up"},
+        {"type": "input_action_exists", "action": "fire_missile"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 20,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    },
+    {
+      "id": "front-door-synthetic-gamepad",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "synthetic_gamepad",
+      "settleFrames": 420,
+      "maxFrames": 1500,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [],
+      "requiredActions": [
+        {"name": "confirm", "devices": ["gamepad", "keyboard"]},
+        {"name": "fire_primary", "devices": ["gamepad", "keyboard"]},
+        {"name": "transform_craft", "devices": ["gamepad", "keyboard"]},
+        {"name": "afterburner", "devices": ["gamepad", "keyboard"]},
+        {"name": "altitude_up", "devices": ["gamepad", "keyboard"]}
+      ],
+      "steps": [
+        {"type": "checkpoint", "id": "gamepad-main-menu"},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 0, "holdFrames": 2},
+        {"type": "wait", "frames": 45},
+        {"type": "checkpoint", "id": "gamepad-sortie-bay"},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 0, "holdFrames": 2},
+        {"type": "wait", "frames": 210},
+        {"type": "checkpoint", "id": "gamepad-ingress"},
+        {"type": "joy_axis", "deviceId": 0, "axis": 0, "value": 0.75},
+        {"type": "joy_button", "deviceId": 0, "buttonIndex": 0, "pressed": true},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 3, "holdFrames": 2},
+        {"type": "joy_button", "deviceId": 0, "buttonIndex": 9, "pressed": true},
+        {"type": "wait", "frames": 75},
+        {"type": "joy_button", "deviceId": 0, "buttonIndex": 9, "pressed": false},
+        {"type": "joy_button", "deviceId": 0, "buttonIndex": 0, "pressed": false},
+        {"type": "joy_axis", "deviceId": 0, "axis": 0, "value": 0.0},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 11, "holdFrames": 2},
+        {"type": "wait", "frames": 45},
+        {"type": "checkpoint", "id": "gamepad-live-combat"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "input_action_exists", "action": "move_left"},
+        {"type": "input_action_exists", "action": "fire_primary"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    },
+    {
+      "id": "bomber-low-strike-fixture",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "semantic",
+      "settleFrames": 90,
+      "maxFrames": 900,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [
+        "--capture-gameplay",
+        "--capture-mission=1",
+        "--capture-form=bomber",
+        "--capture-altitude=low",
+        "--capture-time=56"
+      ],
+      "requiredActions": [
+        {"name": "fire_primary", "devices": ["keyboard", "gamepad"]},
+        {"name": "drop_strike_ordnance", "devices": ["keyboard", "gamepad"]},
+        {"name": "fire_support", "devices": ["keyboard", "gamepad"]}
+      ],
+      "steps": [
+        {"type": "checkpoint", "id": "low-bomber-ready"},
+        {"type": "action", "action": "fire_primary", "pressed": true, "strength": 1.0},
+        {"type": "action_tap", "action": "drop_strike_ordnance", "holdFrames": 2},
+        {"type": "action_tap", "action": "fire_support", "holdFrames": 2},
+        {"type": "wait", "frames": 120},
+        {"type": "action", "action": "fire_primary", "pressed": false, "strength": 0.0},
+        {"type": "checkpoint", "id": "low-bomber-strike"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "input_action_exists", "action": "drop_strike_ordnance"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    },
+    {
+      "id": "missile-countermeasure-fixture",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "synthetic_gamepad",
+      "settleFrames": 60,
+      "maxFrames": 720,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [
+        "--capture-gameplay",
+        "--capture-mission=8",
+        "--capture-time=74",
+        "--capture-altitude=high",
+        "--capture-hud=warning"
+      ],
+      "requiredActions": [
+        {"name": "deploy_countermeasure", "devices": ["keyboard", "gamepad"]},
+        {"name": "evasive_roll", "devices": ["keyboard", "gamepad"]}
+      ],
+      "steps": [
+        {"type": "checkpoint", "id": "missile-warning"},
+        {"type": "joy_axis", "deviceId": 0, "axis": 4, "value": 1.0},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_axis", "deviceId": 0, "axis": 4, "value": 0.0},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 7, "holdFrames": 2},
+        {"type": "joy_axis", "deviceId": 0, "axis": 0, "value": -0.9},
+        {"type": "wait", "frames": 45},
+        {"type": "joy_axis", "deviceId": 0, "axis": 0, "value": 0.0},
+        {"type": "checkpoint", "id": "countermeasure-recovery"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "input_action_exists", "action": "deploy_countermeasure"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    },
+    {
+      "id": "orbital-combat-fixture",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "semantic",
+      "settleFrames": 90,
+      "maxFrames": 900,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [
+        "--capture-gameplay",
+        "--capture-mission=25",
+        "--capture-time=118",
+        "--capture-altitude=orbital"
+      ],
+      "requiredActions": [
+        {"name": "fire_primary", "devices": ["keyboard", "gamepad"]},
+        {"name": "call_battlefield_support", "devices": ["keyboard", "gamepad"]},
+        {"name": "fire_missile", "devices": ["keyboard", "gamepad"]}
+      ],
+      "steps": [
+        {"type": "checkpoint", "id": "orbital-ready"},
+        {"type": "action", "action": "fire_primary", "pressed": true, "strength": 1.0},
+        {"type": "action_tap", "action": "call_battlefield_support", "holdFrames": 2},
+        {"type": "action_tap", "action": "fire_missile", "holdFrames": 2},
+        {"type": "wait", "frames": 120},
+        {"type": "action", "action": "fire_primary", "pressed": false, "strength": 0.0},
+        {"type": "checkpoint", "id": "orbital-pressure"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "input_action_exists", "action": "call_battlefield_support"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    },
+    {
+      "id": "final-boss-fixture",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "semantic",
+      "settleFrames": 90,
+      "maxFrames": 1200,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [
+        "--capture-gameplay",
+        "--capture-mission=29",
+        "--capture-time=238"
+      ],
+      "requiredActions": [
+        {"name": "fire_primary", "devices": ["keyboard", "gamepad"]},
+        {"name": "fire_missile", "devices": ["keyboard", "gamepad"]},
+        {"name": "fire_support", "devices": ["keyboard", "gamepad"]},
+        {"name": "deploy_countermeasure", "devices": ["keyboard", "gamepad"]}
+      ],
+      "steps": [
+        {"type": "wait", "frames": 180},
+        {"type": "checkpoint", "id": "machine-ark-contact"},
+        {"type": "action", "action": "fire_primary", "pressed": true, "strength": 1.0},
+        {"type": "action_tap", "action": "fire_missile", "holdFrames": 2},
+        {"type": "action_tap", "action": "fire_support", "holdFrames": 2},
+        {"type": "wait", "frames": 150},
+        {"type": "action", "action": "fire_primary", "pressed": false, "strength": 0.0},
+        {"type": "checkpoint", "id": "machine-ark-pressure"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "input_action_exists", "action": "fire_primary"}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    }
+  ]
+}
