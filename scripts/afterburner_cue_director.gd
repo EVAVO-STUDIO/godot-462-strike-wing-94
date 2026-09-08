@@ -26,10 +26,11 @@ const LOWER_LEFT_KEEP_OUT := Rect2(0.0, 252.0, 244.0, 108.0)
 const ENGINE_BURST_FRAME_ENDS := [0.035, 0.080, 0.135, 0.200, 0.275, 0.360]
 const SONIC_BOOM_DURATION := 0.58
 const SECONDARY_RING_DELAY := 0.075
-const PRIMARY_RING_SIZE := Vector2(82,82)
-const PRIMARY_RING_END_SIZE := Vector2(220,220)
-const SECONDARY_RING_SIZE := Vector2(54,54)
-const SECONDARY_RING_END_SIZE := Vector2(154,154)
+const PRIMARY_RING_SIZE := Vector2(82,46)
+const PRIMARY_RING_END_SIZE := Vector2(238,126)
+const SECONDARY_RING_SIZE := Vector2(54,30)
+const SECONDARY_RING_END_SIZE := Vector2(166,88)
+const PRESSURE_FRONT_TRAVEL := 58.0
 const ENGINE_MOUNTS := {
 	"fighter": [[Vector2(1,27),Vector2(9,25)],[Vector2(-7,30),Vector2(3,30)],[Vector2(-6,30),Vector2(5,30)],[Vector2(-3,30),Vector2(5,30)],[Vector2(-10,25),Vector2(-2,28)]],
 	"bomber": [[Vector2(1,26),Vector2(10,22)],[Vector2(-4,30),Vector2(5,29)],[Vector2(-6,30),Vector2(5,30)],[Vector2(-7,29),Vector2(3,30)],[Vector2(-12,24),Vector2(-3,27)]],
@@ -105,10 +106,13 @@ func draw_afterburner(surface: CanvasItem) -> void:
 		# an authored annular pressure wave. The older lateral front remains as a
 		# restrained atmospheric compression layer behind it.
 		var engine_ring := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_engine_ring", t)
-		var ring_center := p + Vector2(0,24)
+		# In this top-down camera the circular wave is strongly foreshortened. Its
+		# centre falls aft as the VX-94 outruns it, so the shell clears the craft
+		# instead of lingering around it like a lock-on reticle.
+		var ring_center := p + Vector2(0,24.0+PRESSURE_FRONT_TRAVEL*ease(t,0.78))
 		var ring_ease := ease(t,0.72)
 		var ring_size := PRIMARY_RING_SIZE.lerp(PRIMARY_RING_END_SIZE,ring_ease).round()
-		var ring_alpha := 0.72*(1.0-smoothstep(0.58,1.0,t))*flash_scale
+		var ring_alpha := 0.66*(1.0-smoothstep(0.48,0.88,t))*flash_scale
 		surface.draw_texture_rect(engine_ring,Rect2((ring_center-ring_size*0.5).round(),ring_size),false,Color(1,1,1,ring_alpha))
 		# A delayed inner wake makes the pressure break read as a launched pulse,
 		# rather than a static targeting ring centered on the aircraft.
@@ -116,8 +120,9 @@ func draw_afterburner(surface: CanvasItem) -> void:
 			var wake_t := clampf((_boom_age-SECONDARY_RING_DELAY)/(SONIC_BOOM_DURATION-SECONDARY_RING_DELAY),0.0,1.0)
 			var wake := PersistentEffectArtLibrary.frame_for_ratio("hypersonic_engine_ring",wake_t)
 			var wake_size := SECONDARY_RING_SIZE.lerp(SECONDARY_RING_END_SIZE,ease(wake_t,0.72)).round()
-			var wake_alpha := 0.40*(1.0-smoothstep(0.52,1.0,wake_t))*flash_scale
-			surface.draw_texture_rect(wake,Rect2((ring_center-wake_size*0.5).round(),wake_size),false,Color(0.78,0.92,1.0,wake_alpha))
+			var wake_center := p+Vector2(0,28.0+PRESSURE_FRONT_TRAVEL*0.82*ease(wake_t,0.78))
+			var wake_alpha := 0.30*(1.0-smoothstep(0.42,0.82,wake_t))*flash_scale
+			surface.draw_texture_rect(wake,Rect2((wake_center-wake_size*0.5).round(),wake_size),false,Color(0.78,0.92,1.0,wake_alpha))
 		if _boom_age < ENGINE_BURST_FRAME_ENDS[-1]:
 			var burst: Texture2D = PersistentEffectArtLibrary.FRAMES["hypersonic_engine_burst"][_engine_burst_frame(_boom_age)]
 			surface.draw_texture(burst, (p + Vector2(-48,22)).round(), Color(1,1,1,flash_scale))

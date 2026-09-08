@@ -9,7 +9,8 @@ func run() -> void:
 	check(cue.get("ENGINE_BURST_FRAME_ENDS") == [0.035,0.080,0.135,0.200,0.275,0.360], "Burst timing must retain reviewed 35/45/55/65/75/85 ms exposures")
 	check(is_equal_approx(float(cue.get("SONIC_BOOM_DURATION")),0.58), "Sonic pressure break must remain visible long enough to read during acceleration")
 	check(float(cue.get("SECONDARY_RING_DELAY")) > 0.0 and float(cue.get("SECONDARY_RING_DELAY")) < float(cue.get("SONIC_BOOM_DURATION")), "Secondary compression ring must trail the primary pressure front")
-	check(Vector2(cue.get("PRIMARY_RING_END_SIZE")).x >= 200.0 and Vector2(cue.get("SECONDARY_RING_END_SIZE")).x >= 140.0, "Hypersonic pressure fronts must expand beyond the VX-94 without becoming a screen-sized targeting reticle")
+	check(Vector2(cue.get("PRIMARY_RING_END_SIZE")).x >= 200.0 and Vector2(cue.get("SECONDARY_RING_END_SIZE")).x >= 140.0, "Hypersonic pressure fronts must expand beyond the VX-94 without becoming screen-sized")
+	check(Vector2(cue.get("PRIMARY_RING_END_SIZE")).x > Vector2(cue.get("PRIMARY_RING_END_SIZE")).y*1.7 and float(cue.get("PRESSURE_FRONT_TRAVEL")) >= 48.0, "Top-down engine pressure shells must be foreshortened and detach aft instead of reading as targeting reticles")
 	var previous := -1
 	for sample in [0.0,0.034,0.035,0.079,0.080,0.134,0.135,0.199,0.200,0.274,0.275,0.359]:
 		var frame := int(cue.call("_engine_burst_frame", sample))
@@ -39,7 +40,7 @@ func run() -> void:
 	for frame in Art.FRAMES["hypersonic_engine_ring"]:
 		check(frame is Texture2D and frame.get_size() == Vector2(128,128) and frame.get_image().detect_alpha() != Image.ALPHA_NONE, "Engine-origin pressure ring must retain registered transparent geometry")
 	var ring_source := FileAccess.get_file_as_string("res://assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg")
-	check(ring_source.contains("M63 29C79") and ring_source.contains('stroke-width="9"'), "mature pressure fronts should retain irregular vapor contours with a broad condensation body")
+	check(ring_source.contains("M63 29C79") and ring_source.contains("M17 62C18") and ring_source.contains('stroke-width="10"'), "mature pressure fronts should retain irregular, asymmetric vapor contours with a broad condensation body")
 	check(not ring_source.contains("M45 64h38") and not ring_source.contains("M64 45v38"), "hypersonic pressure art must not regress to a targeting-style center cross")
 	cue.free()
 	if failures.is_empty(): print("HYPERSONIC propulsion self-test passed: paired engines, timed expanding burst and blue plume loop.")

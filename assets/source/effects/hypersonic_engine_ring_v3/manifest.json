@@ -28,13 +28,13 @@
       "frame": 3,
       "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
       "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/3.png",
-      "sha256": "0F2696642811AC118CBDF82093EE15B1502F14275BBBFC47C726D99B9D5F4CB7"
+      "sha256": "241BDC26C1ED9E6CE09D2DFCC92A7F91E87E4FF569A0A900F39D23C5DE19AB6B"
     },
     {
       "frame": 4,
       "source": "assets/source/effects/hypersonic_engine_ring_v3/engine_ring_sheet.svg",
       "runtime": "assets/runtime/effects/persistent/hypersonic_engine_ring/4.png",
-      "sha256": "723076D7D1132CF61AD1203AAEFD3DECCBBCB35D9F82B7BE14020F31BC035EC6"
+      "sha256": "170BDE217F3DAF20990C32D4967CF6CBDAEEF2C3E8BE67C3EF754F18314FEBB9"
     },
     {
       "frame": 5,

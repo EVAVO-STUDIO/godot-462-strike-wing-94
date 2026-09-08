@@ -925,7 +925,7 @@ func _test_persistent_effect_art() -> void:
 		_expect(source.contains('frame_for_clock("afterburner"') and source.contains('frame_for_clock("contrail"') and source.contains('frame_for_clock("hypersonic_blue_plume"'), "propulsion should separate ordinary afterburner, hypersonic blue plumes and contrails")
 		_expect(source.contains('frame_for_ratio("sonic_boom"'), "sonic transition should use the authored broken pressure front")
 		_expect(source.contains("Vector2(roundf(lerpf(76.0, 286.0, t)), roundf(lerpf(38.0, 104.0, t)))"), "player sonic break should expand as a shallow transverse pressure front instead of a square ghost-wing exposure")
-		_expect(source.contains("SECONDARY_RING_DELAY") and source.contains("PRIMARY_RING_END_SIZE"), "player sonic break should stage expanding primary and secondary engine-origin pressure rings")
+	_expect(source.contains("SECONDARY_RING_DELAY") and source.contains("PRIMARY_RING_END_SIZE") and source.contains("PRESSURE_FRONT_TRAVEL"), "player sonic break should stage expanding primary and secondary engine-origin pressure shells that detach aft")
 		_expect(source.contains('"hypersonic_engine_burst"') and source.contains("ENGINE_BURST_FRAME_ENDS") and not source.contains("draw_circle"), "hypersonic latch should use the registered timed engine burst instead of programmer-art circles")
 		_expect(not source.contains("surface.draw_arc(scene.get(\"player_position\")"), "sonic boom should not regress to a perfect vector circle")
 
