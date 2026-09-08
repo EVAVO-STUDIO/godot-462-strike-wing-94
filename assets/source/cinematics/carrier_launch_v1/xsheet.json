@@ -4,9 +4,9 @@
   "sequence": "sector_i_carrier_launch",
   "duration_frames": 259,
   "shots": [
-    {"id":"launch_deck","frames":[0,85],"role":"anticipation","background_hold":"deck_ready_A","camera":{"mode":"pan","purpose":"follow catapult axis toward the aircraft"},"changing_layers":{"rain":{"drawings":4,"exposure":8},"deck_practicals":{"drawings":4,"exposure":8}}},
+    {"id":"launch_deck","frames":[0,85],"role":"anticipation","background_hold":"deck_ready_A","camera":{"mode":"pan","purpose":"follow catapult axis toward the aircraft","plate_center_y":[150,166],"plate_zoom":[1.0,1.035],"curve":"smoothstep"},"changing_layers":{"rain":{"drawings":4,"exposure":8},"deck_practicals":{"drawings":4,"exposure":8}}},
     {"id":"launch_pilot","frames":[86,157],"role":"observation","background_hold":"cockpit_A","camera":{"mode":"locked","purpose":"hold on procedure and pilot restraint"},"changing_layers":{"canopy_rain":{"drawings":4,"exposure":8},"instrument_substitution":{"drawings":4,"exposure":8}}},
-    {"id":"launch_airborne","frames":[158,258],"role":"consequence","background_hold":"airborne_A","camera":{"mode":"track","purpose":"preserve launch-axis geography as the aircraft clears the bow"},"changing_layers":{"conventional_exhaust":{"drawings":4,"exposure":8}}}
+    {"id":"launch_airborne","frames":[158,258],"role":"consequence","background_hold":"airborne_A","camera":{"mode":"track","purpose":"preserve launch-axis geography as the aircraft clears the bow","plate_center_y":[150,160],"plate_zoom":[1.06,1.0],"curve":"smoothstep"},"changing_layers":{"conventional_exhaust":{"drawings":4,"exposure":8}}}
   ],
   "rules": {
     "independent_frame_regeneration": false,

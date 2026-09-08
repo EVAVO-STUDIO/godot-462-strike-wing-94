@@ -288,13 +288,27 @@ func _draw_plate(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: flo
 	if plate == null:
 		return
 	var camera := str(shot.get("camera", "locked"))
-	var drift := 0.0
-	if camera == "pan": drift = lerpf(80.0, 164.0, ratio)
-	elif camera == "track": drift = lerpf(210.0, 128.0, ratio)
-	else: drift = 132.0
-	var source_y := clampf(drift, 0.0, maxf(0.0, plate.get_height()-272.0))
-	surface.draw_texture_rect_region(plate, Rect2(0,24,640,272), Rect2(0,source_y,640,272), Color(0.84,0.88,0.90,alpha*0.94))
+	var default_center_y := Vector2(160.0, 160.0)
+	if camera == "pan": default_center_y = Vector2(136.0, 184.0)
+	elif camera == "track": default_center_y = Vector2(184.0, 136.0)
+	var center_y_range := _shot_number_pair(shot, "plate_center_y", default_center_y)
+	var zoom_range := _shot_number_pair(shot, "plate_zoom", Vector2.ONE)
+	var eased := ratio * ratio * (3.0 - 2.0 * ratio)
+	var zoom := maxf(1.0, lerpf(zoom_range.x, zoom_range.y, eased))
+	var source_size := Vector2(640.0, 272.0) / zoom
+	var center := Vector2(
+		plate.get_width() * 0.5,
+		clampf(lerpf(center_y_range.x, center_y_range.y, eased), source_size.y * 0.5, plate.get_height() - source_size.y * 0.5)
+	)
+	var source_rect := Rect2((center - source_size * 0.5).round(), source_size.round())
+	surface.draw_texture_rect_region(plate, Rect2(0,24,640,272), source_rect, Color(0.84,0.88,0.90,alpha*0.94))
 	surface.draw_rect(Rect2(0,24,640,272), Color(0.01,0.025,0.04,0.13*alpha))
+
+func _shot_number_pair(shot: Dictionary, key: String, fallback: Vector2) -> Vector2:
+	var raw = shot.get(key, null)
+	if typeof(raw) != TYPE_ARRAY or raw.size() < 2:
+		return fallback
+	return Vector2(float(raw[0]), float(raw[1]))
 
 func _draw_subject(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: float) -> void:
 	var sprite_id := str(shot.get("sprite", ""))

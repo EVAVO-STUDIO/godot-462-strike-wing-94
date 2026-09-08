@@ -131,9 +131,11 @@ $Cases = @(
     # The final authored guard beat is at route 214 and the boss gate preserves
     # eight seconds of separation, so this must capture beyond route 222.
     @{ id='mission_30_final_boss'; args=@('--capture-gameplay','--capture-mission=29','--capture-time=238','--visual-capture-delay=11.0') },
-    @{ id='carrier_launch_deck'; args=@('--capture-gameplay','--capture-cinematic=sector_i_carrier_launch','--capture-cinematic-shot=0') },
+    @{ id='carrier_launch_deck_start'; args=@('--capture-gameplay','--capture-cinematic=sector_i_carrier_launch','--capture-cinematic-shot=0','--visual-capture-delay=0.20') },
+    @{ id='carrier_launch_deck_settle'; args=@('--capture-gameplay','--capture-cinematic=sector_i_carrier_launch','--capture-cinematic-shot=0','--visual-capture-delay=2.80') },
     @{ id='carrier_launch_cockpit'; args=@('--capture-gameplay','--capture-cinematic=sector_i_carrier_launch','--capture-cinematic-shot=1') },
-    @{ id='carrier_launch_airborne'; args=@('--capture-gameplay','--capture-cinematic=sector_i_carrier_launch','--capture-cinematic-shot=2') },
+    @{ id='carrier_launch_airborne_start'; args=@('--capture-gameplay','--capture-cinematic=sector_i_carrier_launch','--capture-cinematic-shot=2','--visual-capture-delay=0.20') },
+    @{ id='carrier_launch_airborne_settle'; args=@('--capture-gameplay','--capture-cinematic=sector_i_carrier_launch','--capture-cinematic-shot=2','--visual-capture-delay=3.30') },
     @{ id='ending_ark_fall'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=0') },
     @{ id='ending_reentry'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=1') },
     @{ id='ending_city_silence'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=2') },
