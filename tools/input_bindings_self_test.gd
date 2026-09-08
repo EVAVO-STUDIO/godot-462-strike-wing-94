@@ -9,6 +9,7 @@ func _initialize() -> void:
 	var project_source := project.get_as_text() if project != null else ""
 	_expect(project != null and project_source.contains('InputBindings="*res://scripts/input_bindings.gd"'), "InputBindings should be a project autoload")
 	_expect(project != null and project_source.contains('ControllerSortieBayDirector="*res://scripts/controller_sortie_bay_director.gd"'), "contextual controller sortie-bay router should be a project autoload")
+	_expect(project != null and project_source.contains('FirstSortieGuidanceDirector="*res://scripts/first_sortie_guidance_director.gd"'), "Mission 1 contextual guidance should be a project autoload")
 	for action in ["move_left","move_right","move_up","move_down","fire_primary","fire_secondary","fire_support","transform_craft","afterburner","evasive_roll","deploy_countermeasure","fire_missile","call_battlefield_support","altitude_up","altitude_down","drop_strike_ordnance","throttle_up","throttle_down","confirm","cancel"]:
 		_expect(InputMap.has_action(action), "missing input action: %s" % action)
 	_expect(_has_axis("move_left", JOY_AXIS_LEFT_X, -1.0), "left-stick negative X should move left")
@@ -81,9 +82,25 @@ func _initialize() -> void:
 	_expect(overlay_source.contains("FORM IN FLIGHT"), "sortie bay should not advertise a nonfunctional hangar wing-sweep command")
 	var airframe_source := FileAccess.get_file_as_string("res://scripts/airframe_director.gd")
 	_expect(airframe_source.contains("_sortie_bay_active") and airframe_source.contains('front_end_screen'), "airframe upgrades should be gated to the actual sortie bay")
+
+	var guidance_script := load("res://scripts/first_sortie_guidance_director.gd") as Script
+	_expect(guidance_script != null, "first-sortie guidance director should load")
+	if guidance_script != null:
+		var guidance: Node = guidance_script.new()
+		_expect(str(guidance.call("_forced_guidance", "steer_fire").get("text", "")).contains("A-D/LS STEER"), "Mission 1 should teach steering and primary fire without a modal tutorial")
+		_expect(str(guidance.call("_forced_guidance", "power_geometry").get("text", "")).contains("Q/Y GEOMETRY"), "Mission 1 should introduce throttle and VX-94 geometry")
+		_expect(str(guidance.call("_forced_guidance", "altitude").get("text", "")).contains("PGUP-PGDN / D-PAD"), "Mission 1 should expose altitude controls before egress")
+		_expect(str(guidance.call("_forced_guidance", "countermeasure").get("text", "")).contains("V / LT COUNTERMEASURE"), "first real missile threat should expose countermeasure input")
+		_expect(str(guidance.call("_forced_guidance", "egress_climb").get("text", "")).contains("D-PAD UP -> HIGH"), "Mission 1 egress should name the climb input")
+		_expect(str(guidance.call("_forced_guidance", "egress_burn").get("text", "")).contains("SHIFT / LB AFTERBURNER"), "Mission 1 egress should name the afterburner input")
+		guidance.free()
+	var guidance_source := FileAccess.get_file_as_string("res://scripts/first_sortie_guidance_director.gd")
+	_expect(guidance_source.contains('int(scene.get("mission_index")) != 0') and guidance_source.contains('str(scene.get("game_mode")) != "campaign"'), "first-sortie prompts must stay limited to Mission 1 campaign play")
+	_expect(guidance_source.contains('active_secret_mission_id') and guidance_source.contains('egress_active') and guidance_source.contains('ThreatWarningRules.homing_count'), "guidance should exclude secret sorties and react to real egress/threat state")
+
 	bindings.free()
 	if failures.is_empty():
-		print("HYPERSONIC controller input self-test passed.")
+		print("HYPERSONIC controller input and first-sortie guidance self-test passed.")
 		quit(0)
 		return
 	for failure in failures:
