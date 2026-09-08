@@ -90,6 +90,9 @@ func _update_menu() -> void:
 func _update_options() -> void:
 	var settings := get_node_or_null("/root/SettingsDirector")
 	var category_count:=int(settings.call("category_count")) if settings!=null and settings.has_method("category_count") else 1
+	# ControllerMenuContextDirector remaps pad B away from fire_secondary while
+	# paused Options is open, so B reliably returns to Commands. Keyboard X/Q
+	# retain their authored category-navigation actions.
 	if Input.is_action_just_pressed("transform_craft"):_option_category=posmod(_option_category-1,category_count);_option_selection=0;return
 	if Input.is_action_just_pressed("fire_secondary"):_option_category=posmod(_option_category+1,category_count);_option_selection=0;return
 	var setting_count:=int(settings.call("category_setting_count",_option_category)) if settings!=null and settings.has_method("category_setting_count") else 1
@@ -148,6 +151,7 @@ func return_to_menu() -> void:
 	if _has_property(scene, "menu_selection"): scene.set("menu_selection", 0)
 
 func pause_active() -> bool: return _paused
+func pause_context() -> String: return _mode if _paused else ""
 
 func draw_pause(surface: CanvasItem) -> void:
 	if not _paused: return
@@ -168,7 +172,7 @@ func _draw_menu(surface: CanvasItem) -> void:
 		if index == _selection: surface.draw_texture(FRONT_END_CURSOR, position + Vector2(-16, 6))
 		surface.draw_texture(COMMAND_ICONS[index], position + Vector2(12, 6))
 		PixelFont.draw_text(surface, COMMAND_LABELS[index], position + Vector2(40, 9), 1, GOLD if index == _selection else TEXT, 1)
-	PixelFont.draw_centered(surface, "ENTER SELECT   ESC RESUME", 320, 290, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "ENTER/A SELECT   ESC/B RESUME   X RESTART", 320, 290, 1, MUTED, 1)
 	PixelFont.draw_centered(surface, "MISSION TIME AND ENCOUNTER STATE HELD", 320, 310, 1, BLUE, 1)
 
 func _draw_options(surface: CanvasItem) -> void:
@@ -189,7 +193,7 @@ func _draw_options(surface: CanvasItem) -> void:
 			surface.draw_texture(VALUE_TROUGH, position + Vector2(286, 11))
 			_draw_clipped_fill(surface, VALUE_FILL, position + Vector2(288, 13), ratio)
 		PixelFont.draw_text(surface, value, position + Vector2(382 - PixelFont.text_width(value,1,1), 9), 1, GREEN if ratio >= 0.5 else MUTED, 1)
-	PixelFont.draw_centered(surface, "LEFT / RIGHT ADJUST   ESC COMMANDS", 320, 294, 1, MUTED, 1)
+	PixelFont.draw_centered(surface, "Q/Y PREV   X NEXT   LEFT/RIGHT/LS ADJUST   ESC/B COMMANDS", 320, 294, 1, MUTED, 1)
 
 func _draw_confirmation(surface: CanvasItem) -> void:
 	var title := "RESTART CURRENT SORTIE?" if _mode == "confirm_restart" else "ABORT TO MAIN MENU?"
@@ -197,7 +201,7 @@ func _draw_confirmation(surface: CanvasItem) -> void:
 	surface.draw_texture(WARNING_ICON, Vector2(144, 160))
 	PixelFont.draw_centered(surface, title, 320, 157, 2, RED, 1)
 	PixelFont.draw_centered(surface, "CURRENT MISSION PROGRESS WILL BE LOST", 320, 184, 1, GOLD, 1)
-	PixelFont.draw_centered(surface, "ENTER CONFIRM   ESC CANCEL", 320, 202, 1, TEXT, 1)
+	PixelFont.draw_centered(surface, "ENTER/A CONFIRM   ESC/B CANCEL", 320, 202, 1, TEXT, 1)
 
 func _draw_clipped_fill(surface: CanvasItem, texture: Texture2D, position: Vector2, ratio: float) -> void:
 	var width := floorf(float(texture.get_width()) * clampf(ratio, 0.0, 1.0))
