@@ -125,6 +125,8 @@ func _test_runtime_wiring() -> void:
 		_expect(source.contains("_observe_enemy_hypersonic_boom") and source.contains('enemy.get("hypersonic_boom_age"') and source.contains("_enemy_boom_latched"), "enemy interceptor shockwaves should trigger one bounded sonic boom per pursuit break")
 		_expect(source.contains("_observe_enemy_missile_launch") and source.contains("enemy_missiles_launched") and source.contains("MISSILE_LAUNCH"), "enemy missiles should use a distinct launch voice driven by an authoritative launch counter")
 		_expect(source.contains("_update_propulsion_target") and source.contains("_propulsion_target_gain") and source.contains("_propulsion_phase"), "gameplay should sustain a smoothed procedural propulsion bed instead of relying on ignition one-shots")
+		_expect(source.contains("_propulsion_phase_right") and source.contains("_propulsion_rumble_phase") and source.contains("_propulsion_airflow_filtered"), "twin-engine propulsion should retain separated turbine phases, compressor rumble and filtered airflow")
+		_expect(source.contains("Vector2(sample_left,sample_right)"), "propulsion should retain restrained twin-engine stereo separation instead of collapsing to a mono oscillator")
 		_expect(source.contains("_observe_startup_sequence") and source.contains("RetroSfxRules.title_propulsion_bed()"), "HYPERSONIC reveal should own a restrained continuous turbine bed")
 		_expect(source.contains('craft.call("throttle_ratio")') and source.contains("transition_direction,throttle"), "runtime propulsion audio should consume the same throttle command as route speed")
 		_expect(source.contains("title_elapsed >= 0.45") and source.contains("TITLE_RADAR"), "title reveal should time its subtle radar cue to the moving cloud exposure")

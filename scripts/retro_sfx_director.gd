@@ -34,6 +34,9 @@ var _propulsion_target_frequency := 58.0
 var _propulsion_airflow := 0.0
 var _propulsion_target_airflow := 0.0
 var _propulsion_phase := 0.0
+var _propulsion_phase_right := 0.17
+var _propulsion_rumble_phase := 0.0
+var _propulsion_airflow_filtered := 0.0
 var _startup_stage := -1
 var _title_radar_cued := false
 var _title_transform_cued := false
@@ -316,9 +319,18 @@ func _fill_audio_buffer() -> void:
 	var frames := _playback.get_frames_available()
 	for _i in range(frames):
 		_propulsion_phase = fposmod(_propulsion_phase + _propulsion_frequency / MIX_RATE, 1.0)
-		var turbine := sin(_propulsion_phase * TAU) * 0.62 + sin(_propulsion_phase * TAU * 2.03) * 0.20
-		var airflow := _noise_sample() * _propulsion_airflow
-		var sample := (turbine + airflow) * _propulsion_gain * _sfx_gain * RetroSfxPriorityRules.propulsion_duck(critical_duck_active)
+		_propulsion_phase_right = fposmod(_propulsion_phase_right+(_propulsion_frequency*1.013)/MIX_RATE,1.0)
+		_propulsion_rumble_phase = fposmod(_propulsion_rumble_phase+(_propulsion_frequency*0.36)/MIX_RATE,1.0)
+		var airflow_response := 0.045+_propulsion_airflow*0.055
+		_propulsion_airflow_filtered = lerpf(_propulsion_airflow_filtered,_noise_sample(),airflow_response)
+		var rumble := sin(_propulsion_rumble_phase*TAU)*0.24
+		var turbine_left := sin(_propulsion_phase*TAU)*0.57+sin(_propulsion_phase*TAU*2.03)*0.18+rumble
+		var turbine_right := sin(_propulsion_phase_right*TAU)*0.57+sin(_propulsion_phase_right*TAU*1.97)*0.18+rumble
+		var airflow_left := _propulsion_airflow_filtered*_propulsion_airflow
+		var airflow_right := (_propulsion_airflow_filtered*0.86+_noise_sample()*0.14)*_propulsion_airflow
+		var propulsion_mix := _propulsion_gain*_sfx_gain*RetroSfxPriorityRules.propulsion_duck(critical_duck_active)
+		var sample_left := (turbine_left+airflow_left)*propulsion_mix
+		var sample_right := (turbine_right+airflow_right)*propulsion_mix
 		for vi in range(_voices.size() - 1, -1, -1):
 			var voice: Dictionary = _voices[vi]
 			var duration := maxf(0.001, float(voice.get("duration", 0.1)))
@@ -339,10 +351,13 @@ func _fill_audio_buffer() -> void:
 			var priority_value := int(voice.get("priority", RetroSfxPriorityRules.ROUTINE))
 			var duck_gain := RetroSfxPriorityRules.voice_duck(priority_value, critical_duck_active)
 			var gain := float(voice.get("gain",0.12))*float(voice.get("mix_gain",1.0))*envelope*duck_gain
-			sample += _wave_sample(str(voice.get("wave", "sine")), phase, t) * gain
+			var voice_sample := _wave_sample(str(voice.get("wave", "sine")),phase,t)*gain
+			sample_left += voice_sample
+			sample_right += voice_sample
 			_voices[vi] = voice
-		sample = clampf(sample, -0.85, 0.85)
-		_playback.push_frame(Vector2(sample, sample))
+		sample_left = clampf(sample_left,-0.85,0.85)
+		sample_right = clampf(sample_right,-0.85,0.85)
+		_playback.push_frame(Vector2(sample_left,sample_right))
 
 func _wave_sample(kind: String, phase: float, progress: float) -> float:
 	match kind:
