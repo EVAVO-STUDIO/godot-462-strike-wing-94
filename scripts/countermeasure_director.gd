@@ -14,10 +14,11 @@ const FLARE_FRAMES := [
 const FLARE_PIVOT := Vector2(24, 10)
 # Each cel already contains a paired cartridge. Keep the pair crisp but small
 # enough that five staged ejections read as ten individual decoys, not one fire.
-const SALVO_CARTRIDGE_SCALE := Vector2(0.58,0.58)
+const SALVO_CARTRIDGE_SCALE := Vector2(0.46,0.46)
 const SALVO_DELAYS := [0.0,0.055,0.110,0.165,0.220]
 const SALVO_LATERAL_OFFSETS := [-14.0,14.0,-10.0,10.0,0.0]
-const SALVO_ANGLE_OFFSETS := [-0.72,0.72,-0.48,0.48,0.0]
+const SALVO_ANGLE_OFFSETS := [-0.62,0.78,-0.39,0.52,-0.08]
+const SALVO_SPEED_FACTORS := [0.92,1.08,0.78,1.18,0.86]
 const DISPENSER_OFFSETS := {
 	"fighter": [Vector2(-10,14),Vector2(-7,15),Vector2(0,16),Vector2(7,15),Vector2(10,14)],
 	"bomber": [Vector2(-14,16),Vector2(-9,17),Vector2(0,18),Vector2(9,17),Vector2(14,16)],
@@ -86,6 +87,7 @@ func deploy(scene: Object) -> int:
 		_events.append({
 			"position": player + dispenser + Vector2(SALVO_LATERAL_OFFSETS[salvo_index], float(salvo_index)),
 			"angle": bank_angle + SALVO_ANGLE_OFFSETS[salvo_index],
+			"speed_factor": SALVO_SPEED_FACTORS[salvo_index],
 			"age": -SALVO_DELAYS[salvo_index],
 			"serial": _serial * SALVO_DELAYS.size() + salvo_index,
 		})
@@ -108,9 +110,15 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 		var texture: Texture2D = FLARE_FRAMES[frame_index]
 		var position: Vector2 = event.get("position", Vector2.ZERO)
 		var trail_direction := Vector2(sin(float(event.get("angle", 0.0))), cos(float(event.get("angle", 0.0))))
-		# Cartridge, incandescent head and smoke all follow the same ejection
-		# vector. The earlier unrelated sine offset made the wake bend sideways.
-		position += trail_direction*ratio*CountermeasureRules.DECOY_TRAIL_DISTANCE
+		# Each cassette cup leaves with slightly different impulse, then loses
+		# energy into the slipstream and drops aft. Stable serial drift prevents
+		# the port/starboard pairs forming a perfect arcade V while keeping the
+		# cartridge, incandescent head and smoke on one physical trajectory.
+		var speed_factor := float(event.get("speed_factor",1.0))
+		var ballistic_time := 1.0-pow(1.0-ratio,1.42)
+		var serial_drift := float(posmod(int(event.get("serial",0))*17,13)-6)
+		position += trail_direction*ballistic_time*CountermeasureRules.DECOY_TRAIL_DISTANCE*speed_factor
+		position += Vector2(serial_drift*ratio*ratio*0.72,ratio*ratio*18.0)
 		for puff_index in range(3):
 			var trail_ratio := clampf(ratio - float(puff_index + 1) * 0.075, 0.0, 1.0)
 			if trail_ratio <= 0.0:
