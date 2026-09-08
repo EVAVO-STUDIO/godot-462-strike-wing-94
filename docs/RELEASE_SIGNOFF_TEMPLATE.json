@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "product": "HYPERSONIC",
+  "head_sha": "REPLACE_WITH_EXACT_GIT_HEAD_SHA",
+  "reviewer": "REPLACE_WITH_HUMAN_REVIEWER",
+  "reviewed_utc": "REPLACE_WITH_ISO_8601_UTC_TIMESTAMP",
+  "campaign": {
+    "complete_end_to_end": false,
+    "keyboard_complete": false,
+    "controller_complete": false
+  },
+  "onboarding": {
+    "passed_without_readme_or_developer_help": false
+  },
+  "balance": {
+    "passed": false,
+    "no_dominant_trivial_strategy": false,
+    "no_progress_wall": false
+  },
+  "visual": {
+    "passed": false,
+    "native_1280x720": false,
+    "native_1920x1080_or_fullscreen": false,
+    "hud_and_warning_readability": false,
+    "reduced_flash_and_accessibility_reviewed": false
+  },
+  "audio": {
+    "passed": false,
+    "critical_cues_readable": false,
+    "no_clipping_or_masked_warnings": false
+  },
+  "blockers": {
+    "p0": 0,
+    "p1": 0
+  },
+  "notes": []
+}
