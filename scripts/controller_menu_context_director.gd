@@ -14,12 +14,16 @@ var _last_controller_msec := -100000
 func _ready() -> void:
 	layer = 39
 	process_priority = -45
+	# PauseDirector freezes the SceneTree. Context remapping still has to run so
+	# B can remain BACK instead of also becoming the paused-options category key.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	if DisplayServer.get_name() != "headless":
 		_surface = ControllerMenuContextSurface.new()
 		_surface.director = self
 		_surface.position = Vector2.ZERO
 		_surface.size = Vector2(640, 360)
 		_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_surface.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(_surface)
 
 func _process(_delta: float) -> void:
@@ -38,16 +42,21 @@ func _input(event: InputEvent) -> void:
 		# operation and cannot trap a controller-only player in key-listen mode.
 		set_meta(&"qa_controls_confirm_suppressed", true)
 		get_viewport().set_input_as_handled()
-	elif _context == "options" and event is InputEventJoypadButton and event.pressed:
+	elif _context in ["options", "pause_options"] and event is InputEventJoypadButton and event.pressed:
 		var button := int((event as InputEventJoypadButton).button_index)
-		if button == JOY_BUTTON_X: set_meta(&"qa_options_next_category", true)
-		elif button == JOY_BUTTON_Y: set_meta(&"qa_options_previous_category", true)
-		elif button == JOY_BUTTON_B: set_meta(&"qa_options_back", true)
+		var prefix := "qa_pause_options_" if _context == "pause_options" else "qa_options_"
+		if button == JOY_BUTTON_X: set_meta(StringName(prefix + "next_category"), true)
+		elif button == JOY_BUTTON_Y: set_meta(StringName(prefix + "previous_category"), true)
+		elif button == JOY_BUTTON_B: set_meta(StringName(prefix + "back"), true)
 
 func _exit_tree() -> void:
 	_restore_universal_buttons()
 
 func _wanted_context() -> String:
+	var pause := get_node_or_null("/root/PauseDirector")
+	if pause != null and pause.has_method("pause_active") and bool(pause.call("pause_active")):
+		var pause_context := str(pause.call("pause_context")) if pause.has_method("pause_context") else ""
+		return "pause_options" if pause_context == "options" else ""
 	var scene := get_tree().current_scene
 	if scene == null or not _has_property(scene, "phase") or int(scene.get("phase")) != 0:
 		return ""
@@ -59,13 +68,13 @@ func _wanted_context() -> String:
 func _set_context(next_context: String) -> void:
 	_restore_universal_buttons()
 	_context = next_context
-	if _context == "options":
+	if _context in ["options", "pause_options"]:
 		# Keyboard X remains fire_secondary. For pad navigation B must remain BACK,
-		# so temporarily move the secondary-action pad event from B to X. Main's
-		# existing options handler then reads Y=previous category, X=next category.
+		# so temporarily move the secondary-action pad event from B to X. The
+		# front-end and pause option handlers then read Y=previous and X=next.
 		_remove_button(&"fire_secondary", JOY_BUTTON_B)
 		_add_button(&"fire_secondary", JOY_BUTTON_X)
-		set_meta(&"qa_options_context_configured", true)
+		set_meta(&"qa_pause_options_context_configured" if _context == "pause_options" else &"qa_options_context_configured", true)
 	elif _context == "controls":
 		# The control station edits keyboard assignments only. Prevent controller A
 		# from entering a listener that accepts only InputEventKey.
@@ -80,7 +89,9 @@ func _restore_universal_buttons() -> void:
 	_add_button(&"confirm", JOY_BUTTON_A)
 
 func draw_context_hint(surface: CanvasItem) -> void:
-	if _context.is_empty() or not _controller_recent_or_connected():
+	# PauseDirector owns its own layer-110 controller legends. This lower front-end
+	# layer only draws hints for non-paused Options / Flight Controls.
+	if _context not in ["options", "controls"] or not _controller_recent_or_connected():
 		return
 	var text := "PAD Y/X CATEGORY  LS ADJUST  B BACK" if _context == "options" else "PAD VIEW ONLY  LS SCROLL  B BACK"
 	var width := clampf(24.0 + float(text.length()) * 4.0, 220.0, 360.0)
