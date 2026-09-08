@@ -118,6 +118,10 @@ func _test_formation_geometry() -> void:
 	_expect(EncounterRules.airborne_ingress_offset("line", 0) != EncounterRules.airborne_ingress_offset("line", 1), "airborne line entries should carry fore/aft separation instead of forming a screen-space row")
 	_expect(EncounterRules.airborne_ingress_offset("line", 3) <= 16.0, "airborne line staggering should remain a disciplined flight rather than serial reinforcements")
 	_expect(EncounterRules.airborne_ingress_offset("wedge", 2) == 0.0, "formations with authored depth should not receive a second implicit stagger")
+	_expect(EncounterRules.formation_depth_offset("line",0,"sea","water_lane") != EncounterRules.formation_depth_offset("line",1,"sea","water_lane"), "naval lines should carry fore/aft separation instead of forming a screen-space row")
+	_expect(EncounterRules.formation_depth_offset("line",5,"sea","water_lane") <= 24.0, "naval line depth should remain a coordinated task group rather than serial contacts")
+	_expect(EncounterRules.formation_depth_offset("line",2,"ground","road_column") > EncounterRules.formation_depth_offset("line",1,"ground","road_column"), "road-mobile formations should enter as a convoy with route spacing")
+	_expect(EncounterRules.formation_depth_offset("line",2,"ground","static") == 0.0, "fixed batteries should retain their authored surveyed placement")
 	_expect(absf(shell[0].x - 0.5) < 0.001 and shell[1].x < 0.5 and shell[2].x > 0.5, "escort shell should protect a centre principal")
 
 func _test_route_runtime_wiring() -> void:

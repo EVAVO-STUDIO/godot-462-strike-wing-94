@@ -151,6 +151,27 @@ static func airborne_ingress_offset(formation_id: String, index_value: int) -> f
 			return float(posmod(index, 3)) * 3.0
 	return 0.0
 
+static func formation_depth_offset(formation_id: String, index_value: int, category: String, pattern: String = "") -> float:
+	var index := maxi(0,index_value)
+	if category == "air":
+		return airborne_ingress_offset(formation_id,index)
+	# Ships and road-mobile units occupy the same route at different ranges.
+	# A mathematically exact screen row reads as an arcade formation and causes
+	# wakes, hulls and muzzle flashes to merge into one horizontal band.
+	if category == "sea":
+		match formation_id:
+			"line":
+				var naval_line_steps := [0.0,11.0,5.0,17.0,8.0,22.0]
+				return naval_line_steps[index%naval_line_steps.size()]+floorf(float(index)/float(naval_line_steps.size()))*9.0
+			"missile_screen":
+				return float(posmod(index*7,13))
+	if category == "ground" and pattern == "road_column":
+		match formation_id:
+			"line", "stagger":
+				var convoy_steps := [0.0,9.0,19.0,27.0,38.0,46.0]
+				return convoy_steps[index%convoy_steps.size()]+floorf(float(index)/float(convoy_steps.size()))*54.0
+	return 0.0
+
 static func is_secret(beat: Dictionary) -> bool:
 	return bool(beat.get("secret", false))
 

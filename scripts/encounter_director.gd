@@ -124,7 +124,7 @@ func radar_forecast_contacts(scene: Object) -> Array:
 			if archetype.is_empty() or bool(archetype.get("boss", false)):
 				continue
 			var point: Vector2 = points[index] if index < points.size() else Vector2(0.5, 0.0)
-			var air_ingress := EncounterRules.airborne_ingress_offset(EncounterRules.formation(beat), index) if str(archetype.get("class", "air")) == "air" else 0.0
+			var air_ingress := EncounterRules.formation_depth_offset(EncounterRules.formation(beat),index,str(archetype.get("class","air")),str(archetype.get("pattern","")))
 			result.append({
 				"position": Vector2(
 					lerpf(FORMATION_MIN_X, FORMATION_MAX_X, clampf(point.x, 0.0, 1.0)),
@@ -216,7 +216,7 @@ func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priorit
 	var position: Vector2 = enemy.get("position", Vector2(320.0, 34.0))
 	position.x = lerpf(FORMATION_MIN_X, FORMATION_MAX_X, clampf(point.x, 0.0, 1.0))
 	var category := str(enemy.get("category", "air"))
-	var ingress_offset := EncounterRules.airborne_ingress_offset(formation_id, formation_index) if category == "air" else 0.0
+	var ingress_offset := EncounterRules.formation_depth_offset(formation_id,formation_index,category,str(enemy.get("pattern","")))
 	position.y -= maxf(0.0, point.y + ingress_offset)
 	enemy["position"] = position
 	enemy["pattern_anchor_x"] = position.x
