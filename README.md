@@ -1,221 +1,244 @@
 # HYPERSONIC
 
-Original 90s PC-style vertical scrolling combat shooter built in Godot 4.6.2.
+Original late-90s PC-style vertical scrolling combat shooter built in Godot 4.6.2.
 
 **VX-94 VARIABLE STRIKE FIGHTER**
 
-HYPERSONIC is centered on the **VX-94 Variable Strike Fighter (VSF)**, a 1999 imagined-future variable-geometry strike craft that can shift between a narrow fighter configuration and a wide bomber/attack configuration while operating from terrain-skimming altitude through near orbit. `Strike Wing '94` is retained only as a legacy/internal development alias and repository identifier.
+HYPERSONIC is centered on the **VX-94 Variable Strike Fighter (VSF)**, a 1999 imagined-future variable-geometry strike craft that can shift between fighter and bomber/attack configurations while operating from terrain-skimming altitude through near orbit. `Strike Wing '94` is retained only as a legacy/internal development alias and repository identifier.
 
 ## Current status
 
 Playable 30-mission, three-sector campaign plus six secret sorties on `main`.
 
-Implemented now:
+HYPERSONIC is under **release-candidate feature freeze**. The remaining work is release evidence, human play/balance judgement, presentation/audio correction, packaging and candidate identity—not new feature families.
 
-- approved EVAVO publisher splash with canonical plate/sparkle assets, black transition, and skippable HYPERSONIC title sequence
-- deterministic save-isolated arcade attract reel with VX-94 transformation, hypersonic pursuit, weapons and Machine Ark showcase
-- 640×360 logical canvas with nearest-neighbour presentation to 1280×720
-- governed sprite-built title, briefing, debrief, options, pause and combat HUD presentation
-- production VX-94 fighter / bomber sprite animation with a ten-exposure mechanical wing sweep, held key poses, ready-state latch and separate banking cels
-- fighter wing-root cannon posture and bomber-deployed nose rotary cannon
-- form-aware projectile muzzle positions and matching muzzle-flash presentation
-- original procedural fighter / bomber rotary / rail / energy / support SFX
-- material-specific shield contact, shield-collapse and physical hull-hit feedback
-- original 12-cue tracker score with three rotating combat identities for each campaign sector
-- short weapons interlock during geometry changes
+Implemented now includes:
+
+- approved EVAVO publisher splash and HYPERSONIC startup/title sequence
+- deterministic save-isolated attract reel
+- 640×360 logical canvas with nearest-neighbour 1280×720 desktop presentation
+- sprite-built title, briefing, debrief, options, controls, pause and combat HUD
+- production VX-94 fighter/bomber animation with ten-exposure wing sweep and banking states
+- form-aware weapon mounts, muzzle positions and effect cues
+- original procedural weapon/support/environment SFX and 12-cue tracker score
 - four altitude bands: low / mid / high / orbital
-- authored cinematic altitude transitions plus bounded player-selectable altitude-lane windows
-- PageUp/PageDown adjacent-lane choices where the mission allows them
-- animated climb/dive cloud sweep, pitch cue, target-scale interpolation and separate climb/dive SFX
-- finite afterburner reserve with form/altitude efficiency and Atlas tanker refuel
-- pilot-controlled dry throttle where scenery, surface contacts, recovery pods, authored encounter locations, altitude gates and command-contact arrival all use accumulated forward route distance; weapon timing and survival exposure remain real-time
-- lateral mission-airspace recovery zones with directional edge chevrons and a four-second abort countdown instead of an unexplained invisible wall
-- six-district 6144-pixel refinery routes with distinct storage, cracking, rail, flare-service, pressure-grid and evacuation-terminal geography
-- six-district 6144-pixel Meridian city routes with freight, flooded transit, conversion, evacuation and drainage geography while protected civilian contacts remain separate gameplay objects
-- six-district 6144-pixel mountain routes with frozen switchbacks, radar basins, ice cliffs and avalanche cuts beneath separately animated snow shear and weather particles
-- six-district 6144-pixel blackout-harbor routes with breakwaters, repair rows, command docks and offshore moles beneath separately animated reflections, wakes and rain
-- six-district 6144-pixel Desert Lance routes with salt escarpments, wadi choke points, launcher dispersal lanes and the railhead basin beneath separate dust, scars and battlefield targets
-- six-district 6144-pixel River Hammer routes with floodplains, defended crossings, artillery islands and an estuary shipyard beneath registered current, bridges, wakes and rain
-- six-district 6144-pixel BLACK SKY orbital routes with dead antenna lattices, kinetic rail platforms, debris foundries and command-ark infrastructure over separate near-Earth, debris and combat layers
-- 25-frame cel-authored weapon detonation suite with pressure-led missile airbursts, ground-coupled rocket and bomb columns, directional cannon spall, retained smoke and asymmetric debris
-- visible and audible hypersonic pursuit by mercenary, machine and orbital interceptor families
-- distinct missile acquisition and launch voices for interceptor and boss homing salvos
-- mechanical purchase/service confirmation and short mission-clear reward stingers
-- mission-intelligence overlay with threat/altitude/form/tech/boss/support information and tactical support advice
+- player-controlled altitude windows plus authored cinematic altitude transitions
+- finite afterburner, persistent throttle and hypersonic travel/egress mechanics
+- lateral mission-airspace recovery zones and abort countdowns
+- long authored coast, refinery, city, mountain, harbor, desert, river and BLACK SKY routes
+- 25-frame authored detonation suite with differentiated projectile/impact families
 - eight primary weapon tiers from conventional cannon through Plasma Lance
-- generator capacity/recharge progression and matching-era efficiency
-- five persistent airframe tiers with increasing hull/shield capacity and bounded damage resistance
-- seven onboard tactical support systems including EMP, Magnetic Screen and Micro-Warhead Rack
-- separate allied battlefield support: fighter flight, bomber flight, gunship, tanker, cruise missile, rail and orbital strike
-- interactive Atlas tanker hose hookup / rearm / refuel sequence
-- dedicated bomber precision-strike ordnance at low/mid altitude
-- deterministic authored encounter beats, formations, recovery windows and mastery secrets
-- mission-authored ingress separation so Coastal Intercept establishes terrain and heading before its four-ship scout screen, rather than stacking random contacts over the opening seconds
+- generator progression and era-specific efficiency
+- five persistent airframe tiers
+- seven onboard tactical support systems
+- separate allied battlefield support and Atlas tanker/rearm sequence
+- dedicated bomber precision-strike ordnance
+- deterministic authored encounter beats, recovery windows and mastery secrets
 - 30 core missions across Mercenary War, Machine War and BLACK SKY, plus six discoverable secret sorties
-- arcade assault and authored challenge routes with independent scoring/progression rules
+- four additional arcade/challenge modes with independent route/scoring rules
 - 38 canonical enemy identities spanning air, ground, naval and orbital warfare, including nine bosses
-- boss phase / weak-point behavior and signature attacks
-- Needle Rail penetration, Storm Cannon pulse discharge and Plasma Lance field discharge
-- bounded strategic Micro-Warhead pre-impact blast
-- persistent campaign credits, equipment and serviced airframe state
+- boss phases, weak-point behavior and signature attacks
+- persistent campaign credits, equipment, branch choices and serviced airframe state
 - versioned v13 local autosave with stable mission identity, validated backup recovery and v1-v12 migration compatibility
-- verified layered runtime art for the VX-94, enemies, bosses, projectiles, airframes, support set pieces and cinematic hero cels
-- modular, seam-tested coast/refinery environment stacks with animated water, surf, cloud, smoke and weather layers
-- deterministic surface-force lanes that keep armour and infantry on land, ships in navigable water, and river forces on the correct bank or channel
 - campaign launch/ending cinematics, completion aftermath, credits and post-campaign presentation
-- persistent subtitles, reduced-shake, reduced-flash and enhanced-projectile-contrast accessibility controls
-- mission-wide command radio with sector callsigns, authored briefing/contact/boss calls, transceiver cues and subtitle control
-- local PowerShell validation with optional Godot headless test/editor smoke pass
+- subtitles, reduced-shake, reduced-flash and enhanced-projectile-contrast accessibility controls
+- mission-wide command radio with sector callsigns and priority cue handling
+- priority-aware eight-voice procedural SFX allocation and critical-cue music ducking
+- contextual Mission 1 control guidance that follows live keyboard rebindings
+- controller-complete Sortie Bay maintenance/progression
+- contextual controller Options / Flight Controls / tactical pause routing
+- local zero-cost validation, native QA and exact-SHA Windows release evidence tooling
 
-The obsolete player/enemy/projectile polygons have been removed from `main.gd`. Live combat now resolves through governed sprite manifests and dedicated presentation directors; environment seam gates, art-contract tests and real Godot capture passes protect the active production stack.
+The obsolete prototype player/enemy/projectile polygons are removed from `main.gd`. Live presentation is owned by governed sprite/environment/UI/effect directors.
 
 ## Controls
 
-### Flight
+### Keyboard flight
 
 - Move: `WASD` or arrow keys
-- Persistent throttle increase/decrease: `T` / `G` (right stick vertical on controller)
+- Persistent throttle increase/decrease: `T` / `G`
 - Primary fire: `Space`
-- Afterburner: `Shift`
-- Transform fighter / bomber: `Q`
-- Committed evasive roll: hold left/right and press `C`
-- Climb one mission-authorized altitude lane: `PageUp`
-- Dive one mission-authorized altitude lane: `PageDown`
 - Emergency screen bomb: `X`
+- Transform fighter / bomber: `Q`
+- Afterburner: `Shift`
+- Committed evasive roll: hold left/right and press `C`
+- Climb one authorized altitude lane: `PageUp`
+- Dive one authorized altitude lane: `PageDown`
+- Countermeasure: `V`
+- AIM-9 missile: `M`
 - Bomber precision strike: `E`
 - Onboard tactical support: `Z`
-- Call selected allied battlefield support: `F`
+- Allied battlefield support: `F`
+- Pause: `Esc`
 
-Controller defaults use Godot's standard Xbox/PlayStation-style mapping:
+Keyboard flight bindings can be reassigned from **FLIGHT CONTROLS**. The assignment station captures physical keys, swaps conflicts, persists changes and supports restoring authored defaults with `Backspace`.
+
+### Controller flight
+
+The in-flight pad mapping deliberately separates combat and pause:
 
 - Move: left stick
-- Primary / confirm: south face button
-- Screen bomb / cancel: east face button
-- Tactical support: west face button
-- Transform: north face button
-- Afterburner: left shoulder
-- Battlefield support: right shoulder
+- Persistent throttle: right stick vertical
+- Primary fire: south face button / A
+- **Screen Bomb: east face button / B**
+- Tactical support: west face button / X
+- Transform: north face button / Y
+- Afterburner: left shoulder / LB
+- Battlefield support: right shoulder / RB
+- Countermeasure: left trigger / LT
+- AIM-9 missile: right trigger / RT
+- Evasive roll: left-stick click / L3
+- Precision strike ordnance: right-stick click / R3
 - Altitude: D-pad up/down
-- Cycle tactical/battlefield support: D-pad left/right
-- Precision strike ordnance: right-stick click
+- **Pause: START**
 
-The combat viewport represents the currently assigned mission corridor. Flying into either lateral recovery zone raises directional edge chevrons and an **AIRSPACE LIMIT** countdown. Turn back toward the route to clear it; holding outward flight through the countdown aborts the sortie. Broader terrain-defined collision corridors or wider world-space maps are post-release design candidates, not part of the current Windows release tranche.
+B is not Pause while flying. This prevents a single controller press from both spending a Screen Bomb and opening tactical pause.
 
-Keyboard flight bindings can be reassigned from **FLIGHT CONTROLS** on the main menu. The assignment station captures physical keys, swaps conflicts so both actions remain reachable, persists changes in the local options file, preserves controller bindings, and supports restoring the authored defaults with `Backspace`.
+### Controller menus
 
-### Briefing / loadout
+Contextual mappings are intentionally different outside flight:
 
-- Launch / continue: `Enter`
-- Mission intelligence overlay: `I`
-- Buy next primary weapon: `U`
+- normal menus: A confirm, B back
+- Options: Y/X previous/next category, left stick navigate/adjust, B back
+- Flight Controls: pad view/scroll only; B back; A cannot enter keyboard-only key listening
+- tactical pause: A select/confirm, B resume/cancel, X quick restart confirmation
+- paused Options: Y/X previous/next category, B return to Commands
+
+### Sortie Bay / campaign maintenance
+
+Keyboard:
+
+- Launch: `Enter`
+- Mission intelligence: `I`
+- Buy next primary: `U`
 - Buy next generator: `G`
 - Buy next VX-94 airframe: `K`
-- Cycle unlocked tactical support: `C`
+- Cycle tactical support: `C`
 - Buy next tactical support: `V`
-- Repair hull to current airframe capacity: `H`
-- Recharge shields to current airframe capacity: `J`
-- Cycle mission-assigned battlefield support: `B`
+- Repair hull: `H`
+- Recharge shield: `J`
+- Cycle battlefield support: `B`
+- Cycle owned primary: `M`
+
+Controller on the visible campaign Sortie Bay:
+
+- A launch
+- B back
+- X buy primary
+- Y buy generator
+- LB service hull
+- RB recharge shield
+- L3 buy airframe
+- R3 buy tactical support
+- D-pad Left select tactical support
+- D-pad Right select battlefield support
+- RT select owned primary
+
+The same physical buttons retain their normal combat meanings once the sortie begins.
 
 ### Mission flow
 
-- Retry failed mission: `R`
-- Return from active mission: `Esc`
+- Keyboard retry: `R`
+- Keyboard pause: `Esc`
+- Controller pause: `START`
+- Controller Screen Bomb remains `B`
+
+## Mission 1 onboarding
+
+Coastal Intercept uses short instrument-style prompts rather than a modal tutorial. The first flight check is shown before the normal radio briefing begins; later prompts introduce throttle/geometry and altitude. Real homing threats expose countermeasure input. The mission's special hypersonic egress explicitly identifies the climb and afterburner commands required to clear the Mach gate.
+
+Keyboard labels are read from the live `InputMap`, so prompts remain correct after rebinding.
 
 ## VX-94 combat roles
 
 ### Fighter configuration
 
-- wings sweep back around visible hinge points
-- faster movement
-- tighter contact and projectile-hit profile
-- tighter primary spread
-- stronger air-target effectiveness
-- stronger afterburner burst and better high/orbital efficiency
-- conventional multi-shot guns fire from dedicated wing-root cannon packs
-- nose rotary is folded/retracted into the forward fuselage
-- wing / under-wing / upper-fuselage hardpoints can support missiles, rockets and later specialist stores
+- faster movement and tighter hit profile
+- tighter primary spread and stronger air-target effectiveness
+- stronger high/orbital afterburner efficiency
+- wing-root conventional gun posture
 - required for orbital operations
 
 ### Bomber configuration
 
-- wings open into a broad, heavier attack posture
-- slower and wider, with greater surface-strike risk/reward
-- stronger surface / naval damage
+- broader, slower attack posture
+- stronger surface/naval damage
 - wider weapon coverage
-- more efficient tactical-support energy use
-- enables dedicated precision strike ordnance
-- exposes under-wing hardpoints for bombs, rockets and missiles
-- deploys a large multi-barrel nose rotary cannon for conventional ballistic primaries
-- nose rotary has its own original low ripping procedural sound and muzzle/spool cue
+- improved tactical-support energy efficiency
+- dedicated precision-strike ordnance
+- deployed multi-barrel nose rotary cannon
 - preferred at low altitude
 
-The bomber attitude intentionally evokes the brutal functionality of late-90s attack-aircraft design without copying a real A-10 silhouette or using a real GAU-8 recording.
-
 ## Altitude lanes
-
-The four ordered lanes are:
 
 1. LOW
 2. MID
 3. HIGH
 4. ORBITAL / ATMOS-SPACE
 
-`PageUp` or `PageDown` moves exactly one adjacent band inside the mission's authorized airspace. Timed `ALTITUDE LANE` prompts identify tactical opportunities, but flight control remains available before and after those prompts. The player cannot jump multiple bands or bypass scripted mission choreography.
-
-Major mission transitions remain authored set pieces, including Black Flag's sea-skimming descent and Machine Ark's final orbital burn.
-
-A climb/dive lasts roughly 1.4 seconds visually and includes a cel-edged cloud-ceiling crossing, directional depth streaks, atmospheric colour exposure, moving cloud banks, craft pitch, interpolated surface-target scale and direction-specific procedural audio.
+`PageUp` / `PageDown` or controller D-pad up/down moves one adjacent authorized band. Timed altitude-lane prompts identify tactical opportunities; major transitions remain authored set pieces.
 
 ## Technology eras
 
-1. **Advanced conventional** — cannon, rockets, smart missiles, composite/ceramic protection
-2. **Electromagnetic** — EMP, magnetic defence, Needle Rail, Magneto-Composite frame
-3. **Directed energy** — Storm Cannon, advanced field systems, Field-Coupled frame
-4. **Strategic orbital** — Plasma Lance, Micro-Warhead Rack, orbital/strategic support
+1. **Advanced conventional** — cannon, rockets, smart missiles, composite protection
+2. **Electromagnetic** — EMP, magnetic defence, Needle Rail, advanced frames
+3. **Directed energy** — Storm Cannon, field systems
+4. **Strategic orbital** — Plasma Lance, Micro-Warhead Rack, orbital support
 
-The playable campaign escalates from the Mercenary War through the autonomous Machine War and completes in the near-Earth BLACK SKY campaign. The fiction remains a coherent human/machine military conflict rather than pivoting to generic alien warfare.
+The campaign escalates from the Mercenary War through the autonomous Machine War and completes in BLACK SKY.
+
+## Campaign economy and progression
+
+Primary weapons, generators, airframes and tactical support are four independent **sequential ownership ladders**. Later tier sticker price is not the same as fresh-campaign acquisition cost because earlier paid tiers in that family must be owned first.
+
+The repository therefore distinguishes:
+
+- sticker cost
+- cumulative acquisition cost
+- actual next-purchasable item
+- technology-era legality
+- servicing liability
+- branch-specific cash effects
+
+Static projections are regression evidence, not permission to auto-tune the game.
 
 ## Project layout
 
-- `project.godot` — Godot configuration and focused runtime autoloads
-- `scenes/` — game scenes
-- `scripts/main.gd` — core playable simulation/orchestration layer
-- `scripts/craft_form_director.gd` — VX-94 form, altitude lanes, persistent throttle, afterburner and mission context
-- `scripts/flight_speed_rules.gd` — dry-power, afterburner, Mach travel, world-relative closure and dynamic-pressure rules
-- `scripts/route_progress_rules.gd` — cruise-equivalent travelled-distance clock for spatial mission events
-- `scripts/altitude_transition_director.gd` — climb/dive and altitude-lane presentation
-- `scripts/weapon_mount_cue_director.gd` — mount-aware fighter / bomber firing feedback
-- `scripts/retro_sfx_director.gd` — procedural original 90s-style SFX
-- `scripts/airframe_director.gd` — persistent structural frame progression
-- `scripts/encounter_director.gd` — authored mission beat sequencing
+Key runtime ownership:
+
+- `scripts/main.gd` — core simulation/orchestration
+- `scripts/input_bindings.gd` — universal flight/input contract
+- `scripts/controller_sortie_bay_director.gd` — contextual campaign maintenance pad routing
+- `scripts/controller_menu_context_director.gd` — contextual Options/Controls/flight-pause pad routing
+- `scripts/first_sortie_guidance_director.gd` — bounded Mission 1 guidance
+- `scripts/pause_director.gd` — tactical pause/options/restart/return surface
+- `scripts/craft_form_director.gd` — form, altitude, throttle, afterburner and mission context
+- `scripts/airframe_director.gd` — persistent structural progression
 - `scripts/support_director.gd` — onboard tactical systems
-- `scripts/battlefield_support_director.gd` — allied battlefield support and Atlas tanker
-- `scripts/strike_ordnance_director.gd` — bomber precision-strike ordnance
-- `scripts/directed_energy_director.gd` — Storm / Plasma secondary field behavior
-- `scripts/strategic_warhead_director.gd` — bounded Micro-Warhead blast behavior/presentation
-- `scripts/combat_art_director.gd` — governed layered combat-sprite presentation and animation selection
-- `scripts/environment_director.gd` — modular terrain, water, cloud, weather and altitude presentation
-- `scripts/campaign_cinematic_director.gd` — launch, escalation and ending cinematic sequencing
-- `scripts/game_mode_director.gd` — arcade/challenge route ownership and score progression
-- `scripts/settings_director.gd` — persistent video, audio, control, accessibility and difficulty settings
+- `scripts/battlefield_support_director.gd` — allied support/tanker
+- `scripts/encounter_director.gd` — authored encounter sequencing
+- `scripts/combat_art_director.gd` — combat sprite presentation
+- `scripts/environment_director.gd` — terrain/weather/altitude presentation
 - `scripts/pixel_ui_director.gd` — primary bitmap UI/HUD
-- `scripts/mission_intel_director.gd` — toggleable pre-mission tactical intelligence
-- `scripts/campaign_save.gd` — versioned campaign autosave/restore
-- `data/` — weapons, generators, airframes, 30 core missions, secret sorties, modes, enemies, cinematics, environment profiles and campaign context
-- `docs/90S_SHOOTER_BIBLE.md` — 90s shooter quality/style rules
-- `docs/CRAFT_ALTITUDE_SYSTEM.md` — authoritative transform / mounts / altitude-lane contract
-- `docs/CAMPAIGN_CANON.md` — campaign/world canon
-- `docs/STRATEGIC_ORBITAL_ENDGAME.md` — M12 / ORB-era contract
-- `docs/VX94_COMBAT_ART_DIRECTION.md` — production combat-art direction
-- `docs/ARCHITECTURE.md` — runtime ownership and invariants
-- `docs/PORTFOLIO_RELEASE_TRANCHE.md` — current feature-freeze and promotion contract
-- `docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md` — current release truth and remaining candidate work
-- `tools/validate.ps1` — zero-cost local structural + optional Godot validation
-- `tools/validate_windows_release.ps1` — complete automated local Windows evidence gate
-- `tools/validate_windows_candidate.ps1` — final exact-SHA automated + human candidate gate
-- `tools/resolve_release_godot.ps1` — exact Godot 4.6.2 release-engine resolver
-- `tools/write_windows_release_receipt.ps1` — exact-SHA packaged-build receipt writer
-- `tools/run_playtest_telemetry.ps1` — bounded eight-sortie live gameplay and system-usage matrix
+- `scripts/retro_sfx_director.gd` — procedural SFX allocation/mix
+- `scripts/retro_music_director.gd` — tracker score and critical ducking
+- `scripts/campaign_save.gd` — campaign save/migration authority
+
+Production/release authority:
+
+- `docs/PORTFOLIO_RELEASE_TRANCHE.md`
+- `docs/RELEASE_COMPLETION_AUDIT_2026-09-08.md`
+- `docs/NATIVE_TEST_LAB_RELEASE_JOURNEYS.md`
+- `docs/VULNERABLE_BALANCE_EVIDENCE.md`
+- `docs/ECONOMY_PROGRESSION_EVIDENCE.md`
+- `docs/RELEASE_SIGNOFF_TEMPLATE.json`
+- `tools/validate.ps1`
+- `tools/validate_windows_release.ps1`
+- `tools/validate_windows_candidate.ps1`
+- `tools/verify_release_contract.ps1`
+- `tools/verify_release_contract_supplement.ps1`
+- `tools/verify_native_release_handoff.ps1`
+- `tools/verify_human_release_signoff.ps1`
 
 ## Validate locally
 
@@ -224,34 +247,71 @@ Set-Location C:\GitRepos\godot-462-strike-wing-94
 .\tools\validate.ps1
 ```
 
-If Godot is not on `PATH`, set `GODOT_BIN` or pass `-GodotBin`. Structural/data/save/content checks still run without the engine executable; when Godot 4.6.2 is found, the script also runs the focused headless self-tests and editor parser smoke test.
+When Godot 4.6.2 is available, validation runs the focused headless regressions and editor parser smoke test. Campaign validation executes all eight combinations of the controlled branch decisions; each route contains 27 successful sorties and the matrix collectively visits all 30 core missions.
 
-Campaign validation executes all eight combinations of the three controlled branch decisions through the live mission-result and advancement code. Each route records 27 successful sorties from Coastal Intercept to Machine Ark; the combined matrix visits all 30 core missions and verifies final completion, ending-cinematic handoff, credits, and return to the front door without writing test progress into the player save.
-
-## Export for Windows
-
-Install the export templates matching Godot 4.6.2, then run:
+## Automated Windows evidence
 
 ```powershell
 Set-Location C:\GitRepos\godot-462-strike-wing-94
 .\tools\validate_windows_release.ps1
 ```
 
-The automated release gate resolves one exact Godot 4.6.2 executable and passes it through the complete source/engine suite, native 1280×720 production-combat stress profile, canonical 640×360 logical visual QA matrix, and bounded eight-sortie live gameplay telemetry matrix. The canonical `Windows Desktop` preset then produces a single embedded-PCK executable at `build/windows/HYPERSONIC.exe` and the packaged runtime is launched through a deterministic front-door smoke test.
+The complete gate uses one exact Godot 4.6.2 executable for:
 
-The performance gate sustains 14 enemies, 16 player projectiles and 64 hostile projectiles with all production layers active, requiring at least 60 average FPS and a 16.67 ms-or-better p95 frame time. Visual captures cover the approved EVAVO ident, VX-94 transformation, menus, accessibility and control surfaces, intelligence/secret operations, route/weather/altitude states, combat effects, pause/debrief states, final boss, ending and credits; exact arguments and hashes are recorded under ignored `work/visual_qa`. The gameplay matrix advances the real first, bomber-heavy, difficult-air, altitude-choice, machine-reveal, orbital-transition, secret and final sorties while exercising transformation, altitude, roll, countermeasure, support and ordnance systems; reports remain under ignored `work/playtest_telemetry`.
+1. release-contract validation
+2. source/data/headless/editor validation
+3. native 1280×720 performance stress
+4. logical visual QA capture
+5. eight-sortie integration telemetry
+6. nine-case vulnerable pressure telemetry
+7. economy/service/sequential-progression audit
+8. 8-route × 4-difficulty progression projection
+9. paired branch-economic analysis
+10. 224 reserve-aware spending-strategy simulations
+11. Windows embedded-PCK export
+12. packaged startup/metadata verification
+13. exact-SHA `build/windows/HYPERSONIC.release.json` receipt
 
-Automation catches runtime integration regressions and suspicious usage, but is explicitly not a substitute for human feel, campaign, presentation or audio review. Source-production art, documentation, tools and local work captures are excluded from the player package. The export and verification scripts refuse paths outside the repository's ignored `build` directory. A complete run with no skip switches records `build/windows/HYPERSONIC.release.json` containing the exact source SHA, Godot version and executable SHA-256. `-SkipPerformance`, `-SkipVisualQa` and `-SkipPlaytestTelemetry` exist only for focused diagnosis; those runs do not issue release receipts.
+Skipping a release evidence stage makes the run diagnostic and prevents the full receipt.
 
-A real candidate additionally requires an exact-SHA human signoff based on `docs/RELEASE_SIGNOFF_TEMPLATE.json`, a non-development product version synchronized with `export_presets.cfg`, and:
+## Native Test Lab evidence
+
+The project owns **10 required native journeys**:
+
+- eight core journeys in `.evavo/godot-lab-native.json`
+- two controller journeys in `.evavo/godot-lab-controller-sortie.json`
+
+The controller set covers Sortie Bay maintenance, Options, Flight Controls, live Mission 1, START pause, paused Options and resume. Release evidence is pinned to the exact HYPERSONIC SHA, exact Test Lab SHA and exact Godot 4.6.2 in an interactive Windows session.
+
+```powershell
+.\tools\run_native_test_lab_release.ps1
+```
+
+Synthetic native journeys prove the declared interaction contract. They do not replace physical-controller feel review or human visual/audio/gameplay judgement.
+
+## Candidate gate
+
+`data/product_identity.json` remains a development identity until one exact SHA is intentionally selected as an external candidate.
+
+A real candidate requires:
+
+- non-`-dev` product identity synchronized with `export_presets.cfg`
+- complete automated Windows evidence
+- authoritative ten-journey native handoff
+- exact-SHA human signoff from `docs/RELEASE_SIGNOFF_TEMPLATE.json`
+- zero P0/P1 blockers
+
+Then run:
 
 ```powershell
 .\tools\validate_windows_candidate.ps1
 ```
 
+The candidate gate verifies `HYPERSONIC.release.json` belongs to the same exact source SHA and product version.
+
 ## Direction
 
-The target is an original, pixel-perfect 90s PC shooter with the depth and authored discipline of the best era references without copying their proprietary content.
+The target is an original, pixel-perfect late-90s PC shooter with the depth and authored discipline of the strongest era references without copying proprietary content.
 
 Reference games can inform pacing, upgrade economy, stage rhythm, readability and genre grammar only. Do not copy proprietary names, maps, sprites, UI, sounds, dialogue, story beats or encounter layouts.
 
@@ -269,10 +329,9 @@ HYPERSONIC's own identity is:
 
 - Godot 4.6.2
 - GDScript-first gameplay foundation
-- Windows desktop is the active release target
-- keyboard and controller are active player inputs
-- other platform targets require separate release evidence and are not implied by the Windows candidate gate
-- no dependency on paid GitHub Actions or Vercel services
-- local validation and automation are first-class
+- Windows desktop active release target
+- keyboard and controller active player inputs
+- no paid GitHub Actions/Vercel dependency
+- local-first validation and release evidence
 
 Copyright (c) EVAVO Studio.
