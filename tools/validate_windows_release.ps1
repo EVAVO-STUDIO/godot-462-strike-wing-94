@@ -22,9 +22,10 @@ $VulnerableBalanceScript = Join-Path $PSScriptRoot 'run_vulnerable_balance_telem
 $EconomyAuditScript = Join-Path $PSScriptRoot 'run_economy_progression_audit.ps1'
 $RouteProjectionScript = Join-Path $PSScriptRoot 'run_route_progression_projection.ps1'
 $BranchDominanceScript = Join-Path $PSScriptRoot 'analyze_branch_economic_dominance.ps1'
+$SpendingStrategyScript = Join-Path $PSScriptRoot 'simulate_progression_spending_strategies.ps1'
 $ReceiptScript = Join-Path $PSScriptRoot 'write_windows_release_receipt.ps1'
 
-foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $VulnerableBalanceScript, $EconomyAuditScript, $RouteProjectionScript, $BranchDominanceScript, $ReceiptScript)) {
+foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $VulnerableBalanceScript, $EconomyAuditScript, $RouteProjectionScript, $BranchDominanceScript, $SpendingStrategyScript, $ReceiptScript)) {
     $Tokens = $null
     $Errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($ScriptPath, [ref]$Tokens, [ref]$Errors) | Out-Null
@@ -82,8 +83,10 @@ if (-not $SkipEconomyAudit) {
     & $RouteProjectionScript
     Write-Host 'Isolating paired branch-choice cash and upgrade-timing effects...' -ForegroundColor Cyan
     & $BranchDominanceScript
+    Write-Host 'Stress-testing alternative reserve-aware progression spending policies...' -ForegroundColor Cyan
+    & $SpendingStrategyScript
 } else {
-    Write-Warning 'Economy progression, branch-route projection and branch-dominance analysis were explicitly skipped; this run is not a complete automated progression-evidence audit.'
+    Write-Warning 'Economy progression, branch-route projection, branch-dominance and spending-strategy analyses were explicitly skipped; this run is not a complete automated progression-evidence audit.'
 }
 
 Write-Host 'Building the canonical HYPERSONIC Windows package...' -ForegroundColor Cyan
@@ -95,7 +98,7 @@ Write-Host 'Launching and verifying the packaged HYPERSONIC runtime...' -Foregro
 if (-not $SkipPerformance -and -not $SkipVisualQa -and -not $SkipPlaytestTelemetry -and -not $SkipVulnerableBalance -and -not $SkipEconomyAudit) {
     Write-Host 'Recording exact-SHA packaged-build evidence...' -ForegroundColor Cyan
     & $ReceiptScript -GodotBin $GodotBin -Executable $OutputPath
-    Write-Host 'HYPERSONIC automated Windows release gate passed. Vulnerable autoplay and conservative sequential/branch economy evidence are diagnostic; human campaign, visual, audio and balance signoff are still required for a release candidate.' -ForegroundColor Green
+    Write-Host 'HYPERSONIC automated Windows release gate passed. Vulnerable autoplay and conservative sequential/branch/spending economy evidence are diagnostic; human campaign, visual, audio and balance signoff are still required for a release candidate.' -ForegroundColor Green
 } else {
     Write-Warning 'HYPERSONIC focused Windows validation passed with one or more release stages skipped; no exact-SHA release receipt was issued.'
 }
