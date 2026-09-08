@@ -1,0 +1,44 @@
+{
+  "schema_version": 5,
+  "identity": "late-1990s military cel sprite family",
+  "canvas": [
+    48,
+    48
+  ],
+  "source": "surface_sites_raw.png",
+  "military": [
+    "strategic_silo",
+    "ballistic_launcher",
+    "field_artillery",
+    "radar_site",
+    "logistics_truck",
+    "ammo_depot"
+  ],
+  "protected": [
+    "civilian_village",
+    "field_clinic"
+  ],
+  "perspective": "shared 70-degree oblique orthographic route-forward view",
+  "alpha": "border-connected neutral checker recovery; source retained immutable",
+  "animation": {
+    "radar_site": {
+      "frames": 4,
+      "fps": 3.0
+    },
+    "field_artillery": {
+      "frames": 2,
+      "trigger": "recoil_timer"
+    },
+    "ballistic_launcher": {
+      "frames": 3,
+      "sequence": "registered held deployment"
+    }
+  },
+  "rules": [
+    "thin ink outline and two-step cel value structure",
+    "one shared upper-left light direction",
+    "only field_clinic carries a red cross",
+    "protected sites remain subdued rather than arcade-bright",
+    "all static and held animation cels share one registered source identity"
+  ]
+}

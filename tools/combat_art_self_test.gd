@@ -85,10 +85,11 @@ func _test_visual_language() -> void:
 	_expect(source.contains("has_production_art") and source.contains("_report_missing_art"), "unregistered enemies should fail explicitly instead of receiving generic vector silhouettes")
 	_expect(not source.contains("func _draw_ground") and not source.contains("func _draw_sea") and not source.contains("func _draw_air") and not source.contains("func _draw_autonomous"), "obsolete generic enemy silhouette fallbacks should remain removed")
 	var enemy_catalog = ContentCatalog.load_json("res://data/enemies.json")
-	var surface_site_manifest = ContentCatalog.load_json("res://assets/source/surface_sites/mercenary_war_v1/manifest.json")
+	var surface_site_manifest = ContentCatalog.load_json("res://assets/source/surface_sites/mercenary_war_v2/manifest.json")
 	var surface_site_catalog = ContentCatalog.load_json("res://data/surface_sites.json")
 	_expect(typeof(surface_site_manifest) == TYPE_DICTIONARY, "surface-site art manifest should load")
 	if typeof(surface_site_manifest) == TYPE_DICTIONARY:
+		_expect(int(surface_site_manifest.get("schema_version", 0)) == 5 and str(surface_site_manifest.get("perspective", "")).contains("oblique orthographic"), "surface-site family should use the registered cel-art perspective authority")
 		_expect(surface_site_manifest.get("military", []).size() == 6, "surface-site family should cover six military strike identities")
 		_expect(surface_site_manifest.get("protected", []).size() == 2, "surface-site family should distinguish two protected civilian identities")
 		for site_id in surface_site_manifest.get("military", []) + surface_site_manifest.get("protected", []):
