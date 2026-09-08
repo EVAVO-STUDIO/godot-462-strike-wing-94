@@ -24,6 +24,10 @@ const KEYBOARD_BINDINGS := [
 	{"action":"throttle_down", "label":"THROTTLE DECREASE", "default":KEY_G}
 ]
 
+# Physical buttons intentionally own both their in-flight command and one
+# sortie-bay command. The campaign/title handlers are phase + screen gated, so
+# X can fire tactical support in flight and buy the next primary in the sortie
+# bay without either action leaking into the other context.
 const BUTTON_BINDINGS := {
 	"confirm": JOY_BUTTON_A,
 	"cancel": JOY_BUTTON_B,
@@ -40,7 +44,13 @@ const BUTTON_BINDINGS := {
 	"altitude_down": JOY_BUTTON_DPAD_DOWN,
 	"drop_strike_ordnance": JOY_BUTTON_RIGHT_STICK,
 	"toggle_mission_intel": JOY_BUTTON_BACK,
-	"restart": JOY_BUTTON_X
+	"restart": JOY_BUTTON_X,
+	"upgrade": JOY_BUTTON_X,
+	"upgrade_generator": JOY_BUTTON_Y,
+	"service_hull": JOY_BUTTON_LEFT_SHOULDER,
+	"service_shield": JOY_BUTTON_RIGHT_SHOULDER,
+	"upgrade_airframe": JOY_BUTTON_LEFT_STICK,
+	"upgrade_support": JOY_BUTTON_RIGHT_STICK
 }
 
 func _enter_tree() -> void:
