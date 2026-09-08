@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "sequence": "vx94_hypersonic_break",
+  "logical_size": "640x360",
+  "frame_rate": 24,
+  "frame_count": 288,
+  "duration_seconds": 12.0,
+  "identity_lock": "Four registered keys preserve one camera, horizon, fuselage, canopy, twin-nacelle and twin-tail identity.",
+  "beats": [
+    {
+      "frames": [
+        0,
+        51
+      ],
+      "beat": "level cloud-flight establishment"
+    },
+    {
+      "frames": [
+        52,
+        115
+      ],
+      "beat": "ten held mechanical wing exposures across two registered breakdowns"
+    },
+    {
+      "frames": [
+        116,
+        137
+      ],
+      "beat": "locked hypersonic geometry hold"
+    },
+    {
+      "frames": [
+        138,
+        150
+      ],
+      "beat": "four-exposure blue engine ignition"
+    },
+    {
+      "frames": [
+        151,
+        169
+      ],
+      "beat": "held engine-axis pressure-ring impact"
+    },
+    {
+      "frames": [
+        170,
+        287
+      ],
+      "beat": "ring clears; cloud-field parallax and blue exhaust accelerate"
+    }
+  ],
+  "rejections": [
+    "aircraft identity drift",
+    "wing change after ignition",
+    "shockwave detached from engine axis",
+    "low-over-water impossible scale",
+    "generic neon science-fiction treatment"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "asset": "vx94_hypersonic_break_v1",
+  "tool_mode": "OpenAI built-in image generation plus deterministic local Pillow/FFmpeg finishing",
+  "use_case": "stylized-concept and identity-preserving registered key-pose edits",
+  "references": {
+    "carrier_axis": "user attachment codex-clipboard-2ffcae69-ae49-4f82-8294-2382531675e5.png",
+    "rejected_perspective": "user attachment codex-clipboard-cde20101-a50c-4d84-b236-bf05e03480af.png",
+    "primary_aircraft_identity": "user attachment codex-clipboard-5ea160bc-ac2e-4304-beff-39531a697c63.png",
+    "gameplay_geometry": "assets/runtime/craft/vx94/transform/hypersonic_00.png..09.png"
+  },
+  "keys": [
+    {"file": "keys/vx94_open.png", "direction": "level cloud-flight establishment; wings fully open; orange turbines"},
+    {"file": "keys/vx94_midpoint.png", "direction": "registered mechanical midpoint; symmetric half sweep; no ignition"},
+    {"file": "keys/vx94_tucked.png", "direction": "registered fully tucked geometry; orange turbines; no ring"},
+    {"file": "keys/vx94_ignition.png", "direction": "same locked geometry; two blue engines; engine-axis vapor ring"},
+    {"file": "keys/vx94_acceleration.png", "direction": "ring cleared; two blue exhaust plumes; cloud-speed streaks"}
+  ],
+  "locks": [
+    "same rear chase camera and level horizon",
+    "same fuselage, canopy, twin nacelles and twin tails",
+    "wing motion completes before blue ignition",
+    "pressure ring originates on the engine axis and clears before sustained acceleration",
+    "no carrier or low-over-water scale contradiction",
+    "late-1990s military cel-paint language"
+  ]
+}
