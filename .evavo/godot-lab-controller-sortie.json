@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "2.0",
+  "journeys": [
+    {
+      "id": "controller-sortie-bay-maintenance",
+      "required": true,
+      "scene": "res://scenes/main.tscn",
+      "device": "synthetic_gamepad",
+      "settleFrames": 420,
+      "maxFrames": 1200,
+      "fps": 30,
+      "width": 1280,
+      "height": 720,
+      "renderingMethod": "gl_compatibility",
+      "renderingDriver": "opengl3",
+      "gpuIndex": 0,
+      "userArguments": [],
+      "requiredActions": [
+        {"name": "confirm", "devices": ["gamepad", "keyboard"]},
+        {"name": "fire_missile", "devices": ["gamepad", "keyboard"]}
+      ],
+      "steps": [
+        {"type": "checkpoint", "id": "controller-main-menu"},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 0, "holdFrames": 2},
+        {"type": "wait", "frames": 45},
+        {"type": "checkpoint", "id": "controller-sortie-bay-ready"},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 2, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 3, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 9, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 10, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 7, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 8, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 13, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_button_tap", "deviceId": 0, "buttonIndex": 14, "holdFrames": 2},
+        {"type": "wait", "frames": 6},
+        {"type": "joy_axis", "deviceId": 0, "axis": 5, "value": 1.0},
+        {"type": "wait", "frames": 4},
+        {"type": "joy_axis", "deviceId": 0, "axis": 5, "value": 0.0},
+        {"type": "wait", "frames": 20},
+        {"type": "checkpoint", "id": "controller-sortie-bay-maintenance-feedback"}
+      ],
+      "assertions": [
+        {"type": "scene_loaded"},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_buy_primary", "value": true},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_buy_generator", "value": true},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_service_hull", "value": true},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_service_shield", "value": true},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_buy_airframe", "value": true},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_buy_support", "value": true},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_cycle_support", "value": true},
+        {"type": "metadata_equals", "path": "/root/ControllerSortieBayDirector", "key": "qa_cycle_battlefield_support", "value": true}
+      ],
+      "ux": {
+        "captureControlTree": true,
+        "captureUiAtCheckpoints": true,
+        "minimumVisibleControls": 0,
+        "maximumOutOfBoundsInteractive": 0,
+        "maximumOverlappingInteractivePairs": 4,
+        "maximumSmallInteractiveTargets": 16,
+        "minimumInteractiveWidth": 20,
+        "minimumInteractiveHeight": 20,
+        "requireFocusOwner": false,
+        "failOnBlackFrame": true,
+        "blackDurationSeconds": 4.0,
+        "failOnFrozenVideo": false,
+        "freezeDurationSeconds": 10.0
+      }
+    }
+  ]
+}
