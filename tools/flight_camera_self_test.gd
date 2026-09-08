@@ -65,6 +65,8 @@ func run() -> void:
 	check(Airspace.seconds_remaining(warning_time)==1 and Airspace.warning_ratio(warning_time)>0.7, "off-course flight should provide a readable four-second abort countdown")
 	check(Airspace.advance(warning_time,42.0,1.0,1.0)<warning_time and Airspace.advance(warning_time,320.0,1.0)<warning_time, "releasing outward steering or returning toward the mission route should actively clear the off-course timer")
 	check(main_source.contains('"MISSION AIRSPACE VIOLATION"') and main_source.contains("lateral_airspace_timer"), "live flight should warn and abort sustained departure instead of presenting an unexplained edge clamp")
+	var hud_source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
+	check(hud_source.contains("for y in range(82,320,42)") and not hud_source.contains('"AIRSPACE LIMIT // TURN'), "airspace departure should use sparse directional edge cues and one shared status lane instead of duplicate warning banners")
 	craft.queue_free(); await process_frame
 	if failures.is_empty(): print("HYPERSONIC flight camera self-test passed.")
 	else:

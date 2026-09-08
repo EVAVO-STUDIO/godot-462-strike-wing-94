@@ -815,15 +815,13 @@ func _draw_lateral_airspace_warning(surface: CanvasItem, scene: Object) -> void:
 	var color := RED if ratio >= 0.62 else GOLD
 	var edge_x := 18.0 if side == "left" else 618.0
 	var inward := 1.0 if side == "left" else -1.0
-	var pulse := 0.48 + 0.32 * sin(Time.get_ticks_msec()*0.018)
-	surface.draw_rect(Rect2(edge_x if side == "left" else edge_x-3.0,52,3,284),Color(color,pulse))
-	for y in range(72,326,28):
+	var pulse := 0.42 + 0.26 * sin(Time.get_ticks_msec()*0.018)
+	# Direction lives at the violated edge; the shared lower status lane owns the
+	# countdown. Duplicating it across the top of the flight view made ordinary
+	# route correction feel like a modal failure screen.
+	for y in range(82,320,42):
 		var tip := Vector2(edge_x+inward*13.0,float(y))
-		surface.draw_polyline(PackedVector2Array([tip+Vector2(-inward*7.0,-5.0),tip,tip+Vector2(-inward*7.0,5.0)]),Color(color,0.72),1.0)
-	var return_direction := "RIGHT" if side == "left" else "LEFT"
-	var seconds := maxi(0,int(ceil(LateralAirspaceRules.ABORT_SECONDS-float(scene.get("lateral_airspace_timer")))))
-	surface.draw_texture_rect(HUD_STATUS_FRAME,Rect2(180,39,280,14),false)
-	PixelFont.draw_centered(surface,"AIRSPACE LIMIT // TURN %s // ABORT %d" % [return_direction,seconds],320,42,1,color,1)
+		surface.draw_polyline(PackedVector2Array([tip+Vector2(-inward*7.0,-5.0),tip,tip+Vector2(-inward*7.0,5.0)]),Color(color,pulse+ratio*0.24),1.0)
 
 func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	# Keep the tactical picture in the pilot's instrument scan instead of masking
