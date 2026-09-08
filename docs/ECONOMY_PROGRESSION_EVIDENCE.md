@@ -16,6 +16,7 @@ The economy evidence exists to prevent a technically complete campaign from ship
 - `tools/run_economy_progression_audit.ps1` produces exact-SHA conservative affordability evidence in ignored `work/economy/`.
 - `tools/run_route_progression_projection.ps1` projects all eight governed branch routes across all four campaign difficulties.
 - `tools/analyze_branch_economic_dominance.ps1` isolates each branch choice with matched-route comparisons so route economics are not judged from unrelated campaigns.
+- `tools/simulate_progression_spending_strategies.ps1` stress-tests alternate reserve-aware buying policies without pretending different equipment families have interchangeable gameplay utility.
 
 ## Sequential ownership model
 
@@ -88,11 +89,40 @@ The report emits review signals for a paired cash difference of at least 1,000 c
 
 These are deliberately **review prompts**, not failures. The branch screen already displays each `+CR` contract premium to the player, so differing authored premiums are transparent. The design question is whether their total route effect is proportionate to mission risk and strategic identity, which requires vulnerable human play.
 
+## Progression spending strategy stress
+
+Cross-family equipment utility is intentionally not collapsed into a synthetic score. A cannon, generator, armour frame and point-defence system solve different gameplay problems, so a static `power / credit` ranking would create false precision.
+
+`simulate_progression_spending_strategies.ps1` instead runs seven structural policies over every route/difficulty combination:
+
+- save only;
+- weapon first;
+- generator first;
+- airframe first;
+- support first;
+- cheapest legal next tier;
+- balanced round-robin.
+
+That produces 224 simulations: 8 routes x 4 difficulties x 7 strategies, each covering 27 sorties. Purchase strategies are limited to one major purchase per sortie and are reserve-aware: a purchase is allowed only when the wallet plus the guaranteed modeled reward can still cover that sortie's stress service reserve without going negative.
+
+The report measures:
+
+- whether each policy completes all 27 modeled sorties without a negative wallet;
+- number and distribution of paid tiers acquired;
+- final conservative wallet and total spend;
+- how many sortie bays expose multiple affordable progression families;
+- how many expose only one affordable family;
+- how many expose no reserve-safe major upgrade.
+
+`SOLE_ALWAYS_NONNEGATIVE_STRATEGY` is a review signal if exactly one purchase policy stays solvent across all 32 route/difficulty projections. `NO_MULTI_FAMILY_CHOICE` flags a simulated policy that never encounters a sortie with more than one reserve-safe equipment family available.
+
+These signals do not establish actual gameplay dominance. They identify structural pressure that must be checked against real human decisions and vulnerable play.
+
 ## Service liability
 
 The economy report records near-loss full-service liability for every airframe tier. Higher-capacity frames naturally create a larger absolute repair/recharge ceiling; this is evidence for human review, not justification to flatten their costs automatically.
 
-The route stress projection deliberately retains the starting-frame service reserve so it does not silently assume an airframe purchase and then contaminate every other progression-family comparison with a different service ceiling.
+The route and strategy stress models deliberately retain the starting-frame service reserve so they do not silently assume an airframe purchase and then contaminate every other progression-family comparison with a different service ceiling.
 
 ## Human signoff
 
@@ -102,13 +132,14 @@ Release signoff schema v4 requires all of the following to belong to the same HY
 - economy progression audit;
 - eight-route progression projection;
 - paired branch-economic dominance report;
+- 224-simulation progression spending strategy report;
 - native Test Lab handoff.
 
-The reviewer must explicitly set `balance.economy_evidence_reviewed`, `balance.route_projection_reviewed` and `balance.branch_economy_reviewed` after inspecting the corresponding evidence, including `never_reachable_signals`, cash-dominance signals and tier-timing differences.
+The reviewer must explicitly set `balance.economy_evidence_reviewed`, `balance.route_projection_reviewed` and `balance.branch_economy_reviewed` after inspecting the corresponding evidence. `balance.economy_evidence_reviewed=true` includes review of the spending-strategy report and any solvency/choice-window signals.
 
 ## Truth boundary
 
-Do not infer any of the following from the static, route or branch analyses alone:
+Do not infer any of the following from the static, route, branch or spending analyses alone:
 
 - that a normal player earns the zero-score floor;
 - that a normal player reaches every optional objective;
@@ -118,18 +149,19 @@ Do not infer any of the following from the static, route or branch analyses alon
 - that late-game purchases arrive at the right dramatic moment;
 - that a player spends only within one progression family;
 - that the harsh full-service reserve resembles typical damage;
-- that a branch with a modest cash advantage is automatically overpowered or should have equal rewards.
+- that a branch with a modest cash advantage is automatically overpowered or should have equal rewards;
+- that the spending policy acquiring the most tiers is the strongest actual combat build.
 
 Those require vulnerable completed-sortie evidence and human campaign review.
 
-Never auto-tune rewards, branch premiums, prices, repair rates or equipment from one deterministic bot run, the conservative affordability model, a route projection or the paired branch report. Use these audits to detect regressions and identify hypotheses for human playtesting.
+Never auto-tune rewards, branch premiums, prices, repair rates or equipment from one deterministic bot run, the conservative affordability model, a route projection, paired branch report or spending strategy simulation. Use these audits to detect regressions and identify hypotheses for human playtesting.
 
 ## Release command
 
-The complete Windows release gate runs the economy audit, eight-route projection and paired branch-dominance analysis automatically:
+The complete Windows release gate runs the economy audit, eight-route projection, paired branch-dominance analysis and spending-strategy stress automatically:
 
 ```powershell
 .\tools\validate_windows_release.ps1
 ```
 
-Using `-SkipEconomyAudit` skips all three layers, makes the run diagnostic only and prevents issuance of the exact-SHA release receipt.
+Using `-SkipEconomyAudit` skips all four layers, makes the run diagnostic only and prevents issuance of the exact-SHA release receipt.
