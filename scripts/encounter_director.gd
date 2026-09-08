@@ -124,10 +124,11 @@ func radar_forecast_contacts(scene: Object) -> Array:
 			if archetype.is_empty() or bool(archetype.get("boss", false)):
 				continue
 			var point: Vector2 = points[index] if index < points.size() else Vector2(0.5, 0.0)
+			var air_ingress := EncounterRules.airborne_ingress_offset(EncounterRules.formation(beat), index) if str(archetype.get("class", "air")) == "air" else 0.0
 			result.append({
 				"position": Vector2(
 					lerpf(FORMATION_MIN_X, FORMATION_MAX_X, clampf(point.x, 0.0, 1.0)),
-					Vector2(scene.get("player_position")).y - clampf(36.0 + seconds_ahead * 8.0 + point.y * 0.25, 36.0, 216.0)
+					Vector2(scene.get("player_position")).y - clampf(36.0 + seconds_ahead * 8.0 + (point.y + air_ingress) * 0.25, 36.0, 216.0)
 				),
 				"category": str(archetype.get("class", "air")),
 				"altitude": radar_altitude,
@@ -151,6 +152,7 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 		if AltitudeRules.allows_enemy_archetype(altitude, archetype):
 			eligible.append(enemy_id)
 	var points := EncounterRules.formation_points(beat, eligible.size())
+	var formation_id := EncounterRules.formation(beat)
 	var strike_priority := EncounterRules.is_low_bomber_route(beat)
 	var intercept_priority := EncounterRules.is_high_fighter_route(beat)
 	for i in range(eligible.size()):
@@ -163,7 +165,9 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 			points[i] if i < points.size() else Vector2(0.5, 0.0),
 			strike_priority,
 			intercept_priority,
-			str(beat.get("id", ""))
+			str(beat.get("id", "")),
+			formation_id,
+			i
 		)
 
 	var pickup_kind := EncounterRules.reward_pickup(beat)
@@ -201,7 +205,7 @@ func _apply_beat(scene: Object, beat: Dictionary) -> void:
 func _has_property(object: Object, property_name: String) -> bool:
 	return SceneContractCache.has_property(object, property_name)
 
-func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priority: bool = false, intercept_priority: bool = false, route_id: String = "") -> void:
+func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priority: bool = false, intercept_priority: bool = false, route_id: String = "", formation_id: String = "scatter", formation_index: int = 0) -> void:
 	var enemies: Array = scene.get("enemies")
 	if enemies.is_empty():
 		return
@@ -211,10 +215,11 @@ func _apply_latest_formation_point(scene: Object, point: Vector2, strike_priorit
 		return
 	var position: Vector2 = enemy.get("position", Vector2(320.0, 34.0))
 	position.x = lerpf(FORMATION_MIN_X, FORMATION_MAX_X, clampf(point.x, 0.0, 1.0))
-	position.y -= maxf(0.0, point.y)
+	var category := str(enemy.get("category", "air"))
+	var ingress_offset := EncounterRules.airborne_ingress_offset(formation_id, formation_index) if category == "air" else 0.0
+	position.y -= maxf(0.0, point.y + ingress_offset)
 	enemy["position"] = position
 	enemy["pattern_anchor_x"] = position.x
-	var category := str(enemy.get("category", "air"))
 	if strike_priority and category in ["ground", "sea"]:
 		enemy["strike_priority"] = true
 		enemy["route_bonus_id"] = route_id

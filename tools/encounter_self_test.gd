@@ -115,6 +115,9 @@ func _test_formation_geometry() -> void:
 	var box := EncounterRules.formation_points({"formation":"bomber_box"}, 6)
 	_expect(box[0].y == box[1].y and box[3].y > box[0].y, "bomber box should use disciplined rows")
 	var shell := EncounterRules.formation_points({"formation":"escort_shell"}, 5)
+	_expect(EncounterRules.airborne_ingress_offset("line", 0) != EncounterRules.airborne_ingress_offset("line", 1), "airborne line entries should carry fore/aft separation instead of forming a screen-space row")
+	_expect(EncounterRules.airborne_ingress_offset("line", 3) <= 16.0, "airborne line staggering should remain a disciplined flight rather than serial reinforcements")
+	_expect(EncounterRules.airborne_ingress_offset("wedge", 2) == 0.0, "formations with authored depth should not receive a second implicit stagger")
 	_expect(absf(shell[0].x - 0.5) < 0.001 and shell[1].x < 0.5 and shell[2].x > 0.5, "escort shell should protect a centre principal")
 
 func _test_route_runtime_wiring() -> void:

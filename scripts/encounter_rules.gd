@@ -136,6 +136,21 @@ static func formation_points(beat: Dictionary, count: int) -> Array[Vector2]:
 		result.append(point)
 	return result
 
+static func airborne_ingress_offset(formation_id: String, index_value: int) -> float:
+	# Surface columns and batteries may share a surveyed line. Aircraft never
+	# enter on an exact screen-space row: even disciplined sections carry small
+	# fore/aft separation so their silhouettes read as a flight in depth.
+	var index := maxi(0, index_value)
+	match formation_id:
+		"line":
+			var line_steps := [0.0, 7.0, 3.0, 11.0, 5.0, 14.0]
+			return line_steps[index % line_steps.size()] + floorf(float(index) / float(line_steps.size())) * 5.0
+		"missile_screen":
+			return float(posmod(index * 5, 9))
+		"bomber_box":
+			return float(posmod(index, 3)) * 3.0
+	return 0.0
+
 static func is_secret(beat: Dictionary) -> bool:
 	return bool(beat.get("secret", false))
 
