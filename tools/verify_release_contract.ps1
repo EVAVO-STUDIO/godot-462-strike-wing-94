@@ -22,6 +22,7 @@ $VulnerableBalanceDocPath = Require-File 'docs/VULNERABLE_BALANCE_EVIDENCE.md'
 $EconomyAuditPath = Require-File 'tools/run_economy_progression_audit.ps1'
 $EconomyProjectionPath = Require-File 'tools/run_route_progression_projection.ps1'
 $BranchDominancePath = Require-File 'tools/analyze_branch_economic_dominance.ps1'
+$SpendingStrategyPath = Require-File 'tools/simulate_progression_spending_strategies.ps1'
 $EconomySelfTestPath = Require-File 'tools/economy_progression_self_test.gd'
 $EconomyDocPath = Require-File 'docs/ECONOMY_PROGRESSION_EVIDENCE.md'
 $ProgressionOverlayPath = Require-File 'scripts/progression_cost_director.gd'
@@ -53,6 +54,7 @@ $VulnerableBalanceDoc = Get-Content -Raw -LiteralPath $VulnerableBalanceDocPath
 $EconomyAudit = Get-Content -Raw -LiteralPath $EconomyAuditPath
 $EconomyProjection = Get-Content -Raw -LiteralPath $EconomyProjectionPath
 $BranchDominance = Get-Content -Raw -LiteralPath $BranchDominancePath
+$SpendingStrategy = Get-Content -Raw -LiteralPath $SpendingStrategyPath
 $EconomySelfTest = Get-Content -Raw -LiteralPath $EconomySelfTestPath
 $EconomyDoc = Get-Content -Raw -LiteralPath $EconomyDocPath
 $ProgressionOverlay = Get-Content -Raw -LiteralPath $ProgressionOverlayPath
@@ -133,7 +135,7 @@ foreach ($Token in @('Never auto-tune from one deterministic pilot','Human balan
     if (-not $VulnerableBalanceDoc.Contains($Token)) { throw "Vulnerable balance documentation lost truth boundary: $Token" }
 }
 
-foreach ($Token in @('run_economy_progression_audit.ps1','run_route_progression_projection.ps1','analyze_branch_economic_dominance.ps1','SkipEconomyAudit','branch-dominance analysis')) {
+foreach ($Token in @('run_economy_progression_audit.ps1','run_route_progression_projection.ps1','analyze_branch_economic_dominance.ps1','simulate_progression_spending_strategies.ps1','SkipEconomyAudit','spending-strategy analyses')) {
     if (-not $ReleaseGate.Contains($Token)) { throw "Windows release gate lost economy evidence wiring: $Token" }
 }
 foreach ($Token in @('economy_progression_self_test.gd','worst_survivable_full_service','first_mission_conservative_affordability','guaranteed_zero_score_reward','cumulative_acquisition_cost','next_purchases_from_fresh','schema_version = 2')) {
@@ -145,10 +147,13 @@ foreach ($Token in @('ChoiceVectors.Count -ne 8','RouteMissionIds.Count -ne 27',
 foreach ($Token in @('paired_comparisons_per_branch_per_difficulty = 4','CONSISTENT_CASH_WINNER','CASH_ADVANTAGE_GE_1000','TIER_TIMING_SHIFT_GE_2','paired_final_wallet_delta_b_minus_a','cross_difficulty')) {
     if (-not $BranchDominance.Contains($Token)) { throw "Branch dominance analysis lost paired-control guard: $Token" }
 }
+foreach ($Token in @('strategy_count = $StrategyIds.Count','simulation_count = $Results.Count','one_major_purchase_per_sortie = $true','reserve_aware = $true','SOLE_ALWAYS_NONNEGATIVE_STRATEGY','NO_MULTI_FAMILY_CHOICE','weapon_first','generator_first','airframe_first','support_first','cheapest_next','balanced_round_robin')) {
+    if (-not $SpendingStrategy.Contains($Token)) { throw "Progression spending strategy audit lost structural-choice guard: $Token" }
+}
 foreach ($Token in @('ProgressionRules.mission_reward','ServiceRules.service_cost','first primary purchase','difficulty reward multipliers')) {
     if (-not $EconomySelfTest.Contains($Token)) { throw "Economy runtime self-test lost authority check: $Token" }
 }
-foreach ($Token in @('Conservative opening guardrail','Sequential ownership model','Eight-route progression projection','Never auto-tune rewards','vulnerable completed-sortie evidence','never_reachable_signals')) {
+foreach ($Token in @('Conservative opening guardrail','Sequential ownership model','Eight-route progression projection','Paired branch-choice dominance analysis','Never auto-tune rewards','vulnerable completed-sortie evidence','never_reachable_signals')) {
     if (-not $EconomyDoc.Contains($Token)) { throw "Economy evidence documentation lost truth boundary: $Token" }
 }
 
@@ -174,6 +179,8 @@ foreach ($Token in @(
     '8 routes x 4 difficulties x 27 sorties',
     'Branch economic dominance report does not match the exact HYPERSONIC HEAD',
     'paired 3-branch / 8-route / 4-difficulty matrix',
+    'Progression spending strategy report does not match the exact HYPERSONIC HEAD',
+    '224 simulations',
     'balance.difficulty_matrix_reviewed',
     'balance.vulnerable_evidence_reviewed',
     'balance.economy_evidence_reviewed',
@@ -186,4 +193,4 @@ foreach ($Token in @(
 Write-Host 'Validating HYPERSONIC native Test Lab profile and authority lock...' -ForegroundColor DarkCyan
 & $NativeContractPath
 
-Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + sequential 8-route economy + paired branch dominance + sortie-bay price clarity + native Test Lab authority wired to signoff v4." -ForegroundColor Green
+Write-Host "HYPERSONIC release contract passed: save v$SaveVersion, product $ProductVersion, vulnerable balance + sequential 8-route economy + paired branch dominance + 224 spending strategies + sortie-bay price clarity + native Test Lab authority wired to signoff v4." -ForegroundColor Green
