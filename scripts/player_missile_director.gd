@@ -147,6 +147,10 @@ func draw_targeting(surface: CanvasItem) -> void:
 		return
 	if SceneContractCache.has_property(scene,"player_loss_timer") and float(scene.get("player_loss_timer")) > 0.0:
 		return
+	if not "--capture-player-lock" in OS.get_cmdline_user_args():
+		for argument in OS.get_cmdline_user_args():
+			if argument.begins_with("--capture-ground="):
+				return
 	var position := _target_position
 	var ratio := _lock_ratio
 	var ammo := _missiles

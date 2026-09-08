@@ -935,8 +935,8 @@ func _draw_surface_iff_markers(surface: CanvasItem, scene: Object) -> void:
 			if typeof(enemy) != TYPE_DICTIONARY or not bool(enemy.get("strike_priority",false)): continue
 			var position: Vector2 = enemy.get("position",Vector2.ZERO)
 			if not Rect2(18,52,604,296).has_point(position): continue
-			surface.draw_texture(HUD_OBJECTIVE_MARKER,(position-Vector2(14,14)).round())
-			PixelFont.draw_centered(surface,"STRIKE",int(position.x),int(position.y-22),1,GREEN,1)
+			surface.draw_texture_rect(HUD_OBJECTIVE_MARKER,Rect2((position-Vector2(10,10)).round(),Vector2(20,20)),false)
+			PixelFont.draw_centered(surface,"STRIKE",int(position.x),int(position.y-18),1,GREEN,1)
 			marked += 1
 			if marked >= 4: break
 	if _has_property(scene,"protected_contacts"):
@@ -944,15 +944,15 @@ func _draw_surface_iff_markers(surface: CanvasItem, scene: Object) -> void:
 			if typeof(contact) != TYPE_DICTIONARY: continue
 			var position: Vector2 = contact.get("position",Vector2.ZERO)
 			if not Rect2(18,52,604,296).has_point(position): continue
-			surface.draw_texture(HUD_PROTECTED_MARKER,(position-Vector2(14,14)).round())
-			PixelFont.draw_centered(surface,"PROTECTED",int(position.x),int(position.y-22),1,BLUE,1)
+			surface.draw_texture_rect(HUD_PROTECTED_MARKER,Rect2((position-Vector2(10,10)).round(),Vector2(20,20)),false)
+			PixelFont.draw_centered(surface,"PROTECTED",int(position.x),int(position.y-18),1,BLUE,1)
 	if "--capture-surface-iff" in OS.get_cmdline_user_args():
 		var objective_fixture := Vector2(230,135)
 		var protected_fixture := Vector2(517,230)
-		surface.draw_texture(HUD_OBJECTIVE_MARKER,(objective_fixture-Vector2(14,14)).round())
-		PixelFont.draw_centered(surface,"STRIKE",int(objective_fixture.x),int(objective_fixture.y-22),1,GREEN,1)
-		surface.draw_texture(HUD_PROTECTED_MARKER,(protected_fixture-Vector2(14,14)).round())
-		PixelFont.draw_centered(surface,"PROTECTED",int(protected_fixture.x),int(protected_fixture.y-22),1,BLUE,1)
+		surface.draw_texture_rect(HUD_OBJECTIVE_MARKER,Rect2((objective_fixture-Vector2(10,10)).round(),Vector2(20,20)),false)
+		PixelFont.draw_centered(surface,"STRIKE",int(objective_fixture.x),int(objective_fixture.y-18),1,GREEN,1)
+		surface.draw_texture_rect(HUD_PROTECTED_MARKER,Rect2((protected_fixture-Vector2(10,10)).round(),Vector2(20,20)),false)
+		PixelFont.draw_centered(surface,"PROTECTED",int(protected_fixture.x),int(protected_fixture.y-18),1,BLUE,1)
 
 func _altitude_choice_active(scene: Object) -> bool:
 	var presentation := get_node_or_null("/root/AltitudeTransitionDirector")

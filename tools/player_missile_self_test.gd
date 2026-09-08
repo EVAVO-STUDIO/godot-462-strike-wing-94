@@ -54,7 +54,9 @@ func _initialize() -> void:
 		var lock_image := lock_texture.get_image()
 		_expect(lock_image.get_pixel(16, 16).a == 0.0, "hard-lock boresight must keep the target center optically clear")
 	var source := FileAccess.open("res://scripts/player_missile_director.gd", FileAccess.READ)
-	_expect(source != null and not source.get_as_text().contains("draw_set_transform(position.round()"), "seeker symbology must remain pixel-registered instead of breathing or scaling over the target")
+	var source_text := source.get_as_text() if source != null else ""
+	_expect(source != null and not source_text.contains("draw_set_transform(position.round()"), "seeker symbology must remain pixel-registered instead of breathing or scaling over the target")
+	_expect(source_text.contains('argument.begins_with("--capture-ground=")'), "surface-art QA should suppress unrelated hidden air-target locks")
 	director.queue_free()
 	scene.queue_free()
 	if failures.is_empty():
