@@ -24,10 +24,10 @@ const KEYBOARD_BINDINGS := [
 	{"action":"throttle_down", "label":"THROTTLE DECREASE", "default":KEY_G}
 ]
 
-# Physical buttons intentionally own both their in-flight command and one
-# sortie-bay command. The campaign/title handlers are phase + screen gated, so
-# X can fire tactical support in flight and buy the next primary in the sortie
-# bay without either action leaking into the other context.
+# These bindings are the in-flight / universal controller contract. Campaign
+# sortie-bay purchases and support selection are handled by the separately
+# gated ControllerSortieBayDirector so their physical buttons cannot mutate
+# progression while the player is browsing Options, Dossier or branch screens.
 const BUTTON_BINDINGS := {
 	"confirm": JOY_BUTTON_A,
 	"cancel": JOY_BUTTON_B,
@@ -38,19 +38,11 @@ const BUTTON_BINDINGS := {
 	"afterburner": JOY_BUTTON_LEFT_SHOULDER,
 	"evasive_roll": JOY_BUTTON_LEFT_STICK,
 	"call_battlefield_support": JOY_BUTTON_RIGHT_SHOULDER,
-	"cycle_support": JOY_BUTTON_DPAD_LEFT,
-	"cycle_battlefield_support": JOY_BUTTON_DPAD_RIGHT,
 	"altitude_up": JOY_BUTTON_DPAD_UP,
 	"altitude_down": JOY_BUTTON_DPAD_DOWN,
 	"drop_strike_ordnance": JOY_BUTTON_RIGHT_STICK,
 	"toggle_mission_intel": JOY_BUTTON_BACK,
-	"restart": JOY_BUTTON_X,
-	"upgrade": JOY_BUTTON_X,
-	"upgrade_generator": JOY_BUTTON_Y,
-	"service_hull": JOY_BUTTON_LEFT_SHOULDER,
-	"service_shield": JOY_BUTTON_RIGHT_SHOULDER,
-	"upgrade_airframe": JOY_BUTTON_LEFT_STICK,
-	"upgrade_support": JOY_BUTTON_RIGHT_STICK
+	"restart": JOY_BUTTON_X
 }
 
 func _enter_tree() -> void:
