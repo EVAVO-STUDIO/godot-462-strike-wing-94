@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "sequence": "vx94_hypersonic_break",
   "logical_size": "640x360",
   "frame_rate": 24,
@@ -47,13 +47,14 @@
         170,
         287
       ],
-      "beat": "ring clears; cloud-field parallax and blue exhaust accelerate"
+      "beat": "ring clears; three-frame peripheral cloud-shear cels and blue exhaust accelerate from the shared vanishing point"
     }
   ],
   "rejections": [
     "aircraft identity drift",
     "wing change after ignition",
     "shockwave detached from engine axis",
+    "vertical rain-like speed lines",
     "low-over-water impossible scale",
     "generic neon science-fiction treatment"
   ]

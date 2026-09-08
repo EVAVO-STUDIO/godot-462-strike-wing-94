@@ -25,7 +25,32 @@ def speed_treatment(source:Image.Image,ratio:float,frame:int)->Image.Image:
     scaled=source.resize((round(640*zoom),round(360*zoom)),Image.Resampling.LANCZOS)
     left=(scaled.width-640)//2
     top=min(scaled.height-360,(scaled.height-360)//2+round(ratio*7))
-    return scaled.crop((left,top,left+640,top+360))
+    image=scaled.crop((left,top,left+640,top+360))
+    # A rear tracking camera keeps the VX-94 readable while peripheral cloud
+    # detail tears away from the shared horizon vanishing point. Hold the
+    # treatment on threes so it reads as authored late-90s cel effects rather
+    # than smooth digital rain or generic motion blur.
+    exposure=(frame-170)//3
+    overlay=Image.new("RGBA",SIZE,(0,0,0,0))
+    draw=ImageDraw.Draw(overlay)
+    vanish=(320.0,104.0)
+    shear_count=round(4+ratio*18)
+    for index in range(shear_count):
+        seed=exposure*37+index*71
+        side=-1 if index%2==0 else 1
+        x=vanish[0]+side*(82+(seed*29)%238)
+        y=132+(seed*43)%190
+        dx=x-vanish[0]; dy=y-vanish[1]
+        length=(8+ratio*38)*(0.72+((seed*17)%31)/50.0)
+        magnitude=max(1.0,math.hypot(dx,dy))
+        ux=dx/magnitude; uy=dy/magnitude
+        start=(round(x-ux*length*0.22),round(y-uy*length*0.22))
+        end=(round(x+ux*length),round(y+uy*length))
+        alpha=round(22+ratio*54)
+        draw.line((start,end),fill=(172,205,218,alpha),width=1)
+        if ratio>0.62 and index%4==0:
+            draw.line(((start[0],start[1]+1),(end[0],end[1]+1)),fill=(95,153,188,alpha//2),width=1)
+    return Image.alpha_composite(image.convert("RGBA"),overlay).convert("RGB")
 
 def letterbox(image:Image.Image)->Image.Image:
     draw=ImageDraw.Draw(image)
@@ -58,7 +83,7 @@ def build()->None:
         image.save(WORK/f"frame_{frame:04d}.png",optimize=True)
         if frame in proof_frames: image.save(proof_dir/f"frame_{frame:04d}.png",optimize=True)
     manifest={
-      "schema_version":1,"sequence":"vx94_hypersonic_break","logical_size":"640x360",
+      "schema_version":2,"sequence":"vx94_hypersonic_break","logical_size":"640x360",
       "frame_rate":FPS,"frame_count":FRAME_COUNT,"duration_seconds":FRAME_COUNT/FPS,
       "identity_lock":"Four registered keys preserve one camera, horizon, fuselage, canopy, twin-nacelle and twin-tail identity.",
       "beats":[
@@ -67,8 +92,8 @@ def build()->None:
         {"frames":[116,137],"beat":"locked hypersonic geometry hold"},
         {"frames":[138,150],"beat":"four-exposure blue engine ignition"},
         {"frames":[151,169],"beat":"held engine-axis pressure-ring impact"},
-        {"frames":[170,287],"beat":"ring clears; cloud-field parallax and blue exhaust accelerate"}],
-      "rejections":["aircraft identity drift","wing change after ignition","shockwave detached from engine axis","low-over-water impossible scale","generic neon science-fiction treatment"]}
+        {"frames":[170,287],"beat":"ring clears; three-frame peripheral cloud-shear cels and blue exhaust accelerate from the shared vanishing point"}],
+      "rejections":["aircraft identity drift","wing change after ignition","shockwave detached from engine axis","vertical rain-like speed lines","low-over-water impossible scale","generic neon science-fiction treatment"]}
     (OUT/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
     ffmpeg=shutil.which("ffmpeg")
     if not ffmpeg: raise RuntimeError("ffmpeg is required to build the reviewable MP4")
