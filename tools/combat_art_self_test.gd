@@ -553,6 +553,7 @@ func _test_visual_language() -> void:
 		var component := load("res://assets/runtime/enemies/orbital_boss_specialist/%s.png" % component_id)
 		_expect(component is Texture2D and component.get_size()==orbital_boss_specialist_sizes[component_id],"BLACK SKY boss component should retain registered geometry: %s" % component_id)
 	_expect(source.contains("ORBITAL_BOSS_SPECIALIST_ART") and source.contains("PHASE_FIELD_FRAMES") and source.contains("_draw_orbital_boss_mechanics"),"BLACK SKY bosses should expose authored field and independently tracking pressure-hardware pylons")
+	_expect(source.contains("func _draw_mobile_ground_base") and source.contains("Color(0.015,0.025,0.030,0.58)") and source.contains("_draw_mobile_ground_base(surface, p, base, scale)"), "mobile ground hulls should retain a restrained alpha-following terrain contact key")
 	_expect(CombatArtDirector.phase_field_cycle_index(0.0,1)==0 and CombatArtDirector.phase_field_cycle_index(0.34,1)==1 and CombatArtDirector.phase_field_cycle_index(0.50,2)==2,"phase field should use held calibration exposures whose cadence responds to canonical boss phase")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_boss_specialist/orbital_boss_specialist_asset_manifest.json"),"BLACK SKY boss mechanics source/runtime manifest should exist")
 	var layered_orbital_boss_sizes := {

@@ -1879,6 +1879,15 @@ func _draw_production_sprite(surface: CanvasItem, p: Vector2, texture: Texture2D
 	var destination := Rect2((p - size * 0.5).round(), size.round())
 	surface.draw_texture_rect(texture, destination, false)
 
+func _draw_mobile_ground_base(surface: CanvasItem, p: Vector2, texture: Texture2D, scale: float) -> void:
+	var size := texture.get_size() * scale
+	var origin := (p-size*0.5).round()
+	# A restrained navy contact key separates moving hulls from roads and rock.
+	# It follows the authored alpha exactly and never becomes an arcade marker.
+	for offset in [Vector2(-1,0),Vector2(1,0),Vector2(0,1)]:
+		surface.draw_texture_rect(texture,Rect2(origin+offset,size.round()),false,Color(0.015,0.025,0.030,0.58))
+	surface.draw_texture_rect(texture,Rect2(origin,size.round()),false)
+
 func _draw_surface_site(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, scale: float) -> void:
 	var texture: Texture2D = SURFACE_SITE_SPRITES[enemy_id]
 	if enemy_id == "radar_site":
@@ -2772,7 +2781,7 @@ func _draw_layered_ground(surface: CanvasItem, p: Vector2, enemy: Dictionary, la
 		base = locomotion[posmod(int(floor(float(enemy.get("age", 0.0)) * 8.0)), locomotion.size())]
 	var weapon: Texture2D = layers.get("weapon")
 	var barrel: Texture2D = layers.get("barrel", null)
-	_draw_production_sprite(surface, p, base, scale)
+	_draw_mobile_ground_base(surface, p, base, scale)
 	var max_hp := maxf(1.0, float(enemy.get("max_hp", enemy.get("hp", 1))))
 	if float(enemy.get("hp", max_hp)) / max_hp <= 0.55 and layers.has("damage"):
 		_draw_production_sprite(surface, p, layers["damage"], scale)
