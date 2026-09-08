@@ -31,6 +31,8 @@ func _run() -> void:
 		_expect(vector_ids.has(str(mission.get("required_secret_id", ""))), "%s should unlock from a real authored secret vector" % id)
 		_expect(float(mission.get("duration_seconds", 0.0)) >= 120.0, "%s should be a substantial playable sortie" % id)
 		_expect(mission.get("encounter_beats", []).size() >= 3 and mission.get("objectives", []).size() >= 3, "%s should contain authored encounters and objectives" % id)
+		var posture_routes: Array = mission.get("encounter_beats", []).filter(func(beat): return str(beat.get("condition", {}).get("type", "")) == "altitude_form")
+		_expect(posture_routes.size() >= 1, "%s should reward a deliberate altitude and airframe posture" % id)
 		_expect(enemy_ids.has(str(mission.get("boss_id", ""))), "%s boss should exist in the combat catalogue" % id)
 		_expect(int(mission.get("reward_credits", 0)) > 0 and not str(mission.get("briefing", "")).is_empty(), "%s should provide authored briefing and reward" % id)
 		_expect(str(mission.get("environment", "")) in profile_ids, "%s should resolve a registered base environment profile" % id)
@@ -38,6 +40,10 @@ func _run() -> void:
 		if contexts.has(id):
 			var context: Dictionary = contexts[id]
 			_expect(str(context.get("altitude", "")) in ["low","mid","high","orbital"] and str(context.get("recommended_form", "")) in ["fighter","bomber"], "%s should define a valid secret-sortie flight posture" % id)
+			for route in posture_routes:
+				var condition: Dictionary = route.get("condition", {})
+				_expect(str(condition.get("altitude", "")) == str(context.get("altitude", "")) or str(condition.get("altitude", "")) == "high", "%s mastery route should be reachable from its authored airspace" % id)
+				_expect(str(condition.get("form", "")) in ["fighter","bomber"], "%s mastery route should require a valid VX-94 form" % id)
 	var main_script := load("res://scripts/main.gd") as Script
 	var scene = main_script.new()
 	scene.call("_load_content")

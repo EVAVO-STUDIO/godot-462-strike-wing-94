@@ -136,7 +136,7 @@ $Cases = @(
     @{ id='ending_city_silence'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=2') },
     @{ id='ending_watch'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=3') },
     @{ id='ending_title'; args=@('--capture-gameplay','--capture-cinematic=ending_after_machine_ark','--capture-cinematic-shot=4') },
-    @{ id='secret_dead_frequency'; args=@('--capture-gameplay','--capture-secret-mission=sm03_dead_frequency','--capture-time=52','--capture-secret') },
+    @{ id='secret_dead_frequency'; args=@('--capture-gameplay','--capture-secret-mission=sm03_dead_frequency','--capture-time=78','--capture-secret','--capture-altitude=high','--capture-form=fighter') },
     @{ id='hud_missile_warning'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-hud=warning') },
     @{ id='hud_countermeasure_break'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high','--capture-hud=warning','--capture-countermeasure','--visual-capture-delay=0.34') },
 	@{ id='hud_countermeasure_ignition'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high','--capture-hud=warning','--capture-countermeasure','--visual-capture-delay=0.08') },
