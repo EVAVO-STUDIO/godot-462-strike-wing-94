@@ -3,7 +3,7 @@ extends SceneTree
 const ALLOWED_ROLES := ["observation", "anticipation", "action", "consequence"]
 const ALLOWED_CAMERAS := ["locked", "pan", "track"]
 const ALLOWED_BRIDGES := ["environmental", "prelap", "carry", "hard silence"]
-const PLATES := ["s2_dead_refinery", "s2_factory_awakens", "s2_city_warning", "s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized", "end_ark_fall", "end_reentry", "end_city_silence", "end_watch", "end_title_sky"]
+const PLATES := ["launch_deck_ready", "launch_cockpit", "launch_climbout", "s2_dead_refinery", "s2_factory_awakens", "s2_city_warning", "s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized", "end_ark_fall", "end_reentry", "end_city_silence", "end_watch", "end_title_sky"]
 const SPRITES := ["salvage_mech", "drone_hunter", "vx94_fighter", "vx94_bomber", "phase_array", "machine_ark"]
 
 func _initialize() -> void:
@@ -32,7 +32,7 @@ func _run() -> void:
 		if typeof(mission) == TYPE_DICTIONARY:
 			mission_ids.append(str(mission.get("id", "")))
 	var sequences: Array = data.get("sequences", [])
-	_expect(sequences.size() == 3, "campaign should retain two sector transitions and an ending", failures)
+	_expect(sequences.size() == 4, "campaign should retain its carrier launch, two sector transitions, and ending", failures)
 	var triggers: Array[String] = []
 	var used_plates: Dictionary = {}
 	var animated_subject_shots := 0
@@ -45,8 +45,8 @@ func _run() -> void:
 					used_plates[str(shot.get("plate", ""))] = true
 					if float(shot.get("animation_fps", 0.0)) > 0.0:
 						animated_subject_shots += 1
-	_expect(triggers.count("launch") == 2 and triggers.count("ending") == 1, "cinematic schedule should contain two launch transitions and one ending", failures)
-	_expect(used_plates.size() == 12, "each campaign cinematic beat should use its own authored editorial plate", failures)
+	_expect(triggers.count("launch") == 3 and triggers.count("ending") == 1, "cinematic schedule should contain the opening launch, two sector transitions, and one ending", failures)
+	_expect(used_plates.size() == 15, "each campaign cinematic beat should use its own authored editorial plate", failures)
 	_expect(animated_subject_shots >= 4, "campaign cinematics should use restrained authored subject animation on mechanical story beats", failures)
 	var machine_fx_shots := 0
 	for sequence in sequences:
@@ -73,6 +73,14 @@ func _run() -> void:
 		var plate := load("res://assets/runtime/cinematics/plates/%s.png" % plate_id)
 		_expect(plate is Texture2D and plate.get_size() == Vector2(640,320), "cinematic plate should preserve authored 640x320 composition: %s" % plate_id, failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/cinematic_plate_asset_manifest.json"), "cinematic plate production manifest should exist", failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/carrier_launch_v1/manifest.json"), "carrier-launch source and prompt manifest should exist", failures)
+	_expect(FileAccess.file_exists("res://assets/source/cinematics/carrier_launch_v1/xsheet.json"), "carrier-launch authored exposure sheet should exist", failures)
+	_expect(FileAccess.file_exists("res://tools/build_carrier_launch_cinematic_v1.py"), "carrier-launch plates should remain deterministically finishable", failures)
+	_expect(FileAccess.file_exists("res://tools/build_carrier_launch_fx_v1.py"), "carrier-launch held FX cels should remain deterministically rebuildable", failures)
+	for shot_id in ["launch_deck", "launch_pilot", "launch_airborne"]:
+		for frame_index in range(4):
+			var launch_fx := load("res://assets/runtime/cinematics/fx/carrier_launch/%s_%d.png" % [shot_id, frame_index])
+			_expect(launch_fx is Texture2D and launch_fx.get_size() == Vector2(640,272), "carrier-launch FX cel should retain registered 640x272 geometry: %s %d" % [shot_id, frame_index], failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/plates_v2/machine_war/machine_war_plate_manifest_v2.json"), "Sector II authored plate production manifest v2 should exist", failures)
 	_expect(FileAccess.file_exists("res://tools/build_machine_war_cinematic_plates_v2.ps1"), "Sector II authored plate masters should remain deterministically rebuildable", failures)
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/plates_v2/black_sky/black_sky_plate_manifest_v2.json"), "BLACK SKY authored plate production manifest v2 should exist", failures)

@@ -10,9 +10,10 @@
     "canvas": [640, 320],
     "palette_limit": 64,
     "directory": "res://assets/runtime/cinematics/plates/",
-    "plates": ["s2_dead_refinery", "s2_factory_awakens", "s2_city_warning", "s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized", "end_ark_fall", "end_reentry", "end_city_silence", "end_watch", "end_title_sky"]
+    "plates": ["launch_deck_ready", "launch_cockpit", "launch_climbout", "s2_dead_refinery", "s2_factory_awakens", "s2_city_warning", "s3_weather_ceiling", "s3_phase_protocol", "s3_ark_reveal", "s3_authorized", "end_ark_fall", "end_reentry", "end_city_silence", "end_watch", "end_title_sky"]
   },
   "coverage": {
+    "sector_i_carrier_launch": {"plates":3,"version":"authored_v1"},
     "sector_ii_machine_war": {"plates":3,"version":"authored_v2"},
     "sector_iii_black_sky": {"plates":4,"version":"authored_v2"},
     "ending_after_machine_ark": {"plates":5,"version":"authored_v2"}

@@ -1,0 +1,29 @@
+{
+  "asset_family": "sector_i_carrier_launch",
+  "version": 1,
+  "status": "runtime_integrated",
+  "use_case": "stylized-concept",
+  "generator": "built-in image generation tool plus deterministic local finishing",
+  "visual_contract": {
+    "era": "original late-1990s hand-painted military cel animation",
+    "identity": "HYPERSONIC VX-94 variable strike fighter and anonymous fully helmeted pilot",
+    "palette": "storm navy, naval gray, restrained amber, blue-white acceleration flare",
+    "avoid": ["franchise characters", "copied compositions", "modern neon science fiction", "photorealism", "3D-render appearance"]
+  },
+  "runtime": {
+    "size": [640, 320],
+    "palette_colors": 96,
+    "plates": ["launch_deck_ready", "launch_cockpit", "launch_climbout"]
+  },
+  "prompts": {
+    "launch_deck_ready": "Original late-1990s hand-painted military cel-animation frame: identity-correct VX-94 on a storm-darkened carrier catapult at predawn, deck crew clear, twin engines igniting, low rear three-quarter view.",
+    "launch_cockpit": "Original late-1990s military cel-animation cockpit frame: anonymous pilot fully covered by flight helmet, visor and oxygen mask, hand on throttle, rain-lit carrier deck outside.",
+    "launch_climbout": "Original late-1990s military cel-animation frame: identity-correct VX-94 just clear of the bow on the carrier launch axis, level horizon, restrained conventional exhaust, coherent deck-to-aircraft scale."
+  },
+  "animation": {
+    "xsheet": "xsheet.json",
+    "effects_builder": "tools/build_carrier_launch_fx_v1.py",
+    "held_plate_policy": "one registered background drawing per shot with separately exposed weather, practical-light, instrument and exhaust cels",
+    "fx_exposure_fps": 3
+  }
+}

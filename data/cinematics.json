@@ -2,6 +2,17 @@
   "schema_version": 1,
   "sequences": [
     {
+      "id": "sector_i_carrier_launch",
+      "trigger": "launch",
+      "mission_id": "m01_coastal_intercept",
+      "title": "SECTOR I // MERCENARY WAR",
+      "shots": [
+        {"id":"launch_deck","role":"anticipation","duration":3.6,"camera":"pan","plate":"launch_deck_ready","fx_fps":3.0,"caption":"VX-94 // CATAPULT ARMED","sound_bridge":"environmental"},
+        {"id":"launch_pilot","role":"observation","duration":3.0,"camera":"locked","plate":"launch_cockpit","fx_fps":3.0,"caption":"STRIKE ONE. CONTROLS LIVE.","sound_bridge":"prelap"},
+        {"id":"launch_airborne","role":"consequence","duration":4.2,"camera":"track","plate":"launch_climbout","fx_fps":3.0,"caption":"WINGS CLEAR // MISSION CLOCK START","sound_bridge":"carry"}
+      ]
+    },
+    {
       "id": "sector_ii_machine_war",
       "trigger": "launch",
       "mission_id": "m07_ghost_sky",

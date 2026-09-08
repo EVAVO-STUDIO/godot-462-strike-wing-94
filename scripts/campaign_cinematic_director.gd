@@ -6,6 +6,9 @@ const CampaignCinematicSurface = preload("res://scripts/campaign_cinematic_surfa
 const HYPERSONIC_WORDMARK := preload("res://assets/runtime/title/hypersonic_wordmark_v3.png")
 
 const PLATES := {
+	"launch_deck_ready": preload("res://assets/runtime/cinematics/plates/launch_deck_ready.png"),
+	"launch_cockpit": preload("res://assets/runtime/cinematics/plates/launch_cockpit.png"),
+	"launch_climbout": preload("res://assets/runtime/cinematics/plates/launch_climbout.png"),
 	"s2_dead_refinery": preload("res://assets/runtime/cinematics/plates/s2_dead_refinery.png"),
 	"s2_factory_awakens": preload("res://assets/runtime/cinematics/plates/s2_factory_awakens.png"),
 	"s2_city_warning": preload("res://assets/runtime/cinematics/plates/s2_city_warning.png"),
@@ -71,6 +74,9 @@ const ENDING_SUBJECT_FRAMES := {
 	"vx94_fighter": [preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_0.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_1.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_2.png"), preload("res://assets/runtime/cinematics/subjects/ending/vx94_fighter_3.png")],
 }
 const SHOT_FX_FRAMES := {
+	"launch_deck": [preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_deck_0.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_deck_1.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_deck_2.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_deck_3.png")],
+	"launch_pilot": [preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_pilot_0.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_pilot_1.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_pilot_2.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_pilot_3.png")],
+	"launch_airborne": [preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_airborne_0.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_airborne_1.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_airborne_2.png"), preload("res://assets/runtime/cinematics/fx/carrier_launch/launch_airborne_3.png")],
 	"s2_observation": [
 		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_0.png"),
 		preload("res://assets/runtime/cinematics/fx/machine_war/s2_observation_1.png"),
