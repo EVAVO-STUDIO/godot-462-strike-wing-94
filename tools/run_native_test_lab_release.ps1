@@ -84,7 +84,7 @@ Write-Host "Running HYPERSONIC native Test Lab journeys at target $TargetSha" -F
 Write-Host "Pinned Test Lab: $ExpectedLabSha" -ForegroundColor DarkCyan
 Write-Host "Governed Godot: $GodotBin" -ForegroundColor DarkCyan
 Invoke-NativeProfile $ProfilePath $ArtifactPath 'core release journeys (8)'
-Invoke-NativeProfile $ControllerProfilePath $ControllerArtifactPath 'controller sortie-bay maintenance (1)'
+Invoke-NativeProfile $ControllerProfilePath $ControllerArtifactPath 'controller front-end contexts (2)'
 
 if ($AllowNonInteractive) {
     Write-Warning 'Noninteractive contract-test run completed. No authoritative native HYPERSONIC handoff is issued.'
@@ -100,8 +100,9 @@ $Handoff = [ordered]@{
     godot_version = ((@(& $GodotBin --version 2>&1) | Select-Object -First 1) -as [string]).Trim()
     profile = '.evavo/godot-lab-native.json'
     controller_sortie_profile = '.evavo/godot-lab-controller-sortie.json'
-    required_journey_count = 9
+    required_journey_count = 10
     controller_sortie_required = $true
+    controller_menu_required = $true
     artifact_path = $ArtifactPath
     controller_sortie_artifact_path = $ControllerArtifactPath
     interactive_windows_session = $true
