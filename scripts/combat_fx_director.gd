@@ -425,8 +425,9 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var fireball: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(blast_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 		# Cannon kills are a localized airframe rupture. The separated wreck and
 		# retained smoke carry the consequence; the flash must not outrank a missile.
-		var fireball_size := roundf(max_size*2.15)
-		surface.draw_texture_rect(fireball,Rect2((p-Vector2.ONE*fireball_size*0.5).round(),Vector2.ONE*fireball_size),false,Color(1,1,1,0.92-smoothstep(0.68,1.0,blast_clock)*0.72))
+		var fireball_size := roundf(max_size*1.35)
+		var rupture_alpha := 0.68-smoothstep(0.54,1.0,blast_clock)*0.52
+		surface.draw_texture_rect(fireball,Rect2((p-Vector2.ONE*fireball_size*0.5).round(),Vector2.ONE*fireball_size),false,Color(1.0,0.88,0.68,rupture_alpha))
 	elif not boss and impact_family in ["rocket","bomb"] and blast_clock < 0.76:
 		# Surface warheads need a dense incandescent core behind the radial debris
 		# cel. Without it, their open silhouettes collapse to a tiny spark over
