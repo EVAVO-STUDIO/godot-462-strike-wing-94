@@ -12,16 +12,15 @@ const FLARE_FRAMES := [
 	preload("res://assets/runtime/effects/countermeasure/flare_3.png"),
 ]
 const FLARE_PIVOT := Vector2(24, 10)
-# Preserve the authored magnesium head at the 640x360 gameplay resolution.
-# The previous 62% reduction collapsed each paired cartridge into an orange
-# triangle and hid the separate cool-grey wake.
-const SALVO_CARTRIDGE_SCALE := Vector2(0.78,0.78)
+# Each cel already contains a paired cartridge. Keep the pair crisp but small
+# enough that five staged ejections read as ten individual decoys, not one fire.
+const SALVO_CARTRIDGE_SCALE := Vector2(0.58,0.58)
 const SALVO_DELAYS := [0.0,0.040,0.080,0.120,0.160]
-const SALVO_LATERAL_OFFSETS := [-5.0,-2.0,0.0,2.0,5.0]
-const SALVO_ANGLE_OFFSETS := [-0.72,-0.36,0.0,0.36,0.72]
+const SALVO_LATERAL_OFFSETS := [-12.0,-6.0,0.0,6.0,12.0]
+const SALVO_ANGLE_OFFSETS := [-0.95,-0.48,0.0,0.48,0.95]
 const DISPENSER_OFFSETS := {
-	"fighter": [Vector2(-5,14),Vector2(-3,15),Vector2(0,16),Vector2(3,15),Vector2(5,14)],
-	"bomber": [Vector2(-6,16),Vector2(-3,17),Vector2(0,18),Vector2(3,17),Vector2(6,16)],
+	"fighter": [Vector2(-10,14),Vector2(-7,15),Vector2(0,16),Vector2(7,15),Vector2(10,14)],
+	"bomber": [Vector2(-14,16),Vector2(-9,17),Vector2(0,18),Vector2(9,17),Vector2(14,16)],
 }
 
 var _charges := CountermeasureRules.MAX_CHARGES
