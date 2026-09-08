@@ -57,7 +57,10 @@ func guidance_for(scene: Object) -> Dictionary:
 		return _countermeasure_guidance()
 
 	var elapsed := _route_seconds(scene)
-	if elapsed >= 1.8 and elapsed < 6.8:
+	# Teach basic control before MissionRadioDirector's normal 1.62s briefing
+	# delay expires. The first sortie therefore presents controls and narrative as
+	# consecutive beats rather than two simultaneous instruction channels.
+	if elapsed >= 0.20 and elapsed < 1.50:
 		return _steer_fire_guidance()
 	if elapsed >= 9.0 and elapsed < 14.0:
 		return _power_geometry_guidance()
@@ -69,7 +72,8 @@ func _steer_fire_guidance() -> Dictionary:
 	var left := _keyboard_label("move_left", "A")
 	var right := _keyboard_label("move_right", "D")
 	var fire := _keyboard_label("fire_primary", "SPACE")
-	return {"id":"steer_fire", "text":"FLIGHT CHECK // %s-%s/LS STEER // %s/A FIRE" % [left, right, fire], "tone":"blue"}
+	var pause := _keyboard_label("cancel", "ESC")
+	return {"id":"steer_fire", "text":"FLIGHT CHECK // %s-%s/LS STEER // %s/A FIRE // %s/START PAUSE" % [left, right, fire, pause], "tone":"blue"}
 
 func _power_geometry_guidance() -> Dictionary:
 	var throttle_up := _keyboard_label("throttle_up", "T")
@@ -137,6 +141,7 @@ func _short_key(label: String) -> String:
 		"PAGEUP": return "PGUP"
 		"PAGEDOWN": return "PGDN"
 		"SHIFT": return "SHIFT"
+		"ESCAPE": return "ESC"
 	return label
 
 func _capture_guidance() -> String:
