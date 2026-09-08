@@ -36,6 +36,17 @@
       ]
     },
     {
+      "id": "vx94_hypersonic_break",
+      "trigger": "launch",
+      "mission_id": "m10_blue_fire",
+      "title": "VX-94 // HYPERSONIC CLEARANCE",
+      "shots": [
+        {"id":"vx94_hypersonic_fold","role":"observation","duration":1.8,"camera":"locked","cel_sequence":"vx94_hypersonic_break","cel_frame_range":[0,3],"audio_bed":{"gain":0.030,"frequency":72.0,"airflow":0.22},"audio_cue":"cinematic_engine_ignition","caption":"VARIABLE GEOMETRY // SWEEP COMMAND","sound_bridge":"prelap"},
+        {"id":"vx94_hypersonic_ignition","role":"anticipation","duration":1.5,"camera":"locked","cel_sequence":"vx94_hypersonic_break","cel_frame_range":[4,6],"audio_bed":{"gain":0.045,"frequency":84.0,"airflow":0.34},"caption":"ENGINE TEMPERATURE BLUE // PRESSURE RISING","sound_bridge":"carry"},
+        {"id":"vx94_hypersonic_break","role":"consequence","duration":1.5,"camera":"track","cel_sequence":"vx94_hypersonic_break","cel_frame_range":[7,8],"audio_bed":{"gain":0.052,"frequency":92.0,"airflow":0.46},"audio_cue":"sonic_boom","caption":"MACH CORRIDOR OPEN // BLUE FIRE","sound_bridge":"carry"}
+      ]
+    },
+    {
       "id": "ending_after_machine_ark",
       "trigger": "ending",
       "mission_id": "m12_machine_ark",

@@ -150,6 +150,19 @@ const SHOT_FX_FRAMES := {
 		preload("res://assets/runtime/cinematics/fx/ending/end_title_3.png"),
 	],
 }
+const CEL_SEQUENCES := {
+	"vx94_hypersonic_break": [
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/0.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/1.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/2.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/3.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/4.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/5.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/6.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/7.png"),
+		preload("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/8.png"),
+	],
+}
 
 var _sequences: Array = []
 var _launch_by_mission: Dictionary = {}
@@ -296,6 +309,19 @@ func _subtitles_enabled() -> bool:
 	return settings == null or not settings.has_method("subtitles_enabled") or bool(settings.call("subtitles_enabled"))
 
 func _draw_plate(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: float) -> void:
+	var cel_sequence_id := str(shot.get("cel_sequence", ""))
+	if CEL_SEQUENCES.has(cel_sequence_id):
+		var frames: Array = CEL_SEQUENCES[cel_sequence_id]
+		var frame_range := _shot_number_pair(shot, "cel_frame_range", Vector2(0, frames.size() - 1))
+		var frame_start := clampi(int(frame_range.x), 0, frames.size() - 1)
+		var frame_end := clampi(int(frame_range.y), frame_start, frames.size() - 1)
+		var frame_index := clampi(int(round(lerpf(float(frame_start), float(frame_end), ratio))), frame_start, frame_end)
+		var frame: Texture2D = frames[frame_index]
+		# The authored keys are full 640x360 compositions. Crop only the cinematic
+		# title/subtitle safety bands so the VX-94 and pressure ring retain their
+		# exact registered perspective through every held exposure.
+		surface.draw_texture_rect_region(frame, Rect2(0,24,640,272), Rect2(0,24,640,272), Color(0.94,0.96,0.97,alpha))
+		return
 	var plate: Texture2D = PLATES.get(str(shot.get("plate", "")), null)
 	if plate == null:
 		return

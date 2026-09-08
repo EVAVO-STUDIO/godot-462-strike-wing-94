@@ -32,7 +32,7 @@ func _run() -> void:
 		if typeof(mission) == TYPE_DICTIONARY:
 			mission_ids.append(str(mission.get("id", "")))
 	var sequences: Array = data.get("sequences", [])
-	_expect(sequences.size() == 4, "campaign should retain its carrier launch, two sector transitions, and ending", failures)
+	_expect(sequences.size() == 5, "campaign should retain its carrier launch, two sector transitions, hypersonic clearance, and ending", failures)
 	var triggers: Array[String] = []
 	var used_plates: Dictionary = {}
 	var animated_subject_shots := 0
@@ -43,7 +43,8 @@ func _run() -> void:
 			triggers.append(str(sequence.get("trigger", "launch")))
 			for shot in sequence.get("shots", []):
 				if typeof(shot) == TYPE_DICTIONARY:
-					used_plates[str(shot.get("plate", ""))] = true
+					var plate_id := str(shot.get("plate", ""))
+					if not plate_id.is_empty(): used_plates[plate_id] = true
 					if float(shot.get("animation_fps", 0.0)) > 0.0:
 						animated_subject_shots += 1
 					if str(sequence.get("id", "")) == "sector_i_carrier_launch":
@@ -51,7 +52,7 @@ func _run() -> void:
 						_expect(typeof(bed) == TYPE_DICTIONARY and float(bed.get("gain", 0.0)) > 0.0 and float(bed.get("gain", 1.0)) <= 0.10, "carrier launch shots should define restrained continuous propulsion beds", failures)
 						var cue := str(shot.get("audio_cue", ""))
 						if not cue.is_empty(): carrier_audio_cues.append(cue)
-	_expect(triggers.count("launch") == 3 and triggers.count("ending") == 1, "cinematic schedule should contain the opening launch, two sector transitions, and one ending", failures)
+	_expect(triggers.count("launch") == 4 and triggers.count("ending") == 1, "cinematic schedule should contain the opening launch, two sector transitions, hypersonic clearance, and one ending", failures)
 	_expect(used_plates.size() == 15, "each campaign cinematic beat should use its own authored editorial plate", failures)
 	_expect(animated_subject_shots >= 4, "campaign cinematics should use restrained authored subject animation on mechanical story beats", failures)
 	_expect(carrier_audio_cues == ["cinematic_engine_ignition", "cinematic_catapult"], "carrier launch should cue ignition and catapult release once, without a deck-level sonic boom", failures)
@@ -84,6 +85,8 @@ func _run() -> void:
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/carrier_launch_v1/xsheet.json"), "carrier-launch authored exposure sheet should exist", failures)
 	_expect(FileAccess.file_exists("res://tools/build_carrier_launch_cinematic_v1.py"), "carrier-launch plates should remain deterministically finishable", failures)
 	_expect(FileAccess.file_exists("res://tools/build_carrier_launch_fx_v1.py"), "carrier-launch held FX cels should remain deterministically rebuildable", failures)
+	_expect(FileAccess.file_exists("res://tools/build_vx94_hypersonic_runtime_cels_v1.py"), "hypersonic cel keys should remain deterministically exportable to runtime", failures)
+	_expect(FileAccess.file_exists("res://assets/runtime/cinematics/cel/vx94_hypersonic_break/8.png"), "hypersonic launch cinematic should retain its final accelerated cel", failures)
 	for shot_id in ["launch_deck", "launch_pilot", "launch_airborne"]:
 		for frame_index in range(4):
 			var launch_fx := load("res://assets/runtime/cinematics/fx/carrier_launch/%s_%d.png" % [shot_id, frame_index])
@@ -130,6 +133,7 @@ func _run() -> void:
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/ending_fx_manifest.json"), "ending held-cel source/runtime manifest should exist", failures)
 	var director_file := FileAccess.open("res://scripts/campaign_cinematic_director.gd", FileAccess.READ)
 	var director_source := director_file.get_as_text() if director_file != null else ""
+	_expect(director_source.contains("CEL_SEQUENCES") and director_source.contains('"vx94_hypersonic_break"') and director_source.contains("cel_frame_range"), "campaign cinematics should render the authored VX-94 hypersonic cel sequence as registered held exposures", failures)
 	_expect(director_source.contains("SUBJECT_FRAMES") and director_source.contains("SUBJECT_OVERLAYS") and director_source.contains("animation_fps"), "cinematic subjects should consume approved limited-animation frames and boss overlays", failures)
 	_expect(director_source.contains("SHOT_FX_FRAMES") and director_source.contains("_draw_shot_fx") and director_source.contains("fx_fps"), "campaign cinematic should composite authored held FX cels by shot identity", failures)
 	_expect(director_source.contains('argument.begins_with("--capture-cinematic=")') and director_source.contains("_begin_capture_sequence"), "visual QA should expose deterministic campaign cinematic sequence capture", failures)
@@ -185,7 +189,9 @@ func _validate_sequence(sequence, mission_ids: Array[String], failures: Array[St
 		if camera == "locked": locked_shots += 1
 		var duration := float(shot.get("duration", 0.0))
 		_expect(duration >= 1.0 and duration <= 5.0, "%s shot duration should remain readable and restrained" % sequence_id, failures)
-		_expect(PLATES.has(str(shot.get("plate", ""))), "%s references an unregistered environment plate" % sequence_id, failures)
+		var plate_id := str(shot.get("plate", ""))
+		var cel_sequence_id := str(shot.get("cel_sequence", ""))
+		_expect(PLATES.has(plate_id) or cel_sequence_id == "vx94_hypersonic_break", "%s references neither a registered environment plate nor cel sequence" % sequence_id, failures)
 		var sprite_id := str(shot.get("sprite", ""))
 		_expect(sprite_id.is_empty() or SPRITES.has(sprite_id), "%s references an unregistered subject sprite" % sequence_id, failures)
 		_expect(ALLOWED_BRIDGES.has(str(shot.get("sound_bridge", ""))), "%s references an invalid sound bridge" % sequence_id, failures)

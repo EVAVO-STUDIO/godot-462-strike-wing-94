@@ -91,7 +91,7 @@ func _test_presentation_coverage() -> void:
 	var menu := load("res://assets/runtime/ui/menu/sortie_bay_backdrop_v1.png")
 	_expect(title is Texture2D and title.get_size() == Vector2(500,80), "reviewed HYPERSONIC title sprite should remain production-ready")
 	_expect(menu is Texture2D and menu.get_size() == Vector2(640,360), "reviewed sortie-bay menu environment should remain production-ready")
-	_expect(ContentCatalog.load_json("res://data/cinematics.json").get("sequences", []).size() == 4, "campaign presentation should retain the carrier launch, two sector transitions, and ending")
+	_expect(ContentCatalog.load_json("res://data/cinematics.json").get("sequences", []).size() == 5, "campaign presentation should retain the carrier launch, two sector transitions, hypersonic clearance, and ending")
 	for family in ["human_turbine", "machine_thruster", "orbital_impulse"]:
 		for frame_index in range(4):
 			_expect(load("res://assets/runtime/effects/enemy_propulsion/%s/%d.png" % [family, frame_index]) is Texture2D, "hostile propulsion art is missing: %s/%d" % [family, frame_index])
