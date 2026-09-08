@@ -8,6 +8,7 @@
     "passed": false,
     "handoff_path": "work/test_lab_native/REPLACE_WITH_EXACT_GIT_HEAD_SHA/hypersonic-native-handoff.json",
     "all_required_journeys_reviewed": false,
+    "controller_maintenance_reviewed": false,
     "checkpoint_media_reviewed": false,
     "runtime_logs_reviewed": false,
     "audio_media_reviewed": false
