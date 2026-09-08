@@ -133,7 +133,7 @@ func _run() -> void:
 	_expect(FileAccess.file_exists("res://assets/source/cinematics/ending_fx_manifest.json"), "ending held-cel source/runtime manifest should exist", failures)
 	var director_file := FileAccess.open("res://scripts/campaign_cinematic_director.gd", FileAccess.READ)
 	var director_source := director_file.get_as_text() if director_file != null else ""
-	_expect(director_source.contains("CEL_SEQUENCES") and director_source.contains('"vx94_hypersonic_break"') and director_source.contains("cel_frame_range"), "campaign cinematics should render the authored VX-94 hypersonic cel sequence as registered held exposures", failures)
+	_expect(director_source.contains("CEL_SEQUENCES") and director_source.contains('"vx94_hypersonic_break"') and director_source.contains("cel_frame_range") and director_source.contains("cel_source_rect"), "campaign cinematics should render the authored VX-94 hypersonic cel sequence as registered held exposures with uniform camera crops", failures)
 	_expect(director_source.contains("SUBJECT_FRAMES") and director_source.contains("SUBJECT_OVERLAYS") and director_source.contains("animation_fps"), "cinematic subjects should consume approved limited-animation frames and boss overlays", failures)
 	_expect(director_source.contains("SHOT_FX_FRAMES") and director_source.contains("_draw_shot_fx") and director_source.contains("fx_fps"), "campaign cinematic should composite authored held FX cels by shot identity", failures)
 	_expect(director_source.contains('argument.begins_with("--capture-cinematic=")') and director_source.contains("_begin_capture_sequence"), "visual QA should expose deterministic campaign cinematic sequence capture", failures)

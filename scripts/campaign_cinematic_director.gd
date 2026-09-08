@@ -317,10 +317,17 @@ func _draw_plate(surface: CanvasItem, shot: Dictionary, ratio: float, alpha: flo
 		var frame_end := clampi(int(frame_range.y), frame_start, frames.size() - 1)
 		var frame_index := clampi(int(round(lerpf(float(frame_start), float(frame_end), ratio))), frame_start, frame_end)
 		var frame: Texture2D = frames[frame_index]
-		# The authored keys are full 640x360 compositions. Crop only the cinematic
-		# title/subtitle safety bands so the VX-94 and pressure ring retain their
-		# exact registered perspective through every held exposure.
-		surface.draw_texture_rect_region(frame, Rect2(0,24,640,272), Rect2(0,24,640,272), Color(0.94,0.96,0.97,alpha))
+		# The authored keys are full 640x360 compositions. A bounded uniform crop
+		# gives the held cels deliberate camera grammar without stretching the VX-94:
+		# sweep pushes in, ignition compresses, then the Mach break pulls rapidly aft.
+		var cel_zoom_range := _shot_number_pair(shot,"cel_zoom",Vector2.ONE)
+		var cel_center_y_range := _shot_number_pair(shot,"cel_center_y",Vector2(160,160))
+		var cel_eased := ratio*ratio*(3.0-2.0*ratio)
+		var cel_zoom := maxf(1.0,lerpf(cel_zoom_range.x,cel_zoom_range.y,cel_eased))
+		var cel_source_size := Vector2(640,272)/cel_zoom
+		var cel_center := Vector2(320,clampf(lerpf(cel_center_y_range.x,cel_center_y_range.y,cel_eased),24.0+cel_source_size.y*0.5,296.0-cel_source_size.y*0.5))
+		var cel_source_rect := Rect2((cel_center-cel_source_size*0.5).round(),cel_source_size.round())
+		surface.draw_texture_rect_region(frame,Rect2(0,24,640,272),cel_source_rect,Color(0.94,0.96,0.97,alpha))
 		return
 	var plate: Texture2D = PLATES.get(str(shot.get("plate", "")), null)
 	if plate == null:
