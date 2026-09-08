@@ -323,8 +323,13 @@ func _draw_support_surface(surface: CanvasItem) -> void:
 				_draw_tanker(surface, true)
 			"fighter": _draw_fighter_sweep(surface, 0.46)
 			"fighter_impact": _draw_fighter_sweep(surface, 0.58)
+			"fighter_breakaway": _draw_fighter_sweep(surface, 0.82)
 			"bomber": _draw_bomber_run(surface, 0.68)
+			"bomber_release": _draw_bomber_run(surface, 0.43)
+			"bomber_egress": _draw_bomber_run(surface, 0.82)
 			"gunship": _draw_gunship_fire(surface, 0.56)
+			"gunship_ingress": _draw_gunship_fire(surface, 0.18)
+			"gunship_egress": _draw_gunship_fire(surface, 0.88)
 			"missile": _draw_missile_strike(surface, 0.72)
 			"missile_impact": _draw_missile_strike(surface, 0.89)
 			"rail": _draw_rail_strike(surface, 0.52)
@@ -349,7 +354,7 @@ func _capture_support_state() -> String:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture-support="):
 			var value := argument.trim_prefix("--capture-support=").to_lower()
-			return value if value in ["tanker", "fighter", "bomber", "gunship", "missile", "missile_impact", "rail", "orbital", "fighter_impact"] else ""
+			return value if value in ["tanker", "fighter", "fighter_impact", "fighter_breakaway", "bomber", "bomber_release", "bomber_egress", "gunship", "gunship_ingress", "gunship_egress", "missile", "missile_impact", "rail", "orbital"] else ""
 	return ""
 
 func _draw_tanker(surface: CanvasItem, capture_connected := false) -> void:
@@ -374,14 +379,19 @@ func _draw_tanker(surface: CanvasItem, capture_connected := false) -> void:
 	_draw_clipped_effect(surface,BattlefieldSupportArtLibrary.effect("tanker_dock_fill"),dock_position+Vector2(49,7),ratio)
 
 func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
+	var attack_curve := smoothstep(0.0, 1.0, progress)
+	var breakaway := smoothstep(0.58, 1.0, progress)
 	for i in range(3):
-		var x := -40.0 + progress * 760.0 + float(i) * 52.0
-		var y := 112.0 + float(i) * 24.0
+		var formation_offset := float(i - 1)
+		var x := -68.0 + attack_curve * 812.0 + formation_offset * 48.0
+		var y := 126.0 + formation_offset * 22.0 - sin(progress * PI) * 34.0 - breakaway * (18.0 + formation_offset * 5.0)
 		var p := Vector2(x, y)
-		# Rapier enters from port and accelerates starboard toward its intercept.
-		# The authored sheet faces port, so mirror this pass to keep nose, weapon
-		# launch and screen travel in the same direction.
-		_draw_support_craft(surface, p, "rapier_fighter", 11.0 + float(i), true, deg_to_rad(float(i-1)*3.0))
+		# Rapier rolls into the intercept, steadies at weapon release, then banks
+		# away as the formation opens. The authored sheet faces port, so mirror
+		# the pass to keep nose, launch and travel in the same direction.
+		var roll_in := sin(clampf(progress / 0.34, 0.0, 1.0) * PI) * -8.0
+		var roll_out := sin(breakaway * PI * 0.72) * (11.0 + formation_offset * 2.0)
+		_draw_support_craft(surface, p, "rapier_fighter", 11.0 + float(i), true, deg_to_rad(roll_in + roll_out + formation_offset * 1.5))
 	if progress >= 0.32 and progress < 0.52:
 		var intercept_ratio := clampf((progress-0.32)/0.20,0.0,0.999)
 		var launch_point := Vector2(-40.0+0.32*760.0,122.0)
@@ -401,14 +411,23 @@ func _draw_fighter_sweep(surface: CanvasItem, progress: float) -> void:
 			surface.draw_texture_rect(core,Rect2((_visual_target-core_size*0.5).round(),core_size.round()),false,Color(1.0,0.84,0.64,0.96-burst_ratio*0.44))
 
 func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
+	var run_curve := smoothstep(0.0, 1.0, progress)
+	var egress := smoothstep(0.66, 1.0, progress)
 	for i in range(3):
-		var x := 700.0 - progress * 820.0 - float(i) * 64.0
-		var y := 92.0 + float(i) * 20.0
+		var formation_offset := float(i - 1)
+		var x := 730.0 - run_curve * 874.0 - formation_offset * 58.0
+		var y := 88.0 + formation_offset * 19.0 + sin(progress * PI) * 12.0 - egress * (20.0 - formation_offset * 4.0)
 		var p := Vector2(x, y)
-		_draw_support_craft(surface, p, "hammer_bomber", 7.0 + float(i), false, deg_to_rad(float(1-i)*2.5))
-		if progress > 0.35:
+		var bank := -sin(clampf(progress / 0.28, 0.0, 1.0) * PI) * 4.5 + sin(egress * PI * 0.75) * (7.0 - formation_offset)
+		_draw_support_craft(surface, p, "hammer_bomber", 7.0 + float(i), false, deg_to_rad(bank + formation_offset * 1.2))
+		var release_time := 0.31 + float(i) * 0.035
+		if progress > release_time and progress < release_time + 0.23:
+			var fall := (progress - release_time) / 0.23
 			var bomb := BattlefieldSupportArtLibrary.effect("strike_bomb")
-			surface.draw_texture(bomb, (p + Vector2(-8, 8 + 24.0 * (progress - 0.35))).round())
+			var release_x := 730.0 - smoothstep(0.0, 1.0, release_time) * 874.0 - formation_offset * 58.0
+			var release_y := 88.0 + formation_offset * 19.0 + sin(release_time * PI) * 12.0
+			var bomb_position := Vector2(release_x - fall * 54.0, release_y + 10.0 + fall * fall * 118.0)
+			surface.draw_texture(bomb, (bomb_position - bomb.get_size() * 0.5).round())
 		var detonation_start := 0.48 + float(i) * 0.07
 		if progress > detonation_start:
 			var blast_ratio := clampf((progress-detonation_start)/0.34,0.0,0.999)
@@ -423,8 +442,12 @@ func _draw_bomber_run(surface: CanvasItem, progress: float) -> void:
 				surface.draw_texture_rect(core,Rect2((impact_position-core_size*0.5).round(),core_size.round()),false,Color(1.0,0.76,0.48,0.96-core_ratio*0.38))
 
 func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
-	var p := Vector2(552, 118 + sin(progress * PI) * 8.0)
-	_draw_support_craft(surface, p, "spectre_gunship", 6.0)
+	# Spectre crosses the target on a shallow pylon turn instead of hovering.
+	# The modest bank keeps the large side-on silhouette readable at game scale.
+	var orbit_angle := lerpf(-0.62, 0.48, smoothstep(0.0, 1.0, progress))
+	var p := _visual_target + Vector2(154.0 * cos(orbit_angle), -48.0 + 64.0 * sin(orbit_angle))
+	var bank := deg_to_rad(lerpf(-7.0, 8.0, smoothstep(0.18, 0.88, progress)))
+	_draw_support_craft(surface, p, "spectre_gunship", 6.0, false, bank)
 	for index in SPECTRE_MUZZLE_OFFSETS.size():
 		var target_offset := Vector2(float(index-1)*12.0,0)
 		var target := _visual_target + target_offset
