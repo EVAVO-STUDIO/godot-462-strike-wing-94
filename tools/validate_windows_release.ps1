@@ -4,7 +4,8 @@ param(
     [string]$OutputPath = 'build/windows/HYPERSONIC.exe',
     [switch]$SkipPerformance,
     [switch]$SkipVisualQa,
-    [switch]$SkipPlaytestTelemetry
+    [switch]$SkipPlaytestTelemetry,
+    [switch]$SkipVulnerableBalance
 )
 
 $ErrorActionPreference = 'Stop'
@@ -16,9 +17,10 @@ $VerifyScript = Join-Path $PSScriptRoot 'verify_windows_export.ps1'
 $PerformanceScript = Join-Path $PSScriptRoot 'run_performance_profile.ps1'
 $VisualQaScript = Join-Path $PSScriptRoot 'run_visual_qa.ps1'
 $PlaytestTelemetryScript = Join-Path $PSScriptRoot 'run_playtest_telemetry.ps1'
+$VulnerableBalanceScript = Join-Path $PSScriptRoot 'run_vulnerable_balance_telemetry.ps1'
 $ReceiptScript = Join-Path $PSScriptRoot 'write_windows_release_receipt.ps1'
 
-foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $ReceiptScript)) {
+foreach ($ScriptPath in @($ContractScript, $ResolveGodotScript, $ValidateScript, $ExportScript, $VerifyScript, $PerformanceScript, $VisualQaScript, $PlaytestTelemetryScript, $VulnerableBalanceScript, $ReceiptScript)) {
     $Tokens = $null
     $Errors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($ScriptPath, [ref]$Tokens, [ref]$Errors) | Out-Null
@@ -62,16 +64,23 @@ if (-not $SkipPlaytestTelemetry) {
     Write-Warning 'Representative playtest telemetry was explicitly skipped; this run is not a complete release-gameplay audit.'
 }
 
+if (-not $SkipVulnerableBalance) {
+    Write-Host 'Running deterministic vulnerable pressure and difficulty evidence...' -ForegroundColor Cyan
+    & $VulnerableBalanceScript -GodotBin $GodotBin
+} else {
+    Write-Warning 'Vulnerable balance telemetry was explicitly skipped; this run is not a complete automated balance-evidence audit.'
+}
+
 Write-Host 'Building the canonical HYPERSONIC Windows package...' -ForegroundColor Cyan
 & $ExportScript -GodotBin $GodotBin -OutputPath $OutputPath
 
 Write-Host 'Launching and verifying the packaged HYPERSONIC runtime...' -ForegroundColor Cyan
 & $VerifyScript -Executable $OutputPath
 
-if (-not $SkipPerformance -and -not $SkipVisualQa -and -not $SkipPlaytestTelemetry) {
+if (-not $SkipPerformance -and -not $SkipVisualQa -and -not $SkipPlaytestTelemetry -and -not $SkipVulnerableBalance) {
     Write-Host 'Recording exact-SHA packaged-build evidence...' -ForegroundColor Cyan
     & $ReceiptScript -GodotBin $GodotBin -Executable $OutputPath
-    Write-Host 'HYPERSONIC automated Windows release gate passed. Human campaign, visual and audio signoff are still required for a release candidate.' -ForegroundColor Green
+    Write-Host 'HYPERSONIC automated Windows release gate passed. Vulnerable autoplay evidence is diagnostic; human campaign, visual, audio and balance signoff are still required for a release candidate.' -ForegroundColor Green
 } else {
     Write-Warning 'HYPERSONIC focused Windows validation passed with one or more release stages skipped; no exact-SHA release receipt was issued.'
 }
