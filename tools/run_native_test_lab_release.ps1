@@ -11,10 +11,12 @@ $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $PSScriptRoot
 $LockPath = Join-Path $Root '.evavo/godot-lab-native.lock.json'
 $ProfilePath = Join-Path $Root '.evavo/godot-lab-native.json'
+$ControllerProfilePath = Join-Path $Root '.evavo/godot-lab-controller-sortie.json'
 $ResolveGodotScript = Join-Path $PSScriptRoot 'resolve_release_godot.ps1'
 
-if (-not (Test-Path -LiteralPath $LockPath)) { throw "Missing Test Lab lock: $LockPath" }
-if (-not (Test-Path -LiteralPath $ProfilePath)) { throw "Missing Test Lab profile: $ProfilePath" }
+foreach ($RequiredPath in @($LockPath, $ProfilePath, $ControllerProfilePath)) {
+    if (-not (Test-Path -LiteralPath $RequiredPath)) { throw "Missing native Test Lab authority file: $RequiredPath" }
+}
 $Lock = Get-Content -Raw -LiteralPath $LockPath | ConvertFrom-Json
 $ExpectedLabSha = ([string]$Lock.lab_sha).Trim().ToLowerInvariant()
 if ($ExpectedLabSha -notmatch '^[0-9a-f]{40}$') { throw 'Pinned Test Lab SHA is invalid.' }
@@ -55,28 +57,34 @@ if (-not $AllowedArtifactRoot.StartsWith($WorkRoot + [System.IO.Path]::Directory
     throw "Native Test Lab artifacts must remain inside $WorkRoot."
 }
 $ArtifactPath = Join-Path $AllowedArtifactRoot $TargetSha
+$ControllerArtifactPath = Join-Path $ArtifactPath 'controller_sortie'
 New-Item -ItemType Directory -Force -Path $AllowedArtifactRoot | Out-Null
 
-$InvokeArgs = @{
-    TargetRepositoryPath = $Root
-    ProfilePath = $ProfilePath
-    ExpectedLabSha = $ExpectedLabSha
-    ExpectedTargetSha = $TargetSha
-    ArtifactPath = $ArtifactPath
-    AllowedArtifactRoot = $AllowedArtifactRoot
-    GodotExecutable = $GodotBin
-    MinimumGodotVersion = '4.6.2'
-    TimeoutSeconds = $TimeoutSeconds
-    MaxTotalSeconds = 3600
-    MaxArtifactGiB = 20
+function Invoke-NativeProfile([string]$SelectedProfile, [string]$SelectedArtifactPath, [string]$Label) {
+    $InvokeArgs = @{
+        TargetRepositoryPath = $Root
+        ProfilePath = $SelectedProfile
+        ExpectedLabSha = $ExpectedLabSha
+        ExpectedTargetSha = $TargetSha
+        ArtifactPath = $SelectedArtifactPath
+        AllowedArtifactRoot = $AllowedArtifactRoot
+        GodotExecutable = $GodotBin
+        MinimumGodotVersion = '4.6.2'
+        TimeoutSeconds = $TimeoutSeconds
+        MaxTotalSeconds = 3600
+        MaxArtifactGiB = 20
+    }
+    if ($AllowNonInteractive) { $InvokeArgs.AllowNonInteractive = $true }
+    Write-Host "Running HYPERSONIC native Test Lab profile: $Label" -ForegroundColor Cyan
+    & $LabInvoke @InvokeArgs
+    if ($LASTEXITCODE -ne 0) { throw "HYPERSONIC native Test Lab profile '$Label' failed with exit code $LASTEXITCODE." }
 }
-if ($AllowNonInteractive) { $InvokeArgs.AllowNonInteractive = $true }
 
 Write-Host "Running HYPERSONIC native Test Lab journeys at target $TargetSha" -ForegroundColor Cyan
 Write-Host "Pinned Test Lab: $ExpectedLabSha" -ForegroundColor DarkCyan
 Write-Host "Governed Godot: $GodotBin" -ForegroundColor DarkCyan
-& $LabInvoke @InvokeArgs
-if ($LASTEXITCODE -ne 0) { throw "HYPERSONIC native Test Lab runner failed with exit code $LASTEXITCODE." }
+Invoke-NativeProfile $ProfilePath $ArtifactPath 'core release journeys (8)'
+Invoke-NativeProfile $ControllerProfilePath $ControllerArtifactPath 'controller sortie-bay maintenance (1)'
 
 if ($AllowNonInteractive) {
     Write-Warning 'Noninteractive contract-test run completed. No authoritative native HYPERSONIC handoff is issued.'
@@ -91,7 +99,11 @@ $Handoff = [ordered]@{
     godot_executable = $GodotBin
     godot_version = ((@(& $GodotBin --version 2>&1) | Select-Object -First 1) -as [string]).Trim()
     profile = '.evavo/godot-lab-native.json'
+    controller_sortie_profile = '.evavo/godot-lab-controller-sortie.json'
+    required_journey_count = 9
+    controller_sortie_required = $true
     artifact_path = $ArtifactPath
+    controller_sortie_artifact_path = $ControllerArtifactPath
     interactive_windows_session = $true
     authority = 'Native synthetic-input evidence only. Human visual/audio/game-feel review and exact-SHA release signoff remain separate.'
 }
