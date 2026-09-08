@@ -404,6 +404,7 @@ func _initialize() -> void:
 			var shear_frame := load("res://assets/runtime/environments/mountain_weather_animation/shear_%d.png" % frame_index) as Texture2D
 			_expect(shear_frame != null and shear_frame.get_size() == Vector2(224,144), "mountain weather should retain shared 224x144 registration: %d" % frame_index)
 			if shear_frame != null: _expect(shear_frame.get_image().detect_alpha() != Image.ALPHA_NONE, "mountain weather frame must retain genuine alpha: %d" % frame_index)
+		_expect(FileAccess.file_exists("res://assets/source/environments/mountain_snow_shear_v2/manifest.json"), "mountain snow should retain its non-projectile cel-veils production authority")
 		var radar_component_sizes := {"radar_base":Vector2(144,160), "radar_dish":Vector2(128,144)}
 		for component_name in radar_component_sizes:
 			var component := load("res://assets/runtime/environments/mountain_radar_layered/%s.png" % component_name) as Texture2D

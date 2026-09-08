@@ -932,7 +932,7 @@ func _draw_mountain_radar(surface: CanvasItem, scene: Object, state: Dictionary,
 		var weather: Texture2D = MOUNTAIN_WEATHER_ANIMATION[posmod(int(floor(t * 6.0)) + slot_index * 2, MOUNTAIN_WEATHER_ANIMATION.size())]
 		var y := fposmod(float(slot["y"]) + route_scroll, 6144.0) + ENVIRONMENT_VIEW.position.y
 		var wind_x := sin(t*0.42+float(slot_index)*1.7)*12.0
-		_draw_texture_rect_clipped(surface, weather, Rect2(Vector2(float(slot["x"])+wind_x, y).round(), Vector2(192,120)), ENVIRONMENT_VIEW, Color(0.82,0.88,0.92,0.19))
+		_draw_texture_rect_clipped(surface, weather, Rect2(Vector2(float(slot["x"])+wind_x, y).round(), Vector2(192,120)), ENVIRONMENT_VIEW, Color(0.86,0.89,0.90,0.15))
 
 func _draw_night_harbor(surface: CanvasItem, scene: Object, state: Dictionary, t: float) -> void:
 	if not _draw_ground_detail(state): return

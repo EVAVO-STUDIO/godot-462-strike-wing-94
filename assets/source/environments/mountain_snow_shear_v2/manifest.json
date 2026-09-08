@@ -1,0 +1,13 @@
+{
+  "schema_version": 2,
+  "asset_family": "mountain_snow_shear",
+  "identity": "wind-carried snow veils over the Mountain Eye corridor",
+  "runtime_geometry": "224x144 RGBA, six registered held cels",
+  "timing": "6 fps loop",
+  "rules": [
+    "broad irregular veils replace straight cyan projectile-like streaks",
+    "small flecks carry near-field snow identity without covering threats",
+    "neutral blue-grey values remain subordinate to roads, aircraft and HUD"
+  ],
+  "builder": "tools/build_mountain_snow_shear_v2.py"
+}
