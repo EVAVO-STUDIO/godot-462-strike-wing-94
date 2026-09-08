@@ -25,27 +25,34 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 			if approach_distance>145.0:
 				desired_velocity = clampf(tracking_error*0.42+entry_side*18.0,-54.0,54.0)
 				acceleration = 46.0
+				next.y += 10.0*delta
 			elif approach_distance>38.0:
 				desired_velocity = clampf(tracking_error*0.66,-62.0,62.0)
 				acceleration = 82.0
+				next.y += 18.0*delta
 			elif approach_distance>-18.0:
 				desired_velocity = lateral_velocity*0.82
 				acceleration = 28.0
+				next.y -= 5.0*delta
 			else:
 				desired_velocity = away_side*76.0
 				acceleration = 104.0
+				next.y += 32.0*delta
 		"tracking_sweep":
 			# Gunships build a lead solution on approach, stabilize while weapons
 			# bear, and break away after overflight instead of mirroring the player.
 			if approach_distance>82.0:
 				desired_velocity = clampf(tracking_error*0.62,-52.0,52.0) if absf(tracking_error)>18.0 else 0.0
 				acceleration = 66.0
+				next.y += 8.0*delta
 			elif approach_distance>-22.0:
 				desired_velocity = lateral_velocity*0.72
 				acceleration = 24.0
+				next.y -= 7.0*delta
 			else:
 				desired_velocity = away_side*58.0
 				acceleration = 72.0
+				next.y += 22.0*delta
 		"hover_strafe":
 			# Rotorcraft translate toward a stable offset firing station. Their
 			# slower mass response distinguishes them from fixed-wing interceptors.
@@ -78,15 +85,19 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 			if approach_distance>112.0:
 				desired_velocity = clampf(tracking_error*0.82+entry_side*14.0,-82.0,82.0)
 				acceleration = 118.0
+				next.y += 14.0*delta
 			elif approach_distance>18.0:
 				desired_velocity = clampf(tracking_error*0.38-entry_side*64.0,-92.0,92.0)
 				acceleration = 148.0
+				next.y += 6.0*delta
 			elif approach_distance>-20.0:
 				desired_velocity = lateral_velocity*0.90
 				acceleration = 30.0
+				next.y -= 8.0*delta
 			else:
 				desired_velocity = away_side*104.0
 				acceleration = 170.0
+				next.y += 38.0*delta
 	if pattern != "static":
 		lateral_velocity = move_toward(lateral_velocity,desired_velocity,acceleration*clampf(control_authority,0.0,1.0)*maxf(0.0,delta))
 		next.x += lateral_velocity*delta

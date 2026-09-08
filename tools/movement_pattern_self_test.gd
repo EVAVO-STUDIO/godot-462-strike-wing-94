@@ -30,6 +30,7 @@ func _initialize() -> void:
 	var slash_approach := MovementPatternRules.adjusted_motion("sine_dive",Vector2(180,20),player,0.5,0.1,180.0,0.0)
 	var slash_break := MovementPatternRules.adjusted_motion("sine_dive",Vector2(430,240),player,3.0,0.1,180.0,0.0)
 	_expect(float(slash_approach.desired_lateral_velocity)>0.0 and float(slash_break.desired_lateral_velocity)>0.0, "human fighter slash should lead toward the player then continue an energy-preserving breakaway without periodic lane waggle")
+	_expect(Vector2(slash_approach.position).y>20.0 and Vector2(slash_break.position).y>240.0, "human fighter slash should accelerate into closure and unload forward energy during breakaway")
 	var gunship_overflight := MovementPatternRules.adjusted_motion("tracking_sweep",Vector2(360,245),player,3.0,0.1,200.0,0.0)
 	_expect(float(gunship_overflight.desired_lateral_velocity)<0.0, "gunships should unload away from the player after overflight instead of continuing screen-space tracking")
 	var helicopter_station := MovementPatternRules.adjusted_motion("hover_strafe",Vector2(200,100),player,1.0,0.1,200.0,0.0)
@@ -65,6 +66,7 @@ func _initialize() -> void:
 	var main_source := FileAccess.get_file_as_string("res://scripts/main.gd")
 	_expect(main_source.contains("if is_boss or pursuit_active:") and main_source.contains("lateral_delta / maxf(delta, 0.001)"), "bosses and hypersonic pursuers should expose their real lateral motion to bank presentation")
 	_expect(main_source.contains("--capture-air-pass=") and main_source.contains('["approach", "firing", "breakaway"]'), "visual QA should expose the complete human fighter attack-pass grammar")
+	_expect(main_source.contains('"visual_bank"') and main_source.contains('"recoil_timer"') and main_source.contains('"last_shot_direction"'), "attack-pass capture evidence should expose bank attitude and connected weapon discharge")
 	if failures.is_empty():
 		print("Strike Wing movement pattern self-test passed.")
 		quit(0)

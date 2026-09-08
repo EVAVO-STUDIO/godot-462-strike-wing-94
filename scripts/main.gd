@@ -369,13 +369,16 @@ func _begin_capture_gameplay() -> void:
 		_spawn_enemy(_find_enemy_archetype("scout_falcon"))
 		if not enemies.is_empty():
 			var fixture: Dictionary = {
-				"approach": {"position":Vector2(190,92), "velocity":34.0, "age":0.8},
-				"firing": {"position":Vector2(314,154), "velocity":18.0, "age":1.8},
-				"breakaway": {"position":Vector2(430,242), "velocity":68.0, "age":3.2},
+				"approach": {"position":Vector2(190,92), "velocity":34.0, "bank":0.68, "recoil":0.0, "age":0.8},
+				"firing": {"position":Vector2(314,154), "velocity":7.0, "bank":0.08, "recoil":0.24, "age":1.8},
+				"breakaway": {"position":Vector2(430,242), "velocity":68.0, "bank":1.0, "recoil":0.0, "age":3.2},
 			}[captured_air_pass]
 			enemies[0]["position"] = fixture.position
 			enemies[0]["pattern_anchor_x"] = 190.0
 			enemies[0]["lateral_velocity"] = fixture.velocity
+			enemies[0]["visual_bank"] = fixture.bank
+			enemies[0]["recoil_timer"] = fixture.recoil
+			enemies[0]["last_shot_direction"] = Vector2.DOWN
 			enemies[0]["age"] = fixture.age
 			enemies[0]["fire_timer"] = 20.0
 	if "--capture-surface-travel" in OS.get_cmdline_user_args():
