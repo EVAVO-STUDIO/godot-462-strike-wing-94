@@ -5,6 +5,9 @@ const MusicRules=preload("res://scripts/music_rules.gd")
 const MIX_RATE:=22050.0
 const HIGH_PASS_ALPHA:=0.994332
 const TITLE_SHELF:=[0.8524251,0.2077149,0.08342384,0.05752358,0.08604027]
+const CRITICAL_DUCK_GAIN:=0.58
+const DUCK_ATTACK_PER_SECOND:=10.0
+const DUCK_RELEASE_PER_SECOND:=4.5
 var _player:AudioStreamPlayer
 var _playback:AudioStreamGeneratorPlayback
 var _tracks:Array=[]
@@ -19,17 +22,26 @@ var _shelf_x1:=0.0
 var _shelf_x2:=0.0
 var _shelf_y1:=0.0
 var _shelf_y2:=0.0
+var _critical_duck_timer:=0.0
+var _critical_duck_gain:=1.0
 func _ready()->void:
 	var data=ContentCatalog.load_json("res://data/music_tracks.json");_tracks=MusicRules.sanitize_tracks(data.get("tracks",[]) if typeof(data)==TYPE_DICTIONARY else [])
 	_load_arrangements()
 	if DisplayServer.get_name()=="headless":return
 	var generator:=AudioStreamGenerator.new();generator.mix_rate=MIX_RATE;generator.buffer_length=0.18
 	_player=AudioStreamPlayer.new();_player.stream=generator;add_child(_player);_apply_saved_mix();_player.play();_playback=_player.get_stream_playback() as AudioStreamGeneratorPlayback
-func _process(_delta:float)->void:
+func _process(delta:float)->void:
+	_critical_duck_timer=maxf(0.0,_critical_duck_timer-maxf(0.0,delta))
+	var duck_target:=CRITICAL_DUCK_GAIN if _critical_duck_timer>0.0 else 1.0
+	var duck_rate:=DUCK_ATTACK_PER_SECOND if duck_target<_critical_duck_gain else DUCK_RELEASE_PER_SECOND
+	_critical_duck_gain=move_toward(_critical_duck_gain,duck_target,maxf(0.0,delta)*duck_rate)
 	_select_live_track();_fill_buffer()
 func set_mix_levels(master_percent:int,music_percent:int)->void:
 	var mixed:=float(clampi(master_percent,0,100)*clampi(music_percent,0,100))/10000.0
 	if _player!=null:_player.volume_db=-80.0 if mixed<=0.0 else linear_to_db(mixed)
+func duck_for_critical_cue(seconds:float=0.28)->void:
+	_critical_duck_timer=maxf(_critical_duck_timer,clampf(seconds,0.08,0.60))
+func critical_duck_gain()->float:return _critical_duck_gain
 func active_track_id()->String:return _track_id
 func track_count()->int:return _tracks.size()
 func arrangement_count()->int:return _arrangements.size()
@@ -69,6 +81,7 @@ func _fill_buffer()->void:
 	for _i in range(frames):
 		var sample:=_sample_for_clock(_sample_clock)
 		if _track_id=="title_vector":sample=_title_soften(sample)
+		sample*=clampf(_critical_duck_gain,CRITICAL_DUCK_GAIN,1.0)
 		sample=_high_pass(sample);_sample_clock+=1;_playback.push_frame(Vector2(sample,sample))
 func _reset_mastering()->void:
 	_hp_input=0.0;_hp_output=0.0;_shelf_x1=0.0;_shelf_x2=0.0;_shelf_y1=0.0;_shelf_y2=0.0
