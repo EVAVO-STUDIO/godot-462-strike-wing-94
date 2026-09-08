@@ -102,6 +102,22 @@ foreach ($DifficultyId in @('cadet','combat','veteran','ace')) {
     }
 }
 
+$ProjectionPath = Join-Path (Split-Path -Parent $EconomyPath) 'route_progression_projection.json'
+if (-not (Test-Path -LiteralPath $ProjectionPath)) { throw "Route progression projection is missing: $ProjectionPath" }
+$Projection = Get-Content -Raw -LiteralPath $ProjectionPath | ConvertFrom-Json
+if ([int]$Projection.schema_version -ne 1) { throw 'Route progression projection schema_version must be 1.' }
+if ([string]$Projection.source.head_sha -ne $HeadSha) { throw 'Route progression projection does not match the exact HYPERSONIC HEAD being signed.' }
+if (-not ([string]$Projection.source.godot_version).StartsWith('4.6.2')) { throw 'Route progression projection was not derived from Godot 4.6.2 economy evidence.' }
+if ([int]$Projection.source.economy_schema_version -ne 2) { throw 'Route progression projection was not derived from economy schema_version 2.' }
+if ([int]$Projection.matrix.route_count -ne 8 -or [int]$Projection.matrix.difficulty_count -ne 4 -or [int]$Projection.matrix.projection_count -ne 32 -or [int]$Projection.matrix.sorties_per_route -ne 27) {
+    throw 'Route progression projection does not cover the governed 8 routes x 4 difficulties x 27 sorties matrix.'
+}
+foreach ($Route in @($Projection.projections)) {
+    if ([int]$Route.sortie_count -ne 27 -or @($Route.mission_ids).Count -ne 27) {
+        throw "Route progression projection contains an incomplete route '$($Route.route_id)/$($Route.difficulty)'."
+    }
+}
+
 $RequiredTrue = [ordered]@{
     'native_test_lab.passed' = [bool]$Signoff.native_test_lab.passed
     'native_test_lab.all_required_journeys_reviewed' = [bool]$Signoff.native_test_lab.all_required_journeys_reviewed
@@ -135,4 +151,4 @@ if ([int]$Signoff.blockers.p0 -ne 0 -or [int]$Signoff.blockers.p1 -ne 0) {
     throw "Human release signoff still has blockers: P0=$($Signoff.blockers.p0), P1=$($Signoff.blockers.p1)."
 }
 
-Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure and sequential economy progression evidence." -ForegroundColor Green
+Write-Host "HYPERSONIC human release signoff passed for $HeadSha ($($Signoff.reviewer)), including pinned native Test Lab, vulnerable pressure, sequential economy and 8-route progression evidence." -ForegroundColor Green
