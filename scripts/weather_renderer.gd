@@ -168,30 +168,41 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			if (str(p.layer) == "near") != near_band: continue
 			var position := WeatherRules.snow_position(p, _travel, _time).round()
 			var radius := maxf(0.55, float(p.size) * (0.48 if near_band else 0.34))
-			var alpha := clampf(float(p.alpha)*opacity*(1.68 if near_band else 1.28),0.0,0.90)
+			var alpha := clampf(float(p.alpha)*opacity*(1.82 if near_band else 1.42),0.0,0.94)
 			var cel: Texture2D = SNOW_CELS.get(str(p.layer),SNOW_CELS["distant"])
 			# At 640x360, flakes larger than a few pixels read as targeting icons.
 			# Keep the authored silhouettes, but reserve their full shape for the
 			# nearest depth band and let distant snow become moving atmospheric grain.
-			var draw_extent := clampf(radius*(4.0 if near_band else 2.8),4.0 if near_band else 2.0,6.0 if near_band else 4.0)
+			var draw_extent := clampf(radius*(5.2 if near_band else 3.4),6.0 if near_band else 2.8,10.0 if near_band else 5.5)
 			var cel_size := cel.get_size()
 			# Fast airframe closure turns nearby flakes into short, oblique motion
 			# exposures. Compressing the radial source cel across the wind axis stops
 			# large flakes reading as repeated HUD crosses over pale mountain terrain.
 			var closure := clampf((_world_speed-0.62)/3.78,0.0,1.0)
 			var flake_angle := -0.24-closure*0.18+sin(_time*1.9+float(abs(str(p.id).hash())%31))*0.05
-			var flake_scale := Vector2(draw_extent/maxf(1.0,cel_size.x)*(0.68-closure*0.16),draw_extent/maxf(1.0,cel_size.y)*(1.0+closure*0.34))
+			var snow_streak := 1.0+closure*(0.72 if near_band else 0.24)
+			var flake_scale := Vector2(draw_extent/maxf(1.0,cel_size.x)*(0.54-closure*0.14),draw_extent/maxf(1.0,cel_size.y)*snow_streak)
 			# A cool shadow key makes the white cel legible over snowfields without
 			# turning it into a bright UI particle. Near flakes also retain a faint
 			# previous exposure so their sideways slip reads at gameplay speed.
 			if near_band:
 				var slip := Vector2(-2.0-clampf((_world_speed-1.0)*0.7,0.0,1.6),-1.0)
 				surface.draw_set_transform((position+slip).round(),flake_angle,flake_scale)
-				surface.draw_texture(cel,-cel_size*0.5,Color(0.66,0.76,0.80,alpha*0.16))
-			surface.draw_set_transform((position+Vector2(1,1)).round(),flake_angle,flake_scale)
-			surface.draw_texture(cel,-cel_size*0.5,Color(0.07,0.12,0.15,alpha*0.34))
+				surface.draw_texture(cel,-cel_size*0.5,Color(0.66,0.76,0.80,alpha*0.18))
+			surface.draw_set_transform((position+Vector2(2,2)).round(),flake_angle,flake_scale)
+			surface.draw_texture(cel,-cel_size*0.5,Color(0.07,0.12,0.15,alpha*0.58))
 			surface.draw_set_transform(position.round(),flake_angle,flake_scale)
-			surface.draw_texture(cel,-cel_size*0.5,Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha*0.88))
+			surface.draw_texture(cel,-cel_size*0.5,Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha))
+			if near_band:
+				# Reuse each approved cel as a second, offset wind sheet. This keeps a
+				# blizzard present across the viewport when the source exposure happens
+				# to place most of its sparse near particles beyond the camera edges.
+				var clone_phase := float(abs(str(p.id).hash())%73)
+				var clone_position := Vector2(fposmod(position.x+173.0+clone_phase,656.0)-8.0,fposmod(position.y+91.0+clone_phase*0.37,320.0)-8.0)
+				surface.draw_set_transform((clone_position+Vector2(2,2)).round(),flake_angle-0.03,flake_scale*Vector2(0.92,0.86))
+				surface.draw_texture(cel,-cel_size*0.5,Color(0.07,0.12,0.15,alpha*0.42))
+				surface.draw_set_transform(clone_position.round(),flake_angle-0.03,flake_scale*Vector2(0.92,0.86))
+				surface.draw_texture(cel,-cel_size*0.5,Color(SNOW_COLOUR.r,SNOW_COLOUR.g,SNOW_COLOUR.b,alpha*0.72))
 			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 	else:
 		# A low, translucent rain curtain ties the individual cels into weather
