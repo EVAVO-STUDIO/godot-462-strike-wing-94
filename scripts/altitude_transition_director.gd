@@ -118,7 +118,7 @@ func _draw_cloud_sweep(surface: CanvasItem, ratio: float, direction: int) -> voi
 	var pulse := sin(ratio * PI)
 	# Brief extinction makes the lane change read as passage through a physical
 	# cloud boundary. It peaks at mid-transition and clears before control returns.
-	var veil_tint := Color(0.72,0.82,0.88,0.34*pulse) if direction > 0 else Color(0.54,0.66,0.72,0.28*pulse)
+	var veil_tint := Color(0.72,0.82,0.88,0.34*pulse) if direction > 0 else Color(0.58,0.70,0.76,0.34*pulse)
 	surface.draw_texture(ATMOSPHERIC_VEIL, Vector2(8,34), veil_tint)
 	# A few independently timed masses follow the main ceiling. Their unequal
 	# spacing and short lifetimes prevent the transition reading as tiled weather.
@@ -171,7 +171,7 @@ func _draw_depth_rush(surface: CanvasItem, ratio: float, direction: int) -> void
 	var pulse := sin(ratio * PI)
 	if pulse <= 0.02:
 		return
-	var tint := Color(0.80, 0.90, 0.94, pulse * 0.30)
+	var tint := Color(0.80, 0.90, 0.94, pulse * 0.36)
 	var left_texture := CLIMB_LEFT if direction > 0 else DIVE_LEFT
 	var right_texture := CLIMB_RIGHT if direction > 0 else DIVE_RIGHT
 	for i in range(6):

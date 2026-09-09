@@ -624,7 +624,7 @@ func _project_mount_offset(offset: Vector2) -> Vector2:
 func presentation_pitch_offset() -> Vector2:
 	if not altitude_transition_active():
 		return Vector2.ZERO
-	return Vector2(0, -roundf(sin(altitude_transition_ratio() * PI) * 11.0 * float(altitude_transition_direction())))
+	return Vector2(0, -roundf(sin(altitude_transition_ratio() * PI) * 15.0 * float(altitude_transition_direction())))
 
 func mount_bank_visual() -> float:
 	return _mount_bank_visual

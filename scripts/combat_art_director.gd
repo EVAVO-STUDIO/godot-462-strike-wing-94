@@ -2922,7 +2922,7 @@ func _altitude_pitch_offset() -> Vector2:
 		return Vector2.ZERO
 	var ratio := float(director.call("altitude_transition_ratio"))
 	var direction := int(director.call("altitude_transition_direction"))
-	return Vector2(0, -roundf(sin(ratio * PI) * 11.0 * float(direction)))
+	return Vector2(0, -roundf(sin(ratio * PI) * 15.0 * float(direction)))
 
 func _altitude_craft_scale() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
