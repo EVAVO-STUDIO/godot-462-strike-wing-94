@@ -5,6 +5,7 @@ var failures: Array[String] = []
 
 func _initialize() -> void:
 	_expect(CountermeasureRules.MAX_CHARGES == 4, "each sortie should carry a limited four-burst countermeasure cassette")
+	_expect(CountermeasureRules.EFFECT_SECONDS >= 0.75 and CountermeasureRules.DECOY_TRAIL_DISTANCE >= 100.0 and CountermeasureRules.DECOY_LATERAL_DISTANCE >= 44.0, "flare salvos should persist long enough to open into a readable aircraft-scale decoy fan")
 	_expect(CountermeasureRules.can_deploy(1, 0.0) and not CountermeasureRules.can_deploy(0, 0.0) and not CountermeasureRules.can_deploy(2, 0.1), "countermeasure deployment should respect charges and recovery")
 	var bullets: Array = [
 		{"position":Vector2(100,100), "velocity":Vector2(0,180), "homing":true, "guidance_class":"heat_seeking", "homing_speed":180.0},
@@ -28,7 +29,7 @@ func _initialize() -> void:
 	var director_source := FileAccess.get_file_as_string("res://scripts/countermeasure_director.gd")
 	_expect(director_source.contains("DISPENSER_OFFSETS") and director_source.contains("FLARE_PIVOT") and director_source.contains("draw_set_transform"), "countermeasure burst should register to form and bank aware aft dispensers")
 	_expect(director_source.contains("SALVO_DELAYS") and director_source.contains("SALVO_LATERAL_OFFSETS") and director_source.contains("SALVO_ANGLE_OFFSETS") and director_source.contains("SALVO_SPEED_FACTORS"), "one countermeasure charge should present as a staggered multi-cartridge dispenser salvo")
-	_expect(director_source.contains("[-0.62,0.78,-0.39,0.52,-0.08]") and director_source.contains("[0.92,1.08,0.78,1.18,0.86]") and director_source.contains("[0.0,0.055,0.110,0.165,0.220]") and director_source.contains("Vector2(0.46,0.46)"), "countermeasure cassette should alternate unequal port and starboard impulses into a staggered ten-decoy fan rather than resemble an engine fire")
+	_expect(director_source.contains("[-0.92,0.84,-0.58,0.66,-0.14]") and director_source.contains("[0.94,1.08,0.80,1.16,0.88]") and director_source.contains("[0.0,0.045,0.090,0.135,0.180]") and director_source.contains("Vector2(0.46,0.46)"), "countermeasure cassette should alternate unequal port and starboard impulses into a broad staggered ten-decoy fan rather than resemble an engine fire")
 	_expect(director_source.contains("puff_alpha*1.45") and director_source.contains("puff_alpha*1.12") and director_source.contains("smoke_rect.position+Vector2(1,2)") and director_source.contains("ignition*0.72"), "flare smoke should retain a terrain-readable soot key and restrained warm body subordinate to individually readable decoy heads")
 	_expect(director_source.contains("PersistentEffectArtLibrary") and director_source.contains('frame_for_ratio("damage_smoke"') and director_source.contains('frame_for_ratio("damage_sparks"'), "countermeasure ignition and wake should use authored Particle Studio cels")
 	_expect(director_source.contains("ballistic_time") and director_source.contains("serial_drift") and not director_source.contains("sin(ratio * PI)"), "flare cartridges and smoke should follow one bank-aware ballistic ejection trajectory")

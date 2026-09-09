@@ -15,10 +15,10 @@ const FLARE_PIVOT := Vector2(24, 10)
 # Each cel already contains a paired cartridge. Keep the pair crisp but small
 # enough that five staged ejections read as ten individual decoys, not one fire.
 const SALVO_CARTRIDGE_SCALE := Vector2(0.46,0.46)
-const SALVO_DELAYS := [0.0,0.055,0.110,0.165,0.220]
-const SALVO_LATERAL_OFFSETS := [-14.0,14.0,-10.0,10.0,0.0]
-const SALVO_ANGLE_OFFSETS := [-0.62,0.78,-0.39,0.52,-0.08]
-const SALVO_SPEED_FACTORS := [0.92,1.08,0.78,1.18,0.86]
+const SALVO_DELAYS := [0.0,0.045,0.090,0.135,0.180]
+const SALVO_LATERAL_OFFSETS := [-17.0,17.0,-12.0,12.0,0.0]
+const SALVO_ANGLE_OFFSETS := [-0.92,0.84,-0.58,0.66,-0.14]
+const SALVO_SPEED_FACTORS := [0.94,1.08,0.80,1.16,0.88]
 const DISPENSER_OFFSETS := {
 	"fighter": [Vector2(-10,14),Vector2(-7,15),Vector2(0,16),Vector2(7,15),Vector2(10,14)],
 	"bomber": [Vector2(-14,16),Vector2(-9,17),Vector2(0,18),Vector2(9,17),Vector2(14,16)],
@@ -119,12 +119,12 @@ func draw_countermeasures(surface: CanvasItem) -> void:
 		var serial_drift := float(posmod(int(event.get("serial",0))*17,13)-6)
 		position += trail_direction*ballistic_time*CountermeasureRules.DECOY_TRAIL_DISTANCE*speed_factor
 		position += Vector2(serial_drift*ratio*ratio*0.72,ratio*ratio*18.0)
-		for puff_index in range(3):
+		for puff_index in range(4):
 			var trail_ratio := clampf(ratio - float(puff_index + 1) * 0.075, 0.0, 1.0)
 			if trail_ratio <= 0.0:
 				continue
 			var puff_position := position - trail_direction * float(8 + puff_index * 7)
-			var puff_alpha := (1.0 - ratio) * (0.24 - float(puff_index) * 0.045)
+			var puff_alpha := (1.0 - ratio) * (0.24 - float(puff_index) * 0.038)
 			var smoke := PersistentEffectArtLibrary.frame_for_ratio("damage_smoke",trail_ratio)
 			var smoke_size := Vector2.ONE*(15.0+float(puff_index)*5.0)
 			var smoke_rect := Rect2((puff_position-smoke_size*0.5).round(),smoke_size.round())

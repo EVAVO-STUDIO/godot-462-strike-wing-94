@@ -3,16 +3,17 @@ extends RefCounted
 
 const MAX_CHARGES := 4
 const COOLDOWN_SECONDS := 0.85
-const EFFECT_SECONDS := 0.64
+const EFFECT_SECONDS := 0.78
 const DECOY_RADIUS := 250.0
-const DECOY_TRAIL_DISTANCE := 74.0
+const DECOY_TRAIL_DISTANCE := 102.0
+const DECOY_LATERAL_DISTANCE := 46.0
 
 static func can_deploy(charges: int, cooldown: float) -> bool:
 	return charges > 0 and cooldown <= 0.0
 
 static func decoy_point(player_position: Vector2, serial: int) -> Vector2:
 	var side := -1.0 if posmod(serial, 2) == 0 else 1.0
-	return player_position + Vector2(side * 34.0, DECOY_TRAIL_DISTANCE)
+	return player_position + Vector2(side * DECOY_LATERAL_DISTANCE, DECOY_TRAIL_DISTANCE)
 
 static func divert_missiles(bullets: Array, player_position: Vector2, decoy: Vector2) -> int:
 	var diverted := 0
