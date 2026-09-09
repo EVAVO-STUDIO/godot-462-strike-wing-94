@@ -4,6 +4,7 @@ const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
 const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const SupportRules = preload("res://scripts/support_rules.gd")
+const PlayerMountRules = preload("res://scripts/player_mount_rules.gd")
 const TechProgressionRules = preload("res://scripts/tech_progression_rules.gd")
 const RetroSfxRules = preload("res://scripts/retro_sfx_rules.gd")
 const STRATEGIC_SUPPORT_ID := "micro_warhead_rack"
@@ -176,6 +177,17 @@ func _support_mount_offsets(support: Dictionary, count: int) -> Array[Vector2]:
 		fallback.append(Vector2(0, -10))
 	return fallback
 
+func _support_engagement_classes(support: Dictionary) -> Array[String]:
+	var craft := get_node_or_null("/root/CraftFormDirector")
+	var altitude := "mid"
+	var diving_to_low := false
+	if craft != null:
+		if craft.has_method("current_altitude"):
+			altitude = str(craft.call("current_altitude"))
+		if craft.has_method("altitude_transition_direction") and craft.has_method("altitude_transition_to"):
+			diving_to_low = int(craft.call("altitude_transition_direction")) < 0 and str(craft.call("altitude_transition_to")) == "low"
+	return PlayerMountRules.support_engagement_classes(support, altitude, diving_to_low)
+
 func _activate(scene: Object) -> void:
 	var support := current_support()
 	if support.is_empty():
@@ -226,6 +238,8 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 	var mounts := _support_mount_offsets(support, angles.size())
 	var support_id := str(support.get("id", "support"))
 	var strategic := bool(support.get("strategic", false)) or support_id == STRATEGIC_SUPPORT_ID
+	var engagement_classes := _support_engagement_classes(support)
+	var surface_strafe := "ground" in engagement_classes and "air" not in engagement_classes
 	if strategic:
 		_strategic_launch_timer = 0.46
 	for i in range(angles.size()):
@@ -235,7 +249,9 @@ func _fire_projectiles(scene: Object, support: Dictionary, homing: bool) -> void
 			"damage": damage,
 			"support": true,
 			"support_id": support_id,
-			"strategic_support": strategic
+			"strategic_support": strategic,
+			"engagement_classes": engagement_classes,
+			"surface_strafe": surface_strafe
 		}
 		if homing:
 			bullet["support_homing"] = true
@@ -329,7 +345,8 @@ func _update_hunter_projectiles(scene: Object, delta: float) -> void:
 			changed = true
 			continue
 		var bullet_position: Vector2 = bullet.get("position", Vector2.ZERO)
-		var target = _nearest_enemy_position(enemies, bullet_position)
+		var engagement_classes: Array = bullet.get("engagement_classes", ["air", "boss"])
+		var target = _nearest_enemy_position(enemies, bullet_position, engagement_classes)
 		if target != null:
 			var velocity: Vector2 = bullet.get("velocity", Vector2.UP * 200.0)
 			var desired := bullet_position.direction_to(target)
@@ -342,12 +359,15 @@ func _update_hunter_projectiles(scene: Object, delta: float) -> void:
 	if changed:
 		scene.set("bullets", bullets)
 
-func _nearest_enemy_position(enemies: Array, origin: Vector2):
+func _nearest_enemy_position(enemies: Array, origin: Vector2, engagement_classes: Array = ["air", "ground", "sea", "boss"]):
 	var found := false
 	var best_position := Vector2.ZERO
 	var best_distance := INF
 	for enemy in enemies:
 		if typeof(enemy) != TYPE_DICTIONARY or int(enemy.get("hp", 0)) <= 0:
+			continue
+		var target_category := "boss" if bool(enemy.get("boss", false)) else str(enemy.get("category", "air"))
+		if target_category not in engagement_classes:
 			continue
 		var position: Vector2 = enemy.get("position", Vector2.ZERO)
 		var distance := position.distance_squared_to(origin)

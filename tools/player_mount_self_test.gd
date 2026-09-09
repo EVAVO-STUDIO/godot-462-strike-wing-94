@@ -53,6 +53,10 @@ func _test_support_mounts(mounts: Array) -> void:
 	var hunter := {"id":"hunter_rack","type":"hunter"}
 	_expect(PlayerMountRules.support_offsets(mounts, "fighter", hunter, 1, false) == [Vector2(-15,-5)], "single fighter Hunter should use one inner pylon")
 	_expect(PlayerMountRules.support_offsets(mounts, "fighter", hunter, 1, true) == [Vector2(15,-5)], "alternating single Hunter should switch wing pylon")
+	_expect(PlayerMountRules.support_engagement_classes(hunter,"low") == ["air","boss"], "Hunter missiles should remain air-to-air weapons even in the low lane")
+	_expect(PlayerMountRules.support_engagement_classes(rockets,"mid") == ["air","boss"], "mid-altitude rockets should remain in the forward air-combat plane")
+	_expect(PlayerMountRules.support_engagement_classes(rockets,"low") == ["ground","sea","boss"], "low-altitude rockets should project into the surface attack plane")
+	_expect(PlayerMountRules.support_engagement_classes(rockets,"mid",true) == ["ground","sea","boss"], "a committed dive should establish the rocket surface-attack plane before lane arrival")
 	var strategic := {"id":"micro_warhead_rack","type":"hunter","strategic":true}
 	_expect(PlayerMountRules.support_offsets(mounts, "fighter", strategic, 1) == [Vector2(0,-7)], "Micro-Warhead should use reinforced strategic centreline bay")
 
@@ -90,6 +94,7 @@ func _test_wiring() -> void:
 		var source := support.get_as_text()
 		_expect(source.contains('get_node_or_null("/root/PlayerMountDirector")'), "tactical stores should consume canonical mount catalogue")
 		_expect(source.contains('mounts.call("support_offsets"'), "tactical stores should request canonical pylon offsets")
+		_expect(source.contains('"engagement_classes": engagement_classes') and source.contains('_nearest_enemy_position(enemies, bullet_position, engagement_classes)'), "rockets and Hunter missiles should carry their physical engagement plane into collision and guidance")
 		_expect(source.contains('InputMap.action_add_event(action, event)'), "support key bindings should add events correctly")
 	var strike := FileAccess.open("res://scripts/strike_ordnance_director.gd", FileAccess.READ)
 	_expect(strike != null, "strike ordnance director should be readable")

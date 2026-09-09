@@ -875,6 +875,7 @@ func _test_projectile_art() -> void:
 	if strike_source != null:
 		var source := strike_source.get_as_text()
 		_expect(source.contains("PRECISION_BOMB_FRAMES") and source.contains("bomb_texture"), "precision strike ordnance should use the authored tumble frames")
+		_expect(source.contains('"--capture-bomb-flight"') and source.contains("bomb_position - bomb_size * 0.5"), "precision-bomb QA should preserve a centered tumbling airframe on its real delivery path")
 
 func _test_impact_art() -> void:
 	var families := ["muzzle", "rotary_muzzle", "armor_hit", "shield_hit", "bomb_impact", "emp_disruption", "water_impact", "dust_impact"]

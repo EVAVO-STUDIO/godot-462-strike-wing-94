@@ -62,6 +62,16 @@ func _process(delta: float) -> void:
 		_pending.clear()
 		_impact_fx.clear()
 		_stability = 0.0
+		if "--capture-bomb-flight" in OS.get_cmdline_user_args():
+			_pending.append({
+				"position": Vector2(420,154),
+				"release_position": Vector2(320,268),
+				"time": 0.56,
+				"initial_time": 1.0,
+				"altitude": "low",
+				"stability": 0.4,
+				"priority_lock": false,
+			})
 	if phase == 1:
 		_update_attack_run_stability(scene, delta)
 		_update_pending(scene, delta)
@@ -322,7 +332,7 @@ func _draw_surface(surface: CanvasItem) -> void:
 		var bomb_frame_index := int(floor(progress * 10.0)) % PRECISION_BOMB_FRAMES.size()
 		var bomb_texture: Texture2D = PRECISION_BOMB_FRAMES[bomb_frame_index]
 		var bomb_size := (bomb_texture.get_size() * bomb_scale).round()
-		surface.draw_texture_rect(bomb_texture, Rect2((bomb_position - Vector2(8, 7) * bomb_scale).round(), bomb_size), false)
+		surface.draw_texture_rect(bomb_texture, Rect2((bomb_position - bomb_size * 0.5).round(), bomb_size), false)
 
 func _draw_strike_status(surface: CanvasItem, altitude: String, assisted: bool, priority: bool, stable: bool) -> void:
 	var transition_active := _altitude_transition_active()
