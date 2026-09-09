@@ -41,8 +41,10 @@ func _test_primary_mounts(mounts: Array) -> void:
 	var heavy := {"id":"heavy_autocannon","archetype":"heavy"}
 	_expect(PlayerMountRules.primary_engagement_classes("fighter",heavy,"low") == ["air","boss"], "paired fighter wing guns should retain a forward air-combat solution")
 	_expect(PlayerMountRules.primary_engagement_classes("bomber",heavy,"low") == ["ground","sea","boss"], "single bomber heavy autocannon should depress into a low-altitude surface-strafing solution")
+	_expect(PlayerMountRules.primary_engagement_classes("bomber",heavy,"mid") == ["air","boss"], "bomber conventional guns should retain the forward air-combat plane before a surface pass")
 	_expect(PlayerMountRules.primary_engagement_classes("bomber",heavy,"mid",true) == ["ground","sea","boss"], "diving into the low lane should establish the heavy-cannon strafing solution during the visible descent")
-	_expect("ground" in PlayerMountRules.primary_engagement_classes("bomber",ballistic,"mid"), "ordinary bomber rotary fire should remain a flexible close-support weapon")
+	_expect(PlayerMountRules.primary_engagement_classes("bomber",ballistic,"low") == ["ground","sea","boss"], "ordinary bomber rotary fire should share the low-pass surface solution")
+	_expect(PlayerMountRules.primary_engagement_classes("bomber",ballistic,"mid",true) == ["ground","sea","boss"], "ordinary bomber rotary fire should enter the surface plane during the visible dive")
 
 func _test_support_mounts(mounts: Array) -> void:
 	var rockets := {"id":"twin_rocket_pods","type":"rockets"}
