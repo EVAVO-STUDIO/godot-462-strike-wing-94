@@ -1964,7 +1964,7 @@ func _animated_unit_texture(enemy_id: String, enemy: Dictionary, fallback: Textu
 func _draw_animated_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, fallback: Texture2D, scale: float = 1.0) -> void:
 	_draw_production_sprite(surface, p, _animated_unit_texture(enemy_id, enemy, fallback), scale)
 
-func _render_airframe_shadow(surface: CanvasItem, p: Vector2, texture: Texture2D, enemy_id: String) -> void:
+func _render_airframe_shadow(surface: CanvasItem, p: Vector2, texture: Texture2D, enemy_id: String, bank_scale_x: float = 1.0) -> void:
 	if ORBITAL_AIR_SPRITES.has(enemy_id):
 		return
 	var altitude := AltitudeRules.MID
@@ -1986,19 +1986,20 @@ func _render_airframe_shadow(surface: CanvasItem, p: Vector2, texture: Texture2D
 		AltitudeRules.ORBITAL:
 			return
 	var shadow_center := (p + offset).round()
-	surface.draw_set_transform(shadow_center, 0.0, squash)
+	surface.draw_set_transform(shadow_center, 0.0, Vector2(squash.x * bank_scale_x, squash.y))
 	surface.draw_texture(texture, (-texture.get_size() * 0.5).round(), Color(0.025, 0.035, 0.045, opacity))
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
 	var bank_index := hostile_bank_frame_index(float(enemy.get("visual_bank", 0.0)))
+	var bank_scale_x := 0.82 if bank_index != 1 else 1.0
 	var visible_hull := _animated_unit_texture(enemy_id, enemy, hull)
 	if HOSTILE_BANK_FRAMES.has(enemy_id) and bank_index != 1:
 		var bank_frames: Array = HOSTILE_BANK_FRAMES[enemy_id]
 		visible_hull = bank_frames[bank_index]
 	_render_airframe_maneuver_vapor(surface, p, enemy_id, enemy, visible_hull)
-	_render_airframe_shadow(surface, p, visible_hull, enemy_id)
-	_render_airframe_cel_key(surface, p, visible_hull)
+	_render_airframe_shadow(surface, p, visible_hull, enemy_id, bank_scale_x)
+	_render_airframe_cel_key(surface, p, visible_hull, bank_scale_x)
 	if MACHINE_AIR_SPRITES.has(enemy_id):
 		_render_machine_air_propulsion(surface, p, enemy_id, enemy)
 	elif ORBITAL_AIR_SPRITES.has(enemy_id):
@@ -2013,7 +2014,9 @@ func _draw_hostile_airframe(surface: CanvasItem, p: Vector2, enemy_id: String, e
 		surface.draw_texture(plume, Vector2(-8.0, 0.0), Color(0.84, 0.90, 0.94, 0.82))
 		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if HOSTILE_BANK_FRAMES.has(enemy_id) and bank_index != 1:
-		_draw_production_sprite(surface, p, visible_hull)
+		surface.draw_set_transform(p.round(), 0.0, Vector2(bank_scale_x, 1.0))
+		surface.draw_texture(visible_hull, (-visible_hull.get_size() * 0.5).round())
+		surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	else:
 		_draw_animated_unit(surface, p, enemy_id, enemy, hull)
 	_render_mercenary_position_lights(surface, p, enemy_id, enemy, visible_hull)
@@ -2049,14 +2052,16 @@ func _render_airframe_maneuver_vapor(surface: CanvasItem, p: Vector2, enemy_id: 
 		surface.draw_texture(frame, -frame.get_size() * 0.5, Color(0.86, 0.92, 0.94, lerpf(0.12, 0.34, vapor_strength)))
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
-func _render_airframe_cel_key(surface: CanvasItem, p: Vector2, texture: Texture2D) -> void:
+func _render_airframe_cel_key(surface: CanvasItem, p: Vector2, texture: Texture2D, bank_scale_x: float = 1.0) -> void:
 	# A one-pixel cool ink key keeps low-contrast military paint readable over
 	# rock, surf and cloud texture. Four cardinal impressions preserve the
 	# authored silhouette and avoid a luminous target-outline treatment.
 	var ink := Color(0.018, 0.028, 0.040, 0.74)
 	var origin := (-texture.get_size() * 0.5).round()
+	surface.draw_set_transform(p.round(), 0.0, Vector2(bank_scale_x, 1.0))
 	for offset in [Vector2(-1,0), Vector2(1,0), Vector2(0,-1), Vector2(0,1)]:
-		surface.draw_texture(texture, origin + p.round() + offset, ink)
+		surface.draw_texture(texture, origin + offset, ink)
+	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _render_mercenary_position_lights(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D) -> void:
 	if not MERCENARY_AIR_SPRITES.has(enemy_id) and enemy_id != "gunship_alpha":
@@ -2065,7 +2070,8 @@ func _render_mercenary_position_lights(surface: CanvasItem, p: Vector2, enemy_id
 	# full HUD outline. At native resolution these two-pixel clusters keep the
 	# dark airframes readable over sea and cliff detail while preserving their
 	# military silhouette and the environment's night-adapted palette.
-	var half_span := clampf(hull.get_width() * 0.34, 8.0, 17.0)
+	var bank_scale_x := 0.82 if hostile_bank_frame_index(float(enemy.get("visual_bank", 0.0))) != 1 else 1.0
+	var half_span := clampf(hull.get_width() * 0.34, 8.0, 17.0) * bank_scale_x
 	var lamp_y := p.y + clampf(hull.get_height() * 0.03, 1.0, 2.0)
 	var left := Vector2(roundf(p.x - half_span), roundf(lamp_y))
 	var right := Vector2(roundf(p.x + half_span), roundf(lamp_y))

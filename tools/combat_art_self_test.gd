@@ -149,6 +149,7 @@ func _test_visual_language() -> void:
 			var bank_texture := load("res://assets/runtime/enemies/bank/%s/%s.png" % [bank_id, direction])
 			_expect(bank_texture is Texture2D and bank_texture.get_size() == bank_sizes[bank_id], "hostile bank pose should preserve registered canvas: %s %s" % [bank_id, direction])
 	_expect(CombatArtDirector.hostile_bank_frame_index(-0.4) == 0 and CombatArtDirector.hostile_bank_frame_index(0.0) == 1 and CombatArtDirector.hostile_bank_frame_index(0.4) == 2, "hostile airframes should hold discrete left, neutral and right bank poses")
+	_expect(source.contains("var bank_scale_x := 0.82 if bank_index != 1 else 1.0") and source.contains("Vector2(squash.x * bank_scale_x, squash.y)"), "hostile bank exposures should foreshorten hull, specialist hardware and contact shadow together")
 	_expect(source.contains('enemy.get("visual_bank", 0.0)'), "hostile bank art should consume real movement state")
 	var fixed_discharge := CombatArtDirector.hostile_airframe_weapon_direction(Vector2(200,100),Vector2(320,260),{"category":"air","pattern":"aggressive_weave","weapon":"twin_burst","lateral_velocity":-48.0})
 	_expect(fixed_discharge.x < 0.0 and fixed_discharge.y > 0.0, "fixed aircraft muzzle art should follow airframe heading instead of tracking the player")
