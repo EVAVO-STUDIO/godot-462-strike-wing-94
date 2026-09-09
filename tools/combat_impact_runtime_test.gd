@@ -15,6 +15,10 @@ func run() -> void:
 	var p: Vector2 = scene.get("player_position")
 	var missile: Dictionary = scene.call("_make_enemy_shot",p,Vector2.DOWN*132,13,true,"missile")
 	check(missile.impact_class == "direct_warhead" and missile.guidance_class == "heat_seeking", "Enemy missile factory must publish impact and guidance classes")
+	var air_launcher := {"position":p+Vector2(0,-180),"weapon":"missile","category":"air","boss":false,"missiles_remaining":2}
+	scene.set("enemy_bullets",[]); scene.call("_fire_enemy_weapon",air_launcher)
+	var air_salvo: Array = scene.get("enemy_bullets")
+	check(air_salvo.size()==2 and absf(Vector2(air_salvo[0].position).x-Vector2(air_salvo[1].position).x)>=15.0 and air_salvo[0].homing and air_salvo[1].homing, "Live interceptor salvo should leave two separated guided wing stations")
 	scene.set("enemy_bullets",[missile]); scene.call("_update_enemy_bullets",0.0)
 	check(int(scene.get("hull")) == 0 and int(scene.get("shield")) == 0, "Live direct missile collision must destroy craft")
 	check(float(scene.get("player_loss_timer")) > 0 and str(scene.get("status_text")).contains("AIRFRAME LOST"), "Catastrophic collision must enter loss presentation")

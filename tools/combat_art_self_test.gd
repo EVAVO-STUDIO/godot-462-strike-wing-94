@@ -251,7 +251,11 @@ func _test_visual_language() -> void:
 	_expect(source.contains('definition["barrel_recoil"]') and source.contains('definition["capacitor"]'), "BLACK SKY sentry and lancer should use separately articulated weapon hardware")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_layered/orbital_air_layered_manifest.json"), "layered BLACK SKY source/runtime manifest should exist")
 	var enemy_file := FileAccess.open("res://data/enemies.json", FileAccess.READ)
-	_expect(enemy_file != null and enemy_file.get_as_text().contains('{"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"cannon"'), "orbital lancer gameplay should fire through its authored ballistic rail rather than a mismatched homing missile")
+	var enemy_text := enemy_file.get_as_text() if enemy_file != null else ""
+	_expect(enemy_text.contains('{"id":"orbital_lancer","class":"air","hp":30,"speed":126,"value":4300,"pattern":"tracking_sweep","weapon":"cannon"'), "orbital lancer gameplay should fire through its authored ballistic rail rather than a mismatched homing missile")
+	_expect(enemy_text.contains('{"id":"ace_interceptor","class":"air","hp":9,"speed":148,"value":900,"pattern":"aggressive_weave","weapon":"missile"'), "the conventional ace interceptor should carry one limited paired heat-seeking salvo")
+	_expect(main_source.contains("launch_origins") and main_source.contains('source_category == "air"') and source.contains('str(enemy.get("weapon", "")) == "missile"') and source.contains('frame_for_ratio("damage_smoke"'), "air-launched guided missiles should leave paired registered wing stations with authored launch smoke")
+	_expect(main_source.contains("--capture-interceptor-missile") and main_source.contains('_find_enemy_archetype("ace_interceptor")') and main_source.contains('Vector2(312,139)') and main_source.contains('Vector2(328,147)'), "visual QA should expose the conventional ace releasing its paired guided salvo")
 	var ground_sizes := {
 		"light_tank": Vector2(30,24),
 		"sam_truck": Vector2(34,26),

@@ -2146,6 +2146,13 @@ func _render_airframe_weapon_discharge(surface: CanvasItem, p: Vector2, enemy_id
 	if direction.length_squared() < 0.001:
 		direction = Vector2.DOWN
 	var muzzle_center := p + direction * maxf(9.0, hull.get_height() * 0.30)
+	if str(enemy.get("weapon", "")) == "missile":
+		# Paired Sidewinder-class rounds leave a brief cool-grey launch cloud at
+		# the same eight-pixel wing registration used by their live projectiles.
+		var smoke := PersistentEffectArtLibrary.frame_for_ratio("damage_smoke",1.0-recoil_ratio)
+		for launch_origin in ProjectileRules.twin_gun_origins(p+direction*4.0,direction,8.0):
+			surface.draw_texture_rect(smoke,Rect2((launch_origin-Vector2(5,5)).round(),Vector2(10,10)),false,Color(0.64,0.68,0.66,0.44*recoil_ratio))
+		return
 	if str(enemy.get("weapon", "")) == "twin_burst" or enemy_id in ["ace_interceptor", "drone_hunter", "phase_interceptor"]:
 		for gun_origin in ProjectileRules.twin_gun_origins(muzzle_center, direction):
 			_render_air_muzzle(surface, gun_origin, recoil_ratio)

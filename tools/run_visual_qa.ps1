@@ -71,6 +71,7 @@ $Cases = @(
 	@{ id='human_fighter_attack_approach'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-air-pass=approach','--visual-capture-delay=0.12') },
 	@{ id='human_fighter_attack_firing'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-air-pass=firing','--visual-capture-delay=0.12') },
 	@{ id='human_fighter_attack_breakaway'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-air-pass=breakaway','--visual-capture-delay=0.12') },
+	@{ id='human_ace_missile_launch'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-interceptor-missile','--visual-capture-delay=0.08') },
 	@{ id='enemy_hit_response'; args=@('--capture-gameplay','--capture-mission=0','--capture-time=42','--capture-altitude=mid','--capture-enemy-hit-response','--visual-capture-delay=0.28') },
 	@{ id='roster_machine_air'; args=@('--capture-gameplay','--capture-mission=11','--capture-time=42','--capture-altitude=mid','--capture-air=machine') },
 	@{ id='roster_orbital_air'; args=@('--capture-gameplay','--capture-mission=25','--capture-time=42','--capture-altitude=orbital','--capture-air=orbital') },

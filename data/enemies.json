@@ -8,7 +8,7 @@
     {"id":"sam_truck","class":"ground","hp":4,"speed":18,"value":500,"pattern":"road_column","weapon":"missile"},
     {"id":"river_patrol","class":"sea","hp":8,"speed":34,"value":520,"pattern":"water_lane","weapon":"deck_gun"},
     {"id":"fortified_turret","class":"ground","hp":10,"speed":0,"value":650,"pattern":"static","weapon":"aimed_burst"},
-    {"id":"ace_interceptor","class":"air","hp":9,"speed":148,"value":900,"pattern":"aggressive_weave","weapon":"twin_burst","hypersonic_capable":true},
+    {"id":"ace_interceptor","class":"air","hp":9,"speed":148,"value":900,"pattern":"aggressive_weave","weapon":"missile","hypersonic_capable":true},
     {"id":"torpedo_boat","class":"sea","hp":6,"speed":52,"value":610,"pattern":"water_lane","weapon":"missile"},
     {"id":"coastal_flak","class":"ground","hp":5,"speed":0,"value":560,"pattern":"static","weapon":"side_burst"},
     {"id":"heavy_bomber","class":"air","hp":12,"speed":58,"value":980,"pattern":"bomber_run","weapon":"cannon"},

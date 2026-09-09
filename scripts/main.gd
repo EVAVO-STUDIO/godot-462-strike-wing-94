@@ -381,6 +381,22 @@ func _begin_capture_gameplay() -> void:
 			enemies[0]["last_shot_direction"] = Vector2.DOWN
 			enemies[0]["age"] = fixture.age
 			enemies[0]["fire_timer"] = 20.0
+	if "--capture-interceptor-missile" in OS.get_cmdline_user_args():
+		enemies.clear()
+		enemy_bullets.clear()
+		_spawn_enemy(_find_enemy_archetype("ace_interceptor"))
+		if not enemies.is_empty():
+			enemies[0]["position"] = Vector2(320,112)
+			enemies[0]["pattern_anchor_x"] = 320.0
+			enemies[0]["lateral_velocity"] = 0.0
+			enemies[0]["visual_bank"] = 0.0
+			enemies[0]["recoil_timer"] = 0.08
+			enemies[0]["last_shot_direction"] = Vector2.DOWN
+			enemies[0]["fire_timer"] = 20.0
+			enemies[0]["missiles_remaining"] = 0
+		var fixture_speed := ProjectileRules.enemy_projectile_speed("missile")
+		enemy_bullets.append(_make_enemy_shot(Vector2(312,139),Vector2(-0.05,1.0).normalized()*fixture_speed,8,true,"missile","air"))
+		enemy_bullets.append(_make_enemy_shot(Vector2(328,147),Vector2(0.07,1.0).normalized()*fixture_speed,11,true,"missile","air"))
 	if "--capture-surface-travel" in OS.get_cmdline_user_args():
 		enemies.clear()
 		_spawn_enemy(_find_enemy_archetype("strategic_silo"))
@@ -1858,8 +1874,14 @@ func _fire_enemy_weapon(enemy: Dictionary) -> void:
 		for gun_origin in ProjectileRules.twin_gun_origins(origin,velocity):
 			enemy_bullets.append(_make_enemy_shot(gun_origin,velocity,damage,false,weapon_id,source_category))
 	elif is_missile:
-		enemy_bullets.append(_make_enemy_shot(origin, velocity, damage, true, weapon_id, source_category))
-		enemy_bullets.append(_make_enemy_shot(origin, velocity.rotated(0.08), damage + 3, true, weapon_id, source_category))
+		# Air interceptors release from paired wing stations. Surface and naval
+		# launchers retain their close-set battery origin so their salvo still reads
+		# as one traversing mount rather than missiles appearing beside the vehicle.
+		var launch_origins: Array[Vector2] = [origin,origin]
+		if source_category == "air":
+			launch_origins = ProjectileRules.twin_gun_origins(origin+velocity.normalized()*4.0,velocity,8.0)
+		enemy_bullets.append(_make_enemy_shot(launch_origins[0], velocity.rotated(-0.04), damage, true, weapon_id, source_category))
+		enemy_bullets.append(_make_enemy_shot(launch_origins[1], velocity.rotated(0.04), damage + 3, true, weapon_id, source_category))
 		enemy["missiles_remaining"] = maxi(0, int(enemy.get("missiles_remaining", 0)) - 2)
 		enemy_missile_engagement_cooldown = ProjectileRules.ENEMY_MISSILE_ENGAGEMENT_INTERVAL
 		_register_enemy_missile_launch(2)
