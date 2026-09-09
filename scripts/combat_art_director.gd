@@ -2374,7 +2374,9 @@ func _draw_infantry_member(surface: CanvasItem, center: Vector2, texture: Textur
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	_draw_production_sprite(surface, center, texture, scale)
 	var size := texture.get_size() * scale
-	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(),size.round()), false, Color(1.22,1.19,1.10,0.46))
+	# A faint warm optical lift separates cloth from the terrain. Keep this below
+	# selection-highlight strength so the squad remains part of the ground plate.
+	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(),size.round()), false, Color(1.10,1.08,1.02,0.20))
 
 func _draw_infantry_effect(surface: CanvasItem, center: Vector2, texture: Texture2D, scale: float) -> void:
 	var size := texture.get_size() * scale
