@@ -1,6 +1,6 @@
 {
   "asset_family": "hypersonic_weapon_explosion_cels_v3",
-  "method": "deterministic offline cel authoring with ragged hand-cut silhouettes and retained transparent canvases",
+  "method": "deterministic offline cel authoring with temporally locked ragged silhouettes and retained transparent canvases",
   "families": {
     "missile": {
       "frames": 11,
@@ -32,6 +32,7 @@
     "No circular particle rosette",
     "Missile pressure fronts use broken cool condensation contours",
     "Smoke and debris outlive the hot core",
-    "Ground bursts remain vertically biased"
+    "Ground bursts remain vertically biased",
+    "Material lobes and fragment bearings remain registered between exposures"
   ]
 }

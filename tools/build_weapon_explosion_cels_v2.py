@@ -136,7 +136,10 @@ def missile_frame(index: int, count: int = 11) -> Image.Image:
 def rocket_frame(index: int, count: int = 8) -> Image.Image:
     size = 128
     t = index / (count - 1)
-    rng = random.Random(18400 + index)
+    # Keep the authored ejecta, debris and smoke identities locked across the
+    # exposure sequence. Changing the random layout per frame makes a burst
+    # boil like procedural particles instead of expanding as held cel shapes.
+    rng = random.Random(18400)
     image, draw = canvas(size)
     cx, ground = 64.0, 91.0
     growth = math.sin(min(1.0, t * 1.15) * math.pi * 0.58)
@@ -186,7 +189,9 @@ def rocket_frame(index: int, count: int = 8) -> Image.Image:
 def cannon_frame(index: int, count: int = 6) -> Image.Image:
     size = 64
     t = index / (count - 1)
-    rng = random.Random(29400 + index)
+    # A cannon strike is one directional event: its hot-metal rays travel and
+    # fade, but must not teleport to unrelated bearings on every exposure.
+    rng = random.Random(29400)
     image, draw = canvas(size)
     cx, cy = 32.0, 31.0
     fade = 1.0 - t
@@ -241,13 +246,13 @@ def main():
     review.save(REVIEW, optimize=True)
     manifest = {
         "asset_family": "hypersonic_weapon_explosion_cels_v3",
-        "method": "deterministic offline cel authoring with ragged hand-cut silhouettes and retained transparent canvases",
+        "method": "deterministic offline cel authoring with temporally locked ragged silhouettes and retained transparent canvases",
         "families": {
             "missile": {"frames": 11, "size": [128,128], "motion": "flash-pressure-fireball-smoke-fragment"},
             "rocket": {"frames": 8, "size": [128,128], "motion": "ground-coupled-dirt-flame-column-fragment"},
             "cannon": {"frames": 6, "size": [64,64], "motion": "directional-hot-metal-spall"},
         },
-        "rules": ["No full-screen bloom", "No circular particle rosette", "Missile pressure fronts use broken cool condensation contours", "Smoke and debris outlive the hot core", "Ground bursts remain vertically biased"],
+        "rules": ["No full-screen bloom", "No circular particle rosette", "Missile pressure fronts use broken cool condensation contours", "Smoke and debris outlive the hot core", "Ground bursts remain vertically biased", "Material lobes and fragment bearings remain registered between exposures"],
     }
     SOURCE.mkdir(parents=True, exist_ok=True)
     (SOURCE / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
