@@ -74,8 +74,13 @@ static func adjusted_motion(pattern: String, current: Vector2, player: Vector2, 
 			desired_velocity = clampf((anchor_x-next.x)*0.9,-18.0,18.0)
 			acceleration = 30.0
 		"water_lane":
-			desired_velocity = clampf((anchor_x-next.x)*0.5 + sin(age*0.38+maneuver_phase)*5.0,-12.0,12.0)
-			acceleration = 12.0
+			# Surface vessels hold an approach lane, answer one helm command, then
+			# settle on the new parallel course.  A perpetual sine correction made
+			# ships waggle like arcade formations and never let the wake straighten.
+			var course_change := smoothstep(1.8,5.8,age)
+			var ordered_lane := anchor_x+entry_side*28.0*course_change
+			desired_velocity = clampf((ordered_lane-next.x)*0.46,-12.0,12.0)
+			acceleration = 10.0
 		"static":
 			next.x = anchor_x
 			lateral_velocity = 0.0
