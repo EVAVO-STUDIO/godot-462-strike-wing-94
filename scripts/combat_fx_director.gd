@@ -450,7 +450,7 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		draw_dimensions=Vector2(draw_size*1.20,draw_size*0.82).round()
 	elif not boss and impact_family=="cannon":
 		draw_dimensions=Vector2(draw_size*0.88,draw_size*1.12).round()
-	var detonation_grade := Color(0.92,0.96,1.0,1.0) if impact_family == "missile" and not boss else (Color(0.90,0.68,0.42,1.0) if impact_family in ["rocket","bomb"] and not boss else Color.WHITE)
+	var detonation_grade := Color(0.82,0.94,1.0,1.0) if impact_family == "missile" and not boss else (Color(0.88,0.58,0.30,1.0) if impact_family in ["rocket","bomb"] and not boss else Color.WHITE)
 	detonation_grade.a = 1.0-smoothstep(0.78,1.0,blast_clock)
 	surface.draw_texture_rect(frame,Rect2((p-draw_dimensions*0.5).round(),draw_dimensions),false,detonation_grade)
 	if enemy_id in STRATEGIC_SITES and blast_clock > 0.18 and blast_clock < 0.82:
@@ -463,19 +463,19 @@ func _draw_explosion(surface: CanvasItem, p: Vector2, ratio: float, max_size: fl
 		var core_ratio := blast_clock/0.62
 		var core: Texture2D = EXPLOSION_FRAMES[clampi(int(floor(core_ratio*EXPLOSION_FRAMES.size())),0,EXPLOSION_FRAMES.size()-1)]
 		var core_size := roundf(max_size*lerpf(2.10,3.10,core_ratio))
-		surface.draw_texture_rect(core,Rect2((p-Vector2.ONE*core_size*0.5).round(),Vector2.ONE*core_size),false,Color(1.0,0.92,0.72,0.98*(1.0-core_ratio*0.64)))
+		surface.draw_texture_rect(core,Rect2((p-Vector2.ONE*core_size*0.5).round(),Vector2.ONE*core_size),false,Color(0.94,0.98,1.0,1.0-core_ratio*0.66))
 	if not boss and impact_family == "missile" and blast_clock < 0.58:
 		var pressure_ratio := blast_clock / 0.58
 		var pressure := PersistentEffectArtLibrary.frame_for_ratio("sonic_boom", pressure_ratio)
 		# The pressure front is pale condensation, not an orange targeting ring.
 		# Keep it subordinate to the white-hot warhead core and fragment fan.
-		var pressure_size := Vector2.ONE * roundf(lerpf(22.0, 96.0, pressure_ratio))
-		surface.draw_texture_rect(pressure, Rect2((p-pressure_size*0.5).round(),pressure_size), false, Color(0.88,0.94,0.96,0.38*(1.0-pressure_ratio)))
+		var pressure_size := Vector2.ONE * roundf(lerpf(22.0, 108.0, pressure_ratio))
+		surface.draw_texture_rect(pressure, Rect2((p-pressure_size*0.5).round(),pressure_size), false, Color(0.84,0.94,1.0,0.58*(1.0-pressure_ratio)))
 	if not boss and impact_family in ["rocket", "bomb"] and blast_clock < 0.58:
 		var ground_ratio := blast_clock / 0.58
 		var ground_pressure := ImpactArtLibrary.frame_for_ratio("dust_impact",ground_ratio)
-		var ground_size := Vector2(lerpf(18.0,72.0,ground_ratio),lerpf(10.0,32.0,ground_ratio))
-		surface.draw_texture_rect(ground_pressure,Rect2((p+Vector2(0,12)-ground_size*0.5).round(),ground_size.round()),false,Color(0.72,0.58,0.38,0.62*(1.0-ground_ratio)))
+		var ground_size := Vector2(lerpf(18.0,78.0,ground_ratio),lerpf(9.0,30.0,ground_ratio))
+		surface.draw_texture_rect(ground_pressure,Rect2((p+Vector2(0,13)-ground_size*0.5).round(),ground_size.round()),false,Color(0.66,0.43,0.24,0.74*(1.0-ground_ratio)))
 	if not boss and impact_family in ["missile", "rocket", "bomb", "cannon"]:
 		_draw_hot_fragment_fan(surface,p,blast_clock,max_size,serial,category,impact_family)
 	var radius := maxf(2.0, max_size * smoothstep(0.0, 1.0, ratio))
