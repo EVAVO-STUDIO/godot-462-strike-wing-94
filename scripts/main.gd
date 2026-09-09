@@ -4,6 +4,7 @@ const ContentCatalog = preload("res://scripts/content_catalog.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const CombatImpactRules = preload("res://scripts/combat_impact_rules.gd")
 const ProjectileRules = preload("res://scripts/projectile_rules.gd")
+const PlayerMissileRules = preload("res://scripts/player_missile_rules.gd")
 const ProgressionRules = preload("res://scripts/progression_rules.gd")
 const ObjectiveRules = preload("res://scripts/objective_rules.gd")
 const RewardRules = preload("res://scripts/reward_rules.gd")
@@ -397,6 +398,17 @@ func _begin_capture_gameplay() -> void:
 		var fixture_speed := ProjectileRules.enemy_projectile_speed("missile")
 		enemy_bullets.append(_make_enemy_shot(Vector2(312,139),Vector2(-0.05,1.0).normalized()*fixture_speed,8,true,"missile","air"))
 		enemy_bullets.append(_make_enemy_shot(Vector2(328,147),Vector2(0.07,1.0).normalized()*fixture_speed,11,true,"missile","air"))
+	if "--capture-player-missile" in OS.get_cmdline_user_args():
+		bullets.clear()
+		bullets.append({
+			"position": player_position + Vector2(13,-48),
+			"velocity": Vector2.UP * PlayerMissileRules.MISSILE_SPEED,
+			"damage": PlayerMissileRules.DAMAGE,
+			"weapon_id": "sidewinder",
+			"player_guided_missile": true,
+			"target_uid": -1,
+			"life": PlayerMissileRules.LIFE_SECONDS,
+		})
 	if "--capture-surface-travel" in OS.get_cmdline_user_args():
 		enemies.clear()
 		_spawn_enemy(_find_enemy_archetype("strategic_silo"))

@@ -162,6 +162,7 @@ $Cases = @(
 	@{ id='weapon_bomber_ground_strafe'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=42','--capture-form=bomber','--capture-altitude=low','--capture-player-strafe','--visual-capture-delay=0.10') },
 	@{ id='surface_strategic_destruction'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=42','--capture-surface-destruction','--visual-capture-delay=0.46') },
     @{ id='hud_player_missile_lock'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=44','--capture-altitude=mid','--capture-hud=objective','--capture-air=human','--capture-player-lock','--visual-capture-delay=0.18') },
+	@{ id='weapon_player_sidewinder_flight'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=44','--capture-altitude=mid','--capture-air=human','--capture-player-missile','--visual-capture-delay=0.06') },
     @{ id='pause_command'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=menu') },
     @{ id='pause_options'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=options') },
     @{ id='pause_restart_confirmation'; args=@('--capture-gameplay','--capture-mission=1','--capture-time=48','--capture-pause=confirm_restart') },

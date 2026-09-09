@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const ProjectileCueRules = preload("res://scripts/projectile_cue_rules.gd")
 const SceneContractCache = preload("res://scripts/scene_contract_cache.gd")
+const PersistentEffectArtLibrary = preload("res://scripts/persistent_effect_art_library.gd")
 const PROJECTILE_FRAMES := {
 	"ballistic": [
 		preload("res://assets/runtime/effects/projectiles/ballistic/0.png"),
@@ -138,6 +139,13 @@ class ProjectileCueCanvas:
 		var frame_index := int(floor(Time.get_ticks_msec() / 83.0)) % frames.size()
 		var texture: Texture2D = frames[frame_index]
 		draw_set_transform(position.round(), Vector2.UP.angle_to(direction), Vector2.ONE)
+		if family in ["homing_missile", "player_sidewinder", "support_rocket"]:
+			# Guided ordnance needs a short, broken motor plume at native scale. The
+			# authored contrail cel is compressed behind the fixed airframe so it reads
+			# as exhaust, rather than turning a missile into an arcade energy bolt.
+			var plume := PersistentEffectArtLibrary.frame_for_clock("contrail", 12.0, 1 if family == "player_sidewinder" else 0)
+			var plume_tint := Color(0.78,0.84,0.84,0.56) if family == "homing_missile" else Color(0.86,0.90,0.88,0.62)
+			draw_texture_rect(plume, Rect2(Vector2(-5,10),Vector2(10,18)), false, plume_tint)
 		# Late-DOS shooters keyed tiny ordnance with a one-pixel ink trap so hot
 		# cores survived both pale terrain and near-black water. Keep the original
 		# raster untouched and underprint it at runtime; enhanced contrast remains

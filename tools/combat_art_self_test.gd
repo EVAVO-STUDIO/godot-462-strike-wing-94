@@ -849,6 +849,7 @@ func _test_projectile_art() -> void:
 	if projectile_source != null:
 		var source := projectile_source.get_as_text()
 		_expect(source.contains("PROJECTILE_FRAMES") and source.contains("_draw_registered_sprite"), "live projectile cues should use registered production sprites")
+		_expect(source.contains('family in ["homing_missile", "player_sidewinder", "support_rocket"]') and source.contains('frame_for_clock("contrail"'), "missiles and rockets should carry a compact authored motor plume behind their fixed airframes")
 		_expect(source.contains("Vector2(-1,0)") and source.contains("Color(0.01,0.02,0.03,0.78)"), "authentic projectile mode should retain a one-pixel ink trap over light and dark terrain")
 		_expect(source.contains('Color("ffb278")') and source.contains('Color("b8f4ff")'), "enhanced projectile mode should remain a stronger ownership tint")
 		_expect(not source.contains("draw_circle(position") and not source.contains("draw_arc(position"), "live projectile bodies should not retain generic vector circles")
@@ -859,6 +860,8 @@ func _test_projectile_art() -> void:
 			_expect(frame is Texture2D and frame.get_size() == Vector2(16,24), "projectile frame should retain registered 16x24 geometry: %s/%d" % [family, frame_index])
 	_expect(FileAccess.file_exists("res://assets/source/effects/projectiles/projectile_asset_manifest.json"), "projectile source/runtime manifest should exist")
 	_expect(FileAccess.file_exists("res://assets/source/effects/projectiles/homing_missile_v2/manifest.json"), "hostile guided missile should retain its fixed-airframe source/runtime manifest")
+	var main_source := FileAccess.open("res://scripts/main.gd", FileAccess.READ).get_as_text()
+	_expect(main_source.contains('"--capture-player-missile"') and main_source.contains('"player_guided_missile": true'), "visual QA should expose a live player Sidewinder flight fixture")
 	var missile_reference := (load("res://assets/runtime/effects/projectiles/homing_missile/0.png") as Texture2D).get_image()
 	for frame_index in range(1,4):
 		var missile_frame := (load("res://assets/runtime/effects/projectiles/homing_missile/%d.png" % frame_index) as Texture2D).get_image()
