@@ -468,6 +468,13 @@ const MERCENARY_SEA_SPRITES := {
 	"fast_attack_craft": preload("res://assets/runtime/enemies/mercenary_sea/fast_attack_craft_idle.png"),
 	"missile_corvette": preload("res://assets/runtime/enemies/mercenary_sea/missile_corvette_idle.png"),
 }
+const NAVAL_HEADING_FRAMES := {
+	"river_patrol": [preload("res://assets/runtime/enemies/naval_heading/river_patrol/hard_left.png"), preload("res://assets/runtime/enemies/naval_heading/river_patrol/left.png"), preload("res://assets/runtime/enemies/naval_heading/river_patrol/neutral.png"), preload("res://assets/runtime/enemies/naval_heading/river_patrol/right.png"), preload("res://assets/runtime/enemies/naval_heading/river_patrol/hard_right.png")],
+	"torpedo_boat": [preload("res://assets/runtime/enemies/naval_heading/torpedo_boat/hard_left.png"), preload("res://assets/runtime/enemies/naval_heading/torpedo_boat/left.png"), preload("res://assets/runtime/enemies/naval_heading/torpedo_boat/neutral.png"), preload("res://assets/runtime/enemies/naval_heading/torpedo_boat/right.png"), preload("res://assets/runtime/enemies/naval_heading/torpedo_boat/hard_right.png")],
+	"fast_attack_craft": [preload("res://assets/runtime/enemies/naval_heading/fast_attack_craft/hard_left.png"), preload("res://assets/runtime/enemies/naval_heading/fast_attack_craft/left.png"), preload("res://assets/runtime/enemies/naval_heading/fast_attack_craft/neutral.png"), preload("res://assets/runtime/enemies/naval_heading/fast_attack_craft/right.png"), preload("res://assets/runtime/enemies/naval_heading/fast_attack_craft/hard_right.png")],
+	"missile_corvette": [preload("res://assets/runtime/enemies/naval_heading/missile_corvette/hard_left.png"), preload("res://assets/runtime/enemies/naval_heading/missile_corvette/left.png"), preload("res://assets/runtime/enemies/naval_heading/missile_corvette/neutral.png"), preload("res://assets/runtime/enemies/naval_heading/missile_corvette/right.png"), preload("res://assets/runtime/enemies/naval_heading/missile_corvette/hard_right.png")],
+}
+const NAVAL_HEADING_ANGLES := [-0.2269, -0.1134, 0.0, 0.1134, 0.2269]
 const NAVAL_SPECIALIST_ART := {
 	"river_patrol": {
 		"turret": [
@@ -2438,6 +2445,10 @@ func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: 
 	var forward_speed := maxf(32.0,float(enemy.get("speed",68.0)))
 	var wake_length := lerpf(0.82,1.34,clampf((forward_speed-40.0)/88.0,0.0,1.0))
 	var lateral_velocity := float(enemy.get("lateral_velocity",0.0))
+	var heading_index := naval_heading_frame_index(lateral_velocity,forward_speed)
+	var heading_angle := float(NAVAL_HEADING_ANGLES[heading_index])
+	if NAVAL_HEADING_FRAMES.has(enemy_id):
+		hull = NAVAL_HEADING_FRAMES[enemy_id][heading_index]
 	var wake_direction := Vector2(-clampf(lateral_velocity/forward_speed,-0.32,0.32),-1.0).normalized()
 	var wake_extent := wake.get_height()*wake_scale*wake_length
 	var wake_center := p+wake_direction*(hull.get_height()*scale*0.5+wake_extent*0.42-4.0*scale)
@@ -2450,18 +2461,19 @@ func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: 
 	if specialist.has("launcher"):
 		var launcher_frames: Array = specialist["launcher"]
 		var launcher_index := naval_launcher_frame_index(enemy_id, float(enemy.get("fire_timer", 1.0)), recoil_ratio)
-		_draw_production_sprite(surface, p + Vector2(specialist.get("launcher_anchor", Vector2.ZERO)) * scale, launcher_frames[launcher_index], scale)
+		var launcher_anchor := p + Vector2(specialist.get("launcher_anchor",Vector2.ZERO)).rotated(heading_angle)*scale
+		_draw_naval_component(surface,launcher_frames[launcher_index],launcher_anchor,heading_angle,scale,Vector2(0.5,0.5))
 	if specialist.has("radar_pedestal"):
-		var radar_anchor: Vector2 = p + Vector2(specialist["radar_anchor"]) * scale
-		_draw_production_sprite(surface, radar_anchor, specialist["radar_pedestal"], scale)
+		var radar_anchor: Vector2 = p+Vector2(specialist["radar_anchor"]).rotated(heading_angle)*scale
+		_draw_naval_component(surface,specialist["radar_pedestal"],radar_anchor,heading_angle,scale,Vector2(0.5,0.5))
 		_draw_naval_component(surface, specialist["radar_array"], radar_anchor, float(enemy.get("age", 0.0)) * 2.8, scale, Vector2(0.5, 0.58))
 	if not specialist.has("turret"):
 		return
 	var turret_value: Variant = specialist["turret"]
 	var turret: Texture2D = turret_value[1] if turret_value is Array and recoil_ratio > 0.01 else (turret_value[0] if turret_value is Array else turret_value)
-	var turret_anchor: Vector2 = p + Vector2(specialist.get("turret_anchor", Vector2.ZERO)) * scale
+	var turret_anchor: Vector2 = p+Vector2(specialist.get("turret_anchor",Vector2.ZERO)).rotated(heading_angle)*scale
 	if specialist.has("mount"):
-		_draw_production_sprite(surface, turret_anchor, specialist["mount"], scale)
+		_draw_naval_component(surface,specialist["mount"],turret_anchor,heading_angle,scale,Vector2(0.5,0.5))
 	var aim := _player_position() - p
 	var rotation := 0.0 if aim.length_squared() < 0.001 else clampf(Vector2.DOWN.angle_to(aim.normalized()), -0.82, 0.82)
 	var recoil_offset := Vector2.UP.rotated(rotation) * roundf(recoil_ratio * 2.0) * scale
@@ -2470,6 +2482,14 @@ func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: 
 		var flash := ImpactArtLibrary.frame_for_ratio("muzzle", 1.0 - recoil_ratio)
 		var muzzle := turret_anchor + Vector2.DOWN.rotated(rotation) * turret.get_height() * 0.62 * scale
 		surface.draw_texture_rect(flash, Rect2((muzzle-Vector2(4,4)*scale).round(), Vector2(8,8)*scale), false)
+
+func naval_heading_frame_index(lateral_velocity: float, forward_speed: float) -> int:
+	var ratio := lateral_velocity/maxf(32.0,forward_speed)
+	if ratio <= -0.20: return 0
+	if ratio <= -0.07: return 1
+	if ratio >= 0.20: return 4
+	if ratio >= 0.07: return 3
+	return 2
 
 func _draw_naval_component(surface: CanvasItem, texture: Texture2D, world_pivot: Vector2, angle: float, scale: float, normalized_pivot: Vector2) -> void:
 	var local_pivot := texture.get_size() * normalized_pivot

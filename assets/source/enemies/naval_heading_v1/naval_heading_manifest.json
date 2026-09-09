@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "poses": [
+    "hard_left",
+    "left",
+    "neutral",
+    "right",
+    "hard_right"
+  ],
+  "hulls": {
+    "river_patrol": {
+      "canvas": [
+        30,
+        44
+      ],
+      "frames": [
+        {
+          "name": "hard_left",
+          "turn_degrees": -13.0,
+          "heel_x": 0.91
+        },
+        {
+          "name": "left",
+          "turn_degrees": -6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "neutral",
+          "turn_degrees": 0.0,
+          "heel_x": 1.0
+        },
+        {
+          "name": "right",
+          "turn_degrees": 6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "hard_right",
+          "turn_degrees": 13.0,
+          "heel_x": 0.91
+        }
+      ]
+    },
+    "torpedo_boat": {
+      "canvas": [
+        34,
+        48
+      ],
+      "frames": [
+        {
+          "name": "hard_left",
+          "turn_degrees": -13.0,
+          "heel_x": 0.91
+        },
+        {
+          "name": "left",
+          "turn_degrees": -6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "neutral",
+          "turn_degrees": 0.0,
+          "heel_x": 1.0
+        },
+        {
+          "name": "right",
+          "turn_degrees": 6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "hard_right",
+          "turn_degrees": 13.0,
+          "heel_x": 0.91
+        }
+      ]
+    },
+    "fast_attack_craft": {
+      "canvas": [
+        36,
+        50
+      ],
+      "frames": [
+        {
+          "name": "hard_left",
+          "turn_degrees": -13.0,
+          "heel_x": 0.91
+        },
+        {
+          "name": "left",
+          "turn_degrees": -6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "neutral",
+          "turn_degrees": 0.0,
+          "heel_x": 1.0
+        },
+        {
+          "name": "right",
+          "turn_degrees": 6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "hard_right",
+          "turn_degrees": 13.0,
+          "heel_x": 0.91
+        }
+      ]
+    },
+    "missile_corvette": {
+      "canvas": [
+        50,
+        66
+      ],
+      "frames": [
+        {
+          "name": "hard_left",
+          "turn_degrees": -13.0,
+          "heel_x": 0.91
+        },
+        {
+          "name": "left",
+          "turn_degrees": -6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "neutral",
+          "turn_degrees": 0.0,
+          "heel_x": 1.0
+        },
+        {
+          "name": "right",
+          "turn_degrees": 6.5,
+          "heel_x": 0.965
+        },
+        {
+          "name": "hard_right",
+          "turn_degrees": 13.0,
+          "heel_x": 0.91
+        }
+      ]
+    }
+  }
+}

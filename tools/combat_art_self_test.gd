@@ -32,6 +32,9 @@ func _initialize() -> void:
 func _test_wiring() -> void:
 	var director := CombatArtDirector.new()
 	_expect(director != null, "CombatArtDirector should instantiate")
+	_expect(director.naval_heading_frame_index(-24.0, 100.0) == 0, "a committed port turn should select the hard-left naval cel")
+	_expect(director.naval_heading_frame_index(0.0, 100.0) == 2, "straight naval travel should select the neutral cel")
+	_expect(director.naval_heading_frame_index(24.0, 100.0) == 4, "a committed starboard turn should select the hard-right naval cel")
 	director.free()
 	var fx := CombatFxDirector.new()
 	_expect(fx != null, "CombatFxDirector should instantiate")
@@ -375,6 +378,13 @@ func _test_visual_language() -> void:
 		_expect(wake_frame is Texture2D and wake_frame.get_size() == Vector2(32,40), "naval wake frame should retain registered 32x40 geometry: %d" % frame_index)
 	_expect(source.contains("NAVAL_WAKE_FRAMES") and source.contains("func _draw_naval_unit") and source.contains("* 8.0") and source.contains("wake_length") and source.contains("lateral_velocity/forward_speed") and source.contains("Vector2.UP.angle_to(wake_direction)"), "naval production sprites should carry a restrained eight-fps authored wake cycle that lengthens with speed and bends through turns")
 	_expect(FileAccess.file_exists("res://assets/source/effects/naval_wake/naval_wake_asset_manifest.json"), "naval wake source/runtime manifest should exist")
+	for enemy_id in sea_sizes:
+		for pose_name in ["hard_left", "left", "neutral", "right", "hard_right"]:
+			var heading_frame := load("res://assets/runtime/enemies/naval_heading/%s/%s.png" % [enemy_id,pose_name]) as Texture2D
+			_expect(heading_frame != null and heading_frame.get_size() == sea_sizes[enemy_id], "naval heading cel should retain its registered hull canvas: %s/%s" % [enemy_id,pose_name])
+	_expect(source.contains("NAVAL_HEADING_FRAMES") and source.contains("naval_heading_frame_index") and source.contains("rotated(heading_angle)"), "naval turns should select stepped cel hull exposures and keep deck hardpoints registered to the heading")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/naval_heading_v1/naval_heading_manifest.json"), "naval heading source/runtime manifest should exist")
+
 	var naval_specialist_sizes := {
 		"river_turret": Vector2(30,44), "torpedo_turret": Vector2(34,48), "fast_turret": Vector2(36,50), "corvette_turret": Vector2(50,66),
 		"torpedo_launcher_closed": Vector2(34,48), "torpedo_launcher_open": Vector2(34,48), "torpedo_launcher_fire": Vector2(34,48),
@@ -502,7 +512,7 @@ func _test_visual_language() -> void:
 		_expect(component is Texture2D and component.get_size()==layered_mercenary_boss_sizes[component_id],"layered mercenary-boss mechanism should retain its registered pivot canvas: %s" % component_id)
 	_expect(source.contains('argument.begins_with("--capture-boss=")') and source.contains('_capture_boss_state() == "mercenary"') and source.contains("_render_mercenary_boss_capture"),"visual QA should expose isolated conventional boss phase, recoil, engine, vent and missile-cell fixtures")
 	_expect(source.contains("AIRCRAFT_NAVIGATION_LIGHTS") and source.contains("_draw_registered_navigation_light") and not source.contains("surface.draw_rect(Rect2(left") and not source.contains("surface.draw_rect(Rect2(strobe"),"human aircraft navigation lamps should use authored registered raster clusters rather than vector programmer marks")
-	_expect(source.contains('enemy_id != "gunship_alpha"') and source.contains('if enemy_id == "gunship_alpha":\n\t\t_render_mercenary_position_lights'),"Gunship Alpha should share the restrained military navigation-light language with the conventional airframe family")
+	_expect(source.contains('enemy_id != "gunship_alpha"') and source.contains('_render_mercenary_position_lights(surface, p, enemy_id, enemy, texture)'), "Gunship Alpha should share the restrained military navigation-light language with the conventional airframe family")
 	for light_id in ["port_red", "starboard_green", "anti_collision_white"]:
 		var light := load("res://assets/runtime/effects/aircraft_navigation_lights/%s.png" % light_id)
 		_expect(light is Texture2D and light.get_size() == Vector2(5,5), "aircraft navigation light should retain its five-pixel registered canvas: %s" % light_id)
