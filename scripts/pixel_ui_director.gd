@@ -774,7 +774,9 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _compact_form_state()], Vector2(234, 11), 1, GOLD if _form_transition_active() else BLUE, 1)
 	else:
 		PixelFont.draw_centered(surface, altitude_choice, 258, 11, 1, GOLD, 1)
-	PixelFont.draw_text(surface, _clip(str(weapon.get("name", "CANNON")), 12), Vector2(372, 11), 1, MUTED, 1)
+	var engagement_plane := _primary_engagement_plane(scene, weapon)
+	var weapon_label := "%s %s" % [engagement_plane, _clip(str(weapon.get("name", "CANNON")), 8)]
+	PixelFont.draw_text(surface, weapon_label, Vector2(372, 11), 1, GOLD if engagement_plane == "GND" else BLUE, 1)
 	var craft_state := surface.get_node_or_null("/root/CraftFormDirector")
 	var throttle_value := clampi(int(roundf(float(craft_state.call("throttle_ratio"))*100.0)),0,100) if craft_state != null and craft_state.has_method("throttle_ratio") else 50
 	PixelFont.draw_text(surface,"T%03d"%throttle_value,Vector2(482,11),1,BLUE,1)
@@ -807,6 +809,14 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 				surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
 				PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, RED if airspace_priority else GOLD, 1)
 	_draw_lateral_airspace_warning(surface,scene)
+
+func _primary_engagement_plane(scene: Object, weapon: Dictionary) -> String:
+	if scene == null or not scene.has_method("_primary_engagement_classes"):
+		return "AIR"
+	var classes: Array = scene.call("_primary_engagement_classes",weapon)
+	if "ground" in classes or "sea" in classes:
+		return "GND" if "air" not in classes else "ALL"
+	return "AIR"
 
 func _draw_lateral_airspace_warning(surface: CanvasItem, scene: Object) -> void:
 	if not _has_property(scene,"lateral_airspace_side") or not _has_property(scene,"lateral_airspace_timer"):

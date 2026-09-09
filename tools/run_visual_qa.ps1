@@ -137,6 +137,8 @@ $Cases = @(
 	@{ id='vx94_bomber_bay_closed'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=46','--capture-altitude=low','--capture-ventral-bay=closed') },
 	@{ id='vx94_bomber_bay_opening'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=46','--capture-altitude=low','--capture-ventral-bay=opening') },
 	@{ id='vx94_bomber_bay_open'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=46','--capture-altitude=low','--capture-ventral-bay=open') },
+	@{ id='hud_bomber_air_engagement'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=42','--capture-altitude=mid','--capture-weapon=ballistic','--visual-capture-delay=0.12') },
+	@{ id='hud_bomber_ground_engagement'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=1','--capture-time=42','--capture-altitude=low','--capture-weapon=ballistic','--visual-capture-delay=0.12') },
 	@{ id='vx94_fighter_strategic_bay_open'; args=@('--capture-gameplay','--capture-form=fighter','--capture-mission=25','--capture-time=118','--capture-altitude=orbital','--capture-strategic-bay=open') },
 	@{ id='vx94_bomber_strategic_bay_open'; args=@('--capture-gameplay','--capture-form=bomber','--capture-mission=25','--capture-time=118','--capture-altitude=orbital','--capture-strategic-bay=open') },
     @{ id='mission_09_air'; args=@('--capture-gameplay','--capture-mission=8','--capture-time=74','--capture-altitude=high') },
