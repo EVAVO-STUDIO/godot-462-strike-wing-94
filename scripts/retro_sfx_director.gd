@@ -308,7 +308,11 @@ func _trigger(event_id: String) -> void:
 	_voices.append(voice)
 	if RetroSfxPriorityRules.critical(incoming_priority):
 		_critical_duck_timer = maxf(_critical_duck_timer, RetroSfxPriorityRules.CRITICAL_DUCK_SECONDS)
-		var music := get_node_or_null("/root/RetroMusicDirector")
+		# The allocator is also exercised before scene attachment by validation and
+		# during teardown by queued cues. Absolute root lookup is only legal while
+		# this director belongs to the active tree; voice admission itself remains
+		# deterministic in either lifecycle state.
+		var music := get_node_or_null("/root/RetroMusicDirector") if is_inside_tree() else null
 		if music != null and music.has_method("duck_for_critical_cue"):
 			music.call("duck_for_critical_cue", RetroSfxPriorityRules.CRITICAL_DUCK_SECONDS)
 

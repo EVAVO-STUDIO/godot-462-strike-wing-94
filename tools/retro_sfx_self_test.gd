@@ -61,6 +61,8 @@ func _test_voice_map() -> void:
 func _test_priority_allocator() -> void:
 	var director_script := load("res://scripts/retro_sfx_director.gd") as Script
 	var director: Node = director_script.new()
+	var source := FileAccess.get_file_as_string("res://scripts/retro_sfx_director.gd")
+	_expect(source.contains('get_node_or_null("/root/RetroMusicDirector") if is_inside_tree() else null'), "critical cue admission should remain legal before scene attachment and during teardown")
 	for _index in range(8):
 		director.call("_trigger", RetroSfxRules.FIRE_BALLISTIC)
 	_expect(director.get("_voices").size() == 8, "routine chatter should fill but not exceed the bounded eight-voice budget")
