@@ -1552,6 +1552,8 @@ func _draw_transform_exposure(surface: CanvasItem, p: Vector2, ratio: float, hyp
 	var origin := (p - VX94_GAMEPLAY_ANCHOR).round()
 	var destination := "hypersonic" if hypersonic else "bomber"
 	var scene := get_tree().current_scene
+	if hypersonic:
+		_draw_hypersonic_sweep_condensation(surface,p,index)
 	_draw_transform_motion_cues(surface,p,index,hypersonic,false)
 	if scene != null:
 		_draw_transform_external_stores(surface, origin, destination, index)
@@ -1582,6 +1584,23 @@ func _draw_transform_motion_cues(surface: CanvasItem, p: Vector2, exposure: int,
 		# reading as a targeting bracket locked to the player aircraft.
 		var cue_alpha := 0.66 if foreground else 0.42
 		surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round(), Color(0.82,0.94,1.0,cue_alpha))
+
+func _draw_hypersonic_sweep_condensation(surface: CanvasItem, p: Vector2, exposure: int) -> void:
+	# Wing loading rises while the panels tuck. Two short vapor streamers follow
+	# the moving tips, joining the mechanical sweep cels to the engine pressure
+	# break without surrounding the aircraft in a decorative glow.
+	var index := clampi(exposure,0,TRANSFORM_EXPOSURES-1)
+	if index <= 0 or index >= TRANSFORM_EXPOSURES-1:
+		return
+	var ratio := float(index)/float(TRANSFORM_EXPOSURES-1)
+	var wing_x := lerpf(18.0,9.0,smoothstep(0.0,1.0,ratio))
+	var trail_length := roundf(lerpf(24.0,46.0,ratio))
+	var alpha := 0.24+0.34*sin(ratio*PI)
+	var frame: Texture2D = PersistentEffectArtLibrary.FRAMES["contrail"][index%4]
+	for side in [-1.0,1.0]:
+		var size := Vector2(12.0,trail_length)
+		var centre := p+Vector2(side*wing_x,25.0+trail_length*0.5)
+		surface.draw_texture_rect(frame,Rect2((centre-size*0.5).round(),size),false,Color(0.82,0.91,0.96,alpha))
 
 func _transform_exposure_index(ratio: float) -> int:
 	var safe_ratio := clampf(ratio, 0.0, 1.0)

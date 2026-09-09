@@ -582,6 +582,7 @@ func _test_transform_presentation() -> void:
 	_expect(source.contains("CraftFormRules.TRANSFORM_VISUAL_SECONDS"), "variable geometry sweep should consume the canonical near-one-second mechanical cadence")
 	_expect(source.contains("TRANSFORM_EXPOSURES := 10"), "variable geometry should retain ten deliberate animation exposures")
 	_expect(source.contains("func _draw_transform_motion_cues") and source.contains("_transform_motion_cache") and not source.contains("start_left.lerp(end_left,progress)"), "variable geometry sweep should use registered cel overlays instead of runtime vector marks")
+	_expect(source.contains("func _draw_hypersonic_sweep_condensation") and source.contains('PersistentEffectArtLibrary.FRAMES["contrail"]') and source.contains("for side in [-1.0,1.0]"), "hypersonic geometry sweep should carry paired wingtip condensation into the engine pressure break")
 	_expect(source.contains("PRESENTATION_REDRAW_SECONDS := 1.0 / 30.0"), "combat sprites should retain an authentic held-pose 30 Hz presentation cadence over 60 Hz simulation")
 	_expect(source.contains("_visual_sweep = move_toward"), "visual wing geometry should interpolate rather than snap")
 	_expect(source.contains("roundf(_visual_sweep * float(TRANSFORM_EXPOSURES - 1))"), "variable geometry should advance through quantized authored exposures")
