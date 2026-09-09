@@ -214,7 +214,7 @@ func _test_pixel_ui() -> void:
 		_expect(visual_qa_source.contains("id='mission_30_final_boss'; args=@('--capture-gameplay','--capture-mission=29','--capture-time=238','--visual-capture-delay=11.0')"), "canonical final-boss QA must advance beyond the Machine Ark route gate and use its live HUD during the complete arrival")
 		var capture_probe_source := FileAccess.get_file_as_string("res://tools/visual_capture_probe.gd")
 		_expect(capture_probe_source.contains("clampf(delay, 0.1, 12.0)"), "visual capture probe should permit the bounded live Machine Ark arrival window")
-		_expect(source.contains("Rect2(6,4,218,18)") and source.contains("Rect2(230,5,60,13)") and source.contains("Rect2(478,5,48,13)") and not source.contains("Rect2(292,6,340,14)"), "survival meters and flight data should use separated translucent local keys instead of a full-width HUD slab")
+		_expect(source.contains("func _draw_flight_instrument") and source.contains("Vector2(8,270)") and source.contains("instrument_width := 196.0 if show_score else 128.0") and not source.contains("Rect2(6,5,66,13)"), "flight state, ETA and throttle should occupy one compact lower-left instrument and leave the top edge clear")
 		_expect(source.contains("tracker_width := clampf") and source.contains("Vector2(636.0-tracker_width,24)") and not source.contains("Vector2(334,13)"), "routine objectives should use a content-sized right-anchored pixel readout instead of reserving half the battlefield")
 		_expect(source.contains("_altitude_choice_active(scene)") and source.contains("occupies_status_lane") and source.contains("AltitudeTransitionDirector"), "only a visible altitude selector or transition should suppress colliding routine status notices")
 		_expect(source.contains("_radio_occupies_status_lane()") and source.contains("MissionRadioDirector"), "radio subtitles and transient status should arbitrate one shared lower information lane instead of overprinting")
@@ -278,7 +278,8 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("ThreatWarningRules.warning_text"), "pixel UI should own missile warning")
 		_expect(source.contains("HUD_TOP_FRAME") and source.contains("HUD_METER_TROUGH") and source.contains("HUD_BOSS_FRAME") and source.contains("HUD_THREAT_FRAMES"), "gameplay HUD should use authored raster frame and meter families")
 		_expect(source.contains("HUD_TACTICAL_RADAR_SCOPE") and source.contains("HUD_TACTICAL_RADAR_CONTACTS") and source.contains("func _draw_tactical_radar"), "gameplay HUD should expose a sprite-authored tactical picture of the forward battlespace")
-		_expect(source.contains("Vector2(560,286)") and source.contains("Vector2(72,44)") and not source.contains("var scope_position := Vector2(8,40)"), "tactical radar should use the minimal lower-right instrument presentation")
+		_expect(source.contains("Vector2(532,270)") and source.contains("Vector2(100,80)") and not source.contains("var scope_position := Vector2(8,40)"), "tactical radar should use a contained lower-right aircraft systems instrument")
+		_expect(source.contains("func _draw_aircraft_system_scope") and source.contains("func _draw_scope_bar") and source.contains("var twin :="), "tactical instrument should combine a damage-coloured aircraft blueprint, survival rails, and visible weapon mounts")
 		_expect(source.contains('str(scene.get("game_mode")) != "campaign"') and not source.contains("surface.draw_texture(HUD_TOP_FRAME"), "campaign HUD should omit score clutter and the full-width opaque fascia")
 		_expect(source.contains('"protected": preload') and source.contains('"missile": preload') and source.contains('"objective": preload'), "tactical radar should distinguish protected, missile and objective contacts from combat targets")
 		_expect(source.contains("func _tactical_radar_priority") and source.contains("func _tactical_radar_track_label"), "tactical radar should select and identify a prioritized forward track")
@@ -295,7 +296,7 @@ func _test_pixel_ui() -> void:
 			var meter_texture := load("res://assets/runtime/ui/hud/primary_meter_cluster/%s.png" % primary_meter)
 			_expect(meter_texture is Texture2D and meter_texture.get_size() == Vector2(92,25), "primary meter instrument should retain registered geometry: %s" % primary_meter)
 		_expect(FileAccess.file_exists("res://tools/build_primary_meter_art.ps1"), "primary meter sprites should remain reproducible from their governed SVG source")
-		_expect(source.contains('_draw_primary_meter(surface, Vector2(8, 5), "H"') and source.contains('Vector2(68, 5)') and source.contains('RED if ratio <= warning_ratio'), "hull, shield and generator should use compact pixel rails with exact values and live warning colour")
+		_expect(source.contains('_draw_scope_bar(surface,scope_position+Vector2(5,4),"H"') and source.contains('Color(condition,0.92)'), "hull, shield and generator should live with the damage-coloured aircraft schematic")
 		_expect(source.contains("FLIGHT_STATE_FRAME") and source.contains("ALTITUDE_STATES") and source.contains("FORM_STATES") and source.contains("TECH_STATES") and source.contains("func _draw_flight_state"), "flight state should use authored altitude, geometry and technology sprites")
 		var flight_state_sizes := {
 			"frame": Vector2(148,16), "altitude_rail": Vector2(24,12),

@@ -724,62 +724,11 @@ func _identity_subtitle() -> String:
 	return str(identity.call("title_subtitle")) if identity != null and identity.has_method("title_subtitle") else "VX-94 VARIABLE STRIKE FIGHTER"
 
 func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
-	# The fascia contains intentional cut-lines and transparent instrument gaps,
-	# but battlefield sprites must never show through those apertures before they
-	# have entered the combat viewport. A single smoked avionics backing keeps the
-	# permanent strip visually solid without extending into the warning lane.
-	# The three survival meters are self-framed. Keep only a light local key
-	# behind them and isolated data keys; the old 624-pixel fascia made every
-	# route feel as though it was being viewed through a menu.
-	surface.draw_rect(Rect2(6,4,218,18),Color(0.018,0.035,0.048,0.20))
-	# Flight data is grouped around the actual glyphs. The clear gaps keep this
-	# from reading as a full-width dashboard while retaining the late-90s MFD key.
-	for key_rect in [Rect2(230,5,60,13),Rect2(300,5,58,13),Rect2(368,5,94,13),Rect2(478,5,48,13)]:
-		surface.draw_rect(key_rect,Color(0.018,0.035,0.048,0.25))
+	# Persistent instrumentation is confined to the two lower corners, leaving
+	# the entire forward edge available for threats and terrain reading.
+	_draw_flight_instrument(surface,scene)
 	_draw_tactical_radar(surface,scene)
 	_draw_surface_iff_markers(surface,scene)
-	var max_hull := _call_int(scene, "_max_hull", 100)
-	var max_shield := _call_int(scene, "_max_shield", 100)
-	var generator := _call_dictionary(scene, "_active_generator")
-	var energy := float(scene.get("energy")) if _has_property(scene, "energy") else 0.0
-	var capture_warning := _capture_hud_state() == "warning"
-	var hull_value := mini(int(scene.get("hull")), 18) if capture_warning else int(scene.get("hull"))
-	var shield_value := mini(int(scene.get("shield")), 15) if capture_warning else int(scene.get("shield"))
-	var energy_value := minf(energy, 12.0) if capture_warning else energy
-	_draw_primary_meter(surface, Vector2(8, 5), "H", hull_value, max_hull, HUD_HULL_FILL, 0.30)
-	_draw_primary_meter(surface, Vector2(80, 5), "S", shield_value, maxi(1, max_shield), HUD_SHIELD_FILL, 0.24)
-	_draw_primary_meter(surface, Vector2(152, 5), "E", int(round(energy_value)), maxi(1, int(round(EnergyRules.capacity(generator)))), HUD_ENERGY_FILL, 0.18)
-	surface.draw_texture(HUD_ICON_BOMB, Vector2(278, 8))
-	PixelFont.draw_text(surface, "%d" % int(scene.get("bombs")), Vector2(292, 11), 1, TEXT, 1)
-	var remaining := maxi(0, int(ceil(float(scene.get("mission_duration")) - float(scene.get("mission_time")))))
-	if scene.has_method("mission_remaining_seconds"):
-		remaining = maxi(0, int(ceil(float(scene.call("mission_remaining_seconds")))))
-	var route_eta := true
-	if _has_property(scene, "egress_active") and bool(scene.get("egress_active")) and _has_property(scene, "egress_time_remaining"):
-		remaining = maxi(0, int(ceil(float(scene.get("egress_time_remaining")))))
-		route_eta = false
-	if route_eta:
-		var label := "OT" if _has_property(scene, "route_overtime_elapsed") and float(scene.get("route_overtime_elapsed")) > 0.0 else "ETA"
-		PixelFont.draw_text(surface, label, Vector2(306,11), 1, TEXT, 1)
-	else:
-		surface.draw_texture(HUD_ICON_TIME, Vector2(306, 8))
-	PixelFont.draw_text(surface, "%03d" % remaining, Vector2(320, 11), 1, TEXT, 1)
-	var show_score := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
-	if show_score:
-		surface.draw_texture(HUD_ICON_SCORE,Vector2(506,10))
-		PixelFont.draw_text(surface,"%08d"%int(scene.get("score")),Vector2(542,11),1,TEXT,1)
-	var weapon := _call_dictionary(scene, "_active_weapon")
-	var altitude_choice := _compact_altitude_choice()
-	if altitude_choice.is_empty():
-		PixelFont.draw_text(surface, "%s/%s" % [_short_altitude(), _compact_form_state()], Vector2(234, 11), 1, GOLD if _form_transition_active() else BLUE, 1)
-	else:
-		PixelFont.draw_centered(surface, altitude_choice, 258, 11, 1, GOLD, 1)
-	var engagement_plane := _primary_engagement_plane(scene, weapon)
-	var weapon_label := "%s %s" % [engagement_plane, _clip(str(weapon.get("name", "CANNON")), 8)]
-	PixelFont.draw_text(surface, weapon_label, Vector2(372, 11), 1, GOLD if engagement_plane == "GND" else BLUE, 1)
-	var craft_state := surface.get_node_or_null("/root/CraftFormDirector")
-	var throttle_value := clampi(int(roundf(float(craft_state.call("throttle_ratio"))*100.0)),0,100) if craft_state != null and craft_state.has_method("throttle_ratio") else 50
-	PixelFont.draw_text(surface,"T%03d"%throttle_value,Vector2(482,11),1,BLUE,1)
 	# One shared information lane: urgent combat state always replaces routine mission data.
 	if not _active_boss(scene).is_empty():
 		_draw_boss(surface, scene)
@@ -810,6 +759,34 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 				PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, RED if airspace_priority else GOLD, 1)
 	_draw_lateral_airspace_warning(surface,scene)
 
+func _draw_flight_instrument(surface: CanvasItem, scene: Object) -> void:
+	var position := Vector2(8,270)
+	var show_score := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
+	var instrument_width := 196.0 if show_score else 128.0
+	surface.draw_rect(Rect2(position,Vector2(instrument_width,28)),Color(0.012,0.030,0.040,0.30),true)
+	surface.draw_rect(Rect2(position,Vector2(instrument_width,28)),Color(0.27,0.63,0.66,0.34),false,1.0)
+	var weapon := _call_dictionary(scene,"_active_weapon")
+	var altitude_choice := _compact_altitude_choice()
+	var flight_state := "%s / %s / %s" % [_short_altitude(),_compact_form_state(),_primary_engagement_plane(scene,weapon)]
+	if not altitude_choice.is_empty(): flight_state=altitude_choice
+	PixelFont.draw_text(surface,flight_state,position+Vector2(6,5),1,GOLD if _form_transition_active() or not altitude_choice.is_empty() else BLUE,1)
+	var remaining := maxi(0,int(ceil(float(scene.get("mission_duration"))-float(scene.get("mission_time")))))
+	if scene.has_method("mission_remaining_seconds"):
+		remaining=maxi(0,int(ceil(float(scene.call("mission_remaining_seconds")))))
+	var eta_label := "ETA"
+	if _has_property(scene,"egress_active") and bool(scene.get("egress_active")) and _has_property(scene,"egress_time_remaining"):
+		remaining=maxi(0,int(ceil(float(scene.get("egress_time_remaining")))))
+		eta_label="RTB"
+	elif _has_property(scene,"route_overtime_elapsed") and float(scene.get("route_overtime_elapsed")) > 0.0:
+		eta_label="OT"
+	var craft_state := surface.get_node_or_null("/root/CraftFormDirector")
+	var throttle_value := clampi(int(roundf(float(craft_state.call("throttle_ratio"))*100.0)),0,100) if craft_state != null and craft_state.has_method("throttle_ratio") else 50
+	PixelFont.draw_text(surface,"%s %03d"%[eta_label,remaining],position+Vector2(6,17),1,TEXT,1)
+	PixelFont.draw_text(surface,"THR %03d"%throttle_value,position+Vector2(70,17),1,BLUE,1)
+	if show_score:
+		PixelFont.draw_text(surface,"SC %06d"%int(scene.get("score")),position+Vector2(132,17),1,GOLD,1)
+
+
 func _primary_engagement_plane(scene: Object, weapon: Dictionary) -> String:
 	if scene == null or not scene.has_method("_primary_engagement_classes"):
 		return "AIR"
@@ -837,11 +814,13 @@ func _draw_lateral_airspace_warning(surface: CanvasItem, scene: Object) -> void:
 		surface.draw_polyline(PackedVector2Array([tip+Vector2(-inward*7.0,-5.0),tip,tip+Vector2(-inward*7.0,5.0)]),Color(color,pulse+ratio*0.24),1.0)
 
 func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
-	# Keep the tactical picture in the pilot's instrument scan instead of masking
-	# the forward terrain.  Contacts stay bright while the housing recedes.
-	var scope_position := Vector2(560,286)
-	var scope_size := Vector2(72,44)
-	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(0.68,0.78,0.80,0.30))
+	# One compact MFD carries condition, stores, mounts and the forward tactical
+	# picture. Its smoked housing remains transparent enough to expose threats.
+	var scope_position := Vector2(532,270)
+	var scope_size := Vector2(100,80)
+	surface.draw_rect(Rect2(scope_position,scope_size),Color(0.012,0.030,0.040,0.34),true)
+	surface.draw_rect(Rect2(scope_position,scope_size),Color(0.27,0.63,0.66,0.38),false,1.0)
+	_draw_aircraft_system_scope(surface,scene,scope_position)
 	var player: Vector2 = scene.get("player_position") if _has_property(scene,"player_position") else Vector2(320,250)
 	var contacts: Array = []
 	if _has_property(scene,"enemies") and typeof(scene.get("enemies")) == TYPE_ARRAY:
@@ -889,8 +868,45 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 				tracked_distance = missile_distance
 			shown += 1
 			if shown >= 22: break
-	surface.draw_texture(HUD_TACTICAL_RADAR_CONTACTS["player"],scope_position+Vector2(32,33))
-	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(5,3),1,Color(GOLD if tracked_priority >= 4 else MUTED,0.82),1)
+	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(5,18),1,Color(GOLD if tracked_priority >= 4 else MUTED,0.82),1)
+
+func _draw_aircraft_system_scope(surface: CanvasItem, scene: Object, scope_position: Vector2) -> void:
+	var max_hull := maxi(1,_call_int(scene,"_max_hull",100))
+	var max_shield := maxi(1,_call_int(scene,"_max_shield",100))
+	var generator := _call_dictionary(scene,"_active_generator")
+	var max_energy := maxi(1,int(round(EnergyRules.capacity(generator))))
+	var hull_ratio := clampf(float(scene.get("hull"))/float(max_hull),0.0,1.0)
+	var shield_ratio := clampf(float(scene.get("shield"))/float(max_shield),0.0,1.0)
+	var energy_ratio := clampf(float(scene.get("energy"))/float(max_energy),0.0,1.0)
+	_draw_scope_bar(surface,scope_position+Vector2(5,4),"H",hull_ratio,RED)
+	_draw_scope_bar(surface,scope_position+Vector2(37,4),"S",shield_ratio,BLUE)
+	_draw_scope_bar(surface,scope_position+Vector2(69,4),"E",energy_ratio,GOLD)
+	var center := scope_position+Vector2(50,59)
+	var condition := GREEN if hull_ratio > 0.55 else (GOLD if hull_ratio > 0.25 else RED)
+	var left_condition := GREEN if hull_ratio > 0.72 else (GOLD if hull_ratio > 0.38 else RED)
+	var right_condition := GREEN if hull_ratio > 0.48 else (GOLD if hull_ratio > 0.20 else RED)
+	# Blueprint planform parts remain readable individually as damage accumulates.
+	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(0,-15),center+Vector2(-4,-5),center+Vector2(-3,13),center+Vector2(0,17),center+Vector2(3,13),center+Vector2(4,-5)]),Color(condition,0.92))
+	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(-3,-3),center+Vector2(-19,8),center+Vector2(-18,12),center+Vector2(-2,7)]),Color(left_condition,0.78))
+	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(3,-3),center+Vector2(19,8),center+Vector2(18,12),center+Vector2(2,7)]),Color(right_condition,0.78))
+	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(-3,10),center+Vector2(-9,16),center+Vector2(-4,13)]),Color(left_condition,0.78))
+	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(3,10),center+Vector2(9,16),center+Vector2(4,13)]),Color(right_condition,0.78))
+	var weapon := _call_dictionary(scene,"_active_weapon")
+	var twin := str(weapon.get("id","")).contains("twin") or str(weapon.get("name","")).to_upper().contains("TWIN")
+	var mount_color := BLUE if _primary_engagement_plane(scene,weapon) == "AIR" else GOLD
+	if twin:
+		for offset in [Vector2(-10,7),Vector2(10,7)]: surface.draw_circle(center+offset,1.5,mount_color)
+	else:
+		surface.draw_circle(center+Vector2(0,-8),1.5,mount_color)
+	if int(scene.get("bombs")) > 0:
+		for offset in [Vector2(-6,10),Vector2(6,10)]: surface.draw_circle(center+offset,1.0,GOLD)
+	PixelFont.draw_text(surface,"B%02d"%int(scene.get("bombs")),scope_position+Vector2(5,70),1,Color(GOLD,0.78),1)
+	PixelFont.draw_text(surface,"2G" if twin else "1G",scope_position+Vector2(82,70),1,Color(mount_color,0.78),1)
+
+func _draw_scope_bar(surface: CanvasItem, position: Vector2, label: String, ratio: float, color: Color) -> void:
+	PixelFont.draw_text(surface,label,position,1,Color(color,0.82),1)
+	surface.draw_rect(Rect2(position+Vector2(8,1),Vector2(19,3)),Color(0.08,0.14,0.16,0.55),true)
+	surface.draw_rect(Rect2(position+Vector2(8,1),Vector2(floorf(19.0*ratio),3)),Color(color,0.86),true)
 
 func _tactical_radar_priority(contact: Dictionary) -> int:
 	if bool(contact.get("missile",false)): return 5
@@ -917,9 +933,13 @@ func _draw_tactical_radar_contact(surface: CanvasItem, scope_position: Vector2, 
 	var world_position: Vector2 = contact.get("position",player)
 	var relative := world_position-player
 	var scope_point := Vector2(
-		clampf(36.0+relative.x*0.058,8.0,64.0),
-		clampf(36.0+relative.y*0.066,11.0,37.0)
+		clampf(50.0+relative.x*0.080,7.0,93.0),
+		clampf(59.0+relative.y*0.080,28.0,73.0)
 	)
+	var from_aircraft := scope_point-Vector2(50,59)
+	if from_aircraft.length() < 22.0:
+		from_aircraft = Vector2(0,-22) if from_aircraft.length_squared() < 0.01 else from_aircraft.normalized()*22.0
+		scope_point = Vector2(50,59)+from_aircraft
 	var kind := "air"
 	if bool(contact.get("protected",false)) or str(contact.get("faction","")) == "civilian": kind = "protected"
 	elif bool(contact.get("missile",false)): kind = "missile"
@@ -1158,7 +1178,7 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 	var level := clampi(ThreatWarningRules.warning_level(distance, count), 0, 2) if count > 0 else 1
 	# Keep the RWR beside the lower-right radar so the forward intercept lane stays
 	# visually open. Aircraft-centred bearing cues still provide the fast response.
-	var position := Vector2(504,266)
+	var position := Vector2(504,250)
 	surface.draw_texture_rect(HUD_THREAT_FRAMES[level],Rect2(position,Vector2(128,16)),false,Color(1,1,1,0.76))
 	surface.draw_texture_rect(HUD_THREAT_MISSILE_ICON,Rect2(position+Vector2(4,3),Vector2(9,9)),false,RED if level >= 2 else (GOLD if level == 1 else BLUE))
 	PixelFont.draw_text(surface,text,position+Vector2(16,4),1,RED if level >= 2 else (GOLD if level == 1 else BLUE),1)
@@ -1174,7 +1194,7 @@ func _draw_threat(surface: CanvasItem, scene: Object) -> void:
 func _draw_countermeasure_confirmation(surface: CanvasItem, status: String) -> void:
 	# Seeker-break confirmation shares the RWR rail instead of opening a second,
 	# wide footer across the flight view.
-	var position := Vector2(504,266)
+	var position := Vector2(504,250)
 	surface.draw_texture_rect(HUD_THREAT_FRAMES[1],Rect2(position,Vector2(128,16)),false,Color(1,1,1,0.80))
 	surface.draw_texture_rect(HUD_THREAT_MISSILE_ICON,Rect2(position+Vector2(4,3),Vector2(9,9)),false,GOLD)
 	var fields := status.split(" ",false)

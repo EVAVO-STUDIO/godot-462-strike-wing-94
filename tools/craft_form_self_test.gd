@@ -169,7 +169,7 @@ func _test_source_integration() -> void:
 	_expect(transition_source.contains('Input.is_action_just_pressed("altitude_up")') and transition_source.contains("func compact_choice_label") and transition_source.contains("return transition_active"), "climb/dive input should recall the compact selector without suppressing unrelated status messages")
 	var ui_file := FileAccess.open("res://scripts/pixel_ui_director.gd", FileAccess.READ)
 	var ui_source := ui_file.get_as_text() if ui_file != null else ""
-	_expect(ui_source.contains("_compact_altitude_choice()") and ui_source.contains("PixelFont.draw_centered(surface, altitude_choice, 258, 11"), "the existing flight-state field should own the compact altitude route cue")
+	_expect(ui_source.contains("_compact_altitude_choice()") and ui_source.contains("if not altitude_choice.is_empty(): flight_state=altitude_choice"), "the lower-left flight instrument should own the compact altitude route cue")
 	var project := FileAccess.open("res://project.godot", FileAccess.READ)
 	_expect(project != null, "project.godot should be readable")
 	if project != null:

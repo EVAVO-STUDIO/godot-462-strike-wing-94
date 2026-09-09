@@ -85,7 +85,7 @@ func _test_wiring() -> void:
 	var projectile_cues := FileAccess.get_file_as_string("res://scripts/projectile_cue_director.gd")
 	_expect(projectile_cues.contains("func _draw_surface_strafe") and projectile_cues.contains("Vector2(5,7)") and projectile_cues.contains("Vector2(0.72,0.72)"), "surface strafing should render a compact displaced cel shadow instead of reading as flat air-combat fire")
 	var hud := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
-	_expect(hud.contains("func _primary_engagement_plane") and hud.contains('return "GND" if "air" not in classes else "ALL"') and hud.contains('GOLD if engagement_plane == "GND" else BLUE'), "the existing compact weapon key should identify the live AIR/GND firing plane without adding another HUD panel")
+	_expect(hud.contains("func _primary_engagement_plane") and hud.contains('return "GND" if "air" not in classes else "ALL"') and hud.contains('_primary_engagement_plane(scene,weapon)') and hud.contains('var mount_color := BLUE if _primary_engagement_plane(scene,weapon) == "AIR" else GOLD'), "the combined flight and aircraft instruments should identify the live AIR/GND firing plane and its mounted-gun role")
 	var cue := FileAccess.open("res://scripts/weapon_mount_cue_director.gd", FileAccess.READ)
 	_expect(cue != null, "weapon mount cue should be readable")
 	if cue != null:
