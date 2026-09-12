@@ -427,6 +427,11 @@ func _test_visual_language() -> void:
 	_expect(machine_bomber != null and machine_bomber.get_image().get_used_rect().size.x >= 40, "machine bomber should retain its heavy flying-wing planform")
 	_expect(missile_node != null and missile_node.get_image().get_used_rect().size.x >= 34, "machine missile node should retain its four-coffin arsenal-aircraft planform")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_heavy_v4/manifest.json"), "heavy machine aircraft should retain their authored level and bank source manifest")
+	var orbital_min_widths := {"exo_drone":26,"orbital_sentry":36,"phase_interceptor":30,"beam_sentry":38,"orbital_lancer":44}
+	for orbital_id in orbital_min_widths:
+		var orbital_texture := load("res://assets/runtime/enemies/orbital_air/%s_idle.png" % orbital_id) as Texture2D
+		_expect(orbital_texture != null and orbital_texture.get_image().get_used_rect().size.x >= int(orbital_min_widths[orbital_id]), "orbital airframe should retain a broad human-derived aerospace silhouette: %s" % orbital_id)
+	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_v4/manifest.json"), "orbital airframes should retain their authored v4 level and bank source manifest")
 	var pursuit_animation_sizes := {
 		"ace_interceptor": Vector2(32,34),
 		"drone_hunter": Vector2(30,30),

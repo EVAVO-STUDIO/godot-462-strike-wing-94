@@ -1,0 +1,256 @@
+{
+  "asset_family": "orbital_air_v4",
+  "status": "runtime_integrated",
+  "identity": "recognizable human-derived BLACK SKY upper-atmosphere military aerospace",
+  "visual_contract": [
+    "thermal ceramic and graphite structure",
+    "broad lifting and control surfaces",
+    "physically attached radiators, rails and apertures",
+    "localized cyan-white emission",
+    "coherent foreshortened bank cels",
+    "never alien or humanoid"
+  ],
+  "collision_policy": "all existing gameplay radii and mount anchors remain authoritative",
+  "outputs": [
+    {
+      "id": "exo_drone",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/orbital_air/exo_drone_idle.png",
+      "size": [
+        30,
+        30
+      ],
+      "visible_bounds": [
+        2,
+        2,
+        29,
+        29
+      ],
+      "sha256": "1FCF6874DA44090BF6E0BB37BC0E703735F4D1EDA4933F8C179698B37BA13866"
+    },
+    {
+      "id": "exo_drone",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/exo_drone/left.png",
+      "size": [
+        30,
+        30
+      ],
+      "visible_bounds": [
+        3,
+        2,
+        24,
+        29
+      ],
+      "sha256": "B9B76E09FFCB869DC0FD770EE7C892B003009CD1D4DB0EAF0CF74A1BF768F3B0"
+    },
+    {
+      "id": "exo_drone",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/exo_drone/right.png",
+      "size": [
+        30,
+        30
+      ],
+      "visible_bounds": [
+        7,
+        2,
+        28,
+        29
+      ],
+      "sha256": "BCDAC02306B6A5CB001F8C551A26914DB934C374B96BB3142A85B7EF2088857D"
+    },
+    {
+      "id": "orbital_sentry",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/orbital_air/orbital_sentry_idle.png",
+      "size": [
+        40,
+        38
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        39,
+        37
+      ],
+      "sha256": "145D36119A5A65E28A0DD269E7869BAB01703DF723A88CFDFA1FA025E9BA12FA"
+    },
+    {
+      "id": "orbital_sentry",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/orbital_sentry/left.png",
+      "size": [
+        40,
+        38
+      ],
+      "visible_bounds": [
+        4,
+        3,
+        33,
+        37
+      ],
+      "sha256": "A02BC5F8B9CEFFCE37E963B1C1B3DEFE5A11B9C7B8DA4282540A51D833EBF1A9"
+    },
+    {
+      "id": "orbital_sentry",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/orbital_sentry/right.png",
+      "size": [
+        40,
+        38
+      ],
+      "visible_bounds": [
+        8,
+        3,
+        37,
+        37
+      ],
+      "sha256": "9246DCFC20470879EF9D42118E1961B33BBB313DD68FCE3992ED233E54569E5E"
+    },
+    {
+      "id": "phase_interceptor",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/orbital_air/phase_interceptor_idle.png",
+      "size": [
+        34,
+        34
+      ],
+      "visible_bounds": [
+        1,
+        2,
+        34,
+        33
+      ],
+      "sha256": "2D9C6DC1E735C9104782A5664B9877D8BD00EC97D5783B1F2956D3E6D30B9F7E"
+    },
+    {
+      "id": "phase_interceptor",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/phase_interceptor/left.png",
+      "size": [
+        34,
+        34
+      ],
+      "visible_bounds": [
+        2,
+        2,
+        28,
+        33
+      ],
+      "sha256": "ACC8F1C532CCC058EC98A2A07828A342F9C5BB2D6617A0CF01EBD91B105698BC"
+    },
+    {
+      "id": "phase_interceptor",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/phase_interceptor/right.png",
+      "size": [
+        34,
+        34
+      ],
+      "visible_bounds": [
+        6,
+        2,
+        32,
+        33
+      ],
+      "sha256": "4B26320FD6B594DBC515FE42BC312D26D02A72A78F8C94DFF724340E0CC5984E"
+    },
+    {
+      "id": "beam_sentry",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/orbital_air/beam_sentry_idle.png",
+      "size": [
+        42,
+        40
+      ],
+      "visible_bounds": [
+        1,
+        3,
+        42,
+        39
+      ],
+      "sha256": "BD820B5FB51EAB499B7B365DDB31055105A89BB3C63E24C8C1598F8CCF4B5555"
+    },
+    {
+      "id": "beam_sentry",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/beam_sentry/left.png",
+      "size": [
+        42,
+        40
+      ],
+      "visible_bounds": [
+        3,
+        3,
+        36,
+        39
+      ],
+      "sha256": "B472F4F16F8108CBCF282A12D292577A4C2D97BF73F9221D048FECCED24F76AB"
+    },
+    {
+      "id": "beam_sentry",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/beam_sentry/right.png",
+      "size": [
+        42,
+        40
+      ],
+      "visible_bounds": [
+        7,
+        3,
+        40,
+        39
+      ],
+      "sha256": "2B552CA17E20089D6E3E406A52702BA383FF1C128A478F975C02DFA8120F88A3"
+    },
+    {
+      "id": "orbital_lancer",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/orbital_air/orbital_lancer_idle.png",
+      "size": [
+        48,
+        58
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        47,
+        57
+      ],
+      "sha256": "7D80D2074CD223856FA8C47EBF1A9BB9A60D331F26359EF22DFAC950415633CE"
+    },
+    {
+      "id": "orbital_lancer",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/orbital_lancer/left.png",
+      "size": [
+        48,
+        58
+      ],
+      "visible_bounds": [
+        5,
+        3,
+        40,
+        57
+      ],
+      "sha256": "4A6A55A4017C7E457DFF163D8773FF88D2C2D7BBC32417ADC106CDF0CBA812D1"
+    },
+    {
+      "id": "orbital_lancer",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/orbital_lancer/right.png",
+      "size": [
+        48,
+        58
+      ],
+      "visible_bounds": [
+        9,
+        3,
+        44,
+        57
+      ],
+      "sha256": "EF217C34130D71FDF91C06A691A2D95777A275B58B83E6C14B1349F883FAC79F"
+    }
+  ]
+}
