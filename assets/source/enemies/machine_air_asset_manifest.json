@@ -57,7 +57,7 @@
         30,
         30
       ],
-      "sha256": "7D92E7408BA16C044D759F109F2EFB3583B8910C74630FC7FF093B2C4F2DBA6C",
+      "sha256": "D46EE7E9C63CA8D5E1DC4A2B50A888AED56C2961EAEDCBCEB233D2E17A33F08F",
       "center": [
         15,
         15
@@ -152,5 +152,6 @@
     "destruction": "cold debris, EMP collapse and smoke consequence"
   },
   "remaining_animation_gate": [],
-  "scout_override": "res://assets/source/enemies/machine_air_scout_v4/manifest.json"
+  "scout_override": "res://assets/source/enemies/machine_air_scout_v4/manifest.json",
+  "hunter_override": "res://assets/source/enemies/machine_air_hunter_v4/manifest.json"
 }

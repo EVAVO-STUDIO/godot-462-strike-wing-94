@@ -1,0 +1,61 @@
+{
+  "asset_family": "machine_air_hunter_v4",
+  "status": "runtime_integrated",
+  "identity": "twin-boom autonomous interceptor descended from captured human aerospace tooling",
+  "visual_contract": [
+    "broad cranked-delta planform",
+    "attack nose faces player",
+    "physically attached twin engine booms",
+    "localized core and exhaust light",
+    "coherent held bank poses",
+    "no humanoid silhouette"
+  ],
+  "collision_policy": "existing ten-pixel gameplay radius remains authoritative",
+  "outputs": [
+    {
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/machine_air/drone_hunter_idle.png",
+      "size": [
+        30,
+        30
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        29,
+        29
+      ],
+      "sha256": "D46EE7E9C63CA8D5E1DC4A2B50A888AED56C2961EAEDCBCEB233D2E17A33F08F"
+    },
+    {
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/drone_hunter/left.png",
+      "size": [
+        30,
+        30
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        28,
+        29
+      ],
+      "sha256": "885BAC37A9FF9AE4A2C39A90E7B2C16588150C4A2C71452030176852C33DC58B"
+    },
+    {
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/drone_hunter/right.png",
+      "size": [
+        30,
+        30
+      ],
+      "visible_bounds": [
+        3,
+        3,
+        29,
+        29
+      ],
+      "sha256": "793774998CDE959B69BE75660A638CC53609DC85461F51B5D274C9239982F5A3"
+    }
+  ]
+}
