@@ -1,0 +1,111 @@
+{
+  "asset_family": "mercenary_air_heavy_v6",
+  "status": "runtime_integrated",
+  "identity": "late-1990s human military interceptor and bomber",
+  "visual_contract": [
+    "broad readable planforms",
+    "nose-down attack orientation",
+    "restrained gunmetal and warm service markings",
+    "coherent bank, thrust and bay cels",
+    "no alien, neon or ornamental silhouettes"
+  ],
+  "collision_policy": "existing gameplay radii and hardpoint anchors remain authoritative",
+  "outputs": [
+    {
+      "id": "ace_interceptor",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/mercenary_air/ace_interceptor_idle.png",
+      "size": [
+        32,
+        34
+      ],
+      "visible_bounds": [
+        1,
+        1,
+        32,
+        33
+      ],
+      "sha256": "B59CF807FC88F35D6F768D6ADF1A5EBF97D1304204A6202E9DC9463BA8058618"
+    },
+    {
+      "id": "ace_interceptor",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/ace_interceptor/left.png",
+      "size": [
+        32,
+        34
+      ],
+      "visible_bounds": [
+        1,
+        1,
+        27,
+        33
+      ],
+      "sha256": "C778029F011C74EDC577BA0DB42E7D77CDF580223924CFDC0E8EC769E3F55A1A"
+    },
+    {
+      "id": "ace_interceptor",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/ace_interceptor/right.png",
+      "size": [
+        32,
+        34
+      ],
+      "visible_bounds": [
+        5,
+        1,
+        31,
+        33
+      ],
+      "sha256": "68DC2B0CD22272D6B597879A1103616B4DCB3F5D5102B2E2C268B8D5358DC9C3"
+    },
+    {
+      "id": "heavy_bomber",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/mercenary_air/heavy_bomber_idle.png",
+      "size": [
+        50,
+        42
+      ],
+      "visible_bounds": [
+        2,
+        2,
+        49,
+        41
+      ],
+      "sha256": "769C38ED8EB1AA276940903928053ED0F98F7ECD33FD865A052F6CDC83CA4BD0"
+    },
+    {
+      "id": "heavy_bomber",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/heavy_bomber/left.png",
+      "size": [
+        50,
+        42
+      ],
+      "visible_bounds": [
+        4,
+        2,
+        43,
+        41
+      ],
+      "sha256": "F3771779EB8BF2DB2EA85E609B53CA3D5DBB1B537B93B0B5D0A745213B7B6BDA"
+    },
+    {
+      "id": "heavy_bomber",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/heavy_bomber/right.png",
+      "size": [
+        50,
+        42
+      ],
+      "visible_bounds": [
+        8,
+        2,
+        47,
+        41
+      ],
+      "sha256": "71B0F0024857626D6AAD7600468226934B90C89AAC6B618AA1B985B4DB96CF9C"
+    }
+  ]
+}

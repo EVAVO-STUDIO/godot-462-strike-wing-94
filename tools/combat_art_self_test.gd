@@ -432,6 +432,11 @@ func _test_visual_language() -> void:
 		var orbital_texture := load("res://assets/runtime/enemies/orbital_air/%s_idle.png" % orbital_id) as Texture2D
 		_expect(orbital_texture != null and orbital_texture.get_image().get_used_rect().size.x >= int(orbital_min_widths[orbital_id]), "orbital airframe should retain a broad human-derived aerospace silhouette: %s" % orbital_id)
 	_expect(FileAccess.file_exists("res://assets/source/enemies/orbital_air_v4/manifest.json"), "orbital airframes should retain their authored v4 level and bank source manifest")
+	var conventional_heavy_min_widths := {"ace_interceptor": 28, "heavy_bomber": 44}
+	for conventional_id in conventional_heavy_min_widths:
+		var conventional_texture := load("res://assets/runtime/enemies/mercenary_air/%s_idle.png" % conventional_id) as Texture2D
+		_expect(conventional_texture != null and conventional_texture.get_image().get_used_rect().size.x >= int(conventional_heavy_min_widths[conventional_id]), "conventional heavy airframe should retain a broad readable military silhouette: %s" % conventional_id)
+	_expect(FileAccess.file_exists("res://assets/source/enemies/mercenary_air_heavy_v6/manifest.json"), "conventional interceptor and bomber should retain authored level and bank source cels")
 	var pursuit_animation_sizes := {
 		"ace_interceptor": Vector2(32,34),
 		"drone_hunter": Vector2(30,30),
