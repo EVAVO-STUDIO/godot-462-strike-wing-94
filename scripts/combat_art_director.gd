@@ -1589,7 +1589,11 @@ func _draw_transform_motion_cues(surface: CanvasItem, p: Vector2, exposure: int,
 		# These cels describe actuator travel around the moving panels. Keeping the
 		# rear trace dimmer than the front hinge lamps prevents the cyan marks from
 		# reading as a targeting bracket locked to the player aircraft.
-		var cue_alpha := 0.66 if foreground else 0.42
+		var middle_load := sin(float(clampi(exposure,0,TRANSFORM_EXPOSURES-1))/float(TRANSFORM_EXPOSURES-1)*PI)
+		# The registered hinge and actuator cels need to survive a detailed moving
+		# terrain field at 640x360. Their intensity peaks during the loaded middle
+		# travel, then disappears at both mechanically settled endpoints.
+		var cue_alpha := (0.64 if foreground else 0.42) + middle_load*(0.14 if foreground else 0.08)
 		surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round(), Color(0.82,0.94,1.0,cue_alpha))
 
 func _draw_hypersonic_sweep_condensation(surface: CanvasItem, p: Vector2, exposure: int) -> void:

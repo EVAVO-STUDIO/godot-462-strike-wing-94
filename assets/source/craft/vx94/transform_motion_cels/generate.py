@@ -44,13 +44,17 @@ for family, (trail, active, hot) in PALETTES.items():
                 rear.line((start, ghost), fill=trail, width=3)
                 rear.line((ghost, tip), fill=active, width=2)
                 rear.point(point(start,tip,0.24),fill=active)
-                fore.rectangle((tip[0] - 1, tip[1] - 2, tip[0] + 1, tip[1] + 2), fill=active)
-                fore.point(tip, fill=hot)
+                outward = -1 if side == 0 else 1
+                fore.line((tip[0], tip[1] - 1, tip[0] + outward * 2, tip[1] + 1), fill=active, width=1)
+                fore.point((tip[0] + outward, tip[1]), fill=hot)
         if 0 < exposure < 9:
             for hx, hy in HINGES:
-                fore.rectangle((hx - 2, hy - 2, hx + 2, hy + 2), outline=active)
+                # Two-pixel hinge glints expose loaded actuator travel without
+                # drawing square brackets that can be mistaken for HUD locks.
+                direction = -1 if hx < ANCHOR[0] else 1
+                fore.line((hx, hy - 1, hx + direction, hy + 1), fill=active, width=1)
                 if exposure in (3, 4, 5, 6):
-                    fore.line((hx-1,hy,hx+1,hy),fill=hot,width=1)
+                    fore.point((hx, hy), fill=hot)
         if family == "hypersonic" and exposure == 9:
             for side, path in enumerate(TIP_PATHS[family]):
                 tip = path[1]
@@ -68,6 +72,6 @@ manifest = {
     "families": list(PALETTES),
     "exposures": 10,
     "layers": ["back", "front"],
-    "style": "held-pose late-90s military animation; registered wing-tip afterimages, hinge lamps and palette-limited actuator trails",
+    "style": "held-pose late-90s military animation; registered wing-tip afterimages, two-pixel hinge glints and palette-limited actuator trails without HUD-like brackets",
 }
 (Path(__file__).parent / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
