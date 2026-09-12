@@ -338,6 +338,7 @@ func _test_visual_language() -> void:
 	_expect(source.contains('_capture_ground_state() == "infantry"') and source.contains("_render_infantry_capture"), "visual QA should expose an isolated infantry gait, firing, recoil, and hit fixture")
 	_expect(source.contains("var team_shadow :=") and source.contains("scale *= 1.24") and source.contains("Vector2(-11,-6)"), "human-scale infantry should retain a readable formation footprint over dense production terrain")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/infantry_layered/infantry_layered_manifest.json"), "layered infantry source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/infantry_topdown_v3/manifest.json"), "living infantry and heavy-weapon crews should retain authored top-down projection cels")
 	var mech_layer_sizes := {
 		"security_cannon":Vector2(18,38), "security_cannon_recoil":Vector2(18,38), "security_barrel":Vector2(12,30), "security_shield":Vector2(16,28), "security_collar":Vector2(14,14),
 		"salvage_cutter_arm":Vector2(18,38), "salvage_grapple_open":Vector2(18,38), "salvage_grapple_closed":Vector2(18,38), "salvage_disc_0":Vector2(16,16), "salvage_disc_1":Vector2(16,16), "salvage_disc_2":Vector2(16,16), "salvage_collar":Vector2(14,14),

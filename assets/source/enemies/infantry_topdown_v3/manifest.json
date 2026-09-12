@@ -1,0 +1,209 @@
+{
+  "asset_family": "mercenary_infantry_topdown_v3",
+  "status": "runtime_integrated",
+  "projection": "top-down three-quarter, attack direction downscreen",
+  "visual_contract": [
+    "helmet and shoulder masses establish human scale",
+    "feet and formation shadow anchor every member to terrain",
+    "weapons point toward the player approach axis",
+    "gait, firing, flinch, crew roles and tripod recoil remain distinct",
+    "no side-view platformer silhouettes"
+  ],
+  "outputs": [
+    {
+      "id": "rifle_advance_0",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_advance_0.png",
+      "size": [
+        10,
+        16
+      ],
+      "visible_bounds": [
+        2,
+        1,
+        10,
+        14
+      ],
+      "sha256": "862CA59AEEF4A1CE77D0C79387FD3B6B879590EF8B82C46FE79E04BBF35637A4"
+    },
+    {
+      "id": "rifle_advance_1",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_advance_1.png",
+      "size": [
+        10,
+        16
+      ],
+      "visible_bounds": [
+        1,
+        1,
+        10,
+        14
+      ],
+      "sha256": "F5ACE625C052C4F847A420D483BD98C38E54BD52366A903B48DB45B125141BC7"
+    },
+    {
+      "id": "rifle_advance_2",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_advance_2.png",
+      "size": [
+        10,
+        16
+      ],
+      "visible_bounds": [
+        2,
+        1,
+        10,
+        15
+      ],
+      "sha256": "F83090B3EDA058CCE44E7E866F8A3D3AF328207E13ABE3BC251542F0842D8056"
+    },
+    {
+      "id": "rifle_aim",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_aim.png",
+      "size": [
+        12,
+        14
+      ],
+      "visible_bounds": [
+        3,
+        1,
+        11,
+        14
+      ],
+      "sha256": "EC61CAA40672EBFB8D85B1FE06ABD3B1D3E96BABC29E188E14D4127924589075"
+    },
+    {
+      "id": "rifle_fire",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_fire.png",
+      "size": [
+        12,
+        14
+      ],
+      "visible_bounds": [
+        3,
+        1,
+        11,
+        14
+      ],
+      "sha256": "917277001DB8785DCB7F79FE7F871214217B9F974CB5424A6B75F6B0E2E440D4"
+    },
+    {
+      "id": "rifle_flinch",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_flinch.png",
+      "size": [
+        10,
+        14
+      ],
+      "visible_bounds": [
+        2,
+        1,
+        10,
+        13
+      ],
+      "sha256": "D488567A7A0CC4B9DEFAFF631782184103A0B54C0274CB6696C013FF2E572517"
+    },
+    {
+      "id": "rifle_kneel",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_kneel.png",
+      "size": [
+        14,
+        11
+      ],
+      "visible_bounds": [
+        3,
+        1,
+        13,
+        11
+      ],
+      "sha256": "1D4836CA5FE0A4F12C094E635FD2FED3CA2962D9D2E72B629E9647B8996641F5"
+    },
+    {
+      "id": "rifle_kneel_fire",
+      "runtime": "assets/runtime/enemies/infantry_layered/rifle_kneel_fire.png",
+      "size": [
+        14,
+        11
+      ],
+      "visible_bounds": [
+        3,
+        1,
+        13,
+        11
+      ],
+      "sha256": "C131081E394AFC84EF07043AD9B15E7A981A25B13786C26635AF80C23D305FDD"
+    },
+    {
+      "id": "radio_operator",
+      "runtime": "assets/runtime/enemies/infantry_layered/radio_operator.png",
+      "size": [
+        10,
+        13
+      ],
+      "visible_bounds": [
+        1,
+        1,
+        10,
+        13
+      ],
+      "sha256": "C7AF47A4A2ACA376710F18C8DE857004690111CBB3CE8DAA473A4FF9BC352EA6"
+    },
+    {
+      "id": "heavy_loader",
+      "runtime": "assets/runtime/enemies/infantry_layered/heavy_loader.png",
+      "size": [
+        13,
+        12
+      ],
+      "visible_bounds": [
+        2,
+        1,
+        10,
+        12
+      ],
+      "sha256": "CD3DF44ACBA2765BAF56414620E4AC4AC1FA2CFC6E704B251A7E632A907F70E8"
+    },
+    {
+      "id": "heavy_spotter",
+      "runtime": "assets/runtime/enemies/infantry_layered/heavy_spotter.png",
+      "size": [
+        10,
+        13
+      ],
+      "visible_bounds": [
+        1,
+        1,
+        10,
+        13
+      ],
+      "sha256": "5838084E6A811ABC451E95FB52330DDC06D7A711A9E360CE0224BA08E3AACD31"
+    },
+    {
+      "id": "heavy_tripod",
+      "runtime": "assets/runtime/enemies/infantry_layered/heavy_tripod.png",
+      "size": [
+        15,
+        19
+      ],
+      "visible_bounds": [
+        1,
+        5,
+        14,
+        18
+      ],
+      "sha256": "E7F15FDD773FE953549CF0C16DBB765DAE81FC34682EAA2B2A6423512AEBC1EE"
+    },
+    {
+      "id": "heavy_tripod_recoil",
+      "runtime": "assets/runtime/enemies/infantry_layered/heavy_tripod_recoil.png",
+      "size": [
+        15,
+        19
+      ],
+      "visible_bounds": [
+        1,
+        5,
+        14,
+        18
+      ],
+      "sha256": "304699279C34FFE401425F3A34E646F6C2E1FC97606157C32151277D70241787"
+    }
+  ]
+}
