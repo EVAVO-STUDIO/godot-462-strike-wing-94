@@ -230,4 +230,15 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 				surface.draw_texture(cel,-cel.get_size()*0.5,Color(0.56,0.72,0.78,alpha*0.22))
 			surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale,length_scale))
 			surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha))
+			if near_band and _profile != "drizzle":
+				# A staggered second exposure fills the near rain sheet without
+				# introducing a repeated procedural line pattern. Keep it dimmer and
+				# slightly shorter so it reads as depth, not duplicated ammunition.
+				var clone_seed := float(abs(str(p.id).hash()) % 89)
+				var clone_middle := Vector2(
+					fposmod(middle.x + 181.0 + clone_seed, 656.0) - 8.0,
+					fposmod(middle.y + 73.0 + clone_seed * 0.41, 320.0) - 8.0
+				)
+				surface.draw_set_transform(clone_middle.round(),direction.angle()-PI*0.5,Vector2(width_scale*0.82,length_scale*0.72))
+				surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r*0.90,RAIN_COLOUR.g*0.94,RAIN_COLOUR.b,alpha*0.48))
 			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
