@@ -57,7 +57,7 @@ func run() -> void:
 	check(craft_source.contains('active_scene.has_method("player_bank_input")') and craft_source.contains('active_scene.call("player_bank_input")'), "craft presentation should consume the live scene velocity ratio")
 	var art_source := FileAccess.get_file_as_string("res://scripts/combat_art_director.gd")
 	check(art_source.contains('active_scene.has_method("player_bank_input")') and art_source.contains('active_scene.call("player_bank_input")'), "visible bank poses should follow physical lateral velocity and coast back through neutral")
-	check(art_source.contains("func _altitude_craft_scale") and art_source.contains("depth_pulse*0.11") and art_source.contains("depth_pulse*0.10"), "climb and dive art should carry readable opposing depth scale pulses")
+	check(art_source.contains("func _altitude_craft_scale") and art_source.contains("depth_pulse*0.17") and art_source.contains("depth_pulse*0.16") and art_source.contains("sin(ratio * PI) * 22.0"), "climb and dive art should carry readable opposing depth scale pulses and centre-of-mass travel")
 	check(main_source.contains("_shift_camera_projection(Vector2(0.0, flight_camera_offset - previous_offset))"), "Contacts and projectiles must receive only the camera delta")
 	check(main_source.contains("FlightCameraRules.camera_distance(environment_world_distance, flight_camera_offset)"), "Route travel must remain unbounded behind the screen projection")
 	check(Airspace.side_for_x(42.0)=="left" and Airspace.side_for_x(598.0)=="right" and Airspace.side_for_x(52.0).is_empty() and Airspace.side_for_x(588.0).is_empty(), "lateral airspace should reserve only the final 18 pixels per side as recovery shoulders")

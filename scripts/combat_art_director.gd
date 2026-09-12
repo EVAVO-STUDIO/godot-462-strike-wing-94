@@ -2964,7 +2964,10 @@ func _altitude_pitch_offset() -> Vector2:
 		return Vector2.ZERO
 	var ratio := float(director.call("altitude_transition_ratio"))
 	var direction := int(director.call("altitude_transition_direction"))
-	return Vector2(0, -roundf(sin(ratio * PI) * 15.0 * float(direction)))
+	# At 64 pixels the registered pitch paintings alone are deliberately subtle.
+	# A stronger centre-of-mass travel makes the nose-up/nose-down exposure read
+	# against the cloud boundary while remaining well inside the combat viewport.
+	return Vector2(0, -roundf(sin(ratio * PI) * 22.0 * float(direction)))
 
 func _altitude_craft_scale() -> float:
 	var director := get_node_or_null("/root/CraftFormDirector")
@@ -2973,7 +2976,9 @@ func _altitude_craft_scale() -> float:
 	var ratio := clampf(float(director.call("altitude_transition_ratio")),0.0,1.0)
 	var direction := int(director.call("altitude_transition_direction"))
 	var depth_pulse := sin(ratio*PI)
-	return 1.0-depth_pulse*0.11 if direction > 0 else 1.0+depth_pulse*0.10
+	# Climbing carries the craft away from the ground camera; diving brings it
+	# toward the camera. The prior ten-percent pulse disappeared in busy terrain.
+	return 1.0-depth_pulse*0.17 if direction > 0 else 1.0+depth_pulse*0.16
 
 func _craft_form() -> String:
 	if "--capture-gameplay" in OS.get_cmdline_user_args():
