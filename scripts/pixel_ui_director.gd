@@ -774,8 +774,9 @@ func _draw_flight_instrument(surface: CanvasItem, scene: Object) -> void:
 	var position := Vector2(8,270)
 	var show_score := _has_property(scene,"game_mode") and str(scene.get("game_mode")) != "campaign"
 	var instrument_width := 196.0 if show_score else 128.0
-	surface.draw_rect(Rect2(position,Vector2(instrument_width,28)),Color(0.012,0.030,0.040,0.30),true)
-	surface.draw_rect(Rect2(position,Vector2(instrument_width,28)),Color(0.27,0.63,0.66,0.34),false,1.0)
+	var housing_alpha := _hud_housing_alpha(scene,Rect2(position,Vector2(instrument_width,28)))
+	surface.draw_rect(Rect2(position,Vector2(instrument_width,28)),Color(0.012,0.030,0.040,0.24*housing_alpha),true)
+	surface.draw_rect(Rect2(position,Vector2(instrument_width,28)),Color(0.27,0.63,0.66,0.28*housing_alpha),false,1.0)
 	var weapon := _call_dictionary(scene,"_active_weapon")
 	var altitude_choice := _compact_altitude_choice()
 	var flight_state := "%s / %s / %s" % [_short_altitude(),_compact_form_state(),_primary_engagement_plane(scene,weapon)]
@@ -829,7 +830,8 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	# picture. Its smoked housing remains transparent enough to expose threats.
 	var scope_position := Vector2(532,270)
 	var scope_size := Vector2(100,80)
-	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(1,1,1,0.88))
+	var housing_alpha := _hud_housing_alpha(scene,Rect2(scope_position,scope_size))
+	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(1,1,1,0.76*housing_alpha))
 	_draw_aircraft_system_scope(surface,scene,scope_position)
 	var player: Vector2 = scene.get("player_position") if _has_property(scene,"player_position") else Vector2(320,250)
 	var contacts: Array = []
@@ -879,6 +881,27 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 			shown += 1
 			if shown >= 22: break
 	PixelFont.draw_text(surface,_tactical_radar_track_label(tracked,player),scope_position+Vector2(5,18),1,Color(GOLD if tracked_priority >= 4 else MUTED,0.82),1)
+
+func _hud_housing_alpha(scene: Object, rect: Rect2) -> float:
+	# The smoked glass yields when real world geometry crosses a corner MFD.
+	# Symbology is drawn afterwards at full contrast, so tactical information
+	# remains legible while the obscured aircraft or surface target stays visible.
+	if "--capture-hud-clearance" in OS.get_cmdline_user_args():
+		return 0.48
+	var clearance := rect.grow(8.0)
+	var positions: Array[Vector2] = []
+	if _has_property(scene,"player_position"):
+		positions.append(Vector2(scene.get("player_position")))
+	for property_name in ["enemies","protected_contacts","enemy_bullets"]:
+		if not _has_property(scene,property_name) or typeof(scene.get(property_name)) != TYPE_ARRAY:
+			continue
+		for contact in scene.get(property_name):
+			if typeof(contact) == TYPE_DICTIONARY and contact.has("position"):
+				positions.append(Vector2(contact.get("position",Vector2.ZERO)))
+	for world_position in positions:
+		if clearance.has_point(world_position):
+			return 0.48
+	return 1.0
 
 func _draw_aircraft_system_scope(surface: CanvasItem, scene: Object, scope_position: Vector2) -> void:
 	var max_hull := maxi(1,_call_int(scene,"_max_hull",100))
