@@ -32,7 +32,12 @@ static func apply_shielded_damage(hull: int, shield: int, amount: int) -> Dictio
 	return {"hull": next_hull, "shield": next_shield}
 
 static func enemy_spawn_interval(wave: int) -> float:
-	return maxf(0.28, 1.05 - float(maxi(1, wave)) * 0.055)
+	# Ambient contacts bridge authored formations; they must not become the main
+	# encounter generator in late sectors. Individual weapons are deliberately
+	# lethal, so sub-third-second spawning fills the entire airspace before a
+	# radar warning or role decision can matter. Escalate steadily while leaving
+	# enough separation for a contact to enter, attack, and break away.
+	return maxf(0.62, 1.18 - float(maxi(1, wave)) * 0.028)
 
 static func wave_for_time(mission_time: float) -> int:
 	return 1 + int(maxf(0.0, mission_time) / 20.0)

@@ -58,7 +58,8 @@ func _test_combat() -> void:
 	_expect(int(overflow["hull"]) == 85 and int(overflow["shield"]) == 0, "overflow damage should reach hull")
 	_expect(CombatRules.wave_for_time(0.0) == 1, "wave should start at one")
 	_expect(CombatRules.wave_for_time(40.0) == 3, "wave progression should advance every twenty seconds")
-	_expect(CombatRules.enemy_spawn_interval(999) >= 0.28, "spawn interval must retain a safe lower bound")
+	_expect(CombatRules.enemy_spawn_interval(1) > CombatRules.enemy_spawn_interval(20), "ambient contact cadence should still escalate across sectors")
+	_expect(CombatRules.enemy_spawn_interval(999) >= 0.62, "lethal ambient contacts should retain enough separation for warning and response")
 
 func _test_projectiles() -> void:
 	var velocity := ProjectileRules.enemy_shot_velocity(Vector2.ZERO, Vector2(0, 10), 100.0)
