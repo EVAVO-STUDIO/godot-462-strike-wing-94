@@ -1,0 +1,95 @@
+{
+  "asset_family": "vx94_countermeasure_burst_v3",
+  "status": "runtime_integrated",
+  "method": "deterministic paired magnesium flare cel authoring",
+  "registration": {
+    "pivot": [
+      24,
+      10
+    ],
+    "runtime_scale": [
+      0.6,
+      0.6
+    ]
+  },
+  "salvo": {
+    "paired_cartridges_per_cel": 2,
+    "staggered_events": 5,
+    "total_decoys": 10,
+    "delays_seconds": [
+      0.0,
+      0.045,
+      0.09,
+      0.135,
+      0.18
+    ]
+  },
+  "visual_contract": [
+    "white-hot magnesium cores survive native runtime scale",
+    "orange-red thermal tails remain attached to each cartridge",
+    "broken cool-grey smoke follows physical ejection bearings",
+    "paired bodies diverge without forming a symmetric arcade rosette"
+  ],
+  "outputs": [
+    {
+      "frame": 0,
+      "runtime": "assets/runtime/effects/countermeasure/flare_0.png",
+      "size": [
+        48,
+        56
+      ],
+      "visible_bounds": [
+        13,
+        3,
+        36,
+        21
+      ],
+      "sha256": "D5428ACEE9CD9696AACD770D7BF605578DC03577EA142F51F9C4B8136C1AAD67"
+    },
+    {
+      "frame": 1,
+      "runtime": "assets/runtime/effects/countermeasure/flare_1.png",
+      "size": [
+        48,
+        56
+      ],
+      "visible_bounds": [
+        10,
+        0,
+        39,
+        32
+      ],
+      "sha256": "46756AA69E150988097E52D9695C0DFD6265A57DF69F342AC3DF8969FA72DA5A"
+    },
+    {
+      "frame": 2,
+      "runtime": "assets/runtime/effects/countermeasure/flare_2.png",
+      "size": [
+        48,
+        56
+      ],
+      "visible_bounds": [
+        7,
+        0,
+        42,
+        45
+      ],
+      "sha256": "0A9A547C38B435DC163068F20B9F3ABD265ADFA322BAE4367B381915F3CB9776"
+    },
+    {
+      "frame": 3,
+      "runtime": "assets/runtime/effects/countermeasure/flare_3.png",
+      "size": [
+        48,
+        56
+      ],
+      "visible_bounds": [
+        3,
+        6,
+        46,
+        56
+      ],
+      "sha256": "91484D61676AA2E1DA0E6C417A9DCC0BA4393B72B16CABE9B22C898A540B4FEE"
+    }
+  ]
+}

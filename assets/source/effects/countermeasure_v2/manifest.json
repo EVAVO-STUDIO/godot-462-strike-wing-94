@@ -18,10 +18,10 @@
   "visual_contract": "Paired aft-dispenser cartridges become magnesium-white hot bodies, divergent orange envelopes and a separate cool-grey smoke wake in a believable late-1990s military raster style.",
   "source_sha256": "F675B57354FA38DAC447392F2D6FCAD789720B48136A01B415C1FE7B31D38C68",
   "runtime_sha256": [
-    "A8063C1ECAD4629E12FD7869AD187F9221C3039DBA433A783B2CE45462433BCE",
-    "D9983D6E0AF3A5F60448A4BD09E48E41D7A46451C7AD2322D18016263873330F",
-    "4F00DC2F72ED06383B67ACBDF48968C9F95462456AA0D066B41B50CEDCB52C34",
-    "7E2E1AC2F332FF07C44B940CA91A33F6978883E7F3A0F12C2824D4674EB3052D"
+    "D5428ACEE9CD9696AACD770D7BF605578DC03577EA142F51F9C4B8136C1AAD67",
+    "46756AA69E150988097E52D9695C0DFD6265A57DF69F342AC3DF8969FA72DA5A",
+    "0A9A547C38B435DC163068F20B9F3ABD265ADFA322BAE4367B381915F3CB9776",
+    "91484D61676AA2E1DA0E6C417A9DCC0BA4393B72B16CABE9B22C898A540B4FEE"
   ],
   "review_status": "reviewed_native_runtime",
   "review_evidence": [
@@ -34,15 +34,18 @@
     "work/countermeasure_v2/registrations",
     "work/combat_impact_v1/native_flare_break_v2"
   ],
-  "deployment_presentation": "three staggered paired-cartridge releases per charge",
+  "deployment_presentation": "five staggered paired-cartridge releases per charge",
   "salvo_timing_seconds": [
     0.0,
-    0.055,
-    0.11
+    0.045,
+    0.09,
+    0.135,
+    0.18
   ],
-  "runtime_scale": 0.72,
+  "runtime_scale": 0.6,
   "native_salvo_evidence": "work/countermeasure_salvo_v3/native",
   "native_salvo_contact": "work/countermeasure_salvo_v3/contact.png",
   "native_salvo_contact_sha256": "388BB837C3017B799A4BA935667DEC1BBBB540633455130B415AB4477AFABE43",
-  "review_video": "outputs/HYPERSONIC-counterflare-salvo-runtime.mp4"
+  "review_video": "outputs/HYPERSONIC-counterflare-salvo-runtime.mp4",
+  "runtime_override": "res://assets/source/effects/countermeasure_v3/manifest.json"
 }

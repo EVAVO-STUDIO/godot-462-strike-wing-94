@@ -14,7 +14,7 @@ const FLARE_FRAMES := [
 const FLARE_PIVOT := Vector2(24, 10)
 # Each cel already contains a paired cartridge. Keep the pair crisp but small
 # enough that five staged ejections read as ten individual decoys, not one fire.
-const SALVO_CARTRIDGE_SCALE := Vector2(0.46,0.46)
+const SALVO_CARTRIDGE_SCALE := Vector2(0.60,0.60)
 const SALVO_DELAYS := [0.0,0.045,0.090,0.135,0.180]
 const SALVO_LATERAL_OFFSETS := [-17.0,17.0,-12.0,12.0,0.0]
 const SALVO_ANGLE_OFFSETS := [-0.92,0.84,-0.58,0.66,-0.14]
