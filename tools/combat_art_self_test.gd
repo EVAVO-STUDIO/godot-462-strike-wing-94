@@ -692,7 +692,7 @@ func _test_altitude_presentation() -> void:
 		return
 	var source := file.get_as_text()
 	_expect(source.contains("AltitudeRules.transition_ground_scale"), "surface targets should interpolate scale during altitude changes")
-	_expect(source.contains("15.0 * float(direction)"), "VX-94 climb and dive pitch should remain legible at native gameplay scale")
+	_expect(source.contains("22.0 * float(direction)"), "VX-94 climb and dive pitch should remain legible at native gameplay scale")
 	_expect(source.contains("_altitude_pitch_offset"), "VX-94 should receive a climb/dive pitch cue during lane changes")
 	_expect(source.contains("_altitude_pitch_state") and source.contains("_pitch_primary_cache"), "VX-94 altitude changes should select authored pitch silhouettes with the installed primary weapon")
 	for form in ["fighter", "bomber"]:
