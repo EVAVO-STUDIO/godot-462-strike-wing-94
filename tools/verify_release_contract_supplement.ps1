@@ -48,11 +48,11 @@ foreach ($Token in @('JOY_BUTTON_START','flight must retain B as screen bomb','p
     if (-not $PauseTest.Contains($Token)) { throw "Pause regression lost controller conflict guard: $Token" }
 }
 
-foreach ($Token in @('FLIGHT CHECK // %s-%s/LS STEER','%s/START PAUSE','POWER // %s-%s/RS THROTTLE','ALTITUDE // %s-%s / D-PAD','MISSILE // %s / LT COUNTERMEASURE','EGRESS // %s / D-PAD UP -> HIGH','MACH GATE // HOLD %s / LB AFTERBURNER','_keyboard_label','InputMap.action_get_events','mission_index','game_mode','active_secret_mission_id','ThreatWarningRules.homing_count','egress_active')) {
+foreach ($Token in @('STEER %s-%s/LS','FIRE %s/A','PAUSE %s/START','THROTTLE %s-%s/RS','GEOMETRY %s/Y','ALTITUDE %s-%s/D-PAD','MISSILE LOCK   FLARE %s/LT','EGRESS // %s / D-PAD UP -> HIGH','MACH GATE // HOLD %s / LB AFTERBURNER','_keyboard_label','InputMap.action_get_events','mission_index','game_mode','active_secret_mission_id','ThreatWarningRules.homing_count','egress_active')) {
     if (-not $Guidance.Contains($Token)) { throw "Mission 1 guidance lost onboarding/rebinding contract: $Token" }
 }
 
-foreach ($Token in @('ControllerSortieBayDirector','ControllerMenuContextDirector','FirstSortieGuidanceDirector','A-D/LS STEER','V / LT COUNTERMEASURE','SHIFT / LB AFTERBURNER')) {
+foreach ($Token in @('ControllerSortieBayDirector','ControllerMenuContextDirector','FirstSortieGuidanceDirector','STEER A-D/LS','FLARE V/LT','SHIFT / LB AFTERBURNER')) {
     if (-not $InputTest.Contains($Token)) { throw "Input regression suite lost release guidance/controller guard: $Token" }
 }
 

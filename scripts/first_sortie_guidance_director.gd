@@ -9,7 +9,7 @@ const TEXT := Color("d9e0e5")
 const BLUE := Color("6aa4c8")
 const GOLD := Color("e8ca6a")
 const RED := Color("dc6655")
-const PANEL := Color(0.02, 0.05, 0.07, 0.82)
+const PANEL := Color(0.02, 0.05, 0.07, 0.62)
 
 var _surface: Control
 
@@ -36,12 +36,12 @@ func draw_guidance(surface: CanvasItem) -> void:
 	var text := str(guidance.get("text", ""))
 	if text.is_empty():
 		return
-	var width := clampf(34.0 + float(text.length()) * 4.0, 230.0, 420.0)
+	var width := clampf(20.0 + float(text.length()) * 4.0, 176.0, 340.0)
 	var x := floorf((640.0 - width) * 0.5)
-	var rect := Rect2(x, 70, width, 19)
+	var rect := Rect2(x, 43, width, 15)
 	surface.draw_rect(rect, PANEL)
 	surface.draw_rect(rect, _tone(str(guidance.get("tone", "blue"))), false, 1.0)
-	PixelFont.draw_centered(surface, text, 320, 76, 1, _tone(str(guidance.get("tone", "blue"))), 1)
+	PixelFont.draw_centered(surface, text, 320, 48, 1, _tone(str(guidance.get("tone", "blue"))), 1)
 
 func guidance_for(scene: Object) -> Dictionary:
 	var forced := _capture_guidance()
@@ -62,9 +62,9 @@ func guidance_for(scene: Object) -> Dictionary:
 	# consecutive beats rather than two simultaneous instruction channels.
 	if elapsed >= 0.20 and elapsed < 1.50:
 		return _steer_fire_guidance()
-	if elapsed >= 9.0 and elapsed < 14.0:
+	if elapsed >= 9.0 and elapsed < 12.0:
 		return _power_geometry_guidance()
-	if elapsed >= 18.0 and elapsed < 23.0:
+	if elapsed >= 18.0 and elapsed < 21.0:
 		return _altitude_guidance()
 	return {}
 
@@ -73,22 +73,22 @@ func _steer_fire_guidance() -> Dictionary:
 	var right := _keyboard_label("move_right", "D")
 	var fire := _keyboard_label("fire_primary", "SPACE")
 	var pause := _keyboard_label("cancel", "ESC")
-	return {"id":"steer_fire", "text":"FLIGHT CHECK // %s-%s/LS STEER // %s/A FIRE // %s/START PAUSE" % [left, right, fire, pause], "tone":"blue"}
+	return {"id":"steer_fire", "text":"STEER %s-%s/LS   FIRE %s/A   PAUSE %s/START" % [left, right, fire, pause], "tone":"blue"}
 
 func _power_geometry_guidance() -> Dictionary:
 	var throttle_up := _keyboard_label("throttle_up", "T")
 	var throttle_down := _keyboard_label("throttle_down", "G")
 	var transform := _keyboard_label("transform_craft", "Q")
-	return {"id":"power_geometry", "text":"POWER // %s-%s/RS THROTTLE // %s/Y GEOMETRY" % [throttle_up, throttle_down, transform], "tone":"gold"}
+	return {"id":"power_geometry", "text":"THROTTLE %s-%s/RS   GEOMETRY %s/Y" % [throttle_up, throttle_down, transform], "tone":"gold"}
 
 func _altitude_guidance() -> Dictionary:
 	var up := _keyboard_label("altitude_up", "PGUP")
 	var down := _keyboard_label("altitude_down", "PGDN")
-	return {"id":"altitude", "text":"ALTITUDE // %s-%s / D-PAD" % [up, down], "tone":"blue"}
+	return {"id":"altitude", "text":"ALTITUDE %s-%s/D-PAD" % [up, down], "tone":"blue"}
 
 func _countermeasure_guidance() -> Dictionary:
 	var countermeasure := _keyboard_label("deploy_countermeasure", "V")
-	return {"id":"countermeasure", "text":"MISSILE // %s / LT COUNTERMEASURE" % countermeasure, "tone":"red"}
+	return {"id":"countermeasure", "text":"MISSILE LOCK   FLARE %s/LT" % countermeasure, "tone":"red"}
 
 func _egress_guidance() -> Dictionary:
 	var craft := get_node_or_null("/root/CraftFormDirector")
