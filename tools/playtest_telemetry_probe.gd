@@ -142,12 +142,15 @@ func _drive_movement(second: int) -> void:
 		Input.action_release(action)
 	var airspace_side := LateralAirspaceRules.side_for_x(Vector2(scene.get("player_position")).x)
 	var avoidance := _contact_avoidance_direction()
+	var target_alignment := _target_alignment_direction()
 	if airspace_side == "left":
 		Input.action_press("move_right")
 	elif airspace_side == "right":
 		Input.action_press("move_left")
 	elif avoidance != 0:
 		Input.action_press("move_left" if avoidance < 0 else "move_right")
+	elif target_alignment != 0:
+		Input.action_press("move_left" if target_alignment < 0 else "move_right")
 	else:
 		match posmod(int(second / 3), 4):
 			0: Input.action_press("move_left")
@@ -181,6 +184,29 @@ func _contact_avoidance_direction() -> int:
 			continue
 		nearest_distance = distance
 		direction = -1 if offset.x >= 0.0 else 1
+	return direction
+
+func _target_alignment_direction() -> int:
+	# A bounded combat probe must aim well enough to exercise weapon contact and
+	# encounter closure. Prefer the nearest contact ahead, but leave the close
+	# range avoidance response above in control whenever a collision is possible.
+	var player: Vector2 = scene.get("player_position")
+	var nearest_ahead := INF
+	var direction := 0
+	for enemy in scene.get("enemies"):
+		if typeof(enemy) != TYPE_DICTIONARY or int(enemy.get("hp", 0)) <= 0:
+			continue
+		var offset: Vector2 = Vector2(enemy.get("position", Vector2.ZERO)) - player
+		if offset.y >= -18.0:
+			continue
+		var distance := offset.length_squared()
+		if distance >= nearest_ahead:
+			continue
+		nearest_ahead = distance
+		if absf(offset.x) <= 10.0:
+			direction = 0
+		else:
+			direction = -1 if offset.x < 0.0 else 1
 	return direction
 
 func _drive_live_countermeasure_response() -> void:

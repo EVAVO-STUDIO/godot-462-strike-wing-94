@@ -64,15 +64,23 @@ static func support_role(support: Dictionary) -> String:
 		"crossfire": return "rocket"
 	return ""
 
-static func support_engagement_classes(support: Dictionary, altitude: String, diving_to_low: bool = false) -> Array:
+static func support_engagement_classes(support: Dictionary, altitude: String, diving_to_low: bool = false) -> Array[String]:
+	var result: Array[String] = []
 	if bool(support.get("strategic", false)) or str(support.get("id", "")) == "micro_warhead_rack":
-		return ["air", "ground", "sea", "boss"]
+		result.assign(["air", "ground", "sea", "boss"])
+		return result
 	var support_type := str(support.get("type", ""))
 	if support_type == "hunter":
-		return ["air", "boss"]
+		result.assign(["air", "boss"])
+		return result
 	if support_type in ["rockets", "crossfire"]:
-		return ["ground", "sea", "boss"] if altitude == "low" or diving_to_low else ["air", "boss"]
-	return ["air", "ground", "sea", "boss"]
+		if altitude == "low" or diving_to_low:
+			result.assign(["ground", "sea", "boss"])
+		else:
+			result.assign(["air", "boss"])
+		return result
+	result.assign(["air", "ground", "sea", "boss"])
+	return result
 
 static func support_offsets(mounts: Array, form: String, support: Dictionary, projectile_count: int, alternating_side: bool = false) -> Array[Vector2]:
 	var count := maxi(1, projectile_count)

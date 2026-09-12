@@ -53,6 +53,8 @@ func _test_support_mounts(mounts: Array) -> void:
 	var bomber_rockets := PlayerMountRules.support_offsets(mounts, "bomber", rockets, 4)
 	_expect(bomber_rockets == [Vector2(-21,3),Vector2(21,3),Vector2(-27,9),Vector2(27,9)], "bomber rocket salvo should expand across inner and outer pylons")
 	var hunter := {"id":"hunter_rack","type":"hunter"}
+	var typed_hunter_classes: Array[String] = PlayerMountRules.support_engagement_classes(hunter,"low")
+	_expect(typed_hunter_classes == ["air","boss"], "support engagement classes should cross live typed call boundaries")
 	_expect(PlayerMountRules.support_offsets(mounts, "fighter", hunter, 1, false) == [Vector2(-15,-5)], "single fighter Hunter should use one inner pylon")
 	_expect(PlayerMountRules.support_offsets(mounts, "fighter", hunter, 1, true) == [Vector2(15,-5)], "alternating single Hunter should switch wing pylon")
 	_expect(PlayerMountRules.support_engagement_classes(hunter,"low") == ["air","boss"], "Hunter missiles should remain air-to-air weapons even in the low lane")
