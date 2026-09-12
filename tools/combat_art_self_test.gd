@@ -416,6 +416,9 @@ func _test_visual_language() -> void:
 	for enemy_id in machine_air_sizes:
 		var texture := load("res://assets/runtime/enemies/machine_air/%s_idle.png" % enemy_id)
 		_expect(texture is Texture2D and texture.get_size() == machine_air_sizes[enemy_id], "machine-air sprite should retain reviewed geometry: %s" % enemy_id)
+	var machine_scout := load("res://assets/runtime/enemies/machine_air/drone_scout_idle.png") as Texture2D
+	_expect(machine_scout != null and machine_scout.get_image().get_used_rect().size.x >= 20, "machine scout should retain a broad aircraft planform instead of a humanoid vertical silhouette")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_scout_v4/manifest.json"), "machine scout level and bank cels should retain their authored v4 source manifest")
 	var pursuit_animation_sizes := {
 		"ace_interceptor": Vector2(32,34),
 		"drone_hunter": Vector2(30,30),

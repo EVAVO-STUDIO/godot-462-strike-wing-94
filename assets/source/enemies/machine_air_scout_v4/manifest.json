@@ -1,0 +1,60 @@
+{
+  "asset_family": "machine_air_scout_v4",
+  "status": "runtime_integrated",
+  "identity": "compact unmanned reconnaissance delta derived from captured aerospace manufacture",
+  "visual_contract": [
+    "broad fixed-wing planform",
+    "attack nose faces player",
+    "localized sensor and exhaust light",
+    "held coherent bank poses",
+    "no humanoid silhouette"
+  ],
+  "collision_policy": "existing eight-pixel gameplay radius remains authoritative",
+  "outputs": [
+    {
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/machine_air/drone_scout_idle.png",
+      "size": [
+        24,
+        26
+      ],
+      "visible_bounds": [
+        1,
+        2,
+        24,
+        25
+      ],
+      "sha256": "6B48326FA0B198C6F142C963B3C15B05FDBE8003FF103113432DA9919A8767C7"
+    },
+    {
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/drone_scout/left.png",
+      "size": [
+        24,
+        26
+      ],
+      "visible_bounds": [
+        2,
+        2,
+        21,
+        25
+      ],
+      "sha256": "BF57426B46FA35B33734DECCA09A11B71844AFA00F1391F4C92354D1850183CD"
+    },
+    {
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/drone_scout/right.png",
+      "size": [
+        24,
+        26
+      ],
+      "visible_bounds": [
+        3,
+        2,
+        22,
+        25
+      ],
+      "sha256": "5F02577DB6BD0737CF9ECF2A6049742455DEA467C34E309D5C9986CD9EAD5EA7"
+    }
+  ]
+}

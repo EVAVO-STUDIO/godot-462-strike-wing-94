@@ -358,8 +358,8 @@ foreach ($Test in $Tests) {
         }
         $TestExitCode = $LASTEXITCODE
         if ($TestExitCode -eq 0) { break }
-        if ($TestExitCode -ne -1073741819 -or $Attempt -eq 5) { break }
-        Write-Warning "$Test encountered transient Godot shutdown access violation; retrying ($Attempt/5)."
+        if ($TestExitCode -notin @(-1073741819, -1) -or $Attempt -eq 5) { break }
+        Write-Warning "$Test encountered a transient Godot Windows shutdown fault ($TestExitCode); retrying ($Attempt/5)."
         Start-Sleep -Milliseconds 250
     }
     if ($TestExitCode -ne 0) { throw "$Test failed with exit code $TestExitCode" }
