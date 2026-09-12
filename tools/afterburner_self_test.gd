@@ -81,7 +81,7 @@ func _test_retro_sfx() -> void:
 		_expect(plume is Texture2D and plume.get_size() == Vector2(16,40), "blue plume should retain registered 16x40 canvas: %d" % index)
 	for index in 6:
 		var burst := load("res://assets/runtime/effects/persistent/hypersonic_engine_burst/%d.png" % index)
-		_expect(burst is Texture2D and burst.get_size() == Vector2(112,40), "engine burst should retain registered 112x40 canvas: %d" % index)
+		_expect(burst is Texture2D and burst.get_size() == Vector2(144,72), "engine burst should retain registered 144x72 condensation canvas: %d" % index)
 	for propulsion_asset in ["normal","burning","reserve_low","hypersonic_latched"]:
 		var propulsion_frame := load("res://assets/runtime/ui/hud/propulsion_instrument/%s.png" % propulsion_asset)
 		_expect(propulsion_frame is Texture2D and propulsion_frame.get_size() == Vector2(196,13), "propulsion instrument state should retain registered geometry: %s" % propulsion_asset)

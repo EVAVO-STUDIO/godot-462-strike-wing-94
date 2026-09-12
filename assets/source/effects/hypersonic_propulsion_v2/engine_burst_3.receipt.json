@@ -1,9 +1,9 @@
 {
-  "sourceWidth": 112,
-  "sourceHeight": 40,
+  "sourceWidth": 144,
+  "sourceHeight": 72,
   "sourceHasAlpha": true,
-  "outputWidth": 112,
-  "outputHeight": 40,
+  "outputWidth": 144,
+  "outputHeight": 72,
   "outputHasAlpha": true,
   "format": "png",
   "operations": [

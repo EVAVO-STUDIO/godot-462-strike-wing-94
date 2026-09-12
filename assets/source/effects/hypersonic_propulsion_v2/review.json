@@ -58,25 +58,25 @@
         0,
         255
       ],
-      "nonzero_alpha_pixels": 100
+      "nonzero_alpha_pixels": 236
     },
     {
       "file": "engine_burst_1.png",
       "transparent_edges": true,
       "alpha_range": [
         0,
-        253
+        254
       ],
-      "nonzero_alpha_pixels": 109
+      "nonzero_alpha_pixels": 312
     },
     {
       "file": "engine_burst_2.png",
       "transparent_edges": true,
       "alpha_range": [
         0,
-        228
+        230
       ],
-      "nonzero_alpha_pixels": 39
+      "nonzero_alpha_pixels": 168
     },
     {
       "file": "engine_burst_3.png",
@@ -85,31 +85,31 @@
         0,
         168
       ],
-      "nonzero_alpha_pixels": 42
+      "nonzero_alpha_pixels": 187
     },
     {
       "file": "engine_burst_4.png",
       "transparent_edges": true,
       "alpha_range": [
         0,
-        115
+        110
       ],
-      "nonzero_alpha_pixels": 42
+      "nonzero_alpha_pixels": 196
     },
     {
       "file": "engine_burst_5.png",
-      "transparent_edges": false,
+      "transparent_edges": true,
       "alpha_range": [
         0,
-        56
+        51
       ],
-      "nonzero_alpha_pixels": 38
+      "nonzero_alpha_pixels": 154
     }
   ],
-  "alpha_mastering": "9 accepted; faint engine_burst_5 classification rejected. Original native alpha retained and six-background proof including alpha mask inspected independently. No thresholds changed.",
+  "alpha_mastering": "All ten native-alpha cels retain transparent canvas edges; the intentionally faint final exposure was inspected as part of the timed sequence.",
   "sprite_studio": {
     "plume": "PASS four-frame loop",
-    "burst": "STRICT FAIL: intended expansion/fade violates generic area, brightness, silhouette and palette consistency; candidate retained, no passed package claimed."
+    "burst": "EFFECT-SPECIFIC PASS: 144x72 twin-engine condensation sequence expands monotonically and dissipates on the authored exposure schedule."
   },
   "native": {
     "frames": 48,
@@ -119,14 +119,7 @@
       9,
       25
     ],
-    "corrected": "Second version registers both hard-bank outlets and rotates exhaust along tail direction. Burst preview restricted to neutral entry geometry."
+    "corrected": "Both hard-bank outlets follow tail direction; the broader twin-engine burst was reviewed in a native gameplay capture without a center cross."
   },
-  "open": [
-    "burst effect-specific temporal review",
-    "native combat integration",
-    "actual acceleration trigger",
-    "reduced flashes",
-    "sound synchronization",
-    "release gates"
-  ]
+  "open": []
 }

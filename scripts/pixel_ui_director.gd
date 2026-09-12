@@ -734,10 +734,13 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 	_draw_tactical_radar(surface,scene)
 	_draw_surface_iff_markers(surface,scene)
 	# One shared information lane: urgent combat state always replaces routine mission data.
+	var guidance_occupies_top_lane := _first_sortie_guidance_active(scene)
 	if not _active_boss(scene).is_empty():
 		_draw_boss(surface, scene)
 	elif _has_threat_warning(scene):
 		_draw_threat(surface, scene)
+	elif guidance_occupies_top_lane:
+		pass
 	elif _ingress_time > 0.0:
 		_draw_mission_ingress(surface, scene)
 	else:
@@ -762,6 +765,10 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 				surface.draw_texture_rect(HUD_STATUS_FRAME, Rect2(180, 338, 280, 14), false)
 				PixelFont.draw_centered(surface, _clip(status, 46), 320, 341, 1, RED if airspace_priority else GOLD, 1)
 	_draw_lateral_airspace_warning(surface,scene)
+
+func _first_sortie_guidance_active(scene: Object) -> bool:
+	var guidance := get_node_or_null("/root/FirstSortieGuidanceDirector")
+	return guidance != null and guidance.has_method("guidance_for") and not (guidance.call("guidance_for",scene) as Dictionary).is_empty()
 
 func _draw_flight_instrument(surface: CanvasItem, scene: Object) -> void:
 	var position := Vector2(8,270)

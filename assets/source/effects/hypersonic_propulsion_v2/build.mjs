@@ -27,17 +27,23 @@ for(let i=0;i<4;i++){
  await cel(`blue_plume_${i}`,16,40,b);
 }
 for(let i=0;i<6;i++){
- let b='';let r=[5,10,17,25,34,43][i];let alpha=[.95,.9,.8,.66,.45,.22][i];
+ let b='';let r=[7,16,27,39,51,62][i];let alpha=[.98,.92,.82,.66,.43,.20][i];
  for(const side of [-1,1]){
-  const origin=48+(side<0?-6:5);
-  if(i<2)b+=rect(origin-2,5,4,9,'#e0f6ff',1-i*.25);
-  for(let j=0;j<6;j++){
-   const theta=.10+j*.235;const x=origin+side*r*Math.cos(theta);const y=8+r*.48*Math.sin(theta);
-   b+=rect(Math.round(x)-1,Math.round(y),j<3?3:2,1,i<3?'#b7e0ed':'#739fad',alpha);
-   if(j%2===0)b+=rect(Math.round(x)-2,Math.round(y)+2,2,1,'#426678',alpha*.6);
+  const origin=72+(side<0?-6:5);
+  if(i<2)b+=rect(origin-3,7,6,11,'#e9f9ff',1-i*.22)+rect(origin-5,11,10,5,'#8fd4ed',.62-i*.12);
+  for(let j=0;j<9;j++){
+   const theta=-.12+j*.205;const x=origin+side*r*Math.cos(theta);const y=13+r*.48*Math.sin(theta);
+   const width=j<4?4:3;
+   b+=rect(Math.round(x)-2,Math.round(y),width,2,i<3?'#c8eaf2':'#789fac',alpha);
+   if(j%2===0)b+=rect(Math.round(x)-3,Math.round(y)+3,3,1,'#446b79',alpha*.55);
   }
  }
- await cel(`engine_burst_${i}`,112,40,b);
+ if(i>=1&&i<=4){
+  const bridge=[9,16,22,27][i-1], gap=5+i*2, y=16+i*2;
+  b+=rect(72-bridge,y,bridge-gap,2,'#a9d6df',alpha*.42);
+  b+=rect(72+gap,y+1,bridge-gap,1,'#a9d6df',alpha*.34);
+ }
+ await cel(`engine_burst_${i}`,144,72,b);
 }
-await writeFile(base+'/manifest.json',JSON.stringify({status:'art_candidate_pending_native_review',source:'Original authored cels finished with EVAVO Art Studio',plumeAnchor:[8,4],burstAnchor:[48,8],engineOffsets:[[-6,30],[5,30]],plumeFps:16,burstDurationsMs:[35,45,55,65,75,85],files},null,2));
+await writeFile(base+'/manifest.json',JSON.stringify({status:'runtime_integrated',source:'Original authored cels finished with EVAVO Art Studio',plumeAnchor:[8,4],burstAnchor:[72,13],engineOffsets:[[-6,30],[5,30]],plumeFps:16,burstDurationsMs:[35,45,55,65,75,85],files},null,2));
 console.log('10 propulsion cels finished; original runtime effects preserved.');

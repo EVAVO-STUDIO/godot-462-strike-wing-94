@@ -21,6 +21,7 @@ func run() -> void:
 	var alpha_totals: Array[int] = []
 	for frame in Art.FRAMES["hypersonic_engine_burst"]:
 		var image: Image = frame.get_image()
+		check(image.get_size() == Vector2i(144,72), "Engine flash must retain the reviewed broad condensation canvas")
 		var min_x := image.get_width()
 		var max_x := -1
 		var total := 0

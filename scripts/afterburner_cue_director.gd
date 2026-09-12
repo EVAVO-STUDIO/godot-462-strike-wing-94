@@ -125,7 +125,7 @@ func draw_afterburner(surface: CanvasItem) -> void:
 			surface.draw_texture_rect(wake,Rect2((wake_center-wake_size*0.5).round(),wake_size),false,Color(0.78,0.92,1.0,wake_alpha))
 		if _boom_age < ENGINE_BURST_FRAME_ENDS[-1]:
 			var burst: Texture2D = PersistentEffectArtLibrary.FRAMES["hypersonic_engine_burst"][_engine_burst_frame(_boom_age)]
-			surface.draw_texture(burst, (p + Vector2(-48,22)).round(), Color(1,1,1,flash_scale))
+			surface.draw_texture(burst, (p + Vector2(-72,17)).round(), Color(1,1,1,flash_scale))
 
 func _draw_meter(surface: CanvasItem, scene: Object, ratio: float, charge_ratio: float, throttle: float, burning: bool, hypersonic: bool, speed_ratio: float) -> void:
 	var frame: Texture2D = PROPULSION_HYPERSONIC if hypersonic else (PROPULSION_RESERVE_LOW if ratio <= 0.20 else (PROPULSION_BURNING if burning else PROPULSION_NORMAL))

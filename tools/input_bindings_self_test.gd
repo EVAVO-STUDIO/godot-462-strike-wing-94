@@ -120,6 +120,8 @@ func _initialize() -> void:
 	_expect(guidance_source.contains('int(scene.get("mission_index")) != 0') and guidance_source.contains('str(scene.get("game_mode")) != "campaign"'), "first-sortie prompts must stay limited to Mission 1 campaign play")
 	_expect(guidance_source.contains('active_secret_mission_id') and guidance_source.contains('egress_active') and guidance_source.contains('ThreatWarningRules.homing_count'), "guidance should exclude secret sorties and react to real egress/threat state")
 	_expect(guidance_source.contains('InputMap.action_get_events') and guidance_source.contains('_keyboard_label'), "Mission 1 guidance should follow live rebound keyboard assignments")
+	var gameplay_hud_source := FileAccess.get_file_as_string("res://scripts/pixel_ui_director.gd")
+	_expect(gameplay_hud_source.contains("_first_sortie_guidance_active(scene)") and gameplay_hud_source.contains("guidance_occupies_top_lane"), "contextual flight guidance should own the shared top information lane instead of overlapping mission ingress")
 
 	bindings.free()
 	if failures.is_empty():
