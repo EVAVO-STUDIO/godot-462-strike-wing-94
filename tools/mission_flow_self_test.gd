@@ -105,6 +105,8 @@ func _test_overtime() -> void:
 		_expect(float(first.get("enemy_fire_interval_scale", 1.0)) >= 1.15, "Coastal Intercept should leave a readable novice response window between intact enemy volleys")
 		var first_objectives: Array = first.get("objectives", [])
 		_expect(first_objectives.any(func(objective: Dictionary) -> bool: return str(objective.get("type", "")) == "hypersonic_egress" and bool(objective.get("required", false))), "Coastal Intercept should author the extraction as a required HUD-visible objective")
+		var mountain_eye: Dictionary = missions.get("missions", [])[8]
+		_expect(str(mountain_eye.get("id", "")) == "s1_m09_mountain_eye" and float(mountain_eye.get("ingress_seconds", 0.0)) >= float(mountain_eye.get("encounter_beats", [])[0].get("at_seconds", 0.0)), "Mountain Eye should introduce its radar pursuit as the first threat instead of mixing an unseen ambient contact into the opening intercept")
 	_expect(not FileAccess.file_exists("res://scripts/mission_flow_director.gd"), "obsolete mission flow director should remain deleted")
 
 func _test_spawn_coverage() -> void:

@@ -188,6 +188,7 @@
       "environment_variant": "mountain_radar",
       "duration_seconds": 220,
       "starting_wave": 20,
+      "ingress_seconds": 7.0,
       "boss_id": "gunship_alpha",
       "briefing": "Climb through the Karakoram storm wall, blind the mercenary over-horizon radar and duel its command gunship above the snow line.",
       "encounter_beats": [
