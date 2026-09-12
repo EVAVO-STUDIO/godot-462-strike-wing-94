@@ -287,9 +287,9 @@ func _test_pixel_ui() -> void:
 		_expect(source.contains("func _tactical_radar_priority") and source.contains("func _tactical_radar_track_label"), "tactical radar should select and identify a prioritized forward track")
 		for track_code in ['kind = "MSL"','kind = "BOS"','kind = "ROE"','kind = "OBJ"','kind = "GND"','kind = "SEA"']:
 			_expect(source.contains(track_code), "tactical radar should expose track code: %s" % track_code)
-		for radar_asset in ["scope","player","air","ground","sea","boss","missile","objective","protected"]:
+		for radar_asset in ["scope","player","air","ground","sea","boss","missile","objective","protected","airframe_fighter","airframe_bomber"]:
 			var radar_texture := load("res://assets/runtime/ui/hud/tactical_radar/%s.png" % radar_asset)
-			var expected_size := Vector2(120,76) if radar_asset == "scope" else Vector2(8,8)
+			var expected_size := Vector2(100,80) if radar_asset == "scope" else (Vector2(42,42) if radar_asset.begins_with("airframe_") else Vector2(8,8))
 			_expect(radar_texture is Texture2D and radar_texture.get_size() == expected_size, "tactical radar art should retain registered geometry: "+radar_asset)
 		_expect(FileAccess.file_exists("res://assets/source/ui/hud/tactical_radar_v1/manifest.json"), "tactical radar source/runtime manifest should exist")
 		for hud_path in ["top_frame.png", "meter_trough.png", "hull_fill.png", "shield_fill.png", "energy_fill.png", "status_frame.png", "boss_frame.png", "boss_trough.png", "boss_fill.png", "threat_frame.png", "icon_bomb.png", "icon_wave.png", "icon_time.png", "icon_score.png", "afterburner_frame.png", "afterburner_trough.png", "afterburner_fill.png", "stability_trough.png", "stability_fill.png"]:
@@ -298,7 +298,7 @@ func _test_pixel_ui() -> void:
 			var meter_texture := load("res://assets/runtime/ui/hud/primary_meter_cluster/%s.png" % primary_meter)
 			_expect(meter_texture is Texture2D and meter_texture.get_size() == Vector2(92,25), "primary meter instrument should retain registered geometry: %s" % primary_meter)
 		_expect(FileAccess.file_exists("res://tools/build_primary_meter_art.ps1"), "primary meter sprites should remain reproducible from their governed SVG source")
-		_expect(source.contains('_draw_scope_bar(surface,scope_position+Vector2(5,4),"H"') and source.contains('Color(condition,0.92)'), "hull, shield and generator should live with the damage-coloured aircraft schematic")
+		_expect(source.contains('_draw_scope_bar(surface,scope_position+Vector2(5,4),"H"') and source.contains('Color(condition,0.90)') and source.contains("HUD_TACTICAL_RADAR_AIRFRAMES"), "hull, shield and generator should live with the damage-coloured authored aircraft schematic")
 		_expect(source.contains("FLIGHT_STATE_FRAME") and source.contains("ALTITUDE_STATES") and source.contains("FORM_STATES") and source.contains("TECH_STATES") and source.contains("func _draw_flight_state"), "flight state should use authored altitude, geometry and technology sprites")
 		var flight_state_sizes := {
 			"frame": Vector2(148,16), "altitude_rail": Vector2(24,12),

@@ -119,6 +119,10 @@ const HUD_ICON_WAVE := preload("res://assets/runtime/ui/hud/icon_wave.png")
 const HUD_ICON_TIME := preload("res://assets/runtime/ui/hud/icon_time.png")
 const HUD_ICON_SCORE := preload("res://assets/runtime/ui/hud/icon_score.png")
 const HUD_TACTICAL_RADAR_SCOPE := preload("res://assets/runtime/ui/hud/tactical_radar/scope.png")
+const HUD_TACTICAL_RADAR_AIRFRAMES := {
+	"fighter": preload("res://assets/runtime/ui/hud/tactical_radar/airframe_fighter.png"),
+	"bomber": preload("res://assets/runtime/ui/hud/tactical_radar/airframe_bomber.png"),
+}
 const HUD_OBJECTIVE_MARKER := preload("res://assets/runtime/ui/hud/tactical_radar/objective_marker.png")
 const HUD_PROTECTED_MARKER := preload("res://assets/runtime/ui/hud/tactical_radar/protected_marker.png")
 const HUD_TACTICAL_RADAR_CONTACTS := {
@@ -818,8 +822,7 @@ func _draw_tactical_radar(surface: CanvasItem, scene: Object) -> void:
 	# picture. Its smoked housing remains transparent enough to expose threats.
 	var scope_position := Vector2(532,270)
 	var scope_size := Vector2(100,80)
-	surface.draw_rect(Rect2(scope_position,scope_size),Color(0.012,0.030,0.040,0.34),true)
-	surface.draw_rect(Rect2(scope_position,scope_size),Color(0.27,0.63,0.66,0.38),false,1.0)
+	surface.draw_texture_rect(HUD_TACTICAL_RADAR_SCOPE,Rect2(scope_position,scope_size),false,Color(1,1,1,0.88))
 	_draw_aircraft_system_scope(surface,scene,scope_position)
 	var player: Vector2 = scene.get("player_position") if _has_property(scene,"player_position") else Vector2(320,250)
 	var contacts: Array = []
@@ -883,14 +886,12 @@ func _draw_aircraft_system_scope(surface: CanvasItem, scene: Object, scope_posit
 	_draw_scope_bar(surface,scope_position+Vector2(69,4),"E",energy_ratio,GOLD)
 	var center := scope_position+Vector2(50,59)
 	var condition := GREEN if hull_ratio > 0.55 else (GOLD if hull_ratio > 0.25 else RED)
-	var left_condition := GREEN if hull_ratio > 0.72 else (GOLD if hull_ratio > 0.38 else RED)
-	var right_condition := GREEN if hull_ratio > 0.48 else (GOLD if hull_ratio > 0.20 else RED)
-	# Blueprint planform parts remain readable individually as damage accumulates.
-	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(0,-15),center+Vector2(-4,-5),center+Vector2(-3,13),center+Vector2(0,17),center+Vector2(3,13),center+Vector2(4,-5)]),Color(condition,0.92))
-	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(-3,-3),center+Vector2(-19,8),center+Vector2(-18,12),center+Vector2(-2,7)]),Color(left_condition,0.78))
-	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(3,-3),center+Vector2(19,8),center+Vector2(18,12),center+Vector2(2,7)]),Color(right_condition,0.78))
-	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(-3,10),center+Vector2(-9,16),center+Vector2(-4,13)]),Color(left_condition,0.78))
-	surface.draw_colored_polygon(PackedVector2Array([center+Vector2(3,10),center+Vector2(9,16),center+Vector2(4,13)]),Color(right_condition,0.78))
+	var craft := surface.get_node_or_null("/root/CraftFormDirector")
+	var form := str(craft.call("current_form")) if craft != null and craft.has_method("current_form") else "fighter"
+	var blueprint: Texture2D = HUD_TACTICAL_RADAR_AIRFRAMES.get(form,HUD_TACTICAL_RADAR_AIRFRAMES["fighter"])
+	# Condition tint turns the authored technical drawing amber/red while its
+	# silhouette remains the same airframe the player is flying.
+	surface.draw_texture(blueprint,(center-Vector2(21,21)).round(),Color(condition,0.90))
 	var weapon := _call_dictionary(scene,"_active_weapon")
 	var twin := str(weapon.get("id","")).contains("twin") or str(weapon.get("name","")).to_upper().contains("TWIN")
 	var mount_color := BLUE if _primary_engagement_plane(scene,weapon) == "AIR" else GOLD

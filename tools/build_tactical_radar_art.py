@@ -7,30 +7,53 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 
 def frame():
-    image = Image.new("RGBA", (120, 76), (0, 0, 0, 0))
+    image = Image.new("RGBA", (100, 80), (0, 0, 0, 0))
     d = ImageDraw.Draw(image)
-    d.rectangle((0, 0, 119, 75), fill=(4, 12, 15, 218), outline=(75, 112, 116, 245))
-    d.rectangle((2, 2, 117, 73), outline=(18, 43, 48, 255))
-    d.polygon(((0, 0), (17, 0), (10, 4), (0, 4)), fill=(126, 154, 150, 230))
-    d.polygon(((119, 75), (102, 75), (109, 71), (119, 71)), fill=(72, 99, 101, 230))
-    d.rectangle((8, 12, 111, 68), fill=(5, 20, 20, 232), outline=(52, 95, 91, 255))
-    for y in range(16, 68, 4):
-        d.line((9, y, 110, y), fill=(12, 39, 37, 90))
+    # The terrain remains visible through the glass. Corners and broken rules
+    # imply a late-90s avionics bezel without laying a dark rectangle over play.
+    d.rectangle((1, 1, 98, 78), fill=(3, 14, 18, 66))
+    for a, b, c in [((1,9),(1,1),(14,1)),((85,1),(98,1),(98,9)),
+                    ((1,70),(1,78),(14,78)),((85,78),(98,78),(98,70))]:
+        d.line((a,b,c), fill=(82, 145, 145, 205), width=1)
+    d.line((5,14,31,14), fill=(75,132,128,150))
+    d.line((69,14,94,14), fill=(75,132,128,150))
+    for y in range(22, 75, 8):
+        d.line((7,y,92,y), fill=(20,60,59,35))
     # Forward-flight presentation: the narrow end is the long-range horizon and
     # the wide end is the aircraft. Three broken range gates read cleanly over
     # detailed terrain while retaining the late-90s monochrome scope character.
-    d.line((60, 14, 60, 66), fill=(52, 105, 94, 190))
-    d.line((35, 14, 48, 66), fill=(28, 66, 62, 140))
-    d.line((85, 14, 72, 66), fill=(28, 66, 62, 140))
-    for box in ((42, 20, 78, 43), (32, 25, 88, 58), (22, 31, 98, 73)):
+    d.line((50, 17, 50, 74), fill=(52, 105, 94, 110))
+    d.line((28, 18, 43, 74), fill=(28, 66, 62, 82))
+    d.line((72, 18, 57, 74), fill=(28, 66, 62, 82))
+    for box in ((34, 23, 66, 44), (25, 29, 75, 59), (16, 36, 84, 77)):
         d.arc(box, 202, 255, fill=(62, 120, 106, 190), width=1)
         d.arc(box, 285, 338, fill=(62, 120, 106, 190), width=1)
-    for y in (20, 31, 46):
-        d.line((57, y, 59, y), fill=(104, 174, 147, 230))
-        d.line((61, y, 63, y), fill=(104, 174, 147, 230))
-    d.rectangle((8, 7, 31, 9), fill=(61, 111, 99, 210))
-    d.rectangle((92, 7, 111, 9), fill=(31, 67, 64, 230))
+    for y in (24, 36, 51):
+        d.line((47, y, 49, y), fill=(104, 174, 147, 180))
+        d.line((51, y, 53, y), fill=(104, 174, 147, 180))
     image.save(OUT / "scope.png")
+
+
+def airframe_blueprint(name, bomber=False):
+    image = Image.new("RGBA", (42, 42), (0, 0, 0, 0))
+    d = ImageDraw.Draw(image)
+    ink = (134, 221, 202, 238)
+    dim = (57, 126, 122, 205)
+    # Orthographic VX-94 planform, drawn as broken technical contours rather
+    # than a filled arcade life icon. Bomber mode exposes the broader wing.
+    nose, tail = 3, 37
+    d.line((21,nose,18,11,18,31,21,tail), fill=ink, width=1)
+    d.line((21,nose,24,11,24,31,21,tail), fill=ink, width=1)
+    span = 18 if bomber else 14
+    shoulder = 15 if bomber else 18
+    d.line((18,shoulder,21-span,29,18,27), fill=ink, width=1)
+    d.line((24,shoulder,21+span,29,24,27), fill=ink, width=1)
+    d.line((18,30,12,36,19,33), fill=dim, width=1)
+    d.line((24,30,30,36,23,33), fill=dim, width=1)
+    d.line((19,12,23,12), fill=dim)
+    d.line((19,22,23,22), fill=dim)
+    d.point((21,8), fill=(216,239,217,255))
+    image.save(OUT / f"airframe_{name}.png")
 
 
 def icon(name, pixels, colour, shadow=True):
@@ -67,6 +90,8 @@ def world_marker(name, colour, protected=False):
 
 
 frame()
+airframe_blueprint("fighter")
+airframe_blueprint("bomber", True)
 icon("player", [(3,1),(2,2),(3,2),(4,2),(1,3),(2,3),(3,3),(4,3),(5,3),(3,4),(3,5)], (205,235,220,255))
 icon("air", [(3,1),(2,2),(4,2),(1,3),(5,3),(2,4),(3,4),(4,4)], (222,104,77,255))
 icon("ground", [(1,1),(2,1),(3,1),(4,1),(5,1),(1,2),(5,2),(1,3),(5,3),(1,4),(2,4),(3,4),(4,4),(5,4)], (226,189,83,255))
