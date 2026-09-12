@@ -422,6 +422,11 @@ func _test_visual_language() -> void:
 	var machine_hunter := load("res://assets/runtime/enemies/machine_air/drone_hunter_idle.png") as Texture2D
 	_expect(machine_hunter != null and machine_hunter.get_image().get_used_rect().size.x >= 26, "machine hunter should retain a broad twin-boom interceptor planform")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_hunter_v4/manifest.json"), "machine hunter level and bank cels should retain their authored v4 source manifest")
+	var machine_bomber := load("res://assets/runtime/enemies/machine_air/drone_bomber_idle.png") as Texture2D
+	var missile_node := load("res://assets/runtime/enemies/machine_air/drone_missile_node_idle.png") as Texture2D
+	_expect(machine_bomber != null and machine_bomber.get_image().get_used_rect().size.x >= 40, "machine bomber should retain its heavy flying-wing planform")
+	_expect(missile_node != null and missile_node.get_image().get_used_rect().size.x >= 34, "machine missile node should retain its four-coffin arsenal-aircraft planform")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/machine_air_heavy_v4/manifest.json"), "heavy machine aircraft should retain their authored level and bank source manifest")
 	var pursuit_animation_sizes := {
 		"ace_interceptor": Vector2(32,34),
 		"drone_hunter": Vector2(30,30),

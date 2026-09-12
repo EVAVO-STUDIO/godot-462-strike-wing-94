@@ -84,7 +84,7 @@
         44,
         38
       ],
-      "sha256": "479C668FB81480F1C455C56A00014A7E12C36DDE431432331E59739F5941EFCB",
+      "sha256": "EAE15827D833BE1D8EA296F78268B52073264CAF45D308A918966E4CB60BA97D",
       "center": [
         22,
         19
@@ -115,7 +115,7 @@
         38,
         36
       ],
-      "sha256": "D76CA4EE44B1335D0458891B25B89D4B1AA986DA1238432D0B4B77B0752763BA",
+      "sha256": "10CE9DAD8B9DF9811EBE26D0CF4CD0A7198448073300040AC7B664D079F20785",
       "center": [
         19,
         18
@@ -153,5 +153,6 @@
   },
   "remaining_animation_gate": [],
   "scout_override": "res://assets/source/enemies/machine_air_scout_v4/manifest.json",
-  "hunter_override": "res://assets/source/enemies/machine_air_hunter_v4/manifest.json"
+  "hunter_override": "res://assets/source/enemies/machine_air_hunter_v4/manifest.json",
+  "heavy_override": "res://assets/source/enemies/machine_air_heavy_v4/manifest.json"
 }

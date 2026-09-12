@@ -1,0 +1,118 @@
+{
+  "asset_family": "machine_air_heavy_v4",
+  "status": "runtime_integrated",
+  "visual_contract": [
+    "captured human aerospace ancestry",
+    "broad fixed-wing planforms",
+    "physically connected bays and launcher coffins",
+    "localized sensor and exhaust emission",
+    "coherent held bank poses",
+    "no humanoid silhouettes"
+  ],
+  "identities": {
+    "drone_bomber": "heavy unmanned flying-wing strike aircraft",
+    "drone_missile_node": "four-coffin autonomous arsenal aircraft"
+  },
+  "collision_policy": {
+    "drone_bomber": "existing fourteen-pixel gameplay radius remains authoritative",
+    "drone_missile_node": "existing thirteen-pixel gameplay radius remains authoritative"
+  },
+  "outputs": [
+    {
+      "id": "drone_bomber",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/machine_air/drone_bomber_idle.png",
+      "size": [
+        44,
+        38
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        43,
+        37
+      ],
+      "sha256": "EAE15827D833BE1D8EA296F78268B52073264CAF45D308A918966E4CB60BA97D"
+    },
+    {
+      "id": "drone_bomber",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/drone_bomber/left.png",
+      "size": [
+        44,
+        38
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        42,
+        37
+      ],
+      "sha256": "B25998CBBF68B74EEDB4B8C74E05C2783645DDC3C08F422A7BAC2F8E2AF0AA35"
+    },
+    {
+      "id": "drone_bomber",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/drone_bomber/right.png",
+      "size": [
+        44,
+        38
+      ],
+      "visible_bounds": [
+        3,
+        3,
+        43,
+        37
+      ],
+      "sha256": "1255A30D16F992F61BFAEF05F1115EBF4406014D80474691BA66AD0DAE52C334"
+    },
+    {
+      "id": "drone_missile_node",
+      "pose": "level",
+      "runtime": "assets/runtime/enemies/machine_air/drone_missile_node_idle.png",
+      "size": [
+        38,
+        36
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        37,
+        34
+      ],
+      "sha256": "10CE9DAD8B9DF9811EBE26D0CF4CD0A7198448073300040AC7B664D079F20785"
+    },
+    {
+      "id": "drone_missile_node",
+      "pose": "left",
+      "runtime": "assets/runtime/enemies/bank/drone_missile_node/left.png",
+      "size": [
+        38,
+        36
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        37,
+        34
+      ],
+      "sha256": "A1D89739E5AF808945F0D0449E13E209690F4D65EE77B38B14EF3887967DA555"
+    },
+    {
+      "id": "drone_missile_node",
+      "pose": "right",
+      "runtime": "assets/runtime/enemies/bank/drone_missile_node/right.png",
+      "size": [
+        38,
+        36
+      ],
+      "visible_bounds": [
+        2,
+        3,
+        37,
+        34
+      ],
+      "sha256": "E8F1DEFDA00FB5A251613F966A6B85FC6643BA8859B25D7942C19DE94BA45BF5"
+    }
+  ]
+}
