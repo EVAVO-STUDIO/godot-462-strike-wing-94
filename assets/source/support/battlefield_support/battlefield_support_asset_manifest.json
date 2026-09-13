@@ -24,7 +24,7 @@
         36
       ],
       "frames": 4,
-      "production_source": "res://assets/source/support/aircraft_v2/manifest.json"
+      "production_source": "res://assets/source/support/aircraft_v3/hammer_bomber_manifest.json"
     },
     "spectre_gunship": {
       "frame_size": [
@@ -35,5 +35,5 @@
     }
   },
   "layering": "Aircraft bodies are authored sprites; tanker hose, drogue, progress UI, gunship fire and target effects remain independent animated gameplay layers.",
-  "provenance": "Original EVAVO military art. Hammer and Atlas use authored Blender models and EVAVO Art/Sprite Studio finishing. Rapier v3 is a reference-bound provider-assisted repaint, mastered through EVAVO Art Studio and reduced through its hash-recorded deterministic builder. Retained earlier source families remain available."
+  "provenance": "Original EVAVO military art. Hammer v3 is authored directly at native resolution through its hash-recorded deterministic pixel/cel builder. Atlas retains its authored Blender source. Rapier v3 is a reference-bound provider-assisted repaint, mastered through EVAVO Art Studio and reduced through its hash-recorded deterministic builder. Retained earlier source families remain available."
 }

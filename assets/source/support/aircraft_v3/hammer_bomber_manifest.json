@@ -1,0 +1,21 @@
+{
+  "family": "hammer_bomber",
+  "version": 3,
+  "art_direction": "Native-scale late-1990s military pixel/cel strike aircraft with a broad delta mass, reinforced spine, recessed ordnance bay and restrained carrier-air-wing markings.",
+  "camera": "Orthographic top-down, nose-left master; runtime headings use the existing support-flight transform.",
+  "source": {
+    "builder": "tools/build_support_hammer_v3.py",
+    "builder_sha256": "0a84d8b52f1474db912e91c2b640eafe25c25ed9d048b7be3aa640e221312742",
+    "method": "Deterministic authored native-resolution pixel/cel construction; no provider render is promoted."
+  },
+  "runtime": {
+    "frame_size": [64, 36],
+    "frames": 4,
+    "animation": "Locked airframe identity with paired turbine heat and alternating navigation-light holds."
+  },
+  "review": {
+    "native_scale": "passed",
+    "runtime_capture": "work/support_hammer_v3_runtime.png",
+    "notes": "The live bomber pass preserves a clear heavy delta silhouette while the bay, canopy and engine pairs remain distinct from the Rapier fighter."
+  }
+}
