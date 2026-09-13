@@ -377,7 +377,7 @@ func _test_visual_language() -> void:
 	for frame_index in range(4):
 		var wake_frame := load("res://assets/runtime/effects/naval_wake/%d.png" % frame_index)
 		_expect(wake_frame is Texture2D and wake_frame.get_size() == Vector2(32,40), "naval wake frame should retain registered 32x40 geometry: %d" % frame_index)
-	_expect(source.contains("NAVAL_WAKE_FRAMES") and source.contains("func _draw_naval_unit") and source.contains("* 8.0") and source.contains("wake_length") and source.contains("lateral_velocity/forward_speed") and source.contains("Vector2.UP.angle_to(wake_direction)"), "naval production sprites should carry a restrained eight-fps authored wake cycle that lengthens with speed and bends through turns")
+	_expect(source.contains("NAVAL_WAKE_FRAMES") and source.contains("func _draw_naval_unit") and source.contains("* 8.0") and source.contains("wake_speed_ratio") and source.contains("turn_ratio") and source.contains("old_direction") and source.contains("Vector2.UP.angle_to(wake_direction)"), "naval production sprites should carry hull- and speed-scaled eight-fps wakes with retained previous-course cels through turns")
 	_expect(FileAccess.file_exists("res://assets/source/effects/naval_wake/naval_wake_asset_manifest.json"), "naval wake source/runtime manifest should exist")
 	for enemy_id in sea_sizes:
 		for pose_name in ["hard_left", "left", "neutral", "right", "hard_right"]:

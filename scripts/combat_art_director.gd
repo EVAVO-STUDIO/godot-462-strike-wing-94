@@ -2439,21 +2439,30 @@ func _draw_mech_component(surface: CanvasItem, texture: Texture2D, world_pivot: 
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 func _draw_naval_unit(surface: CanvasItem, p: Vector2, enemy_id: String, enemy: Dictionary, hull: Texture2D, scale: float) -> void:
-	var frame_index := int(floor(float(enemy.get("age", 0.0)) * 8.0)) % NAVAL_WAKE_FRAMES.size()
+	var frame_index := (int(floor(float(enemy.get("age", 0.0)) * 8.0))+absi(enemy_id.hash())%NAVAL_WAKE_FRAMES.size()) % NAVAL_WAKE_FRAMES.size()
 	var wake: Texture2D = NAVAL_WAKE_FRAMES[frame_index]
-	var wake_scale := scale * clampf(hull.get_width() / 40.0, 0.72, 1.15)
 	var forward_speed := maxf(32.0,float(enemy.get("speed",68.0)))
-	var wake_length := lerpf(0.82,1.34,clampf((forward_speed-40.0)/88.0,0.0,1.0))
+	var wake_speed_ratio := clampf((forward_speed-32.0)/96.0,0.0,1.0)
+	var wake_scale := scale * clampf(hull.get_width() / 42.0, 0.52, 1.32)
+	var wake_length := lerpf(0.68,1.58,wake_speed_ratio)
 	var lateral_velocity := float(enemy.get("lateral_velocity",0.0))
+	var turn_ratio := clampf(lateral_velocity/forward_speed,-0.32,0.32)
 	var heading_index := naval_heading_frame_index(lateral_velocity,forward_speed)
 	var heading_angle := float(NAVAL_HEADING_ANGLES[heading_index])
 	if NAVAL_HEADING_FRAMES.has(enemy_id):
 		hull = NAVAL_HEADING_FRAMES[enemy_id][heading_index]
-	var wake_direction := Vector2(-clampf(lateral_velocity/forward_speed,-0.32,0.32),-1.0).normalized()
+	var wake_direction := Vector2(-turn_ratio,-1.0).normalized()
 	var wake_extent := wake.get_height()*wake_scale*wake_length
 	var wake_center := p+wake_direction*(hull.get_height()*scale*0.5+wake_extent*0.42-4.0*scale)
+	# A turning hull leaves its older wake on the previous course. The secondary
+	# held cel creates a shallow curve without drawing a synthetic spline over water.
+	if absf(turn_ratio) >= 0.07:
+		var old_direction := Vector2(-turn_ratio*0.34,-1.0).normalized()
+		var old_center := wake_center+old_direction*wake_extent*0.46
+		surface.draw_set_transform(old_center.round(),Vector2.UP.angle_to(old_direction),Vector2(wake_scale*0.82,wake_scale*wake_length*0.74))
+		surface.draw_texture(NAVAL_WAKE_FRAMES[(frame_index+2)%NAVAL_WAKE_FRAMES.size()],-wake.get_size()*0.5,Color(0.68,0.78,0.82,0.28+0.18*wake_speed_ratio))
 	surface.draw_set_transform(wake_center.round(),Vector2.UP.angle_to(wake_direction),Vector2(wake_scale,wake_scale*wake_length))
-	surface.draw_texture(wake,-wake.get_size()*0.5,Color(0.72,0.82,0.86,0.68))
+	surface.draw_texture(wake,-wake.get_size()*0.5,Color(0.72,0.82,0.86,0.46+0.24*wake_speed_ratio))
 	surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 	_draw_production_sprite(surface, p, hull, scale)
 	var specialist: Dictionary = NAVAL_SPECIALIST_ART.get(enemy_id, {})
