@@ -5,7 +5,8 @@ extends RefCounted
 # while individual terrain layers retain their authored parallax scales.
 const ROUTE_PIXELS := 48.0
 const ANCHOR_Y := 230.0
-const RESPONSE := 1.85
+const ACCELERATION_RESPONSE := 3.60
+const RECOVERY_RESPONSE := 1.00
 
 static func target_offset(speed: float) -> float:
 	if speed <= 1.0:
@@ -17,9 +18,14 @@ static func target_offset(speed: float) -> float:
 	return -132.0 * (1.0 - exp(-0.85 * (speed - 1.0)))
 
 static func advance_offset(offset: float, speed: float, delta: float) -> float:
-	var projected := lerpf(offset, target_offset(speed), 1.0 - exp(-RESPONSE * maxf(0.0, delta)))
+	var target := target_offset(speed)
+	# Power application should punch the VX-94 into look-ahead quickly enough to
+	# sell the engine surge. Recovery is deliberately heavier so throttle-off
+	# flight settles aft instead of snapping like a screen-space cursor.
+	var response := ACCELERATION_RESPONSE if target < offset else RECOVERY_RESPONSE
+	var projected := lerpf(offset, target, 1.0 - exp(-response * maxf(0.0, delta)))
 	# Pulling the camera closer during deceleration must never reverse terrain.
-	return maxf(projected, offset - maxf(0.0, speed) * ROUTE_PIXELS * 0.8 * maxf(0.0, delta))
+	return maxf(projected, offset - maxf(0.0, speed) * ROUTE_PIXELS * 0.96 * maxf(0.0, delta))
 
 static func camera_distance(player_distance: float, offset: float) -> float:
 	return player_distance + offset / ROUTE_PIXELS
