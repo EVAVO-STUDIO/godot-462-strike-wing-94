@@ -1303,13 +1303,13 @@ func _has_property(subject: Object, property_name: String) -> bool:
 func _draw_player(surface: CanvasItem, scene: Object) -> void:
 	var pivot: Vector2 = scene.get("player_position") + _altitude_pitch_offset()
 	var visual_scale := _altitude_craft_scale()*_transform_craft_scale()
-	if not is_equal_approx(visual_scale,1.0):
+	if not visual_scale.is_equal_approx(Vector2.ONE):
 		# Scale absolute player-layer coordinates around the airframe centre. This
 		# modest pulse supplies depth while the environment performs the larger
 		# terrain/parallax transition behind the cloud-boundary occlusion.
-		surface.draw_set_transform(pivot*(1.0-visual_scale),0.0,Vector2.ONE*visual_scale)
+		surface.draw_set_transform(pivot*(Vector2.ONE-visual_scale),0.0,visual_scale)
 	_draw_player_unscaled(surface,scene)
-	if not is_equal_approx(visual_scale,1.0):
+	if not visual_scale.is_equal_approx(Vector2.ONE):
 		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 
 func _transform_craft_scale() -> float:
@@ -2953,16 +2953,19 @@ func _altitude_pitch_offset() -> Vector2:
 	# against the cloud boundary while remaining well inside the combat viewport.
 	return Vector2(0, -roundf(sin(ratio * PI) * 22.0 * float(direction)))
 
-func _altitude_craft_scale() -> float:
+func _altitude_craft_scale() -> Vector2:
 	var director := get_node_or_null("/root/CraftFormDirector")
 	if director == null or not director.has_method("altitude_transition_active") or not bool(director.call("altitude_transition_active")):
-		return 1.0
+		return Vector2.ONE
 	var ratio := clampf(float(director.call("altitude_transition_ratio")),0.0,1.0)
 	var direction := int(director.call("altitude_transition_direction"))
 	var depth_pulse := sin(ratio*PI)
-	# Climbing carries the craft away from the ground camera; diving brings it
-	# toward the camera. The prior ten-percent pulse disappeared in busy terrain.
-	return 1.0-depth_pulse*0.17 if direction > 0 else 1.0+depth_pulse*0.16
+	# Climbing carries the craft away from the ground camera and foreshortens its
+	# longitudinal axis; diving brings the nose toward the camera and lengthens
+	# that axis. Uniform scaling alone read as a size pulse rather than pitch.
+	var depth_scale := 1.0-depth_pulse*0.17 if direction > 0 else 1.0+depth_pulse*0.16
+	var longitudinal_scale := 1.0-depth_pulse*0.12 if direction > 0 else 1.0+depth_pulse*0.07
+	return Vector2(depth_scale,depth_scale*longitudinal_scale)
 
 func _craft_form() -> String:
 	if "--capture-gameplay" in OS.get_cmdline_user_args():
