@@ -618,7 +618,7 @@ func _test_transform_presentation() -> void:
 	var source := file.get_as_text()
 	_expect(source.contains("CraftFormRules.TRANSFORM_VISUAL_SECONDS"), "variable geometry sweep should consume the canonical near-one-second mechanical cadence")
 	_expect(source.contains("TRANSFORM_EXPOSURES := 10"), "variable geometry should retain ten deliberate animation exposures")
-	_expect(source.contains("func _draw_transform_motion_cues") and source.contains("_transform_motion_cache") and source.contains("middle_load") and source.contains("0.64 if foreground else 0.42") and not source.contains("start_left.lerp(end_left,progress)"), "variable geometry sweep should use registered cel overlays with a readable loaded-middle actuator exposure instead of runtime vector marks")
+	_expect(source.contains("func _draw_transform_motion_cues") and source.contains("_transform_motion_cache") and source.contains("middle_load") and source.contains("0.70 if foreground else 0.46") and not source.contains("start_left.lerp(end_left,progress)"), "variable geometry sweep should use registered cel overlays with a readable loaded-middle actuator exposure instead of runtime vector marks")
 	var transform_generator := FileAccess.get_file_as_string("res://assets/source/craft/vx94/transform_motion_cels/generate.py")
 	_expect(transform_generator.contains("two-pixel hinge glints") and not transform_generator.contains("fore.rectangle((hx - 2"), "VX-94 motion-cel sources should avoid square hinge brackets that resemble targeting UI")
 	_expect(source.contains("func _draw_hypersonic_sweep_condensation") and source.contains('PersistentEffectArtLibrary.FRAMES["contrail"]') and source.contains("for side in [-1.0,1.0]"), "hypersonic geometry sweep should carry paired wingtip condensation into the engine pressure break")
@@ -876,6 +876,8 @@ func _test_damage_state() -> void:
 	_expect(combat_source.contains('argument.begins_with("--capture-craft=")') and combat_source.contains('"layered-sweep"'), "visual QA should expose a simulation-isolated articulated VX-94 sweep fixture")
 	_expect(combat_source.contains('"hypersonic-sweep"') and combat_source.contains("_draw_transform_exposure"), "visual QA should expose both registered ten-exposure geometry families")
 	_expect(combat_source.contains("TRANSFORM_EXPOSURE_THRESHOLDS") and combat_source.contains("func _transform_exposure_index"), "VX-94 transformations should use authored cel holds and accelerated mechanical middle exposures")
+	var transform_motion_source := combat_source.get_slice("func _draw_transform_motion_cues",1).get_slice("func _draw_hypersonic_sweep_condensation",0)
+	_expect(transform_motion_source.contains("_transform_motion_cache") and transform_motion_source.contains("middle_load") and not transform_motion_source.contains("draw_line") and not transform_motion_source.contains("draw_circle"), "VX-94 wing motion should use registered actuator cels without procedural rigging marks")
 	var combat_art := CombatArtDirector.new()
 	var previous_transform_index := -1
 	for sample in range(101):

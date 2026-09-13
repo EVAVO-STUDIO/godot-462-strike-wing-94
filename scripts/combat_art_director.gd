@@ -1593,20 +1593,8 @@ func _draw_transform_motion_cues(surface: CanvasItem, p: Vector2, exposure: int,
 		# The registered hinge and actuator cels need to survive a detailed moving
 		# terrain field at 640x360. Their intensity peaks during the loaded middle
 		# travel, then disappears at both mechanically settled endpoints.
-		var cue_alpha := (0.64 if foreground else 0.42) + middle_load*(0.14 if foreground else 0.08)
+		var cue_alpha := (0.70 if foreground else 0.46) + middle_load*(0.18 if foreground else 0.10)
 		surface.draw_texture(texture, (p - VX94_GAMEPLAY_ANCHOR).round(), Color(0.82,0.94,1.0,cue_alpha))
-	if foreground and exposure > 0 and exposure < TRANSFORM_EXPOSURES-1:
-		# The 64-pixel craft needs a readable mechanical reference at native scale.
-		# Warm hinge lamps ride inward with the actual wing roots; a short cold
-		# actuator trace shows direction without becoming a HUD bracket or aura.
-		var sweep_ratio := float(exposure)/float(TRANSFORM_EXPOSURES-1)
-		var wing_x := lerpf(17.0,8.0,smoothstep(0.0,1.0,sweep_ratio))
-		var previous_x := lerpf(17.0,8.0,smoothstep(0.0,1.0,maxf(0.0,sweep_ratio-1.0/9.0)))
-		for side in [-1.0,1.0]:
-			var hinge := (p+Vector2(side*wing_x,7.0)).round()
-			var trace_start := (p+Vector2(side*previous_x,10.0)).round()
-			surface.draw_line(trace_start,hinge,Color(0.62,0.82,0.90,0.58+middle_load*0.18),1.0,false)
-			surface.draw_circle(hinge,1.35,Color(1.0,0.62,0.22,0.82),true,-1.0,false)
 
 func _draw_hypersonic_sweep_condensation(surface: CanvasItem, p: Vector2, exposure: int) -> void:
 	# Wing loading rises while the panels tuck. Two short vapor streamers follow
