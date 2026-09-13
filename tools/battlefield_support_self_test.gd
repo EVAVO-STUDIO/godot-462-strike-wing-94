@@ -84,6 +84,15 @@ func _test_production_art() -> void:
 	var hammer_manifest := FileAccess.get_file_as_string("res://assets/source/support/aircraft_v3/hammer_bomber_manifest.json")
 	var hammer_builder := FileAccess.get_file_as_string("res://tools/build_support_hammer_v3.py")
 	_expect(hammer_manifest.contains('"frame_size": [64, 36]') and hammer_manifest.contains("Deterministic authored native-resolution") and hammer_builder.contains("Image.Resampling.NEAREST") and hammer_builder.contains("recessed ventral strike bay"), "Hammer v3 should remain a deterministic native-scale heavy bomber with registered cel cadence")
+	_expect(FileAccess.file_exists("res://assets/source/support/aircraft_v3/spectre_gunship_manifest.json"), "Spectre v3 should retain its native-scale directional production manifest")
+	var spectre_manifest := FileAccess.get_file_as_string("res://assets/source/support/aircraft_v3/spectre_gunship_manifest.json")
+	var spectre_builder := FileAccess.get_file_as_string("res://tools/build_support_spectre_v3.py")
+	var support_library := FileAccess.get_file_as_string("res://scripts/battlefield_support_art_library.gd")
+	_expect(spectre_manifest.contains('"bank_poses": ["left", "level", "right"]') and spectre_builder.contains("Bank lighting is an authored state") and support_library.contains("frame_for_bank") and support_library.contains('"spectre_gunship"'), "Spectre v3 should use registered authored banking instead of rotating one flat card")
+	for bank_pose in ["left", "level", "right"]:
+		for frame_index in range(4):
+			var bank_frame := load("res://assets/runtime/support/battlefield/spectre_gunship/%s_%d.png" % [bank_pose, frame_index])
+			_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(96,56), "Spectre bank frame should retain registered geometry: %s/%d" % [bank_pose, frame_index])
 	var effect_sizes := {"tanker_hose":Vector2(64,32),"tanker_contact":Vector2(64,64),"tanker_meter_trough":Vector2(80,6),"tanker_meter_fill":Vector2(80,4),"strike_bomb":Vector2(16,32),"tracer":Vector2(64,8),"rail_beam":Vector2(12,64),"orbital_beam":Vector2(12,64),"orbital_impact":Vector2(48,48)}
 	for effect_name in effect_sizes:
 		var effect := load("res://assets/runtime/support/battlefield/effects/%s.png" % effect_name)

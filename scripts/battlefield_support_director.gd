@@ -466,7 +466,7 @@ func _draw_gunship_fire(surface: CanvasItem, progress: float) -> void:
 			surface.draw_texture_rect(impact,Rect2((target-impact_size*0.5).round(),impact_size.round()),false,Color(1.0,0.78,0.48,1.0-impact_ratio*0.46))
 
 func _draw_support_craft(surface: CanvasItem, position: Vector2, family: String, fps: float, flip_h := false, bank_angle := 0.0) -> void:
-	var texture := BattlefieldSupportArtLibrary.frame_for_clock(family, _animation_clock, fps)
+	var texture := BattlefieldSupportArtLibrary.frame_for_bank(family, _animation_clock, bank_angle, fps)
 	if texture != null:
 		var facing_scale := Vector2(-1,1) if flip_h else Vector2.ONE
 		# Registered contact shadow and short twin exhaust strokes seat support craft

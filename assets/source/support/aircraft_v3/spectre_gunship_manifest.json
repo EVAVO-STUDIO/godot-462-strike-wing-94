@@ -1,0 +1,21 @@
+{
+  "family": "spectre_gunship",
+  "version": 3,
+  "art_direction": "Native-scale late-1990s military pixel/cel gunship: armoured transport fuselage, four engine masses, sensor blister and an unmistakable offset broadside cannon battery.",
+  "camera": "Orthographic top-down, nose-left masters sharing one registered 96x56 canvas and pivot.",
+  "source": {
+    "builder": "tools/build_support_spectre_v3.py",
+    "builder_sha256": "4cbc24cdd89b02c061943471a2d53b358ba8a00f05a1c311776c0e0277429e68",
+    "method": "Deterministic authored native-resolution pixel/cel construction; no provider render is promoted."
+  },
+  "runtime": {
+    "frame_size": [96, 56],
+    "bank_poses": ["left", "level", "right"],
+    "cadence_frames_per_pose": 4,
+    "animation": "Bank-specific silhouettes change wing foreshortening and flank light while the locked aircraft construction retains engine and navigation-light cadence."
+  },
+  "review": {
+    "contact_sheet": "work/support_spectre_v3_contact.png",
+    "required_live_states": ["support_gunship_ingress", "support_gunship_fire", "support_gunship_egress"]
+  }
+}

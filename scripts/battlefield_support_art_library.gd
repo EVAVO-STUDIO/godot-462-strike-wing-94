@@ -8,6 +8,14 @@ const FAMILIES := {
 	"precision_missile": [preload("res://assets/runtime/effects/projectiles/support_rocket/0.png"), preload("res://assets/runtime/effects/projectiles/support_rocket/1.png"), preload("res://assets/runtime/effects/projectiles/support_rocket/2.png"), preload("res://assets/runtime/effects/projectiles/support_rocket/3.png")],
 }
 
+const BANK_FAMILIES := {
+	"spectre_gunship": {
+		"left": [preload("res://assets/runtime/support/battlefield/spectre_gunship/left_0.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/left_1.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/left_2.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/left_3.png")],
+		"level": [preload("res://assets/runtime/support/battlefield/spectre_gunship/level_0.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/level_1.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/level_2.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/level_3.png")],
+		"right": [preload("res://assets/runtime/support/battlefield/spectre_gunship/right_0.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/right_1.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/right_2.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/right_3.png")],
+	}
+}
+
 const STRIKE_CEL := {
 	"missile_impact": [preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0000.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0001.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0002.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0003.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0004.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0005.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0006.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0007.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0008.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0009.png"), preload("res://assets/runtime/effects/weapon_explosions/missile/frame_0010.png")],
 	"bomb_impact": [preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0000.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0001.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0002.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0003.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0004.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0005.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0006.png"), preload("res://assets/runtime/effects/weapon_explosions/rocket/frame_0007.png")],
@@ -46,6 +54,16 @@ static func frame_for_clock(family: String, clock: float, fps: float = 8.0) -> T
 	var frames: Array = FAMILIES.get(family, [])
 	if frames.is_empty():
 		return null
+	return frames[int(floor(clock * fps)) % frames.size()]
+
+static func frame_for_bank(family: String, clock: float, bank_angle: float, fps: float = 8.0) -> Texture2D:
+	var family_banks: Dictionary = BANK_FAMILIES.get(family, {})
+	if family_banks.is_empty():
+		return frame_for_clock(family, clock, fps)
+	var pose := "left" if bank_angle < deg_to_rad(-3.0) else ("right" if bank_angle > deg_to_rad(3.0) else "level")
+	var frames: Array = family_banks.get(pose, [])
+	if frames.is_empty():
+		return frame_for_clock(family, clock, fps)
 	return frames[int(floor(clock * fps)) % frames.size()]
 
 static func effect(name: String) -> Texture2D:
