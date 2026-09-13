@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "evavo.game-hud-review-request.v1",
+  "projectId": "EVAVO-STUDIO/godot-462-strike-wing-94",
+  "genreProfile": "vertical-combat",
+  "logicalViewport": {"width": 640, "height": 360},
+  "criticalDecisions": ["survivability", "threat-direction", "active-weapon", "altitude-form-engagement", "speed-route"],
+  "styleContract": {
+    "visualPeriod": "late-1990s PC combat avionics",
+    "fiction": "believable imagined-future VX-94 military instrumentation",
+    "nativePixelGrid": 1,
+    "typography": "compact bitmap capitals with tabular numerals",
+    "iconLanguage": "top-down technical silhouettes and one-pixel vector marks",
+    "framingLanguage": "thin hard-corner dark avionics bezels with clipped corners",
+    "opacityHierarchy": [0.12, 0.24, 0.78],
+    "semanticColors": {"nominal": "muted cyan", "route": "desaturated green", "caution": "amber", "danger": "signal red", "structure": "blue-white"}
+  },
+  "elements": [
+    {"id": "flight-cluster", "rect": {"x": 14, "y": 314, "width": 288, "height": 38}, "persistence": "permanent", "priority": "critical", "opacity": 0.24, "cluster": "lower-left", "decisionIds": ["altitude-form-engagement", "speed-route"], "adaptiveHousing": {"trigger": "gameplay-overlap", "yieldOpacity": 0.10}},
+    {"id": "airframe-radar-cluster", "rect": {"x": 544, "y": 272, "width": 88, "height": 80}, "persistence": "permanent", "priority": "critical", "opacity": 0.24, "cluster": "lower-right", "decisionIds": ["survivability", "threat-direction", "active-weapon"], "adaptiveHousing": {"trigger": "gameplay-overlap", "yieldOpacity": 0.10}},
+    {"id": "missile-warning", "rect": {"x": 492, "y": 250, "width": 140, "height": 16}, "persistence": "transient", "priority": "critical", "opacity": 0.78, "cluster": "lower-right"},
+    {"id": "boss-integrity", "rect": {"x": 214, "y": 8, "width": 212, "height": 14}, "persistence": "contextual", "priority": "tactical", "opacity": 0.34, "cluster": "boss"}
+  ],
+  "states": [
+    {"id": "steady-cruise", "visibleElementIds": ["flight-cluster", "airframe-radar-cluster"], "capture": "work/hud_steady_cruise_v4.png"},
+    {"id": "dense-combat", "visibleElementIds": ["flight-cluster", "airframe-radar-cluster"], "gameplayOverlapElementIds": ["airframe-radar-cluster"], "capture": "work/hud_review_current.png"},
+    {"id": "missile-warning", "visibleElementIds": ["flight-cluster", "airframe-radar-cluster", "missile-warning"], "capture": "work/hud_missile_warning_compact_v1.png"},
+    {"id": "altitude-transition", "visibleElementIds": ["flight-cluster", "airframe-radar-cluster"], "capture": "work/altitude_climb_foreshortened.png"},
+    {"id": "boss", "visibleElementIds": ["flight-cluster", "airframe-radar-cluster", "boss-integrity"], "capture": "work/boss_hud_compact_v2.png"}
+  ]
+}
