@@ -5,11 +5,13 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT=Path(__file__).resolve().parents[4]; SOURCE=ROOT/"assets/source/enemies/infantry_topdown_v3"; RUNTIME=ROOT/"assets/runtime/enemies/infantry_layered"
-INK=(8,12,12,255); OLIVE=(65,75,48,255); OLIVE_L=(103,105,67,255); HELMET=(180,170,112,255); SKIN=(151,112,75,255); GUN=(77,87,87,255); STEEL=(147,157,153,255); TAN=(137,112,72,255); FLASH=(255,222,111,255)
+# Restrained late-90s field palette. Infantry must read as cloth, webbing and
+# blued steel embedded in the terrain, never as luminous radar symbology.
+INK=(12,16,15,255); OLIVE=(48,54,38,255); OLIVE_L=(80,82,53,255); HELMET=(119,111,73,255); SKIN=(126,91,61,255); GUN=(53,62,62,255); STEEL=(108,117,114,255); TAN=(101,81,53,255); FLASH=(255,211,102,255)
 
 def soldier(size,pose="advance",role="rifle",step=0):
     w,h=size; x=w//2; im=Image.new("RGBA",size,(0,0,0,0));d=ImageDraw.Draw(im)
-    head_y=2; d.ellipse((x-2,head_y-1,x+2,head_y+3),fill=INK);d.ellipse((x-1,head_y,x+1,head_y+2),fill=HELMET);d.point((x,head_y),fill=(218,205,139,255))
+    head_y=2; d.ellipse((x-2,head_y-1,x+2,head_y+3),fill=INK);d.ellipse((x-1,head_y,x+1,head_y+2),fill=HELMET);d.point((x,head_y),fill=(174,161,103,255))
     if pose in ("kneel","kneel_fire"):
         d.polygon([(x-3,4),(x+3,4),(x+2,8),(x-2,8)],fill=OLIVE_L);d.line([(x-2,7),(x-4,9)],fill=OLIVE,width=2);d.line([(x+2,7),(x+4,9)],fill=OLIVE,width=2)
     else:

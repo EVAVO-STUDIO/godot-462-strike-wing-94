@@ -2388,19 +2388,15 @@ func _draw_infantry_team(surface: CanvasItem, p: Vector2, enemy_id: String, enem
 		_draw_infantry_muzzle(surface, p + Vector2(0,17) * scale, recoil_ratio, scale)
 
 func _draw_infantry_member(surface: CanvasItem, center: Vector2, texture: Texture2D, scale: float) -> void:
-	# Human-scale units need registered contact shadows and a restrained value
-	# lift to stay legible over refinery pipework, rock and snow at native scale.
-	# The authored sprite remains the silhouette and supplies every interior mark.
+	# Human-scale units need registered contact shadows to stay legible over
+	# refinery pipework, rock and snow. The authored cel supplies the complete
+	# material read; a second additive pass made field uniforms resemble HUD icons.
 	var shadow_size := Vector2(maxf(7.0, texture.get_width() * 0.82), 4.0) * scale
 	var shadow_center := center + Vector2(2.0, 3.5) * scale
 	surface.draw_set_transform(shadow_center.round(), 0.0, Vector2(1.0, shadow_size.y / shadow_size.x))
 	surface.draw_circle(Vector2.ZERO, shadow_size.x * 0.5, Color(0.02,0.025,0.03,0.36), true, -1, false)
 	surface.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	_draw_production_sprite(surface, center, texture, scale)
-	var size := texture.get_size() * scale
-	# A faint warm optical lift separates cloth from the terrain. Keep this below
-	# selection-highlight strength so the squad remains part of the ground plate.
-	surface.draw_texture_rect(texture, Rect2((center-size*0.5).round(),size.round()), false, Color(1.10,1.08,1.02,0.20))
 
 func _draw_infantry_effect(surface: CanvasItem, center: Vector2, texture: Texture2D, scale: float) -> void:
 	var size := texture.get_size() * scale
