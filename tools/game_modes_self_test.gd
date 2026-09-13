@@ -94,7 +94,7 @@ func _run() -> void:
 	_expect(save_source.contains("_campaign_mode(scene)"),"alternate modes should be isolated from persistent campaign saves",failures)
 	var ui_source := _source("res://scripts/pixel_ui_director.gd")
 	_expect(ui_source.contains("ARCADE / CHALLENGE OPERATIONS") and ui_source.contains("MODE_EMBLEMS"),"front end should expose a dedicated authored mode board",failures)
-	_expect(ui_source.contains("_draw_mode_run_state") and ui_source.contains("MODE_RUN_FRAME"),"live alternate sorties should expose route, airframes, and banked run score",failures)
+	_expect(ui_source.contains("_compact_mode_run_state") and ui_source.contains('flight_state += "  "+_compact_mode_run_state(scene)') and not ui_source.contains("_draw_mode_run_state"),"live alternate sorties should consolidate route and airframes into the lower-left flight instrument instead of covering the radar",failures)
 	_expect(ui_source.contains('BEST %08d  CLEAR %02d') and ui_source.contains('scene.get("mode_records")'),"mode board should expose persistent best score and clear history",failures)
 	_expect(ui_source.contains("LOCKED // CLEAR BLACK SKY") and ui_source.contains("CAMPAIGN CLEAR REQUIRED"),"mode board should communicate the post-game unlock gate",failures)
 	if failures.is_empty():

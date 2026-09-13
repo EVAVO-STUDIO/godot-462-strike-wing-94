@@ -35,7 +35,6 @@ const MODE_EMBLEMS := {
 	"hypersonic": preload("res://assets/runtime/ui/modes/hypersonic.png"),
 	"strike": preload("res://assets/runtime/ui/modes/strike.png"),
 }
-const MODE_RUN_FRAME := preload("res://assets/runtime/ui/modes/mode_run_frame.png")
 const OPTIONS_ROW_IDLE := preload("res://assets/runtime/ui/menu/system_options/row_idle.png")
 const OPTIONS_ROW_SELECTED := preload("res://assets/runtime/ui/menu/system_options/row_selected.png")
 const OPTIONS_VALUE_TROUGH := preload("res://assets/runtime/ui/menu/system_options/value_trough.png")
@@ -745,7 +744,6 @@ func _draw_gameplay_hud(surface: CanvasItem, scene: Object) -> void:
 		_draw_mission_ingress(surface, scene)
 	else:
 		_draw_objective_tracker(surface, scene)
-	_draw_mode_run_state(surface, scene)
 	var capture_countermeasure := "--capture-countermeasure" in OS.get_cmdline_user_args()
 	if float(scene.get("status_timer")) > 0.0 or capture_countermeasure:
 		var status := str(scene.get("status_text"))
@@ -781,6 +779,7 @@ func _draw_flight_instrument(surface: CanvasItem, scene: Object) -> void:
 	var altitude_choice := _compact_altitude_choice()
 	var flight_state := "%s / %s / %s" % [_short_altitude(),_compact_form_state(),_primary_engagement_plane(scene,weapon)]
 	if not altitude_choice.is_empty(): flight_state=altitude_choice
+	elif show_score: flight_state += "  "+_compact_mode_run_state(scene)
 	PixelFont.draw_text(surface,flight_state,position+Vector2(6,5),1,GOLD if _form_transition_active() or not altitude_choice.is_empty() else BLUE,1)
 	var remaining := maxi(0,int(ceil(float(scene.get("mission_duration"))-float(scene.get("mission_time")))))
 	if scene.has_method("mission_remaining_seconds"):
@@ -1030,26 +1029,18 @@ func _radio_occupies_status_lane() -> bool:
 	var radio := get_node_or_null("/root/MissionRadioDirector")
 	return radio != null and radio.has_method("occupies_status_lane") and bool(radio.call("occupies_status_lane"))
 
-func _draw_mode_run_state(surface: CanvasItem, scene: Object) -> void:
-	if not _has_property(scene, "game_mode") or str(scene.get("game_mode")) == "campaign":
-		return
+func _compact_mode_run_state(scene: Object) -> String:
 	var labels := {
-		"arcade_assault": "ASSAULT",
-		"boss_rush": "BOSS",
-		"hypersonic_trial": "TRIAL",
-		"strike_mastery": "STRIKE",
+		"arcade_assault": "AS",
+		"boss_rush": "BR",
+		"hypersonic_trial": "HT",
+		"strike_mastery": "SM",
 	}
 	var mode_id := str(scene.get("game_mode"))
 	var route := int(scene.get("mode_route_index")) + 1 if _has_property(scene, "mode_route_index") else 1
 	var total := int(scene.get("mode_route_total")) if _has_property(scene, "mode_route_total") else 1
 	var lives := int(scene.get("mode_lives")) if _has_property(scene, "mode_lives") else 0
-	var run_score := int(scene.get("mode_total_score")) + int(scene.get("score")) if _has_property(scene, "mode_total_score") else int(scene.get("score"))
-	var position := Vector2(420, 316)
-	surface.draw_texture(MODE_RUN_FRAME, position)
-	PixelFont.draw_text(surface, str(labels.get(mode_id, "SPECIAL")), position + Vector2(9, 7), 1, BLUE, 1)
-	PixelFont.draw_text(surface, "%02d/%02d" % [route, total], position + Vector2(68, 7), 1, TEXT, 1)
-	PixelFont.draw_text(surface, "A%02d" % lives, position + Vector2(122, 7), 1, GOLD, 1)
-	PixelFont.draw_text(surface, "%08d" % run_score, position + Vector2(151, 7), 1, TEXT, 1)
+	return "%s%02d/%02d A%d" % [str(labels.get(mode_id,"SP")),route,total,lives]
 
 func _draw_secret_discovery(surface: CanvasItem, status: String, remaining: float) -> void:
 	var position := Vector2(160, 38)
