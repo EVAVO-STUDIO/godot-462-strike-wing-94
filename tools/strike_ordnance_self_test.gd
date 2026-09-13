@@ -112,6 +112,7 @@ func _test_source_wiring() -> void:
 		_expect(source.contains("maxi(1, hp - damage)"), "strike ordnance must remain nonlethal against bosses")
 		_expect(source.contains("AIM_LATTICE") and source.contains("BLAST_ENVELOPE") and source.contains("PRIORITY_FRAME") and source.contains("IMPACT_MARKER") and source.contains("GUIDANCE_RIBBON"), "bomber targeting should use the complete authored strike-HUD sprite kit")
 		_expect(source.contains("expanded_solution := assisted or stable or not roe_clear") and source.contains("dormant_size := Vector2.ONE*16.0"), "unacquired bomber aim should collapse to a small dormant impact cue")
+		_expect(source.contains("shadow_separation") and source.contains("bomb_angle") and source.contains("lerpf(1.35, 0.72, travel)"), "released strike ordnance should remain readable, align to its ballistic path and carry ground-plane depth separation")
 		_expect(source.contains('PixelFont.draw_centered(surface,"ROE"') and source.contains("blast_tint := Color(1.0,0.34,0.20,0.88)"), "protected-site danger should expand a red blast envelope with a terse ROE warning")
 		_expect(not source.contains("draw_arc") and not source.contains("draw_circle") and not source.contains("draw_line") and not source.contains("draw_rect"), "bomber targeting should not regress to vector circles, lines or boxes")
 	var targeting_sizes := {"aim_lattice":Vector2(64,64),"blast_envelope":Vector2(64,64),"priority_frame":Vector2(32,32),"impact_marker":Vector2(32,32),"guidance_ribbon":Vector2(64,8)}
@@ -119,6 +120,10 @@ func _test_source_wiring() -> void:
 		var texture := load("res://assets/runtime/ui/hud/strike_targeting/%s.png" % asset_name)
 		_expect(texture is Texture2D and texture.get_size() == targeting_sizes[asset_name], "strike targeting sprite should retain registered geometry: %s" % asset_name)
 	_expect(FileAccess.file_exists("res://assets/source/ui/hud/strike_targeting_manifest.json"), "strike targeting source/runtime manifest should exist")
+	for frame_index in range(4):
+		var bomb_texture := load("res://assets/runtime/effects/projectiles/precision_bomb/%d.png" % frame_index)
+		_expect(bomb_texture is Texture2D and bomb_texture.get_size() == Vector2(16,24), "precision bomb roll exposure should retain authored 16x24 geometry: %d" % frame_index)
+	_expect(FileAccess.file_exists("res://assets/source/effects/precision_bomb_v2/manifest.json"), "precision bomb source/runtime manifest should exist")
 	var dock_sizes := {"strike_frame":Vector2(196,15), "icon_bomb":Vector2(12,12), "icon_lock":Vector2(12,12), "icon_route":Vector2(12,12), "icon_safe":Vector2(12,12), "icon_stable":Vector2(12,12)}
 	for asset_name in dock_sizes:
 		var dock_texture := load("res://assets/runtime/ui/hud/lower_systems_dock/%s.png" % asset_name)

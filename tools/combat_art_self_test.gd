@@ -911,7 +911,8 @@ func _test_projectile_art() -> void:
 	if strike_source != null:
 		var source := strike_source.get_as_text()
 		_expect(source.contains("PRECISION_BOMB_FRAMES") and source.contains("bomb_texture"), "precision strike ordnance should use the authored tumble frames")
-		_expect(source.contains('"--capture-bomb-flight"') and source.contains("bomb_position - bomb_size * 0.5"), "precision-bomb QA should preserve a centered tumbling airframe on its real delivery path")
+		_expect(source.contains('"--capture-bomb-flight"') and source.contains("draw_set_transform(bomb_position.round(),bomb_angle,Vector2.ONE)"), "precision-bomb QA should preserve a centered tumbling airframe aligned to its real delivery path")
+	_expect(FileAccess.file_exists("res://assets/source/effects/precision_bomb_v2/manifest.json"), "precision-bomb v2 source/runtime manifest should exist")
 
 func _test_impact_art() -> void:
 	var families := ["muzzle", "rotary_muzzle", "armor_hit", "shield_hit", "bomb_impact", "emp_disruption", "water_impact", "dust_impact"]

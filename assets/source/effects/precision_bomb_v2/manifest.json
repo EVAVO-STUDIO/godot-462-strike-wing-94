@@ -1,0 +1,73 @@
+{
+  "asset_family": "vx94_precision_bomb_v2",
+  "status": "runtime_integrated",
+  "projection": "top-down guided bomb, nose downscreen",
+  "visual_contract": [
+    "dark outline remains legible over terrain",
+    "steel body cannot be mistaken for a tracer or HUD marker",
+    "tail fins and guidance band survive native gameplay scale",
+    "four exposures imply axial roll without changing topology"
+  ],
+  "outputs": [
+    {
+      "frame": 0,
+      "runtime": "assets/runtime/effects/projectiles/precision_bomb/0.png",
+      "size": [
+        16,
+        24
+      ],
+      "visible_bounds": [
+        5,
+        2,
+        12,
+        23
+      ],
+      "sha256": "D0F40F3C98DEE2353737DF29229968EA40C7B36EE0159CB9FA4E42ECACC2A049"
+    },
+    {
+      "frame": 1,
+      "runtime": "assets/runtime/effects/projectiles/precision_bomb/1.png",
+      "size": [
+        16,
+        24
+      ],
+      "visible_bounds": [
+        5,
+        2,
+        12,
+        23
+      ],
+      "sha256": "36838CFAEEA02CB01A61E072B2AB8A89ACB10380B83699573C68B26B91CE5458"
+    },
+    {
+      "frame": 2,
+      "runtime": "assets/runtime/effects/projectiles/precision_bomb/2.png",
+      "size": [
+        16,
+        24
+      ],
+      "visible_bounds": [
+        4,
+        2,
+        11,
+        23
+      ],
+      "sha256": "85A46A53E92C82F5140FC1177F5B76837479DC3C09ED8D40901354B9BFF15E98"
+    },
+    {
+      "frame": 3,
+      "runtime": "assets/runtime/effects/projectiles/precision_bomb/3.png",
+      "size": [
+        16,
+        24
+      ],
+      "visible_bounds": [
+        4,
+        2,
+        11,
+        23
+      ],
+      "sha256": "3D6216A85DA5CE5E745B90FD62604C37E575DBC50EBF2D2A3FEBB22D30708954"
+    }
+  ]
+}

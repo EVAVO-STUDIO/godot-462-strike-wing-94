@@ -324,15 +324,26 @@ func _draw_surface(surface: CanvasItem) -> void:
 		var progress := 1.0 - remaining
 		var travel := smoothstep(0.0, 1.0, progress)
 		var bomb_position := release.lerp(point, travel)
-		var bomb_scale := lerpf(1.0, 0.45, travel)
+		# Keep the released weapon legible as a physical object. It recedes toward
+		# the ground plane, but the old 45-percent endpoint reduced it to a spark
+		# while the targeting marker became the apparent projectile.
+		var bomb_scale := lerpf(1.35, 0.72, travel)
 		var color := Color(0.42, 0.96, 0.62, 0.78) if bool(item.get("priority_lock", false)) else Color(1.0, 0.48, 0.20, 0.7)
-		var marker_size := Vector2.ONE * (18.0 + 14.0 * progress)
-		surface.draw_texture_rect(IMPACT_MARKER, Rect2(point - marker_size * 0.5, marker_size), false, color)
-		_draw_effect_between(surface, GUIDANCE_RIBBON, release, point, 3.0, Color(color.r,color.g,color.b,0.18))
+		var marker_size := Vector2.ONE * (12.0 + 8.0 * progress)
+		surface.draw_texture_rect(IMPACT_MARKER, Rect2(point - marker_size * 0.5, marker_size), false, Color(color.r,color.g,color.b,color.a*0.62))
+		_draw_effect_between(surface, GUIDANCE_RIBBON, release, point, 2.0, Color(color.r,color.g,color.b,0.07))
 		var bomb_frame_index := int(floor(progress * 10.0)) % PRECISION_BOMB_FRAMES.size()
 		var bomb_texture: Texture2D = PRECISION_BOMB_FRAMES[bomb_frame_index]
 		var bomb_size := (bomb_texture.get_size() * bomb_scale).round()
-		surface.draw_texture_rect(bomb_texture, Rect2((bomb_position - bomb_size * 0.5).round(), bomb_size), false)
+		var shadow_separation := lerpf(15.0,2.0,travel)
+		var shadow_size := Vector2(bomb_size.x*1.35,bomb_size.y*0.42).round()
+		var shadow_position := bomb_position+Vector2(7.0,shadow_separation)
+		surface.draw_texture_rect(bomb_texture,Rect2((shadow_position-shadow_size*0.5).round(),shadow_size),false,Color(0.02,0.025,0.026,0.34*(1.0-travel*0.45)))
+		var trajectory := release.direction_to(point)
+		var bomb_angle := trajectory.angle()-PI*0.5 if trajectory.length_squared()>0.001 else 0.0
+		surface.draw_set_transform(bomb_position.round(),bomb_angle,Vector2.ONE)
+		surface.draw_texture_rect(bomb_texture,Rect2((-bomb_size*0.5).round(),bomb_size),false)
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 
 func _draw_strike_status(surface: CanvasItem, altitude: String, assisted: bool, priority: bool, stable: bool) -> void:
 	var transition_active := _altitude_transition_active()
