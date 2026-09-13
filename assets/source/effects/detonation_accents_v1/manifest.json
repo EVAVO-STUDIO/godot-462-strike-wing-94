@@ -1,0 +1,92 @@
+{
+  "asset_family": "detonation_accents_v1",
+  "style": "registered late-90s pixel-cel ignition and incandescent metal",
+  "contract": [
+    "transparent RGBA",
+    "no procedural circles",
+    "no vector-line fragments",
+    "deterministic four-exposure animation"
+  ],
+  "outputs": [
+    {
+      "family": "ignition_flash",
+      "frame": 0,
+      "size": [
+        32,
+        32
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/ignition_flash/0.png",
+      "sha256": "6DBF5BD5A78C8FF38FCA8D95CD75A9D7112D6358B8642131992EFB8DF9425653"
+    },
+    {
+      "family": "ignition_flash",
+      "frame": 1,
+      "size": [
+        32,
+        32
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/ignition_flash/1.png",
+      "sha256": "29D8D3F5990183C8197A7ABD0B1BCB200CAEDB176B9D9D982D27754460C983D3"
+    },
+    {
+      "family": "ignition_flash",
+      "frame": 2,
+      "size": [
+        32,
+        32
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/ignition_flash/2.png",
+      "sha256": "861B6800B363063A41E95C437D6548312B06AB76973124642DD3B72B941ED6EB"
+    },
+    {
+      "family": "ignition_flash",
+      "frame": 3,
+      "size": [
+        32,
+        32
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/ignition_flash/3.png",
+      "sha256": "C1A6127CF1E4D478B55A9948D19B7FFA6069BD5F65AEE22147F1AA5E9237190D"
+    },
+    {
+      "family": "hot_fragment",
+      "frame": 0,
+      "size": [
+        10,
+        10
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/hot_fragment/0.png",
+      "sha256": "21EB2ADE57A9EA9C69321295A294CADAAD0DA8453CC2925A141479C55004F442"
+    },
+    {
+      "family": "hot_fragment",
+      "frame": 1,
+      "size": [
+        10,
+        10
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/hot_fragment/1.png",
+      "sha256": "01517741D0CDEA30D44EAB324276DBDE00CE03147A58E6BEBC528BD4342BAB4C"
+    },
+    {
+      "family": "hot_fragment",
+      "frame": 2,
+      "size": [
+        10,
+        10
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/hot_fragment/2.png",
+      "sha256": "9B87411C32149D3E7D281CBB782516D5BAB22FD6721C1DB19F68A6E0EDEC884C"
+    },
+    {
+      "family": "hot_fragment",
+      "frame": 3,
+      "size": [
+        10,
+        10
+      ],
+      "runtime": "assets/runtime/effects/detonation_accents/hot_fragment/3.png",
+      "sha256": "93C4B56F4C880D76084DB4EAE7D49FA1B0C62693F6E9FCE4048797E954ABB7AE"
+    }
+  ]
+}

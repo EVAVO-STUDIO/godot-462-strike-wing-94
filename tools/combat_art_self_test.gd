@@ -819,6 +819,16 @@ func _test_combat_fx() -> void:
 		var frame := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index)
 		_expect(frame is Texture2D and frame.get_size() == Vector2(48,48), "explosion animation frame should retain native 48x48 geometry: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/effects/explosion_asset_manifest.json"), "explosion source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/effects/detonation_accents_v1/manifest.json"), "authored detonation-accent source/runtime manifest should exist")
+	for frame_index in range(4):
+		var ignition := load("res://assets/runtime/effects/detonation_accents/ignition_flash/%d.png" % frame_index) as Texture2D
+		var fragment := load("res://assets/runtime/effects/detonation_accents/hot_fragment/%d.png" % frame_index) as Texture2D
+		_expect(ignition != null and ignition.get_size() == Vector2(32,32), "ignition flash should retain registered pixel-cel geometry: %d" % frame_index)
+		_expect(fragment != null and fragment.get_size() == Vector2(10,10), "hot fragment should retain registered pixel-cel geometry: %d" % frame_index)
+	var blast_volume_source := source.get_slice("func _draw_blast_volume",1).get_slice("func _draw_hot_fragment_fan",0)
+	var fragment_fan_source := source.get_slice("func _draw_hot_fragment_fan",1).get_slice("func _draw_strategic_aftermath",0)
+	_expect(blast_volume_source.contains("IGNITION_FLASH_FRAMES") and not blast_volume_source.contains("draw_circle"), "detonation ignition should use authored asymmetrical cels instead of a procedural circle")
+	_expect(fragment_fan_source.contains("HOT_FRAGMENT_FRAMES") and not fragment_fan_source.contains("draw_line"), "incandescent fragments should use authored tumbling cels instead of vector lines")
 	_expect(source.contains("STRATEGIC_SITES") and source.contains("STRATEGIC_SITE_DESTRUCTION_SECONDS") and source.contains("secondary_ratio"), "silos, ballistic launchers and ammunition sites should retain staged secondary detonations")
 	_expect(source.contains("--capture-surface-destruction"), "visual QA should expose deterministic strategic-site destruction")
 	var observer := CombatFxDirector.new()

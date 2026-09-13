@@ -34,6 +34,14 @@ const CANNON_SPARK_FRAMES := [
 	preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0002.png"), preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0003.png"),
 	preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0004.png"), preload("res://assets/runtime/effects/weapon_explosions/cannon/frame_0005.png")
 ]
+const IGNITION_FLASH_FRAMES := [
+	preload("res://assets/runtime/effects/detonation_accents/ignition_flash/0.png"), preload("res://assets/runtime/effects/detonation_accents/ignition_flash/1.png"),
+	preload("res://assets/runtime/effects/detonation_accents/ignition_flash/2.png"), preload("res://assets/runtime/effects/detonation_accents/ignition_flash/3.png")
+]
+const HOT_FRAGMENT_FRAMES := [
+	preload("res://assets/runtime/effects/detonation_accents/hot_fragment/0.png"), preload("res://assets/runtime/effects/detonation_accents/hot_fragment/1.png"),
+	preload("res://assets/runtime/effects/detonation_accents/hot_fragment/2.png"), preload("res://assets/runtime/effects/detonation_accents/hot_fragment/3.png")
+]
 
 const MAX_EVENTS := 48
 const HIT_SECONDS := 0.12
@@ -507,9 +515,11 @@ func _draw_blast_volume(surface: CanvasItem, p: Vector2, ratio: float, blast_siz
 		surface.draw_texture_rect(smoke, Rect2((p + lift - Vector2.ONE * diameter * 0.5).round(), Vector2.ONE * diameter), false, smoke_colour)
 	if ratio < 0.30:
 		var flash_ratio := ratio / 0.30
-		var flash_radius := lerpf(3.0, blast_size * (1.20 if impact_family == "missile" else 0.86), flash_ratio)
 		var flash_alpha := (1.0 - flash_ratio) * (0.80 if impact_family == "missile" else 0.62)
-		surface.draw_circle(p.round(), flash_radius, Color(1.0, 0.92, 0.70, flash_alpha), false, 2.0, false)
+		var flash := IGNITION_FLASH_FRAMES[clampi(int(floor(flash_ratio*4.0)),0,3)] as Texture2D
+		var flash_extent := roundf(lerpf(14.0,blast_size*(2.40 if impact_family=="missile" else 1.72),flash_ratio))
+		var flash_size := Vector2(flash_extent,roundf(flash_extent*0.62))
+		surface.draw_texture_rect(flash,Rect2((p-flash_size*0.5).round(),flash_size),false,Color(1.0,1.0,1.0,flash_alpha))
 
 func _draw_hot_fragment_fan(surface: CanvasItem, p: Vector2, ratio: float, blast_size: float, serial: int, category: String, impact_family: String) -> void:
 	if ratio >= 0.74:
@@ -533,9 +543,12 @@ func _draw_hot_fragment_fan(surface: CanvasItem, p: Vector2, ratio: float, blast
 		var distance := lerpf(5.0,blast_size*throw_scale,travel)*lerpf(0.68,1.08,fragment_seed)
 		var direction := Vector2(horizontal,vertical).normalized()
 		var head := p+direction*distance
-		var tail := head-direction*lerpf(2.0,7.0,1.0-travel)
 		var colour := Color(0.90,0.86,0.72,0.78*fade) if impact_family == "cannon" else (Color(1.0,0.82,0.42,0.90*fade) if index%3 else Color(0.94,0.46,0.18,0.78*fade))
-		surface.draw_line(tail.round(),head.round(),colour,1.0,false)
+		var fragment := HOT_FRAGMENT_FRAMES[clampi(int(floor(travel*4.0)),0,3)] as Texture2D
+		var fragment_size := Vector2.ONE*lerpf(9.0,5.0,travel)
+		surface.draw_set_transform(head.round(),direction.angle()+PI*0.25,Vector2.ONE)
+		surface.draw_texture_rect(fragment,Rect2((-fragment_size*0.5).round(),fragment_size),false,colour)
+		surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
 
 func _draw_strategic_aftermath(surface: CanvasItem, p: Vector2, ratio: float, serial: int, enemy_id: String) -> void:
 	# Surface targets need a consequence anchored to the map: a flattened dust
