@@ -37,6 +37,7 @@ func _run() -> void:
 	var used_plates: Dictionary = {}
 	var animated_subject_shots := 0
 	var carrier_audio_cues: Array[String] = []
+	var carrier_shots: Dictionary = {}
 	for sequence in sequences:
 		_validate_sequence(sequence, mission_ids, failures)
 		if typeof(sequence) == TYPE_DICTIONARY:
@@ -48,6 +49,7 @@ func _run() -> void:
 					if float(shot.get("animation_fps", 0.0)) > 0.0:
 						animated_subject_shots += 1
 					if str(sequence.get("id", "")) == "sector_i_carrier_launch":
+						carrier_shots[str(shot.get("id", ""))] = shot
 						var bed = shot.get("audio_bed", {})
 						_expect(typeof(bed) == TYPE_DICTIONARY and float(bed.get("gain", 0.0)) > 0.0 and float(bed.get("gain", 1.0)) <= 0.10, "carrier launch shots should define restrained continuous propulsion beds", failures)
 						var cue := str(shot.get("audio_cue", ""))
@@ -56,6 +58,16 @@ func _run() -> void:
 	_expect(used_plates.size() == 15, "each campaign cinematic beat should use its own authored editorial plate", failures)
 	_expect(animated_subject_shots >= 4, "campaign cinematics should use restrained authored subject animation on mechanical story beats", failures)
 	_expect(carrier_audio_cues == ["cinematic_engine_ignition", "cinematic_catapult"], "carrier launch should cue ignition and catapult release once, without a deck-level sonic boom", failures)
+	var deck_shot: Dictionary = carrier_shots.get("launch_deck", {})
+	var deck_center: Array = deck_shot.get("plate_center_y", [])
+	var deck_zoom: Array = deck_shot.get("plate_zoom", [])
+	_expect(deck_center.size() == 2 and absf(float(deck_center[1]) - float(deck_center[0])) >= 48.0, "carrier deck shot should travel decisively along the catapult axis", failures)
+	_expect(deck_zoom.size() == 2 and absf(float(deck_zoom[1]) - float(deck_zoom[0])) >= 0.08, "carrier deck shot should build visible launch pressure through authored framing", failures)
+	var airborne_shot: Dictionary = carrier_shots.get("launch_airborne", {})
+	var airborne_center: Array = airborne_shot.get("plate_center_y", [])
+	var airborne_zoom: Array = airborne_shot.get("plate_zoom", [])
+	_expect(airborne_center.size() == 2 and absf(float(airborne_center[1]) - float(airborne_center[0])) >= 44.0, "airborne shot should visibly track the VX-94 climb", failures)
+	_expect(airborne_zoom.size() == 2 and absf(float(airborne_zoom[1]) - float(airborne_zoom[0])) >= 0.10, "airborne shot should open into a readable sea-and-sky release", failures)
 	var machine_fx_shots := 0
 	for sequence in sequences:
 		if typeof(sequence) == TYPE_DICTIONARY:
