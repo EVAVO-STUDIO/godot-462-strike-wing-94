@@ -119,11 +119,15 @@ func draw_radio(surface: CanvasItem) -> void:
 	# Size the receive rail to its transmission. Routine calls no longer paint a
 	# permanent-looking footer across the route; long briefings can still expand
 	# to the full subtitle-safe width.
-	var message_text := _clip(_message,66)
-	var strip_width := clampf(118.0+float(message_text.length())*4.0,240.0,472.0)
+	# Cockpit radio is a glanceable subtitle, not a second objective panel. Keep
+	# routine calls inside the lower-left instrument span; command priority may
+	# grow farther, but still leaves the radar and most of the combat edge open.
+	var message_text := _clip(_message,48 if _priority < 3 else 58)
+	var strip_limit := 344.0 if _priority < 3 else 408.0
+	var strip_width := clampf(112.0+float(message_text.length())*4.0,208.0,strip_limit)
 	var strip := Rect2(16,341,strip_width,14)
 	var priority_alert := _priority >= 3
-	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1,1,1,alpha*0.52))
+	surface.draw_texture_rect(RADIO_PRIORITY_STRIP if priority_alert else RADIO_RECEIVE_STRIP, strip, false, Color(1,1,1,alpha*(0.50 if priority_alert else 0.38)))
 	PixelFont.draw_text(surface, ("PR/%s" if priority_alert else "RX/%s") % _speaker, Vector2(25, 345), 1, Color(0.90, 0.38, 0.30, alpha) if priority_alert else Color(0.42, 0.73, 0.78, alpha), 1)
 	PixelFont.draw_text(surface,message_text,Vector2(96,345),1,Color(0.86,0.89,0.90,alpha),1)
 

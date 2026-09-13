@@ -8,6 +8,7 @@ func _initialize() -> void:
 	for token in ["current_briefing", "boss_spawned", "status_text", "egress_active", "BREAK THE MACH GATE", "COASTWATCH", "ORACLE", "SKYWARD", "subtitles_enabled", "RADIO_TX", "RADIO_ALERT", "RX/%s"]:
 		_expect(source.contains(token), "mission radio missing production contract: %s" % token, failures)
 	_expect(source.contains("RADIO_RECEIVE_STRIP") and source.contains("RADIO_PRIORITY_STRIP") and source.contains("var strip_width := clampf") and source.contains("Rect2(16,341,strip_width,14)"), "combat radio should size its authored receive and priority rail to the active transmission instead of painting a permanent full-width footer", failures)
+	_expect(source.contains("48 if _priority < 3 else 58") and source.contains("344.0 if _priority < 3 else 408.0") and source.contains("0.50 if priority_alert else 0.38"), "routine radio should remain compact and translucent while priority command traffic receives a bounded larger rail", failures)
 	_expect(source.contains("--capture-radio-alert"), "visual QA should expose the priority radio treatment deterministically", failures)
 	_expect(source.contains('status.begins_with("ROE ")') and source.contains('_show("COMMAND", status, BOSS_SECONDS, 4, RetroSfxRules.RADIO_ALERT)'), "protected-site violations should interrupt routine traffic as priority command radio", failures)
 	for asset_name in ["radio_receive", "radio_priority"]:
