@@ -15,10 +15,12 @@ const FLARE_PIVOT := Vector2(24, 10)
 # Each cel already contains a paired cartridge. Keep the pair crisp but small
 # enough that five staged ejections read as ten individual decoys, not one fire.
 const SALVO_CARTRIDGE_SCALE := Vector2(0.60,0.60)
-const SALVO_DELAYS := [0.0,0.045,0.090,0.135,0.180]
-const SALVO_LATERAL_OFFSETS := [-17.0,17.0,-12.0,12.0,0.0]
-const SALVO_ANGLE_OFFSETS := [-0.92,0.84,-0.58,0.66,-0.14]
-const SALVO_SPEED_FACTORS := [0.94,1.08,0.80,1.16,0.88]
+# A cassette ripples across its cups instead of releasing a decorative ring.
+# Unequal impulses put each paired cel at a different depth in the slipstream.
+const SALVO_DELAYS := [0.0,0.070,0.150,0.240,0.340]
+const SALVO_LATERAL_OFFSETS := [-7.0,6.0,-9.0,8.0,-4.0]
+const SALVO_ANGLE_OFFSETS := [-0.78,0.64,-0.42,0.31,-0.12]
+const SALVO_SPEED_FACTORS := [1.08,0.78,0.94,0.69,0.86]
 const DISPENSER_OFFSETS := {
 	"fighter": [Vector2(-10,14),Vector2(-7,15),Vector2(0,16),Vector2(7,15),Vector2(10,14)],
 	"bomber": [Vector2(-14,16),Vector2(-9,17),Vector2(0,18),Vector2(9,17),Vector2(14,16)],
