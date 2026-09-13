@@ -76,6 +76,10 @@ func _test_production_art() -> void:
 		var core_frame := load("res://assets/runtime/effects/explosion/explosion_%d.png" % frame_index)
 		_expect(core_frame is Texture2D and core_frame.get_size() == Vector2(48,48), "precision support strike should retain its hot detonation core: %d" % frame_index)
 	_expect(FileAccess.file_exists("res://assets/source/support/battlefield_support/battlefield_support_asset_manifest.json"), "battlefield support source/runtime manifest should exist")
+	_expect(FileAccess.file_exists("res://assets/source/support/aircraft_v3/manifest.json") and FileAccess.file_exists("res://assets/source/support/aircraft_v3/rapier_fighter/provider_master_v1.png") and FileAccess.file_exists("res://assets/source/support/aircraft_v3/rapier_fighter/mastered_v1.png"), "Rapier v3 should retain immutable provider source, Art Studio master and production manifest")
+	var rapier_manifest := FileAccess.get_file_as_string("res://assets/source/support/aircraft_v3/manifest.json")
+	var rapier_builder := FileAccess.get_file_as_string("res://tools/build_support_rapier_v3.py")
+	_expect(rapier_manifest.contains('"camera": "Exact orthographic top-down') and rapier_manifest.contains('"frame_size": [48, 28]') and rapier_builder.contains("transparent canvas corners") and rapier_builder.contains("Image.Resampling.LANCZOS"), "Rapier v3 production should preserve camera, real alpha, registered geometry and deterministic reduction")
 	var effect_sizes := {"tanker_hose":Vector2(64,32),"tanker_contact":Vector2(64,64),"tanker_meter_trough":Vector2(80,6),"tanker_meter_fill":Vector2(80,4),"strike_bomb":Vector2(16,32),"tracer":Vector2(64,8),"rail_beam":Vector2(12,64),"orbital_beam":Vector2(12,64),"orbital_impact":Vector2(48,48)}
 	for effect_name in effect_sizes:
 		var effect := load("res://assets/runtime/support/battlefield/effects/%s.png" % effect_name)

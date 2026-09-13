@@ -1,0 +1,32 @@
+{
+  "family": "rapier_fighter",
+  "version": 3,
+  "art_direction": "Late-1990s hand-drawn military cel aircraft with restrained naval-grey value groups, amber squadron marks, blue-grey canopy depth and warm turbine cores.",
+  "camera": "Exact orthographic top-down, nose-left master; runtime reverses the pass only through the existing draw transform.",
+  "source": {
+    "path": "assets/source/support/aircraft_v3/rapier_fighter/provider_master_v1.png",
+    "sha256": "97bb5c1c5e0f138fb85fd2774458dd589a2664d8cdca81b709291a88aca7646b",
+    "bytes": 638641,
+    "status": "immutable provider-assisted derivative",
+    "reference": "assets/source/support/aircraft_v2/rapier_fighter/render_0.png"
+  },
+  "mastered": {
+    "path": "assets/source/support/aircraft_v3/rapier_fighter/mastered_v1.png",
+    "sha256": "070acc062cf3103ad58e2c14950b250917a1b75409afab3e13821900387d08a6",
+    "bytes": 829955,
+    "process": "EVAVO Art Studio transparent-object finish; ensure alpha, guarded trim, normalize, sharpen and pad"
+  },
+  "runtime": {
+    "builder": "tools/build_support_rapier_v3.py",
+    "builder_sha256": "61b9bf5aa89cfb77a7174f931454a8f5e46bbc0fc7bc0c72aaf413627fe6fd7a",
+    "frame_size": [48, 28],
+    "frames": 4,
+    "animation": "Four-frame twin-engine heat and navigation-light cadence; body identity remains locked."
+  },
+  "review": {
+    "full_resolution_alpha": "passed",
+    "native_runtime_scale": "passed",
+    "runtime_capture": "work/support_fighter_v3_runtime.png",
+    "notes": "Canopy, twin engines, navigation lights and squadron marks remain readable in the live three-aircraft intercept pass."
+  }
+}
