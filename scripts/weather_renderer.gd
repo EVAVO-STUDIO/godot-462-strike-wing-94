@@ -220,15 +220,22 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 			var alpha: float = clampf(float(state.opacity)*opacity*float(RAIN_VISIBILITY.get(_profile,1.0))*(1.24 if near_band else 1.02)*profile_lift,0.0,0.88)
 			var direction := Vector2(state.head)-Vector2(state.tail)
 			if direction.length_squared() <= 0.01: continue
-			var cel: Texture2D = RAIN_CELS[abs(str(p.id).hash())%RAIN_CELS.size()]
+			var rain_seed: int = absi(str(p.id).hash())
+			var cel: Texture2D = RAIN_CELS[rain_seed%RAIN_CELS.size()]
 			# Keep the authored ink core at a full native pixel in the near band.
 			# Sub-pixel compression made rain disappear against moving dark water.
-			var width_scale := 1.0 if near_band else 0.72
-			var length_scale := direction.length()/cel.get_height()
+			# Per-drop optical depth breaks the uniform overlay pattern while retaining
+			# the governed trajectory and exact eight-second weather loop.
+			var optical_depth := 0.76+float(rain_seed%11)*0.047
+			var angle_jitter := (float((rain_seed/11)%9)-4.0)*0.011
+			var width_scale := (1.0 if near_band else 0.72)*(0.88+optical_depth*0.12)
+			var length_scale := direction.length()/cel.get_height()*optical_depth
+			var rain_angle := direction.angle()-PI*0.5+angle_jitter
+			alpha *= 0.82+optical_depth*0.18
 			if near_band:
-				surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale*1.55,length_scale))
+				surface.draw_set_transform(middle,rain_angle,Vector2(width_scale*1.55,length_scale))
 				surface.draw_texture(cel,-cel.get_size()*0.5,Color(0.56,0.72,0.78,alpha*0.22))
-			surface.draw_set_transform(middle,direction.angle()-PI*0.5,Vector2(width_scale,length_scale))
+			surface.draw_set_transform(middle,rain_angle,Vector2(width_scale,length_scale))
 			surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r,RAIN_COLOUR.g,RAIN_COLOUR.b,alpha))
 			if near_band and _profile != "drizzle":
 				# A staggered second exposure fills the near rain sheet without
@@ -239,6 +246,6 @@ func draw_weather(surface: CanvasItem, near_band: bool) -> void:
 					fposmod(middle.x + 181.0 + clone_seed, 656.0) - 8.0,
 					fposmod(middle.y + 73.0 + clone_seed * 0.41, 320.0) - 8.0
 				)
-				surface.draw_set_transform(clone_middle.round(),direction.angle()-PI*0.5,Vector2(width_scale*0.82,length_scale*0.72))
+				surface.draw_set_transform(clone_middle.round(),rain_angle-0.018,Vector2(width_scale*0.82,length_scale*0.72))
 				surface.draw_texture(cel,-cel.get_size()*0.5,Color(RAIN_COLOUR.r*0.90,RAIN_COLOUR.g*0.94,RAIN_COLOUR.b,alpha*0.48))
 			surface.draw_set_transform(Vector2.ZERO,0.0,Vector2.ONE)
