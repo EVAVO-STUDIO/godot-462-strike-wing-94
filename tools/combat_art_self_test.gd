@@ -338,7 +338,10 @@ func _test_visual_language() -> void:
 	_expect(source.contains('_capture_ground_state() == "infantry"') and source.contains("_render_infantry_capture"), "visual QA should expose an isolated infantry gait, firing, recoil, and hit fixture")
 	_expect(source.contains("var team_shadow :=") and source.contains("scale *= 1.24") and source.contains("Vector2(-11,-6)"), "human-scale infantry should retain a readable formation footprint over dense production terrain")
 	_expect(FileAccess.file_exists("res://assets/source/enemies/infantry_layered/infantry_layered_manifest.json"), "layered infantry source/runtime manifest should exist")
-	_expect(FileAccess.file_exists("res://assets/source/enemies/infantry_topdown_v3/manifest.json"), "living infantry and heavy-weapon crews should retain authored top-down projection cels")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/infantry_topdown_v4/manifest.json"), "living infantry and heavy-weapon crews should retain reviewed authored top-down projection cels")
+	var infantry_v4_manifest := FileAccess.get_file_as_string("res://assets/source/enemies/infantry_topdown_v4/manifest.json")
+	var infantry_v4_builder := FileAccess.get_file_as_string("res://tools/build_infantry_topdown_v4.py")
+	_expect(infantry_v4_manifest.contains("helmet mass") and infantry_v4_manifest.contains("human units remain ground-only") and infantry_v4_builder.contains("Alternating boots") and infantry_v4_builder.contains("directional shapes"), "infantry v4 should retain grounded human construction, role silhouettes and directional weapons")
 	var mech_layer_sizes := {
 		"security_cannon":Vector2(18,38), "security_cannon_recoil":Vector2(18,38), "security_barrel":Vector2(12,30), "security_shield":Vector2(16,28), "security_collar":Vector2(14,14),
 		"salvage_cutter_arm":Vector2(18,38), "salvage_grapple_open":Vector2(18,38), "salvage_grapple_closed":Vector2(18,38), "salvage_disc_0":Vector2(16,16), "salvage_disc_1":Vector2(16,16), "salvage_disc_2":Vector2(16,16), "salvage_collar":Vector2(14,14),
