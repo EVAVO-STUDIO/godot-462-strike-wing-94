@@ -1,0 +1,226 @@
+{
+  "asset_family": "mercenary_mobile_ground_v2",
+  "status": "runtime_review_candidate",
+  "projection": "orthographic top-down, attack direction downscreen",
+  "art_direction": "Native-scale late-1990s military pixel/cel vehicles with broad readable value groups, mechanical articulation and restrained recognition marks.",
+  "builder": {
+    "path": "tools/build_mobile_ground_v2.py",
+    "sha256": "fc39767a49161b9937fe469c92f7e19a6afea314967c998b9f94936f463a4ee1"
+  },
+  "animation_contract": [
+    "four registered track or wheel contact exposures",
+    "turrets and launchers remain independent centered layers",
+    "SAM launcher moves through stowed, rising, deployed and launch exposures",
+    "damage overlays expose scorched armor and hot structural tears without arcade flashing"
+  ],
+  "outputs": [
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/light_tank_base.png",
+      "size": [
+        36,
+        44
+      ],
+      "sha256": "cf2b44d3beb3d87c0b358c7bdb282067109736f89f945073df5f149c4daa9baf"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/0.png",
+      "size": [
+        36,
+        44
+      ],
+      "sha256": "cf2b44d3beb3d87c0b358c7bdb282067109736f89f945073df5f149c4daa9baf"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/1.png",
+      "size": [
+        36,
+        44
+      ],
+      "sha256": "e6c51d6d1482669a43b26afcdb8559e5b458f34522601b90d763391d55ea08e1"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/2.png",
+      "size": [
+        36,
+        44
+      ],
+      "sha256": "6d29ea1c4cff958143c1ede836f16e456b27220ed53e3e2571d02f8286bbb91c"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/3.png",
+      "size": [
+        36,
+        44
+      ],
+      "sha256": "cf2b44d3beb3d87c0b358c7bdb282067109736f89f945073df5f149c4daa9baf"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/sam_truck_base.png",
+      "size": [
+        32,
+        46
+      ],
+      "sha256": "0e861c8c4aa1e468c6804865f5344ee4e4fe41104e9d5dc2a8a9eaf3aea40af6"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/0.png",
+      "size": [
+        32,
+        46
+      ],
+      "sha256": "0e861c8c4aa1e468c6804865f5344ee4e4fe41104e9d5dc2a8a9eaf3aea40af6"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/1.png",
+      "size": [
+        32,
+        46
+      ],
+      "sha256": "4d17690ed374b2a51cbb7cb078d0660a3b6c95fe144b5a3b316aa95c7d4173f5"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/2.png",
+      "size": [
+        32,
+        46
+      ],
+      "sha256": "0e861c8c4aa1e468c6804865f5344ee4e4fe41104e9d5dc2a8a9eaf3aea40af6"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/sam_truck/3.png",
+      "size": [
+        32,
+        46
+      ],
+      "sha256": "4d17690ed374b2a51cbb7cb078d0660a3b6c95fe144b5a3b316aa95c7d4173f5"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/aa_carrier_base.png",
+      "size": [
+        40,
+        46
+      ],
+      "sha256": "d170407e44ff0a2004d80572cae309509e3aff3a51ac5ab59b2f672dd1b10a16"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/0.png",
+      "size": [
+        40,
+        46
+      ],
+      "sha256": "d170407e44ff0a2004d80572cae309509e3aff3a51ac5ab59b2f672dd1b10a16"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/1.png",
+      "size": [
+        40,
+        46
+      ],
+      "sha256": "12bfcb79b121738200a8e50860427a098b6fd9cb4ce26043a7067aa01bce5ebd"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/2.png",
+      "size": [
+        40,
+        46
+      ],
+      "sha256": "29b51b3088e865a052c87dfc585d7296432dd511c375d653e69297c6b63fccee"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/3.png",
+      "size": [
+        40,
+        46
+      ],
+      "sha256": "d170407e44ff0a2004d80572cae309509e3aff3a51ac5ab59b2f672dd1b10a16"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/light_tank_turret.png",
+      "size": [
+        44,
+        44
+      ],
+      "sha256": "4123a27c9c863312319e93a4c986dea8a56508755583f9cd6073daebc4073620"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/light_tank_barrel.png",
+      "size": [
+        44,
+        44
+      ],
+      "sha256": "916fbe36d1c2f770b48143716e38a31b32d37f48dda4f33d629bc17f8f5ee118"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/sam_launcher_stowed.png",
+      "size": [
+        44,
+        44
+      ],
+      "sha256": "c98101b7f84926122c5c59ff87c43651e78f990cab37f64673ee53de70b9f46f"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/sam_launcher_rising.png",
+      "size": [
+        44,
+        44
+      ],
+      "sha256": "94ee21661ac36840de8e512c7f44965263159c729d995eb54ecada8eb2019c66"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/sam_launcher_deployed.png",
+      "size": [
+        44,
+        44
+      ],
+      "sha256": "5d63f1ef5881324a49784e5b95048e9347a264558ba01e6dfe9c46977364172c"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/sam_launcher_launch.png",
+      "size": [
+        44,
+        44
+      ],
+      "sha256": "3a6cce5805a2f2855ebcd61a7a1c15ba9a22eed76c100b51491e9941595848f1"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/aa_weapon_head.png",
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "33d2608e922e2e43ff0557675b13f5da4c8813f09a7924aa5d4bb38d332c62ab"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/aa_twin_barrels.png",
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "923bcf8982593f74ce4b59af560fdf5ec6bb38255c13628d42e2649c5c50118e"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/light_tank_damage.png",
+      "size": [
+        36,
+        44
+      ],
+      "sha256": "d894a0850f6c69e59068e53c9f503220e133c9735d961d6b0f44ef4d21eb9e1b"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/sam_truck_damage.png",
+      "size": [
+        32,
+        46
+      ],
+      "sha256": "a07c84b025d15228ab4f404331c9e48774c744c6587947d91bbcacafdd3a233f"
+    },
+    {
+      "runtime": "assets/runtime/enemies/mobile_ground_layered/aa_carrier_damage.png",
+      "size": [
+        40,
+        46
+      ],
+      "sha256": "f46a15500de0f4e92b7f62d00ee1ebd8943a2424ce00d7cf4dfdb60f80e4ece6"
+    }
+  ]
+}

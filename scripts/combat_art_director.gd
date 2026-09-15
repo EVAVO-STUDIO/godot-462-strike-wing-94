@@ -423,6 +423,7 @@ const LAYERED_GROUND_SPRITES := {
 		"locomotion": [preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/0.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/1.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/2.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/light_tank/3.png")],
 		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_turret.png"),
 		"barrel": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_barrel.png"),
+		"damage": preload("res://assets/runtime/enemies/mobile_ground_layered/light_tank_damage.png"),
 	},
 	"sam_truck": {
 		"base": preload("res://assets/runtime/enemies/mobile_ground_layered/sam_truck_base.png"),
@@ -434,6 +435,7 @@ const LAYERED_GROUND_SPRITES := {
 			preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_deployed.png"),
 			preload("res://assets/runtime/enemies/mobile_ground_layered/sam_launcher_launch.png"),
 		],
+		"damage": preload("res://assets/runtime/enemies/mobile_ground_layered/sam_truck_damage.png"),
 	},
 	"fortified_turret": {
 		"base": preload("res://assets/runtime/enemies/mercenary_ground_layered/fort_base.png"),
@@ -452,6 +454,7 @@ const LAYERED_GROUND_SPRITES := {
 		"locomotion": [preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/0.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/1.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/2.png"), preload("res://assets/runtime/enemies/mobile_ground_layered/locomotion/aa_carrier/3.png")],
 		"weapon": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_weapon_head.png"),
 		"barrel": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_twin_barrels.png"),
+		"damage": preload("res://assets/runtime/enemies/mobile_ground_layered/aa_carrier_damage.png"),
 	},
 }
 const MERCENARY_GROUND_FORCE_SPRITES := {
@@ -1084,7 +1087,7 @@ func _draw_mobile_ground_capture(surface: CanvasItem, scene: Object) -> void:
 	var recoil := 0.10 if fposmod(time, 1.20) < 0.12 else 0.0
 	var definitions := [
 		{"id":"light_tank", "position":Vector2(88,146), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time, "speed":46.0, "lateral_velocity":-7.0},
-		{"id":"sam_truck", "position":Vector2(168,132), "fire_timer":fposmod(1.1-time, 1.1), "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time, "speed":72.0, "lateral_velocity":13.0},
+		{"id":"sam_truck", "position":Vector2(168,132), "fire_timer":fposmod(1.1-time, 1.1), "recoil_timer":recoil, "hp":4, "max_hp":10, "age":time, "speed":72.0, "lateral_velocity":13.0},
 		{"id":"armoured_aa_carrier", "position":Vector2(246,150), "fire_timer":0.0, "recoil_timer":recoil, "hp":10, "max_hp":10, "age":time, "speed":58.0, "lateral_velocity":-10.0},
 	]
 	for enemy in definitions:

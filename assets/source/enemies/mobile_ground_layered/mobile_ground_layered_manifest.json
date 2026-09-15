@@ -1,9 +1,10 @@
 {
-  "asset_family": "mercenary_mobile_ground_layered_v1",
+  "asset_family": "mercenary_mobile_ground_layered_v2",
   "raw_art": "res://assets/source/enemies/mobile_ground_layered/mobile_ground_component_sheet_raw_v1.png",
   "clean_source": "res://assets/source/enemies/mobile_ground_layered/mobile_ground_component_sheet_source_v1.png",
   "cleanup_profile": "res://assets/source/enemies/mobile_ground_layered/mobile_ground_cleanup.sprite.json",
-  "builder": "res://tools/build_mobile_ground_layered_art.ps1",
+  "builder": "res://tools/build_mobile_ground_v2.py",
+  "production_source": "res://assets/source/enemies/mobile_ground_v2/manifest.json",
   "runtime_directory": "res://assets/runtime/enemies/mobile_ground_layered/",
   "view": "orthographic top-down north-up",
   "units": {
@@ -16,7 +17,8 @@
     "tracking": "weapon assemblies rotate independently around registered hull mounting wells",
     "recoil": "barrel layers translate opposite the firing vector while hulls remain stable",
     "sam_deployment": "stowed, rising, deployed, launch/recoil",
-    "palette": "cream and charcoal mercenary armour with restrained faded-red recognition marks"
+    "damage": "scorched native-scale overlays expose structural damage below 55 percent integrity",
+    "palette": "subdued sand and charcoal mercenary armour with restrained faded-red recognition marks and broad native-scale value groups"
   },
   "qa": ["Sprite Studio exterior and seeded enclosed-matte removal", "weaponless hull review", "native-scale pivot review", "four-frame tread registration", "tracking and recoil capture"]
 }

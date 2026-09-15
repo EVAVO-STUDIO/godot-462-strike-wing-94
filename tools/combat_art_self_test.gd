@@ -281,13 +281,20 @@ func _test_visual_language() -> void:
 	_expect(source.contains('"light_tank": {') and source.contains('"sam_truck": {') and source.contains('"armoured_aa_carrier": {'), "tank, SAM and AA carrier should use layered target-tracking weapon assemblies")
 	var mobile_ground_layers := {
 		"light_tank_base":Vector2(36,44), "light_tank_turret":Vector2(44,44), "light_tank_barrel":Vector2(44,44),
+		"light_tank_damage":Vector2(36,44),
 		"sam_truck_base":Vector2(32,46), "sam_launcher_stowed":Vector2(44,44), "sam_launcher_rising":Vector2(44,44), "sam_launcher_deployed":Vector2(44,44), "sam_launcher_launch":Vector2(44,44),
+		"sam_truck_damage":Vector2(32,46),
 		"aa_carrier_base":Vector2(40,46), "aa_weapon_head":Vector2(48,48), "aa_twin_barrels":Vector2(48,48),
+		"aa_carrier_damage":Vector2(40,46),
 	}
 	for layer_name in mobile_ground_layers:
 		var mobile_layer := load("res://assets/runtime/enemies/mobile_ground_layered/%s.png" % layer_name) as Texture2D
 		_expect(mobile_layer != null and mobile_layer.get_size() == mobile_ground_layers[layer_name], "mobile ground layer should retain registered pivot canvas: %s" % layer_name)
 	_expect(source.contains("mobile_ground_layered/light_tank_base.png") and source.contains("mobile_ground_layered/aa_twin_barrels.png"), "mobile armour should use weaponless hulls and separately recoiling barrel layers")
+	_expect(FileAccess.file_exists("res://assets/source/enemies/mobile_ground_v2/manifest.json"), "native-scale mobile ground v2 production manifest should exist")
+	var mobile_manifest := FileAccess.get_file_as_string("res://assets/source/enemies/mobile_ground_v2/manifest.json")
+	var mobile_builder := FileAccess.get_file_as_string("res://tools/build_mobile_ground_v2.py")
+	_expect(mobile_manifest.contains("broad readable value groups") and mobile_manifest.contains("scorched armor") and mobile_builder.contains("SAM launcher") and source.contains('"damage": preload("res://assets/runtime/enemies/mobile_ground_layered/sam_truck_damage.png")'), "mobile ground v2 should preserve readable silhouettes, articulated launch poses and physical damage overlays")
 	_expect(source.contains('argument.begins_with("--capture-ground=")') and source.contains("_draw_mobile_ground_capture"), "visual QA should expose a simulation-isolated mobile-ground tracking and recoil fixture")
 	_expect(source.contains("func _draw_mobile_ground_dust") and source.contains("lateral_velocity / maxf(32.0, forward_speed)") and source.contains('enemy_id == "factory_defence_node"'), "mobile road units should leave speed-reactive turning dust while stationary defence nodes remain planted")
 	_expect(source.contains("machine_definitions") and source.contains("LAYERED_MACHINE_GROUND_SPRITES[enemy[\"id\"]]"), "mobile-ground visual QA should include autonomous armour locomotion beside its static factory node contrast")
