@@ -93,6 +93,14 @@ func _test_production_art() -> void:
 		for frame_index in range(4):
 			var bank_frame := load("res://assets/runtime/support/battlefield/spectre_gunship/%s_%d.png" % [bank_pose, frame_index])
 			_expect(bank_frame is Texture2D and bank_frame.get_size() == Vector2(96,56), "Spectre bank frame should retain registered geometry: %s/%d" % [bank_pose, frame_index])
+	_expect(FileAccess.file_exists("res://assets/source/support/aircraft_v3/atlas_tanker_manifest.json"), "Atlas v3 should retain its native-scale directional production manifest")
+	var atlas_manifest := FileAccess.get_file_as_string("res://assets/source/support/aircraft_v3/atlas_tanker_manifest.json")
+	var atlas_builder := FileAccess.get_file_as_string("res://tools/build_support_atlas_v3.py")
+	_expect(atlas_manifest.contains('"frame_size": [112, 64]') and atlas_manifest.contains('"bank_poses": ["left", "level", "right"]') and atlas_builder.contains("dorsal fuel-transfer spine") and support_library.contains('"atlas_tanker"'), "Atlas v3 should retain tanker identity and registered directional cel states")
+	for bank_pose in ["left", "level", "right"]:
+		for frame_index in range(4):
+			var atlas_bank_frame := load("res://assets/runtime/support/battlefield/atlas_tanker/%s_%d.png" % [bank_pose, frame_index])
+			_expect(atlas_bank_frame is Texture2D and atlas_bank_frame.get_size() == Vector2(112,64), "Atlas bank frame should retain registered geometry: %s/%d" % [bank_pose, frame_index])
 	var effect_sizes := {"tanker_hose":Vector2(64,32),"tanker_contact":Vector2(64,64),"tanker_meter_trough":Vector2(80,6),"tanker_meter_fill":Vector2(80,4),"strike_bomb":Vector2(16,32),"tracer":Vector2(64,8),"rail_beam":Vector2(12,64),"orbital_beam":Vector2(12,64),"orbital_impact":Vector2(48,48)}
 	for effect_name in effect_sizes:
 		var effect := load("res://assets/runtime/support/battlefield/effects/%s.png" % effect_name)

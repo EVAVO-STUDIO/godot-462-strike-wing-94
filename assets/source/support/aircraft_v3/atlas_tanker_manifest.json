@@ -1,0 +1,22 @@
+{
+  "family": "atlas_tanker",
+  "version": 3,
+  "art_direction": "Native-scale late-1990s military pixel/cel tanker with a long fuel fuselage, broad long-range wing, four engines, transfer station and high-visibility service markings.",
+  "camera": "Orthographic top-down, nose-left masters sharing one registered 112x64 canvas and pivot.",
+  "source": {
+    "builder": "tools/build_support_atlas_v3.py",
+    "builder_sha256": "a590030109a1b6dd005a371686ed7a49a84c608797aedd709de13ae590aa2c06",
+    "method": "Deterministic authored native-resolution pixel/cel construction; no provider render is promoted."
+  },
+  "runtime": {
+    "frame_size": [112, 64],
+    "bank_poses": ["left", "level", "right"],
+    "cadence_frames_per_pose": 4,
+    "animation": "Directional silhouettes retain one tanker construction and registration while changing wing foreshortening, flank light, engine heat and navigation lamps."
+  },
+  "review": {
+    "contact_sheet": "work/support_atlas_v3_contact.png",
+    "required_live_state": "support_tanker_contact",
+    "integration": "Existing hose, rendezvous cue and transfer instrument remain independent registered gameplay layers."
+  }
+}

@@ -9,6 +9,11 @@ const FAMILIES := {
 }
 
 const BANK_FAMILIES := {
+	"atlas_tanker": {
+		"left": [preload("res://assets/runtime/support/battlefield/atlas_tanker/left_0.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/left_1.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/left_2.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/left_3.png")],
+		"level": [preload("res://assets/runtime/support/battlefield/atlas_tanker/level_0.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/level_1.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/level_2.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/level_3.png")],
+		"right": [preload("res://assets/runtime/support/battlefield/atlas_tanker/right_0.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/right_1.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/right_2.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/right_3.png")],
+	},
 	"spectre_gunship": {
 		"left": [preload("res://assets/runtime/support/battlefield/spectre_gunship/left_0.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/left_1.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/left_2.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/left_3.png")],
 		"level": [preload("res://assets/runtime/support/battlefield/spectre_gunship/level_0.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/level_1.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/level_2.png"), preload("res://assets/runtime/support/battlefield/spectre_gunship/level_3.png")],
