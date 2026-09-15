@@ -101,6 +101,13 @@ func _test_production_art() -> void:
 		for frame_index in range(4):
 			var atlas_bank_frame := load("res://assets/runtime/support/battlefield/atlas_tanker/%s_%d.png" % [bank_pose, frame_index])
 			_expect(atlas_bank_frame is Texture2D and atlas_bank_frame.get_size() == Vector2(112,64), "Atlas bank frame should retain registered geometry: %s/%d" % [bank_pose, frame_index])
+	for support_family in {"rapier_fighter":Vector2(48,28),"hammer_bomber":Vector2(64,36)}:
+		for bank_pose in ["left", "level", "right"]:
+			for frame_index in range(4):
+				var directional_frame := load("res://assets/runtime/support/battlefield/%s/%s_%d.png" % [support_family,bank_pose,frame_index])
+				var expected_size := Vector2(48,28) if support_family == "rapier_fighter" else Vector2(64,36)
+				_expect(directional_frame is Texture2D and directional_frame.get_size() == expected_size, "%s bank frame should retain registered geometry: %s/%d" % [support_family,bank_pose,frame_index])
+	_expect(rapier_manifest.contains('"bank_poses": ["left", "level", "right"]') and hammer_manifest.contains('"bank_poses": ["left", "level", "right"]'), "Rapier and Hammer manifests should declare the complete directional bank family")
 	var effect_sizes := {"tanker_hose":Vector2(64,32),"tanker_contact":Vector2(64,64),"tanker_meter_trough":Vector2(80,6),"tanker_meter_fill":Vector2(80,4),"strike_bomb":Vector2(16,32),"tracer":Vector2(64,8),"rail_beam":Vector2(12,64),"orbital_beam":Vector2(12,64),"orbital_impact":Vector2(48,48)}
 	for effect_name in effect_sizes:
 		var effect := load("res://assets/runtime/support/battlefield/effects/%s.png" % effect_name)

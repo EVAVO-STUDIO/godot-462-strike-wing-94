@@ -44,21 +44,50 @@ def engine_cadence(frame: Image.Image, phase: int) -> None:
             pixels[x - 1, y] = (255, 184, 64, 250)
 
 
+def bank_pose(level: Image.Image, bank: int) -> Image.Image:
+    if bank == 0:
+        return level.copy()
+    cy = FRAME_SIZE[1] // 2
+    upper = level.crop((0, 0, FRAME_SIZE[0], cy))
+    lower = level.crop((0, cy, FRAME_SIZE[0], FRAME_SIZE[1]))
+    upper_height, lower_height = ((11, 13) if bank < 0 else (13, 11))
+    posed = Image.new("RGBA", FRAME_SIZE, (0, 0, 0, 0))
+    posed.alpha_composite(upper.resize((FRAME_SIZE[0], upper_height), Image.Resampling.LANCZOS), (0, cy-upper_height))
+    posed.alpha_composite(lower.resize((FRAME_SIZE[0], lower_height), Image.Resampling.LANCZOS), (0, cy))
+    pixels = posed.load()
+    y_range = range(cy, FRAME_SIZE[1]) if bank < 0 else range(0, cy)
+    for y in y_range:
+        for x in range(FRAME_SIZE[0]):
+            r, g, b, a = pixels[x, y]
+            if a:
+                pixels[x, y] = (int(r*0.76), int(g*0.79), int(b*0.82), a)
+    return posed
+
+
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     base = build_base()
-    for phase in range(4):
-        frame = base.copy()
-        engine_cadence(frame, phase)
-        frame.save(OUTPUT / f"{phase}.png", optimize=True)
-    contact = Image.new("RGBA", (FRAME_SIZE[0] * 12, FRAME_SIZE[1] * 12 * 4), (14, 18, 20, 255))
-    for phase in range(4):
-        enlarged = Image.open(OUTPUT / f"{phase}.png").resize((FRAME_SIZE[0] * 12, FRAME_SIZE[1] * 12), Image.Resampling.NEAREST)
-        contact.alpha_composite(enlarged, (0, phase * FRAME_SIZE[1] * 12))
+    banks = (("left", -1), ("level", 0), ("right", 1))
+    rows = []
+    for name, value in banks:
+        frames = []
+        for phase in range(4):
+            posed = bank_pose(base, value)
+            engine_cadence(posed, phase)
+            posed.save(OUTPUT / f"{name}_{phase}.png", optimize=True)
+            if name == "level":
+                posed.save(OUTPUT / f"{phase}.png", optimize=True)
+            frames.append(posed)
+        rows.append(frames)
+    scale = 10
+    contact = Image.new("RGBA", (FRAME_SIZE[0]*4*scale,FRAME_SIZE[1]*3*scale),(14,18,20,255))
+    for row, frames in enumerate(rows):
+        for column, frame in enumerate(frames):
+            contact.alpha_composite(frame.resize((FRAME_SIZE[0]*scale,FRAME_SIZE[1]*scale),Image.Resampling.NEAREST),(column*FRAME_SIZE[0]*scale,row*FRAME_SIZE[1]*scale))
     proof = ROOT / "work/support_rapier_v3_contact.png"
     proof.parent.mkdir(parents=True, exist_ok=True)
     contact.convert("RGB").save(proof, quality=94)
-    print(f"Built 4 Rapier frames and {proof}")
+    print(f"Built 12 Rapier bank/cadence frames, 4 compatibility frames and {proof}")
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ def polygon(draw, points, fill, outline=None):
         draw.line(points + [points[0]], fill=outline, width=1, joint="curve")
 
 
-def frame(phase: int) -> Image.Image:
+def frame(phase: int, bank: int = 0) -> Image.Image:
     im = Image.new("RGBA", (64, 36), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     ink = (24, 33, 40, 255)
@@ -60,20 +60,44 @@ def frame(phase: int) -> Image.Image:
     nav_on = phase in (0, 2)
     d.point((43,3), fill=(78,230,163,255) if nav_on else (37,85,67,255))
     d.point((43,33), fill=(244,80,67,255) if nav_on else (96,45,43,255))
-    return im
+    if bank == 0:
+        return im
+    cy = 18
+    upper = im.crop((0,0,64,cy))
+    lower = im.crop((0,cy,64,36))
+    upper_height, lower_height = ((15,17) if bank < 0 else (17,15))
+    posed = Image.new("RGBA", (64,36), (0,0,0,0))
+    posed.alpha_composite(upper.resize((64,upper_height),Image.Resampling.NEAREST),(0,cy-upper_height))
+    posed.alpha_composite(lower.resize((64,lower_height),Image.Resampling.NEAREST),(0,cy))
+    pixels = posed.load()
+    y_range = range(cy,36) if bank < 0 else range(0,cy)
+    for y in y_range:
+        for x in range(64):
+            r,g,b,a = pixels[x,y]
+            if a:
+                pixels[x,y] = (int(r*0.74),int(g*0.78),int(b*0.81),a)
+    return posed
 
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    frames = [frame(i) for i in range(4)]
-    for i, im in enumerate(frames):
-        im.save(OUT / f"{i}.png")
-    proof = Image.new("RGBA", (64 * 10, 36 * 4 * 10), (15, 19, 23, 255))
-    for i, im in enumerate(frames):
-        proof.alpha_composite(im.resize((640, 360), Image.Resampling.NEAREST), (0, i * 360))
+    banks = (("left",-1),("level",0),("right",1))
+    rows = []
+    for name,value in banks:
+        frames = [frame(i,value) for i in range(4)]
+        rows.append(frames)
+        for i,im in enumerate(frames):
+            im.save(OUT / f"{name}_{i}.png")
+            if name == "level":
+                im.save(OUT / f"{i}.png")
+    scale = 8
+    proof = Image.new("RGBA",(64*4*scale,36*3*scale),(15,19,23,255))
+    for row,frames in enumerate(rows):
+        for column,im in enumerate(frames):
+            proof.alpha_composite(im.resize((64*scale,36*scale),Image.Resampling.NEAREST),(column*64*scale,row*36*scale))
     PROOF.parent.mkdir(parents=True, exist_ok=True)
     proof.save(PROOF)
-    print(f"wrote 4 native 64x36 Hammer frames and {PROOF}")
+    print(f"wrote 12 Hammer bank/cadence frames, 4 compatibility frames and {PROOF}")
 
 
 if __name__ == "__main__":

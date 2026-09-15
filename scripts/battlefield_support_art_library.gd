@@ -9,6 +9,16 @@ const FAMILIES := {
 }
 
 const BANK_FAMILIES := {
+	"rapier_fighter": {
+		"left": [preload("res://assets/runtime/support/battlefield/rapier_fighter/left_0.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/left_1.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/left_2.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/left_3.png")],
+		"level": [preload("res://assets/runtime/support/battlefield/rapier_fighter/level_0.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/level_1.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/level_2.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/level_3.png")],
+		"right": [preload("res://assets/runtime/support/battlefield/rapier_fighter/right_0.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/right_1.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/right_2.png"), preload("res://assets/runtime/support/battlefield/rapier_fighter/right_3.png")],
+	},
+	"hammer_bomber": {
+		"left": [preload("res://assets/runtime/support/battlefield/hammer_bomber/left_0.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/left_1.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/left_2.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/left_3.png")],
+		"level": [preload("res://assets/runtime/support/battlefield/hammer_bomber/level_0.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/level_1.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/level_2.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/level_3.png")],
+		"right": [preload("res://assets/runtime/support/battlefield/hammer_bomber/right_0.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/right_1.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/right_2.png"), preload("res://assets/runtime/support/battlefield/hammer_bomber/right_3.png")],
+	},
 	"atlas_tanker": {
 		"left": [preload("res://assets/runtime/support/battlefield/atlas_tanker/left_0.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/left_1.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/left_2.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/left_3.png")],
 		"level": [preload("res://assets/runtime/support/battlefield/atlas_tanker/level_0.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/level_1.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/level_2.png"), preload("res://assets/runtime/support/battlefield/atlas_tanker/level_3.png")],

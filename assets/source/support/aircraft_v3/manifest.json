@@ -18,15 +18,17 @@
   },
   "runtime": {
     "builder": "tools/build_support_rapier_v3.py",
-    "builder_sha256": "61b9bf5aa89cfb77a7174f931454a8f5e46bbc0fc7bc0c72aaf413627fe6fd7a",
+    "builder_sha256": "b1d7fe1ff5910c304ee2564bb6849e338407913507fce920c4c5bfcc11ee19ab",
     "frame_size": [48, 28],
     "frames": 4,
-    "animation": "Four-frame twin-engine heat and navigation-light cadence; body identity remains locked."
+    "bank_poses": ["left", "level", "right"],
+    "animation": "Three registered bank silhouettes with four-frame twin-engine heat and navigation-light cadence; body identity remains locked."
   },
   "review": {
     "full_resolution_alpha": "passed",
     "native_runtime_scale": "passed",
-    "runtime_capture": "work/support_fighter_v3_runtime.png",
-    "notes": "Canopy, twin engines, navigation lights and squadron marks remain readable in the live three-aircraft intercept pass."
+    "runtime_capture": "work/support_directional_v3_fighter.png",
+    "directional_capture": "work/support_directional_v3_fighter_breakaway.png",
+    "notes": "Canopy, twin engines, navigation lights and squadron marks remain readable across the live intercept and banked breakaway passes."
   }
 }

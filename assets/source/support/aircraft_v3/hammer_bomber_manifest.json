@@ -5,17 +5,19 @@
   "camera": "Orthographic top-down, nose-left master; runtime headings use the existing support-flight transform.",
   "source": {
     "builder": "tools/build_support_hammer_v3.py",
-    "builder_sha256": "0a84d8b52f1474db912e91c2b640eafe25c25ed9d048b7be3aa640e221312742",
+    "builder_sha256": "2b42804fbb9ca13e20a9ac1a192614b8c4168dd77180a5f3fd28232e28a010f0",
     "method": "Deterministic authored native-resolution pixel/cel construction; no provider render is promoted."
   },
   "runtime": {
     "frame_size": [64, 36],
     "frames": 4,
-    "animation": "Locked airframe identity with paired turbine heat and alternating navigation-light holds."
+    "bank_poses": ["left", "level", "right"],
+    "animation": "Three registered bank silhouettes with paired turbine heat and alternating navigation-light holds."
   },
   "review": {
     "native_scale": "passed",
-    "runtime_capture": "work/support_hammer_v3_runtime.png",
-    "notes": "The live bomber pass preserves a clear heavy delta silhouette while the bay, canopy and engine pairs remain distinct from the Rapier fighter."
+    "runtime_capture": "work/support_directional_v3_bomber_release.png",
+    "directional_capture": "work/support_directional_v3_bomber_egress.png",
+    "notes": "The live release and egress passes preserve a clear heavy delta silhouette while the bay, canopy and engine pairs remain distinct from the Rapier fighter."
   }
 }
